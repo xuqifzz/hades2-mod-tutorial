@@ -1,0 +1,509 @@
+{ Animations = [
+	{
+		Name = "EnemyVampireBaseAnimation"
+		GrannyModel = "Vampire_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+	{
+		Name = "Enemy_Vampire_Idle"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_Idle_C_02"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Combo_End"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Sweep_End"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Move_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_WalkStart_C_03"
+		ChainTo = "Enemy_Vampire_Move_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Move_FireLoop"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_WalkCycle_C_03"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Move_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_WalkReturnToIdle_C_03"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Vampire_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_OnHit"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_Stagger_C_02"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Vampire_Idle"
+		Sound = "/SFX/Enemy Sounds/Vampire/EmoteHurt"
+	}
+	{
+		Name = "Enemy_Vampire_OnHit_Heavy"
+		InheritFrom = "Enemy_Vampire_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Vampire Teleport
+	{
+		Name = "Enemy_Vampire_Teleport_Disappear"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_BlinkOut_C_02"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireDisappear"
+
+		Frames =
+		[
+			{
+				Frame = 23
+				VerticalMask = 1
+			}
+			{
+				Frame = 24
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 27
+				VerticalMask = 0.0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Teleport_Appear"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_BlinkIn_C_01"
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireReappear"
+		ChainTo = "Enemy_Vampire_Idle"
+		
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 1
+				VerticalMask = 0.3
+				CreateAnimation = "TeleportDisappear"
+			}
+			{
+				Frame = 23
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	// Vampire Swipe
+	{
+		Name = "Enemy_Vampire_Swipe_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipePreFire_C_03"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Swipe_Fire"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_Swipe_C_03"
+		ChainTo = "Enemy_Vampire_Swipe_End"
+		Frames =
+		[
+			{
+				Frame = 13
+				Sound = "/SFX/Enemy Sounds/Vampire/VampireSwipe"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Swipe_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeReturnToIdle_C_03"
+		ChainTo = "Enemy_Vampire_Idle"
+	}
+
+	// Vampire Cast
+	{
+		Name = "Enemy_Vampire_Cast_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_ProjectilePreFire_C_02"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Cast_Fire"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_ProjectileFire_C_02"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 13
+				FrameSpeed = 0.4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Vampire_Cast_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_ProjectileReturnToIdle_C_02"
+		ChainTo = "Enemy_Vampire_Idle"
+	}
+
+	// Sweep
+	{
+		Name = "Enemy_Vampire_Sweep_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeSinglePreFire_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 9
+			}
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Sweep_Fire"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeSingleFire_C_01"
+		ChainTo = "Enemy_Vampire_Sweep_End"
+		Frames =
+		[
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Sweep_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeSinglePostFire_C_01"
+		ChainTo = "Enemy_Vampire_Idle"
+	}
+
+	// Combo
+	{
+		Name = "Enemy_Vampire_Combo_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeComboPreFire_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 9
+			}
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Combo_Fire1"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeComboFire_C_01"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 22
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Combo_Fire2"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeComboFire_C_01"
+		ChainTo = "Enemy_Vampire_Combo_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 22
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Combo_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeComboPostFire_C_01"
+		ChainTo = "Enemy_Vampire_Idle"
+	}
+
+	// Uppercut
+	{
+		Name = "Enemy_Vampire_Uppercut_Start"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeUppercutPreFire_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Vampire/VampireCharge"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Idle"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_Start"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_FireLoop"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_Move_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Enemy_Vampire_OnHit_Heavy"
+				Duration = 9
+			}
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Uppercut_Fire"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeUppercutFire_C_01"
+		ChainTo = "Enemy_Vampire_Uppercut_End"
+		Frames =
+		[
+		]
+	}
+	{
+		Name = "Enemy_Vampire_Uppercut_End"
+		InheritFrom = "EnemyVampireBaseAnimation"
+		GrannyAnimation = "Vampire_Base_SwipeUppercutPostFire_C_01"
+		ChainTo = "Enemy_Vampire_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+		]
+	}
+
+]}

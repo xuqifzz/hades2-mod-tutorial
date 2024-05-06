@@ -1,0 +1,204 @@
+{
+  Animations = [
+
+    /* ___________Mel Death Animations__________ */
+
+    {
+      Name = "DeathSequenceMelBG"
+      FilePath = "Screens\DeathSequenceMelBG\DeathSequenceMelBG"
+      GroupName = "Overlay"
+      VideoTexture = "DeathSequenceMelBG"
+      AngleFromOwner = "Ignore"
+      Sound = "/Leftovers/SFX/PlayerJump"
+      EndFrame = 150
+      HoldLastFrame = true
+      NumFrames = 150
+      PlaySpeed = 30.0
+      StartFrame = 1
+      Material = "Unlit"
+      DisableOwnerInteract = true
+      TimeModifierFraction = 0.1
+    }
+
+
+/*____GATHER FISHING COMBO___-------------------------------------------------------------------------------------*/ 
+
+
+
+{
+      Name = "Mel_GatherFishing_Cast"
+      ChainTo = "Mel_GatherFishing_FishingWait"
+      FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+    
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = false
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 25 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+          
+    
+
+      ]
+    }
+
+    {
+      Name = "Mel_GatherFishing_FishingWait"
+      ChainTo = "null"
+      FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+    
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = false
+      Loop = true
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 0 }
+        { DurationFrames = 40 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+          
+    
+
+      ]
+    }
+
+
+ {
+      Name = "Mel_GatherFishing_FishSuccess"
+      ChainTo = "Mel_GatherFishing_FishSuccess_Emote"
+       FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+      
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = false
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 30 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        
+       
+       
+      ]
+    }
+
+    {
+      Name = "Mel_GatherFishing_FishSuccess_Emote"
+      ChainTo = "MelinoeIdle"
+       FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+      
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = true
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 50 }
+        { DurationFrames = 0 }
+        
+       
+       
+      ]
+    }
+
+{
+      Name = "Mel_GatherFishing_PullFailure"
+      ChainTo = "Mel_GatherFishing_PullFailure_Emote"
+      FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+      
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = false
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 30 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        
+        
+        
+      ]
+    }
+
+    {
+      Name = "Mel_GatherFishing_PullFailure_Emote"
+      ChainTo = "MelinoeIdle"
+      FilePath = "Animations\Mel\Gather\Fishing\MelGatherFishing"
+      
+      
+      DisableOwnerManualInteract = true
+      EndFrame = 6
+      NumAngles = 64
+      NumFrames = 6
+      StartFrame = 1
+      OffsetY = -135.0
+      Scale = 1.05
+      SnapOwnerToAvailableAngle = false
+      CancelOnOwnerMove = true
+      Slides = [
+/*tab*/
+        { DurationFrames = 0 }/*Charge*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 50 }
+        
+        
+        
+      ]
+    }
+  ]
+}

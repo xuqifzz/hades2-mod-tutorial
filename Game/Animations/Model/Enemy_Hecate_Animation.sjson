@@ -1,0 +1,1367 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyHecateBaseAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "HecateBattle_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		
+		Masks = 
+		[
+			{
+				Name = "UpperBody"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Hecate_Rig:spine_00_M_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+
+			{
+				Name = "LeftArm"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Hecate_Rig:clav_00_L_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+
+			{
+				Name = "RightArm"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Hecate_Rig:clav_00_R_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+			
+			{
+				Name = "LowerBody"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Hecate_Rig:hips_00_M_JNT"
+						Weight = 1.0
+					}
+					{
+						BoneStart = "Hecate_Rig:root_00_M_JNT"
+						Weight = 1.0
+						Depth = 2
+					}
+					{
+						BoneStart = "Hecate_Rig:spine_00_M_JNT"
+						Weight = 0.0
+						BoneCount = 1
+					}
+				]
+			}
+		]
+		
+	}
+
+	{
+		Name = "HecateBaseTorchAnimations"
+		InheritFrom = "EnemyHecateBaseAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_Idle_C_00"
+		MoveAnimation = "HecateRunN"
+		StopAnimation = "HecateRunStop"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchR"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchL"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchR"
+		
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_HecateNoAnim_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.2
+	}
+
+	{
+		Name = "HecateTorchL"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_HecateNoAnim_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.2
+	}
+
+	/*Locomotion*/
+	{
+		Name = "HecateTorchIdle"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_End",
+				Duration = 14,
+			}
+		]
+	}
+
+	{
+		Name = "HecateRunN"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_Run_N_00"
+		Loop = true
+		NativeMoveSpeed = 540.0	
+	
+		Frames = 
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FootstepL-Spawner_Hecate"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+			{
+				Frame = 16
+				FootstepFxR = "FootstepR-Spawner_Hecate"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateBattleOutfitBattleIntro",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack1_ReturnToIdle",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack2_ReturnToIdle",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack3_ReturnToIdle",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateRangedTorchReturnToIdleRight",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateTeleportIn",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateTeleportOut",
+				Duration = 6,
+			}
+		]
+	}
+
+	{
+		Name = "HecateRunStart"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_RunStart_N_00"
+		Loop = false
+		NativeMoveSpeed = 540.0
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateBattleOutfitBattleIntro",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack1_ReturnToIdle",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack2_ReturnToIdle",
+				Duration = 6,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack3_ReturnToIdle",
+				Duration = 6,
+			}
+		]	
+	}
+
+	{
+		Name = "HecateRunStop"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_RunStop_N_00"
+		Loop = false
+		NativeMoveSpeed = 540.0	
+		CancelOnOwnerMove = true
+	}
+
+	/* Hecate PreFight Taunt */
+	{
+		Name = "HecateHubPreFightTaunt"		
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "Hecate_Torch_Base_PreFightTaunt_C_00"
+		GrannyAnimationSpeed = 1.0
+		ChainTo = "HecateHubPreFightTauntIdle"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubBattleIdle"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 29
+				Sound = "/SFX/Player Sounds/ZagreusHeavyShieldStomp"
+			}
+		]
+	}
+
+	{
+		Name = "HecateHubPreFightTauntIdle"		
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "Hecate_Torch_Base_PreFightTauntIdle_C_00"
+		GrannyAnimationSpeed = 1.0
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubBattleIdle"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	/*Hub Battle Idle*/
+	{
+		Name = "HecateHubTorchBattleIdle"		
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "HecateHub_Torch_Base_IdleHub_C_00"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = true
+		ChainTo = "null"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubBattleIdle"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateHubOutfitBattleOutro"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "HecateTorchMultipleHubBattleIdle"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_BattleIdle_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	/*Melee Attack Combo*/
+	{
+		Name = "HecateMeleeAttack1_PreAttack"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee1_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 35
+				FrameSpeed = 0
+			}
+		]	
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateRunN",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateRunStop",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2",
+				Duration = 8,
+			}
+		]	
+	}
+
+	{
+		Name = "HecateMeleeAttack1_Fire"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee1_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Hecate/HecateGroundBlastFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 35
+				FrameSpeed = 1
+			}
+			{
+				Frame = 54
+				FrameSpeed = 0
+			}
+		]	
+	}
+
+	{
+		Name = "HecateMeleeAttack1_ReturnToIdle"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee1_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 54
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "HecateMeleeAttack2_PreAttack"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee2_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateRunN",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateRunStop",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack1_ReturnToIdle",
+				Duration = 8,
+			}
+		]
+	}
+
+	{
+		Name = "HecateMeleeAttack2_Fire"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee2_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 2.0
+		Sound = "/SFX/Enemy Sounds/Hecate/HecateGroundBlastFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1
+			}
+			{
+				Frame = 50
+				FrameSpeed = 0
+			}
+		]	
+	}
+
+	{
+		Name = "HecateMeleeAttack2_ReturnToIdle"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee2_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "HecateMeleeAttack3_PreAttack"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee3_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 28
+				FrameSpeed = 0
+			}
+		]	
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "HecateRunN",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateRunStop",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack1_ReturnToIdle",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack2_ReturnToIdle",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "HecateMeleeAttack3_ReturnToIdle",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2",
+				Duration = 8,
+			}
+		]
+	}
+
+	{
+		Name = "HecateMeleeAttack3_Fire"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee3_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Hecate/HecateGroundBlastFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 31
+				FrameSpeed = 1
+			}
+			{
+				Frame = 37
+				FrameSpeed = 0
+			}
+		]	
+	}
+
+	{
+		Name = "HecateMeleeAttack3_ReturnToIdle"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackMelee3_C_00"
+		CreateAnimation = "HecateTorchChargeLeft"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 37
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	/*Ranged Torch Attack*/
+	{
+		Name = "HecateRangedTorchStartLeft"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateRangedTorchLoopLeft"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_L_00"
+	}
+	
+	{
+		Name = "HecateRangedTorchChargeStartLeft"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "null"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_L_00"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 28
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "HecateRangedTorchFireStartLeft"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateRangedTorchLoopLeft"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_L_00"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 28
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "HecateRangedTorchLoopLeft"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchLoop_L_00"
+		Loop = true
+		CreateAnimation = "HecateTorchCharge"
+	}
+
+	{
+		Name = "HecateRangedTorchReturnToIdleLeft"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchReturnToIdle_L_00"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateRangedTorchChargeStartLeft"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "HecateRangedTorchFireStartLeft"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "HecateRangedTorchLoopLeft"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "HecateRangedTorchStartRight"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateRangedTorchLoopRight"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_R_00"
+	}
+
+	{
+		Name = "HecateRangedTorchLoopRight"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchLoop_R_00"
+		Loop = true
+	}
+
+	{
+		Name = "HecateRangedTorchReturnToIdleRight"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchReturnToIdle_R_00"
+	}
+	/*Cone Attack*/
+	{
+		Name = "HecateRangedTorchConeStart"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateRangedTorchConeLoop"
+		GrannyAnimation = "Hecate_Torch_Base_AttackConeAntic_C_00"
+		CreateAnimation = "HecateTorchCharge"
+		HoldLastFrame = true
+	}
+	{
+		Name = "HecateRangedTorchConeLongStart"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateRangedTorchConeLoop"
+		GrannyAnimation = "Hecate_Torch_Base_AttackConeAntic_C_00"
+		CreateAnimation = "HecateTorchCharge"
+		GrannyAnimationSpeed = 0.15
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "HecateRangedTorchConeLongLoop"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackConeLoop_C_00"
+		Loop = true
+		CreateAnimation = "HecateTorchCharge"
+		Blends =
+		[
+			{ 
+				BlendTransitionFrom = "HecateRangedTorchConeLongStart"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "HecateRangedTorchConeLoop"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackConeLoop_C_00"
+		Loop = true
+		CreateAnimation = "HecateTorchCharge"
+	}
+
+	{
+		Name = "HecateRangedTorchConeLoopReturnToIdle"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackConeReturnToIdle_C_00"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateRangedTorchConeLongStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "HecateRangedTorchConeLongLoop"
+				Duration = 3
+			}
+		]
+	}
+	/*Cast Attack*/
+	{
+		Name = "HecateCast"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_Cast_C_00"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRCast"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLCast"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "HecateTorchMultipleCast"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+	{
+		Name = "HecateCastSlow"
+		InheritFrom = "HecateCast"
+	}
+
+	{
+		Name = "HecateLastHit"
+		InheritFrom = "HecateCast"
+		GrannyAnimationSpeed = 0.08
+		HoldLastFrame = true
+
+		Frames =
+		[	
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+			{
+				Frame = 18
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRCast"
+		
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_Cast_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchLCast"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_Cast_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchMultipleCast"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMult_Weapon_Base_Cast_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	/*Ring Attack*/
+	{
+		Name = "HecateRangedTorchRing"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRing_C_00"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRRing"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLRing"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 53
+				Sound = "/Leftovers/SFX/PlayerJump"
+			}
+			{
+				Frame = 81
+				Sound = "/Leftovers/SFX/PlayerJump"
+			}
+			{
+				Frame = 102
+				Sound = "/SFX/Player Sounds/ZagreusHeavyShieldStomp"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1",
+				Duration = 8,
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2",
+				Duration = 8,
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRRing"
+		
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_AttackRing_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchLRing"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_AttackRing_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	/* Meteor attack */
+	{
+		Name = "Hecate_Combat_Meteor_Start"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleOutro_C_00"
+		GrannyAnimationSpeed = 1.25
+		ChainTo = "Hecate_Combat_Meteor_FireLoop1"
+
+
+		Frames =
+		[
+			{
+				Frame = 55
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateTorchIdle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Combat_Meteor_FireLoop1"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleOutro_C_00"
+		GrannyAnimationSpeed = 0.1
+		ChainTo = "Hecate_Combat_Meteor_FireLoop2"
+
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 56
+				FrameSpeed = 1
+			}
+			{
+				Frame = 64
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2"
+				Duration = 30
+			}
+		]
+	}
+	{
+		Name = "Hecate_Combat_Meteor_FireLoop2"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleOutro_C_00"
+		GrannyAnimationSpeed = 0.1
+		ChainTo = "Hecate_Combat_Meteor_FireLoop1"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 56
+				FrameSpeed = 1
+			}
+			{
+				Frame = 64
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1"
+				Duration = 30
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Combat_Meteor_End"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleOutro_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "HecateTorchIdle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+			{
+				Frame = 60
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop1"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Hecate_Combat_Meteor_FireLoop2"
+				Duration = 3
+			}
+			
+		]
+	}
+
+	/* Laser */
+	{
+		Name = "Hecate_Combat_Laser_Start"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_L_00"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 28
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Combat_Laser_Fire"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchAntic_L_00"
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 28
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Combat_Laser_End"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_AttackRangedTorchReturnToIdle_L_00"
+	}
+
+	/*Teleport Out*/
+	{
+		Name = "HecateTeleportOut"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_TeleportOut_C_00"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRTeleportOut"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLTeleportOut"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "HecateTorchMultipleTeleportOut"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRTeleportOut"
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_TeleportOut_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchLTeleportOut"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_TeleportOut_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchMultipleTeleportOut"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMult_Weapon_Base_TeleportOut_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	/*Teleport In*/
+	{
+		Name = "HecateTeleportIn"
+		InheritFrom = "HecateBaseTorchAnimations"
+		ChainTo = "HecateTorchIdle"
+		GrannyAnimation = "Hecate_Torch_Base_TeleportIn_C_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRTeleportIn"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLTeleportIn"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "HecateTorchMultipleTeleportIn"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRTeleportIn"
+		
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_TeleportIn_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchLTeleportIn"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_TeleportIn_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchMultipleTeleportIn"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMult_Weapon_Base_TeleportIn_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	/*BattleIntro*/
+	{
+		Name = "HecateHubOutfitBattleIntro"		
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "HecateHub_Torch_Base_BattleIntro_C_00"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/MelMagicalChargeLoop"
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubOutfitBattleIntro"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends =
+		[
+			{ 
+				BlendTransitionFrom = "HecateHubTorchBattleIdle"
+				Duration = 10
+			}
+			{ 
+				BlendTransitionFrom = "HecateHubPreFightTauntIdle"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 63
+				Sound = "/SFX/Enemy Sounds/Hecate/HecateTwirlSFX"
+			}
+		]
+	}
+
+	{
+		Name = "HecateBattleOutfitBattleIntro"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleIntro_C_00"
+		ChainTo = "HecateTorchIdle"
+		CancelOnOwnerMove = true
+		GrannyDieWithOwnerAnimation = false
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRBattleOutfitBattleIntro"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLBattleOutfitBattleIntro"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "HecateTorchMultipleBattleOutfitBattleIntro"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 170
+				CreateAnimation = "HecateTorchFlameRight"
+			}
+			{
+				Frame = 180
+				CreateAnimation = "HecateTorchFlameLeft"
+			}
+			{
+				Frame = 27
+				Sound = "/SFX/Enemy Sounds/Hecate/HecateGroundBlastFire"
+			}
+			{
+				Frame = 28
+				Sound = "/SFX/Enemy Sounds/Hecate/HecateShockwaveRingSFX"
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRBattleOutfitBattleIntro"		
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_BattleOutfitBattleIntro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchLBattleOutfitBattleIntro"
+		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_BattleOutfitBattleIntro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchMultipleHubOutfitBattleIntro"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_HubOutfitBattleIntro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchMultipleBattleOutfitBattleIntro"
+		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_BattleOutfitBattleIntro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	/*BattleOutro*/
+	{
+		Name = "HecateBattleOutfitBattleOutro"
+		InheritFrom = "HecateBaseTorchAnimations"
+		GrannyAnimation = "Hecate_Torch_Base_BattleOutro_C_00"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchRBattleOutfitBattleOutro"
+				ToBone = "Hecate_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "HecateTorchLBattleOutfitBattleOutro"
+				ToBone = "Hecate_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "HecateTorchMultipleBattleOutfitBattleOutro"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 8
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/Hecate/HecateTwirlSFX"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateLastHit"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "HecateHubOutfitBattleOutro"
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimation = "HecateHub_Torch_Base_BattleOutro_C_00"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		ChainTo = "HecateHubTorchBattleIdle"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubOutfitBattleOutro"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]	
+
+		Frames =
+		[
+			{
+				Frame = 133
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateBattleOutfitBattleOutro"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchRBattleOutfitBattleOutro"
+		GrannyModel = "WeaponHecateR_HecateScale_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_BattleOutfitBattleOutro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchLBattleOutfitBattleOutro"		
+		GrannyModel = "WeaponHecateL_HecateScale_Mesh"
+		GrannyAnimation = "TorchL_Weapon_Base_BattleOutfitBattleOutro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchMultipleHubOutfitBattleOutro"		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_HubOutfitBattleOutro_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+	{
+		Name = "HecateTorchMultipleBattleOutfitBattleOutro"		
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_BattleOutfitBattleOutro_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+]}

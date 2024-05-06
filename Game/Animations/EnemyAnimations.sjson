@@ -1,0 +1,3136 @@
+{
+  Animations = [
+    
+    {
+      Name = "VaseShine"
+      ChainTo = "VaseShineWait"
+      FilePath = "Fx\Asphodel_Vase_01d_Shine\Asphodel_Vase_01d_Shine"
+      
+      EndAlpha = 1.0
+      PingPongColor = true
+      EndFrame = 10
+      NumFrames = 10
+      PlaySpeed = 24.0
+      StartFrame = 1
+      Scale = 5.0
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "VaseShineWait"
+      ChainTo = "VaseShine"
+      FilePath = "Dev\blank_invisible"
+      
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 1.0
+      StartFrame = 1
+    }
+    
+    {
+      Name = "FxDebugArrow"
+      FilePath = "Particles\particle_arrow"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.5
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "RootingTreeIdle"
+      FilePath = "Tilesets\Erebus\Erebus_RootingTree_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -125.0
+      Scale = 0.28
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "RootingTreeActivated"
+      FilePath = "Tilesets\Erebus\Erebus_RootingTree_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -125.0
+      Scale = 0.28
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "RootingTreeDisabled"
+      InheritFrom = "RootingTreeIdle"
+      ColorFromOwner = "Ignore"
+      Color = { Red = 0.2 Green = 0.2 Blue = 0.2 }
+    }
+    
+    {
+      Name = "UnstableCauldronIdle"
+      FilePath = "Tilesets\House\House_Cauldron_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.25
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "UnstableCauldronDisabled"
+      InheritFrom = "UnstableCauldronIdle"
+      ColorFromOwner = "Ignore"
+      Color = { Red = 0.2 Green = 0.2 Blue = 0.2 }
+    }
+    
+    {
+      Name = "SpikeTrapIdle"
+      FilePath = "Fx\SpikeTrapReturnToIdle\SpikeTrapReturnToIdle"
+      NumFrames = 10
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 60
+      Ambient = 0
+      ChainTo = "SpikeTrapIdleStatic"
+    }
+
+    {
+      Name = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\SpikeTrapUnpressed"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.25
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "SpikeTrapPressed"
+      InheritFrom = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\SpikeTrapPressed"
+    }
+    
+    {
+      Name = "SpikeTrapPreFire"
+      InheritFrom = "SpikeTrapIdleStatic"
+      CreateAnimation = "TrapsDartPadPressedSmoke"
+      FilePath = "Tilesets\Traps\SpikeTrapPressed_AboutToFire"
+    }
+    
+    {
+      Name = "SpikeTrapDeactivated"
+      InheritFrom = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\SpikeTrapPressed_Deactivated"
+    }
+    
+    {
+      Name = "AxeTrapIdle"
+      FilePath = "Tilesets\Traps\Tartarus_Axe_01"
+      
+      Alpha = 0.0
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.15
+      Ambient = 0.0
+      OwnerHasNoCollision = true
+    }
+    
+    {
+      Name = "AxeTrapActivated"
+      ChainTo = "AxeTrapEmbedded"
+      ChildAnimation = "AxeTrapBlur"
+      FilePath = "Tilesets\Traps\Tartarus_Axe_01"
+      
+      EndAlpha = 1.0
+      StartAlpha = 0.5
+      Duration = 0.4
+      EaseIn = 0.001
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      EndOffsetY = -225.0
+      StartOffsetY = -600.0
+      Scale = 0.15
+      Ambient = 0.0
+      OwnerHasNoCollision = true
+    }
+    
+    {
+      Name = "AxeTrapBlur"
+      FilePath = "Tilesets\Traps\Tartarus_Axe_01_Blur"
+      
+      EndAlpha = 1.0
+      Duration = 0.4
+      EaseOut = 1.0
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      UseParentOffset = true
+      Scale = 0.6
+    }
+    
+    {
+      Name = "AxeTrapEmbedded"
+      FilePath = "Tilesets\Traps\Tartarus_Axe_01"
+      
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      RandomDurationMax = 0.15
+      RandomDurationMin = 0.07
+      StartFrame = 1
+      OffsetY = -225.0
+      StartOffsetY = 20.0
+      Scale = 0.15
+      Ambient = 0.0
+      CreateAnimations = [
+        { Name = "DustRingFrontCrusher" }
+        { Name = "DustRingBackCrusher" }
+        { Name = "AxeTrapFallLighting" }
+        { Name = "AxeTrapHitSpark" }
+      ]
+    }
+    
+    {
+      Name = "AxeTrapHitSpark"
+      ChildAnimation = "QuickFlashSmall"
+      FilePath = "Fx\HitSparkA\HitSparkA"
+      GroupName = "FX_Standing_Add"
+      
+      VisualFx = "AxeTrapHitSparkDynamic"
+      AddColor = true
+      ColorFromOwner = "Ignore"
+      EndBlue = 0.8
+      StartBlue = 1.0
+      StartGreen = 0.8
+      StartRed = 0.5
+      EndFrame = 11
+      NumFrames = 11
+      RandomPlaySpeedMax = 80.0
+      RandomPlaySpeedMin = 40.0
+      StartFrame = 1
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      SortMode = "Id"
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 0.75
+      ScaleMin = 0.5
+      VisualFxCap = 12
+      VisualFxIntervalMax = 0.01
+      VisualFxIntervalMin = 0.001
+      TimeModifierFraction = 0.75
+    }
+    
+    {
+      Name = "AxeTrapHitSparkDynamic"
+      FilePath = "Particles\particle_addFlake"
+      GroupName = "FX_Standing_Add"
+      
+      AngleFromOwner = "Take"
+      AngleMax = 180.0
+      ColorFromOwner = "Ignore"
+      EndBlue = 0.999
+      EndGreen = 0.3
+      StartAlpha = 1.0
+      StartBlue = 1.0
+      StartGreen = 1.0
+      StartRed = 1.0
+      EaseIn = 0.9
+      EaseOut = 1.0
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 1.1
+      RandomDurationMin = 0.5
+      StartFrame = 1
+      OffsetZ = -50.0
+      RandomOffsetX = 50.0
+      RandomOffsetY = 10.0
+      LocationFromOwner = "Ignore"
+      Acceleration = -1200.0
+      VelocityMax = 900.0
+      VelocityMin = 200.0
+      EndScale = 0.0
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 0.3
+      ScaleMin = 0.02
+      StartScaleX = 7.0
+      TimeModifierFraction = 0.75
+    }
+    
+    {
+      Name = "AxeTrapFallLighting"
+      FilePath = "Fx\BasicGlow\BasicGlow"
+      GroupName = "FX_Standing_Add"
+      
+      AngleFromOwner = "Ignore"
+      EndBlue = 0.7
+      EndGreen = 0.9
+      EndRed = 1.0
+      StartAlpha = 1.0
+      StartBlue = 0.8
+      StartGreen = 0.999
+      StartRed = 0.999
+      Duration = 0.125
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.5
+      ScaleY = 0.5
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "AxeTrapReset"
+      ChainTo = "AxeTrapIdle"
+      FilePath = "Tilesets\Traps\Tartarus_Axe_01"
+      
+      StartAlpha = 1.0
+      EaseIn = 0.001
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      RandomDurationMax = 0.55
+      RandomDurationMin = 0.3
+      StartFrame = 1
+      EndOffsetY = -600.0
+      StartOffsetY = -225.0
+      Scale = 0.15
+      Ambient = 0.0
+      OwnerHasNoCollision = true
+    }
+    
+    {
+      Name = "SpikeCubeIdle"
+      FilePath = "Tilesets\Temple\Temple_Pillar_Section_01"
+      
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      RandomDurationMax = 1.0
+      RandomDurationMin = 0.75
+      StartFrame = 1
+      OffsetY = -40.0
+      EndScale = 0.17
+      PingPongScale = true
+      StartScale = 0.16
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "BannerSupportIdle"
+      ChildAnimation = "RadialEnemySupportZone"
+      FilePath = "Tilesets\Traps\BannerSupportIdle"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.2
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "BlastCubeIdle"
+      FilePath = "Tilesets\Traps\Traps_BlastUrn_01"
+      
+      Duration = 1.0
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OriginX = 157.0
+      OriginY = 337.0
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "BlastCubeLit"
+      InheritFrom = "BlastCubeIdle"
+      Sound = "/SFX/BombFusePreExplode"
+      StopSoundOnFinishFade = 0.2
+      Duration = 3.0
+      ShakeDistance = 1.0
+      ShakeSpeed = 150.0
+    }
+    
+    {
+      Name = "BlastCubeFusedRegeneratingExplode"
+      InheritFrom = "Blank"
+      OwnerHasNoCollision = true
+    }
+    
+    {
+      Name = "FireBarrelShipsIdle"
+      FilePath = "Tilesets\Ships\Ships_TNTBarrel_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -50.0
+      Scale = 0.175
+    }
+
+    {
+      Name = "FireBarrelShipsLit"
+      InheritFrom = "FireBarrelShipsIdle"
+      Sound = "/SFX/BombFusePreExplode"
+      StopSoundOnFinishFade = 0.2
+      Duration = 3.0
+      ShakeDistance = 1.0
+      ShakeSpeed = 150.0
+    }
+    
+    {
+      Name = "FireBarrelIdle"
+      FilePath = "Tilesets\Ephyra\Ephyra_GreekFire_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -50.0
+      Scale = 0.225
+      ChildAnimation = "FireBarrelHighlight"
+    }
+    
+    {
+      Name = "FireBarrelHighlight"
+      FilePath = "Fx\EphyraGreekFireHighlight\EphyraGreekFireHighlight"
+      NumFrames = 20
+      PlaySpeed = 30
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      ChainTo = "FireBarrelHighlightWait"
+      OffsetY = -50
+      Scale = 0.90
+    }
+
+    {
+      Name = "FireBarrelHighlightWait"
+      FilePath = "Dev\blank_invisible"
+      ChainTo = "FireBarrelHighlight"
+      Duration = 1
+    }
+
+    {
+      Name = "FireBarrelLit"
+      InheritFrom = "FireBarrelIdle"
+      Sound = "/SFX/BombFusePreExplode"
+      StopSoundOnFinishFade = 0.2
+      Duration = 3.0
+      ShakeDistance = 1.0
+      ShakeSpeed = 150.0
+      ChildAnimation = "FireBarrelLitFx"
+    }
+
+    {
+      Name = "FireBarrelLitFx"
+      FilePath = "Fx\EphyraGreekFireLitFx\EphyraGreekFireLitFx"
+      NumFrames = 40
+      PlaySpeed = 45
+      Material = "Unlit"
+      GroupName = "FX_Standing_Add"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      DieWithOwner = true
+      LocationZFromOwner = "Ignore"
+      OffsetY = -96
+      OffsetX = -12
+      Loop = true
+      ColorFromOwner = "Ignore"
+    }
+
+    {
+      Name = "FireBarrelZombieProjectile"
+      FilePath = "Fx\ZombieBarrelProjectile\ZombieBarrelProjectile"
+      NumFrames = 10
+      NumAngles = 16
+      Material = "Unlit"
+      Loop = true
+      PlaySpeed = 45
+      ScaleFromOwner = "Ignore"
+      Scale = 1.4
+      LocationZFromOwner = "Maintain"
+      Sound = "/SFX/Enemy Sounds/ZombieHeavyRanged/ZombieHeavyRangedBarrelFlyLoop"
+      StopSoundOnFinishFade = 0.2
+      VisualFx = "FireBarrelFlameTrail"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+    }
+
+    {
+      Name = "FireBarrelFlameTrail"
+      FilePath = "Fx\Flame\Flame"
+      NumFrames = 60
+      Material = "Unlit"
+      AngleFromOwner = "Take"
+      LocationZFromOwner = "Take"
+      LocationFromOwner = "Ignore"
+      StartScale = 1.5
+      EndScale = 0
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 45
+      RandomDurationMin = 0.6
+      RandomDurationMax = 1.0
+      Loop = false
+      LoopFramesOnly = true
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0.999
+      EndGreen = 0.4
+      EndBlue = 0.1
+      EaseIn = 0.0
+      EaseOut = 1.0
+      RandomFlipVertical = true
+      RandomOffsetX = 30
+      RandomOffsetY = 30
+      ColorFromOwner = "Ignore"
+      UseAttachedFlasher = false
+    }
+
+    {
+      Name = "FireBarrelZombieProjectileShadow"
+      InheritFrom = "FireBarrelZombieProjectile"
+      Red = 0
+      Green = 0
+      Blue = 0
+      PostRotateScaleY = 0.5
+      GroupName = "Shadows"
+      DieWithOwner = true
+      LocationZFromOwner = "Ignore"
+      Sound = "/EmptyCue"
+    }
+
+    {
+      Name = "Breakable_HighValue"
+      FilePath = "Fx\BreakableHighValueIdle\BreakableHighValueIdle"
+      EndFrame = 45
+      NumFrames = 45
+      StartFrame = 1
+      Scale = 0.75
+      ScaleFromOwner = "Ignore"
+      Loop = true
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 36
+      Material = "Unlit"
+      OffsetY = 100
+    }
+
+    {
+      Name = "Breakable_HighValue_Death"
+      InheritFrom = "Breakable_HighValue"
+      FilePath = "Fx\BreakableHighValueDeath\BreakableHighValueDeath"
+      NumFrames = 44
+      Loop = false
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      RandomStartFrame = false
+      VisualFx = "Breakable_HighValue_Fireflies"
+      VisualFxIntervalMin = 0.01
+      VisualFxIntervalMax = 0.02
+      VisualFxCap = 8
+      OffsetY = -60
+      CreateAnimations = [
+        { Name = "Breakable_HighValue_Death_Flare"}
+        { Name = "Breakable_HighValue_Death_Glow"}
+      ]
+    }
+
+    {
+      Name = "Breakable_HighValue_Fireflies"
+      
+      FilePath = "Particles\particle_sparkle_glow"
+      Material = "Unlit"
+      AddColor = true
+      GroupName = "FX_Standing_Add"
+      StartScale = 1
+      EndScale = 0
+      ScaleMin = 0.15
+      ScaleMax = 0.4
+      AngleMin = -40
+      AngleMax = 220    
+      VelocityMin = 100
+      VelocityMax = 400
+      Acceleration = -200
+      Gravity = 60
+      RandomDurationMin = 0.5
+      RandomDurationMax = 1.3
+      StartRed = 1
+      StartGreen = 0.8
+      StartBlue = 0.3
+      EndRed = 0.999
+      EndGreen = 0.3
+      EndBlue = 0
+      LocationFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      ScaleFromOwner = "Ignore"
+      RadialOffsetMin = 0
+      RadialOffsetMax = 20
+      EaseIn = 0.9
+      EaseOut = 1.0
+      RandomOffsetY = 100
+    }
+
+    {
+      Name = "Breakable_HighValue_Death_Flare"
+      
+      FilePath = "Fx\AttentionFlare\AttentionFlare"
+      Material = "Unlit"
+      DurationFrames = 10
+      EaseIn = 0.9
+      EaseOut = 1.0
+      StartScale = 1
+      EndScale = 0
+      GroupName = "FX_Standing_Add"
+      AngleFromOwner = "Ignore"
+      Angle = 90
+      OffsetY = 40
+    }
+
+    {
+      Name = "Breakable_HighValue_Death_Glow"
+      InheritFrom = "Breakable_HighValue_Death_Flare"
+      StartScale = 1.0
+      EndScale = 1.1
+      PostRotateScaleY = 0.5
+      FilePath = "Particles\particle_glow"
+      StartRed = 1
+      StartGreen = 0.8
+      StartBlue = 0.3
+      EndRed = 0.999
+      EndGreen = 0.3
+      EndBlue = 0
+      StartAlpha = 1
+      EndAlpha = 0
+      Scale = 2
+      DurationFrames = 30
+    }
+
+    {
+      Name = "Breakable_F01"
+      FilePath = "Tilesets\Erebus\Erebus_Breakable_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.5
+      OffsetY = 100
+    }
+
+    {
+      Name = "ArachneCocoonLarge"
+      InheritFrom = "Breakable_F01"
+      FilePath = "Tilesets\Erebus\Erebus_Breakable_02"
+      Scale = 0.275
+    }
+    
+    {
+      Name = "Breakable_G"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 100
+      Random = [
+        { Name = "Breakable_G01" }
+        { Name = "Breakable_G02" }
+        { Name = "Breakable_G03" }
+      ]
+    }
+    {
+      Name = "Breakable_G01"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.22
+      OffsetY = 45
+    }
+    {
+      Name = "Breakable_G02"
+      InheritFrom = "Breakable_G01"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_02"
+    }
+    {
+      Name = "Breakable_G03"
+      InheritFrom = "Breakable_G01"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_03"
+    }
+
+    {
+      Name = "ArachneCocoon_G"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_KelpCocoon_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.4
+      OffsetY = 112
+    }
+    
+    {
+      Name = "Breakable_I"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 100
+      Random = [
+        { Name = "Breakable_I01" }
+        { Name = "Breakable_I02" }
+      ]
+    }
+    {
+      Name = "Breakable_I01"
+      FilePath = "Tilesets\ClockworkTartarus\CW_Vase_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.22
+      OffsetY = 70
+    }
+    {
+      Name = "Breakable_I02"
+      InheritFrom = "Breakable_I01"
+      FilePath = "Tilesets\ClockworkTartarus\CW_Vase_02"
+      OffsetY = 45
+    }
+
+    {
+      Name = "Breakable_N01"
+      FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -55.0
+      Scale = 0.4
+    }
+    {
+      Name = "Breakable_N02"
+      InheritFrom = "Breakable_N01"
+      FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01a"
+      Scale = 0.3
+      OffsetY = -65.0
+    }
+    {
+      Name = "Breakable_N03"
+      InheritFrom = "Breakable_N01"
+      FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01b"
+      Scale = 0.35
+      OffsetY = -45.0
+    }
+    
+    {
+      Name = "Breakable_N_HighValue"
+      InheritFrom = "Breakable_N01"
+      FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_Gold"
+      CreateAnimation = "Breakable_N_HighValue_Shine"
+      VisualFx = "Breakable_N_HighValue_Sparkles"
+      VisualFxIntervalMin = 0.2
+      VisualFxIntervalMax = 0.6
+    }
+
+    {
+      Name = "Breakable_N_HighValue_Sparkles"
+      FilePath = "Particles\particle_kira"
+      Material = "Unlit"
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      ScaleMin = 0.2
+      ScaleMax = 0.6
+      RandomDurationMin = 0.5
+      RandomDurationMax = 1.0
+      StartScale = 0
+      EndScale = 1
+      PingPongScale = true
+      EaseIn = 0
+      EaseOut = 1
+      GroupName = "FX_Standing_Add"
+      RandomOffsetX = 20
+      RandomOffsetY = 40
+      Angle = 90
+      VelocityMin = 30
+      VelocityMax = 60
+      OffsetZ = 30
+      LocationZFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      Acceleration = -100
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      ScaleFromOwner = "Ignore"
+    }
+
+    {
+      Name = "Breakable_N_HighValue_Shine"
+      FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_Gold_Shine\Ephyra_BreakableVase_Gold_Shine"
+      NumFrames = 18
+      GroupName = "FX_Standing_Add"
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      Scale = 1
+      ScaleFromOwner = "Maintain"
+      OffsetY = -50
+      Material = "Unlit"
+      SortMode = "FromParent"
+      SortFromOwner = "Maintain"
+      Loop = true
+      DieWithOwner = true
+      Slides = [
+        { RandomDurationFramesMin = 15 RandomDurationFramesMax = 60 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+      ]
+
+    }
+
+    {
+      Name = "Breakable_O01"
+      FilePath = "Tilesets\Ships\Ships_Breakable_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -75.0
+      Scale = 0.4
+    }
+    {
+      Name = "Breakable_O02"
+      InheritFrom = "Breakable_O01"
+      FilePath = "Tilesets\Ships\Ships_Breakable_02"
+      Scale = 0.3
+      OffsetY = -65.0
+    }
+    {
+      Name = "Breakable_O03"
+      InheritFrom = "Breakable_O01"
+      FilePath = "Tilesets\Ships\Ships_Breakable_03"
+      Scale = 0.35
+      OffsetY = -45.0
+    }
+    
+    {
+      Name = "H_TallGrass"
+      FilePath = "Animations\BreakableDeathAnim\BreakableDeathAnim"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Random = [
+        { Name = "H_TallGrassA" }
+        { Name = "H_TallGrassB" }
+      ]
+    }
+    
+    {
+      Name = "H_TallGrassA"
+      FilePath = "Tilesets\Surface\Surface_Wheat_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -55.0
+      Scale = 0.45
+      ScaleY = 0.35
+      RandomFlipHorizontal = true
+      Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+    }
+    
+    {
+      Name = "H_TallGrassB"
+      FilePath = "Tilesets\Surface\Surface_Wheat_01a"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -55.0
+      Scale = 0.45
+      ScaleY = 0.35
+      RandomFlipHorizontal = true
+      Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+    }
+    
+    {
+      Name = "H_TallGrassBase"
+      FilePath = "Tilesets\Graybox\TallGrassBase"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -55.0
+      Scale = 0.45
+      ScaleY = 0.35
+      RandomFlipHorizontal = true
+      Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+    }
+    
+    {
+      Name = "BreakableIdle1"
+      FilePath = "Tilesets\Temple\Temple_Urn_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 50.0
+      Scale = 0.2
+    }
+    
+    {
+      Name = "BreakableIdle2"
+      InheritFrom = "BreakableIdle1"
+      FilePath = "Tilesets\Temple\Temple_Urn_02"
+      Scale = 0.13
+    }
+    
+    {
+      Name = "BreakableIdle3"
+      InheritFrom = "BreakableIdle1"
+      FilePath = "Tilesets\Temple\Temple_Urn_03"
+      OffsetY = -33.0
+      Scale = 0.15
+    }
+    
+    {
+      Name = "BreakableAsphodelIdle"
+      FilePath = "Tilesets\Asphodel\Asphodel_Vase_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -100.0
+      Scale = 0.2
+    }
+    
+    {
+      Name = "AsphodelSkullDeath"
+      CreateAnimation = "AsphodelSkullDeathFx"
+      FilePath = "Dev\blank_invisible"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+    }
+    
+    {
+      Name = "AsphodelSkullDeathFx"
+      FilePath = "Fx\AsphodelSkullDeath\AsphodelSkullDeath"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 33
+      NumFrames = 33
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OriginX = 110.0
+      OriginY = 210.0
+      SortMode = "FromParent"
+      Scale = 1.05
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "BreakableElysiumIdle1"
+      InheritFrom = "BreakableAsphodelIdle"
+      FilePath = "Tilesets\Elysium\Elysium_Urn_01"
+      OffsetY = -75.0
+    }
+    
+    {
+      Name = "BreakableHighValueIdle"
+      ChildAnimation = "Tartarus_UrnExpensive_01_Shine_Wait"
+      FilePath = "Tilesets\Tartarus\Tartarus_UrnExpensive_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -50.0
+      Scale = 0.12
+    }
+    
+    {
+      Name = "Tartarus_UrnExpensive_01_Shine"
+      InheritFrom = "VaseShine"
+      ChainTo = "Tartarus_UrnExpensive_01_Shine_Wait"
+      FilePath = "Fx\Tartarus_UrnExpensive_01_Shine\Tartarus_UrnExpensive_01_Shine"
+      OffsetY = -50.0
+      Scale = 0.6
+    }
+    
+    {
+      Name = "Tartarus_UrnExpensive_01_Shine_Wait"
+      InheritFrom = "VaseShineWait"
+      ChainTo = "Tartarus_UrnExpensive_01_Shine"
+    }
+    
+    {
+      Name = "BreakableHighValueIdleSuper"
+      InheritFrom = "BreakableHighValueIdle"
+      VisualFx = "MoneySparkleUrn"
+      VisualFxIntervalMax = 0.1
+      VisualFxIntervalMin = 0.05
+    }
+    
+    {
+      Name = "BreakableAsphodelHighValueIdle"
+      ChildAnimation = "Asphodel_Vase_01d_Shine_Wait"
+      FilePath = "Tilesets\Asphodel\Asphodel_Vase_01d"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -100.0
+      Scale = 0.2
+    }
+    
+    {
+      Name = "Asphodel_Vase_01d_Shine"
+      InheritFrom = "VaseShine"
+      ChainTo = "Asphodel_Vase_01d_Shine_Wait"
+      OffsetY = -130.0
+      Scale = 1.0
+    }
+    
+    {
+      Name = "Asphodel_Vase_01d_Shine_Wait"
+      InheritFrom = "VaseShineWait"
+      ChainTo = "Asphodel_Vase_01d_Shine"
+    }
+
+    {
+      Name = "BreakableElysiumHighValueIdle"
+      ChildAnimation = "Elysium_Urn_04_Shine_Wait"
+      FilePath = "Tilesets\Elysium\Elysium_Urn_04"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -130.0
+      Scale = 0.25
+    }
+    
+    {
+      Name = "Elysium_Urn_04_Shine"
+      InheritFrom = "VaseShine"
+      ChainTo = "Elysium_Urn_04_Shine_Wait"
+      FilePath = "Fx\Elysium_Urn_04_Shine\Elysium_Urn_04_Shine"
+      OffsetY = -180.0
+      Scale = 2.0
+    }
+    
+    {
+      Name = "Elysium_Urn_04_Shine_Wait"
+      InheritFrom = "VaseShineWait"
+      ChainTo = "Elysium_Urn_04_Shine"
+    }
+    
+    {
+      Name = "BreakableStyxHighValueIdle"
+      ChildAnimation = "Styx_Vase_Gold_01_Shine"
+      FilePath = "Tilesets\Styx\Styx_Vase_Gold_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -100.0
+      Scale = 0.25
+    }
+    
+    {
+      Name = "Styx_Vase_Gold_01_Shine"
+      InheritFrom = "VaseShine"
+      ChainTo = "Styx_Vase_Gold_01_Shine_Wait"
+      FilePath = "Fx\Styx_Vase_Gold_01_Shine\Styx_Vase_Gold_01_Shine"
+      OffsetY = -100.0
+      Scale = 1.0
+    }
+    
+    {
+      Name = "Styx_Vase_Gold_01_Shine_Wait"
+      InheritFrom = "VaseShineWait"
+      ChainTo = "Styx_Vase_Gold_01_Shine"
+    }
+    
+    {
+      Name = "BaseThiefDeath"
+      FilePath = "Fx\Temple_Urn_01_ShatterA\Temple_Urn_01_ShatterA"
+      GroupName = "FX_Terrain"
+      
+      VisualFx = "UrnFragments"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      EaseIn = 0.99
+      EaseOut = 1.0
+      EndFrame = 35
+      NumFrames = 35
+      RandomPlaySpeedMax = 45.0
+      RandomPlaySpeedMin = 30.0
+      StartFrame = 1
+      OffsetY = 4.0
+      OriginX = 120.0
+      OriginY = 204.0
+      SortFromOwner = "Take"
+      Scale = 0.75
+      VisualFxCap = 20
+      VisualFxIntervalMax = 0.002
+      VisualFxIntervalMin = 0.001
+      Slides = [
+        { DurationFrames = 1 Sound = "/SFX/Enemy Sounds/EnemyDeathExplode" Frame = 1 }
+        { DurationFrames = 1 Sound = "/SFX/CeramicPotSmash" Frame = 6 }
+      ]
+    }
+    
+    {
+      Name = "BreakableDeathAnim"
+      FilePath = "Animations\BreakableDeathAnim\BreakableDeathAnim"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Random = [
+        { Name = "BreakableDeathA" }
+        { Name = "BreakableDeathB" }
+      ]
+    }
+    
+    {
+      Name = "BreakableDeathA"
+      ChainTo = "BreakableDeathA_End"
+      FilePath = "Fx\Temple_Urn_01_ShatterA\Temple_Urn_01_ShatterA"
+      GroupName = "Standing"
+      
+      VisualFx = "UrnFragments"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      EaseIn = 0.99
+      EaseOut = 1.0
+      EndFrame = 36
+      NumFrames = 36
+      RandomPlaySpeedMax = 45.0
+      RandomPlaySpeedMin = 30.0
+      StartFrame = 1
+      OffsetY = 4.0
+      OriginX = 120.0
+      OriginY = 204.0
+      LocationZFromOwner = "Ignore"
+      SortFromOwner = "Take"
+      TransferDrawLayer = false
+      Scale = 0.75
+      VisualFxCap = 10
+      VisualFxIntervalMax = 0.002
+      VisualFxIntervalMin = 0.001
+      OnlyWhenVisible = true
+      UseAttachedGroup = false
+    }
+    
+    {
+      Name = "BreakableDeathA_End"
+      InheritFrom = "BreakableDeathA"
+      ChainTo = "null"
+      FilePath = "Fx\Temple_Urn_01_ShatterA\Temple_Urn_01_ShatterA0036"
+      GroupName = "FX_Terrain"
+      
+      VisualFx = "null"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+    }
+    
+    {
+      Name = "BreakableDeathB"
+      InheritFrom = "BreakableDeathA"
+      ChainTo = "BreakableDeathB_End"
+      FilePath = "Fx\Temple_Urn_01_ShatterB\Temple_Urn_01_ShatterB"
+      EndFrame = 20
+      NumFrames = 20
+      StartFrame = 1
+    }
+    
+    {
+      Name = "BreakableDeathB_End"
+      InheritFrom = "BreakableDeathB"
+      ChainTo = "null"
+      FilePath = "Fx\Temple_Urn_01_ShatterB\Temple_Urn_01_ShatterB0020"
+      GroupName = "FX_Terrain"
+      
+      VisualFx = "null"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+    }
+    
+    {
+      Name = "BreakableDeathA_Elysium"
+      InheritFrom = "BreakableDeathA"
+      ChainTo = "BreakableDeathA_Elysium_End"
+      FilePath = "Fx\Elysium_Urn_01_ShatterA\Elysium_Urn_01_ShatterA"
+      EndFrame = 19
+      NumFrames = 19
+      StartFrame = 1
+      RandomFlipHorizontal = true
+      Scale = 1.7
+    }
+    
+    {
+      Name = "BreakableDeathB_Elysium"
+      InheritFrom = "BreakableDeathB"
+      ChainTo = "BreakableDeathB_Elysium_End"
+      FilePath = "Fx\Elysium_Urn_01_ShatterB\Elysium_Urn_01_ShatterB"
+      EndFrame = 21
+      NumFrames = 21
+      StartFrame = 1
+      RandomFlipHorizontal = true
+      Scale = 1.7
+    }
+    
+    {
+      Name = "BreakableDeathA_Elysium_End"
+      InheritFrom = "BreakableDeathA_End"
+      FilePath = "Fx\Elysium_Urn_01_ShatterA\Elysium_Urn_01_ShatterA0019"
+      Scale = 1.7
+    }
+    
+    {
+      Name = "BreakableDeathB_Elysium_End"
+      InheritFrom = "BreakableDeathB_End"
+      FilePath = "Fx\Elysium_Urn_01_ShatterB\Elysium_Urn_01_ShatterB0021"
+      Scale = 1.7
+    }
+    
+    {
+      Name = "UrnFragments"
+      FilePath = "Animations\UrnFragments\UrnFragments"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Random = [
+        { Name = "UrnFragment01" }
+        { Name = "UrnFragment02" }
+        { Name = "UrnFragment03" }
+        { Name = "UrnFragment04" }
+        { Name = "UrnFragment05" }
+      ]
+    }
+    
+    {
+      Name = "UrnFragment01"
+      FilePath = "Particles\UrnFragment01"
+      GroupName = "Standing"
+      
+      AngleFromOwner = "Take"
+      AngleMax = 30.0
+      AngleMin = -30.0
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 0.8
+      RandomDurationMin = 0.4
+      StartFrame = 1
+      RandomOffsetX = 30.0
+      RandomOffsetY = 30.0
+      LocationFromOwner = "Take"
+      Gravity = 1000.0
+      VelocityMax = 900.0
+      VelocityMin = 300.0
+      RandomRotationSpeedMax = 360.0
+      RandomRotationSpeedMin = -360.0
+      EndScale = 0.0
+      ScaleMax = 0.9
+      ScaleMin = 0.4
+      Ambient = 0.0
+      RandomAccelerationMax = -500.0
+      RandomAccelerationMin = -2500.0
+    }
+    
+    {
+      Name = "UrnFragment02"
+      InheritFrom = "UrnFragment01"
+      FilePath = "Particles\UrnFragment02"
+    }
+    
+    {
+      Name = "UrnFragment03"
+      InheritFrom = "UrnFragment01"
+      FilePath = "Particles\UrnFragment03"
+    }
+    
+    {
+      Name = "UrnFragment04"
+      InheritFrom = "UrnFragment01"
+      FilePath = "Particles\UrnFragment04"
+    }
+    
+    {
+      Name = "UrnFragment05"
+      InheritFrom = "UrnFragment01"
+      FilePath = "Particles\UrnFragment05"
+    }
+    
+    {
+      Name = "Styx_Vase_01_Shatter"
+      ChainTo = "Styx_Vase_01_Shatter_End"
+      FilePath = "Fx\Styx_Vase_01_Shatter\Styx_Vase_01_Shatter"
+      GroupName = "Standing"
+      
+      VisualFx = "UrnFragments"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      EaseIn = 0.99
+      EaseOut = 1.0
+      EndFrame = 20
+      NumFrames = 20
+      RandomPlaySpeedMax = 45.0
+      RandomPlaySpeedMin = 30.0
+      StartFrame = 1
+      OriginX = 140.0
+      OriginY = 290.0
+      SortFromOwner = "Take"
+      TransferDrawLayer = false
+      EndScale = 0.66
+      VisualFxCap = 10
+      VisualFxIntervalMax = 0.002
+      VisualFxIntervalMin = 0.001
+      OnlyWhenVisible = true
+    }
+    
+    {
+      Name = "Styx_Vase_01_Shatter_End"
+      InheritFrom = "Styx_Vase_01_Shatter"
+      ChainTo = "null"
+      FilePath = "Fx\Styx_Vase_01_Shatter\Styx_Vase_01_Shatter0020"
+      GroupName = "FX_Terrain"
+      
+      VisualFx = "null"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      StartScale = 0.661
+    }
+    
+    {
+      Name = "Styx_Vase_02_Shatter"
+      InheritFrom = "Styx_Vase_01_Shatter"
+      ChainTo = "Styx_Vase_02_Shatter_End"
+      FilePath = "Fx\Styx_Vase_02_Shatter\Styx_Vase_02_Shatter"
+    }
+    
+    {
+      Name = "Styx_Vase_02_Shatter_End"
+      InheritFrom = "Styx_Vase_01_Shatter_End"
+      FilePath = "Fx\Styx_Vase_02_Shatter\Styx_Vase_02_Shatter0020"
+    }
+    
+    {
+      Name = "Styx_Vase_03_Shatter"
+      InheritFrom = "Styx_Vase_01_Shatter"
+      ChainTo = "Styx_Vase_03_Shatter_End"
+      FilePath = "Fx\Styx_Vase_03_Shatter\Styx_Vase_03_Shatter"
+    }
+    
+    {
+      Name = "Styx_Vase_03_Shatter_End"
+      InheritFrom = "Styx_Vase_01_Shatter_End"
+      FilePath = "Fx\Styx_Vase_03_Shatter\Styx_Vase_03_Shatter0020"
+    }
+    
+    {
+      Name = "DartTrapIdle"
+      InheritFrom = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\Traps_DartPadUnpressed"
+    }
+    
+    {
+      Name = "DartTrapPreFire"
+      InheritFrom = "DartTrapIdle"
+      CreateAnimation = "TrapsDartPadPressedSmoke"
+      FilePath = "Tilesets\Traps\Traps_DartPadPressed_AboutToFire"
+    }
+    
+    {
+      Name = "DartTrapPressed"
+      InheritFrom = "DartTrapIdle"
+      FilePath = "Tilesets\Traps\Traps_DartPadPressed"
+    }
+    
+    {
+      Name = "TrapsDartPadPressedSmoke"
+      FilePath = "Fx\TrapsDartPadPressedSmoke\TrapsDartPadPressedSmoke"
+      GroupName = "FX_Terrain"
+      
+      EndFrame = 55
+      NumFrames = 55
+      PlaySpeed = 60.0
+      StartFrame = 1
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "DartTrapDeactivated"
+      InheritFrom = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\Traps_DartPadDeactivated"
+    }
+    
+    {
+      Name = "AxeTrapTriggerIdle"
+      InheritFrom = "SpikeTrapIdleStatic"
+      FilePath = "Tilesets\Traps\Traps_DartPadUnpressed"
+    }
+    
+    {
+      Name = "BeamTrapIdle"
+      FilePath = "Tilesets\ClockworkTartarus\CW_BeamTrap_01_Idle"
+      AngleFromOwner = "Ignore"
+      Duration = 1.0
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.7
+      Ambient = 0.0
+      ChildAnimation = "BeamTrapCrystalMain"
+    }
+
+    {
+      Name = "BeamTrapCrystalMain"
+      FilePath = "Fx\CWBeamTrapCrystals\CWBeamTrapCrystalMain"
+      Material = "Unlit"
+      Duration = 1.5
+      StartOffsetY = -6
+      EndOffsetY = 6
+      PingPongShiftOverDuration = true
+      EaseIn = 0
+      EaseOut = 1
+      Loop = true
+      AngleFromOwner = "Ignore"
+      OffsetZ = 70
+      Scale = 0.7
+      ChildAnimation = "BeamTrapCrystal1"
+    }
+
+    {
+      Name = "BeamTrapCrystal1"
+      InheritFrom = "BeamTrapCrystalMain"
+      FilePath = "Fx\CWBeamTrapCrystals\CWBeamTrapCrystal01"
+      ChildAnimation = "BeamTrapCrystal2"
+      OffsetX = -35
+      OffsetY = -90
+      Duration = 1.2
+      StartOffsetY = -4
+      EndOffsetY = 4
+    }
+
+    {
+      Name = "BeamTrapCrystal2"
+      InheritFrom = "BeamTrapCrystal1"
+      FilePath = "Fx\CWBeamTrapCrystals\CWBeamTrapCrystal02"
+      ChildAnimation = "BeamTrapCrystal3"
+      OffsetX = -35
+      OffsetY = 40
+      Duration = 1.33
+      StartOffsetY = -5
+      EndOffsetY = 5
+    }    
+
+    {
+      Name = "BeamTrapCrystal3"
+      InheritFrom = "BeamTrapCrystal1"
+      FilePath = "Fx\CWBeamTrapCrystals\CWBeamTrapCrystal03"
+      ChildAnimation = null
+      OffsetX = 25
+      OffsetY = 35
+      Duration = 1.6
+      StartOffsetY = -8
+      EndOffsetY = 8
+    }
+
+    {
+      Name = "BeamTrapDamaged"
+      InheritFrom = "BeamTrapIdle"
+      FilePath = "Tilesets\ClockworkTartarus\CW_BeamTrap_01_Damaged"
+    }
+    {
+      Name = "BeamTrapDestroyed"
+      InheritFrom = "BeamTrapIdle"
+      FilePath = "Tilesets\ClockworkTartarus\CW_BeamTrap_01_Destroyed"
+      CreateAnimation = "BeamTrapDestroyedTransition"
+      ChildAnimation = null
+      Sound = "/SFX/Enemy Sounds/Brimstone/CrystalDestroyed"
+    }
+
+    {
+      Name = "BeamTrapDestroyedTransition"
+      FilePath = "Fx\CWBeamTrapTransitionB\CWBeamTrapTransitionB"
+      NumFrames = 50
+      PlaySpeed = 40
+      Ambient = 0.0
+      Scale = 1.0
+      OffsetY = -220
+      AngleFromOwner = "Ignore"
+      SortMode = "FromParent"
+      SortFromOwner = "Maintain"
+    }
+    
+    {
+      Name = "DartTrapEmitterIdle"
+      ChildAnimation = "DartTrapEmitterTopIdle"
+      FilePath = "Tilesets\Traps\Traps_DartTrapBottom_Idle"
+      
+      AngleFromOwner = "Ignore"
+      Duration = 1.0
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -40.0
+      Scale = 0.16
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "DartTrapEmitterTopIdle"
+      FilePath = "Tilesets\Traps\Traps_DartTrapTop_Idle"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -40.0
+      Scale = 0.16
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "DartTrapEmitterReturnToIdle"
+      InheritFrom = "DartTrapEmitterIdle"
+      ChildAnimation = "DartTrapEmitterTopReturnToIdle"
+      Sound = "/SFX/DartTrapEmitterDeactivateSlam"
+    }
+    
+    {
+      Name = "DartTrapEmitterTopReturnToIdle"
+      InheritFrom = "DartTrapEmitterTopIdle"
+      
+      Duration = 0.25
+      EaseIn = 0.9
+      EaseOut = 1.0
+      HoldLastFrame = true
+      StartOffsetY = -80.0
+    }
+    
+    {
+      Name = "DartTrapEmitterFire"
+      ChildAnimation = "DartTrapEmitterTopFire"
+      FilePath = "Tilesets\Traps\Traps_DartTrapBottom_Idle"
+      
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/DartTrapEmitterActivateSlide"
+      StopSoundOnFinishFade = 0.2
+      Duration = 1.0
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -40.0
+      Scale = 0.16
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "DartTrapEmitterTopFire"
+      ChainTo = "DartTrapEmitterTopFiring"
+      FilePath = "Fx\Traps_DartTrapTop_Activate\Traps_DartTrapTop_Activate"
+      
+      AngleFromOwner = "Ignore"
+      Duration = 0.125
+      EaseIn = 0.9
+      EaseOut = 1.0
+      EndFrame = 28
+      LoopFramesOnly = true
+      NumFrames = 28
+      PlaySpeed = 60.0
+      StartFrame = 1
+      EndOffsetY = -220.0
+      StartOffsetY = -140.0
+      TransferFrameFromThis = true
+      Scale = 0.8
+    }
+    
+    {
+      Name = "DartTrapEmitterTopFiring"
+      FilePath = "Fx\Traps_DartTrapTop_Activate\Traps_DartTrapTop_Activate"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 28
+      HoldLastFrame = true
+      NumFrames = 28
+      PlaySpeed = 60.0
+      StartFrame = 1
+      OffsetY = -220.0
+      Scale = 0.8
+    }
+    
+    {
+      Name = "GasTrapIdle"
+      FilePath = "Tilesets\Asphodel\Asphodel_TrapFissure_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.15
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "GasTrapActivated"
+      CreateAnimation = "TrapsDartPadPressedSmoke"
+      FilePath = "Tilesets\Asphodel\Asphodel_TrapFissure_01"
+      
+      Sound = "/Leftovers/Object Ambiences/LavaSplash"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.15
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "GasTrapPoisonIdle"
+      FilePath = "Tilesets\Styx\Styx_Terrain_PoisonTrap_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.25
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "GasTrapPoisonActivated"
+      CreateAnimation = "TrapsDartPadPressedSmoke"
+      FilePath = "Tilesets\Styx\Styx_Terrain_PoisonTrap_01"
+      
+      Sound = "/Leftovers/Object Ambiences/LavaSplash"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.25
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "MiasmaGeyserInactive"
+      FilePath = "Fx\FieldsHeartPoolInactiveTransition\FieldsHeartPoolInactiveTransition"
+      EndFrame = 10
+      NumFrames = 10
+      StartFrame = 1
+      Ambient = 0.0
+      HoldLastFrame = false
+      ChainTo = "MiasmaGeyserInactiveLoop"
+      Slides = [
+        { DurationFrames = 30 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+      ]
+    }
+
+    {
+      Name = "MiasmaGeyserInactiveLoop"
+      FilePath = "Fx\FieldsHeartPoolInactiveIdle\FieldsHeartPoolInactiveIdle"
+      NumFrames = 40
+      PlaySpeed = 30
+      Loop = true
+      Ambient = 0.0
+    }
+
+    {
+      Name = "MiasmaGeyserIdleTransition"
+      InheritFrom = "MiasmaGeyserInactive"
+      PlayBackwards = true
+      ClearSlides = true
+      PlaySpeed = 30
+      HoldLastFrame = false
+      ChainTo = "MiasmaGeyserIdle"
+    }
+    
+    {
+      Name = "MiasmaGeyserIdle"
+      FilePath = "Fx\FieldsHeartPoolIdle\FieldsHeartPoolIdle"
+      EndFrame = 40
+      NumFrames = 40
+      StartFrame = 1
+      Loop = true
+      PlaySpeed = 30
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "MiasmaGeyserPreFire"
+      FilePath = "Fx\FieldsHeartPoolPreFire\FieldsHeartPoolPreFire"
+      PlaySpeed = 30
+      EndFrame = 22
+      NumFrames = 22
+      HoldLastFrame = true
+      StartFrame = 1
+      Ambient = 0.0
+      UseAttachedFlasher = false
+      UseAttachedShake = false
+      Sound = "/SFX/ArcherTrapPreAttackSound"
+      StopSoundOnFinishFade = 0.2
+    }
+    
+    {
+      Name = "MiasmaGeyserFire"
+      InheritFrom = "MiasmaGeyserPreFire"
+      EndFrame = 30
+      NumFrames = 8
+      StartFrame = 23
+      Ambient = 0.0
+    }
+
+    {
+      Name = "FieldsMiasmaLobProjectile"
+      FilePath = "Fx\FieldsMiasmaLobProjectile\FieldsMiasmaLobProjectile"
+      NumFrames = 30
+      PlaySpeed = 30
+      RandomFlipHorizontal = true
+      Loop = true
+      ScaleFromOwner = "Ignore"
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      Scale = 1.5
+      Material = "Unlit"
+      VisualFx = "FieldsMiasmaLobProjectileTrail"
+      VisualFxDistanceMin = 20
+      VisualFxDistanceMax = 20
+      VisualFxManagerCap = 400
+      VisualFxManagerFrameCap = 18
+      VisualFxFrameCap = 10
+    }
+
+    {
+      Name = "FieldsMiasmaLobProjectileTrail"
+      InheritFrom = "FieldsMiasmaLobProjectile"
+      AngleFromOwner = "Take"
+      GroupName = "FX_Standing_Top"
+      AngleMax = 0.0
+      AngleMin = 360.0
+      RandomPlaySpeedMax = 45.0
+      RandomPlaySpeedMin = 30.0
+      StartFrame = 1
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      ScaleMax = 0.9
+      ScaleMin = 0.6
+      Ambient = 0.0
+      StartAlpha = 0.66
+      EndAlpha = 0
+      VisualFx = null
+      Loop = false
+      Saturation = -0.1
+      Hue = 0.03
+    }
+
+    {
+      Name = "FieldsMiasmaCloud"
+      FilePath = "Fx\FieldsMiasmaCloud\FieldsMiasmaCloud"
+      NumFrames = 70
+      PlaySpeed = 30
+      ReRandomizeOnLoop = false
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      TransferFrameFromThis = true
+      Loop = true
+      LocationZFromOwner = "Ignore"
+      OffsetZ = 60
+      Scale = 1.33
+      SortMode = "Isometric"
+      ChainTo = "FieldsMiasmaCloudFade"
+      VisualFx = "FieldsMiasmaCloudTrail"
+      VisualFxDistanceMin = 50
+      VisualFxDistanceMax = 50
+      VisualFxManagerCap = 400
+      VisualFxManagerFrameCap = 18
+      VisualFxFrameCap = 10
+      Value = 0.05
+      Sound = "/Leftovers/Ambience/StatueAmbienceLoop"
+      StopSoundOnFinishFade = 0.2
+      CreateAnimations = [
+        { Name = "FieldsMiasmaCloudShadow" }
+        { Name = "FieldsMiasmaCloudImpact" }
+      ]
+    }
+
+    {
+      Name = "FieldsMiasmaCloudTrail"
+      InheritFrom = "FieldsMiasmaCloud"
+      VisualFx = null
+      Sound = null
+      ClearCreateAnimations = true
+      Loop = false
+      TransferFrameToThis = true
+      PlaySpeed = 10
+      StartAlpha = 0
+      EndAlpha = 0.3
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0.999
+      EndGreen = 0.4
+      EndBlue = 0.2
+      PingPongColor = true
+      LoopFramesOnly = true
+      Duration = 2
+      ChainTo = null
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      OffsetZ = 0
+    }
+
+    {
+      Name = "FieldsMiasmaCloudImpact"
+      InheritFrom = "FieldsMiasmaCloud"
+      ColorFromOwner = "Ignore"
+      Sound = null
+      Loop = false
+      PlaySpeed = 120
+      ScaleRadius = 0
+      StartScale = 0
+      EndScale = 1
+      EaseIn = 0.9
+      EaseOut = 1.0
+      ScaleFromOwner = "Ignore"
+      StartAlpha = 1
+      EndAlpha = 0
+      Scale = 2
+      ClearCreateAnimations = true
+      ChainTo = null
+      CreateAnimations = [
+        { Name = "FieldsMiasmaCloudImpact2" }
+        { Name = "FieldsMiasmaCloudImpact3" }
+        { Name = "FieldsMiasmaCloudImpact4" }
+      ]
+    }
+
+    {
+      Name = "GhostWallImpactPuff"
+      InheritFrom = "FieldsMiasmaCloudImpact"
+      ClearCreateAnimations = true
+      VisualFxManagerCap = 400
+      VisualFxManagerFrameCap = 18
+      CreateAnimations = [
+        // { Name = "FieldsMiasmaCloudImpact2" }
+        { Name = "FieldsMiasmaCloudImpact3" }
+        { Name = "FieldsMiasmaCloudImpact4" }
+      ]
+    }
+
+    { 
+      Name = "FieldsMiasmaCloudImpact3" 
+      FilePath = "Fx\FieldsDustPuffFront\FieldsDustPuffFront"
+      NumFrames = 40
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      RandomFlipHorizontal = true
+      ScaleFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      Scale = 2.5
+      Red = 1
+      Green = 0.4
+      Blue = 0.4
+      Alpha = 0.5
+      OffsetZ = 100
+      PlaySpeed = 30
+    }
+    { 
+      Name = "FieldsMiasmaCloudImpact4" 
+      InheritFrom = "FieldsMiasmaCloudImpact3"
+      FilePath = "Fx\FieldsDustPuffBack\FieldsDustPuffBack"
+      DrawBehindOwner = true
+      GroupName = "FX_Dark"
+    }
+
+
+    {
+      Name = "FieldsMiasmaCloudImpact2"
+      InheritFrom = "FieldsMiasmaCloudImpact"
+      ClearCreateAnimations = true
+      ScaleY = 3
+      ScaleX = 0.2
+      PlaySpeed = 120
+      OriginX = 240
+      OriginY = 280
+    }
+
+    {
+      Name = "FieldsMiasmaCloudShadow"
+      InheritFrom = "FieldsMiasmaCloud"
+      ClearCreateAnimations = true
+      DieWithOwner = true
+      GroupName = "Shadows"
+      Red = 0.2
+      Green = 0.05
+      Blue = 0.02
+      ScaleY = 0.5
+      Alpha = 0.5
+      FlipVertical = true
+      OffsetY = 80
+      VisualFx = null
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      ChainTo = "FieldsMiasmaCloudShadowFade"
+    }
+
+    {
+      Name = "FieldsMiasmaCloudFade"
+      InheritFrom = "FieldsMiasmaCloud"
+      ClearCreateAnimations = true
+      StartAlpha = 1
+      EndAlpha = 0
+      Duration = 1.2
+      EaseIn = 0
+      EaseOut = 1
+      Loop = false
+      LoopFramesOnly = true
+      TransferFrameToThis = true
+      ChainTo = null
+    }
+
+    {
+      Name = "FieldsMiasmaCloudShadowFade"
+      InheritFrom = "FieldsMiasmaCloudFade"
+      GroupName = "FX_Terrain"
+      Red = 0
+      Green = 0
+      Blue = 0
+      ScaleY = 0.5
+      Alpha = 0.75
+    }
+
+
+    
+    {
+      Name = "TrapFissureDisabled"
+      FilePath = "Tilesets\Asphodel\Asphodel_TrapFissureDisabled_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.15
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "WallSegmentIdle"
+      FilePath = "Tilesets\Temple\Temple_Cube_Marble_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -60.0
+      Scale = 0.2
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "WallSegmentNarrow01Idle"
+      FilePath = "Tilesets\Temple\Temple_WallBrick_01"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -580.0
+      Ambient = 0.0
+    }
+
+    {
+      Name = "SoulPylonBase"
+      FilePath = "Tilesets\Ephyra\Ephyra_SoulPylonBase_01"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.3
+      OffsetY = -115
+      DieWithOwner = true
+    }
+
+    {
+      Name = "SoulPylonGhostEnergy"
+      FilePath = "Fx\SoulPylonGhostEnergy\SoulPylonGhostEnergy"
+      NumFrames = 40
+      PlaySpeed = 30
+      Material = "Unlit"
+      Loop = true
+      OriginX = 78
+      OriginY = 330
+      DieWithOwner = true
+      GroupName = "FX_Standing_Add"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      ColorFromOwner = "Ignore"
+      OffsetZ = 325
+      Scale = 1.0
+      ScaleY = 1.2
+      StartOffsetZ = 0
+      EndOffsetZ = 10
+      PingPongShiftOverDuration = true
+      EaseIn = 0
+      EaseOut = 1
+      ChildAnimation = "SoulPylonHighlight"
+    }
+
+    {
+      Name = "SoulPylonHighlightWait"
+      FilePath = "Dev\blank_invisible"
+      DurationFrames = 80
+      ChainTo = "SoulPylonHighlight"
+    }
+
+    {
+      Name = "SoulPylonGhostEnergyHub"
+      InheritFrom = "SoulPylonGhostEnergy"
+      ChildAnimation = null
+      Scale = 3
+      OffsetZ = 420
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+    }
+
+    {
+      Name = "SoulPylonFx"
+      FilePath = "Fx\SoulPylonFx\SoulPylonFx"
+      NumFrames = 40
+      PlaySpeed = 30
+      Material = "Unlit"
+      Loop = true
+      OffsetZ = 160
+      StartOffsetZ = 0
+      EndOffsetZ = 20
+      PingPongShiftOverDuration = true
+      EaseIn = 0
+      EaseOut = 1
+      Scale = 1.1
+      DieWithOwner = true
+      ChildAnimation = "SoulPylonGhostEnergy"
+      VisualFx = "SoulPylonGlow"
+      VisualFxIntervalMin = 1.333
+      VisualFxIntervalMax = 1.333
+    }
+
+    {
+      Name = "SoulPylonHighlight"
+      InheritFrom = "SoulPylonFx"
+      FilePath = "Fx\SoulPylonFxHighlight\SoulPylonFxHighlight"
+      ChainTo = "SoulPylonHighlightWait"
+      Loop = false
+      VisualFx = null
+      ChildAnimation = null
+    }
+
+
+    {
+      Name = "SoulPylonFxHub"
+      InheritFrom = "SoulPylonFx"
+      ChildAnimation = "EphyraHubExitPylonFullTop"
+      ColorFromOwner = "Ignore"
+      EndOffsetZ = 2
+      OffsetZ = 240
+      Scale = 2.5
+      VisualFx = "SoulPylonGlowHub"
+      VisualFxIntervalMin = 1
+      VisualFxIntervalMax = 2
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+    }
+
+    {
+      Name = "SoulPylonGlow"
+      FilePath = "Particles\particle_glow_egg"
+      StartAlpha = 0
+      EndAlpha = 0.6
+      PingPongColor = true
+      Duration = 2
+      GroupName = "Standing_Back_Add"
+      StartRed = 0
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.05
+      EndGreen = 1
+      EndBlue = 0.75
+      EaseIn = 0
+      EaseOut = 1
+      Material = "Unlit"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      StartScale = 1
+      EndScale = 1.5
+      OffsetZ = 30
+      CreateAnimation = "SoulPylonSkyStreak"
+    }
+
+    {
+      Name = "SoulPylonGlowHub"
+      InheritFrom = "SoulPylonGlow"
+      CreateAnimation = "SoulPylonSkyStreak"
+      GroupName = "FX_Add_Top"
+      ScaleFromOwner = "Ignore"
+      Scale = 0.75
+      EndAlpha = 0.5
+    }
+
+    {
+      Name = "SoulPylonSkyStreak"
+      FilePath = "Particles\particle_heraLightStreak"
+      Material = "Unlit"
+      AddColor = true
+      Red = 0
+      Green = 1
+      Blue = 0.6
+      StartAlpha = 0
+      EndAlpha = 0.5
+      RandomDurationMin = 2.0
+      RandomDurationMax = 2.2
+      StartOffsetZ = 0
+      EndOffsetZ = 300
+      PingPongColor = true
+      EaseIn = 0
+      EaseOut = 1
+      OffsetZ = 340
+      GroupName = "FX_Standing_Add"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      OriginX = 64
+      OriginY = 480
+      RandomFlipHorizontal = true
+      StartScaleY = 1
+      EndScaleY = 1.3
+      StartScale = 1
+      EndScale = 1.2
+      ScaleMin = 0.5
+      ScaleMax = 1.1
+      ScaleY = 2
+      ScaleX = 0.5
+    }
+
+    {
+      Name = "SoulPylonFxDamaged"
+      InheritFrom = "SoulPylonFx"
+      VisualFx = "GlassShatterHitFx"
+      VisualFxCap = 5
+      VisualFxIntervalMin = 0.01
+      VisualFxIntervalMax = 0.02
+      FilePath = "Fx\SoulPylonFxDamaged\SoulPylonFxDamaged"
+    }
+
+    {
+      Name = "GlassShatterHitFx"
+      Random = [
+        { Name = "GlassShatterHitFxFront" }
+        { Name = "GlassShatterHitFxBack" }
+        { Name = "GlassShatterHitFxBack" }
+      ]
+    }
+
+    {
+      Name = "GlassShatterHitFxFront"
+      FilePath = "Fx\GlassShatterHitFx\GlassShatterHitFx"
+      NumFrames = 20
+      RandomRotation = true
+      Material = "Unlit"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      RadialOffsetMin = 40
+      RadialOffsetMax = 80
+      RandomPlaySpeedMin = 40
+      RandomPlaySpeedMax = 50
+      AngleFromOwner = "Ignore"
+      AngleMin = 0
+      AngleMax = 360
+      Hue = -0.1
+      ScaleMin = 0.7
+      ScaleMax = 1.1
+      Gravity = 500
+      GroupName = "FX_Standing_Add"
+    }
+
+    {
+      Name = "GlassShatterHitFxBack"
+      InheritFrom = "GlassShatterHitFxFront"
+      GroupName = "Standing_Back"
+      DrawBehindOwner = true
+    }
+
+    {
+      Name = "GlassShatterHitFxGround"
+      InheritFrom = "GlassShatterHitFxFront"
+      RandomOffsetX = 50
+      ScaleMin = 0.15
+      ScaleMax = 0.4
+      RadialOffsetScaleY = 0.5
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0
+      EndGreen = 1.0
+      EndBlue = 0.7
+    }
+
+    {
+      Name = "SoulPylonDestroyed"
+      InheritFrom = "SoulPylonBase"
+      FilePath = "Tilesets\Ephyra\Ephyra_SoulPylonBase_01"
+      ChildAnimation = "SoulPylonDestroyedFxTerrain"
+      CreateAnimation = "SoulPylonDestroyedFxStanding"
+      Duration = 1
+      Loop = true
+    }
+
+    {
+      Name = "SoulPylonDestroyedFxTerrain"
+      FilePath = "Fx\SoulPylonFxDestroyedTerrain\SoulPylonFxDestroyedTerrain"
+      NumFrames = 35
+      PlaySpeed = 30
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      UseAttachedFlasher = false
+      ScaleFromOwner = "Ignore"
+      Loop = true
+      Scale = 1.2
+      HoldLastFrame = true
+      VisualFx = "GlassShatterHitFxGround"
+      VisualFxIntervalMin = 0.01
+      VisualFxIntervalMax = 0.1
+      VisualFxCap = 10
+    }
+
+    {
+      Name = "SoulPylonDestroyedFxStanding"
+      FilePath = "Fx\SoulPylonFxDestroyedStanding\SoulPylonFxDestroyedStanding"
+      NumFrames = 58
+      PlaySpeed = 30
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      UseAttachedFlasher = false
+      ScaleFromOwner = "Ignore"
+      Loop = true
+      Scale = 1.2
+      HoldLastFrame = true
+      GroupName = "Standing"
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      OffsetZ = 115
+      VisualFx = "SoulPylonDestroyedGhostFx"
+      VisualFxIntervalMin = 0.01
+      VisualFxIntervalMax = 0.01
+      VisualFxCap = 8
+      CreateAnimations = [
+        { Name = "SoulPylonDestroyedNova" }
+        { Name = "SoulPylonDestroyedLight" }
+      ]
+    }
+
+    {
+      Name = "SoulPylonDestroyedLight"
+      FilePath = "Particles\particle_glow_egg"
+      ScaleFromOwner = "Ignore"
+      Scale = 4
+      GroupName = "FX_Standing_Add"
+      StartAlpha = 1
+      EndAlpha = 0
+      EaseIn = 0.9
+      EaseOut = 1.0
+      StartRed = 0.2
+      StartGreen = 1.0
+      StartBlue = 0.5
+      EndRed = 0
+      EndGreen = 0.5
+      EndBlue = 1.0
+      StartScale = 1
+      EndScale = 1.4
+      Duration = 1
+
+    }
+
+    {
+      Name = "SoulPylonDestroyedGhostFx"
+      FilePath = "Fx\GhostProjectile\GhostProjectile"
+      NumFrames = 1
+      NumAngles = 32
+      AngleChangeSpeedMin = -180
+      AngleChangeSpeedMax = 180
+      RandomRotation = true
+      Material = "Unlit"
+      GroupName = "FX_Standing_Add"
+      VelocityMin = 500
+      VelocityMax = 900
+      Acceleration = -1200
+      RandomDurationMin = 0.4
+      RandomDurationMax = 0.7
+      StartScale = 1
+      EndScale = 0
+      LocationZFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      OffsetZ = 115
+      AngleMin = 0
+      AngleMax = 360
+      ScaleMin = 0.6
+      ScaleMax = 1.0
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0.3
+      EndGreen = 0.8
+      EndBlue = 1.0
+      StartAlpha = 1
+      EndAlpha = 0
+    }
+
+    {
+      Name = "SoulPylonDestroyedNova"
+      FilePath = "Fx\AxeNova\AxeNova"
+      NumFrames = 36
+      GroupName = "FX_Standing_Add"
+      PlaySpeed = 70
+      Red = 0
+      Green = 1
+      Blue = 0.5
+      AddColor = true
+      OffsetZ = 195
+      PostRotateScaleY = 0.6
+      RandomRotation = true
+      Scale = 0.6
+      StartScale = 1
+      EndScale = 1.5
+      EaseIn = 0.9
+      EaseOut = 1.0
+    }
+
+
+
+    {
+      Name = "SoulPylonDamaged"
+      InheritFrom = "SoulPylonBase"
+      ChildAnimation = "SoulPylonFxDamaged"
+      CreateAnimation = null
+      Sound = "/SFX/DoorCrystalGlassBallBreak"
+    }
+
+    {
+      Name = "ThornTreeIdle"
+      FilePath = "Tilesets\Fields\Fields_TreeofThorns_Idle"
+      AngleFromOwner = "Ignore"
+      Scale = 0.25
+      OffsetY = -125
+      ChildAnimation = "ThornTreeIdleGlint"
+      Duration = 1
+      Loop = true
+      StartScale = 1
+      EndScale = 1.0001
+      PingPongScale = true
+    }
+
+    {
+      Name = "ThornTreeIdleGlint"
+      FilePath = "Fx\FieldsTreeofThornsGlint\FieldsTreeofThornsGlint"
+      NumFrames = 20
+      Material = "Unlit"
+      Loop = true
+      AngleFromOwner = "Ignore"
+      OffsetY = -125
+      Slides = [
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 90 }
+      ]
+    }
+
+    {
+      Name = "ThornTreeHitAnim"
+      FilePath = "Fx\FieldsTreeofThornsHit\FieldsTreeofThornsHit"
+      NumFrames = 25
+      PlaySpeed = 40
+      ChainTo = "ThornTreeIdle"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      OffsetY = -125
+      AddColor = true
+      StartRed = 1
+      StartGreen = 0.5
+      StartBlue = 0.1
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      EaseIn = 0.99
+      EaseOut = 1.00
+      Sound = "/SFX/Enemy Sounds/Heartless/HeartBeatSquishy"
+      AllowRestart = true
+    }
+
+    {
+      Name = "ThornTreeDamaged"
+      InheritFrom = "ThornTreeIdle"
+      ChildAnimation = null
+      FilePath = "Tilesets\Fields\Fields_TreeofThorns_Damaged"
+      Sound = "/SFX/Enemy Sounds/Mudman/MudmanRangedAttackFire"
+    }
+
+    {
+      Name = "ThornTreeDestroyed"
+      FilePath = "Fx\FieldsTreeofThornsExplode\FieldsTreeofThornsExplode"
+      ChildAnimation = null
+      NumFrames = 38
+      PlaySpeed = 40
+      ChainTo = "ThornTreeDestroyedStatic"
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      OffsetY = -125
+      Sound = "/SFX/Enemy Sounds/Mudman/MudmanMeleeAttackFire"
+    }
+
+    {
+      Name = "ThornTreeDestroyedStatic"
+      InheritFrom = "ThornTreeIdle"
+      ChildAnimation = null
+      FilePath = "Tilesets\Fields\Fields_TreeofThorns_Destroyed"
+      OffsetY = -125
+    }
+
+    {
+      Name = "ThornTreeProjectile"
+      FilePath = "Fx\TreantProjectile\TreantProjectile"
+      NumFrames = 15
+      RandomFlipVertical = true
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 45
+      Material = "Unlit"
+      ScaleMin = 0.7
+      ScaleMax = 1.0
+      Scale = 1.2
+      ScaleX = 1.5
+      LocationZFromOwner = "Take"
+      VisualFx = "ThornTreeProjectileTrail"
+      VisualFxDistanceMin = 50
+      VisualFxDistanceMax = 50
+      Loop = true
+      AddColor = true
+      StartRed = 1
+      StartGreen = 0.3
+      StartBlue = 0.1
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      RandomOffsetY = 50
+      OffsetZ = 100
+    }
+
+    {
+      Name = "ThornTreeProjectileTrail"
+      FilePath = "Particles\particle_streak"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      Scale = 1.0
+      ScaleX = 0.8
+      StartScaleY = 1.5
+      EndScaleY = 0
+      RandomDurationMin = 0.1
+      RandomDurationMax = 0.4
+      RandomFlipHorizontal = true
+      AddColor = true
+      StartRed = 0.5
+      StartGreen = 0.1
+      StartBlue = 0.01
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      EaseIn = 0.9
+      EaseOut = 1.0
+      GroupName = "Standing"
+      SortMode = "FromParent"
+      SortFromOwner = "Take"
+    }
+
+
+    {
+      Name = "DestructibleTreeFullA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+    }
+    {
+      Name = "DestructibleTreeFullB"
+      InheritFrom = "DestructibleTreeFullA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02"
+    }
+    {
+      Name = "DestructibleTreeDamagedA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01b"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      VisualFx = "ErebusTreeDestruction"
+      VisualFxIntervalMin = 0.01
+      VisualFxIntervalMax = 0.06
+      VisualFxCap = 3
+    }
+    {
+      Name = "DestructibleTreeDamagedB"
+      InheritFrom = "DestructibleTreeDamagedA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02a"
+    }
+    
+    {
+      Name = "DestructibleTreeStumpA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01a"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+    }
+    {
+      Name = "DestructibleTreeStumpB"
+      InheritFrom = "DestructibleTreeStumpA"
+      FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02b"
+    }
+
+    {
+      Name = "SafeZoneIdle"
+      FilePath = "Tilesets\Erebus\Erebus_Safezone_Unactivated_01"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.3
+      Ambient = 0.0
+      OffsetY = -10
+      Duration = 1
+      Loop = true
+      VisualFx = "SafeZoneManaSmoke"
+      VisualFxIntervalMin = 0.4
+      VisualFxIntervalMax = 0.5
+      ChildAnimation = "SafeZoneUnactivatedFx"
+    }
+
+    {
+      Name = "SafeZoneUnactivatedFx"
+      FilePath = "Fx\SafeZoneUnactivatedFx\SafeZoneUnactivatedFx"
+      Material = "Unlit"
+      NumFrames = 45
+      Loop = true
+      PlaySpeed = 30
+      AngleFromOwner = "Ignore"
+      OffsetZ = 52
+      Scale = 1.20
+      TransferFrameFromThis = true
+    }
+
+    {
+      Name = "SafeZoneActivatedFx"
+      InheritFrom = "SafeZoneUnactivatedFx"
+      TransferFrameToThis = true
+      LoopFramesOnly = true
+      Loop = false
+      Duration = 0.66
+      PlaySpeed = 45
+      StartScale = 1
+      EndScale = 1.25
+      EaseIn = 0.9
+      EaseOut = 1.0
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0
+      EndGreen = 0.66
+      EndBlue = 0.99
+      StartAlpha = 1
+      EndAlpha = 0
+    }
+
+    {
+      Name = "SafeZoneActivated"
+      InheritFrom = "SafeZoneIdle"
+      ChildAnimation = "SafeZoneActivatedFx"
+      FilePath = "Tilesets\Erebus\Erebus_Safezone_Activated_01"
+      Sound = "/SFX/Player Sounds/MelMagicalCharge"
+      StopSoundOnFinishFade = 0.2
+    }
+
+    {
+      Name = "SafeZoneManaSmoke"
+      FilePath = "Fx\WitchyMist\WitchyMist"
+      NumFrames = 100
+      PlaySpeed = 0.001
+      RandomStartFrame = true
+      LoopFramesOnly = true
+      RandomDurationMin = 3
+      RandomDurationMax = 4
+      StartAlpha = 0
+      EndAlpha = 0.5
+      PingPongColor = true
+      FlipVertical = true
+      Saturation = 0
+      Hue = 0.05
+      ScaleX = 1
+      StartScale = 1
+      EndScale = 1.2
+      EaseIn = 0
+      EaseOut = 1
+      AlphaMin = 0.25
+      AlphaMax = 0.5
+      ScaleMin = 0.6
+      ScaleMax = 1.3
+      PostRotateScaleY = 1.0
+      StartScaleY = 1
+      EndScaleY = 2
+      IsometricSkew = "X"
+      AngleMin = 0
+      AngleMax = 360
+      RandomOffsetY = 30
+      RandomFlipHorizontal = true
+      OffsetZ = 30
+      GroupName = "FX_Standing_Add"
+      ScaleFromOwner = "Ignore"
+    }
+
+
+    {
+      Name = "SafeZoneDisabled"
+      InheritFrom = "SafeZoneIdle"
+      ChildAnimation = null
+      VisualFx = null
+      FilePath = "Tilesets\Erebus\Erebus_Safezone_Expired_01"
+      Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+    }
+    
+    {
+      Name = "SteamCubeIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Idle"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Ambient = 0.0
+      OffsetY = -200
+      HoldLastFrame = true
+      Scale = 0.75
+      ChildAnimation = "SteamCubeFusedGlow"
+    }
+    {
+      Name = "SteamCubeFusedGlow"
+      FilePath = "Fx\SteamCubeFusedGlow\SteamCubeFusedGlow"
+      Loop = true
+      Scale = 3.0
+      OffsetY = -200
+      NumFrames = 60
+      PlaySpeed = 30
+      Material = "Unlit"
+      DieWithOwner = true
+      ColorFromOwner = "Ignore"
+
+    }
+
+    {
+      Name = "SteamCubeDamaged01"
+      InheritFrom = "SteamCubeIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Damaged1"
+    }
+    {
+      Name = "SteamCubeDamaged02"
+      InheritFrom = "SteamCubeIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Damaged2"
+    }
+    {
+      Name = "SteamCubeDamaged03"
+      InheritFrom = "SteamCubeIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Damaged3"
+    }
+    {
+      Name = "SteamCubeDestroyed"
+      InheritFrom = "SteamCubeIdle"
+      ChildAnimation = null
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Destroyed"
+      Sound = "null"
+    }
+
+    {
+      Name = "FloodTrapIdle"
+      FilePath = "Animations\FloodTrap\Idle\FloodTrapIdle"
+      EndFrame = 1
+      Loop = true
+      NumAngles = 2
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -210.0
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 60 RandomDurationFramesMin = 30 }
+      ]
+      Scale = 0.475
+    }
+
+    {
+      Name = "FloodTrapPreparingToFire"
+      InheritFrom = "FloodTrapIdle"
+      FilePath = "Animations\FloodTrap\PreparingToFire\FloodTrapPreparingToFire"
+      VisualFx = "FloodTrapFiringPulseGlow"
+      VisualFxIntervalMin = 0.5
+      VisualFxIntervalMax = 0.5
+    }
+
+    {
+      Name = "FloodTrapFiring"
+      InheritFrom = "FloodTrapIdle"
+      FilePath = "Animations\FloodTrap\Fire\FloodTrapFire"
+      ChildAnimation = "FloodTrapFiringPulse"
+      VisualFx = "FloodTrapFiringShine"
+      VisualFxIntervalMin = 0.5
+      VisualFxIntervalMax = 0.5
+    }
+
+    {
+      Name = "FloodTrapFiringPulse"
+      InheritFrom = "FloodTrapIdle"
+      StartAlpha = 0
+      EndAlpha = 1
+      EaseIn = 0.9
+      EaseOut = 1.0
+      Duration = 0.5
+      Loop = true
+    }
+
+    {
+      Name = "FloodTrapFiringPulseGlow"
+      InheritFrom = "FloodTrapFiringPulse"
+      StartAlpha = 1
+      EndAlpha = 0
+      Loop = false
+      FilePath = "Animations\FloodTrap\FireGlow\FireGlow"
+      GroupName = "FX_Standing_Add"
+      SortMode = "FromParent"
+      SortFromOwner = "Maintain"
+      ScaleFromOwner = "Ignore"
+    }
+
+    {
+      Name = "FloodTrapFiringShine"
+      InheritFrom = "FloodTrapIdle"
+      GroupName = "FX_Standing_Add"
+      FilePath = "Animations\FloodTrap\Shine\FloodTrapShine"
+      NumFrames = 27
+      EndFrame = 27
+      Loop = false
+      PlaySpeed = 30
+      Scale = 0.950
+      ScaleFromOwner = "Ignore"
+      ClearSlides = true
+      ChainTo = null
+      HoldLastFrame = false
+      Material = "Unlit"
+      SortMode = "FromParent"
+      SortFromOwner = "Maintain"
+    }
+    {
+      Name = "FloodTrapDisabled"
+      InheritFrom = "FloodTrapIdle"
+      FilePath = "Animations\FloodTrap\Disabled\FloodTrapDisabled"
+    }
+
+    {
+      Name = "SteamTrapIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_Idle"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.25
+      ChildAnimation = "SteamTrapIdleGlow"
+    }
+    {
+      Name = "SteamTrapIdleGlow"
+      FilePath = "Fx\SteamTrapGroundHighlight\SteamTrapGroundHighlight"
+      Scale = 2.0
+      NumFrames = 60
+      PlaySpeed = 30
+      Loop = true
+      Material = "Unlit"
+      DieWithOwner = true
+    }
+    {
+      Name = "SteamTrapPreparingToFire"
+      InheritFrom = "SteamTrapIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_PreparingToFire"
+    }
+    {
+      Name = "SteamTrapFire"
+      InheritFrom = "SteamTrapIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_Fire"
+      ChildAnimation = "SteamTrapVentFx_In"
+    }
+
+    {
+      Name = "SteamTrapVentFx"
+      FilePath = "Fx\OceanusSteamTrapVent\OceanusSteamTrapVent"
+      NumFrames = 30
+      PlaySpeed = 30
+      Loop = true
+      Scale = 1.25
+      OffsetY = -5
+      OffsetX = 5
+      TransferFrameToThis = true
+    }
+
+    {
+      Name = "SteamTrapVentFx_In"
+      InheritFrom = "SteamTrapVentFx"
+      ChainTo = "SteamTrapVentFx"
+      StartAlpha = 0
+      EndAlpha = 1
+      Duration = 0.25
+      LoopFramesOnly = true
+      Loop = false
+      TransferFrameFromThis = true
+    }
+
+    {
+      Name = "SteamTrapReloading"
+      InheritFrom = "SteamTrapIdle"
+      ChainTo = "SteamTrapIdle"
+      Duration = 3.0
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_Reloading"
+    }
+    {
+      Name = "SteamTrapDisabled"
+      InheritFrom = "SteamTrapIdle"
+      FilePath = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_Deactivated"
+      ChildAnimation = null
+    }
+
+    {
+      Name = "SteamWallTrapIdle"
+      FilePath = "Animations\SteamWallTrap\Idle\SteamWallTrapIdle"
+      EndFrame = 1
+      NumAngles = 2
+      StartFrame = 1
+      Scale = 0.4
+      OffsetY = -200
+      ChildAnimation = "SteamWallTrapGlow"
+      Duration = 1
+      Loop = true
+
+    }
+    {
+      Name = "SteamWallTrapGlow"
+      FilePath = "Animations\SteamWallTrap\Glow\SteamWallTrapGlow"
+      NumFrames = 60
+      EndFrame = 60
+      NumAngles = 2
+      Scale = 0.8
+      OffsetY = -145
+      OffsetX = 0
+      FlipHorizontal = true
+      PlaySpeed = 30
+      Material = "Unlit"
+      DieWithOwner = true
+      Loop = true
+    }
+    {
+      Name = "SteamWallTrapDamaged"
+      InheritFrom = "SteamWallTrapIdle"
+      FilePath = "Animations\SteamWallTrap\Damaged\SteamWallTrapDamaged"
+    }
+    {
+      Name = "SteamWallTrapDestroyed"
+      InheritFrom = "SteamWallTrapIdle"
+      ChildAnimation = null
+      FilePath = "Animations\SteamWallTrap\Destroyed\SteamWallTrapDestroyed"
+      CreateAnimation = "SteamWallTrapDestructionFx"
+    }
+
+    {
+      Name = "SteamWallTrapDestructionFx"
+      FilePath = "Fx\OceanusSteamWallTrapDestruction\OceanusSteamWallTrapDestruction"
+      NumFrames = 22
+      NumAngles = 2
+      PlaySpeed = 30
+      Material = "Unlit"
+      Scale = 2.0
+      OffsetY = -200
+      SortFromOwner = "Maintain"
+      SortMode = "FromParent"
+      CreateAnimation = "SteamWallTrapDestructionGlow"
+    }
+
+    {
+      Name = "SteamWallTrapDestructionGlow"
+      FilePath = "Particles\particle_glow"
+      StartRed = 1
+      StartGreen = 0.4
+      StartBlue = 0.1
+      EndRed = 0.9
+      EndGreen = 0.05
+      EndBlue = 0
+      Duration = 0.5
+      EaseIn = 0.9
+      EaseOut = 1.0
+      StartAlpha = 0.5
+      EndAlpha = 0
+      OffsetZ = 200
+      Scale = 2
+      GroupName = "FX_Standing_Add"
+    }
+
+    {
+      Name = "ChronosCoverIdle"
+      OffsetY = -130
+      OffsetX = 25
+      FilePath = "Tilesets\Crossroads\Crossroads_Runestone_03"
+      RandomDurationMin = 3
+      RandomDurationMax = 4
+      StartAngle = -0.2
+      EndAngle = 0.2
+      PingPongAngle = true
+      StartOffsetZ = -5
+      EndOffsetZ = 5
+      PingPongShiftOverDuration = true
+      Loop = true
+      PhaseOffsetAngle = 90
+      EaseIn = 0
+      EaseOut = 1
+      Scale = 0.33
+      ScaleX = 1.5
+    }
+
+    {
+      Name = "DestructibleMastFullA"
+      FilePath = "Tilesets\Ships\Ships_DestructibleMast_01"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Scale = 0.33
+      OffsetY = -310
+      OffsetX = -5
+    }
+    {
+      Name = "DestructibleMastDamagedA"
+      InheritFrom = "DestructibleMastFullA"
+      FilePath = "Tilesets\Ships\Ships_DestructibleMast_01a"
+    }
+    {
+      Name = "DestructibleMastDestroyedA"
+      InheritFrom = "DestructibleMastFullA"
+      FilePath = "Tilesets\Ships\Ships_DestructibleMast_01b"
+    }
+
+    {
+      Name = "OilPuddleIdle"
+      FilePath = "Tilesets\Ships\Ships_OilPuddle_01"
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -310
+    }
+    {
+      Name = "OilPuddle02Idle"
+      InheritFrom = "OilPuddleIdle"
+      FilePath = "Tilesets\Ships\Ships_OilPuddle_01a"
+    }
+    {
+      Name = "OilPuddle03Idle"
+      InheritFrom = "OilPuddleIdle"
+      FilePath = "Tilesets\Ships\Ships_OilPuddle_01b"
+    }
+    {
+      Name = "OilPuddle04Idle"
+      InheritFrom = "OilPuddleIdle"
+      FilePath = "Tilesets\Ships\Ships_OilPuddle_01c"
+    }
+
+    {
+      Name = "OilPuddleLit"
+      InheritFrom = "OilPuddleIdle"
+      CreateAnimation = "OilPuddle01Burn"
+    }
+    {
+      Name = "OilPuddle02Lit"
+      InheritFrom = "OilPuddle02Idle"
+      CreateAnimation = "OilPuddle02Burn"
+    }
+    {
+      Name = "OilPuddle03Lit"
+      InheritFrom = "OilPuddle03Idle"
+      CreateAnimation = "OilPuddle03Burn"
+    }
+    {
+      Name = "OilPuddle04Lit"
+      InheritFrom = "OilPuddle03Idle"
+      CreateAnimation = "OilPuddle04Burn"
+    }
+
+    {
+      Name = "OilPuddle01Burn"
+      FilePath = "Fx\Ships_OilPuddle_01_Burn\Ships_OilPuddle_01_Burn"
+      NumFrames = 50
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+      RandomPlaySpeedMin = 26
+      RandomPlaySpeedMax = 34
+      Scale = 2
+      Material = "Unlit"
+      GroupName = "FX_Terrain_Add"
+      Loop = true
+      Sound = "/Leftovers/Object Ambiences/FireAmbientLoopTORCHES"
+      StopSoundOnFinishFade = 0.2
+      VisualFx = "OilPuddleSparks"
+      VisualFxIntervalMin = 0.05
+      VisualFxIntervalMax = 0.1
+      CreateAnimations = [
+        { Name = "OilPuddleIgniteGlow" }
+        { Name = "OilPuddleIgniteGlowAmbient" }
+      ]
+    }
+    {
+      Name = "OilPuddle02Burn"
+      InheritFrom = "OilPuddle01Burn"
+      FilePath = "Fx\Ships_OilPuddle_01a_Burn\Ships_OilPuddle_01a_Burn"
+      Scale = 2
+    }
+    {
+      Name = "OilPuddle03Burn"
+      InheritFrom = "OilPuddle01Burn"
+      FilePath = "Fx\Ships_OilPuddle_01b_Burn\Ships_OilPuddle_01b_Burn"
+      Scale = 3
+    }
+    {
+      Name = "OilPuddle04Burn"
+      InheritFrom = "OilPuddle01Burn"
+      FilePath = "Fx\Ships_OilPuddle_01c_Burn\Ships_OilPuddle_01c_Burn"
+      Scale = 3
+    }
+
+    {
+      Name = "OilPuddleIgniteGlow"
+      FilePath = "Particles\particle_glow_egg"
+      ScaleFromOwner = "Ignore"
+      Scale = 3
+      ScaleX = 3
+      StartRed = 1
+      StartGreen = 0.5
+      StartBlue = 0.2
+      EndRed = 0.999
+      EndGreen = 0.3
+      EndBlue = 0
+      RandomDurationMin = 0.5
+      RandomDurationMax = 1.0
+      EaseIn = 0.9
+      EaseOut= 1.0
+      StartAlpha = 1
+      EndAlpha = 0
+      Material = "Unlit"
+      GroupName = "FX_Standing_Add"
+    }
+
+    {
+      Name = "OilPuddleIgniteGlowAmbient"
+      InheritFrom = "OilPuddleIgniteGlow"
+      Loop = true
+      StartAlpha = 0
+      EndAlpha = 0.1
+      PingPongColor = true
+      EaseIn = 0
+      RandomDurationMin = 1.2
+      RandomDurationMax = 2.5
+      ScaleY = 1
+    }
+
+    {
+      Name = "OilPuddleSparks"
+      FilePath = "Fx\ParticleFlake\ParticleFlake"
+      NumFrames = 90
+      ScaleX = 2
+      AngleMin = 140
+      AngleMax = 160
+      Material = "Unlit"
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+      ScaleMin = 0.3
+      ScaleMax = 1.0
+      GroupName = "FX_Standing_Add"
+      AddColor = false
+      StartRed = 1
+      StartGreen = 0.5
+      StartBlue = 0.05
+      EndRed = 0.999
+      EndGreen = 0.1
+      EndBlue = 0
+      StartScale = 1
+      EndScale = 0
+      VelocityMin = 400
+      VelocityMax = 800
+      RandomAccelerationMin = -600
+      RandomAccelerationMax = -300
+      RandomDurationMin = 1
+      RandomDurationMax = 2
+      RandomOffsetX = 300
+      RandomOffsetY = 150
+      LocationZFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      RandomPlaySpeedMin = 24
+      RandomPlaySpeedMax = 30
+      ScaleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      EaseIn = 0.9
+      EaseOut = 1.0
+      AngleChangeSpeedMin = -90
+      AngleChangeSpeedMax = 90
+      RandomFlipHorizontal = true
+      RandomFlipVertical = true
+    }
+
+  ]
+}

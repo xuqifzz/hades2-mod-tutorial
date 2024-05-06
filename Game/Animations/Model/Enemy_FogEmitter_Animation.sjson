@@ -1,0 +1,256 @@
+{ Animations = [
+	
+	{
+		Name = "FogEmitter2"
+		GrannyModel = "FogEmitter2_Mesh"
+	}
+	{
+		Name = "EnemyFogEmitterBaseAnimation"
+		
+		GrannyModel = "FogEmitter_Mesh"
+		ExtraGrannyAnimations = [{ Name = "FogEmitter2" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_FogEmitter_Idle"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_MoveStart"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_MoveStart_C_00"
+		ChainTo = "Enemy_FogEmitter_Move"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_Move"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_Move_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 13
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+			{
+				Frame = 26
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+			{
+				Frame = 39
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}			
+		]
+	}
+
+	{
+		Name = "Enemy_FogEmitter_MoveStop"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_MoveStop_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_FogEmitter_HitStun"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_GetHit_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/FogEmitter/EmoteHurt"
+	}
+
+	/*Slam Attack*/
+
+	{
+		Name = "Enemy_FogEmitter_SlamPreAttack"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SlamAntic_C_00"
+		ChainTo = "Enemy_FogEmitter_SlamFire"
+		Sound = "/SFX/Enemy Sounds/FogEmitter/FogEmitterChargeShort"
+		StopSoundOnFinishFade = 0.2
+		Loop = false
+		CancelOnOwnerMove = true
+		AllowRestart = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FogEmitter_SlamPreAttack"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SlamPreAttackEndHold"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SlamAntic_C_00"
+		ChainTo = "Enemy_FogEmitter_SlamFire"
+		Loop = false
+		CancelOnOwnerMove = true
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 40
+				FrameSpeed = 1.0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FogEmitter_SlamReturnFakeOut"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SlamFire"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SlamFire_C_00"
+		ChainTo = "Enemy_FogEmitter_SlamReturnToIdle"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SlamReturnToIdle"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SlamReturnToIdle_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SlamReturnFakeOut"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SlamReturnToIdle_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		HoldLastFrame = true
+	}
+
+	/*Sweep Attack*/
+
+	{
+		Name = "Enemy_FogEmitter_SweepPreAttack"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SweepAntic_C_00"
+		Sound = "/SFX/Enemy Sounds/FogEmitter/FogEmitterChargeLong"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SweepFire"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SweepFire_C_00"
+		ChainTo = "Enemy_FogEmitter_SweepReturnToIdle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.667
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FogEmitter_SweepReturnToIdle"
+		InheritFrom = "EnemyFogEmitterBaseAnimation"
+		GrannyAnimation = "FogEmitter_Base_SweepReturnToIdle_C_00"
+	}
+
+
+
+	{
+		Name = "Enemy_FogEmitter_Death"
+		InheritFrom = "Enemy_FogEmitter_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.02
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_Spawn"
+		InheritFrom = "Enemy_FogEmitter_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.6
+		StartScale = 0.3
+		EndScale = 1.0
+		DrawBehindOwner = true
+		GrannyAnimationSpeed = 0.1
+		DeathFxFrameDuration = 100
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_FogEmitter_Spawn_Quick"
+		InheritFrom = "Enemy_FogEmitter_Spawn"
+		Duration = 0.7
+		DeathFxFrameDuration = 42
+	}
+
+] }

@@ -1,0 +1,311 @@
+{ Animations = [
+
+	// Chained Hades (I_Story01)
+	{
+		Name = "NPCHadesChainsBase"
+		GrannyModel = "HadesChain_Mesh"
+		GrannyAnimation = "null"
+	}
+	{
+		Name = "NPCHadesBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "HadesChained_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		Attachments =
+		[
+			{
+				Name = "NPCHadesChainsBase"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Chains_Idle"
+		InheritFrom = "NPCHadesChainsBase"
+		GrannyAnimation = "HadesChain_Base_Idle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hades_Idle"
+		InheritFrom = "NPCHadesBaseAnimation"
+		GrannyAnimation = "Hades_Base_Idle_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Chains_Idle"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hades_Blessing_Short"
+				Duration = 24
+			}
+		]
+	}
+
+	{
+		Name = "Chains_Hello"
+		InheritFrom = "NPCHadesChainsBase"
+		GrannyAnimation = "HadesChain_Base_Hello_C_00"
+	}
+	{
+		Name = "Hades_Hello"
+		InheritFrom = "NPCHadesBaseAnimation"
+		GrannyAnimation = "Hades_Base_Hello_C_00"
+		ChainTo = "Hades_Idle"
+		Attachments =
+		[
+			{
+				Name = "Chains_Hello"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Hades_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Chains_Brooding"
+		InheritFrom = "NPCHadesChainsBase"
+		GrannyAnimation = "HadesChain_Base_Brooding_C_00"
+	}
+	{
+		Name = "Hades_Brooding"
+		InheritFrom = "NPCHadesBaseAnimation"
+		GrannyAnimation = "Hades_Base_Brooding_C_00"
+		ChainTo = "Hades_Idle"
+		Attachments =
+		[
+			{
+				Name = "Chains_Brooding"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Hades_Idle"
+				Duration = 8
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 120
+				Sound = "/SFX/Enemy Sounds/Wringer/WringerChainsOff"
+			},
+		]
+	}
+
+	{
+		Name = "Chains_Blessing"
+		InheritFrom = "NPCHadesChainsBase"
+		GrannyAnimation = "HadesChain_Base_Blessing_C_00"
+	}
+	{
+		Name = "Hades_Blessing"
+		InheritFrom = "NPCHadesBaseAnimation"
+		GrannyAnimation = "Hades_Base_Blessing_C_00"
+		ChainTo = "Hades_Idle"
+		Attachments =
+		[
+			{
+				Name = "Chains_Blessing"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Hades_Idle"
+				Duration = 8
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 82
+				Sound = "/SFX/Enemy Sounds/Wringer/WringerChainsOff"
+			}
+			{
+				Frame = 88
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 136
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+			{
+				Frame = 145
+				Sound = "/SFX/Enemy Sounds/Wringer/WringerChainsOff"
+			}
+		]
+	}
+
+	{
+		Name = "Chains_Blessing_Short"
+		InheritFrom = "NPCHadesChainsBase"
+		GrannyAnimation = "HadesChain_Base_Blessing_C_00"
+	}
+	{
+		Name = "Hades_Blessing_Short"
+		InheritFrom = "NPCHadesBaseAnimation"
+		GrannyAnimation = "Hades_Base_Blessing_C_00"
+		ChainTo = "Hades_Idle"
+		Attachments =
+		[
+			{
+				Name = "Chains_Blessing"
+				ToBone = "HadesChained_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Hades_Idle"
+				Duration = 8
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 82
+				Sound = "/SFX/Enemy Sounds/Wringer/WringerChainsOff"
+			}
+			{
+				Frame = 88
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 111
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	// Flashback Hades
+	{
+		Name = "NPCHadesFlashbackBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Hades_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "HadesFlashback_Idle"
+		InheritFrom = "NPCHadesFlashbackBaseAnimation"
+		GrannyAnimation = "Hades_Base_BattleIdle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HadesFlashback_Move"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "HadesFlashback_Move"
+		InheritFrom = "NPCHadesFlashbackBaseAnimation"
+		GrannyAnimation = "Hades_Base_BattleRun_C_00"
+		NativeMoveSpeed = 380
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HadesFlashback_Dash2"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "HadesFlashback_Idle"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 23
+				FootstepFxR = "HadesFireFootstepR-Spawner"
+				FootstepFxL = ""
+
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+			{
+				Frame = 52
+				FootstepFxR = ""
+				FootstepFxL = "HadesFireFootstepL-Spawner"
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+		]
+	}
+
+	{
+		Name = "HadesFlashback_Dash"
+		InheritFrom = "NPCHadesFlashbackBaseAnimation"
+		GrannyAnimation = "Hades_Base_BattleDash_C_00"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesDash"
+		VisualFx = "HadesBattleDashStreaks"
+		VisualFxDistanceMin = 35
+		VisualFxDistanceMax = 35
+		ChainTo = "HadesFlashback_Dash2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 6
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HadesFlashback_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "HadesFlashback_Move"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "HadesFlashback_Dash2"
+		InheritFrom = "NPCHadesFlashbackBaseAnimation"
+		GrannyAnimation = "Hades_Base_BattleDash_C_00"
+		VisualFx = "HadesBattleDashStreaks"
+		VisualFxDistanceMin = 35
+		VisualFxDistanceMax = 35
+		CancelOnOwnerMove = true
+		ChainTo = "HadesFlashback_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 6
+				FrameSpeed = 1
+			}
+		]
+	}
+]}

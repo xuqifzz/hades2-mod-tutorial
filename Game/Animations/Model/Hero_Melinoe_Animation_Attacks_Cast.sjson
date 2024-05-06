@@ -1,0 +1,390 @@
+{
+	Animations = [
+
+	{
+		Name = "Melinoe_Cast_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastCharge_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Cast_StartLoop"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.5
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Cast_StartLoop"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "Melinoe_Cast_Fire"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastIdle_C_00"
+		ModelCosmeticRotationSpeed = 800
+		DisableOwnerManualInteract = true
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Cast_Fire"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Cast_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Cast_End"
+
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Melinoe_Cast_StartLoop"
+				Duration = 5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Cast_Fire_Quick"
+		InheritFrom = "Melinoe_Cast_Fire"
+	}
+	{
+		Name = "Melinoe_Cast_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeActionIdle"
+	}
+
+	{
+		Name = "MelinoeActionIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ActionIdleToIdle_00"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "MelinoeBountyTurnInStart"
+		InheritFrom = "MelinoeBaseAnimation"
+		LocomotionAnimation = "MelinoeCastLocomotion"
+		LocomotionWeight = 1.0
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastCharge_C_00"
+		GrannyAnimationSpeed = 0.45
+		ChainTo = "Melinoe_Cast_Fire"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 6
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	/* SPELL HEX POLYMORPH LASER SELFBUFF */
+
+	{
+		Name = "MelinoeSpellCharge"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellChargeGeneric_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "MelinoeSpellFire"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeSpellFireCancellable"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		Frames = 
+		[
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellFireHold"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeSpellFireCancellable"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		AllowRestart = true
+		GrannyAnimationSpeed = 0.5	
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellFireHoldFrame"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeSpellFireCancellable"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		AllowRestart = true
+		GrannyAnimationSpeed = 0.5	
+		HoldLastFrame = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellFireCancellable"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeSpellFireReturn"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		CancelOnOwnerMove = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellFireReturn"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeActionIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellReturnGeneric_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "MelinoeCrossCastAntic"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeCrossCastCharge"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastAntic_C_00"
+		GrannyAnimationSpeed = 0.5
+	}
+	{
+		Name = "Melinoe_CrossCast_Start_Fast"
+		InheritFrom = "MelinoeCrossCastAntic"
+		GrannyAnimationSpeed = 1.5
+	}
+	{
+		Name = "MelinoeCrossCastCharge"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastLoop_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 0.5
+	}
+	{
+		Name = "MelinoeCrossCast"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeCrossCastToIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCast_C_00"
+	}
+	{
+		Name = "MelinoeCrossCastHold"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCast_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "MelinoeCrossCastToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeEquip"
+	}
+
+	{
+		Name = "MelinoeSpellStanding"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellChargeGeneric_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "MelinoeSpellMovingCharge"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellChargeGeneric_C_00"
+		HoldLastFrame = true
+		LocomotionAnimation = "MelinoeSpellCastRunLocomotion"
+		LocomotionMask = "LowerBody"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "MelinoeRun"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellMovingFire"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeSpellMovingReturnToIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		LocomotionAnimation = "MelinoeSpellCastRunLocomotion"
+		LocomotionMask = "LowerBody"
+		Frames = 
+		[
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSpellMovingReturnToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "null"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_SpellAttackGeneric_C_00"
+		LocomotionAnimation = "MelinoeSpellCastRunLocomotion"
+		LocomotionMask = "LowerBody"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_ForwardCast_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileAntic_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.25
+	}
+	{
+		Name = "Melinoe_ForwardCast_Fire"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFire_C_00"
+		ChainTo = "Melinoe_ForwardCast_End"
+	}
+	{
+		Name = "Melinoe_ForwardCast_FireLoop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFire_C_00"
+		ChainTo = "Melinoe_ForwardCast_FireLoop2"
+		GrannyAnimationSpeed = 2.0
+	}
+	{
+		Name = "Melinoe_ForwardCast_FireLoop2"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_ForwardCast_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileReturnToIdleHub_C_00"
+		ChainTo = "MelinoeEquip"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_ForwardCast_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_TransformAttack_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileAntic_C_00"
+		ChainTo = "Melinoe_TransformAttack_Start2"
+		Sound = "/VO/MelinoeEmotes/EmoteCharging"
+	}
+
+	{
+		Name = "Melinoe_TransformAttack_Start2"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFire_C_00"
+		HoldLastFrame = true
+		Sound = "/VO/MelinoeEmotes/EmoteCastingFierce"
+	}
+	{
+		Name = "Melinoe_TransformAttack_FireLoop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_TransformAttack_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_ForwardProjectileReturnToIdleHub_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_TransformAttack_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_TransformSpecial_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastAntic_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_TransformSpecial_Fire"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCast_C_00"
+		ChainTo = "Melinoe_TransformSpecial_End"
+	}
+	{
+		Name = "Melinoe_TransformSpecial_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeIdleWeaponless"
+	}
+
+	{
+		Name = "Melinoe_Leap_Landing"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_TartarusPoolEntranceEnd_01"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeEquip"
+	}
+
+]}

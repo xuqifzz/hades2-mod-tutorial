@@ -1,0 +1,2036 @@
+{ Animations = [
+
+	
+	{
+		Name = "EnemyBurrowDirt"
+		
+		Random =
+		[
+			{ Name = "EnemyBurrowDirtA" }
+			{ Name = "EnemyBurrowDirtB" }
+			{ Name = "EnemyBurrowDirtC" }
+		]
+	}
+
+	{
+		Name = "EnemyBurrowDirtSmall"
+		
+		Random =
+		[
+			{ Name = "EnemyBurrowDirtA_Small" }
+			{ Name = "EnemyBurrowDirtB_Small" }
+			{ Name = "EnemyBurrowDirtC_Small" }
+		]
+	}
+	
+	{
+		Name = "EnemyBurrowDirtRadial"
+		
+		Random =
+		[
+			{ Name = "EnemyBurrowDirtA_Radial" }
+			{ Name = "EnemyBurrowDirtB_Radial" }
+			{ Name = "EnemyBurrowDirtC_Radial" }
+		]
+	}
+	
+	{
+		Name = "EnemyBurrowDirtA"
+		FilePath = "Particles\particle_dirt_01"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 140.0
+		AngleMin = 40.0
+		StartAlpha = 1.0
+		EaseOut = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.4
+		StartFrame = 1
+		RandomOffsetX = 60.0
+		RandomOffsetY = 20.0
+		LocationFromOwner = "Take"
+		Acceleration = -100.0
+		Gravity = 400.0
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		RandomRotationSpeedMax = 240.0
+		RandomRotationSpeedMin = -240.0
+		EndScale = 0.6
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		Ambient = 0.0
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "EnemyBurrowDirtB"
+		InheritFrom = "EnemyBurrowDirtA"
+		FilePath = "Particles\particle_dirt_02"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtC"
+		InheritFrom = "EnemyBurrowDirtA"
+		FilePath = "Particles\particle_dirt_03"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtA_Small"
+		InheritFrom = "EnemyBurrowDirtA"
+		RandomOffsetX = 5.0
+		RandomOffsetY = 5.0
+		Scale = 0.6
+		ScaleFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtB_Small"
+		InheritFrom = "EnemyBurrowDirtA_Small"
+		FilePath = "Particles\particle_dirt_02"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtC_Small"
+		InheritFrom = "EnemyBurrowDirtA_Small"
+		FilePath = "Particles\particle_dirt_03"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtA_Radial"
+		InheritFrom = "EnemyBurrowDirtA"
+		AngleMax = 360.0
+		AngleMin = 0.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RadialOffsetMax = 120.0
+		RadialOffsetMin = 100.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetX = 0.0
+		RandomOffsetY = 0.0
+		Acceleration = -600.0
+		Gravity = 200.0
+		RandomRotationSpeedMax = 120.0
+		RandomRotationSpeedMin = -120.0
+		EndScale = 1.2
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+	}
+	
+	{
+		Name = "EnemyBurrowDirtB_Radial"
+		InheritFrom = "EnemyBurrowDirtA_Radial"
+		FilePath = "Particles\particle_dirt_02"
+	}
+	
+	{
+		Name = "EnemyBurrowDirtC_Radial"
+		InheritFrom = "EnemyBurrowDirtA_Radial"
+		FilePath = "Particles\particle_dirt_03"
+	}
+	
+	{
+		Name = "EnemyBurrowEntrance"
+		ChainTo = "EnemyBurrowEntranceDissipate"
+		FilePath = "Fx\StyxBurrowHoleDecalIn\StyxBurrowHoleDecalIn"
+		GroupName = "FX_Terrain"
+		
+		VisualFx = "EnemyBurrowDirt"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/RatThug/RatThugSpawnLoop"
+		StopSoundOnFinishFade = 0.25
+		ColorFromOwner = "Ignore"
+		EndFrame = 60
+		NumFrames = 60
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		Ambient = 0.0
+		Saturation = -0.4
+		Value = -0.2
+		Hue = 0.1
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+		UseAttachedFlasher = false
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 40*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 50*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 80 }
+			/*Frame 60*/
+		]
+	}
+
+	{
+		Name = "EnemyBurrowEntranceSmall"
+		InheritFrom = "EnemyBurrowEntrance"
+		VisualFx = "EnemyBurrowDirtSmall"
+		Sound = "/EmptyCue"
+		Scale = 0.4
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.15
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 40*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 50*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 80 }
+			/*Frame 60*/
+		]
+	}
+	
+	{
+		Name = "EnemyBurrowExitSmall"
+		InheritFrom = "EnemyBurrowEntranceSmall"
+		ChainTo = "null"
+		PlayBackwards = true
+		LocationFromOwner = "Ignore"
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 40*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 50*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 80 }
+			/*Frame 60*/
+		]
+	}
+	
+	{
+		Name = "EnemyBurrowEntranceDissipate"
+		InheritFrom = "EnemyBurrowEntrance"
+		ChainTo = "null"
+		FilePath = "Fx\StyxBurrowHoleDecalOut\StyxBurrowHoleDecalOut"
+		
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		EndFrame = 16
+		NumFrames = 16
+		PlaySpeed = 30.0
+		StartFrame = 1
+		TransferAngle = true
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 40*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 50*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 80 }
+			/*Frame 60*/
+		]
+	}
+
+	{
+		Name = "EnemyChargeFxIn"
+		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
+		NumFrames = 60
+		PlaySpeed = 60
+		Material = "Unlit"
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0
+		EaseOut = 0.1
+		Scale = 0.5
+		SortMode = "FromParent"
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		ChainTo = "EnemyChargeFxOut"
+		GroupName = "FX_Standing_Add"
+		RadialOffsetMin = 35
+		RadialOffsetMax = 35
+		CreateAnimation = "EnemyChargeFxInDark"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		DieWithOwner = true
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/AttackLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "EnemyChargeFxInDark"
+		InheritFrom = "EnemyChargeFxIn"
+		GroupName = "FX_Dark"
+		Red = 0 
+		Green = 0
+		Blue =0 
+		CreateAnimation = null
+		Sound = null
+		DieWithOwner = true
+		ChainTo = "EnemyChargeFxOutDark"
+	}
+
+	{
+		Name = "EnemyChargeFxOut"
+		InheritFrom = "EnemyChargeFxIn"
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		ChainTo = null
+		CreateAnimation = null
+		Sound = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark"
+		InheritFrom = "EnemyChargeFxOut"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+
+	{
+		Name = "EnemyChargeFxIn_Radiator"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Radiator"
+		ChainTo = "EnemyChargeFxOut_Radiator"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		PlaySpeed = 40
+		Scale = 0.9
+		GrannyAttachedMarkerLocation = "Radiator_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Radiator"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Radiator"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		PlaySpeed = 40
+		Scale = 0.65
+		GrannyAttachedMarkerLocation = "Radiator_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Radiator"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Scale = 0.65
+		GrannyAttachedMarkerLocation = "Radiator_Rig:eye_00_M_JNT"
+		ChainTo = "EnemyChargeFxOutDark_Radiator"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_Radiator"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Scale = 0.65
+		GrannyAttachedMarkerLocation = "Radiator_Rig:eye_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_Mage"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Mage"
+		ChainTo = "EnemyChargeFxOut_Mage"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Mage_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Mage"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Mage"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Mage_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Mage"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Mage_Rig:eye_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_Mage"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Mage_Rig:eye_00_M_JNT"
+	}
+
+
+
+	{
+		Name = "EnemyChargeFxIn_Screamer"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Screamer"
+		ChainTo = "EnemyChargeFxOut_Screamer"
+		RadialOffsetMin = 20
+		RadialOffsetMax = 20
+		OffsetZ = -10
+		PlaySpeed = 60
+		GrannyAttachedMarkerLocation = "Screamer_rig:head_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Screamer"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Screamer"
+		RadialOffsetMin = 20
+		RadialOffsetMax = 20
+		OffsetZ = -10
+		PlaySpeed = 60
+		GrannyAttachedMarkerLocation = "Screamer_rig:head_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Screamer"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 20
+		RadialOffsetMax = 20
+		OffsetZ = -10
+		GrannyAttachedMarkerLocation = "Screamer_rig:head_00_M_JNT"
+		ChainTo = "EnemyChargeFxOutDark_Screamer"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_Screamer"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 20
+		RadialOffsetMax = 20
+		OffsetZ = -10
+		GrannyAttachedMarkerLocation = "Screamer_rig:head_00_M_JNT"
+	}
+
+
+
+	{
+		Name = "EnemyChargeFxIn_Guard"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Guard"
+		ChainTo = "EnemyChargeFxOut_Guard"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		PlaySpeed = 70
+		Scale = 0.7
+		GrannyAttachedMarkerLocation = "Guard_Rig:spine_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Guard"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Guard"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		PlaySpeed = 70
+		Scale = 0.7
+		GrannyAttachedMarkerLocation = "Guard_Rig:spine_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Guard"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Scale = 0.7
+		GrannyAttachedMarkerLocation = "Guard_Rig:spine_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_Guard"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Scale = 0.7
+		GrannyAttachedMarkerLocation = "Guard_Rig:spine_00_M_JNT"
+	}
+
+
+	{
+		Name = "EnemyChargeFxIn_LightRanged"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_LightRanged"
+		ChainTo = "EnemyChargeFxOut_LightRanged"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "LightRanged_Rig:upperStaff_02_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_LightRanged"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_LightRanged"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "LightRanged_Rig:upperStaff_02_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_LightRanged"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "LightRanged_Rig:upperStaff_02_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_LightRanged"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "LightRanged_Rig:upperStaff_02_M_JNT"
+	}
+
+
+	{
+		Name = "EnemyAttackSparkle"
+		ChildAnimation = "EnemyAttackLaserStart"
+		FilePath = "Particles\particle_enemyAttackSparkle"
+		
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		IsometricSkew = "Y"
+		EndScale = 0.0
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "EnemyAttackLight" }
+			{ Name = "RadiatorBeamStartLine" }
+		]
+	}
+	
+	{
+		Name = "EnemyAttackSparkleLarge"
+		InheritFrom = "EnemyAttackSparkle"
+		ChildAnimation = "EnemyAttackLaserStartLarge"
+		Scale = 3.5
+		CreateAnimations =
+		[
+			{ Name = "EnemyAttackLight" }
+		]
+	}
+	
+	{
+		Name = "EnemyAttackLaserStart"
+		FilePath = "Fx\RadialNova\RadialNova"
+		GroupName = "Standing"
+		
+		Duration = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 44
+		NumFrames = 44
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		Velocity = 200.0
+		IsometricSkew = "Y"
+		Scale = 0.15
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.10 }
+	}
+	
+	{
+		Name = "EnemyAttackLaserStartLarge"
+		InheritFrom = "EnemyAttackLaserStart"
+		Scale = 0.3
+	}
+	
+	{
+		Name = "EnemyAttackLight"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		
+		StartAlpha = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.10 }
+	}
+
+	{
+		Name = "WitchcraftBlobsSpike"			
+		Random =
+		[
+			{ Name = "WitchcraftBlobSpikeA" }
+			{ Name = "WitchcraftBlobSpikeB" }
+			{ Name = "WitchcraftBlobSpikeC" }
+			{ Name = "WitchcraftBlobSpikeD" }
+		]
+	}
+	
+	{
+		Name = "WitchcraftBlobSpikeA"
+		FilePath = "Fx\WitchcraftBlobsA\WitchcraftBlobsA"
+		GroupName = "Standing"			
+		AngleFromOwner = "Ignore"
+		AngleMax = 180.0
+		UseOwnAngle = false
+		EaseOut = 1.0
+		EndFrame = 50
+		NumFrames = 50
+		RandomPlaySpeedMax = 48.0
+		RandomPlaySpeedMin = 36.0
+		StartFrame = 25
+		RandomFlipHorizontal = true
+		RadialOffsetMax = 30.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		Acceleration = -200.0
+		VelocityMax = 200.0
+		VelocityMin = 50.0
+		ScaleMax = 2.0
+		ScaleMin = 0.75
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "WitchcraftBlobSpikeB"
+		InheritFrom = "WitchcraftBlobSpikeA"
+		FilePath = "Fx\WitchcraftBlobsB\WitchcraftBlobsB"
+	}
+	
+	{
+		Name = "WitchcraftBlobSpikeC"
+		InheritFrom = "WitchcraftBlobSpikeA"
+		FilePath = "Fx\WitchcraftBlobsC\WitchcraftBlobsC"
+	}
+	
+	{
+		Name = "WitchcraftBlobSpikeD"
+		InheritFrom = "WitchcraftBlobSpikeA"
+		FilePath = "Fx\WitchcraftBlobsD\WitchcraftBlobsD"
+	}
+
+	{
+		Name = "EnemySpawnBurst"
+		FilePath = "Fx\EnemySpawnBurst\EnemySpawnBurst"
+		VisualFx = "EnemySpawnBurstLight2"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Sound = "/SFX/Enemy Sounds/EnemyPhaseInPoofSFX"
+		ColorFromOwner = "Ignore"
+		EndFrame = 71
+		NumFrames = 71
+		PlaySpeed = 90.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxCap = 3
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLight" }
+			{ Name = "EnemySpawnBurstLight3" }
+		]
+	}
+	
+	{
+		Name = "EnemySpawnBurstLight"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		EndScale = 1.6
+		PostRotateScaleY = 0.5
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 1.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+	}
+
+	{
+		Name = "EnemySpawnBurstLightChronos"
+		InheritFrom = "EnemySpawnBurstLight"
+		FilePath = "Particles\particle_quickFlashIris"
+		PostRotateScaleY = 1
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 0
+		OffsetZ = 60
+		Sound = "/SFX/Enemy Sounds/EnemyPhaseInPoofSFX"
+		Color = { Red = 1.0 Green = 0.7 Blue = 0.4 }
+	}
+	
+	{
+		Name = "EnemySpawnBurstLight3"
+		InheritFrom = "EnemySpawnBurstLight"
+		FilePath = "Particles\particle_quickflashIris"
+		EndBlue = 0.2
+		EndRed = 0.999
+		StartBlue = 0.5
+		StartGreen = 0.3
+		StartRed = 1.0
+		PostRotateScaleY = 1.0
+		Scale = 0.5
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "EnemySpawnBurstLightChronos3"
+		InheritFrom = "EnemySpawnBurstLight"
+		Color = { Red = 1.0 Green = 0.9 Blue = 0.8 }
+	}
+	
+	{
+		Name = "EnemySpawnBurstLight2"
+		InheritFrom = "EnemySpawnBurstLight"
+		FilePath = "Particles\particle_directionalFlash"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		RandomDurationMax = 0.35
+		RandomDurationMin = 0.15
+		OriginX = 256.0
+		OriginY = 500.0
+		RandomOffsetX = 5.0
+		EndScaleY = 3.5
+		PostRotateScaleY = 1.0
+		Scale = 0.66
+		ScaleMax = 1.2
+		ScaleMin = 0.6
+		ScaleX = 0.03
+		StartScaleY = 1.5
+	}
+
+	{
+		Name = "EnemySpawnBurstLightChronos2"
+		InheritFrom = "EnemySpawnBurstLightChronos"
+		Sound = null
+	}
+	
+	{
+		Name = "EnemyPreSpawnTerrain"
+		FilePath = "Fx\EnemyPreSpawnTerrain\EnemyPreSpawnTerrain"
+		GroupName = "FX_Terrain"			
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyPhaseInSFX"
+		ColorFromOwner = "Ignore"
+		EndFrame = 147
+		NumFrames = 147
+		PlaySpeed = 90.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		Scale = 0.6
+		ScaleFromOwner = "Ignore"
+		TimeModifierFraction = 1.0
+		UseAttachedTimeMultiplier = true
+	}
+
+	{
+		Name = "EnemyPreSpawnTerrainChronos"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		FilePath = "Fx\EnemyPreSpawnTerrainChronos\EnemyPreSpawnTerrainChronos"
+		Sound = "/SFX/Enemy Sounds/ChronosSpawnSigil_Medium"
+		Scale = 1.5
+	}
+
+	{
+		Name = "EnemyPreSpawnTerrainChronosLarge"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		Scale = 2.0
+		FilePath = "Fx\EnemyPreSpawnTerrainChronos\EnemyPreSpawnTerrainChronos"
+		Sound = "/SFX/Enemy Sounds/ChronosSpawnSigil_Large"
+	}
+
+	{
+		Name = "EnemyPreSpawnTerrainChronos_Small"
+		InheritFrom = "EnemyPreSpawnTerrainChronos"
+		Sound = "/SFX/Enemy Sounds/ChronosSpawnSigil_Small"
+		CreateAnimation = null
+		Scale = 0.75
+	}
+
+	{
+		Name = "EnemyPreSpawnTerrainQuick"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		PlaySpeed = 120
+	}
+	
+	{
+		Name = "EnemyPreSpawnStanding"
+		FilePath = "Fx\EnemyPreSpawnStanding\EnemyPreSpawnStanding"
+		Material = "unlit"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 135
+		NumFrames = 135
+		PlaySpeed = 90.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		TimeModifierFraction = 1.0
+		UseAttachedTimeMultiplier = true
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingQuick"
+		InheritFrom = "EnemyPreSpawnStanding"
+		PlaySpeed = 120
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.01
+		EndGreen = 0.01
+		EndBlue = 0.01
+	}
+	
+	{
+		Name = "EnemyPreSpawnTerrainSmall"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		Scale = 0.4
+	}
+
+	{
+		Name = "EnemyPreSpawnTerrainSmall_120"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		PlaySpeed = 120
+		Scale = 0.4
+	}
+	
+	{
+		Name = "EnemyPreSpawnStandingSmall"
+		InheritFrom = "EnemyPreSpawnStanding"
+		Scale = 0.35
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingSmall_120"
+		InheritFrom = "EnemyPreSpawnStanding"
+		PlaySpeed = 120
+		Scale = 0.35
+	}
+	
+	{
+		Name = "EnemySpawnBurstSmall"
+		InheritFrom = "EnemySpawnBurst"
+		Scale = 0.67
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLight" }
+			{ Name = "EnemySpawnBurstLight3" }
+		]
+	}
+	
+	{
+		Name = "EnemyPreSpawnTerrainMedium"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		Scale = 0.85
+	}
+	
+	{
+		Name = "EnemyPreSpawnStandingMedium"
+		InheritFrom = "EnemyPreSpawnStanding"
+		Scale = 0.75
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingMediumChronos_Old"
+		InheritFrom = "EnemyPreSpawnStandingMedium"
+		Hue = 0.1
+		Saturation = -1
+		StartRed = 0.5
+		StartGreen = 0.2
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.4
+		AddColor = true
+		PingPongColor = false
+		StartScaleX = 0.5
+		EndScaleX = 1.0
+		StartScale = 0.1
+		EndScale = 1.0
+		EaseIn = 0
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		VisualFx = "EnemyPreSpawnChronosSand"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ChronosSpawnGlow" }
+		]
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingMediumChronos"
+		FilePath = "Fx\EnemyPreSpawnStandingChronos\EnemyPreSpawnStandingChronos"
+		NumFrames = 147
+		PlaySpeed = 60
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1
+		OffsetZ = 60
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "ChronosSpawnGlow" }
+			{ Name = "EnemyPreSpawnStandingMediumChronosDark" }
+		]
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingMediumChronosDark"
+		InheritFrom = "EnemyPreSpawnStandingMediumChronos"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingLargeChronos"
+		InheritFrom = "EnemyPreSpawnStandingMediumChronos"
+		Scale = 1.5
+		OffsetZ = 90
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosSpawnGlow" }
+			{ Name = "EnemyPreSpawnStandingLargeChronosDark" }
+		]
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingLargeChronosDark"
+		InheritFrom = "EnemyPreSpawnStandingLargeChronos"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "EnemyPreSpawnStandingSmallChronos"
+		InheritFrom = "EnemyPreSpawnStandingMediumChronos"
+		Scale = 0.33
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosSpawnGlowSmall" }
+		]
+	}
+
+	{
+		Name = "ChronosSpawnGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 1.5
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		Red = 1
+		Green = 0.8
+		Blue = 0.6
+		Alpha = 0.33
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 3
+		OffsetZ = 50
+		StartScaleX = 1
+		EndScaleX = 0.5
+	}
+
+	{
+		Name = "ChronosSpawnGlowSmall"
+		InheritFrom = "ChronosSpawnGlow"
+		Scale = 0.5
+	}
+
+	{
+		Name = "EnemyPreSpawnChronosSand"
+		FilePath = "Particles\particle_dirtSpray_04"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotationSpeedMin = -11
+		RandomRotationSpeedMax = 11
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		RandomOffsetX = 20
+		RandomOffsetY = 50
+		OffsetZ = 20
+		VelocityMin = 120
+		VelocityMax = 200
+		Acceleration = -100
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Angle = 90
+		Scale = 0.6
+		AddColor = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.3
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "EnemySpawnBurstMedium"
+		InheritFrom = "EnemySpawnBurst"
+		Scale = 1.1
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLight" }
+			{ Name = "EnemySpawnBurstLight3" }
+		]
+	}
+
+	{
+		Name = "EnemySpawnBurstMediumChronos"
+		InheritFrom = "EnemySpawnBurst"
+		Hue = 0.18
+		Saturation = -0.1
+		GroupName = "FX_Standing_Add"
+		VisualFx = "EnemySpawnBurstLightChronos2"
+		Scale = 1.1
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLightChronos" }
+			{ Name = "EnemySpawnBurstLightChronos3" }
+		]
+	}		
+
+	{
+		Name = "EnemySpawnBurstLargeChronos"
+		InheritFrom = "EnemySpawnBurstMediumChronos"
+		Scale = 1.4
+	}
+	
+	{
+		Name = "EnemyPreSpawnTerrainLarge"
+		InheritFrom = "EnemyPreSpawnTerrain"
+		Scale = 1.3
+	}
+	
+	{
+		Name = "EnemyPreSpawnStandingLarge"
+		InheritFrom = "EnemyPreSpawnStanding"
+		Scale = 1.25
+	}
+	
+	{
+		Name = "EnemySpawnBurstLarge"
+		InheritFrom = "EnemySpawnBurst"
+		Scale = 1.4
+		CreateAnimations =
+		[
+			{ Name = "EnemySpawnBurstLight" }
+			{ Name = "EnemySpawnBurstLight3" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathSmokeA"			
+		FilePath = "Fx\EnemyDeathSmokeA\EnemyDeathSmokeA"
+		NumFrames = 43
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.5
+		ScaleMax = 1.1
+		RandomOffsetX = 4
+		RandomOffsetY = 60
+		OffsetZ = 30
+		StartScale = 0.6
+		EndScale = 1.2
+		EaseIn = 0.99
+		EaseOut = 1.00
+		SortMode = "FromParent"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		StartScaleY = 0.9
+		EndScaleY = 1.0
+		VelocityMin = 0
+		VelocityMax = 100
+		Acceleration = -100
+		Scale = 1.6
+		PostRotateScaleY = 0.7
+	}
+
+	{
+		Name = "EnemyDeathSmokeB"
+		InheritFrom = "EnemyDeathSmokeA"
+		FilePath = "Fx\EnemyDeathSmokeB\EnemyDeathSmokeB"
+	}
+
+	{
+		Name = "EnemyDeathSmokeA_Small"
+		InheritFrom = "EnemyDeathSmokeA"
+		Scale = 0.8
+	}
+
+	{
+		Name = "EnemyDeathSmokeB_Small"
+		InheritFrom = "EnemyDeathSmokeB"
+		Scale = 0.8
+	}
+
+	{
+		Name = "EnemyDeathSmokeColorA"
+		InheritFrom = "EnemyDeathSmokeA"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "EnemyDeathSmokeColorB"
+		InheritFrom = "EnemyDeathSmokeColorA"
+		FilePath = "Fx\EnemyDeathSmokeB\EnemyDeathSmokeB"
+	}
+
+	{
+		Name = "EnemyDeathSmokeColorA_Small"
+		InheritFrom = "EnemyDeathSmokeA"
+		Scale = 0.8
+	}
+
+	{
+		Name = "EnemyDeathSmokeColorB_Small"
+		InheritFrom = "EnemyDeathSmokeB"
+		Scale = 0.8
+	}
+
+	{
+		Name = "EnemyDeathSmokeRandom"			
+		Random =
+		[
+			{ Name = "EnemyDeathSmokeA" }
+			{ Name = "EnemyDeathSmokeB" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathSmokeRandom_Small"
+		Random =
+		[
+			{ Name = "EnemyDeathSmokeA_Small" }
+			{ Name = "EnemyDeathSmokeB_Small" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathSmokeColor"
+		
+		Random =
+		[
+			{ Name = "EnemyDeathSmokeColorA" }
+			{ Name = "EnemyDeathSmokeColorB" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathSmokeColor_Small"
+		
+		Random =
+		[
+			{ Name = "EnemyDeathSmokeColorA_Small" }
+			{ Name = "EnemyDeathSmokeColorB_Small" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFxFish"
+		FilePath = "Dev\blank_invisible"
+		AngleFromOwner = "Ignore"
+		Duration = 0.25
+		VisualFx = "EnemyDeathFishBlood"
+		VisualFxManagerFrameCap = 18
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathFishGuts" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPopFish" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFxFishSmall"
+		FilePath = "Dev\blank_invisible"
+		AngleFromOwner = "Ignore"
+		Duration = 0.25
+		VisualFx = "EnemyDeathFishBlood"
+		VisualFxManagerFrameCap = 18
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathFishGutsSmall" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPopFish" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFishBlood"
+		FilePath = "Particles\particle_waterSprayIris01"
+		RandomRotation = true
+		Red = 1
+		Green = 0
+		Blue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -100
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		StartScale = 0.5
+		EndScale = 1.0
+		Scale = 1.5
+		OffsetZ = 60
+		Gravity = 100
+		Angle = 180
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "EnemyDeathFxIris"
+		FilePath = "Dev\blank_invisible"
+		AngleFromOwner = "Ignore"
+		Duration = 0.25
+		VisualFx = "EnemyDeathSmokeRandom"
+		VisualFxManagerFrameCap = 18
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathSmokeColor" }
+			{ Name = "EnemyDeathSmokeColor" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPop" }
+		]
+	}		
+
+	{
+		Name = "EnemyDeathFxIris_Large"
+		FilePath = "Dev\blank_invisible"
+		AngleFromOwner = "Ignore"
+		Duration = 0.25
+		VisualFx = "EnemyDeathSmokeRandom"
+		VisualFxManagerFrameCap = 18
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathSmokeColor" }
+			{ Name = "EnemyDeathSmokeColor" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPop" }
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathSplatGroundRandom"}
+			{ Name = "EnemyDeathMudSplat" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFxChronos"
+		InheritFrom = "EnemyDeathFxIris"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathPopDark" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPopSand" }
+			{ Name = "EnemyDeathPopSandDark" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathFxChronosSmall"
+		InheritFrom = "EnemyDeathFxChronos"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathPopDark" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPopSandSmall" }
+		]
+	}
+
+	{ 
+		Name = "EnemyDeathPopSand" 
+		FilePath = "Fx\EnemyDeathPopSand\EnemyDeathPopSand"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		NumFrames = 70
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		OffsetZ = 100
+		AddColor = true
+		SortMode = "FromParent"
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}		
+
+	{
+		Name = "EnemyDeathPopSandSmall"
+		InheritFrom = "EnemyDeathPopSand"
+		Scale = 0.85
+		PlaySpeed = 45
+	}
+
+	{ 
+		Name = "EnemyDeathPopSandDark" 
+		InheritFrom = "EnemyDeathPopSand"
+		PlaySpeed = 36
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "EnemyDeathMudSplat"
+		FilePath = "Fx\EphyraMudSplat\EphyraMudSplat"
+		NumFrames = 25
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 34
+		RandomPlaySpeedMax = 36
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 160
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+	}
+
+	{
+		Name = "EnemyDeathFxIris_Small"
+		InheritFrom = "EnemyDeathFxIris"
+		VisualFx = "EnemyDeathSmokeRandom_Small"
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathSmokeColor_Small" }
+			{ Name = "EnemyDeathSmokeColor_Small" }
+			{ Name = "EnemyDeathLightIris" }
+			{ Name = "EnemyDeathLightIris2" }
+			{ Name = "EnemyDeathLightIris3" }
+			{ Name = "EnemyDeathPop_Small" }
+		]
+	}
+
+	{
+		Name = "EnemyDeathLightIris"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"			
+		StartAlpha = 1
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0
+		Duration = 0.45
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 1.0
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFx = "EnemyDeathParticlesIris"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 18
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 2
+	}
+
+	{
+		Name = "EnemyDeathParticlesIris"			
+		FilePath = "Particles\particle_streak_add"
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		OriginX = 461
+		OriginY = 25
+		AngleMin = 10
+		AngleMax = 170
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		StartScaleX = 1
+		EndScaleX = 0.1
+		StartScale = 1
+		EndScale = 0
+		RadialOffsetMin = 100
+		RadialOffsetMax = 200
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "EnemyDeathLightIris2"
+		InheritFrom = "EnemyDeathLightIris"
+		PostRotateScaleY = 1
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 1.4
+		EndScale = 0
+		RandomRotation = true
+	}
+
+	{
+		Name = "EnemyDeathLightIris3"
+		InheritFrom = "EnemyDeathLightIris"
+		PostRotateScaleY = 1
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 0.5
+		EndScale = 0
+		RandomRotation = true
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}
+	{
+		Name = "EnemyDeathLightIrisLarge"
+		InheritFrom = "EnemyDeathLightIris"
+		Scale = 2.0
+		Duration = 0.5
+		OffsetZ = 60
+	}
+	{
+		Name = "EnemyDeathLightIrisLarge2"
+		InheritFrom = "EnemyDeathLightIris2"
+		StartScale = 1.6
+		Duration = 0.5
+		OffsetZ = 60
+	}
+	{
+		Name = "EnemyDeathLightIrisLarge3"
+		InheritFrom = "EnemyDeathLightIris3"
+		StartScale = 1.0
+		Duration = 0.5
+		OffsetZ = 60
+	}
+
+	{
+		Name = "BasePreAttackGlow"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+
+		//GrannyAttachedMarkerLocation = "Brawler_Rig:index_01_R_JNT"
+		VisualFx = "BasePreAttackGlowStreaks"
+		
+		Duration = 0.8
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 1.0
+		StartScale = 0.1
+		EndScale = 0.44
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.5
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1.0
+		EndGreen = 0.01
+		EndBlue = 0.2
+		ColorFromOwner = "Ignore"
+		RandomRotation = true
+		RotationSpeed = 90
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+		VisualFxCap = 15
+		Material = "Unlit"
+	}
+	{
+		Name = "BasePreAttackGlowStreaks"
+
+		//GrannyAttachedMarkerLocation = "Brawler_Rig:index_01_R_JNT"
+		
+		FilePath = "Fx\AlectoChargeLine\AlectoChargeLine"
+		NumFrames = 25
+		RandomPlaySpeedMax = 90
+		RandomPlaySpeedMin = 60
+		AngleMin = 0
+		AngleMax = 360
+		AddColor = false
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		OriginX = 512
+		OriginY = 50
+		ScaleX = 0.5
+		ScaleY = 1.5
+		ScaleMin = 1
+		ScaleMax = 2
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "EnemyPreAttackTrail"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.05
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Duration = 0.5
+		StartScale = 1
+		EndScale = 0
+		Scale = 0.05
+		UseAttachedFlasher = false
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{ 
+		Name = "EnemyHitShieldAddedFx"
+		FilePath = "Fx\SafeZoneBubbleIn\SafeZoneBubbleIn"
+		NumFrames = 15
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 45
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Scale = 0.5
+		OffsetY = 0
+		ScaleFromOwner = "Ignore"
+		ChainTo = "EnemyHitShieldAddedFxFade"
+	}
+
+	{
+		Name = "EnemyHitShieldAddedFxFade"
+		InheritFrom = "EnemyHitShieldAddedFx"
+		OffsetY = -25
+		NumFrames = 1
+		StartScale = 0.75
+		EndScale = 0.74
+		ChainTo = null
+		FilePath = "Particles\particle_hemiBubble"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.3
+		CreateAnimations =
+		[
+			{ Name = "EnemyHitShieldAddedFxFadeTwinkle" }
+		]
+	}
+
+	{
+		Name = "EnemyHitShieldAddedFxFadeTwinkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		AddColor = true
+		Red = 0
+		Green = 0.6
+		Blue = 1.0
+		StartScale = 1
+		EndScale = 0
+		PingPongScale = false
+		GroupName = "FX_Standing_Add"
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 0.9
+		OffsetY = -33
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+	}
+
+	{
+		Name = "EliteUnitStatus"
+		CreateAnimation = "EliteUnitStatusGlow"
+		FilePath = "Fx\EliteUnitStatus\EliteUnitStatus"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		PlaySpeed = 30.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		FlipVertical = true
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		DrawBehindOwner = true
+		LocationZFromOwner = "Ignore"
+		RotationSpeed = 20.0
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "EliteUnitStatusGlow" }
+			{ Name = "EliteUnitStatus_Add" }
+		]
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "EliteUnitStatus2"
+		InheritFrom = "EliteUnitStatus"
+		CreateAnimation = "null"
+		PlaySpeed = 45.0
+		Hue = 0.17
+		CreateAnimations =
+		[
+			{ Name = "EliteUnitStatusGlow2" }
+			{ Name = "EliteUnitStatus2_Add" }
+		]
+	}
+	
+	{
+		Name = "EliteUnitStatus_Add"
+		InheritFrom = "EliteUnitStatus"
+		GroupName = "FX_Terrain_Add"
+		CreateAnimations = []
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "EliteUnitStatus2_Add"
+		InheritFrom = "EliteUnitStatus2"
+		GroupName = "FX_Terrain_Add"
+		CreateAnimations = []
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "EliteUnitStatusGlow"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		Alpha = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		Scale = 0.7
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+	}
+	
+	{
+		Name = "EliteUnitStatusGlow2"
+		InheritFrom = "EliteUnitStatusGlow"
+		Alpha = 0.4
+		Color = { Red = 1.0 Green = 0.30 Blue = 0.0 }
+	}
+
+	{
+		Name = "EnemyLaserPreview"
+		ChainTo = "EnemyLaser"
+		FilePath = "Fx\EnemyLaserPreview\EnemyLaserPreview"
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamPreAttack"
+		StopSoundOnFinishFade = 0.25
+		AddColor = true
+		EndBlue = 0.9
+		EndRed = 1.0
+		StartBlue = 0.3
+		StartGreen = 0.01
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 50.0
+		StartFrame = 1
+		OriginY = 64.0
+		ScaleLength = 512.0
+		ScaleY = 0.4
+		Ambient = 0.0
+		OverlayVfx = true
+	}
+]}

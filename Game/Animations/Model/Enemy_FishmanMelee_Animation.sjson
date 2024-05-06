@@ -1,0 +1,568 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyFishmanMeleeBaseAnimation"
+		
+		GrannyModel = "FishmanMelee_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+		Material = "Unlit"
+	}
+
+	/*Idle Move Spawn*/
+
+	{
+		Name = "Enemy_FishmanMelee_Idle"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "FishmanIdleFootstepFR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 2
+				FootstepFxR = ""
+				FootstepFxL = "FishmanIdleFootstepFL"
+			}
+			{
+				Frame = 3
+				FootstepFxR = "FishmanIdleFootstepBR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 4
+				FootstepFxR = ""
+				FootstepFxL = "FishmanIdleFootstepBL"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Move"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Move_C_00"
+		VisualFx = "FloodTrapFxTrailWakeUnit"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 28
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 55
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Spawn"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Spawn_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 0.75
+		Sound = "/Leftovers/World Sounds/ClickSplashSlosh"
+		VisualFx = "OceanusEnemySplashSmall_Air"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		Enable3DShadow = false
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CreateAnimations =
+		[
+			{ Name = "FishmanJumpStreak" }
+		]
+		Frames =
+		[
+			{
+				Frame = 24
+				Sound = "/Leftovers/SFX/FootstepsWetLarge"
+			}
+			{
+				Frame = 25
+				Sound = "/SFX/Enemy Sounds/FishmanMelee/EmoteLanding"
+			}
+		]
+	}
+
+	{ //Currently Using Move instead of FishmanMelee_Base_MoveStart_C_00
+		Name = "Enemy_FishmanMelee_MoveStart"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Move_C_00"
+		ChainTo = "Enemy_FishmanMelee_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_PullSwingReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_MoveStop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Move"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_HitStun_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Spawn"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 28
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 55
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_MoveStop"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_MoveStop_C_00"
+		ChainTo = "Enemy_FishmanMelee_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	/*HitStun*/
+
+	{
+		Name = "Enemy_FishmanMelee_HitStun"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_GetHit_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_FishmanMelee_Idle"
+		Sound = "/SFX/Enemy Sounds/FishmanMelee/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 1
+				FrameSpeed = 2
+			}
+			{
+				Frame = 8
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_HitStun_Heavy"
+		InheritFrom = "Enemy_FishmanMelee_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/*Attacks*/
+
+	{
+		Name = "Enemy_FishmanMelee_ImpaleCharge"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_ImpaleAntic_C_00"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Spawn"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 5
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 4
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 2
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_ImpaleFire"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_ImpaleFire_C_00"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_ImpaleCharge"
+				Duration = 2
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 5
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 4
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 2
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+		]
+	}
+
+	{ // Currently Unused
+		Name = "Enemy_FishmanMelee_ImpaleReturnToIdle"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_ImpaleReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_PullSwingFire"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_PullSwingFire_C_00"
+
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 3
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 5
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 7
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_ImpaleFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Elite_PullSwing_Fire"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_PullSwingFire_C_00"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_ImpaleFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_PullSwingReturnToIdle"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_PullSwingReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "FishmanWaterSplashFootstepFR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 3
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepFL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 5
+				FootstepFxR = "FishmanWaterSplashFootstepBR"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 7
+				FootstepFxR = ""
+				FootstepFxL = "FishmanWaterSplashFootstepBL"
+				Sound = "/SFX/Enemy Sounds/WetClawFootstepsLarge"
+			}
+			{
+				Frame = 31
+				FootstepFxR = "FishmanIdleFootstepFR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 33
+				FootstepFxR = ""
+				FootstepFxL = "FishmanIdleFootstepFL"
+			}
+			{
+				Frame = 35
+				FootstepFxR = "FishmanIdleFootstepBR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 37
+				FootstepFxR = ""
+				FootstepFxL = "FishmanIdleFootstepBL"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Slam_Start"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_ImpaleAntic_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 2.0
+
+		Frames =
+		[
+			{
+				Frame = 45
+				FrameSpeed = 0
+			}
+		]
+		Blends = 
+		[ 
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_PullSwingReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Slam_Fire"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Spawn_C_00"
+		ChainTo = "Enemy_FishmanMelee_Slam_End"
+
+		Frames =
+		[
+			{
+				Frame = 45
+				FrameSpeed = 0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_Start"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanMelee_Slam_End"
+		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
+		GrannyAnimation = "FishmanMelee_Base_Spawn_C_00"
+		ChainTo = "Enemy_FishmanMelee_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 46
+				FrameSpeed = 1
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_Fire"
+				Duration = 2
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_FishmanMelee_Death"
+		InheritFrom = "Enemy_FishmanMelee_HitStun"
+		HoldLastFrame = true
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+]}

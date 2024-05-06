@@ -1,0 +1,232 @@
+{ Animations = [
+	{
+		Name = "LightRangedAsphodel"
+		GrannyModel = "LightRangedAsphodel_Mesh"
+	}
+	{
+		Name = "EnemyLightRangedBaseAnimation"
+		GrannyModel = "LightRanged_Mesh"
+		ExtraGrannyAnimations = [{ Name = "LightRangedAsphodel" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 2.0
+		Loop = false
+		Enable3DShadow = true
+		OffsetZ = -50
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_LightRanged_Idle"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_Salute"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LightRanged_Move"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_Move_N_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_HitStun"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LightRanged_MoveStart"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_MoveStart_N_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_LightRanged_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LightRanged_MoveStop"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_MoveStop_N_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_Move"
+				Duration = 10
+			}
+		]
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_LightRanged_HitStun"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_GetHit_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/Caster/EmoteHurt"
+	}
+
+	/*Slam Attack*/
+
+	{
+		Name = "Enemy_LightRanged_CastPreAttack"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_CastAntic_C_00"
+		ChainTo = "Enemy_LightRanged_CastFire"
+		Loop = false
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_Move"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_MoveStart"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LightRanged_CastFire"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_CastFire_C_00"
+		ChainTo = "Enemy_LightRanged_CastReturnToIdle"
+		AllowRestart = true
+	}
+
+	{
+		Name = "Enemy_LightRanged_CastReturnToIdle"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_CastReturnToIdle_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_LightRanged_Salute"
+		InheritFrom = "EnemyLightRangedBaseAnimation"
+		GrannyAnimation = "LightRanged_Base_Salute_C_00"
+		ChainTo = "Enemy_LightRanged_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_LightRanged_Idle"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 100
+				FrameSpeed = 0
+			}
+		]
+
+	}
+
+
+
+	{
+		Name = "Enemy_LightRanged_Death"
+		InheritFrom = "Enemy_LightRanged_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 45
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_LightRanged_Spawn"
+		InheritFrom = "Enemy_LightRanged_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+
+] }

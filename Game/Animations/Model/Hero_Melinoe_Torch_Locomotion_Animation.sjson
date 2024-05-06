@@ -1,0 +1,383 @@
+{ Animations = [
+
+	// Torch Dash
+	{
+		Name = "Melinoe_Torch_Dash_Start"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_DashAntic_N_01"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Sprint_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Equip"
+				Duration = 6
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Dash_Fire"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_Dash_N_01"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Dash_End1"
+	}
+
+	{
+		Name = "Melinoe_Torch_Dash_End1"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_DashSettle_N_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Torch_Dash_End2"
+
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Dash_End2"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_DashSettle_N_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Torch_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	// Torch Turn
+
+	{
+		Name = "Melinoe_Torch_Turn_180"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunDirectionChange180_N_01"
+		NativeMoveSpeed = 540
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Melinoe_Torch_Run_FireLoop"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+	}
+
+	{
+		Name = "Melinoe_Torch_Turn_E90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunDirectionChangeE90_N_01"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Run_FireLoop"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+	}
+	{
+		Name = "Melinoe_Torch_Turn_W90"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunDirectionChangeW90_N_01"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Run_FireLoop"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+	}
+
+	// Torch Run
+
+	{
+		Name = "Melinoe_Torch_Run_Start"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_RunStart_N_00"
+		ChainTo = "Melinoe_Torch_Run_FireLoop"
+		NativeMoveSpeed = 540
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_End2"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_FireFinal"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack_EndSequence"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack2_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack2_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack3_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack3_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack4_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack4_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack5_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack5_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Equip"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Run_FireLoop"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_Run_N_01"
+		NativeMoveSpeed = 540
+		Loop = true
+
+		Frames =
+		[
+			{
+				Frame = 10
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 26
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeIdleWeaponless"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Sprint_FireLoop"
+				Duration = 8
+			}	
+			{
+				BlendTransitionFrom = "MelinoeTorchSpecialReturnToIdle"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "MelinoeTorchSpecialFire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "MelinoeTorchAttack1Loop"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_FireFinal"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Special1Ex_End"
+				Duration = 8
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack_EndSequence"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack2_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack2_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack3_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack3_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack4_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack4_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack5_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack5_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Cast_End"
+				Duration = 9
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_End1"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_End2"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Equip"
+				Duration = 5
+			}
+		
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Run_End"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_RunStop_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Torch_Idle"
+		CancelOnOwnerMove = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 10
+			}
+		]
+	}
+
+	// Torch Sprint
+	{
+		Name = "Melinoe_Torch_Sprint_FireLoop"
+		InheritFrom = "MelinoeBaseTorchAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Torch_Base_RunSprint_N_01"
+		NativeMoveSpeed = 740
+		Loop = true
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 24
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+	}
+
+	] }

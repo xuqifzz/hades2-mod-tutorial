@@ -1,0 +1,63 @@
+{
+  Projectiles = [
+    {
+      Name = "1_BaseProjectile"
+      ReflectFx = "AthenaDeflectedFx"
+    }
+    {
+      Name = "1_BaseLargeProjectile"
+      InheritFrom = "1_BaseProjectile"
+    }
+    {
+      Name = "1_BaseSmallProjectile"
+      InheritFrom = "1_BaseProjectile"
+    }
+    {
+      Name = "1_BaseBuffProjectile"
+      InheritFrom = "1_BaseProjectile"
+    }
+    {
+      Name = "1_BaseDebuffProjectile"
+      InheritFrom = "1_BaseProjectile"
+    }
+    {
+      Name = "1_BasePlayerLargeProjectile"
+      InheritFrom = "1_BaseLargeProjectile"
+      SpawnType = "PROJECTILE"
+    }
+    {
+      Name = "1_BasePlayerSmallProjectile"
+      InheritFrom = "1_BaseSmallProjectile"
+    }
+    /* Enemy Weapons */
+    {
+      Name = "1_BaseEnemyProjectile"
+      InheritFrom = "1_BaseProjectile"
+      CanBeProjectileDefenseDestroyed = false
+      CanBeProjectileDefenseDestroyedByName2 = "ProjectileAxeBlockSpin"
+      Thing = {
+        Graphic = "null"
+        RotateGeometry = false
+        Scale = 1.0
+        Points = [
+          {
+            X = 0
+            Y = 8
+          }
+          {
+            X = 32
+            Y = 0
+          }
+          {
+            X = 0
+            Y = -8
+          }
+          {
+            X = -32
+            Y = 0
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,473 @@
+{ Animations = [
+
+	{
+		Name = "EnemyGoldElementalBaseAnimation"
+
+		GrannyModel = "GoldElemental_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Enemy_GoldElemental_Idle"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_SkyPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	// Move
+	{
+		Name = "Enemy_GoldElemental_Move"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_MoveCycle_C_02"
+		Loop = true
+		Sound = "/Leftovers/SFX/RobeFlutterLoop"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 46
+				Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalMove"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_GoldElemental_MoveStart"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_MoveStart_C_02"
+		ChainTo = "Enemy_GoldElemental_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_GoldElemental_MoveStop"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_MoveStop_C_02"
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalMove"
+		ChainTo = "Enemy_GoldElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// On Hit
+	{
+		Name = "Enemy_GoldElemental_OnHit"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_OnHit_C_01"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_GoldElemental_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 2.3
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 49
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_OnHit_Heavy"
+		InheritFrom = "Enemy_GoldElemental_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Beam
+	{
+		Name = "Enemy_GoldElemental_BeamPreFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_BeamPreFire_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 63
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_GoldElemental_BeamFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_BeamPreFire_C_01"
+		ChainTo = "Enemy_GoldElemental_BeamFireLoop"
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalMove"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 64
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_BeamFireLoop"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_BeamFire_C_01"
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalLaserAttack"
+		StopSoundOnFinishFade = 0.2
+		Loop = true
+	}
+	{
+		Name = "Enemy_GoldElemental_BeamPostFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_BeamReturnToIdle_C_01"
+		ChainTo = "Enemy_GoldElemental_Idle"
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalMove"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_BeamFire"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalMove"
+			}
+		]
+	}
+
+	// Sky Cast
+	{
+		Name = "Enemy_GoldElemental_SkyPreFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_SkyCastPreFire_C_01"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.5
+		Frames =
+		[
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_SkyFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_SkyCastFire_C_01"
+		ChainTo = "Enemy_GoldElemental_SkyPostFire"
+		Frames =
+		[
+			{
+				Frame = 7
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_SkyPreFire"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_SkyPostFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_SkyCastReturnToIdle_C_01"
+		ChainTo = "Enemy_GoldElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_SkyFire"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 23
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	// Ground Cast
+	{
+		Name = "Enemy_GoldElemental_GroundPreFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_GroundPreCast_C_01"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_GoldElemental_GroundFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_GroundCast_C_01"
+		ChainTo = "Enemy_GoldElemental_GroundFire2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_GroundFire2"
+				Duration = 4
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 5
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_GroundFire2"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_GroundCast_C_01"
+		ChainTo = "Enemy_GoldElemental_GroundPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_GoldElemental_GroundPostFire"
+		InheritFrom = "EnemyGoldElementalBaseAnimation"
+		GrannyAnimation = "GoldElemental_Base_GroundCastReturnToIdle_C_01"
+		ChainTo = "Enemy_GoldElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_GoldElemental_GroundFire2"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+			Name = "Enemy_GoldElemental_Death"
+			InheritFrom = "Enemy_GoldElemental_OnHit"
+			DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+			Duration = 3.0
+			GrannyAnimationSpeed = 0.05
+			DeathFxFrameDuration = 180
+			DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+			DeathFxThickness = 0.05
+			DeathFxEaseIn = 0.5
+			DeathFxEaseOut = 1.0
+			StartRed = 1.0
+			StartGreen = 1.0
+			StartBlue = 1.0
+			EndRed = 0
+			EndGreen = 0
+			EndBlue = 0
+			EaseIn = 0.0
+			EaseOut = 1.0
+			StartScale = 1
+			EndScale = 1.05
+			StartAlpha = 1
+			EndAlpha = 0.5
+			LocationZFromOwner = "Take"
+			LocationFromOwner = "Take"
+			ColorFromOwner = "Ignore"
+			TimeModifierFraction = 0.0
+			Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+			AllowRestart = false
+			HoldLastFrame = true
+			BlockNewOwnerAnims = true
+			OwnerInvulnerable = true
+			OwnerUntargetable = true
+			OwnerHasNoCollision = true
+			OwnerImmobile = true
+			ChainTo = null
+			VisualFx = "EnemySandDeathFx"
+			VisualFxIntervalMin = 0.1
+			VisualFxIntervalMax = 0.45
+			VisualFxCap = 1
+			CreateAnimations = [
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "GoldElementalDeathCoins" }
+				{ Name = "EnemySandDeathFx" }
+			]
+			Frames =
+			[
+				{
+					Frame = 1
+					Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalDeathSFX"
+				}
+			]
+	}
+
+	{
+		Name = "Enemy_GoldElemental_Spawn"
+		InheritFrom = "Enemy_GoldElemental_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.8 Blue = 0.7 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+] }

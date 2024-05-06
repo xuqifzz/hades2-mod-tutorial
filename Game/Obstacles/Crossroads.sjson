@@ -1,0 +1,4742 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "CrossroadsHecateSymbol01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateSymbol_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainLichen01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Lichen_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsSticks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Sticks_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRuneCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RuneCircle_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRuneCircle02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RuneCircle_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRuneCircle03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RuneCircle_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateSymbol02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateSymbol_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_MelCircle_01"
+        Tallness = 10
+        Offset = { X = 0 Y = -5 }
+      }
+    }
+
+    {
+      Name = "CrossroadsMelCircle02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_MelCircle_02"
+        Tallness = 10
+        Offset = { X = 0 Y = -5 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsMoonPool01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_MoonPool_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainMoonFull01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainMoonFull_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainMoonHalf01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainMoonHalf_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainMoonNew01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainMoonNew_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainMoonWaning01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainMoonWaning_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainMoonWaxing01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainMoonWaxing_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass09"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainGrass_09"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStar01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainStar_01"
+      }
+    }
+    
+    {
+      Name = "ChaosGalaxyStars01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Chaos\Chaos_Stars_01"
+        
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBank02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bank_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrassSlope01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_Slope_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrassSlope01A"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_Slope_01A"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrassSlope02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_Slope_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrassSlope03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_Slope_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_05"
+        FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_06"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass08"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_08"
+        Tallness = 10
+        Offset = { X = 0 Y = -214 }
+        Points = [
+          { X = 89 Y = -8 }
+          { X = 61 Y = -42 }
+          { X = -49 Y = -46 }
+          { X = -97 Y = -20 }
+          { X = -94 Y = 24 }
+          { X = -41 Y = 48 }
+          { X = 60 Y = 43 }
+          { X = 90 Y = 24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBlueStones01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_BlueStones_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsCobbles01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cobbles_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRootCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RootCircle_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRootCircle02A"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RootCircle_02A"
+      }
+    }
+
+        {
+      Name = "CrossroadsRootCircle02B"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_RootCircle_02B"
+      }
+    }
+    
+    {
+      Name = "CrossroadsFrogPond01"
+      InheritFrom = "1_BaseInvulnerableLowObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FrogPond_01"
+        StopsUnits = true
+        StopsLight = false
+        Tallness = 40
+        Offset = { X = 0 Y = -15 }
+        Points = [
+          { X = -697 Y = -65 }
+          { X = -570 Y = 199 }
+          { X = -280 Y = 378 }
+          { X = 228 Y = 396 }
+          { X = 658 Y = 163 }
+          { X = 666 Y = -104 }
+          { X = 203 Y = -326 }
+          { X = -398 Y = -326 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStairs01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stairs_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsCliffside01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_cliffside_01"
+        Tallness = 614
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -320 Y = 84 }
+          { X = 342 Y = 475 }
+          { X = 565 Y = 446 }
+          { X = 600 Y = 341 }
+          { X = -117 Y = -20 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCliffside02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cliffside_02"
+        SortBoundsScale = 0.7
+        Tallness = 1232
+        Offset = { X = 0 Y = -554 }
+        Points = [
+          { X = 554 Y = -195 }
+          { X = 316 Y = -284 }
+          { X = -142 Y = -206 }
+          { X = -308 Y = 40 }
+          { X = -123 Y = 145 }
+          { X = 380 Y = 118 }
+          { X = 592 Y = -24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCliffside02A"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cliffside_02A"
+        SortBoundsScale = 0.7
+        Tallness = 1232
+        Offset = { X = 0 Y = -554 }
+        Points = [
+          { X = 554 Y = -195 }
+          { X = 316 Y = -284 }
+          { X = -142 Y = -206 }
+          { X = -308 Y = 40 }
+          { X = -123 Y = 145 }
+          { X = 380 Y = 118 }
+          { X = 592 Y = -24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStairs02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stairs_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsStairs03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stairs_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_07"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainSloped04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Sloped_04"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDirt01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Dirt_01"
+      }
+    }    
+    
+    {
+      Name = "CrossroadsTerrainDirt01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Dirt_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainDirt01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Dirt_01a"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainDirt02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Dirt_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainDirt03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Dirt_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainCobblestone01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Cobblestone_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStoneCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_StoneCircle_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStoneCircle02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_StoneCircle_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStoneCircleSloped01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_StoneCircleSloped_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStoneCircleSloped01A"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_StoneCircleSloped_01A"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainScatteredStones01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_ScatteredStones_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainScatteredStones02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_ScatteredStones_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltarTerrain01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_CardAltar_Terrain01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltarTerrainOn01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_CardAltar_Terrain_On01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcreteMedium"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStickCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_StickCircle_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRuneStone01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainRuneStone_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRuneStone03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_RuneStone_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRuneStone04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_RuneStone_04"
+      }
+    }
+    
+    {
+      Name = "CrossroadsStoneSlab01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_StoneSlab_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRuneStone02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainRuneStone_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBank01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bank_01"
+        Tallness = 10
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -147 Y = -135 }
+          { X = -202 Y = -119 }
+          { X = -221 Y = -57 }
+          { X = -167 Y = 22 }
+          { X = -88 Y = 93 }
+          { X = 47 Y = 160 }
+          { X = 164 Y = 150 }
+          { X = 157 Y = 91 }
+          { X = 43 Y = -52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBankTaper01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bank_Taper_01"
+        Tallness = 10
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -147 Y = -135 }
+          { X = -202 Y = -119 }
+          { X = -221 Y = -57 }
+          { X = -167 Y = 22 }
+          { X = -88 Y = 93 }
+          { X = 47 Y = 160 }
+          { X = 164 Y = 150 }
+          { X = 157 Y = 91 }
+          { X = 43 Y = -52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBank03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bank_03"
+        Tallness = 10
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -147 Y = -135 }
+          { X = -202 Y = -119 }
+          { X = -221 Y = -57 }
+          { X = -167 Y = 22 }
+          { X = -88 Y = 93 }
+          { X = 47 Y = 160 }
+          { X = 164 Y = 150 }
+          { X = 157 Y = 91 }
+          { X = 43 Y = -52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainTerrace02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Terrace_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainTerrace01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Terrace_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRugs01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Rugs_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainStrawmat01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Strawmat_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainWoodplanks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Woodplanks_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainWoodPlanks02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_WoodPlanks_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainWoodPlanks03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_WoodPlanks_03"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBathround01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bathround_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBathround02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Bathround_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainWoodPlanks04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_WoodPlanks_04"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+
+    {
+      Name = "SurfaceBackgroundOceanc_Ripple"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SurfaceBackgroundOceanCRipple"
+      }
+    }
+    
+    {
+      Name = "CrossroadsFishingDock01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FishingDock_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsFishingDock01A"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FishingDock_01A"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainSlate01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Slate_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodRun"
+        Tallness = 10
+        Offset = { X = 0 Y = -180 }
+        Points = [
+          { X = 1064 Y = -93 }
+          { X = 876 Y = -230 }
+          { X = 185 Y = -452 }
+          { X = -789 Y = -191 }
+          { X = -1076 Y = 93 }
+          { X = -705 Y = 320 }
+          { X = 657 Y = 146 }
+          { X = 1039 Y = 73 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRugs02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Rugs_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRugs03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Rugs_03"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainRugs04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Rugs_04"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsBlanket02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Blanket_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrosroadsTerrainTile01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crosroads_Terrain_Tile_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsAspectUnlockWedgeA"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_AspectUnlock_WedgeA"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsAspectUnlockWedgeC"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_AspectUnlock_WedgeC"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsAspectUnlockWedgeD"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_AspectUnlock_WedgeD"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsAspectUnlockWedgeB"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_AspectUnlock_WedgeB"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrosroadsTerrainTile02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crosroads_Terrain_Tile_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrosroadsTerrainTile02a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crosroads_Terrain_Tile_02a"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrosroadsTerrainTile01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crosroads_Terrain_Tile_01a"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainBoulders01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Boulders_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainGrass04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Grass_04"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+        Tallness = 10
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 72 Y = 133 }
+          { X = 258 Y = 111 }
+          { X = 312 Y = 7 }
+          { X = 180 Y = -35 }
+          { X = -236 Y = -23 }
+          { X = -314 Y = 39 }
+          { X = -277 Y = 102 }
+          { X = -93 Y = 139 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStump01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stump_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsBlanket01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Blanket_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsBlanket01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Blanket_01a"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltar03a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_CardAltar_03a"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsBlanket01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Blanket_01b"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsPillow01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pillow_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsRug2"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_02"
+        Tallness = 853
+        Offset = { X = 0 Y = -353 }
+        Points = [
+          { X = 313 Y = -135 }
+          { X = 267 Y = -163 }
+          { X = -299 Y = 125 }
+          { X = -146 Y = 102 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_07"
+        Tallness = 1366
+        Offset = { X = 0 Y = -492 }
+        Points = [
+          { X = 486 Y = -197 }
+          { X = 338 Y = 55 }
+          { X = -312 Y = 245 }
+          { X = -557 Y = 199 }
+          { X = -468 Y = 31 }
+          { X = 283 Y = -223 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall08"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_08"
+        Tallness = 1366
+        Offset = { X = 0 Y = -113 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall09"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_09"
+        Tallness = 1366
+        Offset = { X = 0 Y = -113 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_04"
+        Tallness = 1434
+        Offset = { X = 0 Y = -574 }
+        Points = [
+          { X = 213 Y = -124 }
+          { X = 289 Y = 143 }
+          { X = 243 Y = 238 }
+          { X = -62 Y = 287 }
+          { X = -289 Y = 90 }
+          { X = -146 Y = -216 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_05"
+        Tallness = 1280
+        Offset = { X = 0 Y = -592 }
+        Points = [
+          { X = 652 Y = -7 }
+          { X = 657 Y = 290 }
+          { X = 250 Y = 258 }
+          { X = -221 Y = -296 }
+          { X = 155 Y = -415 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall06"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_06"
+        Tallness = 453
+        Offset = { X = 0 Y = -66 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsTent01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_01"
+        Tallness = 442
+        Offset = { X = 0 Y = -241 }
+        Points = [
+          { X = 336 Y = -87 }
+          { X = -114 Y = 112 }
+          { X = -216 Y = 64 }
+          { X = -228 Y = 19 }
+          { X = -225 Y = -4 }
+          { X = 168 Y = -201 }
+          { X = 319 Y = -203 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBanner01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Banner_01"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsBasket01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Basket_01"
+        Tallness = 721
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -255 Y = -18 }
+          { X = -148 Y = 119 }
+          { X = 7 Y = 135 }
+          { X = 260 Y = 60 }
+          { X = 313 Y = -76 }
+          { X = 134 Y = -187 }
+          { X = -126 Y = -159 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsPumpkins01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pumpkins_01"
+        Tallness = 93
+        Offset = { X = 0 Y = -82 }
+        Points = [
+          { X = -226 Y = -7 }
+          { X = -157 Y = 65 }
+          { X = -28 Y = 72 }
+          { X = 193 Y = 19 }
+          { X = 224 Y = -45 }
+          { X = 173 Y = -99 }
+          { X = 19 Y = -146 }
+          { X = -152 Y = -111 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCandle01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Candle_01"
+        Tallness = 721
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -255 Y = -18 }
+          { X = -148 Y = 119 }
+          { X = 7 Y = 135 }
+          { X = 260 Y = 60 }
+          { X = 313 Y = -76 }
+          { X = 134 Y = -187 }
+          { X = -126 Y = -159 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCandle05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Candle_05"
+        Tallness = 158
+        Offset = { X = 0 Y = -131 }
+        Points = [
+          { X = -198 Y = -30 }
+          { X = -136 Y = 55 }
+          { X = 42 Y = 92 }
+          { X = 185 Y = 59 }
+          { X = 215 Y = -81 }
+          { X = 134 Y = -187 }
+          { X = -121 Y = -147 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCandle02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Candle_02"
+        Tallness = 793
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -78 Y = 8 }
+          { X = 2 Y = 81 }
+          { X = 56 Y = 42 }
+          { X = 80 Y = -19 }
+          { X = -16 Y = -45 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCandle04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Candle_04"
+        Tallness = 793
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -78 Y = 8 }
+          { X = 2 Y = 81 }
+          { X = 56 Y = 42 }
+          { X = 80 Y = -19 }
+          { X = -16 Y = -45 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCandle03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsCandle03Float01"
+        Tallness = 793
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -78 Y = 8 }
+          { X = 2 Y = 81 }
+          { X = 56 Y = 42 }
+          { X = 80 Y = -19 }
+          { X = -16 Y = -45 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCrystalBall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_CrystalBall_01"
+        Tallness = 721
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = -255 Y = -18 }
+          { X = -148 Y = 119 }
+          { X = 7 Y = 135 }
+          { X = 260 Y = 60 }
+          { X = 313 Y = -76 }
+          { X = 134 Y = -187 }
+          { X = -126 Y = -159 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBasket02"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Basket_02"
+        Tallness = 666
+        Offset = { X = 0 Y = -278 }
+        Points = [
+          { X = -315 Y = -33 }
+          { X = 95 Y = 165 }
+          { X = 353 Y = 37 }
+          { X = -59 Y = -164 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBar01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Bar_01"
+        Tallness = 1055
+        Offset = { X = 0 Y = -407 }
+        Points = [
+          { X = -557 Y = 98 }
+          { X = -293 Y = 273 }
+          { X = -16 Y = 285 }
+          { X = 452 Y = 168 }
+          { X = 398 Y = -200 }
+          { X = 251 Y = -368 }
+          { X = -173 Y = -377 }
+          { X = -524 Y = -253 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltar03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsCardAltar03Float"
+        Tallness = 1055
+        Offset = { X = 0 Y = -38 }
+        Points = [
+          { X = 126 Y = 164 }
+          { X = 704 Y = -207 }
+          { X = 371 Y = -366 }
+          { X = -824 Y = 388 }
+          { X = -633 Y = 568 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTable04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Table_04"
+        Tallness = 443
+        Offset = { X = 0 Y = -208 }
+        Points = [
+          { X = -486 Y = 113 }
+          { X = -264 Y = 222 }
+          { X = 475 Y = -167 }
+          { X = 241 Y = -262 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsChair01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Chair_01"
+        Tallness = 120
+        Offset = { X = 0 Y = -56 }
+        Points = [
+          { X = -374 Y = 127 }
+          { X = -272 Y = 190 }
+          { X = 386 Y = -141 }
+          { X = 267 Y = -195 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsOven01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Oven_01"
+        Tallness = 748
+        Offset = { X = 0 Y = -407 }
+        Points = [
+          { X = -493 Y = -22 }
+          { X = -356 Y = 141 }
+          { X = -75 Y = 202 }
+          { X = 238 Y = 135 }
+          { X = 385 Y = 36 }
+          { X = 500 Y = -91 }
+          { X = 297 Y = -254 }
+          { X = -310 Y = -325 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBar01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Bar_01a"
+        Tallness = 406
+        Offset = { X = 0 Y = -231 }
+        Points = [
+          { X = -264 Y = 36 }
+          { X = -247 Y = -210 }
+          { X = 253 Y = -385 }
+          { X = 219 Y = -57 }
+          { X = 80 Y = 97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStoneWall01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_StoneWall_01"
+        Tallness = 406
+        Offset = { X = 0 Y = -135 }
+        Points = [
+          { X = -373 Y = 336 }
+          { X = 147 Y = 125 }
+          { X = 477 Y = -216 }
+          { X = 247 Y = -300 }
+          { X = -242 Y = -59 }
+          { X = -434 Y = 127 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBasket03"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Basket_03"
+        Tallness = 732
+        Offset = { X = 0 Y = -293 }
+        Points = [
+          { X = -157 Y = 32 }
+          { X = -31 Y = 91 }
+          { X = 66 Y = 89 }
+          { X = 183 Y = 25 }
+          { X = 146 Y = -30 }
+          { X = 19 Y = -76 }
+          { X = -99 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDivider01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Divider_01"
+        Tallness = 732
+        Offset = { X = 0 Y = -293 }
+        Points = [
+          { X = -157 Y = 32 }
+          { X = -31 Y = 91 }
+          { X = 66 Y = 89 }
+          { X = 183 Y = 25 }
+          { X = 146 Y = -30 }
+          { X = 19 Y = -76 }
+          { X = -99 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTable03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Table_03"
+        Tallness = 465
+        Offset = { X = 0 Y = -279 }
+        Points = [
+          { X = -334 Y = 5 }
+          { X = -110 Y = 117 }
+          { X = 125 Y = 118 }
+          { X = 330 Y = -9 }
+          { X = 309 Y = -164 }
+          { X = 118 Y = -237 }
+          { X = -163 Y = -240 }
+          { X = -320 Y = -157 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBooks01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Books_01"
+        Tallness = 317
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -229 Y = -39 }
+          { X = 82 Y = 136 }
+          { X = 238 Y = 74 }
+          { X = -83 Y = -106 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBooks02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Books_02"
+        Tallness = 455
+        Offset = { X = 0 Y = -186 }
+        Points = [
+          { X = -247 Y = 6 }
+          { X = -25 Y = 108 }
+          { X = 213 Y = -3 }
+          { X = -19 Y = -111 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFamilyPortrait01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FamilyPortrait_01"
+        Tallness = 455
+        Offset = { X = 0 Y = -186 }
+        Points = [
+          { X = -247 Y = 6 }
+          { X = -25 Y = 108 }
+          { X = 213 Y = -3 }
+          { X = -19 Y = -111 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFamilyPortrait02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FamilyPortrait_02"
+        Tallness = 455
+        Offset = { X = 0 Y = -116 }
+        Points = [
+          { X = 201 Y = 50 }
+          { X = 57 Y = 101 }
+          { X = -184 Y = 74 }
+          { X = -222 Y = -41 }
+          { X = -136 Y = -152 }
+          { X = 104 Y = -151 }
+          { X = 212 Y = -83 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBookStack02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_BookStack_02"
+        Tallness = 120
+        Offset = { X = 0 Y = -31 }
+        Points = [
+          { X = 81 Y = 4 }
+          { X = 74 Y = -42 }
+          { X = -35 Y = -58 }
+          { X = -83 Y = -7 }
+          { X = -76 Y = 32 }
+          { X = 27 Y = 55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldronScrolls01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_Scrolls_01"
+        Tallness = 366
+        Offset = { X = 0 Y = -152 }
+        Points = [
+          { X = 96 Y = -9 }
+          { X = 60 Y = -86 }
+          { X = -53 Y = -85 }
+          { X = -88 Y = -6 }
+          { X = -44 Y = 52 }
+          { X = 57 Y = 50 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBookStack03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_BookStack_03"
+        Tallness = 220
+        Offset = { X = 0 Y = -34 }
+        Points = [
+          { X = 109 Y = -15 }
+          { X = -37 Y = -89 }
+          { X = -138 Y = -66 }
+          { X = -177 Y = -3 }
+          { X = -128 Y = 98 }
+          { X = 35 Y = 133 }
+          { X = 145 Y = 145 }
+          { X = 199 Y = 91 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBookStack01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_BookStack_01"
+        Tallness = 455
+        Offset = { X = 0 Y = -141 }
+        Points = [
+          { X = 162 Y = 15 }
+          { X = 108 Y = -96 }
+          { X = -65 Y = -114 }
+          { X = -159 Y = -31 }
+          { X = -61 Y = 85 }
+          { X = 98 Y = 90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFloatingCrystalBall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FloatingCrystalBall_01"
+        Tallness = 455
+        StopsUnits = true
+        Offset = { X = 0 Y = -186 }
+        Points = [
+          { X = -247 Y = 6 }
+          { X = -25 Y = 108 }
+          { X = 213 Y = -3 }
+          { X = -19 Y = -111 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecatesHouse01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecatesHouse_01"
+        Tallness = 766
+        Offset = { X = 0 Y = -409 }
+        Points = [
+          { X = 753 Y = -60 }
+          { X = 42 Y = 295 }
+          { X = -342 Y = 228 }
+          { X = -735 Y = 53 }
+          { X = -809 Y = -147 }
+          { X = -328 Y = -456 }
+          { X = 283 Y = -448 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrainingDummy01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TrainingDummy_01"
+        Tallness = 665
+        Offset = { X = 0 Y = -320 }
+        Points = [
+          { X = -50 Y = -69 }
+          { X = -90 Y = -4 }
+          { X = -58 Y = 49 }
+          { X = 76 Y = 55 }
+          { X = 118 Y = 0 }
+          { X = 85 Y = -60 }
+          { X = 25 Y = -80 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTent02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_02"
+        Tallness = 766
+        Offset = { X = 0 Y = -409 }
+        Points = [
+          { X = 753 Y = -60 }
+          { X = 42 Y = 295 }
+          { X = -342 Y = 228 }
+          { X = -735 Y = 53 }
+          { X = -809 Y = -147 }
+          { X = -328 Y = -456 }
+          { X = 283 Y = -448 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTent03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_03"
+        Tallness = 491
+        Offset = { X = 0 Y = -409 }
+        Points = [
+          { X = -630 Y = -165 }
+          { X = -284 Y = 69 }
+          { X = 42 Y = 84 }
+          { X = 643 Y = -240 }
+          { X = 282 Y = -401 }
+          { X = -83 Y = -384 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsPillow03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pillow_03"
+        Tallness = 291
+        Offset = { X = 0 Y = -74 }
+        Points = [
+          { X = -251 Y = 1 }
+          { X = -212 Y = 112 }
+          { X = -122 Y = 131 }
+          { X = 194 Y = 115 }
+          { X = 235 Y = 26 }
+          { X = 110 Y = -57 }
+          { X = -142 Y = -83 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsChest01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Chest_01"
+        Tallness = 379
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -349 Y = 34 }
+          { X = -108 Y = 149 }
+          { X = 340 Y = -68 }
+          { X = 112 Y = -179 }
+        ]
+      }
+    }
+    
+    
+    {
+      Name = "CrossroadsGiftrack01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Giftrack_01"
+        Tallness = 1641
+        Offset = { X = 0 Y = -588 }
+        Points = [
+          { X = -517 Y = 97 }
+          { X = -124 Y = 276 }
+          { X = 559 Y = -57 }
+          { X = 157 Y = -246 }
+        ]
+      }
+    }
+    
+    
+    {
+      Name = "CrossroadsGiftrack02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Giftrack_02"
+        Tallness = 1613
+        Offset = { X = 0 Y = -603 }
+        Points = [
+          { X = -512 Y = 75 }
+          { X = -139 Y = 273 }
+          { X = 574 Y = -77 }
+          { X = 149 Y = -253 }
+        ]
+      }
+    }
+    
+    
+    {
+      Name = "CrossroadsPedestal01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pedestal_01"
+        Tallness = 121
+        Offset = { X = 0 Y = -12 }
+        Points = [
+          { X = 318 Y = -9 }
+          { X = 147 Y = -104 }
+          { X = -130 Y = -107 }
+          { X = -297 Y = -38 }
+          { X = -316 Y = 74 }
+          { X = -188 Y = 166 }
+          { X = 19 Y = 195 }
+          { X = 206 Y = 157 }
+          { X = 325 Y = 76 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMorosCushion01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Moros_Cushion_01"
+        Tallness = 121
+        Offset = { X = 0 Y = -114 }
+        Points = [
+          { X = 87 Y = 73 }
+          { X = 195 Y = 19 }
+          { X = 216 Y = -105 }
+          { X = 72 Y = -168 }
+          { X = -80 Y = -172 }
+          { X = -216 Y = -102 }
+          { X = -187 Y = 13 }
+          { X = -83 Y = 67 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFatedListRug01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FatedList_Rug01"
+        Tallness = 121
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsPyre01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pyre_01"
+        Tallness = 155
+        Offset = { X = 0 Y = 46 }
+        Points = [
+          { X = 216 Y = 83 }
+          { X = 238 Y = 24 }
+          { X = 112 Y = -70 }
+          { X = -104 Y = -63 }
+          { X = -230 Y = 10 }
+          { X = -133 Y = 134 }
+          { X = 117 Y = 141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrainingStump01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TrainingStump_01"
+        Tallness = 507
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -268 Y = -9 }
+          { X = -200 Y = 80 }
+          { X = 101 Y = 152 }
+          { X = 351 Y = 39 }
+          { X = 246 Y = -60 }
+          { X = -144 Y = -97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDish01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Dish_01"
+        Tallness = 507
+        Offset = { X = 0 Y = -317 }
+        Points = [
+          { X = -272 Y = -99 }
+          { X = -148 Y = 78 }
+          { X = 42 Y = 111 }
+          { X = 188 Y = 45 }
+          { X = 314 Y = -143 }
+          { X = 119 Y = -254 }
+          { X = -133 Y = -251 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDishStraps01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Dish_Straps_01"
+        Tallness = 507
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -268 Y = -9 }
+          { X = -200 Y = 80 }
+          { X = 101 Y = 152 }
+          { X = 351 Y = 39 }
+          { X = 246 Y = -60 }
+          { X = -144 Y = -97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStone01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stone_01"
+        Tallness = 844
+        Offset = { X = 0 Y = -409 }
+        Points = [
+          { X = -304 Y = 7 }
+          { X = -115 Y = 97 }
+          { X = 70 Y = 120 }
+          { X = 302 Y = 37 }
+          { X = 262 Y = -105 }
+          { X = -24 Y = -155 }
+          { X = -225 Y = -128 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStone03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stone_03"
+        Tallness = 419
+        Offset = { X = 0 Y = -193 }
+        Points = [
+          { X = -229 Y = 21 }
+          { X = -95 Y = 121 }
+          { X = 94 Y = 125 }
+          { X = 230 Y = 43 }
+          { X = 136 Y = -70 }
+          { X = -115 Y = -81 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStone02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stone_02"
+        Tallness = 471
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -210 Y = 42 }
+          { X = -100 Y = 107 }
+          { X = 99 Y = 50 }
+          { X = 197 Y = -13 }
+          { X = 86 Y = -83 }
+          { X = -102 Y = -41 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStonePillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_StonePillar_01"
+        Tallness = 471
+        Offset = { X = 0 Y = -261 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = -9 Y = 98 }
+          { X = 113 Y = 89 }
+          { X = 153 Y = 23 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_01"
+        Tallness = 471
+        Offset = { X = 0 Y = -326 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = 0 Y = 86 }
+          { X = 108 Y = 70 }
+          { X = 153 Y = 23 }
+        ]
+      }
+      Life = 
+      {
+        TriggerOnHit = true
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue02Veiled"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_02_Veiled"
+        Tallness = 471
+        Offset = { X = 0 Y = -178 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = -9 Y = 98 }
+          { X = 113 Y = 89 }
+          { X = 153 Y = 23 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue03Veiled"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_03_Veiled"
+        Tallness = 471
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -116 Y = 50 }
+          { X = -8 Y = 67 }
+          { X = 119 Y = 59 }
+          { X = 168 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue01Veiled"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_01_Veiled"
+        Tallness = 471
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = -9 Y = 98 }
+          { X = 113 Y = 89 }
+          { X = 153 Y = 23 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_03"
+        Tallness = 471
+        Offset = { X = 0 Y = -237 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = -9 Y = 98 }
+          { X = 113 Y = 89 }
+          { X = 153 Y = 23 }
+        ]
+      }
+      Life = 
+      {
+        TriggerOnHit = true
+      }
+    }
+    
+    {
+      Name = "CrossroadsMelStatue02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mel_Statue_02"
+        Tallness = 471
+        Offset = { X = 0 Y = -244 }
+        Points = [
+          { X = 125 Y = -46 }
+          { X = 27 Y = -74 }
+          { X = -101 Y = -66 }
+          { X = -151 Y = -8 }
+          { X = -126 Y = 57 }
+          { X = -9 Y = 93 }
+          { X = 110 Y = 72 }
+          { X = 153 Y = 23 }
+        ]
+      }
+      Life = 
+      {
+        TriggerOnHit = true
+      }
+    }
+    
+    {
+      Name = "CrossroadsTabletopTrinkets01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TabletopTrinkets_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTabletopTrinkets02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TabletopTrinkets_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTabletopFood01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TabletopFood_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTable02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Table_02"
+        Tallness = 358
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -446 Y = -91 }
+          { X = 142 Y = 197 }
+          { X = 494 Y = 20 }
+          { X = -213 Y = -334 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTable02a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Table_02a"
+        Tallness = 407
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -446 Y = -91 }
+          { X = 142 Y = 197 }
+          { X = 494 Y = 20 }
+          { X = -213 Y = -334 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Table_01"
+        Tallness = 407
+        Offset = { X = 0 Y = -179 }
+        Points = [
+          { X = -301 Y = 69 }
+          { X = -164 Y = 150 }
+          { X = 100 Y = 155 }
+          { X = 327 Y = 43 }
+          { X = 303 Y = -79 }
+          { X = 139 Y = -200 }
+          { X = -154 Y = -167 }
+          { X = -286 Y = -86 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShelf01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shelf_01"
+        Tallness = 1338
+        Offset = { X = 0 Y = -537 }
+        Points = [
+          { X = -420 Y = 95 }
+          { X = -131 Y = 194 }
+          { X = 440 Y = -79 }
+          { X = 146 Y = -198 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldronSet01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_CauldronSet_01"
+        Tallness = 722
+        Offset = { X = 0 Y = -244 }
+        Points = [
+          { X = -287 Y = 112 }
+          { X = -134 Y = 242 }
+          { X = 112 Y = 232 }
+          { X = 323 Y = 176 }
+          { X = 288 Y = -30 }
+          { X = -153 Y = -79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShelf02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shelf_02"
+        Tallness = 1427
+        Offset = { X = 0 Y = -538 }
+        Points = [
+          { X = -362 Y = 124 }
+          { X = -42 Y = 223 }
+          { X = 345 Y = -130 }
+          { X = 98 Y = -218 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingHerbs02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingHerbs_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingHerbs03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingHerbs_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrinket01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Trinket_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingHerbs04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingHerbs_04"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrinket02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Trinket_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrinket03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Trinket_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrinket04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Trinket_04"
+      }
+    }
+    
+    {
+      Name = "CrossroadsRope01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Rope_01"
+        Tallness = 85
+        Offset = { X = 0 Y = -977 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRope02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Rope_02"
+        Tallness = 85
+        Offset = { X = 0 Y = -998 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsMoodcrystal01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Moodcrystal_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTasselRope01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TasselRope_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTassleRope02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TassleRope_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTrinket05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Trinket_05"
+        Tallness = 670
+        Offset = { X = 0 Y = -278 }
+        Points = [
+          { X = -239 Y = 5 }
+          { X = -209 Y = 77 }
+          { X = 288 Y = 8 }
+          { X = 248 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingHerbs01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingHerbs_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTentWall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tent_Wall_01"
+        Tallness = 887
+        Offset = { X = 0 Y = -492 }
+        Points = [
+          { X = -445 Y = -185 }
+          { X = 457 Y = 222 }
+          { X = 672 Y = 183 }
+          { X = -327 Y = -253 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainDecorativeCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainDecorativeCircle_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsSummonerCircle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_SummonerCircle_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsSummonerCircle02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_SummonerCircle_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsSummonerCircle03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_SummonerCircle_03"
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeBranch01"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeBranch_01"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "CrossroadsForegroundBranch01"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsForegroundBranch01Sway"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTreeTop01"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_Top_01"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = -142 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsBranch01"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Branch_01"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = -437 }
+        Points = [
+          { X = 179 Y = 92 }
+          { X = 312 Y = -76 }
+          { X = 155 Y = -253 }
+          { X = -223 Y = -285 }
+          { X = -348 Y = -3 }
+          { X = -92 Y = 95 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingFabric02"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingFabric_02"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = -437 }
+        Points = [
+          { X = 179 Y = 92 }
+          { X = 312 Y = -76 }
+          { X = 155 Y = -253 }
+          { X = -223 Y = -285 }
+          { X = -348 Y = -3 }
+          { X = -92 Y = 95 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHangingFabric01"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HangingFabric_01"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = -437 }
+        Points = [
+          { X = 179 Y = 92 }
+          { X = 312 Y = -76 }
+          { X = 155 Y = -253 }
+          { X = -223 Y = -285 }
+          { X = -348 Y = -3 }
+          { X = -92 Y = 95 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTreeTop02"
+      CollisionBounce = 0.3
+      CollisionBounceRequiredVelocity = 700.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_Top_02"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 85
+        Offset = { X = 0 Y = -51 }
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainsSoftEdge02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainsSoftEdge_02"
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainsSoftEdge01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_TerrainsSoftEdge_01"
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeOffshoot01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeOffshoot_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -520 }
+        Points = [
+          { X = 208 Y = 0 }
+          { X = 78 Y = -76 }
+          { X = -108 Y = -68 }
+          { X = -216 Y = 4 }
+          { X = -111 Y = 121 }
+          { X = 104 Y = 101 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRoots01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Roots_01"
+        Tallness = 1095
+        Offset = { X = 0 Y = -429 }
+        Points = [
+          { X = 378 Y = -20 }
+          { X = 212 Y = -140 }
+          { X = -75 Y = -189 }
+          { X = -300 Y = -22 }
+          { X = -332 Y = 174 }
+          { X = -152 Y = 232 }
+          { X = 322 Y = 116 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeTrunk02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeTrunk_02"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -520 }
+        Points = [
+          { X = 208 Y = 0 }
+          { X = 78 Y = -76 }
+          { X = -108 Y = -68 }
+          { X = -216 Y = 4 }
+          { X = -111 Y = 121 }
+          { X = 104 Y = 101 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeOffshoot02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeOffshoot_02"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -886 }
+        Points = [
+          { X = 379 Y = -126 }
+          { X = 325 Y = -237 }
+          { X = 11 Y = -189 }
+          { X = -135 Y = -70 }
+          { X = -124 Y = 77 }
+          { X = 127 Y = 43 }
+          { X = 379 Y = -126 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone01Float"
+        Tallness = 2162
+        Offset = { X = 0 Y = -1039 }
+        Points = [
+          { X = 63 Y = 78 }
+          { X = 137 Y = 21 }
+          { X = 113 Y = -35 }
+          { X = 28 Y = -82 }
+          { X = -57 Y = -64 }
+          { X = -133 Y = -11 }
+          { X = -111 Y = 53 }
+          { X = -24 Y = 88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone06Float"
+        StopsUnits = true
+        Tallness = 1418
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = 98 Y = -10 }
+          { X = 84 Y = -47 }
+          { X = -54 Y = -63 }
+          { X = -98 Y = -30 }
+          { X = -85 Y = 16 }
+          { X = -2 Y = 52 }
+          { X = 63 Y = 38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltarStone02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsCardAltarStone02Float"
+        StopsUnits = true
+        Tallness = 1418
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = 98 Y = -10 }
+          { X = 84 Y = -47 }
+          { X = -54 Y = -63 }
+          { X = -98 Y = -30 }
+          { X = -85 Y = 16 }
+          { X = -2 Y = 52 }
+          { X = 63 Y = 38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCardAltarStone01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsCardAltarStone01Float"
+        StopsUnits = true
+        Tallness = 1418
+        Offset = { X = 0 Y = -415 }
+        Points = [
+          { X = 98 Y = -10 }
+          { X = 84 Y = -47 }
+          { X = -54 Y = -63 }
+          { X = -98 Y = -30 }
+          { X = -85 Y = 16 }
+          { X = -2 Y = 52 }
+          { X = 63 Y = 38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone03Float"
+        Tallness = 1334
+        Offset = { X = 0 Y = -791 }
+        Points = [
+          { X = 47 Y = 11 }
+          { X = 69 Y = -9 }
+          { X = 58 Y = -33 }
+          { X = 8 Y = -43 }
+          { X = -49 Y = -31 }
+          { X = -46 Y = 1 }
+          { X = 5 Y = 30 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsStone04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Stone_04"
+        Tallness = 182
+        Offset = { X = 0 Y = -12 }
+        Points = [
+          { X = -63 Y = 94 }
+          { X = 74 Y = 83 }
+          { X = 147 Y = 45 }
+          { X = 126 Y = -15 }
+          { X = 47 Y = -47 }
+          { X = -96 Y = -31 }
+          { X = -158 Y = 29 }
+          { X = -134 Y = 65 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone04Float"
+        Tallness = 1418
+        Offset = { X = 0 Y = -730 }
+        Points = [
+          { X = 103 Y = 27 }
+          { X = 115 Y = -25 }
+          { X = 94 Y = -67 }
+          { X = -91 Y = -89 }
+          { X = -122 Y = -47 }
+          { X = -122 Y = 0 }
+          { X = -3 Y = 51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone05Float"
+        Tallness = 1002
+        Offset = { X = 0 Y = -541 }
+        Points = [
+          { X = 55 Y = 21 }
+          { X = 80 Y = 3 }
+          { X = 77 Y = -40 }
+          { X = 1 Y = -56 }
+          { X = -54 Y = -42 }
+          { X = -70 Y = -7 }
+          { X = -20 Y = 33 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsRunestone02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsRunestone02Float"
+        Tallness = 1890
+        Offset = { X = 0 Y = -966 }
+        Points = [
+          { X = 144 Y = 14 }
+          { X = 134 Y = -38 }
+          { X = 48 Y = -74 }
+          { X = -69 Y = -84 }
+          { X = -125 Y = -41 }
+          { X = -108 Y = 10 }
+          { X = -48 Y = 62 }
+          { X = 55 Y = 79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTree03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_03"
+        Tallness = 1418
+        Offset = { X = 0 Y = -823 }
+        Points = [
+          { X = 187 Y = 115 }
+          { X = 328 Y = -13 }
+          { X = 281 Y = -179 }
+          { X = 17 Y = -272 }
+          { X = -332 Y = -204 }
+          { X = -345 Y = -13 }
+          { X = -81 Y = 140 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeOffshoot03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeOffshoot_03"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -890 }
+        Points = [
+          { X = 287 Y = -88 }
+          { X = 89 Y = -191 }
+          { X = -204 Y = -108 }
+          { X = -252 Y = 107 }
+          { X = -34 Y = 132 }
+          { X = 238 Y = 26 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTree04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_04"
+        Tallness = 1687
+        Offset = { X = 0 Y = -754 }
+        Points = [
+          { X = 26 Y = 69 }
+          { X = 186 Y = -111 }
+          { X = 29 Y = -411 }
+          { X = -317 Y = -261 }
+          { X = -630 Y = 62 }
+          { X = -287 Y = 118 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTree05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_05"
+        Tallness = 1418
+        Offset = { X = 0 Y = -204 }
+        Points = [
+          { X = 70 Y = -3 }
+          { X = 61 Y = -28 }
+          { X = 0 Y = -50 }
+          { X = -47 Y = -28 }
+          { X = -46 Y = 2 }
+          { X = 15 Y = 28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsWaterfall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Waterfall_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -204 }
+        Points = [
+          { X = 70 Y = -3 }
+          { X = 61 Y = -28 }
+          { X = 0 Y = -50 }
+          { X = -47 Y = -28 }
+          { X = -46 Y = 2 }
+          { X = 15 Y = 28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTorch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 400
+        EditorOutlineDrawBounds = false
+        Graphic = "HecateTorchHubIdleSingleR"
+        GrannyModel = "WeaponHecateR_Mesh"
+        StopsUnits = false
+        Tallness = 1418.0
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 62 Y = -32 }
+          { X = -9 Y = -56 }
+          { X = -63 Y = -18 }
+          { X = -46 Y = 16 }
+          { X = 27 Y = 26 }
+          { X = 56 Y = 5 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CW3DGear01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "GearRotation"
+        GrannyModel = "PropGear01_Mesh"
+        StopsUnits = false
+        Tallness = 250
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 5 Y = 50 }
+          { X = -5 Y = 50 }
+          { X = -5 Y = 170 }
+          { X = 5 Y = 170 }
+        ]
+      }
+    }
+
+    {
+      Name = "CW3DGear02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "Gear2Rotation"
+        GrannyModel = "PropGear02_Mesh"
+        StopsUnits = false
+        Tallness = 300
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 20 Y = 60 }
+          { X = -20 Y = 60 }
+          { X = -20 Y = 195 }
+          { X = 20 Y = 195 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CW3DGear03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "Gear3Rotation"
+        GrannyModel = "PropGear03_Mesh"
+        StopsUnits = false
+        Tallness = 100
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 45 Y = 30 }
+          { X = -50 Y = 30 }
+          { X = -50 Y = 200 }
+          { X = 45 Y = 200 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CW3DGear04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "Gear4Rotation"
+        GrannyModel = "PropGear04_Mesh"
+        StopsUnits = false
+        Tallness = 300
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 90 Y = 15 }
+          { X = -90 Y = 15 }
+          { X = -90 Y = 250 }
+          { X = 90 Y = 250 }
+        ]
+      }
+    }
+
+
+
+    {
+      Name = "CrossroadsLantern01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CrossroadsLantern01Float"
+        Tallness = 502
+        Offset = { X = 0 Y = -279 }
+        Points = [
+          { X = 62 Y = -32 }
+          { X = -9 Y = -56 }
+          { X = -63 Y = -18 }
+          { X = -46 Y = 16 }
+          { X = 27 Y = 26 }
+          { X = 56 Y = 5 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsGhostWitch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_GhostWitch_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -317 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsGhostWitch03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_GhostWitch_03"
+        Tallness = 1418
+        Offset = { X = 0 Y = -317 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsGhostWitch04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_GhostWitch_04"
+        Tallness = 1418
+        Offset = { X = 0 Y = -384 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsGhostWitch02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_GhostWitch_02"
+        Tallness = 1418
+        Offset = { X = 0 Y = -406 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+
+    {
+      Name = "CrossroadsGhostStatistican01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      CollisionSound = "/SFX/GhostEmotes/GriefTINY"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "StatisticianGhostIdle"
+        Tallness = 1418
+        StopsUnits = true
+        Offset = { X = 0 Y = -200 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+    {
+      Name = "CrossroadsGhostHistorian01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      CollisionSound = "/SFX/GhostEmotes/DisgruntledTINY"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "HistorianGhostIdle"
+        Tallness = 1418
+        StopsUnits = true
+        Offset = { X = 0 Y = -384 }
+        Points = [
+          { X = 138 Y = 15 }
+          { X = 40 Y = -68 }
+          { X = -126 Y = -52 }
+          { X = -144 Y = 52 }
+          { X = -26 Y = 109 }
+          { X = 92 Y = 88 }
+        ]
+      }
+    }
+
+    {
+      Name = "CrossroadsHecateTorch02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "HecateTorch01Float02"
+        Tallness = 1418.0
+        StopsUnits = false
+        Offset = { X = 0 Y = -285 }
+        Points = [
+          { X = 55 Y = -6 }
+          { X = 7 Y = -32 }
+          { X = -55 Y = -1 }
+          { X = -38 Y = 35 }
+          { X = 45 Y = 31 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeOffshoot04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeOffshoot_04"
+        Tallness = 1879
+        Offset = { X = 0 Y = -1023 }
+        Points = [
+          { X = 458 Y = 51 }
+          { X = 476 Y = -173 }
+          { X = 56 Y = -271 }
+          { X = -378 Y = -107 }
+          { X = -490 Y = 149 }
+          { X = -154 Y = 215 }
+          { X = 243 Y = 219 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDoor01B"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Door_01B"
+        Tallness = 1418
+        Offset = { X = 0 Y = -430 }
+        Points = [
+          { X = 374 Y = -138 }
+          { X = 126 Y = -209 }
+          { X = -266 Y = -127 }
+          { X = -377 Y = 115 }
+          { X = -305 Y = 177 }
+          { X = 95 Y = 316 }
+          { X = 361 Y = 253 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDoor01A"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Door_01A"
+        Tallness = 1066
+        Offset = { X = 0 Y = -375 }
+        Points = [
+          { X = 220 Y = 44 }
+          { X = 33 Y = -214 }
+          { X = -318 Y = -209 }
+          { X = -436 Y = -77 }
+          { X = -366 Y = 76 }
+          { X = -194 Y = 208 }
+          { X = 186 Y = 191 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeOffshoot05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeOffshoot_05"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -1140 }
+        Points = [
+          { X = 259 Y = -174 }
+          { X = -96 Y = -248 }
+          { X = -356 Y = -93 }
+          { X = -310 Y = 201 }
+          { X = -31 Y = 259 }
+          { X = 325 Y = -81 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeRoot01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeRoot_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -52 }
+        Points = [
+          { X = 308 Y = -264 }
+          { X = -105 Y = -400 }
+          { X = -642 Y = -250 }
+          { X = -650 Y = -1 }
+          { X = -238 Y = 336 }
+          { X = 382 Y = 235 }
+          { X = 554 Y = -40 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeRoot02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeRoot_02"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -264 }
+        Points = [
+          { X = 405 Y = -136 }
+          { X = 167 Y = -166 }
+          { X = -244 Y = -22 }
+          { X = -401 Y = 97 }
+          { X = -139 Y = 97 }
+          { X = 349 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeRoot03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeRoot_03"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -14 }
+        Points = [
+          { X = 309 Y = -58 }
+          { X = 11 Y = -85 }
+          { X = -299 Y = 57 }
+          { X = -500 Y = 225 }
+          { X = -390 Y = 289 }
+          { X = 58 Y = 214 }
+          { X = 469 Y = 14 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeTrunk01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeTrunk_01"
+        Tallness = 1992
+        Offset = { X = 0 Y = -898 }
+        Points = [
+          { X = 614 Y = -236 }
+          { X = 271 Y = -364 }
+          { X = -151 Y = -391 }
+          { X = -574 Y = -271 }
+          { X = -649 Y = 53 }
+          { X = -311 Y = 209 }
+          { X = 173 Y = 289 }
+          { X = 614 Y = 262 }
+          { X = 720 Y = 31 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHecateTreeTrunk03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_HecateTreeTrunk_03"
+        Tallness = 1418
+        Offset = { X = 0 Y = -848 }
+        Points = [
+          { X = 977 Y = 59 }
+          { X = 957 Y = -266 }
+          { X = 454 Y = -355 }
+          { X = -552 Y = -217 }
+          { X = -543 Y = 138 }
+          { X = 385 Y = 257 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsPolecat01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        StopsUnits = true
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Polecat_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -102 }
+        Points = [
+          { X = 87 Y = -140 }
+          { X = -56 Y = -125 }
+          { X = -178 Y = -47 }
+          { X = -176 Y = 69 }
+          { X = -97 Y = 104 }
+          { X = -49 Y = 113 }
+          { X = 167 Y = -28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFrinos01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Frinos_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -102 }
+        Points = [
+          { X = 87 Y = -140 }
+          { X = -56 Y = -125 }
+          { X = -178 Y = -47 }
+          { X = -171 Y = 23 }
+          { X = -76 Y = 53 }
+          { X = 15 Y = 61 }
+          { X = 167 Y = -28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsHound01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        StopsUnits = true
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Hound_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -292 }
+        Points = [
+          { X = 254 Y = 14 }
+          { X = 81 Y = -108 }
+          { X = -176 Y = -122 }
+          { X = -312 Y = 10 }
+          { X = -66 Y = 138 }
+          { X = 163 Y = 156 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldron01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -113 }
+        Points = [
+          { X = 522 Y = -44 }
+          { X = 448 Y = -214 }
+          { X = 177 Y = -358 }
+          { X = -158 Y = -335 }
+          { X = -409 Y = -196 }
+          { X = -510 Y = 84 }
+          { X = -426 Y = 211 }
+          { X = -78 Y = 342 }
+          { X = 305 Y = 323 }
+          { X = 497 Y = 232 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldronLid01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        AmbientSound = "/Ambience/FoodCookingLoop"
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_Lid_01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -113 }
+        Points = [
+          { X = 522 Y = -44 }
+          { X = 448 Y = -214 }
+          { X = 177 Y = -358 }
+          { X = -158 Y = -335 }
+          { X = -409 Y = -196 }
+          { X = -510 Y = 84 }
+          { X = -426 Y = 211 }
+          { X = -78 Y = 342 }
+          { X = 305 Y = 323 }
+          { X = 497 Y = 232 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldron02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_02"
+        Tallness = 1418
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = 238 Y = -5 }
+          { X = 178 Y = -110 }
+          { X = -165 Y = -137 }
+          { X = -261 Y = 37 }
+          { X = 46 Y = 124 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldron03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_03"
+        Tallness = 1418
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = 238 Y = -5 }
+          { X = 178 Y = -110 }
+          { X = -165 Y = -137 }
+          { X = -261 Y = 37 }
+          { X = 46 Y = 124 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsCauldron04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Cauldron_04"
+        Tallness = 1418
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = 238 Y = -5 }
+          { X = 178 Y = -110 }
+          { X = -165 Y = -137 }
+          { X = -261 Y = 37 }
+          { X = 46 Y = 124 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsBountyBoard"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsLight = true
+        StopsUnits = true
+        StopsProjectiles = true
+        Graphic = "Crossroads_BountyBoard_Off01"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -556 }
+        Points = [
+          { X = 239 Y = -54 }
+          { X = 195 Y = -137 }
+          { X = 0 Y = -196 }
+          { X = -190 Y = -146 }
+          { X = -253 Y = -11 }
+          { X = -118 Y = 115 }
+          { X = 56 Y = 141 }
+          { X = 251 Y = 43 }
+        ]
+      }
+    }
+
+    {
+      Name = "CrossroadsShrine"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_PactOfPunishment_Off01"
+        StopsLight = true
+        StopsUnits = true
+        StopsProjectiles = true
+        Tallness = 721
+        Offset = { X = 0 Y = -416 }
+        Points = [
+          { X = 454 Y = -63 }
+          { X = 114 Y = -290 }
+          { X = -309 Y = -240 }
+          { X = -505 Y = 13 }
+          { X = -385 Y = 214 }
+          { X = 114 Y = 265 }
+          { X = 423 Y = 158 }
+        ]
+        Using = [
+          { Name = "Crossroads_Shrine_On01" }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsFatedList"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_FatedList_On01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -332 }
+        Points = [
+          { X = 287 Y = -161 }
+          { X = 113 Y = -253 }
+          { X = -51 Y = -216 }
+          { X = -203 Y = -71 }
+          { X = -205 Y = 75 }
+          { X = -139 Y = 139 }
+          { X = 267 Y = -62 }
+        ]
+      }
+    }
+
+    {
+      Name = "CrossroadsTree01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_01"
+        Tallness = 2400
+        Offset = { X = 0 Y = -1028 }
+        Points = [
+          { X = 54 Y = 33 }
+          { X = -12 Y = 0 }
+          { X = -83 Y = 35 }
+          { X = -17 Y = 68 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTree02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Tree_02"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -154 }
+        Points = [
+          { X = 61 Y = -21 }
+          { X = -13 Y = -31 }
+          { X = -65 Y = -9 }
+          { X = -66 Y = 39 }
+          { X = 12 Y = 48 }
+          { X = 84 Y = 17 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsPillar01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Pillar_01"
+        Tallness = 2665
+        Offset = { X = 0 Y = -1110 }
+        Points = [
+          { X = 232 Y = 45 }
+          { X = 187 Y = -92 }
+          { X = -26 Y = -112 }
+          { X = -200 Y = -50 }
+          { X = -213 Y = 88 }
+          { X = -49 Y = 134 }
+          { X = 141 Y = 120 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShrub01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shrub_01"
+        UseBoundsForSortDrawArea = true
+        Tallness = 286
+        Offset = { X = 0 Y = -203 }
+        Points = [
+          { X = 35 Y = 111 }
+          { X = 289 Y = -16 }
+          { X = 17 Y = -152 }
+          { X = -247 Y = -20 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShrub02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shrub_02"
+        UseBoundsForSortDrawArea = true
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -587 }
+        Points = [
+          { X = 223 Y = -147 }
+          { X = -20 Y = -224 }
+          { X = -279 Y = -155 }
+          { X = -368 Y = -42 }
+          { X = -264 Y = 88 }
+          { X = -8 Y = 130 }
+          { X = 264 Y = 88 }
+          { X = 320 Y = -51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsAsphodelLeaves01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Asphodel_Leaves_01"
+        Tallness = 436
+        Offset = { X = 0 Y = -178 }
+        Points = [
+          { X = 33 Y = 97 }
+          { X = 229 Y = -1 }
+          { X = 26 Y = -103 }
+          { X = -170 Y = -5 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsAsphodelFlowers01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Asphodel_Flowers_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = 153 Y = 117 }
+          { X = 240 Y = -14 }
+          { X = 127 Y = -101 }
+          { X = -95 Y = -103 }
+          { X = -212 Y = -2 }
+          { X = -97 Y = 97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsDoorSeal01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Door_Seal_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = 153 Y = 117 }
+          { X = 240 Y = -14 }
+          { X = 127 Y = -101 }
+          { X = -95 Y = -103 }
+          { X = -212 Y = -2 }
+          { X = -97 Y = 97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainPool01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        FootstepFxR = "WaterSplashFootstepR-Spawner"
+        FootstepFxL = "WaterSplashFootstepL-Spawner"
+        FootstepSound = "/Leftovers/SFX/FootstepsWetSmall"
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Pool_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -113 }
+        Points = [
+          { X = 110 Y = -354 }
+          { X = -226 Y = -333 }
+          { X = -447 Y = -207 }
+          { X = -463 Y = -42 }
+          { X = -281 Y = 104 }
+          { X = 48 Y = 138 }
+          { X = 374 Y = 32 }
+          { X = 473 Y = -130 }
+          { X = 369 Y = -257 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsTerrainPool02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        FootstepFxR = "WaterSplashFootstepR-Spawner"
+        FootstepFxL = "WaterSplashFootstepL-Spawner"
+        FootstepSound = "/Leftovers/SFX/FootstepsWetSmall"
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Terrain_Pool_02"
+        Tallness = 0
+        Offset = { X = 0 Y = -6 }
+        Points = [
+          { X = -538 Y = -338 }
+          { X = -181 Y = -416 }
+          { X = 282 Y = -416 }
+          { X = 609 Y = -309 }
+          { X = 805 Y = -147 }
+          { X = 844 Y = 9 }
+          { X = 771 Y = 179 }
+          { X = 486 Y = 342 }
+          { X = 72 Y = 427 }
+          { X = -370 Y = 376 }
+          { X = -729 Y = 220 }
+          { X = -835 Y = 66 }
+          { X = -838 Y = -81 }
+          { X = -708 Y = -243 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShrub03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shrub_03"
+        UseBoundsForSortDrawArea = true
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -482 }
+        Points = [
+          { X = 418 Y = 11 }
+          { X = 157 Y = -104 }
+          { X = -108 Y = -53 }
+          { X = -83 Y = 103 }
+          { X = 261 Y = 190 }
+          { X = 442 Y = 132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CrossroadsShrub04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shrub_04"
+        UseBoundsForSortDrawArea = true
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -797 }
+        Points = [
+          { X = 223 Y = -147 }
+          { X = -20 Y = -224 }
+          { X = -279 Y = -155 }
+          { X = -368 Y = -42 }
+          { X = -264 Y = 88 }
+          { X = -8 Y = 130 }
+          { X = 264 Y = 88 }
+          { X = 320 Y = -51 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsShrub05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Shrub_05"
+        Tallness = 1418
+        Offset = { X = 0 Y = -51 }
+        Points = [
+          { X = 117 Y = 5 }
+          { X = 101 Y = -39 }
+          { X = -9 Y = -74 }
+          { X = -106 Y = -36 }
+          { X = -110 Y = 29 }
+          { X = -29 Y = 50 }
+          { X = 49 Y = 49 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsBramble01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Bramble_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -51 }
+        Points = [
+          { X = 201 Y = -75 }
+          { X = 122 Y = -97 }
+          { X = -29 Y = -45 }
+          { X = -144 Y = 38 }
+          { X = -166 Y = 122 }
+          { X = -84 Y = 130 }
+          { X = 93 Y = 74 }
+          { X = 196 Y = -16 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsMushroom01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mushroom_01"
+        Tallness = 130
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = 128 Y = -4 }
+          { X = 76 Y = -96 }
+          { X = -41 Y = -99 }
+          { X = -150 Y = -28 }
+          { X = -82 Y = 63 }
+          { X = 38 Y = 55 }
+          { X = 102 Y = 49 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsPoppies01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Poppies_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -38 }
+        Points = [
+          { X = 93 Y = 15 }
+          { X = 77 Y = -22 }
+          { X = -5 Y = -50 }
+          { X = -67 Y = -25 }
+          { X = -87 Y = 18 }
+          { X = -74 Y = 50 }
+          { X = 2 Y = 75 }
+          { X = 71 Y = 50 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsMushroom02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Mushroom_02"
+        Tallness = 150
+        Offset = { X = 0 Y = -25 }
+        Points = [
+          { X = 142 Y = -42 }
+          { X = -2 Y = -73 }
+          { X = -128 Y = 3 }
+          { X = -56 Y = 75 }
+          { X = 69 Y = 96 }
+          { X = 157 Y = 47 }
+        ]
+      }
+    }
+  {
+      Name = "CrossroadsYarrow01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Crossroads\Crossroads_Yarrow_01"
+        Tallness = 1418
+        Offset = { X = 0 Y = -123 }
+        Points = [
+          { X = 139 Y = 0 }
+          { X = 121 Y = -55 }
+          { X = -17 Y = -104 }
+          { X = -132 Y = -49 }
+          { X = -153 Y = 0 }
+          { X = -65 Y = 54 }
+          { X = 49 Y = 49 }
+        ]
+      }
+    }
+  ]
+}

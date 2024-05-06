@@ -1,0 +1,128 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyWispBaseAnimation"
+		
+		GrannyModel = "Wisp_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Wisp_Idle"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Move_Stop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wisp_Move_Start"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Wisp_Move_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wisp_Move_FireLoop"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_Move_C_00"
+		Loop = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Fuse_Start"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wisp_Move_Stop"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Wisp_Idle"
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Move_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	/*HitStun*/
+
+	{
+		Name = "Enemy_Wisp_HitStun"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_HitStun_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_Wisp_Idle"
+	}
+
+	{
+		Name = "Enemy_Wisp_HitStun_Heavy"
+		InheritFrom = "Enemy_Wisp_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/*Attacks*/
+
+	{
+		Name = "Enemy_Wisp_Fuse_Start"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_FusePreAttack_C_00"
+		ChainTo = "Enemy_Wisp_Move_FireLoop"
+		CancelOnOwnerMove = false
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Wisp_Fuse_Fire"
+		InheritFrom = "EnemyWispBaseAnimation"
+		GrannyAnimation = "Wisp_Base_FuseFire_C_00"
+		GrannyAnimationSpeed = 0.5
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Wisp_Move_FireLoop"
+				Duration = 2
+			}
+		]
+	}
+
+]}

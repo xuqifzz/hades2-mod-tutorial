@@ -1,0 +1,341 @@
+{
+  Obstacles = [
+  {
+      Name = "BaseAmbienceGenerator"
+      InheritFrom = "InvisibleTarget"
+      DisplayInEditor = false
+      Thing = 
+      {
+        AmbientSoundDistanceCheck = true
+        EditorOutlineDrawBounds = false
+        Scale = 0.7
+        Color = { Red = 1.0 Green = 0.10 Blue = 0.70 }
+      }
+    }
+    
+    {
+      Name = "FireAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/FireAmbientLoop"
+      }
+    }
+    
+    {
+      Name = "FireAmbienceGeneratorTORCH"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/FireAmbientLoopTORCHES"
+      }
+    }
+    {
+      Name = "WhirlpoolAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/WhirlpoolAmbience"
+      }
+    }
+    {
+      Name = "MetalLanternSqueakAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/Object Ambiences/MetalLanternSqueakLoop"
+      }
+    }
+    {
+      Name = "FishNetAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/Object Ambiences/FishNetLoop"
+      }
+    }
+    {
+      Name = "MetalSqueakAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/Object Ambiences/MediumMetalSqueakLoop"
+      }
+    }
+    {
+      Name = "WaterRainDripsLocalAmbience"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/RainDripsLocalAmbience"
+      }
+    }
+    {
+      Name = "FliesBuzzingAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/InsectBuzzLoop"
+      }
+    }
+    {
+      Name = "CreakingTreeAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/TreeCreakingAmbience"
+      }
+    }
+    {
+      Name = "CreakingTreeAmbienceGenerator2"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/TreeCreakingAmbience2"
+      }
+    }
+    
+    {
+      Name = "FogRiverAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Ambience/ElysiumFogRiverAmbientLoop"
+      }
+    }
+    {
+      Name = "CookingAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Ambience/FoodCookingLoop"
+      }
+    }
+    
+    {
+      Name = "SpiderAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/Object Ambiences/SpiderSkitterLoop"
+      }
+    }
+    
+    {
+      Name = "InsectScamperingAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/ScamperingAmbience"
+      }
+    }
+    
+    {
+      Name = "LavaAmbienceGeneratorBubbles"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/LavaBubbleLoop2"
+      }
+    }
+
+    {
+      Name = "LavaAmbienceGeneratorBubbles2"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/LavaBubbleLoop3"
+      }
+    }
+    
+    {
+      Name = "LavaAmbienceGeneratorRumbles"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/LavaEruptRumbleLoop"
+      }
+    }
+    {
+      Name = "SteamAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/SteamLoop5"
+      }
+    }
+    {
+      Name = "SandAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Ambience/SandAmbienceLoop"
+      }
+    }
+    {
+      Name = "ChainAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/ChainAmbienceLoop"
+      }
+    }
+    {
+      Name = "HauntedWindAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Ambience/CreepyHauntedWindLoop"
+      }
+    }
+
+    {
+      Name = "StatueAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Ambience/StatueAmbienceLoop"
+      }
+    }
+    
+    {
+      Name = "ChimesAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/ChimesAmbientLoop"
+      }
+    }
+    
+    {
+      Name = "WaterfallAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/WaterfallAmbience2"
+      }
+    }
+    
+    {
+      Name = "FountainAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/WaterRushingBloodFall"
+      }
+    }
+    
+    {
+      Name = "DeathAreaFountainAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/WaterRushingBloodFall"
+      }
+    }
+    
+    {
+      Name = "DeathAreaBloodPoolAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Ambience/StillWaterLocalAmbienceBloodPool"
+      }
+    }
+    
+    {
+      Name = "LoungeKitchenAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Ambience/LoungeKitchenAmbientLoop"
+      }
+    }
+    {
+      Name = "LoungeAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Ambience/LoungeAmbientLoop"
+      }
+    }
+    
+    {
+      Name = "SlowMovingBloodRiverAmbience"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/SFX/SlowMovingWaterLocalAmbience"
+      }
+    }
+    
+    {
+      Name = "WindAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Ambience/WhippingWindLoop"
+      }
+    }
+    
+    {
+      Name = "CreepyHandAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/HandAmbience"
+      }
+    }
+    {
+      Name = "OceanusBubblesAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/WaterBubblesAmbience"
+      }
+    }
+    
+    {
+      Name = "WindyFieldAmbienceGeneratorBigRadius"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Ambience/MediumWindFieldLeavesAmbience_BigRadius"
+      }
+    }
+  ]
+}

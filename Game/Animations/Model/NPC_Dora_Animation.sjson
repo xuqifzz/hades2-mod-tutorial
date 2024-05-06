@@ -1,0 +1,192 @@
+{ Animations = [
+
+	/* Dora */
+	{
+		Name = "NPCDoraBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "Dora_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.7
+		Loop = false
+		Enable3DShadow = true
+	}
+
+
+	{
+		Name = "Dora_Idle"
+		InheritFrom = "NPCDoraBaseAnimation"
+		GrannyAnimation = "Dora_Base_Idle_C_00"
+		Loop = true
+
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Dora_Appear"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Dora_QuickAppear"
+				Duration = 16
+				IgnoreFrameData = false
+			}
+		]
+	}
+	{
+		Name = "Dora_Shrug"
+		InheritFrom = "NPCDoraBaseAnimation"
+		GrannyAnimation = "Dora_Base_Shrug_C_00"
+		ChainTo = "Dora_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Dora_Idle"
+				Duration = 8
+			}
+		]
+	}
+	{
+		Name = "Dora_Appear"
+		InheritFrom = "NPCDoraBaseAnimation"
+		GrannyAnimation = "Dora_Base_Appear_C_00"
+		ChainTo = "Dora_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+				CreateAnimation = "EnemyDeathFx_Dora"
+			}
+		]
+	}
+	{
+		Name = "Dora_QuickAppear"
+		InheritFrom = "NPCDoraBaseAnimation"
+		GrannyAnimation = "Dora_Base_Appear_C_00"
+		GrannyAnimationSpeed = 0.5
+		ChainTo = "Dora_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+				CreateAnimation = "EnemyDeathFx_Dora"
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Dora_Disappear"
+		InheritFrom = "NPCDoraBaseAnimation"
+		GrannyAnimation = "Dora_Base_Disappear_C_00"
+		ChainTo = "Dora_Invisible"
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+				CreateAnimation = "EnemyDeathFx_Dora"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Dora_Idle"
+				Duration = 8
+			}
+		]
+	}
+	{
+		Name = "Dora_Invisible"
+		FilePath = "Animations\NPCDora\Dora_01"  
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Loop = false
+		ZWobbleDistance = 8
+		ZWobbleSpeed = 5
+		ChildAnimation = "InspectPointLoopFxGhost"
+		Scale = 0.0
+		OwnerHasNoCollision = true
+	}
+
+	/* Scary Dora */
+
+	{
+		Name = "NPCDoraScaryBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "ScaryDora_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.7
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "DoraScary_Idle"
+		InheritFrom = "NPCDoraScaryBaseAnimation"
+		GrannyAnimation = "ScaryDora_Base_Idle_C_00"
+		Loop = true
+
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "DoraScary_Appear"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "DoraScary_Frighten"
+		InheritFrom = "NPCDoraScaryBaseAnimation"
+		GrannyAnimation = "ScaryDora_Base_Frighten_C_00"
+		ChainTo = "DoraScary_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "DoraScary_Idle"
+				Duration = 8
+			}
+		]
+	}
+	{
+		Name = "DoraScary_Appear"
+		InheritFrom = "NPCDoraScaryBaseAnimation"
+		GrannyAnimation = "ScaryDora_Base_Appear_C_00"
+		ChainTo = "DoraScary_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Player Sounds/DionysusRadialPoof"
+				CreateAnimation = "EnemyDeathFx_Dora"
+			}
+		]
+	}
+	{
+		Name = "DoraScary_Disappear"
+		InheritFrom = "NPCDoraScaryBaseAnimation"
+		GrannyAnimation = "ScaryDora_Base_Disappear_C_00"
+		ChainTo = "Dora_Invisible"
+		CreateAnimation = "EnemyDeathFx_Dora"
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+				CreateAnimation = "EnemyDeathFx_Dora"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "DoraScary_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+]}

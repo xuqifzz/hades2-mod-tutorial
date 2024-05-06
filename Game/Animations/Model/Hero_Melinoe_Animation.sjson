@@ -1,0 +1,660 @@
+{ Animations = [
+
+	/* 3D Animation Attribute Legend:
+	InheritFrom = "SomeOtherAnimationName" (Copy all the attributes of the named animation unless this animation overrides them.  Must be the second attribute listed after Name.)
+	Scale = 1.0
+	Loop = false
+	Enable3DShadow = false
+	Alpha = 1.0 (How opaque the animation is, from 0.0 to 1.0)
+	GrannyAnimationSpeed = 1.0 (Playback speed adjustment, 1.0 = 100% of normal authored speed) (Warning: Inceasing this value above 2.0 can cause frame jumps and missed FrameData)
+	NativeMoveSpeed = 540 (Automatically scale the playback speed based on the character's movement speed relative to this number)
+	HoldLastFrame = false (Freeze in the final frame of this animation once it finishes)
+	ChainTo = "SomeOtherAnimationName" (Immedaitely start playing the named animation after this one finishes)
+	AllowRestart = false (If this animation is requested again while it's still playing, should it start over from the beginning or ignore that request?)
+	CancelOnOwnerMove = false (If the character moves will thisd animation be cutoff by the standard move animations?)
+	GrannyRotationX = 0 (Adjust default orientation around the X-axis.  Generally unneccesary.)
+	GrannyRotationY = 0 (Adjust default orientation around the Y-axis.  Generally unneccesary.)
+	GrannyRotationZ = 0 (Adjust default orientation around the Z-axis.  Generally unneccesary.)
+	LeanStartBufferFrames = 10.0 (Property for LocomotionType="LeanRun" blocks. Number of frames to wait before starting the leaning animation. Prevents leaning at very small movements of analog stick which causes jitter.)
+	LeanProgressionFrames = 45.0 (Property for LocomotionType="LeanRun" blocks. Frames till fully leaning in one direction.)
+	ModelCosmeticRotationSpeed = 1340 (Property for base animation block. Changes the visual rotation speed of the animated model for that animation.)
+	*/
+
+	{
+		Name = "MelinoeBaseAnimation"
+		
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Loop = false
+		Scale = 1.27
+		Enable3DShadow = true
+		Masks = 
+		[
+			{
+				Name = "UpperBody"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Melinoe_Rig:spine_00_M_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+
+			{
+				Name = "LeftArm"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Melinoe_Rig:clav_00_L_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+
+			{
+				Name = "RightArm"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Melinoe_Rig:clav_00_R_JNT"
+						Weight = 1.0
+					}
+				]
+			}
+			
+			{
+				Name = "LowerBody"
+				Skeleton = 
+				[
+					{
+						BoneStart = "Melinoe_Rig:hips_00_M_JNT"
+						Weight = 1.0
+					}
+					{
+						BoneStart = "Melinoe_Rig:root_00_M_JNT"
+						Weight = 1.0
+						Depth = 2
+					}
+					{
+						BoneStart = "Melinoe_Rig:tassleFrontA_00_L_JNT"
+						Weight = 1.0
+						BoneCount = 1
+					}
+					{
+						BoneStart = "Melinoe_Rig:tassleFrontA_00_R_JNT"
+						Weight = 1.0
+						BoneCount = 1
+					}
+					{
+						BoneStart = "Melinoe_Rig:spine_00_M_JNT"
+						Weight = 0.0
+						BoneCount = 1
+					}
+				]
+			}			
+		]
+		ForceInheritAttachments =
+		[
+			{
+				Name = "Melinoe_Hat"
+				Active = false
+				ToBone = "Melinoe_Rig:hatMain_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Hat"
+		
+		GrannyModel = "Hat_Mesh"
+		Scale = 1.0
+	}
+
+	{
+		Name = "MelinoeSpellCastRunLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "Speed"
+		Additives = 
+		[
+			{
+				Name = "MelinoeSpellStanding"
+				Direction = "Standing"
+				Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeRun"
+				Direction = "Moving"
+				Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeRunLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "LeanRun"
+		LeanStartBufferFrames = 5.0
+		LeanProgressionFrames = 100.0
+		Additives = 
+		[
+			{
+				Name = "MelinoeRunNoLean"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeRunLeanLeft"
+				Direction = "Left"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeRunLeanRight"
+				Direction = "Right"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeSprintLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "LeanRun"
+		LeanStartBufferFrames = 10.0
+		LeanProgressionFrames = 25.0
+		Additives = 
+		[
+			{
+				Name = "MelinoeSprintNoLean"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeSprintLeanLeft"
+				Direction = "Left"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeSprintLeanRight"
+				Direction = "Right"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeCastLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "LeanRun"
+		LeanStartBufferFrames = 10.0
+		LeanProgressionFrames = 30.0
+		Additives = 
+		[
+			{
+				Name = "MelinoeCastNoLean"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeCastLeanLeft"
+				Direction = "Left"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeCastLeanRight"
+				Direction = "Right"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeTorchLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "Directional"
+		Additives = 
+		[
+			{
+				Name = "MelinoeTorchStand"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchWest"
+				Direction = "West"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchSouth"
+				Direction = "South"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchNorth"
+				Direction = "North"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchEast"
+				Direction = "East"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchNorthWest"
+				Direction = "NorthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchNorthEast"
+				Direction = "NorthEast"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchSouthWest"
+				Direction = "SouthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeTorchSouthEast"
+				Direction = "SouthEast"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerRunLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "LeanRun"
+		LeanStartBufferFrames = 5.0
+		LeanProgressionFrames = 100.0
+
+		Additives = 
+		[
+			{
+				Name = "MelinoeDaggerRunNoLean"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerRunLeanLeft"
+				Direction = "Left"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerRunLeanRight"
+				Direction = "Right"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerSprintLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "LeanRun"
+
+		Additives = 
+		[
+			{
+				Name = "MelinoeDaggerSprintNoLean"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSprintLeanLeft"
+				Direction = "Left"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSprintLeanRight"
+				Direction = "Right"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerBlinkLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "Directional"
+		Additives = 
+		[
+			{
+				Name = "MelinoeDaggerStand"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerWest"
+				Direction = "West"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouth"
+				Direction = "South"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorth"
+				Direction = "North"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerEast"
+				Direction = "East"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorthWest"
+				Direction = "NorthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorthEast"
+				Direction = "NorthEast"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouthWest"
+				Direction = "SouthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouthEast"
+				Direction = "SouthEast"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	// Axe Directional Locomotions
+
+	{
+		Name = "MelinoeAxeSpinLocomotion"
+		InheritFrom = "MelinoeBaseAnimation"
+		Loop = true
+		LocomotionType = "Directional"
+		NativeMoveSpeed = 540
+		Additives = 
+		[	
+			{
+				Name = "MelinoeDaggerStand"
+				Direction = "Center"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerWest"
+				Direction = "West"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouth"
+				Direction = "South"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorth"
+				Direction = "North"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerEast"
+				Direction = "East"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorthWest"
+				Direction = "NorthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerNorthEast"
+				Direction = "NorthEast"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouthWest"
+				Direction = "SouthWest"
+				//Mask = "LowerBody"
+			}
+			{
+				Name = "MelinoeDaggerSouthEast"
+				Direction = "SouthEast"
+				//Mask = "LowerBody"
+			}
+		]
+	}
+
+	// Torch Directional Locomotions
+	{
+		Name = "MelinoeTorchWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_W_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_E_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchNorth"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_N_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchSouth"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_S_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchNorthWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_NW_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchNorthEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_NE_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchSouthWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_SW_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchSouthEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Strafe_SE_00"
+		Loop = true
+	}
+	{
+		Name = "MelinoeTorchStand"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Torch_Base_Idle_00"
+		Loop = true
+	}
+
+
+	// Dagger Directional Locomotions
+	{
+		Name = "MelinoeDaggerWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_W_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_E_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerNorth"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_N_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerSouth"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_S_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDaggerNorthWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_NW_00"
+		Loop = true
+	}
+
+	{
+		Name = "MelinoeDaggerNorthEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_NE_00"
+		Loop = true
+	}
+
+	{
+		Name = "MelinoeDaggerSouthWest"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_SW_00"
+		Loop = true
+	}
+
+	{
+		Name = "MelinoeDaggerSouthEast"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_Strafe_SE_00"
+		Loop = true
+	}
+
+	{
+		Name = "MelinoeDaggerStand"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Dagger_Base_BlinkStrafeIdle_C_00"
+		Loop = false
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "MelinoeOverlookIdle"
+		
+		GrannyModel = "MelinoeOverlook_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.27
+		Enable3DShadow = false
+		LargeObstacle3DModel = true
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		GrannyRotationX = -15
+	}
+
+	{
+		Name = "MelinoeOverlookFlourish" 
+		GrannyModel = "MelinoeOverlook_Mesh"
+		ChainTo = "null"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CauldronSpell_00"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 1.0
+		Loop = false
+		Scale = 1.27
+		Enable3DShadow = false
+		LargeObstacle3DModel = true
+		PlayBackwards = true
+		Frames = 
+		[
+			{
+				Frame = 120
+				FrameSpeed = 1
+			}
+			{
+				Frame = 121
+				FrameSpeed = 0
+			}
+		]
+	}
+
+
+ ]}

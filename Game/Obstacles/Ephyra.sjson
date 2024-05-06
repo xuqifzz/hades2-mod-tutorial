@@ -1,0 +1,4387 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "EphyraExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "EphyraExitDoorLocked"
+        StopsLight = false
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Tallness = 191
+        Offset = { X = 0 Y = 0 }
+        ExtentScale = 1.25
+        Points = [
+          { X = -98 Y = -32 }
+          { X = 62 Y = 48 }
+          { X = 99 Y = 29 }
+          { X = -61 Y = -51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraExitDoorReturn"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "DoorExitLightSoftSW_Ephyra_Locked"
+        StopsLight = false
+        StopsUnits = false
+        MeshType = "Vertical"
+        Interact = 
+        {
+          Distance = 300.0
+          OffsetY = 130.0
+          OffsetX = 0.0
+        }
+        Points = [
+          { X = -29 Y = 337 }
+          { X = 76 Y = 285 }
+          { X = -120 Y = 186 }
+          { X = -229 Y = 238 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraExitDoorReturnNE"
+      InheritFrom = "EphyraExitDoorReturn"
+      Thing = 
+      {
+        Graphic = "DoorExitLightSoftNE_Ephyra_Locked"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 44 Y = 164 }
+          { X = 125 Y = 123 }
+          { X = -28 Y = 47 }
+          { X = -112 Y = 86 }
+        ]
+      }
+    }    
+  
+  {
+    Name = "N_SubRoomDoor"
+    InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Ambient = 0.0
+      EditorOutlineDrawBounds = false
+      Graphic = "EphyraSubRoomDoorLocked"
+      MeshType = "Vertical"
+      Interact = 
+      {
+        Distance = 250.0
+        OffsetY = 200.0
+      }
+      Points =
+      [
+        { X = -29 Y = 337 }
+        { X = 76 Y = 285 }
+        { X = -120 Y = 186 }
+        { X = -229 Y = 238 }
+      ]
+    }
+  }
+  
+  {
+    Name = "N_SubRoomDoorReturn"
+    InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Ambient = 0.0
+      EditorOutlineDrawBounds = false
+      Graphic = "DoorExitLightSoftSW_Ephyra_Locked" 
+      MeshType = "Vertical"
+      Interact = 
+      {
+        Distance = 250.0
+        OffsetY = 200.0
+      }
+      Points =
+      [
+        { X = -29 Y = 337 }
+        { X = 76 Y = 285 }
+        { X = -120 Y = 186 }
+        { X = -229 Y = 238 }
+      ]
+    }
+  }
+
+    {
+      Name = "EphyraExitBossDoor"
+      InheritFrom = "EphyraExitDoor"
+      Thing = 
+      {
+        Graphic = "EphyraBossExitDoorLocked"
+      }
+    }
+
+    {
+      Name = "EphyraHubExitBarrier"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Life =
+      {
+        HitFx = "EphyraHubExitBarrierHitFx"
+      }
+      Thing = 
+      {
+        Graphic = "Tilesets\Ephyra\Ephyra_PylonGate_01"
+        EditorOutlineDrawBounds = false
+        Interact = 
+        {
+          Distance = 425.0
+          OffsetY = -25
+          OffsetX = -100
+        }
+        Tallness = 987
+        Offset = { X = 0 Y = -196 }
+        Points = [
+          { X = 759 Y = 300 }
+          { X = -410 Y = -288 }
+          { X = -839 Y = -20 }
+          { X = -767 Y = 283 }
+          { X = -308 Y = 509 }
+          { X = 434 Y = 526 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraHubExitPylon"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "EphyraHubExitPylonFull"
+        AmbientSound = "/SFX/EphyraExitGateLoop"
+        AmbientSoundDistanceCheck = true
+        Hue = 0.2
+        Tallness = 896
+        Offset = { X = 0 Y = -382 }
+        Points = [
+          { X = -264 Y = -25 }
+          { X = -2 Y = 102 }
+          { X = 264 Y = -31 }
+          { X = 7 Y = -160 }
+        ]
+      }
+    }
+    
+    {
+      Name = "SoulPylonBase"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SoulPylonBase"
+        Tallness = 10.0
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "SoulPylonDestroyed"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SoulPylonDestroyed"
+        Tallness = 10.0
+        StopsProjectiles = false
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "BattleStandardDestroyed"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "BattleStandardDeathFxSpawner"
+        Tallness = 10.0
+        ExtentScale = 0.45
+        StopsLight = false
+        Points =
+        [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "Breakable_N"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "Breakable_N01"
+        StopsProjectiles = true
+        StopsUnits = true
+        StopsLight = true
+        Tallness = 100.0
+        UseBoundsForSortDrawArea = true
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "PolyphemusBoulder"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionSound = "/Leftovers/World Sounds/LeavesRustle"
+      DisplayInEditor = true
+      Life =
+      {
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsProjectiles = true
+        StopsUnits = true
+        Graphic = "F_Round_Short"
+        Tallness = 50.0
+        Offset = { X = 0 Y = -18 }
+        Scale = 2.0
+        ExtentScale = 0.5
+        Grip = 2500.0
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "PolyphemusBoulderRubble"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionSound = "/Leftovers/World Sounds/LeavesRustle"
+      DisplayInEditor = true
+      Life =
+      {
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsProjectiles = true
+        StopsUnits = true
+        Graphic = "F_Round_Short"
+        Tallness = 50.0
+        Offset = { X = 0 Y = -18 }
+        Scale = 0.75
+        ExtentScale = 0.5
+        Grip = 2500.0
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_01"
+        Tallness = 1594
+        Offset = { X = 0 Y = -692 }
+        Points = [
+          { X = -382 Y = -174 }
+          { X = 355 Y = 189 }
+          { X = 397 Y = 177 }
+          { X = -354 Y = -192 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_01a"
+        Tallness = 1594
+        Offset = { X = 0 Y = -692 }
+        Points = [
+          { X = -180 Y = -67 }
+          { X = 172 Y = 97 }
+          { X = 187 Y = 88 }
+          { X = -158 Y = -78 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall02a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_02a"
+        Tallness = 1732
+        Offset = { X = 0 Y = -742 }
+        Points = [
+          { X = -205 Y = -85 }
+          { X = 201 Y = 107 }
+          { X = 218 Y = 97 }
+          { X = -181 Y = -99 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_02"
+        Tallness = 1748
+        Offset = { X = 0 Y = -753 }
+        Points = [
+          { X = -423 Y = -198 }
+          { X = 415 Y = 215 }
+          { X = 444 Y = 201 }
+          { X = -388 Y = -222 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraGable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Gable_01"
+        Tallness = 225
+        Offset = { X = 0 Y = -77 }
+        Points = [
+          { X = -539 Y = 211 }
+          { X = -395 Y = 285 }
+          { X = 506 Y = -160 }
+          { X = 354 Y = -236 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraGable01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Gable_01a"
+        Tallness = 225
+        Offset = { X = 0 Y = -99 }
+        Points = [
+          { X = -527 Y = 212 }
+          { X = -396 Y = 274 }
+          { X = 486 Y = -156 }
+          { X = 344 Y = -223 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_03"
+        Tallness = 941.0
+        Offset = { X = 0 Y = -401 }
+        Points = [
+          { X = -525 Y = 209 }
+          { X = -412 Y = 260 }
+          { X = 511 Y = -193 }
+          { X = 396 Y = -241 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBarrelShelf01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BarrelShelf_01"
+        Tallness = 941
+        Offset = { X = 0 Y = -401 }
+        Points = [
+          { X = -479 Y = -93 }
+          { X = 264 Y = 274 }
+          { X = 491 Y = 155 }
+          { X = -232 Y = -192 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSubDoorAvailable"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_SubDoor_Available"
+        Tallness = 424
+        Offset = { X = 0 Y = -160 }
+        Points = [
+          { X = -172 Y = 80 }
+          { X = -155 Y = 91 }
+          { X = 161 Y = -61 }
+          { X = 145 Y = -75 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraExitDoorLocked"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_ExitDoor_Locked"
+        Tallness = 466
+        Offset = { X = 0 Y = -185 }
+        Points = [
+          { X = -293 Y = 96 }
+          { X = -186 Y = 163 }
+          { X = 298 Y = -83 }
+          { X = 185 Y = -150 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFishTraps01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FishTraps_01"
+        Tallness = 475
+        Offset = { X = 0 Y = -133 }
+        Points = [
+          { X = -412 Y = 98 }
+          { X = -419 Y = 155 }
+          { X = -224 Y = 244 }
+          { X = 39 Y = 218 }
+          { X = 396 Y = -57 }
+          { X = 290 Y = -158 }
+          { X = -11 Y = -197 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFishBasket01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FishBasket_01"
+        Tallness = 410
+        Offset = { X = 0 Y = -163 }
+        Points = [
+          { X = -258 Y = 35 }
+          { X = -173 Y = 139 }
+          { X = 62 Y = 187 }
+          { X = 294 Y = 96 }
+          { X = 323 Y = -22 }
+          { X = 205 Y = -134 }
+          { X = -141 Y = -136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_05"
+        Tallness = 1911
+        Offset = { X = 0 Y = -836 }
+        Points = [
+          { X = -229 Y = -9 }
+          { X = -169 Y = 88 }
+          { X = -11 Y = 139 }
+          { X = 168 Y = 97 }
+          { X = 222 Y = 4 }
+          { X = 168 Y = -99 }
+          { X = 35 Y = -131 }
+          { X = -146 Y = -109 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraHadesStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_HadesStatue_01"
+        Tallness = 1306
+        Offset = { X = 0 Y = -403 }
+        Points = [
+          { X = -535 Y = 173 }
+          { X = -385 Y = 374 }
+          { X = -79 Y = 397 }
+          { X = 213 Y = 352 }
+          { X = 540 Y = 125 }
+          { X = 422 Y = -3 }
+          { X = 167 Y = -141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBrazier01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Brazier_01"
+        SortBoundsScale = 1.25
+        Tallness = 1000
+        Offset = { X = 0 Y = -266 }
+        Points = [
+          { X = -209 Y = 66 }
+          { X = 32 Y = 168 }
+          { X = 249 Y = 48 }
+          { X = 16 Y = -59 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBookcase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Bookcase_01"
+        Tallness = 941
+        Offset = { X = 0 Y = -313 }
+        Points = [
+          { X = -511 Y = 201 }
+          { X = -369 Y = 275 }
+          { X = 299 Y = -4 }
+          { X = 99 Y = -104 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCrateSet01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_CrateSet_01"
+        Tallness = 1155
+        Offset = { X = 0 Y = -401 }
+        Points = [
+          { X = -656 Y = 175 }
+          { X = -298 Y = 340 }
+          { X = 577 Y = 51 }
+          { X = 117 Y = -200 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_04"
+        Tallness = 1282
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = -566 Y = 401 }
+          { X = -455 Y = 468 }
+          { X = 586 Y = -36 }
+          { X = 443 Y = -116 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall04c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_04c"
+        Tallness = 1282
+        Offset = { X = 0 Y = -498 }
+        Points = [
+          { X = -310 Y = 117 }
+          { X = -161 Y = 206 }
+          { X = 320 Y = -36 }
+          { X = 163 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall04a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_04a"
+        Tallness = 1100
+        Offset = { X = 0 Y = -632 }
+        Points = [
+          { X = -566 Y = -185 }
+          { X = -332 Y = -48 }
+          { X = -157 Y = -134 }
+          { X = -412 Y = -259 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall04b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_04b"
+        Tallness = 1108
+        Offset = { X = 0 Y = -348 }
+        Points = [
+          { X = -532 Y = -135 }
+          { X = 342 Y = 293 }
+          { X = 514 Y = 189 }
+          { X = -336 Y = -248 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_06"
+        Tallness = 583
+        Offset = { X = 0 Y = -208 }
+        Points = [
+          { X = -532 Y = -130 }
+          { X = 274 Y = 270 }
+          { X = 503 Y = 153 }
+          { X = -291 Y = -248 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall06a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_06a"
+        Tallness = 583
+        Offset = { X = 0 Y = -226 }
+        Points = [
+          { X = -505 Y = -159 }
+          { X = 256 Y = 254 }
+          { X = 470 Y = 135 }
+          { X = -307 Y = -267 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_07"
+        Tallness = 417
+        Offset = { X = 0 Y = -151 }
+        Points = [
+          { X = -416 Y = -75 }
+          { X = 190 Y = 219 }
+          { X = 417 Y = 100 }
+          { X = -187 Y = -205 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSheepSacrifice01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_SheepSacrifice_01"
+        Tallness = 1278
+        Offset = { X = 0 Y = -522 }
+        Points = [
+          { X = -490 Y = 8 }
+          { X = -107 Y = 236 }
+          { X = 505 Y = 8 }
+          { X = 107 Y = -214 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCookingCampfire01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_CookingCampfire_01"
+        Tallness = 635
+        Offset = { X = 0 Y = -121 }
+        Points = [
+          { X = -442 Y = 43 }
+          { X = -394 Y = 176 }
+          { X = -255 Y = 267 }
+          { X = -67 Y = 305 }
+          { X = 138 Y = 335 }
+          { X = 475 Y = 141 }
+          { X = 383 Y = -81 }
+          { X = -272 Y = -124 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall07a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_07a"
+        Tallness = 391
+        Offset = { X = 0 Y = -182 }
+        Points = [
+          { X = -429 Y = -93 }
+          { X = 187 Y = 180 }
+          { X = 412 Y = 68 }
+          { X = -216 Y = -201 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraDeadBush01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_DeadBush_01"
+        Tallness = 626
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = -367 Y = 93 }
+          { X = -99 Y = 203 }
+          { X = 273 Y = 155 }
+          { X = 358 Y = -25 }
+          { X = 55 Y = -172 }
+          { X = -227 Y = -116 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_05"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = -533 }
+        Points = [
+          { X = -542 Y = -199 }
+          { X = 423 Y = 289 }
+          { X = 548 Y = 224 }
+          { X = -440 Y = -250 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraStonetablet01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Stonetablet_01"
+        Tallness = 656
+        Offset = { X = 0 Y = -244 }
+        Points = [
+          { X = -442 Y = -139 }
+          { X = 394 Y = 270 }
+          { X = 487 Y = 210 }
+          { X = -331 Y = -197 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall05b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_05b"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = -533 }
+        Points = [
+          { X = -542 Y = -199 }
+          { X = 423 Y = 289 }
+          { X = 548 Y = 224 }
+          { X = -440 Y = -250 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall05c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_05c"
+        Tallness = 136
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = -343 Y = -93 }
+          { X = -225 Y = -145 }
+          { X = 350 Y = 132 }
+          { X = 223 Y = 195 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall05d"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_05d"
+        Tallness = 330
+        Offset = { X = 0 Y = -94 }
+        Points = [
+          { X = -209 Y = -19 }
+          { X = -99 Y = -78 }
+          { X = 200 Y = 93 }
+          { X = 109 Y = 138 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall05a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_05a"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = -570 }
+        Points = [
+          { X = 124 Y = 93 }
+          { X = 224 Y = 39 }
+          { X = -131 Y = -113 }
+          { X = -221 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWall08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_08"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = -570 }
+        Points = [
+          { X = 124 Y = 93 }
+          { X = 224 Y = 39 }
+          { X = -131 Y = -113 }
+          { X = -221 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraGate01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Gate_01"
+        Tallness = 488.0
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -379 Y = -153 }
+          { X = 277 Y = 209 }
+          { X = 389 Y = 148 }
+          { X = -270 Y = -208 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraGate02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Gate_02"
+        Tallness = 488.0
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -380 Y = -150 }
+          { X = 284 Y = 211 }
+          { X = 401 Y = 144 }
+          { X = -273 Y = -201 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRubble01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rubble_01"
+        Tallness = 212.0
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = -366 Y = 41 }
+          { X = -202 Y = 144 }
+          { X = -1 Y = 180 }
+          { X = 287 Y = 99 }
+          { X = 376 Y = -20 }
+          { X = -63 Y = -143 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRubble02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rubble_02"
+        Tallness = 212
+        Offset = { X = 0 Y = -50 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainStrawPile01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_StrawPile_01"
+        Tallness = 212
+        Offset = { X = 0 Y = -50 }
+      }
+    }
+    
+    {
+      Name = "EphyraCorpsePile01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_CorpsePile_01"
+        Tallness = 48
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = -432 Y = -256 }
+          { X = -394 Y = 268 }
+          { X = 214 Y = 348 }
+          { X = 506 Y = -47 }
+          { X = 395 Y = -355 }
+          { X = 73 Y = -451 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCorpsePile02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_CorpsePile_02"
+        Tallness = 72
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = 339 Y = -204 }
+          { X = 294 Y = -296 }
+          { X = 125 Y = -298 }
+          { X = -184 Y = -184 }
+          { X = -324 Y = 52 }
+          { X = -209 Y = 200 }
+          { X = 110 Y = 56 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtTrail01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtTrail_01"
+        Tallness = 212
+        Offset = { X = 0 Y = -50 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtTrail02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtTrail_02"
+        Tallness = 212
+        Offset = { X = 0 Y = -50 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtTrail03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtTrail_03"
+        Tallness = 212
+        Offset = { X = 0 Y = -50 }
+      }
+    }
+    
+    {
+      Name = "EphyraRubble03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rubble_03"
+        Tallness = 87
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = -204 Y = 9 }
+          { X = 7 Y = 116 }
+          { X = 217 Y = 102 }
+          { X = 129 Y = -2 }
+          { X = 14 Y = -97 }
+          { X = -88 Y = -145 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraLantern01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Lantern_01"
+        Tallness = 401
+        Offset = { X = 0 Y = -172 }
+        Points = [
+          { X = -95 Y = -67 }
+          { X = -181 Y = -2 }
+          { X = -87 Y = 81 }
+          { X = 15 Y = 106 }
+          { X = 131 Y = 67 }
+          { X = 169 Y = -9 }
+          { X = 63 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRubble04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rubble_04"
+        Tallness = 87
+        Offset = { X = 0 Y = -22 }
+        Points = [
+          { X = -94 Y = 1 }
+          { X = -76 Y = 40 }
+          { X = 80 Y = 11 }
+          { X = 57 Y = -38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFirepit01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Firepit_01"
+        Tallness = 530.0
+        Offset = { X = 0 Y = -196 }
+        Points = [
+          { X = -431 Y = 71 }
+          { X = -363 Y = 186 }
+          { X = -92 Y = 275 }
+          { X = 203 Y = 248 }
+          { X = 415 Y = 114 }
+          { X = 426 Y = -72 }
+          { X = -30 Y = -199 }
+          { X = -425 Y = -51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraChair01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Chair_01"
+        Tallness = 469.0
+        Offset = { X = 0 Y = -77 }
+        Points = [
+          { X = -520 Y = 27 }
+          { X = -205 Y = 283 }
+          { X = 257 Y = 156 }
+          { X = 547 Y = -20 }
+          { X = 291 Y = -375 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFishingrod01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Fishingrod_01"
+        Tallness = 1175.0
+        Offset = { X = 0 Y = -524 }
+        Points = [
+          { X = -146 Y = 16 }
+          { X = -96 Y = 47 }
+          { X = 124 Y = -27 }
+          { X = 96 Y = -79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWoodenplanks01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Woodenplanks_01"
+        Tallness = 808.0
+        Offset = { X = 0 Y = -378 }
+        Points = [
+          { X = -220 Y = -117 }
+          { X = -128 Y = 5 }
+          { X = 9 Y = 67 }
+          { X = 45 Y = 49 }
+          { X = -42 Y = -87 }
+          { X = -193 Y = -136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallDecor01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Decor_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallDecor01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Decor_01a"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSpiderweb01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Spiderweb_01"
+        Tallness = 655
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -135 Y = 314 }
+          { X = -85 Y = 360 }
+          { X = 456 Y = 239 }
+          { X = 414 Y = 174 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFabric01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Fabric_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofVines01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Vines_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFishnet01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Fishnet_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBanner01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Banner_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBanner02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Banner_02"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallShelf01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Shelf_01"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = 12 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallCorner02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Corner_02"
+        Tallness = 1282.0
+        Offset = { X = 0 Y = -552 }
+        Points = [
+          { X = -180 Y = 22 }
+          { X = -47 Y = 79 }
+          { X = 150 Y = -23 }
+          { X = 13 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallPost01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Post_01"
+        Tallness = 428
+        Offset = { X = 0 Y = -114 }
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_01"
+        Tallness = 400.0
+        Offset = { X = 0 Y = -154 }
+        Points = [
+          { X = -219 Y = -65 }
+          { X = 195 Y = 144 }
+          { X = 252 Y = 112 }
+          { X = -158 Y = -93 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03"
+        Tallness = 263
+        Offset = { X = 0 Y = -106 }
+        Points = [
+          { X = -264 Y = -88 }
+          { X = 181 Y = 135 }
+          { X = 265 Y = 97 }
+          { X = -183 Y = -128 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03Moon"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03_Moon"
+        Tallness = 260
+        Offset = { X = 0 Y = -116 }
+        Points = [
+          { X = -277 Y = -91 }
+          { X = 181 Y = 135 }
+          { X = 265 Y = 97 }
+          { X = -187 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03a"
+        Tallness = 288
+        Offset = { X = 0 Y = -154 }
+        Points = [
+          { X = -198 Y = -55 }
+          { X = -47 Y = 24 }
+          { X = 20 Y = 28 }
+          { X = 56 Y = 18 }
+          { X = 203 Y = -60 }
+          { X = -4 Y = -155 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03aMoon"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03a_Moon"
+        Tallness = 275
+        Offset = { X = 0 Y = -156 }
+        Points = [
+          { X = -198 Y = -55 }
+          { X = -47 Y = 24 }
+          { X = 20 Y = 28 }
+          { X = 56 Y = 18 }
+          { X = 191 Y = -52 }
+          { X = -4 Y = -155 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03b"
+        Tallness = 288
+        Offset = { X = 0 Y = -110 }
+        Points = [
+          { X = -152 Y = -27 }
+          { X = 66 Y = 84 }
+          { X = 153 Y = 49 }
+          { X = -77 Y = -65 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraExitBossDoor01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_ExitBossDoor_01"
+        Tallness = 1575
+        Offset = { X = 0 Y = -693 }
+        Points = [
+          { X = -537 Y = -144 }
+          { X = 325 Y = 266 }
+          { X = 512 Y = 160 }
+          { X = -355 Y = -287 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick03bMoon"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_03b_Moon"
+        Tallness = 271
+        Offset = { X = 0 Y = -113 }
+        Points = [
+          { X = -147 Y = -26 }
+          { X = 65 Y = 81 }
+          { X = 147 Y = 38 }
+          { X = -64 Y = -66 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTree01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Tree_01"
+        Tallness = 1499
+        Offset = { X = 0 Y = -665 }
+        Points = [
+          { X = -162 Y = 20 }
+          { X = 18 Y = 68 }
+          { X = 157 Y = -20 }
+          { X = 15 Y = -101 }
+          { X = -104 Y = -76 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_02"
+        Tallness = 667.0
+        Offset = { X = 0 Y = -252 }
+        Points = [
+          { X = -397 Y = -124 }
+          { X = 347 Y = 237 }
+          { X = 426 Y = 182 }
+          { X = -307 Y = -164 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick02a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_02a"
+        Tallness = 667
+        Offset = { X = 0 Y = -278 }
+        Points = [
+          { X = -397 Y = -124 }
+          { X = 347 Y = 237 }
+          { X = 426 Y = 182 }
+          { X = -307 Y = -164 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraDoorFrame01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_DoorFrame_01"
+        Tallness = 1567
+        Offset = { X = 0 Y = -664 }
+        Points = [
+          { X = 136 Y = 151 }
+          { X = 262 Y = 95 }
+          { X = -292 Y = -160 }
+          { X = -407 Y = -110 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_01"
+        Tallness = 479.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -694 Y = 291 }
+          { X = -561 Y = 363 }
+          { X = 645 Y = -201 }
+          { X = 498 Y = -269 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_02"
+        Tallness = 454.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -99 Y = 415 }
+          { X = 618 Y = 42 }
+          { X = 144 Y = -176 }
+          { X = -622 Y = 181 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_03"
+        Tallness = 484.0
+        Offset = { X = 0 Y = -74 }
+        Points = [
+          { X = -749 Y = 87 }
+          { X = -15 Y = 466 }
+          { X = 766 Y = 72 }
+          { X = -30 Y = -252 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallHook01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Hook_01"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofDormer01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Dormer_01"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_05"
+        Tallness = 172.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -761 Y = 7 }
+          { X = -65 Y = 393 }
+          { X = 778 Y = -87 }
+          { X = 91 Y = -413 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_04"
+        Tallness = 499
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -867 Y = 218 }
+          { X = -388 Y = 488 }
+          { X = 858 Y = -156 }
+          { X = 357 Y = -412 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop04a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_04a"
+        Tallness = 499
+        Offset = { X = 0 Y = -24 }
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_06"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_07"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop08"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_08"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRooftop09"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Rooftop_09"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraAwning01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Awning_01"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraAwning02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Awning_02"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSign01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Sign_01"
+        Tallness = 326.0
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofRafters01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Rafters_01"
+        Tallness = 514.0
+        Offset = { X = 0 Y = -229 }
+        Points = [
+          { X = -306 Y = 170 }
+          { X = 371 Y = -155 }
+          { X = 309 Y = -179 }
+          { X = -374 Y = 136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofRafters02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Rafters_02"
+        Tallness = 521.0
+        Offset = { X = 0 Y = -217 }
+        Points = [
+          { X = -450 Y = 178 }
+          { X = -359 Y = 232 }
+          { X = 433 Y = -163 }
+          { X = 315 Y = -209 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraClothesline01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Clothesline_01"
+        Tallness = 521.0
+        Offset = { X = 0 Y = -289 }
+        Points = [
+          { X = -372 Y = -156 }
+          { X = 224 Y = 147 }
+          { X = 318 Y = 92 }
+          { X = -283 Y = -207 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTrellis01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Trellis_01"
+        Tallness = 73
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -665 Y = 8 }
+          { X = 14 Y = 348 }
+          { X = 668 Y = 8 }
+          { X = 14 Y = -340 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWeaponrack01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Weaponrack_01"
+        Tallness = 1337.0
+        Offset = { X = 0 Y = -450 }
+        Points = [
+          { X = -499 Y = 112 }
+          { X = -232 Y = 247 }
+          { X = -232 Y = 247 }
+          { X = 230 Y = 201 }
+          { X = 396 Y = 79 }
+          { X = 533 Y = -86 }
+          { X = 256 Y = -248 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTable01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Table_01"
+        UseBoundsForSortDrawArea = true
+        Tallness = 338
+        Offset = { X = 0 Y = -137 }
+        Points = [
+          { X = -413 Y = 120 }
+          { X = -185 Y = 228 }
+          { X = 430 Y = -85 }
+          { X = 179 Y = -192 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBarricade01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Barricade_01"
+        Tallness = 484.0
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -269 Y = -16 }
+          { X = 154 Y = 206 }
+          { X = 333 Y = 122 }
+          { X = -121 Y = -91 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraShields01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Shields_01"
+        Tallness = 524
+        Offset = { X = 0 Y = -193 }
+        Points = [
+          { X = -299 Y = 139 }
+          { X = -156 Y = 161 }
+          { X = 57 Y = 119 }
+          { X = 348 Y = -125 }
+          { X = 213 Y = -144 }
+          { X = -316 Y = 51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBarricade02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Barricade_02"
+        Tallness = 484.0
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraDoorFrame02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_DoorFrame_02"
+        Tallness = 876
+        Offset = { X = 0 Y = -364 }
+        Points = [
+          { X = -212 Y = -63 }
+          { X = 196 Y = 126 }
+          { X = 235 Y = 96 }
+          { X = -157 Y = -89 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraDoorFrame03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_DoorFrame_03"
+        Tallness = 876
+        Offset = { X = 0 Y = -364 }
+        Points = [
+          { X = -212 Y = -63 }
+          { X = 196 Y = 126 }
+          { X = 235 Y = 96 }
+          { X = -157 Y = -89 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraRoofBeams01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Roof_Beams_01"
+        Tallness = 176.0
+        Offset = { X = 0 Y = -73 }
+        Points = [
+          { X = -328 Y = -107 }
+          { X = 190 Y = 169 }
+          { X = 330 Y = 95 }
+          { X = -195 Y = -166 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraHaybale01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Haybale_01"
+        Tallness = 327
+        Offset = { X = 0 Y = -95 }
+        Points = [
+          { X = -478 Y = -16 }
+          { X = 43 Y = 275 }
+          { X = 475 Y = 100 }
+          { X = -94 Y = -184 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWallCorner01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Wall_Corner_01"
+        Tallness = 484.0
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWheelBarrow01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_WheelBarrow_01"
+        Tallness = 186
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -466 Y = -182 }
+          { X = -429 Y = 12 }
+          { X = -82 Y = 124 }
+          { X = 422 Y = 84 }
+          { X = 360 Y = -88 }
+          { X = -5 Y = -192 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraChimney01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Chimney_01"
+        Tallness = 373.0
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -192 Y = -31 }
+          { X = -64 Y = 127 }
+          { X = 99 Y = 44 }
+          { X = -70 Y = -88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCornice01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Cornice_01"
+        Tallness = 189
+        Offset = { X = 0 Y = -74 }
+        Points = [
+          { X = 419 Y = -133 }
+          { X = -283 Y = 217 }
+          { X = -424 Y = 144 }
+          { X = 277 Y = -201 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCornice01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Cornice_01a"
+        Tallness = 189
+        Offset = { X = 0 Y = -74 }
+        Points = [
+          { X = 419 Y = -133 }
+          { X = -283 Y = 217 }
+          { X = -424 Y = 144 }
+          { X = 277 Y = -201 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraStairs01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Stairs_01"
+        Tallness = 208
+        Offset = { X = 0 Y = -49 }
+        Points = [
+          { X = -288 Y = 95 }
+          { X = -126 Y = 173 }
+          { X = 289 Y = -35 }
+          { X = 107 Y = -117 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCapital01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Capital_01"
+        Tallness = 395
+        Offset = { X = 0 Y = -155 }
+        Points = [
+          { X = -162 Y = 137 }
+          { X = -16 Y = 167 }
+          { X = 114 Y = 143 }
+          { X = 178 Y = 70 }
+          { X = 143 Y = -51 }
+          { X = -46 Y = -109 }
+          { X = -210 Y = -56 }
+          { X = -229 Y = 70 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCapital01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Capital_01a"
+        Tallness = 327
+        Offset = { X = 0 Y = -186 }
+        Points = [
+          { X = -120 Y = 0 }
+          { X = -8 Y = 52 }
+          { X = 116 Y = 0 }
+          { X = -5 Y = -69 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFuneralPyre01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FuneralPyre_01"
+        Tallness = 526
+        Offset = { X = 0 Y = -256 }
+        Points = [
+          { X = -586 Y = 61 }
+          { X = -152 Y = 258 }
+          { X = 641 Y = -154 }
+          { X = 142 Y = -323 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCentaurChariot01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_CentaurChariot_01"
+        Tallness = 526
+        Offset = { X = 0 Y = -256 }
+        Points = [
+          { X = -521 Y = 59 }
+          { X = -152 Y = 190 }
+          { X = 603 Y = 91 }
+          { X = 666 Y = -139 }
+          { X = 451 Y = -355 }
+          { X = -404 Y = -380 }
+          { X = -651 Y = -214 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_01"
+        Tallness = 1497
+        Offset = { X = 0 Y = -655 }
+        Points = [
+          { X = -526 Y = 7 }
+          { X = 9 Y = 257 }
+          { X = 517 Y = -5 }
+          { X = -9 Y = -255 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_02"
+        Tallness = 1371
+        Offset = { X = 0 Y = -492 }
+        Points = [
+          { X = -657 Y = 49 }
+          { X = -13 Y = 374 }
+          { X = 676 Y = 32 }
+          { X = 24 Y = -264 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_03"
+        Tallness = 1371
+        Offset = { X = 0 Y = -501 }
+        Points = [
+          { X = -653 Y = 30 }
+          { X = 125 Y = 403 }
+          { X = 642 Y = 109 }
+          { X = -61 Y = -214 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFenceBrick04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_FenceBrick_04"
+        Tallness = 817
+        Offset = { X = 0 Y = -327 }
+        Points = [
+          { X = -410 Y = -156 }
+          { X = 377 Y = 248 }
+          { X = 463 Y = 206 }
+          { X = -316 Y = -204 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_04"
+        Tallness = 1371
+        Offset = { X = 0 Y = -501 }
+        Points = [
+          { X = -821 Y = -65 }
+          { X = 125 Y = 403 }
+          { X = 800 Y = 84 }
+          { X = -189 Y = -361 }
+        ]
+      }
+    }
+    {
+      Name = "EphyraBuildingGroup15"
+      InheritFrom = "EphyraBuildingGroup04"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_15"
+      }
+    }
+
+    
+    {
+      Name = "EphyraBuildingGroup05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_05"
+        Tallness = 1119
+        Offset = { X = 0 Y = -439 }
+        Points = [
+          { X = -679 Y = 60 }
+          { X = 7 Y = 390 }
+          { X = 686 Y = 51 }
+          { X = -9 Y = -286 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPatioGroup01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_PatioGroup_01"
+        Tallness = 674
+        Offset = { X = 0 Y = -195 }
+        Points = [
+          { X = -828 Y = 189 }
+          { X = -294 Y = 488 }
+          { X = 828 Y = -30 }
+          { X = 211 Y = -375 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_06"
+        Tallness = 1322
+        Offset = { X = 0 Y = -629 }
+        Points = [
+          { X = -450 Y = 103 }
+          { X = -30 Y = 284 }
+          { X = 483 Y = 30 }
+          { X = 91 Y = -167 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_07"
+        Tallness = 1180
+        Offset = { X = 0 Y = -463 }
+        Points = [
+          { X = -780 Y = 64 }
+          { X = 7 Y = 464 }
+          { X = 782 Y = 49 }
+          { X = -5 Y = -326 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_08"
+        Tallness = 877
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = 707 Y = 273 }
+          { X = -706 Y = 273 }
+          { X = -685 Y = -170 }
+          { X = 702 Y = -162 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup09"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_09"
+        Tallness = 926
+        Offset = { X = 0 Y = -349 }
+        Points = [
+          { X = -704 Y = 53 }
+          { X = -453 Y = 344 }
+          { X = 728 Y = 79 }
+          { X = 407 Y = -214 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup10"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_10"
+        Tallness = 1172
+        Offset = { X = 0 Y = -558 }
+        Points = [
+          { X = -695 Y = 40 }
+          { X = -67 Y = 329 }
+          { X = 687 Y = -80 }
+          { X = 71 Y = -422 }
+          { X = -256 Y = -433 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup11"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_11"
+        Tallness = 1172
+        Offset = { X = 0 Y = -558 }
+        Points = [
+          { X = -695 Y = 40 }
+          { X = -67 Y = 329 }
+          { X = 687 Y = -80 }
+          { X = 71 Y = -422 }
+          { X = -256 Y = -433 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup12"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_12"
+        Tallness = 820
+        Offset = { X = 0 Y = -272 }
+        Points = [
+          { X = -633 Y = 139 }
+          { X = -68 Y = 369 }
+          { X = 584 Y = 46 }
+          { X = 68 Y = -187 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup17"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_17"
+        Tallness = 820
+        Offset = { X = 0 Y = -272 }
+        Points = [
+          { X = -633 Y = 139 }
+          { X = -68 Y = 369 }
+          { X = 584 Y = 46 }
+          { X = 68 Y = -187 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup18"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_18"
+        Tallness = 1079
+        Offset = { X = 0 Y = -324 }
+        Points = [
+          { X = -909 Y = 142 }
+          { X = -80 Y = 514 }
+          { X = 919 Y = -15 }
+          { X = 221 Y = -323 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup19"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_19"
+        Tallness = 820
+        Offset = { X = 0 Y = -341 }
+        Points = [
+          { X = -858 Y = 187 }
+          { X = -300 Y = 462 }
+          { X = 471 Y = 150 }
+          { X = 876 Y = -98 }
+          { X = -12 Y = -593 }
+          { X = -492 Y = -382 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup16"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_16"
+        Tallness = 1337
+        Offset = { X = 0 Y = -454 }
+        Points = [
+          { X = -208 Y = 426 }
+          { X = 244 Y = 499 }
+          { X = 869 Y = 200 }
+          { X = -18 Y = -260 }
+          { X = -834 Y = 112 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBoatTent01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BoatTent_01"
+        Tallness = 826
+        Offset = { X = 0 Y = -272 }
+        Points = [
+          { X = -233 Y = 479 }
+          { X = 281 Y = 355 }
+          { X = 436 Y = -116 }
+          { X = 340 Y = -348 }
+          { X = 2 Y = -483 }
+          { X = -378 Y = -217 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup13"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_13"
+        Tallness = 1095
+        Offset = { X = 0 Y = -422 }
+        Points = [
+          { X = -548 Y = 73 }
+          { X = -100 Y = 318 }
+          { X = 473 Y = -4 }
+          { X = 18 Y = -222 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBuildingGroup14"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BuildingGroup_14"
+        Tallness = 1080
+        Offset = { X = 0 Y = -421 }
+        Points = [
+          { X = -869 Y = 115 }
+          { X = -272 Y = 429 }
+          { X = 144 Y = 324 }
+          { X = 854 Y = -21 }
+          { X = 50 Y = -345 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSniperTower01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_SniperTower_01"
+        Tallness = 1080
+        Offset = { X = 0 Y = -421 }
+        Points = [
+          { X = -584 Y = 204 }
+          { X = -107 Y = 443 }
+          { X = 200 Y = 299 }
+          { X = 534 Y = 136 }
+          { X = 43 Y = -109 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraArch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Arch_01"
+        Tallness = 549
+        Offset = { X = 0 Y = -238 }
+        Points = [
+          { X = -356 Y = -115 }
+          { X = 235 Y = 180 }
+          { X = 350 Y = 121 }
+          { X = -226 Y = -179 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraArch01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Arch_01a"
+        Tallness = 549
+        Offset = { X = 0 Y = -238 }
+        Points = [
+          { X = -356 Y = -115 }
+          { X = 235 Y = 180 }
+          { X = 350 Y = 121 }
+          { X = -226 Y = -179 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraVase01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Vase_01"
+        Tallness = 441.0
+        Offset = { X = 0 Y = -196 }
+        Points = [
+          { X = -211 Y = -24 }
+          { X = -131 Y = 56 }
+          { X = 7 Y = 96 }
+          { X = 142 Y = 52 }
+          { X = 223 Y = -32 }
+          { X = 150 Y = -96 }
+          { X = 4 Y = -117 }
+          { X = -129 Y = -91 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_01"
+        Tallness = 1337
+        Offset = { X = 0 Y = -590 }
+        Points = [
+          { X = -231 Y = 5 }
+          { X = -139 Y = 97 }
+          { X = 12 Y = 121 }
+          { X = 148 Y = 88 }
+          { X = 229 Y = 28 }
+          { X = 223 Y = -58 }
+          { X = 49 Y = -123 }
+          { X = -126 Y = -125 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_01a"
+        Tallness = 400
+        Offset = { X = 0 Y = -161 }
+        Points = [
+          { X = -115 Y = 19 }
+          { X = -34 Y = 66 }
+          { X = 50 Y = 59 }
+          { X = 120 Y = 13 }
+          { X = 107 Y = -27 }
+          { X = 41 Y = -63 }
+          { X = -62 Y = -60 }
+          { X = -104 Y = -35 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar01aMoon"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_01a_Moon"
+        Tallness = 356
+        Offset = { X = 0 Y = -169 }
+        Points = [
+          { X = -144 Y = 7 }
+          { X = -80 Y = 56 }
+          { X = 70 Y = 58 }
+          { X = 139 Y = 25 }
+          { X = 139 Y = -38 }
+          { X = 74 Y = -80 }
+          { X = -42 Y = -85 }
+          { X = -111 Y = -62 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraCrate01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Crate_01"
+        Tallness = 453
+        Offset = { X = 0 Y = -189 }
+        Points = [
+          { X = -399 Y = -19 }
+          { X = 50 Y = 200 }
+          { X = 415 Y = 11 }
+          { X = -22 Y = -207 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBarrel01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Barrel_01"
+        Tallness = 683
+        Offset = { X = 0 Y = -312 }
+        Points = [
+          { X = -172 Y = 60 }
+          { X = -24 Y = 99 }
+          { X = 173 Y = 56 }
+          { X = 254 Y = -23 }
+          { X = 127 Y = -110 }
+          { X = -132 Y = -114 }
+          { X = -266 Y = -36 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Statue_01"
+        Tallness = 1545
+        Offset = { X = 0 Y = -693 }
+        Points = [
+          { X = -244 Y = -36 }
+          { X = 15 Y = 113 }
+          { X = 282 Y = -32 }
+          { X = 25 Y = -158 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_02"
+        Tallness = 948.0
+        Offset = { X = 0 Y = -385 }
+        Points = [
+          { X = -86 Y = 22 }
+          { X = -9 Y = 61 }
+          { X = 62 Y = 26 }
+          { X = -18 Y = -15 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_04"
+        Tallness = 1789
+        Offset = { X = 0 Y = -735 }
+        Points = [
+          { X = -164 Y = 5 }
+          { X = 15 Y = 110 }
+          { X = 176 Y = 34 }
+          { X = -7 Y = -69 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillar03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillar_03"
+        Tallness = 610.0
+        Offset = { X = 0 Y = -242 }
+        Points = [
+          { X = -122 Y = 17 }
+          { X = 10 Y = 86 }
+          { X = 127 Y = 26 }
+          { X = -13 Y = -39 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillarbase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillarbase_01"
+        Tallness = 342
+        Offset = { X = 0 Y = -96 }
+        Points = [
+          { X = -209 Y = 83 }
+          { X = -182 Y = 122 }
+          { X = -55 Y = 167 }
+          { X = 105 Y = 157 }
+          { X = 204 Y = 107 }
+          { X = 174 Y = -26 }
+          { X = 3 Y = -71 }
+          { X = -165 Y = -41 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBreakableVase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BreakableVase_01"
+        Tallness = 165
+        Offset = { X = 0 Y = -71 }
+        Points = [
+          { X = 2 Y = 25 }
+          { X = -41 Y = 12 }
+          { X = -27 Y = -14 }
+          { X = 37 Y = -16 }
+          { X = 50 Y = 12 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBreakableVase01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BreakableVase_01a"
+        Tallness = 711
+        Offset = { X = 0 Y = -292 }
+        Points = [
+          { X = -96 Y = 17 }
+          { X = -15 Y = 68 }
+          { X = 90 Y = 40 }
+          { X = 133 Y = -8 }
+          { X = 53 Y = -43 }
+          { X = -60 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraBreakableVase01b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_BreakableVase_01b"
+        Tallness = 342
+        Offset = { X = 0 Y = -171 }
+        Points = [
+          { X = -117 Y = -6 }
+          { X = -69 Y = 38 }
+          { X = 13 Y = 50 }
+          { X = 100 Y = 21 }
+          { X = 107 Y = -33 }
+          { X = 51 Y = -68 }
+          { X = -61 Y = -64 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPillarbase01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Pillarbase_01a"
+        Tallness = 342
+        Offset = { X = 0 Y = -146 }
+        Points = [
+          { X = -223 Y = 15 }
+          { X = -166 Y = 92 }
+          { X = 8 Y = 131 }
+          { X = 162 Y = 101 }
+          { X = 218 Y = 21 }
+          { X = 199 Y = -88 }
+          { X = -3 Y = -123 }
+          { X = -174 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPost01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Post_01"
+        Tallness = 628.0
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -226 Y = 20 }
+          { X = -3 Y = 128 }
+          { X = 221 Y = 24 }
+          { X = -5 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraGable02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Gable_02"
+        Tallness = 628.0
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -226 Y = 20 }
+          { X = -3 Y = 128 }
+          { X = 221 Y = 24 }
+          { X = -5 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraPost01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Post_01a"
+        Tallness = 628
+        Offset = { X = 0 Y = -289 }
+        Points = [
+          { X = -213 Y = -9 }
+          { X = -7 Y = 90 }
+          { X = 207 Y = -9 }
+          { X = 1 Y = -109 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraVase02"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Vase_02"
+        Tallness = 628.0
+        Offset = { X = 0 Y = -279 }
+        Points = [
+          { X = -191 Y = 38 }
+          { X = -60 Y = 112 }
+          { X = 82 Y = 105 }
+          { X = 184 Y = 45 }
+          { X = 141 Y = -45 }
+          { X = -93 Y = -57 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraVase02Destruct"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Vase_02_Destruct"
+        Tallness = 628.0
+        Offset = { X = 0 Y = -279 }
+        Points = [
+          { X = -191 Y = 38 }
+          { X = -60 Y = 112 }
+          { X = 82 Y = 105 }
+          { X = 184 Y = 45 }
+          { X = 141 Y = -45 }
+          { X = -93 Y = -57 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraSacks01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Sacks_01"
+        Tallness = 127
+        Offset = { X = 0 Y = 29 }
+        Points = [
+          { X = -682 Y = 217 }
+          { X = -444 Y = 262 }
+          { X = 106 Y = 319 }
+          { X = 688 Y = 103 }
+          { X = 212 Y = -155 }
+          { X = -362 Y = -87 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBase01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Base_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsSandTemp"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBase01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Base_01a"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPebblePath01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_PebblePath_01"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtRocks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtRocks_01"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPebblePath02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_PebblePath_02"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtRocks02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtRocks_02"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDirtRocks03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_DirtRocks_03"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainFootprints03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Footprints_03"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainFootprints01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Footprints_01"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainFootprints02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Footprints_02"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDestruction01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Destruction_01"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainDestruction02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Destruction_02"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPylonGate01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_PylonGate_01"
+        Tallness = 828.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 78
+        Offset = { X = 0 Y = 2 }
+        Points = [
+          { X = -395 Y = 160 }
+          { X = -246 Y = 236 }
+          { X = 402 Y = -103 }
+          { X = 232 Y = -166 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_01a"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 78
+        Offset = { X = 0 Y = 2 }
+        Points = [
+          { X = -395 Y = 160 }
+          { X = -246 Y = 236 }
+          { X = 402 Y = -103 }
+          { X = 232 Y = -166 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 95
+        Offset = { X = 0 Y = 14 }
+        Points = [
+          { X = -422 Y = 69 }
+          { X = -30 Y = 272 }
+          { X = 418 Y = 35 }
+          { X = 26 Y = -167 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick02a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_02a"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 95
+        Offset = { X = 0 Y = 14 }
+        Points = [
+          { X = -832 Y = 15 }
+          { X = 14 Y = 477 }
+          { X = 823 Y = 17 }
+          { X = 20 Y = -398 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_03"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraMudtile01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Mudtile_01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraMudtile02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Mudtile_02"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon09"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_09"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon08"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_08"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_07"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_06"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_05"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_04"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_03"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMoon02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Moon_02"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMountains"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Mountains"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook2Sky01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook2_Sky01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook2Sky02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook2_Sky02"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook2MG01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook2_MG01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook2FG01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook2_FG01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook2BG01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook2_BG01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookBG"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_BG"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook01bg"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_01_bg"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlook01fg"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_01_fg"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookHouses"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Houses"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookHouses2"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Houses2"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookFGTop"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_FGTop"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookFGMel"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_FGMel"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookMel"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Mel"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraOverlookClouds"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Overlook_Clouds"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_04"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraScatteredPapers01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_ScatteredPapers_01"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_05"
+        Tallness = 95.0
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_06"
+        Tallness = 236
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = 193 Y = 235 }
+          { X = 411 Y = 116 }
+          { X = -179 Y = -193 }
+          { X = -399 Y = -57 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraDeadSheep01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_DeadSheep_01"
+        Tallness = 164
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -286 Y = 24 }
+          { X = -262 Y = 120 }
+          { X = -173 Y = 144 }
+          { X = 68 Y = 157 }
+          { X = 328 Y = 13 }
+          { X = 348 Y = -131 }
+          { X = 173 Y = -213 }
+          { X = -200 Y = -118 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraFish01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Fish_01"
+        Tallness = 164
+        Offset = { X = 0 Y = 37 }
+      }
+    }
+    
+    {
+      Name = "EphyraFish02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Fish_02"
+        Tallness = 164
+        Offset = { X = 0 Y = 37 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_07"
+        Tallness = 79
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -593 Y = -39 }
+          { X = -7 Y = 250 }
+          { X = 588 Y = -54 }
+          { X = -6 Y = -338 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPlanks03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Planks_03"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+        Tallness = 51
+        Offset = { X = 0 Y = -11 }
+        Points = [
+          { X = -256 Y = 88 }
+          { X = -153 Y = 139 }
+          { X = 256 Y = -74 }
+          { X = 148 Y = -114 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPlanks02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Planks_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+        Tallness = 96
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -577 Y = 1 }
+          { X = -141 Y = 243 }
+          { X = 580 Y = -114 }
+          { X = 133 Y = -339 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainPlanks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Planks_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+        Tallness = 51
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainHubFlourish01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainHub_Flourish_01"
+        Tallness = 51
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainCyclopsDecor01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_CyclopsDecor_01"
+        Tallness = 51
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainMerchantCloth01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_MerchantCloth_01"
+        Tallness = 51
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBloodSplatter01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_BloodSplatter_01"
+        Tallness = 51
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick08"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_08"
+        FootstepSound = "/Leftovers/SFX/FootstepsConcrete"
+        Tallness = 87.0
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -575 Y = -37 }
+          { X = 1 Y = 254 }
+          { X = 575 Y = -40 }
+          { X = 9 Y = -332 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBrick09"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_TerrainBrick_09"
+        Tallness = 87.0
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -575 Y = -37 }
+          { X = 1 Y = 254 }
+          { X = 575 Y = -40 }
+          { X = 9 Y = -332 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraTerrainBase02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Terrain_Base_02"
+        FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+        Tallness = 87
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "EphyraCliffside01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Cliffside_01"
+        Tallness = 1147
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -491 Y = 274 }
+          { X = 44 Y = 543 }
+          { X = 197 Y = 518 }
+          { X = 187 Y = 455 }
+          { X = -375 Y = 238 }
+        ]
+      }
+    }
+    
+    {
+      Name = "EphyraWindow01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Ephyra\Ephyra_Window_01"
+        Tallness = 373.0
+        Offset = { X = 0 Y = -128 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+{
+Name = "ShadeEphyraIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeEphyraIdle"
+        StopsLight = false
+        Tallness = 183
+        Offset = { X = 0 Y = -41 }
+        Points = [
+          { X = 34 Y = -7 }
+          { X = 15 Y = -24 }
+          { X = -14 Y = -25 }
+          { X = -32 Y = -6 }
+          { X = -18 Y = 17 }
+          { X = 27 Y = 16 }
+        ]
+      }
+    }
+
+
+    
+  ]
+}

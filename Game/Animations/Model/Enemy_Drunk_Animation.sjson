@@ -1,0 +1,400 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyDrunkBaseAnimation"
+		
+		GrannyModel = "DeadSeaDrunk_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+		VisualFx = "DrunkBarrelDust"
+	}
+
+	{
+		Name = "Enemy_Drunk_Idle"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_MoveStart"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Move_C_00"
+		ChainTo = "Enemy_Drunk_Move"
+		Sound = "/Leftovers/World Sounds/JumpLanding"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_Move"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Move_C_00"
+		Loop = true
+		Frames = 
+		[
+			{
+				Frame = 11
+				Sound = "/Leftovers/World Sounds/JumpLanding"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_MoveStop"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Drunk_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_OnHit"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Drunk_Idle"
+		Sound = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteHurt"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Drunk_InBarrel" }
+			{ Name = "Enemy_Drunk_Spawn" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 4
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1.8
+			}
+		]
+	}
+	{
+		Name = "Enemy_Drunk_OnHit_Heavy"
+		InheritFrom = "Enemy_Drunk_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+
+	{
+		Name = "Enemy_Drunk_InBarrel"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Barrel_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Drunk_Spawn"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Spawn_C_00"
+		Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteDying"
+			}
+			{
+				Frame = 2
+				Sound = "/Leftovers/World Sounds/JumpLanding"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_LeftSwingPreFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_LeftSwingPreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_DrunkLeft"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Spawn"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_StabPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_RightSwingPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_LeftSwingPostFire"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_LeftSwingFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_LeftSwingFire_C_00"
+		ChainTo = "Enemy_Drunk_LeftSwingPostFire"
+	}
+
+	{
+		Name = "Enemy_Drunk_LeftSwingPostFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_LeftSwingPostFire_C_00"
+		ChainTo = "Enemy_Drunk_Idle"
+		Sound = "/Leftovers/World Sounds/JumpLanding"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_RightSwingPreFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_RightSwingPreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_DrunkRight"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Spawn"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_StabPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_RightSwingPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_LeftSwingPostFire"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_RightSwingFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_RightSwingFire_C_00"
+		ChainTo = "Enemy_Drunk_RightSwingPostFire"
+	}
+
+	{
+		Name = "Enemy_Drunk_RightSwingPostFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_RightSwingPostFire_C_00"
+		ChainTo = "Enemy_Drunk_Idle"
+		Sound = "/Leftovers/World Sounds/JumpLanding"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_StabPreFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_StabPreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_DrunkLeft"
+		Frames =
+		[
+			{
+				Frame = 29
+				FrameSpeed = 0.5
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Spawn"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_StabPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_RightSwingPostFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_LeftSwingPostFire"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Drunk_StabFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_StabFire_C_00"
+		ChainTo = "Enemy_Drunk_StabPostFire"
+	}
+
+	{
+		Name = "Enemy_Drunk_StabPostFire"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_StabPostFire_C_00"
+		ChainTo = "Enemy_Drunk_Idle"
+		Sound = "/Leftovers/World Sounds/JumpLanding"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+	}
+
+]}

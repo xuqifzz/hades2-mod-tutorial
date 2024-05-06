@@ -1,0 +1,634 @@
+{ Animations = [
+	{
+		Name = "BloodlessBeserker"
+		GrannyModel = "BloodlessBeserker_Mesh"
+	}
+	{
+		Name = "BloodlessWavemaker"
+		GrannyModel = "BloodlessWavemaker_Mesh"
+	}
+	{
+		Name = "EnemyBloodlessNakedBaseAnimation"
+		GrannyModel = "BloodlessNaked_Mesh"
+		ExtraGrannyAnimations =
+		[
+			{ Name = "BloodlessBeserker" }
+			{ Name = "BloodlessWavemaker" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 2.5
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_BloodlessNaked_Idle"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosIdle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_LeapLand"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_MoveStart"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosStart_C_00"
+		NativeMoveSpeed = 250
+		ChainTo = "Enemy_BloodlessNaked_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3.0
+			}
+		]
+	}
+	{
+		Name = "Enemy_BloodlessNaked_Move"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosWalk_C_00"
+		NativeMoveSpeed = 250
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 26
+				Sound = "/Leftovers/SFX/FootstepsRug2"
+			}
+			{
+				Frame = 42
+				FrameSpeed = 1.5
+				Sound = "/Leftovers/SFX/FootstepsRug2"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_BloodlessNaked_MoveStop"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosStop_C_00"
+		NativeMoveSpeed = 250
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_BloodlessNaked_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_OnHit"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosOnHit_C_00"
+		Sound = "/SFX/Enemy Sounds/Bloodless01/EmoteHurt"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_BloodlessNaked_Idle"
+	}
+	{
+		Name = "Enemy_BloodlessNaked_OnHit_Heavy"
+		InheritFrom = "Enemy_BloodlessNaked_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_Leap"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosLeap_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 19
+				FrameSpeed = 3.0
+			}
+			{
+				Frame = 37
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 58
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_LeapLand"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosLeap_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Leap"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 58
+				FrameSpeed = 3.0
+			}
+			{
+				Frame = 78
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_LeapLong"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosLeapLong_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 92
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_LeapLongLand"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosLeapLong_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_LeapLong"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 92
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_AttackPreFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosAttack_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 55
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_AttackFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessNaked_AttackPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 55
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 70
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_AttackPostFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessNaked_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 70
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_Activate"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "Bloodless_Base_MinosActivate_C_00"
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WildAttack1_Start"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessBeserker_Base_MinosWildAttacks_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_WildAttack2_Fire"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WildAttack1_Fire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessBeserker_Base_MinosWildAttacks_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 12
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WildAttack2_Start"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessBeserker_Base_MinosWildAttacks_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 41
+				FrameSpeed = 0.0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_WildAttack1_Fire"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WildAttack2_Fire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessBeserker_Base_MinosWildAttacks_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 41
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 54
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WildAttack_End"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessBeserker_Base_MinosWildAttacks_C_00"
+		ChainTo = "Enemy_BloodlessNaked_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_WaveFire"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 54
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WavePreFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessWavemaker_Base_MinosAttack_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/WaveFistPreAttack"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.35
+			}
+			{
+				Frame = 17
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessNaked_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WaveFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessWavemaker_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessNaked_WavePostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 38
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessNaked_WavePostFire"
+		InheritFrom = "EnemyBloodlessNakedBaseAnimation"
+		GrannyAnimation = "BloodlessWavemaker_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessNaked_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 38
+				FrameSpeed = 1.0
+			}
+		]
+	}
+]}

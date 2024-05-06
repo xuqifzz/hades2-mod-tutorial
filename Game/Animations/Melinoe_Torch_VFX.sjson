@@ -1,0 +1,5161 @@
+{ Animations = [
+
+	{
+		Name = "MelTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlame\HecateTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		ChildAnimation = null
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		CreateAnimation = "MelTorchFlameGlowL"
+		VisualFx = "MelTorchFlameTrail"
+		VisualFxIntervalMin = 0.10
+		VisualFxIntervalMax = 0.11
+		OffsetZ = 10
+	}
+
+	{
+		Name = "MelTorchFlameRight"
+		InheritFrom = "MelTorchFlameLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = null
+		CreateAnimation = "MelTorchFlameGlowR"
+		Sound = "/SFX/Player Sounds/MelTorchAmbience"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "MelTorchFlameCenterA"
+		InheritFrom = "MelTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlameCenterA\HecateTorchFlameCenterA"
+		ChildAnimation = null
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "MelTorchFlameCenterB"
+		InheritFrom = "MelTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlameCenterB\HecateTorchFlameCenterB"
+		ChildAnimation = null
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "MelTorchFlameGlowL"
+		FilePath = "Fx\HecateTorchFlame\HecateTorchFlameGlow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 1.0
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		SortMode = "FromParent"
+		UseAttachedFlasher = false
+		OffsetY = -5
+		OffsetZ = 10
+	}
+
+	{
+		Name = "MelTorchFlameGlowR"
+		InheritFrom = "MelTorchFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+
+	{
+		Name = "MelTorchFlameTrail"			
+		Random =
+		[
+			{ Name = "MelTorchFlameTrailA" }
+			{ Name = "MelTorchFlameTrailB" }
+			{ Name = "MelTorchFlameTrailC" }
+			{ Name = "MelTorchFlameTrailA_Dark" }
+			{ Name = "MelTorchFlameTrailB_Dark" }
+			{ Name = "MelTorchFlameTrailC_Dark" }
+		]
+	}
+
+	{
+		Name = "MelTorchFlameTrailA"			
+		FilePath = "Fx\HecateTorchFlameTrailA\HecateTorchFlameTrailA"
+		Material = "Unlit"
+		NumFrames = 30
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		UseAttachedFlasher = false
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		GroupName = "Standing"
+		StartScale = 0.6
+		EndScale = 1.1
+		VelocityMin = 30
+		VelocityMax = 300
+		AngleMin = 80
+		AngleMax = 100
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 0.99
+		Acceleration = -100
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "MelTorchFlameTrailB"
+		InheritFrom = "MelTorchFlameTrailA"
+		FilePath = "Fx\HecateTorchFlameTrailB\HecateTorchFlameTrailB"
+	}
+
+
+	{
+		Name = "MelTorchFlameTrailC"
+		InheritFrom = "MelTorchFlameTrailA"
+		FilePath = "Fx\HecateTorchFlameTrailC\HecateTorchFlameTrailC"
+	}
+
+	{
+		Name = "MelTorchFlameTrailA_Dark"
+		InheritFrom = "MelTorchFlameTrailA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "MelTorchFlameTrailB_Dark"
+		InheritFrom = "MelTorchFlameTrailA_Dark"
+		FilePath = "Fx\HecateTorchFlameTrailB\HecateTorchFlameTrailB"
+	}
+
+	{
+		Name = "MelTorchFlameTrailC_Dark"
+		InheritFrom = "MelTorchFlameTrailA_Dark"
+		FilePath = "Fx\HecateTorchFlameTrailC\HecateTorchFlameTrailC"
+	}
+
+	{
+		Name = "MelTorchFireFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		CreateAnimations =
+		[
+			{ Name = "MelTorchLeftGlow" }
+			{ Name = "MelTorchRightGlow" }
+		]
+	}
+
+	{
+		Name = "MelTorchLeftGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		Material = "Unlit"
+		EndRed = 0.1
+		EndGreen = 1.0
+		EndBlue = 0.8
+		StartAlpha = 1.0
+		StartRed = 0.4
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndAlpha = 0
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame03_C_joint"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 0.3
+		Duration = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 0.1
+		Loop = false
+		CreateAnimation = "MelTorchLeftFlare"
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+	}
+
+	{
+		Name = "MelTorchRightGlow"
+		InheritFrom = "MelTorchLeftGlow"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame03_C_joint"
+		CreateAnimation = "MelTorchRightFlare"
+	}
+
+	{
+		Name = "MelTorchLeftFlare"
+		FilePath = "Particles\particle_enemyFlare"
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame03_C_joint"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		Saturation = -1
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.4
+	}
+
+	{
+		Name = "MelTorchRightFlare"
+		InheritFrom = "MelTorchLeftFlare"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame03_C_joint"
+	}
+	{
+		Name = "TorchWeaponFlame"
+		
+		Random =
+		[
+			{ Name = "TorchWeaponFlameA" }
+			{ Name = "TorchWeaponFlameB" }
+			{ Name = "TorchWeaponFlameC" }
+		]
+	}
+
+	{
+		Name = "TorchWeaponFlameSmall"
+		
+		Random =
+		[
+			{ Name = "TorchWeaponFlameASmall" }
+			{ Name = "TorchWeaponFlameBSmall" }
+			{ Name = "TorchWeaponFlameCSmall" }
+		]
+	}
+	
+	{
+		Name = "TorchWeaponFlameA"
+		CreateAnimation = "TorchWeaponFlameADark"
+		FilePath = "Fx\TorchFlameA\TorchFlameA"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		StartBlue = 0.01
+		StartGreen = 1.0
+		StartRed = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 44
+		NumFrames = 44
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 85.0
+		OriginY = 122.0
+		LocationFromOwner = "Take"
+		Acceleration = -400.0
+		Velocity = 400.0
+		EndScaleX = 1.5
+		ScaleMax = 1.0
+		ScaleMin = 0.9
+		StartScaleY = 0.5
+		Ambient = 0.0
+		OverlayVfx = true
+	}
+	
+	{
+		Name = "TorchWeaponFlameB"
+		InheritFrom = "TorchWeaponFlameA"
+		CreateAnimation = "TorchWeaponFlameBDark"
+		FilePath = "Fx\TorchFlameB\TorchFlameB"
+	}
+	
+	{
+		Name = "TorchWeaponFlameC"
+		InheritFrom = "TorchWeaponFlameA"
+		CreateAnimation = "TorchWeaponFlameCDark"
+		FilePath = "Fx\TorchFlameC\TorchFlameC"
+	}
+	
+	{
+		Name = "TorchWeaponFlameADark"
+		InheritFrom = "TorchWeaponFlameA"
+		CreateAnimation = "null"
+		GroupName = "FX_Dark"
+		AddColor = false
+		ScaleMax = 1.1
+		ScaleMin = 1.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "TorchWeaponFlameBDark"
+		InheritFrom = "TorchWeaponFlameADark"
+		FilePath = "Fx\TorchFlameB\TorchFlameB"
+	}
+	
+	{
+		Name = "TorchWeaponFlameCDark"
+		InheritFrom = "TorchWeaponFlameADark"
+		FilePath = "Fx\TorchFlameC\TorchFlameC"
+	}
+
+	{
+		Name = "TorchWeaponFlameASmall"
+		InheritFrom = "TorchWeaponFlameA"
+		CreateAnimation = "TorchWeaponFlameADarkSmall"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+	{
+		Name = "TorchWeaponFlameBSmall"
+		InheritFrom = "TorchWeaponFlameB"
+		CreateAnimation = "TorchWeaponFlameBDarkSmall"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+	{
+		Name = "TorchWeaponFlameCSmall"
+		InheritFrom = "TorchWeaponFlameC"
+		CreateAnimation = "TorchWeaponFlameCDarkSmall"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+
+	{
+		Name = "TorchWeaponFlameADarkSmall"
+		InheritFrom = "TorchWeaponFlameADark"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+	{
+		Name = "TorchWeaponFlameBDarkSmall"
+		InheritFrom = "TorchWeaponFlameBDark"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+	{
+		Name = "TorchWeaponFlameCDarkSmall"
+		InheritFrom = "TorchWeaponFlameCDark"
+		ScaleMax = 0.40
+		ScaleMin = 0.35
+	}
+	
+	{
+		Name = "TorchRingFx"
+		FilePath = "Fx\TorchRing\TorchRing"
+		
+		EndFrame = 45
+		Loop = true
+		NumFrames = 45
+		PlaySpeed = 45.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomRotation = true
+		RotationSpeed = 30.0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 245.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "TorchArcIn"			
+		FilePath = "Fx\HecateSlowFlameIn\HecateSlowFlameIn"
+		NumFrames = 10
+		PlaySpeed = 30
+		ChainTo = "TorchArc"
+		Material = "Unlit"
+		PostRotateScaleY = 0.55
+		ScaleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		OffsetY = 35
+		VisualFx = "HecateSlowFlameParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "HecateSlowFlameFlare" }
+			{ Name = "HecateSlowFlameIn_Add" }
+			{ Name = "HecateSlowFlameDisplacement" }
+		]
+	}
+
+	{
+		Name = "TorchArc"
+		InheritFrom = "HecateSlowFlameIn"
+		FilePath = "Fx\HecateSlowFlame\HecateSlowFlame"
+		NumFrames = 60
+		Loop = true
+		DieWithOwner = true
+		ScaleFromOwner = "Take"
+		ChainTo = null
+		ClearCreateAnimations = true
+		OffsetY = 35
+	}
+
+	{
+		Name = "TorchOrbExplosion"
+		FilePath = "Fx\AxeNova\AxeNova"
+		NumFrames = 36
+		PlaySpeed = 60
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		Material = "Unlit"
+		StartRed = 0.0
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.2
+		EndBlue = 1.0
+		GroupName = "FX_Terrain_Add"
+		ScaleRadius = 230
+		AddColor = true
+		LocationZFromOwner = "Ignore"
+		VisualFx = "AxeNovaParticles"
+		VisualFxCap = 12
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		TimeModifierFraction = 0.33
+		CreateAnimations =
+		[
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeNovaLight" }
+			{ Name = "AxeNovaDisplacement" }
+		]
+	}
+
+	 {
+		Name = "TorchOrbExplosionSlow"
+		InheritFrom = "TorchOrbExplosion"
+		PlaySpeed = 20
+		CreateAnimations =
+		[
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeNovaLight" }
+			{ Name = "AxeNovaDisplacement" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileLarge"
+		FilePath = "Fx\TorchProjectileLarge\TorchProjectileLarge"
+		NumFrames = 16
+		NumAngles = 16
+		Material = "Unlit"
+		StartOffsetZ = 0
+		EndOffsetZ = 15
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1.2
+		Loop = true
+		ChildAnimation = "TorchProjectileGhostParticleEmitter"
+		VisualFx = "TorchProjectileLargeTrail"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		TransferCopyBody = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "TorchProjectileSmall"
+		InheritFrom = "TorchProjectileLarge"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		Scale = 1
+		VisualFx = "TorchProjectileSmallTrail"
+		VisualFxDistanceMin = 15
+		VisualFxDistanceMax = 15
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		EndOffsetZ = 15
+	}
+
+	{
+		Name = "TorchProjectileSmallIn"
+		InheritFrom = "TorchProjectileSmall"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn"
+		InheritFrom = "TorchProjectileLarge"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail"
+		InheritFrom = "TorchProjectileSmall"
+		NumFrames = 1
+		NumAngles = 32
+		FilePath = "Fx\TorchProjectileSmallBlur\TorchProjectileSmallBlur"
+		GroupName = "Standing_Back"
+		DrawBehindOwner = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		StartAlpha = 0.33
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFx = null
+		Loop = false
+		ChildAnimation = null
+		RandomDurationMin = 0.45
+		RandomDurationMax = 0.46
+		Scale = 1
+		StartScale = 1
+		EndScale = 0.0
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail"
+		InheritFrom = "TorchProjectileSmallTrail"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.25
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA" }
+			{ Name = "TorchProjectileGhostParticleB" }
+			{ Name = "TorchProjectileGhostParticleC" }				
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA"
+		FilePath = "Fx\TorchProjectileGhostTrail\TorchProjectileGhostTrail"
+		NumFrames = 32
+		RandomPlaySpeedMin = 36
+		RandomPlaySpeedMax = 45
+		AngleFromOwner = "Take"
+		AngleMin = -20
+		AngleMax = 20
+		VelocityMin = 400
+		VelocityMax = 440
+		Acceleration = -400
+		Material = "Unlit"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		ScaleMin = 0.3
+		ScaleMax = 0.75
+		RandomOffsetX = 10
+		RandomOffsetY = 4
+		OffsetZ = -10
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Gravity = 1
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticleB"
+		InheritFrom = "TorchProjectileGhostParticleA"
+		Hue = 0.15
+	}
+	{
+		Name = "TorchProjectileGhostParticleC"
+		InheritFrom = "TorchProjectileGhostParticleA"
+		Hue = -0.15
+	}		
+	{
+		Name = "TorchProjectileGhostParticleDark"
+		InheritFrom = "TorchProjectileGhostParticleA"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "MelEquipSparkleTorchLSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.55
+		ChainTo = "MelEquipSparkleTorchL"
+	}
+	{
+		Name = "MelEquipSparkleTorchL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelEquipSparkleTorchRSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.45
+		ChainTo = "MelEquipSparkleTorchR"
+	}
+	{
+		Name = "MelEquipSparkleTorchR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "MelUnequipSparkleTorchLSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelUnequipSparkleTorchL"
+	}
+	{
+		Name = "MelUnequipSparkleTorchL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelUnequipSparkleTorchRSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelUnequipSparkleTorchR"
+	}
+	{
+		Name = "MelUnequipSparkleTorchR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "MelInteractUnequipSparkleTorchL"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelInteractUnequipSparkleTorchSparkleL"
+	}
+	{
+		Name = "MelInteractUnequipSparkleTorchSparkleL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelInteractUnequipSparkleTorchR"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelInteractUnequipSparkleTorchSparkleR"
+	}
+	{
+		Name = "MelInteractUnequipSparkleTorchSparkleR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "TorchSpecialProjectileTest"
+		FilePath = "Particles\particle_arrow"
+		Material = "Unlit"
+		AngleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "TorchSpecialProjectile"
+		FilePath = "Fx\TorchSpecial\TorchSpecial"
+		NumFrames = 30
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		TransferFrameToThis = true
+		VisualFx = "TorchSpecialProjectileTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
+		Scale = 0.75
+		StartScale = 1
+		EndScale = 0.66
+		PingPongScale = true
+		ChildAnimation = "TorchSpecialParticleEmitter"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialTail"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "TorchSpecialParticles"
+		VisualFxDistanceMin = 80
+		VisualFxDistanceMax = 100
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn"
+		InheritFrom = "TorchSpecialProjectile"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = "/SFX/Player Sounds/MelTorchSpecialStart"
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 1
+		StartBlue = 0.6
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare" }
+		]
+	}
+	{
+		Name = "TorchSpecialExProjectileIn"
+		InheritFrom = "TorchSpecialProjectileIn"
+		ChainTo = "TorchSpecialExProjectile"
+	}
+	{
+		Name = "TorchSpecialExProjectile"
+		InheritFrom = "TorchSpecialProjectile"
+		Sound = "/SFX/Player Sounds/MelTorchSpecialOmegaLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare"
+		FilePath = "Particles\particle_enemyFlare"
+		Hue = 0.5
+		Material = "Unlit"
+		StartScale = 0
+		EndScale = 0.5
+		PingPongScale = true
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Duration = 1
+		Loop = true
+		Red = 0.1
+		Green = 1
+		Blue = 0.75
+		Scale = 0.5
+		Alpha = 0.33
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+	}
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.25
+		Scale = 1.0
+		VisualFx = "TorchSpecialProjectileTrailDark"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate"
+		InheritFrom = "TorchSpecialProjectile"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+		Sound = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA" }
+			{ Name = "TorchSpecialProjectileTrailB" }
+			{ Name = "TorchSpecialProjectileTrailC" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailA\TorchSpecialTrailA"
+		ScaleFromOwner = "Ignore"
+		NumFrames = 32
+		VelocityMin = 220
+		VelocityMax = 620
+		Acceleration = 0
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.5
+		EaseIn = 0.95
+		EaseOut = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 1
+		RandomRotation = false
+		AngleMin = -5
+		AngleMax = 5
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleFromOwner = "Ignore"
+		VisualFxUse3DAngle = true
+		OriginX = 130
+		OriginY = 64
+		OverlayVfx = true
+		ScaleY = 1.0
+		ScaleX = 0.5
+		StartScaleY = 1.25
+		EndScaleY = 0.75
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA" }
+			{ Name = "TorchSpecialProjectileTrailDarkB" }
+			{ Name = "TorchSpecialProjectileTrailDarkC" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		VelocityMin = 110
+		VelocityMax = 310
+		Acceleration = 0
+		AngleChangeSpeed = 0
+		AngleChangeAcceleration = 0
+		CreateAnimation = null
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		GroupName = "Standing"
+		AddColor = false
+		StartRed = 0.001
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndAlpha = 0.999
+		OffsetZ = 112
+		Scale = 0.75
+		ScaleX = 0.66
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialParticles"
+		FilePath = "Fx\Staff\StaffMoonParticle\StaffMoonParticle"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		NumFrames = 20
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		VelocityMin = -400
+		VelocityMax = -400
+		Acceleration = 600
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.5
+		EndRed = 0.1
+		EndGreen = 0.99
+		EndBlue = 0.8
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.5
+		ScaleY = 0.5
+		VisualFx = null
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		IsometricSkew = "Y"
+		FlipHorizontal = false
+		RandomFlipVertical = true
+		CreateAnimation = "TorchSpecialSparkle"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchSpecialSparkle"
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		OffsetZ = 112
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		AddColor = true
+		VelocityMin = 25
+		VelocityMax = 100
+		AngleMin = 0
+		AngleMax = 360
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.05
+		ScaleMax = 0.25
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.01
+		StartGreen = 1.0
+		StartBlue = 0.4
+		EndRed = 0.0
+		EndGreen = 0.99
+		EndBlue = 0.8
+		StartScale = 1
+		EndScale = 0
+		UseOwnAngle = false
+		EaseIn = 0.999
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipate"
+		FilePath = "Fx\TorchProjectileDissipate\TorchProjectileDissipate"
+		NumFrames = 19
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		OverlayVfx = true
+		AddColor = true
+		Red = 0
+		Green = 1
+		Blue = 0.7
+		VisualFx = "TorchProjectileDissipateSmokeA"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 1
+		Sound = "/Leftovers/World Sounds/Caravan Interior/SteamAcidForage"
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA"
+		FilePath = "Fx\TorchProjectileDissipate\TorchProjectileDissipateSmokeA"
+		GroupName = "FX_Displacement"
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.4
+		StartScale = 0
+		EndScale = 1.0
+		StartRed = 0.6
+		StartGreen = 0.999
+		StartBlue = 0.99
+		EndRed = 0.5
+		EndGreen = 1
+		EndBlue = 0.9
+		Alpha = 1
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		OverlayVfx = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		IsometricSkew = "X"
+		AlphaMin = 0.25
+		AlphaMax = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.00
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		OffsetZ = 100
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB" }
+			{ Name = "TorchProjectileDissipateSmokeC" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB"
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		FilePath = "Fx\TorchProjectileDissipate\TorchProjectileDissipateSmokeB"
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC"
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		PostRotateScaleY = 0.5
+		IsometricSkew = "None"
+	}
+
+	{
+		Name = "TorchProjectileShadow"
+		FilePath = "Particles\particle_quickflash"
+		RandomRotation = true
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.25
+		PingPongColor = true
+		Red = 0.45
+		Green = 1.0
+		Blue = 0.86
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		Scale = 0.2
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge"
+		InheritFrom = "TorchProjectileShadow"
+		Scale = 0.3
+	}
+
+
+	// Apollo x Torch Weapon
+
+
+	{
+		Name = "TorchProjectileLarge_Apollo"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Apollo"
+		VisualFx = "TorchProjectileLargeTrail_Apollo"
+		Hue = -0.34
+		Saturation = -0.1
+		Red = 0.95
+		Green = 0.9
+		Blue = 0.8
+		Sound = "/SFX/Player Sounds/ApolloTorchAttackLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimation = "TorchProjectileApolloGlow"
+	}
+
+	{
+		Name = "TorchProjectileSmall_Apollo"
+		InheritFrom = "TorchProjectileLarge_Apollo"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Apollo"
+		Hue = -0.3
+		Saturation = -0.1
+	}
+
+	{
+		Name = "TorchProjectileApolloGlow"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		Material = "Unlit"
+		AngleFromOwner = "Maintain"
+		Angle = -90
+		GroupName = "FX_Standing_Add"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.4
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.5
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+		OriginX = 240
+		OriginY = 220
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Apollo"
+		InheritFrom = "TorchProjectileSmall_Apollo"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Apollo"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Apollo"
+		InheritFrom = "TorchProjectileLarge_Apollo"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Apollo"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Apollo"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = -0.3
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Apollo"
+		InheritFrom = "TorchProjectileSmallTrail_Apollo"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Apollo"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Apollo"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.25
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimation = "TorchProjectileGhostParticles_Apollo"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Apollo"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Apollo" }
+			{ Name = "TorchProjectileGhostParticleB_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Apollo"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalA\ApolloSwirlDirectionalA"
+		NumFrames = 24
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 0.7
+		StartAlpha = 0.5
+		EndAlpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -170
+		OffsetZ = 30
+		GroupName = "FX_Standing_Add"
+		OriginX = 200
+		OriginY = 60
+		OverlayVfx = true
+		CreateAnimation = "ApolloDotsDirectional"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Apollo"
+		InheritFrom = "TorchProjectileGhostParticleA_Apollo"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+	}
+ 
+	{ 
+		Name = "TorchProjectileShadow_Apollo"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 1.0
+		Green = 1.0
+		Blue = 0.3
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Apollo"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 1.0
+		Green = 1.0
+		Blue = 0.3
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Apollo"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Apollo"
+		Red = 1
+		Green = 0.9
+		Blue = 0.1
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Apollo"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Apollo" }
+			{ Name = "TorchProjectileDissipateSmokeC_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Apollo"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.0
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Apollo"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.0
+	}
+
+	// Apollo x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Apollo"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = -0.3
+		Saturation = -0.2
+		AddColor = true
+		Red = 0.4
+		Green = 0.3
+		Blue = 0.1
+		VisualFx = "TorchSpecialProjectileTrail_Apollo"
+		ChildAnimation = "TorchSpecialParticleEmitter_Apollo"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Apollo" }
+			{ Name = "TorchSpecialProjectileGlowSpectral_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Apollo"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Apollo\ApolloStaffProjectileB\ApolloStaffProjectileB"
+		Material = "Unlit"
+		NumFrames = 45
+		PlaySpeed = 30
+		Scale = 0.66
+		Loop = true
+		VisualFx = "TorchSpecialParticles_Apollo"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Apollo"
+		InheritFrom = "TorchSpecialProjectile_Apollo"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.7
+		EndRed = 0.4
+		EndGreen = 0.3
+		EndBlue = 0.1
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Apollo"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Apollo"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = 0.15
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Apollo"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 2
+		Red = 1
+		Green = 0.9
+		Blue = 0.3
+		Alpha = 0.15
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGlowSpectral_Apollo"
+		FilePath = "Particles\particle_apolloGlow"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Scale = 2
+		DieWithOwner = true
+		Duration = 1
+		Alpha = 0.2
+		Loop = true
+	}
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Apollo"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 1
+		Green = 0.9
+		Blue = 0.3
+		Sound = "/SFX/Player Sounds/ApolloTorchSpecialLoop"
+		StopSoundOnFinishFade = 0.3
+		VisualFx = "TorchSpecialProjectileTrailDark_Apollo"
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Apollo"
+		InheritFrom = "TorchSpecialProjectile_Apollo"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Apollo"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Apollo" }
+			{ Name = "TorchSpecialProjectileTrailB_Apollo" }
+			{ Name = "TorchSpecialProjectileTrailC_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.1
+		Hue = 0.5
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailA_Apollo"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailA_Apollo"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Apollo"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Apollo" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Apollo" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.001
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Apollo"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Apollo"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Apollo"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Apollo"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Apollo" }
+			{ Name = "TorchSpecialParticleB_Apollo" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Apollo"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalA\ApolloSwirlDirectionalA"
+		AngleFromOwner = "Ignore"
+		NumFrames = 24
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.3
+		ScaleMax = 0.6
+		StartAlpha = 0.999
+		EndAlpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 30
+		GroupName = "FX_Standing"
+		OriginX = 200
+		OriginY = 60
+		OverlayVfx = true
+		StartScaleY = 0.5
+		EndScaleY = 1.5
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -300
+		CreateAnimation = "ApolloDotsDirectional"
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Apollo"
+		InheritFrom = "TorchSpecialParticleA_Apollo"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+	}
+ 
+
+	{
+		Name = "TorchSpecialSparkle_Apollo"
+		InheritFrom = "TorchSpecialSparkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		ScaleMin = 0.05
+		ScaleMax = 0.25
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.99
+		EndGreen = 0.8
+		EndBlue = 0.2
+	}		
+
+
+	// Demeter x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Demeter"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Demeter"
+		VisualFx = "TorchProjectileLargeTrail_Demeter"
+		Hue = 0.2
+		Saturation = -0.4
+		Red = 0.94
+		Green = 0.9
+		Blue = 1.0
+		Value = -0.05
+		CreateAnimation = "TorchProjectileDemeterGlow"
+		Sound = "/SFX/Player Sounds/DemeterProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "TorchProjectileSmall_Demeter"
+		InheritFrom = "TorchProjectileLarge_Demeter"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Demeter"
+	}
+
+	{
+		Name = "TorchProjectileDemeterGlow"
+		FilePath = "Particles\particle_frost"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.4
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.5
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+		OriginX = 240
+		OriginY = 220
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Demeter"
+		InheritFrom = "TorchProjectileSmall_Demeter"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Demeter"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Demeter"
+		InheritFrom = "TorchProjectileLarge_Demeter"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Demeter"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Demeter"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = 0
+		Saturation = -0.5
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Demeter"
+		InheritFrom = "TorchProjectileSmallTrail_Demeter"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Demeter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Demeter"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimation = "TorchProjectileGhostParticles_Demeter"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Demeter"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Demeter" }
+			{ Name = "TorchProjectileGhostParticleB_Demeter" }
+			{ Name = "TorchProjectileGhostParticleC_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterIceParticleA\DemeterIceParticleA"
+		NumFrames = 45
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		PingPongScale = false
+		StartScale = 0.5
+		EndScale = 1.0
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -800
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.55
+		EndBlue = 0.999
+		Gravity = 100
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Demeter"
+		InheritFrom = "TorchProjectileGhostParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		CreateAnimation = "DemeterIceCloudDirectionalStill"
+
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleC_Demeter"
+		InheritFrom = "TorchProjectileGhostParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterLeafParticleA\DemeterLeafParticleA"
+	}
+ 
+	{ 
+		Name = "TorchProjectileShadow_Demeter"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Demeter"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Demeter"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Demeter"
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Demeter"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Demeter" }
+			{ Name = "TorchProjectileDissipateSmokeC_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Demeter"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Demeter"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	// Demeter x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Demeter"
+		InheritFrom = "TorchSpecialProjectile"
+		Material = "Unlit"
+		Hue = 0.25
+		Saturation = -0.5
+		VisualFx = "TorchSpecialProjectileTrail_Demeter"
+		ChildAnimation = "TorchSpecialParticleEmitter_Demeter"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Demeter"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Demeter\DemeterStaffBall\DemeterStaffBall"
+		NumFrames = 50
+		Scale = 0.75
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "TorchSpecialParticles_Demeter"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Demeter"
+		InheritFrom = "TorchSpecialProjectile_Demeter"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Demeter"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Demeter"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = -0.25
+		Saturation = -0.5
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Demeter"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.5
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+		Alpha = 0.24
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Demeter"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 0.6
+		Green = 0.7
+		Blue = 1.0
+		VisualFx = "TorchSpecialProjectileTrailDark_Demeter"
+		Sound = "/SFX/Player Sounds/DemeterProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Demeter"
+		InheritFrom = "TorchSpecialProjectile_Demeter"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Demeter"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Demeter" }
+			{ Name = "TorchSpecialProjectileTrailB_Demeter" }
+			{ Name = "TorchSpecialProjectileTrailC_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		StartRed = 0.35
+		StartGreen = 0.47
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.4
+		EndBlue = 0.999
+		Hue = 0
+		StartScaleY = 0.2
+		EndScaleY = 0.5
+		Material = "Unlit"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailA_Demeter"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailA_Demeter"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Demeter"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Demeter" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Demeter" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Demeter"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Demeter"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Demeter"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Demeter"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Demeter" }
+			{ Name = "TorchSpecialParticleB_Demeter" }
+			{ Name = "TorchSpecialParticleC_Demeter" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterBranchDirectionalA\DemeterBranchDirectionalA"
+		AngleFromOwner = "Ignore"
+		NumFrames = 42
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 30
+		GroupName = "FX_Standing_Add"
+		OriginX = 230
+		OriginY = 80
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ScaleFromOwner = "Ignore"
+		CreateAnimation = "DemeterIceCloudRadial"
+		StartScaleY = 0.25
+		EndScaleY = 1.0
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Demeter"
+		InheritFrom = "TorchSpecialParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterBranchDirectionalB\DemeterBranchDirectionalB"
+		CreateAnimation = "TorchSpecialParticle_Demeter"
+	}
+	{
+		Name = "TorchSpecialParticleC_Demeter"
+		InheritFrom = "TorchSpecialParticleA_Demeter"
+		FilePath = "Fx\Demeter\DemeterBranchDirectionalC\DemeterBranchDirectionalC"
+	}
+
+	{
+		Name = "TorchSpecialSparkle_Demeter"
+		InheritFrom = "TorchSpecialSparkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		ScaleMin = 0.05
+		ScaleMax = 0.25
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.99
+		EndGreen = 0.8
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "TorchSpecialParticle_Demeter"
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		NumFrames = 45
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		PingPongScale = false
+		StartScale = 0.5
+		EndScale = 1.0
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 30
+		VelocityMax = 60
+		Acceleration = -80
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.55
+		EndBlue = 0.999
+		Gravity = 100
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+	}
+
+
+	// Hestia x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Hestia"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Hestia"
+		VisualFx = "TorchProjectileLargeTrail_Hestia"
+		Hue = -0.4
+		Saturation = 0.2
+		Red = 1.0
+		Green = 0.85
+		Blue = 0.5
+		Value = -0.05
+		Sound = "/SFX/Player Sounds/HestiaTorchProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+		CreateAnimation = "TorchProjectileHestiaGlow"
+	}
+
+	{
+		Name = "TorchProjectileSmall_Hestia"
+		InheritFrom = "TorchProjectileLarge_Hestia"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Hestia"
+	}
+
+	{
+		Name = "TorchProjectileHestiaGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.3
+		Blue = 0
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.4
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Hestia"
+		InheritFrom = "TorchProjectileSmall_Hestia"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Hestia"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Hestia"
+		InheritFrom = "TorchProjectileLarge_Hestia"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Hestia"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Hestia"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = -0.4
+		Saturation = 0.2
+		Red = 1.0
+		Green = 0.5
+		Blue = 0.2
+		Value = -0.05
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Hestia"
+		InheritFrom = "TorchProjectileSmallTrail_Hestia"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Hestia"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Hestia"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimation = "TorchProjectileGhostParticles_Hestia"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Hestia"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Hestia" }
+			{ Name = "TorchProjectileGhostParticleB_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaCoalDebris\HestiaCoalDebris"
+		NumFrames = 20
+		PlaySpeed = 0.0001
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		PingPongScale = false
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 0
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -800
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		OverlayVfx = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.7
+		EndBlue = 0.7
+		Gravity = 100
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Hestia"
+		InheritFrom = "TorchProjectileGhostParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 10
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		EaseIn = 0.99
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		StartScaleX = 1
+		EndScaleX = 0.33
+		VelocityMin = 600
+		VelocityMax = 1200
+		Acceleration = -4800
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0.1
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.4
+		EndBlue = 0
+		AngleChangeSpeedMin = -720
+		AngleChangeSpeedMax = 720
+		CreateAnimation = "TorchProjectileGhostHestiaFlame"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Hestia_NoFlame"
+		InheritFrom = "TorchProjectileGhostParticleB_Hestia"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "TorchProjectileGhostHestiaFlame"
+		Random =
+		[	
+			{ Name = "TorchProjectileGhostHestiaFlameA" }
+			{ Name = "TorchProjectileGhostHestiaFlameB" }
+			{ Name = "TorchProjectileGhostHestiaFlameC" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 16
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleMin = -10
+		AngleMax = 10
+		OffsetZ = 30
+		OverlayVfx = true
+		GroupName = "FX_Dark"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -100
+	}		
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameB"
+		InheritFrom = "TorchProjectileGhostHestiaFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}		
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameC"
+		InheritFrom = "TorchProjectileGhostHestiaFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+
+	{ 
+		Name = "TorchProjectileShadow_Hestia"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 1.0
+		Green = 0.4
+		Blue = 0
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Hestia"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 1.0
+		Green = 0.4
+		Blue = 0
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Hestia"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Hestia"
+		Red = 1.0
+		Green = 0.4
+		Blue = 0
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Hestia"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Hestia" }
+			{ Name = "TorchProjectileDissipateSmokeC_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Hestia"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Hestia"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	// Hestia x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Hestia"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = -0.35
+		Value = -0.1
+		Red = 1
+		Green = 0.8
+		Blue = 0.1
+		VisualFx = "TorchSpecialProjectileTrail_Hestia"
+		ChildAnimation = "TorchSpecialParticleEmitter_Hestia"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Hestia"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		VisualFx = "TorchSpecialParticles_Hestia"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Hestia"
+		InheritFrom = "TorchSpecialProjectile_Hestia"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		StartRed = 0.999
+		StartGreen = 0.2
+		StartBlue = 0.0
+		EndRed = 1.0
+		EndGreen = 0.4
+		EndBlue = 0.05
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Hestia"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Hestia"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = 0.05
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Hestia"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.5
+		Red = 1.0
+		Green = 0.4
+		Blue = 0.0
+		Alpha = 0.24
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Hestia"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 1.0
+		Green = 0.4
+		Blue = 0.0
+		Sound = "/SFX/Player Sounds/HestiaTorchProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+		VisualFx = "TorchSpecialProjectileTrailDark_Hestia"
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Hestia"
+		InheritFrom = "TorchSpecialProjectile_Hestia"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Hestia"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Hestia" }
+			{ Name = "TorchSpecialProjectileTrailB_Hestia" }
+			{ Name = "TorchSpecialProjectileTrailC_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		Hue = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailA_Hestia"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailA_Hestia"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Hestia"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Hestia" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Hestia" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Hestia"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Hestia"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Hestia"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Hestia"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Hestia" }
+			{ Name = "TorchSpecialParticleB_Hestia" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameA\HestiaDirectionalFlameA"
+		AngleFromOwner = "Ignore"
+		NumFrames = 34
+		StartFrame = 4
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		GroupName = "FX_Dark"
+		OriginX = 230
+		OriginY = 80
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		StartScaleX = 0.6
+		EndScaleX = 1.0
+		StartScaleY = 0.7
+		EndScaleY = 1.5
+		CreateAnimation = "TorchProjectileGhostParticleB_Hestia_NoFlame"
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Hestia"
+		InheritFrom = "TorchSpecialParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		CreateAnimation = "TorchSpecialParticle_Hestia"
+	}
+
+	{
+		Name = "TorchSpecialParticle_Hestia"
+		InheritFrom = "TorchProjectileGhostParticleA_Hestia"
+	}
+
+	// Hera x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Hera"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Hera"
+		VisualFx = "TorchProjectileLargeTrail_Hera"
+		Hue = -0.34
+		Saturation = -0.1
+		Red = 0.95
+		Green = 0.9
+		Blue = 0.8
+		CreateAnimation = "TorchProjectileHeraGlow"
+		Sound = "/SFX/Player Sounds/HeraProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchProjectileSmall_Hera"
+		InheritFrom = "TorchProjectileLarge_Hera"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Hera"
+	}
+
+	{
+		Name = "TorchProjectileHeraGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0
+		Green = 1
+		Blue = 0.7
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.2
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Hera"
+		InheritFrom = "TorchProjectileSmall_Hera"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Hera"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Hera"
+		InheritFrom = "TorchProjectileLarge_Hera"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Hera"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Hera"
+		InheritFrom = "TorchProjectileSmallTrail"
+		StartAlpha = 1
+		Alpha = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Hera"
+		InheritFrom = "TorchProjectileSmallTrail_Hera"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Hera"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticle_Hera"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 200
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimation = "TorchProjectileGhostParticle_Hera"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticle_Hera"
+		FilePath = "Fx\Hera\HeraProjectile\HeraProjectile"
+		NumFrames = 30
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomFlipVertical = true
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 200
+		VelocityMax = 200
+		Acceleration = -100
+		PlaySpeed = 45
+		GroupName = "FX_Dark"
+		OffsetZ = 30
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "TorchProjectileGhostParticles_Hera"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Hera"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Hera" }
+			{ Name = "TorchProjectileGhostParticleB_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+			{ Name = "TorchProjectileGhostParticleC_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		NumFrames = 26
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Take"
+		VelocityMin = 150
+		VelocityMax = 300
+		Acceleration = -200
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.55
+		EndBlue = 0.999
+		Gravity = 100
+		OffsetZ = 0
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Hera"
+		InheritFrom = "TorchProjectileGhostParticleA_Hera"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleC_Hera"
+		FilePath = "Particles\particle_gold_streak"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = false
+		UseOwnAngle = false
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		Duration = 0.4
+		Loop = false
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.3
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		VelocityMin = 150
+		VelocityMax = 300
+		Acceleration = -200
+	}
+
+	{ 
+		Name = "TorchProjectileShadow_Hera"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 0
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Hera"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 0
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Hera"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Hera"
+		Red = 0
+		Green = 0.7
+		Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Hera"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.001
+		EndGreen = 0.3
+		EndBlue = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Hera" }
+			{ Name = "TorchProjectileDissipateSmokeC_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Hera"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.001
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Hera"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.001
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	// Hera x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Hera"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = -0.3
+		Saturation = -0.3
+		AddColor = true
+		Red = 0.3
+		Green = 0.3
+		Blue = 0.2
+		VisualFx = "TorchSpecialProjectileTrail_Hera"
+		ChildAnimation = "TorchSpecialParticleEmitter_Hera"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Hera"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Hera\HeraStaffBall\HeraStaffBall"
+		Material = "Unlit"
+		NumFrames = 50
+		PlaySpeed = 30
+		Scale = 0.66
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "TorchSpecialParticles_Hera"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Hera"
+		InheritFrom = "TorchSpecialProjectile_Hera"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		StartRed = 0.999
+		StartGreen = 0.2
+		StartBlue = 0.0
+		EndRed = 1.0
+		EndGreen = 0.4
+		EndBlue = 0.05
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Hera"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Hera"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = 0.05
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Hera"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.5
+		Red = 1.0
+		Green = 0.6
+		Blue = 0.3
+		Alpha = 0.24
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Hera"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 1.0
+		Green = 0.6
+		Blue = 0.3
+		Sound = "/SFX/Player Sounds/HeraProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+		VisualFx = "TorchSpecialProjectileTrailDark_Hera"
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Hera"
+		InheritFrom = "TorchSpecialProjectile_Hera"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Hera"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Hera" }
+			{ Name = "TorchSpecialProjectileTrailB_Hera" }
+			{ Name = "TorchSpecialProjectileTrailC_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		StartRed = 0
+		StartGreen = 0.4
+		StartBlue = 1.0
+		EndRed = 0.01
+		EndGreen = 1.0
+		EndBlue = 0.4
+		Hue = 0
+		StartScale = 0.5
+		EndScale = 1
+		ScaleY = 0.5
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailA_Hera"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailA_Hera"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Hera"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Hera" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Hera" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 0.01
+		StartGreen = 1.0
+		StartBlue = 0.4
+		EndRed = 0.0
+		EndGreen = 0.2
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Hera"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Hera"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Hera"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Hera"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Hera" }
+			{ Name = "TorchSpecialParticleB_Hera" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Hera"
+		FilePath = "Fx\Hera\HeraTwistTrail\HeraTwistTrail"
+		AngleFromOwner = "Ignore"
+		NumFrames = 26
+		StartFrame = 4
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		GroupName = "FX_Dark"
+		OriginX = 160
+		OriginY = 128
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		ScaleY = 0.5
+		ScaleX = 1.5
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Hera"
+		InheritFrom = "TorchSpecialParticleA_Hera"
+		FilePath = "Fx\Hera\HeraTwistTrailLight\HeraTwistTrailLight"
+		NumFrames = 22
+		CreateAnimation = "TorchSpecialParticle_Hera"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.4
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "TorchSpecialParticle_Hera"
+		InheritFrom = "TorchProjectileGhostParticles_Hera"
+	}
+
+
+	// Aphrodite x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Aphrodite"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Aphrodite"
+		VisualFx = "TorchProjectileLargeTrail_Aphrodite"
+		Hue = -0.5
+		Saturation = -0.5
+		Red = 1
+		Green = 0.5
+		Blue = 0.9
+		Value = 0.1
+		CreateAnimation = "TorchProjectileAphroditeGlow"
+		Sound = "/SFX/Player Sounds/AphroditeTorchProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "TorchProjectileSmall_Aphrodite"
+		InheritFrom = "TorchProjectileLarge_Aphrodite"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Aphrodite"
+	}
+
+	{
+		Name = "TorchProjectileAphroditeGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.4
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Aphrodite"
+		InheritFrom = "TorchProjectileSmall_Aphrodite"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Aphrodite"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Aphrodite"
+		InheritFrom = "TorchProjectileLarge_Aphrodite"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Aphrodite"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Aphrodite"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = -0.4
+		Saturation = 0.2
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+		Value = -0.05
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Aphrodite"
+		InheritFrom = "TorchProjectileSmallTrail_Aphrodite"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Aphrodite"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Aphrodite"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		// CreateAnimation = "TorchProjectileGhostParticles_Aphrodite"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Aphrodite"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Aphrodite" }
+			{ Name = "TorchProjectileGhostParticleA_Aphrodite" }
+			{ Name = "TorchProjectileGhostParticleB_Aphrodite" }
+			{ Name = "TorchProjectileGhostParticleC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeGoldHeartParticle\AphroditeGoldHeartParticle"
+		GroupName = "FX_Dark"
+		NumFrames = 42
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		EaseIn = 0
+		EaseOut = 1
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -800
+		Material = "Unlit"
+		OverlayVfx = true
+		Gravity = 100
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Aphrodite"
+		InheritFrom = "TorchProjectileGhostParticleA_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleA\AphroditeFlowerParticleA"
+		NumFrames = 39
+		CreateAnimation = "TorchProjectileGhostAphroditeSparkle"
+		RandomRotation = true
+		RandomRotationSpeedMin = -120
+		RandomRotationSpeedMax = 120
+		Acceleration = -1200
+		RandomPlaySpeedMax = 40
+	}		
+	{
+		Name = "TorchProjectileGhostParticleC_Aphrodite"
+		InheritFrom = "TorchProjectileGhostParticleB_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleB\AphroditeFlowerParticleB"
+	}
+
+
+	{
+		Name = "TorchProjectileGhostAphroditeSparkle"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		RandomDurationMin = 0.9
+		RandomDurationMax = 1.2
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 1.5
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleMin = -10
+		AngleMax = 10
+		OffsetZ = 30
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -100
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}		
+
+	{ 
+		Name = "TorchProjectileShadow_Aphrodite"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Aphrodite"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Aphrodite"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Aphrodite"
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Aphrodite"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Aphrodite" }
+			{ Name = "TorchProjectileDissipateSmokeC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Aphrodite"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Aphrodite"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	// Aphrodite x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Aphrodite"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = 0.4
+		Value = -0.2
+		Saturation = -0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		VisualFx = "TorchSpecialProjectileTrail_Aphrodite"
+		ChildAnimation = "TorchSpecialParticleEmitter_Aphrodite"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Aphrodite"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Aphrodite\AphroditeStaffBall\AphroditeStaffBall"
+		NumFrames = 60
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.85
+		VisualFx = "TorchSpecialParticles_Aphrodite"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+		Material = "Unlit"
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Aphrodite"
+		InheritFrom = "TorchSpecialProjectile_Aphrodite"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Aphrodite"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = -0.1
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.5
+		Red = 1.0
+		Green = 0.4
+		Blue = 0.7
+		Alpha = 0.24
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 1
+		Green = 0.4
+		Blue = 0.7
+		Sound = "/SFX/Player Sounds/AphroditeTorchProjectileLoop"
+		StopSoundOnFinishFade = 0.3
+		VisualFx = "TorchSpecialProjectileTrailDark_Aphrodite"
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Aphrodite"
+		InheritFrom = "TorchSpecialProjectile_Aphrodite"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Aphrodite"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Aphrodite" }
+			{ Name = "TorchSpecialProjectileTrailB_Aphrodite" }
+			{ Name = "TorchSpecialProjectileTrailC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		Saturation = -0.5
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.99
+		Hue = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailA_Aphrodite"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailA_Aphrodite"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Aphrodite"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Aphrodite" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Aphrodite" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 1.0
+		StartGreen = 0.7
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Aphrodite"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Aphrodite"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Aphrodite"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Aphrodite"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Aphrodite" }
+			{ Name = "TorchSpecialParticleB_Aphrodite" }
+			{ Name = "TorchSpecialParticleC_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.8
+		ScaleMax = 1.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1.2
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		AngleMin = -30
+		AngleMax = 30
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Aphrodite"
+		InheritFrom = "TorchSpecialParticleA_Aphrodite"
+		FilePath = "Particles\particle_aphrodite_heart"
+	}
+
+	{
+		Name = "TorchSpecialParticleC_Aphrodite"
+		InheritFrom = "TorchSpecialParticleA_Aphrodite"
+		FilePath = "Fx\Aphrodite\AphroditeGoldHeartParticle\AphroditeGoldHeartParticle"
+		NumFrames = 42
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Scale = 2
+	}
+
+	// Poseidon x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Poseidon"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Poseidon"
+		VisualFx = "TorchProjectileLargeTrail_Poseidon"
+		Hue = 0.0
+		Saturation = -0.2
+		Value = -0.03
+		Red = 0.7
+		Green = 1
+		Blue = 0.9
+		CreateAnimation = "TorchProjectilePoseidonGlow"
+	}
+
+	{
+		Name = "TorchProjectileSmall_Poseidon"
+		InheritFrom = "TorchProjectileLarge_Poseidon"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Poseidon"
+	}
+
+	{
+		Name = "TorchProjectilePoseidonGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0
+		Green = 1
+		Blue = 1
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.2
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Poseidon"
+		InheritFrom = "TorchProjectileSmall_Poseidon"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Poseidon"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Poseidon"
+		InheritFrom = "TorchProjectileLarge_Poseidon"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Poseidon"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Poseidon"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = 0
+		Saturation = 0
+		Red = 0.5
+		Green = 0.7
+		Blue = 1
+		Value = 0
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Poseidon"
+		InheritFrom = "TorchProjectileSmallTrail_Poseidon"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Poseidon"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Poseidon"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		// CreateAnimation = "TorchProjectileGhostParticles_Poseidon"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Poseidon"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Poseidon" }
+			{ Name = "TorchProjectileGhostParticleB_Poseidon" }
+		]
+	}	
+	{
+		Name = "TorchProjectileGhostParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		GroupName = "FX_Dark"
+		NumFrames = 60
+		UseOwnAngle = true
+		FlipHorizontal = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Gravity = 300
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		EaseIn = 0.99
+		EaseOut = 1
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -400
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		IsometricSkew = "X"
+		StartScale = 0
+		EndScale = 1
+		ScaleX = 1.3
+		// CreateAnimation = "TorchProjectileGhostParticlesFlat_Poseidon"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Poseidon"
+		InheritFrom = "TorchProjectileGhostParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}		
+
+
+	{
+		Name = "TorchProjectileGhostParticlesFlat_Poseidon"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleFlatA_Poseidon" }
+			{ Name = "TorchProjectileGhostParticleFlatB_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleFlatA_Poseidon"
+		InheritFrom = "TorchProjectileGhostParticleA_Poseidon"
+		IsometricSkew = "None"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailA\PoseidonDirectionalTrailA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		CreateAnimation = null
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 0.999
+		Gravity = 0
+		RandomOffsetX = 5
+		RandomOffsetY = 5
+		OffsetZ = 30
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 300
+		OriginY = 80
+		ScaleX = 0.9
+		AngleMin = -2
+		AngleMax = 2
+	}	
+	{
+		Name = "TorchProjectileGhostParticleFlatB_Poseidon"
+		InheritFrom = "TorchProjectileGhostParticleFlatA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}
+
+	{ 
+		Name = "TorchProjectileShadow_Poseidon"
+		InheritFrom = "TorchProjectileShadow"
+		Red = 0
+		Green = 1
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Poseidon"
+		InheritFrom = "TorchProjectileShadowLarge"
+		Red = 0
+		Green = 1
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Poseidon"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Poseidon"
+		Red = 0
+		Green = 1
+		Blue = 0.7
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Poseidon"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Poseidon" }
+			{ Name = "TorchProjectileDissipateSmokeC_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Poseidon"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Poseidon"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	// Poseidon x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Poseidon"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = 0.4
+		Value = -0.2
+		Saturation = -0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		VisualFx = "TorchSpecialProjectileTrail_Poseidon"
+		ChildAnimation = "TorchSpecialParticleEmitter_Poseidon"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Poseidon"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Poseidon\PoseidonStaffBall\PoseidonStaffBall"
+		NumFrames = 60
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.0
+		VisualFx = "TorchSpecialParticles_Poseidon"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+		Material = "Default"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Poseidon"
+		InheritFrom = "TorchSpecialProjectile_Poseidon"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Poseidon"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Poseidon"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = -0.1
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Poseidon"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.5
+		Red = 0
+		Green = 1
+		Blue = 0.7
+		Alpha = 0.12
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Poseidon"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+		Red = 0
+		Green = 0.8
+		Blue = 1.0
+		VisualFx = "TorchSpecialProjectileTrailDark_Poseidon"
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Poseidon"
+		InheritFrom = "TorchSpecialProjectile_Poseidon"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Poseidon"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Poseidon" }
+			{ Name = "TorchSpecialProjectileTrailB_Poseidon" }
+			{ Name = "TorchSpecialProjectileTrailC_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailA\PoseidonDirectionalTrailA"
+		NumFrames = 30
+		AddColor = false
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		FlipHorizontal = true
+		Acceleration = -400
+		Gravity = 300
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		RandomFlipVertical = true
+		CreateAnimation = null
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 0.999
+		EndRed = 0.3
+		EndGreen = 0.8
+		EndBlue = 1
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailC\PoseidonDirectionalTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Poseidon"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Poseidon" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Poseidon" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Poseidon"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Poseidon"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Poseidon"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Poseidon"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Poseidon" }
+			{ Name = "TorchSpecialParticleB_Poseidon" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		FlipHorizontal = true
+		NumFrames = 60
+		Gravity = 300
+		UseOwnAngle = true
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 0.9
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleX = 1.75
+		OffsetZ = 0
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		AngleMin = -30
+		AngleMax = 30
+		StartScaleY = 0
+		EndScaleY = 1
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Poseidon"
+		InheritFrom = "TorchSpecialParticleA_Poseidon"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+
+
+
+
+	// Zeus x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Zeus"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Zeus"
+		VisualFx = "TorchProjectileLargeTrail_Zeus"
+		Hue = 0.7
+		Saturation = -0.2
+		Value = -0.1
+		CreateAnimation = "TorchProjectileZeusGlow"
+		Sound = "/SFX/Player Sounds/ZeusLightningProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchProjectileSmall_Zeus"
+		InheritFrom = "TorchProjectileLarge_Zeus"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Zeus"
+	}
+
+	{
+		Name = "TorchProjectileZeusGlow"
+		FilePath = "Particles\particle_glow"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.2
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Zeus"
+		InheritFrom = "TorchProjectileSmall_Zeus"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Zeus"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Zeus"
+		InheritFrom = "TorchProjectileLarge_Zeus"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Zeus"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Zeus"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = 0
+		Saturation = 0
+		Red = 0.5
+		Green = 0.7
+		Blue = 1
+		Value = 0
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Zeus"
+		InheritFrom = "TorchProjectileSmallTrail_Zeus"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Zeus"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Zeus"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		// CreateAnimation = "TorchProjectileGhostParticles_Zeus"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Zeus"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Zeus" }
+			{ Name = "TorchProjectileGhostParticleB_Zeus" }
+			{ Name = "TorchProjectileGhostParticleC_Zeus" }
+			{ Name = "TorchProjectileGhostParticleD_Zeus" }
+		]
+	}	
+	{
+		Name = "TorchProjectileGhostParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 15
+		UseOwnAngle = true
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomStartFrame = true
+		FlipHorizontal = false
+		RandomFlipVertical = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		EaseIn = 0.99
+		EaseOut = 1
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 400
+		Acceleration = -400
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 30
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		IsometricSkew = "X"
+		Scale = 1.3
+		// CreateAnimation = "TorchProjectileGhostParticlesFlat_Zeus"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Zeus"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleC_Zeus"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleD_Zeus"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		AngleMin = 0
+		AngleMax = 360
+		Scale = 0.7
+		Acceleration = -1000
+		ScaleX = 1
+	}		
+
+
+	{
+		Name = "TorchProjectileGhostParticlesFlat_Zeus"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleFlatA_Zeus" }
+			{ Name = "TorchProjectileGhostParticleFlatB_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleFlatA_Zeus"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus"
+		IsometricSkew = "None"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		CreateAnimation = null
+		StartAlpha = 1
+		EndAlpha = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 0.999
+		Gravity = 0
+		RandomOffsetX = 5
+		RandomOffsetY = 5
+		OffsetZ = 30
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 300
+		OriginY = 80
+		ScaleX = 0.9
+		AngleMin = -2
+		AngleMax = 2
+	}	
+	{
+		Name = "TorchProjectileGhostParticleFlatB_Zeus"
+		InheritFrom = "TorchProjectileGhostParticleFlatA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+	}
+
+	{ 
+		Name = "TorchProjectileShadow_Zeus"
+		InheritFrom = "TorchProjectileShadow"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Zeus"
+		InheritFrom = "TorchProjectileShadowLarge"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Zeus"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Zeus"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Zeus"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Zeus" }
+			{ Name = "TorchProjectileDissipateSmokeC_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Zeus"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Zeus"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+
+	// Zeus x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Zeus"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = 0.0
+		Value = 0
+		Saturation = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		VisualFx = "TorchSpecialProjectileTrail_Zeus"
+		ChildAnimation = "TorchSpecialParticleEmitter_Zeus"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Zeus"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Zeus\ZeusStaffBall\ZeusStaffBall"
+		NumFrames = 60
+		PlaySpeed = 70
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.0
+		VisualFx = "TorchSpecialParticles_Zeus"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+		Material = "Default"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Zeus"
+		InheritFrom = "TorchSpecialProjectile_Zeus"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Zeus"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Zeus"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = 0.5
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Zeus"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.1
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+        SortMode = "FromParent"
+        SortFromOwner = "Maintain"
+		Alpha = 0.2
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Zeus"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+		VisualFx = "TorchSpecialProjectileTrailDark_Zeus"
+		Sound = "/SFX/Player Sounds/ZeusLightningProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Zeus"
+		InheritFrom = "TorchSpecialParticleEmitter_Zeus"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+		CreateAnimations = [
+			{ Name = "TorchSpecialProjectileDissipateZeusParticles" }
+			{ Name = "TorchSpecialProjectileDissipateZeusParticles" }
+			{ Name = "TorchSpecialProjectileDissipateZeusParticles" }
+			{ Name = "TorchSpecialProjectileDissipateZeusParticles" }
+			{ Name = "TorchSpecialProjectileDissipateZeusParticles" }
+		]
+	}
+
+	{ 
+		Name = "TorchSpecialProjectileDissipateZeusParticles" 
+		FilePath = "Fx\Zeus\ZeusLightningParticle\ZeusLightningParticle"
+		NumFrames = 60
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 200
+		VelocityMax = 500
+		Acceleration = -900
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+	}
+
+
+	{
+		Name = "TorchSpecialProjectileTrail_Zeus"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Zeus" }
+			{ Name = "TorchSpecialProjectileTrailB_Zeus" }
+			{ Name = "TorchSpecialProjectileTrailC_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		OriginX = 170
+		OriginY = 84
+		NumFrames = 30
+		AddColor = false
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		FlipHorizontal = true
+		Acceleration = -2400
+		Gravity = 0
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		RandomFlipVertical = true
+		CreateAnimation = null
+        StartRed = 1
+        StartGreen = 1
+        StartBlue = 1
+        EndRed = 0.999
+        EndGreen = 0.99
+        EndBlue = 0.999
+        AngleMin = -1
+        AngleMax = 1
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailC_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailC\ZeusDirectionalTrailC"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Zeus"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Zeus" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Zeus" }
+			{ Name = "TorchSpecialProjectileTrailDarkC_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		AddColor = false
+		Red = 1
+		Green = 1
+		Blue = 1
+        StartRed = 1.0
+        StartGreen = 0.9
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.2
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Zeus"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkC_Zeus"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Zeus"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Zeus"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Zeus" }
+			{ Name = "TorchSpecialParticleB_Zeus" }
+			{ Name = "TorchSpecialParticleC_Zeus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		FlipHorizontal = true
+		UseOwnAngle = true
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 0.9
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		AngleMin = -30
+		AngleMax = 30
+		NumFrames = 45
+		StartScaleY = 0.7
+		EndScaleY = 2
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Zeus"
+		InheritFrom = "TorchSpecialParticleA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+		NumFrames = 53
+	}
+
+	{
+		Name = "TorchSpecialParticleC_Zeus"
+		InheritFrom = "TorchSpecialParticleA_Zeus"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+		NumFrames = 52
+	}
+
+
+	// Aspects
+
+	{
+		Name = "MorosTorchFlameLeft"
+		FilePath = "Fx\WeaponAspects\Moros\MorosTorchFlame\MorosTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		ChildAnimation = null
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		CreateAnimation = "MorosFlameGlowL"
+		VisualFx = "MorosFlameTrail"
+		VisualFxIntervalMin = 0.08
+		VisualFxIntervalMax = 0.10
+		OffsetZ = 27
+	}
+
+	{
+		Name = "MorosTorchFlameRight"
+		InheritFrom = "MorosTorchFlameLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = null
+		CreateAnimation = "MorosFlameGlowR"
+		Sound = "/SFX/Player Sounds/MelTorchAmbience"
+		StopSoundOnFinishFade = 0.2
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "MorosFlameGlowL"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.25
+		EndAlpha = 0.66
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.5
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		SortMode = "FromParent"
+		UseAttachedFlasher = false
+		OffsetY = -5
+		OffsetZ = 27
+		Red = 0.2
+		Green = 0.5
+		Blue = 1.0
+	}
+
+	{
+		Name = "MorosFlameGlowR"
+		InheritFrom = "MorosFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+
+	{
+		Name = "MorosFlameTrail"			
+		Random =
+		[
+			{ Name = "MorosFlameTrailA" }
+			{ Name = "MorosFlameTrailB" }
+			{ Name = "MorosFlameTrailC" }
+			{ Name = "MorosFlameTrailA" }
+			{ Name = "MorosFlameTrailB" }
+			{ Name = "MorosFlameTrailC" }
+			{ Name = "MorosFlameTrailA_Dark" }
+			{ Name = "MorosFlameTrailB_Dark" }
+			{ Name = "MorosFlameTrailC_Dark" }
+		]
+	}
+
+	{
+		Name = "MorosFlameTrailA"			
+		FilePath = "Fx\WeaponAspects\Moros\MorosFlameTrailA\MorosFlameTrailA"
+		Material = "Unlit"
+		NumFrames = 30
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		UseAttachedFlasher = false
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		OffsetZ = 10
+		RandomOffsetX = 15
+
+		EaseIn = 0.5
+		EaseOut = 1.0
+		UseOwnAngle = false
+		StartScale = 1.0
+		EndScale = 1.5
+		AngleFromOwner = "Take"
+		StartOffsetZ = 0
+		EndOffsetZ = 66
+		Acceleration = -400
+		OwnerVelocityFraction = 0.6
+
+	}
+
+	{
+		Name = "MorosFlameTrailB"
+		InheritFrom = "MorosFlameTrailA"
+		FilePath = "Fx\WeaponAspects\Moros\MorosFlameTrailB\MorosFlameTrailB"
+	}
+
+	{
+		Name = "MorosFlameTrailC"
+		InheritFrom = "MorosFlameTrailA"
+		FilePath = "Fx\WeaponAspects\Moros\MorosFlameTrailC\MorosFlameTrailC"
+	}
+
+	{
+		Name = "MorosFlameTrailA_Dark"
+		InheritFrom = "MorosFlameTrailA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "MorosFlameTrailB_Dark"
+		InheritFrom = "MorosFlameTrailA_Dark"
+		FilePath = "Fx\WeaponAspects\Moros\MorosFlameTrailB\MorosFlameTrailB"
+	}
+
+	{
+		Name = "MorosFlameTrailC_Dark"
+		InheritFrom = "MorosFlameTrailA_Dark"
+		FilePath = "Fx\WeaponAspects\Moros\MorosFlameTrailC\MorosFlameTrailC"
+	}
+
+
+
+	{
+		Name = "EosTorchFlameLeft"
+		FilePath = "Fx\WeaponAspects\Eos\EosTorchFlame\EosTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		ChildAnimation = null
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		CreateAnimation = "EosFlameGlowL"
+		VisualFx = "EosFlameTrail"
+		VisualFxIntervalMin = 0.20
+		VisualFxIntervalMax = 0.21
+		OffsetZ = 23
+	}
+
+	{
+		Name = "EosTorchFlameRight"
+		InheritFrom = "EosTorchFlameLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = null
+		CreateAnimation = "EosFlameGlowR"
+		Sound = "/SFX/Player Sounds/MelTorchAmbience"
+		StopSoundOnFinishFade = 0.2
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "EosFlameGlowL"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.125
+		EndAlpha = 0.25
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.66
+		ScaleY = 0.66
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		SortMode = "FromParent"
+		UseAttachedFlasher = false
+		OffsetY = -5
+		OffsetZ = 27
+		Red = 1
+		Green = 0.5
+		Blue = 0.8
+	}
+
+	{
+		Name = "EosFlameGlowR"
+		InheritFrom = "EosFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+
+	{
+		Name = "EosFlameTrail"
+		Random =
+		[
+			{ Name = "EosFlameTrailA" }
+			{ Name = "EosFlameTrailB" }
+			{ Name = "EosFlameTrailA" }
+			{ Name = "EosFlameTrailB" }
+			{ Name = "EosFlameTrailA_Dark" }
+			{ Name = "EosFlameTrailB_Dark" }
+		]
+	}
+
+	{
+		Name = "EosFlameTrailA"			
+		FilePath = "Fx\WeaponAspects\Eos\EosFlameTrailA\EosFlameTrailA"
+		Material = "Unlit"
+		StartFrame = 10
+		NumFrames = 50
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		UseAttachedFlasher = false
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		GroupName = "Standing"
+		VelocityMin = 50
+		VelocityMax = 100
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		RandomOffsetX = 10
+		EaseIn = 0.5
+		EaseOut = 1.0
+		UseOwnAngle = false
+		StartScale = 1.5
+		EndScale = 2.2
+		AngleFromOwner = "Take"
+		StartOffsetZ = 0
+		EndOffsetZ = 66
+		Acceleration = -400
+		OwnerVelocityFraction = 0.6
+	}
+
+	{
+		Name = "EosFlameTrailB"
+		InheritFrom = "EosFlameTrailA"
+		FilePath = "Fx\WeaponAspects\Eos\EosFlameTrailB\EosFlameTrailB"
+	}
+
+
+	{
+		Name = "EosFlameTrailA_Dark"
+		InheritFrom = "EosFlameTrailA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "EosFlameTrailB_Dark"
+		InheritFrom = "EosFlameTrailA_Dark"
+		FilePath = "Fx\WeaponAspects\Eos\EosFlameTrailB\EosFlameTrailB"
+	}
+
+
+	{
+		Name = "SupayTorchFlameLeft"
+		FilePath = "Fx\WeaponAspects\Supay\SupayTorchFlame\SupayTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		ChildAnimation = null
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		CreateAnimation = "SupayFlameGlowL"
+		VisualFx = "SupayFlameTrail"
+		VisualFxIntervalMin = 0.20
+		VisualFxIntervalMax = 0.21
+		OffsetZ = 23
+	}
+
+	{
+		Name = "SupayTorchFlameRight"
+		InheritFrom = "SupayTorchFlameLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = null
+		CreateAnimation = "SupayFlameGlowR"
+		Sound = "/SFX/Player Sounds/MelTorchAmbience"
+		StopSoundOnFinishFade = 0.2
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "SupayFlameGlowL"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.125
+		EndAlpha = 0.25
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.66
+		ScaleY = 0.66
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		SortMode = "FromParent"
+		UseAttachedFlasher = false
+		OffsetY = -5
+		OffsetZ = 27
+		Red = 1
+		Green = 0.7
+		Blue = 0.1
+	}
+
+	{
+		Name = "SupayFlameGlowR"
+		InheritFrom = "SupayFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+
+	{
+		Name = "SupayFlameTrail"
+		Random =
+		[
+			{ Name = "SupayFlameTrailA" }
+			{ Name = "SupayFlameTrailB" }
+			{ Name = "SupayFlameTrailC" }
+			{ Name = "SupayFlameTrailA" }
+			{ Name = "SupayFlameTrailB" }
+			{ Name = "SupayFlameTrailC" }
+			{ Name = "SupayFlameTrailA_Dark" }
+			{ Name = "SupayFlameTrailB_Dark" }
+			{ Name = "SupayFlameTrailC_Dark" }
+		]
+	}
+
+	{
+		Name = "SupayFlameTrailA"			
+		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailA\SupayFlameTrailA"
+		Material = "Unlit"
+		StartFrame = 10
+		NumFrames = 50
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		UseAttachedFlasher = false
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		GroupName = "Standing"
+		VelocityMin = 50
+		VelocityMax = 100
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		RandomOffsetX = 10
+		EaseIn = 0.5
+		EaseOut = 1.0
+		UseOwnAngle = false
+		StartScale = 1.5
+		EndScale = 2.2
+		AngleFromOwner = "Take"
+		StartOffsetZ = 0
+		EndOffsetZ = 66
+		Acceleration = -400
+		OwnerVelocityFraction = 0.6
+	}
+
+	{
+		Name = "SupayFlameTrailB"
+		InheritFrom = "SupayFlameTrailA"
+		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailB\SupayFlameTrailB"
+	}
+	{
+		Name = "SupayFlameTrailC"
+		InheritFrom = "SupayFlameTrailA"
+		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailC\SupayFlameTrailC"
+	}
+	{
+		Name = "SupayFlameTrailA_Dark"
+		InheritFrom = "SupayFlameTrailA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+	{
+		Name = "SupayFlameTrailB_Dark"
+		InheritFrom = "SupayFlameTrailA_Dark"
+		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailB\SupayFlameTrailB"
+	}	
+	{
+		Name = "SupayFlameTrailC_Dark"
+		InheritFrom = "SupayFlameTrailA_Dark"
+		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailC\SupayFlameTrailC"
+	}
+
+
+
+]}

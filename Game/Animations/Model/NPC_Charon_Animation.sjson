@@ -1,0 +1,60 @@
+{ Animations = [
+	
+	{
+		Name = "NPCCharonBaseAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "Charon_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 3.3
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Charon_Idle"
+		InheritFrom = "NPCCharonBaseAnimations"
+		GrannyAnimation = "Charon_NoWeapon_Base_IdleShop_01"
+		Loop = true
+	}
+	{
+		Name = "Charon_Fierce"
+		InheritFrom = "NPCCharonBaseAnimations"
+		GrannyAnimation = "Charon_NoWeapon_Base_Fierce_C_01"
+		ChainTo = "Charon_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Charon_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Charon_Thanking"
+		InheritFrom = "NPCCharonBaseAnimations"
+		GrannyAnimation = "Charon_NoWeapon_Base_Thanking_C_02"
+		ChainTo = "Charon_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Charon_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Charon_Greeting"
+		InheritFrom = "NPCCharonBaseAnimations"
+		GrannyAnimation = "Charon_NoWeapon_Base_Greetings_C_02"
+		ChainTo = "Charon_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Charon_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+]}

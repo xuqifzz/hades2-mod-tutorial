@@ -1,0 +1,39 @@
+{ Animations = [
+	 {
+		Name = "BasePropKit"
+		GrannyModel = "MelMarker_Mesh"
+		Enable3DShadow = true
+		GrannyAnimationSpeed = 1.0
+		Loop = true
+		Scale = 1.0
+
+	}
+
+	{
+		Name = "MelMarkerMove"
+		InheritFrom = "BasePropKit"
+		GrannyModel = "MelMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "MelMarkerJump"
+		InheritFrom = "BasePropKit"
+		GrannyModel = "MelMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		Loop = false
+		ChainTo = "MelMarkerIdle"
+
+	}
+
+	{
+		Name = "MelMarkerIdle"
+		InheritFrom = "BasePropKit"
+		GrannyModel = "MelMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+
+
+	}
+
+]}

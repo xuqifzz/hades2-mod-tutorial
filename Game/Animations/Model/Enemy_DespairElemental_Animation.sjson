@@ -1,0 +1,373 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyDespairElementalBaseAnimation"
+		
+		GrannyModel = "DespairElemental_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Idle"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_MoveStart"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_SlowMove_C_00"
+		GrannyAnimationSpeed = 0.2
+		ChainTo = "Enemy_DespairElemental_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Move"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_SlowMove_C_00"
+		GrannyAnimationSpeed = 0.2
+		Loop = true
+		VisualFx = "DespairElementalTrailSlow"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 35
+		Sound = "/SFX/Enemy Sounds/DespairElementalHuge/MoveLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_DespairElemental_MoveStop"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_SlowMoveStop_C_00"
+		ChainTo = "Enemy_DespairElemental_Idle"
+		CancelOnOwnerMove = true
+		Sound = "/Leftovers/SFX/PlayerSkid"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_MoveStart"
+				Duration = 16
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Move"
+				Duration = 16
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_OnHit"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_DespairElemental_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_OnHit_Heavy"
+		InheritFrom = "Enemy_DespairElemental_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Chase attack
+
+	{
+		Name = "Enemy_DespairElemental_Chase_Start"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.5
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 8
+				FrameSpeed = 3.0
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_OnHit"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_OnHit_Heavy"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Chase_FireLoop"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_SlowMove_C_00"
+		Loop = true
+		VisualFx = "DespairElementalTrail"
+		VisualFxDistanceMin = 60
+		VisualFxDistanceMax = 70
+		Sound = "/SFX/Enemy Sounds/FireChariot/FireChariotFastMoveLoop"
+		StopSoundOnFinishFade = 0.2
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Chase_Start"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Chase_End"
+		InheritFrom = "EnemyDespairElementalBaseAnimation"
+		GrannyAnimation = "DespairElemental_Base_SlowMoveStop_C_00"
+		ChainTo = "Enemy_DespairElemental_Idle"
+		Sound = "/Leftovers/SFX/PlayerSkid"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_DespairElemental_Chase_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Spawn"
+		InheritFrom = "Enemy_DespairElemental_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxReverse = true
+		DeathFxColor = { Red = 0 Green = 0.0 Blue = 0.0 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		VisualFx = null
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_DespairElemental_Death"
+		FilePath = "Fx\DespairElementalDeath\DespairElementalDeath"
+		NumFrames = 42
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		VisualFx = "DespairElementalDeathChunksSmall"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 12
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		OffsetZ = 100
+		Scale = 1.5
+		CreateAnimations =
+		[
+			{ Name = "DespairElementalDeathChunks" }
+			{ Name = "DespairElementalDeathChunks" }
+			{ Name = "DespairElementalDeathChunks" }
+			{ Name = "FieldsDustPuffFront" }
+		]
+	}
+
+	{
+		Name = "DespairElementalDeathChunks"
+		Random =
+		[
+			{ Name = "DespairElementalDeathChunkA" }
+			{ Name = "DespairElementalDeathChunkB" }
+			{ Name = "DespairElementalDeathChunkC" }
+			{ Name = "DespairElementalDeathChunkD" }
+		]
+	}
+
+	{
+		Name = "DespairElementalDeathChunksSmall"
+		Random =
+		[
+			{ Name = "DespairElementalDeathChunkA_Small" }
+			{ Name = "DespairElementalDeathChunkB_Small" }
+			{ Name = "DespairElementalDeathChunkC_Small" }
+			{ Name = "DespairElementalDeathChunkD_Small" }
+		]
+	}
+
+	{
+		Name = "DespairElementalDeathChunkA"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkA"
+		RadialOffsetMin = 40
+		RadialOffsetMax = 100
+		Saturation = -0.9
+		VelocityMin = 600
+		VelocityMax = 900
+		Acceleration = -2000
+		ScaleMin = 0.5
+		ScaleMax = 1.3
+		RandomRotation = true
+		RandomRotationSpeedMin = -720
+		RandomRotationSpeedMax = 720
+		Gravity = 900
+		RandomDurationMin = 0.33
+		RandomDurationMax = 0.66
+		AngleMin = 0
+		AngleMax = 180
+		EaseIn = 0
+		EaseOut = 0.1
+		StartScale = 1
+		EndScale = 0
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		UpwardVelocityMin = 50
+		UpwardVelocityMax = 100
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DespairElementalDeathChunkB"
+		InheritFrom = "DespairElementalDeathChunkA"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkB"
+	}
+
+	{
+		Name = "DespairElementalDeathChunkC"
+		InheritFrom = "DespairElementalDeathChunkA"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkC"
+	}
+
+	{
+		Name = "DespairElementalDeathChunkD"
+		InheritFrom = "DespairElementalDeathChunkA"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkD"
+	}	
+
+	{
+		Name = "DespairElementalDeathChunkA_Small"
+		InheritFrom = "DespairElementalDeathChunkA"
+		ScaleMin = 0.1
+		ScaleMax = 0.4
+		VelocityMin = 300
+		VelocityMax = 450
+		Acceleration = -1000
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.75
+		Gravity = 600
+	}	
+
+	{
+		Name = "DespairElementalDeathChunkB_Small"
+		InheritFrom = "DespairElementalDeathChunkA_Small"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkB"
+	}
+
+	{
+		Name = "DespairElementalDeathChunkC_Small"
+		InheritFrom = "DespairElementalDeathChunkA_Small"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkC"
+	}
+
+	{
+		Name = "DespairElementalDeathChunkD_Small"
+		InheritFrom = "DespairElementalDeathChunkA_Small"
+		FilePath = "Fx\ZombieSpawner\ZombieSpawnerChunkD"
+	}
+
+] }

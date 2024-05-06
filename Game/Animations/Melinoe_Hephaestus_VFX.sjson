@@ -1,0 +1,169 @@
+{ Animations = [
+
+	{
+		Name = "MassiveSlamFx"
+		InheritFrom = "DustPuffASpikeTrap"
+		TimeModifierFraction = 0.1
+		CreateAnimations =
+		[
+			{ Name = "MassiveSlamFxCone" }
+			{ Name = "MassiveSlamSplinters" }
+		]
+	}
+
+	{
+		Name = "MassiveSlamFxCone"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 120.0
+		StartFrame = 1
+		ScaleX = 2.5
+		ScaleY = 1.5
+		Alpha = 0.8
+		TimeModifierFraction = 0.1
+		Color = { Red = 1.0 Green = 0.2 Blue = 0.2 }
+	}
+	
+	{
+		Name = "MassiveSlamSplinters"
+		FilePath = "Fx\DestructibleTreeSplinters\DestructibleTreeSplinters"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 29
+		NumFrames = 29
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 60.0
+		OriginY = 338.0
+		SortMode = "FromParent"
+		OverlayVfx = true
+		Alpha = 0.8
+		TimeModifierFraction = 0.1
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.2 }
+	}
+
+	{
+		Name = "HephMassiveHit"
+		FilePath = "Fx\HephMassiveHit\HephMassiveHit"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndFrame = 32
+		NumFrames = 32
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 160.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		OverlayVfx = true
+		TimeModifierFraction = 0.05
+		CreateAnimations =
+		[
+			{ Name = "HephMassiveHitStreak" }
+			{ Name = "HephMassiveHitLight" }
+			{ Name = "HephMassiveHitDark" }
+		]
+	}
+	
+	{
+		Name = "HephMassiveHitLight"
+		FilePath = "Particles\particle_quickflashIris"
+		GroupName = "FX_Add_Top"
+		
+		ColorFromOwner = "Ignore"
+		EndGreen = 0.2
+		EndRed = 0.999
+		StartAlpha = 1.0
+		StartBlue = 0.3
+		StartGreen = 0.7
+		StartRed = 1.0
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		EndScale = 1.1
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.05
+	}
+	
+	{
+		Name = "HephMassiveHitStreak"
+		FilePath = "Particles\particle_dagger_trail"
+		GroupName = "FX_Dark"
+		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -300.0
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		EndScaleY = 0.0
+		Scale = 3.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.05
+	}
+	
+	{
+		Name = "HephMassiveHitDark"
+		InheritFrom = "HephMassiveHit"
+		FilePath = "Fx\HephMassiveHitDark\HephMassiveHitDark"
+		GroupName = "FX_Dark"
+		Sound = "/SFX/Player Sounds/HephaestusSparkShower"
+		CreateAnimations = []
+	}
+
+
+	{
+		Name = "HephaestusKnockupFx"
+		FilePath = "Fx\HephMassiveHit\HephMassiveHit"
+		GroupName = "FX_Standing_Add"			
+		AngleFromOwner = "Ignore"
+		StartFrame = 1
+		EndFrame = 32
+		NumFrames = 32
+		PlaySpeed = 30.0
+		Material = "Unlit"
+		UseOwnAngle = false
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Scale = 2.0
+		OffsetZ = 160.0
+		DieWithOwner = false
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		VisualFx = "PoseidonKnockupSplashes"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 5
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashBlueGreen" }
+			{ Name = "PoseidonElementalKnockupFxBack" }
+		]
+		Color = { Red = 1 Green = 0.2 Blue = 0 }
+	}
+]}

@@ -1,0 +1,4935 @@
+{ Animations = [
+
+	// General
+	{
+		Name = "WaterUnitSurface"
+		FilePath = "Fx\OceanusSurfaceRipple\OceanusSurfaceRipple"
+		NumFrames = 41
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		GroupName = "FX_Terrain"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Scale = 0.66
+		DieWithOwner = false
+		Ambient = 0.0
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 0.1
+		StartBlue = 0.1
+		EndRed = 0.3
+		EndGreen = 0.3
+		EndBlue = 0.3
+		Hue = 0.1
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "OceanusEnemySplash" }
+		]
+	}
+
+	{
+		Name = "WaterUnitSurfaceLarge"
+		InheritFrom = "WaterUnitSurface"
+		Scale = 1.0
+		CreateAnimations =
+		[
+			{ Name = "OceanusEnemySplashLarge" }
+		]
+	}
+	{
+		Name = "WaterUnitSurfaceLargeWithSound"
+		InheritFrom = "WaterUnitSurfaceLarge"
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+	}
+
+	{
+		Name = "WaterUnitSurfaceSmall"
+		InheritFrom = "WaterUnitSurface"
+		Scale = 0.33
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "OceanusEnemySplashSmallB" }
+		]
+	}
+
+	{
+		Name = "WaterUnitGlow"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.3
+		Color = { Red = 1, Green = 0.5, Blue = 0.0}
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "WaterUnit_rig:neck_01_M_JNT"
+		UseAttachedFlasher = false
+		StartScale = 1.1
+		EndScale = 0.7
+		Duration = 1
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.7
+		DieWithOwner = true
+	}
+
+
+	{
+		Name = "OceanusEnemySplash"
+		FilePath = "Fx\OceanusEnemySplash\OceanusEnemySplash"
+		Material = "Unlit"
+		NumFrames = 21
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		OriginX = 150
+		OriginY = 210
+		ScaleY = 1.2
+		ColorFromOwner = "Ignore"
+		VisualFx = "OceanusRandomRipples"
+		VisualFxCap = 7
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+	}
+
+	{
+		Name = "OceanusEnemySplashLarge"
+		InheritFrom = "OceanusEnemySplash"
+		Sound = null
+		ScaleY = 2
+		Scale = 1.75
+	}
+
+	{
+		Name = "OceanusEnemySplashSmallB"
+		InheritFrom = "OceanusEnemySplash"
+		VisualFxCap = 3
+		Scale = 0.7
+		ScaleY = 2.0
+		ColorFromOwner = "Ignore"
+		Sound = null
+	}
+	{
+		Name = "MelSurfaceSplashLarge"
+		InheritFrom = "WaterUnitSurfaceLarge"
+		Hue = -0.3
+		CreateAnimations =
+		[
+			{ Name = "StyxSurfaceSplashLarge" }
+		]
+	}
+	{
+		Name = "StyxSurfaceSplashLarge"
+		InheritFrom = "OceanusEnemySplashLarge"
+		Hue = -0.3
+	}
+
+	{
+		Name = "OceanusRandomRipples"
+		FilePath = "Fx\OceanusSurfaceRipple\OceanusSurfaceRipple"
+		NumFrames = 41
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RadialOffsetMin = 50
+		RadialOffsetMax = 150
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		Scale = 0.33
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "OceanusProjectileSplash"
+		InheritFrom = "OceanusEnemySplash"
+		FilePath = "Fx\OceanusProjectileSplash\OceanusProjectileSplash"
+		ScaleY = 1.0
+		OriginX = 200
+		OriginY = 200
+		Sound = null
+	}
+
+
+	{
+		Name = "WaterUnitDive"
+		InheritFrom = "WaterUnitSurface"
+		Scale = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "OceanusEnemySplashSmall"}
+		]
+	}
+	{
+		Name = "WaterUnitDiveLarge"
+		InheritFrom = "WaterUnitDive"
+		Scale = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "OceanusEnemySplashLarge"}
+		]
+	}
+
+	{
+		Name = "OceanusEnemySplashSmall"
+		InheritFrom = "OceanusEnemySplash"
+		FilePath = "Fx\OceanusEnemySplashSmall\OceanusEnemySplashSmall"
+		Sound = "/Leftovers/World Sounds/ClickSplash"
+	}
+
+	{
+		Name = "OceanusEnemySplashSmallNoRipples"
+		InheritFrom = "OceanusEnemySplash"
+		VisualFx = null
+		ScaleY = 0.8
+		FilePath = "Fx\OceanusEnemySplashSmall\OceanusEnemySplashSmall"
+		CreateAnimation = "OceanusSurfaceRippleSmallA"
+	}
+
+	{
+		Name = "OceanusEnemySplashSmall_Air"
+		InheritFrom = "OceanusEnemySplash"
+		FilePath = "Fx\OceanusEnemySplashSmall\OceanusEnemySplashSmall"
+		VisualFx = null
+		RandomOffsetX = 50
+		RandomOffsetY = 100
+		OffsetZ = 100
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Sound = "null"
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "OceanusEnemyBubbles"
+		FilePath = "Fx\OceanusEnemyBubbles\OceanusEnemyBubbles"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Ambient = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Scale = 1.25
+	}
+
+	// Enemies
+
+	{
+		Name = "WaterUnitProjectile"
+		FilePath = "Fx\WaterUnitProjectile\WaterUnitProjectile"
+		NumFrames = 35
+		PlaySpeed = 30
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.25
+		StartScale = 0
+		EndScale = 1
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		Scale = 1.1
+		OriginX = 170
+		OriginY = 60
+		VisualFx = "WaterUnitProjectileTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		ChainTo = "WaterUnitProjectileLoop"
+		TransferFrameFromThis = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitProjectileSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "WaterUnitProjectileDissipate"
+		InheritFrom = "WaterUnitProjectile"
+		TransferFrameFromThis = false
+		TransferFrameToThis = true
+		StartScale = 1
+		EndScale = 0
+		ChainTo = null
+		VisualFx = null
+		EaseIn = 0
+		EaseOut = 0.5
+		Duration = 0.12
+	}
+
+	{
+		Name = "WaterUnitProjectileLoop"
+		InheritFrom = "WaterUnitProjectile"
+		TransferFrameToThis = true
+		StartScale = 0.9999
+		Loop = true
+		LoopFramesOnly = false
+		Duration = 1.1666
+		ChainTo = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "WaterUnitProjectileTrail"
+		Random =
+		[
+			{ Name = "WaterUnitProjectileTrailA" }
+			{ Name = "WaterUnitProjectileTrailB" }
+		]
+	}
+
+	{
+		Name = "WaterUnitProjectileTrailA"
+		FilePath = "Fx\WaterUnitProjectileTrailA\WaterUnitProjectileTrailA"
+		StartScale = 0.3
+		EndScale = 2
+		GroupName = "FX_Dark"
+		NumFrames = 19
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		DrawBehindOwner = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "WaterUnitProjectileTrailB"
+		InheritFrom = "WaterUnitProjectileTrailA"
+		FilePath = "Fx\WaterUnitProjectileTrailB\WaterUnitProjectileTrailB"
+	}
+
+	{
+		Name = "WaterUnitProjectileShadow"
+		InheritFrom = "WaterUnitProjectileLoop"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "Shadows"
+		Alpha = 0.5
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = true
+		VisualFx = null
+		Sound = null
+	}
+
+	{
+		Name = "WaterUnitLobProjectile"
+		FilePath = "Fx\WaterUnitProjectileLob\WaterUnitProjectileLob"
+		NumFrames = 50
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 30
+		Scale = 0.85
+		VisualFx = "WaterUnitLobProjectileTrailContainer"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitProjectileSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "WaterUnitLobProjectileTrailContainer"
+		CreateAnimation = "WaterUnitLobProjectileTrail"
+		FilePath = "Dev\blank_invisible"
+		EndAngle = 45.0
+		StartAngle = -45.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OverlayVfx = true
+	}
+
+	{
+		Name = "WaterUnitLobProjectileTrail"
+		FilePath = "Fx\WaterUnitProjectileTrailB\WaterUnitProjectileTrailB"
+		PlaySpeed = 30
+		NumFrames = 19
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		OverlayVfx = true
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Ambient = 0
+		Gravity = 200
+		RandomRotation = true
+		RandomFlipVertical = true
+		SortMode = "FromParent"
+		StartScaleX = 0.3
+		EndScaleX = 1.0
+		Material = "Unlit"
+	}
+		
+	{
+		Name = "FloodTrapFxTrailWakeTurtle"
+		InheritFrom = "FloodTrapFxTrailWakeUnit"
+		Scale = 0.66
+	}
+
+	{
+		Name = "TurtleClawSwipeR"
+		FilePath = "Fx\TurtleClawSwipe\TurtleClawSwipe"
+		StartFrame = 3
+		EndFrame = 23
+		NumFrames = 20
+		Material = "Unlit"
+		OriginX = 80
+		OriginY = 164
+		ScaleY = 1.5
+		GroupName = "FX_Standing_Add"
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "TurtleClawSwipeL" }
+			{ Name = "TurtleClawSwipeR_Dark" }
+			{ Name = "TurtleClawSwipeL_Dark" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "TurtleClawSwipeR_Dark"
+		InheritFrom = "TurtleClawSwipeR"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "TurtleClawSwipeL"
+		InheritFrom = "TurtleClawSwipeR"
+		OriginY = 104
+		ClearCreateAnimations = true
+		FlipVertical = true
+	}
+
+	{
+		Name = "TurtleClawSwipeL_Dark"
+		InheritFrom = "TurtleClawSwipeL"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+
+
+	{
+		Name = "TurtleLobProjectile"
+		FilePath = "Fx\TurtleLobProjectile\TurtleLobProjectile"
+		NumFrames = 50
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 60
+		Scale = 0.9
+		VisualFx = "TurtleLobProjectileTrailContainer"
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 20
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/Charon/CharonGroundProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+
+	{
+		Name = "OceanusEnemySpitFireFx_Turtle"
+		FilePath = "Dev\blank_invisible"
+		GrannyAttachedMarkerLocation = "Turtle_Rig:lowerLip_00_M_JNT"
+		VisualFx = "OceanusEnemySpitFireFx"
+		VisualFxIntervalMin = 0.07
+		VisualFxIntervalMax = 0.07
+		VisualFxCap = 1
+		Duration = 0.1
+	}
+
+	{
+		Name = "OceanusEnemySpitFireFx_FishmanRanged"
+		InheritFrom = "OceanusEnemySpitFireFx_Turtle"
+		GrannyAttachedMarkerLocation = "FishmanRanged_Rig:snout_01_M_JNT"
+		VisualFxIntervalMin = 0.005
+		VisualFxIntervalMax = 0.006
+		VisualFx = "OceanusEnemySpitFireFxZ"
+		VisualFxCap = 1
+	}
+
+	{
+		Name = "OceanusEnemySpitFireFx"
+		FilePath = "Fx\OceanusFloodTrapFireSplash\OceanusFloodTrapFireSplash"
+		NumFrames = 19
+		NumAngles = 2
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 35
+		Scale = 1.2
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Hue = 0.45
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "OceanusEnemySpitFireFxZ"
+		InheritFrom = "OceanusEnemySpitFireFx"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OffsetZ = 100
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 45
+		Scale = 0.9
+	}
+
+
+	{
+		Name = "TurtleLobProjectileTrailContainer"
+		CreateAnimation = "TurtleLobProjectileTrail"
+		FilePath = "Dev\blank_invisible"
+		EndAngle = 45.0
+		StartAngle = -45.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OverlayVfx = true
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "TurtleLobProjectileTrail"
+		FilePath = "Fx\WaterUnitProjectileTrailB\WaterUnitProjectileTrailB"
+		PlaySpeed = 30
+		NumFrames = 19
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		OverlayVfx = true
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Ambient = 0
+		Gravity = 20
+		RandomRotation = true
+		RandomFlipVertical = true
+		SortMode = "FromParent"
+		StartScale = 0.6
+		EndScale	= 0.7
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "TurtleLobProjectileShadow"
+		InheritFrom = "TurtleLobProjectile"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.75
+		Scale = 0.9
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "WaterUnitLobProjectileShadow"
+		InheritFrom = "WaterUnitLobProjectile"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.75
+		Scale = 0.9
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		VisualFx = null
+		Sound = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "WaterUnitLobProjectileExplosion"
+		FilePath = "Fx\WaterLobProjectileExplosion\WaterLobProjectileExplosion"
+		NumFrames = 28
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleRadius = 300
+		PlaySpeed = 30
+		OriginX = 320
+		OriginY = 220
+		CreateAnimations =
+		[
+			{ Name = "WaterUnitLobProjectileNova" }
+		]
+	}
+
+	{
+		Name = "WaterUnitLobProjectileNova"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		NumFrames = 30
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		PlaySpeed = 30
+		Scale = 2
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "FogEmitterSlamSpikeA" }
+			{ Name = "FogEmitterSlamSpikeB" }
+			{ Name = "OceanusSurfaceRippleLargeA" }
+			{ Name = "OceanusSurfaceRippleLargeB" }
+			{ Name = "OceanusProjectileSplash" }
+		]
+	}
+
+	{
+		Name = "TurtleBounceNova"
+		InheritFrom = "WaterUnitLobProjectileNova"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		Material = "Unlit"
+		PlaySpeed = 45
+		ScaleRadius = 228
+		ClearCreateAnimations = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusA" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusB" }
+			{ Name = "OceanusProjectileSplash" }
+		]
+	}
+
+	{
+		Name = "OceanusSurfaceRippleLargeA"
+		FilePath = "Fx\OceanusSurfaceRipple\OceanusSurfaceRipple"
+		NumFrames = 41
+		Material = "Unlit"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 46
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		GroupName = "FX_Terrain"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Scale = 1.0
+		DieWithOwner = false
+		Ambient = 0.0
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 0.1
+		StartBlue = 0.1
+		EndRed = 0.3
+		EndGreen = 0.3
+		EndBlue = 0.3
+		Hue = 0.1
+	}
+
+	{
+		Name = "OceanusSurfaceRippleLargeB"
+		InheritFrom = "OceanusSurfaceRippleLargeA"
+		AddColor = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		StartRed = 0.9
+		StartGreen = 0.9
+		StartBlue = 0.9
+		EndRed = 0.9
+		EndGreen = 0.9
+		EndBlue = 0.9
+		Scale = 1.5
+		StartAlpha = 1
+		EndAlpha = 0.99
+	}
+
+	{
+		Name = "OceanusSurfaceRippleScaleRadiusA"
+		InheritFrom = "OceanusSurfaceRippleLargeA"
+		ScaleRadius = 256
+	}
+
+	{
+		Name = "OceanusSurfaceRippleScaleRadiusB"
+		InheritFrom = "OceanusSurfaceRippleLargeB"
+		ScaleRadius = 256
+	}
+
+	{
+		Name = "OceanusSurfaceRippleScaleRadiusShortA"
+		InheritFrom = "OceanusSurfaceRippleLargeA"
+		StartFrame = 15
+		EndFrame = 41
+		NumFrames = 26
+		ScaleRadius = 256
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0.15
+		EndGreen = 0.0
+		EndBlue = 0.05
+		GroupName = "FX_Terrain_Add"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		StartAlpha = 1
+		EndAlpha = 0.6
+	}
+
+	{
+		Name = "OceanusSurfaceRippleScaleRadiusShortB"
+		InheritFrom = "OceanusSurfaceRippleLargeB"
+		StartFrame = 15
+		EndFrame = 41
+		NumFrames = 26
+		ScaleRadius = 256
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0.15
+		EndGreen = 0.0
+		EndBlue = 0.05
+		GroupName = "FX_Terrain_Add"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		StartAlpha = 1
+		EndAlpha = 0.6
+	}
+
+	{
+		Name = "OceanusSurfaceRippleSmallA"
+		InheritFrom = "OceanusSurfaceRippleLargeA"
+		Scale = 0.5
+		Hue = 0
+	}
+
+	{
+		Name = "OceanusSurfaceRippleSmallB"
+		InheritFrom = "OceanusSurfaceRippleLargeB"
+		Scale = 0.5
+		Hue = 0
+		Sound = "/Leftovers/SFX/FootstepsWetSmall"
+	}
+
+	{
+		Name = "FishSwarmerStreak"
+		FilePath = "Fx\FishSwarmerStreak\FishSwarmerStreak"
+		NumFrames = 13
+		Material = "Unlit"
+		IsometricSkew = "X"
+		OffsetZ = 80
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		OriginX = 260
+		OriginY = 50
+		AngleFromOwner = "Take"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "FishSwarmerBiteFx"
+		FilePath = "Fx\FishSwarmerBite\FishSwarmerBite"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "Standing"
+		CreateAnimation = null
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		Velocity = 300
+		Angle = 180
+		ScaleX = 1.5
+		UseAttachedFlasher = false
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FishSwarmerBiteFxDark"
+		InheritFrom = "FishSwarmerBiteFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		CreateAnimation = null
+	}
+
+
+	{
+		Name = "FishmanJumpStreak"
+		FilePath = "Fx\FishmanJumpStreak\FishmanJumpStreak"
+		Material = "Unlit"
+		Duration = 0.25
+		StartScaleY = 1.5
+		EndScaleY = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OriginX = 90
+		OriginY = 60
+		ColorFromOwner = "Ignore"
+		OffsetZ = 240
+		Sound = "/Leftovers/World Sounds/BigSplash"
+	}
+
+	{
+		Name = "FishmanTridentStrike"
+		FilePath = "Fx\FishmanTridentStrike\FishmanTridentStrike"
+		NumFrames = 30
+		RandomFlipVertical = true
+		Material = "Unlit"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Velocity = 800
+		Acceleration = -300
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		SortMode = "FromParent"
+		Scale = 1.25
+		OriginX = 520
+		OriginY = 100
+		DieWithOwner = false
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "FishmanTridentPull"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.1
+		CreateAnimations =
+		[
+			{ Name = "FishmanTridentPullFx" }
+		]
+	}
+
+	{
+		Name = "FishmanTridentPullFx"
+		InheritFrom = "FishmanTridentStrike"
+		DieWithOwner = false
+		FilePath = "Fx\FishmanTridentPull\FishmanTridentPull"
+		Scale = 1.5
+		NumFrames = 28
+		OriginX = 240
+		OriginY = 50
+		Velocity = 1500
+		Acceleration = -3000
+		Angle = 180
+		FlipHorizontal = true
+		RandomFlipVertical = false
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		CreateAnimation = "FishmanTridentPullFxDisplacement"
+	}
+
+	{
+		Name = "FishmanTridentPullFxDisplacement"
+		InheritFrom = "FishmanTridentPullFx"
+		GroupName = "FX_Displacement"
+		Alpha = 0.2
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		PlaySpeed = 45
+		Velocity = 500
+	}
+
+	{
+		Name = "TurtleInvincibubble"
+		FilePath = "Fx\TurtleInvincibubble\TurtleInvincibubble"
+		NumFrames = 60
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		OffsetZ = -50
+		ScaleFromOwner = "Ignore"
+		Scale = 1.25
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		TransferFrameToThis = true
+		DieWithOwner = true
+		ChainTo = "TurtleInvincibubbleOut"
+		GrannyAttachedMarkerLocation = "Turtle_Rig:shell_00_M_JNT"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TurtleInvincibubbleIn"
+		InheritFrom = "TurtleInvincibubble"
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1.25
+		EndScale = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameFromThis = true
+		ChainTo = "TurtleInvincibubble"
+	}
+
+	{
+		Name = "TurtleInvincibubbleOut"
+		InheritFrom = "TurtleInvincibubbleIn"
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1.0
+		EndScale = 1.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.7
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "TurtleInvincibubbleHit"
+		FilePath = "Fx\TurtleInvincibubbleHit\TurtleInvincibubbleHit"
+		NumFrames = 10
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 30
+		OffsetZ = 0
+		ScaleFromOwner = "Ignore"
+		Scale = 1.25
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		GrannyAttachedMarkerLocation = "Turtle_Rig:shell_00_M_JNT"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FishmanRangedTailGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "weapon_fxMarker_00_M_JNT"
+		StartScale = 1.1
+		EndScale = 0.7
+		Duration = 1
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.3
+		DieWithOwner = true
+	}
+
+	{
+		Name = "FishmanRangedTailGlowEat"
+		InheritFrom = "FishmanRangedTailGlow"
+		StartScale = 1.1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		HoldLastFrame = true
+		PingPongScale = false
+		Loop = false
+	}
+
+	{
+		Name = "FishmanRangedTailGlowRegrow"
+		InheritFrom = "FishmanRangedTailGlowEat"
+		StartScale = 0
+		EndScale = 1.1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "FishmanRangedProjectile"
+		FilePath = "Fx\FishmanRangedProjectile\FishmanRangedProjectile"
+		NumFrames = 60
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		TransferFrameToThis = true
+		StartOffsetZ = 0
+		EndOffsetZ = 1
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.85
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeSmall/AttackLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "FishmanRangedProjectileTrail"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 40
+		CreateAnimations =
+		[
+			{ Name = "FishmanRangedProjectileGlow" }
+		]
+	}
+
+	{
+		Name = "FishmanRangedParticle"
+		Random =
+		[
+			{ Name = "FishmanRangedParticleA" }
+			{ Name = "FishmanRangedParticleB" }
+			{ Name = "FishmanRangedParticleB" }
+			{ Name = "FishmanRangedParticleB" }
+			{ Name = "FishmanRangedParticleB" }
+		]
+	}
+
+	{
+		Name = "FishmanRangedProjectileTrail"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.33
+		Scale = 0.5
+		ScaleX = 2
+		EndScale = 1
+		Alpha = 0.4
+		OwnerVelocityFraction = 1
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		CreateAnimation = "WaterUnitProjectileTrail"
+	}
+
+	{
+		Name = "FishmanRangedParticleA"
+		FilePath = "Fx\FishmanRangedParticle\FishmanRangedParticle"
+		NumFrames = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OffsetZ = 0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 2
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.7
+		Material = "Unlit"
+		AngleMin = 160
+		AngleMax = 200
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -40
+		LoopFramesOnly = true
+		StartScale = 0.0
+		EndScale = 0.66
+		PingPongScale = true
+		GroupName = "FX_Dark"
+		Gravity = 200
+		StartRed = 1
+		StartGreen = 0.2
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+	}
+
+	{
+		Name = "FishmanRangedParticleB"
+		InheritFrom = "FishmanRangedParticleA"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "FishmanRangedProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		Alpha = 0.1
+		Scale = 0.6
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		DieWithOwner = true
+
+	}
+
+	{
+		Name = "FishmanRangedProjectileShadow"
+		InheritFrom = "FishmanRangedProjectile"
+		VisualFx = null
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "Shadows"
+		Alpha = 0.66
+		StartOffsetZ = 0
+		EndOffsetZ = 0
+		DieWithOwner = true
+	}
+
+	{
+		Name = "FishmanRangedProjectileIn"
+		InheritFrom = "FishmanRangedProjectile"
+		VisualFx = null
+		StartOffsetZ = 0
+		EndOffsetZ = 0
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = "FishmanRangedProjectile"
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameFromThis = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.9
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "OceanusEnemySpitFireFx_FishmanRanged"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "FishmanRangedProjectileDetonate"
+		InheritFrom = "WaterUnitLobProjectileNova"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		PlaySpeed = 45
+		ScaleRadius = 228
+		ClearCreateAnimations = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusA" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusB" }
+			{ Name = "OceanusProjectileSplash" }
+			{ Name = "FishmanRangedProjectileExplosionA" }
+			{ Name = "FishmanRangedProjectileExplosionB" }
+		]
+	}
+
+	{
+		Name = "CharybdisSpitRangedProjectileDetonate"
+		InheritFrom = "FishmanRangedProjectileDetonate"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "FishmanRangedProjectileExplosionA" }
+			{ Name = "FishmanRangedProjectileExplosionB" }
+		]
+	}
+
+	{
+		Name = "FishmanRangedProjectileExplosionA"
+		FilePath = "Fx\WaterLobProjectileExplosion\WaterLobProjectileExplosion"
+		NumFrames = 28
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleRadius = 200
+		PlaySpeed = 30
+		OriginX = 320
+		OriginY = 220
+		Hue = 0.17
+		Saturation = -0.1
+	}
+
+	{
+		Name = "FishmanRangedProjectileExplosionB"
+		FilePath = "Fx\SmallExplosion\SmallExplosion"
+		NumFrames = 40
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "Standing"
+		StartGreen = 1
+		StartRed = 1
+		StartBlue = 1
+		EndGreen = 0.999
+		EndBlue = 0.1
+		EndRed = 0.999
+		Hue = -0.1
+		Scale = 0.75
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+	}
+
+	// Scylla
+
+
+
+	{
+		Name = "EnemyDeathFxScylla"
+		FilePath = "Dev\blank_invisible"
+		Duration = 5
+		VisualFx = "EnemyDeathPopFishScylla"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.4
+	}
+
+	{
+		Name = "ScyllaMoveTrail"
+		InheritFrom = "FloodTrapFxTrail"
+		Velocity = 0
+		Scale = 1.0
+		CreateAnimations =
+		[ 
+			{ Name = "ScyllaMoveTrailDisplacement" }
+			{ Name = "ScyllaMoveTrailWake" }
+		]
+	}
+
+	{
+		Name = "ScyllaMoveTrailDisplacement"
+		InheritFrom = "FloodTrapFxTrailDisplacement"
+		Scale = 1.0
+		OriginX = 200
+		OriginY = 60
+		ScaleY = 2
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "ScyllaMoveTrailWake"
+		InheritFrom = "FloodTrapFxTrailWake"
+		Scale = 1.0
+		OriginX = 200
+		OriginY = 60
+		ScaleY = 2
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "ScyllaBelt"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.1
+		Loop = true
+		DieWithOwner = true
+		VisualFx = "ScyllaBeltFx"
+		VisualFxIntervalMin = 0.10
+		VisualFxIntervalMax = 0.101
+	}
+
+	{
+		Name = "ScyllaBeltLarge"
+		InheritFrom = "ScyllaBelt"
+		VisualFx = "ScyllaBeltFxLarge"
+	}
+
+
+	{
+		Name = "ScyllaBeltFx"
+		FilePath = "Fx\ScyllaBelt\ScyllaBelt"
+		NumFrames = 33
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		Scale = 0.5
+		AngleMin = -2
+		AngleMax = 2
+		ScaleMin = 6
+		ScaleMax = 7
+		RandomOffsetY = 10
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OriginX = 150
+		OriginY = 128
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -450
+		ScaleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		OffsetZ = 100
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		ChildAnimation = "ScyllaBeltFxGlow"
+		CreateAnimations =
+		[
+			{ Name = "ScyllaBeltFxDarkRandom" }
+			{ Name = "ScyllaBeltFxDisplacement" }
+			{ Name = "ScyllaBeltWaterFx" }
+		]
+	}
+
+
+	{
+		Name = "ScyllaBeltFxLarge"
+		InheritFrom = "ScyllaBeltFx"
+		Scale = 0.70
+	}
+
+	{
+		Name = "ScyllaBeltFxGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		OriginX = 200
+		OriginY = 360
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -400
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 0.25
+		EndAlpha = 0
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		Duration = 0.3
+		Scale = 1.1
+		StartScale = 1
+		EndScale = 1.2
+		PostRotateScaleY = 0.5
+		OffsetZ = 100
+	}
+
+	{
+		Name = "ScyllaBeltFxDarkRandom"
+		Random =
+		[
+			{ Name = "ScyllaBeltFxDark" }
+			{ Name = "ScyllaBeltFxDarkTop" }
+		]
+	}
+
+	{
+		Name = "ScyllaBeltFxIso"
+		InheritFrom = "ScyllaBeltFx"
+		IsometricSkew = "X"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ScaleY = 0.5
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+	}
+
+	{
+		Name = "ScyllaBeltFxDark"
+		InheritFrom = "ScyllaBeltFx"
+		GroupName = "FX_Dark"
+		FilePath = "Fx\ScyllaBeltDark\ScyllaBeltDark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		RandomPlaySpeedMin = 80
+		RandomPlaySpeedMax = 90
+	}
+
+	{
+		Name = "ScyllaBeltFxDarkTop"
+		InheritFrom = "ScyllaBeltFxDark"
+		GroupName = "Standing"
+	}
+
+	{
+		Name = "ScyllaBeltFxDisplacement"
+		InheritFrom = "ScyllaBeltFx"
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		GroupName = "FX_Displacement"
+		Alpha = 0.05
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 50
+	}
+
+
+	{
+		Name = "ScyllaBeltWaterFxSpray"
+		Random =
+		[
+			{ Name = "ScyllaBeltWaterFxSprayA" }
+			{ Name = "ScyllaBeltWaterFxSprayB" }
+		]
+	}
+
+	{
+		Name = "ScyllaBeltWaterFxSprayA"
+		FilePath = "Particles\particle_waterSprayIris01"
+		Material = "Unlit"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		StartScale = 0.125
+		EndScale = 0.8
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.9
+		Gravity = 1000
+		Scale = 1
+		Velocity = 600
+		Acceleration = -1000
+		OffsetZ = 0
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 200
+		RadialOffsetMin = 100
+		RadialOffsetMax = 700
+		AngleMin = -20
+		AngleMax = 20
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ScyllaBeltWaterFxSprayB"
+		InheritFrom = "ScyllaBeltWaterFxSprayA"
+		FilePath = "Particles\particle_waterSprayIris02"
+	}
+
+	{
+		Name = "ScyllaBeltWaterFx"
+		FilePath = "Fx\DashWake\DashWake"
+		NumFrames = 67
+		PostRotateScaleY = 0.7
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		OriginX = 100
+		OriginY = 90
+		Scale = 2.0
+		ScaleX = 1.0
+		ScaleY = 1.5
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		Velocity = 1000
+		Acceleration = -2200
+		Alpha = 0.8
+		StartAlpha = 0.5
+		EndAlpha = 0.2
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VisualFx = "ScyllaBeltWaterFxSpray"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+		VisualFxCap = 8
+		CreateAnimations =
+		[
+			{ Name = "ScyllaBeltWaterFxSecondary" }
+		]
+
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+
+		]
+	}
+
+	{
+		Name = "ScyllaBeltWaterFxSecondary"
+		InheritFrom = "ScyllaBeltWaterFx"
+		VisualFx = null
+		ChildAnimation = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		ClearSlides = true
+		PlaySpeed = 45
+		ScaleY = 1.5
+		StartAlpha = 0
+		EndAlpha = 0.2
+		Alpha = 0.2
+	}
+
+
+	{
+		Name = "ScyllaSpin"
+		FilePath = "Fx\RadiatorLongBeamLoop\RadiatorLongBeamLoop"
+		NumFrames = 45
+		Loop = true
+		Material = "Unlit"
+		OriginX = 120
+		OriginY = 50
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		ScaleY = 1.5
+		Scale = 1.2
+		PostRotateScaleY = 0.5
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamAttackLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ScyllaSpinDark" }
+			{ Name = "ScyllaSpinGlow" }
+		]
+	}
+
+	{
+		Name = "ScyllaSpinIn"
+		InheritFrom = "ScyllaSpin"
+		NumFrames = 8
+		FilePath = "Fx\RadiatorLongBeamIn\RadiatorLongBeamIn"
+		ChainTo = "ScyllaSpin"
+		ClearCreateAnimations = true
+		Loop = false
+		Sound = null
+		CreateAnimations =
+		[
+			{ Name = "ScyllaSpinDarkIn" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "ScyllaSpinOut"
+		InheritFrom = "ScyllaSpin"
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		StartScaleY = 1
+		EndScaleY = 0
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ClearCreateAnimations = true
+		Green = 0
+		Sound = null
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "ScyllaSpinDarkOut"
+		InheritFrom = "ScyllaSpinOut"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		ChainTo = null
+	}
+
+	{
+		Name = "ScyllaSpinDarkIn"
+		InheritFrom = "ScyllaSpinIn"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		ChainTo = null
+	}
+
+	{
+		Name = "ScyllaSpinGlow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		GroupName = "FX_Terrain_Add"
+		AddColor = true
+		ScaleX = 2.2
+		ScaleY = 1.0
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		OriginX = 0
+		OriginY = 54
+		Alpha = 0.5
+		StartAlpha = 0.7
+		EndAlpha = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		Duration = 0.4
+		PostRotateScaleY = 0.5
+		StartScaleY = 1
+		EndScaleY = 0.7
+		PhaseOffsetScale = 90
+		PingPongScale = true
+		PingPongColor = true
+	}
+
+
+	{
+		Name = "ScyllaSpinDark"
+		InheritFrom = "ScyllaSpin"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		Sound = null
+	}
+
+
+
+	{
+		Name = "ScyllaMicSwipe"
+		FilePath = "Fx\ScyllaMicSwipe\ScyllaMicSwipe"
+		NumFrames = 24
+		Material = "Unlit"
+		AngleFromOwner = "Maintain"
+		Scale = 1.25
+		ScaleY = 1.3
+		OriginX = 100
+		OriginY = 120
+		OffsetZ = 200
+		PlaySpeed = 60
+		DieWithOwner = false
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ChildAnimation = "ScyllaMicSwipeGlow"
+		CreateAnimations =
+		[
+			{ Name = "ScyllaMicSwipeDark" }
+		]
+	}
+
+	{
+		Name = "ScyllaMicSwipeDark"
+		InheritFrom = "ScyllaMicSwipe"
+		ChildAnimation = null
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		PlaySpeed = 50
+	}
+
+	{
+		Name = "ScyllaMicSwipeGlow"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_glow"
+		AddColor = false
+		EndBlue = 0.1
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.3
+		StartGreen = 0.05
+		EndScale = 2.0
+		StartScale = 3.0
+		Scale = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		TimeModifierFraction = 1.0
+	}
+
+	{
+		Name = "ScyllaProjectile"
+		FilePath = "Fx\ScyllaProjectile\ScyllaProjectile"
+		NumFrames = 30
+		NumAngles = 8
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Scale = 1.6
+		OffsetZ = 60
+		StartScaleX = 1.05
+		EndScaleX = 0.95
+		StartScaleY = 0.95
+		EndScaleY = 1.05
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeSmall/AttackLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "ScyllaProjectileTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 100
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		RandomOffsetY = 20
+	}
+
+	{
+		Name = "ScyllaProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Maintain"
+		DieWithOwner = true
+	}
+	
+	{
+		Name = "ScyllaProjectileTrail"
+		Random =
+		[
+			{ Name = "ScyllaProjectileTrailA" }
+			{ Name = "ScyllaProjectileTrailB" }
+		]
+	}
+
+	{
+		Name = "ScyllaProjectileTrailA"
+		FilePath = "Fx\ScyllaProjectileTrailA\ScyllaProjectileTrailA"
+		NumFrames = 40
+		Material = "Unlit"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		DrawBehindOwner = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		ScaleY = 1.0
+		StartScale = 2
+		EndScale = 1
+		OriginX = 90
+		OriginY = 30
+		EaseIn = 0.5
+		EaseOut = 1.0
+		VelocityMin = 100
+		VelocityMax = 125
+	}
+
+	{
+		Name = "ScyllaProjectileTrailB"
+		InheritFrom = "ScyllaProjectileTrailA"
+		FilePath = "Fx\ScyllaProjectileTrailB\ScyllaProjectileTrailB"
+	}
+
+	{
+		Name = "ScyllaProjectileShadow"
+		InheritFrom = "ScyllaProjectile"
+		GroupName = "FX_Terrain"
+		PostRotateScaleY = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.66
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		VisualFx = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerFxSpawner"
+		FilePath = "Particles\particle_enemyAttackSparkle"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Loop = false
+		Scale = 1.5
+		StartScale = 0
+		EndScale = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.1
+		PingPongScale = false
+		EaseIn = 0
+		EaseOut = 1
+		Material = "Unlit"
+		Duration = 0.5
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:middle_00_R_JNT"
+		CreateAnimation = "ScyllaHeadbangPowerFx"
+		VisualFxIntervalMin = 0.001
+		VisualFxIntervalMax = 0.002
+		VisualFxCap = 1
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerFx"
+		Random =
+		[
+			{ Name = "ScyllaHeadbangPowerA" }
+			{ Name = "ScyllaHeadbangPowerB" }
+		]
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerA"
+		FilePath = "Fx\ScyllaHeadbangPowerA\ScyllaHeadbangPowerA"
+		NumFrames = 20
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortFromOwner = "Take"
+		SortMode = "FromParent"
+		GroupName = "FX_Standing_Add"
+		OriginX = 80
+		OriginY = 200
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleMin = 1
+		ScaleMax = 1.4
+		Scale = 1.2
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 300
+		ChildAnimation = "ScyllaHeadbangPowerStreak"
+		CreateAnimations =
+		[
+			{ Name = "ScyllaHeadbangPowerFxDark" }
+		]
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerStreak"
+		FilePath = "Fx\ScyllaBelt\ScyllaBelt"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		NumFrames = 33
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		ScaleY = 0.3
+		StartScaleX = 1
+		EndScaleX = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerB"
+		InheritFrom = "ScyllaHeadbangPowerA"
+		FilePath = "Fx\ScyllaHeadbangPowerB\ScyllaHeadbangPowerB"
+	}
+
+
+	{
+		Name = "ScyllaHeadbangPowerFxDark"
+		Random =
+		[
+			{ Name = "ScyllaHeadbangPowerDarkA" }
+			{ Name = "ScyllaHeadbangPowerDarkB" }
+		]
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerDarkA"
+		InheritFrom = "ScyllaHeadbangPowerA"
+		FilePath = "Fx\ScyllaHeadbangPowerDarkA\ScyllaHeadbangPowerDarkA"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+	}
+
+	{
+		Name = "ScyllaHeadbangPowerDarkB"
+		InheritFrom = "ScyllaHeadbangPowerDarkA"
+		FilePath = "Fx\ScyllaHeadbangPowerDarkB\ScyllaHeadbangPowerDarkB"
+	}		
+
+
+	{
+		Name = "ScyllaBoostedFxSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "ScyllaBoostedFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		DieWithOwner = true
+		ColorFromOwner = "Take"
+	}
+
+	{
+		Name = "ScyllaBoostedFx"
+		Random =
+		[
+			{ Name = "ScyllaBoostedFxA" }
+			{ Name = "ScyllaBoostedFxB" }
+		]
+	}
+
+	{
+		Name = "ScyllaBoostedFxDark"
+		Random =
+		[
+			{ Name = "ScyllaBoostedFxDarkA" }
+			{ Name = "ScyllaBoostedFxDarkB" }
+		]
+	}
+
+	{
+		Name = "ScyllaBoostedFxA"
+		FilePath = "Fx\ScyllaHeadbangBoostedFxA\ScyllaHeadbangBoostedFxA"
+		NumFrames = 19
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		AngleMin = -45
+		AngleMax = 45
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Scale = 2.0
+		ColorFromOwner = "Take"
+		UseAttachedFlasher = false
+		OffsetZ = 130
+		ScaleMin = 0.8
+		ScaleMax = 1.25
+		RandomOffsetY = 50
+		PostRotateScaleY = 0.66
+		CreateAnimation = "ScyllaBoostedFxDark"
+	}
+
+	{
+		Name = "ScyllaBoostedFxB"
+		InheritFrom = "ScyllaBoostedFxA"
+		FilePath = "Fx\ScyllaHeadbangBoostedFxB\ScyllaHeadbangBoostedFxB"
+	}
+
+	{
+		Name = "ScyllaBoostedFxDarkA"
+		InheritFrom = "ScyllaBoostedFxA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "ScyllaBoostedFxDarkB"
+		InheritFrom = "ScyllaBoostedFxDarkA"
+		FilePath = "Fx\ScyllaHeadbangBoostedFxB\ScyllaHeadbangBoostedFxB"
+	}
+
+	{
+		Name = "ScyllaNote"
+		FilePath = "Fx\NoteOrbQuarterFront\NoteOrbQuarterFront"
+		GroupName = "FX_Standing_Add"
+		
+		VisualFx = "ScyllaNoteTrail"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		EndBlue = 0.3
+		EndGreen = 0.05
+		EndRed = 0.9
+		PingPongColor = true
+		StartBlue = 0.5
+		StartGreen = 0.1
+		StartRed = 1.0
+		EaseOut = 1.0
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		EndOffsetY = -10.0
+		Ambient = 0.0
+		VisualFxDistanceMax = 51.0
+		VisualFxDistanceMin = 50.0
+		Sound = "/SFX/Enemy Sounds/InvincibleProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		PingPongShiftOverDuration = true
+		CreateAnimations =
+		[
+			{ Name = "ScyllaNoteDark" }
+			{ Name = "ScyllaNoteGlow" }
+			{ Name = "ScyllaNoteStartFlare" }
+		]
+	}
+
+	{
+		Name = "ScyllaNoteTrail"
+		FilePath = "Fx\LyreShockwave\LyreShockwaveRingSmall"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Take"
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		EndAlpha = 1.0
+		EndBlue = 0.3
+		EndGreen = 0.05
+		EndRed = 0.9
+		PingPongColor = true
+		StartBlue = 0.5
+		StartGreen = 0.1
+		StartRed = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.75
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		IsometricSkew = "Y"
+		RandomRotationSpeedMax = 36.0
+		RandomRotationSpeedMin = -36.0
+		EndScale = 1.1
+		ScaleMax = 0.33
+		ScaleMin = 0.2
+		StartScale = 0.8
+		Ambient = 0.0
+		OverlayVfx = true
+	}
+	
+	{
+		Name = "ScyllaNoteGlow"
+		InheritFrom = "ScyllaNote"
+		FilePath = "Particles\particle_glow"
+		
+		VisualFx = "null"
+		Sound = "null"
+		AddColor = false
+		EndAlpha = 0.4
+		StartAlpha = 0.1
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		CreateAnimations = []
+	}
+	{
+		Name = "ScyllaNoteDark"
+		FilePath = "Fx\NoteOrbBack\NoteOrbBack"
+		GroupName = "Standing"
+		
+		PingPongColor = true
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		EaseOut = 1.0
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		EndOffsetY = -10.0
+		DieWithOwner = true
+		DrawBehindOwner = true
+		SortMode = "FromParent"
+		PingPongShiftOverDuration = true
+	}
+
+	
+	{
+		Name = "ScyllaNoteFadeFlare"
+		FilePath = "Fx\LyreNoteExplosion\LyreNoteExplosion0001"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		Duration = 0.3
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 112.0
+		OriginX = 239.0
+		OriginY = 235.0
+		LocationFromOwner = "Ignore"
+		EndScale = 0.5
+		PingPongScale = true
+		Scale = 0.5
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ScyllaNoteStartFlare"
+		InheritFrom = "ScyllaNoteFadeFlare"
+		EaseIn = 0.9
+		OffsetZ = 0.0
+		LocationFromOwner = "Maintain"
+		RandomRotation = true
+		EndScale = 0.0
+		PingPongScale = false
+		StartScale = 1.5
+	}
+
+
+	{
+		Name = "ScyllaNoteExplosion"
+		InheritFrom = "ScyllaNote"
+		FilePath = "Fx\LyreNoteExplosion\LyreNoteExplosion"
+		VisualFx = "ScyllaNoteExplosionParticles"
+		LocationZFromOwner = "Ignore"
+		PingPongColor = false
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		EndFrame = 29
+		Loop = false
+		NumFrames = 29
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 35.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 20.0
+		SortMode = "Isometric"
+		Scale = 0.66
+		ScaleRadius = 250.0
+		Sound = "null"
+		VisualFxCap = 2
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		OverlayVfx = true
+		CreateAnimations =
+		[
+			{ Name = "ScyllaNoteExplosionSpike" }
+			{ Name = "ScyllaNoteExplosionDark" }
+			{ Name = "ScyllaNoteExplosionGlow" }
+		]
+	}
+	
+	{
+		Name = "ScyllaNoteExplosionSpike"
+		FilePath = "Particles\particle_harvest_glint"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 110.0
+		OriginX = 24.0
+		OriginY = 261.0
+		EndScaleX = 0.0
+		EndScaleY = 0.75
+		Scale = 1.6
+		StartScaleY = 0.25
+	}
+	
+	{
+		Name = "ScyllaNoteExplosionGlow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Add_Top"
+		
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 0.5
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 100.0
+		EndScale = 1.5
+		Scale = 3.0
+		ScaleX = 2.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ScyllaNoteExplosionParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleMax = 180.0
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		EndFrame = 90
+		LoopFramesOnly = true
+		NumFrames = 90
+		RandomDurationMax = 0.7
+		RandomDurationMin = 0.25
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RadialOffsetMax = 200.0
+		RadialOffsetMin = 130.0
+		LocationFromOwner = "Take"
+		Gravity = -100.0
+		VelocityMax = 400.0
+		VelocityMin = 200.0
+		EndScale = 0.0
+		Scale = 0.8
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		RandomAccelerationMax = -200.0
+		RandomAccelerationMin = -500.0
+	}
+	
+	{
+		Name = "ScyllaNoteExplosionDisplacement"
+		CreateAnimation = "ScyllaNoteExplosionRings"
+		FilePath = "Fx\LyreShockwave\LyreShockwaveDisplacement"
+		GroupName = "FX_Displacement"
+		
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		UseOwnAngle = false
+		AlphaMax = 1.0
+		AlphaMin = 0.25
+		StartAlpha = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.45
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		EndScale = 2.0
+		PostRotateScaleY = 0.5
+		Scale = 0.35
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ScyllaNoteExplosionRings"
+		FilePath = "Fx\LyreShockwave\LyreShockwaveRing"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleMax = 45.0
+		AngleMin = -45.0
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.9
+		EndGreen = 0.05
+		EndBlue = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 100.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.03
+		ScaleMin = 0.8
+		ScaleRadius = 1000.0
+		StartScale = 0.75
+		Ambient = 0.0
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "ScyllaNoteExplosionDark"
+		InheritFrom = "ScyllaNoteExplosion"
+		FilePath = "Fx\LyreNoteExplosionDark\LyreNoteExplosionDark"
+		GroupName = "Standing"
+		VisualFx = "ScyllaNoteExplosionDisplacement"
+		AddColor = false
+		EndFrame = 27
+		NumFrames = 27
+		RandomPlaySpeedMax = 35.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		OffsetZ = 50.0
+		VisualFxCap = 3
+		VisualFxIntervalMax = 0.11
+		VisualFxIntervalMin = 0.1
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+
+	{
+		Name = "ScyllaFloodTrapControlFx"
+		FilePath = "Particles\particle_enemyAttackSparkle"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Loop = false
+		Scale = 2.5
+		StartScale = 0
+		EndScale = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.1
+		PingPongScale = false
+		EaseIn = 0
+		EaseOut = 1
+		Material = "Unlit"
+		Duration = 0.5
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:middle_00_R_JNT"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "WaterUnitSurfaceBehind"
+		InheritFrom = "WaterUnitSurface"
+		ClearCreateAnimations = true
+		CreateAnimation =
+		[
+			{ Name = "OceanusEnemySplashBehind" }
+		]
+	}
+
+	{
+		Name = "OceanusEnemySplashBehind"
+		InheritFrom = "OceanusEnemySplash"
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "ScyllaDeathRippleSpawner"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimation = "ScyllaDeathRipple"
+		Duration = 0.1
+	}
+
+	{
+		Name = "ScyllaDeathRipple"
+		InheritFrom = "MelEntranceRipple"
+		Scale = 2.5
+		PlaySpeed = 45
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "WaterUnitSurfaceBehind" }
+			{ Name = "CalmRipple" }
+			{ Name = "OceanusSurfaceRippleLargeA"}
+		]
+	}
+
+	{
+		Name = "ScyllaDeathSplashes"
+		InheritFrom = "FloodTrapFireFx"
+		NumFrames = 19
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotation = true
+		RadialOffsetMin = 100
+		RadialOffsetMax = 150
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Sound = "/SFX/ScyllaWaterSpray"
+	}
+
+	{
+		Name = "ScyllaAttackWave"
+		FilePath = "Fx\ScyllaAttackWave\ScyllaAttackWave"
+		NumFrames = 43
+		PlaySpeed = 45
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Scale = 2
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		Hue = 0.1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VisualFx = "ScyllaAttackWaveSplashes"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 16
+		CreateAnimations =
+		[
+			{ Name = "ScyllaAttackWaveDisplacement" }
+			{ Name = "QuickFlashEnemyLarge" }
+		]
+	}
+
+	{
+		Name = "ScyllaAttackWaveSplashes"
+		Random =
+		[
+			{ Name = "ScyllaAttackWaveSplashesA" }
+			{ Name = "ScyllaAttackWaveSplashesB" }
+		]
+	}
+
+	{
+		Name = "ScyllaAttackWaveSplashesA"
+		FilePath = "Particles\particle_waterSprayIris01"
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 0.125
+		EndScale = 0.8
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.9
+		Gravity = 1000
+		Scale = 0.6
+		Velocity = 600
+		Acceleration = -1000
+		OffsetZ = 30
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 200
+		RadialOffsetMin = 50
+		RadialOffsetMax = 100
+		AngleMin = 0
+		AngleMax = 360
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "Standing"
+	}
+
+	{
+		Name = "ScyllaAttackWaveSplashesB"
+		InheritFrom = "ScyllaAttackWaveSplashesA"
+		FilePath = "Particles\particle_waterSprayIris02"
+	}
+
+	{
+		Name = "ScyllaAttackWaveDisplacement"
+		InheritFrom = "ScyllaAttackWave"
+		GroupName = "FX_Displacement"
+		ClearCreateAnimations = true
+		Alpha = 0.1
+	}
+
+	{
+		Name = "ScyllaAttackWaveReverse"
+		InheritFrom = "ScyllaAttackWave"
+		VisualFx = null
+		ClearCreateAnimations = true
+		PlayBackwards = true
+		RandomFlipVertical = true
+		PlaySpeed = 60
+		NumFrames = 38
+		StartFrame = 5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 0.5
+		EndScale = 1.0
+		Scale = 1.5
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		PingPongScale = false
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ScyllaChargeFxBelt"
+		FilePath = "Fx\ScyllaCharge\ScyllaCharge"
+		Material = "Unlit"
+		NumFrames = 20
+		Loop = true
+		PlaySpeed = 30
+		Scale = 1.5
+		StartScale = 1
+		EndScale = 1.5
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Maintain"
+		DieWithOwner = true
+		HoldLastFrame = false
+		LocationZFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:middle_00_R_JNT"
+		VisualFx = "ScyllaAttackWaveReverse"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.4
+		CreateAnimations =
+		[
+			{ Name = "ScyllaChargeFxBeltDark" }
+		]
+	}
+
+	{
+		Name = "ScyllaChargeFxBeltDark"
+		InheritFrom = "ScyllaChargeFxBelt"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		VisualFx = "ScyllaChargeLine"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "ScyllaChargeLine"
+		FilePath = "Fx\AlectoChargeLine\AlectoChargeLine"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:middle_00_R_JNT"
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		EndFrame = 25
+		NumFrames = 25
+		StartFrame = 1
+		OriginX = 450.0
+		OriginY = 50.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.6
+		ScaleMin = 0.2
+		Scale = 1.5
+		LocationZFromOwner = "Ignore"
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.1 }
+		Slides =
+		[
+
+			{ DurationFrames = 2 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+	
+
+
+	{
+		Name = "ScyllaChargeFxMic"
+		InheritFrom = "ScyllaChargeFxBelt"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:micHead_00_M_JNT"
+		CreateAnimation = "ScyllaChargeFxMicDark"
+		ClearCreateAnimations = true
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.7
+		PlaySpeed = 30
+		ChildAnimation = "ScyllaChargeFxMicGlow"
+	}
+
+	{
+		Name = "ScyllaChargeFxMicGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 0.25
+		EndScale = 1.0
+		Duration = 0.7
+		HoldLastFrame = true
+		Scale = 0.66
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "Scylla_Rig:micHead_00_M_JNT"
+	}
+
+	{
+		Name = "ScyllaChargeFxMicDark"
+		InheritFrom = "ScyllaChargeFxMic"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		VisualFx = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		ChildAnimation = null
+	}
+
+
+
+	// Sirens
+
+	{
+		Name = "SirenKeytaristMoveTrail"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		NumFrames = 30
+		PostRotateScaleY = 0.5
+		RandomPlaySpeedMin = 15
+		RandomPlaySpeedMax = 24
+		RandomRotation = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.5
+		EndAlpha = 0.2
+		ScaleMin = 0.8
+		ScaleMax = 2.0
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 0.9
+		EndRed = 0.5
+		EndGreen = 0.6
+		EndBlue = 0.7
+		VisualFx = null
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 18
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 3
+		CreateAnimations =
+		[
+			{ Name = "SirenKeytaristMoveTrailWake" }
+		]
+	 }
+
+
+	{
+		Name = "SirenKeytaristMoveTrailWake"
+		FilePath = "Fx\DashWake\DashWake"
+		NumFrames = 67
+		PostRotateScaleY = 0.6
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		OriginX = 200
+		OriginY = 90
+		AngleMin = -10
+		AngleMax = 10
+		Scale = 1.5
+		StartScaleX = 0.5
+		EndScaleX = 1.0
+		ScaleX = 0.7
+		ScaleY = 1.5
+		Alpha = 0.8
+		StartAlpha = 0.3
+		EndAlpha = 0.1
+		AddColor = true
+		Red = 0.1
+		Green = 0.3
+		Blue = 0.5
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBall"
+		FilePath = "Fx\SirenDrummerBeatBounceBall\SirenDrummerBeatBounceBall"
+		NumFrames = 30
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Loop = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		TransferFrameToThis = true
+		VisualFx = "SirenDrummerBeatBounceBallTrail"
+		VisualFxDistanceMin = 10
+		VisualFxDistanceMax = 10
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallBoosted"
+		InheritFrom = "SirenDrummerBeatBounceBall"
+		FilePath = "Fx\SirenDrummerBeatBounceBallBoosted\SirenDrummerBeatBounceBallBoosted"
+		ScaleMin = 1.1
+		ScaleMax = 1.5
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallReflection"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Alpha = 0.7
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.4
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallReflectionBoosted"
+		InheritFrom = "SirenDrummerBeatBounceBallReflection"
+		Scale = 0.6
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonate"
+		Random =
+		[
+			{ Name = "SirenDrummerBeatBounceDetonateA" }
+			{ Name = "SirenDrummerBeatBounceDetonateB" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateBoosted"
+		Random =
+		[
+			{ Name = "SirenDrummerBeatBounceDetonateBoostedA" }
+			{ Name = "SirenDrummerBeatBounceDetonateBoostedB" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateA"
+		FilePath = "Fx\SirenDrummerBeatBounceDetonateA\SirenDrummerBeatBounceDetonateA"
+		NumFrames = 28
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomFlipHorizontal = true
+		ScaleRadius = 150
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerBeatBounceDetonateGlow" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusA" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusB" }
+			{ Name = "OceanusProjectileSplash" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateB"
+		InheritFrom = "SirenDrummerBeatBounceDetonateA"
+		FilePath = "Fx\SirenDrummerBeatBounceDetonateB\SirenDrummerBeatBounceDetonateB"
+		NumFrames = 34
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateBoostedA"
+		InheritFrom = "SirenDrummerBeatBounceDetonateA"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerBeatBounceDetonateGlow" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusA" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusB" }
+			{ Name = "OceanusProjectileSplash" }
+			{ Name = "SirenDrummerBounceBounceBoostedDetonateFx"}
+		]
+	}
+
+	{
+		Name = "SirenDrummerBounceBounceBoostedDetonateFx"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleC"
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		StartScale = 0.8
+		EndScale = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		Duration = 0.6
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateBoostedB"
+		InheritFrom = "SirenDrummerBeatBounceDetonateBoostedA"
+		FilePath = "Fx\SirenDrummerBeatBounceDetonateB\SirenDrummerBeatBounceDetonateB"
+		NumFrames = 34
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceDetonateGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.5
+		GroupName = "FX_Standing_Add"
+		StartScale = 1.0
+		EndScale = 0.7
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallStartGlow"
+		InheritFrom = "SirenDrummerBeatBounceDetonateGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		Scale = 0.75
+		StartScale = 1
+		EndScale = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallBounceFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		GroupName = "FX_Terrain"
+		Material = "Unlit"
+		PlaySpeed = 45
+		ScaleRadius = 228
+		ClearCreateAnimations = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "OceanusSurfaceRippleSmallA" }
+			{ Name = "OceanusSurfaceRippleSmallB" }
+		]
+	}
+
+	{
+		Name = "LobBounceFxOceanus"
+		InheritFrom = "SirenDrummerBeatBounceBallBounceFx"
+		CreateAnimations =
+		[
+			{ Name = "OceanusSurfaceRippleSmallA" }
+			{ Name = "OceanusSurfaceRippleSmallB" }
+			{ Name = "WaterSplashFootstep" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerBeatBounceBallTrail"
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		NumFrames = 28
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.15
+		Alpha = 0.25
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 120
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "SirenDrummerCirclePreview"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleC"
+		RotationSpeed = 8
+		GroupName = "FX_Terrain"
+		ScaleRadius = 240
+		PostRotateScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.1
+		HoldLastFrame = true
+		VisualFx = "SirenDrummerCirclePreviewA"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerCirclePreviewB" }
+			{ Name = "SirenDrummerCircleDisplacement" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerCirclePreviewBoosted"
+		InheritFrom = "SirenDrummerCirclePreview"
+		VisualFx = "SirenDrummerCirclePreviewBoostedA"
+	}
+
+	{
+		Name = "SirenDrummerCirclePreviewB"
+		InheritFrom = "SirenDrummerCirclePreview"
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain_Add"
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.4
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleB"
+		DieWithOwner = true
+		RotationSpeed = 12
+		RandomRotation = true
+		VisualFx = null
+	}
+
+	{
+		Name = "SirenDrummerCirclePreviewA"
+		InheritFrom = "SirenDrummerCirclePreviewB"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleA"
+		RandomRotation = false
+		RotationSpeed = 0
+		StartScale = 1
+		EndScale = 1.1
+		Scale = 0.98
+		ScaleRadius = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.6
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		VisualFx = null
+	}
+
+	{
+		Name = "SirenDrummerCirclePreviewBoostedA"
+		InheritFrom = "SirenDrummerCirclePreviewA"
+		CreateAnimation = "SirenDrummerCirclePreviewBoostedFx"
+		VisualFx = "SirenDrummerCirclePreviewBoostedFx"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.06
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	{
+		Name = "SirenDrummerCirclePreviewBoostedFx"
+		InheritFrom = "SirenDrummerCirclePreviewA"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleBoosted"
+		RandomRotation = true
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.3
+		EndScale = 1.1
+		ScaleMin = 2
+		ScaleMax = 2.2
+		StartAlpha = 1
+		EndAlpha = 0
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		PingPongColor = false
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SirenDrummerCircleDisplacement"
+		InheritFrom = "SirenDrummerCirclePreview"
+		ClearCreateAnimations = true
+		VisualFx = null
+		GroupName = "FX_Displacement"
+		ScaleRadius = 0
+		StartAlpha = 0.25
+		EndAlpha = 0
+		Duration = 0.5
+		HoldLastFrame = false
+		Scale = 1.7
+	}
+
+	{
+		Name = "SirenDrummerCircleDetonateFx"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		Scale = 4
+		VisualFx = "SirenDrummerCircleDetonateSpikes"
+		VisualFxIntervalMin = 0.001
+		VisualFxIntervalMax = 0.001
+		VisualFxCap = 8
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerCircleDetonateNova" }
+			{ Name = "OceanusProjectileSplash" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusShortA" }
+			{ Name = "OceanusSurfaceRippleScaleRadiusShortB" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerCircleDetonateSpikes"
+		FilePath = "Fx\ScyllaBelt\ScyllaBelt"
+		NumFrames = 33
+		AngleMin = 0
+		AngleMax = 360
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		OriginX = -64
+		OriginY = 128
+		Scale = 0.7
+		ScaleX = 0.25
+		VelocityMin = 100
+		VelocityMax = 600
+		Acceleration = -600
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 160
+		StartScaleX = 1
+		EndScaleX = 0.75
+		RandomFlipVertical = true
+		OffsetZ = 0
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerCircleDetonateSpikesDark" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerCircleDetonateSpikesDark"
+		InheritFrom = "SirenDrummerCircleDetonateSpikes"
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain"
+		FilePath = "Fx\ScyllaBeltDark\ScyllaBeltDark"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		Acceleration = -900
+		Scale = 2.5
+		EndScaleX = 0.9
+	}
+
+	{
+		Name = "SirenDrummerCircleDetonateNova"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		RandomRotation = true
+		ScaleRadius = 240
+		NumFrames = 30
+	}
+
+
+	{
+		Name = "SirenDrummerDrumImpactSnare"
+		FilePath = "Particles\particle_quickFlashIris"
+		Scale = 0
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:snareDrum_batterHeadNear_00_M_JNT"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		Duration = 0.1
+		CreateAnimation = "SirenDrummerDrumImpactSnareFx"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactCymbal"
+		InheritFrom = "SirenDrummerDrumImpactSnare"
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:cymbalStandA_branchA_01_L_JNT"
+		CreateAnimation = "SirenDrummerDrumImpactCymbalFx"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomSmall"
+		InheritFrom = "SirenDrummerDrumImpactSnare"
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:tomSmall_batterHeadFar_00_M_JNT"
+		CreateAnimation = "SirenDrummerDrumImpactTomSmallFx"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomMedium"
+		InheritFrom = "SirenDrummerDrumImpactSnare"
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:tomMedium_batterHeadFar_00_M_JNT"
+		CreateAnimation = "SirenDrummerDrumImpactTomMediumFx"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomLarge"
+		InheritFrom = "SirenDrummerDrumImpactSnare"
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:tomLarge_batterHeadFar_00_M_JNT"
+		CreateAnimation = "SirenDrummerDrumImpactTomLargeFx"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactClamShell"
+		InheritFrom = "SirenDrummerDrumImpactSnare"
+		GrannyAttachedMarkerLocation = "SirensInstrumentDrums_Rig:clamShell_shellNear_01_M_JNT"
+		CreateAnimation = "SirenDrummerDrumImpactClamShellFx"
+	}
+
+
+	{
+		Name = "SirenDrummerDrumImpactSnareFx"
+		FilePath = "Fx\SirenDrummerDrumImpact\SirenDrummerDrumImpact"
+		NumFrames = 10
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		OriginX = 48
+		OriginY = 96
+		Angle = 25
+		Scale = 0.7
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		StartAlpha = 1.0
+		EndAlpha = 0.1
+		ScaleMin = 0.7
+		ScaleMax = 1.2
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactCymbalFx"
+		InheritFrom = "SirenDrummerDrumImpactSnareFx"
+		ScaleX = 0.6
+		Angle = 60
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomSmallFx"
+		InheritFrom = "SirenDrummerDrumImpactSnareFx"
+		ScaleX = 0.6
+		Angle = -30
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomMediumFx"
+		InheritFrom = "SirenDrummerDrumImpactSnareFx"
+		ScaleX = 0.6
+		Angle = -5
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactTomLargeFx"
+		InheritFrom = "SirenDrummerDrumImpactSnareFx"
+		ScaleX = 0.6
+		Angle = 30
+	}
+
+	{
+		Name = "SirenDrummerDrumImpactClamShellFx"
+		InheritFrom = "SirenDrummerDrumImpactSnareFx"
+		ScaleX = 1
+		Scale = 2.5
+		ScaleY = 0.5
+		Angle = -90
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 32
+	}
+
+
+
+
+	{
+		Name = "SirenDrummerCircleLargePreview"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleD"
+		RotationSpeed = 8
+		GroupName = "FX_Terrain"
+		Scale = 2
+		PostRotateScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.9
+		EndScale = 1.0
+		Duration = 0.5
+		HoldLastFrame = true
+		Material = "Unlit"
+		DieWithOwner = true
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "SirenDrummerCircleLargePreviewB" }
+			{ Name = "SirenDrummerCircleLargePreviewB2" }
+			{ Name = "SirenDrummerCircleLargePreviewC" }
+		]
+	}
+
+	{
+		Name = "SirenDrummerCircleLargePreviewC"
+		InheritFrom = "SirenDrummerCircleLargePreview"
+		Sound = null
+		AddColor = true
+		Red = 1
+		Green = 0.2
+		Blue = 0.4
+		OffsetZ = 10
+		ClearCreateAnimations = true
+		VisualFx = null
+		DieWithOwner = true
+		Loop = false
+		Duration = 2
+		StartScale = 0.95
+		EndAlpha = 0.5
+		EaseIn = 0
+		EaseOut = 0.01
+		HoldLastFrame = false
+
+	}
+
+	{
+		Name = "SirenDrummerCircleLargePreviewB"
+		InheritFrom = "SirenDrummerCircleLargePreview"
+		ClearCreateAnimations = true
+		Sound = null
+		GroupName = "FX_Terrain_Add"
+		Duration = 2.0
+		Scale = 4
+		Loop = false
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleB"
+		DieWithOwner = true
+		RotationSpeed = 12
+		RandomRotation = true
+		HoldLastFrame = false
+		VisualFx = null
+		Alpha = 0.1
+	}
+
+	{
+		Name = "SirenDrummerCircleLargePreviewB2"
+		InheritFrom = "SirenDrummerCircleLargePreviewB"
+		RotationSpeed = 16
+		Alpha = 0.1
+	}
+
+	{
+		Name = "SirenDrummerCircleLargePreviewA"
+		InheritFrom = "SirenDrummerCircleLargePreviewB"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleA"
+		RandomRotation = true
+		RotationSpeed = 0
+		StartScale = 1
+		EndScale = 1.02
+		Scale = 1.98
+		ScaleRadius = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		Duration = 0.6
+		StartAlpha = 1.0
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0.1
+		PingPongColor = false
+		VisualFx = null
+		ChainTo = null
+		HoldLastFrame = false
+	}
+
+
+	{
+		Name = "SirenDrummerCircleNova"
+		FilePath = "Dev\blank_invisible"
+		AddColor = false
+		EndBlue = 0.3
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.05
+		Scale = 6
+		EndScale = 2.0
+		StartScale = 3.0
+		Duration = 1
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		TimeModifierFraction = 1.0
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+
+			{ Name = "SirenDrummerCircleNovaGlow" }
+			{ Name = "SirenDrummerCircleNovaGlow2" }
+
+			{ Name = "SirenDrummerCircleNovaSegment01" }
+			{ Name = "SirenDrummerCircleNovaSegment02" }
+			{ Name = "SirenDrummerCircleNovaSegment03" }
+			{ Name = "SirenDrummerCircleNovaSegment08" }
+			{ Name = "SirenDrummerCircleNovaSegment09" }
+			{ Name = "SirenDrummerCircleNovaSegment10" }
+			{ Name = "SirenDrummerCircleNovaSegment11" }
+			{ Name = "SirenDrummerCircleNovaSegment12" }
+			{ Name = "SirenDrummerCircleNovaSegment13" }
+			{ Name = "SirenDrummerCircleNovaSegment14" }
+
+
+			{ Name = "SirenDrummerCircleNovaSegmentDark01" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark02" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark03" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark08" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark09" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark10" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark11" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark12" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark13" }
+			{ Name = "SirenDrummerCircleNovaSegmentDark14" }
+
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement01" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement02" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement03" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement08" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement09" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement10" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement11" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement12" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement13" }
+			{ Name = "SirenDrummerCircleNovaSegmentDisplacement14" }
+
+		]
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.01
+		EndBlue = 0.2
+		GroupName = "FX_Standing_Add"
+		Scale = 5
+		ScaleX = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaGlow2"
+		FilePath = "Particles\particle_quickFlashIris"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+		GroupName = "FX_Standing_Add"
+		Scale = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.25
+		StartScale = 1
+		EndScale = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaSegmentBase"
+		FilePath = "Fx\SirenDrummerNovaSegment\SirenDrummerNovaSegment"
+		NumFrames = 30
+		OriginX = 128
+		OriginY = 384
+		ScaleY = 1.5
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -400
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipHorizontal = true
+		Scale = 1.9
+		ScaleMin = 0.95
+		ScaleMax = 1.0
+		StartScaleY = 0.8
+		EndScaleY = 1.0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaSegmentDarkBase"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.2
+		EndAlpha = 0.05
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 75
+		Acceleration = -200
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaSegment01"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 300
+		AngleMax = 312
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment02"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 324
+		AngleMax = 336
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment03"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 348
+		AngleMax = 360
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment04"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 12
+		AngleMax = 24
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment05"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 36
+		AngleMax = 48
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment06"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 60
+		AngleMax = 72
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment07"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 84
+		AngleMax = 96
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment08"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 108
+		AngleMax = 120
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment09"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 132
+		AngleMax = 144
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment10"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 156
+		AngleMax = 168
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment11"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 180
+		AngleMax = 192
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment12"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 204
+		AngleMax = 216
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment13"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 228
+		AngleMax = 240
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment14"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 252
+		AngleMax = 264
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegment15"
+		InheritFrom = "SirenDrummerCircleNovaSegmentBase"
+		AngleMin = 276
+		AngleMax = 288
+	}
+
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark01"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 300
+		AngleMax = 312
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark02"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 324
+		AngleMax = 336
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark03"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 348
+		AngleMax = 360
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark04"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 12
+		AngleMax = 24
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark05"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 36
+		AngleMax = 48
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark06"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 60
+		AngleMax = 72
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark07"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 84
+		AngleMax = 96
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark08"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 108
+		AngleMax = 120
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark09"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 132
+		AngleMax = 144
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark10"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 156
+		AngleMax = 168
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark11"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 180
+		AngleMax = 192
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark12"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 204
+		AngleMax = 216
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark13"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 228
+		AngleMax = 240
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark14"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 252
+		AngleMax = 264
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDark15"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDarkBase"
+		AngleMin = 276
+		AngleMax = 288
+	}
+
+
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement01"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 300
+		AngleMax = 312
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement02"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 324
+		AngleMax = 336
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement03"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 348
+		AngleMax = 360
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement04"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 12
+		AngleMax = 24
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement05"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 36
+		AngleMax = 48
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement06"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 60
+		AngleMax = 72
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement07"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 84
+		AngleMax = 96
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement08"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 108
+		AngleMax = 120
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement09"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 132
+		AngleMax = 144
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement10"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 156
+		AngleMax = 168
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement11"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 180
+		AngleMax = 192
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement12"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 204
+		AngleMax = 216
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement13"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 228
+		AngleMax = 240
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement14"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 252
+		AngleMax = 264
+	}
+	{
+		Name = "SirenDrummerCircleNovaSegmentDisplacement15"
+		InheritFrom = "SirenDrummerCircleNovaSegmentDisplacementBase"
+		AngleMin = 276
+		AngleMax = 288
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircle"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvertBorder"
+		PostRotateScaleY = 0.5
+		RotationSpeed = 16
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Top"
+		VisualFx = "SirenDrummerInvertedCircleFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		Scale = 1.65
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircleSmall"
+		InheritFrom = "SirenDrummerInvertedCircle"
+		Scale = 0.4
+		VisualFx = "SirenDrummerInvertedCircleFxSmall"
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircleFx"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvert"
+		RandomRotation = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		StartScale = 1.05
+		EndScale = 1.0
+		PingPongColor = true
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1.0
+		HoldLastFrame = false
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		Scale = 6
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.5
+		OriginX = 512
+		OriginY = 512
+		PostRotateScaleY = 0.5
+		RandomRotationSpeedMin = 2
+		RandomRotationSpeedMax = 8
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.02 }
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircleFxSmall"
+		InheritFrom = "SirenDrummerInvertedCircleFx"
+		StartScale = 0.25
+		EndScale = 0.2
+		ChildAnimation = "SirenDrummerInvertedCircleFx"
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircleFlash"
+		InheritFrom = "SirenDrummerInvertedCircleFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.25
+		Alpha = 1
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.02
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "SirenDrummerInvertedCircleEnd"
+		InheritFrom = "SirenDrummerInvertedCircle"
+		Sound = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SirenDrummerInverseNova"
+		FilePath = "Dev\blank_invisible"
+		AddColor = false
+		EndBlue = 0.3
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.05
+		Scale = 6
+		EndScale = 2.0
+		StartScale = 3.0
+		Duration = 1
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		TimeModifierFraction = 1.0
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+
+			{ Name = "SirenDrummerInvertedCircleFlash" }
+
+			{ Name = "SirenDrummerCircleInverseNovaSegment01" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment02" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment03" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment08" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment09" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment10" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment11" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment12" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment13" }
+			{ Name = "SirenDrummerCircleInverseNovaSegment14" }
+			
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment01" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment02" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment03" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment08" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment09" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment10" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment11" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment12" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment13" }
+			{ Name = "SirenDrummerCircleInverseNovaDarkSegment14" }
+		
+		]
+	}
+
+	{
+		Name = "SirenDrummerCircleInverseNovaSegmentBase"
+		FilePath = "Fx\SirenDrummerNovaSegment\SirenDrummerNovaSegment"
+		NumFrames = 30
+		OriginX = 128
+		OriginY = -280
+		ScaleY = 1.5
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		VelocityMin = 0
+		VelocityMax = 1
+		Acceleration = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipHorizontal = true
+		Scale = 1.9
+		ScaleX = 1.0
+		ScaleMin = 0.95
+		ScaleMax = 1.0
+		StartScaleY = 0.9999
+		EndScaleY = 1.0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		FlipVertical = false
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+	}
+
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment01"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 300
+		AngleMax = 312
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment02"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 324
+		AngleMax = 336
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment03"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 348
+		AngleMax = 360
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment08"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 108
+		AngleMax = 120
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment09"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 132
+		AngleMax = 144
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment10"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 156
+		AngleMax = 168
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment11"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment12"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment13"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaSegment14"
+		InheritFrom = "SirenDrummerCircleInverseNovaSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment01"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 300
+		AngleMax = 312
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment02"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 324
+		AngleMax = 336
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment03"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 348
+		AngleMax = 360
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment08"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 108
+		AngleMax = 120
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment09"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 132
+		AngleMax = 144
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment10"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 156
+		AngleMax = 168
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment11"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment12"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment13"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 0
+		AngleMax = 90
+	}
+	{
+		Name = "SirenDrummerCircleInverseNovaDarkSegment14"
+		InheritFrom = "SirenDrummerCircleInverseNovaDarkSegmentBase"
+		AngleMin = 1
+		AngleMax = 90
+	}
+
+	{
+		Name = "SirenKeytaristShredProjectile"
+		FilePath = "Fx\KeytaristShredProjectileB\KeytaristShredProjectileB"
+		Ambient = 0
+		NumFrames = 4
+		NumAngles = 32
+		PlaySpeed = 0.1
+		RandomStartFrame = true
+		Scale = 1.5
+		VisualFx = "SirenKeytaristShredTrail"
+		VisualFxIntervalMin = 0.0250
+		VisualFxIntervalMax = 0.0251
+		Alpha = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0.7
+		EndBlue = 1.0
+		ChainTo = "SirenKeytaristShredProjectileFade"
+		Duration = 1
+		TransferFrameFromThis = true
+		CreateAnimations =
+		[
+			{ Name = "SirenKeytaristShredProjectileGlow" }
+			{ Name = "SirenKeytaristShredProjectileWaterFx" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristShredProjectileBoosted"
+		InheritFrom = "SirenKeytaristShredProjectile"
+		VisualFx = "SirenKeytaristShredTrailBoosted"
+		VisualFxIntervalMin = 0.0250
+		VisualFxIntervalMax = 0.0251
+	}
+
+	{
+		Name = "SirenKeytaristShredProjectileWaterFx"
+		InheritFrom = "ScyllaBeltWaterFx"
+		VisualFxCap = 5
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 0.2
+		EndBlue = 0.5
+		Velocity = 500
+		Acceleration = -2200
+		Alpha = 0.8
+		StartAlpha = 0.3
+		EndAlpha = 0.1
+		ScaleY = 1.0
+		StartScaleX = 1
+		EndScaleX = 0.66
+	}
+
+	{
+		Name = "SirenKeytaristShredProjectileFade"
+		InheritFrom = "SirenKeytaristShredProjectile"
+		TransferFrameToThis = true
+		VisualFx = null
+		ClearCreateAnimations = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.1
+		ChainTo = null
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "SirenKeytaristShredProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		DieWithOwner = false
+		ColorFromOwner = "Ignore"
+		Scale = 1.5
+		Red = 1
+		Green = 1
+		Blue = 0.7
+		HoldLastFrame = false
+		RandomRotation = true
+		Duration = 0.25
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		StartAlpha = 0.33
+		EndAlpha = 0
+	}
+
+	{
+		Name = "SirenKeytaristShredTrail"
+		InheritFrom = "SirenKeytaristShredProjectile"
+		NumFrames = 1
+		NumAngles = 32
+		RandomStartFrame = false
+		ChainTo = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		Alpha = 0.5
+		FilePath = "Fx\KeytaristShredProjectileA\KeytaristShredProjectileA"
+		VisualFx = null
+		StartAlpha = 0.0
+		EndAlpha = 0.3
+		PingPongColor = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 70
+		AngleFromOwner = "Take"
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		Scale = 1
+		StartScale = 0.5
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OwnerVelocityFraction = 0.5
+		Acceleration = -300
+		CreateAnimations =
+		[
+			{ Name = "SirenKeytaristShredTrailB" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristShredTrailBoosted"
+		InheritFrom = "SirenKeytaristShredTrail"
+		Scale = 0.5
+	}
+
+	{
+		Name = "SirenKeytaristShredTrailB"
+		InheritFrom = "SirenKeytaristShredTrail"
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -200
+		CreateAnimation = null
+		VisualFx = null
+		ClearCreateAnimations = true
+		NumAngles = 1
+		NumFrames = 32
+		RandomStartFrame = true
+		FilePath = "Fx\KeytaristShredProjectileTrail\KeytaristShredProjectileTrail"
+		GroupName = "FX_Standing_Add"
+		PingPongColor = false
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1.25
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Alpha = 0.5
+		IsometricSkew = "Y"
+		PlaySpeed = 0.1
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0.7
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "SirenKeytaristShredFireFx"
+		InheritFrom = "SirenKeytaristShredTrailB"
+		VelocityMin = 100
+		VelocityMax = 200
+		ScaleMin = 0.9
+		Scale = 1.5
+		StartScale = 0.4
+		EndScale = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RadialOffsetMin = 100
+		RadialOffsetMax = 100
+		Duration = 0.5
+		CreateAnimation = "SirenKeytaristShredFireFxFlash"
+
+	}
+
+	{
+		Name = "SirenKeytaristShredFireFxFlash"
+		FilePath = "Particles\particle_keytarShine"
+		Ambient = 0
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0.7
+		EndBlue = 1.0
+		GroupName = "FX_Standing_Add"
+		ScaleX = 1.2
+		ScaleY = 3
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.15
+		RandomDurationMax = 0.4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = -30
+		RandomRotation = false
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		OriginX = 0
+		OriginY = 90
+		GrannyAttachedMarkerLocation = "SirensInstrumentKeytar_Rig:eye_00_M_JNT"
+	}
+
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Scale = 2.0
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		Alpha = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.33
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "SirenKeytaristPowerslideMelee" }
+			{ Name = "SirenKeytaristPowerslideMeleeIso" }
+			{ Name = "SirenKeytaristPowerslideMeleeDark" }
+			{ Name = "SirenKeytaristPowerslideMeleeIsoDark" }
+			{ Name = "SirenKeytaristPowerslideFlash" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideFlash"
+		FilePath = "Particles\particle_quickFlashIris"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 0.75
+		AddColor = false
+		EndBlue = 0.3
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.05
+		StartScale = 3.0
+		EndScale = 0
+		TimeModifierFraction = 1.0
+
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeGlowFade"
+		InheritFrom = "SirenKeytaristPowerslideMeleeGlow"
+		ClearCreateAnimations = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.33
+		ChainTo = null
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMelee"
+		FilePath = "Fx\KeytaristPowerslideMeleeFx\KeytaristPowerslideMeleeFx"
+		NumFrames = 30
+		Material = "Unlit"
+		PlaySpeed = 45
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 3
+		LocationZFromOwner = "Ignore"
+		VisualFx = "SirenKeytaristPowerslideMeleeTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 80
+		Loop = false
+		DieWithOwner = false
+		CreateAnimations =
+		[
+			{ Name = "DashStreakDark" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeIso"
+		FilePath = "Fx\KeytaristPowerslideMeleeIso\KeytaristPowerslideMeleeIso"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 30
+		Material = "Unlit"
+		IsometricSkew = "X"
+		Scale = 1.5
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		OriginX = 60
+		OriginY = 193
+		DieWithOwner = false
+		PlaySpeed = 50
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeIsoDark"
+		InheritFrom = "SirenKeytaristPowerslideMeleeIso"
+		GroupName = "FX_Dark"
+		PlaySpeed = 120
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeDark"
+		InheritFrom = "SirenKeytaristPowerslideMelee"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+		ClearCreateAnimations = true
+		VisualFx = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "KeytaristPowerslideWake"
+		InheritFrom = "FloodTrapFxTrailWake"
+		PlaySpeed = 60
+		ClearSlides = true
+		StartAlpha = 0.5
+		EndAlpha = 0.25
+		OriginX = 240
+		OriginY = 60
+		StartRed = 1
+		StartGreen = 0.02
+		StartBlue = 0.3
+		EndRed = 0.2
+		EndGreen = 0.5
+		EndBlue = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeTrail"
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		NumFrames = 28
+		PlaySpeed = 60
+		StartAlpha = 0.5
+		EndAlpha = 0.05
+		VelocityMin = 100
+		VelocityMax = 100
+		Acceleration = -200
+		CreateAnimations =
+		[
+			{ Name = "KeytaristPowerslideWake" }
+			{ Name = "ScyllaMoveTrailDisplacement"}
+			{ Name = "DashWakeSpray" }
+			{ Name = "DashWakeSpray" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideMeleeTrailDark"
+		InheritFrom = "SirenKeytaristPowerslideMeleeTrail"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 45
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "KeytaristDiveFx"
+		InheritFrom = "WaterUnitDive"
+		ClearCreateAnimations = true
+		DieWithOwner = false
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "KeytaristDiveSplash" }
+			{ Name = "OceanusEnemySplash" }
+		]
+
+	}
+
+	{
+		Name = "KeytaristDiveSplash"
+		FilePath = "Fx\MelLandSplashVertical\MelLandSplashVertical"
+		NumFrames = 33
+		PlaySpeed = 45
+		RandomFlipHorizontal = true
+		OriginX = 125
+		OriginY = 280
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Ambient = 0.0
+		ScaleFromOwner = "Ignore"
+		Scale = 1.0
+		OffsetZ = 60
+		StartScaleX = 1.1
+		EndScaleX = 0.9
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		VisualFx = "OceanusRandomRipples"
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		DieWithOwner = false
+		CreateAnimations =
+		[
+			{ Name = "MelEntranceRipple" }
+		]
+	}
+
+
+
+
+	{
+		Name = "SirenKeytaristPowerslideWaveFx"
+		FilePath = "Fx\KeytaristPowerslideWave\KeytaristPowerslideWave"
+		GroupName = "FX_Terrain"
+		PostRotateScaleY = 0.5
+		VisualFx = "SirenKeytaristPowerslideWaveFxTrail"
+		Sound = "/SFX/Player Sounds/MelStaffSpecialGroundLoop"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		Acceleration = -100.0
+		Velocity = 200.0
+		Ambient = 0.0
+		VisualFxDistanceMax = 100.0
+		VisualFxDistanceMin = 90.0
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		OverlayVfx = true
+		AngleFromOwner = "Take"
+		Scale = 3
+		PingPongShiftOverDuration = true
+		TransferFrameFromThis = true
+		ChainTo = "SirenKeytaristPowerslideWaveFxFade"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SirenKeytaristPowerslideWaveGlow" }
+		]
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideWaveFxFade"
+		InheritFrom = "SirenKeytaristPowerslideWaveFx"
+		Velocity = 0
+		OwnerVelocityFraction = 1
+		ClearCreateAnimations = true
+		VisualFx = null
+		TransferFrameToThis = true
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = null
+	}
+	
+	{
+		Name = "SirenKeytaristPowerslideWaveGlow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		Alpha = 0.1
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 50.0
+		DieWithOwner = true
+		Scale = 1.0
+		ScaleX = 4
+		ScaleY = 1.0
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.1 }
+	}
+	
+	{
+		Name = "SirenKeytaristPowerslideWaveFxTrail"
+		InheritFrom = "SirenKeytaristPowerslideWaveFx"
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		StartAlpha = 0
+		EndAlpha = 0.1
+		PingPongColor = true
+		Loop = false
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.6
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		LocationFromOwner = "Ignore"
+		EndScale = 0.8
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Acceleration = -500
+		ChainTo = null
+		CreateAnimations =
+		[
+			{ Name = "SirenKeytaristPowerslideWake" }
+		]
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "SirenKeytaristPowerslideWake"
+		InheritFrom = "SirenKeytaristMoveTrailWake"
+		StartScaleY = 5
+		EndScaleY = 1
+		Velocity = 300
+		Acceleration = -1200
+		AddColor = false
+		Alpha = 0.5
+		StartAlpha = 1
+		EndAlpha = 0.999
+		StartRed = 1
+		StartGreen = 0
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.999
+		GroupName = "FX_Terrain_Add"
+	}
+
+
+	{
+		Name = "SirenKeytaristPowerslideWaveFxParticles"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		GroupName = "FX_Standing_Add"
+		
+		AngleChangeSpeedMax = 360.0
+		AngleChangeSpeedMin = -360.0
+		AngleFromOwner = "Ignore"
+		AngleMax = 100.0
+		AngleMin = 80.0
+		AddColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.1
+		StartFrame = 1
+		RandomOffsetX = 200.0
+		RandomOffsetY = 50.0
+		LocationFromOwner = "Take"
+		Acceleration = -50.0
+		VelocityMax = 100.0
+		VelocityMin = 40.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 360.0
+		RandomRotationSpeedMin = -360.0
+		PingPongScale = true
+		ScaleMax = 1.0
+		ScaleMin = 0.3
+		StartScale = 0.0
+		Color = { Red = 0.50 Green = 0.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "SirenKeytaristPowerslideWaveFxDark"
+		InheritFrom = "SirenKeytaristPowerslideWaveFx"
+		GroupName = "FX_Terrain"
+		Sound = "/EmptyCue"
+		DieWithOwner = true
+		CreateAnimations = []
+		ChainTo = "SirenKeytaristPowerslideWaveFxDarkFade"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "SirenKeytaristPowerslideWaveFxDarkFade"
+		InheritFrom = "SirenKeytaristPowerslideWaveFxDark"
+		ClearCreateAnimations = true
+		VisualFx = null
+		TransferFrameToThis = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = null
+	}
+
+	{
+		Name = "SirenDeathSplash"
+		FilePath = "Fx\OceanusEnemySplash\OceanusEnemySplash"
+		Material = "Unlit"
+		NumFrames = 21
+		PlaySpeed = 25
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.3
+		OriginX = 150
+		OriginY = 210
+		ScaleY = 2.0
+		ColorFromOwner = "Ignore"
+		VisualFx = "OceanusRandomRipples"
+		VisualFxCap = 7
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	// POLYPHEMUS VFX
+	{
+		Name = "PolyphemusInverseNova"
+		InheritFrom = "SirenDrummerInverseNova"
+		Scale = 2
+	}
+]}

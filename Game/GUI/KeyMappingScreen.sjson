@@ -1,0 +1,154 @@
+{
+  KeyMappingScreen =
+  {
+    Platform = "default"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    ForceShowCursor = true
+    TransitionOnTime = 0.0
+    TransitionOffTime = 0.0
+    GamepadSelectionStyle = "FreeForm"
+	FreeFormSelectGridLock = true
+	FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectStepDistance = 16
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 2
+    ItemsPerPage = 8
+
+    DescriptionBox =
+	{
+      X = 650
+      Y = 820
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "LatoMedium"
+      FontSize = 18
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      TextJustification = "Left"
+      OutlineThickness = 3
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      Width = 700
+      Height = 300
+    }
+
+    KeyText =
+	{
+      TextJustification = "Center"
+      FontSize = 24
+      Font = "P22UndergroundSCHeavy"
+      TextRed = 0.9
+      TextGreen = 0.9
+      TextBlue = 0.9
+      TextOffsetX = -1
+      TextOffsetY = -2
+      SelectedTextRed = 1
+      SelectedTextGreen = 1
+      SelectedTextBlue = 0.6
+      SelectedTextScale = 1.0
+      ShadowOffsetY = 2
+      ShadowOffsetX = 0
+      ShadowAlpha = 1
+      ShadowBlur = 0
+    }
+
+    ControlButton =
+	{
+      X = 1380
+      Y = 300
+      Spacing = 58
+      LineSpacingRight = 380
+      Justification = "Center"
+      VerticalJustification = "Center"
+      
+      Graphic = "null"
+      SelectedOnAnimation = "null"
+      Scale = 0.44
+      AddTextArea = true
+      
+      AddColor = true
+      Red = 0
+      Green = 0
+      Blue = 0
+      SelectedRed = 0.5
+      SelectedGreen = 0.5
+      SelectedBlue = 0.5
+      PressSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
+      ActionSound = "/SFX/Menu Sounds/MirrorMenuStatLower"      
+      DisabledPressSound = "/Leftovers/SFX/OutOfAmmo2"
+      TextJustification = "Left"
+      TextOffsetX = -720
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+    }
+	
+    RemapInstructions =
+	{
+      X = 960
+      Y = 900
+      Justification = "Center"
+      VerticalJustification = "Center"
+      HelpTextId = "Menu_PressAnyButton"
+      MouseHelpTextId = "Menu_PressAnyKey"
+      Font = "P22UndergroundSCHeavy"
+      TextRed = 1.0
+      TextGreen = 1.0
+      TextBlue = 1.0
+      FlashMin = 0
+      FlashMax = 0.5
+      FlashSpeed = 2.0
+      FlashRed = 1.0
+      FlashGreen = 0.8
+      FlashBlue = 0.2
+      OutlineThickness = 2
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowBlur = 0
+      ShadowOffsetX = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      Scale = 1.0
+      FontSize = 28
+    }
+
+    UpArrow =
+    {
+      X = 1500
+      Y = 220
+      Graphic = "GUI\Shell\UpArrow_Base"
+      SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
+      Scale = 0.4
+      AutoActivateWithGamepad = true
+      FreeFormSelectOffsetX = -120
+    }
+
+    DownArrow =
+    {
+      X = 1500
+      Y = 780
+      Graphic = "GUI\Shell\DownArrow_Base"
+      SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
+      Scale = 0.4
+      AutoActivateWithGamepad = true
+      FreeFormSelectOffsetX = -120
+    }
+  }
+}

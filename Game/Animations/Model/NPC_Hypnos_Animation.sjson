@@ -1,0 +1,31 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCHypnosSleepBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "HypnosSleep_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Hypnos_Sleep_Idle"
+		InheritFrom = "NPCHypnosSleepBaseAnimation"
+		GrannyAnimation = "HypnosSleep_Base_Idle_C_00"
+		Sound = "/SFX/NPCLoops/Hypnos_0007"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+		CreateAnimation = "HypnosSleepZsEmitter"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Hypnos_Sleep_Idle_Silent"
+		InheritFrom = "Hypnos_Sleep_Idle"
+		Sound = null
+	}
+]}

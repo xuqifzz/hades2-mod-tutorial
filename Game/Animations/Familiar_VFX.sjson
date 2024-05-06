@@ -1,0 +1,16 @@
+{ Animations = [
+
+
+	{
+		Name = "CatFamiliarRecruitHighlight"
+		InheritFrom = "EliteUnitStatus"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		Scale = 1.0
+		PlaySpeed = 45.0
+		Hue = 0.17
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.5
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+]}

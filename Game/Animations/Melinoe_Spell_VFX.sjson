@@ -1,0 +1,3279 @@
+{
+Animations = [
+
+	
+	{
+		Name = "DrainFx"
+		FilePath = "Fx\FistVacuumFx\FistVacuumFx"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Take"
+		AddColor = true
+		EndAlpha = 0.9
+		EndBlue = 0.999
+		EndGreen = 0.001
+		EndRed = 0.4
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartRed = 0.6
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		RandomFlipVertical = true
+		OffsetZ = 60.0
+		OriginX = 25.0
+		OriginY = 100.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		ScaleLength = 485.0
+		ScaleY = 1.5
+	}
+
+	{
+		Name = "TimeSlowWeaponStart"
+		FilePath = "Fx\RadialNova\RadialNova"
+		GroupName = "FX_Displacement"
+		Scale = 2
+		VisualFx = "TimeSlowWeaponStartStreak"
+		EndFrame = 38
+		NumFrames = 32
+		StartFrame = 1
+		StartAlpha = 0.3
+		EndAlpha = 0.01
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		CreateAnimations = [
+			{ Name = "TimeSlowWeaponStartNovaA" }
+			{ Name = "TimeSlowWeaponStartNovaB" }
+			{ Name = "TimeSlowWeaponStartLight" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+			{ Name = "TimeSlowWeaponStartStreakBright" }
+		]
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "TimeSlowWeaponStartNovaA"
+		FilePath = "Fx\AxeNova\AxeNovaDissipate"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartAlpha = 0.25
+		EndAlpha = 0.0
+		Duration = 2
+		Scale = 4
+		StartScale = 0
+		EndScale = 1.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "TimeSlowWeaponStartNovaB"
+		FilePath = "Fx\AxeNova\AxeNova"
+		NumFrames = 36
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.999
+		StartAlpha = 0.25
+		EndAlpha = 0.0
+		PlaySpeed = 60
+		Scale = 4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		AddColor = true
+	}
+
+	
+	{
+		Name = "TimeSlowWeaponStartLight"
+		FilePath = "Particles\particle_quickflashIris"
+		GroupName = "FX_Add_Top"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndBlue = 1.0
+		EndGreen = 0.6
+		EndRed = 0.1
+		StartAlpha = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.9
+		StartRed = 1.0
+		Duration = 0.2
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		EndScale = 1.1
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.05
+	}
+	
+	{
+		Name = "TimeSlowWeaponStartStreak"
+		FilePath = "Particles\particle_heraLightStreak"
+		GroupName = "FX_Dark"
+		
+		AngleFromOwner = "Take"
+		AngleMax = 360.0
+		PingPongColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.4
+		RandomDurationMin = 0.2
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 64.0
+		OriginY = 512.0
+		SortMode = "FromParent"
+		EndScaleX = 0.0
+		EndScaleY = 2.0
+		PostRotateScaleY = 0.5
+		ScaleMax = 1.25
+		ScaleMin = 0.5
+		StartScaleY = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "TimeSlowWeaponStartStreakBright"
+		InheritFrom = "TimeSlowWeaponStartStreak"
+		GroupName = "FX_Add_Top"
+		AngleFromOwner = "Ignore"
+		AngleMax = 60.0
+		AngleMin = -60.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		ColorFromOwner = "Ignore"
+		EndBlue = 1.0
+		EndGreen = 0.7
+		EndRed = 0.5
+		PingPongColor = false
+		StartAlpha = 1.0
+		StartBlue = 0.2
+		StartGreen = 0.5
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomDurationMax = 1.0
+		OriginY = 640.0
+		PostRotateScaleY = 1.0
+		StartScaleX = 0.5
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	// Meteor
+
+
+	{
+		Name = "SpellMeteorWarningDecal"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightA"
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Duration = 4
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Sound = "/SFX/Player Sounds/MeteorDecalLoop"
+		StopSoundOnFinishFade = 0.2
+		ScaleRadius = 393
+		StartAlpha = 0.5
+		EndAlpha = 1
+		StartAngle = -90
+		EndAngle = 0
+		EaseIn = 0
+		EaseOut = 1
+		PostRotateScaleY = 0.5
+		ChainTo = "SpellMeteorWarningDecalFade"
+		CreateAnimations = [
+			{ Name = "SpellMeteorWarningDecal2" }
+			{ Name = "SpellMeteorWarningDecal3" }
+			{ Name = "SpellMeteorWarningDecalDark" }
+		]
+	}
+
+	{
+		Name = "SpellMeteorWarningDecalFade"
+		InheritFrom = "SpellMeteorWarningDecal"
+		Loop = false
+		ChainTo = null
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+		StartAngle = 111.999
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0.8
+	}
+	
+	{
+		Name = "SpellMiniMeteorWarningDecal"
+		FilePath = "Fx\HecateMeteorWarningDecal\HecateMeteorWarningDecalPartial"
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Duration = 4
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Sound = "/SFX/Player Sounds/ZagreusGunGrenadeGasReleaseFly"
+		StopSoundOnFinishFade = 0.2
+		Scale = 1
+		StartAlpha = 0.3
+		EndAlpha = 1
+		StartAngle = 202
+		EndAngle = 112
+		EaseIn = 0
+		EaseOut = 1
+		PostRotateScaleY = 0.5
+		ChainTo = "SpellMeteorWarningDecalFade"
+		CreateAnimations = [
+			{ Name = "SpellMeteorWarningDecal2" }
+		]
+	}
+
+	{
+		Name = "SpellMiniMeteorWarningDecalFade"
+		InheritFrom = "SpellMeteorWarningDecal"
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+		StartAngle = 111.999
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.0
+		EndGreen = 0.5
+		EndBlue = 0.8
+	}
+
+	{
+		Name = "SpellMeteorWarningDecal2"
+		InheritFrom = "SpellMeteorWarningDecal"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightB"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+		ScaleFromOwner = "Maintain"
+		MultiplicativeScaleRadius = true
+		StartScale = 0.1
+		EndScale = 1
+		StartAngle = -45
+		EndAngle = 0
+		StartRed = 0.0
+		StartGreen = 0.5
+		StartBlue = 0.8
+		EndRed = 1.0
+		EndGreen = 1.0
+		EndBlue = 1.0
+		ChainTo = null
+	}	
+
+	{
+		Name = "SpellMeteorWarningDecal3"
+		InheritFrom = "SpellMeteorWarningDecal"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightC"
+		ClearCreateAnimations = true
+		MultiplicativeScaleRadius = true
+		Sound = "/EmptyCue"
+		StartScale = 0.75
+		EndScale = 1.0
+		StartAngle = 45
+		EndAngle = 0
+		StartRed = 0.0
+		StartGreen = 0.5
+		StartBlue = 0.8
+		EndRed = 1.0
+		EndGreen = 1.0
+		EndBlue = 1.0
+		ChainTo = null
+		VisualFx = "SpellMeteorWarningDecal3Fx"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.25
+		VisualFxCap = 12
+	}
+
+	{
+		Name = "SpellMeteorWarningDecal3Fx"
+		InheritFrom = "SpellMeteorWarningDecal3"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightC2"
+		StartScale = 0.999
+		Scale = 3
+		StartOffsetZ = 0
+		EndOffsetZ = 40
+		StartAngle = 0.001
+		VisualFx = null
+		Duration = 2
+		StartAlpha = 0
+		EndAlpha = 0.15
+		PingPongColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		DieWithOwner = true
+		StartRed = 0.5
+		StartGreen = 0.0
+		StartBlue = 0.999
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.7
+	}
+
+	{
+		Name = "SpellMeteorWarningDecalDark"
+		InheritFrom = "SpellMeteorWarningDecal3"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalDark"
+		StartAngle = 5
+		ScaleFromOwner = "Maintain"
+		MultiplicativeScaleRadius = true
+		GroupName = "FX_Terrain_Dark"
+		StartAlpha = 0
+		EndAlpha = 0.66
+		EndScale = 1
+	}
+
+	{
+		Name = "SpellPotionRefill"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		GroupName = "FX_Standing_Add"
+		
+		OffsetZ = 300
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		Duration = 1.2
+		Angle = 90.0
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 24.0
+		StartFrame = 1
+		ScaleX = 6.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "SpellSummonMeleeFx"
+		FilePath = "Dev\blank_invisible"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations = [
+			{ Name = "SpellSummonMeleeSwipe" }
+			{ Name = "SpellSummonMeleeDisplacement" }
+			{ Name = "SpellSummonMeleeGlow" }
+		]
+	}
+	
+	{
+		Name = "SpellSummonMeleeSwipe"
+		FilePath = "Fx\BrawlerSwipe\BrawlerSwipe"
+		
+		ScaleX = 0.5
+		EndFrame = 26
+		NumFrames = 26
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 60.0
+		OriginY = 160.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Ambient = 0.0
+		AddColor = true
+		Color = { Red = 0.0, Green = 1.0, Blue = 0.6 }
+	}
+	
+	{
+		Name = "SpellSummonMeleeDisplacement"
+		InheritFrom = "SpellSummonMeleeSwipe"
+		GroupName = "FX_Displacement"
+		Alpha = 0.1
+		EndAlpha = 1.0
+		PlaySpeed = 45.0
+	}
+	
+	{
+		Name = "SpellSummonMeleeGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Add_Top"
+		
+		StartAlpha = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.4 }
+	}
+
+			
+	{
+		Name = "SpellSummonRangedFx"
+		FilePath = "Fx\EnemyProjectileIris\EnemyProjectileIris"
+		VisualFx = "SpellSummonRangedFxTrail"
+		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Enemy Sounds/Mourner/RangedAttackLoop"
+		StopSoundOnFinishFade = 0.25
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 45.0
+		StartFrame = 1
+		OffsetZ = 30.0
+		Scale = 0.6
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.21
+		VisualFxIntervalMin = 0.21
+		OverlayVfx = true
+		AddColor = true
+		Color = { Red = 0.0, Green = 1.0, Blue = 0.2 }
+		CreateAnimations = [
+			{ Name = "SpellSummonRangedFxGlow" }
+			{ Name = "SpellSummonRangedFxStartFlare" }
+		]
+	}
+
+	{
+		Name = "SpellSummonRangedFxIn"
+		InheritFrom = "SpellSummonRangedFx"
+		ChainTo = "SpellSummonRangedFx"
+		Sound = "null"
+		Duration = 0.2
+		EaseIn = 0.0
+		EaseOut = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameFromThis = true
+		RandomFlipVertical = true
+		RandomRotation = false
+		StartScale = 0
+		EndScale = 1.0
+	}
+
+	{
+		Name = "SpellSummonRangedFxGlow"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		Alpha = 0.25
+		EndAlpha = 1.0
+		PingPongColor = true
+		StartAlpha = 0.5
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.4
+		StartFrame = 1
+		OffsetZ = 30.0
+		OriginX = 246.0
+		OriginY = 246.0
+		DieWithOwner = true
+		RandomRotation = true
+		Scale = 0.4
+		OverlayVfx = true
+		Color = { Red = 0.0, Green = 1.0, Blue = 0.2 }
+	}
+
+	{
+		Name = "SpellSummonRangedFxStartFlare"
+		FilePath = "Particles\particle_sparkle_glow"
+		Scale = 0.66
+		StartScale = 1
+		EndScale = 0
+		GroupName = "FX_Standing_Add"
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		OffsetZ = 30
+		AddColor = true
+		Color = { Red = 0.0, Green = 1.0, Blue = 0.2 }
+	}
+
+	{
+		Name = "SpellSummonRangedFxTrail"
+		FilePath = "Fx\EnemyProjectileTrail\EnemyProjectileTrail"
+		NumFrames = 50
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0.0
+		Blue = 0.0
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 40
+		ScaleX = 1.8
+		StartScale = 0.3
+		EndScale = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Velocity = 100
+		Acceleration = -100
+		CreateAnimation = "SpellSummonRangedFxTrailB"
+	}
+
+	{
+		Name = "SpellSummonRangedFxTrailB"
+		InheritFrom = "SpellSummonRangedFxTrail"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.4
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 0.2
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartScaleY = 0
+		EndScaleY = 1.5
+		AlphaMin = 0.1
+		AlphaMax = 1.0
+		OffsetZ = 20
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = null
+		CreateAnimations = []
+	}
+	{
+		Name = "SpellSummonRangedFxDissipate"
+		InheritFrom = "SpellSummonRangedFx"
+		Sound = "null"
+		CreateAnimations = []
+		VisualFx = null
+		StartScale = 1
+		EndScale = 0
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1
+	}
+
+	{
+		Name = "SpellSummonRangedFxLight"
+		FilePath = "Fx\LootShadow\LootShadow"
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		Alpha = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		AddColor = true
+		Color = { Red = 0.0, Green = 1.0, Blue = 0.2 }
+	}
+
+	{
+		Name = "SpellSummonRangedFxLightLarge"
+		InheritFrom = "SpellSummonRangedFxLight"
+		Scale = 2.5
+	}
+
+	{
+		Name = "SpellReadyMelFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		VisualFx = "SpellReadyMelFxParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 12
+		CreateAnimations = [
+			{ Name = "SpellReadyMelFxMoonbeamEmitter" }
+			{ Name = "SpellReadyMelFxMoonbeams" }
+			{ Name = "SpellReadyMelFxNova" }
+			{ Name = "SpellReadyMelFxNovaDisplace" }
+		]
+	}
+
+	{
+		Name = "SpellReadyMelFxParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 60
+		RandomStartFrame = true
+		AddColor = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		RandomOffsetX = 30
+		VelocityMin = 300
+		VelocityMax = 700
+		Acceleration = -500
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 0
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Red = 0.6
+		Green = 0.8
+		Blue = 1.0
+		CreateAnimation = "SpellReadyMelFxParticles2"
+	}
+
+	{
+		Name = "SpellReadyMelFxParticles2"
+		InheritFrom = "SpellReadyMelFxParticles"
+		FilePath = "Fx\Staff\StaffMoonParticle\StaffMoonParticle" 
+		NumFrames = 20
+		RandomStartFrame = false
+		LoopFramesOnly = false
+		Red = 1.0
+		Green = 1.0
+		Blue = 1.0
+		RandomRotation = false
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0
+		CreateAnimation = null
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.7
+		EndScale = 0.999
+		AddColor = false
+		Acceleration = -1800
+		VelocityMin = 600
+		OffsetZ = 80
+		IsometricSkew = "X"
+		AngleMin = 0
+		AngleMax = 360
+		StartScaleX = 1
+		EndScaleX = 0.5
+	}
+
+	{
+		Name = "SpellReadyMelFxNova"
+		FilePath = "Fx\RadialNovaPentagram\RadialNovaPentagram"
+		NumFrames = 30
+		GroupName = "FX_Add_Top"
+		AddColor = false
+		StartRed = 0.7
+		StartGreen = 0.85
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.99
+		EndBlue = 0.8
+		AngleFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PlaySpeed = 30
+		OffsetZ = 60
+		Scale = 1.0
+	}
+
+	{
+		Name = "SpellReadyMelFxNovaDisplace"
+		InheritFrom = "SpellReadyMelFxNova"
+		GroupName = "FX_Displacement"
+		PlaySpeed = 30
+		Alpha = 0.3
+	}
+
+	{
+		Name = "SpellReadyMelFxMoonbeamEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.25
+		VisualFx = "SpellReadyMelFxMoonbeams"
+		VisualFxIntervalMin = 0.06
+		VisualFxIntervalMax = 0.07
+	}
+
+	{
+		Name = "SpellReadyMelFxMoonbeams"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		NumFrames = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		Saturation = 0.125
+		Angle = 90
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		StartScaleX = 1
+		EndScaleX = 2
+		StartScaleY = 0.5
+		EndScaleY = 0.85
+		LoopFramesOnly = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomOffsetX = 20
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+	}
+
+
+	{
+		Name = "SpellChargeFx"
+		FilePath = "Dev\blank_invisible"
+		Loop = true
+		Duration = 1
+		VisualFx = "SpellChargeFxA"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		CreateAnimations = [
+		]
+	}
+
+	{
+		Name = "SpellChargeFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxA\SorceryRadialFxA"
+		NumFrames = 26
+		PostRotateScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		OffsetZ = 60
+		RandomOffsetY = 20
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		ScaleMin = 0.6
+		ScaleMax = 0.8
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 0
+		StartScale = 1.2
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		TimeModifierFraction = 0
+		CreateAnimations = [
+			{ Name = "SpellChargeFxB" }
+			{ Name = "SpellChargeFxC" }
+			{ Name = "SpellChargeFxC" }
+			{ Name = "SpellChargeParticle" }
+			{ Name = "SpellChargeParticle" }
+			{ Name = "SpellChargeParticle" }
+			{ Name = "SpellChargeGlow" }
+			{ Name = "SpellChargeDarkFx" }
+			{ Name = "SpellChargeDarkFx" }
+			{ Name = "SpellChargeDarkFx" }
+			{ Name = "SpellChargeMoonbeam" }
+		]
+	}
+
+	{
+		Name = "SpellChargeParticle"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 60
+		RandomStartFrame = true
+		AddColor = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		Scale = 0.5
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 200
+		RadialOffsetMax = 400
+		RadialOffsetScaleY = 0.5
+		VelocityMin = -100
+		VelocityMax = -200
+		RandomDurationMin = 0.3
+		RandomDurationMax = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Red = 0.4
+		Green = 0.6
+		Blue = 1.0
+		TimeModifierFraction = 0
+	}
+
+	{
+		Name = "SpellChargeGlow"
+		FilePath = "Particles\particle_glow_egg"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		FlipVertical = true
+		OffsetZ = 65
+		Material = "Unlit"
+		StartScale = 3
+		EndScale = 0
+		StartScaleX = 1
+		EndScaleX = 0
+		GroupName = "FX_Standing_Add"
+		Duration = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 0.1
+		StartRed = 0.4
+		StartGreen = 0.8
+		StartBlue = 1
+		EndRed = 0.9
+		EndGreen = 0.95
+		EndBlue = 1.0
+		TimeModifierFraction = 0
+	}
+
+	{
+		Name = "SpellChargeFxB"
+		Random = [
+			{ Name = "SpellChargeFxB1" }
+			{ Name = "SpellChargeFxB2" }
+			{ Name = "SpellChargeFxB3" }
+		]
+	}
+
+	{
+		Name = "SpellChargeFxB1"
+		InheritFrom = "SpellChargeFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB1"
+		NumFrames = 1
+		StartScale = 1
+		EndScale = 0.1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		ClearCreateAnimations = true
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomRotationSpeedMin = -1
+		StartRed = 0.1
+		StartGreen = 0.7
+		StartBlue = 0.99
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		StartScaleY = 1
+		EndScaleY = 0
+		ScaleX = 2
+		AngleMin = 0
+		AngleMax = 180
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "SpellChargeFxB2"
+		InheritFrom = "SpellChargeFxB1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB2"
+	}
+	{
+		Name = "SpellChargeFxB3"
+		InheritFrom = "SpellChargeFxB1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB3"
+	}	
+
+	{
+		Name = "SpellChargeFxC"
+		Random = [
+			{ Name = "SpellChargeFxC1" }
+			{ Name = "SpellChargeFxC2" }
+			{ Name = "SpellChargeFxC3" }
+		]
+	}
+
+	{
+		Name = "SpellChargeFxC1"
+		InheritFrom = "SpellChargeFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		NumFrames = 1
+		StartScale = 1
+		EndScale = 0.1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		ClearCreateAnimations = true
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomRotationSpeedMin = -1
+		StartRed = 0.1
+		StartGreen = 0.7
+		StartBlue = 0.99
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+	}
+	{
+		Name = "SpellChargeFxC2"
+		InheritFrom = "SpellChargeFxC1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC2"
+	}
+	{
+		Name = "SpellChargeFxC3"
+		InheritFrom = "SpellChargeFxC1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
+	}
+
+	{
+		Name = "SpellChargeDarkFx"
+		Random = [
+			{ Name = "SpellChargeDarkFx1" }
+			{ Name = "SpellChargeDarkFx2" }
+			{ Name = "SpellChargeDarkFx3" }
+		]
+	}
+
+	{
+		Name = "SpellChargeDarkFx1"
+		InheritFrom = "SpellChargeFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB1"
+		NumFrames = 1
+		StartScale = 1
+		EndScale = 0.1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.25
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 0.5
+		ClearCreateAnimations = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		RandomRotationSpeedMin = -1
+		Red = 0
+		Green = 0
+		Blue = 0
+		AlphaMin = 0.1
+		AlphaMax = 0.4
+		Scale = 7
+		ScaleY = 0.3
+	}
+	{
+		Name = "SpellChargeDarkFx2"
+		InheritFrom = "SpellChargeDarkFx1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB2"
+	}
+	{
+		Name = "SpellChargeDarkFx3"
+		InheritFrom = "SpellChargeDarkFx1"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB3"
+	}
+
+	{
+		Name = "SpellChargeMoonbeam"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		NumFrames = 60
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		Saturation = 0.125
+		Angle = 90
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		StartScaleX = 1
+		EndScaleX = 2
+		StartScaleY = 0.5
+		EndScaleY = 0
+		LoopFramesOnly = true
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomOffsetX = 5
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartOffsetZ = 0
+		EndOffsetZ = 200
+		TimeModifierFraction = 0
+	}
+
+
+
+	{
+		Name = "MoonLaserLoop"
+		FilePath = "Fx\Sorcery\SorceryMoonLaser\SorceryMoonLaser"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 45
+		OriginX = 60
+		OriginY = 40
+	    ScaleLength = 500.0
+	    ScaleWidth = 24.0
+	    Sound = "/SFX/Enemy Sounds/Hades/LunarRayLaserBlastLoop"
+		StopSoundOnFinishFade = 0.2
+	    VisualFx = "MoonLaserEndParticles"
+	    VisualFxIntervalMin = 0.1
+	    VisualFxIntervalMax = 0.2
+	    CreateAnimations = [
+	    	{ Name = "MoonLaserGlow" }
+	    	{ Name = "MoonLaserOriginFx" }
+	    ]
+	}
+
+	{
+		Name = "MoonLaserOriginFx"
+		FilePath = "Fx\Sorcery\SorceryMoonLaserOrigin\SorceryMoonLaserOrigin"
+		NumFrames = 30
+		Loop = true
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		DieWithOwner = true
+		Scale = 1.5
+		OriginX = 180
+		OriginY = 90
+	}
+
+    {
+      Name = "MoonLaserGlow"
+      FilePath = "Particles\particle_glow_egg_horizontal"
+      Material = "Unlit"
+      GroupName = "FX_Add_Top"      
+      EndAlpha = 1.0
+      PingPongColor = true
+      StartAlpha = 0.5
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      RandomDurationMax = 0.33
+      RandomDurationMin = 0.4
+      StartFrame = 1
+      OriginY = 84.0
+      OriginX = 10
+      DieWithOwner = true
+      ScaleLength = 200.0
+      ScaleY = 1
+      StartRed = 1.0
+      StartGreen = 0.8
+      StartBlue = 0.9
+      EndRed = 0.7
+      EndGreen = 0.9
+      EndBlue = 1.0
+    }
+
+    {
+      Name = "MoonLaserEnd"
+      InheritFrom = "MoonLaserLoop"
+      Duration = 0.15
+      TransferAngle = true
+      TransferCopyBody = true
+      Loop = false
+      EndScaleY = 0.0
+      Sound = null
+      CreateAnimations = []
+
+    }
+
+    {
+    	Name = "MoonLaserEndParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		Material = "Unlit"
+		NumFrames = 60
+		RandomStartFrame = true
+		AddColor = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		AngleFromOwner = "Take"
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 0
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.9
+		EndRed = 0.7
+		EndGreen = 0.9
+		EndBlue = 1.0
+		RadialOffsetMin = 0
+		RadialOffsetMax = 500
+		CreateAnimation = "MoonLaserSoftParticles"
+	}
+
+	{
+		Name = "MoonLaserSoftParticles"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -60
+		StartAlpha = 0
+		EndAlpha = 0.3
+		PingPongColor = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleX = 2
+		Scale = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.9
+		EndRed = 0.7
+		EndGreen = 0.9
+		EndBlue = 1.0
+		RadialOffsetMin = 0
+		RadialOffsetMax = 100
+		StartScaleY = 0
+		EndScaleY = 1
+		OriginX = 700
+		OriginY = 512
+	}
+
+
+	{
+		Name = "SpellMeteorCastReticle"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalDark"
+		GroupName = "FX_Terrain"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+		RotationSpeed = 10.0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 380.0
+		Ambient = 0.0
+		Duration = 1
+		Loop = true
+		ChildAnimation = "SpellMeteorCastReticleB"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "SpellMeteorCastReticleB"
+		InheritFrom = "SpellMeteorCastReticle"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightB"
+		StartAlpha = 0.999
+		EndAlpha = 1
+		OffsetZ = 15
+		ChildAnimation = "SpellMeteorCastReticleC"
+	}
+
+	{
+		Name = "SpellMeteorCastReticleC"
+		InheritFrom = "SpellMeteorCastReticleB"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightA"
+		OffsetZ = 30
+		ChildAnimation = null
+	}
+
+	{
+		Name = "SpellMeteorDetonate"
+		FilePath = "Fx\Sorcery\SorceryMeteor\MoonMeteor"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartOffsetZ = 1000
+		EndOffsetZ = 0
+		OriginX = 540
+		OriginY = 800
+		Duration = 0.2
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.2
+		EndGreen = 0.48
+		EndBlue = 0.5
+		EaseIn = 0.2
+		EaseOut = 0.7
+		GroupName = "FX_Standing_Top"
+		ChainTo = "SpellMeteorDetonateHold"
+		Scale = 1.33
+		CreateAnimationOnEnd = "SpellMeteorDetonateImpactFx"
+	}
+
+	{
+		Name = "SpellMeteorDetonateHold"
+		InheritFrom = "SpellMeteorDetonate"
+		StartOffsetZ = 0.001
+		Duration = 0.1
+		EndRed = 0.4
+		EndGreen = 0.96
+		EndBlue = 1.0
+		StartRed = 0.2
+		StartGreen = 0.48
+		StartBlue = 0.5
+		ChainTo = null
+		CreateAnimationOnEnd = null
+		StartScale = 1
+		EndScale = 1.05
+		EaseIn = 0.99
+		EaseOut = 1
+	}
+
+	{
+		Name = "SpellMeteorDetonateImpactFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		VisualFx = "SpellMeteorDissipateVerticalParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 16
+		CreateAnimations = [
+			{ Name = "SpellMeteorFlare" }
+			{ Name = "SpellMeteorGlow" }
+			{ Name = "SpellMeteorGlow2" }
+			{ Name = "SpellMeteorImpact" }
+			{ Name = "SpellMeteorImpact" }
+			{ Name = "SpellMeteorImpact" }
+			{ Name = "SpellMeteorImpact" }
+			{ Name = "SpellMeteorImpact" }
+
+			{ Name = "SpellMeteorImpactRadialFx" }
+			{ Name = "SpellMeteorImpactRadialFx" }
+			{ Name = "SpellMeteorImpactRadialFx" }
+			{ Name = "SpellMeteorImpactRadialFx" }
+			{ Name = "SpellMeteorImpactRadialFx" }
+			{ Name = "SpellMeteorImpactRadialFx" }
+
+
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+			{ Name = "SpellMeteorImpactRadialFxStreak" }
+
+			{ Name = "SpellMeteorNova" }
+			{ Name = "SpellMeteorNovaDissipate" }
+
+			{ Name = "SpellMeteorVignette" }
+
+			{ Name = "SpellMeteorCrater" }
+
+			{ Name = "SpellMeteorDustFront" }
+			{ Name = "SpellMeteorDustBack" }
+		]
+	}
+
+	{
+		Name = "SpellMeteorVignette"
+		FilePath = "Fx\Sorcery\SorceryMeteor\SorceryMeteorVignette"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 6
+		StartScale = 1
+		EndScale = 1.5
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		GroupName = "FX_Dark"
+		Duration = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SpellMeteorNova"
+		FilePath = "Fx\AxeNova\AxeNova"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.1
+		EndAlpha = 0.01
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		NumFrames = 36
+		Scale = 3
+	}	
+
+	{
+		Name = "SpellMeteorImpactRadialFxStreak"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB1"
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		AngleMin = 20
+		AngleMax = 160
+		ScaleX = 3
+		StartScaleY = 1
+		EndScaleY = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.2
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		RadialOffsetMin = 300
+		RadialOffsetMax = 300
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SpellMeteorNovaDissipate"
+		FilePath = "Fx\AxeNova\AxeNovaDissipate"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartAlpha = 0.25
+		EndAlpha = 0.0
+		Duration = 2
+		Scale = 2
+		StartScale = 1
+		EndScale = 1.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "SpellMeteorImpactRadialFx"
+		Random = [
+			{ Name = "SpellMeteorImpactRadialFxA" }
+			{ Name = "SpellMeteorImpactRadialFxB" }
+			{ Name = "SpellMeteorImpactRadialFxC" }
+		]
+	}
+
+	{
+		Name = "SpellMeteorImpactRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		OriginX = 380
+		OriginY = 512
+		PostRotateScaleY = 0.6
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		StartScale = 1
+		EndScale = 1.1
+		StartScaleX = 0.5
+		EndScaleX = 1.7
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.7
+		EndBlue = 0.999
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SpellMeteorImpactRadialFxB"
+		InheritFrom = "SpellMeteorImpactRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC2"
+	}
+	{
+		Name = "SpellMeteorImpactRadialFxC"
+		InheritFrom = "SpellMeteorImpactRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
+	}
+
+	{
+		Name = "SpellMeteorImpact"
+		FilePath = "Fx\Sorcery\SorceryMoonMeteorImpact\SorceryMoonMeteorImpact"
+		NumFrames = 30
+		RandomPlaySpeedMin = 26
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ScaleMin = 1.3
+		ScaleMax = 1.7
+		RadialOffsetMin = 150
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		OriginX = 240
+		OriginY = 400
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		CreateAnimation = "SpellMeteorMoondust"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "SpellMeteorMoondust"
+		FilePath = "Fx\Sorcery\SorceryMeteor\Moondust"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 1.3
+		ScaleMax = 1.7
+		RadialOffsetMin = 150
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		RandomDurationMin = 1
+		RandomDurationMax = 3
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.3
+		Scale = 0.86
+		Gravity = 60
+		VelocityMin = 200
+		VelocityMax = 300
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Acceleration = -500
+	}
+
+	{
+		Name = "SpellMeteorFlare"
+		InheritFrom = "BiomeStateMeteorFlare"
+		Scale = 2.0
+		Hue = 0.40
+		Saturation = -0.2
+		PlaySpeed = 60
+	}
+
+
+	{
+		Name = "SpellMeteorGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Duration = 2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 0.5
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		Scale = 5
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 100
+	}
+
+	{
+		Name = "SpellMeteorGlow2"
+		InheritFrom = "SpellMeteorGlow"
+		GroupName = "FX_Add_Top"
+		ScaleX = 2
+		Scale = 16
+		Duration = 0.5
+	}
+
+    {
+    	Name = "SpellMeteorDissipateVerticalParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 60
+		RandomStartFrame = true
+		AddColor = false
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		RandomOffsetX = 100
+		RandomOffsetY = 300
+		OffsetZ = 600
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -10
+		RandomDurationMin = 2
+		RandomDurationMax = 4
+		LoopFramesOnly = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 0.5
+		EndScale = 0
+		StartScaleX = 3
+		EndScaleX = 1
+		PingPongScale = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.8
+		StartGreen = 0.9
+		StartBlue = 0.999
+		EndRed = 0.3
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "SpellMeteorCrater"
+		FilePath = "Fx\Sorcery\SorceryMeteor\MoonMeteorCrater"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SpellMeteorCraterOceanus"
+		InheritFrom = "SpellMeteorCrater"
+		GroupName = "Terrain_Gameplay"
+	}
+
+	{
+		Name = "SpellPotionFx"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.5
+		StartRed = 0.01
+		StartGreen = 0.0
+		StartBlue = 0.2
+		EndRed = 0.05
+		EndGreen = 0.1
+		EndBlue = 0.15
+		Duration = 2.0
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Dark"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		OffsetZ = 160
+		StartScaleY = 1
+		EndScaleY = 1.3
+		ScaleX = 0.75
+		VisualFx = "SorceryMoonPotionParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 5
+		CreateAnimations = [
+			{ Name = "SorceryMoonPotionParticles" }
+			{ Name = "SorceryMoonPotionMoonbeams" }
+			{ Name = "SorceryMoonPotionMoonbeams" }
+			{ Name = "SorceryMoonPotionMoonbeams" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+			{ Name = "SorceryMoonPotionRadialFx" }
+		]
+	}
+
+	{
+		Name = "SorceryMoonPotionParticles"
+		FilePath = "Fx\Sorcery\SorceryMoonPotionParticles\SorceryMoonPotionParticles"
+		Saturation = 0.15
+		Hue = 0.1
+		NumFrames = 90
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		RandomFlipHorizontal = true
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 1.5
+		RandomOffsetX = 40
+		RandomOffsetY = 30
+		StartOffsetZ = 150
+		EndOffsetZ = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "Standing"
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "SorceryMoonPotionRipples"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "SorceryMoonPotionRipples"
+		Random = [
+			{ Name = "SorceryMoonPotionRippleA" }
+			{ Name = "SorceryMoonPotionRippleB" }
+			{ Name = "SorceryMoonPotionRippleB" }
+		]
+	}
+
+	{
+		Name = "SorceryMoonPotionRippleA"
+		FilePath = "Fx\Sorcery\SorceryMoonPotionRipple\SorceryMoonPotionRipple"
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		NumFrames = 40
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		ScaleMin = 0.35
+		ScaleMax = 1.0
+		RandomOffsetX = 100
+		RandomOffsetY = 100
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		StartScale = 0.33
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Saturation = 0.25
+		PostRotateScaleY = 0.5
+		OffsetZ = 60
+		AngleMin = 0
+		AngleMax = 360
+	}
+
+	{
+		Name = "SorceryMoonPotionRippleB"
+		InheritFrom = "SorceryMoonPotionRippleA"
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "SorceryMoonPotionMoonbeams"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		NumFrames = 60
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Saturation = -0.05
+		Hue = 0
+		Angle = 90
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		StartScaleX = 1
+		EndScaleX = 2
+		StartScaleY = 1
+		EndScaleY = 0.05
+		LoopFramesOnly = true
+		RandomDurationMin = 0.2
+		RandomDurationMax = 1.33
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomOffsetX = 20
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+	}
+
+	{
+		Name = "SorceryMoonPotionRadialFx"
+		Random = [
+			{ Name = "SorceryMoonPotionRadialFxA" }
+			{ Name = "SorceryMoonPotionRadialFxB" }
+			{ Name = "SorceryMoonPotionRadialFxC" }
+		]
+	}
+
+	{
+		Name = "SorceryMoonPotionRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0
+		EndAlpha = 1
+		Scale = 2
+		PingPongColor = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		ScaleMin = 0.25
+		ScaleMax = 1.0
+		StartScale = 0.7
+		EndScale = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		StartScaleY = 0.9
+		EndScaleY = 1.0
+		ScaleY = 0.2
+		RandomFlipVertical = true
+		StartRed = 0.4
+		StartGreen = 0.9
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		AngleMin = 20
+		AngleMax = 180
+	}
+
+	{
+		Name = "SorceryMoonPotionRadialFxB"
+		InheritFrom = "SorceryMoonPotionRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC2"
+		Hue = -0.07
+	}
+
+	{
+		Name = "SorceryMoonPotionRadialFxC"
+		InheritFrom = "SorceryMoonPotionRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
+		Hue = 0.07
+	}
+
+	{
+		Name = "SorceryNightCurseStatusFront"
+		FilePath = "Fx\Sorcery\SorceryNightCurseStatusFront\SorceryNightCurseStatusFront"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		UseOwnAngle = false
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryNightCurseStatusBack"
+		InheritFrom = "SorceryNightCurseStatusFront"
+		FilePath = "Fx\Sorcery\SorceryNightCurseStatusBack\SorceryNightCurseStatusBack"
+	}
+
+
+    {
+      Name = "QuickFlashMoon"
+      InheritFrom = "QuickFlash"
+      FilePath = "Particles\particle_quickflashIris"
+      AddColor = false
+      EndBlue = 0.999
+      EndGreen = 0.7
+      EndRed = 0.4
+      StartRed = 0.7
+      StartBlue = 0.8
+      StartGreen = 1.0
+      SortMode = "FromParent"
+      EndScale = 0
+      StartScale = 1.2
+      EndAlpha = 0.99
+      TimeModifierFraction = 1.0
+      RandomRotation = true
+      GroupName = "FX_Add_Top"
+      Duration = 0.1
+    }
+
+	{
+		Name = "SorcerySummonPresentationFx"
+		FilePath = "Fx\EnemyPreSpawnStanding\EnemyPreSpawnStanding"
+		NumFrames = 30
+		StartFrame = 105
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		UseOwnAngle = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartScaleY = 1.0
+		EndScaleY = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PlaySpeed = 60
+		ColorFromOwner = "Ignore"
+		VisualFx = "SorcerySummonBlobs"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 6
+		CreateAnimations = [
+			{ Name = "SorcerySummonPresentationFxTerrain" }
+			{ Name = "SorcerySummonMoonbeamsA" }
+			{ Name = "SorcerySummonMoonbeamsB" }
+			{ Name = "SorcerySummonDecalA" }
+			{ Name = "SorcerySummonDecalA" }
+			{ Name = "SorcerySummonDecalA" }
+			{ Name = "SorcerySummonDecalB" }
+			{ Name = "QuickFlashMoon" }
+		]
+	}
+
+	{
+		Name = "SorcerySummonDecalA"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightC2"
+		GroupName = "FX_Terrain_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		ColorFromOwner = "Ignore"
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PostRotateScaleY = 0.5
+		RandomOffsetY = 10
+		StartOffsetZ = 0
+		EndOffsetZ = 15
+		ScaleFromOwner = "Ignore"
+	}	
+
+	{
+		Name = "SorcerySummonDecalB"
+		InheritFrom = "SorcerySummonDecalA"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightC"
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+	}
+
+	{
+		Name = "SorcerySummonBlobs"
+		Random = [
+			{ Name = "SorcerySummonBlobsA" }
+			{ Name = "SorcerySummonBlobsB" }
+			{ Name = "SorcerySummonBlobsC" }
+			{ Name = "SorcerySummonBlobsD" }
+		]
+	}
+
+	{
+		Name = "SorcerySummonBlobsA"
+		FilePath = "Fx\WitchcraftBlobsA\WitchcraftBlobsA"
+		NumFrames = 50
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		RandomOffsetX = 60
+		RandomOffsetY = 100
+		ScaleMin = 0.6
+		ScaleMax = 2.0
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -100
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		//CreateAnimation = "SorcerySummonRadialFx"
+	}
+
+	{
+		Name = "SorcerySummonBlobsB"
+		InheritFrom = "SorcerySummonBlobsA"
+		FilePath = "Fx\WitchcraftBlobsB\WitchcraftBlobsB"
+	}
+	{
+		Name = "SorcerySummonBlobsC"
+		InheritFrom = "SorcerySummonBlobsA"
+		FilePath = "Fx\WitchcraftBlobsC\WitchcraftBlobsC"
+	}
+	{
+		Name = "SorcerySummonBlobsD"
+		InheritFrom = "SorcerySummonBlobsA"
+		FilePath = "Fx\WitchcraftBlobsD\WitchcraftBlobsD"
+	}
+
+	{
+		Name = "SorcerySummonPresentationFxTerrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		FilePath = "Fx\EnemyPreSpawnTerrain\EnemyPreSpawnTerrain"
+		NumFrames = 27
+		StartFrame = 120
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartScale = 1.5
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Terrain"
+		ColorFromOwner = "Ignore"
+		PlaySpeed = 60
+
+	}
+
+
+	{
+		Name = "SorcerySummonRadialFx"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxA\SorceryRadialFxA"
+		NumFrames = 26
+		AngleMin = 20
+		AngleMax = 160
+		PlayBackwards = true
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		ScaleMin = 0.6
+		ScaleMax = 0.8
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 0
+		StartScale = 1
+		EndScale = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleY = 0.4
+		TimeModifierFraction = 0
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorcerySummonMoonbeamsA"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		NumFrames = 60
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Saturation = -0.05
+		Hue = 0
+		Angle = 90
+		Material = "Unlit"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		StartScaleX = 1
+		EndScaleX = 2
+		StartScaleY = 1
+		EndScaleY = 0.05
+		LoopFramesOnly = true
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorcerySummonMoonbeamsB"
+		InheritFrom = "SorcerySummonMoonbeamsA"
+		GroupName = "FX_Add_Top"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Duration = 0.5
+	}
+
+	{
+		Name = "SpellChargeVignette"
+		FilePath = "Fx\Sorcery\SorceryMeteor\SorceryMeteorVignette"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartScale = 10
+		EndScale = 8
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Top"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 1.8
+		ChainTo = "SpellChargeVignetteFade"
+	}
+	{
+		Name = "SpellChargeVignetteFade"
+		InheritFrom = "SpellChargeVignette"
+		StartScale = 8
+		EndScale = 10.001
+		Duration = 0.1
+		StartAlpha = 0.5
+		EndAlpha = 0
+		ChainTo = null
+		EaseIn = 0
+		HoldLastFrame = false
+	}
+
+	{
+		Name = "SpellChargeVignetteSoft"
+		InheritFrom = "SpellChargeVignette"
+		FilePath = "Fx\Sorcery\SorceryVignetteSoft"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 2
+		StartScale = 10
+		EndScale = 8
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Top"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 1.8
+		ChainTo = "SpellChargeVignetteSoftFade"
+	}
+	{
+		Name = "SpellChargeVignetteSoftFade"
+		InheritFrom = "SpellChargeVignetteSoft"
+		StartScale = 8
+		EndScale = 10.001
+		Duration = 0.1
+		StartAlpha = 0.5
+		EndAlpha = 0
+		ChainTo = null
+		EaseIn = 0
+		HoldLastFrame = false
+	}
+
+	{
+		Name = "SpellFireFx"
+		FilePath = "Fx\RadialNovaPentagram\RadialNovaPentagram"
+		NumFrames = 30
+		StartRed = 0.8
+		StartGreen = 0.2
+		StartBlue = 1.0
+		EndRed = 0.1
+		EndGreen = 0.99
+		EndBlue = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		ScaleRadius = 330
+		PlaySpeed = 90
+		TimeModifierFraction = 0.5
+		CreateAnimations =
+		[
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateFxFlare" }
+		]
+	}
+
+
+	{
+		Name = "SpellMeteorDustFront"
+		
+		FilePath = "Fx\HecateMeteorDustFront\HecateMeteorDustFront"
+		NumFrames = 65
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		CreateAnimation = "HecateMeteorDustBack"
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		OverlayVfx = true
+		StartScale = 1
+		EndScale = 1.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0.3
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.5
+		EndGreen = 0.9
+		EndBlue = 1.0
+		StartAlpha = 0.8
+		EndAlpha = 0.5
+		Scale = 1.33
+		OffsetZ = 60
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "SpellMeteorDustBack"
+		InheritFrom = "SpellMeteorDustFront"
+		FilePath = "Fx\HecateMeteorDustBack\HecateMeteorDustBack"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		DrawBehindOwner = true
+		OverlayVfx = false
+		SortMode = "Isometric"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "SpellSlowFx"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "SpellSlowRadialFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+		Duration = 6
+	}
+
+	{
+		Name = "SpellSlowRadialFx"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.1
+		AlphaMax = 0.3
+		PingPongColor = true
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		StartScale = 1
+		EndScale = 1.6
+		ScaleMin = 1
+		ScaleMax = 2
+		AngleMin = 0
+		AngleMax = 360
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		OriginX = -256
+		OriginY = 512
+		StartScaleY = 0.6
+		EndScaleY = 2.0
+		EaseIn = 0
+		EaseOut = 1
+		CreateAnimation = "SpellSlowRadialFxDark"
+	}
+
+	{
+		Name = "SpellSlowRadialFxDark"
+		InheritFrom = "SpellSlowRadialFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+		GroupName = "FX_Standing"
+		CreateAnimation = null
+		CreateAnimations = [
+			{ Name = "SpellSlowMoondust" }
+			{ Name = "SpellSlowMoondust" }
+
+		]
+	}
+
+	{
+		Name = "SpellSlowMoondust"
+		FilePath = "Fx\Sorcery\SorceryMeteor\Moondust"
+		Material = "Unlit"
+		RadialOffsetMin = 800
+		RadialOffsetMax = 1300
+		RadialOffsetScaleY = 0.5
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		StartScale = 1
+		EndScale = 1.3
+		PingPongColor = true
+		GroupName = "FX_Add_Top"
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Gravity = 10
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		VelocityMin = 100
+		VelocityMax = 200
+	}
+
+
+	{
+		Name = "SorceryReadyMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = "speechBubble_00_M_JNT"
+		OffsetZ = 220
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "Standing"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+	}
+	{
+		Name = "SorceryReadyMoonLoopIn"
+		InheritFrom = "SorceryReadyMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		NumFrames = 60
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.3
+		Loop = false
+		ChainTo = "SorceryReadyMoonLoop"
+	}
+	{
+		Name = "SorceryReadyMoonLoopOut"
+		InheritFrom = "SorceryReadyMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		NumFrames = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		Loop = false
+		ChainTo = null
+	}
+
+	{
+		Name = "SorceryDarksideProjectile"
+		FilePath = "Fx\Sorcery\SorceryDarksideProjectile\SorceryDarksideProjectile"
+		NumFrames = 60
+		Loop = true
+		RandomFlipVertical = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		ScaleX = 1.1
+		Scale = 1.3
+		RandomStartFrame = false
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		CreateAnimations = [
+			{ Name = "SorceryDarksideProjectileDarkIn" }
+		]
+	}
+
+	{
+		Name = "SorceryDarksideProjectileDark"
+		InheritFrom = "SorceryDarksideProjectile"
+		FilePath = "Fx\Sorcery\SorceryDarksideProjectileDark\SorceryDarksideProjectileDark"
+		ClearCreateAnimations = true
+		VisualFx = null
+		GroupName = "FX_Dark"
+		DrawBehindOwner = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Red = 0
+		Green = 0
+		Blue = 0
+		DieWithOwner = true
+	}
+
+	{
+		Name = "SorceryDarksideProjectileIn"
+		InheritFrom = "SorceryDarksideProjectile"
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.15
+		LoopFramesOnly = true
+		Loop = false
+		EaseIn = 0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		ChainTo = "SorceryDarksideProjectile"
+	}
+
+	{
+		Name = "SorceryDarksideProjectileDarkIn"
+		InheritFrom = "SorceryDarksideProjectileDark"
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.15
+		LoopFramesOnly = true
+		Loop = false
+		EaseIn = 0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		ChainTo = "SorceryDarksideProjectileDark"
+	}
+
+	{
+		Name = "SorceryDarksideProjectileOut"
+		InheritFrom = "SorceryDarksideProjectile"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.15
+		LoopFramesOnly = true
+		Loop = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		TransferFrameToThis = true
+		ChainTo = null
+		ScaleFromOwner = "Ignore"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "SorceryDarksideProjectileDarkOut"
+		InheritFrom = "SorceryDarksideProjectileDark"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.15
+		LoopFramesOnly = true
+		Loop = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		TransferFrameToThis = true
+		ChainTo = null
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryDarksideProjectileGroundGlow"
+		FilePath = "Fx\Sorcery\SorceryDarksideProjectileGroundGlow\SorceryDarksideProjectileGroundGlow"
+		NumFrames = 60
+		Loop = true
+		PostRotateScaleY = 0.5
+		Scale = 7
+		RandomFlipVertical = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		DieWithOwner = true
+		GroupName = "FX_Terrain_Add"
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryDarksideRing"
+		FilePath = "Fx\Sorcery\SorceryDarksideRing\SorceryDarksideRing"
+		NumFrames = 60
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		ScaleRadius = 240
+		GroupName = "FX_Terrain"
+		Loop = true
+		VisualFx = "SorceryDarksideRingFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "SorceryDarksideRingFx"
+		Random = [
+			{ Name = "SorceryDarksideRingFx01" }
+			{ Name = "SorceryDarksideRingFx02" }
+			{ Name = "SorceryDarksideRingFx03" }
+			{ Name = "SorceryDarksideRingFx04" }
+			{ Name = "SorceryDarksideRingFx05" }
+			{ Name = "SorceryDarksideRingFx06" }
+			{ Name = "SorceryDarksideRingFx07" }
+			{ Name = "SorceryDarksideRingFx08" }
+			{ Name = "SorceryDarksideRingFx09" }
+			{ Name = "SorceryDarksideRingFx10" }
+		]
+	}
+
+	{
+		Name = "SorceryDarksideRingFxBase"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+		PostRotateScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		ScaleMin = 0.4
+		ScaleMax = 0.6
+		RandomFlipVertical = true
+		PingPongColor = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -50
+		StartScaleY = 0.4
+		EndScaleY = 1.0
+		StartScaleX = 1
+		EndScaleX = 2
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "SorceryDarksideRingFx01"
+		InheritFrom = "SorceryDarksideRingFxBase"
+	}
+	{
+		Name = "SorceryDarksideRingFx02"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.1
+	}	
+	{
+		Name = "SorceryDarksideRingFx03"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.2
+	}
+	{
+		Name = "SorceryDarksideRingFx04"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.3
+	}	
+	{
+		Name = "SorceryDarksideRingFx05"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.4
+	}	
+	{
+		Name = "SorceryDarksideRingFx06"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.5
+	}
+	{
+		Name = "SorceryDarksideRingFx07"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.6
+	}	
+	{
+		Name = "SorceryDarksideRingFx08"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.7
+	}
+	{
+		Name = "SorceryDarksideRingFx09"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.8
+	}	
+	{
+		Name = "SorceryDarksideRingFx10"
+		InheritFrom = "SorceryDarksideRingFxBase"
+		Hue = 0.9
+	}
+
+	{
+		Name = "SorceryLeapRiseStreaks"
+		FilePath = "Fx\MelBlinkStreak\MelBlinkStreak"
+		NumFrames = 22
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 0.4
+		StartGreen = 0.1
+		StartBlue = 0.6
+		EndRed = 0.1
+		EndGreen = 0.45
+		EndBlue = 0.5
+		ScaleX = 2.5
+		StartScaleY = 1
+		EndScaleY = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 340
+		OriginY = 120
+		GroupName = "FX_Standing_Add"
+		VisualFx = "SorceryLeapRiseParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxCap = 8
+		CreateAnimations = [
+			{ Name = "SorceryLeapRiseStreaksDark" }
+			{ Name = "SorceryLeapRiseStreaksDark2" }
+			{ Name = "SorceryLeapDustPuff" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapRiseStreaksDark"
+		InheritFrom = "SorceryLeapRiseStreaks"
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		GroupName = "FX_Dark"
+		NumFrames = 14
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		AddColor = false
+		ScaleX = 3.0
+	}	
+
+	{
+		Name = "SorceryLeapRiseStreaksDark2"
+		InheritFrom = "SorceryLeapRiseStreaksDark"
+		PlaySpeed = 30
+		FlipVertical = true
+	}
+
+	{
+		Name = "SorceryLeapDustPuff"
+		FilePath = "Fx\LobDustPuff\LobDustPuff"
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		NumFrames = 44
+		Scale = 1.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		StartRed = 0.4
+		StartGreen = 0.1
+		StartBlue = 0.6
+		EndRed = 0.1
+		EndGreen = 0.45
+		EndBlue = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SorceryLeapRiseParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 60
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		RandomStartFrame = true
+		AddColor = true
+		ReRandomizeOnLoop = false
+		RandomRotation = true
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomOffsetX = 20
+		VelocityMin = 120
+		VelocityMax = 360
+		Acceleration = -200
+		RandomDurationMin = 0.66
+		RandomDurationMax = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+	}
+
+
+	{
+		Name = "SorceryLeapFlightStreakEmitter"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		Red = 0.75
+		Green = 0.9
+		Blue = 1.0
+		Duration = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		VisualFx = "SorceryLeapFlightStreaks"
+		VisualFxDistanceMin = 45
+		VisualFxDistanceMax = 45
+		VisualFxUse3DAngle = true
+	}
+
+	{
+		Name = "SorceryLeapFlightStreakEmitterBright"
+		InheritFrom = "SorceryLeapFlightStreakEmitter"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "SorceryLeapFlightStreaksBright"
+	}	
+
+	{
+		Name = "SorceryLeapFlightStreakEmitterDisplace"
+		InheritFrom = "SorceryLeapFlightStreakEmitter"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "SorceryLeapFlightStreaksDisplace"
+	}
+
+	{
+		Name = "SorceryLeapFlightStreaks"
+		Random = [
+			{ Name = "SorceryLeapFlightStreakA" }
+			{ Name = "SorceryLeapFlightStreakB" }
+			{ Name = "SorceryLeapFlightStreakC" }
+			{ Name = "SorceryLeapFlightStreakD" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapFlightStreakA"
+		FilePath = "Fx\MelBlinkTrailDarkA\MelBlinkTrailDarkA"
+		NumFrames = 20
+		StartFrame = 10
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AddColor = false
+		GroupName = "Standing"
+		DrawBehindOwner = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleY = 0.5
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartScaleY = 0.5
+		EndScaleY = 1.45
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		OffsetZ = 30
+	}
+	{
+		Name = "SorceryLeapFlightStreakB"
+		InheritFrom = "SorceryLeapFlightStreakA"
+		FilePath = "Fx\MelBlinkTrailDarkB\MelBlinkTrailDarkB"
+	}
+	{
+		Name = "SorceryLeapFlightStreakC"
+		InheritFrom = "SorceryLeapFlightStreakA"
+		FilePath = "Fx\MelBlinkTrailDarkC\MelBlinkTrailDarkC"
+	}
+	{
+		Name = "SorceryLeapFlightStreakD"
+		InheritFrom = "SorceryLeapFlightStreakA"
+		FilePath = "Fx\MelBlinkTrailDarkD\MelBlinkTrailDarkD"
+	}
+
+	{
+		Name = "SorceryLeapFlightStreaksBright"
+		Random = [
+			{ Name = "SorceryLeapFlightStreakBrightA" }
+			{ Name = "SorceryLeapFlightStreakBrightB" }
+			{ Name = "SorceryLeapFlightStreakBrightC" }
+			{ Name = "SorceryLeapFlightStreakBrightD" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapFlightStreakBrightA"
+		FilePath = "Fx\MelBlinkParticlesA\MelBlinkParticlesA"
+		Material = "Unlit"
+		NumFrames = 27
+		StartFrame = 1
+		RandomFlipVertical = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		DrawBehindOwner = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleY = 0.5
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartScaleY = 0.5
+		EndScaleY = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		OffsetZ = 30
+		StartRed = 0.8
+		StartGreen = 0.3
+		StartBlue = 1.0
+		EndRed = 0.2
+		EndGreen = 0.9
+		EndBlue = 1
+
+	}
+	{
+		Name = "SorceryLeapFlightStreakBrightB"
+		InheritFrom = "SorceryLeapFlightStreakBrightA"
+		FilePath = "Fx\MelBlinkParticlesB\MelBlinkParticlesB"
+	}
+	{
+		Name = "SorceryLeapFlightStreakBrightC"
+		InheritFrom = "SorceryLeapFlightStreakBrightA"
+		FilePath = "Fx\MelBlinkParticlesC\MelBlinkParticlesC"
+	}
+	{
+		Name = "SorceryLeapFlightStreakBrightD"
+		InheritFrom = "SorceryLeapFlightStreakBrightA"
+		FilePath = "Fx\MelBlinkParticlesD\MelBlinkParticlesD"
+	}
+
+	{
+		Name = "SorceryLeapFlightStreaksDisplace"
+		Random = [
+			{ Name = "SorceryLeapFlightStreakDisplaceA" }
+			{ Name = "SorceryLeapFlightStreakDisplaceB" }
+			{ Name = "SorceryLeapFlightStreakDisplaceC" }
+			{ Name = "SorceryLeapFlightStreakDisplaceD" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapFlightStreakDisplaceA"
+		InheritFrom = "SorceryLeapFlightStreakBrightA"
+		GroupName = "FX_Displacement"
+		ScaleY = 0.5
+		StartAlpha = 0.2
+		EndAlpha = 0.4
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+	}
+	{
+		Name = "SorceryLeapFlightStreakDisplaceB"
+		InheritFrom = "SorceryLeapFlightStreakDisplaceA"
+		FilePath = "Fx\MelBlinkParticlesB\MelBlinkParticlesB"
+	}
+	{
+		Name = "SorceryLeapFlightStreakDisplaceC"
+		InheritFrom = "SorceryLeapFlightStreakDisplaceA"
+		FilePath = "Fx\MelBlinkParticlesC\MelBlinkParticlesC"
+	}
+	{
+		Name = "SorceryLeapFlightStreakDisplaceD"
+		InheritFrom = "SorceryLeapFlightStreakDisplaceA"
+		FilePath = "Fx\MelBlinkParticlesD\MelBlinkParticlesD"
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFx"
+		FilePath = "Fx\RadialNovaPentagram\RadialNovaPentagram"
+		NumFrames = 30
+		StartRed = 0.8
+		StartGreen = 0.2
+		StartBlue = 1.0
+		EndRed = 0.1
+		EndGreen = 0.99
+		EndBlue = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		ScaleRadius = 330
+		PlaySpeed = 90
+		TimeModifierFraction = 0.5
+		CreateAnimations = [
+			{ Name = "SorceryLeapBlastDetonateFxDark" }
+			{ Name = "SorceryLeapBlastDetonateFxDissipate" }
+			{ Name = "QuickFlashMoon" }
+			{ Name = "SorceryLeapBlastDetonateFxVignette" }
+			{ Name = "SorceryLeapBlastDetonateFxGlow" }
+			{ Name = "SorceryLeapBlastDetonateFxFlare" }
+			{ Name = "SorceryLeapBlastDetonateFxHole" }
+			{ Name = "SorceryLeapBlastDetonateFxDirt" }
+			{ Name = "SorceryLeapBlastDetonateFxDirt" }
+			{ Name = "SorceryLeapBlastDetonateFxDirt" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateRadialFx" }
+			{ Name = "SorceryLeapBlastDetonateFxDustPuff" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxDark"
+		FilePath = "Fx\AxeNovaDark\AxeNovaDark"
+		NumFrames = 36
+		PlaySpeed = 75
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Dark"
+		RandomRotation = true
+		ScaleRadius = 115
+		Scale = 2.5
+		TimeModifierFraction = 0.75
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxDustPuff"
+		FilePath = "Fx\LobDustPuff\LobDustPuff"
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		NumFrames = 44
+		Scale = 1.5
+		StartScale = 1
+		EndScale = 1.3
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = false
+		StartRed = 0.8
+		StartGreen = 0.7
+		StartBlue = 0.6
+		EndRed = 0.9
+		EndGreen = 0.8
+		EndBlue = 0.7
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PlaySpeed = 30
+	}
+
+
+	{
+		Name = "SorceryLeapBlastDetonateFxDirt"
+		FilePath = "Fx\DirtSlam\DirtSlam"
+		NumFrames = 31
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 1.3
+		RandomOffsetX = 200
+		RandomOffsetY = 100
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxHole"
+		FilePath = "Fx\FogEmitterSlamNova\Hole"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Duration = 30
+		ChainTo = "FogEmitterSlamHoleFadeA"
+		GroupName = "FX_Terrain"
+		ScaleMin = 0.7
+		ScaleMax = 0.8
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxDissipate"
+		FilePath = "Fx\AxeNova\AxeNovaDissipate"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartAlpha = 0.25
+		EndAlpha = 0.0
+		Duration = 3
+		ScaleRadius = 200
+		Scale = 1
+		StartScale = 1
+		EndScale = 1.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotation = true
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.6
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxVignette"
+		FilePath = "Fx\Sorcery\SorceryMeteor\SorceryMeteorVignette"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 3
+		StartScale = 1
+		EndScale = 1.5
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 0.25
+		EndAlpha = 0
+		GroupName = "FX_Dark"
+		Duration = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+
+	{
+		Name = "SorceryLeapBlastDetonateFxGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 0.5
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		Scale = 2
+		ScaleX = 3
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 100
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateFxFlare"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.8
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.5
+		EndBlue = 0.999
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 2
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		StartScaleX = 1
+		EndScaleX = 0.5
+	}
+
+
+	{
+		Name = "SorceryLeapBlastDetonateRadialFx"
+		Random = [
+			{ Name = "SorceryLeapBlastDetonateRadialFxA" }
+			{ Name = "SorceryLeapBlastDetonateRadialFxB" }
+			{ Name = "SorceryLeapBlastDetonateRadialFxC" }
+		]
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB1"
+		OriginX = 380
+		OriginY = 512
+		PostRotateScaleY = 0.6
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		StartScale = 1
+		EndScale = 1.1
+		ScaleY = 0.3
+		StartScaleX = 0.2
+		EndScaleX = 1.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.7
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SorceryLeapBlastDetonateRadialFxB"
+		InheritFrom = "SorceryLeapBlastDetonateRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB2"
+	}
+	{
+		Name = "SorceryLeapBlastDetonateRadialFxC"
+		InheritFrom = "SorceryLeapBlastDetonateRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxB3"
+	}
+
+	{
+		Name = "SorceryWolfHowlDecal"
+		FilePath = "Fx\Sorcery\SorceryWolfHowlDecal"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 452
+		GroupName = "FX_Terrain_Add"
+		ChildAnimation = "SorceryWolfHowlDecalFxA"
+		RotationSpeed = 5
+	}
+
+	{
+		Name = "SorceryWolfHowlDecalFxA"
+		InheritFrom = "SorceryWolfHowlDecal"
+		ScaleRadius = 0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		VisualFx = null
+		Loop = true
+		ChildAnimation = "SorceryWolfHowlDecalFxB"
+	}
+
+	{
+		Name = "SorceryWolfHowlDecalFxB"
+		InheritFrom = "SorceryWolfHowlDecalFxA"
+		Duration = 0.75
+		EndScale = 1.1
+		ChildAnimation = null
+	}
+
+]}
+

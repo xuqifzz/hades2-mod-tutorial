@@ -1,0 +1,270 @@
+{ Animations = [
+	
+	{
+		Name = "NPCHecateBaseAnimations"
+		GrannyAnimation = "null"
+		GrannyModel = "HecateHub_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		Masks = 
+		[
+		]
+		
+	}
+
+	{
+		Name = "HecateBaseHubAnimations"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_IdleHub_C_00"
+		Attachments =
+		[
+			{
+				Name = "HecateTorchMultipleHubIdle"
+				ToBone = "Hecate_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "HecateTorchMultipleHubIdle"
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		GrannyAnimation = "TorchMultHub_Weapon_Base_Idle_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+	}
+
+	{
+		Name = "HecateTorchHubIdleSingleR"
+		GrannyModel = "WeaponHecateR_Mesh"
+		GrannyAnimation = "TorchR_Weapon_Base_IdleHUB_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		CreateAnimations =
+		[
+			{ Name = "HecateTorchFlameRight_Hub" }
+		]
+	}
+
+
+	{
+		Name = "HecateHubIdle"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_IdleHub_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "HecateHubGreet"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_Greet_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Affirm"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubAffirm_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Salute"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubSalute_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Scoff"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubScoff_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Hub_Explaining_Start"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubExplainingIntro_C_00"
+		ChainTo = "Hecate_Hub_Explaining_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Explaining_FireLoop"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubExplainingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hecate_Hub_Explaining_End"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubExplainingReturnToIdle_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Hub_Explaining_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Hub_Stern_Start"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubSternIntro_C_00"
+		ChainTo = "Hecate_Hub_Stern_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Stern_FireLoop"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubSternLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hecate_Hub_Stern_End"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "HecateHub_Torch_Base_HubSternReturnToIdle_C_00"
+		ChainTo = "HecateHubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Hub_Stern_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+
+	{
+		Name = "Hecate_Hub_Hide_Start"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_Hide_C_00"
+		ChainTo = "Hecate_Hub_Hide_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "HecateHubIdle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Hide_FireLoop"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_HideLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Hecate_Hub_Hide_End"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_HideYouGotMe_C_00"
+		ChainTo = "HecateHubIdle"
+		Frames =
+		[
+			{
+				Frame = 100
+				Sound = "/Leftovers/SFX/FootstepsWetSmall"
+			}
+			{
+				Frame = 126
+				Sound = "/Leftovers/SFX/FootstepsWetSmall"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Hecate_Hub_Hide_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Hecate_Hub_Hide_End_Short"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_HideStandUp_C_00"
+		ChainTo = "HecateHubIdle"
+	}
+
+
+	{
+		Name = "Hecate_Hub_Hide_Fidget"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_HideStandUp_C_00"
+		ChainTo = "Hecate_Hub_Hide_Fidget2"
+		Frames =
+		[
+			{
+				Frame = 16
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Hecate_Hub_Hide_Fidget2"
+		InheritFrom = "NPCHecateBaseAnimations"
+		GrannyAnimation = "Hecate_NoTorch_Base_HideStandUp_C_00"
+		PlayBackwards = true
+		ChainTo = "Hecate_Hub_Hide_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{ // frame should be 90 - x, where x is the frame the Fidget above ends on
+				Frame = 74
+				FrameSpeed = 0.3
+			}
+			{
+				Frame = 80
+				FrameSpeed = 0.7
+			}
+		]
+	}
+
+]}

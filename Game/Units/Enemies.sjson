@@ -1,0 +1,4971 @@
+{ Units = [
+	
+	{
+		Name = "1_BaseEnemy"
+		CosmeticRotationSpeed = 470.0
+		DefaultAngle = 270.0
+		DisplayInEditor = true
+		RotationSpeed = 1200.0
+		Speed = 400.0
+		Life = 
+		{
+			ArmorCoverage = 220.0
+			HitSound = "/EmptyCue"
+			SoundManagerCap = 32
+			TriggerOnHit = true
+			HomingEligible = true
+		}
+		MoveAI = 
+		{
+			LookAheadDistance = 512.0
+			SuccessDistance = 100.0
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			StopsProjectiles = true
+			StopsUnits = true
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Grip = 2500.0
+			Gravity = 18000
+			SelectionHeight = 300.0
+			SelectionWidth = 300.0
+			AllowDrawableCache = false
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "CorruptedEgg"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		ImmuneToStun = true
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Speed = 0
+		Thing = 
+		{
+			Graphic = "HydraTooth"
+		}
+	}
+	
+	{
+		Name = "Mage"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		StartGraphic = "Enemy_Mage_MoveStart"
+		MoveGraphic = "Enemy_Mage_Move"
+		StopGraphic = "Enemy_Mage_MoveStop"
+		RotationSpeed = 1200
+		CosmeticRotationSpeed = 520
+		Speed = 280.0
+		Thing = 
+		{
+			GrannyModel = "Mage_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Mage_Idle"
+			Tallness = 180
+			Scale = 0.8
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Mage_Elite"
+		InheritFrom = "Mage"
+		DisplayInEditor = true
+		Speed = 440
+	}
+
+	{
+		Name = "Mage2"
+		InheritFrom = "Mage"
+		DisplayInEditor = true
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Thing = 
+		{
+			GrannyModel = "Mage2_Mesh"
+		}
+	}
+	
+	{
+		Name = "Mage2_Elite"
+		InheritFrom = "Mage2"
+		DisplayInEditor = true
+		Speed = 440
+		Thing = 
+		{
+			Scale = 1.0
+		}
+	}
+	
+	{
+		Name = "Guard"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Guard_Move"
+		Speed = 125.0
+		StartGraphic = "Enemy_Guard_MoveStart"
+		StopGraphic = "Enemy_Guard_MoveStop"
+		Thing = 
+		{
+			GrannyModel = "Guard_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Guard_Idle"
+			Tallness = 230
+			Scale = 0.65
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Guard_Elite"
+		InheritFrom = "Guard"
+		DisplayInEditor = true
+		Speed = 250.0
+	}
+
+	{
+		Name = "Guard2"
+		InheritFrom = "Guard"
+		DisplayInEditor = true
+		Speed = 250
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Guard2_Mesh"
+			OffsetZ = 10
+		}
+	}
+	
+	{
+		Name = "Guard2_Elite"
+		InheritFrom = "Guard2"
+		DisplayInEditor = true
+		Speed = 360.0
+	}
+
+	{
+		Name = "Guard3"
+		InheritFrom = "Guard"
+		DisplayInEditor = true
+		Speed = 125.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.2
+			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Guard4"
+		InheritFrom = "Guard"
+		DisplayInEditor = true
+		Speed = 300.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 0.9
+			Color = { Red = 1.0 Green = 1.0 Blue = 0.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Brawler"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Brawler_Move"
+		Speed = 160.0
+		StopGraphic = "null"
+		Thing = 
+		{
+			GrannyModel = "Brawler_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Brawler_Idle"
+			Tallness = 180
+			AttachedAnim = "MedusaShadow"
+			Gravity = 18000
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Brawler_Elite"
+		InheritFrom = "Brawler"
+		DisplayInEditor = true
+		Speed = 280.0
+	}
+	
+	{
+		Name = "Radiator"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Radiator_Move"
+		Speed = 390.0
+		StopGraphic = "Enemy_Radiator_MoveStop"
+		Thing = 
+		{
+			GrannyModel = "Radiator_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Radiator_Idle"
+			OffsetZ = 10.0
+			Tallness = 110
+			AttachedAnim = "MedusaShadow"
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+			Using =
+			[
+				{ Name = "Enemy_Radiator_Death" }
+			]
+		}
+	}
+	
+	{
+		Name = "Radiator_Elite"
+		InheritFrom = "Radiator"
+		Speed = 590
+		DisplayInEditor = true
+	}
+
+	{
+		Name = "Radiator2"
+		InheritFrom = "Radiator"
+		Speed = 500
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Radiator2_Mesh"
+			Scale = 1.15
+		}
+	}
+	
+	{
+		Name = "Radiator2_Elite"
+		InheritFrom = "Radiator2"
+		DisplayInEditor = true
+		Speed = 600.0
+	}
+	
+	{
+		Name = "Wisp"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Wisp_Move_FireLoop"
+		Speed = 120.0
+		StopGraphic = "Enemy_Wisp_Move_Stop"
+		Thing = 
+		{
+			GrannyModel = "Wisp_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Wisp_Idle"
+			ExtentScale = 0.6
+			OffsetZ = 10
+			Tallness = 110
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Wisp_Elite"
+		InheritFrom = "Wisp"
+		DisplayInEditor = true
+		Speed = 300.0
+	}
+	
+	{
+		Name = "Screamer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 290
+		RotationSpeed = 720
+		CosmeticRotationSpeed = 360
+		MoveGraphic = "Enemy_Screamer_Move"
+		StartGraphic = "Enemy_Screamer_MoveStart"
+		StopGraphic = "Enemy_Screamer_MoveStop"
+		MoveAI =
+		{
+			SlowToRotate = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Screamer_Mesh"
+			Graphic = "Enemy_Screamer_Idle"
+			Tallness = 200
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Screamer_Elite"
+		InheritFrom = "Screamer"
+		DisplayInEditor = true
+		Speed = 390.0
+	}
+	
+	{
+		Name = "Screamer2"
+		InheritFrom = "Screamer"
+		DisplayInEditor = true
+		Speed = 460.0
+		SlowEffectModifier = 0.7
+		StunBreakModifier = 1.5
+		Thing = 
+		{
+			GrannyModel = "Screamer2_Mesh"
+			EditorOutlineDrawBounds = false
+			Scale = 1.45
+		}
+	}
+
+	{
+		Name = "Treant"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 0.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		DefaultAngle = 207.0
+		Thing = 
+		{
+			GrannyModel = "Treant_Mesh"
+			Graphic = "Enemy_Treant_Idle"
+			EditorOutlineDrawBounds = false
+			ImmuneToForce = true
+			Tallness = 270
+			Scale = 0.9
+			ExtentScale = 0.65
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+
+	{
+		Name = "Treant2"
+		InheritFrom = "Treant"
+		DisplayInEditor = true
+		Speed = 200
+		StunBreakModifier = 1.5
+		SlowEffectModifier = 0.5
+		Thing = 
+		{
+			GrannyModel = "Treant2_Mesh"
+			Scale = 1.2
+		}
+	}
+
+	{
+		Name = "TreantTail"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 400.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Thing = 
+		{
+			GrannyModel = "TreantTail_Mesh"
+			Graphic = "Enemy_TreantTail_Idle",
+			AttachedAnim = null,
+			EditorOutlineDrawBounds = false
+			Tallness = 230
+			Scale = 0.6
+			ImmuneToForce = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "TreantTail2"
+		InheritFrom = "TreantTail"
+		Thing =
+		{
+			Scale = 0.75
+		}
+	}
+	
+	{
+		Name = "SiegeVine"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 0.0
+		RotationSpeed = 0.0
+		MoveGraphic = "null"
+		StartGraphic = "null"
+		StopGraphic = "null"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ImmuneToForce = true
+			Scale = 1.0
+			Graphic = "Enemy_SiegeVine_Idle"
+			GrannyModel = "SiegeVine_Mesh"
+			Tallness = 260
+			ExtentScale = 2.1
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "SiegeVine_Elite"
+		InheritFrom = "SiegeVine"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "SiegeVine2"
+		InheritFrom = "SiegeVine"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "FogEmitter"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		RotationSpeed = 150.0
+		Speed = 0.0
+		MoveGraphic = "Enemy_FogEmitter_Move"
+		StartGraphic = "Enemy_FogEmitter_MoveStart"
+		StopGraphic = "Enemy_FogEmitter_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ImmuneToForce = true
+			GrannyModel = "FogEmitter_Mesh"
+			Graphic = "Enemy_FogEmitter_Idle"
+			Tallness = 220
+			ExtentScale = 2.0
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "FogEmitter_Elite"
+		InheritFrom = "FogEmitter"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "FogEmitter2"
+		InheritFrom = "FogEmitter"
+		DisplayInEditor = true
+		Speed = 210.0
+		Thing =
+		{
+			GrannyModel = "FogEmitter2_Mesh"
+			Scale = 0.7
+		}
+	}
+	
+	{
+		Name = "FishmanMelee"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 370.0
+		MoveGraphic = "Enemy_FishmanMelee_Move"
+		StartGraphic = "Enemy_FishmanMelee_MoveStart"
+		StopGraphic = "Enemy_FishmanMelee_MoveStop"
+		StunBreakModifier = 1.35
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_FishmanMelee_Idle"
+			GrannyModel = "FishmanMelee_Mesh"
+			ExtentScale = 1.6
+			Tallness = 200
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "FishmanMelee_Elite"
+		InheritFrom = "FishmanMelee"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "FishmanRanged"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 390.0
+		MoveGraphic = "Enemy_FishmanRanged_Move"
+		StartGraphic = "Enemy_FishmanRanged_MoveStart"
+		StopGraphic = "Enemy_FishmanRanged_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_FishmanRanged_Idle"
+			GrannyModel = "FishmanRanged_Mesh"
+			OffsetZ = 10
+			Tallness = 190
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "FishmanRanged_Elite"
+		InheritFrom = "FishmanRanged"
+		DisplayInEditor = true
+		Speed = 430
+	}
+	
+	{
+		Name = "FishSwarmer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 440.0
+		RotationSpeed = 5000
+		MoveGraphic = "Enemy_FishSwarmer_Move"
+		StopGraphic = "Enemy_FishSwarmer_MoveStop"
+		StartGraphic = "Enemy_FishSwarmer_MoveStart"
+		MoveAI =
+		{
+			SlowToRotate = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_FishSwarmer_Idle"
+			GrannyModel = "FishSwarmer_Mesh"
+			ImpulsedFx = "FishSwarmerStreak"
+			OffsetZ = 50.0
+			Scale = 1.0
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			Tallness = 130.0
+			UseBoundsForSortDrawArea = true
+			StopsUnits = false
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "FishSwarmer_Elite"
+		InheritFrom = "FishSwarmer"
+		DisplayInEditor = true
+		Speed = 900
+		Thing = 
+		{
+			Scale = 1.4
+		}
+	}
+	
+	{
+		Name = "Turtle"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Turtle_Move"
+		StopGraphic = "Enemy_Turtle_MoveStop"
+		StartGraphic = "Enemy_Turtle_MoveStart"
+		Speed = 200.0
+		StunBreakModifier = 0.33
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.0
+			Graphic = "Enemy_Turtle_Idle"
+			GrannyModel = "Turtle_Mesh"
+			Tallness = 110
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Turtle_Elite"
+		InheritFrom = "Turtle"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "WaterUnit"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 0.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/WaterUnit/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_WaterUnit_Idle"
+			GrannyModel = "WaterUnit_Mesh"
+			Tallness = 120
+			Scale = 1.1
+			ImmuneToForce = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "WaterUnit_Elite"
+		InheritFrom = "WaterUnit"
+		DisplayInEditor = true
+	}
+	{
+		Name = "WaterUnitMiniboss"
+		InheritFrom = "WaterUnit"
+		DisplayInEditor = true
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteHurt"
+		}
+		Thing = 
+		{
+			GrannyModel = "MegaWaterUnit_Mesh"
+			Scale = 2.0
+			AmbientSound = "/SFX/Enemy Sounds/DespairElementalRegular/BreathingLoop"
+		}
+	}
+	
+	{
+		Name = "Mudman"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 150.0
+		MoveGraphic = "Enemy_Mudman_Move"
+		StartGraphic = "Enemy_Mudman_MoveStart"
+		StopGraphic = "Enemy_Mudman_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.0
+			GrannyModel = "Mudman_Mesh"
+			Graphic = "Enemy_Mudman_Idle"
+			Tallness = 200
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Mudman_Elite"
+		InheritFrom = "Mudman"
+		DisplayInEditor = true
+		Speed = 250
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.2
+			GrannyModel = "Mudman_Mesh"
+			Graphic = "Enemy_Mudman_Idle"
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "MudmanEye"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 300.0
+		MoveGraphic = "Enemy_MudmanEye_Move"
+		StartGraphic = null
+		StopGraphic = null
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.6
+			ExtentScale = 0.25
+			OffsetZ = 20.0
+			GrannyModel = "MudmanProjectile_Mesh"
+			Graphic = "Enemy_MudmanEye_Idle"
+			Tallness = 40
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "MudmanEye_Elite"
+		InheritFrom = "MudmanEye"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "Zombie"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Zombie_Move"
+		StartGraphic = "Enemy_Zombie_MoveStart"
+		StopGraphic = "Enemy_Zombie_MoveStop"
+		Speed = 75.0
+		StunBreakModifier = 0.14
+		Thing = 
+		{
+			Graphic = "Enemy_Zombie_Idle"
+			GrannyModel = "Zombie_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteBreathingLoop1"
+			EditorOutlineDrawBounds = false
+			Scale = 0.8
+			Tallness = 210
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Zombie_Elite"
+		InheritFrom = "Zombie"
+		DisplayInEditor = true
+		Speed = 150
+		MoveGraphic = "Enemy_Zombie_MoveFast"
+		StartGraphic = "Enemy_Zombie_MoveStartFast"
+		Thing = 
+		{
+			Scale = 0.915
+		}
+	}
+	{
+		Name = "Zombie_Passive"
+		InheritFrom = "Zombie"
+	}
+
+	{
+		Name = "ZombieCrewman"
+		InheritFrom = "Zombie"
+		DisplayInEditor = true
+		Thing = 
+		{
+			GrannyModel = "ZombieCrewman_Mesh"
+		}
+	}
+
+	{
+		Name = "ZombieCrewman_Elite"
+		InheritFrom = "ZombieCrewman"
+	}
+
+	{
+		Name = "ZombieAssassin"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 300.0
+		MoveGraphic = "Enemy_ZombieAssassin_Move"
+		StartGraphic = "Enemy_ZombieAssassin_MoveStart"
+		StopGraphic = "Enemy_ZombieAssassin_MoveStop"
+		StunBreakModifier = 5
+		SlowEffectModifier = 0.8
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_ZombieAssassin_Idle"
+			GrannyModel = "Assassin_Mesh"
+			Scale = 1.0
+			Tallness = 160
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "ZombieAssassin_Elite"
+		InheritFrom = "ZombieAssassin"
+		DisplayInEditor = true
+		Speed = 400.0
+	}
+	
+	{
+		Name = "ZombieHeavyRanged"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_ZombieHR_Move"
+		StartGraphic = "Enemy_ZombieHR_MoveStart"
+		StopGraphic = "Enemy_ZombieHR_MoveStop"
+		Speed = 175.0
+		RotationSpeed = 600.0
+		Thing = 
+		{
+			Graphic = "Enemy_ZombieHR_Idle"
+			GrannyModel = "ZombieHeavyRanged_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteBreathingLoop2"
+			EditorOutlineDrawBounds = false
+			ExtentScale = 1.5
+			Tallness = 210
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "ZombieHeavyRanged_Elite"
+		InheritFrom = "ZombieHeavyRanged"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "ZombieSpawner"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 0.0
+		RotationSpeed = 0.0
+		ImmuneToStun = false
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_ZombieSpawner_Idle"
+			GrannyModel = "ZombieSpawner_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/ZombieSpawner/EmoteBreathingLoop"
+			ExtentScale = 1.2
+			Scale = 0.6
+			Tallness = 250
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "ZombieSpawner_Elite"
+		InheritFrom = "ZombieSpawner"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_ZombieSpawner_Idle"
+			GrannyModel = "ZombieSpawner_Mesh"
+			ExtentScale = 1.2
+			Scale = 0.75
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "ClockworkHeavyMelee"
+		InheritFrom = "1_BaseEnemy"
+		CosmeticRotationSpeed = 300.0
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_CWHeavyMelee_Move"
+		StartGraphic = "Enemy_CWHeavyMelee_MoveStart"
+		StopGraphic = "Enemy_CWHeavyMelee_MoveStop"
+		RotationSpeed = 1500.0
+		Speed = 350.0
+		StunBreakModifier = 1.35
+		SlowEffectModifier = 0.70
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/HeavyMelee/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_CWHeavyMelee_Idle"
+			GrannyModel = "WretchThug_Mesh"
+			ImpulsedFx = "KnockbackLinesWithBlood"
+			SelectionHeight = 500.0
+			SelectionShiftY = 50.0
+			SelectionWidth = 500.0
+			Tallness = 200.0
+			ExtentScale = 1.2
+			Scale = 0.95
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "ClockworkHeavyMelee_Elite"
+		InheritFrom = "ClockworkHeavyMelee"
+		Speed = 400
+		Thing = 
+		{
+			Scale = 1.05
+		}
+	}
+
+	{
+		Name = "GoldElemental"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 400.0
+		MoveGraphic = "Enemy_GoldElemental_Move"
+		StartGraphic = "Enemy_GoldElemental_MoveStart"
+		StopGraphic = "Enemy_GoldElemental_MoveStop"
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/GoldElemental/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_GoldElemental_Idle"
+			GrannyModel = "GoldElemental_Mesh"
+			OffsetZ = 20
+			Scale = 1.2
+			Tallness = 160
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "GoldElemental_Elite"
+		InheritFrom = "GoldElemental"
+		Speed = 500
+		Thing = 
+		{
+			Scale = 1.3
+		}
+	}
+	{
+		Name = "GoldElemental_MiniBoss"
+		InheritFrom = "GoldElemental"
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteHurt"
+		}
+		Thing = 
+		{
+			Scale = 1.65
+		}
+	}
+
+	{
+		Name = "TimeElemental"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 100.0
+		MoveGraphic = "Enemy_TimeElemental_Move"
+		StartGraphic = "Enemy_TimeElemental_MoveStart"
+		StopGraphic = "Enemy_TimeElemental_MoveStop"
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life = 
+		{
+			HitSound = "/SFX/RockStoneImpact"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_TimeElemental_Idle"
+			GrannyModel = "TimeElemental_Mesh"
+			Tallness = 160
+			OffsetZ = 50
+			Scale = 0.80
+			AmbientSound = "/SFX/Enemy Sounds/TimeElemental/TimeElementalAmbientLoop"
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "TimeElemental_Elite"
+		InheritFrom = "TimeElemental"
+		Thing = 
+		{
+			Scale = 0.85
+		}
+	}
+
+	{
+		Name = "SatyrRatCatcher"
+		InheritFrom = "1_BaseEnemy"
+		MoveGraphic = "Enemy_SatyrRatCatcher_Move"
+		StartGraphic = "Enemy_SatyrRatCatcher_MoveStart"
+		StopGraphic = "Enemy_SatyrRatCatcher_MoveStop"
+		Speed = 250.0
+		StunBreakModifier = 1.35
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteHurt"
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SatyrRatCatcher_Idle"
+			GrannyModel = "SatyrRatcatcher_Mesh"
+			Tallness = 250.0
+			ExtentScale = 0.8
+			Scale = 0.8
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "SatyrRatCatcher_Elite"
+		InheritFrom = "SatyrRatCatcher"
+		Speed = 300.0
+		Thing =
+		{
+			ExtentScale = 0.9
+			Scale = 0.9
+		}
+	}
+	{
+		Name = "SatyrRatCatcher_Miniboss"
+		InheritFrom = "SatyrRatCatcher"
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/EmoteHurt"
+		}
+		Thing =
+		{
+			GrannyModel = "GiganticVerminancer_Mesh"
+			Scale = 1.2
+			ExtentScale = 1.2
+		}
+	}
+	{
+		Name = "SatyrCultist"
+		InheritFrom = "SatyrRatCatcher"
+		DefaultAngle = null
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/SatyrCultist/EmoteHurt"
+		}
+		Thing =
+		{
+			AmbientSound = null
+			Scale = 0.7
+		}
+	}
+
+	{
+		Name = "SatyrLancer"
+		InheritFrom = "1_BaseEnemy"
+		MoveGraphic = "Enemy_SatyrLancer_Move"
+		StartGraphic = "Enemy_SatyrLancer_MoveStart"
+		StopGraphic = "Enemy_SatyrLancer_MoveStop"
+		Speed = 350.0
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/SatyrLancer/EmoteHurt"
+			InvulnerableCoverage = 140.0
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SatyrLancer_Idle"
+			GrannyModel = "SatyrLancer_Mesh"
+			Tallness = 230.0
+			ExtentScale = 1.6
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "SatyrLancer_Elite"
+		InheritFrom = "SatyrLancer"
+		Speed = 500.0
+	}
+
+	{
+		Name = "SatyrCrossbow"
+		InheritFrom = "1_BaseEnemy"
+		MoveGraphic = "Enemy_SatyrCB_Move"
+		StartGraphic = "Enemy_SatyrCB_MoveStart"
+		StopGraphic = "Enemy_SatyrCB_MoveStop"
+		Speed = 350.0
+		Life = 
+		{
+			InvulnerableCoverage = 140.0
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SatyrCB_Idle"
+			GrannyModel = "SatyrCrossbow_Mesh"
+			Tallness = 230.0
+		}
+	}
+	
+	{
+		Name = "Carrion"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Carrion_Move"
+		StopGraphic = "null"
+		StartGraphic = "null"
+		RotationSpeed = 400.0
+		Speed = 300.0
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			LookAheadDistance = 512.0
+			SuccessDistance = 100.0
+			SlowToRotate = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Carrion_Idle"
+			GrannyModel = "Carrion_Mesh"
+			Grip = 6000.0
+			//ImpulsedFx = "KnockbackLinesWithBloodSmall"
+			OffsetZ = 50.0
+			SelectionHeight = 350.0
+			SelectionShiftY = 60
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			Scale = 0.9
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Carrion_Elite"
+		InheritFrom = "Carrion"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Carrion_Idle"
+			GrannyModel = "Carrion_Mesh"
+			Grip = 6000.0
+			OffsetZ = 50.0
+			SelectionHeight = 350.0
+			SelectionShiftY = 60
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			Scale = 1.0
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Carrion_Passive"
+		InheritFrom = "Carrion"
+		RandomDefaultAngle = true
+	}
+
+	{
+		Name = "Scimiterror"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 400.0
+		MoveGraphic = "Enemy_Scimiterror_Move"
+		StartGraphic = "Enemy_Scimiterror_MoveStart"
+		StopGraphic = "Enemy_Scimiterror_MoveStop"
+		Thing = 
+		{
+			Graphic = "Enemy_Scimiterror_Idle"
+			GrannyModel = "Scimiterror_Mesh"
+			EditorOutlineDrawBounds = false
+			UseBoundsForSortDrawArea = true
+			OffsetZ = 20.0
+			Tallness = 200.0
+      Scale = 1.3
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Scimiterror_Elite"
+		InheritFrom = "Scimiterror"
+		Thing =
+		{
+			Scale = 1.5
+		}
+	}
+
+	{
+		Name = "Stickler"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Speed = 0.0
+		Thing = 
+		{
+			GrannyModel = "DeadSeaStickler_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Stickler_Idle"
+			Tallness = 170
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Stickler_Elite"
+		InheritFrom = "Stickler"
+		Thing =
+		{
+			Scale = 1.125
+		}
+	}
+
+	{
+		Name = "Drunk"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Drunk_Move"
+		StartGraphic = "Enemy_Drunk_MoveStart"
+		StopGraphic = "Enemy_Drunk_MoveStop"
+		Speed = 300.0
+		Thing = 
+		{
+			GrannyModel = "DeadSeaDrunk_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Drunk_Idle"
+			Tallness = 180
+			ExtentScale = 0.65
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "Drunk_Elite"
+		InheritFrom = "Drunk"
+		Thing =
+		{
+			Scale = 1.2
+		}
+	}
+
+	{
+		Name = "Swab"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Swab_Move"
+		StartGraphic = "Enemy_Swab_MoveStart"
+		StopGraphic = "Enemy_Swab_MoveStop"
+		Speed = 200.0
+		Thing = 
+		{
+			GrannyModel = "DeadSeaSwab_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteBreathingLoop2"
+			EditorOutlineDrawBounds = false
+			UseBoundsForSortDrawArea = true
+			Graphic = "Enemy_Swab_Idle"
+			Tallness = 210
+			Points =
+			[
+				{ X = 0 Y = 40 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -40 }
+				{ X = -80 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Swab_Elite"
+		InheritFrom = "Swab"
+		Speed = 300.0
+		Thing =
+		{
+			Scale = 1.4
+		}
+	}
+
+	{
+		Name = "DespairElemental"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		CanOnlyMoveForward = true
+		Speed = 340
+		RotationSpeed = 125
+		StartGraphic = "Enemy_DespairElemental_MoveStart"
+		MoveGraphic = "Enemy_DespairElemental_Move"
+		StopGraphic = "Enemy_DespairElemental_MoveStop"
+		SlowEffectModifier = 0.60
+		MoveAI =
+		{
+			SlowToRotate = false
+		}
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/DespairElementalRegular/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "DespairElemental_Mesh"
+			Graphic = "Enemy_DespairElemental_Idle"
+			AmbientSound = "/SFX/Enemy Sounds/DespairElementalRegular/BreathingLoop"
+			Tallness = 200
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "DespairElemental_Elite"
+		InheritFrom = "DespairElemental"
+	}
+	{
+		Name = "DespairElementalLarge"
+		InheritFrom = "DespairElemental"
+		Speed = 280
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/DespairElementalHuge/EmoteHurt"
+		}
+		Thing = 
+		{
+			Scale = 1.3
+			AmbientSound = "/SFX/Enemy Sounds/DespairElementalHuge/BreathingLoop"
+		}
+	}
+	{
+		Name = "DespairElementalLarge_Elite"
+		InheritFrom = "DespairElementalLarge"
+	}
+	
+	{
+		Name = "CorruptedShadeSmall"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 320.0
+		MoveGraphic = "Enemy_CorruptedShadeS_Move"
+		StartGraphic = "Enemy_CorruptedShadeS_MoveStart"
+		StopGraphic = "Enemy_CorruptedShadeS_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_CorruptedShadeS_Idle"
+			GrannyModel = "CorruptedShadesS_Mesh"
+			Scale = 1.2
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "CorruptedShadeSmall_Elite"
+		InheritFrom = "CorruptedShadeSmall"
+		Thing = 
+		{
+			Scale = 1.34
+		}
+	}
+	
+	{
+		Name = "CorruptedShadeMedium"
+		InheritFrom = "1_BaseEnemy"
+		CanOnlyMoveForward = true
+		DisplayInEditor = true
+		Speed = 190.0
+		RotationSpeed = 720
+		CosmeticRotationSpeed = 360
+		SlowEffectModifier = 0.76
+		MoveGraphic = "Enemy_CorruptedShadeM_Move"
+		StartGraphic = "Enemy_CorruptedShadeM_MoveStart"
+		StopGraphic = "Enemy_CorruptedShadeM_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_CorruptedShadeM_Idle"
+			GrannyModel = "CorruptedShadesM_Mesh"
+			Scale = 1.1
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "CorruptedShadeMedium_Elite"
+		InheritFrom = "CorruptedShadeMedium"
+		Speed = 220.0
+		Thing = 
+		{
+			Scale = 1.2
+		}
+	}
+	{
+		Name = "CorruptedShadeLarge"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 230.0
+		MoveGraphic = "Enemy_CorruptedShadeL_Move"
+		StartGraphic = "Enemy_CorruptedShadeL_MoveStart"
+		StopGraphic = "Enemy_CorruptedShadeL_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_CorruptedShadeL_Idle"
+			GrannyModel = "CorruptedShadesL_Mesh"
+			ExtentScale = 1.2
+			Tallness = 180
+			Scale = 0.85
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "CorruptedShadeLarge_Elite"
+		InheritFrom = "CorruptedShadeLarge"
+		Speed = 330.0
+		Thing = 
+		{
+			Scale = 1.05
+		}
+	}
+	
+	{
+		Name = "BrokenHearted"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 290.0
+		MoveGraphic = "Enemy_BrokenHearted_Move"
+		StartGraphic = "Enemy_BrokenHearted_MoveStart"
+		StopGraphic = "Enemy_BrokenHearted_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_BrokenHearted_Idle"
+			GrannyModel = "BrokenHearted_Mesh"
+			Scale = 1.15
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "BrokenHearted_Elite"
+		InheritFrom = "BrokenHearted"
+		Speed = 330
+		Thing = 
+		{
+			Scale = 1.25
+		}
+	}
+	{
+		Name = "BrokenHearted_Miniboss"
+		InheritFrom = "BrokenHearted"
+		Speed = 240
+		Thing = 
+		{
+			Scale = 1.5
+		}
+	}
+	
+	{
+		Name = "Vampire"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		StartGraphic = "Enemy_Vampire_Move_Start"
+		MoveGraphic = "Enemy_Vampire_Move_FireLoop"
+		StopGraphic = "Enemy_Vampire_Move_End"
+		RotationSpeed = 1200.0
+		Speed = 800.0
+		StunBreakModifier = 5.0
+		SlowEffectModifier = 0.5
+		ImmuneToStun = true
+		DefaultAngle = 225
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Vampire_Mesh"
+			Graphic = "Enemy_Vampire_Idle"
+			Grip = 3000
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			Scale = 1.4
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Vampire_Elite"
+		InheritFrom = "Vampire"
+		Speed = 800
+		StunBreakModifier = 5
+		SlowEffectModifier = 0.5
+		Thing = 
+		{
+			Scale = 1.4
+		}
+	}
+	
+	{
+		Name = "Lycanthrope"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 350.0
+		StartGraphic = "Enemy_Lycanthrope_MoveStart"
+		MoveGraphic = "Enemy_Lycanthrope_Move"
+		StopGraphic = "Enemy_Lycanthrope_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Lycanthrope_Idle"
+			GrannyModel = "Lycanthrope_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/Werewolf/EmoteBreathingLoop"
+			Scale = 1.2
+			ExtentScale = 1.4
+			Tallness = 200
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Lycanthrope_Elite"
+		InheritFrom = "Lycanthrope"
+		Speed = 600
+		MoveGraphic = "Enemy_Lycanthrope_MoveFast"
+		Thing = 
+		{
+			Scale = 1.4
+		}
+	}
+	
+	{
+		Name = "LycanSwarmer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 430.0
+		RotationSpeed = 5000
+		MoveGraphic = "Enemy_LycanSwarmer_Move"
+		StopGraphic = null
+		StartGraphic = null
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/LycanSwarmer/EmoteHurt",
+		}
+		MoveAI =
+		{
+			SlowToRotate = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_LycanSwarmer_Idle"
+			GrannyModel = "LycanSwarmer_Mesh"
+			OffsetZ = 80.0
+			Scale = 1.27
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			Tallness = 80.0
+			UseBoundsForSortDrawArea = true
+			StopsUnits = false
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "LycanSwarmer_Elite"
+		InheritFrom = "LycanSwarmer"
+		Speed = 520
+		Thing = 
+		{
+			Scale = 1.37
+		}
+	}
+	
+	{
+		Name = "Lovesick"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 310.0
+		MoveGraphic = "Enemy_Lovesick_Move"
+		StartGraphic = "Enemy_Lovesick_MoveStart"
+		StopGraphic = "Enemy_Lovesick_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Lovesick_Idle"
+			GrannyModel = "Lovesick_Mesh"
+			Scale = 1.25
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Lovesick_Elite"
+		InheritFrom = "Lovesick"
+		Thing = 
+		{
+			Scale = 1.35
+		}
+	}
+	
+	{
+		Name = "Lamia"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 450.0
+		MoveGraphic = "Enemy_Lamia_Move"
+		StartGraphic = "Enemy_Lamia_MoveStart"
+		StopGraphic = "Enemy_Lamia_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Lamia_Idle"
+			GrannyModel = "Lamia_Mesh"
+			Tallness = 180
+			Scale = 1.25
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Lamia_Elite"
+		InheritFrom = "Lamia"
+		Thing =
+		{
+			Scale = 1.35
+		}
+	}
+	{
+		Name = "Lamia_Miniboss"
+		InheritFrom = "Lamia"
+		Thing =
+		{
+			GrannyModel = "LamiaMiniBoss_Mesh"
+			Scale = 1.6
+		}
+	}
+	{
+		Name = "Lamia_Support"
+		InheritFrom = "Lamia"
+		Thing =
+		{
+			Scale = 1.1
+		}
+	}
+	
+	{
+		Name = "Mourner"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 340.0
+		StartGraphic = "Enemy_Mourner_Move_Start"
+		MoveGraphic = "Enemy_Mourner_Move_FireLoop"
+		StopGraphic = "Enemy_Mourner_Move_End"
+		StunBreakModifier = 1.35
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Mourner_Idle"
+			GrannyModel = "Mourner_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/Mourner/EmoteBreathingLoop"
+			Tallness = 240
+			Scale = 1.2
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Mourner_Elite"
+		InheritFrom = "Mourner"
+		Speed = 400
+		Thing = 
+		{
+			Scale = 1.3
+		}
+	}
+
+	{
+		Name = "Mourner_Support"
+		InheritFrom = "Mourner"
+		Speed = 350
+		Thing = 
+		{
+			Scale = 1.35
+		}
+	}
+	
+	{
+		Name = "HarpyCutter"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_HarpyCutter_Move"
+		StopGraphic = "Enemy_HarpyCutter_MoveStop"
+		StartGraphic = "Enemy_HarpyCutter_MoveStart"
+		RotationSpeed = 1800.0
+		Speed = 400.0
+		StunBreakModifier = 2.0,
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_HarpyCutter_Idle"
+			GrannyModel = "HarpyTalonCutter_Mesh"
+			Grip = 6000.0
+			ImpulsedFx = "KnockbackLinesSmall"
+			OffsetZ = 50.0
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			SortBoundsScale = 1.4
+			UseBoundsForSortDrawArea = true
+			Tallness = 400
+			Points = [
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+        	]
+      }
+	}
+	{
+		Name = "HarpyCutter_Elite"
+		InheritFrom = "HarpyCutter"
+		Speed = 500
+		Thing =
+		{
+			Scale = 1.2
+		}
+	}
+	
+	{
+		Name = "WaterElemental"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_WaterElemental_Move"
+		StopGraphic = "Enemy_WaterElemental_MoveStop"
+		StartGraphic = "Enemy_WaterElemental_MoveStart"
+		Speed = 1275.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_WaterElemental_Idle"
+			GrannyModel = "WaterElemental_Mesh"
+			OffsetZ = 50
+			Tallness = 80.0
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 25 }
+				{ X = 50 Y = 0 }
+				{ X = 0 Y = -25 }
+				{ X = -50 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "WaterElemental_Elite"
+		InheritFrom = "WaterElemental"
+		Thing =
+		{
+			Scale = 1.4
+		}
+	}
+	
+	{
+		Name = "Mati"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 400.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			OffsetZ = 50.0
+			GrannyModel = "Mati_Mesh"
+			Graphic = "Enemy_Mati_Idle"
+			Tallness = 40
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "Mati_Elite"
+		InheritFrom = "Mati"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "AutomatonEnforcer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 300.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_MaleGrey_SwordIdle"
+			Scale = 1.4
+			Color = { Red = 0.0 Green = 0.0 Blue = 1.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "AutomatonEnforcer_Elite"
+		InheritFrom = "AutomatonEnforcer"
+	}
+	
+	{
+		Name = "AutomatonBeamer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 250.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.4
+			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "AutomatonBeamer_Elite"
+		InheritFrom = "AutomatonBeamer"
+	}
+	
+	{
+		Name = "AutomatonSupport"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 450.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Color = { Red = 0.0 Green = 1.0 Blue = 0.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "AutomatonSupport_Elite"
+		InheritFrom = "AutomatonSupport"
+	}
+	
+	{
+		Name = "SatyrCommando"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 700.0
+		Thing = 
+		{
+			Ambient = 0.0
+			EditorOutlineDrawBounds = false
+			Grip = 8000.0
+			ImpulsedFx = "KnockbackLines"
+			SelectionHeight = 200.0
+			SelectionShiftY = 40.0
+			SelectionWidth = 160.0
+			Tallness = 155.0
+			Points =
+			[
+				{ X = 12 Y = 18 }
+				{ X = 36 Y = 6 }
+				{ X = 36 Y = -6 }
+				{ X = 12 Y = -18 }
+				{ X = -12 Y = -18 }
+				{ X = -36 Y = -6 }
+				{ X = -36 Y = 6 }
+				{ X = -12 Y = 18 }
+			]
+		}
+	}
+
+	{
+		Name = "SatyrCommando_Elite"
+		InheritFrom = "SatyrCommando"
+		Speed = 800.0
+	}
+	
+	{
+		Name = "1_BaseAlly"
+		AutoLockable = false
+		BlockAllEffects = true
+		CosmeticRotationSpeed = 470.0
+		DefaultAngle = 270.0
+		DisplayInEditor = true
+		FriendlyToPlayer = true
+		RotationSpeed = 1200.0
+		Speed = 500.0
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/Swarmer/EmoteHurt"
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			LookAheadDistance = 512.0
+			SuccessDistance = 100.0
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Swarmer_Idle"
+			GrannyModel = "Swarmer_Mesh"
+			Grip = 6000.0
+			ImpulsedFx = "KnockbackLinesWithBloodSmall"
+			OffsetZ = 50.0
+			Scale = 0.7
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "SwarmerSummon"
+		InheritFrom = "1_BaseAlly"
+		DisplayInEditor = true
+		Speed = 300.0
+		MoveGraphic = "Enemy_Swarmer_Move"
+		StartGraphic = "Enemy_Swarmer_MoveStart"
+		StopGraphic = "Enemy_Swarmer_MoveStop"
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/Swarmer/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "SummonSelfDestruct"
+		InheritFrom = "1_BaseAlly"
+		DisplayInEditor = false
+		MoveGraphic = "ChariotSuicideMove"
+		RotationSpeed = 520.0
+		Speed = 1200.0
+		StopGraphic = "ChariotSuicideStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ChariotSuicideIdle"
+			Hue = 0.1
+			Saturation = -0.1
+			Scale = 0.5
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "BaseFamiliar"
+		InheritFrom = "1_BaseAlly"
+		CollideWithUnits = false
+		DefaultAngle = 0.0
+		DisplayInEditor = true
+		HaltOnSlowMovement = false
+		ImmuneToStun = true
+		Speed = 650.0
+		Life = 
+		{
+			HitSound = "null"
+			Invulnerable = true
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			Scale = 1.0
+			EditorOutlineDrawBounds = false
+			Grip = 8000.0
+			Interact = 
+			{
+				Distance = 150.0
+			}
+			SelectionHeight = 250.0
+			SelectionWidth = 250.0
+			Points =
+			[
+				{ X = 0 Y = 54 }
+				{ X = 108 Y = 0 }
+				{ X = 0 Y = -54 }
+				{ X = -108 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "FrogFamiliar"
+		InheritFrom = "BaseFamiliar"
+		DisplayInEditor = true
+		Life = 
+		{
+			ProjectilesAlwaysPenetrate = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Frog_Mesh"
+			Graphic = "Familiar_Frog_Idle"
+			Grip = 6000
+			OffsetZ = 0
+			StopsProjectiles = true
+			ImpulsedFx = "null"
+			TouchdownSound = "/SFX/Familiars/FrogLandSmall"
+			Tallness = 100
+			Points =
+			[
+				{ X = 0 Y = 40 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -40 }
+				{ X = -80 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "CatFamiliar"
+		InheritFrom = "BaseFamiliar"
+		DisplayInEditor = true
+		RotationSpeed = 2200
+		Speed = 600
+		StartGraphic = "Familiar_Cat_Move_Start"
+		MoveGraphic = "Familiar_Cat_Move"
+		StopGraphic = "Familiar_Cat_Move_Stop"
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "CatFamiliar_Mesh"
+			Graphic = "Familiar_Cat_Idle"
+			Grip = 6000
+			OffsetZ = 0
+			StopsProjectiles = false
+			Tallness = 100
+			Points =
+			[
+				{ X = 0 Y = 40 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -40 }
+				{ X = -80 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "RavenFamiliar"
+		InheritFrom = "BaseFamiliar"
+		CollideWithObstacles = false
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "RavenIdle"
+			StopsProjectiles = false
+			Points =
+			[
+				{ X = 0 Y = 54 }
+				{ X = 108 Y = 0 }
+				{ X = 0 Y = -54 }
+				{ X = -108 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Turret"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 0.0
+		Thing = 
+		{
+			AttachedAnim = "CrusherCrater"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Mage_Idle"
+			GrannyModel = "Mage_Mesh"
+			Grip = 99999.0
+			Scale = 0.9
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "1_BaseTrap"
+		AutoLockable = false
+		BlockAllEffects = true
+		DebugDraw = false
+		DisplayInEditor = true
+		ImmuneToCharm = true
+		ImmuneToStun = true
+		NoAllegiance = true
+		PathfindersPreferAvoid = true
+		Life = 
+		{
+			HomingEligible = false
+			JumpTargetEligible = false
+			RequiresDamageToAffect = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+
+	{
+		Name = "LovesickHeart"
+		InheritFrom = "1_BaseTrap"
+		AutoLockable = false
+		CollideWithUnits = false
+		DefaultAngle = 0.0
+		DisplayInEditor = true
+		ImmuneToStun = true
+		Life =
+		{
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "LovesickHeartMine"
+			Grip = 6000.0
+			OnTouchdownFxAnim = "BloodSplatGroundRandom"
+			StopsProjectiles = false
+			Points =
+			[
+				{ X = 0 Y = 52 }
+				{ X = 100 Y = 0 }
+				{ X = 0 Y = -52 }
+				{ X = -100 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "BloodMine"
+		InheritFrom = "1_BaseTrap"
+		AutoLockable = false
+		CollideWithUnits = false
+		DefaultAngle = 0.0
+		DisplayInEditor = true
+		ImmuneToStun = true
+		Life =
+		{
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BloodMineDeployed"
+			Grip = 6000.0
+			OnTouchdownFxAnim = "DoorCloseDust"
+			StopsProjectiles = false
+			Points =
+			[
+				{ X = 0 Y = 52 }
+				{ X = 100 Y = 0 }
+				{ X = 0 Y = -52 }
+				{ X = -100 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "BloodMinePreFused"
+		InheritFrom = "BloodMine"
+	}
+
+	
+	{
+		Name = "RootingTree"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Speed = 100.0
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "RootingTreeIdle"
+			StopsProjectiles = false
+			Tallness = 40.0
+			Points =
+			[
+				{ X = 32 Y = 28 }
+				{ X = 138 Y = 0 }
+				{ X = 102 Y = -38 }
+				{ X = 55 Y = -39 }
+				{ X = 3 Y = -36 }
+				{ X = -36 Y = -19 }
+				{ X = -62 Y = 5 }
+				{ X = -55 Y = 40 }
+			]
+		}
+	}
+	
+	{
+		Name = "SafeZone"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Speed = 100.0
+		CollideWithUnits = false
+		PathfindersPreferAvoid = false
+		NoAllegiance = false
+		FriendlyToPlayer = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SafeZoneIdle"
+			StopsProjectiles = false
+			StopsUnits = false
+			Tallness = 10.0
+			Points =
+			[
+				{ X = 151 Y = -11 }
+				{ X = 6 Y = -82 }
+				{ X = -151 Y = -6 }
+				{ X = 0 Y = 68 }
+				{ X = 151 Y = -11 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShadeMerc"
+		InheritFrom = "1_BaseEnemy"
+		CollideWithUnits = false
+		DisplayInEditor = true
+		DebugDraw = false
+		FriendlyToPlayer = true
+		NoAllegiance = false
+		RotationSpeed = 2200.0
+		Speed = 600.0
+		BlockAllEffects = true
+		DefaultAngle = null
+		AutoLockable = false
+		MoveGraphic = "null"
+		StartGraphic = "null"
+		StopGraphic = "null"
+		AllDamageAffects = true
+		Thing = 
+		{
+			AttachedAnim = null
+			EditorOutlineDrawBounds = false
+			Graphic = "ShadeHubMIdle"
+			CanBeOccluded = false
+			StopsProjectiles = true
+			StopsUnits = false
+			SortBoundsScale = 0.85
+			UseBoundsForSortDrawArea = true
+			Tallness = 125.0
+			Scale = 0.8
+			Points =
+			[
+				{ X = 50 Y = 0 }
+				{ X = 0 Y = -25 }
+				{ X = -50 Y = 0 }
+				{ X = 0 Y = 25 }
+			]
+		}
+		Life = 
+		{
+			HomingEligible = false
+			JumpTargetEligible = false
+			TriggerOnHit = true
+      ProjectilesAlwaysPenetrate = true
+		}
+	}
+	
+	{
+		Name = "Sheep"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		RotationSpeed = 2000.0
+		Speed = 60.0
+		AutoLockable = false
+		MoveGraphic = "Enemy_Sheep_Move"
+		StartGraphic = null
+		StopGraphic = "Enemy_Sheep_MoveStop"
+		Life = 
+		{
+			HomingEligible = false
+		}
+		MoveAI =
+		{
+			SlowToRotate = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Sheep_Idle"
+			GrannyModel = "PolyphemusSheep_Mesh"
+			Tallness = 100.0
+			Offset = { X = 0 Y = -25 }
+			Points =
+			[
+				{ X = 50 Y = 0 }
+				{ X = 0 Y = -25 }
+				{ X = -50 Y = 0 }
+				{ X = 0 Y = 25 }
+			]
+		}
+	}
+	{
+		Name = "Sheep_Zombie"
+		InheritFrom = "Sheep"
+		Thing = 
+		{
+			GrannyModel = "PolyphemusSheepZombie_Mesh"
+		}
+	}
+	{
+		Name = "Sheep_Explosive"
+		InheritFrom = "Sheep"
+		Speed = 240.0
+		Thing = 
+		{
+			GrannyModel = "PolyphemusSheepBomb_Mesh"
+		}
+	}
+	{
+		Name = "Sheep_Sick"
+		InheritFrom = "Sheep"
+		Thing = 
+		{
+			GrannyModel = "PolyphemusSheepSick_Mesh"
+		}
+	}
+	{
+		Name = "Sheep_Passive"
+		InheritFrom = "Sheep"
+	}
+	{
+		Name = "Pig_Passive"
+		InheritFrom = "Sheep"
+		Thing = 
+		{
+			AmbientSound = "/SFX/Object Ambiences/PigSFXLoop"
+			Color = { Red = 1.00 Green = 0.70 Blue = 0.70 }
+		}		
+	}
+	
+	{
+		Name = "Ballista"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		RotationSpeed = 9999.0
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Graphic = "BallistaIdle"
+			Grip = 99999.0
+			ImmuneToForce = true
+			Tallness = 400.0
+			Interact = 
+			{
+				Distance = 250.0
+			}
+			Offset = { X = 0 Y = -175 }
+			Points =
+			[
+				{ X = 32 Y = 48 }
+				{ X = 96 Y = 16 }
+				{ X = 96 Y = -16 }
+				{ X = 32 Y = -48 }
+				{ X = -32 Y = -48 }
+				{ X = -96 Y = -16 }
+				{ X = -96 Y = 16 }
+				{ X = -32 Y = 48 }
+			]
+			Using =
+			[
+				{ Name = "ArcherTrapDeactivated" }
+			]
+		}
+	}
+	
+	{
+		Name = "FloodTrap"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		RotationSpeed = 9999.0
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			CanBeOccluded = false
+			EditorOutlineDrawBounds = false
+			Graphic = "FloodTrapIdle"
+			Grip = 99999.0
+			ImmuneToForce = true
+			StopsUnits = false
+			StopsProjectiles = false
+			Tallness = 400
+			Offset = { X = 0 Y = 0 }
+			MirrorGeometry = true
+			Points =
+			[
+				{ X = -83 Y = 34 }
+				{ X = 75 Y = -40 }
+				{ X = 126 Y = -15 }
+				{ X = -27 Y = 62 }
+			]
+		}
+	}
+	
+	{
+		Name = "SteamTrap"
+		InheritFrom = "1_BaseTrap"
+		CollideWithUnits = false
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SteamTrapIdle"
+			Grip = 999999.0
+			StopsProjectiles = false
+			StopsUnits = false
+			Tallness = 39.0
+			ExtentScale = 1.3
+			Points =
+			[
+				{ X = 154 Y = -12 }
+				{ X = 26 Y = -77 }
+				{ X = -150 Y = 11 }
+				{ X = -20 Y = 74 }
+			]
+		}
+	}
+	
+	{
+		Name = "UnstableCauldron"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "UnstableCauldronIdle"
+			Tallness = 100.0
+			Offset = { X = 0 Y = -62 }
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "MiasmaGeyser"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "MiasmaGeyserIdleTransition"
+			StopsProjectiles = false
+			StopsUnits = true
+			Tallness = 39.0
+			ExtentScale = 1.8
+			Points =
+			[
+				{ X = -109 Y = -2 }
+				{ X = -67 Y = 36 }
+				{ X = 19 Y = 35 }
+				{ X = 95 Y = 5 }
+				{ X = 78 Y = -29 }
+				{ X = -32 Y = -47 }
+			]
+		}
+	}
+	
+	{
+		Name = "BrambleTrap"
+		InheritFrom = "1_BaseTrap"
+		CosmeticRotationSpeed = 0.0
+		DisplayInEditor = true
+		PathfindersPreferAvoidOverrideOffset = 100.0
+		PathfindersPreferAvoidOverrideRadius = 90.0
+		RotationSpeed = 0.0
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "FieldsBrambleTrapThorns"
+			Grip = 99999.0
+			RotateGeometry = true
+			ExtentScale = 1.25
+			Tallness = 75
+			Offset = { X = 0 Y = 0 }
+			Points =
+			[
+				{ X = -87 Y = 9 }
+				{ X = -59 Y = 31 }
+				{ X = 3 Y = 35 }
+				{ X = 75 Y = -11 }
+				{ X = 69 Y = -19 }
+				{ X = 6 Y = -15 }
+			]
+		}
+	}
+	{
+		Name = "BrambleTrapBush"
+		InheritFrom = "BrambleTrap"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "FieldsBrambleTrapBush"
+			ExtentScale = 1.0
+			Tallness = 335
+			Offset = { X = 0 Y = -125 }
+			Points =
+			[
+				{ X = -487 Y = 50 }
+				{ X = -370 Y = 179 }
+				{ X = 112 Y = 198 }
+				{ X = 408 Y = 130 }
+				{ X = 415 Y = -6 }
+				{ X = 94 Y = -147 }
+				{ X = -287 Y = -144 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShatterCrystal"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "HeavyRangedCrystal1"
+			Tallness = 100.0
+			Offset = { X = 0 Y = -62 }
+			Points =
+			[
+				{ X = 50 Y = 0 }
+				{ X = 0 Y = -25 }
+				{ X = -50 Y = 0 }
+				{ X = 0 Y = 25 }
+			]
+		}
+	}
+	
+	{
+		Name = "PuddleSpawner"
+		InheritFrom = "1_BaseTrap"
+		CollideWithUnits = false
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ExtentScale = 0.1
+			Graphic = "SlowPuddle"
+			StopsProjectiles = false
+			StopsUnits = false
+			Tallness = 100.0
+			Points =
+			[
+				{ X = 50 Y = 0 }
+				{ X = 0 Y = -25 }
+				{ X = -50 Y = 0 }
+				{ X = 0 Y = 25 }
+			]
+		}
+	}
+	
+	{
+		Name = "AutomatonSentryTrap"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		StartGraphic = null
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Graphic = "AutomatonSentryTrapIdle"
+			Grip = 2500.0
+			ImmuneToForce = true
+			Tallness = 400.0
+			Points =
+			[
+				{ X = 32 Y = 48 }
+				{ X = 96 Y = 16 }
+				{ X = 96 Y = -16 }
+				{ X = 32 Y = -48 }
+				{ X = -32 Y = -48 }
+				{ X = -96 Y = -16 }
+				{ X = -96 Y = 16 }
+				{ X = -32 Y = 48 }
+			]
+		}
+	}
+	
+	{
+		Name = "1_BaseDestructible"
+		AllDamageAffects = true
+		AutoLockable = false
+		DebugDraw = false
+		DisplayInEditor = true
+		ImmuneToStun = true
+		ImmuneToDoTs = true
+		Life = 
+		{
+			HomingEligible = false
+			JumpTargetEligible = false
+			RequiresDamageToAffect = true
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			StopsLight = true
+			StopsProjectiles = true
+			StopsUnits = true
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 16 }
+				{ X = 32 Y = 0 }
+				{ X = 0 Y = -16 }
+				{ X = -32 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "DestructibleTree"
+		InheritFrom = "1_BaseDestructible"
+		BlockAllEffects = true
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "DestructibleTreeFullA"
+			Tallness = 300.0
+			Offset = { X = 10 Y = -100 }
+			ExtentScale = 0.75
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "DestructibleMast"
+		InheritFrom = "1_BaseDestructible"
+		BlockAllEffects = true
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "DestructibleMastFullA"
+			Tallness = 700.0
+			ExtentScale = 0.75
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "SteamWallTrap"
+		InheritFrom = "1_BaseDestructible"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SteamWallTrapIdle"
+			RotateGeometry = false
+			Tallness = 433.0
+			Points =
+			[
+			  { X = 0 Y = 32 }
+			  { X = 64 Y = 0 }
+			  { X = 22 Y = -22 }
+			  { X = -42 Y = 11 }
+			]
+      }
+	}
+	
+	{
+		Name = "SteamCubeFused"
+		InheritFrom = "1_BaseDestructible"
+		DisplayInEditor = true
+		Life = 
+		{
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SteamCubeIdle"
+			Grip = 99999.0
+			Scale = 0.55
+			SelectionHeight = 300.0
+			SelectionShiftY = 30.0
+			SelectionWidth = 250.0
+			UseBoundsForSortDrawArea = true
+			Tallness = 605
+			Points =
+			[
+				{ X = -5 Y = 139 }
+				{ X = 222 Y = 19 }
+				{ X = 3 Y = -91 }
+				{ X = -226 Y = 24 }
+			]
+		}
+	}
+	
+	{
+		Name = "SoulPylon"
+		InheritFrom = "1_BaseDestructible"
+		AutoLockable = true
+		BlockAllEffects = true
+		DisplayInEditor = true
+		DebugDraw = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SoulPylonFx"
+			AmbientSound = "/SFX/EphyraExitGateLoop"
+			Tallness = 300.0
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+
+	}
+	
+	{
+		Name = "ChronosCover"
+		InheritFrom = "1_BaseDestructible"
+		DisplayInEditor = true
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			Graphic = "ChronosCoverIdle"
+			Tallness = 350
+			OffsetZ = 35.0
+			Points =
+			[
+				{ X = 55 Y = 21 }
+				{ X = 80 Y = 3 }
+				{ X = 77 Y = -40 }
+				{ X = 1 Y = -56 }
+				{ X = -54 Y = -42 }
+				{ X = -70 Y = -7 }
+				{ X = -20 Y = 33 }
+			]
+		}
+	}
+	
+	{
+		Name = "BattleStandard"
+		InheritFrom = "1_BaseDestructible"
+		AutoLockable = true
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BattleStandardIdle"
+			Grip = 99999.0
+			Scale = 1.0
+			Tallness = 309.0
+			UseBoundsForSortDrawArea = true
+			ExtentScale = 0.9
+			Points =
+			[
+				{ X = 0 Y = 50 }
+				{ X = 100 Y = 0 }
+				{ X = 0 Y = -50 }
+				{ X = -100 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "BattleStandardChronos"
+		InheritFrom = "BattleStandard"
+	}
+	
+	{
+		Name = "FireBarrel"
+		InheritFrom = "1_BaseDestructible"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "FireBarrelIdle"
+			Grip = 99999.0
+			SelectionHeight = 300.0
+			SelectionShiftY = 30.0
+			SelectionWidth = 250.0
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			ExtentScale = 0.5
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "FireBarrelShips"
+		InheritFrom = "FireBarrel"
+		Thing = 
+		{
+			Graphic = "FireBarrelShipsIdle"
+		}
+	}
+	
+	{
+		Name = "OilPuddle"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		CollideWithUnits = false
+		PathfindersPreferAvoid = true
+		Life = 
+		{
+			Invulnerable = true
+			TriggerOnHit = true
+			ProjectilesAlwaysPenetrate = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "OilPuddleIdle"
+			FootstepFxL = "WaterSplashFootstepL-Spawner"
+			FootstepFxR = "WaterSplashFootstepR-Spawner"
+			FootstepSound = "/Leftovers/SFX/FootstepsWetSmall"
+			StopsProjectiles = true
+			Tallness = 300
+			Offset = { X = 0 Y = 310 }
+			Points =
+			[
+				{ X = 145 Y = 122 }
+				{ X = 331 Y = -7 }
+				{ X = 307 Y = -119 }
+				{ X = 86 Y = -141 }
+				{ X = -179 Y = -126 }
+				{ X = -375 Y = -46 }
+				{ X = -323 Y = 5 }
+				{ X = -201 Y = 71 }
+				{ X = -102 Y = 118 }
+			]
+		}
+	}
+	{
+		Name = "OilPuddle02"
+		InheritFrom = "OilPuddle"
+		Thing = 
+		{
+			Graphic = "OilPuddle02Idle"
+			Offset = { X = 0 Y = 310 }
+			Tallness = 300
+			Points =
+			[
+				{ X = -86 Y = 64 }
+				{ X = 401 Y = 120 }
+				{ X = 221 Y = 31 }
+				{ X = -42 Y = -84 }
+				{ X = -179 Y = -126 }
+				{ X = -398 Y = -114 }
+			]
+		}
+	}
+	{
+		Name = "OilPuddle03"
+		InheritFrom = "OilPuddle"
+		Thing = 
+		{
+			Graphic = "OilPuddle03Idle"
+			Tallness = 300
+	        Offset = { X = 0 Y = 310 }
+	        Points = [
+				{ X = 199 Y = 212 }
+				{ X = 590 Y = 42 }
+				{ X = 558 Y = -113 }
+				{ X = 388 Y = -305 }
+				{ X = 94 Y = -330 }
+				{ X = -400 Y = -165 }
+				{ X = -674 Y = -12 }
+				{ X = -566 Y = 116 }
+				{ X = -214 Y = 255 }
+        ]
+      }
+	}
+	{
+		Name = "OilPuddle04"
+		InheritFrom = "OilPuddle"
+		Thing = 
+		{
+			Graphic = "OilPuddle04Idle"
+			Tallness = 300
+	        Offset = { X = 0 Y = 310 }
+	        Points = [
+	          { X = 176 Y = 245 }
+	          { X = 451 Y = 142 }
+	          { X = 495 Y = -46 }
+	          { X = 248 Y = -227 }
+	          { X = -103 Y = -257 }
+	          { X = -326 Y = -188 }
+	          { X = -500 Y = -31 }
+	          { X = -463 Y = 125 }
+	          { X = -258 Y = 240 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ThornTree"
+		InheritFrom = "1_BaseDestructible"
+		BlockAllEffects = true
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ThornTreeIdle"
+			Tallness = 280.0
+			ExtentScale = 0.75
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "LightRanged"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_LightRanged_Move"
+		StartGraphic = "Enemy_LightRanged_MoveStart"
+		StopGraphic = "Enemy_LightRanged_MoveStop"
+		Speed = 220.0
+		Thing = 
+		{
+			GrannyModel = "LightRanged_Mesh"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_LightRanged_Idle"
+			Scale = 1.0
+			Tallness = 171
+			SortBoundsScale = 0.75
+			UseBoundsForSortDrawArea = true
+			OffsetZ = 50
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "LightRanged_Elite"
+		InheritFrom = "LightRanged"
+	}
+	{
+		Name = "SpreadShotUnit"
+		InheritFrom = "LightRanged"
+		Thing =
+		{
+			GrannyModel = "LightRangedAsphodel_Mesh"
+		}
+	}
+	{
+		Name = "SpreadShotUnit_Elite"
+		InheritFrom = "SpreadShotUnit"
+	}
+
+	{
+		Name = "BloodlessNaked"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 350.0
+		StartGraphic = "Enemy_BloodlessNaked_MoveStart"
+		MoveGraphic = "Enemy_BloodlessNaked_Move"
+		StopGraphic = "Enemy_BloodlessNaked_MoveStop"
+		CosmeticRotationSpeed = 400.0
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_BloodlessNaked_Idle"
+			GrannyModel = "BloodlessNaked_Mesh"
+			TouchdownSound = "/Leftovers/SFX/DemonLand"
+			SelectionHeight = 250.0
+			SelectionWidth = 200.0
+			Scale = 1.1
+			Tallness = 160
+			Points =
+			[
+				{ X = 0 Y = 40 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -40 }
+				{ X = -80 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "BloodlessNaked_Elite"
+		InheritFrom = "BloodlessNaked"
+	}
+
+	{
+		Name = "BloodlessBerserker"
+		InheritFrom = "BloodlessNaked"
+		Speed = 400.0
+		Thing = 
+		{
+			GrannyModel = "BloodlessBeserker_Mesh"
+			Scale = 1.0
+		}
+	}
+	{
+		Name = "BloodlessBerserker_Elite"
+		InheritFrom = "BloodlessBerserker"
+	}
+
+	{
+		Name = "BloodlessWaveFist"
+		InheritFrom = "BloodlessNaked"
+		Speed = 250.0
+		Thing = 
+		{
+			GrannyModel = "BloodlessWavemaker_Mesh"
+			Scale = 1.2
+			SelectionHeight = 250.0
+			SelectionWidth = 200.0
+		}
+	}
+	{
+		Name = "BloodlessWaveFist_Elite"
+		InheritFrom = "BloodlessWaveFist"
+	}
+	
+	{
+		Name = "BloodlessGrenadier"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 400.0
+		StartGraphic = "Enemy_BloodlessGrenadier_Move_Start"
+		MoveGraphic = "Enemy_BloodlessGrenadier_Move_FireLoop"
+		StopGraphic = "Enemy_BloodlessGrenadier_Move_End"
+		CosmeticRotationSpeed = 200.0
+		RotationSpeed = 1000.0
+		Thing = 
+		{
+			Tallness = 240
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_BloodlessGrenadier_Idle"
+			GrannyModel = "BloodlessGrenadier_Mesh"
+			TouchdownSound = "/Leftovers/SFX/DemonLand"
+			Points =
+			[
+				{ X = 0 Y = 48 }
+				{ X = 96 Y = 0 }
+				{ X = 0 Y = -48 }
+				{ X = -96 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "BloodlessGrenadier_Elite"
+		InheritFrom = "BloodlessGrenadier"
+	}
+
+	{
+		Name = "BloodlessSelfDestruct"
+		InheritFrom = "BloodlessGrenadier"
+		RotationSpeed = 800.0
+		Speed = 600.0
+		Thing = 
+		{
+			GrannyModel = "BloodlessSelfDestruct_Mesh"
+			Scale = 0.775
+		}
+	}
+	{
+		Name = "BloodlessSelfDestruct_Elite"
+		InheritFrom = "BloodlessSelfDestruct"
+		Speed = 700.0
+	}
+
+	{
+		Name = "BloodlessPitcher"
+		InheritFrom = "BloodlessGrenadier"
+		Speed = 600.0
+		Thing = 
+		{
+			GrannyModel = "BloodlessPitcher_Mesh"
+			Scale = 0.855
+		}
+	}
+	{
+		Name = "BloodlessPitcher_Elite"
+		InheritFrom = "BloodlessPitcher"
+	}
+
+	{
+		Name = "ThiefMineLayer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = false
+		MoveGraphic = "Enemy_ThiefMineLayer_Move"
+		StartGraphic = "Enemy_ThiefMineLayer_MoveStart"
+		StopGraphic = "Enemy_ThiefMineLayer_MoveStop"
+		RotationSpeed = 1200.0
+		CosmeticRotationSpeed = 470.0
+		Speed = 400.0
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			AvoidLocationDistance = 120.0
+			LookAheadDistance = 512.0
+			NodeDistance = 16.0
+			SuccessDistance = 100.0
+		}
+		Thing = 
+		{
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			GrannyModel = "ThiefMineLayer_Mesh"
+			Graphic = "Enemy_ThiefMineLayer_Idle"
+			Grip = 4500.0
+			ImpulsedFx = "KnockbackLines"
+			SelectionHeight = 200.0
+			SelectionShiftY = 50.0
+			SelectionWidth = 200.0
+			Points =
+			[
+				{ X = 0 Y = 18 }
+				{ X = 36 Y = 0 }
+				{ X = 0 Y = -18 }
+				{ X = -36 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "ThiefMineLayer_Elite"
+		InheritFrom = "ThiefMineLayer"
+		Speed = 450.0
+	}
+
+	{
+		Name = "Swarmer"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Speed = 300.0
+		MoveGraphic = "Enemy_Swarmer_Move"
+		StartGraphic = "Enemy_Swarmer_MoveStart"
+		StopGraphic = "Enemy_Swarmer_MoveStop"
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/Swarmer/EmoteHurt"
+		}
+		Thing = 
+		{
+			Graphic = "Enemy_Swarmer_Idle"
+			GrannyModel = "Swarmer_Mesh"
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Grip = 6000.0
+			ImpulsedFx = "KnockbackLinesWithBloodSmall"
+			OffsetZ = 50.0
+			Scale = 0.7
+			SelectionHeight = 200.0
+			SelectionShiftY = -10.0
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			SortBoundsScale = 0.85
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Swarmer_Elite"
+		InheritFrom = "Swarmer"
+		DisplayInEditor = true
+		Speed = 450.0
+		Thing = 
+		{
+			Scale = 0.85
+		}
+	}
+
+	{
+		Name = "SwarmerClockwork"
+		InheritFrom = "Swarmer"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Scale = 1.25
+			GrannyModel = "SwarmerClockwork_Mesh"
+		}
+	}
+	
+	{
+		Name = "SwarmerClockwork_Elite"
+		InheritFrom = "SwarmerClockwork"
+		DisplayInEditor = true
+	}
+	
+	{
+		Name = "1_BaseBoss"
+		InheritFrom = "1_BaseEnemy"
+		CharmBreakModifier = 3.0
+		DisplayInEditor = false
+		ImmuneToStun = true
+		SlowEffectModifier = 0.3
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ExternalForceMultiplier = 0.3
+			Graphic = "null"
+			Grip = 5000.0
+			OcclusionAreaScalar = 0.5
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Hecate"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 210.0
+		DisplayInEditor = true
+		MoveGraphic = "HecateRunN"
+		RotationSpeed = 900.0
+		Speed = 600.0
+		StartGraphic = "HecateRunStart"
+		StopGraphic = "HecateRunStop"
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "/SFX/Enemy Sounds/Hecate/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "HecateHubTorchBattleIdle"
+			GrannyModel = "HecateHub_Mesh"
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SortBoundsScale = 2.0
+			SpeechCapable = true
+			Tallness = 200.0
+			ExtentScale = 1.0
+			Scale = 1.32
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+			Using =
+			[
+				{ Name = "TrapActivationPuff" }
+				{ Name = "/SFX/Enemy Sounds/Hecate/HecatePolymorph" }
+			]
+		}
+	}
+	
+	{
+		Name = "HecateCopy"
+		InheritFrom = "Hecate"
+		DisplayInEditor = true
+		Life = 
+		{
+			InvulnerableCoverage = 360.0
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "HecateTorchIdle"
+			GrannyModel = "HecateBattle_Mesh"
+		}
+	}
+	
+	{
+		Name = "InfestedCerberus"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		DefaultAngle = 0.0
+		RotationSpeed = 350.0
+		CosmeticRotationSpeed = 300
+		Speed = 400.0
+		MoveGraphic = "Enemy_InfestedCerberus_Move"
+		StartGraphic = "Enemy_InfestedCerberus_MoveStart"
+		StopGraphic = "Enemy_InfestedCerberus_MoveStop"
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_InfestedCerberus_Idle"
+			GrannyModel = "InfestedCerberus_Mesh"
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SpeechCapable = true
+			SortBoundsScale = 0.35
+			Tallness = 675.0
+			ExtentScale = 6.5
+			RotateGeometry = true
+			GeometryScaleY = 0.5
+			ImmuneToForce = true
+			Points =
+			[
+				{ X = 60 Y = 75 }
+				{ X = 60 Y = -75 }
+				{ X = 10 Y = -70 }
+				{ X = -20 Y = -50 }
+				{ X = -20 Y = 50 }
+				{ X = 10 Y = 70 }
+			]
+		}
+		Life =
+		{
+			ProjectilesNeverRequireHitCenter = true
+		}
+	}
+	
+	{
+		Name = "Chronos"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 210.0
+		DisplayInEditor = true
+		RotationSpeed = 900.0
+		Speed = 290.0
+		MoveGraphic = "Enemy_Chronos_Move"
+		StartGraphic = "Enemy_Chronos_MoveStart"
+		StopGraphic = "Enemy_Chronos_MoveStop"
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "/SFX/Enemy Sounds/Chronos/EmoteHurt"
+			InvulnerableCoverage = 160
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Chronos_Idle"
+			GrannyModel = "Chronos_Mesh"
+			GrannyMaskAlpha = 0.0
+			GrannyMaskPulseSpeed = 2.0
+			GrannyMaskScrollSpeed = 0.0
+			GrannyMaskScrollSize = 0.0
+			GrannyMaskScrollAngle = 0.0
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SpeechCapable = true
+			Tallness = 400.0
+			ExtentScale = 1.75
+			ImmuneToForce = true
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+		}
+	}
+	
+	{
+		Name = "Eris"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 210.0
+		RotationSpeed = 900.0
+		Speed = 600.0
+		MoveGraphic = "Enemy_Eris_Move"
+		StartGraphic = "Enemy_Eris_MoveStart"
+		StopGraphic = "Enemy_Eris_MoveStop"
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/Eris/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Eris_HubIdle"
+			GrannyModel = "Eris_Mesh"
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SortBoundsScale = 2.0
+			SpeechCapable = true
+			OffsetZ = 5.0
+			Tallness = 180.0
+			ExtentScale = 1.2
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+		}
+	}
+
+	{
+		Name = "Crawler"
+		InheritFrom = "1_BaseEnemy"
+		CanOnlyMoveForward = true
+		DisplayInEditor = true
+		HaltOnSlowMovement = true
+		RotationSpeed = 500.0
+		Speed = 750.0
+		StartGraphic = "Enemy_SatyrRat_Move_Start"
+		MoveGraphic = "Enemy_SatyrRat_Move"
+		StopGraphic = "Enemy_SatyrRat_Move_End"
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SatyrRat_Idle"
+			GrannyModel = "SatyrRat_Mesh"
+			Grip = 6000.0
+			Tallness = 50
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 18 }
+				{ X = 36 Y = 0 }
+				{ X = 0 Y = -18 }
+				{ X = -36 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Crawler_Elite"
+		InheritFrom = "Crawler"
+		HaltOnSlowMovement = true,
+		Thing = 
+		{
+			Scale = 1.1
+		}
+	}
+
+	{
+		Name = "CrawlerMiniboss"
+		InheritFrom = "1_BaseBoss"
+		CanOnlyMoveForward = true
+		DisplayInEditor = true
+		HaltOnSlowMovement = false
+		MoveGraphic = "Enemy_Crawler_Move"
+		StartGraphic = null
+		StopGraphic = null
+		RotationSpeed = 900.0
+		Speed = 1250.0
+		SlowEffectModifier = 0.90
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Crawler_Idle"
+			GrannyModel = "RatThugGiant_Mesh"
+			AmbientSound = "/SFX/Enemy Sounds/Crawler/CrawlerClawLoop"
+			Grip = 6000.0
+			SelectionHeight = 70.0
+			SelectionShiftY = 10.0
+			SelectionWidth = 70.0
+			Tallness = 82.0
+			Scale = 2.0
+			ExtentScale = 0.5
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "Charybdis"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		Speed = 0.0
+		RotationSpeed = 0.0
+		CosmeticRotationSpeed = 0.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		DefaultAngle = 207.0
+		Life = 
+		{
+			HitSound = "null"
+			Invulnerable = true
+			TriggerOnHit = false
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		Thing = 
+		{
+			CanBeOccluded = false
+			GrannyModel = "Charybdis_Mesh"
+			Graphic = "Enemy_Charybdis_Idle"
+			EditorOutlineDrawBounds = false
+			ImmuneToForce = true
+			Tallness = 270
+			ExtentScale = 3.0
+			Scale = 1.3
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+
+	{
+		Name = "CharybdisTentacle"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		Speed = 400.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Thing = 
+		{
+			GrannyModel = "CharybdisTentacle_Mesh"
+			Graphic = "Enemy_CharybdisTentacle_Idle",
+			AttachedAnim = null,
+			EditorOutlineDrawBounds = false
+			Tallness = 460
+			ImmuneToForce = true
+			SelectionHeight = 580.0
+			SelectionShiftY = 100.0
+			SelectionWidth = 450.0
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "Scylla"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 330.0
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Scylla_Move"
+		StartGraphic = "Enemy_Scylla_MoveStart"
+		StopGraphic = "Enemy_Scylla_MoveStop"
+		RotationSpeed = 1200.0
+		Speed = 150.0
+		MoveAI =
+		{
+			SlowToRotate = false
+		}
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "null"
+			InvulnerableCoverage = 120
+			InvulnerableCoverageOffset = 180
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ExternalForceMultiplier = 0.1
+			Graphic = "Enemy_Scylla_Idle"
+			GrannyModel = "Scylla_Mesh"
+			Scale = 1.0
+			SpeechCapable = true
+			SelectionHeight = 500.0
+			SelectionWidth = 400.0
+			SelectionShiftY = 60.0
+			Tallness = 300.0
+			OffsetZ = 50.0
+			ExtentScale = 1.5
+			Points =
+			[
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+	}
+	
+	{
+		Name = "SirenKeytarist"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 520.0
+		DefaultAngle = 320.0
+		DisplayInEditor = true
+		RotationSpeed = 1800.0
+		Speed = 480.0
+		MoveGraphic = "Enemy_SirenKeytar_Move"
+		StartGraphic = "Enemy_SirenKeytar_MoveStart"
+		StopGraphic = "Enemy_SirenKeytar_MoveStop"
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "/SFX/Enemy Sounds/Scylla/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SirenKeytar_Idle"
+			GrannyModel = "SirenKeytarist_Mesh"
+			SelectionHeight = 300.0
+			SelectionShiftY = 100.0
+			SortBoundsScale = 2.0
+			SpeechCapable = true
+			Tallness = 254.0
+			ExtentScale = 0.5
+			Scale = 1.2
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "SirenDrummer"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 310.0
+		DisplayInEditor = true
+		RotationSpeed = 0.0
+		Speed = 0.0
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "/SFX/Enemy Sounds/Scylla/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "SirenDrummer_Mesh"
+			Graphic = "Enemy_SirenDrummer_BeatIntroA"
+			SelectionHeight = 350.0
+			SelectionWidth = 350.0
+			SelectionShiftY = 100.0
+			SortBoundsScale = 2.0
+			SpeechCapable = true
+			Tallness = 254.0
+			ImmuneToForce = true
+			Scale = 1.2
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "Polyphemus"
+		InheritFrom = "1_BaseBoss"
+		CosmeticRotationSpeed = 180.0
+		DefaultAngle = 210.0
+		DisplayInEditor = true
+		MoveGraphic = "Enemy_Polyphemus_Move"
+		//StartGraphic = "Enemy_Polyphemus_MoveStart"
+		StopGraphic = "Enemy_Polyphemus_MoveStop"
+		RotationSpeed = 1800.0
+		Speed = 90.0
+		SlowEffectModifier = 0.2
+		Life = 
+		{
+			DieOnCollisionRequiredVelocityMultiplier = 0.0
+			HitSound = "/SFX/Enemy Sounds/Polyphemus/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ExtentScale = 2.0
+			Scale = 1.4
+			Graphic = "Enemy_Polyphemus_Idle"
+			GrannyModel = "Polyphemus_Mesh"
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SpeechCapable = true
+			ImmuneToForce = true
+			Tallness = 390.0
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+		}
+	}
+	{
+		Name = "PolyphemusCorpse"
+		InheritFrom = "Polyphemus"
+		MoveGraphic = null
+		StartGraphic = null
+		StopGraphic = null
+		Speed = 0.0
+		RotationSpeed = 0.0
+		DefaultAngle = null
+		CollideWithUnits = true
+		ImmuneToStun = false
+		Thing = 
+		{
+			Graphic = "Enemy_Polyphemus_DeathIdle"
+			AttachedAnim = null
+			Tallness = 125.0
+			RotateGeometry = true
+			ExtentScale = 1.4
+			Points =
+			[
+				{ X = 175 Y = 80 }
+				{ X = 150 Y = -9 }
+				{ X = 80 Y = -45 }
+				{ X = 0 Y = -70 }
+				{ X = -120 Y = 9 }
+				{ X = -40 Y = 35 }
+			]
+		}
+	}
+
+	{
+		Name = "TrapPadDisabled"
+		InheritFrom = "1_BaseTrap"
+		CollideWithUnits = false
+		DisplayInEditor = true
+		PathfindersPreferAvoid = false
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "tilesets\tartarus\tartarus_traptile_01"
+			Grip = 999999.0
+			Scale = 0.24
+			StopsProjectiles = false
+			StopsUnits = false
+			Points =
+			[
+				{ X = 151 Y = -11 }
+				{ X = 6 Y = -82 }
+				{ X = -151 Y = -6 }
+				{ X = 0 Y = 68 }
+				{ X = 151 Y = -11 }
+			]
+		}
+	}
+
+	{
+		Name = "PassiveRoomWeapon"
+		AutoLockable = false
+		BlockAllEffects = true
+		CollideWithUnits = false
+		DebugDraw = false
+		DisplayInEditor = true
+		ImmuneToCharm = true
+		PathfindersPreferAvoid = true
+		RotationSpeed = 9999.0
+		Life = 
+		{
+			HomingEligible = false
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			StopsProjectiles = false
+			StopsUnits = false
+		}
+	}
+	
+	{
+		Name = "ZeusUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "PoseidonUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "HestiaUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "ApolloUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "HeraUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "DemeterUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "AphroditeUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+
+	{
+		Name = "HephaestusUpgradeRoomWeapon"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "LightningStorm"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+	
+	{
+		Name = "ShipsBombardment"
+		InheritFrom = "PassiveRoomWeapon"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+		}
+	}
+
+	{
+		Name = "SpikeTrap"
+		InheritFrom = "TrapPadDisabled"
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SpikeTrapIdle"
+			Scale = 1.0
+			Points =
+			[
+				{ X = 151 Y = -11 }
+				{ X = 6 Y = -82 }
+				{ X = -151 Y = -6 }
+				{ X = 0 Y = 68 }
+				{ X = 151 Y = -11 }
+			]
+		}
+	}
+	
+	{
+		Name = "SpikeTrapClockwork"
+		InheritFrom = "TrapPadDisabled"
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SpikeTrapIdle"
+			Scale = 1.0
+			Tallness = 21
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 135 Y = -2 }
+          { X = 1 Y = -72 }
+          { X = -134 Y = -2 }
+          { X = 0 Y = 68 }
+        ]
+      }
+	}
+	
+	{
+		Name = "AxeTrap"
+		InheritFrom = "TrapPadDisabled"
+		CollideWithUnits = true
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "AxeTrapIdle"
+			Scale = 1.5
+			StopsUnits = true
+			Points =
+			[
+				{ X = 105 Y = -28 }
+				{ X = 60 Y = -51 }
+				{ X = -85 Y = 23 }
+				{ X = -41 Y = 45 }
+			]
+			Using =
+			[
+				{ Name = "AxeTrapBlur" }
+			]
+		}
+	}
+	
+	{
+		Name = "AxeTrapTrigger"
+		InheritFrom = "TrapPadDisabled"
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "AxeTrapTriggerIdle"
+			Scale = 1.0
+			Points =
+			[
+				{ X = 151 Y = -11 }
+				{ X = 6 Y = -82 }
+				{ X = -151 Y = -6 }
+				{ X = 0 Y = 68 }
+				{ X = 151 Y = -11 }
+			]
+		}
+	}
+	
+	{
+		Name = "TrapFissureDisabled"
+		InheritFrom = "TrapPadDisabled"
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "TrapFissureDisabled"
+			Scale = 1.0
+			Points =
+			[
+				{ X = -122 Y = 26 }
+				{ X = -63 Y = 70 }
+				{ X = 80 Y = 75 }
+				{ X = 136 Y = 3 }
+				{ X = -37 Y = -19 }
+			]
+		}
+	}
+	
+	{
+		Name = "GasTrapPassive"
+		InheritFrom = "TrapFissureDisabled"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "GasTrapIdle"
+			Tallness = 9.0
+			Points =
+			[
+				{ X = -109 Y = -2 }
+				{ X = -67 Y = 36 }
+				{ X = 19 Y = 35 }
+				{ X = 95 Y = 5 }
+				{ X = 78 Y = -29 }
+				{ X = -32 Y = -47 }
+			]
+		}
+	}
+	
+	{
+		Name = "SpikeCube"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "SpikeCubeIdle"
+			Grip = 99999.0
+			Points =
+			[
+				{ X = 32 Y = 48 }
+				{ X = 96 Y = 16 }
+				{ X = 96 Y = -16 }
+				{ X = 32 Y = -48 }
+				{ X = -32 Y = -48 }
+				{ X = -96 Y = -16 }
+				{ X = -96 Y = 16 }
+				{ X = -32 Y = 48 }
+			]
+		}
+	}
+	
+	{
+		Name = "BlastCubeFused"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		ImmuneToDoTs = true
+		Life = 
+		{
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BlastCubeIdle"
+			Grip = 99999.0
+			Scale = 0.55
+			SelectionHeight = 300.0
+			SelectionShiftY = 30.0
+			SelectionWidth = 250.0
+			Tallness = 329.0
+			UseBoundsForSortDrawArea = true
+			StopsProjectiles = true
+			Points =
+			[
+				{ X = 0 Y = 52 }
+				{ X = 100 Y = 0 }
+				{ X = 0 Y = -52 }
+				{ X = -100 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "BlastCubeFusedRegenerating"
+		InheritFrom = "BlastCubeFused"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BlastCubeFusedRegeneratingIdle"
+			Offset = { X = 0 Y = -26 }
+			Points =
+			[
+				{ X = 65 Y = -22 }
+				{ X = -3 Y = -60 }
+				{ X = -72 Y = -20 }
+				{ X = 0 Y = 9 }
+			]
+		}
+	}
+
+	{
+		Name = "DartTrap"
+		InheritFrom = "SpikeTrap"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "DartTrapIdle"
+			Points =
+			[
+				{ X = 151 Y = -11 }
+				{ X = 6 Y = -82 }
+				{ X = -151 Y = -6 }
+				{ X = 0 Y = 68 }
+				{ X = 151 Y = -11 }
+			]
+		}
+	}
+	
+	{
+		Name = "DartTrapEmitter"
+		InheritFrom = "SpikeCube"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "DartTrapEmitterIdle"
+			Tallness = 200.0
+			Points =
+			[
+				{ X = 32 Y = 48 }
+				{ X = 96 Y = 16 }
+				{ X = 96 Y = -16 }
+				{ X = 32 Y = -48 }
+				{ X = -32 Y = -48 }
+				{ X = -96 Y = -16 }
+				{ X = -96 Y = 16 }
+				{ X = -32 Y = 48 }
+			]
+		}
+	}
+	
+	{
+		Name = "DartTrapEmitterClockwork"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "DartTrapEmitterIdle"
+			Tallness = 200.0
+			Points =
+			[
+				{ X = 32 Y = 48 }
+				{ X = 96 Y = 16 }
+				{ X = 96 Y = -16 }
+				{ X = 32 Y = -48 }
+				{ X = -32 Y = -48 }
+				{ X = -96 Y = -16 }
+				{ X = -96 Y = 16 }
+				{ X = -32 Y = 48 }
+			]
+		}
+	}
+	
+	{
+		Name = "BeamTrap"
+		InheritFrom = "1_BaseDestructible"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "BeamTrapIdle"
+			Tallness = 941
+			Offset = { X = 0 Y = -370 }
+			Points =
+			[
+				{ X = -127 Y = 9 }
+				{ X = -1 Y = 76 }
+				{ X = 125 Y = 7 }
+				{ X = 1 Y = -55 }
+			]
+		}
+	}
+
+	{
+		Name = "BannerSupport"
+		InheritFrom = "1_BaseTrap"
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Graphic = "BannerSupportIdle"
+			Grip = 99999.0
+			ImmuneToForce = true
+			Tallness = 400.0
+			Offset = { X = 0 Y = -235 }
+			Points =
+			[
+				{ X = 16 Y = 24 }
+				{ X = 48 Y = 8 }
+				{ X = 48 Y = -8 }
+				{ X = 16 Y = -24 }
+				{ X = -16 Y = -24 }
+				{ X = -48 Y = -8 }
+				{ X = -48 Y = 8 }
+				{ X = -16 Y = 24 }
+			]
+		}
+	}
+	
+	{
+		Name = "HazardPoint"
+		InheritFrom = "1_BaseTrap"
+		CollideWithUnits = false
+		DisplayInEditor = true
+		PathfindersPreferAvoid = false
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "CandleFlame"
+			Grip = 999999.0
+			StopsProjectiles = false
+			StopsUnits = false
+		}
+	}
+	
+	{
+		Name = "LavaSplash"
+		InheritFrom = "SpikeCube"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "LavaProjectileBubbling"
+			Grip = 999999.0
+			StopsProjectiles = false
+			StopsUnits = false
+			Points =
+			[
+				{ X = 0 Y = 10 }
+				{ X = 10 Y = 0 }
+				{ X = 0 Y = -10 }
+				{ X = -10 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "LavaTile"
+		InheritFrom = "1_BaseTrap"
+		BlockSpawns = true
+		CollideWithUnits = false
+		DisplayInEditor = true
+		PathfindersPreferAvoid = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			Ambient = 0.0
+			EditorOutlineDrawBounds = false
+			FootstepFxL = "LavaRippleStepL"
+			FootstepFxR = "LavaRippleStepR"
+			FootstepSound = "/Leftovers/SFX/FootstepsSand"
+			Graphic = "Tilesets\Graybox\_Impassable_Tile64Iso"
+			Grip = 999999.0
+			Invisible = true
+			MeshType = "Flat"
+			RotateGeometry = true
+			StopsProjectiles = false
+			StopsUnits = false
+			Color = { Red = 0.0 Green = 0.0 Blue = 1.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "LavaTileTriangle01"
+		InheritFrom = "LavaTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Graybox\_Impassable_Tile64Iso_Half_01"
+			Points =
+			[
+				{ X = -32 Y = 32 }
+				{ X = 32 Y = 0 }
+				{ X = -32 Y = -32 }
+			]
+		}
+	}
+	
+	{
+		Name = "LavaTileTriangle02"
+		InheritFrom = "LavaTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Graybox\_Impassable_Tile64Iso_Half_02"
+			Points =
+			[
+				{ X = 0 Y = 16 }
+				{ X = 64 Y = -16 }
+				{ X = -64 Y = -16 }
+			]
+		}
+	}
+	
+	{
+		Name = "PuddleTile"
+		InheritFrom = "1_BaseTrap"
+		BlockSpawns = true
+		CollideWithUnits = false
+		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
+		Thing = 
+		{
+			Ambient = 0.0
+			EditorOutlineDrawBounds = false
+			FootstepFxL = "PuddleRippleStepL"
+			FootstepFxR = "PuddleRippleStepR"
+			FootstepSound = "/Leftovers/SFX/FootstepsSand"
+			Graphic = "Tilesets\Graybox\_Impassable_Tile64Iso"
+			Grip = 999999.0
+			MeshType = "Flat"
+			RotateGeometry = true
+			StopsProjectiles = false
+			StopsUnits = false
+			Color = { Red = 0.0 Green = 1.0 Blue = 1.0 }
+			Points =
+			[
+				{ X = 0 Y = 32 }
+				{ X = 64 Y = 0 }
+				{ X = 0 Y = -32 }
+				{ X = -64 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "TestCharacter"
+		CosmeticRotationSpeed = 300.0
+		DisplayInEditor = true
+		RotationSpeed = 1500.0
+		Speed = 600.0
+		MoveGraphic = "Enemy_Mage_Move"
+		StartGraphic = "Enemy_Mage_MoveStart"
+		StopGraphic = "Enemy_Mage_MoveStop"
+		Life = 
+		{
+			ArmorCoverage = 220.0
+			HitSound = "/SFX/Enemy Sounds/HeavyMelee/EmoteHurt"
+		}
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			AvoidLocationDistance = 120.0
+			LookAheadDistance = 512.0
+			MoveWithoutPath = true
+			SuccessDistance = 100.0
+		}
+		Thing = 
+		{
+			GrannyModel = "Mage_Mesh"
+			Graphic = "Enemy_Mage_Idle"
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Grip = 8000.0
+			ImpulsedFx = "KnockbackLinesWithBlood"
+			SelectionHeight = 500.0
+			SelectionShiftY = 50.0
+			SelectionWidth = 500.0
+			Tallness = 380.0
+			Points =
+			[
+				{ X = 0 Y = 38 }
+				{ X = 76 Y = 0 }
+				{ X = 0 Y = -38 }
+				{ X = -76 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "TestEnemy1"
+		CosmeticRotationSpeed = 300.0
+		DisplayInEditor = true
+		RotationSpeed = 1500.0
+		Speed = 600.0
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/HeavyMelee/EmoteHurt"
+		}
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			AvoidLocationDistance = 120.0
+			LookAheadDistance = 512.0
+			MoveWithoutPath = true
+			SuccessDistance = 100.0
+		}
+		Thing = 
+		{
+			CanBeOccluded = true
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Test1_Idle"
+			GrannyModel = "Melinoe_Mesh"
+			Grip = 8000.0
+			ImpulsedFx = "KnockbackLinesWithBlood"
+			SelectionHeight = 500.0
+			SelectionShiftY = 50.0
+			SelectionWidth = 500.0
+			Tallness = 380.0
+			Points =
+			[
+				{ X = 0 Y = 38 }
+				{ X = 76 Y = 0 }
+				{ X = 0 Y = -38 }
+				{ X = -76 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "TestEnemy2"
+		InheritFrom = "TestEnemy1"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Test2_Idle"
+			GrannyModel = "ZombieHeavyRangedTest_Mesh"
+			Points =
+			[
+				{ X = 0 Y = 38 }
+				{ X = 76 Y = 0 }
+				{ X = 0 Y = -38 }
+				{ X = -76 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "TestEnemy3"
+		InheritFrom = "TestEnemy1"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Test3_Idle"
+			GrannyModel = "FrogFamiliarTest_Mesh"
+			Points =
+			[
+				{ X = 0 Y = 38 }
+				{ X = 76 Y = 0 }
+				{ X = 0 Y = -38 }
+				{ X = -76 Y = 0 }
+			]
+		}
+	}
+
+	/*{
+		Name = "BreakableAsphodel"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		Life = 
+		{
+			HitSound = "/EmptyCue"
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+			RequiresDamageToAffect = true
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			StopsProjectiles = true
+			StopsUnits = true
+			Graphic = "BreakableAsphodelIdle"
+			Offset = { X = 0 Y = -140 }
+			ExtentScale = 0.25
+			Tallness = 100
+			Points =
+			[
+				{ X = 108 Y = -6 }
+				{ X = 37 Y = -44 }
+				{ X = -66 Y = -43 }
+				{ X = -117 Y = 0 }
+				{ X = -49 Y = 41 }
+				{ X = 64 Y = 36 }
+			]
+		}
+	}*/
+]}

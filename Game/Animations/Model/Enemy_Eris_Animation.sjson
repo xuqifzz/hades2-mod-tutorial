@@ -1,0 +1,877 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyErisBaseHubAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "Eris_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "EnemyErisBaseCombatAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "Eris_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "EnemyErisBaseStrafeAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "Eris_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Hub
+	{
+		Name = "Enemy_Eris_HubIdle"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_IdleHub_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Eris_HubToCombatIdle"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_IdleHubToIdleCombat_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		Frames = 
+		[
+			{
+				Frame = 23
+				Sound = "/Leftovers/World Sounds/SwoopingLargeFlaps"
+			}
+			{
+				Frame = 46
+				Sound = "/Leftovers/World Sounds/SwoopingLargeFlaps"
+			}			
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_Hub_Eat_Start"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubEatIntro_C_00"
+		ChainTo = "Enemy_Eris_Hub_Eat_FireLoop"
+	}
+	{
+		Name = "Enemy_Eris_Hub_Eat_FireLoop"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubEatLoop_C_00"
+		Sound = "/SFX/NPCLoops/Eris_0142"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+		Loop = true
+	}
+	{
+		Name = "Enemy_Eris_Hub_Eat_End"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubEatReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+	}
+
+	{
+		Name = "Enemy_Eris_Hub_Flattered"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubFlattered_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+	}
+
+	{
+		Name = "Enemy_Eris_Hub_Greet"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubGreet_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+	}
+
+	{
+		Name = "Enemy_Eris_Hub_Scoff"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubScoff_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+	}
+
+	{
+		Name = "Eris_Turn"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_IdleHubToIdleCombat_C_00"
+		ChainTo = "Eris_Turn2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_HubIdle"
+				Duration = 4
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Eris_Turn2"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_IdleCombatToIdleHub_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Eris_Turn"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_Hub_Toss"
+		InheritFrom = "EnemyErisBaseHubAnimations"
+		GrannyAnimation = "Eris_Base_HubToss_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+	}
+
+	// Combat
+
+	{
+		Name = "Enemy_Eris_Idle"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_IdleCombat_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+
+		Frames = 
+		[
+			{
+				Frame = 5
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Yell"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_CombatToHubIdle"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_IdleCombatToIdleHub_C_00"
+		ChainTo = "Enemy_Eris_HubIdle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_MoveStart"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Move_C_00"
+		ChainTo = "Enemy_Eris_Move"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_Move"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Move_C_00"
+		Loop = true
+		Frames = 
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_MoveStop"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Move_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		CancelOnOwnerMove = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_FlyUp_Start"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_FlyUp_C_00"
+		ChainTo = "Enemy_Eris_FlyUp_Fire"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+
+		Frames =
+		[
+			{
+				Frame = 27
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_FlyUp_Start_Fast"
+		InheritFrom = "Enemy_Eris_FlyUp_Start"
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Enemy_Eris_FlyUp_Fire_Fast"
+	}
+
+	{
+		Name = "Enemy_Eris_FlyUp_Fire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_FlyUp_C_00"
+		ChainTo = "Enemy_Eris_Hidden"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Sound = "/Leftovers/World Sounds/AirshipSprint"
+		StopSoundOnFinishFade = 0.2
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 27
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eris_FlyUp_Fire_Fast"
+		InheritFrom = "Enemy_Eris_FlyUp_Fire"
+		GrannyAnimationSpeed = 2.0
+	}
+
+	{
+		Name = "Enemy_Eris_Hidden"
+		InheritFrom = "Enemy_Eris_Idle"
+		GrannyAnimation = "Eris_Base_IdleCombat_C_00"
+		CancelOnOwnerMove = false
+		Loop = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Alpha = 0
+	}
+
+	{
+		Name = "Enemy_Eris_FlyDown"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_FlyDown_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		Sound = "/Leftovers/World Sounds/CaravanFallWhoosh"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3.0
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Eris_Reload"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Reload_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		Frames = 
+		[
+			{
+				Frame = 15
+				Sound = "/SFX/Player Sounds/ZagreusGunReloading"
+			}
+			{
+				Frame = 18
+				Sound = "/Leftovers/World Sounds/SwoopingLargeFlaps"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Player Sounds/ZagreusGunReloadCompleteFlash"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eris_Reload_PreFight"
+		InheritFrom = "Enemy_Eris_Reload"
+		ChainTo = "Enemy_Eris_Idle"
+	}
+	{
+		Name = "Enemy_Eris_ReloadJam"
+		InheritFrom = "Enemy_Eris_Reload"
+		GrannyAnimationSpeed = 0.65
+		PlayBackwards = true
+		OwnerImmobile = true
+
+		Frames = 
+		[
+			{
+				Frame = 15
+				Sound = "/SFX/Player Sounds/ZagreusGunReloading"
+			}
+			{
+				Frame = 18
+				Sound = "/Leftovers/World Sounds/SwoopingLargeFlaps"
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/Eris/EmoteCharging"
+			}
+			{
+				Frame = 50
+				Sound = "/SFX/Player Sounds/ZagreusGunReloadCompleteFlash"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_Reload"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_Yell"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Yell_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		OwnerImmobile = true
+		TimeModifierFraction = 0
+		Sound = "/SFX/Enemy Sounds/Alecto/AlectoRageGatherLoop"
+		StopSoundOnFinishFade = 0.2
+		Frames = 
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/Menu Sounds/LevelUpFlash"
+			}
+			{
+				Frame = 44
+				Sound = "/SFX/Enemy Sounds/Charon/CharonGhostAttackStart"
+			}
+		]
+	}
+
+	// SNIPE
+	{
+		Name = "Enemy_Eris_SnipePreFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SnipeAntic_C_00"
+		ChainTo = "Enemy_Eris_SnipePreFireLoop"
+		Sound = "/SFX/Player Sounds/ZagreusGunReloadingLucifer"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SprayPreFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SnipePreFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SnipePreFireLoop"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SnipeIdleLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Eris_SnipeFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SnipeFire_C_00"
+		ChainTo = "Enemy_Eris_SnipePostFire"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_SnipePreFireLoop"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SnipePostFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SnipeReturnToIdle_C_00"
+		Sound = "/SFX/Player Sounds/ZagreusGunBarrelTelescoping"
+		ChainTo = "Enemy_Eris_Idle"
+	}
+
+	// SPRAY
+	{
+		Name = "Enemy_Eris_SprayPreFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackAntic_C_00"
+		HoldLastFrame = true
+		Frames = 
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_GrenadePostFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SprayPostFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SprayFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackFire_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_SprayFire"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SprayPostFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+	}
+
+	// SPREAD
+	{
+		Name = "Enemy_Eris_SpreadPreFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackAntic_C_00"
+		HoldLastFrame = true
+		Frames = 
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_GrenadePostFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SprayPostFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SpreadFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackFire_C_00"
+		AllowRestart = true
+		ChainTo = "Enemy_Eris_SpreadPostFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_SpreadPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_SpreadPostFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_SprayAttackReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+	}
+
+	// STRAFE
+	{
+		Name = "Enemy_Eris_StrafePreFire"
+		InheritFrom = "EnemyErisBaseStrafeAnimations"
+		GrannyAnimation = "Eris_Base_StrafeAntic_C_00"
+		HoldLastFrame = true
+		Frames = 
+		[
+			{
+				Frame = 3
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SnipePostFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_GrenadePostFire"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_SprayPostFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_StrafeFire"
+		InheritFrom = "EnemyErisBaseStrafeAnimations"
+		GrannyAnimation = "Eris_Base_StrafeFire_C_00"
+		ChainTo = "Enemy_Eris_StrafeFireLoop"
+		Sound = "/SFX/Enemy Sounds/Eris/EmoteEvading"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Eris_StrafeFireLoop" }
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_StrafeFireLoop"
+		InheritFrom = "EnemyErisBaseStrafeAnimations"
+		GrannyAnimation = "Eris_Base_StrafeLoopSpin_C_00"
+		Loop = true
+		OwnerHasNoUnitCollision = true
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserSpin2"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Eris_StrafePostFire"
+		InheritFrom = "EnemyErisBaseStrafeAnimations"
+		GrannyAnimation = "Eris_Base_StrafeReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+		Sound = "/Leftovers/World Sounds/SwoopingLargeFlaps"
+		GrannyAnimationSpeed = 0.8
+	}
+
+	{
+		Name = "ErisFlyBy"
+		InheritFrom = "Enemy_Eris_StrafeFireLoop"
+	}
+
+	// GRENADE
+	{
+		Name = "Enemy_Eris_GrenadePreFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_GrenadeAntic_C_00"
+		HoldLastFrame = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStart"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Move"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_MoveStop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eris_GrenadePostFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eris_GrenadeFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_GrenadeFire_C_00"
+		ChainTo = "Enemy_Eris_GrenadePostFire"
+	}
+
+	{
+		Name = "Enemy_Eris_GrenadePostFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_GrenadeReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_Idle"
+	}
+
+	{
+		Name = "Enemy_Eris_GrenadeSelf"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_GrenadeFire_C_00"
+		ChainTo = "Enemy_Eris_GrenadeSelfPostFire"
+	}
+
+	{
+		Name = "Enemy_Eris_GrenadeSelfPostFire"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_GrenadeReturnToIdle_C_00"
+		ChainTo = "Enemy_Eris_Yell"
+		OwnerImmobile = true
+	}
+
+
+
+	{
+		Name = "Enemy_Eris_Death"
+		InheritFrom = "EnemyErisBaseCombatAnimations"
+		GrannyAnimation = "Eris_Base_Yell_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 35
+				FrameSpeed = 0.4
+			}
+			{
+				Frame = 47
+				FrameSpeed = 0.06
+			}
+			{
+				Frame = 55
+				FrameSpeed = 0.35
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 62
+				FrameSpeed = 0
+				VerticalMask = 0
+			}
+		]
+	}
+
+
+    {
+      Name = "Enemy_Eris_StrafeLoopRender"
+      FilePath = "Animations\NPCEris\StrafeLoop\ErisStrafeLoop0001"   
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+]}

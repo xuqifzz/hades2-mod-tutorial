@@ -1,0 +1,337 @@
+{ Animations = [
+
+	{
+		Name = "BoatEdgeWave"
+		FilePath = "Fx\BoatEdgeWave\BoatEdgeWave"
+		
+		Angle = -45.0
+		EaseOut = 1.0
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		FlipHorizontal = true
+		EndOffsetY = -5.0
+		IsometricSkew = "Y"
+		Ambient = 0.0
+		PingPongShiftOverDuration = true
+	}
+	
+	{
+		Name = "BoatWake"
+		FilePath = "Fx\BoatWake\BoatWake"
+		
+		Angle = 225.0
+		EndFrame = 50
+		Loop = true
+		NumFrames = 50
+		RandomPlaySpeedMax = 34.0
+		RandomPlaySpeedMin = 28.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		FlipHorizontal = true
+		PostRotateScaleY = 0.5
+		Scale = 1.5
+		ScaleY = 1.5
+		Ambient = 0.0
+	}
+
+	{
+		Name = "OverlookActivationSparkle"
+		FilePath = "Tilesets\Ephyra\Ephyra_ActivationSparkle_01"
+		GroupName = "FX_Standing_Add"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "SafeZoneAura"
+		FilePath = "Dev\blank_invisible"
+		Duration = 3
+		AngleFromOwner = "Ignore"
+		VisualFx = "SafeZoneBubble"
+		VisualFxIntervalMin = 0.50
+		VisualFxIntervalMax = 0.51
+		CreateAnimations =
+		[
+			{ Name = "SafeZoneBubbleIn" }
+			{ Name = "SafeZoneBubbleDisplacement" }
+			{ Name = "SafeZoneBubble" }
+			{ Name = "SafeZoneCircle" }
+			{ Name = "SafeZoneWarningDelay" }
+		]
+	}
+
+	{
+		Name = "SafeZoneWarningDelay"
+		
+		FilePath = "Dev\blank_invisible"
+		Duration = 4
+		ChainTo = "SafeZoneCircleExpireWarningSpawner"
+	}
+
+	{
+		Name = "SafeZoneCircleExpireWarningSpawner"
+		
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "SafeZoneCircleExpireWarning"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.33
+		Duration = 1
+	}
+
+	{
+		Name = "SafeZoneCircle"
+		FilePath = "Fx\CastCircles\CastCircleC"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 640
+		DieWithOwner = true
+		StartRed = 0
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.01
+		EndGreen = 0.2
+		EndBlue = 0.99
+		PingPongColor = true
+		Duration = 1.5
+		Loop = true
+		RotationSpeed = 2
+	}
+
+	{
+		Name = "SheepSickAura"
+		InheritFrom = "SafeZoneCircle"
+		EndRed = 1.0
+		StartRed = 1
+	}
+
+	{
+		Name = "SafeZoneCircleExpireWarning"
+		InheritFrom = "SafeZoneCircle"
+		ScaleRadius = 0
+		Scale = 0.5
+		Angle = -10
+		AngleFromOwner = "Ignore"
+		Loop = false
+		StartRed = 1
+		StartGreen = 0.1
+		StartBlue = 0.01
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		Duration = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScale = 1.00
+		EndScale = 1.15
+		RandomRotation = false
+	}
+
+	{
+		Name = "SafeZoneBubbleIn"
+		FilePath = "Fx\SafeZoneBubbleIn\SafeZoneBubbleIn"
+		NumFrames = 15
+		Material = "Unlit"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ScaleRadius = 200
+		Scale = 1.3
+		OffsetY = -30
+		GroupName = "FX_Standing_Add"
+		HoldLastFrame = false
+		DieWithOwner = false
+		OverlayVfx = true
+	}
+
+	{
+		Name = "SafeZoneBubbleOut"
+		InheritFrom = "SafeZoneBubbleIn"
+		VisualFx = null
+		ScaleRadius = 180
+		PlaySpeed = 30
+		DieWithOwner = false
+		SortMode = "Isometric"
+		FilePath = "Fx\SafeZoneBubbleOut\SafeZoneBubbleOut"
+	}
+
+	{
+		Name = "SafeZoneBubble"
+		FilePath = "Particles\particle_hemiBubble"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomFlipHorizontal = true
+		OriginX = 261
+		OriginY = 265
+		ScaleRadius = 261
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		VisualFx = "SafeZoneBubbleParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.10
+		DieWithOwner = true
+	}
+
+
+	{
+		Name = "CapturePoint"
+		FilePath = "Fx\CastCircles\CastCircleD"
+		GroupName = "FX_Standing_Add"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		PostRotateScaleY = 0.5
+		Scale = 0.65
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 1.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "SafeZoneBubbleParticles"
+		
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		RadialOffsetMin = 350
+		RadialOffsetMax = 355
+		RadialOffsetScaleY = 0.6
+		AngleMin = 160
+		AngleMax = 380
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		ScaleMin = 0.03
+		ScaleMax = 0.10
+		GroupName = "FX_Standing_Add"
+		RandomDurationMin = 1.0
+		RandomDurationMax = 0.5
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -200
+		OffsetZ = 60
+	}
+
+	{
+		Name = "SafeZoneBubbleDisplacement"
+		InheritFrom = "SafeZoneBubble"
+		GroupName = "FX_Displacement"
+		FilePath = "Particles\particle_hemiBubbleDisplacement"
+		EaseIn = 0
+		StartAlpha = 0
+		EndAlpha = 0.3
+		StartScale = 0.9
+		EndScale = 1.10
+		CreateAnimation = null
+		HoldLastFrame = false
+		RandomDurationMin = 4
+		RandomDurationMax = 4.1
+		DieWithOwner = true
+		RandomFlipHorizontal = false
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "CocoonSparkles"
+		InheritFrom = "GenericSparkleEmitter"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "LightCircle"
+		FilePath = "Fx\LightCircle\LightCircle"
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "LightCircleIso"
+		InheritFrom = "LightCircle"
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "LightCrescent"
+		InheritFrom = "LightCircle"
+		IsometricSkew = "X"
+		FilePath = "Fx\LightCrescent\LightCrescent"
+	}
+
+	{
+		Name = "LightCrescentWobble"
+		InheritFrom = "LightCircle"
+		IsometricSkew = "X"
+		FilePath = "Fx\LightCrescent\LightCrescent"
+		StartAngle = -10
+		EndAngle = 10
+		EaseIn = 0.0
+		EaseOut = 1.0
+		PingPongAngle = true
+	}
+
+	{
+		Name = "LightCircleLight"
+		InheritFrom = "LightCircle"
+		FilePath = "Fx\LightCircleSolid\LightCircleSolid"
+	}
+
+	{
+		Name = "LightCircleIsoLight"
+		InheritFrom = "LightCircleLight"
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "LightCrescentLight"
+		InheritFrom = "LightCrescent"
+		FilePath = "Fx\LightCrescentSolid\LightCrescentSolid"
+	}
+
+	{
+		Name = "LightCrescentWobbleLight"
+		InheritFrom = "LightCrescentWobble"
+		FilePath = "Fx\LightCrescentSolid\LightCrescentSolid" 
+	}
+]}

@@ -1,0 +1,3945 @@
+{ Weapons = [
+	{
+		Name = "1_BaseDamagingWeapon"
+	}
+	{
+		Name = "WeaponBlink"
+		InheritFrom = "1_BasePlayerSlowWeapon"
+		Type = "BLINK"
+		Control = "Rush"
+		ChargeStartAnimation = "MelinoeDashStart"
+		FireGraphic = "MelinoeDash"
+		ChargeCancelGraphic = "MelinoeDash"
+		FireFx = "BlinkStreak"
+		ChargeTimeFrames = 9
+		MinChargeToFire = 1.0
+		LockTriggerForCharge = true
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		BlinkDuration = 0.20
+		BlinkEaseIn = 0
+		BlinkEaseOut = 0
+		Projectile = "ProjectileBlink"
+		UnblockedBlinkFx = "DashCrack"
+		WeaponRange = 320
+		BlinkMaxRange = 450
+		ClipSize = 1
+		ClipRegenInterval = 0.74
+		FullClipRegen = true
+		Cooldown = 0.05
+		ChargeFx = "MelBlinkCharge"
+		ArsenalCooldown = 0.0
+		CancelMovement = false
+		FullyAutomatic = true
+		AutoLock = false
+		ChargeCancelMovement = false
+		UseTargetAngle = true
+		BlockMoveInput = false
+		IgnoreForceCooldown = true
+		ForceReleaseAllOnFire = true
+		CanCancelDisables = true
+		BlinkDetonateAtEndpoint = false
+		BlinkDetonateAtOrigin = true
+		CheckMovementReactionDistance = 150
+		ConsumeClipOnRelease = true
+		CheckDanger = true
+		CanUseKeyboardAim = true
+		SilentImpact = true
+		AcceptTriggerLockRequests = true
+		AllowMultiFireRequest = true
+		CancelAttachedProjectiles = true
+		SetTargetAngleOnRequest = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		SwapOnFire = "WeaponSprint"
+		Effects =
+		[
+			{
+				Name = "RushWeaponInvulnerable"
+				Type = "INVULNERABLE"
+				DurationFrames = 16
+				Modifier = 1.0
+				NoUnitCollision = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "RushWeaponImmuneToForce"
+				ImmuneToForce = true
+				DurationFrames = 16
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "DashAttackQueue"
+				Trigger = "Charging"
+				DurationFrames = 23
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "RushWeaponInvulnerableCharge"
+				Trigger = "Charging"
+				Type = "INVULNERABLE"
+				DurationFrames = 10
+				Modifier = 1.0
+				NoUnitCollision = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "RushWeaponImmuneToForceCharge"
+				Trigger = "Charging"
+				ImmuneToForce = true
+				DurationFrames = 10
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "RushChargeSlow"
+				Trigger = "Charging"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 1.20
+				Cancelable = true
+				Active = true
+			}
+			{
+				Name = "RushWeaponDisableRotation"
+				DurationFrames = 1
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = false
+				Cancelable = true
+			}
+			{
+				Name = "RushWeaponDisableMove"
+				DurationFrames = 11
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSprint"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Rush"
+		Type = "RAM"
+		SelfVelocity = 1100
+		SelfVelocityCap = 740
+		RamTotalDistance = 0
+		ProjectileInterval = 0.1
+		FlashDuration = 0
+		RamReappliesVelocity = true
+		Duration = 0
+		Projectile = "null"
+		ClipSize = 1
+		ChargeSoundFadeTime = 0.25
+		BarrelLength = 0
+		AutoLock = false
+		SetTargetAngleOnRequest = false
+		ChargeStartAnimation = "null"
+		ChargeCancelGraphic = "null"
+		ChargeStartFx = "null"
+		FireGraphic = "MelinoeSprint"
+		FireEndGraphic = "MelinoeRun"
+		FireOnRelease = false
+		EndRamWeaponOnRelease = true
+		CanCancelDisables = false
+		AllowExternalForceRelease = false
+		OnlyChargeOnce = true
+		AcceptTriggerLockRequests = true
+		AllowMultiFireRequest = false
+		BlockedByAllOtherFireRequest = true
+		ForceReleaseOnFail = true
+		ChargeTime = 0.1
+		Strafe = false
+		LoseControlOnRelease = true
+		Effects =
+		[
+			/*
+			{
+				Trigger = "Fire"
+				Name = "SprintInvuln"
+				Type = "INVULNERABLE"
+				Duration = 100
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+			}
+			*/
+
+			{
+				Trigger = "Fire"
+				Name = "SprintFx"
+				Type = "TAG"
+				Active = true
+				Duration = 3600
+				FrontFx = "MelSprintFxSpawner"
+			}
+			{
+				Trigger = "FireEnd"
+				Name = "SprintFx"
+				Type = "TAG"
+				Active = true
+				Duration = 0.01
+				FrontFx = "null"
+			}
+			{
+				Trigger = "Fire"
+				Name = "SprintDodge"
+				Type = "TAG"
+				Duration = 3600
+				DodgeChance = 0.0
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+				FrontFx = "null"
+			}
+			{
+				Trigger = "FireEnd"
+				Name = "SprintDodge"
+				Type = "TAG"
+				Duration = 0.1
+				DodgeChance = 0
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+				FrontFx = "null"
+			}
+			{
+				Trigger = "Fire"
+				Name = "SprintGracePeriod"
+				Type = "INVULNERABLE"
+				Duration = 0.05
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = true
+				FrontFx = "null"
+			}
+			{
+				Trigger = "FireEnd"
+				Name = "EndSprintControl"
+				Duration = 0.01
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = true
+				HaltOnEnd = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSkullImpulse"
+		InheritFrom = "1_BasePlayerSlowWeapon"
+		Type = "RAM"
+		SelfVelocity = 1200
+		SelfVelocityCap = 1200
+		RamEndVelocity = 100
+		RamTotalDistance = 0
+		ProjectileInterval = 0.25
+		RamDistanceInterval = 20
+		RamReappliesVelocity = true
+		Duration = 0
+		FireEndGraphic = "Melinoe_Lob_Special1Ex_End"
+		FireGraphic = "Melinoe_Lob_Special1Ex_StartLoop"
+		FireFx = "null"
+		ChargeTime = 0
+		ProjectileAngleStartOffset = 90
+		Projectile = "ProjectileSkullImpulse"
+		WeaponRange = 300
+		BlinkMaxRange = 400
+		ChargeFx = "null"
+		ArsenalCooldown = 0.0
+		CancelMovement = false
+		FullyAutomatic = true
+		AutoLock = true
+		IgnoreOwnerAttackDisabled = true
+		UseTargetAngle = false
+		BlockMoveInput = true
+		IgnoreForceCooldown = true
+		CanCancelDisables = true
+		CanCancelOwnDisables = true
+		BlinkDetonateAtEndpoint = true
+		CheckMovementReactionDistance = 150
+		PriorityFireRequest = true
+		Effects =
+		[
+			{
+				Trigger = "Fire"
+				Name = "SkullCarStun"
+				Duration = 100
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = false
+			}
+			{
+				Trigger = "Fire"
+				Name = "SkullCarInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 100
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = true
+				FrontFx = "Invincibubble_Zag_Loop"
+			}
+		]
+	}
+	{
+		Name = "FlashbackHadesBlink"
+		InheritFrom = "WeaponBlink"
+		FireGraphic = "HadesFlashback_Dash"
+		SwapOnFire = "null"
+		ChargeStartAnimation = "null"
+		ChargeTimeFrames = 0
+		ChargeFx = null
+		FullyAutomatic = false
+		ConsumeClipOnRelease = false
+	}
+	{
+		Name = "FlashbackMelBlink"
+		InheritFrom = "WeaponBlink"
+		SwapOnFire = "null"
+		ChargeFx = "MelBlinkCharge_Young"
+		FireFx = "BlinkStreak_Young"
+		ChargeStartAnimation = "Melinoe_Young_Dash_Start"
+		FireGraphic = "Melinoe_Young_Dash_Fire"
+		ChargeCancelGraphic = "Melinoe_Young_Dash_Fire"
+		WeaponRange = 200
+		BlinkMaxRange = 300
+		FullyAutomatic = false
+	}
+	{
+		Name = "SelfSlow"
+		InheritFrom = "1_BasePlayerMovementWeapon"
+		Type = "GUN"
+		FullyAutomatic = true
+		Effect =
+		{
+			Name = "SelfSlow"
+			Type = "SPEED"
+			Duration = 0.4
+			Modifier = 0.3
+			Active = true
+			DisableRotate = true
+			CanAffectInvulnerable = true
+		}
+	}
+	{
+		Name = "1_BaseMagicWeapon"
+		InheritFrom = "1_BaseWeapon"
+		LockTriggerForCharge = true
+		AutoLock = true
+		AutoLockRange = 650
+		AutoLockArcDistance = 90
+		ReloadOnCreation = false
+		FullyAutomatic = true
+		IgnoreOwnerAttackDisabled = true
+		IgnoreForceCooldown = true
+		AllowMultiFireRequest = true
+	}
+	{
+		Name = "WeaponCast"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "ProjectileCast"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		ForceReleaseOnFire = true
+		FullyAutomatic = false
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 1
+		RetainAimLocationWindow = 0.95
+		AutoLockArcDistance = 75
+		FireFx = "HecateMeleeFlare"
+		ShowFreeAimLine = false
+		ChargeStartAnimation = "Melinoe_Cast_Start"
+		OnlyChargeOnce = true
+		FireGraphic = "null"
+		LockTriggerForCharge = true
+		SetTargetAngleOnRequest = false
+		FailedToFireCooldownDuration = 0.1
+		AllowExternalForceRelease = true
+		FireOnRelease = false
+		MinChargeToFire = 1.0
+		ActiveProjectileCap = 1
+		AllowMultiFireRequest = true
+		ChargeCancelGraphic = "null"
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		ChargeTimeFrames = 15
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		AddOnFire = "WeaponCastArm"
+		NumProjectiles = 1
+		WeaponRange = 1
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		IgnoreOwnerAttackDisabled = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		LockTriggerTransferFromOnSwap = false
+		Strafe = false
+		Effects =
+		[       
+			{
+				Trigger = "Fire"
+				Name = "CastInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 0.2
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+			}  
+			{
+				Name = "WeaponCastAttackDisable"
+				DurationFrames = 15
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+
+			{
+				Name = "WeaponCastSelfSlow"
+				Trigger = "Charging"
+				DurationFrames = 16
+				Type = "SPEED"
+				Modifier = 0.60
+				Active = true
+			}
+			{
+				Name = "WeaponCastStop"
+				Type = "SPEED"
+				Modifier = 1.0
+				Duration = 0.1
+				HaltOnEnd = true
+				Active = false
+			}
+		]
+	}
+	{
+		Name = "WeaponAnywhereCast"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "ZeusCastAnywhereBlast"
+		ExcludeInProjectileCap = "ZeusCastAnywhereBlast"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		BarrelLength = 32
+		AutoLock = true
+		AutoLockRange = 1000
+		AutoLockArcDistance = 75
+		ShowFreeAimLine = true
+		TargetReticleAnimation = "CastProjectileReticle"
+		ManualAiming = true
+		ManualAimingInitialOffset = 420
+		FireFx = "StaffProjectileFireFxRing"
+		ChargeStartAnimation = "Melinoe_Cast_Start"
+		FireGraphic = "Melinoe_Cast_Fire_Quick"
+		LockTriggerForCharge = false
+		ChargeCancelGraphic = "Melinoe_Cast_Fire_Quick"
+		AcceptTriggerLockRequests = false
+		AllowExternalForceRelease = true
+		FireOnRelease = true
+		MinChargeToFire = 0
+		ChargeRangeMultiplier = 1.0
+		ChargeSpeedMultiplier = 1.0
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		ChargeTimeFrames = 13
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		ActiveProjectileCap = 1
+		IncludeWeaponInProjectileCap = "WeaponCast"
+	}
+	{
+		Name = "WeaponCastProjectile"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "ProjectileCastFireball"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = true
+		FireOnRelease = true
+		TargetReticleAnimation = "CastProjectileReticle"
+		ShowFreeAimLine = true
+		AimLineAnimation = "null"
+		ManualAiming = true
+		ManualAimingInitialOffset = 420
+		AutoLockRange = 1200
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		BarrelLength = 0
+		AutoLock = false
+		RetainAimLocationWindow = 0.95
+		AutoLockArcDistance = 75
+		ChargeStartFx = "CastFireBallCharge",
+		FireFx = "StaffProjectileFireFxRing"
+		ChargeStartAnimation = "Melinoe_Cast_Start"
+		FireGraphic = "Melinoe_Cast_Fire_Quick"
+		LockTriggerForCharge = false
+		ChargeCancelGraphic = "Melinoe_Cast_Fire_Quick"
+		FailedToFireCooldownDuration = 0.1
+		AllowExternalForceRelease = true
+		MinChargeToFire = 0
+		ActiveProjectileCap = 1
+		IncludeWeaponInProjectileCap = "WeaponCast"
+		AllowMultiFireRequest = false
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		ChargeTimeFrames = 10
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		NumProjectiles = 1
+		WeaponRange = 500
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		IgnoreOwnerAttackDisabled = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+	}
+	{
+		Name = "WeaponCastProjectileHades"
+		InheritFrom = "WeaponCastProjectile"
+		Projectile = "ProjectileCastHades"
+		ShowFreeAimLine = true,
+		AimLineAnimation = "AuraAimLine"
+		ManualAiming = false
+	}
+	{
+		Name = "WeaponCastArm"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "null"
+		ProjectileToArm = "ProjectileCast"
+		LoseControlWithoutProjectile = "ProjectileCast"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ForceMaxChargeRelease = true
+		ChargeStartAnimation = "null"
+		ChargeCancelGraphic = "null"
+		FireGraphic = "Melinoe_Cast_Fire"
+		TriggerReleaseGraphic = "null"
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 1
+		FireFx = "null"
+		ShowFreeAimLine = false
+		LockTriggerForCharge = false
+		SetTargetAngleOnRequest = false
+		CancelChargeOnRelease = true
+		ClearFireRequestOnChargeCancel = true
+		ForceReleaseWeaponOnFire = "WeaponCast"
+		FireOnRelease = true
+		AllowExternalForceRelease = false
+		LoseControlOnRelease = true
+		AllowMultiFireRequest = false
+		LoseControlIfNotCharging = false
+		ChargeTime = 0.915
+		MinChargeToFire = 1.0
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "WeaponCast"
+		NumProjectiles = 1
+		ControlWindow = 0.1
+		WeaponRange = 1
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		IgnoreOwnerAttackDisabled = false
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		Strafe = false
+		Effects =
+		[ 
+			{
+				Name = "WeaponCastArmDisable"
+				DurationFrames = 7
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+				Active = true
+			}      
+			{
+				Name = "WeaponCastArmDisableCancelable"
+				DurationFrames = 15
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponCastChargeMoveSlow"
+				Type = "SPEED"
+				Modifier = 0.60
+				Duration = 9999
+				HaltOnEnd = true
+				Active = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponCastVacuum"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "ProjectileCastVacuum"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 1
+		FireFx = "null"
+		ShowFreeAimLine = false
+		ChargeStartAnimation = "null"
+		FireGraphic = "null"
+		LockTriggerForCharge = false
+
+		AllowExternalForceRelease = true
+		FireOnRelease = true
+		ChargeTime = 0.7
+		MinChargeToFire = 1.0
+		ChargeCancelGraphic = "null"
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "WeaponCast"
+		NumProjectiles = 1
+		WeaponRange = 1
+		ProjectileSpacing = 0
+		CanCancelDisables = false
+		IgnoreOwnerAttackDisabled = false
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		Effects =
+		[       
+			{
+				Name = "WeaponCastVacuumDisable"
+				DurationFrames = 15
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "PoseidonSprintWeapon"
+		InheritFrom = "1_BaseMagicWeapon"
+		Projectile = "PoseidonSprintPuddle"
+	}
+	{
+		Name = "EncounterStartBuffWeapon"
+		InheritFrom = "1_BaseDamagingWeapon"
+		FireFx = "BowLoadAmmoFx"
+		Projectile = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ChargeStartAnimation = "null"
+		FireGraphic = "null"
+		SelfVelocity = 0
+		ChargeStartFx = "null"
+		Cooldown = 0.3
+		MinChargeToFire = 0
+		ChargeFx = "null"
+		ChargeTime = 0
+		IgnoreOwnerAttackDisabled = true
+		ChargeCancelMovement = false
+		CancelMovement = false
+		RootOwnerWhileFiring = false
+		FullyAutomatic = false
+		AutoLock = false
+		LockTriggerForCharge = false
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = false
+		Effects =
+		[
+			{
+				Name = "EncounterStartInvulnerableBuff"
+				Type = "INVULNERABLE"
+				Duration = 1.0
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = true
+			}
+		]
+	}
+
+	// Staff
+	{
+		Name = "WeaponStaffSwing"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileStaffSwing1"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		AutoLock = true
+		AutoLockRange = 390
+		AutoLockArcDistance = 130
+		BarrelLength = -150
+		ChargeStartAnimation = "Melinoe_Staff_Attack1_Start"
+		FireGraphic = "Melinoe_Staff_Attack1_Fire"
+		ChargeCancelGraphic = "Melinoe_Staff_Attack1_End"
+		FireFx = "StaffProjectileFireFx1"
+		LockTrigger = true
+		CancelChargeOnRelease = false
+		ForceReleaseOnSwap = true
+		SwapOnFire = "WeaponStaffSwing2"
+		NumProjectiles = 1
+		ChargeTime = 0.11
+		FireOnRelease = false
+		ChargeFx = "null"
+		ChargeSelfVelocity = 0
+		SelfVelocity = 0
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		Cooldown = 0
+		AddOnFire = "WeaponStaffSwing5"
+		Effects =
+		[
+			{
+				Name = "Swing1Disable"
+				DurationFrames = 6
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Swing1DisableCancellable"
+				DurationFrames = 8
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Name = "Swing1DisableMoveHold"
+				DurationFrames = 11
+				DisableMove = true
+				DisableRotate = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing1SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.05
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "Swing1SelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 12
+				Modifier = 0.05
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffSwing2"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Type = "GUN"
+		Control = "Attack2"
+		Projectile = "ProjectileStaffSwing2"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		ForceReleaseOnSwap = true
+		CancelMovement = false
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		AutoLock = true
+		AutoLockRange = 490
+		AutoLockArcDistance = 130
+		BarrelLength = -150
+		ChargeStartAnimation = "Melinoe_Staff_Attack2_Start"
+		FireGraphic = "Melinoe_Staff_Attack2_Fire"
+		ChargeCancelGraphic = "Melinoe_Staff_Attack2_End"
+		FireFx = "StaffProjectileFireFx2"
+		LockTriggerForCharge = true
+		LockTrigger = true
+		CancelChargeOnRelease = true
+		SwapOnFire = "WeaponStaffSwing3"
+		NumProjectiles = 1
+		ControlWindow = 0.4
+		ChargeTime = 0.16
+		ChargeFx = "null"
+		ChargeSelfVelocity = 0
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		FireOnRelease = false
+		CancelChargeOnControlRemoved = true
+		AllowExternalForceRelease = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		CanCancelDisables = false
+
+		AddOnFire = "WeaponStaffSwing5"
+		Effects =
+		[
+			{
+				Name = "Swing2Disable"
+				DurationFrames = 3
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Swing2DisableCancellable"
+				DurationFrames = 13
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Name = "Swing2DisableMoveHold"
+				DurationFrames = 19
+				DisableMove = true
+				DisableRotate = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing2SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.15
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing2Halt"
+				Type = "GRIP"
+				Duration = 0.08
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffSwing3"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Type = "GUN"
+		Control = "Attack2"
+		Projectile = "ProjectileStaffSwing3"
+		ClipSize = 1
+		RootOwnerWhileFiring = false
+		BlockMoveInput = true
+		ForceReleaseOnSwap = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		AutoLock = true
+		AutoLockRange = 490
+		AutoLockArcDistance = 130
+		BarrelLength = -150
+		ChargeStartAnimation = "Melinoe_Staff_Attack3_Start"
+		FireGraphic = "Melinoe_Staff_Attack3_Fire"
+		FireFx = "StaffProjectileFireFx3"
+		ChargeCancelGraphic = "Melinoe_Staff_Attack3_End"
+		LockTriggerForCharge = true
+		LockTrigger = true
+		CancelChargeOnRelease = true
+		SwapOnFire = "null"
+		NumProjectiles = 1
+		ControlWindow = 0.6
+		ChargeTime = 0.4
+		ChargeFx = "null"
+		ChargeSelfVelocity = 0
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		FireOnRelease = false
+		CancelChargeOnControlRemoved = true
+		AllowExternalForceRelease = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		CanCancelDisables = false
+		AddOnFire = "WeaponStaffSwing5"
+		Effects =
+		[
+			{
+				Name = "Swing3Disable"
+				DurationFrames = 9
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				HaltOnEnd = true
+			}
+			{
+				Name = "Swing3DisableCancellable"
+				DurationFrames = 18
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Name = "Swing3DisableMoveHold"
+				DurationFrames = 30
+				DisableMove = true
+				DisableRotate = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing3SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.8
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing3Halt"
+				Type = "GRIP"
+				Duration = 0.13
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = false
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffSwing5"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Type = "GUN"
+		Control = "Attack2"
+		Projectile = "ProjectileSwing5Magic"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		AutoLock = false
+		AutoLockRange = 300
+		AutoLockArcDistance = 75
+		ChargeStartAnimation = "Melinoe_Staff_AttackEx1_Start"
+		FireGraphic = "Melinoe_Staff_AttackEx1_Fire"
+		FireFx = "StaffProjectileFireFx4"
+		UseTargetAngle = true
+		ShowFreeAimLine = true
+		AimLineAnimation = "AuraAimLineNoMovement"
+		ChargeCancelGraphic = "Melinoe_Staff_AttackEx1_End"
+		FailedToFireCooldownAnimation = "Melinoe_Staff_Special1_End"
+		FailedToFireCooldownDuration = 0.5
+		LockTriggerForCharge = true
+		CancelChargeOnRelease = true
+		NumProjectiles = 18
+		ProjectileInterval = 0.01
+		ProjectileIntervalStart = 0.2
+		ProjectileAngleOffset = 0
+		ProjectileAngleStartOffset = 90
+		ProjectileSpacing = 120
+		AimLineDistanceOverride = 1180
+		AimLineCountOverride = 2
+		AimLineAngleOffsetOverride = 180
+		ControlWindow = 0.4
+		ChargeTime = 0.8
+		MinChargeToFire = 1.0
+		ChargeFx = "null"
+		ChargeSelfVelocity = 0
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		FireOnRelease = false
+		BarrelLength = 0
+		CancelChargeOnControlRemoved = true
+		AllowExternalForceRelease = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		CanUseKeyboardAim = true
+		ForceReleaseOnFire = true
+		FullyAutomatic = true
+		ForceReleaseOnSwap = false
+		LoseControlOnRelease = true
+		LoseControlIfNotCharging = false
+		AcceptTriggerLockRequests = false
+		AllowExternalForceReleaseIfAnyCharged = true
+		RemoveControlOnCharge = "WeaponStaffBall"
+		AddControlOnFire = "WeaponStaffBall"
+		AddControlOnChargeCancel = "WeaponStaffBall"
+		Effects =
+		[
+			{
+				Name = "Swing5Disable"
+				DurationFrames = 20
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				HaltOnStart = true
+			}
+			{
+				Name = "Swing5DisableCancellable"
+				DurationFrames = 47
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing5SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.03
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "StaffSwing5Halt"
+				Type = "GRIP"
+				Duration = 0.13
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "StaffSwing5ChargeRotationModifier"
+				Type = "SPEED"
+				DurationFrames = 49
+				Modifier = 1.0
+				RotationMultiplier = 0.00000001
+				Active = true
+				Cancelable = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffDash"
+		InheritFrom = "WeaponStaffSwing"
+		Projectile = "ProjectileStaffDash"
+		ChargeCancelMovement = true
+		BlockMoveInput = true
+		RootOwnerWhileFiring = true
+		ChargeTime = 0.06
+		ChargeStartAnimation = "Melinoe_Staff_AttackDash1_Start"
+		FireGraphic = "Melinoe_Staff_AttackDash1_Fire"
+		FireFx = "StaffProjectileFireFx1"
+		ChargeCancelGraphic = "Melinoe_Staff_AttackDash1_End"
+		Enabled = true
+		SwapOnFire = "WeaponStaffSwing"
+		ForceReleaseOnSwap = false
+		AutoLockArcDistance = 150
+		AutoLockRange = 250
+		BarrelLength = -150
+		CanCancelDisables = true
+		CanCancelOwnDisables = false
+		LockTriggerTransferFromOnSwap = false
+		AllowExternalForceRelease = false
+		LockTrigger = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		DefaultControl = false
+		Effects =
+		[
+			{
+				Name = "SwingDashDisable"
+				DurationFrames = 5
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "SwingDashDisableCancellable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffBolt"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Projectile = "ProjectileStaffBolt"
+		UseTargetAngle = true
+		ChargeSoundFadeTime = 0.25
+		InitialCooldown = 0
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 1000
+		AutoLockArcDistance = 75
+		FireFx = "StaffLaserOriginFlare"
+		ChargeStartAnimation = "Melinoe_Staff_Special1_Start"
+		FireGraphic = "Melinoe_Staff_Special1_End"
+		FireEndGraphic = "null"
+		LockTriggerForCharge = true
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		ChargeCancelGraphic = "null"
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		ChargeTime = 0.25
+		MinChargeToFire = 1.0
+		OnlyChargeOnce = true
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		ProjectileAngleOffset = 0
+		ProjectileAngleStartOffset = 0
+		Scatter = 20
+		ScatterCap = 40
+		ScatterSubside = 20
+		BarrelLength = 160
+		Effects =
+		[
+			{
+				Name = "Special1Disable"
+				DurationFrames = 6
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponStaffBoltInstantStop"
+				Type = "SPEED"
+				Modifier = 0.6
+				Duration = 0.1
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffBoltCharged"
+		InheritFrom = "WeaponStaffBolt"
+		Projectile = "ProjectileStaffBoltCharged"
+		ChargeStartAnimation = "Melinoe_Staff_Special1_Start"
+		FireGraphic = "Melinoe_Staff_Special1_Fire"
+		FireEndGraphic = "null"
+		ChargeTime = 0.16
+		ShowFreeAimLine = true
+		AimLineAnimation = "AuraAimLine"
+		ChargeStartFx = "StaffBoltCharge"
+		AutoLockRange = 900
+		AutoLockArcDistance = 75
+		ForceReleaseOnSwap = true
+		LockTriggerTransferFromOnSwap = false
+		DefaultControl = false
+		ProjectileAngleOffset = 0
+		ProjectileAngleStartOffset = 0
+		BarrelLength = 0
+		Effects =
+		[
+			{
+				Name = "Special1Disable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 15
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponStaffBoltInstantStop"
+				Type = "SPEED"
+				Modifier = 0.6
+				Duration = 0.1
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffBall"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Projectile = "ProjectileStaffBall"
+		UseTargetAngle = true
+		ChargeSoundFadeTime = 0.25
+		InitialCooldown = 0
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 900
+		AutoLockArcDistance = 75
+		ShowFreeAimLine = true
+		AimLineAnimation = "AuraAimLine"
+		FireFx = "null"
+		ChargeStartAnimation = "Melinoe_Staff_Special1_Start"
+		FireGraphic = "Melinoe_Staff_Special1_Fire"
+		ChargeCancelGraphic = "Melinoe_Staff_Special1_End"
+		FireEndGraphic = "null"
+		LockTriggerForCharge = false
+		AllowExternalForceRelease = true
+		FireOnRelease = true
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		SelfVelocity = 0
+		ChargeTime = 0.1
+		MinChargeToFire = 0.3
+		ChargeRangeMultiplier = 1.0
+		OnlyChargeOnce = false
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		ProjectileSpacing = 0.2
+		CanCancelDisables = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		CanUseKeyboardAim = true
+		ProjectileAngleOffset = 0
+		ProjectileAngleStartOffset = 0
+		Scatter = 0
+		ScatterCap = 0
+		ScatterSubside = 0
+		BarrelLength = 40
+
+		ForceReleaseOnSwap = false
+		LockTriggerTransferFromOnSwap = false
+
+		Effects =
+		[
+			{
+				Name = "Special1Disable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 20
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Name = "Special1DisableMoveHold"
+				DurationFrames = 21
+				DisableRotate = true
+				DisableMove = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponStaffBoltInstantStop"
+				Type = "SPEED"
+				Modifier = 0.6
+				Duration = 0.1
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponStaffBall2"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Projectile = "ProjectileStaffBall"
+		UseTargetAngle = true
+		ChargeSoundFadeTime = 0.25
+		InitialCooldown = 0
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 1100
+		AutoLockArcDistance = 75
+		ShowFreeAimLine = true
+		AimLineAnimation = "AuraAimLine"
+		FireFx = "StaffLaserOriginFlare"
+		ChargeStartAnimation = "Melinoe_Staff_Special1_Start"
+		FireGraphic = "Melinoe_Staff_Special1_Fire"
+		ChargeCancelGraphic = "Melinoe_Staff_Special1_End"
+		FireEndGraphic = "null"
+		LockTriggerForCharge = false
+		AllowExternalForceRelease = false
+		FireOnRelease = true
+		ChargeStartFx = "StaffBoltCharge"
+		ChargeFinishFx = "null"
+		SelfVelocity = -1350
+		ChargeTime = 1.5
+		MinChargeToFire = 0.3
+		ChargeRangeMultiplier = 100
+		OnlyChargeOnce = false
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		ProjectileSpacing = 0
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		CanUseKeyboardAim = true
+		ProjectileAngleOffset = 0
+		ProjectileAngleStartOffset = 0
+		Scatter = 0
+		ScatterCap = 0
+		ScatterSubside = 0
+		BarrelLength = 40
+
+		ForceReleaseOnSwap = false
+		LockTriggerTransferFromOnSwap = false
+		SwapOnFire = "WeaponStaffBall"
+		ControlWindow = 0.4
+
+		Effects =
+		[
+			{
+				Name = "Special1Disable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 30
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponStaffBoltInstantStop"
+				Type = "SPEED"
+				Modifier = 0.6
+				Duration = 0.1
+				Active = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "WeaponStaffBallSkid"
+				Type = "SPEED"
+				Modifier = 1.0
+				Duration = 0.14
+				HaltOnEnd = true
+				Active = true
+			}
+		]
+	}
+
+	// Dagger
+	{
+		Name = "WeaponDagger"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileDaggerSliceLeft"
+		ClipSize = 1
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = false
+		AllowExternalForceRelease = false
+		AutoLock = true
+		AutoLockRange = 200
+		AutoLockArcDistance = 160
+		ChargeStartAnimation = "Melinoe_Dagger_AttackLeft_Start"
+		FireGraphic = "Melinoe_Dagger_AttackLeft_Fire"
+		FireFx = "DaggerSwipeFast"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackLeft_End"
+		LockTrigger = true
+		CancelChargeOnRelease = false
+		SwapOnFire = "WeaponDagger2"
+		AddOnFire = "WeaponDagger5"
+		ForceReleaseOnSwap = true
+		NumProjectiles = 1
+		ChargeTime = 0.08
+		FireOnRelease = false
+		TurboLockTargetDistance = 300
+		ChargeFx = "null"
+		SelfVelocity = 0
+		BarrelLength = 0
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		IgnoreTriggerLockDuringCooldown = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		Effects =
+		[
+			{
+				Name = "Swing1Disable"
+				DurationFrames = 3
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Swing1DisableCancellable"
+				DurationFrames = 10
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing1SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 0.01
+				RotationMultiplier = 0.01
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "Swing1SelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 15
+				RotationMultiplier = 0.00002
+				Modifier = 0.3
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDagger2"
+		InheritFrom = "WeaponDagger"
+		Projectile = "ProjectileDaggerSliceRight"
+		ChargeStartAnimation = "Melinoe_Dagger_AttackRight_Start"
+		FireGraphic = "Melinoe_Dagger_AttackRight_Fire"
+		FireFx = "DaggerSwipeFastFlip"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackRight_End"
+		SwapOnFire = "WeaponDaggerMultiStab"
+		AddOnFire = "WeaponDagger5"
+		NumProjectiles = 1
+		ChargeTime = 0.08
+		ChargeFx = "null"
+		ControlWindow = 0.35
+		CancelChargeOnRelease = true
+		Effects =
+		[
+			{
+				Name = "Swing2Disable"
+				DurationFrames = 3
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Swing2DisableCancellable"
+				DurationFrames = 10
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing2SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 0.3
+				RotationMultiplier = 0.01
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "Swing2SelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 15
+				RotationMultiplier = 0.00002
+				Modifier = 0.3
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDaggerMultiStab"
+		InheritFrom = "WeaponDagger"
+		Projectile = "ProjectileDagger"
+		AutoLockRange = 280
+		AutoLockArcDistance = 160
+		ChargeStartAnimation = "Melinoe_Dagger_AttackStabs_Start"
+		FireGraphic = "Melinoe_Dagger_AttackStabs_Fire"
+		FireFx = "null"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackStabs_End"
+		SwapOnFire = "WeaponDaggerDouble"
+		AddOnFire = "WeaponDagger5"
+		NumProjectiles = 5
+		ProjectileInterval = 0.08        
+		TreatProjectilesAsUniqueVolleys = true
+		ChargeTime = 0.1
+		ChargeFx = "null"
+		CancelChargeOnRelease = true
+		ControlWindow = 0.35
+		Effects =
+		[
+			{
+				Name = "SwingMultiDisable"
+				DurationFrames = 20
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "SwingMultiDisableCancellable"
+				DurationFrames = 28
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "SwingMultiSelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 0.3
+				RotationMultiplier = 0.01
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "SwingMultiSelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 33
+				RotationMultiplier = 0.00002
+				Modifier = 0.3
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDaggerDouble"
+		InheritFrom = "WeaponDagger"
+		Projectile = "ProjectileDaggerSliceDouble"
+		AutoLockRange = 300
+		AutoLockArcDistance = 160
+		ChargeStartAnimation = "Melinoe_Dagger_AttackDouble_Start"
+		FireGraphic = "Melinoe_Dagger_AttackDouble_Fire"
+		FireFx = "null"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackDouble_End"
+		SwapOnFire = "null"
+		AddOnFire = "WeaponDagger5"
+		NumProjectiles = 1
+		ChargeTime = 0.27
+		ChargeFx = "null"
+		BarrelLength = 200
+		ControlWindow = 0.7
+		CancelChargeOnRelease = true
+		Effects =
+		[
+			{
+				Name = "SwingDoubleDisable"
+				DurationFrames = 20
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "SwingDoubleDisableCancellable"
+				DurationFrames = 28
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "SwingDoubleSelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 0.3
+				RotationMultiplier = 0.01
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDaggerDash"
+		InheritFrom = "WeaponDagger"
+		Projectile = "ProjectileDaggerDash"
+		RootOwnerWhileFiring = true
+		AutoLockRange = 280
+		AutoLockArcDistance = 200
+		ChargeStartAnimation = "Melinoe_Dagger_AttackSpin_Start"
+		FireGraphic = "Melinoe_Dagger_AttackSpin_Fire"
+		FireFx = "DaggerSwipeFastFlipDash"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackSpin_End"
+		SwapOnFire = "WeaponDagger"
+		AddOnFire = "WeaponDagger5"
+		ForceReleaseOnSwap = false
+		NumProjectiles = 1
+		ChargeTime = 0.16
+		Cooldown = 0.02
+		ChargeFx = "null"
+		CanCancelDisables = true                          
+		CanCancelOwnDisables = true
+		Enabled = true
+		LockTriggerTransferFromOnSwap = false
+		LockTrigger = false
+		DefaultControl = false
+		Effects =
+		[
+			{
+				Name = "SwingDashDisable"
+				DurationFrames = 8
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "SwingDashDisableCancellable"
+				DurationFrames = 18
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDagger5"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileDaggerBackstab"
+		ChargeStartAnimation = "Melinoe_Dagger_AttackEx1_Start"
+		ChargeCancelGraphic = "Melinoe_Dagger_AttackEx1_End"
+		FireGraphic = "Melinoe_Dagger_AttackEx1_Fire"
+		ChargeTime = 0.65
+		MinChargeToFire = 1.0
+		ChargeDamageMultiplier = 1.0
+		ChargeStartFx = "DaggerCharge"
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		ForceReleaseOnSwap = false
+		LockTriggerForCharge = false
+		FireOnRelease = true
+		TurboLockTargetDistance = 300
+		ControlWindow = 0.34
+		LoseControlOnRelease = true
+		LoseControlIfNotCharging = false
+		AcceptTriggerLockRequests = false
+		AllowExternalForceRelease = false
+		AllowExternalForceReleaseIfAnyCharged = true
+		RemoveControlOnCharge = "WeaponDaggerThrow"
+		AddControlOnFire = "WeaponDaggerThrow"
+		AddControlOnChargeCancel = "WeaponDaggerThrow"
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		AutoLock = true
+		AutoLockUseMouseOver = true
+		AutoLockRange = 600
+		AutoLockMouseRange = 600
+		AutoLockArcDistance = 180
+		Effects =
+		[
+			{
+				Name = "Swing5SelfSlowCharge"
+				Trigger = "Charging"
+				Type = "SPEED"
+				DurationFrames = 10
+				Modifier = 0.45
+				Active = true
+				Cancelable = true
+				CanAffectInvulnerable = true
+				Duration = 0.1
+			}
+			{
+				Name = "Swing5Disable"
+				DurationFrames = 23
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "DaggerBlinkDisableRotation"
+				DurationFrames = 13
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDaggerBlink"
+		InheritFrom = "1_BaseMagicWeapon"
+		Type = "BLINK"
+		Projectile = "ProjectileDaggerBlink"
+		FireGraphic = "null"
+		UnblockedBlinkFx = "DashStreakBlink"
+		CanCancelDisables = true
+		CanCancelOwnDisables = true
+		ChargeTime = 0
+		WeaponRange = 800
+		BlinkDuration = 0.1
+		ChargeFx = "null"
+		ArsenalCooldown = 0.0
+		CancelMovement = false
+		FullyAutomatic = true
+		AutoLock = false
+		UseTargetAngle = true
+		BlockMoveInput = true
+		IgnoreForceCooldown = true
+		BlinkDetonateAtEndpoint = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		Effects =
+		[
+			{
+				Name = "DaggerBlinkWeaponInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 0.11
+				Modifier = 1.0
+				NoUnitCollision = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "DaggerBlinkWeaponImmuneToForce"
+				ImmuneToForce = true
+				Duration = 0.11
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponDaggerThrow"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Type = "GUN"
+		Projectile = "ProjectileDaggerThrow"
+		ClipSize = 1
+		ChargeSoundFadeTime = 0.25
+		FullyAutomatic = true
+		ForceReleaseOnSwap = false
+		ChargeCancelMovement = true
+		CancelMovement = true
+		BlockMoveInput = true
+		BarrelLength = 0
+		AutoLock = true
+		AutoLockRange = 820
+		AutoLockArcDistance = 75
+		ChargeStartAnimation = "Melinoe_Dagger_Special_Start"
+		ChargeCancelGraphic = "Melinoe_Dagger_Special_End"
+		LockTriggerForCharge = false
+		FireGraphic = "Melinoe_Dagger_Special_Fire"
+		FireOnRelease = true
+		TurboReleaseTime = 0.1
+		CanCancelDisables = true
+		SetCompleteAngleOnFire = true
+		Cooldown = 0.45
+		MinChargeToFire = 1.0
+		ChargeTime = 0.02
+		ShowFreeAimLine = true
+		AimLineAnimation = "DaggerThrowAimLine"
+		AcceptTriggerLockRequests = false
+		AllowExternalForceRelease = false
+		AllowExternalForceReleaseIfAnyCharged = true
+		ProjectileOffsetStart = "CENTER"
+		ProjectileAngleOffset = 12
+		ProjectileInterval = 0.04
+		Effects =
+		[
+			{
+				Name = "Special1Disable"
+				DurationFrames = 16
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 26
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Special1SelfSlowCharge"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.15
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Special1Halt"
+				Type = "GRIP"
+				Duration = 0.5
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "Special1DisableMoveHold"
+				DurationFrames = 33
+				DisableRotate = true
+				DisableMove = true
+				Cancelable = true
+			}
+		]
+	}
+
+	// Axe
+	{
+		Name = "WeaponAxe"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileAxe3"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 100
+		AutoLockArcDistance = 90
+		ChargeStartAnimation = "Melinoe_Axe_Attack1_Start"
+		FireGraphic = "Melinoe_Axe_Attack1_Fire"
+		FireFx = "AxeSwipe1"
+		ChargeCancelGraphic = "Melinoe_Axe_Attack1_End"
+		LockTrigger = true
+		CancelChargeOnRelease = false
+		SwapOnFire = "WeaponAxe2"
+		AddOnFire = "WeaponAxeSpin"
+		ForceReleaseOnSwap = true
+		NumProjectiles = 1
+		ChargeTime = 0.30
+		ChargeSelfVelocity = 500
+		FireOnRelease = false
+		ChargeFx = "null"
+		SelfVelocity = 0
+		BarrelLength = 0
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "Swing1SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.35
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "Swing1SelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 12
+				Modifier = 0.35
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "Swing1Disable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "Swing1DisableCancellable"
+				DurationFrames = 24
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+				Cancelable = true
+			}
+			{
+				Name = "Swing1MoveDisable"
+				DurationFrames = 35
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = false
+				Active = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponAxeDash"
+		InheritFrom = "WeaponAxe"
+		Projectile = "ProjectileAxeDash"
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		BarrelLength = 0
+		ChargeTime = 0.12
+		Cooldown = 0.02
+		SelfVelocity = 700
+		ChargeStartAnimation = "Melinoe_Axe_Attack3_Start"
+		FireGraphic = "Melinoe_Axe_Attack3_Fire"
+		FireFx = "AxeSwipeUpper"
+		ChargeCancelGraphic = "Melinoe_Axe_Attack3_End"
+		Enabled = true
+		SwapOnFire = "WeaponAxe"
+		ForceReleaseOnSwap = false
+		AutoLockArcDistance = 150
+		AutoLockRange = 250
+		CanCancelDisables = true
+		CanCancelOwnDisables = false
+		LockTriggerTransferFromOnSwap = false
+		AllowExternalForceRelease = false
+		LockTrigger = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = false
+		DefaultControl = false
+
+		Effects =
+		[
+			{
+				Name = "SwingDashDisable"
+				DurationFrames = 10
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "SwingDashDisableCancellable"
+				DurationFrames = 23
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				Duration = 9999
+				Modifier = 1.0
+				Active = false
+				AngleCoverage = 125
+				CanAffectInvulnerable = true
+			}
+				{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 9999
+				Range = 75
+				Deflect = false
+				AngleCoverage = 125
+				Active = false
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponAxe2"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Type = "GUN"
+		Control = "Attack2"
+		Projectile = "ProjectileAxe2"
+		ClipSize = 1
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		ForceReleaseOnSwap = true
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 100
+		AutoLockArcDistance = 90
+		ChargeStartAnimationUseCharge = true
+		ChargeStartAnimation = "Melinoe_Axe_Attack2_Start"
+		FireGraphic = "Melinoe_Axe_Attack2_Fire"
+		ChargeCancelGraphic = "Melinoe_Axe_Attack2_End"
+		CancelChargeOnRelease = true
+		SwapOnFire = "WeaponAxe3"
+		AddOnFire = "WeaponAxeSpin"
+		ControlWindow = 0.6
+		NumProjectiles = 1
+		ChargeTime = 0.48
+		ChargeFx = "null"
+		FireFx = "AxeSwipe2"
+		SelfVelocity = 700
+		SelfVelocityCap = 700
+		FireOnRelease = false
+		CancelChargeOnControlRemoved = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "Swing2Halt"
+				Type = "GRIP"
+				Duration = 0.4
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+      {
+        Trigger = "Charging"
+        Name = "Swing12SelfSlowCharge"
+        Type = "SPEED"
+        DurationFrames = 30
+        Modifier = 0.35
+        Active = true
+        CanAffectInvulnerable = true
+      }
+			{
+				Name = "Swing2Disable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "Swing2DisableCancellable"
+				DurationFrames = 28
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				Duration = 9999
+				Modifier = 1.0
+				Active = false
+				AngleCoverage = 125
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 9999
+				Range = 75
+				Deflect = false
+				AngleCoverage = 125
+				Active = false
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponAxe3"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileAxeOverhead"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		ForceReleaseOnSwap = true
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		BarrelLength = 250
+		AutoLock = true
+		AutoLockRange = 400
+		AutoLockArcDistance = 135
+		FireFx = "null"
+		ChargeStartAnimation = "Melinoe_Axe_Attack4_Start"
+		ChargeStartAnimationUseCharge = true
+		ChargeFx = "null"
+		FireGraphic = "Melinoe_Axe_Attack4_Fire"
+		ChargeCancelGraphic = "Melinoe_Axe_Attack4_End"
+		FireOnRelease = false
+		LockTriggerForCharge = true
+		ChargeTime = 0.78
+		AddOnFire = "WeaponAxeSpin"
+		ControlWindow = 0.8
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "Swing3StartSlow"
+				Type = "SPEED"
+				DurationFrames = 1
+				HaltOnStart = true
+				Modifier = 0.4
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "Swing3Disable"
+				DurationFrames = 31
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "Swing3DisableCancellable"
+				DurationFrames = 59
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				Duration = 9999
+				Modifier = 1.0
+				Active = false
+				AngleCoverage = 125
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 9999
+				Range = 75
+				Deflect = false
+				AngleCoverage = 125
+				Active = false
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponAxeSpin"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Type = "GUN"
+		Control = "Attack2"
+		Projectile = "ProjectileAxeSpin"
+		ClipSize = 1
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = true
+		ForceReleaseOnSwap = false
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 100
+		AutoLockArcDistance = 90
+		ChargeStartAnimation = "Melinoe_Axe_AttackEx1_Start"
+		ChargeCancelGraphic = "Melinoe_Axe_Idle"
+		FireGraphic = "Melinoe_Axe_AttackEx1_Fire"
+		FireOnRelease = true
+		NumProjectiles = 0
+		TreatProjectilesAsUniqueVolleys = true
+		ProjectileIntervalStart = 0.22
+		ProjectileInterval = 0.22
+		FireEndGraphic = "Melinoe_Axe_Idle"
+		MinChargeToFire = 1.0
+		ChargeTime = 0.26
+		ChargeRumbleRight = 0.06
+		ChargeStartFx = "null"
+		FireFx = "null"
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		ControlWindow = 0.34
+		LoseControlOnRelease = true
+		LoseControlIfNotCharging = false
+		CanCancelDisables = false
+		AcceptTriggerLockRequests = true
+		AllowExternalForceRelease = true
+		AllowExternalForceReleaseIfAnyCharged = true
+		PriorityFireRequest = true
+		RemoveControlOnCharge = "WeaponCast"
+		AddControlOnFireEnd = "WeaponCast"
+		OnlyChargeOnce = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		Effects =
+		[
+			{
+				Trigger = "FireEnd"
+				Name = "AxeSpinAttackDisable"
+				DurationFrames = 20
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Trigger = "FireEnd"
+				Name = "AxeSpinAttackDisableCancellable"
+				DurationFrames = 28
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Trigger = "FireEnd"
+				Name = "AxeSpinMoveStop"
+				DurationFrames = 60
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "AxeSpinSelfFireSlow"
+				Trigger = "FireEnd"
+				DurationFrames = 1
+				Type = "SPEED"
+				Modifier = 0.30
+				RotationMultiplier = 0.001
+				Cancelable = true
+				Active = true
+			}
+			{
+				Name = "AxeSpinSelfFireSlow"
+				Trigger = "Fire"
+				DurationFrames = 3600
+				Type = "SPEED"
+				Modifier = 0.60
+				RotationMultiplier = 0.001
+				DisableAttack = true
+				Cancelable = true
+				Active = true
+			}
+			{
+				Name = "AxeSpinSelfChargeSlow"
+				Trigger = "Charging"
+				Duration = 0.1
+				Type = "SPEED"
+				Modifier = 0.3
+				RotationMultiplier = 0.01
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				Duration = 9999
+				Modifier = 1.0
+				Active = false
+				AngleCoverage = 125
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				ClearOnAttack = true
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 9999
+				Range = 75
+				Deflect = false
+				AngleCoverage = 125
+				Active = false
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "IndependentAxeSpinAttackDisable"
+				DurationFrames = 8
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+				Active = false
+			}
+			{
+				Trigger = "Fire"
+				Name = "IndependentAxeSpinAttackDisableCancellable"
+				DurationFrames = 15
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = false
+			}
+			{
+				Trigger = "Fire"
+				Name = "IndependentAxeSpinMoveStop"
+				DurationFrames = 60
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = false
+			}
+			{
+				Name = "IndependentAxeSpinSelfFireSlow"
+				Trigger = "Fire"
+				DurationFrames = 3600
+				Type = "SPEED"
+				Modifier = 1
+				Cancelable = true
+				Active = false
+			}
+			{
+				Name = "IndependentAxeSpinSelfFireSlow"
+				Trigger = "FireEnd"
+				DurationFrames = 1
+				Type = "SPEED"
+				Modifier = 1
+				Cancelable = true
+				Active = false
+			}
+		]
+	}
+	{
+		Name = "WeaponAxeBlock2"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Type = "GUN"
+		Projectile = "ProjectileAxeBlockSpin"
+		ClipSize = 1
+		ChargeSoundFadeTime = 0.25
+		FullyAutomatic = true
+		ChargeCancelMovement = true
+		CancelMovement = true
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		AutoLock = false
+		ChargeStartFx = "null"
+		ProjectileOffsetStart = "LEFT"
+		FireGraphic = "Melinoe_Axe_Special1_FireLoop"
+		FireOnRelease = false
+		TurboReleaseTimeRequireRelease = 0.2
+		OnlyChargeOnce = true
+		OnWeaponChargingSound = "/VO/MelinoeEmotes/EmoteCastingAlt"
+		OnWeaponChargingSoundChance = 1
+		ChargeTimeFrames = 6
+		Cooldown = 0.24
+		ChargeStartAnimation = "Melinoe_Axe_Special1_Start"
+		LockTriggerForCharge = true
+		TriggerReleaseGraphic = "Melinoe_Axe_Special1_End"
+		ChargeCancelGraphic = "null"
+		BarrelLength = 140
+		AllowExternalForceRelease = true
+		FailedToFireCooldownAnimation = "null"
+		FailedToFireCooldownDuration = 0.15
+		BlockedByAllOtherFireRequest = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfSpeed"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.2
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				Duration = 0.3
+				Modifier = 1.0
+				Active = true
+				AngleCoverage = 220
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 0.3
+				Range = 75
+				Deflect = false
+				AngleCoverage = 220
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "ShieldSelfInvulnerableRush"
+				Type = "INVULNERABLE"
+				DurationFrames = 19
+				Modifier = 1.0
+				Active = true
+				AngleCoverage = 220
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "ShieldSelfReflectRush"
+				Type = "PROJECTILE_DEFENSE"
+				DurationFrames = 19
+				Range = 75
+				Deflect = false
+				AngleCoverage = 220
+				Active = true
+				CanAffectInvulnerable = true
+			}        
+			{
+				Trigger = "Fire"
+				Name = "ShieldFireDisableAttack"
+				DurationFrames = 18
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "ShieldFireDisableMove"
+				DurationFrames = 18
+				DisableMove = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "ShieldFireRequestTriggerLock"
+				DurationFrames = 25
+				RequestTriggerLock = true
+				TimeModifierFraction = 0
+			}
+		]
+	}
+	{
+		Name = "WeaponAxeSpecialSwing"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Type = "GUN"
+		Projectile = "ProjectileAxeBlock2"
+		
+		ClipSize = 1
+		ChargeSoundFadeTime = 0.25
+		FullyAutomatic = true
+		ChargeCancelMovement = true
+		CancelMovement = true
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		AutoLock = false
+		ChargeStartFx = "null"
+		ProjectileOffsetStart = "LEFT"
+		FireGraphic = "Melinoe_Axe_SpecialEx1_Fire"
+		FireOnRelease = false
+		DefaultControl = false
+		OnlyChargeOnce = true
+		ChargeTime = 0.47
+		ChargeStartAnimation = "Melinoe_Axe_SpecialEx1_Start"
+		ChargeCancelGraphic = "null"
+		LockTriggerForCharge = true
+		TriggerReleaseGraphic = "null"
+		AllowExternalForceRelease = true
+		FailedToFireCooldownAnimation = "null"
+		FailedToFireCooldownDuration = 0.15
+		LoseControlIfNotCharging = true
+		ControlWindow = 0.25
+		PriorityFireRequest = true
+		SetCompleteAngleOnFire = true
+		FireAtAttackTarget = true
+		LockTriggerTransferFromOnSwap = false
+		RemoveControlOnCharge = "WeaponCast"
+		RemoveControlOnCharge2 = "WeaponAxeBlock2"
+		AddControlOnFire = "WeaponCast"
+		AddControlOnFire2 = "WeaponAxeBlock2"
+		AddControlOnChargeCancel = "WeaponCast"
+		AddControlOnChargeCancel2 = "WeaponAxeBlock2"
+
+		BarrelLength = 820,
+		NumProjectiles = 3,
+		ProjectileIntervalStart = 0.01,
+		ProjectileInterval = 0.2,
+		ProjectileSpacing = 460,
+		ProjectileAngleOffset = 0,
+		ProjectileAngleStartOffset = 90
+		
+		Effects =
+		[
+			{
+				Name = "BigDisable"
+				DurationFrames = 28
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "BigDisableCancellable"
+				DurationFrames = 75
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "BigImmuneToForce"
+				ImmuneToForce = true
+				Duration = 1
+				Active = false
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "BigSelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 30
+				Modifier = 0.20
+				HaltOnEnd = true
+				Cancelable = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfInvulnerableRushFinalPulse"
+				Type = "INVULNERABLE"
+				Duration = 0.3
+				Modifier = 1.0
+				Active = true
+				AngleCoverage = 220
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfReflectRushFinalPulse"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 0.3
+				Range = 75
+				Deflect = false
+				AngleCoverage = 220
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	// Torch
+	{
+		Name = "WeaponTorch"
+		Control = "Attack2"
+		Projectile = "ProjectileTorchBall"
+		UseTargetAngle = true
+		ChargeSoundFadeTime = 0.25
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockReLockOnFreshInput = true
+		AutoLockRange = 730
+		AutoLockArcDistance = 360
+		BarrelLength = 10
+		FireFx = "MelTorchFireFx"
+		ChargeStartAnimation = "Melinoe_Torch_Attack1_StartSequence"
+		FireGraphic = "Melinoe_Torch_Attack1_Fire"
+		TriggerReleaseGraphic = "Melinoe_Torch_Attack_EndSequence"
+		LockTriggerForCharge = false
+		MinChargeToFire = 1.0
+		OnlyChargeOnce = true
+		AllowExternalForceRelease = false
+		ChargeCancelGraphic = "Melinoe_Torch_Attack_EndSequence",
+		FireOnRelease = false
+		TurboReleaseMaxCharge = false
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		ChargeTime = 0.25
+		Cooldown = 0.45
+		SwapOnFire = "null"
+		Strafe = true
+		CanUseKeyboardAim = false
+		ActiveProjectileCap = 11
+		FizzleOldSpawns = true
+		Effects =
+		[
+			{
+				Name = "TorchAttackChargeSpeed"
+				Trigger = "Charging"
+				Type = "SPEED"
+				Modifier = 0.35
+        Duration = 0.5
+				Active = true
+				Cancelable = true
+			}
+			{
+				Name = "TorchAttackFireSpeed"
+				Trigger = "Fire"
+				Type = "SPEED"
+				Modifier = 0.35
+				Duration = 0.1
+				Cancelable = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponTorchSpecial"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		Type = "GUN"
+		Projectile = "ProjectileTorchSpiral"
+		ChargeSoundFadeTime = 0.25
+		FullyAutomatic = false
+		FireSound = "null"
+		ProjectileAngleStartOffset = -90
+		ProjectileAngleOffset = 180
+		AutoLock = true
+		AutoLockRange = 500
+		AutoLockArcDistance = 360
+		FireFx = "null"
+		ChargeTime = 0.4
+		Cooldown = 0.4
+		MinChargeToFire = 0
+		ChargeStartAnimation = "Melinoe_Torch_Special1_Start"
+		LockTriggerForCharge = true
+		FireGraphic = "Melinoe_Torch_Special1_Fire"
+		ChargeCancelGraphic = "Melinoe_Torch_Special1_End"
+		FireOnRelease = true
+		AllowExternalForceRelease = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		ClearFireRequestOnChargeCancel = false
+		CanCancelDisables = true
+
+		Effects =
+		[
+			{
+				Name = "TorchSpecialDisable"
+				DurationFrames = 16
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+			}
+			{
+				Name = "TorchSpecialDisableCancellable"
+				DurationFrames = 22
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+			}
+			{          
+				Name = "TorchSpecialChargeSpeed"
+				Trigger = "Charging"
+				Type = "SPEED"
+				DurationFrames = 16
+				Modifier = 0.01
+				RotationMultiplier = 0.01
+				Active = true
+				DisableMove = true,
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "TorchSpecialFireSpeed"
+				Trigger = "Fire"
+				Type = "SPEED"
+				DurationFrames = 26
+				RotationMultiplier = 0.00002
+				Modifier = 0.35
+				Active = true
+				CanAffectInvulnerable = true
+			}        
+		]
+	}
+
+	// Lob
+	{
+		Name = "WeaponLob"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileLob"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		BarrelLength = 32
+		SelfVelocity = -600
+		AutoLock = true
+		AutoLockRange = 1000
+		AutoLockArcDistance = 120
+		FireFx = "DashDustPuffReverse"
+		ShowFreeAimLine = false
+		ChargeStartAnimation = "Melinoe_Lob_Attack1_Start"
+		LockTriggerForCharge = true
+		FireGraphic = "Melinoe_Lob_Attack1_Fire"
+		LockTriggerTransferFromOnSwap = false
+		FailedToFireCooldownAnimation = "Melinoe_Lob_Idle"
+		ChargeCancelGraphic = "Melinoe_Lob_Idle"
+		FailedToFireCooldownDuration = 0.15
+		TriggerReleaseGraphic = "null"
+		FireOnRelease = true
+		TurboReleaseTime = 0.6
+		NumProjectiles = 1
+		CanCancelDisables = false
+		AcceptTriggerLockRequests = true
+		AllowExternalForceRelease = false
+		AllowExternalForceReleaseIfAnyCharged = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = false
+		ClearFireRequestOnChargeCancel = false
+		Cooldown = 0
+		ChargeTime = 0.23
+		MinChargeToFire = 0.04
+		ProjectileOffsetStart = "CENTER"
+		ProjectileAngleOffset = 12
+		Effects =
+		[
+			{
+				Name = "Lob1Disable"
+				DurationFrames = 4
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Lob1DisableCancellable"
+				DurationFrames = 14
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Lob1DisableMovement"
+				DurationFrames = 23
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing1SelfSlowCharge"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponLobSpecial"
+		InheritFrom = "1_BasePlayerSlowWeapon"
+		Type = "BLINK"
+		Control = "Attack3"
+		ChargeStartAnimation = "Melinoe_Lob_Special1_Start"
+		FireGraphic = "Melinoe_Lob_Special1_Fire"
+		ChargeCancelGraphic = "Melinoe_Lob_Idle"
+		UnblockedBlinkFx = "DashStreakLob"
+		Projectile = "ProjectileThrowBlink"
+		WeaponRange = 350
+		BlinkMaxRange = 400
+		BlinkSpeed = 1500
+		ClipSize = 1
+		ClipRegenInterval = 0.44
+		FullClipRegen = true
+		Cooldown = 0.05
+		ChargeStartFx = "LobCharge"
+		MinChargeToFire = 0.0
+		ChargeTime = 1.2
+		LockTriggerForCharge = false
+		ChargeRangeMultiplier = 2.5
+		ChargeSpeedMultiplier = 1.4
+		CancelMovement = false
+		AutoLock = false
+		FireOnRelease = true
+		TurboReleaseTime = 0.01
+		TurboReleaseOOMWaitForCharge = true
+		FullyAutomatic = true
+		UseTargetAngle = true
+		BlockMoveInput = true
+		BlinkDetonateOnInterval = 200
+		IgnoreForceCooldown = true
+		ForceReleaseAllOnFire = true
+		CanCancelDisables = true
+		CanCancelOwnDisables = false
+		BlinkDetonateAtEndpoint = false
+		BlinkDetonateAtOrigin = true
+		CheckMovementReactionDistance = 100
+		SilentImpact = true
+		AcceptTriggerLockRequests = true
+		ShowFreeAimLine = true
+		AimLineAnimation = "AuraAimLine"
+		CancelAttachedProjectiles = true
+		SetTargetAngleOnRequest = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		ProjectileAngleStartOffset = 90
+		Effects =
+		[
+			{
+				Name = "RushWeaponImmuneToForce"
+				ImmuneToForce = true
+				Duration = 0.06
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponLobPulse"
+		InheritFrom = "1_BaseMagicWeapon"
+		Projectile = "ProjectileLobPulse"
+	}
+	{
+		Name = "WeaponLobChargedPulse"
+		InheritFrom = "1_BaseMagicWeapon"
+		Projectile = "ProjectileLobChargedPulse"
+	}
+
+
+	// Spells
+	{
+		Name = "WeaponSpellLaser"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Type = "GUN"
+		Projectile = "ProjectileSpellLaser"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = true,
+		AcceptTriggerLockRequests = true,
+		RefreshProjectileOnFire = false,
+		FireSound = "null"
+		AutoLock = true
+		AutoLockRange = 1210
+		AutoLockArcDistance = 360
+		Cooldown = 0.13
+		ChargeStartAnimation = "Melinoe_ForwardCast_Unequip"
+		LockTriggerForCharge = true
+		FireGraphic = "Melinoe_ForwardCast_FireLoop"
+		LockTriggerTransferFromOnSwap = false
+		FireOnRelease = false
+		NumProjectiles = 1
+		Spread = 0
+		Scatter = 0
+		ScatterCap = 0
+		BarrelLength = 100
+		ChargeTime = 1.7
+		MinChargeToFire = 1.0
+		FullClipRegen = true
+		ConsumeClipOnRelease = true
+		TriggerTapIgnoresCooldown = false
+		CanCancelDisables = false
+		AllowExternalForceRelease = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = false
+		ClearFireRequestOnChargeCancel = false
+		PriorityFireRequest = true
+		OnlyChargeOnce = true
+		ProjectileAngleOffset = 20
+		ProjectileOffsetStart = "CENTER"
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "GunSelfSpeed"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "GunSelfHalt"
+				Type = "GRIP"
+				Duration = 0.02
+				Modifier = 1.0
+				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+
+			{
+				Name = "LaserDisable"
+				DurationFrames = 5
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = false
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "LaserDisable2"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellPolymorph"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Type = "GUN"
+		Projectile = "ProjectileSpellPolymorph"
+		ChargeSound = "/SFX/Player Sounds/TimeSlowCharge"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		FullyAutomatic = false
+		ChargeCancelMovement = true
+		FireSound = "null"
+		ChargeStartAnimation = "Melinoe_ForwardCast_Unequip"
+		ChargeCancelGraphic = "Melinoe_ForwardCast_End"
+		FireGraphic = "Melinoe_ForwardCast_Fire"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		AutoLock = false
+		AutoLockRange = 1
+		AutoLockArcDistance = 90
+		ChargeTime = 1.7
+		MinChargeToFire = 1.0
+		BarrelLength = 80
+		FireOnRelease = false
+		LockTriggerTransferFromOnSwap = false
+		FailedToFireCooldownDuration = 0.15
+		TriggerReleaseGraphic = "null"
+		NumProjectiles = 1
+		FullClipRegen = true
+		TriggerTapIgnoresCooldown = false
+		CanCancelDisables = false
+		AllowExternalForceRelease = false
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		PriorityFireRequest = true
+		ManualAiming = false
+		Effects = 
+		[
+			{
+				Name = "PolymorphCastDisable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+			}
+			{
+				Name = "PolymorphCastDisableCancellable"
+				DurationFrames = 20
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = true
+				RequestTriggerLock = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "PolymorphChargeSpeed"
+				Type = "SPEED"
+				Duration = 0.35
+				Modifier = 0.80
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellTransform"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Projectile = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ChargeStartAnimation = "Melinoe_CrossCast_Start_Fast"
+		ChargeCancelGraphic = "MelinoeCrossCast"
+		FireGraphic = "MelinoeCrossCast"
+		SelfVelocity = 0
+		ChargeFinishFx = "null"
+		FullClipRegen = true
+		Cooldown = 0.1
+		MinChargeToFire = 1.0
+		ChargeTime = 1.7
+		IgnoreOwnerAttackDisabled = true
+		ChargeCancelMovement = true
+		CancelMovement = true
+		RootOwnerWhileFiring = true
+		FullyAutomatic = false
+		AutoLock = false
+		LockTriggerForCharge = true
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = false
+		PriorityFireRequest = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "TransformSelfSpeed"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.2
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "TransformSelfSpeed"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponTransformBlink"
+		InheritFrom = "WeaponBlink"
+		ChargeTimeFrames = 9
+		ClipSize = 1
+		ClipRegenInterval = 0.74
+	}
+	{
+		Name = "WeaponMorphedBlink"
+		InheritFrom = "1_BasePlayerSlowWeapon"
+		Type = "BLINK"
+		Control = "Rush"
+		OnWeaponChargingSound = "/VO/MelinoeEmotes/EmoteSheepHit"
+		OnWeaponChargingSoundChance = 0.5
+		FireSound = "/SFX/Player Sounds/ZagreusDash"
+		ChargeTime = 0.05
+		SelfVelocity = 0
+		SelfVelocityCap = 0
+		BlinkEaseIn = 0
+		BlinkEaseOut = 0
+		ChargeFx = "null"
+		ArsenalCooldown = 0.0
+		CancelMovement = false
+		FullyAutomatic = false
+		AutoLock = false
+		UseTargetAngle = true
+		BlockMoveInput = true
+		IgnoreForceCooldown = true
+		ForceReleaseAllOnFire = true
+		CanCancelDisables = true
+		BlinkDetonateAtEndpoint = false
+		BlinkDetonateAtOrigin = true
+		CanUseKeyboardAim = true
+		FireFx = "null"
+		SilentImpact = true
+		AcceptTriggerLockRequests = true
+		AllowMultiFireRequest = true
+		CancelAttachedProjectiles = true
+		SetTargetAngleOnRequest = false
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+		BlinkDuration = 0.15
+		Projectile = "null"
+		WeaponRange = 190
+		BlinkMaxRange = 230
+		FireGraphic = "Enemy_Sheep_DashFire"
+		ClipSize = 1
+		ClipRegenInterval = 0.74
+		FullClipRegen = true
+		Cooldown = 0.05
+		CheckMovementReactionDistance = 0
+		CheckDanger = false
+		Effects =
+		[
+			{
+				Name = "RushWeaponInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 0.16
+				Modifier = 1.0
+				NoUnitCollision = true
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "RushWeaponImmuneToForce"
+				ImmuneToForce = true
+				Duration = 0.16
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = true
+			}
+			{
+				Name = "RushWeaponDisableMove"
+				DurationFrames = 8
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = false
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponTransformAttack"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileTransformSwing"
+		FireSound = "/SFX/Player Sounds/TransformAttackFire"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = true
+		AutoLock = true
+		AutoLockRange = 490
+		AutoLockArcDistance = 130
+		BarrelLength = 0
+		ChargeStartAnimation = "Melinoe_TransformAttack_Start"
+		FireGraphic = "Melinoe_TransformAttack_FireLoop"
+		TriggerReleaseGraphic = "Melinoe_TransformAttack_End"
+		ChargeCancelGraphic = "Melinoe_TransformAttack_End"
+		LockTrigger = true
+		OnlyChargeOnce = true
+		AllowExternalForceRelease = false
+		CancelChargeOnRelease = true
+		ForceReleaseOnSwap = true
+		NumProjectiles = 1
+		ChargeTime = 0.3
+		FireOnRelease = false
+		ChargeFx = "null"
+		ChargeSelfVelocity = 0
+		SelfVelocity = 0
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		Cooldown = 0.2
+		Effects =
+		[
+			{
+				Name = "Swing1Disable"
+				DurationFrames = 6
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "Swing1DisableCancellable"
+				DurationFrames = 8
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Name = "Swing1DisableMoveHold"
+				DurationFrames = 16
+				DisableMove = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "Swing1SelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.05
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "Swing1SelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 12
+				Modifier = 0.05
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponMorphedAttack"
+		InheritFrom = "1_BaseDamagingWeapon"
+		AutoLock = false
+		ChargeTime = 0.11
+		FireOnRelease = false
+		ChargeFx = "null"
+		Projectile = "ProjectileMorphedAttack"
+		Cooldown = 0.325
+		ChargeSelfVelocity = 0
+		SelfVelocity = 600
+		Control = "Attack2"
+		Type = "GUN"
+		FireSound = "/SFX/Player Sounds/ZagreusShieldThrow"
+		ClipSize = 1
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		AutoLockRange = 490
+		AutoLockArcDistance = 130
+		BarrelLength = 0
+		ChargeStartAnimation = "Enemy_Sheep_DashPreFire"
+		FireGraphic = "Enemy_Sheep_DashFire"
+		LockTrigger = true
+		CancelChargeOnRelease = false
+		ForceReleaseOnSwap = true
+		NumProjectiles = 1
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		SetCompleteAngleOnFire = true
+		SetCompleteAngleOnCharge = true
+	}
+	{
+		Name = "WeaponTransformSpecial"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack3"
+		ReloadOnCreation = false
+		Cooldown = 1
+		UseTargetAngle = false
+		Type = "GUN"
+		Projectile = "ProjectileTransformRing"
+		FireSound = "/SFX/Player Sounds/TransformSpecialRing"
+		ChargeStartAnimation = "Melinoe_TransformSpecial_Start"
+		FireGraphic = "Melinoe_TransformSpecial_Fire"
+		ChargeCancelGraphic = "Melinoe_TransformSpecial_End"
+		FireFx = "EnemyCrawlerRushMiniBossAttackStreaks"
+		ChargeSoundFadeTime = 0.25
+		CancelMovement = false
+		CanCancelDisables = true
+		ChargeCancelMovement = false
+		RootOwnerWhileFiring = false
+		FullyAutomatic = false
+		BarrelLength = 0
+		AutoLock = false
+		ActiveProjectileCap = 1
+		AutoLockRange = 1000
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		LockTriggerForCharge = true
+		FireOnRelease = false
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		ReloadOnRelease = true
+		NumProjectiles = 1
+		MinChargeToFire = 1
+		ChargeTime = 0.3
+		AllowExternalForceRelease = false
+		IgnoreTriggerLockDuringCooldown = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "WeaponCastAimSlow"
+				Type = "SPEED"
+				Modifier = 0.01
+				Duration = 9999
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "WeaponCastSelfSlow"
+				DurationFrames = 15
+				Type = "SPEED"
+				Modifier = 0.45
+				Active = true
+			}
+			{
+				Name = "Special1Disable"
+				DurationFrames = 5
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "Special1DisableCancellable"
+				DurationFrames = 11
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = false
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponTransformCast"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack1"
+		Type = "GUN"
+		Projectile = "ProjectileCast"
+		FireSound = "/SFX/Player Sounds/AthenaShieldImpactDetonate"
+		ChargeStartFx = "null",
+		ChargeStartAnimation = "Melinoe_Cast_Start"
+		FireOnRelease = false
+		FullyAutomatic = true
+		TargetReticleAnimation = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ManualAiming = false
+		ChargeTime = 0.2
+		Cooldown = 3.0
+		AllowMultiFireRequest = false
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 1
+		AutoLockArcDistance = 75
+		FireFx = "CastDustPuff"
+		LockTriggerForCharge = true
+		FailedToFireCooldownDuration = 0.3
+		AllowExternalForceRelease = true
+		MinChargeToFire = 1.0
+		ActiveProjectileCap = 1
+		ChargeCancelGraphic = "null"
+		ChargeFinishFx = "null"
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		NumProjectiles = 1
+		WeaponRange = 1
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		IgnoreOwnerAttackDisabled = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		CancelChargeOnControlRemoved = true
+		Effects =
+		[   
+			{
+				Name = "WeaponCastAttackDisable"
+				DurationFrames = 15
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "WeaponCastSelfSlow"
+				DurationFrames = 15
+				Type = "SPEED"
+				Modifier = 0.45
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponCastAimSlow"
+				Type = "SPEED"
+				Modifier = 0.01
+				Duration = 9999
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "WeaponCastStop"
+				Type = "SPEED"
+				Modifier = 1.0
+				Duration = 0.1
+				HaltOnEnd = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellSummon"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Projectile = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ChargeStartAnimation = "Melinoe_CrossCast_Start"
+		ChargeCancelGraphic = "MelinoeCrossCast"
+		ChargeSound = "/SFX/Player Sounds/TimeSlowCharge"
+		ChargeSoundFadeTime = 0.25
+		FireGraphic = "MelinoeCrossCast"
+		SelfVelocity = 0
+		ChargeRangeMultiplier = 1.0
+		ChargeSpeedMultiplier = 1.0
+		ChargeFinishFx = "null"
+		FullClipRegen = true
+		Cooldown = 0.1
+		MinChargeToFire = 1.0
+		ChargeTime = 1.7
+		IgnoreOwnerAttackDisabled = true
+		ChargeCancelMovement = true
+		CancelMovement = true
+		RootOwnerWhileFiring = true
+		FullyAutomatic = false
+		AutoLock = false
+		LockTriggerForCharge = true
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = false
+		PriorityFireRequest = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfSpeed"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.2
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "GunSelfSpeed"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellTimeSlow"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		FireFx = "TimeSlowWeaponStart"
+		Projectile = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ChargeStartAnimation = "Melinoe_CrossCast_Start"
+		ChargeCancelGraphic = "MelinoeCrossCast"
+		FireGraphic = "MelinoeCrossCast"
+		SelfVelocity = 0
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		Cooldown = 0.3
+		MinChargeToFire = 1.0
+		ChargeFx = "null"
+		ChargeTime = 1.7
+		FullClipRegen = true
+		IgnoreOwnerAttackDisabled = false
+		ChargeCancelMovement = false
+		CancelMovement = false
+		RootOwnerWhileFiring = false
+		FullyAutomatic = false
+		AutoLock = false
+		LockTriggerForCharge = true
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		PriorityFireRequest = true
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = false
+		UseTargetAngle = false
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfSpeed"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.2
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "GunSelfSpeed"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "BuffInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 0.6
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+			}
+			{
+				Name = "BuffDeflect"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 0.2
+				Range = 150
+				Deflect = true
+				Active = false
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellPotion"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		FireFx = "SpellPotionFx"
+		Projectile = "null"
+		ShowFreeAimLine = false
+		AimLineAnimation = "null"
+		ChargeStartAnimation = "Melinoe_CrossCast_Start_Fast"
+		ChargeCancelGraphic = "MelinoeCrossCast"
+		FireGraphic = "MelinoeCrossCast"
+		SelfVelocity = 0
+		ChargeStartFx = "null"
+		ChargeFinishFx = "null"
+		Cooldown = 0.3
+		MinChargeToFire = 1.0
+		ChargeFx = "null"
+		ChargeTime = 0.1
+		FullClipRegen = true
+		IgnoreOwnerAttackDisabled = false
+		ChargeCancelMovement = true
+		CancelMovement = true
+		RootOwnerWhileFiring = true
+		FullyAutomatic = false
+		AutoLock = false
+		LockTriggerForCharge = true
+		AllowExternalForceRelease = false
+		FireOnRelease = false
+		CanCancelDisables = false
+		SetCompleteAngleOnFire = false
+		UseTargetAngle = false
+		PriorityFireRequest = true
+		Effects =
+		[
+			{
+				Trigger = "Charging"
+				Name = "ShieldSelfSpeed"
+				Type = "SPEED"
+				HaltOnStart = true
+				Duration = 0.02
+				Modifier = 0.2
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "GunSelfSpeed"
+				Duration = 0.02
+				DisableMove = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "SpellHealDisable"
+				DurationFrames = 12
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = false
+			}
+			{
+				Name = "BuffInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 0.6
+				Modifier = 1.0
+				CanAffectInvulnerable = true
+				Active = false
+			}
+			{
+				Name = "BuffDeflect"
+				Type = "PROJECTILE_DEFENSE"
+				Duration = 0.2
+				Range = 150
+				Deflect = true
+				Active = false
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellMeteor"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Type = "GUN"
+		Projectile = "ProjectileSpellMeteor"
+		ChargeStartFx = "ShieldCharge",
+		ChargeStartAnimation = "Melinoe_CrossCast_Start",
+		ChargeCancelGraphic = "MelinoeCrossCast"
+		FireGraphic = "MelinoeCrossCast",
+		FireOnRelease = true,
+		FullyAutomatic = true,
+		TargetReticleAnimation = "SpellMeteorCastReticle",
+		ShowFreeAimLine = true,
+		AimLineAnimation = "null",
+		ManualAiming = true,
+		ChargeTime = 0.1,
+		FullClipRegen = true
+		ManualAimingInitialOffset = 300,
+		AllowMultiFireRequest = false,
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		BarrelLength = 0
+		AutoLock = false
+		AutoLockRange = 1
+		AutoLockArcDistance = 75
+		FireFx = "CastDustPuff"
+		LockTriggerForCharge = false
+		FailedToFireCooldownDuration = 0.1
+		AllowExternalForceRelease = true
+		MinChargeToFire = 0
+		ActiveProjectileCap = 1
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		NumProjectiles = 1
+		WeaponRange = 1
+		ProjectileSpacing = 0
+		CanCancelDisables = true
+		IgnoreOwnerAttackDisabled = true
+		SetCompleteAngleOnFire = false
+		SetCompleteAngleOnCharge = false
+		Effects =
+		[
+			{
+				Name = "WeaponCastAttackDisable"
+				DurationFrames = 15
+				DisableMove = false
+				DisableRotate = false
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "WeaponCastSelfSlow"
+				DurationFrames = 15
+				Type = "SPEED"
+				Modifier = 0.45
+				Active = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "WeaponCastAimSlow"
+				Type = "SPEED"
+				Modifier = 0.01
+				Duration = 9999
+				HaltOnEnd = true
+				Active = true
+			}
+			{
+				Name = "WeaponCastStop"
+				Type = "SPEED"
+				Modifier = 1.0
+				Duration = 0.1
+				HaltOnEnd = true
+				Active = true
+			}
+		]
+	}
+	{
+		Name = "WeaponSpellLeap"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Shout"
+		Type = "BLINK"
+		Projectile = "SpellLeapBlast"
+		ChargeSoundFadeTime = 0.25
+		RootOwnerWhileFiring = true
+		BlockMoveInput = true
+		CancelMovement = true
+		ChargeCancelMovement = true
+		FullyAutomatic = false
+		BarrelLength = 32
+		AutoLock = false
+		ShowFreeAimLine = true
+		TargetReticleAnimation = "SorceryWolfHowlDecal"
+		WeaponRange = 450
+		AllowMultiFireRequest = false,
+		ManualAiming = true
+		ManualAimingRequireValidLocation = true
+		ManualAimingInitialOffset = 420
+		FireFx = "StaffProjectileFireFxRing"
+		ChargeStartAnimation = "Melinoe_CrossCast_Start"
+		LockTriggerForCharge = false
+		AcceptTriggerLockRequests = false
+		AllowExternalForceRelease = true
+		FireOnRelease = true
+		MinChargeToFire = 0
+		ChargeRangeMultiplier = 1.0
+		ChargeSpeedMultiplier = 1.0
+		ChargeFinishFx = "null"
+		Cooldown = 0.2
+		NumProjectileWaves = 0
+		ChargeTime = 1.0
+		BelowMinChargeCooldown = 0
+		SwapOnFire = "null"
+		ProjectileSpacing = 0
+		PriorityFireRequest = true
+		CanCancelDisables = true
+		Effects =
+		[
+			{
+				Name = "WeaponLeapDisable"
+				DurationFrames = 12
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = false
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "WeaponLeapDisable2"
+				DurationFrames = 16
+				DisableMove = true
+				DisableRotate = true
+				DisableAttack = true
+				Cancelable = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "WeaponLeapInvulnerable"
+				Type = "INVULNERABLE"
+				Duration = 1.35
+				Modifier = 1.0
+				Active = true
+				CanAffectInvulnerable = true
+				Cancelable = false
+			}
+		]
+	}
+
+	// Test
+	{
+		Name = "WeaponTest"
+		InheritFrom = "1_BaseDamagingWeapon"
+		Control = "Attack2"
+		Type = "GUN"
+		Projectile = "ProjectileStaffSwing"
+		ClipSize = 1
+		RootOwnerWhileFiring = false
+		BlockMoveInput = false
+		CancelMovement = false
+		ChargeCancelMovement = false
+		FullyAutomatic = false
+		AutoLock = true
+		AutoLockRange = 100
+		AutoLockArcDistance = 90
+		ChargeStartAnimation = "HeroTestWeaponStart"
+		FireGraphic = "HeroTestWeaponFire"
+		FireFx = "SwordSwipeAFlipped"
+		LockTrigger = true
+		CancelChargeOnRelease = false
+		ForceReleaseOnSwap = true
+		NumProjectiles = 1
+		ChargeTimeFrames = 4
+		FireOnRelease = false
+		ChargeFx = "null"
+		SelfVelocity = 0
+		BarrelLength = 0
+		CanCancelDisables = false
+		CanCancelRotateDisables = true
+		Cooldown = 0.3
+		Effects =
+		[
+			{
+				Name = "SwordDisable"
+				DurationFrames = 5
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+			}
+			{
+				Name = "SwordDisableCancelableAndLockTrigger"
+				DurationFrames = 11
+				DisableMove = false
+				DisableRotate = true
+				DisableAttack = true
+				RequestTriggerLock = true
+				Cancelable = true
+			}
+			{
+				Trigger = "Charging"
+				Name = "SwordSelfSlowCharge"
+				Type = "SPEED"
+				DurationFrames = 15
+				Modifier = 0.35
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Trigger = "Fire"
+				Name = "SwordSelfSlowFire"
+				Type = "SPEED"
+				DurationFrames = 12
+				Modifier = 0.35
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+]}

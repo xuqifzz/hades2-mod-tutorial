@@ -1,0 +1,151 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyModel = "CorruptedShadesS_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		VisualFx = "CorruptedShadeEyeGlow_Small_L_Spawner"
+		VisualFxIntervalMin = 0.07
+		VisualFxIntervalMax = 0.07
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_CorruptedShadeS_Idle"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_Move"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_Move_C_01"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_MoveStart"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_MoveStart_C_01"
+		ChainTo = "Enemy_CorruptedShadeS_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_MoveStop"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_MoveStop_C_01"
+		ChainTo = "Enemy_CorruptedShadeS_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_OnHit"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_OnHit_C_01"
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeSmall/EmoteHurt"
+	}
+	{
+		Name = "Enemy_CorruptedShadeS_OnHit_Heavy"
+		InheritFrom = "Enemy_CorruptedShadeS_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_CastPreFire"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_CastPreFire_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeSmall/Charge"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_CorruptedShadeS_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_CastFire"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_CastFire_C_01"
+		ChainTo = "Enemy_CorruptedShadeS_CastPostFire"
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_CastPostFire"
+		InheritFrom = "EnemyCorruptedShadeSBaseAnimation"
+		GrannyAnimation = "CorruptedShadeS_Base_CastReturnToIdle_C_01"
+	}
+
+	{
+		Name = "Enemy_CorruptedShadeS_Spawn"
+		InheritFrom = "Enemy_CorruptedShadeS_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+]}

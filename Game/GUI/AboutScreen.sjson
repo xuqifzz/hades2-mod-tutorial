@@ -1,0 +1,687 @@
+{
+  AboutScreen =
+  {
+    Platform = "default"
+    SelectionSound = "null"
+    TransitionOnTime = 0.0
+    TransitionOffTime = 0.0
+    ForceShowCursor = true
+    FreeFormSelectGridLock = true
+    FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectStepDistance = 16
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 2
+
+    UpArrow =
+    {
+      X = 1650
+      Y = 240
+      Graphic = "GUI\Shell\UpArrow_Base"
+      SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
+      Scale = 0.4
+      FreeFormSelectable = false
+    }
+
+    DownArrow =
+    {
+      X = 1650
+      Y = 970
+      Graphic = "GUI\Shell\DownArrow_Base"
+      SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
+      Scale = 0.4
+      FreeFormSelectable = false
+    }
+
+    CreditText =
+    {
+      X = 660
+      Y = 360
+      // CHANGE ME: Sets the height of the scrollable area!
+      Height = 10700
+      // -------------------------------------------------
+      ScrollSpeed = 400
+      MouseWheelScrollSpeed = 30
+      SpacingX = 0
+      SpacingY = 80
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 3
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+    }
+    CreditH1 = {
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCHeavy"
+      FontSize = 36
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0.1
+      TextOutlineGreen = 0.1
+      TextOutlineBlue = 0.1
+      OutlineThickness = 1
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+    }
+    CreditH2 = {
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 28
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0.1
+      TextOutlineGreen = 0.1
+      TextOutlineBlue = 0.1
+      OutlineThickness = 1
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 2
+      ShadowAlpha = 1
+      ShadowBlur = 2
+    }
+    CreditH3 = {
+      AttachTo = "TitleText"
+      OffsetX = -320
+      OffsetY = 100
+      Spacing = 400
+      LineSpacingTop = 82
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.7
+      TextBlue = 0.5
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 2
+      ShadowAlpha = 1
+    }
+    CreditH4 = {
+      AttachTo = "TitleText"
+      OffsetX = -320
+      OffsetY = 130
+      Spacing = 400
+      LineSpacingTop = 50
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.5
+      TextGreen = 0.5
+      TextBlue = 0.5
+      NonEnglishScaleModifier = 1.0
+    }
+    CreditTitle = {
+      AttachTo = "TitleText"
+      OffsetX = -320
+      OffsetY = 130
+      Spacing = 400
+      LineSpacingTop = 82
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.7
+      TextGreen = 0.7
+      TextBlue = 0.7
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowAlpha = 1
+      ShadowOffsetX = 0
+      ShadowOffsetY = 1
+      NonEnglishScaleModifier = 1.0
+    }
+    CreditName = {
+      AttachTo = "TitleText"
+      OffsetX = -320
+      OffsetY = 100
+      Spacing = 400
+      LineSpacingTop = 82
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "CreditsP22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.85
+      TextGreen = 0.6
+      TextBlue = 0.25
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetX = 0
+      ShadowOffsetY = 2
+    }
+    CreditNameTurkish =
+    {
+      InheritFrom = "CreditName"
+      Font = "CreditsP22UndergroundSCMediumTR"
+    }
+    ColumnCenter =
+    {
+      X = 1100
+      Y = 240
+      SpacingY = 32
+      Justification = "Center"
+      VerticalJustification = "Top"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 3
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+    }
+    ColumnLeft = {
+      InheritFrom = "ColumnCenter"
+      X = 900
+    }
+    ColumnRight = {
+      InheritFrom = "ColumnLeft"
+      X = 1300
+      SpacingY = 0
+    }
+
+    CreditNames = [
+      { InheritFrom = "ColumnCenter"  HelpTextId = "Credits_Heading_Supergiant" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Design" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_EngineeringDesign" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_001" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_002" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_WritingDesign" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Engineering" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_003" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_004" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_MusicSound" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Art" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_005" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_006" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_VO" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_UIVFX" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_007" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_008" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Ops" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Engineering" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_009" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_010" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Design" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_EngineeringDesign" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_011" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_012" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_EnvironmentArt" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_OfficeSupport" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_013" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_014" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Publishing" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Engineering" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_015" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_016" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Engineering" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_DesignQA" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_017" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_018" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_QA" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_ProductionQA" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_019" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_020" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_3DModeling" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Animation" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_021" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_021b" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_Finance" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_TechArt" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_022" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_023" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Title_PlatformsQA" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Title_Engineering" }
+      { InheritFrom = "ColumnLeft" HelpTextId = "Credits_Name_024" }
+      { InheritFrom = "ColumnRight" HelpTextId = "Credits_Name_025" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_Contributors" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlMusicVocals" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_026" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlSetDressing" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_027" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlAnimation" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_028" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlModeling" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_029" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_115" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlUIArt" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_030" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlQA" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_031" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlRigging" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_032" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_033" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlConceptArt" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_034" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlSoundEditing" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_035" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlAnimation" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_036" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_037" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlVFXConcepts" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_038" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_039" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AnimatedTrailers" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_TeamName_StudioGrackle" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlVideoProduction" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_040" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_AdtlMarketingArt" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_041" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_VoiceCast" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_JudyChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_042" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Hecate" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_043" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_LoganChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_007" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_ErinChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_044" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Nemesis" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_045" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Odysseus" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_046" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Moros" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_047" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Eris" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_048" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_DarrenChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_005" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Selene" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_049" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Artemis" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_050" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Hermes" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_051" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Arachne" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_052" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Apollo" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_059" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Demeter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_060" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Hestia" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_063" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_PeterChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_057" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Aphrodite" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_061" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Hephaestus" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_062" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Hera" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_058" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Heracles" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_053" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Medea" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_054" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_Circe" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_055" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_CastTitle_GregChars" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_003" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_With" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_056" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_AsIcarus" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_CastingServices" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_TeamName_HalpNetwork" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_066" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_067" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_068" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_Translators" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_FR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_069" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_IT" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_070" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_DE" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_078" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ES" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_077" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_EL" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_072" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_KO" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_079" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_PL" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_080" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_PTBR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_071" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_RU" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_081" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ZHCN" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_073" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ZHTW" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_075" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_TR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_076" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_UK" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_074" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_JP" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_TeamName_8-4" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_109" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_110" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_065" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_111" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_112" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_113" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_064" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_114" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_MusicProduction" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_SubHeading_ScyllaBand" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_044_B" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_026_B" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_042_B" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Title_Flute" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_082" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_LanguageQA" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_FR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_092" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_095" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_IT" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_091c" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_107" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_DE" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_093" }
+      { InheritFrom = "ColumnCenter" }
+      
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ES" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_083_B" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_091b" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_102" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_108" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_EL" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_089" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_103" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_KO" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_094b" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_104" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_PL" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_091" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_100" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_PTBR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_088" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_105" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_RU" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_087" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_096" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ZHCN" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_084" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_085" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_097" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_098" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_ZHTW" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_086" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_099" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_TR" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_090" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_101" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Lang_UK" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_094" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Name_106" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Div_B" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_SupergiantSalutes" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_EarlyAccessPlayers" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_BetaPlayers" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_DiscordMods" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_HadesDevTeam" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_FriendsFamily" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_Gods" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_Time" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Div_B" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Heading_Other" }
+      { InheritFrom = "ColumnCenter" SpacingY = 50 }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_WorkInProgress_01" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_WorkInProgress_02" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_License_01" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Legal_02B" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" }
+      { InheritFrom = "ColumnCenter" HelpTextId = "Credits_Message_Thanks_Closing" }
+
+    ]
+  }
+}

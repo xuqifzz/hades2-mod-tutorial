@@ -1,0 +1,316 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTurtleBaseAnimation"
+		
+		GrannyModel = "Turtle_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		CreateAnimation = "TurtleIdleRippleSpawner"
+		VisualFx = "TurtleIdleRippleSpawner"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Turtle_Idle"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		OwnerInvulnerable = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Turtle_ClawAttackReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Turtle_Spawn"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_Spawn"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_Spawn_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.1
+		VisualFx = "OceanusEnemySplashSmall_Air"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		Sound = "/SFX/Enemy Sounds/Turtle/TurtleSpawn"
+		Enable3DShadow = false
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1.1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_Move"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_Move_C_00"
+		Loop = true
+
+		Frames =
+		[
+			{
+				Frame = 24
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+			{
+				Frame = 48
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+			{
+				Frame = 72
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+			{
+				Frame = 96
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_MoveStart"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Turtle_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Turtle_Idle"
+				Duration = 10
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/WetClawFootsteps"
+			}
+			{
+				Frame = 25
+				Sound = "/SFX/Enemy Sounds/Turtle/TurtleHop"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_MoveStop"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Turtle_Idle"
+		CancelOnOwnerMove = true
+		OwnerInvulnerable = true
+	}
+
+	/*Fidgets*/
+
+	{
+		Name = "Enemy_Turtle_Fidget"
+		Random =
+		[
+			{ Name = "Enemy_Turtle_FidgetA" }
+			{ Name = "Enemy_Turtle_FidgetB" }
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_FidgetA"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_IdleFidgetA_C_00"
+		CancelOnOwnerMove = true
+		OwnerInvulnerable = true
+	}
+
+	{
+		Name = "Enemy_Turtle_FidgetB"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_IdleFidgetB_C_00"
+		CancelOnOwnerMove = true
+		OwnerInvulnerable = true
+	}
+
+	/*HitStun*/
+
+	{
+		Name = "Enemy_Turtle_HitStun"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_MoveGetHit_C_00"
+		GrannyAnimationSpeed = 0.6
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_Turtle_MoveStop"
+	}
+
+	{
+		Name = "Enemy_Turtle_HitStun_Heavy"
+		InheritFrom = "Enemy_Turtle_HitStun"
+		GrannyAnimationSpeed = 0.4
+	}
+
+	{ // Currently unused
+		Name = "Enemy_Turtle_IdleGetHit"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_MoveGetHit_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	/*Attacks*/
+
+	{
+		Name = "Enemy_Turtle_ClawAttackPreAttack"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_ClawAttackAntic_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.68
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Turtle_Idle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_ClawAttackFire"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_ClawAttackFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Turtle/EmoteAttacking"
+		CreateAnimations =
+		[
+			{ Name = "OceanusDirectionalSplash" }
+			{ Name = "WaterSplashFootstep" }
+			{ Name = "FloodTrapFxTrailWakeTurtle" }
+		]
+		VisualFx = "FloodTrapFxTrailWakeTurtle"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.4
+		Frames =
+		[
+			{
+				Frame = 6
+				FrameSpeed = 0.4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_ClawAttackReturnToIdle"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_ClawAttackReturnToIdle_C_00"
+		OwnerInvulnerable = true
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Turtle/EmoteHurt"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsWetMedium"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_SpitAttackPreAttack"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_SpitAttackAntic_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 5
+				FootstepFxR = "TurtleWaterSplashFootstepFR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 10
+				FootstepFxR = ""
+				FootstepFxL = "TurtleWaterSplashFootstepFL"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Turtle_Idle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_SpitAttackFire"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_SpitAttackFire_C_00"
+		CreateAnimation = "OceanusEnemySplashSmallNoRipples"
+		AllowRestart = true
+		HoldLastFrame = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Turtle_SpitAttackReturnToIdle"
+		InheritFrom = "EnemyTurtleBaseAnimation"
+		GrannyAnimation = "Turtle_Base_SpitAttackReturnToIdle_C_00"
+		OwnerInvulnerable = true
+		VisualFx = "OceanusEnemySplashSmallNoRipples"
+		VisualFxIntervalMin = 0.25
+		VisualFxIntervalMax = 0.25
+		VisualFxCap = 1
+		Frames =
+		[
+			{
+				Frame = 9
+				Sound = "/SFX/Enemy Sounds/Turtle/TurtleHideStart"
+			}
+			{
+				Frame = 14
+				Sound = "/SFX/Enemy Sounds/Turtle/TurtleHop"
+			}
+		]
+	}
+
+]}

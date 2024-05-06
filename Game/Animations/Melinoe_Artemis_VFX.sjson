@@ -1,0 +1,38 @@
+{ Animations = [
+
+	{
+		Name = "DaggerBlockActiveFx"
+		FilePath = "Fx\ArtemisDashTwinkle\ArtemisDashTwinkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		GroupName = "FX_Standing_Add"      
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		StartBlue = 1.0
+		Duration = 1.0
+		EndFrame = 19
+		Loop = true
+		NumFrames = 19
+		StartFrame = 1
+	}
+
+	{
+		Name = "OmegaDamageBuffFx"
+		FilePath = "Fx\ArtemisDashTwinkle\ArtemisDashTwinkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		GroupName = "FX_Standing_Add"      
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		StartBlue = 1.0
+		Duration = 1.0
+		EndFrame = 19
+		Loop = true
+		NumFrames = 19
+		StartFrame = 1
+		Sound = "/SFX/SelfDamageBuffLoopSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+]}

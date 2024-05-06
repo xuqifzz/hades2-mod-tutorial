@@ -1,0 +1,66 @@
+﻿{
+  lang = "*"
+  Texts = [
+    {
+      Id = "en"
+      DisplayName = "English"
+    }
+    // https://partner.steamgames.com/doc/store/localization/languages
+    {
+      Id = "de"
+      DisplayName = "Deutsch"
+    }
+    {
+      Id = "el"
+      DisplayName = "Ελληνικά"
+    }
+    {
+      Id = "es"
+      DisplayName = "Español"
+    }
+    {
+      Id = "fr"
+      DisplayName = "Français"
+    }
+    {
+      Id = "it"
+      DisplayName = "Italiano"
+    }
+    {
+      Id = "ja"
+      DisplayName = "日本語"
+    }
+    {
+      Id = "ko"
+      DisplayName = "한국어"
+    }
+    {
+      Id = "pl"
+      DisplayName = "Polski"
+    }
+    {
+      Id = "pt-BR"
+      DisplayName = "Português-Brasil"
+    }
+    {
+      Id = "ru"
+      DisplayName = "Русский"
+    }
+    {
+      Id = "tr"
+      DisplayName = "Türkçe"
+    }
+    {
+      Id = "uk"
+      DisplayName = "Українська"
+    }
+    {
+      Id = "zh-CN"
+      DisplayName = "简体中文"
+    }
+    {
+      Id = "zh-TW"
+      DisplayName = "繁體中文"
+    }
+  ]
+}

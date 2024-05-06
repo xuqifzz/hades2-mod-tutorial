@@ -1,0 +1,2657 @@
+{ Animations = [
+	{
+		Name = "DirtSpray"
+		ChildAnimation = "DirtSpraySpawner"
+		FilePath = "Particles\particle_dirtSpray_01"
+		
+		VisualFx = "DirtClumps"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		Gravity = 300.0
+		UpwardVelocityMax = 100.0
+		UpwardVelocityMin = 30.0
+		EndScale = 1.2
+		Scale = 0.66
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.6
+		StartScale = 0.6
+		Ambient = 0.0
+		VisualFxCap = 20
+		VisualFxIntervalMax = 0.006
+		VisualFxIntervalMin = 0.005
+	}
+	
+	{
+		Name = "DirtSpraySpawner"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "DirtSprayRandom"
+		Duration = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.05
+	}
+	
+	{
+		Name = "DirtSprayA"
+		InheritFrom = "DirtSpray"
+		ChildAnimation = "null"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "DirtSprayB"
+		InheritFrom = "DirtSprayA"
+		FilePath = "Particles\particle_dirtSpray_02"
+	}
+	
+	{
+		Name = "DirtSprayC"
+		InheritFrom = "DirtSprayA"
+		FilePath = "Particles\particle_dirtSpray_03"
+	}
+	
+	{
+		Name = "DirtSprayD"
+		InheritFrom = "DirtSprayA"
+		FilePath = "Particles\particle_dirtSpray_04"
+	}
+	
+	{
+		Name = "DirtSprayRandom"
+		
+		Random =
+		[
+			{ Name = "DirtSprayA" }
+			{ Name = "DirtSprayB" }
+			{ Name = "DirtSprayC" }
+			{ Name = "DirtSprayD" }
+		]
+	}
+	
+	{
+		Name = "DirtClumps"
+		
+		Random =
+		[
+			{ Name = "DirtClumpA" }
+			{ Name = "DirtClumpB" }
+			{ Name = "DirtClumpC" }
+			{ Name = "DirtClumpD" }
+			{ Name = "DirtClumpE" }
+			{ Name = "DirtClumpF" }
+		]
+	}
+	
+	{
+		Name = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_01"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.7
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RadialOffsetMax = 50.0
+		RadialOffsetMin = 30.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		Gravity = 400.0
+		UpwardVelocityMax = 120.0
+		UpwardVelocityMin = 60.0
+		VelocityMax = 120.0
+		VelocityMin = 60.0
+		RandomRotationSpeedMax = 600.0
+		RandomRotationSpeedMin = -600.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DirtClumpB"
+		InheritFrom = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_02"
+	}
+	
+	{
+		Name = "DirtClumpC"
+		InheritFrom = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_03"
+	}
+	
+	{
+		Name = "DirtClumpD"
+		InheritFrom = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_04"
+	}
+	
+	{
+		Name = "DirtClumpE"
+		InheritFrom = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_05"
+	}
+	
+	{
+		Name = "DirtClumpF"
+		InheritFrom = "DirtClumpA"
+		FilePath = "Particles\particle_dirtClump_06"
+	}
+
+	{
+		Name = "OreHarvestSpark"
+		FilePath = "Fx\HitSparkA\HitSparkA"
+		GroupName = "FX_Add_Top"
+		OffsetZ = 60
+		VisualFx = "OreHarvestSparkSmall"
+		AddColor = true
+		EndBlue = 0.999
+		EndGreen = 0.3
+		EndRed = 0.1
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndFrame = 11
+		NumFrames = 11
+		StartFrame = 1
+		RandomRotation = true
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+		CreateAnimations =
+		[
+			{ Name = "OreHarvestSparksRandom" }
+			{ Name = "HarvestRockPieces" }
+			{ Name = "HarvestRockPieces" }
+			{ Name = "HarvestRockPieces" }
+			{ Name = "HarvestRockPieces" }
+		]
+	}
+
+	{
+		Name = "OreHarvestSparksRandom"
+		Random = [
+			{ Name = "OreHarvestSparksA" }
+			{ Name = "OreHarvestSparksA_Flip" }
+			{ Name = "OreHarvestSparksB" }
+			{ Name = "OreHarvestSparksB_Flip" }
+		]
+	}
+
+	{
+		Name = "OreHarvestSparksA"
+		FilePath = "Fx\Harvest\OreHarvestSparksFrontA\OreHarvestSparksFrontA"
+		NumFrames = 50
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "OreHarvestSparksA_Back"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		OffsetZ = 60
+		UseAttachedShake = false
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "OreHarvestSparksA_Back"
+		InheritFrom = "OreHarvestSparksA"
+		FilePath = "Fx\Harvest\OreHarvestSparksBackA\OreHarvestSparksBackA"
+		CreateAnimation = null
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "OreHarvestSparksA_Flip"
+		InheritFrom = "OreHarvestSparksA"
+		FlipHorizontal = true
+		CreateAnimation = "OreHarvestSparksA_Back_Flip"
+	}
+
+	{
+		Name = "OreHarvestSparksA_Back_Flip"
+		InheritFrom = "OreHarvestSparksA_Back"
+		FlipHorizontal = true
+	}	
+
+	{
+		Name = "OreHarvestSparksB"
+		InheritFrom = "OreHarvestSparksA"
+		FilePath = "Fx\Harvest\OreHarvestSparksFrontB\OreHarvestSparksFrontB"
+		NumFrames = 38
+		CreateAnimation = "OreHarvestSparksB_Back"
+	}
+
+	{
+		Name = "OreHarvestSparksB_Back"
+		InheritFrom = "OreHarvestSparksA_Back"
+		NumFrames = 38
+		FilePath = "Fx\Harvest\OreHarvestSparksBackB\OreHarvestSparksBackB"
+	}
+
+	{
+		Name = "OreHarvestSparksB_Flip"
+		InheritFrom = "OreHarvestSparksB"
+		FlipHorizontal = true
+		CreateAnimation = "OreHarvestSparksB_Back_Flip"
+	}
+
+	{
+		Name = "OreHarvestSparksB_Back_Flip"
+		InheritFrom = "OreHarvestSparksB_Back"
+		FlipHorizontal = true
+	}
+
+
+
+	{
+		Name = "OreHarvestSparkSmall"
+		FilePath = "Particles\particle_spark_glow"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndBlue = 0.999
+		EndGreen = 0.3
+		EndRed = 0.1
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Gravity = 800.0
+		UpwardVelocityMax = 200.0
+		UpwardVelocityMin = 100.0
+		VelocityMax = 500.0
+		VelocityMin = 150.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		RandomAccelerationMax = -700.0
+		RandomAccelerationMin = -300.0
+	}
+	
+	{
+		Name = "HarvestRockPieces"
+		
+		Random =
+		[
+			{ Name = "HarvestRockPieceA" }
+			{ Name = "HarvestRockPieceB" }
+			{ Name = "HarvestRockPieceC" }
+			{ Name = "HarvestRockPieceD" }
+		]
+	}
+	
+	{
+		Name = "HarvestRockPieceA"
+		FilePath = "Particles\particle_crystalFragment_01"
+		
+		AngleFromOwner = "Take"
+		AngleMax = 40.0
+		AngleMin = -40.0
+		UseOwnAngle = false
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -600.0
+		Gravity = 1200.0
+		UpwardVelocityMax = 200.0
+		UpwardVelocityMin = 100.0
+		VelocityMax = 500.0
+		VelocityMin = 200.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 760.0
+		RandomRotationSpeedMin = -760.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.6
+		ScaleMin = 0.3
+		Scale = 2
+		OffsetZ = 60
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		Color = { Red = 0.4 Green = 0.4 Blue = 0.4 }
+	}
+	
+	{
+		Name = "HarvestRockPieceB"
+		InheritFrom = "HarvestRockPieceA"
+		FilePath = "Particles\particle_crystalFragment_02"
+	}
+	
+	{
+		Name = "HarvestRockPieceC"
+		InheritFrom = "HarvestRockPieceA"
+		FilePath = "Particles\particle_crystalFragment_03"
+	}
+	
+	{
+		Name = "HarvestRockPieceD"
+		InheritFrom = "HarvestRockPieceA"
+		FilePath = "Particles\particle_crystalFragment_04"
+	}
+
+	{
+		Name = "HarvestPointGlint"
+		Material = "Unlit"
+		FilePath = "Fx\HarvestPointGlint\HarvestPointGlint"
+		NumFrames = 21
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 0.8
+		OffsetZ = 40
+		VisualFx = "HarvestPointSlowSparkles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.15
+		VisualFxCap = 5
+		CreateAnimations =
+		[
+			{ Name = "HarvestPointGlow" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "ResourceFinderGlint"
+		InheritFrom = "HarvestPointGlint"
+		VisualFx = "HarvestPointSlowSparkles"
+		ClearCreateAnimations = true
+		Saturation = -1
+		OffsetZ = 0
+		Hue = 0.3
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "HarvestPointGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0.7
+		EndBlue = 0.4
+		StartScale = 1
+		EndScale = 2
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 1.0
+		EndAlpha = 0
+		PingPongColor = false
+		GroupName = "FX_Terrain_Top"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Duration = 2
+		ScaleY = 0.5
+		Alpha = 1
+		Scale = 0.7
+		VisualFx = "HarvestPointVerticalLine"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "HarvestPointVerticalLine"
+		FilePath = "Particles\particle_streak_add"
+		SortMode = "Secondary"
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		StartScaleX = 0
+		EndScaleX = 1.5
+		StartScaleY = 1
+		EndScaleY = 0.25
+		Duration = 1.5
+		StartAlpha = 0
+		EndAlpha = 1
+		AddColor = true
+		PingPongColor = true
+		OriginX = 30
+		OriginY = 25
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0.7
+		EndBlue = 0.4
+		RandomOffsetX = 1
+		Scale = 0.5
+		OffsetY = -42
+	}
+
+	{
+		Name = "HarvestPointSlowSparkles"
+		Random =
+		[
+			{ Name = "HarvestPointSlowSparkleA" }
+			{ Name = "HarvestPointSlowSparkleB" }
+		]
+	}
+
+
+	{
+		Name = "HarvestPointSlowSparkleA"
+		FilePath = "Particles\particle_addFlake2"
+		Material = "Unlit"
+		RandomRotation = true
+		RandomRotationSpeedMin = -720
+		RandomRotationSpeedMax = 720
+		RadialOffsetMin = 30
+		RadialOffsetMax = 100
+		AngleMin = 45
+		AngleMax = 135
+		RandomDurationMin = 0.6
+		RandomDurationMax = 2
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		Acceleration = -50
+		VelocityMin = 40
+		VelocityMax = 120
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0.1
+		ScaleMin = 0.05
+		ScaleMax = 0.15
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "HarvestPointSlowSparkleB"
+		InheritFrom = "HarvestPointSlowSparkleA"
+		FilePath = "Particles\particle_addSparkle_01"
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0.6
+		EndBlue = 0.4
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1
+	}
+
+	
+	{
+		Name = "HarvestReadySparkles"
+		CreateAnimation = "HarvestReadyGlow"
+		FilePath = "Particles\particle_water_droplet"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "HarvestReadySparkles2"
+		AngleFromOwner = "Ignore"
+		AngleMax = 100.0
+		AngleMin = 80.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomOffsetX = 30.0
+		RandomOffsetY = 30.0
+		LocationFromOwner = "Ignore"
+		Acceleration = -60.0
+		VelocityMax = 150.0
+		VelocityMin = 50.0
+		RandomRotation = true
+		PingPongScale = true
+		ScaleMax = 0.2
+		ScaleMin = 0.1
+		StartScale = 0.0
+		Ambient = 0.0
+		VisualFxDistanceMax = 30.0
+		VisualFxDistanceMin = 10.0
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "HarvestReadySparklesLouder"
+		InheritFrom = "HarvestReadySparkles"
+		ScaleMax = 0.5
+		ScaleMin = 0.3
+		ScaleFromOwner = "Ignore"
+		CreateAnimation = "HarvestReadyGlowLouder"
+		CreateAnimations = [
+			{ Name = "HarvestPointGlintFlower" }
+		]
+	}
+
+	{
+		Name = "HarvestPointGlintFlower"
+		Material = "Unlit"
+		FilePath = "Fx\HarvestPointGlint\HarvestPointGlint"
+		NumFrames = 21
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		OffsetZ = 40
+		PlaySpeed = 30
+		Hue = 0.5
+		Saturation = -0.5
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+	}
+	
+	{
+		Name = "HarvestReadyGlow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Standing_Add"
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		EndAlpha = 0.3
+		EndBlue = 1.0
+		EndGreen = 0.5
+		EndRed = 0.2
+		PingPongColor = true
+		StartBlue = 0.8
+		StartGreen = 0.2
+		StartRed = 1.0
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 70.0
+		OriginX = 84.0
+		OriginY = 150.0
+		RandomOffsetX = 40.0
+		EndScaleX = 0.05
+		EndScaleY = 2.0
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		StartScale = 0.5
+		StartScaleX = 0.3
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "HarvestReadyGlowLouder"
+		InheritFrom = "HarvestReadyGlow"
+		AlphaMin = 0.6
+		EndScaleY = 3.0
+		ScaleX = 2
+		RandomOffsetX = 20
+	}	
+
+	{
+		Name = "HarvestReadyGlowExorcism"
+		InheritFrom = "HarvestReadyGlow"
+		AlphaMin = 1
+		EndScaleY = 3.0
+		ScaleX = 2
+		RandomOffsetX = 20
+		AngleFromOwner = "Ignore"
+		StartRed = 0.3
+		StartBlue = 1.0
+		StartGreen = 0.8
+		EndRed = 0.2
+		EndGreen = 1.0
+		EndBlue = 0.8
+	}
+	
+	{
+		Name = "HarvestReadySparkles2"
+		FilePath = "Particles\particle_ice_sparkle"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.2
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		PingPongScale = true
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		StartScale = 0.0
+		Ambient = 0.0
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "ShovelPointGlint"
+		InheritFrom = "HarvestPointGlint"
+		SortMode = "Isometric"
+		OffsetZ = 0
+		ClearCreateAnimations = true
+		GroupName = "FX_Add_Top"
+		VisualFx = "ShovelPointSparklesSecondary"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 300
+		PlaySpeed = 24
+		ClearSlides = true
+		CreateAnimations = [
+			{ Name = "ShovelPointGlow" }
+			{ Name = "ShovelPointGlow" }
+			// { Name = "ShovelPointSpectral" }
+		]
+	}
+
+
+	{
+		Name = "ShovelPointSpectral"
+		FilePath = "Particles\particle_harvest_spectrum"
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Angle = 90
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.66
+		PingPongColor = true
+		RandomDurationMin = 2.0
+		RandomDurationMax = 2.5
+		EaseIn = 0.0
+		EaseOut = 1
+		OffsetZ = -60
+		Scale = 0.75
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		StartScaleY = 0.74
+		EndScaleY = 1.2
+		VelocityMin = 100
+		VelocityMax = 120
+		Acceleration = -130
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		Saturation = -0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartScaleX = 0.7
+		EndScaleX = 2
+		OriginX = 50
+		OriginY = 17
+		FlipVertical = true
+	}
+
+	{
+		Name = "ShovelPointGlow"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Angle = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Alpha = 0.2
+		PingPongColor = true
+		RandomDurationMin = 2.0
+		RandomDurationMax = 3
+		EaseIn = 0.0
+		EaseOut = 1
+		RandomOffsetX = 20
+		RandomOffsetY = 0
+		OffsetZ = 30
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		Acceleration = -130
+		StartScaleY = 1
+		EndScaleY = 2
+		SortMode = "FromParent"
+		Red = 1
+		Green = 0.85
+		Blue = 0.5
+		StartScaleX = 0.6
+		EndScaleX = 1
+	}
+
+	{
+		Name = "ShovelPointSpectralB"
+		InheritFrom = "ShovelPointSpectral"
+		ScaleY = 4
+		Alpha = 0.33
+	}
+
+	{
+		Name = "ShovelPointSparklesSecondary"
+		Random = [
+			{ Name = "ShovelPointSparklesSecondaryA" }
+			{ Name = "ShovelPointSparklesSecondaryB" }
+		]
+	}
+
+	{
+		Name = "ShovelPointSparklesSecondaryA"
+		FilePath = "Particles\particle_aphrodite_sparkle_noGlow"
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0
+		EndScale = 0.8
+		PingPongScale = true
+		RandomOffsetX = 25
+		RandomOffsetY = 50
+		Saturation = 0
+		RadialOffsetMin = 10
+		RadialOffsetMax = 30
+		ScaleMin = 0.1
+		ScaleMax = 1.0
+		Hue = 0.25
+		UseOwnAngle = false
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 230
+		Acceleration = -200
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "ShovelPointSparklesSecondaryB"
+		InheritFrom = "ShovelPointSparklesSecondaryA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		ScaleMax = 0.5
+	}
+
+	{
+		Name = "ExorcismSparklesSecondary"
+		Random = [
+			{ Name = "ExorcismSparklesSecondaryA" }
+			{ Name = "ExorcismSparklesSecondaryB" }
+		]
+	}
+
+	{
+		Name = "ExorcismSparklesSecondaryA"
+		FilePath = "Particles\particle_aphrodite_sparkle_noGlow"
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0
+		EndScale = 0.8
+		PingPongScale = true
+		RandomOffsetX = 25
+		RandomOffsetY = 50
+		Saturation = 0
+		RadialOffsetMin = 10
+		RadialOffsetMax = 30
+		ScaleMin = 0.1
+		ScaleMax = 1.0
+		Hue = 0.38
+		UseOwnAngle = false
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 230
+		Acceleration = -200
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "ExorcismSparklesSecondaryB"
+		InheritFrom = "ExorcismSparklesSecondaryA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		ScaleMax = 0.5
+	}
+
+
+	{
+		Name = "PickaxePointGlow"
+		InheritFrom = "HarvestPointGlow"
+		VisualFx = "PickaxePointVerticalLine"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "PickaxePointGlint"
+		InheritFrom = "HarvestPointGlint"
+		ClearSlides = true
+		PlaySpeed = 30
+		Saturation = -1
+		OffsetZ = 110
+		RandomOffsetX = 25
+		RandomOffsetY = 25
+		ScaleMin = 0.6
+		ScaleMax = 0.9
+		CreateAnimation = null
+		VisualFx = "PickaxeSparklesSecondary"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		CreateAnimations = [
+			{ Name = "PickaxePointSpectral" }
+			{ Name = "PickaxePointSpectral" }
+			{ Name = "PickaxePointSpectral" }
+			{ Name = "PickaxePointSpectralB" }
+			{ Name = "PickaxePointSpectralB" }
+		]
+	}
+
+	{
+		Name = "PickaxePointGlintLime"
+		InheritFrom = "PickaxePointGlint"
+		RandomOffsetX = 30
+		RandomOffsetY = 50
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+	}
+	{
+		Name = "PickaxePointSpectral"
+		FilePath = "Particles\particle_harvest_spectrum"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Angle = 90
+		StartAlpha = 0
+		EndAlpha = 1
+		Alpha = 0.75
+		PingPongColor = true
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.5
+		EaseIn = 0.0
+		EaseOut = 1
+		RandomOffsetX = 10
+		RandomOffsetY = 0
+		OffsetZ = 0
+		Scale = 0.75
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		StartScaleY = 0.74
+		EndScaleY = 0.75
+		VelocityMin = 100
+		VelocityMax = 120
+		Acceleration = -130
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		Saturation = -0.5
+		Red = 0.75
+		Green = 1
+		Blue = 1
+		StartScaleX = 0.7
+		EndScaleX = 1.3
+		OriginX = 50
+		OriginY = 17
+	}
+
+	{
+		Name = "PickaxePointSpectralB"
+		InheritFrom = "PickaxePointSpectral"
+		ScaleY = 4
+		Alpha = 0.33
+	}
+
+	{
+		Name = "PickaxeSparklesSecondary"
+		FilePath = "Particles\particle_aphrodite_sparkle_noglow"
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1.3
+		EndScale = 0
+		PingPongScale = false
+		RandomOffsetX = 0
+		RandomOffsetY = 0
+		Saturation = -0.3
+		RadialOffsetMin = 10
+		RadialOffsetMax = 30
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Hue = 0.6
+		UseOwnAngle = false
+		AngleMin = 0
+		AngleMax = 180
+		VelocityMin = 100
+		VelocityMax = 230
+		Acceleration = -600
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "PickaxePointVerticalLine"
+		InheritFrom = "HarvestPointVerticalLine"
+		OffsetZ = 110
+		ColorFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "PickaxePointBronzeGlint"
+		InheritFrom = "PickaxePointGlint"
+		OffsetZ = 70
+		CreateAnimations = []
+		CreateAnimation = "PickaxePointBronzeGlow"
+	}
+
+	{
+		Name = "PickaxePointBronzeGlow"
+		InheritFrom = "HarvestPointGlow"
+		VisualFx = "PickaxePointBronzeVerticalLine"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "PickaxePointBronzeVerticalLine"
+		InheritFrom = "HarvestPointVerticalLine"
+		OffsetZ = 70
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantFMolyUnharvested"
+		VisualFx = "HarvestReadySparklesLouder"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -50.0
+		Scale = 0.25
+	}	
+	{
+		Name = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantFMolyHarvested"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -50.0
+		Scale = 0.25
+		CreateAnimations =
+		[
+			{ Name = "PlantMatterHarvestFx" }
+			{ Name = "PlantHarvestFxSparkle" }
+		]
+	}
+	{
+		Name = "HarvestPointUsedSimple"
+		FilePath = "Items\Resources\Plant\PlantFMolyHarvested"
+		Duration = 0.8
+		OffsetY = -50.0
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		Scale = 0.25
+		DieWithOwner = false
+	}
+	
+	{
+		Name = "HarvestPointMoly"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantFMolyUnharvested"
+		OffsetY = -50.0
+		Scale = 0.25
+	}	
+	{
+		Name = "HarvestPointMolyUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantFMolyHarvested"
+		OffsetY = -50.0
+		Scale = 0.25
+	}
+
+	{
+		Name = "HarvestPointMushroom"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantMoneyUnharvested"
+		OffsetY = 0.0
+		Scale = 0.17
+	}
+
+	{
+		Name = "HarvestPointPlantGLotus"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantGLotusUnharvested"
+		OffsetY = -20
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantGLotusUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantGLotusHarvested"
+		OffsetY = -20
+		Scale = 0.2
+	}
+
+	
+	{
+		Name = "HarvestPointPlantHMyrtle"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantHMyrtleUnharvested"
+		OffsetY = -50
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantHMyrtleUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantHMyrtleHarvested"
+		OffsetY = -50
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantIShaderot"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantIShaderotUnharvested"
+		OffsetY = -50
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantIShaderotUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantIShaderotHarvested"
+		OffsetY = -50
+		Scale = 0.2
+	}
+
+
+	{
+		Name = "HarvestPointPlantNMoss"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantNMossUnharvested"
+		OffsetY = -20
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantNMossUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantNMossHarvested"
+		OffsetY = -20
+		Scale = 0.2
+	}
+
+	{
+		Name = "HarvestPointPlantODriftwood"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Plant\PlantODriftwoodUnharvested"
+		OffsetY = 0
+		Scale = 0.2
+	}
+	
+	{
+		Name = "HarvestPointPlantODriftwoodUsed"
+		InheritFrom = "HarvestPointUsed"
+		FilePath = "Items\Resources\Plant\PlantODriftwoodHarvested"
+		OffsetY = 0
+		Scale = 0.2
+	}
+	
+	{
+		Name = "ShovelPoint"
+		InheritFrom = "HarvestPoint"
+		Material = "Default"
+		FilePath = "Items\Resources\Plant\ShovelpointUnharvested"
+		VisualFx = "ShovelPointGlint"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.25
+		OffsetY = 0.0
+		Scale = 0.3
+		Value = -0.05
+		Saturation = -0.05
+	}
+	
+	{
+		Name = "ShovelPointUnavailable"
+		InheritFrom = "ShovelPoint"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "ShovelPointUsed"
+		InheritFrom = "ShovelPoint"
+		FilePath = "Items\Resources\Plant\ShovelpointHarvested"			
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointSilver"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreFSilverUnharvested"
+		VisualFx = "PickaxePointGlint"
+		VisualFxIntervalMin = 0.6
+		VisualFxIntervalMax = 0.7
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		OffsetY = 0
+	}
+	
+	{
+		Name = "PickaxePointSilverUnavailable"
+		InheritFrom = "PickaxePointSilver"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointSilverEmpty"
+		FilePath = "Items\Resources\Ore\OreFSilverHarvested"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+
+	{
+		Name = "PickaxePointOreGLime"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreGLimeUnharvested"
+		VisualFx = "PickaxePointGlintLime"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		OffsetY = 0
+	}
+	
+	{
+		Name = "PickaxePointOreGLimeUnavailable"
+		InheritFrom = "PickaxePointOreGLime"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointOreGLimeEmpty"
+		FilePath = "Items\Resources\Ore\OreGLimeHarvested"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+
+	{
+		Name = "PickaxePointOreHGlassrock"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreHGlassrockUnharvested"
+		VisualFx = "PickaxePointGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		OffsetY = 0
+	}
+	
+	{
+		Name = "PickaxePointOreHGlassrockUnavailable"
+		InheritFrom = "PickaxePointOreHGlassrock"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointOreHGlassrockEmpty"
+		FilePath = "Items\Resources\Ore\OreHGlassrockHarvested"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+
+	{
+		Name = "PickaxePointOreIMarble"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreIMarbleUnharvested"
+		VisualFx = "PickaxePointGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		OffsetY = 0
+	}
+
+	{
+		Name = "PickaxePointOreIMarbleUnavailable"
+		InheritFrom = "PickaxePointOreIMarble"
+		VisualFx = "null"
+	}
+
+	{
+		Name = "PickaxePointOreIMarbleEmpty"
+		FilePath = "Items\Resources\Ore\OreIMarbleHarvested"
+
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+
+	{
+		Name = "PickaxePointBronze"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreNBronzeUnharvested"
+		VisualFx = "PickaxePointBronzeGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+	
+	{
+		Name = "PickaxePointBronzeUnavailable"
+		InheritFrom = "PickaxePointBronze"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointBronzeEmpty"
+		FilePath = "Items\Resources\Ore\OreNBronzeHarvested"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+
+	{
+		Name = "PickaxePointOreOIron"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreOIronUnharvested"
+		VisualFx = "PickaxePointGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+	}
+	
+	{
+		Name = "PickaxePointOreOIronUnavailable"
+		InheritFrom = "PickaxePointOreOIron"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointOreOIronEmpty"
+		InheritFrom = "PickaxePointOreOIronUnavailable"
+		FilePath = "Items\Resources\Ore\OreOIronHarvested"		
+	}
+
+	{
+		Name = "PickaxePointOreChaosProtoplasm"
+		InheritFrom = "HarvestPoint"
+		FilePath = "Items\Resources\Ore\OreChaosProtoplasmUnharvested"
+		VisualFx = "PickaxePointGlint"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.4
+		OffsetY = 40
+	}
+	
+	{
+		Name = "PickaxePointOreChaosProtoplasmUnavailable"
+		InheritFrom = "PickaxePointOreChaosProtoplasm"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "PickaxePointOreChaosProtoplasmEmpty"
+		FilePath = "Items\Resources\Ore\OreChaosProtoplasmHarvested"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.4
+		OffsetY = 40
+	}
+
+	
+	{
+		Name = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantFNightshadeSprouted"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 80.0
+		OriginY = 128.0
+	}
+	
+	{
+		Name = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantFNightshadeUnharvested"
+		
+		VisualFx = "HarvestReadySparkles"
+		EndAngle = 0.5
+		PingPongAngle = true
+		StartAngle = -0.5
+		AddColor = true
+		EndBlue = 0.1
+		EndGreen = 0.2
+		EndRed = 0.2
+		PingPongColor = true
+		Duration = 1.5
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 80.0
+		OriginY = 128.0
+		EndScaleX = 0.99
+		EndScaleY = 1.01
+		PhaseOffsetScale = 90.0
+		PingPongScale = true
+		StartScaleX = 1.01
+		StartScaleY = 0.99
+		VisualFxIntervalMax = 0.4
+		VisualFxIntervalMin = 0.2
+	}
+	
+	{
+		Name = "PlantFNightshadeSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantFNightshadeSprouted"
+	}
+	
+	{
+		Name = "PlantFNightshadeReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantFNightshadeUnharvested"
+	}
+
+	{
+		Name = "PlantGCattailSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantGCattailSprouted"
+	}
+	
+	{
+		Name = "PlantGCattailReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantGCattailUnharvested"
+		OriginX = 100
+		OriginY = 250
+	}
+
+	{
+		Name = "PlantHWheatSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantHWheatSprouted"
+		OriginX = 320
+		OriginY = 570
+		Scale = 0.4
+	}
+	
+	{
+		Name = "PlantHWheatReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantHWheatUnharvested"
+		OriginX = 320
+		OriginY = 570
+		Scale = 0.4
+	}
+
+	{
+		Name = "PlantIPoppySprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantIPoppySprouted"
+		OriginX = 80.0
+		OriginY = 128.0
+	}
+	
+	{
+		Name = "PlantIPoppyReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantIPoppyUnharvested"
+		OriginX = 80.0
+		OriginY = 128.0
+	}
+
+	{
+		Name = "PlantChaosThalamusSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantChaosThalamusSprouted"
+	}
+	
+	{
+		Name = "PlantChaosThalamusReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantChaosThalamusUnharvested"
+		OriginX = 80
+		OriginY = 140
+	}
+
+	{
+		Name = "PlantNGarlicSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantNGarlicSprouted"
+	}
+	
+	{
+		Name = "PlantNGarlicReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantNGarlicUnharvested"
+		Scale = 0.5
+		OriginY = 240
+	}
+
+	{
+		Name = "PlantOMandrakeSprouted"
+		InheritFrom = "PlantBaseSprouted"
+		FilePath = "Items\Resources\Plant\PlantOMandrakeSprouted"
+	}
+	
+	{
+		Name = "PlantOMandrakeReadyToHarvest"
+		InheritFrom = "PlantBaseReadyToHarvest"
+		FilePath = "Items\Resources\Plant\PlantOMandrakeUnharvested"
+	}
+	
+	
+	{
+		Name = "ExorcismGhostDissipate"
+		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"
+		
+		VisualFx = "GhostDissipationFx"
+		UseOwnAngle = false
+		Sound = "/EmptyCue"
+		ColorFromOwner = "Take"
+		EndFrame = 45
+		HoldLastFrame = true
+		NumFrames = 45
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 24.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetY = -80.0
+		SortFromOwner = "Take"
+		Scale = 0.5
+		ScaleFromOwner = "Take"
+		Ambient = 0.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+	}				
+	
+	{
+		Name = "DoraDissipate"
+		InheritFrom = "ExorcismGhostDissipate"
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = null
+		StartAlpha = 0.4
+		Scale = 0.6
+		OffsetZ = -60
+		Sound = "/SFX/GhostEvaporate"
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.6 }
+	}
+	{
+		Name = "DoraDissipateOut"
+		InheritFrom = "DoraDissipate"
+		StartAlpha = 0.25
+		Sound = "null"
+	}
+
+	{
+		Name = "GhostDissipationFx"
+		FilePath = "Fx\BasicGlow\BasicGlow"
+		GroupName = "FX_Standing_Add"
+		
+		VisualFx = "GhostDissipationParticles"
+		ColorFromOwner = "Take"
+		StartAlpha = 1.0
+		Duration = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndOffsetY = -200.0
+		ScaleX = 0.25
+		VisualFxCap = 4
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+	}
+
+	{
+		Name = "GhostDissipationParticles"
+		FilePath = "Particles\particle_green_glow_02"
+		GroupName = "FX_Standing_Add"
+		
+		AngleChangeSpeedMax = 20.0
+		AngleChangeSpeedMin = -20.0
+		AngleMax = 91.0
+		AngleMin = 90.0
+		ColorFromOwner = "Ignore"
+		EaseOut = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.5
+		RandomDurationMin = 0.75
+		StartFrame = 1
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Take"
+		VelocityMax = 400.0
+		VelocityMin = 200.0
+		EndScale = 0.0
+		EndScaleX = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.2
+		RandomAccelerationMax = -300.0
+		RandomAccelerationMin = -600.0
+	}
+
+	{
+		Name = "FishingPoint"
+		CreateAnimation = "FishingPointDark"
+		FilePath = "Fx\FishingPoint\FishingPoint"			
+		VisualFx = "FishingPointLight"
+		Sound = "/Leftovers/Object Ambiences/FishJumpSplash"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		EndFrame = 120
+		Loop = true
+		NumFrames = 120
+		PlaySpeed = 30.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.7
+		VisualFxIntervalMin = 0.4
+	}
+	
+	{
+		Name = "FishingPointUnusable"
+		InheritFrom = "FishingPoint"
+		FilePath = "Fx\FishingPointUnusable\FishingPointUnusable"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "FishingPoint_NoShadow"
+		InheritFrom = "FishingPoint"
+		CreateAnimation = "null"
+	}
+	
+	{
+		Name = "FishingPointActive"
+		InheritFrom = "FishingPoint"
+	}
+	
+	{
+		Name = "FishingPointActive_NoShadow"
+		InheritFrom = "FishingPoint"
+		CreateAnimation = "null"
+	}
+
+	{
+		Name = "FishingPointUsed"
+		InheritFrom = "FishingPoint"
+		ColorFromOwner = "Maintain"
+	}
+	
+	{
+		Name = "FishingPointDark"
+		FilePath = "Fx\CalmRipple\CalmRipple"
+		GroupName = "FX_Terrain"			
+		Alpha = 0.5
+		EndFrame = 41
+		NumFrames = 41
+		Loop = true
+		StartFrame = 1
+		OffsetY = 7.0
+		PlaySpeed = 30
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "FishingPointLight"
+		ChildAnimation = "FishingPointLightB"
+		CreateAnimation = "HarvestPointGlintFishRandom"
+		FilePath = "Particles\particle_streak_npc"
+		GroupName = "FX_Standing_Add"			
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.15
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.5
+		RandomDurationMin = 1.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		EndOffsetZ = 30.0
+		OriginX = 160.0
+		OriginY = 380.0
+		RandomOffsetX = 1.0
+		DieWithOwner = true
+		SortMode = "Isometric"
+		EndScaleX = 0.1
+		StartScaleX = 0.2
+		StartScaleY = 0.5
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.85 Blue = 0.50 }
+	}
+
+	{
+		Name = "HarvestPointGlintFishRandom"
+		Random = [
+			{ Name = "HarvestPointGlintFish" }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "HarvestPointGlintFish"
+		Material = "Unlit"
+		FilePath = "Fx\HarvestPointGlint\HarvestPointGlint"
+		NumFrames = 21
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		OffsetZ = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Hue = -0.05
+		Saturation = 0
+		RandomOffsetX = 0
+		RandomOffsetY = 0
+	}
+	
+	{
+		Name = "FishingPointFlash"
+		InheritFrom = "FishingPoint"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		Alpha = 0.3
+		Loop = false
+		RandomFlipHorizontal = false
+		Scale = 0.75
+	}
+	
+	{
+		Name = "FishingPointLightB"
+		InheritFrom = "FishingPointLight"
+		ChildAnimation = "null"
+		FilePath = "Particles\particle_glow_egg"
+		AddColor = false
+		OriginX = 84.0
+		OriginY = 125.0
+		EndScaleX = 0.9
+		EndAlpha = 0.2
+		StartAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+	}
+	
+	{
+		Name = "FishingSplashA"
+		CreateAnimation = "FishingSplashA_Standing"
+		FilePath = "Fx\FishingSplashA_Terrain\FishingSplashA_Terrain"			
+		Sound = "/Leftovers/World Sounds/ClickSplash"
+		EndFrame = 22
+		NumFrames = 22
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "FishingSplashB"
+		InheritFrom = "FishingSplashA"
+		CreateAnimation = "FishingSplashB_Standing"
+		FilePath = "Fx\FishingSplashB_Terrain\FishingSplashB_Terrain"
+		ColorFromOwner = "Ignore"
+		EndFrame = 36
+		NumFrames = 36
+		StartFrame = 1
+		Scale = 0.66
+	}
+	
+	{
+		Name = "FishingSplashA_Standing"
+		FilePath = "Fx\FishingSplashA\FishingSplashA"
+		GroupName = "Standing"	
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "Isometric"
+		Ambient = 0.0
+		Scale = 0.75
+	}
+	
+	{
+		Name = "FishingSplashB_Standing"
+		InheritFrom = "FishingSplashA_Standing"
+		FilePath = "Fx\FishingSplashB\FishingSplashB"
+		ColorFromOwner = "Ignore"
+		EndFrame = 36
+		NumFrames = 36
+		StartFrame = 1
+		Scale = 0.66
+	}
+	
+	{
+		Name = "FishingBobberDunk"
+		InheritFrom = "FishingSplashA"
+		CreateAnimation = "FishingBobberFlare"
+		FilePath = "Fx\FishingBobberDunk\FishingBobberDunk"
+		Sound = "/EmptyCue"
+		EndFrame = 23
+		NumFrames = 23
+		StartFrame = 1
+		RandomFlipHorizontal = false
+	}
+	
+	{
+		Name = "FishingBobberFlare"
+		ChildAnimation = "FishingBobberFlareGlow"
+		FilePath = "Particles\particle_streak_add"
+		GroupName = "FX_Standing_Add"			
+		Angle = 90.0
+		AddColor = true
+		Duration = 0.125
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 54.0
+		OriginY = 26.0
+		EndScaleX = 0.0
+	}
+	
+	{
+		Name = "FishingBobberFlareGlow"
+		InheritFrom = "FishingBobberFlare"
+		ChildAnimation = "null"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.5
+		OriginX = 128.0
+		OriginY = 128.0
+		EndScaleY = 0.0
+	}
+	
+	{
+		Name = "FishingBobberIdle"
+		FilePath = "Fx\FishingBobberIdle\FishingBobberIdle"			
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		StartFrame = 1
+		Ambient = 0.0
+		VisualFxDistanceMin = 8
+		VisualFxDistanceMax = 15
+	}	
+
+	{
+		Name = "FishingBobberIdleWithTrail"
+		FilePath = "Fx\FishingBobberIdleNoRipple\FishingBobberIdleNoRipple"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		StartFrame = 1
+		Ambient = 0.0
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.12
+		VisualFx = "FishingBobberTrail"
+	}
+
+	{
+		Name = "FishingBobberTrail"
+		Random = [
+			{ Name = "FishingBobberTrailA" }
+			{ Name = "FishingBobberTrailB" }
+		]
+	}
+
+	{
+		Name = "FishingBobberTrailA"
+		FilePath = "Fx\CalmRipple\CalmRipple"
+		NumFrames = 41
+		RandomRotation = true
+		ScaleMin = 0.8
+		ScaleMax = 1.3
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FishingBobberTrailB"
+		InheritFrom = "FishingBobberTrailA"
+		Red = 1
+		Green = 1
+		Blue = 1
+	}
+	
+	{
+		Name = "FishingBobberFakeDunkA"
+		ChainTo = "FishingBobberIdle"
+		FilePath = "Fx\FishingBobberJuke\FishingBobberJuke"			
+		Sound = "/Leftovers/Object Ambiences/FishJumpSplash"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 20
+		NumFrames = 20
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+	}
+	
+	{
+		Name = "FishingBobberResurface"
+		InheritFrom = "FishingBobberIdle"
+		ChainTo = "FishingBobberIdle"
+		FilePath = "Fx\FishingBobberResurface\FishingBobberResurface"
+		Loop = false
+	}
+
+	{
+		Name = "ShovelDirtIn"
+      	FilePath = "Dev\blank_invisible"
+		CreateAnimations = [
+			{ Name = "ShovelDirtTipCover" }
+			{ Name = "ShovelDirtInSpray" }
+		]
+		GrannyAttachedMarkerLocation = "shovel_fxMarker_01_M_JNT"
+	}
+
+	{
+		Name = "ShovelDirt"
+		InheritFrom = "ErebusDirtTrailA"
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "HarvestPickaxeSwing"
+		FilePath = "Fx\Harvest\PickaxeSwing\HarvestPickaxeSwing"
+		NumFrames = 14
+		PlaySpeed = 60
+		GroupName = "FX_Standing_Add"
+		IsometricSkew = "X"
+		Scale = 2
+		OffsetZ = 120
+		RadialOffsetMin = 50
+		RadialOffsetMax = 50
+	}
+
+	{
+		Name = "OreHarvestSpike"
+		FilePath = "Fx\Harvest\OreHarvestSpike\OreHarvestSpike"
+		NumFrames = 10
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		AngleMin = 50
+		AngleMax = 130
+		OffsetZ = 30
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "PlantHarvestFxSparkle"
+		FilePath = "Fx\Harvest\HarvestSparkle\HarvestSparkle"
+		NumFrames = 18
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Add_Top"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+		VisualFx = "PlantHarvestFxSparkleWater"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.05
+		Scale = 1.0
+		StartOffsetZ = 20
+		EndOffsetZ = 120
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PlaySpeed = 45
+		ScaleX = 0.75
+		ScaleY = 1.5
+		ChildAnimation = "PlantHarvestFxSparkleEmitter"
+	}
+
+	{
+		Name = "PlantHarvestFxSparkleEmitter"
+		InheritFrom = "PlantHarvestFxSparkle"
+		ChildAnimation = null
+		VisualFx = "PlantHarvestFxSparklesSmall"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+	}
+
+	{
+		Name = "PlantHarvestFxSparklesSmall"
+		FilePath = "Fx\Harvest\HarvestSparkle\HarvestSparkle"
+		NumFrames = 18
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Add_Top"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomOffsetX = 40
+		RandomOffsetY = 70
+		StartOffsetZ = 60
+		EndOffsetZ = 150
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.88
+		EndBlue = 0.99
+		ColorFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+	}
+
+	{
+		Name = "PlantHarvestFxSparkleWater"
+		FilePath = "Particles\particle_water_droplet"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "HarvestReadySparkles2"
+		AngleFromOwner = "Ignore"
+		AngleMax = 180.0
+		AngleMin = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.5
+		RandomDurationMin = 0.75
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Acceleration = -250.0
+		Gravity = 200
+		VelocityMax = 300.0
+		VelocityMin = 200.0
+		RandomRotation = true
+		PingPongScale = false
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		StartScale = 0.5
+		EndScale = 0
+		Ambient = 0.0
+		ScaleFromOwner = "Ignore"
+		VisualFxDistanceMax = 30.0
+		VisualFxDistanceMin = 10.0
+	}
+	{
+		Name = "PlantMatterHarvestFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.15
+		VisualFx = "PlantMatterFx"
+		VisualFxIntervalMin = 0.06
+		VisualFxIntervalMax = 0.07
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "PlantMatterFx"
+		Random = [
+			{ Name = "PlantMatterFxA" }
+			{ Name = "PlantMatterFxB" }
+			{ Name = "PlantMatterFxC" }
+			{ Name = "PlantMatterFxD" }
+			{ Name = "PlantMatterFxE" }
+			{ Name = "PlantMatterFxD" }
+			{ Name = "PlantMatterFxE" }
+			{ Name = "PlantMatterFxD" }
+			{ Name = "PlantMatterFxE" }
+			{ Name = "PlantMatterFxF" }
+		]
+	}
+
+	{
+		Name = "PlantDirtFx"
+		Random = [
+			{ Name = "PlantDirtFxA" }
+			{ Name = "PlantDirtFxB" }
+			{ Name = "PlantDirtFxC" }
+		]
+	}
+
+	{
+		Name = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_01"
+		Material = "Unlit"
+		RandomRotation = true
+		StartScale = 1
+		EndScale = 0
+		StartAlpha = 0.9
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 0.2
+		StartScaleX = 0.3
+		EndScaleX = 0.5
+		AngleMin = 0
+		AngleMax = 180
+		Gravity = 700
+		Acceleration = -300
+		VelocityMin = 150
+		VelocityMax = 300
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.0
+		ScaleMin = 0.75
+		ScaleMax = 1.25
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		Scale = 1
+		GroupName = "FX_Standing"
+		UpwardVelocityMin = 300
+		UpwardVelocityMax = 450
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		AddColor = true
+		StartRed = 0.25
+		StartGreen = 0.25
+		StartBlue = 0.05
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "PlantDirtFx"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "PlantMatterFxB"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_02"
+	}	
+	{
+		Name = "PlantMatterFxC"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_03"
+	}	
+	{
+		Name = "PlantMatterFxD"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_04"
+	}	
+	{
+		Name = "PlantMatterFxE"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_05"
+	}	
+	{
+		Name = "PlantMatterFxF"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_plantMatter_06"
+	}
+
+	{
+		Name = "PlantDirtFxA"
+		InheritFrom = "PlantMatterFxA"
+		FilePath = "Particles\particle_dirt_01"
+		StartScaleX = 1
+		EndScaleX = 1.01
+		StartRed = 0.2
+		StartGreen = 0.15
+		StartBlue = 0.07
+		CreateAnimation = null
+		UpwardVelocityMin = 20
+		UpwardVelocityMax = 50
+		Gravity = 100
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+	}
+	{
+		Name = "PlantDirtFxB"
+		InheritFrom = "PlantDirtFxA"
+		FilePath = "Particles\particle_dirt_02"
+	}
+	{
+		Name = "PlantDirtFxC"
+		InheritFrom = "PlantDirtFxA"
+		FilePath = "Particles\particle_dirt_03"
+	}
+
+	{
+		Name = "ShovelDirtInSpray"
+		FilePath = "Fx\Harvest\ShovelDirtIn\ShovelDirtIn"
+		NumFrames = 55
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		UseAttachedShake = false
+		UseAttachedFlasher = false
+		GrannyAttachedMarkerLocation = "shovel_fxMarker_01_M_JNT"
+	}
+
+	{
+		Name = "ShovelDirtOutSpray"
+		FilePath = "Fx\Harvest\ShovelDirtOut\ShovelDirtOut"
+		NumFrames = 53
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		UseAttachedShake = false
+		UseAttachedFlasher = false
+		GrannyAttachedMarkerLocation = "shovel_fxMarker_01_M_JNT"
+	}
+
+	{
+		Name = "ShovelDirtTipCover"
+		FilePath = "Fx\Harvest\ShovelDirtTipCover\ShovelDirtTipCover"
+		NumFrames = 34
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		OffsetZ = 0
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		Scale = 0.52
+		AddColor = true
+		Red = 0.1
+		Green = 0.08
+		Blue = 0.04
+		GrannyAttachedMarkerLocation = "shovel_fxMarker_01_M_JNT"
+		UseAttachedShake = false
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 45 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "MelExorcismHandFxRight"
+		FilePath = "Fx\Harvest\MelExorcismHandFx\MelExorcismHandFx"
+		NumFrames = 30
+		StartFrame = 1
+		Loop = false
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		DieWithOwner = true
+		Scale = 1
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0.6
+		EndScale = 1.2
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "MelExorcismParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.08
+	}
+
+	{
+		Name = "MelExorcismHandFxLeft"
+		InheritFrom = "MelExorcismHandFxRight"
+		FlipHorizontal = true
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+	}
+
+	{
+		Name = "MelExorcismHandFxBoth"
+		InheritFrom = "MelExorcismHandFxRight"
+		CreateAnimation = "MelExorcismHandFxLeft"
+	}
+
+	{
+		Name = "ExorcismSuccessHandLeft"
+		FilePath = "Fx\PickupOverlayFX\PickupOverlayFX"
+		NumFrames = 52
+		PlaySpeed = 60
+		Scale = 0.66
+		AddColor = true
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.3
+		StartGreen = 1
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0.99
+		EndBlue = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 0.2
+		EndScale = 0.75
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		VisualFx = "ExorcismSuccessMist"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 5
+		CreateAnimations = [
+			{ Name = "ExorcismSuccessHandLeftGlow" }
+		]
+	}
+
+	{
+		Name = "ExorcismSuccessHandRight"
+		InheritFrom = "ExorcismSuccessHandLeft"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "ExorcismSuccessHandRightGlow" }
+		]
+	}	
+
+	{
+		Name = "ExorcismSuccessMist"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 50
+		StartFrame = 50
+		StartScale = 0.2
+		EndScale = 1.0
+		StartScaleY = 0.4
+		EndScaleY = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Saturation = -0.1
+		Hue = 0.05
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -3
+		RandomRotationSpeedMax = 3
+		AlphaMin = 0.05
+		AlphaMax = 0.25
+		IsometricSkew = "Y"
+		GroupName = "FX_Standing_Add"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 60
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 20
+		VelocityMax = 60
+		Acceleration = -100
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "ExorcismSuccessHandLeftGlow"
+		InheritFrom = "ExorcismSuccessHandLeft"
+		FilePath = "Particles\particle_addFlare"
+		NumFrames = 1
+		StartAlpha = 1
+		EndAlpha = 0.999
+		StartScale = 2
+		EndScale = 0
+		ClearCreateAnimations = true
+		AddColor = true
+		Duration = 0.25
+		DieWithOwner = false
+	}
+
+	{
+		Name = "ExorcismSuccessHandRightGlow"
+		InheritFrom = "ExorcismSuccessHandLeftGlow"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "MelExorcismParticles"
+		FilePath = "Particles\particle_addFlake2"
+		AddColor = true
+		Red = 0
+		Green = 1.0
+		Blue = 0.8
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		GroupName = "FX_Standing_Add"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 200
+		Gravity = -100
+		ScaleMin = 0.1
+		ScaleMax = 0.3
+		StartScaleX = 3
+		EndScaleX = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Acceleration = -300
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+	}
+
+
+    {
+      Name = "HarvestPointExorcismFx"
+      FilePath = "Fx\ExorcismDisplacement\ExorcismDisplacement"
+      Material = "Unlit"
+      NumFrames = 50
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = true
+      GroupName = "FX_Displacement"
+      Loop = false
+      PlaySpeed = 30
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+      RandomPlaySpeedMin = 24
+      RandomPlaySpeedMax = 30
+      ScaleMin = 0.5
+      ScaleMax = 1.2
+      Alpha = 0.15
+      Scale = 1.0
+      StartScale = 1
+      EndScale = 1.5
+      EaseIn = 0
+      EaseOut = 1
+      OffsetZ = 30
+      RandomRotation = true
+      RandomFlipHorizontal = true
+      RandomFlipVertical = true
+      RandomRotationSpeedMin = -20
+      RandomRotationSpeedMax = 20
+      AngleMin = 0
+      AngleMax = 360
+      ScaleFromOwner = "Ignore"
+      VisualFx = "ExorcismSparklesSecondary"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.2
+      CreateAnimations = [
+        { Name = "HarvestPointExorcismFxDark" }
+        { Name = "HarvestPointExorcismFxLight" }
+        { Name = "HarvestPointExorcismFxGlow" }
+        { Name = "HarvestReadyGlowExorcism" }
+        { Name = "HarvestReadyGlowExorcism" }
+        { Name = "HarvestReadyGlowExorcism" }
+      ]
+    }
+
+    {
+      Name = "HarvestPointExorcismFxGlow"
+      FilePath = "Particles\particle_glow_egg"
+      Material = "Unlit"
+      Duration = 2
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      Scale = 1.5
+      OffsetZ = 100
+      ScaleX = 1
+      StartScale = 1
+      EndScale = 2
+      StartAlpha = 0
+      EndAlpha = 1
+      AlphaMin = 0.3
+      AlphaMax = 1.0
+      Red = 0
+      Green = 0
+      Blue = 0
+      PingPongColor = true
+      GroupName = "FX_Dark"
+    }
+
+    {
+      Name = "HarvestPointExorcismFxDark"
+      InheritFrom = "HarvestPointExorcismFx"
+      VisualFx = null
+      RandomFlipHorizontal = false
+      RandomFlipVertical = true
+      RandomRotationSpeedMin = -3
+      RandomRotationSpeedMax = 3
+      ClearCreateAnimations = true
+      FilePath = "Fx\ExorcismDisplacementFx\ExorcismDisplacementFx"
+      GroupName = "FX_Dark"
+      Alpha = 1
+      LoopFramesOnly = true
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+      RandomDurationMin = 2
+      RandomDurationMax = 3
+      ScaleMin = 0.4
+      ScaleMax = 0.7
+      EndScale = 2
+      RandomRotation = false
+      AngleMin = -180
+      AngleMax = 0
+      ScaleY = 0.5
+      AlphaMin = 0.5
+      AlphaMax = 1.0
+    }
+
+    {
+      Name = "HarvestPointExorcismFxLight"
+      InheritFrom = "HarvestPointExorcismFxDark"
+      AddColor = true
+      EndRed = 0.001
+      EndGreen = 1.0
+      EndBlue = 0.8
+      StartRed = 0
+      StartGreen = 0.5
+      StartBlue = 1.0
+      StartScaleY = 0.1
+      EndScaleY = 0.5
+      RandomDurationMin = 1.7
+      RandomDurationMax = 2.2
+      GroupName = "FX_Terrain_Add"
+      AlphaMin = 0.4
+      AlphaMax = 0.7
+      EndScale = 1.3
+    }
+
+
+	{
+		Name = "FishingVignette"
+		FilePath = "Dev\blank_invisible"
+		GroupName = "Overlay"
+		VisualFx = "FishingVignetteStreaks"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+		AngleFromOwner = "Ignore"
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "FishingVignetteStreaks"
+		FilePath = "Fx\Vignette\VignetteFishing"
+		GroupName = "Overlay"
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		ScaleMin = 1
+		ScaleMax = 1.5
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 1.3
+		ColorFromOwner = "Maintain"
+		DieWithOwner = true
+		PingPongColor = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+	}
+]}

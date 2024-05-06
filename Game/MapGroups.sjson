@@ -1,0 +1,141 @@
+{
+	MapGroups =
+	[
+		{
+			Name = "Asphodel"
+			Maps = [
+				{
+					Name = "B_*"
+				}
+			]
+			Using = [
+			]
+		}
+		{
+			Name = "Elysium"
+			Maps = [
+				{
+					Name = "C_*"
+				}
+			]
+			Using = [
+			]
+		}
+		{
+			Name = "Erebus"
+			Maps = [
+				{
+					Name = "F_*"
+				}
+			]
+			Using = [
+			{
+				Type = "Component"
+				Name = "RunIntroData"
+			}
+			]
+		}
+
+		{
+			Name = "Oceanus"
+			Maps = [
+				{
+					Name = "G_*"
+				}
+			]
+			Using = [
+			]
+		}
+
+		{
+			Name = "Fields"
+			Maps = [
+				{
+					Name = "H_*"
+				}
+			]
+			Using = [
+			]
+		}
+
+		{
+			Name = "Tartarus"
+			Maps = [
+				{
+					Name = "I_*"
+				}
+			]
+			Using = [
+			]
+		}
+
+		{
+			Name = "Ephyra"
+			Maps = [
+				{
+					Name = "N_*"
+				}
+			]
+			Using = [
+			]
+		}
+
+		{
+			Name = "Thessaly"
+			Maps = [
+				{
+					Name = "O_*"
+				}
+			]
+		}
+
+		{
+			Name = "Chaos"
+			Maps = [
+				{
+					Name = "Chaos_*"
+				}
+			]
+		}
+
+		{
+			Name = "DeathArea"
+			Maps = [
+				{
+					Name = "Hub_*"
+				}
+				{
+					Name = "Flashback_Hub_Main"
+				}
+			]
+			Using = [
+			{
+				Type = "Component"
+				Name = "GardenData"
+			}
+			{
+				Type = "Component"
+				Name = "WorldUpgradeData"
+			}
+			{
+				Type = "Component"
+				Name = "ScreenData.MailboxScreen.ItemCategories"
+			}
+			{
+				Type = "Animation"
+				Name = "TentFamilyPortrait"
+			}
+			]
+		}
+
+		{
+			Name = "Flashback"
+			Maps = [
+				{
+					Name = "Flashback_DeathArea*"
+				}
+			]
+		}
+
+	]
+}

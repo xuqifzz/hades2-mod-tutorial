@@ -1,0 +1,353 @@
+{ Animations = [
+
+	{
+		Name = "EnemyCarrionBaseAnimation"
+
+		GrannyModel = "Carrion_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OffsetZ = -220
+	}
+
+	{
+		Name = "Enemy_Carrion_Idle"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_Move_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Spawn"
+				Duration = 10
+			}			
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Move"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_IdleGround"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_GroundIdle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		OffsetZ = 0
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_PeckingGround01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_PeckingGround02"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_PeckingGround"
+		Random =
+		[
+			{ Name = "Enemy_Carrion_PeckingGround01" }
+			{ Name = "Enemy_Carrion_PeckingGround02" }
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_PeckingGround01"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_PeckingGroundLoop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Carrion_PeckingGround"
+		OffsetZ = -50
+		AllowRestart = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_IdleGround"
+				Duration = 10
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 11
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 52
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 72
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 174
+				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+			}
+			{
+				Frame = 178
+				Sound = "/SFX/Enemy Sounds/Swarmer/EmoteAttacking"
+			}
+			{
+				Frame = 207
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 261
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 279
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 322
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_PeckingGround02"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_PeckingGroundLoop_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Carrion_PeckingGround"
+		OffsetZ = -50
+		AllowRestart = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_IdleGround"
+				Duration = 10
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 68
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 85
+				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+			}
+			{
+				Frame = 205
+				Sound = "/SFX/Enemy Sounds/Swarmer/EmoteAttacking"
+			}
+			{
+				Frame = 207
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 244
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 292
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 333
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+			{
+				Frame = 438
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 520
+				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+			}
+			{
+				Frame = 539
+				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_Spawn"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_SweepFire_C_00"
+		ChainTo = "Enemy_Carrion_Move"
+		Sound = "/SFX/Enemy Sounds/Carrion/CarrionSpawnWhoosh"
+		GrannyAnimationSpeed = 0.6
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1.0
+				Sound = "/SFX/Enemy Sounds/Carrion/EmoteAlerted"
+			}
+			{
+				Frame = 44
+				FrameSpeed = 0.2
+			}
+			{
+				Frame = 45
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_Move"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_Move_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_SweepFire"
+				Duration = 10
+			}			
+			{
+				BlendTransitionFrom = "Enemy_Carrion_HitStun"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_HitStun_Heavy"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Spawn"
+				Duration = 10
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 40
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 80
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Carrion_HitStun"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_HitStun_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Carrion_Move"
+		Sound = "/SFX/Enemy Sounds/Carrion/EmoteHurt"
+		Frames = 
+		[
+			{
+				Frame = 1
+				FrameSpeed = 3
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_SweepPreAttack"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_SweepFire"
+				Duration = 4
+			}
+		]	
+	}
+	{
+		Name = "Enemy_Carrion_HitStun_Heavy"
+		InheritFrom = "Enemy_Carrion_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Carrion_SweepPreAttack"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_SweepFire_C_00"
+		HoldLastFrame = true
+		OwnerHasNoUnitCollision = true
+		Frames = 
+		[
+			{
+				Frame = 44
+				FrameSpeed = 0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Carrion_Move"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_HitStun"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Carrion_HitStun_Heavy"
+				Duration = 5
+			}
+		]		
+	}
+
+	{
+		Name = "Enemy_Carrion_SweepFire"
+		InheritFrom = "EnemyCarrionBaseAnimation"
+		GrannyAnimation = "Carrion_Base_SweepFire_C_00"
+		ChainTo = "Enemy_Carrion_Move"
+		GrannyAnimationSpeed = 0.9
+		OwnerHasNoUnitCollision = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 45
+				Sound = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh"
+				FrameSpeed = 1.0
+			}
+		]
+	}
+	
+] }

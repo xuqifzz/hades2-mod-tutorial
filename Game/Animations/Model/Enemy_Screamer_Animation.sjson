@@ -1,0 +1,286 @@
+{ Animations = [
+	{
+		Name = "Screamer2"
+		GrannyModel = "Screamer2_Mesh"
+	}		
+	{
+		Name = "EnemyScreamerBaseAnimation"
+		
+		GrannyModel = "Screamer_Mesh"
+		ExtraGrannyAnimations = [{ Name = "Screamer2" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+
+	{
+		Name = "Enemy_Screamer_BaseLocomotionAnimation"
+		InheritFrom = "EnemyScreamerBaseAnimation"
+	}
+
+	{
+		Name = "Enemy_Screamer_DirectionChange180"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_MoveTurn180_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.6
+		NativeMoveSpeed = 540.0
+		ChainTo = "Enemy_Screamer_Move"
+		GrannyRotationY = 180
+		AllowRestart = true
+	}
+
+	{
+		Name = "Enemy_Screamer_DirectionChangeE90"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_MoveTurnE90_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.2
+		NativeMoveSpeed = 540.0
+		ChainTo = "Enemy_Screamer_Move"
+		GrannyRotationY = 90
+		AllowRestart = true
+	}
+
+	{
+		Name = "Enemy_Screamer_DirectionChangeW90"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_MoveTurnW90_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.2
+		NativeMoveSpeed = 540.0
+		ChainTo = "Enemy_Screamer_Move"
+		GrannyRotationY = -90
+		AllowRestart = true
+	}
+	
+	{
+		Name = "Enemy_Screamer_Idle"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_EndFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_Move"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_Move_C_00"
+		Loop = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_OnHit"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_MoveStart"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Screamer_Move"
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_OnHit"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_MoveStop"
+		InheritFrom = "Enemy_Screamer_BaseLocomotionAnimation"
+		GrannyAnimation = "Screamer_Base_MoveStop_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_MoveStart"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_PreFire"
+		InheritFrom = "EnemyScreamerBaseAnimation"
+		GrannyAnimation = "Screamer_Base_PreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserBlastChargeUp"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_OnHit"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_Move"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_MoveStart"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_Fire"
+		InheritFrom = "EnemyScreamerBaseAnimation"
+		GrannyAnimation = "Screamer_Base_ScreamFire_C_00"
+		Loop = true
+		Sound = "/SFX/Enemy Sounds/ScreamerAttack"
+		StopSoundOnFinishFade = 0.3
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_PreFire"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_EndFire"
+		InheritFrom = "EnemyScreamerBaseAnimation"
+		GrannyAnimation = "Screamer_Base_EndFire_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Screamer_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Screamer_OnHit"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_OnHit"
+		InheritFrom = "EnemyScreamerBaseAnimation"
+		GrannyAnimation = "Screamer_Base_GetHit_C_00"
+		//BlockNewOwnerAnims = true
+		ChainTo = "Enemy_Screamer_Idle"
+		AllowRestart = true
+		GrannyAnimationSpeed = 1.0
+		Sound = "/SFX/Enemy Sounds/Screamer/EmoteHurt"
+		
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Screamer_Death"
+		InheritFrom = "Enemy_Screamer_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2FlipThin"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 70
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.5
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Screamer_Spawn"
+		InheritFrom = "Enemy_Screamer_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Screamer_Spawn_Quick"
+		InheritFrom = "Enemy_Screamer_Spawn"
+		Duration = 0.7
+		DeathFxFrameDuration = 42
+	}
+
+] }

@@ -1,0 +1,114 @@
+{
+  ResolutionScreen =
+  {
+    Platform = "default"
+    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    TransitionOnTime = 0.1
+    TransitionOffTime = 0.15
+    ForceShowCursor = true
+    GamepadSelectionStyle = "FreeForm"
+    FreeFormSelectGridLock = true
+    FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectStepDistance = 16
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 14
+    ItemsPerPage = 8
+
+    Back =
+    {
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Width = 1920
+      Height = 1080
+    }
+
+    AnimatedBackground =
+    {
+      OffsetX = 0
+      OffsetY = 194
+      Graphic = "GUI\Graybox\Box_Infopanel"
+      ScaleX = 0.26
+      ScaleY = 1.4
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+
+    ResolutionButton =
+    {
+      OffsetX = 0
+      OffsetY = 100
+      Spacing = 28
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextOffsetX = 0
+      Graphic = "null"
+      SelectedOnAnimation = "null"
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      UseTextArea = true
+      Font = "P22UndergroundSCMedium"
+      TextRed = 0.75
+      TextGreen = 0.75
+      TextBlue = 0.75
+      FontSize = 22
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      
+      TextJustification = "Center"
+      SelectedTextScale = 1.0
+      NonEnglishScaleModifier = 1.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 2
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 4
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      PressSound = "/SFX/Menu Sounds/GodBoonInteract"
+    }
+
+    ActiveMarker =
+    {
+      OffsetX = -90
+      Graphic = "GUI\Shell\selector"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Scale = 0.5
+      OffsetY = 3
+      MoveSpeed = 8000
+    }
+
+    UpArrow =
+    {
+      OffsetX = 0
+      OffsetY = 50
+      Graphic = "GUI\Shell\UpArrow_Base"
+      SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
+      Scale = 0.3
+      AutoActivateWithGamepad = true
+      FadeOpacity = 0.0
+    }
+
+    DownArrow =
+    {
+      OffsetX = 0
+      OffsetY = 340
+      Graphic = "GUI\Shell\DownArrow_Base"
+      SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
+      Scale = 0.3
+      AutoActivateWithGamepad = true
+      FadeOpacity = 0.0
+    }
+  }
+}

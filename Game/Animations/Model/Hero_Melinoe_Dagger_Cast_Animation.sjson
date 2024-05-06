@@ -1,0 +1,198 @@
+{ Animations = [
+
+	/* Cast */
+	{
+		Name = "Melinoe_Dagger_Cast_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_CastCharge_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_Cast_StartLoop"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.5
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Cast_StartLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_CastIdle_C_00"
+		ModelCosmeticRotationSpeed = 800
+		DisableOwnerManualInteract = true
+		Loop = true
+	}
+
+	{
+		Name = "Melinoe_Dagger_Cast_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Cast_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_Cast_End"
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Cast_StartLoop"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Cast_Fire_Quick"
+		InheritFrom = "Melinoe_Dagger_Cast_Fire"
+	}
+
+	{
+		Name = "Melinoe_Dagger_Cast_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_CastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+	}
+
+	{
+		Name = "DaggerR_CrossCast_Start"
+
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleR_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "DaggerL_CrossCast_Start"
+
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleL_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_CrossCast_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_DaggerUnEquipIdle_00"
+		ChainTo = "MelinoeCrossCastAntic"
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleDaggerL" }
+			{ Name = "MelUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_CrossCast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_CrossCast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_ForwardCast_Unequip"
+
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleR_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "DaggerL_ForwardCast_Unequip"
+
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleL_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_ForwardCast_Unequip"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_DaggerUnEquipIdle_00"
+		ChainTo = "Melinoe_ForwardCast_Start"
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleDaggerL" }
+			{ Name = "MelUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+] }

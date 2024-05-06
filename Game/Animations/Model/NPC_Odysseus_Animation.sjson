@@ -1,0 +1,164 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Odysseus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Odysseus_Idle"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Surveying"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Greet"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Salute"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_WalkStart"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_WalkCycleStart_C_08"
+		ChainTo = "Odysseus_Walk"
+		Frames =
+		[
+			{
+				Frame = 60
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+
+		Blends =
+		[
+			
+		]
+	}
+
+	{
+		Name = "Odysseus_Walk"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_WalkCycle_C_08"
+		Loop = true
+		ChainTo = "Odysseus_WalkStop"
+		Frames =
+		[
+			{
+				Frame = 38
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+			{
+				Frame = 88
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_WalkStop"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_WalkCycleStop_C_08"
+		ChainTo = "Odysseus_Idle"
+		Frames =
+		[
+			{
+				Frame = 30
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Walk"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_Turn"
+		InheritFrom = "Odysseus_WalkStop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_Greet"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Greet_C_02"
+		ChainTo = "Odysseus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_Salute"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Salute_C_01"
+		ChainTo = "Odysseus_Idle"
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/RobeFlutter"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_Surveying"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Survaying_C_01"
+		ChainTo = "Odysseus_Idle"
+		Frames =
+		[
+			{
+				Frame = 246
+				Sound = "/Leftovers/SFX/RobeFlutter"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+]}

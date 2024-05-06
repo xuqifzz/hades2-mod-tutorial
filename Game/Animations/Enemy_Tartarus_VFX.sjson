@@ -1,0 +1,7455 @@
+{ Animations = [
+
+	{
+		Name = "GoldElementalSkyNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		PlaySpeed = 90
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 100
+		Hue = 0.15
+		Saturation = -0.25
+		VisualFx = "GoldElementalSkyNovaCoins"
+		VisualFxCap = 9
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			// { Name = "GoldElementalSkyNovaDark" }
+			{ Name = "GoldElementalSkyNovaDisplace" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "GoldElementalSkyNovaGlow" }
+		]
+	}
+
+	{
+		Name = "GoldElementalSkyNovaGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.9
+		Blue = 0.7
+		StartAlpha = 0.5
+		EndAlpha = 0
+		GroupName = "FX_Standing_Add"
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.5
+	}
+
+	{
+		Name = "GoldElementalSkyNovaDark"
+		InheritFrom = "GoldElementalSkyNova"
+		PlaySpeed = 80
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "GoldElementalSkyNovaDisplace"
+		InheritFrom = "GoldElementalSkyNova"
+		PlaySpeed = 70
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "ThugMeleeSwipeSpawner"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimations =
+		[
+			{ Name = "ThugMeleeSwipe" }
+			{ Name = "ThugMeleeSwipeDark" }
+			{ Name = "ThugMeleeSwipeDisplacement" }
+			{ Name = "ThugMeleeSwipeGlow" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "ThugMeleeSwipeGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Duration = 0.5
+		StartAlpha = 0.66
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PostRotateScaleY = 0.5
+		Scale = 2.5
+		OffsetZ = 60
+	}
+
+	{
+		Name = "ThugMeleeSwipe"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 20
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		Scale = 2.5
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		DieWithOwner = false
+		LocationZFromOwner = "Take"
+		OffsetZ = 60
+	}
+
+	{
+		Name = "ThugMeleeSwipeDark"
+		InheritFrom = "ThugMeleeSwipe"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 50
+	}
+
+	{
+		Name = "ThugMeleeSwipeDisplacement"
+		InheritFrom = "ThugMeleeSwipe"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.05
+		PlaySpeed = 45
+	}
+
+	{
+		Name = "ThugShoveFx"
+		FilePath = "Fx\ScyllaMicSwipe\ScyllaMicSwipe"
+		Material = "Unlit"
+		NumFrames = 24
+		Scale = 1.5
+		OriginX = 200
+		OriginY = 120
+		CreateAnimations =
+		[
+			{ Name = "ThugShoveFxDark" }
+		]
+	}
+
+	{
+		Name = "ThugShoveFxDark"
+		FilePath = "Fx\MudmanShove\MudmanShove"
+		NumFrames = 16
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "ThugSlamNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		PlaySpeed = 90
+		Scale = 2.5
+		VisualFx = "ThugSlamNovaSand"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+
+		CreateAnimations =
+		[
+			{ Name = "ThugSlamNovaDark" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SlowFlashEnemy" }
+			{ Name = "FogEmitterSlamSpikeA" }
+			{ Name = "FogEmitterSlamSpikeB" }
+			{ Name = "AxeNovaFlareEnemy" }
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeCrack" }
+			{ Name = "FieldsDustPuffFront_NoOffset" }
+			{ Name = "FieldsDustPuffBack_NoOffset" }
+		]
+	}
+
+	{
+		Name = "ThugSlamNovaDark"
+		InheritFrom = "ThugSlamNova"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "ThugSlamNovaSand"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 200
+		VelocityMax = 500
+		Acceleration = -150
+		ScaleFromOwner = "Ignore"
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 400
+		Gravity = 100
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "GoldElementalGoldDust"
+		InheritFrom = "ThugSlamNovaSand"
+		AddColor = true
+		Red = 0.5
+		Green = 0.4
+		Blue = 0.35
+		VelocityMin = 100
+		VelocityMax = 200
+		AngleMin = 270
+		AngleMax = 271
+		AngleFromOwner = "Ignore"
+		UpwardVelocityMin = 20
+		UpwardVelocityMax = 40
+		Acceleration = -50
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomOffsetX = 30
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		OffsetZ = 100
+		RandomRotation = true
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+	}
+
+	{
+		Name = "ThugSlamNovaSandTrail"
+		InheritFrom = "ThugSlamNovaSand"
+		LocationFromOwner = "Ignore"
+		Gravity = 400
+		AngleMin = 0
+		AngleMax = 1
+		StartScale = 0.7
+		EndScale = 1.3
+	}
+
+	{
+		Name = "ThugSlamAxeArc"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 10
+		StartFrame = 10
+		Material = "Unlit"
+		FlipHorizontal = true
+		IsometricSkew = "X"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		OffsetZ = 0
+		PlaySpeed = 60
+		GroupName = "FX_Add_Top"
+		OriginX = 120
+		OriginY = 180
+		ScaleY = 0.66
+	}
+
+	{
+		Name = "ThugSlamAxeArcDark"
+		InheritFrom = "ThugSlamAxeArc"
+		PlaySpeed = 30
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "ThugSlamAxeArcDisplacement"
+		InheritFrom = "ThugSlamAxeArc"
+		StartAlpha = 0
+		EndAlpha = 0.05
+		GroupName = "FX_Displacement"
+		PlaySpeed = 45
+	}
+
+	{
+		Name = "AxeNovaFlareEnemy"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
+		PlaySpeed = 60
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.1
+		StartBlue = 0.1
+		EndRed = 0.99
+		EndGreen = 0.0
+		EndBlue = 0.05
+		Scale = 2
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ThugSlamAxeArcSpawner"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimations =
+		[
+			{ Name = "ThugSlamAxeArc" }
+			{ Name = "ThugSlamAxeArcDark" }
+			{ Name = "ThugSlamAxeArcDisplacement" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "ThugSlamWave"
+		FilePath = "Fx\KeytaristPowerslideWave\KeytaristPowerslideWave"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		DieWithOwner = true
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Scale = 2.5
+		VisualFx = "ThugSlamWaveTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 100
+		RandomFlipVertical = true
+		Sound = "/SFX/Enemy Sounds/FireChariot/FireChariotSlowMoveLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "ThugSlamWaveDark"}
+		]
+	}
+
+	{
+		Name = "ThugSlamWaveDark"
+		InheritFrom = "ThugSlamWave"
+		GroupName = "FX_Terrain_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		Sound = null
+	}
+
+	{
+		Name = "ThugSlamWaveGlow"
+		FilePath = "Particles\particle_heraLightStreak"
+		AddColor = false
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.6
+		OffsetZ = 60
+		ScaleX = 1.5
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = false
+		OriginX = 64
+		OriginY = 480
+		ColorFromOwner = "Ignore"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+		StartScaleY = 1
+		EndScaleY = 0
+		RandomFlipHorizontal = true
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetY = 50
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ThugSlamWaveTrail"
+		InheritFrom = "ThugSlamWave"
+		ClearCreateAnimations = true
+		VisualFx = null
+		Sound = null
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		Scale = 0.5
+		PlaySpeed = 60
+		Velocity = 100
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartScale = 1.5
+		EndScale = 0
+		LoopFramesOnly = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.4
+		Loop = false
+		DieWithOwner = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		CreateAnimations =
+		[
+			{ Name = "ThugSlamWaveDebris" }
+			{ Name = "ThugSlamNovaSandTrail" }
+			{ Name = "ThugSlamWaveGlow" }
+		]
+	}
+
+	{
+		Name = "ThugSlamWaveDebris"
+		FilePath = "Fx\CWSandCloud\CWSandCloud"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		Red = 0.5
+		Green = 0.4
+		Blue = 0.3
+		NumFrames = 40
+		StartFrame = 60
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		StartOffsetZ = 0
+		EndOffsetZ = 120
+		EaseIn = 0.5
+		EaseOut = 1.0
+		DieWithOwner = false
+		RandomFlipHorizontal = true
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		StartScale = 1
+		EndScale = 2
+		StartScaleY = 1
+		EndScaleY = 2
+		GroupName = "FX_Standing"
+		ColorFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "GoldElementalBeam"
+		FilePath = "Fx\EnemyLaser\EnemyLaser"
+		EndFrame = 40
+		LoopFramesOnly = true
+		NumFrames = 40
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 12.0
+		OriginY = 128.0
+		OffsetZ = 30
+		TransferFrameFromThis = true
+		ScaleLength = 226.0
+		Ambient = 0.0
+		OverlayVfx = true
+		AddColor = true
+		Duration = 0.12
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		Saturation = 0.5
+		EndScaleY = 0.0
+		StartScaleY = 0.75
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Hue = 0.2
+		VisualFx = "GoldElementalBeamCoins"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.06
+		CreateAnimation = "GoldElementalBeamDark"
+	}
+
+	{
+		Name = "GoldElementalBeamPreview"
+		FilePath = "Fx\EnemyLaser\EnemyLaser"
+		StartFrame = 1
+		EndFrame = 40
+		NumFrames = 40
+		StartRed = 0.7
+		StartGreen = 0.2
+		StartBlue = 0.25
+		EndRed = 1
+		EndGreen = 0.1
+		EndBlue = 0.1
+		Alpha = 0.4
+		AngleFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Maintain"
+		OriginX = 5
+		OriginY = 128
+		OffsetZ = 70
+		ScaleX = 10
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		PingPongScale = true
+		Loop = true
+	}
+
+	{
+		Name = "GoldElementalBeamGroundGlow"
+		FilePath = "Particles\particle_laserGlow"
+		Duration = 1.5
+		Material = "Unlit"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		GroupName = "FX_Terrain_Add"
+		StartAlpha = 0.33
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Red = 1
+		Green = 0.8
+		Blue = 0.6
+		ScaleLength = 220
+		OriginX = 13
+		OriginY = 27
+		ScaleY = 2
+		OffsetZ = 0
+		DieWithOwner = true
+		Loop = true
+	}
+
+	{
+		Name = "GoldElementalBeamDark"
+		InheritFrom = "GoldElementalBeam"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		FilePath = "Fx\DashStreakDark\DashStreakDark"
+		RandomFlipVertical = true
+		OriginX = 10
+		OriginY = 96
+		NumFrames = 15
+		ScaleLength = 380.0
+		VisualFx = null
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		AlphaMin = 0.99
+		Duration = 0.25
+		DieWithOwner = true
+		Loop = true
+		StartScaleY = 1
+		EndScaleY = 0.2
+		AddColor = true
+		StartRed = 0.99
+		StartGreen = 0.01
+		StartBlue = 0.5
+		EndRed = 0.85
+		EndGreen = 0
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "GoldElementalBeamEnd"
+		InheritFrom = "GoldElementalBeam"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		Duration = 0.15
+		EaseOut = 1.0
+		TransferCopyBody = true
+		EndScaleY = 0.0
+		Hue = 0.2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.5
+		EndBlue = 0.4
+	}
+
+
+	{
+		Name = "GoldElementalOriginFlare"
+		FilePath = "Fx\ProjectileFlare\ProjectileFlare"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		Duration = 0.2
+		EndFrame = 60
+		Loop = true
+		LoopFramesOnly = true
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		DieWithOwner = true
+		SortMode = "FromParent"
+		EndScale = 1.2
+		PingPongScale = true
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+		Hue = 0.2
+	}
+
+
+	{
+		Name = "GoldElementalTipFlare"
+		InheritFrom = "GoldElementalOriginFlare"
+		VisualFx = null
+		LocationFromOwner = "Ignore"
+		Scale = 0.4
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+	}
+
+
+
+	{
+		Name = "GoldElementalBeamCoins"
+		FilePath = "Fx\GoldElementalCoin\GoldElementalCoin"
+		NumFrames = 60
+		Material = "Unlit"
+		Scale = 0.66
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		RadialOffsetMin = 0
+		RadialOffsetMax = 800
+		Duration = 0.5
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		Gravity = 1000
+		VelocityMin = 400
+		VelocityMax = 800
+		RandomAccelerationMin = -1200
+		RandomAccelerationMax = -600
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		GroupName = "FX_Standing"
+		CreateAnimation = "GoldElementalBeamCoinsDarkRandom"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Sound = "/SFX/GoldCoinPickup"
+	}
+
+	{
+		Name = "GoldElementalBeamCoinsDarkRandom"
+		Random =
+		[
+			{ Name = "GoldElementalBeamCoinsDark" }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "GoldElementalBeamCoinsDark"
+		InheritFrom = "GoldElementalBeamCoins"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		Sound = null
+	}
+
+	{
+		Name = "GoldElementalSkyNovaCoins"
+		InheritFrom = "GoldElementalBeamCoins"
+		RadialOffsetMin = 24
+		RadialOffsetMax = 120
+		CreateAnimation = null
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 300
+		VelocityMax = 600
+		RandomAccelerationMin = -1200
+		RandomAccelerationMax = -700
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		OffsetZ = 60
+	}
+
+	{
+		Name = "GoldElementalDeathCoins"
+		InheritFrom = "GoldElementalSkyNovaCoins"
+		RadialOffsetMin = 12
+		RadialOffsetMax = 24
+		VelocityMin = 100
+		VelocityMax = 200
+		RandomAccelerationMin = -120
+		RandomAccelerationMax = -70
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		Scale = 1.0
+	}
+
+	{
+		Name = "GoldElementalCoinBounce"
+		FilePath = "Fx\GoldElementalCoinBounce\GoldElementalCoinBounce"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		Material = "Unlit"
+		Loop = true
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		OffsetZ = 30
+		TransferFrameToThis = true
+		VisualFx = "GoldElementalCoinBounceTrail"
+		VisualFxDistanceMin = 10
+		VisualFxDistanceMax = 11
+		Sound = "/Leftovers/Menu Sounds/CoinLand"
+	}
+
+	{
+		Name = "GoldElementalCoinBounceTrail"
+		FilePath = "Fx\FadeTrailHard\FadeTrailHard"
+		NumFrames = 28
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.15
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Alpha = 1
+		RandomFlipVertical = true
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 120
+		GroupName = "FX_Dark"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		AngleMin = -5
+		AngleMax = 5
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		VisualFxManagerCap = 3000
+		VisualFxManagerFrameCap = 140
+		Scale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "GoldElementalCoinBounceSparkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		AddColor = true
+		Material = "Unlit"
+		Red = 0.5
+		Green = 0.45
+		Blue = 0.4
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 0.4
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		RandomOffsetX = 40
+		RandomOffsetY = 40
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "GoldElementalCoinBounceIn"
+		InheritFrom = "GoldElementalCoinBounce"
+		VisualFx = null
+		Loop = false
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.12
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = "GoldElementalCoinBounce"
+		TransferFrameFromThis = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast_Detached" }
+			{ Name = "GoldElementalGoldDust" }
+			{ Name = "GoldElementalGoldDust" }
+		]
+	}
+
+	{
+		Name = "GoldElementalCoinBounceOut"
+		InheritFrom = "GoldElementalCoinBounceIn"
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		AddColor = false
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+	}
+
+
+	{
+		Name = "GoldElementalCoinBounceShadow"
+		InheritFrom = "GoldElementalCoinBounce"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 1.0
+		Scale = 1
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		VisualFx = null
+		ClearCreateAnimations = true
+		LocationZFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "TimeElementalProjectile"
+		FilePath = "Fx\EnemyProjectileIris\EnemyProjectileIris"
+		NumFrames = 60
+		Loop = true
+		PlaySpeed = 45
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		TransferFrameToThis = true
+		VisualFx = "TimeElementalProjectileTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
+		Scale = 0.75
+		StartScale = 1
+		EndScale = 0.66
+		PingPongScale = true
+		ChildAnimation = "TimeElementalParticleEmitter"
+		Sound = "/SFX/Enemy Sounds/TimeElemental/TimeElementalProjectileAmbience"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "TimeElementalProjectileGlow" }
+		]
+	}
+
+	{
+		Name = "TimeElementalParticleEmitter"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "TimeElementalParticles"
+		VisualFxDistanceMin = 80
+		VisualFxDistanceMax = 100
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+	{
+		Name = "TimeElementalProjectileIn"
+		InheritFrom = "TimeElementalProjectile"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 1
+		StartBlue = 0.6
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ClearCreateAnimations = true
+		ChainTo = "TimeElementalProjectile"
+		CreateAnimations =
+		[
+			{ Name = "TimeElementalProjectileInFlare" }
+		]
+	}
+
+	{
+		Name = "TimeElementalProjectileInFlare"
+		FilePath = "Particles\particle_enemyFlare"
+		Hue = 0.0
+		Material = "Unlit"
+		StartScale = 0
+		EndScale = 0.5
+		PingPongScale = true
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+
+	}
+
+	{
+		Name = "TimeElementalProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.15
+		Scale = 0.5
+		Alpha = 0.33
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TimeElementalProjectileGroundGlow"
+		InheritFrom = "TimeElementalProjectileGlow"
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.25
+		Scale = 1.0
+		VisualFx = "TimeElementalProjectileTrailDark"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "TimeElementalProjectileDissipate"
+		InheritFrom = "TimeElementalProjectile"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TimeElementalProjectileTrail"
+		Random =
+		[
+			{ Name = "TimeElementalProjectileTrailA" }
+			{ Name = "TimeElementalProjectileTrailB" }
+			{ Name = "TimeElementalProjectileTrailC" }
+		]
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailA\TorchSpecialTrailA"
+		ScaleFromOwner = "Ignore"
+		NumFrames = 32
+		VelocityMin = 110
+		VelocityMax = 220
+		Acceleration = 0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.1
+		StartBlue = 0.5
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0.1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 1
+		RandomRotation = false
+		AngleMin = -5
+		AngleMax = 5
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleFromOwner = "Ignore"
+		VisualFxUse3DAngle = true
+		OriginX = 130
+		OriginY = 64
+		OverlayVfx = true
+		ScaleY = 1.0
+		ScaleX = 0.5
+		Scale = 0.75
+		StartScaleY = 0.75
+		EndScaleY = 1.25
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailB"
+		InheritFrom = "TimeElementalProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailC"
+		InheritFrom = "TimeElementalProjectileTrailA"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailDark"
+		Random =
+		[
+			{ Name = "TimeElementalProjectileTrailDarkA" }
+			{ Name = "TimeElementalProjectileTrailDarkB" }
+			{ Name = "TimeElementalProjectileTrailDarkC" }
+		]
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailDarkA"
+		InheritFrom = "TimeElementalProjectileTrailA"
+		VelocityMin = 110
+		VelocityMax = 310
+		Acceleration = 0
+		AngleChangeSpeed = 0
+		AngleChangeAcceleration = 0
+		CreateAnimation = null
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		GroupName = "FX_Dark"
+		AddColor = false
+		StartRed = 1.0
+		StartGreen = 0.001
+		StartBlue = 0.15
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndAlpha = 0.999
+		OffsetZ = 112
+		Scale = 0.75
+		ScaleX = 0.66
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailDarkB"
+		InheritFrom = "TimeElementalProjectileTrailDarkA"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+	{
+		Name = "TimeElementalProjectileTrailDarkC"
+		InheritFrom = "TimeElementalProjectileTrailDarkA"
+		FilePath = "Fx\TorchSpecialTrailC\TorchSpecialTrailC"
+	}
+
+	{
+		Name = "TimeElementalSpeed"
+		FilePath = "Fx\TimeElementalSpeed\TimeElementalSpeed"
+		NumFrames = 30
+		RandomPlaySpeedMin = 36
+		RandomPlaySpeedMax = 45
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		AngleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.6
+		OffsetZ = 40
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		ScaleY = 1.33
+		StartScale = 1
+		EndScale = 1.25
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		Red = 0.85
+		Green = 1.0
+		Blue = 0.92
+		Material = "Unlit"
+	}
+
+	{
+		Name = "TimeElementalParticles"
+		FilePath = "Particles\particle_dirtSpray_04"
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.15
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.3
+		Gravity = 50
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		StartScale = 0.5
+		EndScale = 1.0
+		Scale = 0.85
+		RandomRotationSpeedMin = -40
+		RandomRotationSpeedMax = 40
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -200
+	}
+
+	{
+		Name = "SatyrSpearThrust"
+		FilePath = "Fx\SatyrSpearThrust\SatyrSpearThrust"
+		NumFrames = 22
+		Material = "Unlit"
+		ScaleY = 2
+		ScaleX = 2
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Velocity = 150
+		Acceleration = -100
+		StartScaleY = 1
+		EndScaleY = 0
+		EaseIn = 0.5
+		EaseOut = 1
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SatyrSpearThrustDark" }
+			{ Name = "SatyrSpearThrustDisplacement" }
+		]
+	}
+
+	{
+		Name = "SatyrSpearThrustDark"
+		InheritFrom = "SatyrSpearThrust"
+		PlaySpeed = 45
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+	}
+	{
+		Name = "SatyrSpearThrustDisplacement"
+		InheritFrom = "SatyrSpearThrust"
+		PlaySpeed = 30
+		GroupName = "FX_Displacement"
+		ClearCreateAnimations = true
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+	{
+		Name = "SatyrSpearProjectile"
+		FilePath = "Fx\SatyrSpearThrust\SatyrSpearProjectile"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		Scale = 1.5
+		VisualFx = "SatyrSpearProjectileTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 60
+		OriginX = 500
+		OriginY = 64
+		Sound = "/SFX/SawTrapProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SatyrSpearProjectileTwinkle" }
+		]
+	}
+
+	{
+		Name = "SatyrSpearProjectileTwinkle"
+		FilePath = "Particles\particle_enemyFlare"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0
+		Scale = 1.5
+		Duration = 0.75
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SatyrSpearProjectileTrail"
+		FilePath = "Fx\SatyrSpearThrust\SatyrSpearThrust"
+		NumFrames = 22
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		GroupName = "FX_Dark"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		OriginX = 500
+		OriginY = 64
+	}
+
+	{
+		Name = "SatyrSpearProjectileShadow"
+		InheritFrom = "SatyrSpearProjectile"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "Shadows"
+		Alpha = 0.7
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		VisualFx = null
+	}
+
+	{
+		Name = "SatyrLanceDissipate"
+		InheritFrom = "SatyrSpearProjectile"
+		ClearCreateAnimations = true
+		Duration = 0.25
+		StartScaleY = 1
+		EndScaleY = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.1
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0.15
+	}
+
+	{
+		Name = "SatyrLanceImpact"
+		FilePath = "Fx\MageProjectileExplosion\MageProjectileExplosion"
+		RandomRotation = true
+		NumFrames = 40
+		PlaySpeed = 60
+		Scale = 2
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		OffsetZ = 0
+		ScaleFromOwner = "Ignore"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.05
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SatyrLanceImpact2" }
+		]
+	}
+
+	{
+		Name = "SatyrLanceImpact2"
+		FilePath = "Fx\EnemyProjectileImpact\EnemyProjectileImpact"
+		NumFrames = 16
+		RandomRotation = true
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 120
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "SatyrDodgeStreakLeft"
+		FilePath = "Fx\SatyrDodgeStreak\SatyrDodgeStreak"
+		NumFrames = 11
+		Material = "Unlit"
+		Angle = 90
+		OffsetZ = 60
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.1
+		ScaleX = 1.3
+		OriginX = 260
+		OriginY = 120
+		CreateAnimations =
+		[
+			{ Name = "SatyrDodgeStreakLeftDark" }
+			{ Name = "SatyrDodgeStreakLeftDisplacement" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast_Detached" }
+			{ Name = "DashDustPuffSatyr" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+		]
+	}
+
+	{
+		Name = "SatyrDodgeStreakLeftDark"
+		InheritFrom = "SatyrDodgeStreakLeft"
+		ClearCreateAnimations = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 45
+		GroupName = "FX_Dark"
+		OriginX = 260
+	}		
+
+	{
+		Name = "SatyrDodgeStreakLeftDisplacement"
+		InheritFrom = "SatyrDodgeStreakLeft"
+		ClearCreateAnimations = true
+		PlaySpeed = 24
+		GroupName = "FX_Displacement"
+		OriginX = 260
+		StartAlpha = 0.02
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "SatyrDodgeStreakRight"
+		InheritFrom = "SatyrDodgeStreakLeft"
+		FlipHorizontal = true
+		ClearCreateAnimations = true
+		OriginX = 80
+		CreateAnimations =
+		[
+			{ Name = "SatyrDodgeStreakRightDark" }
+			{ Name = "SatyrDodgeStreakRightDisplacement" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast_Detached" }
+			{ Name = "DashDustPuffSatyr" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+		]
+	}
+
+	{
+		Name = "SatyrDodgeStreakRightDark"
+		InheritFrom = "SatyrDodgeStreakLeftDark"
+		OriginX = 80
+		FlipHorizontal = true
+	}		
+
+	{
+		Name = "SatyrDodgeStreakRightDisplacement"
+		InheritFrom = "SatyrDodgeStreakLeftDisplacement"
+		OriginX = 80
+		FlipHorizontal = true
+	}
+
+
+
+	{
+		Name = "SatyrDodgeStreakBack"
+		InheritFrom = "SatyrDodgeStreakLeft"
+		FlipHorizontal = true
+		ClearCreateAnimations = true
+		OriginX = 80
+		Angle = 0
+		CreateAnimations =
+		[
+			{ Name = "SatyrDodgeStreakBackDark" }
+			{ Name = "SatyrDodgeStreakBackDisplacement" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast_Detached" }
+			{ Name = "DashDustPuffSatyr" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+			{ Name = "SatyrDashSand" }
+		]
+	}
+
+	{
+		Name = "SatyrDodgeStreakBackDark"
+		InheritFrom = "SatyrDodgeStreakLeftDark"
+		OriginX = 80
+		Angle = 0
+		FlipHorizontal = true
+	}		
+
+	{
+		Name = "SatyrDodgeStreakBackDisplacement"
+		InheritFrom = "SatyrDodgeStreakLeftDisplacement"
+		OriginX = 80
+		Angle = 0
+		FlipHorizontal = true
+	}
+
+
+	{
+		Name = "DashDustPuffSatyr"
+		FilePath = "Fx\DashDustPuff\DashDustPuff"
+		GroupName = "Standing"
+		AngleFromOwner = "Take"
+		EndAlpha = 0.3
+		StartAlpha = 0.6
+		EndFrame = 30
+		NumAngles = 8
+		NumFrames = 30
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		Angle = -90
+		Scale = 1.5
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SatyrDashSand"
+		FilePath = "Particles\particle_dirtSpray_02"
+		RandomRotation = true
+		AngleMin = 80
+		AngleMax = 100
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 200
+		VelocityMax = 500
+		Acceleration = -300
+		ScaleFromOwner = "Ignore"
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 400
+		Gravity = 400
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "SatyrShielded"
+		FilePath = "Fx\SatyrShield\SatyrShield"
+		NumFrames = 1
+		NumAngles = 128
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 1.5
+		PingPongColor = true
+		Loop = true
+		OffsetZ = 60
+		Scale = 1.25
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		PingPongShiftOverDuration = true
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		VisualFx = "SatyrShieldedFx"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		ColorFromOwner = "Ignore"
+		UseAttachedAddColor = false
+		CreateAnimation = "SatyrShieldStartFx"
+	}
+
+	{
+		Name = "SatyrShieldedFx"
+		InheritFrom = "SatyrShielded"
+		CreateAnimation = null
+		FilePath = "Fx\SatyrShieldFx\SatyrShieldFx"
+		VisualFx = null
+		StartOffsetZ = 14.9
+		EndOffsetZ = 15
+		LocationZFromOwner = "Take"
+		EaseIn = 0.9
+		StartAlpha = 0
+		EndAlpha = 0.33
+		PingPongColor = true
+		StartScale = 1
+		EndScale = 1.1
+		Duration = 1.2
+		Loop = false
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.9
+		StartGreen = 0.4
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 0.3
+		GroupName = "FX_Displacement"
+	}
+
+	{
+		Name = "SatyrShieldStartFx"
+		InheritFrom = "SatyrShieldedFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 0.3
+		EndRed = 0.9
+		EndGreen = 0.4
+		EndBlue = 0
+		StartScale = 2
+		EndScale = 1
+		VisualFx = null
+		CreateAnimation = null
+		GroupName = "FX_Standing_Add"
+		Duration = 0.5
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashYellow" }
+			{ Name = "SatyrShieldStartFx2" }
+		]
+	}
+
+	{
+		Name = "SatyrShieldStartFx2"
+		InheritFrom = "SatyrShieldStartFx"
+		ClearCreateAnimations = true
+		FilePath = "Fx\SatyrShield\SatyrShield"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}
+
+
+	{
+		Name = "SatyrShieldBlockOut"
+		CreateAnimation = "SatyrShieldBlockDisplacement"
+		FilePath = "Fx\SatyrShield\SatyrShield"
+		GroupName = "FX_Standing_Add"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 0.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumAngles = 64
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 80.0
+		StartScale = 1.01
+		EndScale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "SatyrShieldBlock"
+		ChainTo = "SatyrShieldBlockOut"
+		FilePath = "Fx\SatyrShield\SatyrShield"
+		ColorFromOwner = "Ignore"
+		Duration = 0.1
+		EndFrame = 1
+		NumAngles = 64
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 80.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 1.0
+		EndScale = 1.01
+		Ambient = 0.0
+		CreateAnimation = "QuickFlashYellow"
+	}
+	
+	{
+		Name = "SatyrShieldBlockDisplacement"
+		InheritFrom = "SatyrShieldBlockOut"
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.1
+		EndAlpha = 0
+		Duration = 0.5
+	}
+
+	{
+		Name = "SatyrCastFireball"
+		FilePath = "Fx\SatyrFireball\SatyrFireball"
+		NumFrames = 100
+		PlaySpeed = 30
+		Loop = true
+		Material = "Unlit"
+		Scale = 1.2
+		OriginX = 160
+		OriginY = 52
+		TransferFrameToThis = true
+		VisualFx = "SatyrCastFireballTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 80
+		CreateAnimations =
+		[
+			{ Name = "SatyrCastFireballDark" }
+			{ Name = "SatyrCastFireballGlow" }
+		]
+	}
+
+
+	{
+		Name = "SatyrCastFireballIn"
+		InheritFrom = "SatyrCastFireball"
+		ClearCreateAnimations = true
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.125
+		LoopFramesOnly = true
+		Loop = false
+		TransferFrameFromThis = true
+		ChainTo = "SatyrCastFireball"
+		CreateAnimations =
+		[
+			{ Name = "SatyrCastFireballDisplacement" }
+			{ Name = "SatyrCastTwinkle" }
+		]
+	}
+
+	{
+		Name = "SatyrCastTwinkle"
+		FilePath = "Particles\particle_enemyFlare"
+		Material = "Unlit"
+		StartScale = 0
+		EndScale = 0.6
+		PingPongScale = true
+		Duration = 0.2
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0
+		EaseOut = 1
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SatyrCastFireballDisplacement"
+		FilePath = "Particles\particle_displaceWink"
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.25
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "SatyrCastFireballGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 1
+		Green = 0
+		Blue = 0.15
+		GroupName = "FX_Standing_Add"
+		Scale = 0.5
+		Material = "Unlit"
+		StartAlpha = 0.6
+		EndAlpha = 0.4
+		RotationSpeed = 90
+		PingPongColor = true
+		Loop = true
+		Duration = 1.25
+		DieWithOwner = true
+	}
+
+	{ 
+		Name = "SatyrCastFireballDark" 
+		InheritFrom = "SatyrCastFireball"
+		VisualFx = null
+		DieWithOwner = true
+		Scale = 1.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		OriginX = 165
+		OriginY = 52
+	}
+
+	{
+		Name = "SatyrCastFireballTrail"
+		FilePath = "Fx\SatyrFireballDissipate\SatyrFireballDissipate"
+		NumFrames = 28
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipVertical = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		EaseIn = 0.99
+		EaseOut = 1
+		GroupName = "FX_Dark"
+		OriginX = 180
+		OriginY = 52
+		StartRed = 0.5
+		StartGreen = 0.01
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -50
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		ScaleY = 0.66
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "SatyrCastFireballDissipate"
+		InheritFrom = "SatyrCastFireball"
+		ClearCreateAnimations = true
+		Loop = false
+		FilePath = "Fx\SatyrFireballDissipate\SatyrFireballDissipate"
+		NumFrames = 28
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 30
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "EnemyProjectileImpact" }
+		]
+	}
+
+	{
+		Name = "SatyrFire"
+		FilePath = "Fx\SatyrFire\SatyrFire"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		Ambient = 0.0
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Terrain_Add"
+		OffsetX = -10
+		OffsetZ = 20
+		StartScaleY = 1
+		EndScaleY = 1.05
+		Scale = 1.25
+		Hue = -0.025
+		PingPongScale = true
+		TransferFrameFromThis = true
+		VisualFx = "SatyrFireFx"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.5
+		ChainTo = "SatyrFireDissipate"
+		Sound = "/SFX/Enemy Sounds/SatyrRatcatcher/RatcatcherProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "SatyrFireGlow" }
+		]
+	}
+
+	{
+		Name = "SatyrFireDissipate"
+		InheritFrom = "SatyrFire"
+		ClearCreateAnimations = true
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		PingPongColor = false
+		TransferFrameToThis = true
+		ChainTo = null
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+	}
+
+	{
+		Name = "SatyrFireIn"
+		InheritFrom = "SatyrFireDissipate"
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.2
+		RandomStartFrame = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.5
+		EndScale = 1.0
+		ChainTo = "SatyrFire"
+		CreateAnimation = "SatyrFireScorchmark"
+	}
+
+	{
+		Name = "SatyrFireGlow"
+		FilePath = "Particles\particle_glow_egg"
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.25
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 0.1
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		PingPongColor = true
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Loop = true
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Alpha = 0.2
+		Scale = 2
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "SatyrFireScorchmark"
+		FilePath = "Fx\Hestia\HestiaScorchMark2"
+		GroupName = "FX_Terrain_Dark"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Alpha = 1.0
+		Duration = 5
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.001
+		StartScale = 1
+		EndScale = 0.96
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		DrawBehindOwner = true
+		Scale = 0.5
+	}
+
+
+	{
+		Name = "SatyrFireFx"
+		FilePath = "Particles\particle_ember_01_glow"
+		Material = "Unlit"
+		AddColor = false
+		Red = 1
+		Green = 0
+		Blue = 0.12
+		GroupName = "FX_Standing_Add"
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		AngleMin = 80
+		AngleMax = 90
+		VelocityMin = 150
+		VelocityMax = 300
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetX = -10
+		EndOffsetX = 10
+		PingPongShiftOverDuration = true
+		Acceleration = -100
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "EnemyChargeFxIn_SatyrRatCatcher"
+		InheritFrom = "EnemyChargeFxIn"
+		Scale = 0.85
+		PlaySpeed = 45
+		CreateAnimation = "EnemyChargeFxInDark_SatyrRatCatcher"
+		ChainTo = "EnemyChargeFxOut_SatyrRatCatcher"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_00_L_JNT"
+		ChildAnimation = "EnemyChargeFxIn_SatyrRatCatcher_Glow"
+	}		
+
+	{
+		Name = "EnemyChargeFxIn_SatyrRatCatcher_Glow"
+		FilePath = "Particles\particle_glow"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.0
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		HoldLastFrame = true
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_00_L_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxInDark_SatyrRatCatcher"
+		InheritFrom = "EnemyChargeFxInDark"
+		Scale = 0.85
+		PlaySpeed = 45
+		ChainTo = "EnemyChargeFxOutDark_SatyrRatCatcher"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_SatyrRatCatcher"
+		InheritFrom = "EnemyChargeFxOut"
+		Scale = 0.85
+		PlaySpeed = 45
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_00_L_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxOutDark_SatyrRatCatcher"
+		InheritFrom = "EnemyChargeFxOutDark"
+		Scale = 0.85
+		PlaySpeed = 45
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_00_L_JNT"
+	}
+
+
+	{
+		Name = "EnemyChargeFxIn_SatyrRatCatcher_Summon"
+		FilePath = "Dev\blank_invisible"
+		Duration = 2.32
+		CreateAnimations =
+		[
+			{ Name = "SatyrRatCatcherSummonPreAttackFx_L" }
+			{ Name = "SatyrRatCatcherSummonPreAttackFx_R" }
+			{ Name = "SatyrRatCatcherSummonPreAttackFx_Ground" }
+			{ Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Dark" }
+			{ Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Dark2" }
+		]
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Dark"
+		FilePath = "Fx\EnemyPreSpawnTerrain\EnemyPreSpawnTerrain"
+		NumFrames = 147
+		PlaySpeed = 50
+		Scale = 1
+		UseAttachedFlasher = false
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Dark"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Dark2"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_Ground_Dark"
+		FlipHorizontal = true
+		FlipVertical = true
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_L"
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleA"
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:sleeve_01_L_JNT"
+		Scale = 0.5
+		StartAlpha = 0
+		EndAlpha = 1
+ 	 	Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = "SatyrRatCatcherSummonPreAttackFx_L_Out"
+		VisualFx = "EphyraSpawnDrips"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.08
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_R"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_L"
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:sleeve_01_R_JNT"
+		ChainTo = "SatyrRatCatcherSummonPreAttackFx_R_Out"
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_L_Out"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_L"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		Duration = 1.33
+		ChainTo = null
+	}		
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_R_Out"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_L_Out"
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:sleeve_01_R_JNT"
+	}
+
+	{ 
+		Name = "SatyrRatCatcherSummonPreAttackFx_Ground"
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleA"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 1.33
+		StartAlpha = 0
+		EndAlpha = 1
+ 	 	Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		DieWithOwner = true
+		RotationSpeed = 22
+		ChainTo = "SatyrRatCatcherSummonPreAttackFx_Ground_Wait"
+		VisualFx = "SatyrRatCatcherSummonPreAttackFx_GroundB"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_GroundB"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_Ground"
+		VisualFx = null
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleB"
+		StartScale = 1
+		EndScale = 1.25
+		ChainTo = null
+		PingPongColor = true
+		RotationSpeed = 5
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Wait"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_Ground"
+		Duration = 1.32
+		StartAlpha = 0.99
+		ChainTo = "SatyrRatCatcherSummonPreAttackFx_Ground_Out"
+	}
+
+	{
+		Name = "SatyrRatCatcherSummonPreAttackFx_Ground_Out"
+		InheritFrom = "SatyrRatCatcherSummonPreAttackFx_Ground"
+		VisualFx = null
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		VisualFx = "SatyrRatCatcherMeleeSand"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations =
+		[
+			{ Name = "SatyrRatCatcherMeleeFxBrightA" }
+			{ Name = "SatyrRatCatcherMeleeFxDarkA" }
+			{ Name = "SatyrRatCatcherMeleeFxDisplacementA" }
+			{ Name = "SatyrRatCatcherMeleeFxBrightB" }
+			{ Name = "SatyrRatCatcherMeleeFxDarkB" }
+			{ Name = "SatyrRatCatcherMeleeFxDisplacementB" }
+			{ Name = "SatyrRatCatcherMeleeGlowA" }
+			{ Name = "SatyrRatCatcherMeleeGlowB" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast"}
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeGlowA"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		PostRotateScaleY = 0.5
+		ScaleRadius = 190
+		GroupName = "FX_Terrain_Add"
+		Duration = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		RotationSpeed = -720
+		OriginX = 180
+		OriginY = 240
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeGlowB"
+		InheritFrom = "SatyrRatCatcherMeleeGlowA"
+		AngleMin = 180
+		AngleMax = 180
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeFxBrightA"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 20
+		PlaySpeed = 45
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 190
+		DieWithOwner = false
+		RotationSpeed = -720
+		OffsetZ = 20
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeFxDarkA"
+		InheritFrom = "SatyrRatCatcherMeleeFxBrightA"
+		PlaySpeed = 30
+		OffsetZ = 0
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeFxBrightB"
+		InheritFrom = "SatyrRatCatcherMeleeFxBrightA"
+		AngleMin = 180
+		AngleMax = 180
+		OffsetZ = 20
+	}
+	{
+		Name = "SatyrRatCatcherMeleeFxDarkB"
+		InheritFrom = "SatyrRatCatcherMeleeFxDarkA"
+		AngleMin = 180
+		AngleMax = 180
+		OffsetZ = 0
+	}
+	{ 
+		Name = "SatyrRatCatcherMeleeFxDisplacementA" 
+		InheritFrom = "SatyrRatCatcherMeleeFxBrightA"
+		PlaySpeed = 24
+		StartAlpha = 0
+		EndAlpha = 0.1
+		GroupName = "FX_Displacement"
+	}		
+	{ 
+		Name = "SatyrRatCatcherMeleeFxDisplacementB" 
+		InheritFrom = "SatyrRatCatcherMeleeFxDisplacementA"
+		AngleMin = 180
+		AngleMax = 180
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeSand"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VelocityMin = 200
+		VelocityMax = 500
+		Acceleration = -150
+		ScaleFromOwner = "Ignore"
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 400
+		RadialOffsetMin = 200
+		RadialOffsetMax = 220
+		RadialOffsetScaleY = 0.5
+		AngleChangeSpeed = 240
+		AngleChangeAcceleration = -240
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Gravity = 200
+		GroupName = "FX_Standing"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeChargeFx"
+		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
+		NumFrames = 60
+		PlaySpeed = 35
+		Material = "Unlit"
+		Scale = 0.5
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:tail_06_M_JNT"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		ChainTo = "SatyrRatCatcherMeleeChargeFxOut"
+		CreateAnimations =
+		[
+			{ Name = "SatyrRatCatcherMeleeChargeFxDark" }
+		]
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeChargeFxDark"
+		InheritFrom = "SatyrRatCatcherMeleeChargeFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "SatyrRatCatcherMeleeChargeFxOut"
+		InheritFrom = "SatyrRatCatcherMeleeChargeFx"
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		ChainTo = null
+	}
+
+	{ 
+		Name = "SatyrRatCatcherSpellFx"
+		FilePath = "Particles\particle_enemyAttackSparkle"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_02_L_JNT"
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		StartScale = 0
+		EndScale = 1
+		Scale = 0.5
+		HoldLastFrame = true
+		VisualFx = "SatyrRatCatcherSpellFxTrail"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellFxLoop"
+		InheritFrom = "SatyrRatCatcherSpellFx"
+		StartScale = 0.999
+	}	
+
+	{
+		Name = "SatyrRatCatcherSpellFxOut"
+		InheritFrom = "SatyrRatCatcherSpellFx"
+		StartScale = 3
+		EndScale = 0
+		HoldLastFrame = false
+		CreateAnimations =
+		[
+			{ Name = "SatyrRatCatcherSpellFxOutRing" }
+		]
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellFxOutRing"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		NumFrames = 30
+		PlaySpeed = 60
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "SatyrRatcatcher_Rig:index_02_L_JNT"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.5
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellFxTrail"
+		FilePath = "Particles\particle_ember_02_glow"
+		StartScale = 0.3
+		EndScale = 0.0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		VelocityMin = 20
+		VelocityMax = 30
+		Acceleration = -50
+		AngleFromOwner = "Ignore"
+		AngleMin = 80
+		AngleMax = 100
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		RandomRotation = true
+		Red = 1
+		Green = 0
+		Blue = 0.1
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellBuffFx"
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleA"
+		Material = "Unlit"
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+		RotationSpeed = 30
+		OffsetZ = 60
+		Duration = 1
+		Loop = true
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		Scale = 0.07
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellKnockbackNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		GroupName = "FX_Terrain_Dark"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 100
+		Red = 0
+		Green = 0
+		Blue = 0
+		CreateAnimations =
+		[
+			{ Name = "SatyrRatCatcherSpellKnockbackNovaDisplacement" }
+			{ Name = "FieldsDustPuffFront_NoOffset_Fast_Detached" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SatyrSpellBuffCircleA" }
+			{ Name = "SatyrSpellBuffCircleB" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+		]
+	}
+
+	{
+		Name = "SatyrRatCatcherSpellKnockbackNovaDisplacement"
+		InheritFrom = "SatyrRatCatcherSpellKnockbackNova"
+		GroupName = "FX_Displacement"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartAlpha = 0
+		EndAlpha = 0.1
+		PlaySpeed = 45
+		ClearCreateAnimations = true
+	}
+
+	{ 
+		Name = "SatyrSpellBuffCircleA" 
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleA"
+		PostRotateScaleY = 0.5
+		Scale = 2.5
+		StartScale = 1
+		EndScale = 1.25
+		GroupName = "FX_Terrain_Add"
+		Duration = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		VisualFx = "SatyrSpellBuffParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+	}
+
+	{ 
+		Name = "SatyrSpellBuffCircleB" 
+		InheritFrom = "SatyrSpellBuffCircleA"
+		FilePath = "Fx\SatyrSummon\SatyrSummonCircleB"
+	}
+
+
+	{
+		Name = "SatyrSpellBuffParticles"
+		FilePath = "Fx\EphyraEnemyDripA\EphyraEnemyDripA"
+		NumFrames = 17
+		FlipVertical = true
+		RandomFlipHorizontal = true
+		RadialOffsetMin = 0
+		RadialOffsetMax = 100
+		RadialOffsetScaleRadius = 100
+		AngleMin = 0
+		AngleMax = 360
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 0.5
+	}
+
+	{
+		Name = "EnemySandDeathFx"
+		FilePath = "Fx\CWSandCloud\CWSandCloud"
+		NumFrames = 100
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomFlipVertical = true
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+		AngleMin = -10
+		AngleMax = 10
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 1.5
+		Red = 0.4
+		Green = 0.3
+		Blue = 0.2
+		Material = "Unlit"
+		VisualFx = "EnemySandDeathFx2"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
+		VisualFxCap = 5
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "EnemySandDeathFx2"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		StartAlpha = 0
+		EndAlpha = 1
+		ScaleMin = 0.3
+		ScaleMax = 0.5
+		StartScale = 1
+		EndScale = 1.2
+		ScaleFromOwner = "Ignore"
+		PingPongColor = true
+		Gravity = 30
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 100
+		RadialOffsetScaleY = 0.6
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Ignore"
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		VelocityMin = 35
+		VelocityMax = 70
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "TimeElementalOrbitPreAttackFx"
+		FilePath = "Fx\EnemyChargeIn\EnemyChargeIn"
+		NumFrames = 60
+		PlaySpeed = 30
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ChainTo = "TimeElementalOrbitPreAttackFxOut"
+		UseAttachedFlasher = false
+		Scale = 0.5
+		OffsetZ = 120
+		CreateAnimations =
+		[
+			{ Name = "TimeElementalOrbitPreAttackFxDark" }
+			{ Name = "TimeElementalOrbitPreAttackFxGlow" }
+		]
+	}
+
+	{
+		Name = "TimeElementalOrbitPreAttackFxGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 2
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 1.0
+		OffsetZ = 120
+		DieWithOwner = true
+	}
+
+	{
+		Name = "TimeElementalOrbitPreAttackFxOut"
+		InheritFrom = "TimeElementalOrbitPreAttackFx"
+		ClearCreateAnimations = true
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		ChainTo = null
+	}
+
+	{
+		Name = "TimeElementalOrbitPreAttackFxDark"
+		InheritFrom = "TimeElementalOrbitPreAttackFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		ChainTo = "TimeElementalOrbitPreAttackFxDarkOut"
+	}
+
+	{
+		Name = "TimeElementalOrbitPreAttackFxDarkOut"
+		InheritFrom = "TimeElementalOrbitPreAttackFxDark"
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		ChainTo = null
+	}
+
+	{
+		Name = "BurrowHoleLargeIn"
+		FilePath = "Fx\CrawlerRatBurrowHoleLargeIn\CrawlerRatBurrowHoleLargeIn"
+		NumFrames = 38
+		PlaySpeed = 30
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ChainTo = "BurrowHoleLargeOut"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		Scale = 1.0
+		ScaleFromOwner = "Take"
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		RandomFlipHorizontal = true
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 90 }
+		]
+	}
+	{
+		Name = "BurrowHoleIn"
+		InheritFrom = "BurrowHoleLargeIn"
+		ChainTo = "BurrowHoleLargeOut"
+		Scale = 0.75
+		ScaleMin = 0.65
+		ScaleMax = 0.8
+	}
+
+	{
+		Name = "BurrowHoleLargeOut"
+		InheritFrom = "BurrowHoleLargeIn"
+		FilePath = "Fx\CrawlerRatBurrowHoleLargeOut\CrawlerRatBurrowHoleLargeOut"
+		NumFrames = 14
+		HoldLastFrame = false
+		ChainTo = null
+	}
+	{
+		Name = "BurrowHoleOut"
+		InheritFrom = "BurrowHoleLargeOut"
+		Scale = 0.75
+		ScaleMin = 0.65
+		ScaleMax = 0.8
+	}
+
+
+	{
+		Name = "ChronosScytheThrowFx"
+		FilePath = "Fx\Chronos\ChronosScytheSpin\ChronosScytheSpin"
+		NumFrames = 15
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		PlaySpeed = 60
+		OffsetZ = 75
+		Scale = 1.33
+		Loop = true
+		VisualFx = "ChronosScytheThrowFx2"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		GroupName = "FX_Standing_Add"
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "ChronosScytheThrowFxDark" }
+			{ Name = "ChronosScytheThrowGlow" }
+			// { Name = "ChronosScytheThrowFxDisplace" }
+			{ Name = "ChronosRippleExplosionGlow"}
+			{ Name = "ChronosRippleExplosionGlowSoft"}
+		]
+	}
+
+	{
+		Name = "ChronosScytheThrowFade"
+		InheritFrom = "ChronosScytheThrowFx"
+		StartAlpha = 1
+		EndAlpha = 0
+		Loop = false
+		EaseIn = 0.99
+		EaseOut = 1
+		VisualFx = null
+		ClearCreateAnimations = true
+		CreateAnimation = "ChronosScytheThrowFadeWink"
+	}
+
+	{
+		Name = "ChronosScytheThrowFadeWink"
+		FilePath = "Particles\particle_enemyFlare"
+		StartScale = 1
+		EndScale = 0
+		Material = "Unlit"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		Saturation = -1
+		Scale = 0.66
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ChildAnimation = null
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "ChronosScytheThrowGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.8
+		Blue = 0.3
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		Scale = 6
+		Alpha = 0.4
+		DieWithOwner = true
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ChronosScytheThrowShadow"
+		InheritFrom = "ChronosScytheThrowFx"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		ClearCreateAnimations = true
+		VisualFx = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosScytheThrowFx2"
+		InheritFrom = "ChronosScytheThrowFx"
+		FilePath = "Fx\Chronos\ChronosScytheSpinFx\ChronosScytheSpinFx"
+		ClearCreateAnimations = true
+		VisualFx = "ChronosScytheThrowSand"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.04
+		AngleMin = 0
+		AngleMax = 360
+		Loop = false
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		Scale = 2.2
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		GroupName = "FX_Standing_Add"
+		CreateAnimations =
+		[
+			{ Name = "ChronosScytheThrowFx3" }
+			{ Name = "ChronosScytheSpinSandSwirl" }
+		]
+	}
+
+	{
+		Name = "ChronosScytheSpinSandSwirl"
+		FilePath = "Fx\Chronos\ChronosScytheSpinSandSwirl"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		Scale = 1.5
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		AngleChangeSpeedMin = 45
+		AngleChangeSpeedMax = 90
+		AngleChangeAcceleration = -90
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.5
+		AngleMin = 0
+		AngleMax = 360
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosScytheThrowSand"
+		Random =
+		[
+			{ Name = "ChronosScytheThrowSandA" }
+			{ Name = "ChronosScytheThrowSandB" }
+			{ Name = "ChronosScytheThrowSandC" }
+		]
+	}
+
+	{
+		Name = "ChronosScytheThrowSandA"
+		FilePath = "Particles\particle_dirtSpray_02"
+		PostRotateScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 0
+		RadialOffsetMax = 200
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -200
+		AngleChangeSpeedMin = 90
+		AngleChangeSpeedMax = 180
+		AngleChangeAcceleration = -180
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 1.2
+		GroupName = "FX_Standing_Add"
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "ChronosScytheThrowSandB"
+		InheritFrom = "ChronosScytheThrowSandA"
+		FilePath = "Particles\particle_dirtSpray_03"
+	}
+	{
+		Name = "ChronosScytheThrowSandC"
+		InheritFrom = "ChronosScytheThrowSandA"
+		FilePath = "Particles\particle_dirtSpray_04"
+	}
+
+	{
+		Name = "ChronosScytheThrowFx3"
+		InheritFrom = "ChronosScytheThrowFx2"
+		ClearCreateAnimations = true
+		StartAlpha = 0.4
+		EndAlpha = 0
+		LocationFromOwner = "Ignore"
+		CreateAnimation = null
+		PlaySpeed = 60
+		StartFrame = 6
+		NumFrames = 9
+		Scale = 2.5
+		RandomOffsetY = 50
+		GroupName = "FX_Standing_Add"
+	}		
+
+
+
+	// Chronos
+
+	{
+		Name = "ChronosScytheThrowFxDark"
+		InheritFrom = "ChronosScytheThrowFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Scale = 1.2
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		OffsetZ = 30
+		EndAlpha = 0.999
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosScytheThrowFxDisplace"
+		InheritFrom = "ChronosScytheThrowFxDark"
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+		AddColor = true
+		PlaySpeed = 60
+		StartAlpha = 0
+		EndAlpha = 0.5
+		GroupName = "FX_Displacement"
+	}
+
+	{
+		Name = "ChronosSwingRush"
+		FilePath = "Fx\Chronos\ChronosScytheSwipeStraight\ChronosScytheSwipeStraight"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 40
+		PlaySpeed = 60
+		StartFrame = 1
+		Scale = 1.5
+		ScaleX = 2
+		ScaleY = 0.75
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		DieWithOwner = false
+		CreateAnimations =
+		[
+			{ Name = "ChronosSwingRushDisplacement" }
+			{ Name = "ChronosSwingRushDark" }
+			{ Name = "ChronosRippleExplosionGlow"}
+			{ Name = "ChronosRippleExplosionGlowSoft"}
+		]
+	}
+
+
+	{
+		Name = "ChronosSwingRushDisplacement"
+		InheritFrom = "ChronosSwingRush"
+		GroupName = "FX_Displacement"
+		PlaySpeed = 55
+		ClearCreateAnimations = true
+		VisualFx = null
+		StartAlpha = 0
+		EndAlpha = 0.2
+	}
+
+	{
+		Name = "ChronosSwingRushDark"
+		InheritFrom = "ChronosSwingRushDisplacement"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		StartAlpha = 1.0
+		EndAlpha = 0.999
+	}
+
+	{
+		Name = "ChronosSwingLeft"
+		FilePath = "Fx\Chronos\ChronosScytheSwipeArcColor\ChronosScytheSwipeArcColor"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 46
+		NumFrames = 46
+		PlaySpeed = 60.0
+		StartFrame = 1
+		Scale = 1.5
+		OriginX = 640
+		OriginY = 640
+		PostRotateScaleY = 0.5
+		DieWithOwner = false
+		AngleFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		FlipVertical = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosSwingLeftDisplacement" }
+			{ Name = "ChronosSwingLeftDark" }
+			{ Name = "ChronosRippleExplosionGlow"}
+			{ Name = "ChronosRippleExplosionGlowSoft"}
+		]
+	}
+
+	{
+		Name = "ChronosSwingLeftDisplacement"
+		InheritFrom = "ChronosSwingLeft"
+		GroupName = "FX_Displacement"
+		PlaySpeed = 55
+		ClearCreateAnimations = true
+		VisualFx = null
+		StartAlpha = 0
+		EndAlpha = 0.2
+	}
+
+	{
+		Name = "ChronosSwingLeftDark"
+		InheritFrom = "ChronosSwingLeftDisplacement"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		StartAlpha = 1.0
+		EndAlpha = 0.999
+	}
+	
+	{
+		Name = "ChronosSwingRight"
+		InheritFrom = "ChronosSwingLeft"
+		FlipVertical = false
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosSwingRightDisplacement" }
+			{ Name = "ChronosSwingRightDark" }
+		]
+	}
+
+	{
+		Name = "ChronosSwingRightDisplacement"
+		InheritFrom = "ChronosSwingLeftDisplacement"
+		FlipVertical = false
+	}		
+
+	{
+		Name = "ChronosSwingRightDark"
+		InheritFrom = "ChronosSwingLeftDisplacement"
+		FlipVertical = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "ChronosRiftInterior"
+		FilePath = "Fx\Chronos\ChronosRiftInterior\ChronosRiftInterior"
+		NumFrames = 45
+		Material = "Unlit"
+		ReRandomizeOnLoop = false
+		TransferFrameToThis = true
+		Loop = true
+		DieWithOwner = true
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Maintain"
+		PlaySpeed = 30
+		Scale = 1.0
+		ScaleX = 1.0
+		ScaleY = 1.3
+		Angle = 0
+		GroupName = "FX_Standing_Top"
+		OverlayVfx = true
+		VisualFx = "ChronosRiftFxRandom"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+		VisualFxCap = 2
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "ChronosRiftInteriorIn"
+		InheritFrom = "ChronosRiftInterior"
+		RandomStartFrame = true
+		Loop = false
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.1
+		ChainTo = "ChronosRiftInterior"
+		TransferFrameFromThis = true
+		TransferFrameToThis = false
+		TransferAngle = true
+		AddColor = true
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		VisualFxIntervalMin = 0.01
+		CreateAnimations =
+		[
+			{ Name = "ChronosRiftDisplacement" }
+			{ Name = "ChronosRiftUnderglow" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftStraightInteriorIn"
+		InheritFrom = "ChronosRiftInteriorIn"
+		FilePath = "Fx\Chronos\ChronosRiftStraightInterior\ChronosRiftStraightInterior"
+		ChainTo = "ChronosRiftStraightInterior"
+		Angle = 0
+		PostRotateScaleY = 1.0
+		ScaleY = 0.66
+		ScaleX = 1.33
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosRiftDisplacement_Straight" }
+			{ Name = "ChronosRiftUnderglow_Straight" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftStraightInterior"
+		InheritFrom = "ChronosRiftInterior"
+		Angle = 0
+		PostRotateScaleY = 1.0
+		ScaleY = 0.66
+		ScaleX = 1.33
+		FilePath = "Fx\Chronos\ChronosRiftStraightInterior\ChronosRiftStraightInterior"
+		VisualFx = "ChronosRiftStraightFxRandom"
+	}
+
+	{
+		Name = "ChronosRiftFxRandom"
+		Random =
+		[
+			{ Name = "ChronosRiftFx" }
+			{ Name = "ChronosRiftFxFlip" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftStraightFxRandom"
+		Random =
+		[
+			{ Name = "ChronosRiftStraightFx" }
+			{ Name = "ChronosRiftStraightFxFlip" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftFx"
+		FilePath = "Fx\Chronos\ChronosRiftRipple\ChronosRiftRipple"
+		NumFrames = 35
+		PlaySpeed = 30
+		Material = "Unlit"
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		DieWithOwner = false
+		GroupName = "FX_Dark"
+		RandomFlipVertical = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AddColor = false
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		ScaleY = 0.5
+		ScaleMin = 0.8
+		ScaleMax = 2.0
+		AlphaMin = 0.99
+		AlphaMax = 1.0
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosRiftFxFlip"
+		InheritFrom = "ChronosRiftFx"
+		Angle = 270
+	}
+
+	{
+		Name = "ChronosRiftStraightFx"
+		InheritFrom = "ChronosRiftFx"
+		PostRotateScaleY = 1
+		IsometricSkew = "X"
+		VelocityMin = 400
+		VelocityMax = 500
+		ScaleMin = 2.0
+		ScaleMax = 3.0
+		Angle = 0
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "ChronosRiftStraightFxFlip"
+		InheritFrom = "ChronosRiftFxFlip"
+		Angle = 180
+		PostRotateScaleY = 1
+		IsometricSkew = "X"
+		VelocityMin = 400
+		VelocityMax = 500
+		ScaleMin = 2.0
+		ScaleMax = 3.0
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "ChronosRiftUnderglow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Standing_Add"
+		Duration = 1.2
+		ScaleMin = 1
+		ScaleMax = 1.2
+		AlphaMin = 0.2
+		AlphaMax = 0.3
+		Red = 1
+		Green = 0.85
+		Blue = 0.5
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 2
+	}
+
+	{
+		Name = "ChronosRiftUnderglow_Straight"
+		InheritFrom = "ChronosRiftUnderglow"
+		PostRotateScaleY = 1.0
+		ScaleY = 0.5
+	}
+
+	{
+		Name = "ChronosRiftDisplacement"
+		FilePath = "Fx\Chronos\ChronosRiftDisplacement\ChronosRiftDisplacement"
+		NumFrames = 45
+		PlaySpeed = 30
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 1.2
+		ScaleX = 1.25
+		Scale = 1.75
+		GroupName = "FX_Displacement"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "ChronosRiftDisplacement_Straight"
+		InheritFrom = "ChronosRiftDisplacement"
+		PostRotateScaleY = 1.0
+		Angle = 90
+	}
+
+	{
+		Name = "ChronosRippleExplosion"
+		FilePath = "Fx\Chronos\ChronosRippleExplosion\ChronosRippleExplosion"
+		NumFrames = 60
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		Scale = 1.7
+		ScaleRadius = 170
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Top"
+		CreateAnimations =
+		[
+			{	Name = "ChronosRippleExplosionDisplacement" }
+			{	Name = "ChronosRippleExplosionDisplacement2" }
+			{	Name = "ChronosRippleExplosionGlow" }
+			{	Name = "ChronosRippleExplosionGlowSoftArc" }
+			{	Name = "ChronosRippleExplosionGlowDark" }
+		]
+	}
+
+	{
+		Name = "ChronosRippleExplosionStraight"
+		InheritFrom = "ChronosRippleExplosion"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{	Name = "ChronosRippleExplosionDisplacement" }
+			{	Name = "ChronosRippleExplosionDisplacement2" }
+			{	Name = "ChronosRippleExplosionGlow" }
+			{	Name = "ChronosRippleExplosionGlowSoft" }
+			{	Name = "ChronosRippleExplosionGlowDark" }
+		]
+	}
+
+	{
+		Name = "ChronosRippleExplosionDisplacement2"
+		InheritFrom = "ChronosRippleExplosion"
+		ClearCreateAnimations = true
+		VisualFx = null
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.3
+		EndAlpha = 0.1
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+	}
+
+	{
+		Name = "ChronosRippleExplosionGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Add_Top"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0.3
+		EndBlue = 1.0
+		Duration = 0.2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Scale = 1
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleX = 0.05
+		ScaleY = 2
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosRippleExplosionGlowSoft"
+		InheritFrom = "ChronosRippleExplosionGlow"
+		FilePath = "Particles\particle_glow"
+		Scale = 3.0
+		EndScale = 0.99
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleX = 1
+		ScaleY = 1
+		Duration = 0.5
+	}
+
+	{
+		Name = "ChronosRippleExplosionGlowSoftArc"
+		InheritFrom = "ChronosRippleExplosionGlowSoft"
+		FilePath = "Particles\particle_streakGlow"
+		RandomFlipHorizontal = true
+		Scale = 2.0
+		StartScaleY = 5
+		EndScaleY = 12
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.2
+	}
+
+	{
+		Name = "ChronosRippleExplosionGlowDark"
+		InheritFrom = "ChronosRippleExplosionGlow"
+		PostRotateScaleY = 1
+		Red = 0
+		Green = 0
+		Blue = 0
+		Duration = 0.4
+		StartScale = 0
+		EndScale = 2
+		ScaleX = 1
+		ScaleY = 1
+		PingPongScale = true
+	}
+
+	{
+		Name = "ChronosRippleExplosionDisplacement"
+		FilePath = "Particles\particle_displaceWink"
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 2
+		EndScale = 0
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+	}
+
+	{
+		Name = "ChronosScythePreAttackSparkleSwingLeft"
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartScale = 0
+		EndScale = 1
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:scytheBlade_12_M_JNT"
+		Duration = 1.96
+		EaseIn = 0
+		EaseOut = 0.1
+		ScaleFromOwner = "Ignore"
+		Scale = 1
+		UseAttachedFlasher = false
+		ColorFromOwner = "Ignore"
+		ChainTo = "ChronosScythePreAttackSparkleOut"
+		ChildAnimation = "ChronosScythePreAttackScytheGlow"
+	}
+
+	{
+		Name = "ChronosScythePreAttackScytheGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.85
+		Blue = 0.5
+		Material = "Unlit"
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 1.34
+		HoldLastFrame = true
+		GrannyAttachedMarkerLocation = "Chronos_Rig:scytheBlade_12_M_JNT"
+	}
+
+	{
+		Name = "ChronosScythePreAttackSparkleSwingRight"
+		InheritFrom = "ChronosScythePreAttackSparkleSwingLeft"
+		Duration = 1.34
+	}
+
+	{
+		Name = "ChronosScythePreAttackSparkleRush"
+		InheritFrom = "ChronosScythePreAttackSparkleSwingLeft"
+		Duration = 1.17
+	}
+
+	{
+		Name = "ChronosScythePreAttackSparkleOut"
+		InheritFrom = "ChronosScythePreAttackSparkleSwingLeft"
+		Duration = 0.15
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 0
+		ChainTo = null
+	}
+
+	{
+		Name = "ChronosVacuum"
+		FilePath = "Fx\Chronos\ChronosVacuum\ChronosVacuum"
+		NumFrames = 60
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 60
+		OriginX = -20
+		OriginY = 200
+		ScaleX = 2
+		Scale = 1.25
+		OffsetZ = 250
+		TransferFrameToThis = true
+		Alpha = 0.66
+		TransferFrameFromThis = true
+		ChainTo = "ChronosVacuumOut"
+		VisualFx = "ChronosVacuumSandRandom"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		FlipVertical = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosVacuumDisplacement" }
+		]
+	}
+
+	{
+		Name = "ChronosVacuumSandRandom"
+		Random =
+		[
+			{ Name = "ChronosVacuumSand" }
+			{ Name = "ChronosVacuumSand" }
+			{ Name = "ChronosVacuumSand" }
+			{ Name = "ChronosVacuumSandCloud" }
+		]
+	}
+
+	{
+		Name = "ChronosVacuumSand"
+		FilePath = "Particles\particle_dirtSpray_01"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = -1300
+		RadialOffsetMax = -500
+		VelocityMin = 600
+		VelocityMax = 1200
+		RandomAccelerationMin = -500
+		RandomAccelerationMax = -200
+		StartScale = 0
+		EndScale = 1
+		ScaleMin = 1.0
+		ScaleMax = 1.5
+		ScaleFromOwner = "Ignore"
+		PingPongScale = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AngleMin = 175
+		AngleMax = 185
+		RandomOffsetX = 80
+		RandomOffsetY = 80
+		OffsetZ = 250
+		Gravity = 400
+	}
+
+	{
+		Name = "ChronosVacuumSandCloud"
+		FilePath = "Fx\CWSandCloud\CWSandCloud"
+		NumFrames = 100
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		ScaleMin = 1.2
+		ScaleMax = 2.0
+		RandomFlipVertical = true
+		RadialOffsetMin = -2000
+		RadialOffsetMax = -1000
+		VelocityMin = 600
+		VelocityMax = 1200
+		OffsetZ = 250
+		AngleMin = 170
+		AngleMax = 190
+		Acceleration = 400
+		Saturation = 0.25
+		Hue = 0.12
+	}
+
+	{
+		Name = "ChronosVacuumDisplacement"
+		InheritFrom = "ChronosVacuum"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Alpha = 0.12
+		VisualFx = null
+		ClearCreateAnimations = true
+		ChainTo = null
+		DieWithOwner = true
+		RandomStartFrame = true
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+	}
+
+	{
+		Name = "ChronosVacuumIn"
+		InheritFrom = "ChronosVacuum"
+		VisualFx = null
+		Loop = false
+		LoopFramesOnly = true
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.2
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = "ChronosVacuum"
+	}
+
+	{
+		Name = "ChronosVacuumOut"
+		InheritFrom = "ChronosVacuumIn"
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		Duration = 0.33
+	}
+
+	{
+		Name = "ChronosScytheSpin"
+		FilePath = "Fx\Chronos\ChronosScytheSpin\ChronosScytheSpin"
+		NumFrames = 15
+		PlaySpeed = 60
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		FlipHorizontal = true
+		Loop = true
+		Scale = 0.8
+		RadialOffsetMin = 0
+		RadialOffsetMax = 1
+		OffsetZ = 0
+		GrannyAttachedMarkerLocation = "Chronos_Rig:hand_00_R_JNT"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "Standing"
+		VisualFx = "ChronosScytheSpinFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		CreateAnimations =
+		[
+			{ Name = "ChronosScytheSpinDark"}
+			{ Name = "ChronosScytheSpinDisplacement"}
+		]
+	}
+
+	{
+		Name = "ChronosScytheSpinDark"
+		InheritFrom = "ChronosScytheSpin"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		DieWithOwner = true
+	}		
+
+	{
+		Name = "ChronosScytheSpinDisplacement"
+		InheritFrom = "ChronosScytheSpin"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		Alpha = 0.06
+		DieWithOwner = true
+		RadialOffsetMin = 50
+		RadialOffsetMax = 51
+	}
+
+	{
+		Name = "ChronosScytheSpinFx"
+		InheritFrom = "ChronosScytheSpin"
+		FilePath = "Fx\Chronos\ChronosScytheSpinFx\ChronosScytheSpinFx"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		FlipHorizontal = false
+		VisualFx = null
+		ClearCreateAnimations = true
+		VelocityMin = 200
+		VelocityMax = 250
+		Acceleration = -1000
+		LocationFromOwner = "Ignore"
+		LoopFramesOnly = false
+		Loop = false
+		GrannyAttachedMarkerLocation = null
+		Scale = 2
+	}
+
+	{
+		Name = "ChronosGrindWallCharge"
+		FilePath = "Particles\particle_glow"
+		StartScale = 0
+		EndScale = 1
+		Scale = 3
+		Material = "Unlit"
+		Duration = 5
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		OffsetZ = 250
+		ChildAnimation = "ChronosGrindWallChargeFlare"
+		VisualFx = "ChronosGrindWallChargeFx"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+		CreateAnimations =
+		[
+			{ Name = "ChronosGrindWallProjectileCharge" }
+		]
+	}
+
+	{
+		Name = "ChronosGrindWallChargeFlare"
+		InheritFrom = "ChronosGrindWallCharge"
+		FilePath = "Particles\particle_enemyFlare"
+		Saturation = -1
+		Scale = 0.66
+		UseOwnAngle = false
+		AddColor = true
+		ChildAnimation = null
+		VisualFx = "ChronosGrindWallChargeDark"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.21
+	}
+
+	{
+		Name = "ChronosGrindWallChargeFx"
+		FilePath = "Fx\AlectoChargeLine\AlectoChargeLine"
+		NumFrames = 25
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		AddColor = true
+		Scale = 0.3
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		OriginX = 512
+		OriginY = 50
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosGrindWallChargeDark"
+		FilePath = "Fx\Chronos\ChronosGrindWallProjectileBG"
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartScale = 3
+		EndScale = 1
+		Scale = 2.5
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		OffsetZ = 250
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosGrindWallProjectile"
+		FilePath = "Fx\Chronos\ChronosGrindWallProjectile\ChronosGrindWallProjectile"
+		NumFrames = 30
+		Material = "Unlit"
+		Loop = true
+		PlaySpeed = 60
+		PostRotateScaleY = 0.5
+		OffsetZ = 30
+		Scale = 2
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamAttackLoopBig"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "ChronosGrindWallProjectileTrail"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 100
+		DieWithOwner = true
+		CreateAnimations =
+		[
+			{ Name = "ChronosGrindWallProjectileDisplaceWink" }
+			{ Name = "ChronosGrindWallProjectileDark" }
+			{ Name = "ChronosGrindWallProjectileFlash" }
+			{ Name = "ChronosRippleExplosionGlow" }
+			{ Name = "ChronosRippleExplosionGlowSoft" }
+			{ Name = "ChronosGrindWallProjectileFlare" }
+			{ Name = "ChronosGrindWallProjectileGlow" }
+			{ Name = "ChronosRippleExplosionGlowSoftArc" }
+		]
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileDisplaceWink"
+		FilePath = "Particles\particle_displaceWink"
+		Scale = 3
+		AngleFromOwner = "Ignore"
+		DieWithOwner = true
+		UseOwnAngle = false
+		GroupName = "FX_Displacement"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		OffsetZ = 30
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileFlash"
+		InheritFrom = "ChronosGrindWallProjectile"
+		Sound = null
+		Loop = false
+		AddColor = true
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileTrail"
+		FilePath = "Particles\particle_streakGlow"
+		GroupName = "FX_Standing_Add"
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.75
+		PingPongColor = true
+		EaseIn = 0.99
+		EaseOut = 1
+		Material = "Unlit"
+		Angle = 90
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		OffsetZ = 0
+		StartScaleY = 8
+		EndScaleY = 3
+		StartScaleX = 1
+		EndScaleX = 0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -300
+		CreateAnimations =
+		[
+			{ Name = "ChronosGrindWallProjectileTrail_Dark" }
+			{ Name = "ChronosGrindWallProjectileTrail_Displacement" }
+		]
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileTrail_Dark"
+		FilePath = "Fx\Chronos\ChronosRiftRipple\ChronosRiftRipple"
+		NumFrames = 35
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		Scale = 2.5
+		OffsetZ = 30
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileTrail_Displacement"
+		InheritFrom = "ChronosGrindWallProjectileTrail_Dark"
+		Red = 1
+		Green = 1
+		Blue = 1
+		GroupName = "FX_Displacement"
+		Alpha = 0.2
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileFlare"
+		FilePath = "Particles\particle_enemyFlare"
+		Saturation = -1
+		Scale = 1.1
+		UseOwnAngle = false
+		AddColor = true
+		Material = "Unlit"
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		OffsetZ = 30
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.5
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileGlow"
+		InheritFrom = "ChronosGrindWallCharge"
+		Duration = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileCharge"
+		InheritFrom = "ChronosGrindWallProjectile"
+		Sound = null
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.1
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 5
+		LoopFramesOnly = true
+		Loop = false
+	}
+
+	{
+		Name = "ChronosGrindWallProjectileDark"
+		InheritFrom = "ChronosGrindWallProjectile"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Sound = null
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosOrbitProjectile"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectile\ChronosOrbitProjectile"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomRotation = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		Loop = true
+		TransferFrameToThis = true
+		Scale = 0.66
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "ChronosOrbitProjectileTrail"
+		VisualFxDistanceMin = 60
+		VisualFxDistanceMax = 60
+		CreateAnimations =
+		[
+			{ Name = "ChronosOrbitProjectileShadow" }
+			{ Name = "ChronosOrbitProjectileLight" }
+		]
+	}
+
+	{
+		Name = "ChronosOrbitProjectileImpact"
+		InheritFrom = "ChronosOrbitProjectile"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectileImpact\ChronosOrbitProjectileImpact"
+		Sound = null
+		NumFrames = 31
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RandomRotation = true
+		Loop = false
+		TransferFrameToThis = false
+		VisualFx = "ChronosOrbitProjectileOutParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 5
+		ClearCreateAnimations = true
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		Scale = 1.33
+		CreateAnimations =
+		[
+			{ Name = "ChronosOrbitProjectileImpactLight" }
+		]
+	}
+
+	{
+		Name = "ChronosOrbitProjectileTrail"
+		FilePath = "Particles\particle_dirtSpray_01"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		RandomRotation = true
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.5
+		EaseOut = 1
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Scale = 0.5
+		VelocityMin = 50
+		VelocityMax = 150
+		RandomRotationSpeedMin = 45
+		RandomRotationSpeedMax = 90
+		StartScale = 0.5
+		EndScale = 1.33
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = "ChronosOrbitProjectileTrailDark"
+		Gravity = 100
+	}
+
+	{
+		Name = "ChronosOrbitProjectileTrailDark"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectileTrailDark\ChronosOrbitProjectileTrailDark"
+		NumFrames = 30
+		RandomRotation = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		GroupName = "FX_Dark"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 50
+		VelocityMax = 150
+		Acceleration = -150
+		StartScale = 1
+		EndScale = 1.5
+		Scale = 1.5
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "ChronosOrbitProjectileShadow"
+		InheritFrom = "ChronosOrbitProjectile"
+		Sound = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		GroupName = "Shadows"
+		Alpha = 0.5
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosOrbitProjectileIn"
+		InheritFrom = "ChronosOrbitProjectile"
+		Sound = null
+		ClearCreateAnimations = true
+		RandomStartFrame = true
+		TransferFrameFromThis = true
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.1
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		ChainTo = "ChronosOrbitProjectile"
+		CreateAnimations =
+		[
+			{ Name = "ChronosOrbitProjectileInLight" }
+		]
+	}
+
+	{
+		Name = "ChronosOrbitProjectileOut"
+		InheritFrom = "ChronosOrbitProjectileIn"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.1
+		ChainTo = null
+		Sound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+		CreateAnimation = "ChronosOrbitProjectileOutDisplace"
+		VisualFx = "ChronosOrbitProjectileOutParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 3
+	}
+
+	{
+		Name = "ChronosOrbitProjectileOutParticles"
+		FilePath = "Particles\particle_kira"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		Acceleration = -500
+		VelocityMin = 300
+		VelocityMax = 600
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.9
+		StartScale = 1
+		EndScale = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ChronosOrbitProjectileOutDisplace"
+		FilePath = "Particles\particle_displaceWink"
+		Material = "Unlit"
+		StartAlpha = 0.2
+		EndAlpha = 0
+		Duration = 0.1
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+
+	{
+		Name = "ChronosOrbitProjectileLight"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		Scale = 1.5
+		Alpha = 0.33
+		ScaleX = 0.5
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosOrbitProjectileImpactLight"
+		InheritFrom = "ChronosOrbitProjectileLight"
+		Alpha = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.25
+		DieWithOwner = false
+	}
+
+	{
+		Name = "ChronosOrbitProjectileInLight"
+		InheritFrom = "ChronosOrbitProjectileLight"
+		FilePath = "Particles\particle_streakGlow"
+		ScaleY = 5
+		Alpha = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 0.2
+		EaseIn = 0
+		EaseOut = 1
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartScaleX = 1
+		EndScaleX = 0.1
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "ChronosTeleportFxFront"
+		FilePath = "Fx\Chronos\ChronosTeleportFxFront\ChronosTeleportFxFront"
+		NumFrames = 60
+		PlaySpeed = 60
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Scale = 2.5
+		OffsetZ = 100
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosTeleport"
+		CreateAnimations =
+		[
+			{ Name = "ChronosTeleportFxBack" }
+			{ Name = "ChronosTeleportLight" }
+		]
+	}		
+
+	{
+		Name = "ChronosTeleportFxBack"
+		InheritFrom = "ChronosTeleportFxFront"
+		ClearCreateAnimations = true
+		FilePath = "Fx\Chronos\ChronosTeleportFxBack\ChronosTeleportFxBack"
+		GroupName = "FX_Dark"
+		NumFrames = 19
+		Sound = null
+	}
+
+	{
+		Name = "ChronosTeleportLight"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.75
+		Blue = 0.4
+		Scale = 4
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.33
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		StartScale = 1
+		EndScaleY = 1.25
+		Duration = 0.4
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "ChronosBlockLight"
+		InheritFrom = "ChronosTeleportLight"
+		StartAlpha = 0.2
+		Duration = 0.1
+		Scale = 6
+		ScaleX = 0.5
+	}
+
+	{
+		Name = "Chronos360BlockFront"
+		FilePath = "Fx\Chronos\Chronos360BlockFront\Chronos360BlockFront"
+		NumFrames = 30
+		Material = "Unlit"
+		PlaySpeed = 60
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.66
+		OffsetZ = 100
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		CreateAnimations =
+		[
+			{ Name = "ChronosBlockLight" }
+			{ Name = "ChronosBlockHemisphere" }
+			{ Name = "Chronos360BlockBack" }
+		]
+	}
+
+	{
+		Name = "ChronosBlockHemisphere"
+		FilePath = "Particles\particle_hemiBubble"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 350
+		Scale = 0.9
+		AddColor = true
+		StartScale = 1
+		EndScale = 1.1
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "Chronos360BlockBack"
+		InheritFrom = "Chronos360BlockFront"
+		ClearCreateAnimations = true
+		FilePath = "Fx\Chronos\Chronos360BlockBack\Chronos360BlockBack"
+		DrawBehindOwner = true
+		StartRed = 0.3
+		StartGreen = 0.3
+		StartBlue = 0.3
+		EndRed = 0.0
+		EndGreen = 0.0
+		EndBlue = 0.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ChronosInvincibubble"
+		FilePath = "Fx\Chronos\ChronosInvincibubble\ChronosInvincibubble"
+		NumFrames = 45
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Loop = true
+		PlaySpeed = 30
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.5
+		OffsetZ = 200
+		TransferFrameFromThis = true
+		ChildAnimation = "ChronosInvincibubbleHemisphere"
+		ChainTo = "ChronosInvincibubbleOut"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ChronosInvincibubbleHemisphere"
+		FilePath = "Particles\particle_hemiBubble"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 350
+		Scale = 0.8
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "ChronosInvincibubbleOut"
+		InheritFrom = "ChronosInvincibubble"
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "ChronosRadialPreviewA"
+		FilePath = "Fx\Chronos\ChronosRadialPreviewA\ChronosRadialPreviewA"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		RandomRotation = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleRadius = 220
+		TransferFrameToThis = true
+		Loop = true
+	}
+
+	{
+		Name = "ChronosRadialPreviewA_In"
+		InheritFrom = "ChronosRadialPreviewA"
+		TransferFrameToThis = false
+		TransferFrameFromThis = true
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = "ChronosRadialPreviewA"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.2
+		StartRed = 0.99
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "ChronosRadialExplosionA"
+		FilePath = "Fx\Chronos\ChronosRadialExplosionA\ChronosRadialExplosionA"
+		Material = "Unlit"
+		NumFrames = 50
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleMin = 1
+		ScaleMax = 1.1
+		Scale = 1.2
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		VisualFx = "ChronosRadialExplosionAParticles"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{	Name = "ChronosRadialExplosionADisplace" }
+			{	Name = "ChronosRadialExplosionAFlare" }
+			{	Name = "ChronosRadialExplosionAFlare" }
+			{	Name = "ChronosRadialExplosionAFlare" }
+			{ Name = "ChronosRippleExplosionGlow" }
+			{ Name = "ChronosRadialExplosionGlow" }
+		]
+	}
+
+	{
+		Name = "ChronosRadialExplosionADisplace"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		NumFrames = 16
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		GroupName = "FX_Displacement"
+		AlphaMin = 0.02
+		AlphaMax = 0.1
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosRadialExplosionGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Red = 1
+		Green = 0.8
+		Blue = 0.2
+		GroupName = "FX_Terrain_Add"
+		ScaleFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		StartScale = 1.0
+		EndScale = 1.2
+		Scale = 3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "ChronosRadialExplosionAParticles"
+		FilePath = "Particles\particle_dirtSpray_02"
+		AngleMin = 30
+		AngleMax = 150
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		Scale = 1
+		StartScale = 1
+		EndScale = 1.5
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		RandomRotationSpeedMin = -20
+		RandomRotationSpeedMax = 20
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -60
+		RadialOffsetMin = 0
+		RadialOffsetMax = 200
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ChronosRadialExplosionAFlare"
+		FilePath = "Particles\particle_flareSpike"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 1
+		EndGreen = 0.7
+		EndBlue = 0.4
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 211
+		OriginY = 128
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.4
+		AngleMin = 30
+		AngleMax = 150
+		ScaleMin = 1.5
+		ScaleMax = 3.0
+		StartScaleY = 1
+		EndScaleY = 0
+		StartScaleX = 0.5
+		EndScaleX = 1
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosRadialInRing_Dark"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleDark"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 350
+		ChildAnimation = "ChronosRadialInRing_Bright"
+		Material = "Unlit"
+		RandomRotation = true
+		RotationSpeed = -6
+		VisualFx = "ChronosRadialInRingEdgeFlames"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+	}
+
+	{
+		Name = "ChronosRadialInRingEdgeFlames"
+		Random =
+		[
+			{ Name = "ChronosRadialInRingEdgeFlameA" }
+			{ Name = "ChronosRadialInRingEdgeFlameB" }
+			{ Name = "ChronosRadialInRingEdgeFlameC" }
+		]
+	}
+
+	{
+		Name = "ChronosRadialInRingEdgeFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameA\ChronosRadialEdgeFlameA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 64
+		OriginY = 170
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing"
+		RadialOffsetScaleRadius = 100
+		RadialOffsetMin = 110
+		RadialOffsetMax = 110
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		EaseIn = 0.99
+		EaseOut = 1.00
+		VisualFx = "ChronosRadialInRingEdgeFlameParticle"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		ScaleY = 1.33
+	}
+	{
+		Name = "ChronosRadialInRingEdgeFlameB"
+		InheritFrom = "ChronosRadialInRingEdgeFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameB\ChronosRadialEdgeFlameB"
+	}
+	{
+		Name = "ChronosRadialInRingEdgeFlameC"
+		InheritFrom = "ChronosRadialInRingEdgeFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameC\ChronosRadialEdgeFlameC"
+	}
+
+	{
+		Name = "ChronosRadialInRing_Bright"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleBright"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 700
+		Material = "Unlit"
+		RandomRotation = false
+		RotationSpeed = 0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "ChronosRadialInRingEdgeFlames"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		ChildAnimation = "ChronosRadialInCircleLinesA"
+	}
+
+	{
+		Name = "ChronosRadialInCircleLinesA"
+		InheritFrom = "ChronosRadialInRing_Bright"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleLines"
+		RotationSpeed = 0
+		VisualFx = null
+		StartAlpha = 0
+		EndAlpha = 1
+		StartRed = 0.7
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		PingPongColor = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+		ChildAnimation = "ChronosRadialInCircleLinesB"
+		Loop = true
+		ScaleRadius = 500
+	}
+
+	{
+		Name = "ChronosRadialInCircleLinesB"
+		InheritFrom = "ChronosRadialInCircleLinesA"
+		ScaleRadius = 550
+		ChildAnimation = "ChronosRadialInCircleSparklesA"
+	}		
+
+	{
+		Name = "ChronosRadialInCircleSparklesA"
+		InheritFrom = "ChronosRadialInCircleLinesA"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleSparkles"
+		ChildAnimation = "ChronosRadialInCircleSparklesB"
+	}
+	{
+		Name = "ChronosRadialInCircleSparklesB"
+		InheritFrom = "ChronosRadialInCircleSparklesA"
+		ChildAnimation = null
+	}
+
+	{
+		Name = "ChronosRadialInRingEdgeFlameParticle"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0.7
+		Blue = 0.4
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 400
+		Acceleration = -200
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosClockHandBase"
+		FilePath = "Fx\Chronos\ChronosClockwise\ChronosClockwise"
+		NumFrames = 30
+		Loop = true
+		Material = "Unlit"
+		OriginX = 68
+		OriginY = 80
+		PostRotateScaleY = 0.55
+		PlaySpeed = 30
+		Scale = 1.5
+		VisualFx = "ChronosClockHandFlames"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+	}
+	{
+		Name = "ChronosClockHandBaseShort"
+		InheritFrom = "ChronosClockHandBase"
+		Scale = 1.0
+		VisualFx = null
+	}
+
+	{
+		Name = "ChronosClockHandAdditive"
+		InheritFrom = "ChronosClockHandBase"
+		ClearCreateAnimations = true
+		VisualFx = "ChronosClockHandFlamesDisplacement"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.02
+		GroupName = "FX_Terrain_Add"
+		OffsetZ = 15
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		DieWithOwner = true
+	}
+	{
+		Name = "ChronosClockHandAdditiveShort"
+		InheritFrom = "ChronosClockHandAdditive"
+		Scale = 1.0
+	}
+
+
+	{
+		Name = "ChronosClockHandFlames"
+		Random =
+		[
+			{ Name = "ChronosClockHandFlameA" }
+			{ Name = "ChronosClockHandFlameB" }
+			{ Name = "ChronosClockHandFlameC" }
+			{ Name = "ChronosClockHandFlameA" }
+			{ Name = "ChronosClockHandFlameB" }
+			{ Name = "ChronosClockHandFlameC" }
+			{ Name = "ChronosClockHandFlameD" }
+			{ Name = "ChronosClockHandFlameE" }
+			{ Name = "ChronosClockHandFlameF" }
+		]
+	}
+
+	{
+		Name = "ChronosClockHandFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameA\ChronosRadialEdgeFlameA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 64
+		OriginY = 145
+		ScaleMin = 0.15
+		ScaleMax = 0.3
+		GroupName = "FX_Standing_Add"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 1600
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		ScaleX = 3
+		EndScaleX = 1
+		StartOffsetZ = 0
+		EndOffsetZ = 15
+		EaseIn = 0.99
+		EaseOut = 1.00
+		VisualFx = "ChronosClockHandFlameParticle"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		ScaleY = 1.33
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 10
+		VelocityMax = 30
+		Acceleration = -150
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.8
+		EndBlue = 0.5
+	}
+	{
+		Name = "ChronosClockHandFlameB"
+		InheritFrom = "ChronosClockHandFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameB\ChronosRadialEdgeFlameB"
+	}
+	{
+		Name = "ChronosClockHandFlameC"
+		InheritFrom = "ChronosClockHandFlameA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameC\ChronosRadialEdgeFlameC"
+	}
+
+
+	{
+		Name = "ChronosClockHandFlameD"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameA\ChronosRadialEdgeFlameA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 64
+		OriginY = 145
+		ScaleMin = 0.15
+		ScaleMax = 0.3
+		GroupName = "FX_Dark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 1600
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		ScaleX = 3
+		EndScaleX = 1
+		StartOffsetZ = 0
+		EndOffsetZ = 15
+		EaseIn = 0.99
+		EaseOut = 1.00
+		VisualFx = "ChronosClockHandFlameParticle"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		ScaleY = 1.33
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 0
+		VelocityMax = 1
+		Acceleration = -150
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+	{
+		Name = "ChronosClockHandFlameE"
+		InheritFrom = "ChronosClockHandFlameD"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameB\ChronosRadialEdgeFlameB"
+	}
+	{
+		Name = "ChronosClockHandFlameF"
+		InheritFrom = "ChronosClockHandFlameD"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameC\ChronosRadialEdgeFlameC"
+	}
+
+	{
+		Name = "ChronosClockHandFlamesDisplacement"
+		Random =
+		[
+			{ Name = "ChronosClockHandFlameDisplacementA" }
+			{ Name = "ChronosClockHandFlameDisplacementB" }
+			{ Name = "ChronosClockHandFlameDisplacementC" }
+		]
+	}
+
+	{
+		Name = "ChronosClockHandFlameDisplacementA"
+		InheritFrom = "ChronosClockHandFlameA"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.05
+		EndAlpha = 0.1
+		Scale = 4
+		ScaleX = 1
+		Acceleration = -800
+		OffsetZ = 60
+	}		
+	{
+		Name = "ChronosClockHandFlameDisplacementB"
+		InheritFrom = "ChronosClockHandFlameDisplacementA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameB\ChronosRadialEdgeFlameB"
+	}
+	{
+		Name = "ChronosClockHandFlameDisplacementC"
+		InheritFrom = "ChronosClockHandFlameDisplacementA"
+		FilePath = "Fx\Chronos\ChronosRadialEdgeFlameC\ChronosRadialEdgeFlameC"
+	}
+
+
+	{
+		Name = "ChronosClockHandFlameParticle"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0.7
+		Blue = 0.4
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 400
+		Acceleration = -200
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosRiftBase"
+		FilePath = "Fx\Chronos\ChronosRiftHand\ChronosRiftHand"
+		NumFrames = 30
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 30
+		PostRotateScaleY = 0.55
+		Red = 0
+		Green = 0
+		Blue = 0
+		AddColor = false
+		GroupName = "FX_Terrain"
+		TransferFrameToThis = true
+		Alpha = 0.53
+		Scale = 1.33
+	}
+
+	{
+		Name = "ChronosRiftAdditive"
+		InheritFrom = "ChronosRiftBase"
+		Red = 1
+		Green = 1
+		Blue = 1
+		OffsetZ = 30
+		GroupName = "FX_Terrain_Add"
+		DieWithOwner = true
+		Alpha = 1.0
+		VisualFx = "ChronosRiftAdditiveFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "ChronosRiftAdditiveFx"
+		InheritFrom = "ChronosRiftAdditive"
+		VisualFx = null
+		OffsetZ = 0
+		StartOffsetZ = 0
+		EndOffsetZ = 8
+		StartAlpha = 0
+		EndAlpha = 0.33
+		PingPongColor = true
+		LoopFramesOnly = true
+		Loop = false
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.5
+		ScaleFromOwner = "Take"
+		Scale = 1.0
+		StartRed = 0.99
+		StartGreen = 0.5
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "ChronosRiftBaseIn"
+		InheritFrom = "ChronosRiftBase"
+		StartScaleY = 0
+		EndScaleY = 1
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1
+		LoopFramesOnly = true
+		Loop = false
+		TransferFrameFromThis = true
+		ChainTo = "ChronosRiftBase"
+	}
+
+	{
+		Name = "ChronosRiftAdditiveIn"
+		InheritFrom = "ChronosRiftAdditive"
+		StartScaleY = 0
+		EndScaleY = 1
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1
+		LoopFramesOnly = true
+		Loop = false
+		TransferFrameFromThis = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ChainTo = "ChronosRiftAdditive"
+	}
+
+	{
+		Name = "ChronosRiftBaseOut"
+		InheritFrom = "ChronosRiftBaseIn"
+		StartScaleY = 1
+		EndScaleY = 2
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Alpha = 1
+		PostRotateScaleY = 0.55
+		CreateAnimations =
+		[
+			{ Name = "ChronosRiftOutGlow" }
+			{ Name = "ChronosRiftAdditiveOut" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+			{ Name = "ChronosRiftExplosion" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftAdditiveOut"
+		InheritFrom = "ChronosRiftAdditiveIn"
+		StartScaleY = 1
+		EndScaleY = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+	}
+
+	{
+		Name = "ChronosRiftExplosion"
+		Random =
+		[
+			{ Name = "ChronosRiftExplosionA" }
+			{ Name = "ChronosRiftExplosionB" }				
+			{ Name = "ChronosRiftExplosionA" }
+			{ Name = "ChronosRiftExplosionB" }				
+			{ Name = "ChronosRiftExplosionA_Dark" }
+			{ Name = "ChronosRiftExplosionB_Dark" }
+			{ Name = "ChronosRiftExplosionA_Displacement" }
+			{ Name = "ChronosRiftExplosionB_Displacement" }
+		]
+	}
+
+	{
+		Name = "ChronosRiftExplosionA"
+		FilePath = "Fx\Chronos\ChronosRiftHandsExplosionA\ChronosRiftHandsExplosionA"
+		NumFrames = 60
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RadialOffsetMax = 1280.0
+		RadialOffsetMin = -1280.0
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		Scale = 1.5
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "ChronosClockHandFlameParticle"
+		OriginX = 75
+		OriginY = 210
+		StartScaleY = 1
+		EndScaleY = 1.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PostRotateScaleY = 0.55
+	 }
+
+	{
+		Name = "ChronosRadialExplosionGlowRift"
+		FilePath = "Particles\particle_glow_egg"
+		RadialOffsetMax = 1280.0
+		RadialOffsetMin = -1280.0
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		PostRotateScaleY = 1
+		UseOwnAngle = false
+		Red = 1
+		Green = 0.8
+		Blue = 0.2
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		RandomDurationMin = 0.25
+		RandomDurationMax = 0.5
+		StartScale = 1.0
+		EndScale = 1.2
+		Scale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+
+	{
+		Name = "ChronosRiftExplosionB"
+		InheritFrom = "ChronosRiftExplosionA"
+		FilePath = "Fx\Chronos\ChronosRiftHandsExplosionB\ChronosRiftHandsExplosionB"
+	}
+
+	{
+		Name = "ChronosRiftExplosionA_Dark"
+		InheritFrom = "ChronosRiftExplosionA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 55
+		EndScaleY = 1.01
+	}
+
+	{
+		Name = "ChronosRiftExplosionB_Dark"
+		InheritFrom = "ChronosRiftExplosionA_Dark"
+		FilePath = "Fx\Chronos\ChronosRiftHandsExplosionB\ChronosRiftHandsExplosionB"
+	}		
+
+	{
+		Name = "ChronosRiftExplosionA_Displacement"
+		InheritFrom = "ChronosRiftExplosionA"
+		GroupName = "FX_Displacement"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		EndScaleY = 1.01
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "ChronosRiftExplosionB_Displacement"
+		InheritFrom = "ChronosRiftExplosionA_Displacement"
+		FilePath = "Fx\Chronos\ChronosRiftHandsExplosionB\ChronosRiftHandsExplosionB"
+	}
+
+
+	{
+		Name = "ChronosRiftOutGlow"
+		FilePath = "Particles\particle_laserGlow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		Scale = 7
+		ScaleX = 2
+		ScaleY = 1.5
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.0
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosInvertedCircle"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer"
+		PostRotateScaleY = 0.5
+		RotationSpeed = 8
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		VisualFx = "ChronosInvertedCircleFxRandom"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		Scale = 1.0
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		StopSoundOnFinishFade = 0.2
+		ChildAnimation = "ChronosInvertedCircle2"
+		RandomRotation = true
+		AngleFromOwner = "Ignore"
+		Loop = true
+		Duration = 1
+		ChainTo = "ChronosInvertedCircleOut"
+	}
+
+	{
+		Name = "ChronosInvertedCircleIn"
+		InheritFrom = "ChronosInvertedCircle"
+		ChainTo = "ChronosInvertedCircle"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.2
+		Loop = false
+	}
+
+	{
+		Name = "ChronosInvertedCircle2"
+		InheritFrom = "ChronosInvertedCircle"
+		ChildAnimation = null
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2"
+		RotationSpeed = 16
+		VisualFx = "ChronosInvertedCircleFx2"
+		ChainTo = "ChronosInvertedCircle2Out"
+	}
+
+	{
+		Name = "ChronosInvertedCircleOut"
+		InheritFrom = "ChronosInvertedCircle"
+		Loop = false
+		Duration = 0.3
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		EaseIn = 0.9
+		EaseOut = 1
+		AddColor = true
+		Red = 1
+		Green = 0.9
+		Blue = 0.8
+	}
+
+	{
+		Name = "ChronosInvertedCircle2Out"
+		InheritFrom = "ChronosInvertedCircleOut"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2"
+	}
+
+	{
+		Name = "ChronosInvertedCircleFxRandom"
+		Random =
+		[
+			{ Name = "ChronosInvertedCircleFxA" } 
+			{ Name = "ChronosInvertedCircleFxA" } 
+			{ Name = "ChronosInvertedCircleFxA" } 
+			{ Name = "ChronosInvertedCircleFxB" } 
+		]
+	}
+
+	{
+		Name = "ChronosInvertedCircleFxA"
+		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvert"
+		RandomRotation = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 0.75
+		StartScale = 1.05
+		EndScale = 1.0
+		PingPongColor = true
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1.0
+		HoldLastFrame = false
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		Scale = 6
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		GroupName = "FX_Terrain_Dark"
+		Alpha = 0.5
+		OriginX = 512
+		OriginY = 512
+		PostRotateScaleY = 0.5
+		RandomRotationSpeedMin = 2
+		RandomRotationSpeedMax = 8
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "ChronosInvertedCircleFxB"
+		InheritFrom = "ChronosInvertedCircleFxA"
+		Color = { Red = 0.2 Green = 0.1 Blue = 0.0 }
+	}
+
+	{
+		Name = "ChronosInvertedCircleFx2"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleLines"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		ScaleMin = 0.5
+		ScaleMax = 1.5
+		StartScale = 1
+		EndScale = 0.8
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Terrain_Add"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.75
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartRed = 0.8
+		StartGreen = 0.6
+		StartBlue = 0.3
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		Scale = 2
+		AlphaMin = 0.1
+		AlphaMax = 0.4
+
+	}
+
+	{
+		Name = "ChronosRadialCircle"
+		FilePath = "Fx\Chronos\ChronosRadial\Center"
+		GroupName = "FX_Terrain"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Duration = 1
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		RotationSpeed = -16.0
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+		ChildAnimation = "ChronosRadialCircle2"
+		AngleFromOwner = "Ignore"
+		ChainTo = "ChronosRadialCircleOut"
+	}
+
+	{
+		Name = "ChronosRadialCircleOut"
+		InheritFrom = "ChronosRadialCircle"
+		Loop = false
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		EaseIn = 0.9
+		EaseOut = 1
+		AddColor = true
+		Red = 1
+		Green = 0.9
+		Blue = 0.8
+	}
+
+	{
+		Name = "ChronosRadialCircleIn"
+		InheritFrom = "ChronosRadialCircle"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.2
+		ChainTo = "ChronosRadialCircle"
+		Loop = false
+	}
+
+	{
+		Name = "ChronosRadialCircle2"
+		InheritFrom = "ChronosRadialCircle"
+		ChildAnimation = null
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+		RotationSpeed = -8
+		VisualFx = "ChronosRadialCircle2Fx"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+		ChainTo = "ChronosRadialCircle2Out"
+	}
+
+	{
+		Name = "ChronosRadialCircle2Out"
+		InheritFrom = "ChronosRadialCircleOut"
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+	}
+
+	{
+		Name = "ChronosRadialCircle2Fx"
+		InheritFrom = "ChronosRadialCircle2"
+		VisualFx = null
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		RotationSpeed = 0
+		Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		StartOffsetZ = 0
+		EndOffsetZ = 50
+		Loop = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomRotation = true
+		ChainTo = null
+	}
+
+	{
+		Name = "ChronosRadial2Detonate"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 1
+		CreateAnimations =
+		[
+			{ Name = "ChronosRadial2Nova" }
+			{ Name = "ChronosRadial2NovaDisplace" }
+			{ Name = "ChronosRadialExplosionB" }
+			{ Name = "ChronosRadial2DetonateLightStreak"}
+			{ Name = "ChronosRadial2DetonateLightStreakB"}
+			{ Name = "ChronosRadial2DetonateLightStreakB"}
+			{ Name = "ChronosRadial2DetonateLightStreakB"}
+			{ Name = "ChronosRadial2DetonateLightStreakB"}
+			{ Name = "ChronosRadial2DetonateLightStreakB"}
+			{ Name = "ChronosRadial2HugeGlow"}
+			{ Name = "ChronosRadial2DetonateDust" }
+			{ Name = "ChronosRadial2DetonateDust" }
+			{ Name = "ChronosRadial2DetonateDust" }
+			{ Name = "ChronosRadial2DetonateDust" }
+			{ Name = "ChronosRadial2DetonateDust" }
+			{ Name = "ChronosRadial2DetonateDust" }
+		]
+	}
+
+	{
+		Name = "ChronosRadial2DetonateDust"
+		FilePath = "Particles\particle_dirtSpray_04"
+		Material = "Unlit"
+		RandomOffsetX = 300
+		RandomOffsetY = 150
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -600
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 2
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+	}
+
+	{
+		Name = "ChronosRadial2HugeGlow"
+		FilePath = "Particles\particle_glow_egg"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.4
+		EndRed = 0.99
+		EndGreen = 0.7
+		EndBlue = 0
+		Duration = 2
+		EaseIn = 0.95
+		EaseOut = 1.0
+		GroupName = "FX_Add_Top"
+		Material = "Unlit"
+		StartScale = 4
+		EndScale = 6
+		ScaleX = 3
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "ChronosRadial2DetonateLightStreak"
+		FilePath = "Particles\particle_heraLightStreak"
+		AddColor = true
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScaleY = 1
+		EndScaleY = 1.2
+		StartScaleX = 1
+		EndScaleX = 0
+		Red = 1
+		Green = 0.8
+		Blue = 0.2
+		GroupName = "FX_Add_Top"
+		OriginX = 64
+		OriginY = 480
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Duration = 2.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 3
+	}
+
+	{
+		Name = "ChronosRadial2DetonateLightStreakB"
+		InheritFrom = "ChronosRadial2DetonateLightStreak"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 500
+		StartScaleX = 0.5
+		Duration = 1.3
+	}
+
+	{
+		Name = "ChronosRadial2Nova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		Material = "Unlit"
+		RandomRotation = true
+		Hue = 0.15
+		PostRotateScaleY = 0.5
+		NumFrames = 60
+		GroupName = "FX_Terrain"
+		DieWithOwner = false
+		ScaleFromOwner = "Ignore"
+		Scale = 4
+	}
+
+	{
+		Name = "ChronosRadial2NovaDisplace"
+		InheritFrom = "ChronosRadial2Nova"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.12
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "ChronosRadialExplosionB"
+		FilePath = "Fx\Chronos\ChronosRadialExplosionB\ChronosRadialExplosionB"
+		NumFrames = 44
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 2.5
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		PlaySpeed = 60
+		ColorFromOwner = "Ignore"
+		OffsetZ = 160
+	}
+
+
+	{
+		Name = "ChronosCircleInverseNova"
+		FilePath = "Dev\blank_invisible"
+		AddColor = false
+		EndBlue = 0.3
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.05
+		Scale = 6
+		EndScale = 2.0
+		StartScale = 3.0
+		Duration = 1
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		TimeModifierFraction = 1.0
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+
+			{ Name = "ChronosInvertedCircleFlash" }
+			{ Name = "ChronosCircleInverseNovaUpwardSparkles" }
+			{ Name = "ChronosCircleInverseNovaUpwardSparkles" }
+			{ Name = "ChronosCircleInverseNovaUpwardSparkles" }
+
+
+			{ Name = "ChronosCircleInverseNovaSegment01" }
+			{ Name = "ChronosCircleInverseNovaSegment02" }
+			{ Name = "ChronosCircleInverseNovaSegment03" }
+			{ Name = "ChronosCircleInverseNovaSegment04" }
+			{ Name = "ChronosCircleInverseNovaSegment05" }
+			{ Name = "ChronosCircleInverseNovaSegment06" }
+			{ Name = "ChronosCircleInverseNovaSegment07" }
+			{ Name = "ChronosCircleInverseNovaSegment08" }
+			{ Name = "ChronosCircleInverseNovaSegment09" }
+			{ Name = "ChronosCircleInverseNovaSegment10" }
+			{ Name = "ChronosCircleInverseNovaSegment11" }
+			{ Name = "ChronosCircleInverseNovaSegment12" }
+			{ Name = "ChronosCircleInverseNovaSegment13" }
+			{ Name = "ChronosCircleInverseNovaSegment14" }
+			{ Name = "ChronosCircleInverseNovaSegment15" }
+			{ Name = "ChronosCircleInverseNovaSegment16" }
+			
+			{ Name = "ChronosCircleInverseNovaDarkSegment01" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment02" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment03" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment04" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment05" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment06" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment07" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment08" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment09" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment10" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment11" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment12" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment13" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment14" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment15" }
+			{ Name = "ChronosCircleInverseNovaDarkSegment16" }
+			
+		]
+	}
+
+
+	{
+		Name = "ChronosCircleInverseNovaSegmentBase"
+		FilePath = "Fx\SirenDrummerNovaSegment\SirenDrummerNovaSegment"
+		NumFrames = 30
+		OriginX = 128
+		OriginY = -280
+		ScaleY = 1.5
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		VelocityMin = 0
+		VelocityMax = 1
+		Acceleration = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipHorizontal = true
+		Scale = 1.9
+		ScaleX = 1.0
+		ScaleMin = 0.95
+		ScaleMax = 1.0
+		StartScaleY = 0.9999
+		EndScaleY = 1.0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		FlipVertical = false
+		GroupName = "FX_Terrain_Add"
+		Hue = 0.15
+	}
+
+	{
+		Name = "ChronosCircleInverseNovaUpwardSparkles"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleSparkles"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		StartOffsetZ = 0
+		EndOffsetZ = 50
+		RandomDurationMin = 1
+		RandomDurationMax = 2.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleMin = 1.0
+		ScaleMax = 1.5
+		VisualFx = "ChronosCircleInverseNovaFx"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "ChronosCircleInverseNovaFx"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		StartScale = 1
+		EndScale = 0.9
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomDurationMin = 0.2
+		RandomDurationMax = 1.2
+		RandomOffsetY = 50
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 1.2
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "ChronosCircleInverseNovaDarkSegmentBase"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+	}
+
+	{
+		Name = "ChronosCircleInverseNovaSegment01"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 0
+		AngleMax = 22.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment02"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 22.5
+		AngleMax = 45
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment03"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 45
+		AngleMax = 67.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment04"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 67.5
+		AngleMax = 90
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment05"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 90
+		AngleMax = 112.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment06"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 112.5
+		AngleMax = 135
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment07"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 135
+		AngleMax = 157.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment08"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 157.7
+		AngleMax = 180
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment09"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 180
+		AngleMax = 202.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment10"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 202.5
+		AngleMax = 225
+	}		
+	{
+		Name = "ChronosCircleInverseNovaSegment11"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 225
+		AngleMax = 247.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment12"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 247.5
+		AngleMax = 270
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment13"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 270
+		AngleMax = 292.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment14"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 292.5
+		AngleMax = 315
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment15"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 315
+		AngleMax = 337.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaSegment16"
+		InheritFrom = "ChronosCircleInverseNovaSegmentBase"
+		AngleMin = 337.5
+		AngleMax = 360
+	}
+
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment01"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 0
+		AngleMax = 22.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment02"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 22.5
+		AngleMax = 45
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment03"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 45
+		AngleMax = 67.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment04"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 67.5
+		AngleMax = 90
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment05"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 90
+		AngleMax = 112.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment06"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 112.5
+		AngleMax = 135
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment07"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 135
+		AngleMax = 157.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment08"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 157.5
+		AngleMax = 180
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment09"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 180
+		AngleMax = 202.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment10"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 202.5
+		AngleMax = 225
+	}		
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment11"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 225
+		AngleMax = 247.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment12"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 247.5
+		AngleMax = 270
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment13"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 270
+		AngleMax = 292.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment14"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 292.5
+		AngleMax = 315
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment15"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 315
+		AngleMax = 337.5
+	}
+	{
+		Name = "ChronosCircleInverseNovaDarkSegment16"
+		InheritFrom = "ChronosCircleInverseNovaDarkSegmentBase"
+		AngleMin = 337.5
+		AngleMax = 360
+	}
+
+	{
+		Name = "ChronosInvertedCircleFlash"
+		InheritFrom = "ChronosInvertedCircleFxA"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.25
+		Alpha = 1
+		StartRed = 1
+		StartGreen = 0.95
+		StartBlue = 0.9
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.1
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircle"
+		FilePath = "Fx\Chronos\ChronosRadial\CenterSmall"
+		PostRotateScaleY = 0.5
+		RotationSpeed = 8
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Top"
+		VisualFx = "ChronosRadial3InvertedCircleFx"
+		VisualFxIntervalMin = 0.08
+		VisualFxIntervalMax = 0.12
+		Scale = 0.55
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_InvertedDecal"
+		StopSoundOnFinishFade = 0.2
+		OffsetZ = 0
+		ChildAnimation = "ChronosRadial3InvertedCircleB"
+		ChainTo = "ChronosRadial3InvertedCircleOut"
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleIn"
+		InheritFrom = "ChronosRadial3InvertedCircle"
+		ChainTo = "ChronosRadial3InvertedCircle"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.25
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleOut"
+		InheritFrom = "ChronosRadial3InvertedCircleIn"
+		AddColor = true
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleB"
+		InheritFrom = "ChronosRadial3InvertedCircle"
+		Sound = "/EmptyCue"
+		FilePath = "Fx\Chronos\ChronosRadial\OuterSmall"
+		ChildAnimation = "ChronosRadial3InvertedCircleC"
+		RotationSpeed = 24
+		OffsetZ = 0
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleC"
+		InheritFrom = "ChronosRadial3InvertedCircle"
+		Sound = "/EmptyCue"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2Small"
+		ChildAnimation = null
+		RotationSpeed = 32
+		OffsetZ = 5
+	}
+
+
+	{
+		Name = "ChronosRadial3InvertedCircleFx"
+		FilePath = "Fx\Chronos\ChronosRadial\ChronosRadialFx"
+		RandomRotation = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		StartScale = 1.05
+		EndScale = 0.66
+		PingPongColor = true
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1.0
+		HoldLastFrame = false
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		Scale = 3
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+		GroupName = "FX_Terrain"
+		Alpha = 1
+		PostRotateScaleY = 0.5
+		RandomRotationSpeedMin = 2
+		RandomRotationSpeedMax = 8
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.00 }
+		CreateAnimation = "ChronosRadial3InvertedCircleFxBrightRandom"
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleFxBrightRandom"
+		Random =
+		[
+			{ Name = "ChronosRadial3InvertedCircleFxBrightA" }
+			{ Name = "ChronosRadial3InvertedCircleFxBrightB" }
+			{ Name = "ChronosRadial3InvertedCircleFxDisplacement" }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleFxBrightA"
+		InheritFrom = "ChronosRadial3InvertedCircleFx"
+		CreateAnimation = null
+		Color = { Red = 1.0 Green = 0.8 Blue = 0.2 }
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Scale = 1.5
+		ScaleMin = 1
+		ScaleMax = 2
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleFxBrightB"
+		InheritFrom = "ChronosRadial3InvertedCircleFxBrightA"
+		Color = { Red = 1.0 Green = 0.9 Blue = 0.5 }
+	}
+
+	{
+		Name = "ChronosRadial3InvertedCircleFxDisplacement"
+		InheritFrom = "ChronosRadial3InvertedCircleFxBrightA"
+		GroupName = "FX_Displacement"
+		AlphaMin = 0.1
+		AlphaMax = 0.3
+		AddColor = true
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallBlast"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 2
+		CreateAnimations =
+		[
+			{ Name = "ChronosCircleInvertFlare" }
+			{ Name = "ChronosCircleInvertDarkBlast"}
+			{ Name = "ChronosCircleInvertDisplacement"}
+		]
+	}
+
+	{
+		Name = "ChronosCircleInvertDisplacement"
+		FilePath = "Particles\particle_displaceWink"
+		GroupName = "FX_Displacement"
+		StartScale = 1
+		EndScale = 0
+		Scale = 2.5
+		Duration = 0.25
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallBlastRadialA"
+		FilePath = "Fx\Chronos\ChronosRadial\ChronosRadialFx"
+		Material = "Unlit"
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		StartScale = 1
+		EndScale = 2
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.1
+		Duration = 0.5
+		RandomRotation = true
+		Scale = 0.66
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallBlastRadialB"
+		InheritFrom = "ChronosCircleInvertSmallBlastRadialA"
+		Duration = 1.0
+		Scale = 1.1
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallBlastRadialC"
+		InheritFrom = "ChronosCircleInvertSmallBlastRadialA"
+		Duration = 2.0
+		Scale = 1.75
+	}		
+
+	{
+		Name = "ChronosCircleInvertSmallBlastRadialD"
+		InheritFrom = "ChronosCircleInvertSmallBlastRadialA"
+		Duration = 2.0
+		Scale = 1.75
+		Red = 0
+		Green = 0
+		Blue = 0
+		AddColor = false
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallCircleFxA" 
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+		Material = "Unlit"
+		AddColor = true
+		GroupName = "FX_Add_Top"
+		StartScale = 0.4
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		RandomRotation = true
+		Scale = 0.66
+		IsometricSkew = "X"
+		ScaleMin = 0.3
+		ScaleMax = 0.5
+	}
+
+	{
+		Name = "ChronosCircleInvertSmallCircleFxB" 
+		InheritFrom = "ChronosCircleInvertSmallCircleFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2"
+		IsometricSkew = "Y"
+	}
+
+	{
+		Name = "ChronosCircleInvertHugeGlow"
+		FilePath = "Particles\particle_glow_egg"
+		ScaleX = 2.5
+		GroupName = "FX_Add_Top"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.1
+		Scale = 5
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		OriginX = 84
+		OriginY = 180
+		Duration = 2.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "ChronosCircleInvertLightStreaks"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 20
+		CreateAnimations =
+		[
+			{ Name = "ChronosCircleInvertSmallBlastRadialA" }
+			{ Name = "ChronosCircleInvertSmallBlastRadialB" }
+			{ Name = "ChronosCircleInvertSmallBlastRadialC" }
+			{ Name = "ChronosCircleInvertSmallBlastRadialD" }
+			{ Name = "ChronosCircleInvertSmallCircleFxA" }
+			{ Name = "ChronosCircleInvertSmallCircleFxA" }
+			{ Name = "ChronosCircleInvertSmallCircleFxA" }
+			{ Name = "ChronosCircleInvertSmallCircleFxB" }
+			{ Name = "ChronosCircleInvertSmallCircleFxB" }
+			{ Name = "ChronosCircleInvertSmallCircleFxB" }
+			{ Name = "ChronosCircleInvertSafeBubble" }
+		]
+	}
+
+	{
+		Name = "ChronosCircleInvertSafeBubble"
+		FilePath = "Particles\particle_hemiBubble"
+		Material = "Unlit"
+		UseOwnAngle = false
+		OffsetZ = 200
+		GroupName = "FX_Add_Top"
+		Scale = 0.6
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.02
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Red = 1
+		Green = 0.9
+		Blue = 0.4
+		Duration = 1.2
+	}
+
+	{
+		Name = "ChronosCircleInvertDarkBlast"
+		InheritFrom = "ChronosCircleInvertHugeGlow"
+		ClearCreateAnimations = true
+		VisualFx = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Standing"
+		StartAlpha = 1
+		EndAlpha = 0.99
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.3
+	}
+
+	{
+		Name = "ChronosCircleInvertFlare"
+		InheritFrom = "ChronosCircleInvertHugeGlow"
+		ClearCreateAnimations = true
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 1
+		EndScale = 0
+		StartAlpha = 1
+		EndAlpha = 0.999
+		RandomRotation = true
+		OriginX = 360
+		OriginY = 360
+		Scale = 2
+		EndGreen = 0.99
+		EndBlue = 0.8
+		Duration = 0.33
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_HeadAttackEmerge"
+		VisualFx = "ChronosCircleInvertHugeGlow"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 1
+		ScaleX = 1
+	}
+
+	{
+		Name = "ChronosCircleInvertLightStreaks"
+		FilePath = "Particles\particle_heraLightStreak"
+		AddColor = true
+		ScaleX = 0.33
+		StartScaleY = 0.2
+		EndScaleY = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.1
+		GroupName = "FX_Add_Top"
+		OriginX = 64
+		OriginY = 480
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomDurationMin = 0.3
+		RandomDurationMax = 2.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 3
+		RadialOffsetMin = 512
+		RadialOffsetMax = 1024
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		VisualFx = "ChronosCircleInvertLightStreakParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 3
+	}
+
+	{
+		Name = "ChronosCircleInvertLightStreakParticles"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		RadialOffsetMin = 512
+		RadialOffsetMax = 1024
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0.7
+		Blue = 0.4
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 400
+		Acceleration = -200
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		StartScaleX = 4
+		EndScaleX = 1
+	}
+
+
+	{
+		Name = "ChronosTimeStopFx"
+		FilePath = "Fx\Vignette\VignetteTintable"
+		GroupName = "Overlay"
+		VisualFx = "ChronosTimeStopStreaks"
+		AngleFromOwner = "Ignore"
+		EndAlpha = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.99
+		EndGreen = 0.7
+		EndBlue = 0.1
+		PingPongColor = true
+		StartAlpha = 0.5
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.05
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "ChronosTimeStopTerrainFx" }
+			{ Name = "ChronosTimeStopStartFlare" }
+			{ Name = "ChronosTimeStopStartFlareDark" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+			{ Name = "ChronosTimeStopStreaks" }
+		]
+	}
+
+	{
+		Name = "ChronosTimeStopStartFlare"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0.25
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 1.3
+		Scale = 10.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ChronosTimeStopStartFlareDark"
+		InheritFrom = "ChronosTimeStopStartFlare"
+		GroupName = "FX_Dark"
+		StartAlpha = 1.0
+		Duration = 1.0
+		StartScale = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "ChronosTimeStopStreaks"
+		CreateAnimation = "ChronosTimeStopDisplacement"
+		FilePath = "Particles\particle_hemiStreaks"
+		GroupName = "FX_Dark"			
+		AngleChangeSpeedMax = 20.0
+		AngleChangeSpeedMin = -20.0
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = false
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		EndAlpha = 1
+		Red = 0
+		Green = 0
+		Blue = 0
+		PingPongColor = true
+		EaseIn = 0.5
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginY = 512.0
+		RadialOffsetMax = 600.0
+		RadialOffsetMin = 300.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetY = 30.0
+		Acceleration = -50.0
+		VelocityMax = 150.0
+		VelocityMin = 50.0
+		EndScaleX = 3.0
+		EndScaleY = 1.05
+		PostRotateScaleY = 0.5
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+		DieWithOwner = true
+	}
+	
+	{
+		Name = "ChronosTimeStopDisplacement"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		EndAlpha = 0.125
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RadialOffsetMax = 800.0
+		RadialOffsetMin = 700.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetY = 30.0
+		Acceleration = -50.0
+		VelocityMax = 200.0
+		VelocityMin = 150.0
+		IsometricSkew = "X"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosTimeStopTerrainFx"
+		FilePath = "Fx\TerrainFlash\TerrainFlash"
+		GroupName = "FX_Terrain_Add"
+		AddColor = true
+		EndFrame = 7
+		NumFrames = 7
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 1.0 Green = 0.80 Blue = 0.2 }
+	}
+
+
+	{
+		Name = "ChronosTimeStopStartFlare2"
+		InheritFrom = "ChronosCircleInvertHugeGlow"
+		ClearCreateAnimations = true
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 1
+		EndScale = 0
+		StartAlpha = 1
+		EndAlpha = 0.999
+		RandomRotation = true
+		OriginX = 360
+		OriginY = 360
+		Scale = 2
+		EndGreen = 0.99
+		EndBlue = 0.8
+		Duration = 0.33
+		ScaleX = 1
+		VisualFx = null
+		CreateAnimation = null
+		ChildAnimation = null
+	}
+
+
+	{
+		Name = "ChronosTimeStopMelFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "ChronosTimeStopTerrainFxDark"
+		VisualFxIntervalMin = 0.12
+		VisualFxIntervalMax = 0.12
+		CreateAnimations =
+		[
+			{ Name = "ChronosTimeStopStartFlare2" }
+			{ Name = "ChronosTimeStopMelFxA" }
+			{ Name = "ChronosTimeStopMelFxB" }
+			{ Name = "ChronosTimeStopMelFxC" }
+			{ Name = "ChronosTimeStopMelFxD" }
+			{ Name = "ChronosCircleInvertDisplacement"}
+		]
+	}
+
+	{
+		Name = "ChronosTimeStopTerrainFxDark"
+		FilePath = "Fx\Chronos\ChronosRadial\ChronosRadialFx"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		StartScale = 1.3
+		EndScale = 1.6
+		StartAlpha = 0
+		EndAlpha = 0.2
+		PingPongColor = true
+		Duration = 0.5
+		TimeModifierFraction = 0
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		AngleFromOwner = "Ignore"
+		Red = 1
+		Green = 0.8
+		Blue = 0.2
+		CreateAnimation = "TimeTrapStasisFrontFxRandom"
+	}
+
+	{
+		Name = "ChronosTimeStopMelFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\Center2"
+		Material = "Unlit"
+		RandomRotation = true
+		RotationSpeed = 32
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		Duration = 2.7
+		PostRotateScaleY = 0.5
+		Scale = 0.6
+		VisualFx = "ChronosTimeStopMelSand"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		ChainTo = "ChronosTimeStopMelFxA_Out"
+	}
+
+	{
+		Name = "ChronosTimeStopMelFxB"
+		InheritFrom = "ChronosTimeStopMelFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\OuterSmall"
+		RotationSpeed = -16
+		OffsetZ = 20
+		Scale = 0.6
+		ChainTo = "ChronosTimeStopMelFxB_Out"
+	}
+	{ 
+		Name = "ChronosTimeStopMelFxC"
+		InheritFrom = "ChronosTimeStopMelFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer2Small"
+		RotationSpeed = 16
+		OffsetZ = -20
+		Scale = 0.6
+		ChainTo = "ChronosTimeStopMelFxC_Out"
+	}		
+	{ 
+		Name = "ChronosTimeStopMelFxD"
+		InheritFrom = "ChronosTimeStopMelFxA"
+		FilePath = "Fx\Chronos\ChronosRadial\Outer"
+		GroupName = "FX_Dark"
+		RotationSpeed = 10
+		OffsetZ = 0
+		Scale = 0.5
+		PostRotateScaleY = 1.0
+		RandomRotation = true
+		ChainTo = "ChronosTimeStopMelFxD_Out"
+	}
+
+	{
+		Name = "ChronosTimeStopMelFxA_Out"
+		InheritFrom = "ChronosTimeStopMelFxA"
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+	{
+		Name = "ChronosTimeStopMelFxB_Out"
+		InheritFrom = "ChronosTimeStopMelFxB"
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+	{
+		Name = "ChronosTimeStopMelFxC_Out"
+		InheritFrom = "ChronosTimeStopMelFxC"
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+	{
+		Name = "ChronosTimeStopMelFxD_Out"
+		InheritFrom = "ChronosTimeStopMelFxD"
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+
+	{
+		Name = "ChronosTimeStopMelSand"
+		FilePath = "Particles\particle_dirtSpray_01"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		RandomRotation = true
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		Scale = 0.5
+		TimeModifierFraction = 0
+		VelocityMin = 150
+		VelocityMax = 200
+		Acceleration = -300
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotationSpeedMin = -10
+		RandomRotationSpeedMax = 10
+		StartScale = 0.9
+		EndScale = 1.33
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosTransitionFx"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Hue = 0.27
+		Saturation = -0.25
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		UseOwnAngle = false
+		Duration = 0.25
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingFrontMorph_06_R_JNT"
+		StartScale = 1.5
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		VisualFx = "ChronosTransitionTrailParticles"
+		VisualFxDistanceMin = 5
+		VisualFxDistanceMax = 5
+	}
+
+	{
+		Name = "ChronosTransitionFx2"
+		InheritFrom = "ChronosTransitionFx"
+		FilePath = "Particles\particle_gold_streak"
+		Hue = 0
+		Saturation = 0
+		Duration = 0.5
+		StartScale = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxDistanceMin = 0
+		VisualFxDistanceMax = 0
+		VisualFxCap = 5
+		VisualFx = "ChronosTransitionTrailParticles2"
+	}
+
+	{
+		Name = "ChronosTransitionTrailParticles"
+		FilePath = "Particles\particle_ember_01"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomRotation = false
+		StartScale = 1.5
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Gravity = 0
+		ScaleMin = 0.25
+		ScaleMax = 1.0
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		AngleMin = 40
+		AngleMax = 50
+		StartScaleX = 3
+		EndScaleX = 1
+		VelocityMin = 30
+		VelocityMax = 500
+		Acceleration = -350
+		AngleChangeSpeed = 90
+		AngleChangeAcceleration = -90
+	}
+
+	{
+		Name = "ChronosTransitionTrailParticles2"
+		Random =
+		[
+			{ Name = "ChronosTransitionTrailParticles2A" }
+			{ Name = "ChronosTransitionTrailParticles2B" }
+		]
+	}
+	{
+		Name = "ChronosTransitionTrailParticles2A"
+		InheritFrom = "ChronosTransitionTrailParticles"
+		AngleMin = 89
+		AngleMax = 90
+		AngleChangeSpeed = 0
+		AngleChangeAcceleration = 0
+		ScaleY = 0.5
+	}
+	{
+		Name = "ChronosTransitionTrailParticles2B"
+		InheritFrom = "ChronosTransitionTrailParticles2A"
+		AngleMin = 270
+		AngleMax = 271
+	}
+
+	{
+		Name = "ChronosTransitionFxIntro01"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingFrontRoot_03_L_JNT"
+	}
+	{
+		Name = "ChronosTransitionFxIntro02"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingFrontRoot_03_R_JNT"
+	}
+
+	{
+		Name = "ChronosTransitionFxIntro03"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideMorph_08_L_JNT"
+	}
+	{
+		Name = "ChronosTransitionFxIntro04"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideMorph_11_R_JNT"
+	}		
+	{
+		Name = "ChronosTransitionFxIntro05"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideRoot_03_L_JNT"
+	}
+	{
+		Name = "ChronosTransitionFxIntro06"
+		InheritFrom = "ChronosTransitionFx"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideRoot_03_R_JNT"
+	}
+
+	{
+		Name = "ChronosTransitionFxWingSpread01"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingFront_01_L_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 1
+		CreateAnimations =
+		[
+			{ Name = "ChronosBackGlow01" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "ThugSlamNovaSand" }
+			{ Name = "GoldElementalSkyNovaDisplace" }
+			{ Name = "FieldsDustPuffFront_NoOffset" }
+			{ Name = "FieldsDustPuffBack_NoOffset" }
+
+		]
+	}
+	{
+		Name = "ChronosTransitionFxWingSpread02"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingFront_01_R_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+	}
+	{
+		Name = "ChronosTransitionFxWingSpread03"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideMorph_11_L_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+	}
+	{
+		Name = "ChronosTransitionFxWingSpread04"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingSideMorph_11_R_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+	}
+	{
+		Name = "ChronosTransitionFxWingSpread05"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingBackRoot_01_R_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+	}
+	{
+		Name = "ChronosTransitionFxWingSpread06"
+		InheritFrom = "ChronosTransitionFx2"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:wingBackRoot_01_L_JNT"
+		VisualFx = "ChronosGoldRingWingSpread"
+	}
+
+	{
+		Name = "ChronosGoldRingWingSpread"
+		FilePath = "Fx\Chronos\ChronosGoldRing\ChronosGoldRing"
+		NumFrames = 60
+		RandomRotation = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 80
+		StartAlpha = 1
+		EndAlpha = 0.33
+		GroupName = "FX_Dark"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		DrawBehindOwner = true
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "ChronosGoldRingGround"
+		FilePath = "Fx\Chronos\ChronosGoldRing\ChronosGoldRing"
+		NumFrames = 60
+		RandomRotation = true
+		PlaySpeed = 50
+		OffsetZ = 30
+		StartAlpha = 1
+		EndAlpha = 0.33
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 3
+	}
+
+
+	{
+		Name = "ChronosBackGlow01"
+		GroupName = "FX_Terrain_Add"
+		FilePath = "Particles\particle_glow"
+		StartScale = 3
+		EndScale = 4
+		StartAlpha = 1
+		EndAlpha = 0
+		Red = 1
+		Green = 0.8
+		Blue = 0.4
+		Material = "Unlit"
+		OffsetZ = 180
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ChronosIntroFxDisplace"
+		InheritFrom = "GoldElementalSkyNova"
+		PlaySpeed = 50
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.0
+		EndAlpha = 0.2
+		ScaleRadius = 0
+		Scale = 3
+		CreateAnimations =
+		[
+			{ Name = "ChronosIntroFxDarkA" }
+			{ Name = "ChronosIntroFxDarkA" }
+			{ Name = "ChronosIntroFxDarkA" }
+			{ Name = "ChronosIntroFxBrightA" }
+			{ Name = "ChronosIntroFxBrightA" }
+			{ Name = "ChronosIntroFxBrightA" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+			{ Name = "ChronosIntroFxRadialDust" }
+		]
+	}
+
+	{
+		Name = "ChronosIntroFxRadialDust"
+		Random =
+		[
+			{ Name = "ChronosIntroFxRadialDustA" }
+			{ Name = "ChronosIntroFxRadialDustB" }
+			{ Name = "ChronosIntroFxRadialDustC" }
+			{ Name = "ChronosIntroFxRadialDustD" }
+		]
+	}
+
+	{
+		Name = "ChronosIntroFxRadialDustA"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		RadialOffsetMin = 690
+		RadialOffsetMax = 810
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 1
+		ScaleMax = 1.25
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 500
+		Acceleration = -300
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.7
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+	}
+	{
+		Name = "ChronosIntroFxRadialDustB"
+		FilePath = "Particles\particle_dirtSpray_02"
+		InheritFrom = "ChronosIntroFxRadialDustA"
+	}
+	{
+		Name = "ChronosIntroFxRadialDustC"
+		FilePath = "Particles\particle_dirtSpray_03"
+		InheritFrom = "ChronosIntroFxRadialDustA"
+	}
+	{
+		Name = "ChronosIntroFxRadialDustD"
+		FilePath = "Particles\particle_dirtSpray_04"
+		InheritFrom = "ChronosIntroFxRadialDustA"
+	}
+
+	{
+		Name = "ChronosIntroFxRadialDustE"
+		FilePath = "Fx\FieldsDustCloud\FieldsDustCloud"
+		NumFrames = 30
+		IsometricSkew = "X"
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 30
+		RadialOffsetMin = 570
+		RadialOffsetMax = 610
+		RadialOffsetScaleY = 0.5
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 1
+		ScaleMax = 1.25
+		ScaleFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 500
+		Acceleration = -500
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "Standing"
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "ChronosIntroFxDarkA"
+		FilePath = "Fx\Chronos\ChronosRadial\ChronosRadialFx"
+		IsometricSkew = "Y"
+		ScaleX = 2
+		OffsetZ = 300
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartScale = 1
+		EndScale = 2
+		Duration = 3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "FX_Dark"
+		RandomRotation = true
+	}
+
+	{
+		Name = "ChronosIntroFxBrightA"
+		InheritFrom = "ChronosIntroFxDarkA"
+		GroupName = "FX_Add_Top"
+		FilePath = "Fx\Chronos\ChronosRadialIn\ChronosRadialCircleLines"
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		ScaleMin = 0.85
+		ScaleMax = 1.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "ChronosCastFastChargeFxSpawner"
+		FilePath = "Dev\blank_invisible"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:middle_00_L_JNT"
+		DieWithOwner = false
+		DurationFrames = 120
+		CreateAnimations =
+		[
+			{ Name = "ChronosCastFastChargeFx" }
+		]
+	}
+
+	{
+		Name = "ChronosCastFastChargeRings"
+		Random =
+		[
+			{ Name = "ChronosCastFastChargeRingA" }
+			{ Name = "ChronosCastFastChargeRingB" }
+			{ Name = "ChronosCastFastChargeRingC" }
+		]
+	}
+
+	{
+		Name = "ChronosCastFastChargeRingA"
+		FilePath = "Fx\Chronos\ChronosGoldRing\ChronosGoldRing"
+		NumFrames = 90
+		PlayBackwards = true
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 180
+		IsometricSkew = "X"
+		Material = "Unlit"
+		DieWithOwner = false
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		ColorFromOwner = "Ignore"
+		OffsetZ = 30
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 360
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ChronosCastFastChargeRingB"
+		InheritFrom = "ChronosCastFastChargeRingA"
+		IsometricSkew = "Y"
+	}
+
+	{
+		Name = "ChronosCastFastChargeRingC"
+		InheritFrom = "ChronosCastFastChargeRingA"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "ChronosCastFastChargeFx"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectileImpact\ChronosOrbitProjectileImpact"
+		UseOwnAngle = false
+		NumFrames = 31
+		PlaySpeed = 60
+		PlayBackwards = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartScale = 0.01
+		EndScale = 1
+		Saturation = -0.7
+		ScaleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:middle_00_L_JNT"
+		OffsetZ = 30
+		AngleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		DieWithOwner = false
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ChildAnimation = "ChronosCastFastChargeFxSparkle"
+	}
+
+	{
+		Name = "ChronosCastFastChargeFxSparkle"
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Chronos_Rig:middle_00_L_JNT"
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		ColorFromOwner = "Ignore"
+		OffsetZ = 30
+		Scale = 1.2
+		Saturation = -0.7
+	}
+
+	{
+		Name = "ChronosRemains"
+		FilePath = "Fx\Chronos\ChronosOrbitProjectile\ChronosOrbitProjectile"
+		NumFrames = 60
+		Sound = "/SFX/Player Sounds/TimeSlowLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomRotation = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		Loop = true
+		TransferFrameToThis = true
+		Scale = 1
+		CreateAnimations =
+		[
+			{ Name = "ChronosRemainsShadow" }
+			{ Name = "ChronosRemainsLight" }
+		]
+	}
+
+	{
+		Name = "ChronosRemainsShadow"
+		InheritFrom = "ChronosRemains"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		GroupName = "Shadows"
+		Alpha = 0.5
+		DieWithOwner = true
+		Sound = "/SFX/Enemy Sounds/ChronosRemainsSFX"
+	}
+
+	{
+		Name = "ChronosRemainsLight"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.7
+		Blue = 0.3
+		Scale = 1.5
+		Alpha = 0.33
+		ScaleX = 0.5
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+		Sound = null
+	}
+
+	{
+		Name = "ChronosRemainsPulse"
+		FilePath = "Fx\Chronos\ChronosRippleExplosion\ChronosRippleExplosion"
+		NumFrames = 60
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		Material = "Unlit"
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		Scale = 1.0
+		ScaleRadius = 170
+		AngleMin = -20
+		AngleMax = 20
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/ZagreusLuciferBombPulse"
+		GroupName = "FX_Standing_Top"
+	}
+
+    {
+      Name = "CrawlerHighlight"
+      InheritFrom = "EliteUnitStatus"
+      CreateAnimation = "null"
+      Scale = 0.5
+      PlaySpeed = 45.0
+      Hue = 0.17
+      CreateAnimations = [
+        { Name = "CrawlerHighlightGlow" }
+        { Name = "CrawlerHighlight_Add" }
+      ]
+    }
+    
+    {
+      Name = "CrawlerHighlight_Add"
+      InheritFrom = "CrawlerHighlight"
+      GroupName = "FX_Terrain_Add"
+      CreateAnimations = []
+      Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+    }
+        
+    {
+      Name = "CrawlerHighlightGlow"
+      InheritFrom = "EliteUnitStatusGlow"
+      Alpha = 0.4
+      Color = { Red = 1.0 Green = 0.30 Blue = 0.0 }
+    }
+
+	{
+		Name = "SwarmerClockworkGlow"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.3
+		Color = { Red = 0.4, Green = 0.2, Blue = 1.0}
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Swarmer_Rig:root_00_M_JNT"
+		UseAttachedFlasher = false
+		StartScale = 1.1
+		EndScale = 0.7
+		Duration = 1
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.7
+		DieWithOwner = true
+	}
+
+	{
+		Name = "SwarmerTeleportFxFront"
+		FilePath = "Fx\Chronos\ChronosTeleportFxFront\ChronosTeleportFxFront"
+		NumFrames = 60
+		PlaySpeed = 60
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Scale = 1.2
+		OffsetZ = 50
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosTeleport"
+		CreateAnimations =
+		[
+			{ Name = "SwarmerTeleportFxBack" }
+			{ Name = "SwarmerTeleportLight" }
+		]
+	}		
+
+	{
+		Name = "SwarmerTeleportFxBack"
+		InheritFrom = "SwarmerTeleportFxFront"
+		ClearCreateAnimations = true
+		FilePath = "Fx\Chronos\ChronosTeleportFxBack\ChronosTeleportFxBack"
+		GroupName = "FX_Dark"
+		NumFrames = 19
+		Sound = null
+	}
+
+	{
+		Name = "SwarmerTeleportLight"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.75
+		Blue = 0.4
+		Scale = 1.5
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.33
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		StartScale = 1
+		EndScaleY = 1.25
+		Duration = 0.4
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+]}

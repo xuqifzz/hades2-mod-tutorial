@@ -1,0 +1,205 @@
+{
+  LoadSaveScreen =
+  {
+    Platform = "default"
+    SelectionSound = "null"
+    GamepadCursorControl = true
+    TransitionOnTime = 0.0
+    TransitionOffTime = 0.0
+    FreeFormSelectSuccessDistance = 16
+    FreeFormSelectSuccessDistanceStep = 4
+    ValidateCursorLocation = false
+
+	Back =
+	{
+      Width = 5120
+      Height = 1440
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Alpha = 0.9
+    }
+
+    SaveFileButton =
+	{
+      X = 50
+      Y = 130
+      Graphic = "null"
+      SelectedOnAnimation = "null"
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      UseTextArea = true
+      Font = "MonospaceTypewriterBold"
+      FontSize = 16
+      TextRed = 1.0
+      TextGreen = 1.0
+      TextBlue = 1.0
+      TextOutlineRed = 0.0
+      TextOutlineGreen = 0.0
+      TextOutlineBlue = 0.0
+      OutlineThickness = 1
+      SelectedTextRed = 1.0
+      SelectedTextGreen = 1.0
+      SelectedTextBlue = 0.0
+      SpacingX = 1920
+      SpacingY = 40
+      Justification = "Left"
+      TooltipId = "LoadSaveScreen_DevSaveFile"
+    }
+
+    LeftArrow =
+	{
+      X = 600
+      Y = 50
+      Graphic = "GUI\\Graybox\\Arrow_Left"
+      SelectedGraphic = "GUI\\Graybox\\Arrow_Left_Highlight"
+      SelectedAnimationIsOverlay = false
+      PressSound = "/Leftovers/Menu Sounds/RosterSelection"
+      FadeOpacity = 0.0
+    }
+
+    RightArrow =
+	{
+      InheritFrom = "LeftArrow"
+      AttachTo = "LeftArrow"
+      OffsetX = 100
+      Graphic = "GUI\\Graybox\\Arrow_Right"
+      SelectedGraphic = "GUI\\Graybox\\Arrow_Right_Highlight"
+      SelectedAnimationIsOverlay = false
+      PressSound = "/Leftovers/Menu Sounds/RosterSelection"
+      FadeOpacity = 0.0
+    }
+
+    FileFilter =
+	{
+      X = 50
+      Y = 50
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 40
+      Width = 700
+      Height = 200
+      TextRed = 1.0
+      TextGreen = 1.0
+      TextBlue = 1.0
+      ParseTextMarkup = false
+    }
+
+    FileFilterHint =
+	{
+      InheritFrom = "FileFilter"
+      AttachTo = "FileFilter"
+      TextRed = 0.6
+      TextGreen = 0.6
+      TextBlue = 0.6
+      HelpTextId = "FilterSearchHint"
+    }
+
+    DeleteHint =
+	{
+      X = 800
+      Y = 1030
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.7
+      TextGreen = 0.7
+      TextBlue = 0.7
+      ParseTextMarkup = false
+      HelpTextId = "LoadSaveScreen_DeleteHint"
+    }
+
+    OpenInWindowsHint =
+	{
+      X = 50
+      Y = 1030
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.7
+      TextGreen = 0.7
+      TextBlue = 0.7
+      ParseTextMarkup = false
+      HelpTextId = "LoadSaveScreen_OpenInWindowsHint"
+    }
+
+    CancelButton =
+	{
+      X = 1860
+      Y = 1030
+      Graphic = "GUI\ExitButton"
+      Scale = 0.3
+      SelectedGraphic = "GUI\ExitButtonHighlight"
+      SelectedAnimationIsOverlay = false
+    }
+
+    AlphabeticalSortButton =
+	{
+      Graphic = "GUI\\Graybox\\Button_Default"
+      SelectedGraphic = "GUI\\Graybox\\Button_Highlight"
+      SelectedAnimationIsOverlay = false
+      HelpTextId = "LoadSaveScreen_SortAlphabetical"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      ScaleY = 0.8
+      X = 1060
+      Y = 50
+      PressSound = "/Leftovers/Menu Sounds/BookInteract"
+    }
+
+    ChronologicalSortButton =
+	{
+      Graphic = "GUI\\Graybox\\Button_Default"
+      SelectedGraphic = "GUI\\Graybox\\Button_Highlight"
+      SelectedAnimationIsOverlay = false
+      HelpTextId = "LoadSaveScreen_SortChronological"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      ScaleY = 0.8
+      X = 1460
+      Y = 50
+      PressSound = "/Leftovers/Menu Sounds/BookInteract"
+    }
+
+	LoadSpinner =
+	{
+      X = 1800
+      Y = 1000
+      Graphic = "MoveHintLoop"
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+
+	NotableSaveInfo =
+	{
+		X = 1420
+		Y = 130
+		Justification = "Left"
+		VerticalJustification = "Top"
+		Font = "MonospaceTypewriterBold"
+		FontSize = 15
+		TextRed = 0.6
+		TextGreen = 0.6
+		TextBlue = 0.6
+	}
+
+	RareFormat =
+	{
+		X = 1420
+		Y = 130
+		Justification = "Left"
+		VerticalJustification = "Top"
+		Font = "MonospaceTypewriterBold"
+		FontSize = 15
+		TextRed = 1.0
+		TextGreen = 1.0
+		TextBlue = 0.5
+    }
+
+  }
+}

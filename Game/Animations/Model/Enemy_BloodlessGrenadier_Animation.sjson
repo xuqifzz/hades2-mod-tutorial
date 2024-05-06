@@ -1,0 +1,395 @@
+{ Animations = [
+	
+	{
+		Name = "BloodlessSelfDestruct"
+		GrannyModel = "BloodlessSelfDestruct_Mesh"
+	}
+	{
+		Name = "BloodlessPitcher"
+		GrannyModel = "BloodlessPitcher_Mesh"
+	}
+	{
+		Name = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyModel = "BloodlessGrenadier_Mesh"
+		ExtraGrannyAnimations =
+		[
+			{ Name = "BloodlessSelfDestruct" }
+			{ Name = "BloodlessPitcher" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 3.5
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_BloodlessGrenadier_Idle"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosIdle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_FireLoop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_End"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_LobPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_SelfDestruct_End"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_Move_Start"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosWalk_C_00"
+		NativeMoveSpeed = 300
+		ChainTo = "Enemy_BloodlessGrenadier_Move_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_LeapLand"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_Move_FireLoop"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosWalk_C_00"
+		NativeMoveSpeed = 300
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 15
+				Sound = "/Leftovers/SFX/FootstepsRug2"
+
+			}
+			{
+				Frame = 28
+				Sound = "/Leftovers/SFX/FootstepsRug2"
+
+			}		
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_LeapLand"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_Move_End"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosWalk_C_00"
+		NativeMoveSpeed = 300
+		ChainTo = "Enemy_BloodlessGrenadier_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_OnHit"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosOnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Bloodless02/EmoteHurt"
+		ChainTo = "Enemy_BloodlessGrenadier_Idle"
+	}
+	{
+		Name = "Enemy_BloodlessGrenadier_OnHit_Heavy"
+		InheritFrom = "Enemy_BloodlessGrenadier_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_SelfDestruct_Start"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosSelfDestruct_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 69
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_BloodlessGrenadier_SelfDestruct_Fire"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosSelfDestruct_C_00"
+		ChainTo = "Enemy_BloodlessGrenadier_SelfDestruct_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 69
+				FrameSpeed = 1
+			}
+			{
+				Frame = 89
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_BloodlessGrenadier_SelfDestruct_End"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosSelfDestruct_C_00"
+		ChainTo = "Enemy_BloodlessGrenadier_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 89
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_Leap"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosJump_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 88
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit_Heavy"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_LeapLand"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_LeapLand"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosJump_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_BloodlessGrenadier_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Leap"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 88
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_LobPreFire"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosCharge_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_Move_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_LobFire"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessGrenadier_LobPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 18
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BloodlessGrenadier_LobPreFire"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BloodlessGrenadier_LobPostFire"
+		InheritFrom = "EnemyBloodlessGrenadierBaseAnimation"
+		GrannyAnimation = "BloodlessGrenadier_Base_MinosAttack_C_00"
+		ChainTo = "Enemy_BloodlessGrenadier_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+			{
+				Frame = 75
+				FrameSpeed = 0
+			}
+		]
+	}
+]}

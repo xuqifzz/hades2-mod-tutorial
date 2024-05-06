@@ -1,0 +1,310 @@
+{
+/* Base Weapons */
+
+  Weapons = [
+    {
+      Name = "1_BaseEnemyMagicWeapon"
+      InheritFrom = "1_BaseWeapon"
+      LockTriggerForCharge = true
+      AutoLock = true
+      AutoLockRange = 650
+      AutoLockArcDistance = 100
+      ReloadOnCreation = false
+      FullyAutomatic = true
+      IgnoreOwnerAttackDisabled = true
+      IgnoreForceCooldown = true
+    }
+    {
+      Name = "1_BaseTrapWeapon"
+    }
+
+    /* Enemy weapons */
+    {
+      Name = "SwarmerMelee"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "SwarmerMelee"
+      FullyAutomatic = true
+      ChargeCancelMovement = true
+      CancelMovement = true
+      RootOwnerWhileFiring = true
+      BarrelLength = 0
+      AutoLock = false
+      SelfVelocity = 1800.0
+      FireSound = "/SFX/Enemy Sounds/Swarmer/EmoteAttacking"
+      Effects = [
+        {
+          Name = "MeleeAttackGrip"
+          Type = "GRIP"
+          Duration = 0.3
+          Modifier = 0.001
+          HaltOnEnd = true
+          Active = true
+        }
+        {
+          Name = "MeleeAttackRotation"
+          Duration = 0.3
+          RotationMultiplier = 0.001
+          HaltOnEnd = true
+          Active = true
+        }
+      ]
+    }
+    {
+      Name = "SwarmerClockworkMelee"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "SwarmerClockworkMelee"
+      FullyAutomatic = true
+      ChargeCancelMovement = true
+      CancelMovement = true
+      RootOwnerWhileFiring = true
+      BarrelLength = 0
+      AutoLock = false
+      SelfVelocity = 1800.0
+      FireSound = "/SFX/Enemy Sounds/Swarmer/EmoteAttacking"
+      Effects = [
+        {
+          Name = "MeleeAttackGrip"
+          Type = "GRIP"
+          Duration = 0.3
+          Modifier = 0.001
+          HaltOnEnd = true
+          Active = true
+        }
+        {
+          Name = "MeleeAttackRotation"
+          Duration = 0.3
+          RotationMultiplier = 0.001
+          HaltOnEnd = true
+          Active = true
+        }
+      ]
+    }
+    {
+      Name = "CrawlerRush"
+      Type = "GUN"
+      FireSound = "/Leftovers/SFX/HarpDash"
+      Effect = {
+          Name = "RamBerserk"
+          Type = "SPEED"
+          ChangeType = "ADD"
+          Duration = 2.5
+          Modifier = 300
+          ClearOnCollision = false
+          Active = false
+          EnableWeaponForDuration = "CrawlerRam"
+        }
+    }
+    {
+      Name = "CrawlerRam"
+      Type = "GUN"
+      Projectile = "CrawlerRam"
+      FireSound = "null"
+      Cooldown = 0.5
+    }
+
+    /* Devotion weapons */
+    {
+      Name = "DevotionPoseidon"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "DevotionPoseidon"
+      FullyAutomatic = true
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      Spread = 360
+    }
+
+    /* Misc */
+    {
+      Name = "SummonSelfDestruct"
+      Type = "GUN"
+      Projectile = "null"
+      FireSound = "/Leftovers/SFX/HarpDash"
+      Cooldown = 0.1
+      Effect = {
+        Name = "RamBerserk"
+        Type = "SPEED"
+        ChangeType = "ADD"
+        Duration = 99.0
+        ExpiringTimeThreshold = 0.5
+        ExpiringModifierFalloff = 1200
+        Modifier = 600
+        Active = false
+      }
+    }
+    {
+      Name = "BaseCollisionWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "BaseCollisionWeapon"
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      Cooldown = 0.5
+    }
+    {
+      Name = "LightningAura"
+      InheritFrom = "1_BaseEnemyMagicWeapon"
+      Type = "GUN"
+      Projectile = "LightningAura"
+      CooldownMin = 0.3
+      CooldownMax = 1.0
+      LockTriggerForCharge = false
+      Spread = 30
+    }
+    {
+      Name = "MoveSpeedAoE"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "MoveSpeedAoE"
+      ChargeSound = "null"
+      SilentImpact = true
+    }
+
+    /* Minos Unused Traps */
+    {
+      Name = "SpikeTrapWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "SpikeTrapWeapon"
+      FullyAutomatic = true
+      FireSound = "/SFX/SpikeTrapFire"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      BarrelLength = 0
+    }
+    {
+      Name = "SpikeWallWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "SpikeWallWeapon"
+      FullyAutomatic = true
+      FireSound = "/Leftovers/SFX/WyrmCastAttack"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+    }
+    {
+      Name = "ArcherTrapWeapon"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "ArcherTrapWeapon"
+      ClipSize = 1
+      ChargeSound = "null"
+      FireSound = "/SFX/ArcherTrapProjectileFireShoot"
+      RootOwnerWhileFiring = true
+      FullyAutomatic = true
+      BarrelLength = 180
+      AutoLock = true
+      FireGraphic = "null"
+      NumProjectiles = 1
+    }
+    {
+      Name = "AxeTrapWeapon"
+      InheritFrom = "SpikeTrapWeapon"
+      Projectile = "AxeTrapWeapon"
+    }
+    {
+      Name = "SmokeTrapWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "SmokeTrapWeapon"
+      FireSound = "/SFX/GasBomb"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      SilentImpact = true
+    }
+    {
+      Name = "DartTrapWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "DartTrapWeapon"
+      FireSound = "/SFX/Player Sounds/DartFireFwip"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      BarrelLength = 90
+    }
+    {
+      Name = "ExplosiveBlast"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "ExplosiveBlast"
+      AutoLock = false
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+    }
+    {
+      Name = "BlastCubeExplosion"
+      InheritFrom = "ExplosiveBlast"
+      Projectile = "BlastCubeExplosion"
+    }
+    {
+      Name = "BlastCubeExplosionElysium"
+      InheritFrom = "ExplosiveBlast"
+      Projectile = "BlastCubeExplosionElysium"
+      FireGraphic = "BlastCubeFusedRegeneratingExplode"
+    }
+    {
+      Name = "LavaTileWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "LavaTileWeapon"
+      FullyAutomatic = true
+      FireSound = "null"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      SilentImpact = true
+    }
+    {
+      Name = "LavaTileTriangle01Weapon"
+      InheritFrom = "LavaTileWeapon"
+      Projectile = "LavaTileTriangle01Weapon"
+    }
+    {
+      Name = "LavaTileTriangle02Weapon"
+      InheritFrom = "LavaTileWeapon"
+      Projectile = "LavaTileTriangle02Weapon"
+    }
+    {
+      Name = "LavaSplash"
+      InheritFrom = "1_BasePlayerSlowWeapon"
+      Type = "GUN"
+      Projectile = "LavaSplash"
+      ClipSize = 1
+      ChargeSound = "null"
+      FireSound = "/SFX/HellFireShoot"
+      RootOwnerWhileFiring = true
+      BlockMoveInput = true
+      CancelMovement = true
+      ChargeCancelMovement = true
+      FullyAutomatic = false
+      BarrelLength = 55
+      AutoLock = false
+      FireGraphic = "null"
+      LockTriggerForCharge = false
+      DisableOwnerForDuration = 0
+      Spread = 30
+      SilentImpact = true
+    }
+    {
+      Name = "ReflectiveMirrorWeapon"
+      InheritFrom = "1_BaseTrapWeapon"
+      Type = "GUN"
+      Projectile = "ReflectiveMirrorWeapon"
+      FireSound = "/SFX/Player Sounds/DartFireFwip"
+      AutoLock = true
+      FireFx = "null"
+      IgnoreOwnerAttackDisabled = true
+      BarrelLength = 50
+      SelfVelocity = 0
+      NumProjectiles = 1
+    }
+
+  ]
+}

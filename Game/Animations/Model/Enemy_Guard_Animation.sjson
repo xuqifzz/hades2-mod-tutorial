@@ -1,0 +1,228 @@
+{ Animations = [
+
+	{
+		Name = "Guard2"
+		GrannyModel = "Guard2_Mesh"
+	}
+
+	{
+		Name = "EnemyGuardBaseAnimation"		
+		GrannyModel = "Guard_Mesh"
+		ExtraGrannyAnimations = [{ Name = "Guard2" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Guard_Idle"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Guard_Move"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_Run_C_00"
+		Loop = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Guard_MeleeReturnToIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_MeleeFire"
+				Duration = 4
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Guard_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_Spawn"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_MeleeFireMulti"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Guard_MoveStart"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_RunStart_C_00"
+		ChainTo = "Enemy_Guard_Move"
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Guard_MeleeReturnToIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_MeleeFire"
+				Duration = 4
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Guard_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_Spawn"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Guard_MoveStop"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_RunStop_C_00"
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Guard_Spawn"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Guard_MeleePreAttack"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_AttackAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/GuardCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Guard_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Guard_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Guard_MeleeFire"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_Attack_C_00"
+	}
+
+	{
+		Name = "Enemy_Guard_MeleeFireMulti"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_Attack_C_00"
+		AllowRestart = true
+		GrannyAnimationSpeed = 0.85
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Guard_Move"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Guard_MeleeReturnToIdle"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_AttackToIdle_C_00"
+		ChainTo = "Enemy_Guard_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Guard_HitStun"
+		InheritFrom = "EnemyGuardBaseAnimation"
+		GrannyAnimation = "Guard_Base_HitStun_C_00"
+		Sound = "/SFX/Enemy Sounds/Guard/EmoteHurt"
+		AllowRestart = true
+	}
+	{
+		Name = "Enemy_Guard_HitStun_Heavy"
+		InheritFrom = "Enemy_Guard_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Guard_Death"
+		InheritFrom = "Enemy_Guard_HitStun"
+		HoldLastFrame = true
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.1
+		DeathFxFrameDuration = 70
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Guard_Spawn"
+		InheritFrom = "Enemy_Guard_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSwirl"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+	}
+
+] }

@@ -1,0 +1,352 @@
+{ Animations = [
+	
+	{
+		Name = "NPCSkellyBaseAnimations"
+		
+		GrannyAnimation = "null"
+		GrannyModel = "Skelly_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.2
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Skelly_Idle"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+
+	{
+		Name = "Skelly_OnHit"
+		Random =
+		[
+			{ Name = "Skelly_OnHit_1" }
+			{ Name = "Skelly_OnHit_2" }
+			{ Name = "Skelly_OnHit_3" }
+			{ Name = "Skelly_OnHit_4" }
+		]
+	}
+	{
+		Name = "Skelly_OnHit_1"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_OnHit_C_00"
+		ChainTo = "Skelly_Idle"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraBoneCrunch"
+			}
+			{
+				Frame = 41
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraMiscBoneRattle1"
+			}
+		]
+	}
+	{
+		Name = "Skelly_OnHit_2"
+		InheritFrom = "Skelly_OnHit_1"
+		GrannyAnimation = "Skelly_Base_OnHit_C_02"
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle2"
+			}
+			{
+				Frame = 36
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle1"
+			}
+			{
+				Frame = 68
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraMiscBoneRattle3"
+			}
+		]
+	}
+	{
+		Name = "Skelly_OnHit_3"
+		InheritFrom = "Skelly_OnHit_1"
+		GrannyAnimation = "Skelly_Base_OnHit_C_03"
+		Frames =
+		[
+			{
+				Frame = 13
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle2"
+			}
+			{
+				Frame = 36
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle1"
+			}
+			{
+				Frame = 68
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle3"
+			}
+		]
+	}
+	{
+		Name = "Skelly_OnHit_4"
+		InheritFrom = "Skelly_OnHit_1"
+		GrannyAnimation = "Skelly_Base_OnHit_C_04"
+		Frames =
+		[
+			{
+				Frame = 36
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraBoneCrunch"
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Greeting"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_Greeting_C_00"
+		ChainTo = "Skelly_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Skelly_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Babbling"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_Babbling_C_00"
+		ChainTo = "Skelly_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Skelly_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Explaining"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_Explaining_C_00"
+		ChainTo = "Skelly_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Skelly_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Salute"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_Salute_C_00"
+		ChainTo = "Skelly_Idle"
+		Frames =
+		[
+			{
+				Frame = 91
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle1"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Skelly_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Spawn"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_PhaseIn_C_00"
+		ChainTo = "Skelly_Idle"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.01
+			}
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+			{
+				Frame = 36
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle1"
+			}
+		]
+	}
+
+	{
+		Name = "Skelly_Death"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_death_C_01"
+		ChainTo = "Skelly_Death_Fade"
+		Sound = "/Leftovers/SFX/TreeWalkLoop"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+			}
+			{
+				Frame = 48
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraBoneCrunch"
+			}
+			{
+				Frame = 119
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle3"
+			}
+			{
+				Frame = 159
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle1"
+				FootstepFxR = "SkellyDeathDust"
+			}
+			{
+				Frame = 163
+				Sound = "/SFX/Enemy Sounds/HydraHead/HydraBoneCrunch"
+				FootstepFxR = "SkellyDeathDust"
+			}
+			{
+				Frame = 180
+				Sound = "/SFX/Enemy Sounds/MiscBoneRattle2"
+				FootstepFxR = "SkellyDeathDust"
+			}
+			{
+				Frame = 190
+				Sound = "/SFX/Enemy Sounds/EnemyDeathCloudFwoosh"
+			}
+			{
+				Frame = 200
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Skelly_Death_Fade"
+		InheritFrom = "NPCSkellyBaseAnimations"
+		GrannyAnimation = "Skelly_Base_death_C_01"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Thin"
+		HoldLastFrame = true
+		DeathFxFrameDuration = 90.0
+		Duration = 2.0
+		DeathFxThickness = 0.01
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1.0
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		TimeModifierFraction = 0.0
+		ChainTo = null
+		VisualFx = "SkellyDeathSmoke"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 9
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 200
+				FrameSpeed = 0.001
+			}
+		]
+	}
+
+    {
+      Name = "SkellyDeathDust"
+      FilePath = "Fx\LobDustPuff\LobDustPuff"
+      NumFrames = 44
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 45
+      RandomFlipHorizontal = true
+      ScaleMin = 0.7
+      ScaleMax = 1.0
+      Scale = 1.2
+      StartAlpha = 0
+      EndAlpha = 1
+      StartScale = 0.3
+      EndScale = 1.2
+      EaseIn = 0.9
+      EaseOut = 1.0
+      UseOwnAngle = false
+      AngleFromOwner = "Ignore"
+      ScaleFromOwner = "Ignore"
+      GroupName = "FX_Standing"
+      Material = "Unlit"
+      Saturation = 0.2
+      OffsetZ = -10
+      ScaleX = 0.8
+    }
+
+	{
+		Name = "SkellyDeathSmoke"
+		Random = [
+			{ Name = "SkellyDeathSmokeA" }
+			{ Name = "SkellyDeathSmokeB" }
+			{ Name = "SkellyDeathSmokeC" }
+			{ Name = "SkellyDeathSmokeD" }
+		]
+	}
+
+	{
+		Name = "SkellyDeathSmokeA"
+		FilePath = "Fx\EnemyDeathSmokeA\EnemyDeathSmokeA"
+		NumFrames = 43
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 0
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		AngleFromOwner = "Ignore"
+		AngleMin = 45
+		AngleMax = 135
+		VelocityMin = 50
+		VelocityMax = 120
+		Acceleration = -100
+	}
+	{
+		Name = "SkellyDeathSmokeB"
+		InheritFrom = "SkellyDeathSmokeA"
+		FilePath = "Fx\EnemyDeathSmokeB\EnemyDeathSmokeB"
+	}	
+	{
+		Name = "SkellyDeathSmokeC"
+		InheritFrom = "SkellyDeathSmokeA"
+		GroupName = "FX_Standing"
+	}
+	{
+		Name = "SkellyDeathSmokeD"
+		InheritFrom = "SkellyDeathSmokeB"
+		GroupName = "FX_Standing"
+	}
+
+]}

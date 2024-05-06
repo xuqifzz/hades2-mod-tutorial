@@ -1,0 +1,164 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Artemis_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Artemis_Idle"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Idle_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Appear"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Artemis_Turn"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Artemis_Salute"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Greeting_C_01"
+		ChainTo = "Artemis_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Artemis_Turn"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Artemis_Shrug"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Shrug_C_00"
+		ChainTo = "Artemis_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Artemis_Turn"
+				Duration = 8
+			}
+		]
+	}
+	{
+		Name = "Artemis_Blessing"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Blessing_C_00"
+		ChainTo = "Artemis_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Artemis_Turn"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Artemis_Turn"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Disappear_C_00"
+		ChainTo = "Artemis_Idle"
+		GrannyAnimationSpeed = 1.1
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 10
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Artemis_Appear"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Base_Appear_C_00"
+		ChainTo = "Artemis_Idle"
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Player Sounds/WeaponSwing"
+			}
+			{
+				Frame = 60
+				Sound = "/SFX/ChefGhostKnifeTwirl"
+			}
+		]
+	}
+	{
+		Name = "Artemis_Disappear"
+		InheritFrom = "NPCArtemisBaseAnimation"
+		GrannyAnimation = "Artemis_Disappear_C_00"
+		ChainTo = "Artemis_Invisible"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Artemis_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Artemis_Invisible"
+		FilePath = "Animations\NPCArtemis\Artemis_01"
+		ScaleFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OwnerHasNoCollision = true
+	}
+
+]}

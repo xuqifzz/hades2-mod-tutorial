@@ -1,0 +1,337 @@
+{ Animations = [
+	{
+		Name = "FamiliarCatBaseAnimation"
+		GrannyModel = "CatFamiliar_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Cat_Idle"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		
+	}
+
+
+	{
+		Name = "Familiar_Cat_Fidget"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Idle_Fidget_02_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Familiar_Cat_Move_Start"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Move_Start_C_00"
+		ChainTo = "Familiar_Cat_Move"
+		Frames =
+		[
+			{
+				Frame = 11
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Move"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Move_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 2
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 16
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Move_Stop"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Cat_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 14
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 18
+				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Cat_Groom_Start"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Idle_Fidget_01_C_00"
+		ChainTo = "Familiar_Cat_Groom_Loop"
+		Frames =
+		[
+			{
+				Frame = 70
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Groom_Loop"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Idle_Fidget_Loop_01_C_00"
+		Loop = true
+	}
+	{
+		Name = "Familiar_Cat_Groom_End"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Idle_Fidget_01_C_00"
+		ChainTo = "Familiar_Cat_Groom_Loop"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 71
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Cat_Greet"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Greet_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Familiar_Cat_Sleep_Start"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Start_C_00"
+		ChainTo = "Familiar_Cat_Sleep_Loop"
+		Frames =
+		[
+			{
+				Frame = 60
+				Sound = "/Leftovers/World Sounds/CaravanCreak"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Loop"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Awaken"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Awaken_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+	}
+
+	{
+		Name = "Familiar_Cat_DropIn_Enter"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_DropIn_Enter_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Familiar_Cat_DropIn_Exit"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_DropIn_Exit_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 3
+				Sound = "/Leftovers/SFX/PlayerJumpSmall"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Cat_Attack_PreFire"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Attack_PreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Familiars/CatHiss"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Cat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Familiar_Cat_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Familiar_Cat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Familiar_Cat_Move_Stop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Attack_Fire"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Attack_Fire_C_00"
+		ChainTo = "Familiar_Cat_Attack_PostFire"
+		Sound = "/SFX/Enemy Sounds/FireChariot/FireChariotAttackStart"
+		Frames =
+		[
+			{
+				Frame = 3
+				Sound = "/Leftovers/SFX/PlayerJumpSmall"
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Attack_PostFire"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Attack_PostFire_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+	}
+
+	{
+		Name = "Familiar_Cat_DeathDefiance"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_DeathDefiance_C_00"
+		ChainTo = "Familiar_Cat_Sleep_Start"
+	}
+
+	{
+		Name = "Familiar_Cat_Victory"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Victory_C_00"
+		ChainTo = "Familiar_Cat_Sleep_Start"
+	}
+
+	{
+		Name = "Familiar_Cat_Fish_Start"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Fish_Start_C_00"
+		ChainTo = "Familiar_Cat_Fish_Sit_Loop"
+		Frames =
+		[
+			{
+				Frame = 47
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Fish_Sit_Loop"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Fish_Sit_Loop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Familiar_Cat_Fish_Swipe"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Fish_Swipe_C_00"
+		ChainTo = "Familiar_Cat_Fish_End"
+	}
+	{
+		Name = "Familiar_Cat_Fish_End"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Fish_End_C_00"
+		ChainTo = "Familiar_Cat_Idle"
+	}
+
+	{
+		Name = "Familiar_Cat_Pet"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Pet_C_00"
+		Sound = "/SFX/Familiars/CatPurrDelayed"
+		ChainTo = "Familiar_Cat_Idle"
+	}
+
+	{
+		Name = "Familiar_Cat_Recruit"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Greet_C_00"
+		ChainTo = "Familiar_Cat_Recruit2"
+	}
+
+	{
+		Name = "Familiar_Cat_Recruit2"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Victory_C_00"
+		ChainTo = "Familiar_Cat_Recruit3"
+	}
+
+	{
+		Name = "Familiar_Cat_Recruit3"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Start_C_00"
+		ChainTo = "Familiar_Cat_Recruit4"
+		Frames =
+		[
+			{
+				Frame = 60
+				Sound = "/Leftovers/World Sounds/CaravanCreak"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Cat_Recruit4"
+		InheritFrom = "FamiliarCatBaseAnimation"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_C_00"
+		Loop = true
+	}
+
+]}

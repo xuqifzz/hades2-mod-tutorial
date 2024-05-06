@@ -1,0 +1,66 @@
+{ Animations = [
+
+	/* 3D Animation Attribute Legend:
+	InheritFrom = "SomeOtherAnimationName" (Copy all the attributes of the named animation unless this animation overrides them.  Must be the second attribute listed after Name.)
+	Scale = 1.0
+	Loop = false
+	Enable3DShadow = false
+	Alpha = 1.0 (How opaque the animation is, from 0.0 to 1.0)
+	GrannyAnimationSpeed = 1.0 (Playback speed adjustment, 1.0 = 100% of normal authored speed) (Warning: Increasing this value above 2.0 can cause frame jumps and missed FrameData)
+	NativeMoveSpeed = 540 (Automatically scale the playback speed based on the character's movement speed relative to this number)
+	HoldLastFrame = false (Freeze in the final frame of this animation once it finishes)
+	ChainTo = "SomeOtherAnimationName" (Immediately start playing the named animation after this one finishes)
+	AllowRestart = false (If this animation is requested again while it's still playing, should it start over from the beginning or ignore that request?)
+	CancelOnOwnerMove = false (If the character moves will this animation be cutoff by the standard move animations?)
+	GrannyRotationX = 0 (Adjust default orientation around the X-axis.  Generally unnecessary.)
+	GrannyRotationY = 0 (Adjust default orientation around the Y-axis.  Generally unnecessary.)
+	GrannyRotationZ = 0 (Adjust default orientation around the Z-axis.  Generally unnecessary.)
+	*/
+	 
+	{
+		Name = "EmptyAnimation_AssetSwatchThumbnail"
+		GrannyModel = "Melinoe_Mesh"
+		Loop = true
+		Scale = 0.9
+		CancelOnOwnerMove = true
+		Enable3DShadow = false 
+		Disable3DSpotlight = true
+	}
+
+	{
+		Name = "Enemy_Test1_Idle"
+		
+		GrannyModel = "Melinoe_Mesh"
+		Loop = true
+		Scale = 0.9
+		CancelOnOwnerMove = true
+		Enable3DShadow = true 
+		Disable3DSpotlight = true
+	}
+
+	{
+		Name = "Enemy_Test2_Idle"
+		
+		GrannyModel = "ZombieHeavyRangedTest_Mesh"
+		Loop = true
+		Scale = 1
+		CancelOnOwnerMove = true
+		Enable3DShadow = false
+		Disable3DSpotlight = true
+		RotationSpeed = 50
+	}
+
+	{
+		Name = "Enemy_Test3_Idle"
+		
+		GrannyModel = "FrogFamiliarTest_Mesh"
+		Loop = true
+		Scale = 1
+		CancelOnOwnerMove = false
+		Enable3DShadow = false
+		Disable3DSpotlight = true
+		RotationSpeed = 50
+	}
+
+	
+]}

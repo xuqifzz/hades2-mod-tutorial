@@ -1,0 +1,1256 @@
+{ Animations = [
+
+	{
+		Name = "CWTartarusExitDoorLocked"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Gate_01"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -400
+		Scale = 2.9
+	}
+	
+	{
+		Name = "CWTartarusExitDoorUnlocked"
+		InheritFrom = "CWTartarusExitDoorLocked"
+	}
+	
+	{
+		Name = "CWTartarusExitDoorOpen"
+		FilePath = "Fx\CWGate01Open\CWGate01Open"
+		NumFrames = 5
+		HoldLastFrame = true
+		OffsetY = -400
+		Scale = 5.75
+		Sound = "/SFX/StyxWingDoorOpenSFX"
+		CreateAnimation = "CWTartarusExitDoorDust"
+		PlaySpeed = 60
+	}
+	{
+		Name = "CWTartarusExitDoorOpened"
+		FilePath = "Fx\CWGate01Open\CWGate01Open0005"		 
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -400
+		Scale = 5.75
+	}
+	
+	{
+		Name = "CWTartarusExitDoorClose"
+		InheritFrom = "CWTartarusExitDoorOpen"
+		FilePath = "Fx\CWGate01Close\CWGate01Close"
+		NumFrames = 12
+		HoldLastFrame = false
+		Sound = "/SFX/StyxWingDoorCloseSFX"
+		CreateAnimation = "CWTartarusExitDoorDust"
+		ChainTo = "CWTartarusExitDoorHold"
+	}
+
+	{
+		Name = "CWTartarusExitDoorHold"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Gate_01"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -400
+		StartScale = 0.501
+		EndScale = 0.5
+		Duration = 1
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "TartarusChamberMoverActive"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Tabletop_01"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "TartarusChamberMoverInactive"
+		InheritFrom = "TartarusChamberMoverActive"
+		Color = { Red = 0.15 Green = 0.5 Blue = 0.8 }
+	}
+
+	{
+		Name = "CWTartarusExitDoorDust"
+		FilePath = "Fx\CWToggleCoverDust\CWToggleCoverDust"
+		NumFrames = 25
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Top"
+		StartAlpha = 0.66
+		EndAlpha = 0.25
+		ScaleY = 0.5
+		ScaleX = 1.5
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ClockworkTorch"
+		FilePath = "Fx\CWTorch\CWTorch"
+		NumFrames = 60
+		PlaySpeed = 30
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		Scale = 2
+	}
+	{
+		Name = "TimeTrapSandBubble"
+		FilePath = "Dev\blank_invisible"
+		Duration = 3
+		AngleFromOwner = "Ignore"
+		VisualFx = "TimeTrapSandBubbleSandRain"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		CreateAnimations =
+		[
+			{ Name = "TimeTrapSandBubbleIn" }
+			{ Name = "TimeTrapActivatedFx" }
+			{ Name = "TimeTrapActivatedFx2" }
+			{ Name = "TimeTrapActivatedFx3" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			// { Name = "SafeZoneBubbleDisplacement" }
+			// { Name = "SafeZoneBubble" }
+			// { Name = "SafeZoneCircle" }
+			// { Name = "SafeZoneWarningDelay" }
+		]
+	}
+
+	{
+		Name = "TimeElementalSandBubble"
+		InheritFrom = "TimeTrapSandBubble"
+		ClearCreateAnimations = true
+		VisualFx = "TimeElementalSandBubbleSandRain"
+		VisualFxIntervalMin = 0.10
+		VisualFxIntervalMax = 0.12
+		CreateAnimations =
+		[
+			{ Name = "TimeTrapSandBubbleIn" }
+			{ Name = "TimeTrapActivatedFx_TimeElemental" }
+			{ Name = "TimeTrapActivatedFx2_TimeElemental" }
+			{ Name = "TimeTrapActivatedFx3_TimeElemental" }
+		]
+	}
+
+	{
+		Name = "TimeTrapSandBubbleIn"
+		FilePath = "Fx\TimeTrapSandBubbleIn\TimeTrapSandBubbleIn"
+		NumFrames = 15
+		Material = "Unlit"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ScaleRadius = 300
+		OffsetY = -120
+		GroupName = "FX_Standing_Top"
+		HoldLastFrame = false
+		DieWithOwner = false
+		OverlayVfx = true
+		ChainTo = "TimeTrapSandBubbleLoop"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Hue = 0.03
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosTimeBubbleStart"
+	}
+
+	{
+		Name = "TimeTrapSandBubbleLoop"
+		InheritFrom = "TimeTrapSandBubbleIn"
+		FilePath = "Fx\TimeTrapSandBubbleLoop\TimeTrapSandBubbleLoop"
+		NumFrames = 30
+		Loop = true
+		ChainTo = null
+		DieWithOwner = true
+		StartRed = 0.001
+		StartGreen = 0.001
+		StartBlue = 0.001
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosTimeBubbleLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TimeTrapSandBubbleOut"
+		InheritFrom = "TimeTrapSandBubbleIn"
+		FilePath = "Fx\TimeTrapSandBubbleOut\TimeTrapSandBubbleOut"
+		ChainTo = null
+		StartRed = 0.001
+		StartGreen = 0.001
+		StartBlue = 0.001 
+		Sound = "/SFX/SafeZoneForcefieldStop"
+	}
+
+	{
+		Name = "TimeTrapSandBubbleSandRain"
+		FilePath = "Particles\particle_dirtSpray_01"
+		RandomRotation = true
+		StartAlpha = 0
+		EndAlpha = 1
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		StartScale = 1
+		EndScale = 1.2
+		PingPongColor = true
+		Gravity = 100
+		RandomDurationMin = 1.5
+		RandomDurationMax = 3
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 500
+		RadialOffsetScaleY = 0.6
+		AngleMin = 45
+		AngleMax = 135
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "TimeElementalSandBubbleSandRain"
+		InheritFrom = "TimeTrapSandBubbleSandRain"
+		RadialOffsetMax = 120
+		Gravity = 50
+		RandomDurationMax = 2
+	}
+
+	{
+		Name = "TimeTrapActivatedFx"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.9
+		Blue = 0.5
+		GroupName = "FX_Add_Top"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleFromOwner = "Ignore"
+		Scale = 10
+	}
+
+	{
+		Name = "TimeTrapActivatedFx_TimeElemental"
+		InheritFrom = "TimeTrapActivatedFx"
+		Scale = 3
+	}
+
+	{
+		Name = "TimeTrapActivatedFx2"
+		InheritFrom = "TimeTrapActivatedFx"
+		FilePath = "Particles\particle_glow_egg"
+		Scale = 3
+	}
+
+	{
+		Name = "TimeTrapActivatedFx2_TimeElemental"
+		InheritFrom = "TimeTrapActivatedFx2"
+		Scale = 1.25
+	}
+
+	{
+		Name = "TimeTrapActivatedFx3"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Displacement"
+		PlaySpeed = 90
+		StartAlpha = 0.05
+		EndAlpha = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		Scale = 6
+	}
+
+	{
+		Name = "TimeTrapActivatedFx3_TimeElemental"
+		InheritFrom = "TimeTrapActivatedFx3"
+		Scale = 1.5
+	}
+
+	{
+		Name = "TimeTrapActivatedFx4"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
+		AddColor = true
+		ScaleY = 2
+		Scale = 3
+		FlipVertical = true
+		GroupName = "FX_Add_Top"
+		Red = 1
+		Green = 0.85
+		Blue = 0.70
+		OffsetZ = 500
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TimeTrapStasisFrontFx"
+		FilePath = "Particles\particle_glow"
+		Loop = true
+		Duration = 0.5
+		Red = 1
+		Green = 0.8
+		Blue = 0.4
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0.1
+		EndAlpha = 0.5
+		StartScale = 1
+		EndScale = 1.5
+		PingPongColor = true
+		PingPongScale = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 1
+		ScaleX = 1
+		OffsetZ = 60
+		Material = "Unlit"
+		VisualFx = "TimeTrapStasisFrontFxRandom"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+		ColorFromOwner = "Ignore"
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "TimeTrapStasisFrontFxRandom"
+		Random =
+		[
+			{ Name = "TimeTrapStasisFrontFxA" }
+			{ Name = "TimeTrapStasisFrontFxB" }
+		]
+	}
+
+	{
+		Name = "TimeTrapStasisFrontFxA"
+		FilePath = "Fx\TimeTrapStatisFx\TimeTrapStatisFx"
+		NumFrames = 18
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		ColorFromOwner = "Ignore"
+		RandomOffsetY = 40
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		ScaleFromOwner = "Ignore"
+		IsometricSkew = "X"
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "TimeTrapStasisFrontFxB"
+		InheritFrom = "TimeTrapStasisFrontFxA"
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+		StartAngle = -45
+		EndAngle = 45
+		AngleMin = -90
+		AngleMax = 90
+	}
+
+	{
+		Name = "CWCandleFlames"
+		FilePath = "Fx\CWCandleFlames\CWCandleFlames"
+		NumFrames = 60
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+	{
+		Name = "CWCandleFlameSingle"
+		InheritFrom = "CWCandleFlames"
+		FilePath = "Fx\CWCandleFlameSingle\CWCandleFlameSingle"
+	}
+
+	{
+		Name = "CWTerrainSand03Ripple"
+		FilePath = "Fx\CWTerrainSand03Ripple\CWTerrainSand03Ripple"
+		NumFrames = 100
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+	{
+		Name = "CWTerrainSand02Ripple"
+		FilePath = "Fx\CWTerrainSand02Ripple\CWTerrainSand02Ripple"
+		NumFrames = 30
+		RandomPlaySpeedMin = 10
+		RandomPlaySpeedMax = 12
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+	{
+		Name = "CWSandFlowEdge"
+		FilePath = "Fx\CWSandFlowEdge\CWSandFlowEdge"
+		NumFrames = 120
+		PostRotateScaleY = 0.5
+		Scale = 2
+		ScaleX = 0.66
+		Material = "Unlit"
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+	}
+
+	{
+		Name = "CWCapital"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Capital_01"
+		Duration = 1
+		Loop = true
+		ChildAnimation = "CWCapitalSand"
+	}
+
+	{
+		Name = "CWCapitalSand"
+		FilePath = "Fx\CWCapitalSand\CWCapitalSand"
+		NumFrames = 30
+		Scale = 2
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PlaySpeed = 30
+		OffsetY = -240
+	 }
+
+	{
+		Name = "CWPendulumSwingForward"
+		FilePath = "Fx\CWPendulumSwing\CWPendulumSwing"
+		NumFrames = 30
+		PlaySpeed = 30
+		ChainTo = "CWPendulumSwingBackward"
+		Scale = 1.75
+		Sound = "/SFX/TickTock"
+	}
+	{
+		Name = "CWPendulumSwingForward_Silent"
+		InheritFrom = "CWPendulumSwingForward"
+		Sound = null
+		ChainTo = "CWPendulumSwingBackward_Silent"
+	}
+
+	{
+		Name = "CWPendulumSwingBackward"
+		InheritFrom = "CWPendulumSwingForward"
+		PlayBackwards = true
+		ChainTo = "CWPendulumSwingForward"
+	}
+	{
+		Name = "CWPendulumSwingBackward_Silent"
+		InheritFrom = "CWPendulumSwingBackward"
+		Sound = null
+		ChainTo = "CWPendulumSwingForward_Silent"
+	}
+
+	{
+		Name = "CWTerrainFlourish04Ripple"
+		FilePath = "Fx\CWTerrainFlourish04Ripple\CWTerrainFlourish04Ripple"
+		NumFrames = 30
+		RandomPlaySpeedMin = 10
+		RandomPlaySpeedMax = 12
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+
+	{
+		Name = "CWSandCloudContainer"
+		InheritFrom = "EditorContainer"
+		FilePath = "Fx\CWSandCloud\CWSandCloud0045"
+		ChildAnimation = null
+		VisualFx = "CWSandCloud"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 3
+		CreateAnimation = "CWSandCloud"
+	}
+
+
+	{
+		Name = "CWSandCloud"
+		FilePath = "Fx\CWSandCloud\CWSandCloud"
+		NumFrames = 100
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 32
+		Loop = false
+		RandomOffsetX = 200
+		RandomOffsetY = 100
+		VelocityMin = 25
+		VelocityMax = 50
+		Acceleration = -10
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		IsometricSkew = "X"
+	}
+
+
+	{
+		Name = "CWGroundSandRippleContainer"
+		InheritFrom = "EditorContainer"
+		FilePath = "Fx\CWGroundSandRipple\CWGroundSandRipple0046"
+		ChildAnimation = null
+		VisualFx = "CWGroundSandRipple"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 3
+		CreateAnimation = "CWGroundSandRipple"
+		Duration = 1
+		Loop = true
+	}
+
+
+	{
+		Name = "CWGroundSandRipple"
+		FilePath = "Fx\CWGroundSandRipple\CWGroundSandRipple"
+		NumFrames = 100
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 32
+		Loop = false
+		RandomOffsetX = 80
+		RandomOffsetY = 40
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotation = true
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+	}
+
+
+	{
+		Name = "CWTerrainSand03RippleB"
+		FilePath = "Fx\CWTerrainSand03RippleB\CWTerrainSand03RippleB"
+		NumFrames = 30
+		RandomPlaySpeedMin = 10
+		RandomPlaySpeedMax = 12
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+	{
+		Name = "CWTerrainSand04Ripple"
+		FilePath = "Fx\CWTerrainSand04Ripple\CWTerrainSand04Ripple"
+		NumFrames = 30
+		RandomPlaySpeedMin = 10
+		RandomPlaySpeedMax = 12
+		Loop = true
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		Scale = 2
+	}
+
+
+	{
+		Name = "CWSandWallEdgeContainer"
+		InheritFrom = "EditorContainer"
+		FilePath = "Fx\CWSandWallEdge\CWSandWallEdge0080"
+		ChildAnimation = null
+	}
+
+	{
+		Name = "CWSandWallEdge"
+		FilePath = "Fx\CWSandWallEdge\CWSandWallEdge"
+		NumFrames = 140
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 60 RandomDurationFramesMax = 240 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 60 RandomDurationFramesMax = 240 }
+			
+		]
+	}
+
+	{
+		Name = "CWSandWallEdgeB"
+		InheritFrom = "CWSandWallEdge"
+		FilePath = "Fx\CWSandWallEdgeB\CWSandWallEdgeB"
+	}
+
+	{
+		Name = "CWBarrier01A"
+		FilePath = "Fx\CWBarrier01A\CWBarrier01A"
+		NumFrames = 45
+		Material = "Unlit"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		IsometricSkew = "X"
+	}
+
+	{
+		Name = "CWBarrier01B"
+		InheritFrom = "CWBarrier01A"
+		FilePath = "Fx\CWBarrier01B\CWBarrier01B"
+	}
+
+	{
+		Name = "CWBarrier01C"
+		InheritFrom = "CWBarrier01A"
+		FilePath = "Fx\CWBarrier01C\CWBarrier01C"
+		IsometricSkew = "None"
+	}
+
+	{
+		Name = "CWSpaceRipple"
+		FilePath = "Fx\CWSpaceRipple\CWSpaceRipple"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		ReRandomizeOnLoop = true
+		StartScale = 1
+		EndScale = 2
+		RandomDurationMin = 4
+		RandomDurationMax = 6
+		RandomRotationSpeedMin = -10
+		RandomRotationSpeedMax = 10
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+	}
+
+	{
+		Name = "CWVase01Shatter"
+		FilePath = "Fx\CWVase01Shatter\CWVase01Shatter"
+		NumFrames = 27
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		// GroupName = "Standing"
+		UseOwnAngle = false
+		HoldLastFrame = true
+		Scale = 0.45
+		OffsetY = -65
+		CreateAnimations =
+		[
+			{ Name = "CWVaseShatterSandFx" }
+			{ Name = "CWVaseShatterSandFx2" }
+			{ Name = "CWVaseShatterDust" }
+			// { Name = "OceanusVaseShatterRipple" }
+		]
+	}
+
+	{
+		Name = "CWVase02Shatter"
+		InheritFrom = "CWVase01Shatter"
+		FilePath = "Fx\CWVase02Shatter\CWVase02Shatter"
+		NumFrames = 30
+	}
+
+	{
+		Name = "CWVaseShatterSandFx"
+		FilePath = "Particles\particle_dirtSpray_02"
+		StartScale = 0.5
+		EndScale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomRotation = true
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		Gravity = 50
+	}
+
+	{
+		Name = "CWVaseShatterSandFx2"
+		InheritFrom = "CWVaseShatterSandFx"
+		FilePath = "Particles\particle_dirtSpray_03"
+	}
+
+	{
+		Name = "CWVaseShatterDust"
+		FilePath = "Fx\CWToggleCoverDust\CWToggleCoverDust"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		NumFrames = 25
+		RandomFlipHorizontal = true
+		Scale = 1.5
+		Material = "Unlit"
+		PlaySpeed = 30
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		StartAlpha = 0.7
+		EndAlpha = 0.3
+		ScaleMin = 0.5
+		ScaleMax = 0.9
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "CWEntranceDoorGlow"
+		Duration = 1
+		Loop = true
+		FilePath = "Dev\blank_invisible"
+		Sound = "/Ambience/GlowyDoorAmbience"
+		StopSoundOnFinishFade = 1.0
+		CreateAnimations = [
+			{ Name = "CWEntranceDoorGlowAnimIn" }
+		]
+	}
+
+	{
+		Name = "CWEntranceDoorGlowAnim"
+		FilePath = "Fx\CWEntranceDoorGlow\CWEntranceDoorGlow"
+		NumFrames = 50
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PlaySpeed = 30
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		Scale = 1.55
+		OffsetY = -45
+		OffsetX = 10
+		Saturation = -0.1
+		ChainTo = "CWEntranceDoorGlowAnimOut"
+		TransferFrameToThis = true
+		TransferFrameFromThis = true
+	}
+
+	{
+		Name = "CWEntranceDoorGlowAnimOut"
+		InheritFrom = "CWEntranceDoorGlowAnim"
+		TransferFrameToThis = true
+		LoopFramesOnly = true
+		Duration = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		Loop = false
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}	
+
+	{
+		Name = "CWEntranceDoorGlowAnimIn"
+		InheritFrom = "CWEntranceDoorGlowAnimOut"
+		Duration = 0.25
+		StartAlpha = 0
+		EndAlpha = 1
+		ChainTo = "CWEntranceDoorGlowAnim"
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		StartRed = 0.999
+		StartGreen = 0.7
+		StartBlue = 0.4
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CWEntranceDoorOpen"
+		FilePath = "Fx\CWEntranceDoorOpen\CWEntranceDoorOpen"
+		NumFrames = 41
+		HoldLastFrame = true
+		PlaySpeed = 30
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		FlipHorizontal = true
+		FlipVertical = true
+		PostRotateScaleY = 1
+		Angle = 180
+		Scale = 1.35
+		OffsetX = 0
+		OffsetY = 0
+		RadialOffsetMin = -38
+		RadialOffsetMax = -38
+		Material = "Unlit"
+		Hue = 0.00
+		Value = -0.08
+		Saturation = -0.05
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolIn"
+		FilePath = "Fx\CWEntranceHadesSymbolIn\CWEntranceHadesSymbolIn"
+		NumFrames = 10
+		Material = "Unlit"
+		PlaySpeed = 30
+		GroupName = "FX_Standing"
+		ChainTo = "CWEntranceHadesSymbolLoop"
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Menu Sounds/HadesSigilCharge"
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolLoop"
+		InheritFrom = "CWEntranceHadesSymbolIn"
+		FilePath = "Fx\CWEntranceHadesSymbolLoop\CWEntranceHadesSymbolLoop"
+		NumFrames = 30
+		Loop = true
+		ChainTo = "CWEntranceHadesSymbolOut"
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolOut"
+		InheritFrom = "CWEntranceHadesSymbolIn"
+		FilePath = "Fx\CWEntranceHadesSymbolOut\CWEntranceHadesSymbolOut"
+		NumFrames = 23
+		ChainTo = null
+		Sound = "/SFX/Menu Sounds/HadesSigilUnlockNoDoor"
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolInFail"
+		InheritFrom = "CWEntranceHadesSymbolIn"
+		ChainTo = "CWEntranceHadesSymbolLoopFail"
+		Sound = "/SFX/Menu Sounds/HadesSigilFailIn"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolLoopFail"
+		InheritFrom = "CWEntranceHadesSymbolLoop"
+		ChainTo = "CWEntranceHadesSymbolOutFail"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "CWEntranceHadesSymbolOutFail"
+		InheritFrom = "CWEntranceHadesSymbolOut"
+		FilePath = "Fx\CWEntranceHadesSymbolOutFail\CWEntranceHadesSymbolOutFail"
+		NumFrames = 15
+		FlipHorizontal = true
+		Sound = "/SFX/Menu Sounds/HadesSigilDoorFail"
+	}
+
+	{
+		Name = "ChronosPrebossDoorHighlight"
+		FilePath = "Fx\ChronosPrebossDoorHighlight\ChronosPrebossDoorHighlight"
+		NumFrames = 60
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Loop = true
+		PlaySpeed = 30
+		OffsetZ = -440
+		Scale = 1.33
+		OffsetX = -15
+		VisualFx = "ChronosPrebossDoorHighlightParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.3
+		PlayBackwards = true
+	}
+
+	{
+		Name = "ChronosPrebossDoorHighlightParticles"
+		Random = [
+			{ Name = "ChronosPrebossDoorHighlightParticleA" }
+			{ Name = "ChronosPrebossDoorHighlightParticleB" }
+		]
+	}
+
+	{
+		Name = "ChronosPrebossDoorHighlightParticleA"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		RandomStartFrame = true
+		RandomDurationMin = 4
+		RandomDurationMax = 4.5
+		AddColor = true
+		Red = 1
+		Green = 1
+		Blue = 0.5
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -240
+		RandomRotationSpeedMax = 240
+		GroupName = "FX_Standing_Add"
+		RandomOffsetX = 20
+		RandomOffsetY = 30
+		StartOffsetZ = 740
+		EndOffsetZ = 340
+		Gravity = 10
+		EaseIn = 0
+		EaseOut = 1
+		LoopFramesOnly = true
+		Loop = false
+		PlaySpeed = 30
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.1
+		ScaleMax = 0.3
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "ChronosPrebossDoorHighlightParticleB"
+		InheritFrom = "ChronosPrebossDoorHighlightParticleA"
+		StartOffsetZ = 540
+	}
+
+	{
+		Name = "CWSandBurst"
+		FilePath = "Fx\CWSandBurst\CWSandBurst"
+		NumFrames = 60
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 160
+		OriginY = 200
+		Scale = 2.5
+		GroupName = "Standing"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "CWSandBurstBossEntrance"
+		InheritFrom = "CWSandBurst"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 90
+		Hue = 0.015
+		Scale = 2
+		ScaleY = 1.3
+		Material = "Default"
+		CreateAnimations = [
+			{ Name = "CWSandBurstBossEntranceB" }
+		]
+	}
+
+	{
+		Name = "CWSandBurstBossEntranceB"
+		InheritFrom = "CWSandBurstBossEntrance"
+		ClearCreateAnimations = true
+		ScaleY = 0.6
+		ScaleX = 1.3
+		OffsetZ = 0
+		FlipHorizontal = true
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "MelSandEmitterA"
+		FilePath = "Dev\blank_invisible"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		VisualFxDistanceMin = 5
+		VisualFxDistanceMax = 20
+		VisualFx = "MelBossEntranceSandParticles"
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "MelSandEmitterB"
+		InheritFrom = "MelSandEmitterA"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "MelSandEmitterC"
+		InheritFrom = "MelSandEmitterA"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:ankle_00_L_JNT"
+	}
+	{
+		Name = "MelSandEmitterD"
+		InheritFrom = "MelSandEmitterA"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:ankle_00_L_JNT"
+	}
+
+	{
+		Name = "MelBossEntranceSandParticles"
+		Random = [
+			{ Name = "MelBossEntranceSandParticleA" }
+			{ Name = "MelBossEntranceSandParticleB" }
+			{ Name = "MelBossEntranceSandParticleC" }			
+			{ Name = "MelBossEntranceSandParticleA" }
+			{ Name = "MelBossEntranceSandParticleB" }
+			{ Name = "MelBossEntranceSandParticleC" }			
+			{ Name = "MelBossEntranceSandParticleA" }
+			{ Name = "MelBossEntranceSandParticleB" }
+			{ Name = "MelBossEntranceSandParticleC" }			
+			{ Name = "MelBossEntranceSandParticleA" }
+			{ Name = "MelBossEntranceSandParticleB" }
+			{ Name = "MelBossEntranceSandParticleC" }			
+			{ Name = "MelBossEntranceSandParticleD" }
+			{ Name = "MelBossEntranceSandParticleE" }
+			{ Name = "MelBossEntranceSandParticleF" }
+		]
+	}
+
+	{
+		Name = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowCluster_01"
+		Material = "Unlit"
+		RandomRotation = true
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		StartScale = 0.5
+		EndScale = 2
+		EaseIn = 0.5
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Gravity = 160
+		Saturation = 0.5
+		Hue = -0.02
+		VelocityMin = 200
+		VelocityMax = 500
+		Acceleration = -500
+		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
+		SortFromOwner = "Take"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "MelBossEntranceSandParticleB"
+		InheritFrom = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowCluster_02"
+	}
+
+	{
+		Name = "MelBossEntranceSandParticleC"
+		InheritFrom = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowCluster_03"
+	}	
+
+	{
+		Name = "MelBossEntranceSandParticleD"
+		InheritFrom = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowDust_01"
+	}
+
+	{
+		Name = "MelBossEntranceSandParticleE"
+		InheritFrom = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowDust_02"
+	}
+
+	{
+		Name = "MelBossEntranceSandParticleF"
+		InheritFrom = "MelBossEntranceSandParticleA"
+		FilePath = "Particles\particle_snowDust_03"
+	}
+
+]}

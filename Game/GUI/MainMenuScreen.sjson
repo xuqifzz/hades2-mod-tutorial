@@ -1,0 +1,524 @@
+{
+  MainMenuScreen =
+  {
+    Platform = "default"
+    OpenSound = "null"
+    CloseSound = "null"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    Music = "/Music/IrisMainTheme"
+    GamepadCursorControl = true
+    InteractDelay = 1.75
+    TransitionOnTime = 0.1
+    TransitionOffTime = 0.1
+    ForceShowCursor = true
+    FreeFormSelectInitialStepDistance = 48
+    FreeFormSelectStepDistance = 6
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 0
+
+    FreeFormSelectGridLock = true
+    FreeFormSelectOneDimension = false
+    FreeFormSelectWrapping = true
+    FreeFormSelectMaxGridDistance = 48
+
+    Back =
+    {
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Alpha = 0.85
+    }
+
+    AnimatedBackground =
+    {
+      X = 960
+      Y = 540
+      Graphic = "MainMenuIn"
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+
+    Logo =
+    {
+      X = 452
+      Y = 238
+      Scale = 1.235
+      Graphic = "MainMenuLogoOutline"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      FadeOpacity = 0.0
+      FadeTarget = 1.00
+      FadeDelayMin = 2.0
+      FadeDelayMax = 2.01
+      FadeSpeed = 2
+    }
+
+    Character =
+    {
+      X = 1411
+      Y = 667
+      Graphic = null
+      Justification = "Center"
+      VerticalJustification = "Center"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 2.983333
+      FadeDelayMax = 2.983333
+      FadeSpeed = 1.000
+      Scale = 1.00
+    }
+
+    UpdateTitleBacking =
+    {
+      X = 638
+      Y = 337
+      Graphic = "MainMenuEALabelDelay"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 2.0
+      FadeDelayMax = 2.01
+      FadeSpeed = 9999
+      Scale = 0.5
+    }
+
+    PlayGameButton =
+    {
+      X = 120
+      Y = 550
+      Justification = "Left"
+      HelpTextId = "MainMenuScreen_PlayGame"
+      TextOffsetX = 0
+      Graphic = "null"
+      SelectedOnAnimation = "MainMenuSelector"
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      UseTextArea = true
+      Font = "MainMenuP22UndergroundSCHeavy"
+      TextRed = 0.676
+      TextGreen = 0.641
+      TextBlue = 0.661
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      FontSize = 40
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      SelectedAnimationIsOverlay = true
+      HighlightOffsetX = -80
+      TextJustification = "Left"
+      SelectedTextScale = 1.0
+      NonEnglishScaleModifier = 1.0
+      LangJaScaleModifier = 1.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowOffsetX = 0
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+      FadeSpeed = 4.0
+    }
+
+    CloudSaveButton =
+    {
+      InheritFrom = "PlayGameButton"
+      AttachTo = "PlayGameButton"
+      OffsetY = -70
+      PressSound = "null"
+      HelpTextId = "MainMenuScreen_CloudSave_Alt"
+    }
+
+    /* Options */
+    SettingsButton =
+    {
+      InheritFrom = "PlayGameButton"
+      AttachTo = "PlayGameButton"
+      OffsetY = 75
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      HelpTextId = "MainMenuScreen_Settings"
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+    }
+
+    /* Patch Notes */
+    AnnouncementButton =
+    {
+      InheritFrom = "SettingsButton"
+      AttachTo = "SettingsButton"
+      OffsetY = 75
+      PressSound = "null"
+      HelpTextId = "MainMenuScreen_PatchNotes"
+      Scale = 0.0
+    }
+
+    LastUpdateText =
+    {
+      AttachTo = "AnnouncementButton"
+      OffsetY = 45
+      HelpTextId = "LastUpdate"
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.5
+      TextGreen = 0.5
+      TextBlue = 0.5
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0.176
+      ShadowGreen = 0.184
+      ShadowBlue = 0.18
+      ShadowOffsetY = 2
+      ShadowAlpha = 1
+      ShadowBlur = 2
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+      FadeSpeed = 4.0
+      Scale = 0.0
+    }
+
+    /* Quit */
+    ExitButton =
+    {
+      InheritFrom = "SettingsButton"
+      /*OffsetY = 110*/
+      /*AttachTo = "AnnouncementButton"*/
+      AttachTo = "SettingsButton"
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      HelpTextId = "MainMenuScreen_Quit"
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+    }
+
+    NewAnnouncementTag =
+    {
+      OffsetX = 45
+      Graphic = "NewPatchNotesTag"
+      Justification = "Left"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 2.5
+      FadeDelayMax = 2.6
+      FadeSpeed = 4.0
+    }
+
+    NextUpdateButton =
+    {
+      X = 1690
+      Y = 943
+      Graphic = "MainMenuNextUpdateBox"
+      HelpTextId = "MainMenuScreen_RoadmapLabel"
+      UnderCursorOnAnimation = "MainMenuNextUpdateBoxHighlightOn"
+      UnderCursorOffAnimation = "MainMenuNextUpdateBox"
+      PressAnimation = "MainMenuNextUpdateBoxPress"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 2.20
+      FadeDelayMax = 2.21
+      FadeSpeed = 10
+      Font = "LatoBold"
+      FontSize = 20
+      TextJustification = "Center"
+      TextRed = 1
+      TextGreen = 1
+      TextBlue = 1
+      TextAlpha = 0.0
+      TextOffsetY = 90
+      SelectedTextRed = 1
+      SelectedTextGreen = 1
+      SelectedTextBlue = 1
+      SelectedTextAlpha = 1.0
+      SelectedTextScale = 1.0
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+    }
+
+    NextUpdateText =
+    {
+      AttachTo = "NextUpdateButton"
+      OffsetY = 0
+      OffsetX = 0
+      HelpTextId = "NextUpdateGeneral"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 21
+      NonEnglishScaleModifier = 1.0
+      LineSpacingBottom = -10
+      TextRed = 0.812
+      TextGreen = 0.792
+      TextBlue = 0.29
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 2.20
+      FadeDelayMax = 2.21
+      FadeSpeed = 3
+      Width = 270
+      Height = 125
+    }
+
+    NextUpdateBaseFormat =
+    {
+      Font = "P22UndergroundSCMedium"
+      FontSize = 21
+      TextRed = 0.812
+      TextGreen = 0.792
+      TextBlue = 0.29
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0.176
+      ShadowGreen = 0.184
+      ShadowBlue = 0.18
+      ShadowOffsetY = 2
+      ShadowAlpha = 1
+      ShadowBlur = 2
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+      FadeSpeed = 4.0
+      NonEnglishScaleModifier = 1.0
+    }
+
+    NextUpdateCountFormat =
+    {
+      Font = "P22UndergroundSCMedium"
+      FontSize = 21
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.6
+      FadeDelayMax = 1.61
+      FadeSpeed = 4.0
+      NonEnglishScaleModifier = 1.0
+    }
+
+    UpdateTitleText =
+    {
+      X = 440
+      Y = 410
+      HelpTextId = "MainMenuScreen_UpdateName"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "SpectralSCLight"
+      FontSize = 28
+      TextRed = 0
+      TextGreen = 0
+      TextBlue = 0
+      TextAlpha = 0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 3
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 5
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 4
+      FadeDelayMax = 4.01
+      FadeSpeed = 0.5
+    }
+
+    Front =
+    {
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Alpha = 0.9
+      Width = 5120
+      Height = 1440
+      FadeSpeed = 8.0
+    }
+
+    /* Misc Buttons */
+    FeedbackButton =
+    {
+      Justification = "Center"
+      VerticalJustification = "Center"
+      X = 400
+      Y = 933
+      Graphic = "GUI\\Shell\\MainMenu_Discord"
+      MouseGraphicHover = "GUI\\Shell\\MainMenu_Discord_Highlight"
+      HelpTextId = "MainMenuScreen_Discord"
+      Font = "LatoBold"
+      FontSize = 16
+      TextJustification = "Center"
+      TextRed = 1
+      TextGreen = 1
+      TextBlue = 1
+      TextAlpha = 0.0
+      TextOffsetY = 50
+      SelectedTextRed = 1
+      SelectedTextGreen = 1
+      SelectedTextBlue = 1
+      SelectedTextAlpha = 1.0
+      SelectedTextScale = 1.0
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+      FadeSpeed = 4.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      Scale = 0.5
+    }
+
+    MailingListButton =
+    {
+      InheritFrom = "FeedbackButton"
+      AttachTo = "FeedbackButton"
+      OffsetX = 128
+      OffsetY = 0
+      Graphic = "GUI\\Shell\\MainMenu_MailingList"
+      MouseGraphicHover = "GUI\\Shell\\MainMenu_MailingList_Highlight"
+      HelpTextId = "MainMenuScreen_MailingList"
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+      Scale = 0.5
+    }
+
+    SoundtrackButton =
+    {
+      InheritFrom = "FeedbackButton"
+      AttachTo = "MailingListButton"
+      OffsetX = 128
+      OffsetY = 0
+      Graphic = "GUI\\Shell\\MainMenu_Soundtrack"
+      MouseGraphicHover = "GUI\\Shell\\MainMenu_Soundtrack_Highlight"
+      HelpTextId = "MainMenuScreen_Soundtrack"
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+      Scale = 0.0
+    }
+
+    StoreButton =
+    {
+      InheritFrom = "FeedbackButton"
+      AttachTo = "SoundtrackButton"
+      OffsetX = 128
+      OffsetY = 0
+      Graphic = "GUI\\Shell\\MainMenu_Shop"
+      MouseGraphicHover = "GUI\\Shell\\MainMenu_Shop_Highlight"
+      HelpTextId = "MainMenuScreen_Store"
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+      Scale = 0.0
+    }
+
+    WebsiteButton =
+    {
+      InheritFrom = "FeedbackButton"
+      AttachTo = "FeedbackButton"
+      OffsetX = -180
+      OffsetY = 0
+      Graphic = "GUI\\Shell\\MainMenu_Supergiant"
+      MouseGraphicHover = "GUI\\Shell\\MainMenu_Supergiant_Highlight"
+      HelpTextId = "MainMenuScreen_Website"
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+    }
+
+    ControllerWarningText =
+    {
+      AttachTo = "WebsiteButton"
+      OffsetY = 102
+      OffsetX = -100
+      HelpTextId = "ControllerWarning"
+      Justification = "Left"
+      VerticalJustification = "Center"
+      Font = "LatoMedium"
+      FontSize = 21
+      TextRed = 0.094
+      TextGreen = 0.757
+      TextBlue = 0.337
+      TextAlpha = 1.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      FadeOpacity = 0.0
+      FadeTarget = 1.0
+      FadeDelayMin = 1.7
+      FadeDelayMax = 1.71
+      FadeSpeed = 4.0
+    }
+
+    GraphicsDriverWarningText =
+    {
+      InheritFrom = "ControllerWarningText"
+      AttachTo = "ExitButton"
+      OffsetY = 70
+      OffsetX = 0
+      HelpTextId = "GraphicsDriverWarning"
+      TextRed = 1.0
+      TextGreen = 0.957
+      TextBlue = 0.337
+      OutlineThickness = 1
+    }
+  }
+}

@@ -1,0 +1,73 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyMatiBaseAnimation"
+		
+		GrannyModel = "Mati_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	
+	{
+		Name = "Enemy_Mati_Idle"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mati_IdlePreEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PreEyeClosed_C_00"
+		ChainTo = "Enemy_Mati_IdleEyeClosed"
+	}
+
+	{
+		Name = "Enemy_Mati_IdleEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_EyeClosedLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mati_IdlePostEyeClosed"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PostEyeClosed_C_00"
+	}
+
+	{
+		Name = "Enemy_Mati_OnHit"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_OnHit_C_00"
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoPreFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PreHypnoCast_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_HypnoCastFire_C_00"
+		ChainTo = "Enemy_Mati_HypnoFireLoop"
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoFireLoop"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_HypnoCastLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mati_HypnoPostFire"
+		InheritFrom = "EnemyMatiBaseAnimation"
+		GrannyAnimation = "Mati_Base_PostHypnoCast_C_00"
+	}
+]}

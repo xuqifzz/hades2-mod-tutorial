@@ -1,0 +1,4842 @@
+{ Animations = [
+
+	{
+		Name = "FogEmitterInside"
+		ChainTo = "FogEmitterInsideEnd"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+		GroupName = "Standing"
+		VisualFx = "FogCloudInside"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		Duration = 0.4
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		EndScale = 1.05
+		Scale = 40.0
+		ScaleFromOwner = "Ignore"
+		ScaleX = 1.1
+		ScaleY = 0.9
+		StartScale = 1.000001
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "FogEmitterInsideEnd"
+		InheritFrom = "FogEmitterInside"
+		ChainTo = "null"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		Duration = 0.2
+		HoldLastFrame = false
+	}
+	
+	{
+		Name = "FogCloud"
+		FilePath = "Fx\FogCloudB\FogCloudB"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		PingPongColor = true
+		EndFrame = 45
+		NumFrames = 45
+		RandomPlaySpeedMax = 24.0
+		RandomPlaySpeedMin = 16.0
+		RandomStartFrame = false
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RadialOffsetMax = 650.0
+		RadialOffsetMin = 600.0
+		RadialOffsetScaleY = 0.7
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		VelocityMax = 100.0
+		VelocityMin = 150.0
+		Acceleration = -50
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 2.0
+		ScaleMin = 1.25
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		PostRotateScaleY = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 0.3
+		StartGreen = 0
+		StartBlue = 0.2
+		EndRed = 0.01
+		EndGreen = 0.03
+		EndBlue = 0.1
+		Saturation = -1
+		RandomRotation = true
+		RandomRotationSpeedMin = -24
+		RandomRotationSpeedMax = 24
+	}
+	
+	{
+		Name = "FogCloudInside"
+		InheritFrom = "FogCloud"
+		EndScale = 1.1
+		StartScale = 0.75
+		VelocityMax = -100
+		VelocityMin = -150
+		RadialOffsetMax = 1000.0
+		RadialOffsetMin = 900.0
+		Alpha = 0.5
+	}
+	
+	{
+		Name = "FogEmitterOutside"
+		ChainTo = "FogEmitterOutsideEnd"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignetteReverse"
+		GroupName = "Standing"
+		
+		VisualFx = "FogCloud"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		Duration = 0.3
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		EndScale = 1.05
+		Scale = 26.0
+		ScaleFromOwner = "Ignore"
+		ScaleX = 1.1
+		ScaleY = 0.9
+		StartScale = 1.000001
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.08
+		VisualFxIntervalMin = 0.07
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "FogEmitterOutsideEnd"
+		InheritFrom = "FogEmitterOutside"
+		ChainTo = "null"
+		VisualFx = "null"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		Duration = 0.2
+		HoldLastFrame = false
+	}
+
+	{
+		Name = "RadiatorBeam"
+		FilePath = "Fx\RadiatorAttack\RadiatorAttack"
+		Angle = -90.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginX = 230.0
+		OriginY = 230.0
+		PostRotateScaleY = 0.66
+		Ambient = 0.0
+		Scale = 1.75
+		OffsetY = 30
+		OffsetZ = 30
+		CreateAnimations =
+		[
+			{ Name = "RadiatorBeamDark" }
+			{ Name = "RadiatorBeamGlow" }
+		]
+	}
+
+	{
+		Name = "RadiatorBeamEnd"
+		InheritFrom = "RadiatorBeam"
+		NumFrames = 10
+		StartFrame = 50
+		PlaySpeed = 60
+		Ambient = 0.0
+		StartScaleX = 1
+		EndScaleX = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.2
+		CreateAnimations = []
+	}
+
+	{
+		Name = "RadiatorBeamStartLine"
+		FilePath = "Fx\RailgunLine\RailgunLine"
+		NumFrames = 56
+		Material = "Unlit"
+		PlaySpeed = 80
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		OriginX = 0
+		OriginY = 100
+		ScaleX = 0.2
+		StartScaleY = 2
+		EndScaleY = 1
+		OffsetZ = 30
+		PostRotateScaleY = 0.66
+		LocationZFromOwner = "Take"
+		Loop = false
+		DieWithOwner = true
+	}
+
+	{
+		Name = "RadiatorBeamGlow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		GroupName = "FX_Terrain_Add"
+		AddColor = true
+		ScaleX = 1.5
+		ScaleY = 1.0
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		OriginX = 0
+		OriginY = 54
+		OffsetZ = 30
+		Alpha = 0.5
+	}
+
+	{
+		Name = "RadiatorBeamDark"
+		InheritFrom = "RadiatorBeam"
+		ChainTo = null
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		DieWithOwner = true
+		Red = 0 
+		Green = 0
+		Blue = 0
+	}
+
+
+	{
+		Name = "RadiatorBeamFlip"
+		InheritFrom = "RadiatorBeam"
+		ChainTo = null
+		FlipHorizontal = true
+	}
+	
+	{
+		Name = "RadiatorBeamDisplacement"
+		InheritFrom = "RadiatorBeam"
+		ChainTo = null
+		GroupName = "FX_Displacement"
+		Angle = -100.0
+		Alpha = 0.02
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "RadiatorBeamElite"
+		InheritFrom = "RadiatorBeam"
+		ChainTo = null
+		CreateAnimations =
+		[
+			{ Name = "RadiatorBeamDarkElite" }
+			{ Name = "RadiatorBeamStartLine" }
+			{ Name = "RadiatorBeamGlow" }
+		]
+	}
+
+	{
+		Name = "RadiatorBeamDarkElite"
+		InheritFrom = "RadiatorBeamDark"
+	}
+
+	{
+		Name = "RadiatorBeamDarkLong"
+		InheritFrom = "RadiatorBeamDark"
+		Scale = 3
+	}
+
+
+	{
+		Name = "RadiatorBeamLongRange"
+		FilePath = "Fx\RadiatorLongBeamLoop\RadiatorLongBeamLoop"
+		NumFrames = 45
+		Loop = true
+		Material = "Unlit"
+		OriginX = 120
+		OriginY = 50
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		ScaleY = 1.5
+		Scale = 1.2
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamAttackLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "RadiatorBeamLongRangeDark" }
+			{ Name = "RadiatorBeamLongRangeGlow" }
+		]
+	}
+
+	{
+		Name = "RadiatorBeamLongRangeIn"
+		InheritFrom = "RadiatorBeamLongRange"
+		NumFrames = 8
+		FilePath = "Fx\RadiatorLongBeamIn\RadiatorLongBeamIn"
+		ChainTo = "RadiatorBeamLongRange"
+		ClearCreateAnimations = true
+		Loop = false
+		Sound = null
+		CreateAnimations =
+		[
+			{ Name = "RadiatorBeamLongRangeDarkIn" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "RadiatorBeamLongRangeOut"
+		InheritFrom = "RadiatorBeamLongRange"
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		StartScaleY = 1
+		EndScaleY = 0
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ClearCreateAnimations = true
+		Green = 0
+		Sound = null
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "RadiatorBeamLongRangeDarkOut"
+		InheritFrom = "RadiatorBeamLongRangeOut"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		ChainTo = null
+	}
+
+	{
+		Name = "RadiatorBeamLongRangeDarkIn"
+		InheritFrom = "RadiatorBeamLongRangeIn"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		ChainTo = null
+	}
+
+	{
+		Name = "RadiatorBeamLongRangeGlow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		GroupName = "FX_Terrain_Add"
+		AddColor = true
+		ScaleX = 2.2
+		ScaleY = 1.0
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		OriginX = 0
+		OriginY = 54
+		Alpha = 0.5
+		StartAlpha = 0.7
+		EndAlpha = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		Duration = 0.4
+		StartScaleY = 1
+		EndScaleY = 0.7
+		PhaseOffsetScale = 90
+		PingPongScale = true
+		PingPongColor = true
+	}
+
+
+	{
+		Name = "RadiatorBeamLongRangeDark"
+		InheritFrom = "RadiatorBeamLongRange"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		Sound = null
+	}
+
+	{
+		Name = "SiegeVines"
+		FilePath = "Tilesets\Elysium\Elysium_Vine_05"
+		
+		VisualFx = "SiegeVinesHeadWave"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.2
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+	}
+	
+	{
+		Name = "SiegeVinesNoHead"
+		InheritFrom = "SiegeVines"
+		VisualFx = "null"
+	}
+	
+	{
+		Name = "SiegeVinesHeadWave"
+		FilePath = "Fx\EnemyWaveFist\EnemyWaveFist"
+		GroupName = "FX_Terrain_Add"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 24
+		NumFrames = 24
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 80.0
+		OriginY = 160.0
+		LocationFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleY = 0.8
+		Ambient = 0.0
+		Hue = 0.55
+		Scale = 1.75
+	}
+
+	{
+		Name = "ScreamerConeFx"
+		ChainTo = "ScreamerConeFxFade"
+		FilePath = "Fx\ScreamerCone\ScreamerCone"			
+		VisualFx = "ScreamerConeDust"
+		VisualFxManagerCap = 300
+		AddColor = false
+		StartAlpha = 0.5
+		EndAlpha = 0.8
+		PingPongColor = true
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 0.4
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.2
+		EndFrame = 45
+		Loop = true
+		NumFrames = 45
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginY = 150.0
+		PostRotateScaleY = 0.75
+		ScaleLength = 230.0
+		ScaleX = 1.5
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		LocationZFromOwner = "Take"
+		DieWithOwner = true
+		CreateAnimations =
+		[
+			{ Name = "ScreamerConeFxDisplacement" }
+			{ Name = "ScreamerConeGroundGlow" }
+		]
+	}
+
+	{
+		Name = "ScreamerConeGroundGlow"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		Duration = 1
+		Scale = 2
+		Loop = true
+		DieWithOwner = true
+		StartAlpha = 0.1
+		EndAlpha = 0.33
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		OriginX = 0
+		OriginY = 128
+		AngleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "ScreamerConeDarkStreaks"
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		NumFrames = 14
+		AddColor = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		GroupName = "FX_Dark"
+		ScaleFromOwner = "Ignore"
+		Scale = 1
+		ScaleX = 1.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomFlipVertical = true
+		OriginX = 100
+		OriginY = 120
+		StartScaleY = 0.5
+		EndScaleY = 2.5
+		PostRotateScaleY = 0.75
+		OffsetZ = 60
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+	}
+	
+	{
+		Name = "ScreamerConeFxFade"
+		InheritFrom = "ScreamerConeFx"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		VisualFx = "null"
+		PingPongColor = false
+		StartAlpha = 1.0
+		EndFrame = 10
+		Loop = false
+		NumFrames = 10
+		StartFrame = 1
+		LocationZFromOwner = "Take"
+	}
+	
+	{
+		Name = "ScreamerConeDust"
+		FilePath = "Fx\CastDust\CastDust"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		AngleMax = 190.0
+		AngleMin = 170.0
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		EndAlpha = 0.1
+		EndBlue = 0.05
+		EndGreen = 0.15
+		EndRed = 0.2
+		StartAlpha = 0.5
+		StartBlue = 0.8
+		StartGreen = 0.9
+		StartRed = 1.0
+		EndFrame = 35
+		NumAngles = 16
+		NumFrames = 35
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Scale = 1.6
+		ScaleMax = 0.8
+		ScaleMin = 0.5
+		Ambient = 0.0
+		OffsetZ = -60
+		RandomOffsetY = 10
+		StartScale = 1
+		EndScale = 2
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		CreateAnimation = "ScreamerConeDarkStreaks"
+	}
+	
+	{
+		Name = "ScreamerConeFxDisplacement"
+		InheritFrom = "ScreamerConeFx"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		AddColor = false
+		Alpha = 0.1
+		PlaySpeed = 50.0
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ScreamerConeFxLarge"
+		InheritFrom = "ScreamerConeFx"
+		ScaleLength = 460.0
+		ScaleX = 2.0
+		OffsetZ = 150
+		StartAlpha = 0.999
+		EndAlpha = 1
+	}
+
+	{
+		Name = "TreantRootsFx"
+		FilePath = "Fx\TreantRoots\TreantRoots"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/SapWormhole"
+		ColorFromOwner = "Ignore"
+		EndFrame = 21
+		HoldLastFrame = true
+		NumFrames = 21
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.5
+		Saturation = 0.1
+		Scale = 1.35
+	}
+
+	{
+		Name = "TreantRootsFxDissipate"
+		InheritFrom = "TreantRootsFx"
+		HoldLastFrame = false
+		Sound = "/Leftovers/SFX/RootsGrow"
+		NumFrames = 13
+		StartFrame = 22
+		EndFrame = 35
+	}
+
+	{
+		Name = "TreantRootsPreviewFx"
+		FilePath = "Fx\FuryHellfirePreviewDecal\FuryHellfirePreviewDecalDark"
+		GroupName = "FX_Terrain"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.5
+		Duration = 0.1
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 1.1
+		Scale = 1.5
+		StartScale = 0.9
+		EndScale = 1
+		CreateAnimations =
+		[
+			{ Name = "TreantRootsPreviewFxRoots" }
+			{ Name = "TreantRootsPreviewFxDecal" }
+		]
+	}
+	{
+		Name = "TreantRootsPreviewFxRoots"
+		InheritFrom = "TreantRootsFx"
+		Sound = null
+		Alpha = 0.2
+		HoldLastFrame = false
+		PlaySpeed = 10.0
+		DieWithOwner = true
+	}
+	{
+		Name = "TreantRootsPreviewFxDecal"
+		FilePath = "Fx\FuryHellfirePreviewDecal\FuryHellfirePreviewDecal"
+		GroupName = "FX_Terrain_Add"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		RotationSpeed = 5.0
+		PostRotateScaleY = 0.55
+		Scale = 0.81
+		Duration = 1
+	}
+	
+	{
+		Name = "TreantRootsFxFxReverse"
+		InheritFrom = "TreantRootsFx"
+		PlayBackwards = true
+	}	
+	{
+		Name = "TreantRootsUnitFront"
+		FilePath = "Fx\TreantRootsUnitFront\TreantRootsUnitFront"
+		NumFrames = 22
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		HoldLastFrame = true
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		PlaySpeed = 30
+		ChainTo = "TreantRootsUnitFrontOut"
+		OriginX = 128
+		OriginY = 160
+		Blue = 0.0
+		Green = 0.06
+		Red = 0.1
+		Scale = 0.85
+		AddColor = true
+
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "TreantRootsUnitBack"
+		InheritFrom = "TreantRootsUnitFront"
+		NumFrames = 22
+		FilePath = "Fx\TreantRootsUnitBack\TreantRootsUnitBack"
+		ChainTo = "TreantRootsUnitBackOut"
+		Sound = "/Leftovers/SFX/RootsGrow"
+	}
+
+	{
+		Name = "TreantRootsUnitFrontOut"
+		InheritFrom = "TreantRootsUnitFront"
+		PlayBackwards = true
+		PlaySpeed = 60
+		HoldLastFrame = false
+		ChainTo = null
+	}
+
+	{
+		Name = "TreantRootsUnitBackOut"
+		InheritFrom = "TreantRootsUnitFrontOut"
+		FilePath = "Fx\TreantRootsUnitBack\TreantRootsUnitBack"
+		ChainTo = null
+		Sound = "/Leftovers/SFX/RootsGrow"
+	}
+
+	{
+		Name = "TreeRootGrabProjectile"
+		FilePath = "Fx\TreeRoots\TreeRoots"
+		VisualFx = "TreeRootGrabRoots"
+		ScaleFromOwner = "Ignore"
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 1E-09
+		RandomStartFrame = true
+		StartFrame = 1
+		Scale = 2.0
+		Ambient = 0.0
+		VisualFxDistanceMax = 60.0
+		VisualFxDistanceMin = 40.0
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TreantTailTrail"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "ErebusDirtTrail_TreantTail"
+		VisualFxDistanceMax = 40.0
+		VisualFxDistanceMin = 35.0
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		NumFrames = 1
+		StartFrame = 1
+		EndFrame = 1
+		Ambient = 0.0
+		Scale = 2.0
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TreantTailHoleIn"
+		FilePath = "Fx\TreantTail\Hole"
+		GroupName = "FX_Terrain"
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.6
+		UseAttachedFlasher = false
+		Red = 0.4
+		Green = 0.4
+		Blue = 0.4
+		ChainTo = "TreantTailHole"
+		ColorFromOwner = "Ignore"
+
+	}
+
+	{
+		Name = "DustPuffA_Dirt"
+		InheritFrom = "DustPuffA"
+		GroupName = "Standing"
+		RandomPlaySpeedMax = 30.0
+		RandomFlipHorizontal = false
+		Scale = 1.3
+		OffsetZ = 60
+		Red = 0.3
+		Green = 0.3
+		Blue = 0.3
+	}
+
+	{
+		Name = "TreantTailBurstDirtA"
+		FilePath = "Fx\ErebusTreeDestruction\ErebusTreeDestruction"
+		NumFrames = 19
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		PlaySpeed = 45
+		Red = 0.5
+		Green = 0.4
+		Blue = 0.2
+	}
+
+	{
+		Name = "TreantTailBurstDirtB"
+		InheritFrom = "TreantTailBurstDirtA"
+		FlipHorizontal = true
+		Scale = 1.5
+		PlaySpeed = 30
+		ScaleX = 0.5
+		OffsetZ = 60
+	}
+
+	{
+		Name = "TreantTailBurstSpike"
+		FilePath = "Particles\particle_banished_spike"
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1
+		StartScaleX = 1
+		EndScaleX = 0
+		Scale = 0.3
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 150
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.1
+		StartScaleY = 1
+		EndScaleY = 2.0
+	}
+
+	{
+		Name = "TreantTailMotionLines"
+		FilePath = "Fx\MelBlinkStreak\MelBlinkStreak"
+		NumFrames = 22
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		GroupName = "Standing"
+		ScaleY = 0.7
+		ScaleX = 1.2
+		Red = 0.4
+		Green = 0
+		Blue = 0.1
+		OriginX = 100
+		OriginY = 120
+		PlaySpeed = 90
+	}
+
+	{
+		Name = "TreantTailMotionLinesBurrow"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.4
+		ChainTo = "TreantTailMotionLinesBurrowFx"
+	}
+
+	{
+		Name = "TreantTailMotionLinesBurrowFx"
+		InheritFrom = "TreantTailMotionLines"
+		Angle = -90
+		OriginX = 400
+		PlaySpeed = 60
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "DirtGroundBurstTreantTail" }
+		]
+	}
+
+	{
+		Name = "TreantTailHole"
+		InheritFrom = "TreantTailHoleIn"
+		Duration = 24
+		StartScale = 1.0
+		EndScale = 0
+		ChainTo = null
+		EaseIn = 0
+		EaseOut = 0.1
+		Material = "Unlit"
+		CreateAnimations =
+		[
+			{ Name = "TreantTailMotionLines" }
+			{ Name = "TreantTailBurstDirtA" }
+			{ Name = "TreantTailBurstDirtB" }
+			{ Name = "DustPuffA_Dirt" }
+			{ Name = "ErebusDirtTrail_TreantTail" }
+			{ Name = "DirtGroundBurstTreantTail" }
+		]
+	}
+
+	{
+		Name = "DirtGroundBurstTreantTail"
+		FilePath = "Fx\DirtGroundBurst\DirtGroundBurst"
+		NumFrames = 35
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		PlaySpeed = 40
+		Red = 0.6
+		Green = 0.55
+		Blue = 0.45
+		OriginX = 100
+		OriginY = 253
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+	}
+
+
+	{
+		Name = "TreantTailHoleOut"
+		InheritFrom = "TreantTailHoleIn"
+		StartScale = 1
+		EndScale = 0
+		ChainTo = null
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "TreantTailSwipeFx"
+		FilePath = "Fx\GuardSwipe\GuardSwipe"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		PlaySpeed = 90
+		OffsetZ = 75
+		Scale = 1.45
+		GroupName = "FX_Standing_Add"
+		Angle = 180
+		StartAlpha = 1
+		EndAlpha = 0
+		CreateAnimations =
+		[
+			{ Name = "TreantTailSwipeFxDark" }
+			{ Name = "TreantTailSwipeFxDisplace" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "TreantTailSwipeFxDark"
+		InheritFrom = "TreantTailSwipeFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Scale = 1.33
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		PlaySpeed = 75
+		EndAlpha = 0.999
+	}
+
+	{
+		Name = "TreantTailSwipeFxDisplace"
+		InheritFrom = "TreantTailSwipeFxDark"
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+		AddColor = true
+		PlaySpeed = 60
+		StartAlpha = 0
+		EndAlpha = 0.5
+		GroupName = "FX_Displacement"
+	}
+	
+	{
+		Name = "TreeRootGrabRoots"
+		InheritFrom = "TreeRootGrabProjectile"
+		ChainTo = "TreeRootGrabRootsFade"
+		CreateAnimation = "TreeRootDirt"
+		GroupName = "FX_Terrain"
+		VisualFx = "null"
+		AngleFromOwner = "Take"
+		Sound = "/Leftovers/SFX/RootsGrow"
+		Duration = 2.0
+		LocationFromOwner = "Ignore"
+		TransferAngle = true
+		TransferFrameFromThis = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.6
+		ScaleMin = 0.4
+		Saturation = -0.5
+		Value = -0.1
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "TreeRootDirt"
+		FilePath = "Fx\RubbleFallImpactDebrisA\RubbleFallImpactDebrisA"
+		GroupName = "Default"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 90.0
+		RandomPlaySpeedMin = 80.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 0.4
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.3
+		ScaleMin = 0.7
+		Ambient = 0.0
+		Color = { Red = 0.25 Green = 0.2 Blue = 0.18 }
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TreeRootGrabRootsFade"
+		InheritFrom = "TreeRootGrabRoots"
+		ChainTo = "null"
+		StartAlpha = 1.0
+		Duration = 0.5
+		EaseOut = 1.0
+		EndOffsetZ = -10.0
+		TransferFrameFromThis = false
+		TransferFrameToThis = true
+		EndScale = 0.0
+		ColorFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "TreeRootGrabFront"
+		ChainTo = "TreeRootGrabFrontFade"
+		CreateAnimation = "RubbleFallImpactSpike"
+		FilePath = "Fx\TreeRootGrabFront\TreeRootGrabFront"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/SapWormhole"
+		ColorFromOwner = "Ignore"
+		EndFrame = 12
+		HoldLastFrame = true
+		NumFrames = 12
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 30.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "TreeRootGrabFrontLarge"
+		InheritFrom = "TreeRootGrabFront"
+		 GroupName = "FX_Standing_Add"
+		 Scale = 1.3
+		 OffsetZ = 0
+		 Sound = "/Leftovers/SFX/TreeWalkLoop"
+		 StopSoundOnFinishFade = 0.2
+	}
+	
+	{
+		Name = "TreeRootGrabFrontFade"
+		InheritFrom = "TreeRootGrabFront"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		Sound = "/EmptyCue"
+		HoldLastFrame = false
+		PlayBackwards = true
+		PlaySpeed = 30.0
+	}
+	
+	{
+		Name = "TreeRootGrabBack"
+		InheritFrom = "TreeRootGrabFront"
+		ChainTo = "TreeRootGrabBackFade"
+		FilePath = "Fx\TreeRootGrabBack\TreeRootGrabBack"
+	}
+	{
+		Name = "TreeRootGrabBackChill"
+		InheritFrom = "TreeRootGrabBack"
+		ChainTo = "TreeRootGrabBackFadeChill"
+	}
+
+	{ 
+		Name = "TreeGrabCombined"
+		InheritFrom = "TreeRootGrabFront"
+		CreateAnimation = "TreeRootGrabBackCombined"
+	}
+	{
+		Name = "TreeRootGrabBackCombined"
+		InheritFrom = "TreeRootGrabBack"
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "TreeRootGrabBackFade"
+		InheritFrom = "TreeRootGrabFrontFade"
+		FilePath = "Fx\TreeRootGrabBack\TreeRootGrabBack"
+	}
+	{
+		Name = "TreeRootGrabBackFadeChill"
+		InheritFrom = "TreeRootGrabBackFade"
+		Sound = "/Leftovers/SFX/RootsGrow"
+	}
+
+	{
+		Name = "SiegeVineAttack"
+		FilePath = "Fx\SiegeVineAttack\SiegeVineAttack"
+		NumFrames = 15
+		NumAngles = 16
+		Material = "Unlit"
+		AngleFromOwner = "Maintain"
+		PlaySpeed = 32
+		Scale = 1.25
+		TransferFrameToThis = true
+		TransferFrameFromThis = true
+		LocationFromOwner = "Maintain"
+		Velocity = 0
+		Acceleration = -300
+		StartScale = 0.95
+		EndScale = 1.05
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		VisualFx = "ErebusDirtTrail"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+		Sound = "/SFX/Enemy Sounds/SiegeVineAttackLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "SiegeVineAttackDetonate"
+		FilePath = "Fx\SiegeVineAttackDetonate\SiegeVineAttackDetonate"
+		NumFrames = 30
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		Scale = 1.1
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		OriginX = 128
+		OriginY = 180
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		ScaleFromOwner = "Ignore"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 8 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+		CreateAnimations =
+		[	
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SiegeVineAttackSpike" }
+			{ Name = "SiegeVineAttackDark" }
+		]
+	}
+
+	{
+		Name = "SiegeVineAttackSpike"
+		FilePath = "Particles\particle_streak_boosted"
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		Red = 1
+		Green = 0
+		Blue = 0.2
+		StartScaleX = 0.5
+		EndScaleX = 1.5
+		StartScaleY = 10
+		EndScaleY = 0
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartOffsetZ = 60
+		EndOffsetZ = 160
+	}
+
+	{
+		Name = "SiegeVineAttackDark"
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		NumFrames = 14
+		Angle = 90
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 90
+		ScaleX = 1.0
+		ScaleY = 0.66
+
+	}
+
+
+	{
+		Name = "SiegeVineAttackDissipate"
+		InheritFrom = "SiegeVineAttack"
+		Duration = 0.25
+		TransferFrameFromThis = true
+		TransferFrameToThis = true
+		StartScale = 1
+		EndScale = 0
+		Loop = false
+		PingPongScale = false
+		LocationFromOwner = "Ignore"
+		LoopFramesOnly = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		StartOffsetZ = 0
+		EndOffsetZ = -10
+		Sound = null
+		ChainTo = null
+	}
+
+	{
+		Name = "ErebusDirtTrail"
+		Random =
+		[
+			{ Name = "ErebusDirtTrailA" }
+			{ Name = "ErebusDirtTrailB" }
+			{ Name = "ErebusDirtTrailC" }
+			{ Name = "ErebusDirtTrailD" }
+		]
+	}
+
+	{
+		Name = "ErebusDirtTrail_TreantTail"
+		Random =
+		[
+			{ Name = "ErebusDirtTrailA_TreantTail" }
+			{ Name = "ErebusDirtTrailB_TreantTail" }
+			{ Name = "ErebusDirtTrailC_TreantTail" }
+			{ Name = "ErebusDirtTrailD_TreantTail" }
+		]
+	}
+
+	{
+		Name = "ErebusDirtTrail_Mage"
+		Random =
+		[
+			{ Name = "ErebusDirtTrailA_Mage" }
+			{ Name = "ErebusDirtTrailB_Mage" }
+			{ Name = "ErebusDirtTrailC_Mage" }
+			{ Name = "ErebusDirtTrailD_Mage" }
+		]
+	}
+
+	{
+		Name = "ErebusDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailA\ErebusDirtTrailA"
+		NumFrames = 24
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 1.1
+		RandomFlipHorizontal = true
+		Scale = 0.7
+		VisualFx = "ErebusDirtParticle"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.4
+		EndGreen = 0.4
+		EndBlue = 0.4
+		GroupName = "FX_Terrain"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ RandomDurationFramesMin = 30 RandomDurationFramesMax = 30}
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "ErebusDirtTrailB"
+		InheritFrom = "ErebusDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailB\ErebusDirtTrailB"
+	}
+	{
+		Name = "ErebusDirtTrailC"
+		InheritFrom = "ErebusDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailC\ErebusDirtTrailC"
+	}
+	{
+		Name = "ErebusDirtTrailD"
+		InheritFrom = "ErebusDirtTrailA"
+		FilePath = "Fx\ErebusDirtTrailD\ErebusDirtTrailD"
+	}
+
+	{
+		Name = "ErebusDirtTrailA_TreantTail"
+		InheritFrom = "ErebusDirtTrailA"
+		VisualFxCap = 1
+		AddColor = true
+		StartRed = 0.45
+		StartGreen = 0.2
+		StartBlue = 0.15
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+	{
+		Name = "ErebusDirtTrailB_TreantTail"
+		InheritFrom = "ErebusDirtTrailA_TreantTail"
+		FilePath = "Fx\ErebusDirtTrailB\ErebusDirtTrailB"
+	}
+	{
+		Name = "ErebusDirtTrailC_TreantTail"
+		InheritFrom = "ErebusDirtTrailA_TreantTail"
+		FilePath = "Fx\ErebusDirtTrailC\ErebusDirtTrailC"
+	}
+	{
+		Name = "ErebusDirtTrailD_TreantTail"
+		InheritFrom = "ErebusDirtTrailA_TreantTail"
+		FilePath = "Fx\ErebusDirtTrailD\ErebusDirtTrailD"
+	}
+
+
+	{
+		Name = "ErebusDirtTrailA_Mage"
+		FilePath = "Fx\ErebusDirtTrailA\ErebusDirtTrailA"
+		NumFrames = 24
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		RandomFlipHorizontal = true
+		VisualFx = "ErebusDirtParticle"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.4
+		EndGreen = 0.4
+		EndBlue = 0.4
+		GroupName = "FX_Terrain"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ RandomDurationFramesMin = 30 RandomDurationFramesMax = 30}
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "ErebusDirtTrailB_Mage"
+		InheritFrom = "ErebusDirtTrailA_Mage"
+		FilePath = "Fx\ErebusDirtTrailB\ErebusDirtTrailB"
+	}
+	{
+		Name = "ErebusDirtTrailC_Mage"
+		InheritFrom = "ErebusDirtTrailA_Mage"
+		FilePath = "Fx\ErebusDirtTrailC\ErebusDirtTrailC"
+	}
+	{
+		Name = "ErebusDirtTrailD_Mage"
+		InheritFrom = "ErebusDirtTrailA_Mage"
+		FilePath = "Fx\ErebusDirtTrailD\ErebusDirtTrailD"
+	}
+
+	{
+		Name = "ErebusDirtParticle"
+		Random =
+		[
+			{ Name = "ErebusDirtParticleA" }
+			{ Name = "ErebusDirtParticleB" }
+			{ Name = "ErebusDirtParticleC" }
+		]
+	}
+
+	{
+		Name = "ErebusDirtParticleA"
+		FilePath = "Particles\particle_dirt_01"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.66
+		Gravity = 650
+		Velocity = 20
+		Angle = 180
+		ScaleMin = 1
+		ScaleMax = 1.5
+		UpwardVelocityMin = 100
+		UpwardVelocityMax = 200
+		StartScale = 0.5
+		EndScale = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		Red = 0.18
+		Green = 0.20
+		Blue = 0.15
+		OffsetZ = 7
+		GroupName = "Standing"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "ErebusDirtParticleB"
+		InheritFrom = "ErebusDirtParticleA"
+		FilePath = "Particles\particle_dirt_02"
+	}
+
+	{
+		Name = "ErebusDirtParticleC"
+		InheritFrom = "ErebusDirtParticleA"
+		FilePath = "Particles\particle_dirt_03"
+	}
+
+	// Mage
+
+	{
+		Name = "MageProjectileExplosion"
+		FilePath = "Fx\MageProjectileExplosion\MageProjectileExplosion"
+		NumFrames = 40
+		Material = "Unlit"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		SortMode = "FromParent"
+		Scale = 1.25
+		OverlayVfx = true
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+		CreateAnimations =
+		[
+			{ Name = "MageProjectileExplosionGlow" }
+		]
+	}
+
+	{
+		Name = "MageProjectileExplosion_LightRanged"
+		InheritFrom = "MageProjectileExplosion"
+		Scale = 1.5
+		GroupName = "FX_Standing_Add"
+		RandomRotation = false
+		UseOwnAngle = false
+		OffsetZ = 20
+		VisualFx = "EnemyProjectileImpactParticles"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "MageProjectileExplosionGlow" }
+			{ Name = "MageProjectileExplosionDark_LightRanged" }
+		]
+	}
+
+	{
+		Name = "MageProjectileExplosionDark_LightRanged"
+		InheritFrom = "MageProjectileExplosion_LightRanged"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OffsetZ = 80
+		GroupName = "FX_Dark"
+		CreateAnimations = []
+	}
+
+	{
+		Name = "MageProjectileExplosionGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 0.33
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+	
+		
+	{
+		Name = "MageProjectile"
+		FilePath = "Fx\MageProjectile\MageProjectile"
+		VisualFx = "MageProjectileTrail"
+		Loop = true
+		NumFrames = 60
+		EndFrame = 60
+		RandomPlaySpeedMin = 40.0
+		RandomPlaySpeedMax = 60.0
+		RandomStartFrame = false
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		Ambient = 0.0
+		Scale = 0.5
+		ScaleMin = 0.8
+		ScaleMax = 1.15
+		ScaleX = 1.5
+		RandomFlipVertical = true
+		VisualFxDistanceMax = 100.0
+		VisualFxDistanceMin = 100.0
+		TransferFrameFromThis = true
+		OriginX = 165
+		OriginY = 64
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		StartAngle = -4
+		EndAngle = 4
+		StartScale = 0.9
+		EndScale = 1.2
+		PingPongScale = true
+		PhaseOffsetAngle = -90
+		PingPongAngle = true
+		CreateAnimations =
+		[
+			{ Name = "MageProjectileLight" }
+			{ Name = "MageProjectileLightGround" }
+			{ Name = "MageProjectileDark" }
+		]
+		PingPongColor = true
+	}
+
+	{
+		Name = "MageProjectileFireFx"
+		FilePath = "Fx\EnemyChargeOut\EnemyChargeOut"
+		NumFrames = 6
+		Material = "Unlit"
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		PlaySpeed = 60
+		SortMode = "FromParent"
+		Scale = 1.0
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+	}
+
+	{
+		Name = "MageProjectileDissipate"
+		InheritFrom = "MageProjectile"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		TransferFrameToThis = true
+		Duration = 0.2
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0.01
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 0
+		EndBlue = 0.6
+		Loop = false
+		VisualFx = "MageProjectileDissipateParticles"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations = []
+	}
+
+	{
+		Name = "MageProjectileDissipateParticles"
+		FilePath = "Particles\particle_darkness"
+		Hue = 0.2
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		RandomRotation = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 1.0
+		EaseIn = 0.95
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "MageProjectileTrail"
+		InheritFrom = "MageProjectile"
+		VisualFx = null
+		CreateAnimation = null
+		CreateAnimations = []
+		AddColor = false
+		StartAngle = 0
+		EndAngle = 0.0001
+		StartOffsetZ = 0
+		EndOffsetZ = 0.0001
+		StartRed = 0.5
+		StartGreen = 0.0
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0.001
+		EndBlue = 0
+		StartScaleY = 0.66
+		EndScaleY = 0
+		ScaleX = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1
+		Loop = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Dark"
+		Velocity = 100
+		Acceleration = -100
+		PingPongScale = false
+		PingPongColor = false
+	}
+
+	{
+		Name = "MageProjectileTrailOld"
+		FilePath = "Fx\HydraRoarPiece\HydraRoarPiece"
+		GroupName = "FX_Dark"
+		AngleFromOwner = "Take"
+		EndFrame = 30
+		NumFrames = 30
+		RandomPlaySpeedMax = 150.0
+		RandomPlaySpeedMin = 120.0
+		StartFrame = 1
+		OriginX = 354.0
+		OriginY = 256.0
+		DrawBehindOwner = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		EndScaleY = 0.0
+		Scale = 0.66
+		StartScaleY = 0.15
+		Color = { Red = 0.5 Green = 0.0 Blue = 0.3 }
+	}
+	
+	{
+		Name = "MageProjectileDark"
+		InheritFrom = "MageProjectile"
+		GroupName = "FX_Dark"
+		AddColor = false
+		DieWithOwner = true
+		CreateAnimation = null
+		CreateAnimations = []
+		ChildAnimation = null
+		VisualFx = null
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "MageProjectileLight"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Standing_Add"
+		Duration = 1
+		Loop = true
+		OffsetZ = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		DieWithOwner = true
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		Scale = 0.2
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		ScaleY = 1.0
+		Ambient = 0.0
+		OriginX = 300
+		OriginY = 360
+		Sound = "/SFX/Enemy Sounds/InvincibleProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+		Color = { Red = 1.00 Green = 0.0 Blue = 0.50 }
+	}
+
+	{
+		Name = "MageProjectileLightGround"
+		InheritFrom = "MageProjectileLight"
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		Sound = null
+		PostRotateScaleY = 0.5
+		OriginX = 360
+		StartAlpha = 0.6
+		Alpha = 0.3
+		Scale = 0.4
+	}
+
+	// -------------------------------
+	// Brawler		
+	// -------------------------------
+
+	{
+		Name = "BrawlerSwipeBase"
+		FilePath = "Dev\blank_invisible"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "BrawlerSwipe" }
+			{ Name = "BrawlerSwipeDisplacement" }
+			{ Name = "BrawlerSwipeGlow" }
+		]
+	}
+	
+	{
+		Name = "BrawlerSwipe"
+		FilePath = "Fx\BrawlerSwipe\BrawlerSwipe"
+		
+		EndFrame = 26
+		NumFrames = 26
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 60.0
+		OriginY = 160.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "BrawlerSwipeDisplacement"
+		InheritFrom = "BrawlerSwipe"
+		GroupName = "FX_Displacement"
+		Alpha = 0.1
+		EndAlpha = 1.0
+		PlaySpeed = 45.0
+	}
+	
+	{
+		Name = "BrawlerSwipeGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Add_Top"
+		
+		StartAlpha = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.10 }
+	}
+
+
+	{
+		Name = "BrawlerSwipeCloseBase"
+		FilePath = "Dev\blank_invisible"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "BrawlerSwipeClose" }
+			{ Name = "BrawlerSwipeCloseDisplacement" }
+			{ Name = "BrawlerSwipeCloseGlow" }
+		]
+	}
+	
+	{
+		Name = "BrawlerSwipeCloseCharge"
+		InheritFrom = "BasePreAttackGlow"
+
+		GrannyAttachedMarkerLocation = "Brawler_Rig:index_01_R_JNT"
+		VisualFx = "BrawlerSwipeCloseChargeStreaks"			
+	}
+	{
+		Name = "BrawlerSwipeCloseChargeStreaks"
+		InheritFrom = "BasePreAttackGlowStreaks"
+
+		GrannyAttachedMarkerLocation = "Brawler_Rig:index_01_R_JNT"
+	}		
+
+	{
+		Name = "BrawlerSwipeCharge"
+		InheritFrom = "BrawlerSwipeCloseCharge"
+		Duration = 1.15
+		VisualFxCap = 25
+	}
+
+	{
+		Name = "BrawlerSwipeClose"
+		FilePath = "Fx\BrawlerSwipeClose\BrawlerSwipeClose"
+		
+		EndFrame = 26
+		NumFrames = 26
+		PlaySpeed = 70.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Maintain"
+		SortMode = "FromParent"
+		Ambient = 0.0
+		PostRotateScaleY = 0.66
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 1.7
+		Angle = 110
+		DieWithOwner = false
+		OriginX = 150
+		OriginY = 150
+		Material = "Unlit"
+	}
+	
+	{
+		Name = "BrawlerSwipeCloseDisplacement"
+		InheritFrom = "BrawlerSwipeClose"
+		GroupName = "FX_Displacement"
+		Alpha = 0.1
+		EndAlpha = 1.0
+		PlaySpeed = 45.0
+		Material = "Unlit"
+	}
+	
+	{
+		Name = "BrawlerSwipeCloseGlow"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Add_Top"
+		
+		StartAlpha = 1.0
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 1.0
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.10 }
+	}
+
+
+	// -------------------------------
+	// Wisp
+	// -------------------------------
+
+	{
+		Name = "WispFuseBurn"
+		FilePath = "Fx\HecateTorchFlame\HecateTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "head_fxMarker_01_M_JNT"
+		//ChildAnimation = "HecateTorchFlameCenterA"
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		//CreateAnimation = "HecateTorchFlameGlowL"
+		//VisualFx = "HecateTorchFlameTrail"
+		VisualFxIntervalMin = 0.10
+		VisualFxIntervalMax = 0.11
+	}
+
+	// Treant
+
+
+	{
+		Name = "TreantProjectile"
+		FilePath = "Fx\TreantProjectile\TreantProjectile"
+		NumFrames = 15
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Material = "Unlit"
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		Scale = 1.5
+		ScaleX = 1.25
+		LocationZFromOwner = "Take"
+		CreateAnimation = "TreantProjectileShadow"
+		VisualFx = "TreantProjectileTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 50
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		Loop = true
+	}
+
+	{
+		Name = "TreantProjectileTrail"
+		FilePath = "Particles\particle_streak"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 1.0
+		ScaleX = 0.8
+		StartScaleY = 1.5
+		EndScaleY = 0
+		Duration = 0.3
+		RandomFlipHorizontal = true
+
+	}
+
+	{
+		Name = "ErebusTreeDestruction_Treant"
+		InheritFrom = "ErebusTreeDestruction"
+		Scale = 0.5
+		RandomOffsetX = 0
+		RandomOffsetY = 0
+		CreateAnimation = null
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		OffsetY = 0
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		CreateAnimations = []
+	}
+
+	{
+		Name = "TreantProjectileIn"
+		InheritFrom = "TreantProjectile"
+		ChainTo = "TreantProjectile"
+		CreateAnimation = null
+		LoopFramesOnly = true
+		Loop = false
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.1
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		VisualFx = null
+	}
+
+	{
+		Name = "TreantProjectileShadow"
+		InheritFrom = "TreantProjectile"
+		CreateAnimation = null
+		GroupName = "Shadows"
+		LocationZFromOwner = "Ignore"
+		Alpha = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		VisualFx = null
+		DieWithOwner = true
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 1.01
+		ChainTo = null
+		ReRandomizeOnLoop = false
+	}
+
+	// -------------------------------
+	// Hecate
+	// -------------------------------
+	
+
+	{
+		Name = "HecateTorchChargeLeft"
+		FilePath = "Fx\HecateTorchCharge\HecateTorchCharge"
+		NumFrames = 30
+		Loop = true
+		LoopFramesOnly = true
+		PlaySpeed = 30
+		Scale = 1
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GroupName = "Standing"
+		SortMode = "Id"
+		DieWithOwner = true
+		UseAttachedFlasher = false
+		VisualFx = "HecateTorchChargeFx_Left"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		CreateAnimation = "HecateTorchChargeRight"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "HecateTorchChargeFx_Left"
+		Random =
+		[
+			{ Name = "HecateTorchChargeFxA_Left" }
+			{ Name = "HecateTorchChargeFxB_Left" }
+			{ Name = "HecateTorchChargeFxC_Left" }
+		]
+	}
+
+	{
+		Name = "HecateTorchChargeFx_Right"
+		Random =
+		[
+			{ Name = "HecateTorchChargeFxA_Right" }
+			{ Name = "HecateTorchChargeFxB_Right" }
+			{ Name = "HecateTorchChargeFxC_Right" }
+		]
+	}
+
+	{
+		Name = "HecateTorchChargeFxA_Left"
+		FilePath = "Fx\HecateChargeFx\HecateChargeFx"
+		NumFrames = 30
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 50
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		SortMode = "FromParent"
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		GroupName = "FX_Standing_Add"
+		IsometricSkew = "X"
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "HecateTorchChargeFxA_Dark_Left"
+		StartGreen = 0.8
+		EndGreen = 1
+		StartScale = 1.3
+		EndScale = 0.7
+	}
+
+	{
+		Name = "HecateTorchChargeFxB_Left"
+		InheritFrom = "HecateTorchChargeFxA_Left"
+		IsometricSkew = "Y"
+		CreateAnimation = "HecateTorchChargeFxB_Dark_Left"
+	}
+
+	{
+		Name = "HecateTorchChargeFxC_Left"
+		InheritFrom = "HecateTorchChargeFxA_Left"
+		PostRotateScaleY = 0.5
+		IsometricSkew = "None"
+		CreateAnimation = "HecateTorchChargeFxC_Dark_Left"
+	}
+
+	{
+		Name = "HecateTorchChargeFxA_Dark_Left"
+		InheritFrom = "HecateTorchChargeFxA_Left"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HecateTorchChargeFxB_Dark_Left"
+		InheritFrom = "HecateTorchChargeFxB_Left"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HecateTorchChargeFxC_Dark_Left"
+		InheritFrom = "HecateTorchChargeFxC_Left"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HecateTorchChargeRight"
+		InheritFrom = "HecateTorchChargeLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = null
+		VisualFx = "HecateTorchChargeFx_Right"
+	}
+
+	{
+		Name = "HecateTorchChargeFxA_Right"
+		InheritFrom = "HecateTorchChargeFxA_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = "HecateTorchChargeFxA_Dark_Right"
+	}
+
+	{
+		Name = "HecateTorchChargeFxB_Right"
+		InheritFrom = "HecateTorchChargeFxB_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = "HecateTorchChargeFxB_Dark_Right"
+	}
+
+	{
+		Name = "HecateTorchChargeFxC_Right"
+		InheritFrom = "HecateTorchChargeFxC_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = "HecateTorchChargeFxC_Dark_Right"
+	}
+
+	{
+		Name = "HecateTorchChargeFxA_Dark_Right"
+		InheritFrom = "HecateTorchChargeFxA_Dark_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+	{
+		Name = "HecateTorchChargeFxB_Dark_Right"
+		InheritFrom = "HecateTorchChargeFxB_Dark_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+	{
+		Name = "HecateTorchChargeFxC_Dark_Right"
+		InheritFrom = "HecateTorchChargeFxC_Dark_Left"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+	
+	{
+		Name = "HecateTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlame\HecateTorchFlame"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		ChildAnimation = "HecateTorchFlameCenterA"
+		UseAttachedFlasher = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.66
+		SortMode = "FromParent"
+		Loop = true
+		DieWithOwner = true
+		GrannyDieWithOwnerAnimation = false
+		CreateAnimation = "HecateTorchFlameGlowL"
+		VisualFx = "HecateTorchFlameTrail"
+		VisualFxIntervalMin = 0.10
+		VisualFxIntervalMax = 0.11
+	}
+
+	{
+		Name = "HecateTorchFlameRight"
+		InheritFrom = "HecateTorchFlameLeft"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = "HecateTorchFlameCenterB"
+		CreateAnimation = "HecateTorchFlameGlowR"
+	}
+	
+	{
+		Name = "HecateTorchFlameRight_Hub"
+		InheritFrom = "HecateTorchFlameRight"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		ChildAnimation = "HecateTorchFlameCenterB_Hub"
+		CreateAnimation = "HecateTorchFlameGlowR_Hub"
+		OffsetZ = 20
+	}
+
+
+	{
+		Name = "HecateTorchFlameCenterA"
+		InheritFrom = "HecateTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlameCenterA\HecateTorchFlameCenterA"
+		ChildAnimation = null
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HecateTorchFlameCenterB"
+		InheritFrom = "HecateTorchFlameLeft"
+		FilePath = "Fx\HecateTorchFlameCenterB\HecateTorchFlameCenterB"
+		ChildAnimation = null
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HecateTorchFlameCenterB_Hub"
+		InheritFrom = "HecateTorchFlameCenterB"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+		OffsetZ = 20
+	}
+
+	{
+		Name = "HecateGroundGlow"
+		FilePath = "Dev\blank_invisible"
+		Light = "HecateGroundLight"
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "HecateGroundLight"
+		FilePath = "Lights\DiffuseSpotlight"
+		StartRed = 0.0
+		StartGreen = 1
+		StartBlue = 0.7
+		EndRed = 1
+		EndGreen = 0
+		EndBlue = 1
+		PingPongColor = true
+		Loop = true
+		Duration = 1
+		StartScale = 1.33
+		EndScale = 1
+		Material = "Unlit"
+		DieWithOwner = true
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "HecateTorchFlameGlowL"
+		FilePath = "Fx\HecateTorchFlame\HecateTorchFlameGlow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 1.0
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Loop = true
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		SortMode = "FromParent"
+		UseAttachedFlasher = false
+		OffsetY = -5
+	}
+
+	{
+		Name = "HecateTorchFlameGlowR"
+		InheritFrom = "HecateTorchFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
+	}
+
+	{
+		Name = "HecateTorchFlameGlowR_Hub"
+		InheritFrom = "HecateTorchFlameGlowR"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame02_C_joint"
+		OffsetZ = 20
+	}
+
+	{
+		Name = "HecateTorchFlameGlowL_Hub"
+		InheritFrom = "HecateTorchFlameGlowL"
+		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame02_C_joint"
+		OffsetZ = 20
+	}
+
+	{
+		Name = "HecateTorchFlameTrail"			
+		Random =
+		[
+			{ Name = "HecateTorchFlameTrailA" }
+			{ Name = "HecateTorchFlameTrailB" }
+			{ Name = "HecateTorchFlameTrailC" }
+			{ Name = "HecateTorchFlameTrailA_Dark" }
+			{ Name = "HecateTorchFlameTrailB_Dark" }
+			{ Name = "HecateTorchFlameTrailC_Dark" }
+		]
+	}
+
+	{
+		Name = "HecateTorchFlameTrailA"			
+		FilePath = "Fx\HecateTorchFlameTrailA\HecateTorchFlameTrailA"
+		Material = "Unlit"
+		NumFrames = 30
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		UseAttachedFlasher = false
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		LocationFromOwner = "Ignore"
+		GroupName = "Standing"
+		StartScale = 0.6
+		EndScale = 1.1
+		VelocityMin = 30
+		VelocityMax = 300
+		AngleMin = 80
+		AngleMax = 100
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.8
+		EndBlue = 0.99
+		Acceleration = -100
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "HecateTorchFlameTrailB"
+		InheritFrom = "HecateTorchFlameTrailA"
+		FilePath = "Fx\HecateTorchFlameTrailB\HecateTorchFlameTrailB"
+	}
+
+
+	{
+		Name = "HecateTorchFlameTrailC"
+		InheritFrom = "HecateTorchFlameTrailA"
+		FilePath = "Fx\HecateTorchFlameTrailC\HecateTorchFlameTrailC"
+	}
+
+	{
+		Name = "HecateTorchFlameTrailA_Dark"
+		InheritFrom = "HecateTorchFlameTrailA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "HecateTorchFlameTrailB_Dark"
+		InheritFrom = "HecateTorchFlameTrailA_Dark"
+		FilePath = "Fx\HecateTorchFlameTrailB\HecateTorchFlameTrailB"
+	}
+
+	{
+		Name = "HecateTorchFlameTrailC_Dark"
+		InheritFrom = "HecateTorchFlameTrailA_Dark"
+		FilePath = "Fx\HecateTorchFlameTrailC\HecateTorchFlameTrailC"
+	}
+
+
+
+	{
+		Name = "HecateMeleeArcRight"
+		FilePath = "Fx\MinotaurAxeArc\MinotaurAxeArc"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 8
+		NumFrames = 8
+		PlaySpeed = 60.0
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 2.75
+		Ambient = 0.0
+		FlipVertical = true
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "HecateMeleeArcLeft"
+		InheritFrom = "HecateMeleeArcRight"
+		FlipVertical = false
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "TorchRingHecateFx"
+		
+		FilePath = "Fx\HecateTorchRing\HecateTorchRingMain"
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		RandomRotation = true
+		ScaleRadius = 340.0
+		RotationSpeed = 12
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		ChildAnimation = "HecateTorchRingEdge1"
+		VisualFx = "HecateTorchRingEdgeFlame"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.02
+	}
+
+	{
+		Name = "HecateTorchRingEdgeFlame"
+		
+		Random =
+		[
+			{ Name = "HecateTorchRingEdgeFlameA" }
+			{ Name = "HecateTorchRingEdgeFlameB" }
+			{ Name = "HecateTorchRingEdgeFlameC" }
+			{ Name = "HecateTorchRingSecondary" }
+		]
+	}
+
+	{
+		Name = "HecateTorchRingSecondary"
+		
+		FilePath = "Fx\HecateCloneDeath\HecateCloneDeath"
+		GroupName = "FX_Standing_Add"
+		AngleMax = 360.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		NumFrames = 28
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RadialOffsetMax = 101.0
+		RadialOffsetMin = 100.0
+		RadialOffsetScaleRadius = 100.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.1
+		ScaleMin = 0.4
+		Ambient = 0.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		Saturation = 0.5
+		Blue = 0.0
+	}
+
+	{
+		Name = "HecateTorchRingEdgeFlameA"
+		
+		FilePath = "Fx\HecateTorchRingEdgeFlameA\HecateTorchRingEdgeFlameA"
+		GroupName = "FX_Terrain_Add"
+		AngleMax = 360.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		ColorFromOwner = "Ignore"
+		NumFrames = 29
+		StartFrame = 1
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RadialOffsetMax = 101.0
+		RadialOffsetMin = 100.0
+		RadialOffsetScaleRadius = 100.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		VelocityMax = 200.0
+		VelocityMin = 190.0
+		Acceleration = -300
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.1
+		ScaleMin = 1.0
+		Ambient = 0.0
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		StartScaleX = 1.2
+		EndScaleX = 1
+		ScaleY = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "HecateTorchRingEdgeFlameB"
+		InheritFrom = "HecateTorchRingEdgeFlameA"
+		FilePath = "Fx\HecateTorchRingEdgeFlameB\HecateTorchRingEdgeFlameB"
+	}
+
+	{
+		Name = "HecateTorchRingEdgeFlameC"
+		InheritFrom = "HecateTorchRingEdgeFlameA"
+		FilePath = "Fx\HecateTorchRingEdgeFlameC\HecateTorchRingEdgeFlameC"
+	}
+
+
+	{
+		Name = "HecateTorchRingChord1"
+		
+		FilePath = "Fx\HecateTorchRingChord\HecateTorchRingChord"
+		NumFrames = 36
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		ScaleRadius = 355
+		PostRotateScaleY = 0.5
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		OriginX = 320
+		OriginY = 218
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Maintain"
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		ChildAnimation = "HecateTorchRingChord2"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		DieWithOwner = true
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "HecateTorchRingChord2"
+		InheritFrom = "HecateTorchRingChord1"
+		Angle = 60
+		ChildAnimation = "HecateTorchRingChord3"
+	}
+
+	{
+		Name = "HecateTorchRingChord3"
+		InheritFrom = "HecateTorchRingChord1"
+		Angle = 120
+		ChildAnimation = "HecateTorchRingChord4"
+	}
+
+	{
+		Name = "HecateTorchRingChord4"
+		InheritFrom = "HecateTorchRingChord1"
+		Angle = 180
+		ChildAnimation = "HecateTorchRingChord5"
+	}
+
+	{
+		Name = "HecateTorchRingChord5"
+		InheritFrom = "HecateTorchRingChord1"
+		Angle = 240
+		ChildAnimation = "HecateTorchRingChord6"
+	}
+
+	{
+		Name = "HecateTorchRingChord6"
+		InheritFrom = "HecateTorchRingChord1"
+		Angle = 300
+		ChildAnimation = null
+	}
+
+	{
+		Name = "HecateTorchRingChordRandom"
+		
+		Random =
+		[
+			{ Name = "HecateTorchRingChord1" }
+			{ Name = "HecateTorchRingChord2" }
+			{ Name = "HecateTorchRingChord3" }
+			{ Name = "HecateTorchRingChord4" }
+			{ Name = "HecateTorchRingChord5" }
+			{ Name = "HecateTorchRingChord6" }
+		]
+	}
+
+	{
+		Name = "HecateTorchRingEdge1"
+		
+		FilePath = "Fx\HecateTorchRingEdgeQuarter\HecateTorchRingEdgeQuarter"
+		NumFrames = 45
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ScaleRadius = 360
+		GroupName = "FX_Terrain"
+		PostRotateScaleY = 0.5
+		Loop = true
+		AngleFromOwner = "Ignore"
+		ChildAnimation = "HecateTorchRingEdge2"
+		OriginX = 0
+		OriginY = 512
+	}
+
+	{
+		Name = "HecateTorchRingEdge2"
+		InheritFrom = "HecateTorchRingEdge1"
+		Angle = 90
+		ChildAnimation = "HecateTorchRingEdge3"
+	}
+
+	{
+		Name = "HecateTorchRingEdge3"
+		InheritFrom = "HecateTorchRingEdge1"
+		Angle = 180
+		ChildAnimation = "HecateTorchRingEdge4"
+	}
+
+	{
+		Name = "HecateTorchRingEdge4"
+		InheritFrom = "HecateTorchRingEdge1"
+		Angle = 270
+		ChildAnimation = "null"
+	}
+
+	{
+		Name = "HecatePolymorphProjectile"
+		FilePath = "Fx\WitchcraftOrbHecate\WitchcraftOrbHecate"
+		NumFrames = 60
+		Material = "Unlit"
+		Loop = true
+		Hue = 0.1
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+		VisualFx = "HecatePolymorphTrail"
+		TransferFrameFromThis = true
+		CreateAnimations =
+		[
+			{ Name = "HecateMeleeIso" }
+			{ Name = "HecateMeleeArc" }
+		]
+	}
+
+	{
+		Name = "HecatePolymorphDissipateFade"
+		InheritFrom = "HecatePolymorphProjectile"
+		StartAlpha = 1
+		EndAlpha = 0
+		Loop = false
+		PlaySpeed = 30
+		Duration = 0.25
+		StartScale = 1
+		EndScale = 1.3
+		StartRed = 1
+		EndRed = 0
+		StartGreen = 1
+		EndGreen = 0.6
+		StartBlue = 1
+		EndBlue = 0.9
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/DionysusRadialPoof"
+		VisualFx = "DisplaceWinkOut"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "HecateMeleeIsoOut" }
+			{ Name = "HecateMeleeArcOut" }
+		]
+	}
+
+	{
+		Name = "DisplaceWinkOut"
+		FilePath = "Particles\particle_displaceWink"
+		GroupName = "FX_Displacement"
+		OverlayVfx = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Duration = 0.4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		Scale = 1
+		StartAlpha = 0.2
+		EndAlpha = 0
+	}
+
+	{
+		Name = "HecatePolymorphTrail"
+		
+		Random =
+		[
+			{ Name = "PolymorphTrailA" }
+			{ Name = "PolymorphTrailB" }
+			{ Name = "PolymorphTrailC" }
+			{ Name = "PolymorphTrailD" }
+		]
+	}
+
+	{
+		Name = "PolymorphTrailA"
+		FilePath = "Fx\WitchcraftBlobsA\WitchcraftBlobsA"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Take"
+		Angle = 90
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = true
+		EaseOut = 1.0
+		EndFrame = 50
+		NumFrames = 50
+		RandomPlaySpeedMax = 48.0
+		RandomPlaySpeedMin = 24.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RadialOffsetMax = 75.0
+		RadialOffsetMin = 85.0
+		RadialOffsetScaleRadius = 90.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		Ambient = 0.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 1.0
+		EndBlue = 0.4
+		Hue = 0.5
+	}
+	
+	{
+		Name = "PolymorphTrailB"
+		InheritFrom = "PolymorphTrailA"
+		FilePath = "Fx\WitchcraftBlobsB\WitchcraftBlobsB"
+	}
+	
+	{
+		Name = "PolymorphTrailC"
+		InheritFrom = "PolymorphTrailA"
+		FilePath = "Fx\WitchcraftBlobsC\WitchcraftBlobsC"
+	}
+	
+	{
+		Name = "PolymorphTrailD"
+		InheritFrom = "PolymorphTrailA"
+		FilePath = "Fx\WitchcraftBlobsD\WitchcraftBlobsD"
+	}
+
+	{
+		Name = "TorchWeaponFlameHecate"
+		CreateAnimation = "TorchWeaponFlameADark"
+		FilePath = "Fx\TorchFlameA\TorchFlameA"
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 44
+		NumFrames = 44
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 85.0
+		OriginY = 122.0
+		LocationFromOwner = "Take"
+		Acceleration = -400.0
+		Velocity = 400.0
+		EndScaleX = 1.5
+		ScaleMax = 1.0
+		ScaleMin = 0.9
+		StartScaleY = 0.5
+		Ambient = 0.0
+		OverlayVfx = true
+		AddColor = false
+		EndBlue = 0.5
+		EndGreen = 0.1
+		EndRed = 1.0
+		StartBlue = 0.5
+		StartGreen = 0.1
+		StartRed = 1.0
+	}
+
+	{
+		Name = "StaffProjectileFireFx1_Hecate"
+		FilePath = "Fx\StaffProjectileFireFxCircles\StaffProjectileFireFxCircles0001"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.4
+		StartAlpha = 1
+		EndAlpha = 0
+		IsometricSkew = "Y"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 110
+		Duration = 0.33
+		AngleMin = -0.5
+		AngleMax = 0.5
+		RadialOffsetMin = 120
+		RadialOffsetMax = 120
+		Velocity = 100
+		Acceleration = -3000
+		Scale = 0.75
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Hue = -0.2
+		StartRed = 0.01
+		StartGreen = 0.999
+		StartBlue = 0.4
+		EndRed = 0.0
+		EndGreen = 1.0
+		EndBlue = 0.5
+		CreateAnimation = "StaffProjectileFireFxRing_Hecate"
+	}
+	{
+		Name = "HecatePolymorphShadow"
+		InheritFrom = "StaffProjectileFireFx1_Hecate"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "HecateMeteorWarningDecal"
+		
+		FilePath = "Fx\HecateMeteorWarningDecal\HecateMeteorWarningDecalPartial"
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Duration = 1.6
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Sound = "/SFX/Player Sounds/ZagreusGunGrenadeGasReleaseFly"
+		StopSoundOnFinishFade = 0.2
+		Scale = 2.3
+		StartAlpha = 0
+		EndAlpha = 1
+		StartAngle = 202
+		EndAngle = 112
+		EaseIn = 0
+		EaseOut = 1
+		PostRotateScaleY = 0.5
+		ChainTo = "HecateMeteorWarningDecalFade"
+		CreateAnimations =
+		[
+			{ Name = "HecateMeteorWarningDecal2" }
+		]
+	}
+	{
+		Name = "HecateMeteorSmallWarningDecal"
+		InheritFrom = "HecateMeteorWarningDecal"
+		ChainTo = "HecateMeteorSmallWarningDecalFade"
+		Scale = 1.15
+		CreateAnimations =
+		[
+			{ Name = "HecateMeteorSmallWarningDecal2" }
+		]
+	}
+
+	{
+		Name = "HecateMeteorWarningDecalFade"
+		InheritFrom = "HecateMeteorWarningDecal"
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+		StartAngle = 111.999
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0.8
+	}
+	{
+		Name = "HecateMeteorSmallWarningDecalFade"
+		InheritFrom = "HecateMeteorWarningDecalFade"
+	}
+
+	{
+		Name = "HecateMeteorWarningDecal2"
+		InheritFrom = "HecateMeteorWarningDecal"
+		FilePath = "Fx\HecateMeteorWarningDecal\HecateMeteorWarningDecalFull"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+		StartScale = 0.1
+		EndScale = 1.0
+		StartAngle = -68
+		EndAngle = 112
+		StartRed = 0.999
+		EndRed = 1.0
+		StartGreen = 0
+		EndGreen = 1
+		StartBlue = 0.1
+		EndBlue = 1.0
+		Hue = 0.35
+		ChainTo = null
+	}
+	{
+		Name = "HecateMeteorSmallWarningDecal2"
+		InheritFrom = "HecateMeteorWarningDecal2"
+		StartScale = 0.05
+		EndScale = 0.5
+	}
+
+
+
+	{
+		Name = "HecateMeteorImpact"
+		
+		FilePath = "Fx\BiomeStateMeteor\Impact\MeteorImpact"
+		NumFrames = 40
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		GroupName = "Standing"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 233
+		OriginY = 455
+		Scale = 1.5
+		Hue = 0.35
+		CreateAnimations =
+		[
+			{ Name = "HecateMeteorCrater" }
+			{ Name = "HecateMeteorFlare" }
+			{ Name = "HecateMeteorFlareStreak" }
+			{ Name = "HecateMeteorGlow" }
+			{ Name = "HecateMeteorDustFront" }
+			{ Name = "HecateMeteorDustBack" }
+			{ Name = "HecateMeteorDustShadow" }
+		]
+	}
+	{
+		Name = "IcarusBombardImpact"
+		InheritFrom = "HecateMeteorImpact"
+		Hue = 0.0
+	}
+	{
+		Name = "IcarusBombardImpactSmall"
+		InheritFrom = "HecateMeteorImpact"
+		Scale = 0.5
+	}
+
+	{
+		Name = "HecateMeteorCrater"
+		FilePath = "Fx\BiomeStateMeteor\Crater"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		GroupName = "FX_Terrain"
+		Scale = 0.5
+		RandomDurationMin = 4
+		RandomDurationMax = 6
+		ChainTo = "HecateMeteorCraterFade"
+		Hue = 0.4
+	}
+
+	{
+		Name = "HecateMeteorCraterFade"
+		InheritFrom = "HecateMeteorCrater"
+		RandomDurationMin = 1
+		RandomDurationMax = 1.5
+		StartScale = 1
+		EndScale = 0.6
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+
+
+	{
+		Name = "HecateMeteorFlare"
+		FilePath = "Fx\BiomeStateMeteor\Flare\Flare"
+		NumFrames = 4
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 215
+		OriginY = 505
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		Scale = 2
+		Hue = 0.35
+		GroupName = "FX_Add_Top"
+		VisualFx = "HecateMeteorFlareParticles"
+	}
+
+	{
+		Name = "HecateMeteorGlow"
+		
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Duration = 2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.6
+		EndRed = 0.01
+		EndGreen = 0.99
+		EndBlue = 0.1
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		Scale = 2.5
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 100
+	}
+
+	{
+		Name = "HecateMeteorFlareParticles"
+		FilePath = "Particles\particle_addFlake2"
+		Material = "Unlit"
+		AddColor = false
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomOffsetY = 300
+		RandomOffsetX = 12
+		Angle = 270
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		VelocityMin = 30
+		VelocityMax = 100
+		Acceleration = -10
+		RandomDurationMin = 2
+		RandomDurationMax = 4
+		ScaleMin = 0.2
+		ScaleMax = 0.8
+		OffsetZ = 400
+		AlphaMin = 0.1
+		AlphaMax = 1.0
+		RandomRotation = true
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.0
+		EndGreen = 0.5
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "HecateMeteorFlareStreak"
+		InheritFrom = "HecateMeteorFlare"
+		Scale = 1
+		ScaleY = 4
+		PlaySpeed = 24
+		SortMode = "FromParent"
+		OffsetZ = 60
+		StartScaleY = 1
+		EndScaleY = 0.1
+	}
+
+	{
+		Name = "HecateLaser"
+		FilePath = "Fx\Sorcery\SorceryMoonLaser\SorceryMoonLaser"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 45
+		OriginX = 60
+		OriginY = 40
+		ScaleX = 3
+		VisualFx = "MoonLaserEndParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		CreateAnimations = [
+			{ Name = "HecateLaserGlow" }
+			{ Name = "HecateLaserOriginFx" }
+		]
+	}
+
+	{
+		Name = "HecateLaserOriginFx"
+		FilePath = "Fx\Sorcery\SorceryMoonLaserOrigin\SorceryMoonLaserOrigin"
+		NumFrames = 30
+		Loop = true
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		DieWithOwner = true
+		Scale = 1.5
+		OriginX = 180
+		OriginY = 90
+	}
+
+    {
+      Name = "HecateLaserGlow"
+      FilePath = "Particles\particle_glow_egg_horizontal"
+      Material = "Unlit"
+      GroupName = "FX_Add_Top"      
+      EndAlpha = 1.0
+      PingPongColor = true
+      StartAlpha = 0.5
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      RandomDurationMax = 0.33
+      RandomDurationMin = 0.4
+      StartFrame = 1
+      OriginY = 84.0
+      OriginX = 10
+      DieWithOwner = true
+      ScaleLength = 200.0
+      ScaleY = 1
+      StartRed = 1.0
+      StartGreen = 0.8
+      StartBlue = 0.9
+      EndRed = 0.7
+      EndGreen = 0.9
+      EndBlue = 1.0
+    }
+
+    {
+      Name = "HecateLaserEnd"
+      InheritFrom = "HecateLaser"
+      Duration = 0.15
+      TransferAngle = true
+      TransferCopyBody = true
+      Loop = false
+      EndScaleY = 0.0
+      Sound = null
+      CreateAnimations = []
+    }
+
+
+	{
+		Name = "HecateRangedOrb"
+		
+		FilePath = "Fx\WitchcraftOrbHecate\WitchcraftOrbHecate"
+		Material = "Unlit"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomStartFrame = true
+		ScaleMin = 0.75
+		ScaleMax = 0.85
+		ReRandomizeOnLoop = false
+		StartOffsetY = -10
+		EndOffsetY = 10
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		OffsetZ = 10
+		TransferFrameToThis = true
+		VisualFx = "null"
+		VisualFxIntervalMin = 0.7
+		VisualFxIntervalMax = 0.7
+		CreateAnimations =
+		[
+			{ Name = "HecateRangedOrbGlow" }
+		]
+	}
+
+	{
+		Name = "HecateRangedOrbTrailFlame"
+		
+		Random =
+		[
+			{ Name = "HecateRangedOrbTrailFlameA" }
+			{ Name = "HecateRangedOrbTrailFlameB" }
+			{ Name = "HecateRangedOrbTrailFlameC" }
+		]
+	}
+
+
+	{
+		Name = "HecateRangedOrbTrailFlameA"
+		
+		FilePath = "Fx\TorchFlameA\TorchFlameA"
+		GroupName = "FX_Dark"
+		AngleFromOwner = "Take"
+		UseOwnAngle = true
+		ColorFromOwner = "Ignore"
+		NumFrames = 44
+		StartFrame = 1
+		RandomFlipVertical = true
+		FlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.1
+		ScaleMin = 1.0
+		Ambient = 0.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleY = 0.5
+		Scale = 0.6
+		StartScaleX = 0.5
+		EndScaleX = 0.8
+		Velocity = 200
+		OriginX = 300
+		OriginY = 122
+		OffsetZ = 60
+		StartRed = 0
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0.01
+		EndGreen = 0.5
+		EndBlue = 0.8
+		Hue = 0.06
+		Loop = false
+	}
+
+	{
+		Name = "HecateRangedOrbTrailFlameB"
+		InheritFrom = "HecateRangedOrbTrailFlameA"
+		FilePath = "Fx\TorchFlameB\TorchFlameB"
+	}
+
+	{
+		Name = "HecateRangedOrbTrailFlameC"
+		InheritFrom = "HecateRangedOrbTrailFlameA"
+		FilePath = "Fx\TorchFlameC\TorchFlameC"
+	}
+
+
+
+	{
+		Name = "HecateRangedOrbTrail"
+		
+		Random =
+		[
+			{ Name = "HecateRangedOrbTrailA" }
+			{ Name = "HecateRangedOrbTrailA" }
+			{ Name = "HecateRangedOrbTrailB" }
+		]
+	}
+
+
+	{
+		Name = "HecateRangedOrbTrailA"
+		
+		FilePath = "Particles\particle_darkness"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		RandomRotation = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0.95
+		EaseOut = 1.0
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -10
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		AngleMin = -20
+		AngleMax = 20
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "HecateRangedOrbTrailB"
+		InheritFrom = "HecateRangedOrbTrailA"
+		Hue = 0.7
+	}
+
+	{
+		Name = "HecateRangedOrbStart"
+		InheritFrom = "HecateRangedOrb"
+		ClearCreateAnimations = true
+		ChainTo = "HecateRangedOrb"
+		Duration = 0.25
+		StartScale = 0
+		EndScale = 1
+		Loop = false
+		TransferFrameFromThis = true
+		StartOffsetY = 0
+		EndOffsetY = 0.01
+		OffsetY = -10
+		PingPongShiftOverDuration = false
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.1
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "HecateRangedOrbStartGlow"
+	}
+
+	{
+		Name = "HecateRangedOrbStartGlow"
+		
+		FilePath = "Particles\particle_quickflashIris"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.4
+		Scale = 0.3
+		StartRed = 0.3
+		StartGreen = 0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.7
+		OffsetZ = 0
+	}
+
+	{
+		Name = "HecateProjectileLight"
+		FilePath = "Fx\LootShadow\LootShadow"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		Alpha = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Scale = 0.75
+		Color = { Red = 0.05 Green = 1.0 Blue = 0.3 }
+	}
+
+	{
+		Name = "HecateRangedOrbGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.3
+		StartGreen = 0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.7
+		StartAlpha = 0.03
+		EndAlpha = 0.2
+		PingPongColor = true
+		Duration = 1.5
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		Scale = 1.333
+		DieWithOwner = true
+	}
+
+	{
+		Name = "HecateRangedOrbDissipate"
+		InheritFrom = "HecateRangedOrb"
+		FilePath = "Fx\WitchcraftOrbHecateDissipate\WitchcraftOrbHecateDissipate"
+		NumFrames = 14
+		Loop = false
+		ScaleMin = 0.99
+		ScaleMax = 1.0
+		RandomStartFrame = false
+		ScaleFromOwner = "Ignore"
+		StartOffsetY = 0
+		EndOffsetY = 0.001
+		LocationFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		RandomRotation = true
+		VisualFx = "HecateRangedOrbDissipateParticles"
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "HecateRangedOrbDissipateGlow"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "HecatePolymorphDissipate"
+		InheritFrom = "HecateRangedOrbDissipate"
+		Scale = 2
+		PlaySpeed = 30
+		VisualFxCap = 15
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+		TimeModifierFraction = 0.2
+		CreateAnimations =
+		[
+			{ Name = "HecateRangedOrbDissipateGlow2" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+			{ Name = "WitchcraftBlobsSpike" }
+		]
+	}
+
+	{
+		Name = "HecatePolymorphDissipate2"
+		InheritFrom = "HecatePolymorphDissipate"
+		ClearCreateAnimations = true
+		PostRotateScaleY = 0.5
+		Hue = 0.1
+		TimeModifierFraction = 0.2
+	}
+
+	{
+		Name = "HecatePolymorphDisplace"
+		
+		FilePath = "Fx\Blink\BlinkDisplacement"
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.5
+		Scale = 1.1
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		Angle = 90
+		TimeModifierFraction = 0.2
+	}
+
+	{
+		Name = "HecateRangedOrbDissipateParticles"			
+		Random =
+		[
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesA" }
+			{ Name = "HecateRangedOrbDissipateParticlesB" }
+		]
+	}
+
+	{
+		Name = "HecateRangedOrbDissipateParticlesA"
+		
+		FilePath = "Particles\particle_darkness"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		RandomRotation = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.6
+		EaseIn = 0.95
+		EaseOut = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 500
+		Acceleration = -500
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HecateRangedOrbDissipateParticlesB"
+		InheritFrom = "HecateRangedOrbDissipateParticlesA"
+		Hue = 0.7
+	}
+
+	{
+		Name = "HecateRangedOrbDissipateGlow"
+		InheritFrom = "HecateRangedOrbGlow"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PingPongColor = false
+		Loop = false
+		DieWithOwner = false
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HecateRangedOrbDissipateGlow2"
+		InheritFrom = "HecateRangedOrbDissipateGlow"
+		Duration = 1.0
+	}
+
+
+	{
+		Name = "HecateSlowFlameIn"
+		
+		FilePath = "Fx\HecateSlowFlameIn\HecateSlowFlameIn"
+		NumFrames = 10
+		PlaySpeed = 30
+		ChainTo = "HecateSlowFlame"
+		Material = "Unlit"
+		PostRotateScaleY = 0.55
+		Scale = 1.2
+		ScaleY = 1.3
+		LocationZFromOwner = "Take"
+		OffsetY = 35
+		VisualFx = "HecateSlowFlameParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		CreateAnimations =
+		[
+			{ Name = "HecateSlowFlameFlare" }
+			{ Name = "HecateSlowFlameIn_Add" }
+			{ Name = "HecateSlowFlameDisplacement" }
+		]
+	}
+
+	{
+		Name = "HecateSlowFlameDisplacement"
+		
+		FilePath = "Fx\Blink\BlinkDisplacement"
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.0
+		EndAlpha = 0.06
+		Scale = 2
+		Angle = 45
+		HoldLastFrame = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PingPongColor = false
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		DieWithOwner = true
+	}
+
+	{
+		Name = "HecateSlowFlame"
+		InheritFrom = "HecateSlowFlameIn"
+		FilePath = "Fx\HecateSlowFlame\HecateSlowFlame"
+		NumFrames = 60
+		Loop = true
+		DieWithOwner = true
+		ChainTo = null
+		ClearCreateAnimations = true
+		OffsetY = 35
+	}
+
+	{
+		Name = "HecateSlowFlameParticles"
+		Random =
+		[
+			{ Name = "HecateSlowFlameParticleA" }
+			{ Name = "HecateSlowFlameParticleB" }
+			{ Name = "HecateSlowFlameParticleC" }
+		]
+	}
+
+	{
+		Name = "HecateSlowFlameParticleA"
+		FilePath = "Fx\HecateTorchRingEdgeFlameA\HecateTorchRingEdgeFlameA"
+		NumFrames = 29
+		RandomFlipVertical = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Scale = 0.25
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		StartRed = 0.1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.9
+		EndBlue = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		ScaleY = 1.5
+		Material = "Unlit"
+		ColorFromOwner	= "Ignore"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		AngleMin = -50
+		AngleMax = 50
+		OwnerVelocityFraction = 1
+		StartScaleX = 1
+		RadialOffsetMin = 200
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.5
+		EndScaleX = 0.5
+		OriginX = 200
+		OriginY = 120
+		VelocityMin = 150
+		VelocityMax = 200
+		CreateAnimation = "HecateTorchFlameTrail"
+	}
+
+	{
+		Name = "HecateSlowFlameParticleB"
+		InheritFrom = "HecateSlowFlameParticleA"
+		FilePath = "Fx\HecateTorchRingEdgeFlameB\HecateTorchRingEdgeFlameB"
+	}
+	{
+		Name = "HecateSlowFlameParticleC"
+		InheritFrom = "HecateSlowFlameParticleA"
+		FilePath = "Fx\HecateTorchRingEdgeFlameC\HecateTorchRingEdgeFlameC"
+	}
+
+	{ 
+		Name = "HecateSlowFlameOut"
+		InheritFrom = "HecateSlowFlameIn"
+		ChainTo = null
+		FilePath = "Fx\HecateSlowFlameOut\HecateSlowFlameOut"
+		NumFrames = 20
+		OffsetZ = 70
+		LocationZFromOwner = "Take"
+		ClearCreateAnimations = true
+		VisualFx = null
+		CreateAnimation = "HecateSlowFlameOut_Add"
+	}
+
+	{
+		Name = "HecateSlowFlameIn_Add"
+		InheritFrom = "HecateSlowFlameIn"
+		ClearCreateAnimations = true
+		OffsetZ = 20
+		GroupName = "FX_Standing_Add"
+		Scale = 1.1
+		VisualFx = null
+		ChainTo = "HecateSlowFlame_Add"
+	}
+	{
+		Name = "HecateSlowFlame_Add"
+		InheritFrom = "HecateSlowFlame"
+		OffsetZ = 20
+		GroupName = "FX_Standing_Add"
+		Scale = 1.1
+		ChainTo = null
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		SortMode = "FromParent"
+	}
+	{
+		Name = "HecateSlowFlameOut_Add"
+		InheritFrom = "HecateSlowFlameOut"
+		CreateAnimation = null
+		OffsetZ = 90
+		GroupName = "FX_Standing_Add"
+		Scale = 1.1
+	}
+
+	{
+		Name = "HecateSlowFlameInFlip"
+		InheritFrom = "HecateSlowFlameIn"
+		FlipVertical = true
+		ChainTo = "HecateSlowFlameFlip"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "HecateSlowFlameFlare" }
+			//{ Name = "HecateSlowFlameInFlip_Add" }
+		]
+	}
+
+	{
+		Name = "HecateMeleeConeFx"
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		RandomFlipVertical = true
+		InheritFrom = "HecateSlowFlameIn"
+		ChainTo = "HecateSlowFlameFlipMeleeCone"
+		VisualFx = null
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		ClearCreateAnimations = true
+		PostRotateScaleY = 0.5
+		AngleMin = -5
+		AngleMax = 5
+		CreateAnimations =
+		[
+			{ Name = "HecateSlowFlameFlareSmall" }
+			{ Name = "HecateMeleeConeTrail" }
+		]
+	}
+
+	{
+		Name = "HecateMeleeConeFxDark"
+		InheritFrom = "HecateMeleeConeFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		DieWithOwner = true
+	}
+
+	{
+		Name = "HecateSlowFlameFlip"
+		InheritFrom = "HecateSlowFlame"
+		FlipVertical = true
+		ChainTo = null
+	}
+
+	{
+		Name = "HecateSlowFlameFlipMeleeCone"
+		InheritFrom = "HecateSlowFlame"
+		PostRotateScaleY = 0.5
+		FlipVertical = true
+		ChainTo = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		StartScaleY = 1.0
+		EndScaleY = 0.8
+		PingPongScale = true
+		VisualFx = "HecateMeleeConeTrail"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.4
+		CreateAnimation = "HecateMeleeConeTrail"
+	}
+
+
+	{
+		Name = "HecateMeleeConeGroundGlow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AddColor = true
+		Red = 0
+		Green = 1
+		Blue = 0.5
+		Alpha = 0.33
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		Loop = true
+		Duration = 1.5
+		DieWithOwner = true
+		Material = "Unlit"
+		Scale = 1.75
+		LocationZFromOwner = "Ignore"
+		OffsetZ = -20
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "HecateSlowFlameOutFlip"
+		InheritFrom = "HecateSlowFlameOut"
+		FlipVertical = true
+		CreateAnimation = "HecateSlowFlameOutFlip_Add"
+	}
+
+	{
+		Name = "HecateMeleeConeTrail"
+		InheritFrom = "HecateSlowFlameOut"
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		GroupName = "FX_Dark"
+		StartRed = 0.01
+		StartGreen = 0.25
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		ClearCreateAnimations = true
+		VisualFx = null
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.7
+		EndScale = 1.1
+		EaseIn = 0.9
+		EaseOut = 1
+		OwnerVelocityFraction = 1
+		CreateAnimation = "HecateMeleeConeParticle"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 16
+	}
+
+	{
+		Name = "HecateMeleeConeParticle"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		Material = "Unlit"
+		AddColor = true
+		Red = 0
+		Green = 1
+		Blue = 0.6
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMax = 1.2
+		RandomDurationMin = 0.7
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		VelocityMin = 50
+		VelocityMax = 400
+		Acceleration = -50
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		RandomOffsetX = 100
+		RandomOffsetY = 60
+		OwnerVelocityFraction = 1
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "HecateMeleeConeTrailDisplacement"
+		FilePath = "Fx\DisplaceHeatWave\DisplaceHeatWave"
+		StartAlpha = 0.25
+		EndAlpha = 0
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Displacement"
+		PlaySpeed = 30
+		Material = "Unlit"
+		NumFrames = 60
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		Scale = 2.0
+		ScaleX = 1
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.5
+		Loop = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "HecateSlowFlameInFlip_Add"
+		InheritFrom = "HecateSlowFlameIn_Add"
+		FlipVertical = true
+		CreateAnimation = null
+	}
+	{
+		Name = "HecateSlowFlameFlip_Add"
+		InheritFrom = "HecateSlowFlame_Add"
+		FlipVertical = true
+		CreateAnimation = null
+	}
+	{
+		Name = "HecateSlowFlameOutFlip_Add"
+		InheritFrom = "HecateSlowFlameOut_Add"
+		FlipVertical = true
+		CreateAnimation = null
+	}
+
+
+
+	{
+		Name = "HecateMeleeArcIn"
+		
+		FilePath = "Fx\HecateMeleeArcIn\HecateMeleeArcIn"
+		NumFrames = 8
+		PlaySpeed = 30
+		ChainTo = "HecateMeleeArc"
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		Scale = 0.8
+		DieWithOwner = true
+		CreateAnimations =
+		[
+			{ Name = "HecateMeleeFlare" }
+		]
+	}
+
+	{
+		Name = "HecateMeleeFlare"
+		
+		FilePath = "Particles\particle_quickflashIris"
+		Material = "Unlit"
+		StartScale = 0.5
+		EndScale = 1
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0.0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Duration = 0.2
+		Scale = 1.25
+	}
+
+	{
+		Name = "HecateSlowFlameGlow"
+		
+		FilePath = "Particles\particle_glow"
+		ScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		Red = 0
+		Green = 1
+		Blue = 0.2
+		StartAlpha = 0
+		EndAlpha = 0.5
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		HoldLastFrame = true
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2
+	}
+
+	{
+		Name = "HecateSlowFlameFlare"
+		InheritFrom = "HecateMeleeFlare"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.4
+		EndRed = 0.01
+		EndGreen = 0.7
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "HecateSlowFlameFlareSmall"
+		InheritFrom = "HecateSlowFlameFlare"
+		Scale = 0.5
+	}
+
+
+	
+	{
+		Name = "HecateMeleeFlareOut"
+		InheritFrom = "HecateMeleeFlare"
+		Scale = 0.6
+		StartScale = 1
+		EndScale = 0.2
+	}
+
+
+
+	{
+		Name = "HecateMeleeArc"
+		InheritFrom = "HecateMeleeArcIn"
+		FilePath = "Fx\HecateMeleeArc\HecateMeleeArc"
+		NumFrames = 60
+		Loop = true
+		ChainTo = "HecateMeleeArcOut"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "HecateMeleeArcInFlip"
+		InheritFrom = "HecateMeleeArcIn"
+		FlipVertical = true
+		ChainTo = "HecateMeleeArcFlip"
+	}
+
+	{
+		Name = "HecateMeleeArcFlip"
+		InheritFrom = "HecateMeleeArc"
+		FlipVertical = true
+		ChainTo = "HecateMeleeArcOutFlip"
+	}
+
+	{
+		Name = "HecateMeleeIsoIn"
+		
+		FilePath = "Fx\HecateMeleeIsoIn\HecateMeleeIsoIn"
+		NumFrames = 8
+		PlaySpeed = 30
+		ChainTo = "HecateMeleeIso"
+		Material = "Unlit"
+		IsometricSkew = "X"
+		Scale = 0.8
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "HecateMeleeIso"
+		InheritFrom = "HecateMeleeIsoIn"
+		FilePath = "Fx\HecateMeleeIso\HecateMeleeIso"
+		Scale = 0.8
+		NumFrames = 60
+		Loop = true
+		DieWithOwner = true
+		ChainTo = "HecateMeleeIsoOut"
+		CreateAnimations =
+		[
+			{ Name = "HecateMeleeIsoDark" }
+			{ Name = "HecateMeleeIsoCenterFlare" }
+		]
+	}
+
+	{
+		Name = "HecateMeleeIsoDark"
+		
+		FilePath = "Particles\particle_glow"
+		Red = 0 
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		DieWithOwner = true
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.2
+		HoldLastFrame = true
+		EaseIn = 0
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.75
+	}
+
+	{
+		Name = "HecateMeleeIsoCenterFlare"
+		
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+		StartScale = 0
+		EndScale = 1
+		Duration = 1.2
+		HoldLastFrame = false
+		Loop = true
+		PingPongScale = false
+		PingPongColor = false
+		EaseIn = 0
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Scale = 0.3
+		StartRed = 0.05
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+	}
+
+	{ 
+		Name = "HecateMeleeArcOut"
+		InheritFrom = "HecateMeleeArcIn"
+		ChainTo = null
+		FilePath = "Fx\HecateMeleeArcOut\HecateMeleeArcOut"
+		NumFrames = 18
+		OffsetZ = 70
+		LocationZFromOwner = "Take"
+		ClearCreateAnimations = true
+		VisualFx = "HecateRangedOrbDissipateParticles"
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		CreateAnimations =
+		[
+			{ Name = "HecateMeleeFlareOut" }
+		]
+	}
+
+	{ 
+		Name = "HecateMeleeArcOutFlip"
+		InheritFrom = "HecateMeleeArcOut"
+		FlipVertical = true
+	}
+
+	{
+		Name = "HecateMeleeIsoOut"
+		InheritFrom = "HecateMeleeIsoIn"
+		ChainTo = null
+		FilePath = "Fx\HecateMeleeIsoOut\HecateMeleeIsoOut"
+		NumFrames = 18
+		OffsetZ = 70
+	}
+
+
+	{
+		Name = "HecateTeleportFxFront"
+		FilePath = "Fx\HecateTeleportFront\HecateTeleportFront"
+		NumFrames = 33
+		Material = "Unlit"
+		PlaySpeed = 30
+		CreateAnimation = "HecateTeleportFxBack"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		OriginX = 240
+		OriginY = 300
+		Sound = "/Leftovers/SFX/BeaconTeleportSFX2"
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "HecateTeleportGlow" }
+		]
+	}
+
+	{
+		Name = "HecateTeleportFxFrontReverse"
+		InheritFrom = "HecateTeleportFxFront"
+		Sound = null
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "HecateTeleportFxFrontFast"
+		InheritFrom = "HecateTeleportFxFront"
+		PlaySpeed = 60
+		CreateAnimation = "null"
+	}
+
+	{
+		Name = "HecateTeleportGlow"
+		FilePath = "Particles\particle_glow_egg"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.8
+		EndRed = 0.4
+		EndGreen = 0.2
+		EndBlue = 1.0
+		StartScale = 1
+		EndScale = 1.5
+		Material = "Unlit"
+		Duration = 1.0
+		EaseIn = 0.5
+		EaseOut = 1
+		Scale = 2
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HecateTeleportFxBack"
+		InheritFrom = "HecateTeleportFxFront"
+		FilePath = "Fx\HecateTeleportBack\HecateTeleportBack"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		Sound = null
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "HecateCloneDeathFx"			
+		FilePath = "Dev\blank_invisible"
+		CreateAnimation = "HecateCloneDeathFx2"
+	}
+
+	{
+		Name = "HecateCloneDeathFx2"			
+		FilePath = "Fx\HecateCloneDeath\HecateCloneDeath"
+		NumFrames = 28
+		RandomFlipHorizontal = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		OriginX = 160
+		OriginY = 300
+		DieWithOwner = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		Scale = 1.2
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 70
+		CreateAnimations =
+		[
+			{ Name = "HecateTeleportGlow" }
+			{ Name = "HecateTeleportFlare" }
+			{ Name = "HecateTeleportFlare2" }
+		]
+	}
+
+	{
+		Name = "HecateTeleportFlare"
+		
+		FilePath = "Particles\particle_quickflashIris"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.8
+		EndRed = 0.4
+		EndGreen = 0.2
+		EndBlue = 1.0
+		Material = "Unlit"
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1
+		Scale = 1.0
+		ScaleX = 0.1
+		GroupName = "FX_Standing_Add"
+		StartScale = 1
+		EndScale = 0
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HecateTeleportFlare2"
+		InheritFrom = "HecateTeleportFlare"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		ScaleX = 1
+	}
+
+	{
+		Name = "HecateTorchCharge"
+		
+		FilePath = "Fx\HecateTorchCharge\HecateTorchCharge"
+		Material = "Unlit"
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PlaySpeed = 30
+		NumFrames = 30
+		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
+		DieWithOwner = true
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+	}
+
+	{
+		Name = "HecateTransformFlame"
+		
+		FilePath = "Fx\HecateTransformFlame\HecateTransformFlame"
+		NumFrames = 120
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		OffsetZ = 100
+		ColorFromOwner = "Ignore"
+		Scale = 1.33
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "HecateTransformFlameDark"
+		InheritFrom = "HecateTransformFlame"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Sound = "/SFX/Enemy Sounds/Hecate/HecateSmokeCloud"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "HecateMeteorDustFront"
+		
+		FilePath = "Fx\HecateMeteorDustFront\HecateMeteorDustFront"
+		NumFrames = 65
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		CreateAnimation = "HecateMeteorDustBack"
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		OverlayVfx = true
+		StartScale = 1
+		EndScale = 1.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0.05
+		StartGreen = 0.15
+		StartBlue = 0.10
+		EndRed = 0.5
+		EndGreen = 0.7
+		EndBlue = 0.6
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "HecateMeteorDustBack"
+		InheritFrom = "HecateMeteorDustFront"
+		FilePath = "Fx\HecateMeteorDustBack\HecateMeteorDustBack"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		DrawBehindOwner = true
+		OverlayVfx = false
+		SortMode = "Isometric"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "HecateMeteorDustShadow"
+		
+		FilePath = "Particles\particle_glow"
+		Scale = 3
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "Shadows"
+		Duration = 2
+		EaseIn = 0.5
+		EaseOut = 1.0
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+
+	{
+		Name = "FootstepL-Spawner_Hecate"
+		InheritFrom = "GroupChange"
+		VisualFx = "FootstepL_Hecate"
+		GrannyAttachedMarkerLocation = "Hecate_Rig:ankle_00_L_JNT"
+	}
+	
+	{
+		Name = "FootstepR-Spawner_Hecate"
+		InheritFrom = "GroupChange"
+		VisualFx = "FootstepR_Hecate"
+		GrannyAttachedMarkerLocation = "Hecate_Rig:ankle_00_R_JNT"
+	}
+
+
+	{
+		Name = "FootstepL_Hecate"
+		FilePath = "Particles\particle_footstep"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		PostRotateScaleY = 0.5
+		Scale = 0.25
+		Ambient = 0.0
+		ChainTo = "FootstepL_Hecate_Fade"
+		RandomDurationMin = 5
+		RandomDurationMax = 5.2
+		Alpha = 0.5
+		Angle = -90
+	}
+
+	{
+		Name = "FootstepL_Hecate_Fade"
+		InheritFrom = "FootstepL_Hecate"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 2
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+	}
+
+	{
+		Name = "FootstepR_Hecate"
+		InheritFrom = "FootstepL_Hecate"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "FootstepR_Hecate_Fade"
+		InheritFrom = "FootstepL_Hecate_Fade"
+		FlipHorizontal = true
+	}
+
+
+
+	// Fog Emitter
+
+	{
+		Name = "FogEmitterSlamDustFront"
+		InheritFrom = "HecateMeteorDustFront"
+		Hue = -0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 2
+		CreateAnimation = null
+	}
+
+	{
+		Name = "FogEmitterSlamDustBack"
+		InheritFrom = "HecateMeteorDustBack"
+		Hue = -0.2
+		Duration = 1
+		StartAlpha = 2
+		EndAlpha = 0
+	}
+
+	{
+		Name = "FogEmitterSlamNova"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		NumFrames = 30
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		PlaySpeed = 30
+		Scale = 2
+		CreateAnimations =
+		[
+			{ Name = "FogEmitterSlamNovaDark" }
+			{ Name = "TreantTailBurstDirtA" }
+			{ Name = "TreantTailBurstDirtB" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "FogEmitterSlamDustFront" }
+			{ Name = "FogEmitterSlamDustBack" }
+			{ Name = "FogEmitterSlamHole" }
+			{ Name = "FogEmitterSlamSpikeA" }
+			{ Name = "FogEmitterSlamSpikeB" }
+		]
+	}
+
+	{
+		Name = "FogEmitterSlamNovaDark"
+		InheritFrom = "FogEmitterSlamNova"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+
+	{
+		Name = "FogEmitterSlamSpikeA"
+		FilePath = "Particles\particle_banished_spike"
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.3
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 192
+		OriginY = 800
+		GroupName = "FX_Standing_Add"
+		Duration = 0.3
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Scale = 0.6
+	}
+
+	{
+		Name = "FogEmitterSlamSpikeB"
+		InheritFrom = "FogEmitterSlamSpikeA"
+		ColorFromOwner = "Ignore"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Duration = 0.15
+		Scale = 0.2
+		ScaleY = 2
+	}
+
+	{
+		Name = "FogEmitterSlamHole"
+		Random =
+		[
+			{ Name = "FogEmitterSlamHoleA" }
+			{ Name = "FogEmitterSlamHoleB" }
+		]
+	}
+
+	{
+		Name = "FogEmitterSlamHoleA"
+		FilePath = "Fx\FogEmitterSlamNova\Hole"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Duration = 30
+		ChainTo = "FogEmitterSlamHoleFadeA"
+		GroupName = "FX_Terrain"
+		ScaleMin = 0.5
+		ScaleMax = 0.7
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "FogEmitterSlamHoleFadeA"
+		InheritFrom = "FogEmitterSlamHoleA"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 1.0
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "FogEmitterSlamHoleB"
+		InheritFrom = "FogEmitterSlamHoleA"
+		FlipHorizontal = true
+		ChainTo = "FogEmitterSlamHoleFadeB"
+	}
+
+	{
+		Name = "FogEmitterSlamHoleFadeB"
+		InheritFrom = "FogEmitterSlamHoleFadeA"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "FogEmitterSweepArc"
+		FilePath = "Fx\BrawlerSwipeClose\BrawlerSwipeClose"
+		NumFrames = 26
+		FlipHorizontal = true
+		PostRotateScaleY = 0.6
+		Scale = 5.0
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		CreateAnimations =
+		[
+			{ Name = "FogEmitterSweepArcDark" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "FogEmitterSweepArcDark"
+		InheritFrom = "FogEmitterSweepArc"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "ChronosClockArm"
+		InheritFrom = "RadiatorBeam"
+		Scale = 2.0
+		ScaleY = 4.0
+		PostRotateScaleY = 0.55
+		CreateAnimations = []
+	}
+
+	{
+		Name = "HecatePolymorphFx"
+		FilePath = "Fx\EliteUnitStatus\EliteUnitStatus"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		PlaySpeed = 45.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		FlipVertical = true
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		DrawBehindOwner = true
+		LocationZFromOwner = "Ignore"
+		RotationSpeed = 20.0
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		ScaleFromOwner = "Ignore"
+		Hue = 0.5
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+]}

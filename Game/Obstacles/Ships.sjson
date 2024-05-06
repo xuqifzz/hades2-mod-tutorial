@@ -1,0 +1,2889 @@
+{ Obstacles = [
+	{
+		Name = "ShipsExitDoor"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			Ambient = 0.0
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsExitDoorLocked"
+			MeshType = "Vertical"
+			Interact = 
+			{
+				Distance = 225.0
+				OffsetY = -72.0
+			}
+			Tallness = 439
+			Offset = { X = 0 Y = -110 }
+			ExtentScale = 1.25
+			Points =
+			[
+				{ X = -98 Y = -32 }
+				{ X = 78 Y = 56 }
+				{ X = 111 Y = 40 }
+				{ X = -61 Y = -51 }
+			]
+		}
+	}
+	
+    {
+      Name = "ShipsPostBossDoor"
+      InheritFrom = "PostBossDoor"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "DoorExitLightSoftNE_Locked"
+        OffsetY = 0
+      }
+    }
+
+	{
+		Name = "ShipsSteeringWheel"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "PropShipSteeringWheel_Mesh"
+			Graphic = "ShipsSteeringWheel_Idle"
+			Interact = 
+			{
+				Distance = 175.0
+				OffsetY = -40.0
+			}
+			ExtentScale = 1.5
+			Tallness = 216
+        Offset = { X = 0 Y = 14 }
+        Points = [
+          { X = -36 Y = -6 }
+          { X = 12 Y = 20 }
+          { X = 39 Y = 7 }
+          { X = -12 Y = -19 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsSteeringWheelLeft"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Blank"
+			Interact = 
+			{
+				Distance = 175.0
+				OffsetY = -40.0
+			}
+			Tallness = 100
+			Offset = { X = 0 Y = -250 }
+			Points =
+			[
+				{ X = -63 Y = -27 }
+				{ X = 37 Y = 23 }
+				{ X = 66 Y = 8 }
+				{ X = -34 Y = -42 }
+			]
+		}
+	}
+
+	{
+		Name = "ShipsSteeringWheelRight"
+		InheritFrom = "ShipsSteeringWheelLeft"
+	}
+	
+	{
+		Name = "ShipsSteeringWheelDestroyed"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsSteeringWheelDestroyed"
+			Tallness = 35
+			Points =
+			[
+				{ X = -26 Y = -5 }
+				{ X = 22 Y = 18 }
+				{ X = 45 Y = 7 }
+				{ X = -2 Y = -18 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPowerCell"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+      CausesOcclusion = true
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsPowerCellFull"
+			Tallness = 1140
+			Offset = { X = 0 Y = -466 }
+			Points =
+			[
+				{ X = -240 Y = 19 }
+				{ X = 1 Y = 143 }
+				{ X = 229 Y = 21 }
+				{ X = -33 Y = -115 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPowerCell01a"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_PowerCell_01a"
+			Tallness = 938
+			Offset = { X = 0 Y = -466 }
+			Points =
+			[
+				{ X = -240 Y = 19 }
+				{ X = 1 Y = 143 }
+				{ X = 229 Y = 21 }
+				{ X = -33 Y = -115 }
+			]
+		}
+	}
+	
+	{
+		Name = "Breakable_O"
+		DisplayInEditor = true
+		Life = 
+		{
+			HitSound = "/EmptyCue"
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+			RequiresDamageToAffect = true
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			ExtentScale = 0.5
+			Graphic = "Breakable_O01"
+			StopsProjectiles = true
+			StopsUnits = true
+			StopsLight = true
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_01"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+			Offset = { X = 0 Y = -94 }
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks06"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_06"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 87
+			Offset = { X = 0 Y = -94 }
+			Points =
+			[
+				{ X = -593 Y = 132 }
+				{ X = -378 Y = 247 }
+				{ X = 595 Y = -271 }
+				{ X = 378 Y = -374 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainSand01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Sand_01"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 87
+			Offset = { X = 0 Y = -94 }
+			Points =
+			[
+				{ X = -593 Y = 132 }
+				{ X = -378 Y = 247 }
+				{ X = 595 Y = -271 }
+				{ X = 378 Y = -374 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWhirlpool01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Whirlpool_01"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 87
+			Offset = { X = 0 Y = -94 }
+			Points =
+			[
+				{ X = -593 Y = 132 }
+				{ X = -378 Y = 247 }
+				{ X = 595 Y = -271 }
+				{ X = 378 Y = -374 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks07"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_07"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 87
+			Offset = { X = 0 Y = -94 }
+			Points =
+			[
+				{ X = -593 Y = 132 }
+				{ X = -378 Y = 247 }
+				{ X = 595 Y = -271 }
+				{ X = 378 Y = -374 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks02"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_02"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks03"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_03"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks04"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_04"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainRubbish01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Rubbish_01"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsJerkyhoard01a"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Jerkyhoard_01a"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks05"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_05"
+			FootstepSound = "/Leftovers/SFX/FootstepsWoodSmall"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanksFlourish01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_PlanksFlourish_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish07"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_07"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish06"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_06"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainPlanks04a"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Planks_04a"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish03"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_03"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainHatch01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Hatch_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainGate01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Gate_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish04"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_04"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish05"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_05"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainBarnacles01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Barnacles_01"
+			Tallness = 90.0
+			Points =
+			[
+				{ X = -380 Y = -116 }
+				{ X = -424 Y = -13 }
+				{ X = -392 Y = 127 }
+				{ X = -51 Y = 254 }
+				{ X = 233 Y = 248 }
+				{ X = 412 Y = 102 }
+				{ X = 90 Y = -135 }
+				{ X = -119 Y = -181 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainSeashells01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Seashells_01"
+			Tallness = 90.0
+			Points =
+			[
+				{ X = -380 Y = -116 }
+				{ X = -424 Y = -13 }
+				{ X = -392 Y = 127 }
+				{ X = -51 Y = 254 }
+				{ X = 233 Y = 248 }
+				{ X = 412 Y = 102 }
+				{ X = 90 Y = -135 }
+				{ X = -119 Y = -181 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainSeashells01a"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Seashells_01a"
+			Tallness = 90.0
+			Points =
+			[
+				{ X = -380 Y = -116 }
+				{ X = -424 Y = -13 }
+				{ X = -392 Y = 127 }
+				{ X = -51 Y = 254 }
+				{ X = 233 Y = 248 }
+				{ X = 412 Y = 102 }
+				{ X = 90 Y = -135 }
+				{ X = -119 Y = -181 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainBarnacles02"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Barnacles_02"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainBarnacles03"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Barnacles_03"
+			Tallness = 569
+			Offset = { X = 0 Y = -157 }
+			Points =
+			[
+				{ X = -188 Y = -21 }
+				{ X = -161 Y = 134 }
+				{ X = 97 Y = 163 }
+				{ X = 198 Y = 54 }
+				{ X = 130 Y = -76 }
+				{ X = -115 Y = -124 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsEdgeWave01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_EdgeWave_01"
+			Tallness = 441.0
+			Offset = { X = 0 Y = -37 }
+			Points =
+			[
+				{ X = -842 Y = 409 }
+				{ X = -755 Y = 456 }
+				{ X = 893 Y = -374 }
+				{ X = 786 Y = -425 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsEdgeWave01a"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_EdgeWave_01a"
+			Tallness = 441.0
+			Offset = { X = 0 Y = -37 }
+			Points =
+			[
+				{ X = -842 Y = 409 }
+				{ X = -755 Y = 456 }
+				{ X = 893 Y = -374 }
+				{ X = 786 Y = -425 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWake01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wake_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsBioluminescence01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bioluminescence_01"
+			Tallness = 35.0
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipWallBarnacles01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ship_Wall_Barnacles_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsWallFlourish02"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Flourish_02"
+			Tallness = 35
+			Offset = { X = 0 Y = 0 }
+		}
+	}
+	
+	{
+		Name = "ShipsChronosBanner01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ChronosBanner_01"
+			Tallness = 35
+			Offset = { X = 0 Y = 0 }
+		}
+	}
+	
+	{
+		Name = "ShipsWallFlourish01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Flourish_01"
+			Tallness = 35
+			Offset = { X = 0 Y = 0 }
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_01"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainFlourish02"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Flourish_02"
+			Tallness = 35.0
+		}
+	}
+	
+	{
+		Name = "ShipsFence01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_01"
+			Tallness = 638
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -441 Y = -172 }
+				{ X = 325 Y = 210 }
+				{ X = 437 Y = 157 }
+				{ X = -327 Y = -223 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleFence01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleFence_01"
+			Tallness = 869
+			Offset = { X = 0 Y = -338 }
+			Points =
+			[
+				{ X = -749 Y = 290 }
+				{ X = -620 Y = 348 }
+				{ X = 696 Y = -246 }
+				{ X = 531 Y = -299 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence04"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_04"
+			Tallness = 670
+        Offset = { X = 0 Y = -258 }
+        Points = [
+          { X = 427 Y = 134 }
+          { X = 209 Y = 244 }
+          { X = -436 Y = -105 }
+          { X = -240 Y = -219 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsTableGroup01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		Life = 
+		{
+			SilentImpact = true
+		}
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_TableGroup_01"
+			Tallness = 757
+			Offset = { X = 0 Y = -253 }
+			Points =
+			[
+				{ X = -504 Y = 6 }
+				{ X = -13 Y = 225 }
+				{ X = 492 Y = -42 }
+				{ X = -25 Y = -270 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence05"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_05"
+			Tallness = 788
+			Offset = { X = 0 Y = -258 }
+			Points =
+			[
+				{ X = 563 Y = 237 }
+				{ X = 464 Y = 297 }
+				{ X = -571 Y = -230 }
+				{ X = -480 Y = -281 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence06"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_06"
+			Tallness = 840
+        Offset = { X = 0 Y = -215 }
+        Points = [
+          { X = -885 Y = -369 }
+          { X = 791 Y = 483 }
+          { X = 876 Y = 447 }
+          { X = -796 Y = -410 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsFence02"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_02"
+			Tallness = 554
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -514 Y = -79 }
+				{ X = -513 Y = 71 }
+				{ X = 508 Y = 67 }
+				{ X = 506 Y = -77 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPole01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Pole_01"
+			Tallness = 1700
+			Offset = { X = 0 Y = -708 }
+			Points =
+			[
+				{ X = -161 Y = 29 }
+				{ X = -12 Y = 104 }
+				{ X = 164 Y = 32 }
+				{ X = -7 Y = -43 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence03"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_03"
+			Tallness = 821
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -75 Y = -226 }
+				{ X = -69 Y = 309 }
+				{ X = 69 Y = 313 }
+				{ X = 71 Y = -241 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence01Moon"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_01_Moon"
+			Tallness = 674
+			Offset = { X = 0 Y = -314 }
+			Points =
+			[
+				{ X = -441 Y = -172 }
+				{ X = 325 Y = 210 }
+				{ X = 437 Y = 157 }
+				{ X = -327 Y = -223 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence01a"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_01a"
+			Tallness = 674.0
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -441 Y = -172 }
+				{ X = 325 Y = 210 }
+				{ X = 437 Y = 157 }
+				{ X = -327 Y = -223 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsFence01aMoon"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Fence_01a_Moon"
+			Tallness = 674
+			Offset = { X = 0 Y = -325 }
+			Points =
+			[
+				{ X = -441 Y = -172 }
+				{ X = 325 Y = 210 }
+				{ X = 437 Y = 157 }
+				{ X = -327 Y = -223 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsChest01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		Life = 
+		{
+			SilentImpact = true
+		}
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Chest_01"
+			Tallness = 674.0
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -432 Y = -102 }
+				{ X = 150 Y = 201 }
+				{ X = 436 Y = 51 }
+				{ X = -171 Y = -227 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBucket01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		Life = 
+		{
+			SilentImpact = true
+		}
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bucket_01"
+			Tallness = 674
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -209 Y = -12 }
+				{ X = -142 Y = 40 }
+				{ X = 20 Y = 72 }
+				{ X = 203 Y = 13 }
+				{ X = 125 Y = -99 }
+				{ X = -121 Y = -102 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCrate01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		Life = 
+		{
+			SilentImpact = true
+		}
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Crate_01"
+			Tallness = 607.0
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -367 Y = -18 }
+				{ X = 1 Y = 165 }
+				{ X = 391 Y = -13 }
+				{ X = 17 Y = -191 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCaptainsDoor01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CaptainsDoor_01"
+			Tallness = 972
+			Offset = { X = 0 Y = -365 }
+			Points =
+			[
+				{ X = -328 Y = -127 }
+				{ X = 258 Y = 180 }
+				{ X = 326 Y = 146 }
+				{ X = -243 Y = -170 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsShipwreck01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsShipwreck01Anim"
+			Tallness = 972
+			Offset = { X = 0 Y = -365 }
+			Points =
+			[
+				{ X = -815 Y = 335 }
+				{ X = 52 Y = 508 }
+				{ X = 815 Y = -54 }
+				{ X = -21 Y = -266 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWreckGroup01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsWreckGroup01Anim"
+			Tallness = 972
+			Offset = { X = 0 Y = 42 }
+		}
+	}
+	
+	{
+		Name = "ShipsWreckGroup02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsWreckGroup02Anim"
+			Tallness = 972
+			Offset = { X = 0 Y = 42 }
+		}
+	}
+	
+	{
+		Name = "ShipsCrateSet01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CrateSet_01"
+			Tallness = 607
+			Offset = { X = 0 Y = -171 }
+			Points =
+			[
+				{ X = -772 Y = 205 }
+				{ X = -38 Y = 360 }
+				{ X = 766 Y = 51 }
+				{ X = 17 Y = -191 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCannonExit01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CannonExit_01"
+			Tallness = 1133
+			Offset = { X = 0 Y = -503 }
+			Points =
+			[
+				{ X = -659 Y = 27 }
+				{ X = -127 Y = 267 }
+				{ X = 648 Y = -134 }
+				{ X = 107 Y = -392 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCannonExit01a"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CannonExit_01a"
+			Tallness = 607.0
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -367 Y = -18 }
+				{ X = 1 Y = 165 }
+				{ X = 391 Y = -13 }
+				{ X = 17 Y = -191 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsShield01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Shield_01"
+			Tallness = 651
+			Offset = { X = 0 Y = -274 }
+			Points =
+			[
+				{ X = -246 Y = 103 }
+				{ X = -195 Y = 129 }
+				{ X = 240 Y = -96 }
+				{ X = 187 Y = -116 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBarrel01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Barrel_01"
+			Tallness = 902.0
+			Offset = { X = 0 Y = -435 }
+			Points =
+			[
+				{ X = -345 Y = -24 }
+				{ X = -167 Y = 132 }
+				{ X = 210 Y = 127 }
+				{ X = 397 Y = -7 }
+				{ X = 218 Y = -218 }
+				{ X = -218 Y = -213 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSackGroup03"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_SackGroup_03"
+			Tallness = 320
+			Offset = { X = 0 Y = -141 }
+			Points =
+			[
+				{ X = -568 Y = 67 }
+				{ X = -595 Y = 187 }
+				{ X = -416 Y = 284 }
+				{ X = 303 Y = 190 }
+				{ X = 523 Y = 83 }
+				{ X = 458 Y = -101 }
+				{ X = 211 Y = -284 }
+				{ X = -163 Y = -224 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBarrel02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Barrel_02"
+			Tallness = 287
+			Offset = { X = 0 Y = -70 }
+			Points =
+			[
+				{ X = -516 Y = 31 }
+				{ X = -18 Y = 268 }
+				{ X = 506 Y = 7 }
+				{ X = 49 Y = -213 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBarrel03"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Barrel_03"
+			Tallness = 290
+			Offset = { X = 0 Y = 21 }
+			Points =
+			[
+				{ X = -479 Y = -60 }
+				{ X = -108 Y = 397 }
+				{ X = 495 Y = 307 }
+				{ X = 1 Y = -131 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBottles01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bottles_01"
+			Tallness = 96
+        Offset = { X = 0 Y = -30 }
+        Points = [
+          { X = -86 Y = 40 }
+          { X = -55 Y = 66 }
+          { X = 82 Y = 46 }
+          { X = 59 Y = -13 }
+          { X = -30 Y = -57 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsBottles01a"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bottles_01a"
+			Tallness = 96
+        Offset = { X = 0 Y = -30 }
+        Points = [
+          { X = -86 Y = 3 }
+          { X = -69 Y = 36 }
+          { X = 79 Y = 18 }
+          { X = 59 Y = -13 }
+          { X = -30 Y = -57 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsJerkyhoard01"
+    InheritFrom = "1_BaseVulnerableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Jerkyhoard_01"
+			Tallness = 975
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = -470 Y = -132 }
+          { X = -410 Y = -55 }
+          { X = 228 Y = 263 }
+          { X = 440 Y = 240 }
+          { X = 518 Y = 105 }
+          { X = 415 Y = -25 }
+          { X = -47 Y = -226 }
+          { X = -341 Y = -260 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsParasol01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Parasol_01"
+			Tallness = 1716
+        Offset = { X = 0 Y = -759 }
+        Points = [
+          { X = 315 Y = 68 }
+          { X = 504 Y = 85 }
+          { X = 650 Y = 7 }
+          { X = 603 Y = -133 }
+          { X = 411 Y = -139 }
+          { X = 292 Y = -43 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsWell01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Well_01"
+			Tallness = 290
+			Offset = { X = 0 Y = 21 }
+			Points =
+			[
+				{ X = -479 Y = -60 }
+				{ X = -108 Y = 397 }
+				{ X = 495 Y = 307 }
+				{ X = 1 Y = -131 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSackGroup01"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_SackGroup_01"
+			Tallness = 327
+			Offset = { X = 0 Y = -192 }
+			Points =
+			[
+				{ X = -562 Y = 191 }
+				{ X = -45 Y = 308 }
+				{ X = 467 Y = 256 }
+				{ X = 532 Y = -35 }
+				{ X = 401 Y = -278 }
+				{ X = -50 Y = -310 }
+				{ X = -371 Y = -147 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSackGroup02"
+		InheritFrom = "1_BaseVulnerableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_SackGroup_02"
+			Tallness = 563
+			Offset = { X = 0 Y = -192 }
+			Points =
+			[
+				{ X = -294 Y = 150 }
+				{ X = -187 Y = 231 }
+				{ X = 315 Y = 161 }
+				{ X = 376 Y = 7 }
+				{ X = 289 Y = -143 }
+				{ X = -29 Y = -157 }
+				{ X = -264 Y = -87 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPillarBase01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			SilentImpact = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_PillarBase_01"
+			Tallness = 594.0
+			Offset = { X = 0 Y = -245 }
+			Points =
+			[
+				{ X = -203 Y = 15 }
+				{ X = 2 Y = 116 }
+				{ X = 212 Y = 5 }
+				{ X = 0 Y = -89 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCandle01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Candle_01"
+			Tallness = 946.0
+			Offset = { X = 0 Y = -375 }
+			Points =
+			[
+				{ X = -186 Y = 4 }
+				{ X = -186 Y = 42 }
+				{ X = -138 Y = 71 }
+				{ X = 0 Y = 79 }
+				{ X = 76 Y = 15 }
+				{ X = -57 Y = -57 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallBrick01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_WallBrick_01"
+			Tallness = 523.0
+			Offset = { X = 0 Y = -221 }
+			Points =
+			[
+				{ X = -364 Y = -149 }
+				{ X = 300 Y = 190 }
+				{ X = 380 Y = 141 }
+				{ X = -286 Y = -188 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsCliffside01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Cliffside_01"
+			Tallness = 1014
+        Offset = { X = 0 Y = -542 }
+        Points = [
+          { X = -526 Y = -175 }
+          { X = 1 Y = 53 }
+          { X = 289 Y = -14 }
+          { X = -396 Y = -208 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsWallBrick02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_WallBrick_02"
+			Tallness = 943
+			Offset = { X = 0 Y = -221 }
+			Points =
+			[
+				{ X = -692 Y = 406 }
+				{ X = -552 Y = 543 }
+				{ X = 616 Y = -45 }
+				{ X = 428 Y = -142 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallBrick02b"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_WallBrick_02b"
+			Tallness = 943
+			Offset = { X = 0 Y = -221 }
+			Points =
+			[
+				{ X = -692 Y = 406 }
+				{ X = -552 Y = 543 }
+				{ X = 616 Y = -45 }
+				{ X = 428 Y = -142 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsGallery01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Gallery_01"
+			Tallness = 943
+			Offset = { X = 0 Y = -221 }
+			Points =
+			[
+				{ X = -408 Y = 78 }
+				{ X = 64 Y = -81 }
+				{ X = 285 Y = 91 }
+				{ X = -353 Y = 380 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallBrick02a"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_WallBrick_02a"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlook01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_01"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookMountain"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Mountain"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookShadows"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Shadows"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookBackMountain"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_BackMountain"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookShip1"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Ship1"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookShip2"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Ship2"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookShip3"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Ship3"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookSky"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Sky"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookSea"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Sea"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookMoon"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Moon"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookSparkle01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Sparkle_01"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsOverlookSparkle01a"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Overlook_Sparkle_01a"
+			Tallness = 889
+			Offset = { X = 0 Y = -378 }
+			Points =
+			[
+				{ X = -765 Y = 257 }
+				{ X = -562 Y = 381 }
+				{ X = 560 Y = -207 }
+				{ X = 336 Y = -300 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsLog01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Log_01"
+			Tallness = 263
+			Offset = { X = 0 Y = -58 }
+			Points =
+			[
+				{ X = -505 Y = -124 }
+				{ X = 356 Y = 309 }
+				{ X = 499 Y = 236 }
+				{ X = -361 Y = -192 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBonfire01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bonfire_01"
+			Tallness = 92
+        Offset = { X = 0 Y = -58 }
+        Points = [
+          { X = -426 Y = 22 }
+          { X = -304 Y = 160 }
+          { X = 79 Y = 216 }
+          { X = 381 Y = 120 }
+          { X = 443 Y = -85 }
+          { X = 278 Y = -247 }
+          { X = -249 Y = -249 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsStatue01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Life = 
+		{
+			TriggerOnHit = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ShipsStatueIdle"
+			Tallness = 693
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -333 Y = 84 }
+          { X = -245 Y = 184 }
+          { X = -14 Y = 247 }
+          { X = 233 Y = 208 }
+          { X = 337 Y = 86 }
+          { X = 303 Y = 0 }
+          { X = 261 Y = -66 }
+          { X = 83 Y = -120 }
+          { X = -170 Y = -107 }
+          { X = -295 Y = -28 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsLog01a"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Log_01a"
+			Tallness = 1049
+			Offset = { X = 0 Y = -325 }
+			Points =
+			[
+				{ X = -145 Y = 128 }
+				{ X = 8 Y = 202 }
+				{ X = 157 Y = 127 }
+				{ X = 6 Y = 46 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPillarBase02"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_PillarBase_02"
+			Tallness = 631
+        Offset = { X = 0 Y = -246 }
+        Points = [
+          { X = -142 Y = 25 }
+          { X = -2 Y = 95 }
+          { X = 142 Y = 23 }
+          { X = 3 Y = -47 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsLog02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Log_02"
+			Tallness = 1108
+			Offset = { X = 0 Y = -325 }
+			Points =
+			[
+				{ X = -278 Y = 185 }
+				{ X = -201 Y = 250 }
+				{ X = 69 Y = 107 }
+				{ X = 6 Y = 52 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsLog03"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Log_03"
+			Tallness = 1095
+			Offset = { X = 0 Y = -454 }
+			Points =
+			[
+				{ X = -230 Y = 104 }
+				{ X = -183 Y = 135 }
+				{ X = 62 Y = -25 }
+				{ X = 12 Y = -44 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsMast01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Mast_01"
+			Tallness = 2096.0
+			Offset = { X = 0 Y = -879 }
+			Points =
+			[
+				{ X = -97 Y = 112 }
+				{ X = 62 Y = 122 }
+				{ X = 198 Y = 46 }
+				{ X = 132 Y = -75 }
+				{ X = -55 Y = -75 }
+				{ X = -163 Y = 4 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsDestructibleMast01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_DestructibleMast_01"
+			Tallness = 2096.0
+			Offset = { X = 0 Y = -879 }
+			Points =
+			[
+				{ X = -97 Y = 112 }
+				{ X = 62 Y = 122 }
+				{ X = 198 Y = 46 }
+				{ X = 132 Y = -75 }
+				{ X = -55 Y = -75 }
+				{ X = -163 Y = 4 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsMast02"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Mast_02"
+			Tallness = 1919
+        Offset = { X = 0 Y = -808 }
+        Points = [
+          { X = -125 Y = -84 }
+          { X = -47 Y = -35 }
+          { X = 45 Y = -35 }
+          { X = 129 Y = -87 }
+          { X = 50 Y = -188 }
+          { X = -77 Y = -182 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsMast02Moon"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Mast_02_Moon"
+			Tallness = 1919
+			Offset = { X = 0 Y = -843 }
+			Points =
+			[
+				{ X = -109 Y = 19 }
+				{ X = -22 Y = 90 }
+				{ X = 64 Y = 80 }
+				{ X = 138 Y = 16 }
+				{ X = 51 Y = -77 }
+				{ X = -54 Y = -64 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsMast03"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Mast_03"
+			Tallness = 1641.0
+			Offset = { X = 0 Y = 35 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsMast03Moon"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Mast_03_Moon"
+			Tallness = 1641.0
+			Offset = { X = 0 Y = 35 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsShrouds01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Shrouds_01"
+			Tallness = 1641.0
+			Offset = { X = 0 Y = 35 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsKelp01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Kelp_01"
+			Tallness = 1641.0
+			Offset = { X = 0 Y = 35 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsKelp02"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Kelp_02"
+			Tallness = 1641.0
+			Offset = { X = 0 Y = 35 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsStairs01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Stairs_01"
+			Tallness = 536
+			Offset = { X = 0 Y = -275 }
+			Points = [
+			  { X = -454 Y = -73 }
+			  { X = 52 Y = 180 }
+			  { X = 456 Y = -17 }
+			  { X = -55 Y = -272 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsStairs01a"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Stairs_01a"
+			Tallness = 741
+        Offset = { X = 0 Y = -243 }
+        Points = [
+          { X = -261 Y = 227 }
+          { X = -197 Y = 263 }
+          { X = 315 Y = -48 }
+          { X = 253 Y = -80 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsRockgroup01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Rockgroup_01"
+			Tallness = 202
+        Offset = { X = 0 Y = -49 }
+        Points = [
+          { X = -349 Y = 41 }
+          { X = -306 Y = 107 }
+          { X = 41 Y = 185 }
+          { X = 186 Y = 166 }
+          { X = 314 Y = 76 }
+          { X = 347 Y = 31 }
+          { X = 238 Y = -67 }
+          { X = -194 Y = -77 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsCirceHouse01"
+		InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_CirceHouse_01"
+			Tallness = 1095
+        Offset = { X = 0 Y = -397 }
+        Points = [
+          { X = -235 Y = 389 }
+          { X = 656 Y = 119 }
+          { X = 907 Y = 25 }
+          { X = 1027 Y = -108 }
+          { X = 884 Y = -344 }
+          { X = 377 Y = -581 }
+          { X = -1101 Y = -391 }
+        ]
+      }
+	}
+	
+	{
+		Name = "ShipsWallDecor01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Decor_01"
+			Tallness = 514
+			Offset = { X = 0 Y = -36 }
+		}
+	}
+	
+	{
+		Name = "ShipsWallDecor01a"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Decor_01a"
+			Tallness = 514
+			Offset = { X = 0 Y = -69 }
+		}
+	}
+	
+	{
+		Name = "ShipsWallLantern01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Lantern_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallLantern03"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Lantern_03"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallLantern02"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Lantern_02"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsHangingSacks01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_HangingSacks_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsWallCannon01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Wall_Cannon_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsDeadeyes01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Deadeyes_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsAnchor01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Anchor_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSail01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Sail_01"
+			Tallness = 514
+			Offset = { X = 0 Y = 37 }
+		}
+	}
+	
+	{
+		Name = "ShipsFlag01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Flag_01"
+			Tallness = 514
+			Offset = { X = 0 Y = 37 }
+		}
+	}
+	
+	{
+		Name = "ShipsPoopDeckDecor01"
+		InheritFrom = "1_BaseStandingDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_PoopDeck_Decor_01"
+			Tallness = 514.0
+			Offset = { X = 0 Y = -243 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_01"
+			Tallness = 1479.0
+			Offset = { X = 0 Y = -549 }
+			Points =
+			[
+				{ X = -462 Y = 370 }
+				{ X = 593 Y = -268 }
+				{ X = 407 Y = -314 }
+				{ X = -616 Y = 292 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck05"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_05"
+			Tallness = 1427
+			Offset = { X = 0 Y = -503 }
+			Points =
+			[
+				{ X = -1036 Y = 418 }
+				{ X = -816 Y = 585 }
+				{ X = -44 Y = 292 }
+				{ X = 761 Y = -435 }
+				{ X = -5 Y = -320 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck06"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_06"
+			Tallness = 1049
+			Offset = { X = 0 Y = -404 }
+			Points =
+			[
+				{ X = -965 Y = -65 }
+				{ X = 24 Y = 532 }
+				{ X = 793 Y = -402 }
+				{ X = 268 Y = -545 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_02"
+			Tallness = 594.0
+			Offset = { X = 0 Y = -181 }
+			Points =
+			[
+				{ X = -540 Y = 148 }
+				{ X = -335 Y = 254 }
+				{ X = 561 Y = -177 }
+				{ X = 383 Y = -242 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck03"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_03"
+			Tallness = 1307
+			Offset = { X = 0 Y = -554 }
+			Points =
+			[
+				{ X = -256 Y = 6 }
+				{ X = -106 Y = 97 }
+				{ X = 46 Y = 22 }
+				{ X = -69 Y = -86 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsForecastleDeck04"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_ForecastleDeck_04"
+			Tallness = 455.0
+			Offset = { X = 0 Y = -194 }
+			Points =
+			[
+				{ X = -386 Y = -16 }
+				{ X = -122 Y = 116 }
+				{ X = 421 Y = -139 }
+				{ X = 165 Y = -236 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSmallForecastleDeck01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Small_ForecastleDeck_01"
+			Tallness = 1569
+			Offset = { X = 0 Y = -1078 }
+			Points =
+			[
+				{ X = -184 Y = -907 }
+				{ X = -475 Y = -469 }
+				{ X = -445 Y = 28 }
+				{ X = -173 Y = 61 }
+				{ X = 140 Y = -123 }
+				{ X = 629 Y = -981 }
+				{ X = 295 Y = -1183 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsSmallForecastleDeck02"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Small_ForecastleDeck_02"
+			Tallness = 1194
+			Offset = { X = 0 Y = -545 }
+			Points =
+			[
+				{ X = -683 Y = 187 }
+				{ X = -211 Y = 457 }
+				{ X = 917 Y = -312 }
+				{ X = 535 Y = -511 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsPoopDeck01"
+		InheritFrom = "1_BaseInvulnerableObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_PoopDeck_01"
+			Tallness = 455.0
+			Offset = { X = 0 Y = -194 }
+			Points =
+			[
+				{ X = -386 Y = -16 }
+				{ X = -122 Y = 116 }
+				{ X = 421 Y = -139 }
+				{ X = 165 Y = -236 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsBowsprit01"
+		InheritFrom = "1_BaseDecalObstacle"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Bowsprit_01"
+			Tallness = 455.0
+			Offset = { X = 0 Y = -194 }
+			Points =
+			[
+				{ X = -2 Y = 2 }
+				{ X = 2 Y = 2 }
+				{ X = 0 Y = -2 }
+			]
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainGrate01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Grate_01"
+			FootstepSound = "/Leftovers/SFX/FootstepsMetal"
+			Tallness = 144.0
+			Offset = { X = 0 Y = -58 }
+		}
+	}
+	
+	{
+		Name = "ShipsTerrainGrate02"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_Terrain_Grate_02"
+			FootstepSound = "/Leftovers/SFX/FootstepsMetal"
+			Tallness = 144.0
+			Offset = { X = 0 Y = -58 }
+		}
+	}
+	{
+		Name = "ShipsOilPuddleHighlight01"
+		InheritFrom = "1_BaseTerrainTile"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Tilesets\Ships\Ships_OilPuddle_Highlight_01"
+			Tallness = 144
+			Offset = { X = 0 Y = -9 }
+		}
+	}
+
+	{
+			Name = "ShadeShipsFiveIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Big"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsFiveIdle"
+        StopsLight = false
+        Tallness = 198
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = 41 Y = -10 }
+          { X = 14 Y = -27 }
+          { X = -24 Y = -24 }
+          { X = -42 Y = -6 }
+          { X = -23 Y = 23 }
+          { X = 25 Y = 20 }
+        ]
+      }
+    }
+		{
+			Name = "ShadeShipsFiveSwaySW01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Big"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsFiveSwaySW"
+        StopsLight = false
+        Tallness = 189
+        Offset = { X = 0 Y = -27 }
+        Points = [
+          { X = 41 Y = -11 }
+          { X = 13 Y = -32 }
+          { X = -34 Y = -29 }
+          { X = -53 Y = -2 }
+          { X = -20 Y = 27 }
+          { X = 34 Y = 16 }
+        ]
+      }
+    }
+		{
+			Name = "ShadeShipsThreeIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsThreeIdle"
+        StopsLight = false
+        Tallness = 163
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = 33 Y = -9 }
+          { X = 12 Y = -24 }
+          { X = -14 Y = -24 }
+          { X = -36 Y = -5 }
+          { X = -19 Y = 18 }
+          { X = 20 Y = 17 }
+        ]
+      }
+    }
+		{
+			Name = "ShadeShipsThreeSwaySW01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsThreeSwaySW"
+        StopsLight = false
+        Tallness = 163
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = 32 Y = -8 }
+          { X = 7 Y = -25 }
+          { X = -22 Y = -23 }
+          { X = -38 Y = -2 }
+          { X = -20 Y = 19 }
+          { X = 22 Y = 17 }
+        ]
+      }
+    }
+		{
+			Name = "ShadeShipsOneIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Small"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsOneIdle"
+        StopsLight = false
+        Tallness = 112
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = 17 Y = -6 }
+          { X = 9 Y = -12 }
+          { X = -9 Y = -13 }
+          { X = -18 Y = -3 }
+          { X = -9 Y = 6 }
+          { X = 12 Y = 5 }
+        ]
+      }
+    }
+		{
+			Name = "ShadeShipsOneSwaySW01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShipsShadow_Small"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeShipsOneSwaySW"
+        StopsLight = false
+        Tallness = 112
+        Offset = { X = 0 Y = -28 }
+        Points = [
+          { X = 19 Y = -6 }
+          { X = 11 Y = -14 }
+          { X = -8 Y = -16 }
+          { X = -21 Y = -3 }
+          { X = -11 Y = 8 }
+          { X = 13 Y = 6 }
+        ]
+      }
+    }
+
+
+]}

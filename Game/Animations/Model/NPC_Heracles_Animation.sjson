@@ -1,0 +1,305 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCHercalesBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "Heracles_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		CancelOnOwnerMove = false
+	}
+
+	// HUB ANIMATIONS
+	{
+		Name = "Heracles_Hub_Idle_Start"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Idle_Combat_To_Narrative_C_00"
+		ChainTo = "Heracles_Hub_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle",
+				Duration = 4,
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStop"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 44
+				Sound = "/SFX/Enemy Sounds/Minotaur/MinotaurFootstepsHugeRUSH"
+			}
+		]
+	}
+	{
+		Name = "Heracles_Hub_Idle"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Narrative_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle",
+				Duration = 10,
+			}
+		]
+	}
+	{
+		Name = "Heracles_Hub_Brooding"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Narrative_Brooding_C_00"
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Heracles_Hub_Granting"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Narrative_Granting_C_00"
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Heracles_Hub_Greet"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Narrative_Greet_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Heracles_Hub_Turn"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Idle_Combat_To_Narrative_C_00"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 1.1
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Hub_Idle"
+				Duration = 10
+			}
+		]
+		/*
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+
+	// COMBAT ANIMATIONS
+	{
+		Name = "Heracles_Combat_Idle"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_AttackPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+
+	{
+		Name = "Heracles_Combat_Taunt"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapFire_C_00"
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Heracles_Combat_LeapPostFire"
+	}	
+
+	{
+		Name = "Heracles_Combat_Move"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_LeapPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_AttackPostFire"
+				Duration = 4
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+			{
+				Frame = 28
+				Sound = "/Leftovers/SFX/FootstepsHuge"
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_MoveStart"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Move_Start_C_00"
+		ChainTo = "Heracles_Combat_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_MoveStop"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Move_Stop_C_00"
+		ChainTo = "Heracles_Combat_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Heracles_Combat_AttackPreFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_AttackPreAttack_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlamCharge"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_AttackFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Attack_C_00"
+		ChainTo = "Heracles_Combat_AttackPostFire"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKick"
+	}
+
+	{
+		Name = "Heracles_Combat_AttackPostFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_AttackToIdle _C_00"
+		ChainTo = "Heracles_Combat_Idle"
+	}
+
+	{
+		Name = "Heracles_Combat_LeapPreFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapPreAttack_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Heracles_Combat_MoveStop"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Heracles/EmotePowerCharging"
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_LeapFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapFire_C_00"
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Heracles_Combat_LeapPostFire"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+		CreateAnimation = "HydraTouchdownFx"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_LeapPreFire"
+				Duration = 2
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 32
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlam"
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_LeapPostFire"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapToIdle_C_00"
+		ChainTo = "Heracles_Combat_Idle"
+	}
+
+]}

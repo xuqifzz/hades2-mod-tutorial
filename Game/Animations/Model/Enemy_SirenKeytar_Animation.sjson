@@ -1,0 +1,488 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySirenKeytarBaseAnimation"		
+		GrannyModel = "SirenKeytarist_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Enable3DShadow = true
+		VisualFx = "SirenKeytaristMoveTrail"
+		VisualFxDistanceMin = 75
+		VisualFxDistanceMax = 100
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_SirenKeytar_Idle"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarIdle"
+				ToBone = "Sirens_Rig:spine_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarIdle"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_Idle_C_00"
+		Loop = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
+			}
+		]
+	}
+	{
+		Name = "Enemy_SirenKeytar_Hidden"
+		InheritFrom = "Enemy_SirenKeytar_Idle"
+		Alpha = 0.0
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = false
+	}
+
+	{
+		Name = "Enemy_SirenKeytar_MoveStart"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_MoveStart_C_00"
+		ChainTo = "Enemy_SirenKeytar_Move"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarMoveStart"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarMoveStart"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_MoveStart_C_00"
+	}
+
+	{
+		Name = "Enemy_SirenKeytar_Move"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_Move_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarMove"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenKeytar_MoveStop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarMove"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_Move_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_SirenKeytar_MoveStop"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_MoveStop_C_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarMoveStop"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarMoveStop"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_MoveStop_C_00"
+	}
+
+	/*Death*/
+
+	{
+		Name = "Enemy_SirenKeytar_Death"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_Death_C_00"
+		VisualFx = "ScyllaDeathSplashes"
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.03
+		HoldLastFrame = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 2.0
+		DeathFxFrameDuration = 120
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.01
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 0.1
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		BlockNewOwnerAnims = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathFxStartFlareLarge" }
+			{ Name = "EnemyDeathFxIris" }
+			{ Name = "EnemyDeathFxFish" }
+			{ Name = "OceanusSurfaceRippleLargeA" }
+			{ Name = "OceanusSurfaceRippleLargeB" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarDeath"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Scylla/EmotePowerAttacking"
+			}
+			{
+				Frame = 45
+				CreateAnimation = "SirenDeathSplash"
+			}
+			{
+				Frame = 62
+				CreateAnimation = "SirenDeathSplash"
+			}
+			{
+				Frame = 79
+				CreateAnimation = "SirenDeathSplash"
+			}
+			{
+				Frame = 96
+				CreateAnimation = "SirenDeathSplash"
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarDeath"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_Death_C_00"
+	}
+
+	/*Dive*/
+
+	{
+		Name = "Enemy_SirenKeytar_Dive"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_Dive_C_00"
+		VisualFx = "KeytaristDiveFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.34
+		VisualFxCap = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 1
+		EaseIn = 0
+		EaseOut = 0.01
+		Duration = 0.5
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarDive"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+
+		OwnerHasNoCollision = true
+		OwnerUntargetable = true
+	}
+
+	{
+		Name = "SirenInstrumentKeytarDive"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_Dive_C_00"
+	}
+
+	{
+		Name = "Enemy_SirenKeytar_DiveResurface"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_DiveResurface_C_00"
+		CreateAnimation = "WaterUnitSurface"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarDiveResurface"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		OwnerHasNoCollision = true
+		OwnerUntargetable = true
+	}
+
+	{
+		Name = "SirenInstrumentKeytarDiveResurface"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_DiveResurface_C_00"
+	}
+
+	/*Incapacitate*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenKeytar_IncapacitateIntro"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_IncapacitateIntro_C_00"
+		ChainTo = "Enemy_SirenKeytar_IncapacitateLoop"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarIncapacitateIntro"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarIncapacitateIntro"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_IncapacitateIntro_C_00"
+	}
+
+	/*Loop*/
+	{
+		Name = "Enemy_SirenKeytar_IncapacitateLoop"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_IncapacitateLoop_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarIncapacitateLoop"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarIncapacitateLoop"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_IncapacitateLoop_C_00"
+	}
+
+	/*Return*/
+	{
+		Name = "Enemy_SirenKeytar_IncapacitateReturnToIdle"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_IncapacitateReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarIncapacitateReturnToIdle"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarIncapacitateReturnToIdle"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_IncapacitateReturnToIdle_C_00"
+	}
+
+	/*Powerslide*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenKeytar_PowerslideIntro"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_PowerslideAntic_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.5
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarPowerslideIntro"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarPowerslideIntro"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_PowerslideAntic_C_00"
+	}
+
+	/*Fire*/
+	{
+		Name = "Enemy_SirenKeytar_PowerslideLoop"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_PowerslideFire_C_00"
+		Loop = false
+		HoldLastFrame = true
+		VisualFx = null
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarPowerslideLoop"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarPowerslideLoop"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_PowerslideFire_C_00"
+		Loop = false
+		HoldLastFrame = true
+		VisualFx = null
+	}
+
+	/*Return*/
+	{
+		Name = "Enemy_SirenKeytar_PowerslideReturnToIdle"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_PowerslideReturnToIdle_C_00"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarPowerslideReturnToIdle"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarPowerslideReturnToIdle"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_PowerslideReturnToIdle_C_00"
+	}
+
+	/*Shred*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenKeytar_ShredIntro"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredAntic_C_00"
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartChargeUpSFX"
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarShredIntro"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarShredIntro"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredAntic_C_00"
+		HoldLastFrame = true
+	}
+
+	/*Loop*/
+	{
+		Name = "Enemy_SirenKeytar_ShredLoop"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredLoop_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarShredLoop"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarShredLoop"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredLoop_C_00"
+	}
+
+	/*Return*/
+	{
+		Name = "Enemy_SirenKeytar_ShredReturnToIdle"
+		InheritFrom = "EnemySirenKeytarBaseAnimation"
+		GrannyAnimation = "Siren_Keytar_ShredReturnToIdle_C_00"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentKeytarShredReturnToIdle"
+				ToBone = "Sirens_Rig:spine_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenKeytar_ShredLoop"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentKeytarShredReturnToIdle"
+		GrannyModel = "SirensInstrumentKeytar_Mesh"
+		GrannyAnimation = "Keytar_Base_ShredReturnToIdle_C_00"
+	}
+	
+]}

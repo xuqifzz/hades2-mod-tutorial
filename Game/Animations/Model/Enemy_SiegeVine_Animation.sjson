@@ -1,0 +1,145 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySiegeVineBaseAnimation"
+		
+		GrannyModel = "SiegeVine_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.75
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_SiegeVine_Idle"
+		InheritFrom = "EnemySiegeVineBaseAnimation"
+		GrannyAnimation = "Siegevine_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_HitStun"
+				Duration = 10
+			}
+		]
+	}
+
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_SiegeVine_HitStun"
+		InheritFrom = "EnemySiegeVineBaseAnimation"
+		GrannyAnimation = "Siegevine_Base_GetHit_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/SiegeVine/EmoteHurt"
+	}
+
+	/*Slam Attack*/
+
+	{
+		Name = "Enemy_SiegeVine_PreAttack"
+		InheritFrom = "EnemySiegeVineBaseAnimation"
+		GrannyAnimation = "Siegevine_Base_AttackAntic_C_00"
+		ChainTo = "Enemy_SiegeVine_AttackFire"
+		Loop = false
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_HitStun"
+				Duration = 10
+			}
+
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_AttackFire"
+				Duration = 10
+			}
+
+			{
+				BlendTransitionFrom = "Enemy_SiegeVine_AttackReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SiegeVine_AttackFire"
+		InheritFrom = "EnemySiegeVineBaseAnimation"
+		GrannyAnimation = "Siegevine_Base_AttackFire_C_00"
+		ChainTo = "Enemy_SiegeVine_AttackReturnToIdle"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_SiegeVine_AttackReturnToIdle"
+		InheritFrom = "EnemySiegeVineBaseAnimation"
+		GrannyAnimation = "Siegevine_Base_AttackReturnToIdle_C_00"
+		Loop = false
+		CancelOnOwnerMove = true
+	}
+
+
+	{
+		Name = "Enemy_SiegeVine_Spawn"
+		InheritFrom = "Enemy_SiegeVine_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.6
+		DeathFxFrameDuration = 120
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_SiegeVine_Death"
+		InheritFrom = "Enemy_SiegeVine_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.5
+		DeathFxFrameDuration = 70
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.5
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+] }

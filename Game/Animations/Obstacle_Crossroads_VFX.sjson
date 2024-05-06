@@ -1,0 +1,187 @@
+{ Animations = [
+
+	{
+		Name = "MoonbeamsColor"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		
+		Angle = 90.0
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 24.0
+		StartFrame = 1
+		ScaleX = 4.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "MoonbeamsTintableAdditive"
+		InheritFrom = "MoonbeamsColor"
+		FilePath = "Fx\MoonbeamsTintableAdditive\MoonbeamsTintableAdditive"
+		AddColor = true
+	}
+	
+	{
+		Name = "MoonbeamsTintable"
+		InheritFrom = "MoonbeamsColor"
+		FilePath = "Fx\MoonbeamsTintable\MoonbeamsTintable"
+	}
+	{
+		Name = "GameplayShrinePointer"
+		FilePath = "Tilesets\Gameplay\Gameplay_Shrine_Pointer_01"
+		StartFrame = 1
+		EndFrame = 1
+		Duration = 1.7
+		Loop = true
+		PingPongColor = true
+		StartAlpha = 1
+		EndAlpha = 0.2
+	}
+
+	{
+		Name = "TentFamilyPortrait"
+		FilePath = "Tilesets/Crossroads/Crossroads_FamilyPortrait_01"
+		Ambient = 0.0
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "OceanusCausticLight"
+		FilePath = "Fx\OceanusCausticLight\OceanusCausticLight"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Ambient = 0
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "OceanusQuickBubbleSpawner"
+		FilePath = "Particles\particle_circle"
+		Alpha = 0
+		VisualFx = "OceanusBubblesQuick"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1
+	}
+
+	{
+		Name = "OceanusQuickBubbleSpawnerSmall"
+		FilePath = "Particles\particle_circle"
+		Alpha = 0
+		VisualFx = "OceanusBubblesQuickSmall"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1
+	}
+
+	{
+		Name = "OceanusBubblesQuick"
+		Random =
+		[
+			{ Name = "OceanusBubblesQuickA" }
+			{ Name = "OceanusBubblesQuickB" }
+			{ Name = "OceanusBubblesQuickC" }
+		]
+	}
+
+	{
+		Name = "OceanusBubblesQuickSmall"
+		Random =
+		[
+			{ Name = "OceanusBubblesQuickSmallA" }
+			{ Name = "OceanusBubblesQuickSmallB" }
+			{ Name = "OceanusBubblesQuickSmallC" }
+		]
+	}
+
+	{
+		Name = "OceanusBubblesQuickA"
+		FilePath = "Fx\OceanusBubblesQuickA\OceanusBubblesQuickA"
+		NumFrames = 37
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		StartOffsetY = 0
+		VelocityMin = 75
+		VelocityMax = 100
+		LocationFromOwner = "Ignore"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Ambient = 0.25
+		SortFromOwner = "Maintain"
+
+	}
+
+	{
+		Name = "OceanusBubblesQuickB"
+		InheritFrom = "OceanusBubblesQuickA"
+		NumFrames = 45
+		FilePath = "Fx\OceanusBubblesQuickB\OceanusBubblesQuickB"
+	}
+
+	{
+		Name = "OceanusBubblesQuickC"
+		InheritFrom = "OceanusBubblesQuickA"
+		NumFrames = 39
+		FilePath = "Fx\OceanusBubblesQuickC\OceanusBubblesQuickC"
+	}
+
+	{
+		Name = "OceanusBubblesQuickSmallA"
+		InheritFrom = "OceanusBubblesQuickA"
+		NumFrames = 45
+		FilePath = "Fx\OceanusBubblesQuickB\OceanusBubblesQuickB"
+		VelocityMin = 30
+		VelocityMax = 60
+	}
+
+	{
+		Name = "OceanusBubblesQuickSmallB"
+		InheritFrom = "OceanusBubblesQuickA"
+		NumFrames = 45
+		FilePath = "Fx\OceanusBubblesQuickB\OceanusBubblesQuickB"
+		VelocityMin = 30
+		VelocityMax = 60
+	}
+
+	{
+		Name = "OceanusBubblesQuickSmallC"
+		InheritFrom = "OceanusBubblesQuickA"
+		NumFrames = 39
+		FilePath = "Fx\OceanusBubblesQuickC\OceanusBubblesQuickC"
+		VelocityMin = 30
+		VelocityMax = 60
+	}
+
+	{
+		Name = "OceanusGrateLight"
+		FilePath = "Fx\OceanusGrateLight\OceanusGrateLight"
+		NumFrames = 60
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		Ambient = 0
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		IsometricSkew = "X"
+		Angle = 45
+		OriginX = 120
+		OriginY = 460
+	}
+
+	{
+		Name = "OceanusGrateLightFlat"
+		InheritFrom = "OceanusGrateLight"
+		IsometricSkew = "None"
+		Angle = 0
+	}
+
+	{
+		Name = "OceanusGrateLightGround"
+		InheritFrom = "OceanusGrateLightFlat"
+		PostRotateScaleY = 0.5
+	}
+]}

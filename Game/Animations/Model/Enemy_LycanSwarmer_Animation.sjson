@@ -1,0 +1,158 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyLycanSwarmerBaseAnimation"
+		GrannyModel = "LycanSwarmer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_LycanSwarmer_Idle"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LycanSwarmer_Move"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LycanSwarmer_OnHit"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_LycanSwarmer_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_LycanSwarmer_OnHit_Heavy"
+		InheritFrom = "Enemy_LycanSwarmer_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/* Attacks */
+
+	{
+		Name = "Enemy_LycanSwarmer_ChompPreFire"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_ChompPreFire_C_00"
+		CreateAnimation = "EnemyChargeFxIn_LycanSwarmer"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LycanSwarmer_ChompFire"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_ChompFire_C_00"
+		ChainTo = "Enemy_LycanSwarmer_ChompPostFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_ChompPostFire"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LycanSwarmer_ChompPostFire"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_ChompPostFire_C_00"
+		ChainTo = "Enemy_LycanSwarmer_Idle"
+	}
+
+	/* Blink */
+
+	{
+		Name = "Enemy_LycanSwarmer_Blink"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_Blink_C_00"
+		ChainTo = "Enemy_LycanSwarmer_BlinkPostFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_LycanSwarmer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_LycanSwarmer_BlinkPostFire"
+		InheritFrom = "EnemyLycanSwarmerBaseAnimation"
+		GrannyAnimation = "LycanSwarmer_Base_BlinkPostFire_C_00"
+		ChainTo = "Enemy_LycanSwarmer_Idle"
+	}
+
+]}

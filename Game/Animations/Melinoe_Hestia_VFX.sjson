@@ -1,0 +1,1369 @@
+{ Animations = [
+
+	{
+		Name = "OlympianAttackFx_Hestia"
+		
+		Random =
+		[
+			{ Name = "OlympianAttackFxA_Hestia" }
+			{ Name = "OlympianAttackFxB_Hestia" }
+			{ Name = "OlympianAttackFxC_Hestia" }
+			{ Name = "OlympianAttackFxD_Hestia" }
+		]
+	}
+	
+	{
+		Name = "OlympianAttackFxGlow_Hestia"
+		InheritFrom = "OlympianAttackFxGlow"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "OlympianAttackFxA_Hestia"
+		InheritFrom = "OlympianAttackFxA"
+		ChildAnimation = "OlympianAttackFxGlow_Hestia"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "OlympianAttackFxB_Hestia"
+		InheritFrom = "OlympianAttackFxA_Hestia"
+		FilePath = "Fx\OlympianAttackFxB\OlympianAttackFxB"
+	}
+	
+	{
+		Name = "OlympianAttackFxC_Hestia"
+		InheritFrom = "OlympianAttackFxA_Hestia"
+		FilePath = "Fx\OlympianAttackFxC\OlympianAttackFxC"
+	}
+	
+	{
+		Name = "OlympianAttackFxD_Hestia"
+		InheritFrom = "OlympianAttackFxA_Hestia"
+		FilePath = "Fx\OlympianAttackFxD\OlympianAttackFxD"
+	}
+	
+	{
+		Name = "OlympianAttackFxSilent_Hestia"
+		
+		Random =
+		[
+			{ Name = "OlympianAttackFxSilentA_Hestia" }
+			{ Name = "OlympianAttackFxSilentB_Hestia" }
+			{ Name = "OlympianAttackFxSilentC_Hestia" }
+			{ Name = "OlympianAttackFxSilentD_Hestia" }
+		]
+	}
+	{
+		Name = "OlympianAttackFxSilentA_Hestia"
+		InheritFrom = "OlympianAttackFxA"
+		ChildAnimation = "OlympianAttackFxGlow_Hestia"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "OlympianAttackFxSilentB_Hestia"
+		InheritFrom = "OlympianAttackFxSilentA_Hestia"
+		FilePath = "Fx\OlympianAttackFxB\OlympianAttackFxB"
+	}
+	
+	{
+		Name = "OlympianAttackFxSilentC_Hestia"
+		InheritFrom = "OlympianAttackFxSilentA_Hestia"
+		FilePath = "Fx\OlympianAttackFxC\OlympianAttackFxC"
+	}
+	
+	{
+		Name = "OlympianAttackFxSilentD_Hestia"
+		InheritFrom = "OlympianAttackFxSilentA_Hestia"
+		FilePath = "Fx\OlympianAttackFxD\OlympianAttackFxD"
+	}
+	{
+		Name = "OlympianStatusFxFront_Hestia"
+		InheritFrom = "OlympianStatusFxFront"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "OlympianStatusFx_Hestia"
+		InheritFrom = "OlympianStatusFxBack"
+		ChildAnimation = "OlympianStatusFxFront_Hestia"
+		ColorFromOwner = "Ignore"
+		ChainTo = "OlympianStatusFx_Hestia_Out"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+
+
+	{
+		Name = "OlympianStatusFx_Hestia_Out"
+		InheritFrom = "OlympianStatusFxBack_Out"
+		ChildAnimation = "OlympianStatusFxFront_Hestia_Out"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+
+	{
+		Name = "OlympianStatusFxFront_Hestia_Out"
+		InheritFrom = "OlympianStatusFxFront_Out"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.8 Green = 0.50 Blue = 0.2 }
+	}
+
+	{
+		Name = "HestiaSparks"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		PlaySpeed = 0.00001
+		RandomStartFrame = true
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0.25
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		VelocityMin = 800
+		VelocityMax = 1600
+		Acceleration = -2400
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.6
+		GroupName = "FX_Standing"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomOffsetY = 15
+		AngleFromOwner = "Take"
+		StartScaleX = 1
+		EndScaleX = 0.25
+		StartRed = 1
+		EndRed = 0.999
+		StartGreen = 1
+		EndGreen = 0.5
+		StartBlue = 1
+		EndBlue = 0
+		AngleMin = -15
+		AngleMax = 15
+	}
+
+	{
+		Name = "HestiaSparksNoSpread"
+		InheritFrom = "HestiaSparks"
+		AngleMin = 0
+		AngleMax = 0.01
+	}
+
+	{
+		Name = "HestiaGroundCoalDebris"
+		FilePath = "Fx\Hestia\HestiaCoalDebris\HestiaCoalDebris"
+		NumFrames = 20
+		RandomStartFrame = true
+		PlaySpeed = 0.000001
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 50
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		RandomDurationMin = 4
+		RandomDurationMax = 5
+		ChainTo = "HestiaGroundCoalDebrisFade"
+		TransferFrameFromThis = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		Scale = 0.66
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HestiaGroundCoalDebrisFade"
+		InheritFrom = "HestiaGroundCoalDebris"
+		TransferFrameToThis = true
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ChainTo = null
+	}
+
+	{
+		Name = "HestiaGroundCoalDebrisPuddle"
+		InheritFrom = "HestiaGroundCoalDebris"
+		RadialOffsetMin = 50
+		RadialOffsetMax = 100
+		ChainTo = "HestiaGroundCoalDebrisPuddleFade"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.5
+		EndBlue = 0.5
+		RandomDurationMin = 2
+		RandomDurationMax = 2.5
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+	}
+	{
+		Name = "HestiaGroundCoalDebrisPuddleFade"
+		InheritFrom = "HestiaGroundCoalDebrisFade"
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 0.0
+		EndGreen = 0.0
+		EndBlue = 0.0
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.0
+	}
+
+	{
+		Name = "HestiaFlamePoolRandom"
+		Random =
+		[
+			{ Name = "HestiaFlamePoolIn" }
+			{ Name = "HestiaFlamePoolInFlip" }
+		]
+	}
+
+	{
+		Name = "HestiaFlamePool"
+		FilePath = "Fx\Hestia\HestiaFlamePool\HestiaFlamePool"
+		Material = "Unlit"
+		NumFrames = 30
+		GroupName = "FX_Terrain"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		ReRandomizeOnLoop = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "HestiaSparksUpward"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.3
+		Loop = true
+		ScaleRadius = 220
+		OffsetY = -40
+		TransferFrameFromThis = true
+		CreateAnimation = "HestiaScorchMarkPuddle"
+		Sound = "/SFX/Player Sounds/HestiaFlamePuddleSFX"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name ="HestiaFlamePoolGlow"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 0.05
+		EndAlpha = 0.3
+		StartRed = 0.9
+		StartGreen = 0.2
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 0.4
+		EndBlue = 0.01
+		PingPongColor = true
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.7
+		Loop = true
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		OffsetZ = 0
+		Scale = 1.75
+		CreateAnimations =
+		[
+			{ Name = "HestiaGroundCoalsRadial_Puddle" }
+		]
+	}
+
+	{
+		Name = "HestiaSparksUpward"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		Material = "Unlit"
+		Scale = 0.5
+		RandomDurationMin = 0.2
+		RandomDurationMax = 1.0
+		AngleMin = 80
+		AngleMax = 100
+		RandomOffsetX = 70
+		RandomOffsetY = 20
+		GroupName = "FX_Standing_Add"
+		StartScaleX = 0.6
+		EndScaleX = 0.25
+		StartScale = 1
+		EndScale = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 400
+		AngleFromOwner = "Ignore"
+		Acceleration = -300
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0
+		OffsetZ = 20
+	}
+
+	{
+		Name = "HestiaFlamePoolFlip"
+		InheritFrom = "HestiaFlamePool"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "HestiaFlamePoolIn"
+		InheritFrom = "HestiaFlamePool"
+		LoopFramesOnly = false
+		Loop = false
+		FilePath = "Fx\Hestia\HestiaFlamePoolIn\HestiaFlamePoolIn"
+		NumFrames = 8
+		ChainTo = "HestiaFlamePool"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HestiaFlamePoolInFlip"
+		InheritFrom = "HestiaFlamePoolIn"
+		ChainTo = "HestiaFlamePoolFlip"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "HestiaFlamePoolOut"
+		InheritFrom = "HestiaFlamePool"
+		ChainTo = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0
+		TransferFrameToThis = true
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		LoopFramesOnly = true
+		Loop = false
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		VisualFx = null
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HestiaFlameParticleSmall"
+		Random =
+		[
+			{ Name = "HestiaFlameParticleSmallA" }
+			{ Name = "HestiaFlameParticleSmallB" }
+			{ Name = "HestiaFlameParticleSmallC" }
+		]
+	}
+
+	{
+		Name = "HestiaFlameParticleSmallA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 16
+		PlaySpeed = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 200
+		VelocityMax = 600
+		Acceleration = -1200
+		Scale = 0.3
+	}
+
+	{
+		Name = "HestiaFlameParticleSmallB"
+		InheritFrom = "HestiaFlameParticleSmallA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+
+	{
+		Name = "HestiaFlameParticleSmallC"
+		InheritFrom = "HestiaFlameParticleSmallA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	} 
+
+
+	{
+		Name = "HestiaFlameParticleNormal"
+		Random =
+		[
+			{ Name = "HestiaFlameParticleNormalA" }
+			{ Name = "HestiaFlameParticleNormalB" }
+			{ Name = "HestiaFlameParticleNormalC" }
+		]
+	}
+
+	{
+		Name = "HestiaFlameParticleNormalA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		GroupName = "FX_Standing"
+		NumFrames = 16
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 200
+		VelocityMax = 600
+		Acceleration = -1200
+		ScaleMin = 0.35
+		ScaleMax = 0.7
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "HestiaFlameParticleNormalB"
+		InheritFrom = "HestiaFlameParticleNormalA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+
+	{
+		Name = "HestiaFlameParticleNormalC"
+		InheritFrom = "HestiaFlameParticleNormalA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+
+	{
+		Name = "HestiaProjectileExplosion"
+		FilePath = "Fx\Hestia\HestiaImpact\HestiaImpact"
+		NumFrames = 21
+		RandomRotation = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Material = "Unlit"
+		GroupName = "Standing"
+		LocationZFromOwner = "Take"
+		Sound = "/SFX/Player Sounds/HestiaSpecialImpact"
+	}
+
+	{
+		Name = "HestiaProjectileExplosionCharged"
+		InheritFrom = "HestiaProjectileExplosion"
+		Scale = 1.5
+		GroupName = "FX_Standing"
+		Sound = "/SFX/Player Sounds/HestiaFireballImpact"
+	}
+
+	{
+		Name = "HestiaDirectionalFlame"
+		Random =
+		[
+			{ Name = "HestiaDirectionalFlameA" }
+			{ Name = "HestiaDirectionalFlameB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaff"
+		Random =
+		[
+			{ Name = "HestiaDirectionalFlameStaffA" }
+			{ Name = "HestiaDirectionalFlameStaffB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffProjectile"
+		Random =
+		[
+			{ Name = "HestiaDirectionalFlameStaffProjectileA" }
+			{ Name = "HestiaDirectionalFlameStaffProjectileB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffLarge"
+		Random =
+		[
+			{ Name = "HestiaDirectionalFlameStaffLargeA" }
+			{ Name = "HestiaDirectionalFlameStaffLargeB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameDaggerProjectile"
+		Random =
+		[
+			{ Name = "HestiaDirectionalFlameDaggerProjectileA" }
+			{ Name = "HestiaDirectionalFlameDaggerProjectileB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameA\HestiaDirectionalFlameA"
+		NumFrames = 37
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 240
+		RandomFlipVertical = true
+		StartFrame = 2
+		EndFrame = 38
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		Scale = 1.0
+		StartScaleY = 0.2
+		EndScaleY = 1.0
+		CreateAnimation = "HestiaDirectionalFlameA_Dark"
+		OriginX = 0
+		OriginY = 80
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomOffsetY = 15
+		ScaleX = 0.9
+		VisualFx = "HestiaSparksNoSpread"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 1
+	}
+
+	{
+		Name = "HestiaDirectionalFlameA_Dark"
+		InheritFrom = "HestiaDirectionalFlameA"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HestiaDirectionalFlameB"
+		InheritFrom = "HestiaDirectionalFlameA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		CreateAnimation = "HestiaDirectionalFlameB_Dark"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameB_Dark"
+		InheritFrom = "HestiaDirectionalFlameB"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HestiaDirectionalFlameDaggerProjectileA"
+		InheritFrom = "HestiaDirectionalFlameA"
+		GroupName = "FX_Standing"
+		OffsetZ = 0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		StartScaleY = 0.2
+		EndScaleY = 0.85
+		ScaleX = 1.2
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		CreateAnimation = "HestiaFlameGlowSmall"
+		VisualFx = "HestiaSparks"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+	}
+
+	{
+		Name = "HestiaDirectionalFlameDaggerProjectileB"
+		InheritFrom = "HestiaDirectionalFlameDaggerProjectileA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffA"
+		InheritFrom = "HestiaDirectionalFlameA"
+		GroupName = "FX_Standing"
+		OriginX = 80
+		OriginY = 80
+		OffsetZ = 0
+		RandomOffsetY = 0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		StartScaleY = 0.5
+		EndScaleY = 0.85
+		ScaleX = 1.5
+		ScaleMin = 0.7
+		ScaleMax = 0.9
+		CreateAnimation = "HestiaFlameGlowStaff"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffB"
+		InheritFrom = "HestiaDirectionalFlameStaffA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffProjectileA"
+		InheritFrom = "HestiaDirectionalFlameStaffA"
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		OriginX = 200
+		OriginY = 80
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 70
+		StartScaleY = 1.25
+		EndScaleY = 1.1
+		CreateAnimation = "HestiaDirectionalFlameStaffProjectileDarkA"
+		VisualFx = null
+		DrawBehindOwner = true
+		SortMode = "Isometric"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffProjectileB"
+		InheritFrom = "HestiaDirectionalFlameStaffProjectileA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		CreateAnimation = "HestiaDirectionalFlameStaffProjectileDarkB"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffProjectileDarkA"
+		InheritFrom = "HestiaDirectionalFlameStaffProjectileA"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+	{
+		Name = "HestiaDirectionalFlameStaffProjectileDarkB"
+		InheritFrom = "HestiaDirectionalFlameStaffProjectileDarkA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffLargeA"
+		InheritFrom = "HestiaDirectionalFlameA"
+		OriginX = 80
+		OriginY = 80
+		OffsetZ = 0
+		VelocityMin = 0
+		VelocityMax = 1
+		RandomOffsetY = 0
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		StartScaleY = 0.2
+		EndScaleY = 1.0
+		ScaleX = 1.0
+		ScaleMin = 0.7
+		ScaleMax = 1.9
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = null
+		CreateAnimations =
+		[
+			{ Name = "HestiaFlameGlowStaff" }
+			{ Name = "HestiaDirectionalFlameStaffLargeDarkA" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffLargeB"
+		InheritFrom = "HestiaDirectionalFlameStaffLargeA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "HestiaFlameGlowStaff" }
+			{ Name = "HestiaDirectionalFlameStaffLargeDarkB" }
+		]
+	}
+
+	{
+		Name = "HestiaDirectionalFlameStaffLargeDarkA"
+		InheritFrom = "HestiaDirectionalFlameStaffLargeA"
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 80
+	}
+	{
+		Name = "HestiaDirectionalFlameStaffLargeDarkB"
+		InheritFrom = "HestiaDirectionalFlameStaffLargeA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 80
+	}
+
+	{
+		Name = "HestiaFlameGlowSmall"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.1
+		EndRed = 0.9
+		EndGreen = 0.1
+		EndBlue = 0
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.7
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 0.3
+		EndAlpha = 0
+		LocationFromOwner = "Take"
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		Scale = 1.0
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "HestiaFlameGlowStaff"
+		InheritFrom = "HestiaFlameGlowSmall"
+		RandomDurationMin = 1
+		RandomDurationMax = 2.0
+	}
+
+	{
+		Name = "HestiaAttackGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.99
+		EndGreen = 0
+		EndBlue = 0
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.3
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "HeraAttackGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.3
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "HestiaGroundGlow"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		Red = 1
+		Green = 0.35
+		Blue = 0.01
+		Alpha = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Scale = 1.0
+		ScaleFromOwner = "Ignore"
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HestiaGroundCoalsRadial"
+		FilePath = "Fx\Hestia\HestiaGroundCoalsRadial\HestiaGroundCoalsRadial"
+		NumFrames = 28
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "HestiaGroundCoalsRadialCastCircle"
+		InheritFrom = "HestiaGroundCoalsRadial"
+		GroupName = "FX_Terrain_Top"
+		AngleFromOwner = "Ignore"
+		Scale = 1.5
+		OffsetZ = 20
+	}
+
+
+	{
+		Name = "HestiaGroundCoalsRadial_Puddle"
+		InheritFrom = "HestiaGroundCoalsRadial"
+		ScaleRadius = 180
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		OffsetZ = 20
+	}
+
+	{
+		Name = "HestiaGroundCoalsRadial_StaffProjectile"
+		InheritFrom = "HestiaGroundCoalsRadial"
+		Scale = 2
+	}
+
+	{
+		Name = "HestiaGroundFlame"
+		FilePath = "Fx\Hestia\HestiaGroundFlame\HestiaGroundFlame"
+		NumFrames = 27
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		OriginX = 240
+		OriginY = 320
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		GroupName = "FX_Standing"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		UseOwnAngle = false
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HestiaGroundFlame_Puddle"
+		InheritFrom = "HestiaGroundFlame"
+		GroupName = "FX_Standing_Add"
+		ScaleY = 0.75
+		ScaleX = 1.25
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0
+	}
+
+	{
+		Name = "HestiaSparksGroundFlame"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		PlaySpeed = 0.0001
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleY = 1.5
+		StartScaleX = 1.5
+		EndScaleX = 0
+		StartScale = 1
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 180
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		VelocityMin = 200
+		VelocityMax = 1200
+		Acceleration = -2400
+		RadialOffsetMin = 30
+		RadialOffsetMax = 100
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0
+	}
+
+	{
+		Name = "HestiaSparksAxeSpin"
+		InheritFrom = "HestiaSparksGroundFlame"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScaleY = 1
+		EndScaleY = 0
+		StartScaleX = 1
+		EndScaleX = 0.5
+		ScaleMin = 0.25
+		ScaleMax = 0.5
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		AngleMin = -40
+		AngleMax = 40
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 800
+		VelocityMax = 1000
+		Acceleration = -2400
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		RadialOffsetMin = 0
+		RadialOffsetMax = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0
+	}
+
+	{
+		Name = "HestiaSparksStaffProjectile"
+		InheritFrom = "HestiaSparksGroundFlame"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -1200
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.5
+	}
+
+	{
+		Name = "RadialNovaPentagram_Hestia"
+		InheritFrom = "RadialNovaPentagram"
+		StartRed = 1.0
+		StartGreen = 0.7
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.3
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlare" }
+			{ Name = "RadialNovaPentagramGlow_Hestia" }
+			{ Name = "RadialNovaPentagramSecondary_Hestia" }
+			{ Name = "HestiaProjectileExplosion" }
+		]
+	}
+
+	{
+		Name = "RadialNovaPentagramSecondary_Hestia"
+		InheritFrom = "RadialNovaPentagramSecondary"
+		VisualFx = "HestiaSparksStaffProjectile"
+	}
+
+	{
+		Name = "RadialNovaPentagramCharged_Hestia"
+		InheritFrom = "RadialNovaPentagram"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		ClearCreateAnimations = true
+		VisualFx = "HestiaGroundCoalDebris"
+		VisualFxCap = 32
+		VisualFxIntervalMin = 0.001
+		VisualFxIntervalMax = 0.002
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlareCharged_Hestia" }
+			{ Name = "RadialNovaPentagramGlowCharged_Hestia" }
+			{ Name = "RadialNovaPentagramSecondary_Hestia" }
+			{ Name = "CastCircleOutDisplacement" }
+			{ Name = "HestiaProjectileExplosionCharged" }
+			{ Name = "HestiaGroundFlame" }
+			{ Name = "HestiaGroundCoalsRadial_StaffProjectile" }
+			{ Name = "HestiaScorchMark" }
+		]
+	}
+
+	{
+		Name = "HestiaScorchMark"
+		FilePath = "Fx\Hestia\HestiaScorchMark"
+		AngleMin = 0
+		AngleMax = 360
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		RandomDurationMin = 9
+		RandomDurationMax = 10
+		StartAlpha = 0.75
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.01
+		ScaleMin = 0.5
+		ScaleMax = 0.8
+		VisualFx = "HestiaScorchFlame"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 8
+	}
+
+	{
+		Name = "HestiaScorchMarkPuddle"
+		InheritFrom = "HestiaScorchMark"
+		FilePath = "Fx\Hestia\HestiaScorchMark2"
+		RandomDurationMin = 4
+		RandomDurationMax = 5
+		DrawBehindOwner = true
+		Scale = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.6
+		PingPongColor = true
+		VisualFx = "HestiaGroundCoalDebrisPuddle"
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+	}
+
+
+	{
+		Name = "HestiaScorchFlame"
+		Random =
+		[
+			{ Name = "HestiaScorchFlameA" }
+			{ Name = "HestiaScorchFlameB" }
+			{ Name = "HestiaScorchFlameC" }
+		]
+	}
+
+	{
+		Name = "HestiaScorchFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 16
+		Angle = -90
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		RandomFlipVertical = true
+		PlaySpeed = 30
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		GroupName = "FX_Terrain_Add"
+		ScaleMin = 0.7
+		ScaleMax = 1.2
+		ScaleX = 0.5
+		ColorFromOwner = "Ignore"
+		SortMode = "Isometric"
+		Red = 1
+		Green = 0.5
+		Blue = 0
+	}
+
+	{
+		Name = "HestiaScorchFlameB"
+		InheritFrom = "HestiaScorchFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+
+	{
+		Name = "HestiaScorchFlameC"
+		InheritFrom = "HestiaScorchFlameA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+
+	{
+		Name = "RadialNovaPentagramGlow_Hestia"
+		InheritFrom = "RadialNovaPentagramGlow"
+		Red = 1.0
+		Green = 0.4
+		Blue = 0.0
+	}
+
+	{
+		Name = "RadialNovaPentagramGlowCharged_Hestia"
+		InheritFrom = "RadialNovaPentagramGlowCharged"
+		Red = 1.0
+		Green = 0.3
+		Blue = 0.0
+	}
+
+	{
+		Name = "RadialNovaPentagramFlareCharged_Hestia"
+		InheritFrom = "RadialNovaPentagramFlareCharged"
+		Red = 1.0
+		Green = 0.3
+		Blue = 0.0
+	}
+
+	{
+		Name = "HestiaFlare"
+		FilePath = "Fx\HestiaFlareBright\HestiaFlareBright"
+		NumFrames = 33
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OriginX = 160
+		OriginY = 240
+		Sound = "/SFX/BurnDamageSizzle"
+		CreateAnimations =
+		[
+			{ Name = "HestiaFlareDark" }
+			{ Name = "HestiaFlareGlow" }
+		]
+	}
+
+	{
+		Name = "HestiaFlareDark"
+		InheritFrom = "HestiaFlare"
+		FilePath = "Fx\HestiaFlareDark\HestiaFlareDark"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "HestiaFlareGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.1
+		EndRed = 0.99
+		EndGreen = 0.2
+		EndBlue = 0
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "HestiaFlameLoopCombined"
+		CreateAnimation = "HestiaFlameLoopDark"
+		FilePath = "Fx\HestiaFlameLoopBright\HestiaFlameLoopBright"
+		NumFrames = 60
+		OriginX = 160
+		OriginY = 230
+		Loop = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PlaySpeed = 30
+		SortMode = "FromParent"
+		Scale = 0.5
+		GroupName = "FX_Standing_Add"
+		Sound = "/Leftovers/Object Ambiences/FireAmbientLoopTORCHES"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "HestiaFlameLoopBright"
+		FilePath = "Fx\HestiaFlameLoopBright\HestiaFlameLoopBright"
+		NumFrames = 60
+		OriginX = 160
+		OriginY = 230
+		Loop = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PlaySpeed = 30
+		SortMode = "FromParent"
+		Scale = 0.5
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "HestiaFlameBuff"
+		InheritFrom = "HestiaFlameLoopBright"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		Sound = "/SFX/BurnDamageSizzle"
+		StopSoundOnFinishFade = 0.2
+		Scale = 0.75
+	}
+
+	{
+		Name = "HestiaFlameLoopDark"
+		InheritFrom = "HestiaFlameLoopBright"
+		FilePath = "Fx\HestiaFlameLoopDark\HestiaFlameLoopDark"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ScaleFromOwner = "Ignore"
+		DieWithOwner = true
+		VisualFx = null
+	}
+
+	{
+		Name = "HestiaSprintDefenseCircleSpawner"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "HestiaSprintDefenseCircles"
+		VisualFxIntervalMin = 0.125
+		VisualFxIntervalMax = 0.125
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "HestiaSprintDefenseCircles"
+		Random = [
+			{ Name = "HestiaSprintDefenseCircleA" }
+			{ Name = "HestiaSprintDefenseCircleB" }
+			{ Name = "HestiaSprintDefenseCircleC" }
+			{ Name = "HestiaSprintDefenseCircleD" }
+		]
+	}
+
+	{
+		Name = "HestiaSprintDefenseCircleA"
+		FilePath = "Fx\Hestia\HestiaSprintRing\HestiaSprintRing0001"
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		ScaleRadius = 300
+		RandomRotation = true
+		RandomRotationSpeedMin = 20
+		RandomRotationSpeedMax = 45
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.5
+		AlphaMax = 1.0
+		PingPongColor = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.6
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 0
+		DieWithOwner = true
+		StartRed = 1
+		StartGreen = 0.2
+		StartBlue = 0
+		EndRed = 0.999
+		EndGreen = 1
+		EndBlue = 1
+		RandomOffsetY = 2
+		VisualFx = "HestiaSprintDefenseCircleParticles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+	}
+
+	{
+		Name = "HestiaSprintDefenseCircleParticles"
+		FilePath = "Particles\particle_addFlake2"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetScaleY = 0.55
+		RadialOffsetMin = 300
+		RadialOffsetMax = 300
+		RadialOffsetScaleRadius = 220
+		AngleMin = 0
+		AngleMax = 360
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1
+		AddColor = false
+		Red = 1
+		Green = 0.2
+		Blue = 0
+		OffsetZ = 50
+		VelocityMin = 20
+		VelocityMax = 60
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HestiaSprintDefenseCircleB"
+		InheritFrom = "HestiaSprintDefenseCircleA"
+		FilePath = "Fx\Hestia\HestiaSprintRing\HestiaSprintRing0002"
+	}
+	{
+		Name = "HestiaSprintDefenseCircleC"
+		InheritFrom = "HestiaSprintDefenseCircleA"
+		FilePath = "Fx\Hestia\HestiaSprintRing\HestiaSprintRing0003"
+	}
+	{
+		Name = "HestiaSprintDefenseCircleD"
+		InheritFrom = "HestiaSprintDefenseCircleA"
+		FilePath = "Fx\Hestia\HestiaSprintRing\HestiaSprintRing0004"
+	}
+
+	{
+		Name = "HestiaFlameParticleDefense"
+		Random =
+		[
+			{ Name = "HestiaFlameParticleDefenseA" }
+			{ Name = "HestiaFlameParticleDefenseB" }
+			{ Name = "HestiaFlameParticleDefenseC" }
+		]
+	}
+
+	{
+		Name = "HestiaFlameParticleDefenseA"
+		FilePath = "Fx\Hestia\HestiaFlameA\HestiaFlameA"
+		NumFrames = 9
+		StartFrame = 7
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 200
+		VelocityMax = 600
+		Acceleration = -1200
+		ScaleMin = 0.35
+		ScaleMax = 0.7
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		ScaleY = 1.5
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "HestiaFlameParticleDefenseB"
+		InheritFrom = "HestiaFlameParticleDefenseA"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}
+
+	{
+		Name = "HestiaFlameParticleDefenseC"
+		InheritFrom = "HestiaFlameParticleDefenseA"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+
+]}

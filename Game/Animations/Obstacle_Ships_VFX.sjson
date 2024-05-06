@@ -1,0 +1,867 @@
+{ Animations = [
+
+
+	{
+		Name = "ShipsDoorBeam"
+		FilePath = "Fx\MoonbeamsTintable\MoonbeamsTintable"
+		SortFromOwner = "Take"
+		Angle = 30.0
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 24.0
+		StartFrame = 1
+		ScaleX = 3.0
+		ScaleY = 1.8
+		OffsetX = -200
+		Ambient = 0.0
+		Color = { Red = 0.26, Green = 0.67, Blue = 0.4 }
+	}
+	{
+		Name = "ShipsDoorBeamIn"
+		InheritFrom = "ShipsDoorBeam"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		PlaySpeed = 60
+		ChainTo = "ShipsDoorBeam"
+	}
+
+	{
+		Name = "ShipsDoorBurst"
+		FilePath = "Fx\ApolloStrike\ApolloStrike"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Angle = 125
+		EndFrame = 60
+		NumFrames = 60
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		SortMode = "Id"
+		Scale = 1.0
+		ScaleX = 1.0
+		ScaleY = 3.0
+		OffsetX = -300
+		OffsetY = 100
+		Color = { Red = 0.9, Green = 1, Blue = 0.5 }
+	}
+
+	{
+		Name = "ShipsDoorBurstArrival"
+		InheritFrom = "ShipsDoorBurst"
+		ScaleX = 1.0
+		ScaleY = 3.0
+		OffsetX = -450
+		OffsetY = 300
+
+	}
+
+	{
+		Name = "ShipsDoorCharge"
+		
+		FilePath = "Fx\MelBlinkCharge\MelBlinkCharge"
+		NumFrames = 18
+		Material = "Unlit"
+		StartRed = 0.1
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 1
+		EndBlue = 0.5
+		ColorFromOwner = "Ignore"
+		AddColor = true
+		OffsetZ = 0
+		Scale = 3
+		PlaySpeed = 30.0
+		CreateAnimation = "ShipsDoorChargeDark"
+
+		LocationFromOwner = "Ignore"
+		TimeModifierFraction = 0
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:spine_01_M_JNT"
+	}
+
+	{
+		Name = "ShipsDoorChargeDark"
+		InheritFrom = "ShipsDoorCharge"
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		Scale = 3
+
+		TimeModifierFraction = 0
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:spine_01_M_JNT"
+	}
+
+	{
+		Name = "ShipsChronosBannerAnim"
+		FilePath = "Fx\ShipsChronosBanner\ShipsChronosBanner"
+		NumFrames = 100
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Sound = "/SFX/Object Ambiences/SailFlapsLoop"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "ShipsWaterShineA"
+		FilePath = "Fx\ShipsWaterShineA\ShipsWaterShineA"
+		NumFrames = 60
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+	}	
+	{
+		Name = "ShipsWaterShineB"
+		InheritFrom = "ShipsWaterShineA"
+		FilePath = "Fx\ShipsWaterShineB\ShipsWaterShineB"
+	}
+
+	{
+		Name = "ShipsEdgeWaveAnim"
+		FilePath = "Fx\ShipsEdgeWave\ShipsEdgeWave"
+		NumFrames = 60
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Sound = "/SFX/Object Ambiences/ShipWakeWavesLoop"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+	}	
+
+	{
+		Name = "ShipsFlag01Anim"
+		FilePath = "Fx\ShipsFlag01\ShipsFlag01"
+		NumFrames = 100
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Sound = "/SFX/Object Ambiences/SailFlapsLoop"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+		Scale = 0.5
+	}
+
+	{
+		Name = "ShipsSailAnim"
+		FilePath = "Fx\ShipsSail\ShipsSail"
+		NumFrames = 100
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Sound = "/SFX/Object Ambiences/SailFlapsLoop"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "ShipsWakeAnim"
+		FilePath = "Fx\ShipsWake\ShipsWake"
+		NumFrames = 60
+		StartFrame = 1
+		PlaySpeed = 30
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PostRotateScaleY = 0.6
+	}
+
+
+  {
+      Name = "ShipsSeaSprayContainer"
+      InheritFrom = "EditorContainer"
+      Scale = 0.5
+      VisualFx = "ShipsSeaSprayEmitter"
+      VisualFxIntervalMin = 3
+      VisualFxIntervalMax = 5
+	}  
+
+	{
+      Name = "ShipsSeaSprayContainerContinuous"
+      InheritFrom = "EditorContainer"
+      Scale = 0.5
+      VisualFx = "ShipsSeaSprayEmitter"
+      VisualFxIntervalMin = 1
+      VisualFxIntervalMax = 1
+	}
+
+	{
+		Name = "ShipsSeaSprayEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		VisualFx = "ShipsSeaSpray"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 8
+	}
+
+	{
+		Name = "ShipsSeaSpray"
+		Random = [
+			{ Name = "ShipsSeaSprayA" }
+			{ Name = "ShipsSeaSprayB" }
+			{ Name = "ShipsSeaSprayC" }
+		]
+	}
+
+	{
+		Name = "ShipsSeaSprayA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayDropletsA"
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.25
+		Gravity = 1200
+		UpwardVelocityMin = 600
+		UpwardVelocityMax = 650
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartScale = 1
+		EndScale = 2.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		CreateAnimation = "ShipsSeaSprayMist"
+		UseOwnAngle = false
+		VelocityMin = 200
+		VelocityMax = 400
+		Angle = 180
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		StartScaleX = 1
+		EndScaleX = 1.5
+		RandomRotationSpeedMin = -15
+		RandomRotationSpeedMax = 0
+	}
+
+	{
+		Name = "ShipsSeaSprayB"
+		InheritFrom = "ShipsSeaSprayA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayDropletsB"
+	}
+
+	{
+		Name = "ShipsSeaSprayC"
+		InheritFrom = "ShipsSeaSprayA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayDropletsC"
+	}
+
+	{
+		Name = "ShipsSeaSprayMist"
+		Random = [
+			{ Name = "ShipsSeaSprayMistA" }
+			{ Name = "ShipsSeaSprayMistB" }
+			{ Name = "ShipsSeaSprayMistC" }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "ShipsSeaSprayMistA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayMistA"
+		RandomDurationMin = 2.0
+		RandomDurationMax = 2.75
+		Gravity = 300
+		UpwardVelocityMin = 250
+		UpwardVelocityMax = 275
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartScale = 1
+		EndScale = 2.0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		UseOwnAngle = false
+		VelocityMin = 50
+		VelocityMax = 200
+		Angle = 180
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotationSpeedMin = -15
+		RandomRotationSpeedMax = 0
+	}
+
+	{
+		Name = "ShipsSeaSprayMistB"
+		InheritFrom = "ShipsSeaSprayMistA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayMistB"
+	}
+
+	{
+		Name = "ShipsSeaSprayMistC"
+		InheritFrom = "ShipsSeaSprayMistA"
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayMistC"
+	}
+
+	{
+		Name = "ShipsPowerCellExplosion"
+		FilePath = "Fx\Hera\HeraProjectileImpact\HeraProjectileImpact"
+		NumFrames = 48
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		RandomRotation = true
+		Material = "Unlit"
+		GroupName = "Standing"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		OffsetZ = 300
+		ScaleFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "ShipsWindGustForward"
+		Random = [
+			{ Name = "ShipsWindGustForwardA" }
+			{ Name = "ShipsWindGustForwardB" }
+		]
+	}
+
+	{
+		Name = "ShipsWindGustForwardA"
+		FilePath = "Fx\ShipsWindGustForwardA\ShipsWindGustForwardA"
+		NumFrames = 38
+		AlphaMin = 0.3
+		AlphaMax = 0.7
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		Angle = 208
+		RandomFlipVertical = true
+		ScaleMin = 0.85
+		ScaleMax = 1.1
+		Scale = 3
+		GroupName = "Combat_UI_World"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 800
+		Acceleration = -500
+		FlipHorizontal = true
+		RandomOffsetX = 960
+		RandomOffsetY = 540
+		VisualFx = "ShipsWindSprayForward"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
+	}
+
+	{
+		Name = "ShipsWindSprayForward"
+		InheritFrom = "ShipsWindGustForwardA"
+		RandomOffsetX = 640
+		RandomOffsetY = 320
+		VelocityMin = 600
+		VelocityMax = 1200
+		ScaleMin = 0.5
+		ScaleMax = 1.25
+		VisualFx = null
+		ScaleX = 2
+		StartAlpha = 0
+		EndAlpha = 0.25
+		Scale = 1
+		RandomFlipHorizontal = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0
+		EaseOut = 1
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayDropletsA"
+		NumFrames = 1
+		AlphaMin = 0.4
+		AlphaMax = 1
+		PingPongColor = true
+		ScaleY = 0.5
+		Acceleration = -100
+		Gravity = 100
+	}
+
+	{
+		Name = "ShipsWindGustForwardB"
+		InheritFrom = "ShipsWindGustForwardA"
+		FilePath = "Fx\ShipsWindGustForwardB\ShipsWindGustForwardB"
+		NumFrames = 41
+	}
+
+	{
+		Name = "ShipsWindGustLeft"
+		Random = [
+			{ Name = "ShipsWindGustLeftA" }
+			{ Name = "ShipsWindGustLeftB" }
+		]
+	}
+
+	{
+		Name = "ShipsWindGustLeftA"
+		FilePath = "Fx\ShipsWindGustLeftRightA\ShipsWindGustLeftRightA"
+		NumFrames = 46
+		AlphaMin = 0.25
+		AlphaMax = 0.66
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		Scale = 2.25
+		ScaleFromOwner = "Ignore"
+		GroupName = "Combat_UI_World"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		PostRotateScaleY = 0.6
+		AngleMin = 90
+		AngleMax = 100
+		RandomOffsetX = 960
+		RandomOffsetY = 480
+		VisualFx = "ShipsWindSprayLeft"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2	
+		VisualFxCap = 2
+	}
+
+	{
+		Name = "ShipsWindGustLeftB"
+		InheritFrom = "ShipsWindGustLeftA"
+		FilePath = "Fx\ShipsWindGustLeftRightB\ShipsWindGustLeftRightB"
+		NumFrames = 49
+	}
+
+	{
+		Name = "ShipsWindSprayLeft"
+		InheritFrom = "ShipsWindGustForwardA"
+		RandomOffsetX = 640
+		RandomOffsetY = 320
+		VelocityMin = 600
+		VelocityMax = 1200
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		VisualFx = null
+		ScaleX = 1.5
+		StartAlpha = 0
+		EndAlpha = 1
+		Scale = 2
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0
+		EaseOut = 1
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayMistA"
+		NumFrames = 1
+		AlphaMin = 0.3
+		AlphaMax = 0.6
+		PingPongColor = true
+		ScaleY = 1
+		Acceleration = -200
+		Gravity = 100
+		Angle = 320
+		AngleChangeSpeedMin = -40
+		AngleChangeSpeedMax = -20
+		AngleChangeAcceleration = 10
+	}
+
+
+	{
+		Name = "ShipsWindGustRight"
+		Random = [
+			{ Name = "ShipsWindGustRightA" }
+			{ Name = "ShipsWindGustRightB" }
+		]
+	}
+
+	{
+		Name = "ShipsWindGustRightA"
+		InheritFrom = "ShipsWindGustLeftA"
+		AngleMin = 200
+		AngleMax = 210
+		FlipHorizontal = true
+		VisualFx = "ShipsWindSprayRight"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2	
+		VisualFxCap = 2
+	}
+
+	{
+		Name = "ShipsWindGustRightB"
+		InheritFrom = "ShipsWindGustRightA"
+		FilePath = "Fx\ShipsWindGustLeftRightB\ShipsWindGustLeftRightB"
+		NumFrames = 49
+	}
+
+	{
+		Name = "ShipsWindSprayRight"
+		InheritFrom = "ShipsWindSprayLeft"
+		RandomOffsetX = 640
+		RandomOffsetY = 320
+		VelocityMin = 600
+		VelocityMax = 1200
+		Acceleration = -200
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		VisualFx = null
+		ScaleX = 1.5
+		StartAlpha = 0
+		EndAlpha = 1
+		Scale = 2
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		EaseIn = 0
+		EaseOut = 1
+		FilePath = "Fx\ShipsSeaSpray\ShipsSeaSprayMistA"
+		NumFrames = 1
+		AlphaMin = 0.3
+		AlphaMax = 0.6
+		PingPongColor = true
+		ScaleY = 1
+		Gravity = 100
+		Angle = 200
+		AngleChangeSpeedMin = 20
+		AngleChangeSpeedMax = 40
+		AngleChangeAcceleration = -10
+	}
+
+	{
+		Name = "ShipsGustSpawnerForward"
+		FilePath = "Dev\blank_invisible"
+		Duration = 3
+		VisualFx = "ShipsWindGustForward"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.4
+	}	
+
+	{
+		Name = "ShipsGustSpawnerLeft"
+		InheritFrom = "ShipsGustSpawnerForward"
+		VisualFx = "ShipsWindGustLeft"
+	}
+
+	{
+		Name = "ShipsGustSpawnerRight"
+		InheritFrom = "ShipsGustSpawnerForward"
+		VisualFx = "ShipsWindGustRight"
+	}
+
+	{
+		Name = "ShipsWallLanternSway"
+		FilePath = "Fx\ShipsWallLanternSway\ShipsWallLanternSway"
+		NumFrames = 60
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 34
+	}	
+
+	{
+		Name = "ShipsWallLanternSwayReverse"
+		FilePath = "Fx\ShipsWallLanternSwayReverse\ShipsWallLanternSwayReverse"
+		NumFrames = 60
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 34
+	}
+
+	{
+		Name = "ShipsWallLantern03Sway"
+		InheritFrom = "ShipsWallLanternSway"
+		Scale = 4
+		OffsetY = -240
+		FilePath = "Fx\ShipsWallLantern03Sway\ShipsWallLantern03Sway"
+	}	
+
+	{
+		Name = "ShipsKelpSway"
+		FilePath = "Fx\ShipsKelpSway\ShipsKelpSway"
+		NumFrames = 90
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		Scale = 2
+	}
+
+	{
+		Name = "ShipsFishnetSway"
+		InheritFrom = "ShipsWallLanternSway"
+		FilePath = "Fx\ShipsFishnetSway\ShipsFishnetSway"
+		Scale = 4
+	}	
+
+	{
+		Name = "ShipsHangingSacksBounce"
+		InheritFrom = "ShipsWallLanternSway"
+		FilePath = "Fx\ShipsHangingSacks\ShipsHangingSacks"
+		Scale = 4
+		OffsetY = -256
+	}	
+
+	{
+		Name = "ShipsAnchorBounce"
+		FilePath = "Fx\ShipsAnchorBounce\ShipsAnchorBounce"
+		NumFrames = 45
+		Scale = 2
+		OffsetY = -240
+		Loop = true
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/Leftovers/World Sounds/LowMetalSqueak" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/Leftovers/World Sounds/LowMetalSqueak" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/SFX/AnchorSlam" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 15 RandomDurationFramesMax = 45 }
+		]
+	}
+
+
+	{
+		Name = "ShipsFishFlap"
+		FilePath = "Fx\ShipsFishFlap\ShipsFishFlap"
+		NumFrames = 60
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Scale = 4
+				Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 4 }
+			
+			{ DurationFrames = 2 Sound = "/SFX/Object Ambiences/SlimySlap" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 4 }
+			{ DurationFrames = 2 Sound = "/SFX/Object Ambiences/SlimySlap" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/SFX/Object Ambiences/SlimySlap" }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 4 }
+		]
+	}
+
+	{
+		Name = "ShipsShipwreck01Anim"
+		FilePath = "Tilesets\Ships\Ships_Shipwreck_01"
+		StartOffsetZ = -10
+		EndOffsetZ = 10
+		PingPongShiftOverDuration = true
+		RandomDurationMin = 4
+		RandomDurationMax = 5
+		EaseIn = 0
+		EaseOut = 1
+		StartAngle = -1.5
+		EndAngle = 1.5
+		PingPongAngle = true
+		PhaseOffsetAngle = 90
+		Loop = true
+	}
+
+	{
+		Name = "ShipsWreckGroup01Anim"
+		InheritFrom = "ShipsShipwreck01Anim"
+		FilePath = "Tilesets\Ships\Ships_WreckGroup_01"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -2
+		EndAngle = 2
+	}
+
+	{
+		Name = "ShipsWreckGroup02Anim"
+		InheritFrom = "ShipsWreckGroup01Anim"
+		FilePath = "Tilesets\Ships\Ships_WreckGroup_02"
+	}
+
+	{
+		Name = "WhirlpoolWallSlow"
+		FilePath = "Fx\WhirlpoolWall\WhirlpoolWall"
+		NumFrames = 45
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 24
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PostRotateScaleY = 0.6
+	}
+
+	{
+		Name = "WhirlpoolWallMedium"
+		InheritFrom = "WhirlpoolWallSlow"
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "WhirlpoolWallFast"
+		InheritFrom = "WhirlpoolWallSlow"
+		PlaySpeed = 36
+	}	
+
+	{
+		Name = "WhirlpoolFoamSlow"
+		FilePath = "Fx\WhirlpoolFoam\WhirlpoolFoam"
+		NumFrames = 45
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 24
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		PostRotateScaleY = 0.6
+		AddColor = true
+	}
+
+	{
+		Name = "WhirlpoolFoamMedium"
+		InheritFrom = "WhirlpoolFoamSlow"
+		PlaySpeed = 30
+	}
+
+	{
+		Name = "WhirlpoolFoamFast"
+		InheritFrom = "WhirlpoolFoamSlow"
+		PlaySpeed = 36
+	}
+
+	{
+		Name = "ShipsBowsprit01Anim"
+		FilePath = "Fx\Ships_Bowsprit_Ropes\Ships_Bowsprit_Ropeless"
+		Duration = 2
+		Loop = true
+		ChildAnimation = "ShipsBowsprit01Ropes"
+	}
+
+	{
+		Name = "ShipsBowsprit01Ropes"
+		Scale = 4
+		FilePath = "Fx\Ships_Bowsprit_Ropes\Ships_Bowsprit_Ropes"
+		NumFrames = 60
+		Loop = true
+		PlaySpeed = 30
+		OffsetY = -200
+	}
+
+]}

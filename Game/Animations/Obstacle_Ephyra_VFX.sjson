@@ -1,0 +1,1202 @@
+{ Animations = [
+
+	{
+		Name = "EphyraSubRoomDoorLocked"
+		FilePath = "Tilesets\Ephyra\Ephyra_SubDoor_Locked"
+		OffsetY = 245.0
+		Scale = 0.38
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "EphyraSubRoomDoorUnavailable"
+		InheritFrom = "EphyraSubRoomDoorLocked"
+		FilePath = "Tilesets\Ephyra\Ephyra_SubDoor_Unavailable"
+		StartFrame = 1
+	}
+
+	{
+		Name = "EphyraSubRoomDoorClose"
+		FilePath = "Fx\Ephyra_SubDoor_Close\Ephyra_SubDoor_Close"
+		OffsetY = 245.0
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		HoldLastFrame = true
+		NumFrames = 24
+		PlaySpeed = 30
+		StartFrame = 1
+		Sound = "/SFX/AdminDoorCloseSFX"
+		CreateAnimation = "EphyraSubRoomDoorCloseGlow"
+	}
+
+	{
+		Name = "EphyraSubRoomDoorCloseGlow"
+		InheritFrom = "EphyraSubRoomDoorClose"
+		NumFrames = 4
+		FilePath = "Fx\Ephyra_SubDoor_Close\Ephyra_SubDoor_Close_Glow"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		HoldLastFrame = false
+		CreateAnimation = null
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "EphyraSubRoomDoorOpen"
+		InheritFrom = "EphyraSubRoomDoorLocked"
+		FilePath = "Fx\Ephyra_SubDoor_Open\Ephyra_SubDoor_Open"
+		NumFrames = 14
+		HoldLastFrame = true
+		Loop = true
+		PlaySpeed = 30
+		StartFrame = 1
+		Scale = 1.5
+		Sound = "/SFX/AdminDoorOpenSFX"
+		SoundAllowedAfterFrame = 4
+		CreateAnimation = "EphyraSubRoomDoorOpenGlow"
+	}
+
+	{
+		Name = "EphyraSubRoomDoorOpenGlow"
+		InheritFrom = "EphyraSubRoomDoorOpen"
+		NumFrames = 14
+		FilePath = "Fx\Ephyra_SubDoor_Open\Ephyra_SubDoor_Open_Glow"
+		GroupName = "FX_Standing_Add"
+		HoldLastFrame = false
+		Loop = false
+		Material = "Unlit"
+		ChainTo = "EphyraSubRoomDoorOpenGlowLoop"
+		CreateAnimation = "EphyraSubRoomDoorOpenGlowSoft"
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Sound = "null"
+	}
+
+	{
+		Name = "EphyraSubRoomDoorOpenGlowSoft"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 1
+		Green = 0.5
+		Blue = 0.1
+		StartAlpha = 0.25
+		EndAlpha = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		GroupName = "FX_Terrain_Add"
+		Duration = 2
+		PostRotateScaleY = 0.5
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		OffsetY = 300
+	}
+
+	{
+		Name = "EphyraSubRoomDoorOpenGlowLoop"
+		InheritFrom = "EphyraSubRoomDoorOpen"
+		HoldLastFrame = false
+		Loop = true
+		NumFrames = 45
+		FilePath = "Fx\Ephyra_SubDoor_Glow\Ephyra_SubDoor_Glow"
+		PlaySpeed = 30
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		DieWithOwner = true
+		CreateAnimation = null
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "null"
+	}
+	
+	{
+		Name = "EphyraExitDoorLocked"
+		FilePath = "Tilesets\Ephyra\Ephyra_ExitDoor_Locked"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.35
+		ScaleFromOwner = "Ignore"
+		OffsetY = -70
+	}
+	
+	{
+		Name = "EphyraExitDoorUnavailable"
+		FilePath = "Tilesets\Ephyra\Ephyra_ExitDoor_Unavailable"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.35
+		ScaleFromOwner = "Ignore"
+		OffsetY = -70
+	}
+	
+	{
+		Name = "EphyraExitBossDoor"
+		FilePath = "Tilesets\Ephyra\Ephyra_ExitBossDoor_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.35
+		ScaleFromOwner = "Ignore"
+		OffsetY = -100
+	}
+	
+	{
+		Name = "EphyraExitDoorUnlocked"
+		InheritFrom = "EphyraExitDoorLocked"
+		Duration = 2
+		FilePath = "Tilesets\Ephyra\Ephyra_ExitDoor_Available"
+	}
+
+	{
+		Name = "EphyraExitDoorOpen"
+		InheritFrom = "EphyraExitDoorUnlocked"
+		FilePath = "Fx\Ephyra_ExitDoor_Open\Ephyra_ExitDoor_Open"
+		NumFrames = 15
+		PlaySpeed = 30
+		HoldLastFrame = true
+		Scale = 1.42
+		Sound = "/SFX/StyxGrossDoorOpenSFX"
+	}
+
+	{
+		Name = "EphyraExitDoorOpened"
+		InheritFrom = "EphyraExitDoorOpen"
+		FilePath = "Fx\Ephyra_ExitDoor_Open\Ephyra_ExitDoor_Open0015"
+		Scale = 1.42
+		NumFrames = 1
+		Sound = null
+	}
+
+	{
+		Name = "EphyraExitDoorClose"
+		InheritFrom = "EphyraExitDoorOpen"
+		FilePath = "Fx\Ephyra_ExitDoor_Close\Ephyra_ExitDoor_Close"
+		NumFrames = 9
+		PlaySpeed = 30
+		HoldLastFrame = true
+		Sound = "/SFX/StyxWingDoorCloseSFX"
+	}
+
+	{
+		Name = "EphyraExitDoorCloseOnReturn"
+		InheritFrom = "EphyraExitDoorClose"
+		ChildAnimation = null
+	}
+
+	{
+		Name = "ShadeMercFlagAnimated"
+		
+		FilePath = "Fx\ShadeMercFlag\ShadeMercFlag"
+		NumFrames = 120
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 32
+		Loop = true
+		Sound = "/SFX/BannerFlapAmbience"
+		StopSoundOnFinishFade = 0.2
+		SortMode = "Isometric"
+	}
+	{
+		Name = "BattleStandard"
+		InheritFrom = "ShadeMercFlagAnimated"
+		FilePath = "Tilesets\Gameplay\Gameplay_BattleStandard_01"
+		NumFrames = 1
+		OffsetY = -170
+		Scale = 0.35
+	}
+
+	{
+		Name = "EphyraHubExitPylonFull"
+		FilePath = "Tilesets\Ephyra\Ephyra_HubExitPylonBottom_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -115
+		Duration = 1
+		Loop = true
+		ChildAnimation = "SoulPylonFxHub"
+	}
+
+	{
+		Name = "EphyraHubExitPylonFullTop"
+		InheritFrom = "EphyraHubExitPylonFull"
+		FilePath = "Tilesets\Ephyra\Ephyra_HubExitPylonTop_01"
+		ChildAnimation = "SoulPylonGhostEnergyHub"
+		Scale = 1
+		OffsetZ = 120
+	}
+
+	{
+		Name = "EphyraHubExitPylonEmpty"
+		InheritFrom = "EphyraHubExitPylonFull"
+		FilePath = "Tilesets\Ephyra\Ephyra_HubExitPylon_01a"
+		ChildAnimation = null
+	}
+
+	{
+		Name = "EphyraHubExitBarrier"
+		InheritFrom = "SafeZoneAura"
+		FilePath = "Dev\blank_invisible"
+		Loop = true
+		VisualFx = "EphyraHubExitBarrierBubble"
+		Scale = 0.33
+		OffsetY = -75
+		ColorFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "SafeZoneBubbleDisplacement" }
+			{ Name = "SafeZoneBubble" }
+			{ Name = "SafeZoneCircle" }
+		]
+	}
+	{
+		Name = "EphyraWingExitBarrier"
+		InheritFrom = "EphyraHubExitBarrier"
+		Scale = 0.33
+		VisualFx = "EphyraWingExitBarrierBubble"
+		CreateAnimations =
+		[
+			{ Name = "SafeZoneBubbleDisplacement" }
+			{ Name = "SafeZoneBubble" }
+		]
+	}
+
+	{
+		Name = "EphyraHubExitBarrierBubble"
+		InheritFrom = "SafeZoneBubble"
+		Scale = 2.0
+	}
+	{
+		Name = "EphyraWingExitBarrierBubble"
+		InheritFrom = "SafeZoneBubble"
+		Scale = 0.5
+	}
+
+	{
+		Name = "EphyraBarrelShelfDestructionFx"
+		FilePath = "Fx\EphyraDestructibles\EphyraBarrelShelfDestruction\EphyraBarrelShelfDestruction"
+		NumFrames = 33
+		PlaySpeed = 30
+		Scale = 3
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "EphyraDustPuffB"
+		FilePath = "Fx\EphyraDustPuffB\EphyraDustPuffB"
+		NumFrames = 33
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "EphyraDestructibleWoodSplinters"
+		InheritFrom = "EphyraDustPuffB"
+		CreateAnimations =
+		[
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+		]
+	}
+
+	{
+		Name = "EphyraIndestructibleWoodSplinters"
+		InheritFrom = "EphyraDustPuffB"
+		Sound = "/SFX/WoodSplinterSFX"
+		CreateAnimations =
+		[
+			{ Name = "InvincibleHitSpark"}
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+			{ Name = "EphyraDestructibleWoodSplintersRandom" }
+		]
+	}
+
+	{
+		Name = "EphyraIndestructibleFibers"
+		InheritFrom = "EphyraDustPuffB"
+		Sound = "/SFX/BasketFibersSFX"
+		CreateAnimations =
+		[
+			{ Name = "InvincibleHitSpark"}
+			{ Name = "EphyraDestructibleFibersRandom" }
+			{ Name = "EphyraDestructibleFibersRandom" }
+			{ Name = "EphyraDestructibleFibersRandom" }
+			{ Name = "EphyraDestructibleFibersRandom" }
+		]
+	}
+
+	{
+		Name = "EphyraIndestructibleFibersBasket"
+		InheritFrom = "EphyraDustPuffB"
+		Sound = "/SFX/BasketFibersSFX"
+		CreateAnimations =
+		[
+			{ Name = "InvincibleHitSpark"}
+			{ Name = "EphyraDestructibleFibersBasketRandom" }
+			{ Name = "EphyraDestructibleFibersBasketRandom" }
+			{ Name = "EphyraDestructibleFibersBasketRandom" }
+			{ Name = "EphyraDestructibleFibersBasketRandom" }
+		]
+	}
+
+	{
+		Name = "EphyraDestructibleFibersRandom"
+		Random =
+		[
+			{ Name = "EphyraDestructibleFiberA" }
+			{ Name = "EphyraDestructibleFiberB" }
+			{ Name = "EphyraDestructibleFiberC" }
+			{ Name = "EphyraDestructibleFiberD" }
+			{ Name = "EphyraDestructibleFiberE" }
+		]
+	}
+
+	{
+		Name = "EphyraDestructibleFibersBasketRandom"
+		Random =
+		[
+			{ Name = "EphyraDestructibleFiberBasketA" }
+			{ Name = "EphyraDestructibleFiberBasketB" }
+			{ Name = "EphyraDestructibleFiberBasketC" }
+			{ Name = "EphyraDestructibleFiberBasketD" }
+			{ Name = "EphyraDestructibleFiberBasketE" }
+		]
+	}
+
+	{
+		Name = "EphyraDestructibleWoodSplintersRandom"
+		Random =
+		[
+			{ Name = "EphyraDestructibleWoodSplinterA" }
+			{ Name = "EphyraDestructibleWoodSplinterB" }
+			{ Name = "EphyraDestructibleWoodSplinterC" }
+			{ Name = "EphyraDestructibleWoodSplinterD" }
+			{ Name = "EphyraDestructibleWoodSplinterE" }
+			{ Name = "EphyraDestructibleWoodSplinterF" }
+		]
+	}
+
+	{
+		Name = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_01"
+		VelocityMin = 100
+		VelocityMax = 600
+		Acceleration = -200
+		UpwardVelocityMin = 150
+		UpwardVelocityMax = 200
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.6
+		ScaleMin = 0.3
+		ScaleMax = 0.6
+		RandomRotationSpeedMin = -1200
+		RandomRotationSpeedMax = 1200
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomOffsetX = 40
+		RandomOffsetY = 40
+		AngleMin = 0
+		AngleMax = 360
+		Gravity = 0
+		StartScale = 1
+		EndScale = 0.5
+		EaseIn = 0
+		EaseOut = 0.01
+		StartOffsetZ = 60
+		EndOffsetZ = 0
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing"
+		TransferCopyBody = true
+		ChainTo = "EphyraDestructibleWoodSplinterA_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterA_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		RandomOffsetX = 8
+		RandomOffsetY = 20
+		VelocityMin = 10
+		VelocityMax = 60
+		Acceleration = -30
+		UpwardVelocityMax = 0
+		UpwardVelocityMin = 0
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.75
+		StartOffsetZ = 0
+		EndOffsetZ = 10
+		EaseIn = 0.99
+		EaseOut = 1
+		PingPongShiftOverDuration = true
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 180
+	}
+
+	{
+		Name = "EphyraDestructibleWoodSplinterB"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_02"
+		ChainTo = "EphyraDestructibleWoodSplinterB_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterC"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_03"
+		ChainTo = "EphyraDestructibleWoodSplinterC_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterD"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_04"
+		ChainTo = "EphyraDestructibleWoodSplinterD_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterE"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_05"
+		ChainTo = "EphyraDestructibleWoodSplinterE_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterF"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_ephyraSplinter_06"
+		ChainTo = "EphyraDestructibleWoodSplinterF_Bounce"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterB_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA_Bounce"
+		FilePath = "Particles\particle_ephyraSplinter_02"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterC_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA_Bounce"
+		FilePath = "Particles\particle_ephyraSplinter_03"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterD_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA_Bounce"
+		FilePath = "Particles\particle_ephyraSplinter_04"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterE_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA_Bounce"
+		FilePath = "Particles\particle_ephyraSplinter_05"
+	}
+	{
+		Name = "EphyraDestructibleWoodSplinterF_Bounce"
+		InheritFrom = "EphyraDestructibleWoodSplinterA_Bounce"
+		FilePath = "Particles\particle_ephyraSplinter_06"
+	}
+
+	{
+		Name = "EphyraDestructibleFiberA"
+		InheritFrom = "EphyraDestructibleWoodSplinterA"
+		FilePath = "Particles\particle_hay_01"
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		StartOffsetZ = 0
+		EndOffsetZ = 1
+		Gravity = 800
+		VelocityMin = 100
+		VelocityMax = 600
+		Acceleration = -200
+		UpwardVelocityMin = 50
+		UpwardVelocityMax = 400
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.9
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		Value = 0.2
+	}
+	{
+		Name = "EphyraDestructibleFiberB"
+		InheritFrom = "EphyraDestructibleFiberA"
+		FilePath = "Particles\particle_hay_02"
+	}
+	{
+		Name = "EphyraDestructibleFiberC"
+		InheritFrom = "EphyraDestructibleFiberA"
+		FilePath = "Particles\particle_hay_03"
+	}
+	{
+		Name = "EphyraDestructibleFiberD"
+		InheritFrom = "EphyraDestructibleFiberA"
+		FilePath = "Particles\particle_hay_04"
+	}
+	{
+		Name = "EphyraDestructibleFiberE"
+		InheritFrom = "EphyraDestructibleFiberA"
+		FilePath = "Particles\particle_hay_05"
+	}
+
+	{
+		Name = "EphyraDestructibleFiberBasketA"
+		InheritFrom = "EphyraDestructibleFiberA"
+		FilePath = "Particles\particle_hay_01"
+		Value = 0.1
+		Hue = 0.1
+		Scale = 0.66
+		RandomRotationSpeedMin = -1080
+		RandomRotationSpeedMax = 1080
+		Acceleration = -400
+	}
+	{
+		Name = "EphyraDestructibleFiberBasketB"
+		InheritFrom = "EphyraDestructibleFiberBasketA"
+		FilePath = "Particles\particle_hay_02"
+	}
+	{
+		Name = "EphyraDestructibleFiberBasketC"
+		InheritFrom = "EphyraDestructibleFiberBasketA"
+		FilePath = "Particles\particle_hay_03"
+	}
+	{
+		Name = "EphyraDestructibleFiberBasketD"
+		InheritFrom = "EphyraDestructibleFiberBasketA"
+		FilePath = "Particles\particle_hay_04"
+	}
+	{
+		Name = "EphyraDestructibleFiberBasketE"
+		InheritFrom = "EphyraDestructibleFiberBasketA"
+		FilePath = "Particles\particle_hay_05"
+	}
+
+
+	{
+		Name = "EphyraDestructibleVaseShards"
+		Random =
+		[
+			{ Name = "EphyraDestructibleVaseShardA" }
+			{ Name = "EphyraDestructibleVaseShardB" }
+			{ Name = "EphyraDestructibleVaseShardC" }
+			{ Name = "EphyraDestructibleVaseShardD" }
+		]
+	}
+
+	{
+		Name = "EphyraDestructibleVaseShardA"
+		FilePath = "Particles\particle_ephyraVase_01"
+		VelocityMin = 100
+		VelocityMax = 400
+		Acceleration = -400
+		UpwardVelocityMin = 50
+		UpwardVelocityMax = 400
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		ScaleMin = 0.3
+		ScaleMax = 0.6
+		RandomRotationSpeedMin = -1200
+		RandomRotationSpeedMax = 1200
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		AngleMin = 0
+		AngleMax = 360
+		Gravity = 1300
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Terrain"
+		OffsetZ = 60
+	}
+	{
+		Name = "EphyraDestructibleVaseShardB"
+		InheritFrom = "EphyraDestructibleVaseShardA"
+		FilePath = "Particles\particle_ephyraVase_02"
+	}
+	{
+		Name = "EphyraDestructibleVaseShardC"
+		InheritFrom = "EphyraDestructibleVaseShardA"
+		FilePath = "Particles\particle_ephyraVase_03"
+	}
+	{
+		Name = "EphyraDestructibleVaseShardD"
+		InheritFrom = "EphyraDestructibleVaseShardA"
+		FilePath = "Particles\particle_ephyraVase_04"
+	}
+
+
+	{
+		Name = "HouseVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\House_Vase_01_Shatter\House_Vase_01_Shatter"
+		NumFrames = 24
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		HoldLastFrame = true
+		Scale = 3.5
+		CreateAnimations =
+		[
+			{ Name = "EphyraDustPuffB" }
+		]
+	}
+	{
+		Name = "HouseVase04Shatter"
+		InheritFrom = "HouseVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\House_Vase_04_Shatter\House_Vase_04_Shatter"
+		NumFrames = 24
+	}
+	{
+		Name = "HouseVase05Shatter"
+		InheritFrom = "HouseVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\House_Vase_05_Shatter\House_Vase_05_Shatter"
+		NumFrames = 24
+	}
+	{
+		Name = "HouseVase06Shatter"
+		InheritFrom = "HouseVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\House_Vase_06_Shatter\House_Vase_06_Shatter"
+		NumFrames = 24
+	}
+
+	{
+		Name = "EphyraDustPuff_Soft"
+		FilePath = "Fx\EphyraDustPuff\EphyraDustPuff"
+		NumFrames = 38
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		StartAlpha = 0.4
+		EndAlpha = 0.2
+		OffsetZ = -20
+	}
+
+	{
+		Name = "EphyraBreakableVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_01_Shatter\Ephyra_BreakableVase_01_Shatter"
+		NumFrames = 24
+		HoldLastFrame = false
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 1
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OriginX = 128
+		OriginY = 250
+		VisualFx = "EphyraDestructibleVaseShards"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 4
+		CreateAnimations =
+		[
+			{ Name = "EphyraDustPuffB" }
+			{ Name = "EphyraDustPuff_Soft" }
+			{ Name = "InvincibleHitSpark" }
+		]
+
+		Slides =
+		[
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "EphyraBreakableVase01aShatter"
+		InheritFrom = "EphyraBreakableVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_01a_Shatter\Ephyra_BreakableVase_01a_Shatter"
+		NumFrames = 23
+		Slides =
+		[
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "EphyraBreakableVase01bShatter"
+		InheritFrom = "EphyraBreakableVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_01b_Shatter\Ephyra_BreakableVase_01b_Shatter"
+		NumFrames = 24
+	}
+	{
+		Name = "EphyraBreakableVase02Shatter"
+		InheritFrom = "HouseVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_Vase_02_Shatter\Ephyra_Vase_02_Shatter"
+		NumFrames = 24
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 32
+		CreateAnimations =
+		[
+			{ Name = "EphyraUndeadGibA" }
+			{ Name = "EphyraUndeadGibB" }
+			{ Name = "EphyraBreakableVase02FishBloodSpray" }
+			{ Name = "EphyraBreakableVase02FishBloodSpray" }
+			{ Name = "EphyraBreakableVase02FishBloodSpray" }
+		]
+	}
+
+	{
+		Name = "EphyraBreakableVase02FishBloodSpray"
+		FilePath = "Particles\particle_waterSprayIris01"
+		Red = 0.8
+		Green = 0.05
+		Blue = 0
+		RandomRotation = true
+		Gravity = 400
+		RandomOffsetX = 10
+		RandomOffsetY = 80
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		Ambient = 0.5
+		Scale = 1
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		StartScale = 0.6
+		EndScale = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 120
+		Material = "Unlit"
+	}
+
+	{
+		Name = "EphyraBreakableVaseGoldShatter"
+		InheritFrom = "EphyraBreakableVase01Shatter"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_Gold_Shatter\Ephyra_BreakableVase_Gold_Shatter"
+		NumFrames = 23
+		Slides =
+		[
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "BarrelDebrisChunk"
+		Random =
+		[
+			{ Name = "BarrelDebrisChunkA" }
+			{ Name = "BarrelDebrisChunkB" }
+		]
+	}
+
+	{
+		Name = "BarrelDebrisChunkA"
+		FilePath = "Fx\BarrelDebrisChunkA\BarrelDebrisChunkA"
+		NumFrames = 20
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomRotationSpeedMin = -240
+		RandomRotationSpeedMax = 240
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Material = "Unlit"
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ColorFromOwner = "Ignore"
+		SortMode = "FromParent"
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		AddColor = false
+		VisualFx = "BarrelDebrisChunkFlame"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxCap = 40
+		VisualFxDistanceMax = 20.0
+		VisualFxDistanceMin = 10.0
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "BarrelDebrisChunkB"
+		InheritFrom = "BarrelDebrisChunkA"
+		FilePath = "Fx\BarrelDebrisChunkB\BarrelDebrisChunkB"
+	}
+
+	{
+		Name = "BarrelDebrisChunkFlame"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		FilePath = "Fx\FlameB\FlameB"
+		Material = "Unlit"
+		NumFrames = 60
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		StartScale = 0.25
+		EndScale = 0.5
+		StartScaleY = 0.6
+		EndScaleY = 1.5
+		Loop = false
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		AngleFromOwner = "Ignore"
+		GroupName = "Standing_Back"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.3
+		EndGreen = 0.02
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+
+	{
+		Name = "EphyraRoofRainPitterPatterContainer"
+		InheritFrom = "EditorContainer"
+		ChildAnimation = "EphyraRoofRainPitterPatter"
+	}
+
+	{
+		Name = "EphyraRoofRainPitterPatter"
+		FilePath = "Fx\EphyraRoofRain\EphyraRoofRain"
+		NumFrames = 120
+		Loop = true
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		ChainTo = "EphyraRoofRainPitterPatterDelay"
+		Scale = 2
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+	}
+
+	{
+		Name = "EphyraRoofRainPitterPatterDelay"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.5
+		ChainTo = "EphyraRoofRainPitterPatter"
+	}
+
+
+	{
+		Name = "EphyraRoofRainDrip"
+		FilePath = "Fx\EphyraRoofRainDrip\EphyraRoofRainDrip"
+		NumFrames = 80
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ReRandomizeOnLoop = false
+	}
+
+
+	{
+		Name = "EphyraBugsContainer"
+		InheritFrom = "EditorContainer"
+		ChildAnimation = "EphyraBugsIn"
+	}
+
+	{
+		Name = "EphyraBugsIn"
+		FilePath = "Fx\EphyraBugsIn\EphyraBugsIn"
+		NumFrames = 60
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		PostRotateScaleY = 0.5
+		ChainTo = "EphyraBugsLoop"
+		TransferAngle = true
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "EphyraBugsLoop"
+		InheritFrom = "EphyraBugsIn"
+		FilePath = "Fx\EphyraBugsLoop\EphyraBugsLoop"
+		NumFrames = 150
+		Loop = true
+	}
+
+	{
+		Name = "EphyraBugsOut"
+		InheritFrom = "EphyraBugsIn"
+		NumFrames = 16
+		FilePath = "Fx\EphyraBugsOut\EphyraBugsOut"
+		ChainTo = "EphyraBugsWait"
+	}
+
+	{
+		Name = "EphyraBugsWait"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 1.0
+		RandomDurationMax = 2.5
+		ChainTo = "EphyraBugsIn"
+	}
+
+	{
+		Name = "MudSplashFootstepDroplets"
+		Random =
+		[
+			{ Name = "MudSplashFootstepDropletsA" }
+			{ Name = "MudSplashFootstepDropletsB" }
+			{ Name = "MudSplashFootstepDropletsC" }
+		]
+	}
+	
+	{
+		Name = "MudSplashFootstepDropletsA"
+		InheritFrom = "WaterSplashFootstepDropletsA"
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		Ambient = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.1
+		EndBlue = 0.05
+		ScaleMin = 0.8
+		ScaleMax = 1.3
+	}
+	
+	{
+		Name = "MudSplashFootstepDropletsB"
+		InheritFrom = "MudSplashFootstepDropletsA"
+		FilePath = "Fx\WaterSplashDropletsB\WaterSplashDropletsB"
+	}
+	
+	{
+		Name = "MudSplashFootstepDropletsC"
+		InheritFrom = "MudSplashFootstepDropletsA"
+		FilePath = "Fx\WaterSplashDropletsC\WaterSplashDropletsC"
+	}
+
+
+	{
+		Name = "MudFootstepR-Spawner"
+		InheritFrom = "FireFootstepR-Spawner"
+		VisualFx = "MudFootstepR"
+	}
+
+	{
+		Name = "MudFootstepL-Spawner"
+		InheritFrom = "FireFootstepL-Spawner"
+		VisualFx = "MudFootstepL"
+	}
+	{
+		Name = "MudFootstepL"
+		FilePath = "Fx\MelMudFootstep\MelMudFootstep"
+		NumFrames = 29
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 29
+		PlaySpeed = 6.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		PostRotateScaleY = 0.66
+		Scale = 1.75
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		Ambient = 0.0
+		VisualFx = "MudSplashFootstepDroplets"
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 18
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 3
+		CreateAnimation = "FireFootstepL"
+		StartScale = 1.1
+		EndScale = 0.9
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "MudFootstepR"
+		InheritFrom = "MudFootstepL"
+		FlipVertical = true
+		CreateAnimation = "FireFootstepR"
+	}
+	{
+		Name = "EphyraSmoke"
+		FilePath = "Fx\EphyraSmoke\EphyraSmoke"
+		NumFrames = 50
+		RandomPlaySpeedMin = 26
+		RandomPlaySpeedMax = 34
+		RandomFlipHorizontal = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		ScaleY = 2
+		Ambient = 0.0
+		OriginX = 135
+		OriginY = 426
+	}
+
+
+	{
+		Name = "EphyraSmallFireA"
+		FilePath = "Fx\EphyraSmallFireA\EphyraSmallFireA"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		Ambient = 0.0
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "EphyraSmallFireB"
+		InheritFrom = "EphyraSmallFireA"
+		FilePath = "Fx\EphyraSmallFireB\EphyraSmallFireB"
+	}
+
+	{
+		Name = "SmokeRising2"
+		FilePath = "Fx\RisingSmoke2\RisingSmoke2"
+		AddColor = true
+		EndFrame = 80
+		Loop = true
+		NumFrames = 80
+		RandomPlaySpeedMax = 24.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		OriginX = 128.0
+		OriginY = 440.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	{
+		Name = "EphyraHubExitBarrierHitFx"
+		FilePath = "Fx\WitchcraftFlash\WitchcraftFlash"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartFrame = 1
+		EndFrame = 29
+		NumFrames = 29
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		RandomRotation = true
+		TimeModifierFraction = 0.05
+
+		RandomPlaySpeedMax = 80.0
+		RandomPlaySpeedMin = 40.0
+		SortMode = "Id"
+		ScaleMax = 0.75
+		ScaleMin = 0.5
+		Scale = 0.55
+		Color = { Red = 0.0, Green = 0.6, Blue = 0.0 }
+	}
+]}

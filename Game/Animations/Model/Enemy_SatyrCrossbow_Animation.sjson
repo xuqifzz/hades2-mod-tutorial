@@ -1,0 +1,240 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySatyrCBBaseAnimation"
+		
+		GrannyModel = "SatyrCrossbow_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+	}
+
+	// Idle
+	{
+		Name = "Enemy_SatyrCB_Idle"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	// Move
+	{
+		Name = "Enemy_SatyrCB_Move"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_Move_C_00"
+		Loop = true
+
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrCB_MoveStart"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_Move_Start_C_00"
+		ChainTo = "Enemy_SatyrCB_Move"
+	}
+
+	{
+		Name = "Enemy_SatyrCB_MoveStop"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_Move_Start_C_00"
+		ChainTo = "Enemy_SatyrCB_Idle"
+	}
+
+	// On Hit
+	{
+		Name = "Enemy_SatyrCB_OnHit"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_GetHit_C_00"
+		AllowRestart = true
+		ChainTo = "Enemy_SatyrCB_Idle"
+		Sound = "/SFX/Enemy Sounds/SatyrCrossbow/EmoteHurt"
+	}
+	{
+		Name = "Enemy_SatyrCB_OnHit_Heavy"
+		InheritFrom = "Enemy_SatyrCB_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Fade Bolt
+	{
+		Name = "Enemy_SatyrCB_FadeBoltPreFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_FadeBoltPreFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrCB_FadeBoltFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_FadeBoltFire_C_00"
+	}
+
+	{
+		Name = "Enemy_SatyrCB_FadeBoltPostFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_FadeBoltPostFire_C_00"
+		ChainTo = "Enemy_SatyrCB_Idle"
+	}
+
+	// Shielded Bolt
+	{
+		Name = "Enemy_SatyrCB_ShieldedBoltPreFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldedBoltPreFire_C_00"
+		ChainTo = "Enemy_SatyrCB_ShieldedBoltPreFireLoop"
+		OwnerNoInvulnerableCoverage = false
+	}
+
+	{
+		Name = "Enemy_SatyrCB_ShieldedBoltPreFireLoop"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldedBoltPreFireLoop_C_00"
+		Loop = true
+		OwnerNoInvulnerableCoverage = false
+		Sound = "/SFX/Enemy Sounds/SatyrCrossbow/CrossbowCharge"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "Enemy_SatyrCB_ShieldedBoltFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldedBoltFire_C_00"
+		OwnerNoInvulnerableCoverage = false
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrCB_ShieldedBoltPreFireLoop"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrCB_ShieldedBoltPostFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldedBoltPostFire_C_00"
+		ChainTo = "Enemy_SatyrCB_Idle"
+	}
+
+	// Shield Rush
+	{
+		Name = "Enemy_SatyrCB_ShieldRushPreFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldRushPreFire_C_00"
+		OwnerNoInvulnerableCoverage = false
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/SatyrCrossbow/RushCharge"
+		StopSoundOnFinishFade = 0.3
+	}
+
+	{
+		Name = "Enemy_SatyrCB_ShieldRushFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldRushFire_C_00"
+		OwnerNoInvulnerableCoverage = false
+		OwnerHasNoUnitCollision = true
+	}
+
+	{
+		Name = "Enemy_SatyrCB_ShieldRushPostFire"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_ShieldRushPostFire_C_00"
+		ChainTo = "Enemy_SatyrCB_Idle"
+	}
+
+	{
+		Name = "Enemy_SatyrCB_Death"
+		InheritFrom = "Enemy_SatyrCB_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 3.0
+		GrannyAnimationSpeed = 0.05
+		DeathFxFrameDuration = 180
+		DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 1
+		EndAlpha = 0.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		AllowRestart = false
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		CreateAnimation = "EnemySandDeathFx"
+		VisualFx = "EnemySandDeathFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.45
+		VisualFxCap = 4
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrCB_Spawn"
+		InheritFrom = "Enemy_SatyrCB_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1.0 Green = 0.8 Blue = 0.4 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+
+] }

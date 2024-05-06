@@ -1,0 +1,300 @@
+{
+  Animations = [
+
+      
+/*MaleGrey*/
+
+   {
+      Name = "Enemy_MaleGrey_Idle"
+      FilePath = "Animations\Enemies\MaleGrey\Idle\IdleBase\Enemy_MaleGreyIdleBase"
+      PlaySpeed = 30.0
+      Loop = true
+      EndFrame = 1
+      NumAngles = 32
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      CancelOnOwnerMove = true
+      Material = 
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+/*LOCOMOTION*/
+    
+/*COMBAT*/
+
+    {  
+      Name = "Enemy_MaleGrey_Burst"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\Burst\Enemy_MaleGreyBurst"
+      
+      Sound = "/SFX/BombFusePreExplode"
+      StopSoundOnFinishFade = 0.2
+      VisualFx = "PhoenixEggGlow"
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      ShakeDistance = 2.0
+      ShakeSpeed = 150.0
+      StartScale = 1.0
+      EndScale = 1.25
+      EndBlue = 0
+      EndGreen = 0
+      StartRed = 1.0
+      EndRed = 0.4
+      Duration = 1.2
+      BlockNewOwnerAnims = true
+      OwnerHasNoCollision = true
+      OwnerImmobile = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_Burst2"
+      InheritFrom = "Enemy_MaleGrey_Burst"
+      BlockNewOwnerAnims = false
+      OwnerHasNoCollision = false
+      OwnerImmobile = false
+    }
+
+
+    {  
+      Name = "Enemy_MaleGrey_CastForward"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\CastForward\Enemy_MaleGreyCastForward"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      CancelOnOwnerMove = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+
+    {  
+      Name = "Enemy_MaleGrey_CastOverhead"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\CastOverhead\Enemy_MaleGreyCastOverhead"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+
+    {  
+      Name = "Enemy_MaleGrey_Corpse"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\Corpse\Enemy_MaleGreyCorpse"      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      CancelOnOwnerMove = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+     
+    {  
+      Name = "Enemy_MaleGrey_GroundPunch"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\GroundPunch\Enemy_MaleGreyGroundPunch"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_HidingFace"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\HidingFace\Enemy_MaleGreyHidingFace"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_HitStun"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\HitStun\Enemy_MaleGreyHitStun"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      CancelOnOwnerMove = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_ScreamExhale"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\ScreamExhale\Enemy_MaleGreyScreamExhale"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_ScreamInhale"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\ScreamInhale\Enemy_MaleGreyScreamInhale"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_SwordIdle"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\SwordIdle\Enemy_MaleGreySwordIdle"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_SwordOverhead"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\SwordOverhead\Enemy_MaleGreySwordOverhead"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+    {  
+      Name = "Enemy_MaleGrey_SwordSlash"
+      FilePath = "Animations\Enemies\MaleGrey\Combat\SwordSlash\Enemy_MaleGreySwordSlash"
+      
+      EndFrame = 1
+      NumAngles = 64
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -135.0
+      AllowRestart = true
+      TransferChildren = true
+      HoldLastFrame = true
+      OwnerHasNoUnitCollision = true
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+
+  ]
+}

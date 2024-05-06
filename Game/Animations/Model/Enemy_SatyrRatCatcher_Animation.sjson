@@ -1,0 +1,461 @@
+{ Animations = [
+	{
+		Name = "GiganticVerminancer"
+		GrannyModel = "GiganticVerminancer_Mesh"
+	}	
+	{
+		Name = "EnemySatyrRatCatcherBaseAnimation"
+
+		GrannyModel = "SatyrRatcatcher_Mesh"
+		ExtraGrannyAnimations = [{ Name = "GiganticVerminancer" }]
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Enemy_SatyrRatCatcher_Idle"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 8
+			}
+		]
+	}
+
+	// Move
+	{
+		Name = "Enemy_SatyrRatCatcher_Move"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_Move_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 38
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRatCatcher_MoveStart"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_Move_Start_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRatCatcher_MoveStop"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// OnHit
+	{
+		Name = "Enemy_SatyrRatCatcher_OnHit"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1.6
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+		InheritFrom = "Enemy_SatyrRatCatcher_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Cast
+	{
+		Name = "Enemy_SatyrRatCatcher_CastPreFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_CastPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/SatyrRatcatcher/RatcatcherCharge"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "Enemy_SatyrRatCatcher_Cast_StartLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_Cast_StartLoop"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_CastFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_CastFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_CastFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_CastPostFire"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Cast_StartLoop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_CastPostFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_CastPostFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+	}
+
+	// Melee
+	{
+		Name = "Enemy_SatyrRatCatcher_MeleePreFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_MeleePreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Carrion/CarrionChargeUp"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_MeleeFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_MeleeFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_MeleePostFire"
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_MeleePostFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_MeleePostFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+	}
+
+	// Spell
+	{
+		Name = "Enemy_SatyrRatCatcher_SpellPreFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SpellPreFire_C_00"
+		CreateAnimation = "SatyrRatCatcherSpellFx"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/SatyrRatcatcherMiniboss/RatcatcherSpecialPreFire"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_SpellFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SpellFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_SpellFireLoop"
+		CreateAnimation = "SatyrRatCatcherSpellFxLoop"
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_SpellFireLoop"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SpellFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_SpellPostFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SpellPostFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+		CreateAnimation = "SatyrRatCatcherSpellFxOut"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_SpellFireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Summon
+	{
+		Name = "Enemy_SatyrRatCatcher_SummonPreFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SummonPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/SatyrRatcatcher/RatcatcherCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRatCatcher_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_SummonFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SummonFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_CastPostFire"
+		Sound = "/SFX/Enemy Sounds/SatyrRatcatcher/RatcatcherSummon"
+		StopSoundOnFinishFade = 0.5
+		Frames =
+		[
+			{
+				Frame = 39
+				Sound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteAttacking"
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRatCatcher_SummonPostFire"
+		InheritFrom = "EnemySatyrRatCatcherBaseAnimation"
+		GrannyAnimation = "SatyrRatcatcher_Base_SummonPostFire_C_00"
+		ChainTo = "Enemy_SatyrRatCatcher_Idle"
+	}
+
+	{
+		Name = "Enemy_SatyrRatCatcher_Death"
+		InheritFrom = "Enemy_SatyrRatCatcher_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 3.0
+		GrannyAnimationSpeed = 0.05
+		DeathFxFrameDuration = 150
+		DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 1
+		EndAlpha = 0.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		AllowRestart = false
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		CreateAnimation = "EnemySandDeathFx"
+		VisualFx = "EnemySandDeathFx"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.22
+		VisualFxCap = 6
+		CreateAnimations =
+		[
+			{ Name = "EnemySandDeathFx" } 
+			{ Name = "EnemyDeathFxStartFlareLarge" }
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_SatyrRatCatcher_Spawn"
+		InheritFrom = "Enemy_SatyrRatCatcher_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.7 Blue = 0.3 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+] }

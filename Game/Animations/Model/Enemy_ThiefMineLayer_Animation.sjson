@@ -1,0 +1,153 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyThiefMineLayerBaseAnimation"
+		
+		GrannyModel = "ThiefMineLayer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 2.0
+		Loop = false
+		Enable3DShadow = false
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_ThiefMineLayer_Idle"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_TossReturnToIdle"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_IdleFidget"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_IdleFidget_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_ThiefMineLayer_Idle"
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_Move"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_Move_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_TossReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_MoveStart"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_MoveStart_C_00"
+		ChainTo = "Enemy_ThiefMineLayer_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_TossReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_MoveStop"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_MoveStop_C_00"
+		ChainTo = "Enemy_ThiefMineLayer_Idle"
+		GrannyAnimationSpeed = 2.0
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ThiefMineLayer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Hit Stun */
+	{
+		Name = "Enemy_ThiefMineLayer_HitStun"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_HitStun_C_00"
+		ChainTo = "Enemy_ThiefMineLayer_Idle"
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/ThiefMineLayer/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_HitStun_Heavy"
+		InheritFrom = "Enemy_ThiefMineLayer_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/* Attacks */
+
+	{
+		Name = "Enemy_ThiefMineLayer_TossCharge"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_TossCharge_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_TossFire"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_TossFire_C_00"
+		ChainTo = "Enemy_ThiefMineLayer_TossReturnToIdle"
+	}
+
+	{
+		Name = "Enemy_ThiefMineLayer_TossReturnToIdle"
+		InheritFrom = "EnemyThiefMineLayerBaseAnimation"
+		GrannyAnimation = "ThiefMineLayer_Base_TossReturnToIdle_C_00"
+		ChainTo = "Enemy_ThiefMineLayer_Idle"
+		CancelOnOwnerMove = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+]}

@@ -1,0 +1,866 @@
+{ Animations = [
+
+	{
+		Name = "TeleportDisappear"
+		FilePath = "Fx\HadesDisappear\HadesDisappear"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+		ColorFromOwner = "Ignore"
+		EndFrame = 45
+		NumFrames = 45
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 80.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 1.66
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "TeleportDisappearSmall"
+		InheritFrom = "TeleportDisappear"
+		Sound = "/SFX/Player Sounds/FamiliarAppearPoof"
+		PlaySpeed = 45.0
+		Scale = 0.8
+	}
+
+	{
+		Name = "ArtemisAimLine"
+		FilePath = "GUI\Widgets\Target_Line"
+		
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 16.0
+		OriginY = 107.0
+		ScaleX = 2.75
+		Material = "Emissive"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.0 }
+		Alpha = 0.5
+		GroupName = "FX_Terrain_Add"
+	}
+	{
+		Name = "ScyllaAimLine"
+		InheritFrom = "ArtemisAimLine"
+		ScaleXByObstacleCollision = true
+		Color = { Red = 1.0 Green = 0.0 Blue = 1.0 }
+	}
+	{
+		Name = "SatyrCrossbowAimLine"
+		InheritFrom = "ArtemisAimLine"
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.15 }
+		ScaleY = 0.7
+		FilePath = "GUI\Widgets\Target_Line_Crossbow"
+		Alpha = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1.0
+		PingPongColor = true
+		Loop = true
+		Duration = 1
+		EaseIn = 0
+		EaseOut = 1
+		ScaleX = 1.5
+		ScaleXByObstacleCollision = true
+		CreateAnimation = "SatyrCrossbowShieldedBoltPreAttackFx"
+	}
+	{
+		Name = "ArtemisTeleportFx"
+		FilePath = "Fx\RadialNova\RadialNova"
+		GroupName = "FX_Displacement"
+		
+		Alpha = 0.1
+		StartAlpha = 1.0
+		EndFrame = 44
+		NumFrames = 44
+		PlaySpeed = 30.0
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 1.0
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+	}
+	
+	{
+		Name = "HitSparkA_Small"
+		InheritFrom = "HitSparkA"
+		Scale = 0.33
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "GhostProjectileImpactNova"
+		FilePath = "Fx\GhostProjectileImpactNova\GhostProjectileImpactNova"
+		NumFrames = 34
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Material = "Unlit"
+		RandomPlaySpeedMin = 55
+		RandomPlaySpeedMax = 70
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1.3
+		ScaleMax = 1.7
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		LocationZFromOwner = "Take"
+	}
+
+	{
+		Name = "GhostProjectileAnim"
+		FilePath = "Fx\GhostProjectileBase\GhostProjectileBase"
+		VisualFx = "GhostProjectileTrail"
+		Sound = "/SFX/Enemy Sounds/Charon/CharonGhostLoop"
+		StopSoundOnFinishFade = 0.2
+		Duration = 0.1
+		EndFrame = 1
+		Loop = true
+		NumAngles = 64
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+		VisualFxDistanceMax = 25.0
+		VisualFxDistanceMin = 25.0
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+		Scale = 1.33
+		CreateAnimation = "GhostTransitionFlare"
+	}
+
+	{
+		Name = "GhostTransitionFlare"
+		FilePath = "Fx\GhostTransitionFlare\GhostTransitionFlare"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2
+	}
+
+
+	
+	{
+		Name = "GhostProjectileTrail"
+		InheritFrom = "GhostProjectileAnim"
+		FilePath = "Fx\GhostProjectileTrail\GhostProjectileTrail"
+		VisualFx = "null"
+		AngleFromOwner = "Take"
+		Sound = "/EmptyCue"
+		EndBlue = 0.99
+		EndGreen = 0.5
+		StartAlpha = 0.25
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 0.5
+		Loop = false
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.33
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		EndScale = 0.3
+		StartScale = 1.0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -50
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		CreateAnimations = [
+			{ Name = "GhostProjectileTrailDisplacement" }
+		]
+	}
+
+	{
+		Name = "GhostProjectileTrailDisplacement"
+		InheritFrom = "GhostProjectileTrail"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		FilePath = "Fx\GhostProjectileTrailDisplacement\GhostProjectileTrailDisplacement"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 0.33
+	}
+
+	{
+		Name = "SteamFx"
+		FilePath = "Fx\Steam\Steam"
+		
+		VisualFx = "SteamFxParticle"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 45
+		Loop = true
+		NumFrames = 45
+		PlaySpeed = 60.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 60.0
+		OriginX = 100.0
+		OriginY = 240.0
+		DieWithOwner = true
+		SortMode = "FromParent"
+		ScaleX = 1.5
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.3
+		VisualFxIntervalMin = 0.2
+		Saturation = -0.05
+		UseAttachedShake = false
+	}
+	
+	{
+		Name = "SteamFxParticle"
+		InheritFrom = "SteamFx"
+		VisualFx = "null"
+		AngleMax = 100.0
+		AngleMin = 80.0
+		UseOwnAngle = false
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		EndAlpha = 1.0
+		PingPongColor = true
+		Loop = false
+		LoopFramesOnly = true
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		OffsetZ = 0.0
+		RandomOffsetX = 30.0
+		RandomOffsetY = 15.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -100.0
+		VelocityMax = 100.0
+		VelocityMin = 50.0
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		ScaleX = 1.0
+	}
+
+	{
+		Name = "RadialNovaBoltCharged"
+		InheritFrom = "RadialNova"
+		GroupName = "FX_Terrain_Add"
+		EndGreen = 0.999
+		EndRed = 0.4
+		StartBlue = 0.2
+		StartGreen = 1.0
+		StartRed = 0.9
+		PlaySpeed = 75.0
+		ScaleRadius = 350.0
+		VisualFxCap = 16
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaSwordParryDark" }
+			{ Name = "DisplaceShockwaveSwordParry" }
+			{ Name = "QuickFlashGreen" }
+			{ Name = "RadialNovaBoltChargedFire" }
+		]
+	}
+	
+	{
+		Name = "RadialNovaBoltChargedFire"
+		FilePath = "Fx\TorchRing\TorchRing"
+		EndFrame = 45
+		NumFrames = 45
+		PlaySpeed = 45.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 245.0
+		Ambient = 0.0
+		GroupName = "FX_Standing_Add"
+		EndBlue = 0.99
+		EndGreen = 0.99
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Loop = false
+		RotationSpeed = 0.0
+		EndScale = 1.3
+		StartScale = 0.8
+	}
+
+	{
+		Name = "PortalSpawner"
+		FilePath = "Tilesets\Elysium\Elysium_Wallbrick_02"
+		
+		Alpha = 0.5
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.1
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "PortalSpawnerOut"
+		FilePath = "Tilesets\Elysium\Elysium_Wallbrick_02"			
+		StartAlpha = 0.5
+		Duration = 0.3
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.1
+		Ambient = 0.0
+	}
+
+	{
+		Name = "NightmareStasisFx"
+		FilePath = "Dev\blank_invisible"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFront" }
+			{ Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+	{
+		Name = "NightmareStasisFxMeg"
+		InheritFrom = "NightmareStasisFx"
+		CreateAnimations =
+		[
+			{ Name = "NightmareStasisFxFrontMeg" }
+			{ Name = "NightmareStasisFxDisplacement" }
+			{ Name = "NightmareStasisFxBack" }
+		]
+	}
+
+	{
+		Name = "NightmareStasisFxBase"
+		FilePath = "Fx\NightmareStasisFx\NightmareStasisFx"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlayBackwards = true
+		RandomPlaySpeedMax = 35.0
+		RandomPlaySpeedMin = 25.0
+		StartFrame = 1
+		OffsetZ = 75.0
+		LocationZFromOwner = "Ignore"
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	{
+		Name = "NightmareStasisFxBaseMeg"
+		InheritFrom = "NightmareStasisFxBase"
+		ScaleX = 1.2
+	}
+	{
+		Name = "NightmareStasisFxFrontMeg"
+		InheritFrom = "NightmareStasisFxBaseMeg"
+	}
+
+	{
+		Name = "NightmareStasisFxFront"
+		InheritFrom = "NightmareStasisFxBase"
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "NightmareStasisFxDisplacement"
+		InheritFrom = "NightmareStasisFxBase"
+		GroupName = "FX_Displacement"
+		Alpha = 0.06
+		PingPongColor = true
+		EaseOut = 1.0
+		OffsetX = 10.0
+	}
+	
+	{
+		Name = "NightmareStasisFxBack"
+		InheritFrom = "NightmareStasisFxBase"
+		GroupName = "Standing"
+		EndAlpha = 0.7
+		PingPongColor = true
+		StartAlpha = 0.4
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "NightmareEdgeFxSpawner"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "NightmareEdgeFx"
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.04
+	}
+	
+	{
+		Name = "NightmareEdgeFx"
+		FilePath = "Fx\NightmareEdgeFx\NightmareEdgeFx"
+		GroupName = "FX_Terrain"
+		
+		AngleChangeSpeedMax = 20.0
+		AngleChangeSpeedMin = -20.0
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		EndAlpha = 1.0
+		EndGreen = 0.1
+		StartBlue = 0.001
+		StartGreen = 0.001
+		StartRed = 0.1
+		EaseOut = 1.0
+		EndFrame = 76
+		NumFrames = 76
+		RandomPlaySpeedMax = 30.0
+		RandomPlaySpeedMin = 24.0
+		StartFrame = 1
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 187.0
+		OriginY = 256.0
+		RadialOffsetMax = 1000.0
+		RadialOffsetMin = 900.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetY = 30.0
+		LocationFromOwner = "Take"
+		OwnerVelocityFraction = 0.25
+		VelocityMax = 100.0
+		VelocityMin = 50.0
+		EndScaleX = 2.0
+		PostRotateScaleY = 0.5
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.1
+		ScaleMin = 0.9
+		Ambient = 0.0
+	}
+
+	{
+		Name = "TimeStopFx"
+		FilePath = "Fx\Vignette\VignetteTintable"
+		GroupName = "Overlay"			
+		VisualFx = "TimeStopStreaks"
+		AngleFromOwner = "Ignore"
+		EndAlpha = 1.0
+		EndBlue = 0.9
+		EndGreen = 0.1
+		EndRed = 0.3
+		PingPongColor = true
+		StartAlpha = 0.5
+		StartBlue = 1.0
+		StartGreen = 0.6
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.05
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "TimeStopTerrainFx" }
+			{ Name = "TimeStopStartFlare" }
+			{ Name = "TimeStopStartFlareDark" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+			{ Name = "TimeStopStreaks" }
+		]
+	}
+	
+	{
+		Name = "TimeStopStartFlare"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0.25
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 1.3
+		Scale = 10.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "TimeStopStartFlareDark"
+		InheritFrom = "TimeStopStartFlare"
+		GroupName = "FX_Dark"
+		StartAlpha = 1.0
+		Duration = 1.0
+		StartScale = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "TimeStopStreaks"
+		CreateAnimation = "TimeStopDisplacement"
+		FilePath = "Particles\particle_hemiStreaks"
+		GroupName = "FX_Add_Top"			
+		AngleChangeSpeedMax = 20.0
+		AngleChangeSpeedMin = -20.0
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		EndAlpha = 0.1
+		EndBlue = 0.9
+		EndGreen = 0.2
+		EndRed = 0.6
+		PingPongColor = true
+		StartBlue = 1.0
+		StartGreen = 0.5
+		EaseIn = 0.5
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginY = 512.0
+		RadialOffsetMax = 600.0
+		RadialOffsetMin = 300.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetY = 30.0
+		Acceleration = -50.0
+		VelocityMax = 150.0
+		VelocityMin = 50.0
+		EndScaleX = 3.0
+		EndScaleY = 1.05
+		PostRotateScaleY = 0.5
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "TimeStopDisplacement"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		GroupName = "FX_Displacement"			
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		EndAlpha = 0.125
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RadialOffsetMax = 800.0
+		RadialOffsetMin = 700.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetY = 30.0
+		Acceleration = -50.0
+		VelocityMax = 200.0
+		VelocityMin = 150.0
+		IsometricSkew = "X"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "TimeStopTerrainFx"
+		FilePath = "Fx\TerrainFlash\TerrainFlash"
+		GroupName = "FX_Terrain_Add"
+		AddColor = true
+		EndFrame = 7
+		NumFrames = 7
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 0.50 Green = 0.70 Blue = 1.0 }
+	}
+
+	{
+		Name = "PowerUpPerfectDash"
+		InheritFrom = "PowerUpFront"
+		EndBlue = 0.1
+		EndGreen = 0.999
+		EndRed = 0.2
+		StartBlue = 0.3
+		StartGreen = 1.0
+		StartRed = 0.5
+		Slides =
+		[
+
+			{ DurationFrames = 4 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "ExplosionCrater"
+		FilePath = "Fx\IrisExplosionA\Crater"
+		GroupName = "FX_Terrain_Dark"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = -15
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "IrisExplosionA"
+		FilePath = "Fx\IrisExplosionA\IrisExplosionA"
+		NumFrames = 70
+		Material = "Unlit"
+		OriginX = 270
+		OriginY = 290
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleRadius = 170
+		UseBoundsForSortDrawArea = true
+		SortFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		TimeModifierFraction = 0
+		GroupName = "Standing"
+		CreateAnimations =
+		[
+			{ Name = "IrisExplosionALighting" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "DisplaceShockwaveHemi"}
+		]
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		
+		]
+	}
+
+
+	{
+		Name = "IrisExplosionA_ZombieHR"
+		InheritFrom = "IrisExplosionA"
+		ScaleRadius = 0
+		Scale = 1.5
+		ClearSlides = true
+		PlaySpeed = 60
+		CreateAnimations =
+		[
+			{ Name = "IrisExplosionALighting" }
+			{ Name = "QuickFlashRed" }
+			{ Name = "DisplaceShockwaveHemi_IrisExplosion"}
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ZombieBarrelChunks" }
+			{ Name = "ExplosionCrater" }
+		]
+	}
+
+
+	{
+		Name = "IrisExplosionALighting"
+		FilePath = "Fx\BasicGlow\BasicGlow"
+		GroupName = "FX_Standing_Add"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.1
+		EndRed = 1.0
+		EndGreen = 0.25
+		EndBlue = 0
+		StartAlpha = 1.0
+		Duration = 0.4
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 3.0
+		Ambient = 0.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		SortMode = "Id"
+	}
+
+	{
+		Name = "IrisExplosionALighting_Small"
+		InheritFrom = "IrisExplosionALighting"
+		Scale = 1.5
+		StartAlpha = 0.66
+	}
+
+	{
+		Name = "IrisExplosionA_Small"
+		InheritFrom = "IrisExplosionA"
+		ClearCreateAnimations = true
+		ClearSlides = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		CreateAnimations =
+		[
+			{ Name = "IrisExplosionALighting_Small" }
+			{ Name = "QuickFlashRedSmall" }
+		]
+	}
+]}

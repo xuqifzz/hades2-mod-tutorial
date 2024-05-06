@@ -1,0 +1,426 @@
+{ Animations = [
+	{
+		Name = "EnemyMournerBaseAnimation"
+		GrannyModel = "Mourner_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.3
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+	{
+		Name = "Enemy_Mourner_Idle"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Cry"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Scream_End"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Move_Start"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Move_Start_C_00"
+		ChainTo = "Enemy_Mourner_Move_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Move_FireLoop"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Move_End"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Mourner_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_OnHit"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Mourner_Idle"
+		Sound = "/SFX/Enemy Sounds/Mourner/EmoteHurt"
+		Frames = 
+		[
+			{				
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1.4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Mourner_OnHit_Heavy"
+		InheritFrom = "Enemy_Mourner_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Mourner Rampage
+	{
+		Name = "Enemy_Mourner_Rampage_Start"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_RampagePreFire_C_00"
+		CreateAnimations =
+		[
+			{ Name = "MournerRampageTopChargeR"}
+			{ Name = "MournerRampageBottomChargeR"}
+			{ Name = "MournerRampageTopChargeL"}
+			{ Name = "MournerRampageBottomChargeL"}
+		]
+		Sound = "/SFX/Enemy Sounds/Mourner/MeleeCharge"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Rampage_Fire"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_RampageFire_C_00"
+		ChainTo = "Enemy_Mourner_Rampage_End"
+	}
+
+	{
+		Name = "Enemy_Mourner_Rampage_End"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_RampagePostFire_C_00"
+		ChainTo = "Enemy_Mourner_Idle"
+	}
+
+	// Mourner Cast
+	{
+		Name = "Enemy_Mourner_Cast_Start"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_CastPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Mourner/RangedCharge"
+		CreateAnimations =
+		[
+			{ Name = "MournerCastTopChargeR"}
+			{ Name = "MournerCastBottomChargeR"}
+			{ Name = "MournerCastTopChargeL"}
+			{ Name = "MournerCastBottomChargeL"}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Cast_FireLoop"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_CastFire_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Mourner_Cast_End"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_CastPostFire_C_00"
+		ChainTo = "Enemy_Mourner_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Cast_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Mourner Fidget
+	{
+		Name = "Enemy_Mourner_Scream_Fire"
+		Random =
+		[
+			{ Name = "Enemy_Mourner_Fidget02" }
+			{ Name = "Enemy_Mourner_Fidget03" }
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Fidget02"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Idle_Fidget02_C_00"
+		ChainTo = "Enemy_Mourner_Idle"
+
+		Frames = 
+		[
+			{
+				Frame = 30
+				FootstepFxR = "MournerScreamFxFront"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 40
+				FootstepFxR = ""
+				FootstepFxL = ""
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Fidget03"
+		InheritFrom = "EnemyMournerBaseAnimation"
+		GrannyAnimation = "Mourner_Base_Idle_Fidget03_C_00"
+		ChainTo = "Enemy_Mourner_Idle"
+
+
+		Frames = 
+		[
+			{
+				Frame = 30
+				FootstepFxR = "MournerScreamFxFront_Vertical"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 40
+				FootstepFxR = ""
+				FootstepFxL = ""
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mourner_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mourner_Spawn"
+		InheritFrom = "Enemy_Mourner_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxReverse = true
+		DeathFxColor = { Red = 0 Green = 0.0 Blue = 0.0 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		StartOffsetZ = -150
+		EndOffsetZ = 0
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "Enemy_Mourner_Death"
+		InheritFrom = "Enemy_Mourner_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.02
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		StartOffsetZ = 0
+		EndOffsetZ = -75
+	}
+
+]}

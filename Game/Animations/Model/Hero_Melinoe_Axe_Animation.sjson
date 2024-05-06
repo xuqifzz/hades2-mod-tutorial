@@ -1,0 +1,328 @@
+{ Animations = [
+
+	/* Axe Base Animations */
+	{
+		Name = "MelinoeBaseAxeAnimations"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+	}
+	{
+		Name = "MelinoeBaseAxeAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		DirectionChange180 = "Melinoe_Axe_Turn_180"
+		DirectionChange90R = "Melinoe_Axe_Turn_E90"
+		DirectionChange90L = "Melinoe_Axe_Turn_W90"
+	}
+	{
+		Name = "Melinoe_Axe_Charon"
+		GrannyModel = "Melinoe_Axe_Charon_Mesh"
+	}
+	{
+		Name = "Melinoe_Axe_Nergal"
+		GrannyModel = "Melinoe_Axe_Nergal_Mesh"
+	}
+	{
+		Name = "Melinoe_Axe_Thanatos"
+		GrannyModel = "Melinoe_Axe_Thanatos_Mesh"
+	}
+	{
+		Name = "WeaponAxeBase"
+		Disable3DSpotlight = true
+		GrannyModel = "Melinoe_Axe_Mesh1"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "Melinoe_Axe_Charon" }
+			{ Name = "Melinoe_Axe_Nergal" }
+			{ Name = "Melinoe_Axe_Thanatos" }
+		]
+		GrannyAnimation = "null"
+		ChainTo = "null"
+	}
+
+	/* Axe Idle */
+	{
+		Name = "Axe_Idle"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Axe_Idle"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragIdle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_AttackEx1_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Dash_End2"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "MelinoeGatherReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoePickAxeMineReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Shovel_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeExorcismReturnToIdle"
+				Duration = 10
+			}	 
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 10
+			} 
+			{
+				BlendTransitionFrom = "MelinoeSalute"
+				Duration = 10
+			} 
+			{
+				BlendTransitionFrom = "MelinoeSpellFireReturn"
+				Duration = 15
+			} 
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_End"
+				Duration = 0
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Cast_End"
+				Duration = 14
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack4_End"
+				Duration = 14
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack4_Cancel"
+				Duration = 14
+			}		
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack2_End"
+				Duration = 14
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Cast_Fire_Quick"
+				Duration = 14
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_AttackEx1_Start"
+				Duration = 8
+			}
+		]
+	}	
+	
+
+	/* Axe Get Hit */
+	{
+		Name = "Axe_GetHit"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_GetHit"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_GetHit_C_01"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 0
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Axe_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Attack1_Fire" }
+			{ Name = "Melinoe_Axe_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Attack2_Fire" }
+			{ Name = "Melinoe_Axe_Attack4_Start" }
+			{ Name = "Melinoe_Axe_Attack4_Fire" }
+			{ Name = "Melinoe_Axe_Attack3_Start" }
+			{ Name = "Melinoe_Axe_Attack3_Fire" }
+			{ Name = "Melinoe_Axe_AttackEx1_Start" }
+			{ Name = "Melinoe_Axe_AttackEx1_Fire" }
+			{ Name = "Melinoe_Axe_AttackEx1_FireLoop" }
+			{ Name = "Melinoe_Axe_Special1_Start" }
+			{ Name = "Melinoe_Axe_Special1_FireLoop" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Fire" }
+			{ Name = "Melinoe_Axe_Cast_Start" }
+			{ Name = "Melinoe_Axe_Cast_QuickCompleteFire" }
+			{ Name = "Melinoe_Axe_Cast_Fire2" }
+			{ Name = "Melinoe_Axe_Cast_StartLoop" }
+			{ Name = "Melinoe_Axe_Cast_Fire" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "Axe_GetHit"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	/* Axe Interact */
+	{
+		Name = "Axe_Interact"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_Interact"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_Interact_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Axe_Idle"
+		Attachments =
+		[
+			{
+				Name = "Axe_Interact"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	/* Axe Equip/Unequip */
+
+	{
+		Name = "Axe_Equip"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_AxeEquipIdle_00"
+	}
+	{
+		Name = "Melinoe_Axe_Equip"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_AxeEquipIdle_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Axe_Idle"
+		CreateAnimations =
+		[
+			{ Name = "MelEquipSparkleAxeSpawner" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Axe_Equip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 28
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk"
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Unequip"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_AxeUnEquipIdle_00"
+	}
+	{
+		Name = "Melinoe_Axe_Unequip"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_AxeUnEquipIdle_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeInteract" }
+			{ Name = "MelinoeBoonPreInteract" }
+			{ Name = "MelTalkGifting01" }
+			{ Name = "MelTalkGifting01ReturnToIdle" }
+			{ Name = "MelinoeBoonInteractLoop" }
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Axe_InteractUnequip" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleAxe" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Axe_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Axe_InteractUnequip"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_InteractUnequipToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Axe_InteractUnequip"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_InteractUnequipToIdle_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Axe_Unequip" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleAxe" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Axe_InteractUnequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+] }

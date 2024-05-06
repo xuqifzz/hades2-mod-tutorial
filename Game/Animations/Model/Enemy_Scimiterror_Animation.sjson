@@ -1,0 +1,346 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyScimiterrorBaseAnimation"
+		
+		GrannyModel = "Scimiterror_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		CreateAnimation = "ScimiterrorGlow"
+	}
+
+	{
+		Name = "Enemy_Scimiterror_Idle"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scimiterror_MoveStart"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_PreWalk_C_00"
+		ChainTo = "Enemy_Scimiterror_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scimiterror_Move"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_WalkCycle_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scimiterror_MoveStop"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_PostWalk_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Scimiterror_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Scimiterror_OnHit"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Scimiterror_Idle"
+		Sound = "/SFX/Enemy Sounds/Scimiterror/EmoteHurt"
+	}
+	{
+		Name = "Enemy_Scimiterror_OnHit_Heavy"
+		InheritFrom = "Enemy_Scimiterror_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// CHOP
+	{
+		Name = "Enemy_Scimiterror_ChopPreFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_ChopPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_ChopFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_ChopFire_C_00"
+		ChainTo = "Enemy_Scimiterror_ChopPostFire"
+	}
+	{
+		Name = "Enemy_Scimiterror_ChopPostFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_ChopPostFire_C_00"
+		ChainTo = "Enemy_Scimiterror_Idle"
+	}
+
+	// SLASH LEFT
+	{
+		Name = "Enemy_Scimiterror_SlashLeftPreFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashLeftPreFire_C_00"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyChargeFxIn_Scimiterror" }
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_SlashRightPostFire"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_SlashLeftFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashLeftFire_C_00"
+		ChainTo = "Enemy_Scimiterror_SlashLeftPostFire"
+		Frames =
+		[
+			{
+				Frame = 12
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_SlashLeftPostFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashLeftPostFire_C_00"
+		ChainTo = "Enemy_Scimiterror_Idle"
+	}
+
+	// SLASH RIGHT
+	{
+		Name = "Enemy_Scimiterror_SlashRightPreFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashRightPreFire_C_00"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyChargeFxIn_Scimiterror" }
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_SlashLeftPostFire"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_SlashRightFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashRightFire_C_00"
+		ChainTo = "Enemy_Scimiterror_SlashRightPostFire"
+		Frames =
+		[
+			{
+				Frame = 12
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_SlashRightPostFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_SlashRightPostFire_C_00"
+		ChainTo = "Enemy_Scimiterror_Idle"
+	}
+
+	// STAB
+	{
+		Name = "Enemy_Scimiterror_StabPreFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_StabPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Scimiterror_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Scimiterror_StabFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_StabFire_C_00"
+		ChainTo = "Enemy_Scimiterror_StabPostFire"
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Scimiterror_StabPostFire"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_StabPostFire_C_00"
+		ChainTo = "Enemy_Scimiterror_Idle"
+	}
+
+	{
+		Name = "Enemy_Scimiterror_Spawn"
+		InheritFrom = "EnemyScimiterrorBaseAnimation"
+		GrannyAnimation = "Scimiterror_Base_StabPostFire_C_00"
+		ChainTo = "Enemy_Scimiterror_Idle"
+		GrannyAnimationSpeed = 0.5
+		Sound = "/SFX/Enemy Sounds/Hades/HadesAmmoExitPoof"
+	}
+
+]}

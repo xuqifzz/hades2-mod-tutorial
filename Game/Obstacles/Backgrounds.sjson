@@ -1,0 +1,18 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "rectangle01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+	  NeedsLife = false
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Backgrounds\rectangle_01"
+        TriggerOnSpawn = false
+      }
+    }
+    
+  ]
+}

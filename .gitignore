@@ -1,0 +1,9 @@
+/Audio
+/Movies
+/Fonts
+/GR2
+/Maps/bin
+/Packages
+/Shaders
+/Game/Text/*/
+!/Game/Text/zh-CN/

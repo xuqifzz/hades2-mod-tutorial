@@ -1,0 +1,6129 @@
+{ Animations = [
+	
+	
+	{
+		Name = "DaggerProjectileCurved"
+		CreateAnimation = "DaggerProjectileCurvedTrailB"
+		FilePath = "Fx\DaggerProjectileCurved\DaggerProjectileCurved"
+		VisualFx = "DaggerProjectileCurvedTrail"
+		EndFrame = 9
+		ColorFromOwner = "Ignore"
+		Loop = true
+		NumFrames = 9
+		PlaySpeed = 60.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetZ = 30.0
+		IsometricSkew = "X"
+		Scale = 0.85
+		Ambient = 0.0
+		VisualFxDistanceMax = 80.0
+		VisualFxDistanceMin = 80.0
+		Sound = "/SFX/Player Sounds/MelDaggerKnifeThrowSwish"
+	}
+	
+	{
+		Name = "DaggerProjectileCurvedTrailB"
+		FilePath = "Fx\DaggerProjectileCurvedTrail\DaggerProjectileCurvedTrail"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		EndAlpha = 1.0
+		EndFrame = 9
+		NumFrames = 9
+		PlaySpeed = 30
+		StartFrame = 1
+		FlipVertical = true
+		OriginX = 225.0
+		OriginY = 64.0
+		EndScaleX = 2.5
+		ScaleY = 0.33
+		Ambient = 0.0
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1
+		EaseIn = 0
+		EaseOut = 0.1
+		ColorFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "DaggerProjectileCurvedFade"
+		InheritFrom = "DaggerProjectileCurved"
+		CreateAnimation = "null"
+		Sound = null
+		GroupName = "FX_Standing_Add"
+		AddColor = false
+		StartAlpha = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Loop = false
+		RandomStartFrame = false
+		SortMode = "FromParent"
+		EndScale = 0.0
+	}
+	
+	{
+		Name = "DaggerProjectileImpactFx"
+		FilePath = "Fx\DaggerProjectileImpactFx\DaggerProjectileImpactFx"
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		SortMode = "FromParent"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartRed = 0
+		StartGreen = 1.0
+		StartBlue = 0.75
+		EndRed = 0.5
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EndFrame = 7
+		NumFrames = 7
+		PlaySpeed = 30.0
+		StartFrame = 1
+		IsometricSkew = "X"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DaggerProjectileCurvedTrailFx"
+		InheritFrom = "DaggerProjectileImpactFx"
+		GroupName = "FX_Dark"
+		AddColor = false
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		OffsetZ = 40.0
+		LocationFromOwner = "Ignore"
+		IsometricSkew = "None"
+		RandomRotation = true
+		ScaleMax = 0.5
+		ScaleMin = 0.1
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "DaggerProjectileCurvedTrail"
+		FilePath = "Fx\DaggerProjectileCurvedTrail\DaggerProjectileCurvedTrail"
+		GroupName = "FX_Standing_Add"
+		
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.5
+
+		EndRed = 0.6
+		EndGreen = 0.5
+		EndBlue = 1
+		StartAlpha = 0.50
+		EndAlpha = 0.25
+
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 9
+		NumFrames = 9
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 196.0
+		OriginY = 64.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Acceleration = -2000.0
+		EndScaleX = 4.0
+		Scale = 0.4
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.1
+		ScaleMin = 0.9
+		ScaleY = 0.6
+		StartScaleX = 2.0
+		VisualFx = "DaggerProjectileCurvedTrailSparkle"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.20
+		VisualFxCap = 1
+
+		CreateAnimations =
+		[
+			{ Name = "DaggerProjectileCurvedTrailDark" }
+			{ Name = "DaggerProjectileCurvedTrailFx" }
+			{ Name = "DaggerProjectileCurvedTrailSpectral" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "DaggerProjectileCurvedTrailSparkle"
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		AddColor = true
+		StartRed = 0.25
+		StartGreen = 1.0
+		StartBlue = 0.75
+		EndRed = 0.35
+		EndGreen = 0
+		EndBlue = 1.0
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.05
+		RandomDurationMax = 1.0
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 300
+		VelocityMax = 500
+		Acceleration = -1000
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 0.4
+		UseOwnAngle = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 60
+		RandomOffsetY = 10
+		RandomOffsetX = 10
+		DieWithOwner = false
+	}
+
+	{
+		Name = "DaggerProjectileSparkle_Apollo"
+		InheritFrom = "DaggerProjectileCurvedTrailSparkle"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "DaggerProjectileCurvedTrailSpectral"
+		FilePath = "Fx\DaggerJab\DaggerJabSpectral"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleY = 0.33
+		EndScaleY = 0
+		OffsetZ = 30
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+	}
+	
+	{
+		Name = "DaggerProjectileCurvedTrailDark"
+		FilePath = "Particles\particle_dagger_trail_color"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Take"
+		
+		StartRed = 0.65
+		StartGreen = 1.0
+		StartBlue = 0.85
+
+		EndRed = 0.85
+		EndGreen = 0.65
+		EndBlue = 1.0
+
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 30.0
+		OriginX = 160.0
+		OriginY = 80.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		EndScaleY = 0.0
+		StartScaleY = 0.5
+
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "DaggerProjectileFx"
+		ChainTo = "null"
+		FilePath = "Fx\DaggerProjectile\DaggerProjectile"
+		GroupName = "Standing"
+		ScaleFromOwner = "Ignore"
+		VisualFx = "DaggerProjectileFxTrail"
+		EndFrame = 15
+		NumFrames = 15
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OriginY = 30.0
+		Scale = 0.75
+		ScaleY = 2
+		Ambient = 0.0
+		VisualFxDistanceMax = 100.0
+		VisualFxDistanceMin = 100.0
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerProjectileFx_Apollo"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		Red = 0.5
+		Green = 0.4
+		Blue = 0.1
+		VisualFx = "DaggerProjectileFxTrail_Apollo"
+	}
+
+	{
+		Name = "DaggerProjectileFx_Hestia"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		Red = 0.6
+		Green = 0.1
+		Blue = 0.01
+		VisualFx = "DaggerProjectileFxTrail_Hestia"
+	}
+	
+	{
+		Name = "DaggerProjectileFx_Hera"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		VisualFx = "DaggerProjectileFxTrail_Hera"
+	}		
+
+	{
+		Name = "DaggerProjectileFx_Aphrodite"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFx = "DaggerProjectileFxTrail_Aphrodite"
+		VisualFxDistanceMax = 150.0
+		VisualFxDistanceMin = 150.0
+		CreateAnimation = "AphroditeDirectionalProjectileFx"
+	}
+
+	{
+		Name = "DaggerProjectileFx_Poseidon"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		VisualFx = "DaggerProjectileFxTrail_Poseidon"
+		VisualFxDistanceMax = 150.0
+		VisualFxDistanceMin = 150.0
+		CreateAnimation = "PoseidonDirectionalProjectileFx"
+	}
+
+	{
+		Name = "DaggerProjectileFx_Zeus"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		VisualFx = "DaggerProjectileFxTrail_Zeus"
+		VisualFxDistanceMax = 150.0
+		VisualFxDistanceMin = 150.0
+		CreateAnimation = "ZeusDirectionalProjectileFx"
+	}
+
+	{
+		Name = "DaggerProjectileFx_Demeter"
+		InheritFrom = "DaggerProjectileFx"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		VisualFx = "DaggerProjectileFxTrail_Demeter"
+		VisualFxDistanceMax = 150.0
+		VisualFxDistanceMin = 150.0
+	}
+	
+	{
+		Name = "DaggerProjectileFxFade"
+		FilePath = "Particles\particle_sparkle_glow"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		StartScale = 0.5
+		EndScale = 0
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.75
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerProjectileFxFade_Apollo"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "DaggerProjectileFxFade_Hestia"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "DaggerProjectileFxFade_Demeter"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ChildAnimation = "DaggerProjectileFxFade_DemeterParticle"
+	}
+
+	{
+		Name = "DaggerProjectileFxFade_DemeterParticle"
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		NumFrames = 23
+		StartFrame = 22
+		Material = "Unlit"
+		OffsetZ = 60
+		AddColor = true
+		Red = 0.1
+		Green = 0.4
+		Blue = 0.8
+		PlaySpeed = 120
+		StartScale = 1.3
+		EndScale = 0.6
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "DaggerProjectileFxFade_Hera"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		StartScale = 1
+	}		
+
+	{
+		Name = "DaggerProjectileFxFade_Aphrodite"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Material = "Unlit"
+		StartScale = 1
+	}	
+
+	{
+		Name = "DaggerProjectileFxFade_Poseidon"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+		Hue = -0.45
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Material = "Unlit"
+		StartScale = 1
+	}
+		
+
+		{
+		Name = "DaggerProjectileFxFade_Zeus"
+		InheritFrom = "DaggerProjectileFxFade"
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.99
+		EndGreen = 0.99
+		EndBlue = 0.99
+		Hue = 0.2
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Material = "Unlit"
+		StartScale = 1
+	}
+	
+	{
+		Name = "DaggerProjectileFxTrail"
+		InheritFrom = "DaggerProjectileFx"
+		ColorFromOwner = "Ignore"
+		ChainTo = "null"
+		Sound = "null"
+		FilePath = "Particles\particle_dagger_trail_color"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		AddColor = true
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginY = 80.0
+		OriginX = 300
+		RandomOffsetY = 1.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		EndScaleY = 0.0
+		ScaleY = 0.5
+		StartScaleY = 0.5
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.75
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		VisualFx = "DaggerProjectileCurvedTrailSparkle"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.50
+		VisualFxCap = 1
+		CreateAnimations =
+		[
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+	{
+		Name = "DaggerProjectileFxTrail_Apollo"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.1
+		VisualFx = "DaggerProjectileSparkle_Apollo"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.50
+		VisualFxCap = 1
+		CreateAnimations =
+		[
+			{ Name = "DaggerTrailApolloProjectile" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Apollo" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+
+	{
+		Name = "DaggerProjectileFxTrail_Hestia"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "HestiaSparks" }
+			{ Name = "HestiaSparks" }
+			{ Name = "HestiaDirectionalFlameDaggerProjectile" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Hestia" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+	{
+		Name = "DaggerProjectileFxTrail_Hera"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "HeraDaggerProjectileFx" }
+			{ Name = "HeraDaggerProjectileTip" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Hera" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}		
+
+	{
+		Name = "DaggerProjectileFxTrail_Aphrodite"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AphroditeDaggerProjectileFx" }
+			//{ Name = "HeraDaggerProjectileTip" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Aphrodite" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+	{
+		Name = "DaggerProjectileFxTrail_Poseidon"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "PoseidonDaggerProjectileFx" }
+			//{ Name = "HeraDaggerProjectileTip" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Poseidon" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}	
+
+	{
+		Name = "DaggerProjectileFxTrail_Zeus"
+		InheritFrom = "DaggerProjectileFxTrail"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ZeusDaggerProjectileFx" }
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+	{
+		Name = "HeraDaggerProjectileTip"
+		FilePath = "Fx\Hera\HeraGoldTip\HeraGoldTip"
+		NumFrames = 10
+		NumAngles = 16
+		Material = "Unlit"
+		LoopFramesOnly = true
+		DieWithOwner = true
+		Scale = 0.66
+	}
+
+	{
+		Name = "HeraDaggerProjectileFx"
+		FilePath = "Fx\Hera\HeraProjectile\HeraProjectile"
+		NumFrames = 30
+		PlaySpeed = 160
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		StartScaleY = 0.25
+		EndScaleY = 0.75
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleX = 1.5
+		OriginX = 360
+		OriginY = 60
+	}
+
+	{
+		Name = "DaggerProjectileFxTrail_Demeter"
+		InheritFrom = "DaggerProjectileFxTrail"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		VisualFx = "null"
+		VisualFxCap = 1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DemeterDaggerProjectileFx" }
+			{ Name = "DemeterDaggerProjectileLight" }
+			{ Name = "DemeterIceCloudDirectionalFast" }
+
+			/*
+			{ Name = "HeraDaggerProjectileTip" }
+			*/
+			{ Name = "DaggerProjectileFxTrailDark" }
+			{ Name = "DaggerProjectileFxTrailSpectral_Demeter" }
+			{ Name = "DaggerProjectileFxTrailDisplacement" }
+		]
+	}
+
+	{ 
+		Name = "DemeterDaggerProjectileLight"
+		FilePath = "Particles\particle_glow_egg_horizontal" 
+		Material = "Unlit"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		StartAlpha = 0.25
+		EndAlpha = 0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleX = 2
+		ScaleY = 0.44
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "DemeterDaggerProjectileFx"
+		FilePath = "Fx\Demeter\DemeterProjectileDirectional\DemeterProjectileDirectional"
+		NumFrames = 50
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 1.2
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral"
+		FilePath = "Fx\DaggerJab\DaggerJabSpectral"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Duration = 0.15
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleY = 0.33
+		EndScaleY = 0
+		OffsetZ = 0
+		ColorFromOwner = "Ignore"
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Hestia"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+		Blue = 0
+		Green = 0.2
+		Red = 1
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Hera"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Demeter"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Aphrodite"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+	}	
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Poseidon"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+	}
+
+	{
+		Name = "DaggerProjectileFxTrailSpectral_Apollo"
+		InheritFrom = "DaggerProjectileFxTrailSpectral"
+		ScaleY = 0.5
+		RandomFlipVertical = true
+	}
+	
+	{
+		Name = "DaggerProjectileFxTrailDark"
+		InheritFrom = "DaggerProjectileFxTrail"
+		ColorFromOwner = "Ignore"
+		VisualFx = null
+		GroupName = "FX_Dark"
+		Duration = 0.4
+		StartAlpha = 1
+		EndAlpha = 0.5
+		ScaleY = 2
+		Red = 0
+		Green = 0
+		Blue = 0
+		AddColor = false
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "DaggerProjectileFxTrailDisplacement"
+		InheritFrom = "DaggerProjectileFxTrail"
+		VisualFx = null
+		GroupName = "FX_Displacement"
+		EndAlpha = 0.05
+		StartAlpha = 0.01
+		Duration = 0.5
+		ScaleY = 1.25
+		CreateAnimations = []
+	}
+
+	{
+		Name = "DaggerSwipeFast"
+		FilePath = "Fx\DaggerSwipeFast\DaggerSwipeFast"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EndFrame = 19
+		NumFrames = 19
+		PlaySpeed = 75.0
+		StartFrame = 1
+		OriginX = 80.0
+		OriginY = 160.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		PostRotateScaleY = 0.6
+		FlipHorizontal = false
+		Scale = 1.33
+		OffsetZ = 60
+		EaseIn = 0
+		EaseOut = 1
+		OverlayVfx = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark" }
+			{ Name = "DaggerSwipeFastLight" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDark"
+		InheritFrom = "DaggerSwipeFast"
+		FilePath = "Fx\DaggerSwipeFastDark\DaggerSwipeFastDark"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		AddColor = false
+		PlaySpeed = 60
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip"
+		InheritFrom = "DaggerSwipeFast"
+		FlipVertical = true
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlip" }
+			{ Name = "DaggerSwipeFastLight" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash"
+		InheritFrom = "DaggerSwipeFastFlip"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLight" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDarkFlip"
+		InheritFrom = "DaggerSwipeFastDark"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFastDarkFlipDash"
+		InheritFrom = "DaggerSwipeFastDark"
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFastDarkFlipDash_Hera"
+		InheritFrom = "DaggerSwipeFastDarkFlipDash"
+		Scale = 2.0
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFastLight"
+		FilePath = "Particles\particle_quickFlashIris"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.85
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		Scale = 1
+		RadialOffsetMin = 160
+		RadialOffsetMax = 160
+		RadialOffsetScaleY = 0.5
+		OffsetZ = 60
+		RandomRotation = true
+		AngleFromOwner = "Take"
+		StartScale = 1
+		EndScale = 0.3
+	}
+
+	{
+		Name = "DaggerSwipeFastLight_Apollo"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+	}
+
+
+	{
+		Name = "DaggerSwipeFastLight_Hestia"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.02
+		EndRed = 0.99
+		EndGreen = 0.0
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Hestia"
+		InheritFrom = "DaggerSwipeFastLight_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFastLight_Hera"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Hera"
+		InheritFrom = "DaggerSwipeFastLight_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFast_Hestia"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.0
+		EndBlue = 0.04
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		VisualFx = "null"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 5
+		Sound = "/SFX/Player Sounds/HestiaSwipeDagger"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Hestia" }
+			{ Name = "DaggerSwipeFastLight_Hestia" }
+			{ Name = "DaggerSwipeFast_HestiaFx" }
+			{ Name = "DaggerSwipeFast_HestiaFxDark" }
+			{ Name = "HestiaAttackGlow" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Hestia"
+		InheritFrom = "DaggerSwipeFast_Hestia"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Hestia" }
+			{ Name = "DaggerSwipeFastLightFlip_Hestia" }
+			{ Name = "DaggerSwipeFastFlip_HestiaFx" }
+			{ Name = "DaggerSwipeFastFlip_HestiaFxDark" }
+			{ Name = "HestiaAttackGlow" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Hestia"
+		InheritFrom = "DaggerSwipeFastFlip_Hestia"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLight_Hestia" }
+			{ Name = "HestiaAttackGlow" }
+			{ Name = "DaggerSwipeFastFlip_HestiaFx" }
+			{ Name = "DaggerSwipeFastFlip_HestiaFxDark" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFast_Hera"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		UseAttachedTipLocation = true
+		AttachedTipLocationScaleY = 0.5
+		VisualFx = "HeraDaggerParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXComboDagger"
+		VisualFxCap = 3
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Hera" }
+			{ Name = "DaggerSwipeFastLight_Hera" }
+			{ Name = "DaggerSwipeFast_HeraFx" }
+			{ Name = "HeraAttackGlow" }
+			{ Name = "HeraDaggerLightStreak" }
+		]
+	}
+
+	{
+		Name = "HeraDaggerParticles"
+		Random =
+		[
+			{ Name = "HeraDaggerParticleA" }
+			{ Name = "HeraDaggerParticleB" }
+		]
+	}
+	{
+		Name = "HeraDaggerParticlesFlip"
+		Random =
+		[
+			{ Name = "HeraDaggerParticleFlipA" }
+			{ Name = "HeraDaggerParticleFlipB" }
+		]
+	}
+
+	{
+		Name = "HeraDaggerParticleA"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		NumFrames = 26
+		Material = "Unlit"
+		RandomRotation = false
+		FlipHorizontal = true
+		RandomFlipVertical = false
+		RandomFlipHorizontal = false
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 90
+		VelocityMin = 400
+		VelocityMax = 600
+		Acceleration = -1600
+		Angle = 90
+		AngleFromOwner = "Take"
+		StartRed = 0.01
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "HeraDaggerParticleB"
+		InheritFrom = "HeraDaggerParticleA"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+		NumFrames = 25
+	}
+
+	{
+		Name = "HeraDaggerParticleFlipA"
+		InheritFrom = "HeraDaggerParticleA"
+		Angle = -90
+	}
+	{
+		Name = "HeraDaggerParticleFlipB"
+		InheritFrom = "HeraDaggerParticleB"
+		Angle = -90
+	}
+
+	{ 
+		Name = "HeraDaggerLightStreak" 
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		StartScale = 2
+		EndScale = 0
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GroupName = "FX_Standing_Add"
+		RotationSpeed = -720
+		DieWithOwner = false
+	}
+
+	{ 
+		Name = "HeraDaggerLightStreakDouble"
+		InheritFrom = "HeraDaggerLightStreak"
+		StartScale = 3
+		EndScale = 0
+		Duration = 0.25
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = null
+		RotationSpeed = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		RadialOffsetScaleY = 0.5
+	}
+
+	{ 
+		Name = "HeraDaggerLightStreakFlip"
+		InheritFrom = "HeraDaggerLightStreak"
+		RotationSpeed = 720
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+	}
+
+	{
+		Name = "DaggerSwipeFast_HeraFx"
+		FilePath = "Fx\Hera\HeraSwipeAxe\HeraSwipeAxe"
+		NumFrames = 23
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		FlipVertical = true
+		OriginX = 280
+		OriginY = 480
+		PlaySpeed = 120
+		OffsetZ = 60
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_HeraFx"
+		InheritFrom = "DaggerSwipeFast_HeraFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFlip_HeraFx"
+		InheritFrom = "DaggerSwipeFast_HeraFx"
+		PlaySpeed = 60
+		Scale = 0.66
+		OriginX = 320
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_HeraFx"
+		InheritFrom = "DaggerSwipeFast_HeraFx"
+		FlipVertical = false
+		PlaySpeed = 90
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		Scale = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Hera"
+		InheritFrom = "DaggerSwipeFast_Hera"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		VisualFxRadialOffsetStartAngle = -70
+		VisualFxRadialOffsetIncrementAngle = 30
+		VisualFxCap = 3
+		VisualFx = "HeraDaggerParticlesFlip"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Hera" }
+			{ Name = "DaggerSwipeFastLightFlip_Hera" }
+			{ Name = "DaggerSwipeFastFlip_HeraFx" }
+			{ Name = "HeraAttackGlow" }
+			{ Name = "HeraDaggerLightStreakFlip" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Hera"
+		InheritFrom = "DaggerSwipeFastFlip_Hera"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFxCap = 5
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxRadialOffsetLength = 250
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash_Hera" }
+			{ Name = "DaggerSwipeFastLightFlip_Hera" }
+			{ Name = "HeraAttackGlow" }
+			{ Name = "HeraDaggerLightStreakFlip" }
+			{ Name = "DaggerSwipeFastFlipDash_HeraFx" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Hestia"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Hestia"
+		InheritFrom = "DaggerSwipeFastDark_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Hera"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Hera"
+		InheritFrom = "DaggerSwipeFastDark_Hestia"
+		FlipVertical = true
+	}
+
+
+	{
+		Name = "DaggerSwipeFast_HestiaFx"
+		FilePath = "Fx\Hestia\HestiaSwipe\HestiaSwipe"
+		NumFrames = 25
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		OffsetZ = 60
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		FlipVertical = true
+		ScaleFromOwner = "Ignore"
+		Scale = 1.85
+		OriginX = 120
+		OriginY = 160
+		GroupName = "FX_Standing_Add"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFast_HestiaFxDark"
+		InheritFrom = "DaggerSwipeFast_HestiaFx"
+		GroupName = "FX_Dark"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0.25
+		StartGreen = 0.1
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_HestiaFx"
+		InheritFrom = "DaggerSwipeFast_HestiaFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_HestiaFxDark"
+		InheritFrom = "DaggerSwipeFast_HestiaFxDark"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFlip_HestiaFx"
+		InheritFrom = "DaggerSwipeFast_HestiaFx"
+		FlipVertical = false
+		ClearSlides = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 50
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerSwipeFlip_HestiaFxDark"
+		InheritFrom = "DaggerSwipeFast_HestiaFxDark"
+		FlipVertical = false
+		ClearSlides = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 50
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerSwipeFast_Apollo"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.5
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.2
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		VisualFx = "ApolloDotsDaggerSwipe"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		Sound = "/SFX/Player Sounds/ApolloDaggerSwipe"
+		VisualFxCap = 5
+		CreateAnimations =
+		[
+			{ Name = "ApolloDaggerFlash" }
+			{ Name = "DaggerSwipeFastDark_Apollo" }
+			{ Name = "DaggerSwipeFastLight_Apollo" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Apollo"
+		InheritFrom = "DaggerSwipeFast_Apollo"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "ApolloDaggerFlash" }
+			{ Name = "DaggerSwipeFastDarkFlip_Apollo" }
+			{ Name = "DaggerSwipeFastLight_Apollo" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Apollo"
+		InheritFrom = "DaggerSwipeFastFlip_Apollo"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLight_Apollo" }
+			{ Name = "ApolloDaggerFlash" }
+		]
+	}
+
+	{
+		Name = "ApolloDaggerFlash"
+		AngleFromOwner = "Take"
+		FilePath = "Particles\particle_apolloGlow"
+		Material = "Unlit"
+		Duration = 0.25
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Scale = 3
+		RadialOffsetMin = 200
+		RadialOffsetMax = 200
+		Saturation = -0.25
+	}
+
+	{
+		Name = "DaggerSwipe"
+		FilePath = "Fx\DaggerSwipe\DaggerSwipe"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.5
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EndFrame = 17
+		NumFrames = 17
+		PlaySpeed = 70.0
+		StartFrame = 1
+		OriginX = 120.0
+		OriginY = 180.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		PostRotateScaleY = 0.6
+		FlipHorizontal = false
+		Scale = 1.15
+		TimeModifierFraction = 0.05
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipe_Apollo"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.85
+		EndBlue = 0.05
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Apollo" }
+			{ Name = "ApolloDaggerFlash" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipe_Hestia"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_HestiaFx"}
+			{ Name = "DaggerSwipeFlip_HestiaFxDark"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Hestia" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipe_Hera"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		VisualFx = "HeraDaggerParticlesFlip"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_HeraFx"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Hera" }
+			{ Name = "HeraAttackGlow" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipe_Demeter"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		VisualFx = "DemeterDaggerParticlesFlip"
+
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_DemeterFx"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Hera" }
+			{ Name = "DemeterAttackGlow" }
+		]
+	}
+	
+	{
+		Name = "DaggerSwipeDisplacement"
+		InheritFrom = "DaggerSwipe"
+		GroupName = "FX_Displacement"
+		EndAlpha = 0.15
+		StartAlpha = 0.0
+		PingPongColor = true
+		PlaySpeed = 45.0
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "DaggerSwipeDark"
+		InheritFrom = "DaggerSwipe"
+		FilePath = "Fx\DaggerSwipeDark\DaggerSwipeDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		GroupName = "FX_Dark"
+		AddColor = false
+		EndFrame = 20
+		NumFrames = 20
+		PlaySpeed = 60.0
+		StartFrame = 1
+		ColorFromOwner = "Ignore"
+		CreateAnimations = []
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Apollo"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+	
+	{
+		Name = "DaggerSwipeFastDarkFlip_Apollo"
+		InheritFrom = "DaggerSwipeFastDark_Apollo"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerJab"
+		FilePath = "Fx\DaggerJab\DaggerJab"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.85
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 4
+		HoldLastFrame = false
+		NumFrames = 4
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 120.0
+		OriginY = 68.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -10000.0
+		VelocityMin = 1500.0
+		VelocityMax = 2000
+		EndScaleY = 0.3
+		StartScaleY = 0.6
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomOffsetY = 0
+		OffsetZ = 30
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		GrannyAttachedMarkerLocation = "WeaponDaggerB_Rig:Blade01_Joint"
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles" }
+			{ Name = "DaggerJabParticles" }
+		]
+	}
+
+	{
+		Name = "DaggerJab_Hestia"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 0.4
+		StartBlue = 0.03
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		VisualFx = "HestiaFlameParticleSmall"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HestiaSwipeDaggerFlurry"
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Hestia" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Hestia" }
+			{ Name = "DaggerJabParticles_Hestia" }
+			{ Name = "HestiaDirectionalFlame" }
+		]
+	}
+
+	{
+		Name = "DaggerJab_Hera"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HeraSwipeDaggerFlurry"
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Hera" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Hera" }
+			{ Name = "DaggerJabParticles_Hera" }
+			{ Name = "HeraDaggerJabProjectile" }
+			{ Name = "HeraDaggerJabStreak" }
+		]
+	}
+
+	{
+		Name = "HeraDaggerJabProjectile"
+		FilePath = "Fx\Hera\HeraProjectile\HeraProjectile"
+		NumFrames = 15
+		StartFrame = 15
+		Material = "Unlit"
+		PlaySpeed = 60
+		ScaleX = 0.66
+		ScaleY = 0.8
+		StartScaleY = 1
+		EndScaleY = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		OriginX = 150
+		OriginY = 60
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		VelocityMin = 2800
+		VelocityMax = 3600
+		Acceleration = -30000
+		GroupName = "FX_Standing"
+		OverlayVfx = true
+	}
+
+	{
+		Name = "HeraDaggerJabStreak"
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		StartScaleY = 0.75
+		EndScaleY = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		Duration = 0.5
+		UseOwnAngle = true
+		ScaleY = 0.5
+		Scale = 0.66
+		VelocityMin = 600
+		VelocityMax = 1600
+		Acceleration = -6400
+		OriginX = 120
+		OriginY = 240
+	}
+
+	{
+		Name = "DaggerJab_Apollo"
+		InheritFrom = "DaggerJab"
+		AddColor = false
+		GroupName = "Standing"
+		VelocityMin = 2500.0
+		VelocityMax = 3000
+		PlaySpeed = 160
+		OriginX = 0
+		OriginY = 60
+		FilePath = "Fx\Apollo\ApolloProjectileSpike\ApolloProjectileSpike"
+		Sound = "/SFX/Player Sounds/ApolloDaggerJabSFX"
+		NumFrames = 12
+		StartScaleY = 0.5
+		EndScaleY = 0.3
+		StartScaleX = 1
+		EndScaleX = 1.01
+		ScaleX = 0.8
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		VisualFx = "ApolloDotsDirectional"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerTrailApollo" }
+			{ Name = "ApolloDotsDirectionalDagger" }
+		]
+	}
+
+	{
+		Name = "DaggerTrailApollo"
+		Random =
+		[
+			{ Name = "DaggerTrailApolloA" }
+			{ Name = "DaggerTrailApolloB" }
+		]
+	}
+
+	{
+		Name = "DaggerTrailApolloA"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalA\ApolloSwirlDirectionalA"
+		NumFrames = 24
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		Material = "Unlit"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		RadialOffsetMin = 100
+		RadialOffsetMax = 150
+		OffsetZ = 30
+		VelocityMin = 1200
+		VelocityMax = 1400
+		Acceleration = -8000
+		Scale = 0.75
+		GroupName = "Standing"
+		StartScaleY = 1.0
+		EndScaleY = 1.5
+	}
+
+	{
+		Name = "DaggerTrailApolloB"
+		InheritFrom = "DaggerTrailApolloA"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+	}
+
+	{
+		Name = "DaggerJabSpectral"
+		InheritFrom = "DaggerJab"
+		FilePath = "Fx\DaggerJab\DaggerJabSpectral"
+		AddColor = false
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		NumFrames = 1
+		StartFrame = 1
+		StartRed = 0.999
+		StartGreen = 0.999
+		StartBlue = 0.999
+		EndRed = 1.0
+		EndGreen = 1.0
+		EndBlue = 1.0
+		OriginX = -20
+		Material = "Unlit"
+		RandomDurationMin = 0.06
+		RandomDurationMax = 0.12
+		StartScaleY = 1
+		EndScaleY = 0
+		ScaleX = 0.5
+		ScaleY = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		DieWithOwner = false
+	}
+	
+	{
+		Name = "DaggerJabDark"
+		InheritFrom = "DaggerJab"
+		FilePath = "Fx\DaggerJabDark\DaggerJabDark"
+		GroupName = "FX_Dark"
+		AddColor = false
+		EndFrame = 8
+		HoldLastFrame = false
+		NumFrames = 8
+		StartFrame = 1
+		LocationZFromOwner = "Take"
+		EndScaleY = 0.5
+		StartScaleY = 1.0
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "DaggerJabLight"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.66
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.85
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 96.0
+		OriginY = 128.0
+		AngleFromOwner = "Take"
+		RadialOffsetMin = 100
+		RadialOffsetMax = 100
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		ScaleX = 1.5
+		ScaleY = 0.5
+		Ambient = 0.0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerJabLight_Hestia"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.02
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+	}
+	{
+		Name = "DaggerJabLight_Hera"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+	
+	{
+		Name = "DaggerJabParticles"
+		FilePath = "Fx\DaggerJab\DaggerJab0002"
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.85
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		RandomOffsetY = 5.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -2500.0
+		VelocityMax = 1100.0
+		VelocityMin = 300.0
+		EndScale = 0.0
+		EndScaleX = 0.33
+		Scale = 0.5
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		Ambient = 0.0
+		OffsetZ = 30
+	}
+
+	{
+		Name = "DaggerJabParticles_Hestia"
+		InheritFrom = "DaggerJabParticles"
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+	}
+	
+	{
+		Name = "DaggerJabParticles_Hera"
+		InheritFrom = "DaggerJabParticles"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+	
+	{
+		Name = "DaggerCharge"
+		ChainTo = "DaggerChargeLoop"
+		FilePath = "Fx\ChargeFront\ChargeFront"
+		GroupName = "FX_Dark"
+		EaseOut = 0.1
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 120.0
+		StartFrame = 1
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		DieWithoutWeaponCharge = "WeaponDagger5"
+		AngleFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		Angle = 180
+		AddColor = false
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.75
+		EndRed = 0.5
+		EndGreen = 0
+		EndBlue = 1.0
+		Scale = 1.0
+		TransferCopyBody = false
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight" }
+			{ Name = "DaggerChargeAdd" }
+		]
+	}
+
+	{
+		Name = "DaggerChargeAdd"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		ChainTo = "DaggerChargeAddLoop"
+	}
+	
+	{
+		Name = "DaggerChargeLight"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		EndAlpha = 0.5
+		PingPongColor = true
+		Duration = 0.5
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		DieWithoutWeaponCharge = "WeaponDagger5"
+		UseAttachedFlasher = false
+		StartRed = 0.5
+		StartGreen = 0
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 1
+		EndBlue = 0.7
+	}
+
+	{
+		Name = "DaggerChargeLoop"
+		InheritFrom = "DaggerCharge"
+		ChainTo = "null"
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 120
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 61
+		EndOffsetZ = -2.0
+		EndScale = 0.9
+		PhaseOffsetScale = 90.0
+		PingPongScale = true
+		StartScale = 1.0
+		PingPongShiftOverDuration = true
+		CreateAnimations = []
+	}
+
+	{
+		Name = "DaggerChargeAddLoop"
+		InheritFrom = "DaggerChargeLoop"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+	}
+
+	{
+		Name = "DaggerCharge_Apollo"
+		InheritFrom = "DaggerCharge"
+		StartRed = 1
+		StartGreen = 0.85
+		StartBlue = 0.65
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+		ChainTo = "DaggerChargeLoop_Apollo"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Apollo" }
+			{ Name = "DaggerChargeAdd_Apollo" }
+		]
+	}
+
+	{
+		Name = "DaggerChargeAdd_Apollo"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		ChainTo = "DaggerChargeAddLoop_Apollo"
+	}
+	
+	{
+		Name = "DaggerChargeLight_Apollo"
+		InheritFrom = "DaggerChargeLight"
+		StartRed = 1
+		StartGreen = 0.85
+		StartBlue = 0.65
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "DaggerChargeLoop_Apollo"
+		InheritFrom = "DaggerChargeLoop"
+		StartRed = 1
+		StartGreen = 0.85
+		StartBlue = 0.65
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "DaggerChargeAddLoop_Apollo"
+		InheritFrom = "DaggerChargeAddLoop"
+		StartRed = 1
+		StartGreen = 0.85
+		StartBlue = 0.65
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.3
+	}
+
+	{
+		Name = "DaggerCharge_Hestia"
+		InheritFrom = "DaggerCharge"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		ChainTo = "DaggerChargeLoop_Hestia"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Hestia" }
+			{ Name = "DaggerChargeAdd_Hestia" }
+		]
+	}
+
+	{
+		Name = "DaggerChargeAdd_Hestia"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		ChainTo = "DaggerChargeAddLoop_Hestia"
+	}
+	
+	{
+		Name = "DaggerChargeLight_Hestia"
+		InheritFrom = "DaggerChargeLight"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "DaggerChargeLoop_Hestia"
+		InheritFrom = "DaggerChargeLoop"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "DaggerChargeAddLoop_Hestia"
+		InheritFrom = "DaggerChargeAddLoop"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "DaggerCharge_Hera"
+		InheritFrom = "DaggerCharge"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		ChainTo = "DaggerChargeLoop_Hera"
+		ChildAnimation = "DaggerChargeSparkle_Hera"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Hera" }
+			{ Name = "DaggerChargeAdd_Hera" }
+		]
+	}
+
+	{
+		Name = "DaggerChargeSparkle_Hera"
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		UseOwnAngle = false
+		StartScale = 2
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.5
+		Duration = 0.5
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerChargeAdd_Hera"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		ChainTo = "DaggerChargeAddLoop_Hera"
+	}
+	
+	{
+		Name = "DaggerChargeLight_Hera"
+		InheritFrom = "DaggerChargeLight"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerChargeLoop_Hera"
+		InheritFrom = "DaggerChargeLoop"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerChargeAddLoop_Hera"
+		InheritFrom = "DaggerChargeAddLoop"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+	}
+
+
+
+	{
+		Name = "DaggerCharge_Demeter"
+		InheritFrom = "DaggerCharge"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ChainTo = "DaggerChargeLoop_Demeter"
+		// ChildAnimation = "DaggerChargeSparkle_Demeter"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Demeter" }
+			{ Name = "DaggerChargeAdd_Demeter" }
+		]
+	}
+
+	{
+		Name = "DaggerChargeSparkle_Demeter"
+		FilePath = "Particles\particle_gold_streak"
+		Material = "Unlit"
+		UseOwnAngle = false
+		StartScale = 2
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.5
+		Duration = 0.5
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerChargeAdd_Demeter"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ChainTo = "DaggerChargeAddLoop_Demeter"
+	}
+	
+	{
+		Name = "DaggerChargeLight_Demeter"
+		InheritFrom = "DaggerChargeLight"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "DaggerChargeLoop_Demeter"
+		InheritFrom = "DaggerChargeLoop"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "DaggerChargeAddLoop_Demeter"
+		InheritFrom = "DaggerChargeAddLoop"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}
+
+
+
+	{
+		Name = "DaggerSwipeDouble"
+		FilePath = "Fx\DaggerSwipeDouble\DaggerSwipeDouble"
+		NumFrames = 15
+		Material = "Unlit"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.85
+		EndRed = 0.45
+		EndGreen = 0.0
+		EndBlue = 1.0
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.6
+		AngleFromOwner = "Take"
+		OffsetZ = 60
+		OriginX = 270
+		OriginY = 270
+		ScaleRadius = 220
+		AddColor = true
+		PlaySpeed = 45
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark" }
+			{ Name = "DaggerSwipeDoubleSpectral" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDoubleLight" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight"
+		InheritFrom = "DaggerSwipeFastLight"
+		Duration = 0.2
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 1.0
+		EndAlpha = 0
+		PostRotateScaleY = 1.0
+		Scale = 1
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 240
+		RadialOffsetMax = 240
+		RadialOffsetScaleY = 0.5
+		OffsetZ = 60
+		RandomRotation = true
+		AngleFromOwner = "Take"
+		StartScale = 0.6
+		EndScale = 0.3
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Hestia"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = false
+		Sound = "/SFX/Player Sounds/HestiaSwipeBigDagger"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Apollo"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		Duration = 0.3
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		FilePath = "Particles\particle_apolloGlow2"
+		Scale = 6
+		ScaleX = 2
+		Sound = "/SFX/Player Sounds/ApolloDaggerFinish"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Hera"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = false
+		Sound = "/SFX/Player Sounds/HeraSwipeSFX3"
+	}
+
+
+	{
+		Name = "DaggerSwipeDoubleDark"
+		InheritFrom = "DaggerSwipeDouble"
+		ClearCreateAnimations = true
+		FilePath = "Fx\DaggerSwipeDoubleDark\DaggerSwipeDoubleDark"
+		GroupName = "FX_Dark"
+		StartRed = 0.999
+		StartGreen = 0.999
+		StartBlue = 0.999
+		EndRed = 1.0
+		EndGreen = 1.0
+		EndBlue = 1.0
+		AddColor = false
+		PlaySpeed = 30
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "DaggerSwipeDoubleSpectral"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		Red = 1
+		Green = 1
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 70
+	}		
+
+	{
+		Name = "DaggerSwipeDoubleDisplacement"
+		InheritFrom = "DaggerSwipeDoubleSpectral"
+		ClearCreateAnimations = true
+		Red = 0.45
+		Green = 0.45
+		Blue = 0.45
+		AddColor = true
+		GroupName = "FX_Displacement"
+		PlaySpeed = 30
+		StartAlpha = 0.0
+		EndAlpha = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PingPongColor = true
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Apollo"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.2
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark_Apollo" }
+			{ Name = "DaggerSwipeDoubleSpectral" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDoubleLight_Apollo" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Hestia"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 1.0
+		StartGreen = 0.3
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0.0
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark_Hestia" }
+			{ Name = "DaggerSwipeDoubleSpectral" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDouble_HestiaFx" }
+			{ Name = "DaggerSwipeDouble_HestiaFxDark" }
+			{ Name = "DaggerSwipeDouble_HestiaGlow" }
+			{ Name = "DaggerSwipeDoubleLight_Hestia" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_HestiaGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.02
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.7
+		PostRotateScaleY = 0.6
+		ScaleRadius = 150
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerSwipeDouble_HestiaFx"
+		FilePath = "Fx\Hestia\HestiaSwipeDouble\HestiaSwipeDouble"
+		NumFrames = 30
+		PlaySpeed = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		ScaleRadius = 150
+		LocationZFromOwner = "Take"
+		OriginX = 240
+		OriginY = 240
+		OffsetZ = 60
+		GroupName = "FX_Standing_Add"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_HestiaFxDark"
+		InheritFrom = "DaggerSwipeDouble_HestiaFx"
+		GroupName = "FX_Dark"
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0.5
+		StartGreen = 0.01
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+	}
+
+	{
+		Name = "DaggerSwipeDoubleDark_Apollo"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		PlaySpeed = 50
+	}
+
+	{
+		Name = "DaggerSwipeDoubleDark_Hestia"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		PlaySpeed = 50
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Hera"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		LocationZFromOwner = "Take"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark" }
+			{ Name = "DaggerSwipeDoubleSpectral" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDoubleLight_Hera" }
+			{ Name = "DaggerSwipeDouble_HeraFx" }
+			{ Name = "DaggerSwipeDouble_HeraFxFlip" }
+			{ Name = "HeraAttackGlow" }
+			{ Name = "HeraDaggerLightStreakDouble" }
+			/*
+			{ Name = "DaggerSwipeDouble_HestiaFxDark" }
+			*/
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_HeraFx"
+		FilePath = "Fx\Hera\HeraSwipeAxe\HeraSwipeAxe"
+		PlaySpeed = 120
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 23
+		PostRotateScaleY = 0.5
+		OffsetZ = 33
+		LocationZFromOwner = "Take"
+		VisualFx = "HeraDaggerParticlesFlip"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+
+	}
+
+	{
+		Name = "DaggerSwipeDouble_HeraFxFlip"
+		InheritFrom = "DaggerSwipeDouble_HeraFx"
+		FlipVertical = true
+		VisualFx = "HeraDaggerParticles"
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 30
+	}
+
+	{
+		Name = "MelUnequipSparkleDaggerL"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.31
+		ChainTo = "MelUnequipSparkleDaggerSparkleL"
+	}
+	{
+		Name = "MelUnequipSparkleDaggerSparkleL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelUnequipSparkleDaggerR"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.31
+		ChainTo = "MelUnequipSparkleDaggerSparkleR"
+	}
+	{
+		Name = "MelUnequipSparkleDaggerSparkleR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "MelEquipSparkleDaggerLSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.4
+		ChainTo = "MelEquipSparkleDaggerL"
+	}
+	{
+		Name = "MelEquipSparkleDaggerL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelEquipSparkleDaggerRSpawner"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.4
+		ChainTo = "MelEquipSparkleDaggerR"
+	}
+	{
+		Name = "MelEquipSparkleDaggerR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "MelInteractUnequipSparkleDaggerL"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelInteractUnequipSparkleDaggerSparkleL"
+	}
+	{
+		Name = "MelInteractUnequipSparkleDaggerSparkleL"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
+		Scale = 0.4
+	}
+	{
+		Name = "MelInteractUnequipSparkleDaggerR"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.02
+		ChainTo = "MelInteractUnequipSparkleDaggerSparkleR"
+	}
+	{
+		Name = "MelInteractUnequipSparkleDaggerSparkleR"
+		InheritFrom = "MelUnequipSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		Scale = 0.4
+	}
+
+	{
+		Name = "DaggerSwipeFast_Demeter"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 0.3
+		StartGreen = 0.5
+		StartBlue = 1.0
+		EndRed = 0.8
+		EndGreen = 0.6
+		EndBlue = 0.999
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		UseAttachedTipLocation = true
+		AttachedTipLocationScaleY = 0.5
+		VisualFx = "DemeterDaggerParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -15
+		VisualFxCap = 6
+		Sound = "/SFX/Player Sounds/DemeterColdDaggerSwipe"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Demeter" }
+			{ Name = "DaggerSwipeFastLight_Demeter" }
+			{ Name = "DaggerSwipeFast_DemeterFx" }
+			{ Name = "DemeterAttackGlow" }
+			{ Name = "DemeterDaggerIceSparkle" }
+			{ Name = "DemeterIceCloudRadialDaggerSwipe" }
+		]
+	}
+
+
+	{
+		Name = "DaggerSwipeFastFlip_Demeter"
+		InheritFrom = "DaggerSwipeFast_Demeter"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		VisualFxRadialOffsetStartAngle = -70
+		VisualFxRadialOffsetIncrementAngle = 30
+		VisualFxCap = 3
+		VisualFx = "DemeterDaggerParticlesFlip"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Demeter" }
+			{ Name = "DaggerSwipeFastLightFlip_Demeter" }
+			{ Name = "DaggerSwipeFastFlip_DemeterFx" }
+			{ Name = "DemeterAttackGlow" }
+			{ Name = "DemeterDaggerIceSparkleFlip" }
+			{ Name = "DemeterIceCloudRadialDaggerSwipe" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Demeter"
+		InheritFrom = "DaggerSwipeFastFlip_Demeter"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFxCap = 5
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxRadialOffsetLength = 250
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash_Demeter" }
+			{ Name = "DaggerSwipeFastLightFlip_Demeter" }
+			{ Name = "DemeterAttackGlow" }
+			{ Name = "DemeterDaggerIceSparkleFlip" }
+			{ Name = "DaggerSwipeFastFlipDash_DemeterFx" }
+			{ Name = "DemeterIceCloudRadialDaggerSwipe" }
+		]
+	}
+
+
+	{
+		Name = "DaggerSwipeFastDark_Demeter"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+		ColorFromOwner = "Ignore"
+		Scale = 1.7
+		Hue = 0
+		PlaySpeed = 75
+		Saturation = -0.5
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Demeter"
+		InheritFrom = "DaggerSwipeFastDark_Demeter"
+		FlipVertical = true
+	}
+
+
+	{
+		Name = "DaggerSwipeFastLight_Demeter"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.8
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Demeter"
+		InheritFrom = "DaggerSwipeFastLight_Demeter"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeFast_DemeterFx"
+		FilePath = "Fx\Demeter\DemeterAxeSwipe\DemeterAxeSwipe"
+		NumFrames = 23
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		GroupName = "Standing"
+		FlipVertical = true
+		OriginX = 220
+		OriginY = 384
+		ScaleY = 1.1
+		PlaySpeed = 75
+		OffsetZ = 60
+		Scale = 1.2
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_DemeterFx"
+		InheritFrom = "DaggerSwipeFast_DemeterFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFlip_DemeterFx"
+		InheritFrom = "DaggerSwipeFast_DemeterFx"
+		PlaySpeed = 60
+		Scale = 0.66
+		OriginX = 320
+		FlipVertical = false
+	}
+
+
+	{
+		Name = "DaggerSwipeFastFlipDash_DemeterFx"
+		InheritFrom = "DaggerSwipeFastFlip_DemeterFx"
+		FlipVertical = false
+		PlaySpeed = 90
+		OffsetZ = 0
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+
+	}
+
+	{
+		Name = "DaggerSwipeFastDarkFlipDash_Demeter"
+		InheritFrom = "DaggerSwipeFastDarkFlipDash"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+		ColorFromOwner = "Ignore"
+		Hue = 0
+		PlaySpeed = 75
+		Saturation = -0.5
+		Scale = 2.0
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		FlipVertical = true
+	}
+
+
+	{ 
+		Name = "DemeterDaggerIceSparkle" 
+		FilePath = "Particles\particle_ice_sparkle"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		DieWithOwner = false
+		AngleFromOwner = "Ignore"
+		Hue = 0.10
+		Saturation = -0.25
+	}
+
+	{ 
+		Name = "DemeterDaggerIceSparkleDouble"
+		InheritFrom = "DemeterDaggerIceSparkle"
+		StartScale = 3
+		EndScale = 0
+		Duration = 0.25
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = null
+		RotationSpeed = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		RadialOffsetScaleY = 0.5
+	}
+
+	{ 
+		Name = "DemeterDaggerIceSparkleFlip"
+		InheritFrom = "DemeterDaggerIceSparkle"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+	}
+
+
+	{
+		Name = "DemeterDaggerParticles"
+		Random =
+		[
+			{ Name = "DemeterDaggerParticleA" }
+			{ Name = "DemeterDaggerParticleB" }
+		]
+	}
+	{
+		Name = "DemeterDaggerParticlesFlip"
+		Random =
+		[
+			{ Name = "DemeterDaggerParticleFlipA" }
+			{ Name = "DemeterDaggerParticleFlipB" }
+		]
+	}
+
+	{
+		Name = "DemeterDaggerParticleA"
+		FilePath = "Fx\Demeter\DemeterIceParticleA\DemeterIceParticleA"
+		NumFrames = 45
+		Material = "Unlit"
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.25
+		ScaleMax = 0.66
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 90
+		VelocityMin = 200
+		VelocityMax = 600
+		Acceleration = -600
+		Angle = 90
+		AngleFromOwner = "Take"
+		StartScale = 1
+		EndScale = 0
+		Saturation = 0.25
+		Gravity = 200
+		LoopFramesOnly = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		EaseIn = 0
+		EaseOut = 1
+		OffsetZ = 60
+	}
+
+	{
+		Name = "DemeterDaggerParticleB"
+		InheritFrom = "DemeterDaggerParticleA"
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		NumFrames = 25
+	}
+
+	{
+		Name = "DemeterDaggerParticleFlipA"
+		InheritFrom = "DemeterDaggerParticleA"
+		Angle = -90
+	}
+	{
+		Name = "DemeterDaggerParticleFlipB"
+		InheritFrom = "DemeterDaggerParticleB"
+		Angle = -90
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Demeter"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = false
+		Sound = "/SFX/Player Sounds/DemeterColdNova"
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Demeter"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+		LocationZFromOwner = "Take"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark" }
+			{ Name = "DaggerSwipeDoubleSpectral" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDoubleLight_Demeter" }
+			{ Name = "DaggerSwipeDouble_DemeterFx" }
+			{ Name = "DaggerSwipeDouble_DemeterFxFlip" }
+			{ Name = "DemeterAttackGlow" }
+			{ Name = "DemeterDaggerIceSparkleDouble" }
+			{ Name = "DemeterIceCloudRadialDaggerSwipe" }
+			{ Name = "DemeterIceCloudRadialDaggerSwipe" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_DemeterFx"
+		FilePath = "Fx\Demeter\DemeterAxeSwipe\DemeterAxeSwipe"
+		PlaySpeed = 90
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 23
+		PostRotateScaleY = 0.5
+		OffsetZ = 66
+		Scale = 1.2
+		LocationZFromOwner = "Take"
+		VisualFx = "DemeterDaggerParticlesFlip"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.25
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+	}
+
+	{
+		Name = "DaggerSwipeDouble_DemeterFxFlip"
+		InheritFrom = "DaggerSwipeDouble_DemeterFx"
+		FlipVertical = true
+		VisualFx = "DemeterDaggerParticles"
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 30
+	}
+
+
+
+	{
+		Name = "DaggerJab_Demeter"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/DemeterColdDaggerSwipeFast"
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Demeter" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Demeter" }
+			{ Name = "DaggerJabParticles_Demeter" }
+			{ Name = "DemeterDaggerJabProjectile" }
+			{ Name = "DemeterIceCloudDirectionalDaggerJab" }
+		]
+	}
+
+	{
+		Name = "DemeterDaggerJabProjectile"
+		FilePath = "Fx\Demeter\DemeterProjectileDirectional\DemeterProjectileDirectional"
+		NumFrames = 50
+		StartFrame = 1
+		Material = "Unlit"
+		PlaySpeed = 60
+		ScaleX = 0.5
+		ScaleY = 1
+		StartScaleY = 1
+		EndScaleY = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		OriginX = 150
+		OriginY = 60
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+		VelocityMin = 2800
+		VelocityMax = 3600
+		Acceleration = -30000
+		GroupName = "FX_Standing"
+		OverlayVfx = true
+	}
+
+	{
+		Name = "DemeterDaggerJabStreak"
+		FilePath = "Particles\particle_ice_sparkle"
+		Material = "Unlit"
+		StartScaleY = 0.75
+		EndScaleY = 0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		GroupName = "FX_Standing_Add"
+		OverlayVfx = true
+		Duration = 0.25
+		UseOwnAngle = true
+		ScaleY = 0.5
+		Scale = 0.66
+		VelocityMin = 600
+		VelocityMax = 1600
+		Acceleration = -6400
+		OriginX = 120
+		OriginY = 240
+	}
+
+	{
+		Name = "DaggerJabParticles_Demeter"
+		InheritFrom = "DaggerJabParticles"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerJabLight_Demeter"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.1
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerBlinkAoEDetonate"
+		InheritFrom = "RadialNova"
+		GroupName = "FX_Terrain_Add"
+		VisualFx = "DaggerBlinkAoEParticles"
+		EndBlue = 1.0
+		EndGreen = 0.7
+		EndRed = 0.5
+		StartBlue = 0.999
+		StartGreen = 0.8
+		StartRed = 0.7
+		PlaySpeed = 75.0
+		ScaleRadius = 350.0
+		VisualFxCap = 16
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "DaggerBlinkAoEDetonateDark" }
+			{ Name = "DaggerBlinkAoEDetonateGlow" }
+			{ Name = "DoorCloseDust" }
+			{ Name = "DaggerBlinkAoEDisplaceShockwave" }
+			{ Name = "DaggerBlinkAoESpike" }
+			{ Name = "QuickFlashIce" }
+			{ Name = "DaggerBlinkAoESpectral" }
+		]
+	}
+	{
+		Name = "DaggerBlinkAoEParticles"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		Material = "Unlit"
+		PingPongScale = false
+		StartScale = 1
+		EndScale = 0
+		AngleMin = 60
+		AngleMax = 120
+		RandomOffsetX = 400
+		RandomOffsetY = 200
+		OffsetZ = 100
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -75
+		ScaleMin = 0.1
+		ScaleMax = 0.4
+		AddColor = true
+		StartRed = 0.2
+		StartGreen = 0.4
+		StartBlue = 1.0
+		EndRed = 0.6
+		EndGreen = 0.8
+		EndBlue = 1.0
+		PingPongColor = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		RandomDurationMin = 0.2
+		RandomDurationMax = 1.0
+	}
+
+	{
+		Name = "DaggerBlinkAoEDetonateDark"
+		InheritFrom = "RadialNova"
+		GroupName = "FX_Terrain"
+		AddColor = false
+		PlaySpeed = 70.0
+		Scale = 1.01
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		VisualFx = "DaggerBlinkAoEParticlesDark"
+		EndRed = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.35
+		StartRed = 1.0
+		ScaleRadius = 350.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 0.0
+	}
+
+	{
+		Name = "DaggerBlinkAoEParticlesDark"
+		FilePath = "Particles\particle_addFlake"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		EndBlue = 0.01
+		EndRed = 0.999
+		StartGreen = 0.5
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.1
+		StartFrame = 1
+		RadialOffsetMax = 200.0
+		RadialOffsetMin = 120.0
+		RadialOffsetScaleY = 0.5
+		Acceleration = -2000.0
+		VelocityMax = 1200.0
+		VelocityMin = 600.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.25
+		StartScale = 0.5
+		StartScaleX = 10.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "DaggerBlinkAoEDetonateGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 1.2
+		StartRed = 0.8
+		StartGreen = 0.9
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.4
+		EndBlue = 0.999
+		EaseIn = 0.8
+		EaseOut = 1.0
+		StartScaleX = 1
+		EndScaleX = 0.33
+		Duration = 0.4
+		Scale = 3
+	}
+	
+	{
+		Name = "DaggerBlinkAoEDisplaceShockwave"
+		InheritFrom = "DisplaceShockwave"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		EndAlpha = 0.5
+		StartAlpha = 0.1
+		PlaySpeed = 120.0
+		Scale = 4.0
+	}
+
+	{
+		Name = "DaggerBlinkAoESpike"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		DurationFrames = 6
+		EaseIn = 0.98
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 800.0
+		EndScaleX = 0.0
+		EndScaleY = 1.35
+		Scale = 0.75
+		StartScaleX = 0.6
+		StartScaleY = 0.8
+		Color = { Red = 0.5 Green = 0.90 Blue = 1.0 }
+	}
+
+	{
+		Name = "DaggerBlinkAoESpectral"
+		FilePath = "Fx\Arthur\SwordGlowSpectral"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartScale = 3
+		EndScale = 4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 0.75
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		PostRotateScaleY = 0.5
+	}
+
+ 
+	{
+		Name = "DaggerSwipeDoubleDark_Aphrodite"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		PlaySpeed = 50
+	}
+	
+	{
+		Name = "DaggerSwipeFastLight_Aphrodite"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Aphrodite"
+		InheritFrom = "DaggerSwipeFastLight_Aphrodite"
+		FlipVertical = true
+	}
+
+	 {
+		Name = "DaggerSwipeFast_Aphrodite"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		Scale = 2.0
+		PlaySpeed = 90
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipeFast"
+		ClearCreateAnimations = true
+		UseAttachedTipLocation = true
+		AttachedTipLocationScaleY = 0.5
+		VisualFx = "AphroditeDaggerParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 3
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Aphrodite" }
+			{ Name = "DaggerSwipeFastLight_Aphrodite" }
+			{ Name = "DaggerSwipeFast_AphroditeFx" }
+			{ Name = "DaggerSwipeFast_AphroditeFxDisplace" }
+			{ Name = "AphroditeAttackGlow" }
+			{ Name = "AphroditeDaggerLightStreak" }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerParticles"
+		Random =
+		[
+			{ Name = "AphroditeDaggerParticleA" }
+			{ Name = "AphroditeDaggerParticleB" }
+			{ Name = "AphroditeDaggerParticleC" }
+			{ Name = "AphroditeDaggerParticleD" }
+			{ Name = "AphroditeDaggerParticleC" }
+			{ Name = "AphroditeDaggerParticleD" }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerParticlesFlip"
+		Random =
+		[
+			{ Name = "AphroditeDaggerParticleFlipA" }
+			{ Name = "AphroditeDaggerParticleFlipB" }
+			{ Name = "AphroditeDaggerParticleFlipC" }
+			{ Name = "AphroditeDaggerParticleFlipD" }
+			{ Name = "AphroditeDaggerParticleFlipC" }
+			{ Name = "AphroditeDaggerParticleFlipD" }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerParticleA"
+		FilePath = "Fx\Aphrodite\AphroditeGoldHeartParticle\AphroditeGoldHeartParticle"
+		NumFrames = 42
+		Material = "Unlit"
+		RandomRotation = false
+		FlipHorizontal = true
+		RandomFlipVertical = false
+		RandomFlipHorizontal = false
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		Scale = 0.75
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 90
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -600
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		AddColor = true
+		StartRed = 0.8
+		StartGreen = 0.7
+		StartBlue = 0.3
+		EndRed = 0.3
+		EndGreen = 0.2
+		EndBlue = 0.15
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "AphroditeDaggerParticleB"
+		InheritFrom = "AphroditeDaggerParticleA"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleA\AphroditeFlowerParticleA"
+		NumFrames = 39
+		ScaleMin = 0.6
+		ScaleMax = 0.8
+		AddColor = false
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		UseOwnAngle = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+	}
+
+	{
+		Name = "AphroditeDaggerParticleC"
+		InheritFrom = "AphroditeDaggerParticleA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		NumFrames = 1
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.25
+		RandomDurationMax = 0.66
+		Scale = 1.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}
+	{
+		Name = "AphroditeDaggerParticleD"
+		InheritFrom = "AphroditeDaggerParticleC"
+		FilePath = "Particles\particle_aphrodite_heart"
+	}
+
+	{
+		Name = "AphroditeDaggerParticleFlipA"
+		InheritFrom = "AphroditeDaggerParticleA"
+		Angle = -90
+	}
+	{
+		Name = "AphroditeDaggerParticleFlipB"
+		InheritFrom = "AphroditeDaggerParticleB"
+		Angle = -90
+	}		
+	{
+		Name = "AphroditeDaggerParticleFlipC"
+		InheritFrom = "AphroditeDaggerParticleC"
+		Angle = -90
+	}
+	{
+		Name = "AphroditeDaggerParticleFlipD"
+		InheritFrom = "AphroditeDaggerParticleD"
+		Angle = -90
+	}
+
+	{ 
+		Name = "AphroditeDaggerLightStreak" 
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Material = "Unlit"
+		StartScale = 2
+		EndScale = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		DieWithOwner = false
+	}
+
+	{ 
+		Name = "AphroditeDaggerLightStreakDouble"
+		InheritFrom = "AphroditeDaggerLightStreak"
+		StartScale = 3
+		EndScale = 0
+		Duration = 0.25
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = null
+		RotationSpeed = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		RadialOffsetScaleY = 0.5
+	}
+
+	{ 
+		Name = "AphroditeDaggerLightStreakFlip"
+		InheritFrom = "AphroditeDaggerLightStreak"
+		RotationSpeed = 720
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+	}
+
+	{
+		Name = "DaggerSwipeFast_AphroditeFx"
+		FilePath = "Fx\Aphrodite\AphroditeSwipe\AphroditeSwipe"
+		NumFrames = 23
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		FlipVertical = true
+		OriginX = 220
+		OriginY = 360
+		Scale = 1.33
+		PlaySpeed = 60
+		OffsetZ = 60
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Take"
+		EaseIn = 0
+		EaseOut = 0.5
+		StartRed = 1.0
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0.99
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		StartAlpha = 1
+		EndAlpha = 0.5
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_AphroditeFx"
+		InheritFrom = "DaggerSwipeFast_AphroditeFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFast_AphroditeFxDisplace"
+		InheritFrom = "DaggerSwipeFast_AphroditeFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+
+	{
+		Name = "DaggerSwipeFlip_AphroditeFx"
+		InheritFrom = "DaggerSwipeFast_AphroditeFx"
+		FlipVertical = true
+		FlipHorizontal = true
+		Angle = 180
+		Scale = 0.75
+		OriginX = 420
+		AngleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_AphroditeFxDisplace"
+		InheritFrom = "DaggerSwipeFastFlip_AphroditeFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_AphroditeFx"
+		InheritFrom = "DaggerSwipeFast_AphroditeFx"
+		FlipVertical = false
+		PlaySpeed = 90
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		Scale = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Aphrodite"
+		InheritFrom = "DaggerSwipeFast_Aphrodite"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		VisualFxRadialOffsetStartAngle = -70
+		VisualFxRadialOffsetIncrementAngle = 30
+		VisualFxCap = 3
+		VisualFx = "AphroditeDaggerParticlesFlip"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Aphrodite" }
+			{ Name = "DaggerSwipeFastLightFlip_Aphrodite" }
+			{ Name = "DaggerSwipeFastFlip_AphroditeFx" }
+			{ Name = "DaggerSwipeFastFlip_AphroditeFxDisplace" }
+			{ Name = "AphroditeAttackGlow" }
+			{ Name = "AphroditeDaggerLightStreakFlip" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Aphrodite"
+		InheritFrom = "DaggerSwipeFastFlip_Aphrodite"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFxCap = 5
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxRadialOffsetLength = 250
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLightFlip_Aphrodite" }
+			{ Name = "AphroditeAttackGlow" }
+			{ Name = "AphroditeDaggerLightStreakFlip" }
+			{ Name = "DaggerSwipeFastFlipDash_AphroditeFx" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Aphrodite"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Aphrodite"
+		InheritFrom = "DaggerSwipeFastDark_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Aphrodite"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark_Aphrodite" }
+			{ Name = "DaggerSwipeDoubleSpectral_Aphrodite" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDouble_AphroditeFx" }
+			{ Name = "DaggerSwipeDouble_AphroditeFxFlip" }
+			{ Name = "DaggerSwipeDouble_AphroditeFxDark" }
+			{ Name = "DaggerSwipeDouble_AphroditeFxDarkFlip" }
+			{ Name = "DaggerSwipeDouble_AphroditeGlow" }
+			{ Name = "DaggerSwipeDoubleLight_Aphrodite" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_AphroditeFx"
+		FilePath = "Fx\Aphrodite\AphroditeSwipe\AphroditeSwipe"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 23
+		PostRotateScaleY = 0.5
+		OffsetZ = 66
+		Scale = 1.2
+		LocationZFromOwner = "Take"
+		VisualFx = "AphroditeDaggerParticlesFlip"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.25
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		EaseIn = 0
+		EaseOut = 0.9
+		StartRed = 1.0
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0.99
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		StartAlpha = 1
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "DaggerSwipeDouble_AphroditeFxFlip"
+		InheritFrom = "DaggerSwipeDouble_AphroditeFx"
+		FlipVertical = true
+		VisualFx = "AphroditeDaggerParticles"
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 30
+	}	
+
+	{
+		Name = "DaggerSwipeDouble_AphroditeFxDark"
+		InheritFrom = "DaggerSwipeDouble_AphroditeFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		VisualFx = null
+	}
+
+	{
+		Name = "DaggerSwipeDouble_AphroditeFxDarkFlip"
+		InheritFrom = "DaggerSwipeDouble_AphroditeFxDark"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_AphroditeGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.7
+		PostRotateScaleY = 0.5
+		ScaleRadius = 150
+		OffsetZ = 30
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Aphrodite"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = false
+		Sound = "/SFX/Player Sounds/AphroditeLoveShieldRush"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleSpectral_Aphrodite"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		Red = 1
+		Green = 1
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		Hue = -0.2
+		DieWithOwner = false
+	}	
+
+	{
+		Name = "DaggerJab_Aphrodite"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipeFast"
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Aphrodite" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Aphrodite" }
+			{ Name = "DaggerJabParticles_Aphrodite" }
+			{ Name = "AphroditeDaggerJabProjectile" }
+			// { Name = "AphroditeDaggerJabStreak" }
+		]
+	}
+	{
+		Name = "DaggerJabLight_Aphrodite"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+ 
+	{
+		Name = "AphroditeDaggerJabProjectile"
+		FilePath = "Fx\Aphrodite\AphroditeProjectileDirectional\AphroditeProjectileDirectional"
+		NumFrames = 29
+		StartFrame = 1
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		Scale = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		OriginX = 150
+		OriginY = 63
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		VelocityMin = 2800
+		VelocityMax = 3600
+		Acceleration = -30000
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		StartScaleY = 1
+		EndScaleY = 0
+	}	 
+
+	{
+		Name = "DaggerJabParticles_Aphrodite"
+		Random =
+		[
+			{ Name = "DaggerJabParticleAphroditeA" }
+			{ Name = "DaggerJabParticleAphroditeA" }
+			{ Name = "DaggerJabParticleAphroditeB" }
+		]
+	}
+
+	{
+		Name = "DaggerJabParticleAphroditeA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		UseOwnAngle = false
+		Scale = 1
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		RandomOffsetY = 5.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -2500.0
+		VelocityMax = 1100.0
+		VelocityMin = 300.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		Ambient = 0.0
+		OffsetZ = 30
+		RadialOffsetMin = 30
+		RadialOffsetMax = 200
+	}
+
+	{
+		Name = "DaggerJabParticleAphroditeB"
+		InheritFrom = "DaggerJabParticleAphroditeA"
+		FilePath = "Particles\particle_aphrodite_heart"
+		RandomOffsetY = 50
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		Scale = 0.5
+		RandomDurationMax = 1
+		RandomDurationMin = 0.5
+		Acceleration = -600.0
+		VelocityMax = 550.0
+		VelocityMin = 150.0
+	}
+ 
+	{
+		Name = "DaggerCharge_Aphrodite"
+		InheritFrom = "DaggerCharge"
+		EndRed = 1.0
+		EndGreen = 0.6
+		EndBlue = 0.8
+		StartRed = 0.99
+		StartGreen = 0.05
+		StartBlue = 0.99
+		ChainTo = "DaggerChargeLoop_Aphrodite"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Aphrodite" }
+			{ Name = "DaggerChargeAdd_Aphrodite" }
+		]
+	}
+	{
+		Name = "DaggerChargeLoop_Aphrodite"
+		InheritFrom = "DaggerChargeLoop"
+		EndRed = 1.0
+		EndGreen = 0.6
+		EndBlue = 0.8
+		StartRed = 0.99
+		StartGreen = 0.05
+		StartBlue = 0.99
+	}
+	{
+		Name = "DaggerChargeLight_Aphrodite"
+		InheritFrom = "DaggerChargeLight"
+		EndRed = 1.0
+		EndGreen = 0.6
+		EndBlue = 0.8
+		StartRed = 0.99
+		StartGreen = 0.05
+		StartBlue = 0.99
+	}
+	{
+		Name = "DaggerChargeAdd_Aphrodite"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		EndRed = 1.0
+		EndGreen = 0.7
+		EndBlue = 0.9
+		StartRed = 0.9
+		StartGreen = 0.2
+		StartBlue = 0.999
+		ChainTo = "DaggerChargeAddLoop_Aphrodite"
+	}
+	{
+		Name = "DaggerChargeAddLoop_Aphrodite"
+		InheritFrom = "DaggerChargeAddLoop"
+		EndRed = 1.0
+		EndGreen = 0.7
+		EndBlue = 0.9
+		StartRed = 0.9
+		StartGreen = 0.2
+		StartBlue = 0.999
+	}
+	{
+		Name = "DaggerSwipe_Aphrodite"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipeFast"
+		VisualFxCap = 6
+		VisualFx = "AphroditeDaggerParticlesFlip"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_AphroditeFx"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Aphrodite" }
+			{ Name = "AphroditeAttackGlow" }
+		]
+	}
+ 
+	{
+		Name = "AphroditeDaggerProjectileFx"
+		Random =
+		[
+			{ Name = "AphroditeDaggerProjectileFxA" }
+			{ Name = "AphroditeDaggerProjectileFxB" }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerProjectileFxSecondary"
+		Random =
+		[
+			{ Name = "AphroditeDaggerProjectileFxC" }
+			{ Name = "AphroditeDaggerProjectileFxD" }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerProjectileFxA"
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailA\AphroditeDirectionalTrailA"
+		NumFrames = 48
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		FlipHorizontal = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		ScaleMin = 0.6
+		ScaleMax = 0.8
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -800
+		StartScaleY = 0.4
+		EndScaleY = 0.9
+		OriginX = 350
+		OriginY = 100
+		GroupName = "FX_Standing"
+		CreateAnimations =
+		[
+			{ Name = "AphroditeParticleSparkleDirectional_NoOffset" }
+			// { Name = "AphroditeDaggerProjectileFxSecondary" }
+		]
+	}
+
+	{
+		Name = "AphroditeDaggerProjectileFxB"
+		InheritFrom = "AphroditeDaggerProjectileFxA"
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailB\AphroditeDirectionalTrailB"
+	}		
+
+	{
+		Name = "AphroditeDaggerProjectileFxC"
+		InheritFrom = "AphroditeDaggerProjectileFxA"
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailC_Front\AphroditeDirectionalTrailC_Front"
+		NumFrames = 50
+		ClearCreateAnimations = true
+		StartScaleY = 0.8
+		EndScaleY = 1.0
+		GroupName = "FX_Standing"
+		CreateAnimation = "AphroditeDaggerProjectileFxC_Dark"
+	}
+
+	{
+		Name = "AphroditeDaggerProjectileFxD"
+		InheritFrom = "AphroditeDaggerProjectileFxA"
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailD_Front\AphroditeDirectionalTrailD_Front"
+		NumFrames = 50
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing"
+		CreateAnimation = "AphroditeDaggerProjectileFxD_Dark"
+	}
+
+	{
+		Name = "AphroditeDaggerProjectileFxC_Dark"
+		InheritFrom = "AphroditeDaggerProjectileFxC"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailC_Back\AphroditeDirectionalTrailC_Back"
+	}	 
+	{
+		Name = "AphroditeDaggerProjectileFxD_Dark"
+		InheritFrom = "AphroditeDaggerProjectileFxD"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		FilePath = "Fx\Aphrodite\AphroditeDirectionalTrailD_Back\AphroditeDirectionalTrailD_Back"
+	}
+
+	{
+		Name = "AphroditeDirectionalProjectileFx"
+		FilePath = "Fx\Aphrodite\AphroditeProjectileDirectional\AphroditeProjectileDirectional"
+		NumFrames = 29
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		OriginX = 400
+		OriginY = 66
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		StartScale = 0.1
+		EndScale = 1
+		RandomFlipVertical = true
+		Sound = "/SFX/Player Sounds/AphroditeLoveDaggerThrow"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleDark_Poseidon"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		PlaySpeed = 50
+	}
+	
+	{
+		Name = "DaggerSwipeFastLight_Poseidon"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Poseidon"
+		InheritFrom = "DaggerSwipeFastLight_Poseidon"
+		FlipVertical = true
+	}
+
+	 {
+		Name = "DaggerSwipeFast_Poseidon"
+		InheritFrom = "DaggerSwipeFast"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		UseAttachedTipLocation = true
+		AttachedTipLocationScaleY = 0.5
+		VisualFx = "PoseidonDaggerParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = -70
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxCap = 8
+		Sound = "/SFX/Player Sounds/PoseidonWaterDaggerSlash"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Poseidon" }
+			{ Name = "DaggerSwipeFastLight_Poseidon" }
+			{ Name = "DaggerSwipeFast_PoseidonFx" }
+			{ Name = "DaggerSwipeFast_PoseidonFxDisplace" }
+			{ Name = "PoseidonAttackGlow" }
+			// { Name = "PoseidonDaggerLightStreak" }
+		]
+	}
+
+	{
+		Name = "PoseidonDaggerParticles"
+		Random =
+		[
+			{ Name = "PoseidonDaggerParticleA" }
+			{ Name = "PoseidonDaggerParticleB" }
+		]
+	}
+
+	{
+		Name = "PoseidonDaggerParticlesFlip"
+		Random =
+		[
+			{ Name = "PoseidonDaggerParticleFlipA" }
+			{ Name = "PoseidonDaggerParticleFlipB" }
+		]
+	}
+
+	{
+		Name = "PoseidonDaggerParticleA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		NumFrames = 60
+		Material = "Unlit"
+		RandomRotation = false
+		RandomFlipVertical = false
+		RandomFlipHorizontal = false
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		Scale = 0.75
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -600
+		AngleFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleMin = 60
+		AngleMax = 80
+		IsometricSkew = "X"
+		ScaleX = 2
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		OffsetZ = 90
+		RandomOffsetX = 30
+		RandomOffsetY = 10
+		StartAlpha = 1
+		EndAlpha = 0.5
+		Gravity = 200
+	}
+
+	{
+		Name = "PoseidonDaggerParticleB"
+		InheritFrom = "PoseidonDaggerParticleA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+
+	{
+		Name = "PoseidonDaggerParticleFlipA"
+		InheritFrom = "PoseidonDaggerParticleA"
+		AngleMin = -80
+		AngleMax = -60
+
+	}
+	{
+		Name = "PoseidonDaggerParticleFlipB"
+		InheritFrom = "PoseidonDaggerParticleFlipA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}		
+
+	{ 
+		Name = "PoseidonDaggerLightStreak" 
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Hue = -0.45
+		Material = "Unlit"
+		StartScale = 2
+		EndScale = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		DieWithOwner = false
+	}
+
+	{ 
+		Name = "PoseidonDaggerLightStreakDouble"
+		InheritFrom = "PoseidonDaggerLightStreak"
+		StartScale = 3
+		EndScale = 0
+		Duration = 0.25
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = null
+		RotationSpeed = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		RadialOffsetScaleY = 0.5
+	}
+
+	{ 
+		Name = "PoseidonDaggerLightStreakFlip"
+		InheritFrom = "PoseidonDaggerLightStreak"
+		RotationSpeed = 720
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+	}
+
+	{
+		Name = "DaggerSwipeFast_PoseidonFx"
+		FilePath = "Fx\Poseidon\PoseidonSwipe\PoseidonSwipe"
+		NumFrames = 40
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		FlipVertical = true
+		OriginX = 220
+		OriginY = 360
+		Scale = 1.33
+		OffsetZ = 60
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Take"
+		EaseIn = 0.999
+		EaseOut = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_PoseidonFx"
+		InheritFrom = "DaggerSwipeFast_PoseidonFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFast_PoseidonFxDisplace"
+		InheritFrom = "DaggerSwipeFast_PoseidonFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+
+	{
+		Name = "DaggerSwipeFlip_PoseidonFx"
+		InheritFrom = "DaggerSwipeFast_PoseidonFx"
+		FlipVertical = true
+		FlipHorizontal = true
+		Angle = 180
+		Scale = 0.75
+		OriginX = 420
+		AngleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_PoseidonFxDisplace"
+		InheritFrom = "DaggerSwipeFastFlip_PoseidonFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_PoseidonFx"
+		InheritFrom = "DaggerSwipeFast_PoseidonFx"
+		FlipVertical = false
+		PlaySpeed = 90
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		Scale = 1.0
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Poseidon"
+		InheritFrom = "DaggerSwipeFast_Poseidon"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		VisualFx = "PoseidonDaggerParticlesFlip"
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -15
+		VisualFxCap = 8
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Poseidon" }
+			{ Name = "DaggerSwipeFastLightFlip_Poseidon" }
+			{ Name = "DaggerSwipeFastFlip_PoseidonFx" }
+			{ Name = "DaggerSwipeFastFlip_PoseidonFxDisplace" }
+			{ Name = "PoseidonAttackGlow" }
+			// { Name = "PoseidonDaggerLightStreakFlip" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Poseidon"
+		InheritFrom = "DaggerSwipeFastFlip_Poseidon"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFxCap = 5
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxRadialOffsetLength = 250
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLightFlip_Poseidon" }
+			{ Name = "PoseidonAttackGlow" }
+			{ Name = "PoseidonDaggerLightStreakFlip" }
+			{ Name = "DaggerSwipeFastFlipDash_PoseidonFx" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Poseidon"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Poseidon"
+		InheritFrom = "DaggerSwipeFastDark_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Poseidon"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark_Poseidon" }
+			{ Name = "DaggerSwipeDoubleSpectral_Poseidon" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDouble_PoseidonFx" }
+			{ Name = "DaggerSwipeDouble_PoseidonFxFlip" }
+			{ Name = "DaggerSwipeDouble_PoseidonFxDark" }
+			{ Name = "DaggerSwipeDouble_PoseidonFxDarkFlip" }
+			{ Name = "DaggerSwipeDouble_PoseidonGlow" }
+			{ Name = "DaggerSwipeDoubleLight_Poseidon" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_PoseidonFx"
+		FilePath = "Fx\Poseidon\PoseidonSwipe\PoseidonSwipe"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 40
+		PostRotateScaleY = 0.5
+		OffsetZ = 50
+		Scale = 1.2
+		LocationZFromOwner = "Take"
+		VisualFx = "PoseidonDaggerParticlesFlip"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.25
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		EaseIn = 0
+		EaseOut = 0.9
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		AddColor = true
+		StartRed = 0.01
+		StartGreen = 0.5
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_PoseidonFxFlip"
+		InheritFrom = "DaggerSwipeDouble_PoseidonFx"
+		FlipVertical = true
+		VisualFx = "PoseidonDaggerParticles"
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 30
+	}	
+
+	{
+		Name = "DaggerSwipeDouble_PoseidonFxDark"
+		InheritFrom = "DaggerSwipeDouble_PoseidonFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		VisualFx = null
+	}
+
+	{
+		Name = "DaggerSwipeDouble_PoseidonFxDarkFlip"
+		InheritFrom = "DaggerSwipeDouble_PoseidonFxDark"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_PoseidonGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.7
+		PostRotateScaleY = 0.5
+		ScaleRadius = 150
+		OffsetZ = 30
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Poseidon"
+		InheritFrom = "DaggerSwipeDoubleLight"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		Red = 1
+		Green = 1
+		Blue = 1
+		AddColor = false
+		Sound = "/SFX/Player Sounds/PoseidonWaterDashUpgrade"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleSpectral_Poseidon"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		Red = 1
+		Green = 1
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		DieWithOwner = false
+	}	
+
+	{
+		Name = "DaggerJab_Poseidon"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/PoseidonWaterDaggerJab"
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Poseidon" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Poseidon" }
+			{ Name = "DaggerJabParticles_Poseidon" }
+			{ Name = "PoseidonDaggerJabProjectile" }
+			// { Name = "PoseidonDaggerJabStreak" }
+		]
+	}
+	{
+		Name = "DaggerJabLight_Poseidon"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+ 
+	{
+		Name = "PoseidonDaggerJabProjectile"
+		FilePath = "Fx\Poseidon\PoseidonProjectileDirectional\PoseidonProjectileDirectional"
+		NumFrames = 45
+		StartFrame = 1
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		Scale = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		OriginX = 300
+		OriginY = 128
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		VelocityMin = 2800
+		VelocityMax = 3600
+		Acceleration = -30000
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		StartScaleY = 1
+		EndScaleY = 0
+	}	 
+
+	{
+		Name = "DaggerJabParticles_Poseidon"
+		Random =
+		[
+			{ Name = "DaggerJabParticlePoseidonA" }
+			{ Name = "DaggerJabParticlePoseidonB" }
+			// { Name = "DaggerJabParticlePoseidonC" }
+		]
+	}
+
+	{
+		Name = "DaggerJabParticlePoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		UseOwnAngle = true
+		NumFrames = 60
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 100
+		Scale = 0.6
+		ScaleX = 1.5
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -1200.0
+		VelocityMax = 600.0
+		VelocityMin = 300.0
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		StartScaleY = 0.2
+		EndScaleY = 1.5
+		Ambient = 0.0
+		OffsetZ = 30
+		RadialOffsetMin = 30
+		RadialOffsetMax = 200
+		EaseIn = 0.95
+		EaseOut = 1.0
+		Gravity = 200
+		OriginX = 60
+		OriginY = 120
+		StartAlpha = 1
+		EndAlpha = 0.5
+	}
+
+	{
+		Name = "DaggerJabParticlePoseidonB"
+		InheritFrom = "DaggerJabParticlePoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}
+
+	{
+		Name = "DaggerJabParticlePoseidonC"
+		InheritFrom = "DaggerJabParticlePoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailC\PoseidonDirectionalTrailC"
+	}
+ 
+	{
+		Name = "DaggerCharge_Poseidon"
+		InheritFrom = "DaggerCharge"
+		EndRed = 0.1
+		EndGreen = 1.0
+		EndBlue = 0.8
+		StartRed = 0
+		StartGreen = 0.6
+		StartBlue = 1.0
+		ChainTo = "DaggerChargeLoop_Poseidon"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Poseidon" }
+			{ Name = "DaggerChargeAdd_Poseidon" }
+		]
+	}
+	{
+		Name = "DaggerChargeLoop_Poseidon"
+		InheritFrom = "DaggerChargeLoop"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+	{
+		Name = "DaggerChargeLight_Poseidon"
+		InheritFrom = "DaggerChargeLight"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+	{
+		Name = "DaggerChargeAdd_Poseidon"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		ChainTo = "DaggerChargeAddLoop_Poseidon"
+	}
+	{
+		Name = "DaggerChargeAddLoop_Poseidon"
+		InheritFrom = "DaggerChargeAddLoop"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+	}
+	{
+		Name = "DaggerSwipe_Poseidon"
+		InheritFrom = "DaggerSwipe"
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.6
+		EndBlue = 1.0
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		VisualFx = "PoseidonDaggerParticlesFlip"
+		Sound = "/SFX/Player Sounds/PoseidonWaterDaggerSlash"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_PoseidonFx"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Poseidon" }
+			{ Name = "PoseidonAttackGlow" }
+		]
+	}
+ 
+	{
+		Name = "PoseidonDaggerProjectileFx"
+		Random =
+		[
+			{ Name = "PoseidonDaggerProjectileFxA" }
+			{ Name = "PoseidonDaggerProjectileFxB" }
+			{ Name = "PoseidonDaggerProjectileFxC" }
+		]
+	}
+
+
+	{
+		Name = "PoseidonDaggerProjectileFxA"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailA\PoseidonDirectionalTrailA"
+		NumFrames = 30
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		FlipHorizontal = false
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -1200
+		StartScaleY = 0.1
+		EndScaleY = 1.0
+		ScaleX = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing"
+		OriginX = 200
+		OriginY = 80
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+
+		]
+	}
+
+	{
+		Name = "PoseidonDaggerProjectileFxB"
+		InheritFrom = "PoseidonDaggerProjectileFxA"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailB\PoseidonDirectionalTrailB"
+	}		
+
+	{
+		Name = "PoseidonDaggerProjectileFxC"
+		InheritFrom = "PoseidonDaggerProjectileFxA"
+		FilePath = "Fx\Poseidon\PoseidonDirectionalTrailC\PoseidonDirectionalTrailC"
+	}
+
+	{
+		Name = "PoseidonDirectionalProjectileFx"
+		FilePath = "Fx\Poseidon\PoseidonProjectileDirectional\PoseidonProjectileDirectional"
+		NumFrames = 45
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		Hue = -0.02
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		OriginX = 400
+		OriginY = 128
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScaleY = 0.99
+		EndScaleY = 1.0
+		StartScale = 0.1
+		EndScale = 1
+		RandomFlipVertical = true
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
+
+	}
+	{
+		Name = "DaggerSwipeDoubleDark_Zeus"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		PlaySpeed = 50
+	}
+	
+	{
+		Name = "DaggerSwipeFastLight_Zeus"
+		InheritFrom = "DaggerSwipeFastLight"
+		RadialOffsetMin = 260
+		RadialOffsetMax = 260
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+
+	{
+		Name = "DaggerSwipeFastLightFlip_Zeus"
+		InheritFrom = "DaggerSwipeFastLight_Zeus"
+		FlipVertical = true
+	}
+
+	 {
+		Name = "DaggerSwipeFast_Zeus"
+		InheritFrom = "DaggerSwipeFast"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		Scale = 2.0
+		PlaySpeed = 90
+		ClearCreateAnimations = true
+		UseAttachedTipLocation = true
+		AttachedTipLocationScaleY = 0.5
+		VisualFx = "ZeusDaggerParticle"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = -70
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxCap = 6
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDark_Zeus" }
+			{ Name = "DaggerSwipeFastLight_Zeus" }
+			{ Name = "DaggerSwipeFast_ZeusFx" }
+			{ Name = "DaggerSwipeFast_ZeusFxDisplace" }
+			{ Name = "ZeusAttackGlow" }
+			// { Name = "ZeusDaggerLightStreak" }
+		]
+	}
+
+	{
+		Name = "ZeusDaggerParticle"
+		Random = [
+			{ Name = "ZeusDaggerParticleA" }
+			{ Name = "ZeusDaggerParticleB" }
+			{ Name = "ZeusDaggerParticleC" }
+			{ Name = "ZeusDaggerParticleD" }
+		]
+	}
+
+	{
+		Name = "ZeusDaggerParticleA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		Material = "Unlit"
+		RandomRotation = false
+		ScaleMin = 0.1
+		ScaleMax = 0.6
+		StartScaleX = 3
+		EndScaleX = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 70
+		VelocityMin = 200
+		VelocityMax = 600
+		Acceleration = -1200
+		AngleFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleMin = 80
+		AngleMax = 120
+		OffsetZ = 45
+		AngleChangeSpeedMin = -90
+		AngleChangeSpeedMax = 90
+		PostRotateScaleY = 0.5
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "ZeusDaggerParticleB"
+		InheritFrom = "ZeusDaggerParticleA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}	
+
+	{
+		Name = "ZeusDaggerParticleC"
+		InheritFrom = "ZeusDaggerParticleA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}	
+
+	{
+		Name = "ZeusDaggerParticleD"
+		InheritFrom = "ZeusDaggerParticleA"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		StartScaleX = 1.3
+		RandomPlaySpeedMin = 60
+		Acceleration = -200
+	}
+
+	{
+		Name = "ZeusDaggerParticleA_Flip"
+		InheritFrom = "ZeusDaggerParticleA"
+		AngleMin = -120
+		AngleMax = -80
+	}	
+	{
+		Name = "ZeusDaggerParticleB_Flip"
+		InheritFrom = "ZeusDaggerParticleB"
+		AngleMin = -120
+		AngleMax = -80
+	}	
+	{
+		Name = "ZeusDaggerParticleC_Flip"
+		InheritFrom = "ZeusDaggerParticleC"
+		AngleMin = -120
+		AngleMax = -80
+	}	
+	{
+		Name = "ZeusDaggerParticleD_Flip"
+		InheritFrom = "ZeusDaggerParticleD"
+		AngleMin = -120
+		AngleMax = -80
+	}
+
+	{
+		Name = "ZeusDaggerParticleFlip"
+		Random = [
+			{ Name = "ZeusDaggerParticleA_Flip" }
+			{ Name = "ZeusDaggerParticleB_Flip" }
+			{ Name = "ZeusDaggerParticleC_Flip" }
+			{ Name = "ZeusDaggerParticleD_Flip" }
+		]
+	}
+	
+	{ 
+		Name = "ZeusDaggerLightStreak" 
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Hue = 0.2
+		Material = "Unlit"
+		StartScale = 2
+		EndScale = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_L_JNT"
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		DieWithOwner = false
+	}
+
+	{ 
+		Name = "ZeusDaggerLightStreakDouble"
+		InheritFrom = "ZeusDaggerLightStreak"
+		StartScale = 3
+		EndScale = 0
+		Duration = 0.25
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = null
+		RotationSpeed = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 250
+		RadialOffsetMax = 250
+		RadialOffsetScaleY = 0.5
+	}
+
+	{ 
+		Name = "ZeusDaggerLightStreakFlip"
+		InheritFrom = "ZeusDaggerLightStreak"
+		RotationSpeed = 720
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:weaponHand_00_R_JNT"
+	}
+
+	{
+		Name = "DaggerSwipeFast_ZeusFx"
+		FilePath = "Fx\Zeus\ZeusSwipe\ZeusSwipe"
+		NumFrames = 40
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Standing_Add"
+		FlipVertical = true
+		OriginX = 220
+		OriginY = 360
+		Scale = 1.33
+		OffsetZ = 60
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Take"
+		EaseIn = 0.999
+		EaseOut = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_ZeusFx"
+		InheritFrom = "DaggerSwipeFast_ZeusFx"
+		FlipVertical = false
+	}
+
+	{
+		Name = "DaggerSwipeFast_ZeusFxDisplace"
+		InheritFrom = "DaggerSwipeFast_ZeusFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+
+	{
+		Name = "DaggerSwipeFlip_ZeusFx"
+		InheritFrom = "DaggerSwipeFast_ZeusFx"
+		FlipVertical = true
+		FlipHorizontal = true
+		Angle = 180
+		Scale = 0.75
+		OriginX = 420
+		AngleFromOwner = "Maintain"
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_ZeusFxDisplace"
+		InheritFrom = "DaggerSwipeFastFlip_ZeusFx"
+		PlaySpeed = 45
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_ZeusFx"
+		InheritFrom = "DaggerSwipeFast_ZeusFx"
+		FlipVertical = false
+		PlaySpeed = 90
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		Scale = 1.5
+	}
+
+	{
+		Name = "DaggerSwipeFastFlip_Zeus"
+		InheritFrom = "DaggerSwipeFast_Zeus"
+		FlipVertical = true
+		Scale = 2
+		ClearCreateAnimations = true
+		VisualFx = "ZeusDaggerParticleFlip"
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -15
+		VisualFxCap = 8
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastFlipDark_Zeus" }
+			{ Name = "DaggerSwipeFastLightFlip_Zeus" }
+			{ Name = "DaggerSwipeFastFlip_ZeusFx" }
+			{ Name = "DaggerSwipeFastFlip_ZeusFxDisplace" }
+			{ Name = "ZeusAttackGlow" }
+			// { Name = "ZeusDaggerLightStreakFlip" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDash_Zeus"
+		InheritFrom = "DaggerSwipeFastFlip_Zeus"
+		ClearCreateAnimations = true
+		StartOffsetZ = 60
+		EndOffsetZ = -20
+		EaseIn = 0.9
+		EaseOut = 1
+		VisualFxCap = 5
+		VisualFxRadialOffsetIncrementAngle = 20
+		VisualFxRadialOffsetLength = 250
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastLightFlip_Zeus" }
+			{ Name = "ZeusAttackGlow" }
+			{ Name = "ZeusDaggerLightStreakFlip" }
+			{ Name = "DaggerSwipeFastFlipDash_ZeusFx" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeFastDark_Zeus"
+		InheritFrom = "DaggerSwipeFastDark"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		ColorFromOwner = "Ignore"
+		Scale = 2.0
+		Hue = 0
+		PlaySpeed = 75
+	}
+
+	{
+		Name = "DaggerSwipeFastFlipDark_Zeus"
+		InheritFrom = "DaggerSwipeFastDark_Hestia"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_Zeus"
+		InheritFrom = "DaggerSwipeDouble"
+		PlaySpeed = 75
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeDoubleDark_Zeus" }
+			{ Name = "DaggerSwipeDoubleSpectral_Zeus" }
+			{ Name = "DaggerSwipeDoubleDisplacement" }
+			{ Name = "DaggerSwipeDouble_ZeusFx" }
+			{ Name = "DaggerSwipeDouble_ZeusFxFlip" }
+			{ Name = "DaggerSwipeDouble_ZeusFxDark" }
+			{ Name = "DaggerSwipeDouble_ZeusFxDarkFlip" }
+			{ Name = "DaggerSwipeDouble_ZeusGlow" }
+			{ Name = "DaggerSwipeDoubleLight_Zeus" }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_ZeusFx"
+		FilePath = "Fx\Zeus\ZeusSwipe\ZeusSwipe"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 40
+		PostRotateScaleY = 0.5
+		OffsetZ = 50
+		Scale = 1.2
+		LocationZFromOwner = "Take"
+		VisualFx = "ZeusDaggerParticleFlip"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.25
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		EaseIn = 0
+		EaseOut = 0.9
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		AddColor = true
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "DaggerSwipeDouble_ZeusFxFlip"
+		InheritFrom = "DaggerSwipeDouble_ZeusFx"
+		FlipVertical = true
+		VisualFx = "ZeusDaggerParticle"
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 30
+	}	
+
+	{
+		Name = "DaggerSwipeDouble_ZeusFxDark"
+		InheritFrom = "DaggerSwipeDouble_ZeusFx"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		VisualFx = null
+	}
+
+	{
+		Name = "DaggerSwipeDouble_ZeusFxDarkFlip"
+		InheritFrom = "DaggerSwipeDouble_ZeusFxDark"
+		FlipVertical = true
+	}
+
+	{
+		Name = "DaggerSwipeDouble_ZeusGlow"
+		FilePath = "Particles\particle_glow_ring_bias"
+		Material = "Unlit"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.7
+		PostRotateScaleY = 0.5
+		ScaleRadius = 150
+		OffsetZ = 30
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+	}
+
+	{
+		Name = "DaggerSwipeDoubleLight_Zeus"
+		InheritFrom = "DaggerSwipeDoubleLight"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		Sound = "/SFX/Player Sounds/ZeusLightningImpact"
+		AddColor = false
+	}
+
+	{
+		Name = "DaggerSwipeDoubleSpectral_Zeus"
+		InheritFrom = "DaggerSwipeDoubleDark"
+		Red = 1
+		Green = 1
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		DieWithOwner = false
+	}	
+
+	{
+		Name = "DaggerJab_Zeus"
+		InheritFrom = "DaggerJab"
+		GroupName = "Standing"
+		AddColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.04
+		Sound = "/SFX/Player Sounds/ZeusLightningJab"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "DaggerJabDark" }
+			{ Name = "DaggerJabLight_Zeus" }
+			{ Name = "DaggerJabSpectral" }
+			{ Name = "DaggerJabParticles_Zeus" }
+			{ Name = "DaggerJabParticles_Zeus" }
+			{ Name = "ZeusDaggerJabProjectile" }
+			// { Name = "ZeusDaggerJabStreak" }
+		]
+	}
+	{
+		Name = "DaggerJabLight_Zeus"
+		InheritFrom = "DaggerJabLight"
+		ScaleMin = 1
+		ScaleMax = 1.7
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+ 
+	{
+		Name = "ZeusDaggerJabProjectile"
+		Random = [
+			{ Name = "ZeusDaggerJabProjectileA" }
+			{ Name = "ZeusDaggerJabProjectileB" }
+		]
+	}
+
+	{
+		Name = "ZeusDaggerJabProjectileA"
+		FilePath = "Fx\Zeus\ZeusProjectileDirectionalA\ZeusProjectileDirectionalA"
+		NumFrames = 45
+		StartFrame = 1
+		Material = "Unlit"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		Scale = 0.5
+		ScaleY = 2
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		RandomFlipVertical = true
+		OffsetZ = 30
+		EaseIn = 0.9
+		EaseOut = 1
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		VelocityMin = 2800
+		VelocityMax = 3600
+		Acceleration = -30000
+		OverlayVfx = true
+		GroupName = "FX_Standing"
+		StartScaleY = 2
+		EndScaleY = 0.5
+		FlipHorizontal = true
+		OriginX = 100
+		OriginY = 64
+	}
+
+	{
+		Name = "ZeusDaggerJabProjectileB"
+		InheritFrom = "ZeusDaggerJabProjectileA"
+		FilePath = "Fx\Zeus\ZeusProjectileDirectionalB\ZeusProjectileDirectionalB"
+	}
+
+	{
+		Name = "DaggerJabParticles_Zeus"
+		Random =
+		[
+			{ Name = "DaggerJabParticleZeusA" }
+			{ Name = "DaggerJabParticleZeusB" }
+			{ Name = "DaggerJabParticleZeusC" }
+		]
+	}
+
+	{
+		Name = "DaggerJabParticleZeusA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		UseOwnAngle = true
+		NumFrames = 15
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		Scale = 0.6
+		ScaleX = 1.5
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -1200.0
+		VelocityMax = 600.0
+		VelocityMin = 300.0
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		Ambient = 0.0
+		OffsetZ = 30
+		RadialOffsetMin = 30
+		RadialOffsetMax = 200
+		EaseIn = 0.95
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "DaggerJabParticleZeusB"
+		InheritFrom = "DaggerJabParticleZeusA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+
+	{
+		Name = "DaggerJabParticleZeusC"
+		InheritFrom = "DaggerJabParticleZeusA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+ 
+	{
+		Name = "DaggerCharge_Zeus"
+		InheritFrom = "DaggerCharge"
+        EndRed = 1.0
+        EndGreen = 0.95
+        EndBlue = 0.7
+        StartRed = 0.9999
+        StartGreen = 0.8
+        StartBlue = 0.5
+		ChainTo = "DaggerChargeLoop_Zeus"
+		CreateAnimations =
+		[
+			{ Name = "DaggerChargeLight_Zeus" }
+			{ Name = "DaggerChargeAdd_Zeus" }
+		]
+	}
+	{
+		Name = "DaggerChargeLoop_Zeus"
+		InheritFrom = "DaggerChargeLoop"
+        EndRed = 1.0
+        EndGreen = 0.95
+        EndBlue = 0.7
+        StartRed = 0.9999
+        StartGreen = 0.8
+        StartBlue = 0.5
+	}
+	{
+		Name = "DaggerChargeLight_Zeus"
+		InheritFrom = "DaggerChargeLight"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+	{
+		Name = "DaggerChargeAdd_Zeus"
+		InheritFrom = "DaggerCharge"
+		GroupName = "FX_Standing_Add"
+		ClearCreateAnimations = true
+		AddColor = true
+		Scale = 0.5
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		ChainTo = "DaggerChargeAddLoop_Zeus"
+	}
+	{
+		Name = "DaggerChargeAddLoop_Zeus"
+		InheritFrom = "DaggerChargeAddLoop"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+	}
+	{
+		Name = "DaggerSwipe_Zeus"
+		InheritFrom = "DaggerSwipe"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetScaleY = 0.5
+		VisualFxRadialOffsetStartAngle = 70
+		VisualFxRadialOffsetIncrementAngle = -30
+		VisualFxCap = 6
+		VisualFx = "ZeusDaggerParticleFlip"
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
+		CreateAnimations =
+		[
+			{ Name = "DaggerSwipeFlip_ZeusFx"}
+			{ Name = "DaggerSwipeDark" }
+			{ Name = "DaggerSwipeDisplacement" }
+			{ Name = "DaggerSwipeFastLight_Zeus" }
+			{ Name = "ZeusAttackGlow" }
+		]
+	}
+ 
+	{
+		Name = "ZeusDaggerProjectileFx"
+		Random =
+		[
+			{ Name = "ZeusDaggerProjectileFxA" }
+			{ Name = "ZeusDaggerProjectileFxB" }
+			{ Name = "ZeusDaggerProjectileFxC" }
+		]
+	}
+
+
+	{
+		Name = "ZeusDaggerProjectileFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		NumFrames = 45
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		FlipHorizontal = false
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -1200
+		StartScaleY = 0.1
+		EndScaleY = 1.0
+		ScaleX = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing"
+		OriginX = 200
+		OriginY = 80
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+
+		]
+	}
+
+	{
+		Name = "ZeusDaggerProjectileFxB"
+		InheritFrom = "ZeusDaggerProjectileFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+		NumFrames = 53
+	}		
+
+	{
+		Name = "ZeusDaggerProjectileFxC"
+		InheritFrom = "ZeusDaggerProjectileFxA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailC\ZeusDirectionalTrailC"
+		NumFrames = 52
+	}
+
+	{
+		Name = "ZeusDirectionalProjectileFx"
+		FilePath = "Fx\Zeus\ZeusProjectileDirectionalA\ZeusProjectileDirectionalA"
+		NumFrames = 50
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		OriginX = 400
+		OriginY = 64
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScaleY = 0.99
+		EndScaleY = 1.0
+		StartScale = 0.1
+		EndScale = 1
+		RandomFlipVertical = true
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
+
+	}
+
+]}

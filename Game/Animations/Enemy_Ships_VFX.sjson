@@ -1,0 +1,962 @@
+{ Animations = [
+
+	{
+		Name = "HarpyFlapFx"
+		FilePath = "Fx\GuardSwipe\GuardSwipe"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		PlaySpeed = 90
+		OffsetZ = 75
+		Scale = 0.6
+		GroupName = "FX_Standing_Add"
+		Angle = 180
+		StartAlpha = 1
+		EndAlpha = 0
+		CreateAnimations =
+		[
+			{ Name = "HarpyFlapFxDark" }
+			{ Name = "HarpyFlapFxDisplace" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "HarpyFlapFxDark"
+		InheritFrom = "HarpyFlapFx"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Scale = 0.6
+		CreateAnimation = null
+		Sound = null
+		ClearCreateAnimations = true
+		PlaySpeed = 75
+		EndAlpha = 0.999
+	}
+
+	{
+		Name = "HarpyFlapFxDisplace"
+		InheritFrom = "HarpyFlapFxDark"
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+		AddColor = true
+		PlaySpeed = 60
+		StartAlpha = 0
+		EndAlpha = 0.5
+		GroupName = "FX_Displacement"
+	}
+
+	{
+		Name = "HarpyFlapShadow"
+		InheritFrom = "HarpyFlapFx"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		ClearCreateAnimations = true
+		VisualFx = null
+		DieWithOwner = true
+		Loop = true
+		Sound = "/SFX/SawTrapProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "ScimiterrorSlashLeft"
+		FilePath = "Fx\Chronos\ChronosScytheSwipeArcColor\ChronosScytheSwipeArcColor"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 46
+		NumFrames = 46
+		PlaySpeed = 60.0
+		StartFrame = 1
+		Scale = 0.6
+		OriginX = 640
+		OriginY = 640
+		PostRotateScaleY = 0.5
+		DieWithOwner = false
+		AngleFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		FlipVertical = true
+	}
+	
+	{
+		Name = "ScimiterrorSlashRight"
+		InheritFrom = "ScimiterrorSlashLeft"
+		FlipVertical = false
+	}
+	
+	{
+		Name = "SwabSwing"
+		InheritFrom = "ScimiterrorSlashLeft"
+		Scale = 1.0
+	}
+
+	{
+		Name = "ScimiterrorTeleportFx"
+		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"
+
+		AngleFromOwner = "Ignore"
+		EndFrame = 45
+		NumFrames = 45
+		StartFrame = 1
+		OffsetY = -80.0
+		SortMode = "FromParent"
+		Scale = 1.3
+		ScaleFromOwner = "Take"
+		Color = { Red = 0.9 Green = 0.3 Blue = 0.7 }
+		CreateAnimations =
+		[
+			{ Name = "ScimiterrorTeleportFxDark" }
+		]
+	}
+	{
+		Name = "ScimiterrorTeleportFxDark"
+		InheritFrom = "ScimiterrorTeleportFx"
+
+		GroupName = "Standing"
+		Scale = 1.4
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		CreateAnimations = []
+	}
+
+
+
+	{
+		Name = "WaterElementalRanged"
+		FilePath = "Fx\WaterUnitProjectile\WaterUnitProjectile"
+		NumFrames = 35
+		PlaySpeed = 30
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.25
+		StartScale = 0
+		EndScale = 1
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		Scale = 0.6
+		OriginX = 170
+		OriginY = 60
+		VisualFx = "WaterElementalRangedTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
+		ChainTo = "WaterElementalRangedLoop"
+		TransferFrameFromThis = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitProjectileSFX"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "WaterElementalRangedDissipate"
+		InheritFrom = "WaterElementalRanged"
+		TransferFrameFromThis = false
+		TransferFrameToThis = true
+		StartScale = 1
+		EndScale = 0
+		ChainTo = null
+		VisualFx = null
+		EaseIn = 0
+		EaseOut = 0.5
+		Duration = 0.12
+	}
+
+	{
+		Name = "WaterElementalRangedLoop"
+		InheritFrom = "WaterElementalRanged"
+		TransferFrameToThis = true
+		StartScale = 0.9999
+		Loop = true
+		LoopFramesOnly = false
+		Duration = 1.1666
+		ChainTo = null
+		DieWithOwner = true
+	}
+
+	{
+		Name = "WaterElementalRangedTrail"
+		Random =
+		[
+			{ Name = "WaterElementalRangedTrailA" }
+			{ Name = "WaterElementalRangedTrailB" }
+		]
+	}
+
+	{
+		Name = "WaterElementalRangedTrailA"
+		FilePath = "Fx\WaterUnitProjectileTrailA\WaterUnitProjectileTrailA"
+		StartScale = 0.3
+		EndScale = 2
+		GroupName = "FX_Dark"
+		NumFrames = 19
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		DrawBehindOwner = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "WaterElementalRangedTrailB"
+		InheritFrom = "WaterElementalRangedTrailA"
+		FilePath = "Fx\WaterUnitProjectileTrailB\WaterUnitProjectileTrailB"
+	}
+
+	{
+		Name = "WaterElementalRangedShadow"
+		InheritFrom = "WaterElementalRangedLoop"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "Shadows"
+		Alpha = 0.5
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = true
+		VisualFx = null
+		Sound = null
+	}
+
+	{
+		Name = "SwabShockwaveRing"
+		FilePath = "Fx\Cyclops\CyclopsDamageRing"
+		Material = "Unlit"
+		RandomRotation = false
+		GroupName = "FX_Terrain"
+		ScaleRadius = 780
+		PostRotateScaleY = 0.5
+		Duration = 0.32
+		DieWithOwner = false
+		StartAlpha = 0.3
+		EndAlpha = 0.9
+
+		VisualFx = "SwabShockWaveVerticalParticles"
+      	AddColor = true
+      	VisualFxIntervalMax = 0.02
+      	VisualFxIntervalMin = 0.01
+	}
+	{
+		Name = "SwabShockwaveRingWarning"
+		InheritFrom = "SwabShockwaveRing"
+		Duration = 1.75
+		DieWithOwner = true
+	}
+
+	{
+		Name = "SwabShockwaveRingElite"
+		FilePath = "Fx\Cyclops\CyclopsDamageRing"
+		Material = "Unlit"
+		RandomRotation = false
+		GroupName = "FX_Terrain"
+		ScaleRadius = 780
+		PostRotateScaleY = 0.5
+		Duration = 0.4
+		DieWithOwner = false
+		StartAlpha = 0.3
+		EndAlpha = 0.9
+
+		VisualFx = "SwabShockWaveVerticalParticles"
+      	AddColor = true
+      	VisualFxIntervalMax = 0.02
+      	VisualFxIntervalMin = 0.01
+	}
+	{
+		Name = "SwabShockwaveRingWarning_Elite"
+		InheritFrom = "SwabShockwaveRingElite"
+		Duration = 1.1
+		DieWithOwner = true
+	}
+
+	 {
+      Name = "SwabShockWaveVerticalParticles"
+      FilePath = "Particles\particle_ember_01_glow_add"
+      GroupName = "FX_Standing_Add"
+      AngleFromOwner = "Ignore"
+      AddColor = true
+      StartRed = 1.0
+      StartGreen = 1.0
+      StartBlue = 0.4
+      EndRed = 0.999
+      EndGreen = 0.5
+      EndBlue = 0
+      EndAlpha = 1.0
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 0.4
+      RandomDurationMin = 0.3
+      StartFrame = 1
+      OffsetZ = 0.0
+      RandomOffsetX = 430.0
+      RandomOffsetY = 220.0
+      LocationFromOwner = "Ignore"
+      VelocityMax = 700.0
+      VelocityMin = 600.0
+      EndScale = 0.0
+      EndScaleY = 2.0
+      ScaleMax = 1.9
+      ScaleMin = 0.7
+      StartScaleX = 3.0
+      StartScaleY = 0.0
+      Ambient = 0.0
+      Scale = 1.5
+      RandomAccelerationMax = -50.0
+      RandomAccelerationMin = -70.0
+      AngleMin = 90
+      AngleMax = 90
+      Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+    }
+
+	{
+		Name = "SwabShockwaveFxRing"
+		FilePath = "Fx\Cyclops\CyclopsStomp\CyclopsStomp"
+		NumFrames = 25
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 30
+		OffsetY = 0
+		ScaleRadius = 240
+		CreateAnimations =
+		[
+			{ Name = "SwabShockwaveGlow" }
+			{ Name = "SwabShockwaveDark" }
+			{ Name = "SwabShockwaveRing" }
+		]
+	}
+
+	{
+		Name = "SwabShockwaveFxRingElite"
+		InheritFrom = "SwabShockwaveFxRing"
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "SwabShockwaveGlow" }
+			{ Name = "SwabShockwaveDark" }
+			{ Name = "SwabShockwaveRingElite" }
+		]
+	}
+
+	{
+		Name = "SwabShockwaveFx"
+		FilePath = "Fx\Cyclops\CyclopsStomp\CyclopsStomp"
+		NumFrames = 25
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 30
+		OffsetY = 0
+		ScaleRadius = 240
+		CreateAnimations =
+		[
+			{ Name = "SwabShockwaveGlow" }
+			{ Name = "SwabShockwaveDark" }
+		]
+	}
+
+	{
+		Name = "SwabShockwaveFx_Elite"
+		InheritFrom = "SwabShockwaveFx"
+		RandomPlaySpeedMin = 15
+		RandomPlaySpeedMax = 15
+	}
+
+	{
+		Name = "SwabShockwaveGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		GroupName = "FX_Terrain_Add"
+		StartAlpha = 0.25
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.5
+		LocationZFromOwner = "Ignore"
+		ScaleRadius = 340
+		Scale = 3
+	}
+
+	{
+		Name = "SwabShockwaveDark"
+		InheritFrom = "CyclopsStompFx"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 31
+		ClearCreateAnimations = true
+		ScaleRadius = 340
+	}
+	{
+		Name = "ScimiterrorGlow"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.3
+		Color = { Red = 1, Green = 0.7, Blue = 0.4}
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:lower_02_M_JNT"
+		UseAttachedFlasher = false
+		StartScale = 1.1
+		EndScale = 0.7
+		Duration = 1
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.7
+		DieWithOwner = true
+	}
+
+	{
+		Name = "EnemyChargeFxIn_Scimiterror"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Scimiterror"
+		ChainTo = "EnemyChargeFxOut_Scimiterror"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Scimiterror"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Scimiterror"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Sound = "/SFX/Player Sounds/DionysusRadialPoof"
+		StopSoundOnFinishFade = 0.2
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Scimiterror"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:eye_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_Scimiterror"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:eye_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_DrunkLeft"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_DrunkLeft"
+		ChainTo = "EnemyChargeFxOut_DrunkLeft"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_DrunkLeft"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_DrunkLeft"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_DrunkLeft"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_DrunkLeft"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_L_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_DrunkRight"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_DrunkRight"
+		ChainTo = "EnemyChargeFxOut_DrunkRight"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_DrunkRight"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_DrunkRight"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_DrunkRight"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_DrunkRight"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_Stickler"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Stickler"
+		ChainTo = "EnemyChargeFxOut_Stickler"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaStickler_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Stickler"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Stickler"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaStickler_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Stickler"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaStickler_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_Stickler"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaStickler_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_Swab"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_Swab"
+		ChainTo = "EnemyChargeFxOut_Swab"
+		PlaySpeed = 40
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaSwab_Rig:weoponDn_01_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_Swab"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_Swab"
+		PlaySpeed = 40
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaSwab_Rig:weoponDn_01_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_Swab"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaSwab_Rig:weoponDn_01_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_Swab"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "DeadSeaSwab_Rig:weoponDn_01_R_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_WaterEle"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_WaterEle"
+		ChainTo = "EnemyChargeFxOut_WaterEle"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "WaterElemental_Rig:jaw_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_WaterEle"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_WaterEle"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "WaterElemental_Rig:jaw_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_WaterEle"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "WaterElemental_Rig:jaw_00_M_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_WaterEle"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "WaterElemental_Rig:jaw_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_HarpySlice"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_HarpySlice"
+		ChainTo = "EnemyChargeFxOut_HarpySlice"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:ankle_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_HarpySlice"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_HarpySlice"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:ankle_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_HarpySlice"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:ankle_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_HarpySlice"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:ankle_00_R_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_HarpyFlapLeft"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_HarpyFlapLeft"
+		ChainTo = "EnemyChargeFxOut_HarpyFlapLeft"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_HarpyFlapLeft"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_HarpyFlapLeft"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_HarpyFlapLeft"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_L_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_HarpyFlapLeft"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_L_JNT"
+	}
+
+	{
+		Name = "EnemyChargeFxIn_HarpyFlapRight"
+		InheritFrom = "EnemyChargeFxIn"
+		CreateAnimation = "EnemyChargeFxInDark_HarpyFlapRight"
+		ChainTo = "EnemyChargeFxOut_HarpyFlapRight"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxInDark_HarpyFlapRight"
+		InheritFrom = "EnemyChargeFxInDark"
+		ChainTo = "EnemyChargeFxOutDark_HarpyFlapRight"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOut_HarpyFlapRight"
+		InheritFrom = "EnemyChargeFxOut"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_R_JNT"
+	}
+	{
+		Name = "EnemyChargeFxOutDark_HarpyFlapRight"
+		InheritFrom = "EnemyChargeFxOutDark"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		GrannyAttachedMarkerLocation = "HarpyTalonCutter_Rig:hand_00_R_JNT"
+	}
+
+	{
+		Name = "CharybdisSpitFireFx"
+		FilePath = "Fx\OceanusEnemySplash\OceanusEnemySplash"
+		GrannyAttachedMarkerLocation = "Charybdis_Rig:mawOuterD_03_M_JNT"
+		Material = "Unlit"
+		NumFrames = 21
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		OriginX = 150
+		OriginY = 210
+		ScaleY = 1.2
+		ColorFromOwner = "Ignore"
+	}
+	{
+		Name = "CharybdisSpitDetonateFx"
+		FilePath = "Fx\WaterLobProjectileExplosion\WaterLobProjectileExplosion"
+		NumFrames = 28
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleRadius = 300
+		PlaySpeed = 30
+		OriginX = 320
+		OriginY = 220
+		CreateAnimations =
+		[
+			{ Name = "CharybdisSpitNovaFx" }
+		]
+	}
+
+	{
+		Name = "CharybdisSpitNovaFx"
+		FilePath = "Fx\FogEmitterSlamNova\FogEmitterSlamNova"
+		NumFrames = 30
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		PlaySpeed = 30
+		ScaleRadius = 190
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "FogEmitterSlamSpikeA" }
+			{ Name = "FogEmitterSlamSpikeB" }
+			{ Name = "OceanusSurfaceRippleLargeA" }
+			{ Name = "OceanusSurfaceRippleLargeB" }
+			{ Name = "OceanusProjectileSplash" }
+		]
+	}
+
+	{
+		Name = "CharybdisDisappearFx"
+		FilePath = "Fx\OceanusEnemySplash\OceanusEnemySplash"
+		Material = "Unlit"
+		NumFrames = 21
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Combat_Menu_Overlay_Backing"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		OriginX = 150
+		OriginY = 210
+		ScaleY = 1.2
+		ColorFromOwner = "Ignore"
+		RandomOffsetX = 500
+		RandomOffsetY = 200
+		VisualFx = "OceanusRandomRipples"
+		VisualFxCap = 7
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+	}
+
+	{
+		Name = "ErisDeathHandsFxIn"
+		FilePath = "Fx\CastSlowHandsLoop\CastSlowHandsLoop"
+		GroupName = "Combat_Menu_Overlay_Backing"
+		AngleFromOwner = "Ignore"
+		NumFrames = 70
+		EndFrame = 70
+		StartFrame = 1
+		Ambient = 0.0
+		Loop = false
+		Hue = -0.05
+		OffsetZ = 40
+		StartScale = 0.9
+		EndScale = 1.5
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 2.0
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		SortMode = "FromParent"
+		ChainTo = "ErisDeathHandsFxUp"
+	}
+
+	{
+		Name = "ErisDeathHandsFxUp"
+		InheritFrom = "ErisDeathHandsFxIn"
+		StartAlpha = 1
+		StartScale = 1.5
+		EndScale = 1.5
+		Duration = 0.5
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		ChainTo = null
+		Sound = "/Leftovers/Menu Sounds/TitanToggleShort"
+	}
+
+	{
+		Name = "ErisDeathHandsFxBurst"
+		FilePath = "Fx\CastAttackHandsA\CastAttackHandsA"
+		GroupName = "Combat_Menu_Overlay_Backing"
+		Ambient = 0.0
+		Hue = -0.05
+		NumFrames = 12
+		StartFrame = 1
+		PlaySpeed = 30
+		EndScaleY = 1.001
+		Scale = 1.5
+		ScaleY = 1.5
+		OffsetZ = 0
+		Sound = "/SFX/Enemy Sounds/Megaera/MegDeathFinish"
+		StopSoundOnFinishFade = 0.25
+		ChainTo = null
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		UseOwnAngle = false
+		UseAttachedFlasher = false
+		CreateAnimations = 
+		[
+			{ Name = "ErisDeathHandsFxBurstFlash" }
+		]
+	}
+
+	{
+		Name = "ErisDeathHandsFxBurstFlash"
+		FilePath = "Particles\particle_heraLightStreak"
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.33
+		RandomDurationMax = 0.66
+		StartScaleY = 0.2
+		EndScaleY = 0.66
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0.3
+		StartGreen = 1.0
+		StartBlue = 0.6
+		EndRed = 0
+		EndGreen = 1.0
+		EndBlue = 0.9
+		AngleFromOwner = "Ignore"
+		GroupName = "Combat_Menu_Overlay_Backing"
+		OriginX = 64
+		OriginY = 512
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "DrunkBarrelDust"
+		InheritFrom = "DustPuffA"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "DeadSeaDrunk_Rig:barel_00_M_JNT"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Scale = 0.2
+		RandomOffsetX = 45
+		RandomOffsetY = 15
+	}
+	
+	{
+		Name = "ShipsStatueIdle"
+		FilePath = "Tilesets\Ships\Ships_Statue_01"		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Loop = true
+
+	}
+
+	{
+		Name = "ShipsStatueDestroyed"
+		FilePath = "Tilesets\Ships\Ships_Statue_01a"
+		CreateAnimation = "ZagGrenadeExplosionHuge"
+		Sound = "/SFX/LuciferBombExplosion"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Loop = true
+	}
+
+	{
+		Name = "ShipsJerkyhoard01DestructionFx"
+		FilePath = "Tilesets\Ships\Ships_Jerkyhoard_01b"
+		CreateAnimation = "ZagGrenadeExplosionHuge"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		HoldLastFrame = true
+	}
+]}

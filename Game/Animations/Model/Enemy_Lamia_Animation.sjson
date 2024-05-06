@@ -1,0 +1,415 @@
+{ Animations = [
+	
+	{
+		Name = "LamiaMiniBoss"
+		GrannyModel = "LamiaMiniBoss_Mesh"
+	}
+
+	{
+		Name = "EnemyLamiaBaseAnimation"
+		GrannyModel = "Lamia_Mesh"
+		ExtraGrannyAnimations = [{ Name = "LamiaMiniBoss" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Lamia_Idle"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_SkyCastPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_ForwardCastPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_DownCastPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_MoveStart"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_Move_Start_C_00"
+		ChainTo = "Enemy_Lamia_Move"
+		Sound = "/SFX/Enemy Sounds/Lamia/EmoteEvading"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_Move"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_Move_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Lamia_MoveStop"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Lamia_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_OnHit"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Lamia_Idle"
+		Sound = "/SFX/Enemy Sounds/Lamia/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_Lamia_OnHit_Heavy"
+		InheritFrom = "Enemy_Lamia_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// SKY CAST
+	{
+		Name = "Enemy_Lamia_SkyCastPreFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_SkyCastPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Lamia/LamiaChargeUp"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_SkyCastFireLoop"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_SkyCastFireLoop_C_00"
+		Loop = true
+		CreateAnimation = "LamiaStaffCastingFx"
+		VisualFx = "LamiaStaffCastingFx"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.33
+	}
+
+	{
+		Name = "Enemy_Lamia_SkyCastPostFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_SkyCastPostFire_C_00"
+		ChainTo = "Enemy_Lamia_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 40
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_SkyCastFireLoop"
+				Duration = 10
+			}
+		]
+	}
+
+	// FORWARD CAST
+	{
+		Name = "Enemy_Lamia_ForwardCastPreFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_ForwardCastPreFire_C_00"
+		CreateAnimation = "LamiaStaffCastingFx_Miasma"
+		Sound = "/SFX/Enemy Sounds/FlurrySpawnerAmbientLoopSFX"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "LamiaStaffCastingFx_Miasma"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.33
+
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Lamia/LamiaChargeUp"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_ForwardCastFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_ForwardCastFire_C_00"
+		ChainTo = "Enemy_Lamia_ForwardCastPostFire"
+	}
+
+	{
+		Name = "Enemy_Lamia_ForwardCastPostFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_ForwardCastPostFire_C_00"
+		ChainTo = "Enemy_Lamia_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_ForwardCastFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_ForwardCastFireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// DOWN CAST
+	{
+		Name = "Enemy_Lamia_DownCastPreFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_DownCastFire_C_00"
+		GrannyAnimationSpeed = 0.2
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 5
+				FrameSpeed = 0
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStart"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_Move"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_MoveStop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lamia_OnHit_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_DownCastFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_DownCastFire_C_00"
+		ChainTo = "Enemy_Lamia_DownCastPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 6
+				FrameSpeed = 1
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/CharonOarImpact"
+			}
+
+		]
+	}
+
+	{
+		Name = "Enemy_Lamia_DownCastPostFire"
+		InheritFrom = "EnemyLamiaBaseAnimation"
+		GrannyAnimation = "Lamia_Base_DownCastPostFire_C_00"
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Enemy_Lamia_Idle"
+	}
+
+  {
+		Name = "Enemy_Lamia_Spawn"
+		InheritFrom = "Enemy_Lamia_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxReverse = true
+		DeathFxColor = { Red = 0 Green = 0.0 Blue = 0.0 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+		VisualFx = null
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_Lamia_Death"
+		InheritFrom = "Enemy_Lamia_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.5
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.02
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+]}

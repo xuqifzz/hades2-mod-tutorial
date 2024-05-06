@@ -1,0 +1,936 @@
+{ Animations = [
+
+	{
+		Name = "MelinoeGatherStart"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "null"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Gather_C_00"
+		GrannyAnimationSpeed = 4
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 43
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeGatherPickup"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeGatherReturnToIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Gather_C_00"
+		GrannyAnimationSpeed = 1.6
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 44
+				FrameSpeed = 1
+			}
+			{
+				Frame = 52
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeGatherReturnToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeEquip"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Gather_C_00"
+		GrannyAnimationSpeed = 2
+		CancelOnOwnerMove = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 53
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	/* Shovel Animations */
+	
+	{
+		Name = "ToolShovelBase"
+		
+		GrannyModel = "ToolShovel_Mesh"
+		GrannyAnimation = null
+	}
+	{
+		Name = "Shovel_Idle"
+		InheritFrom = "ToolShovelBase"
+		GrannyAnimation = "Shovel_Tool_Base_Dig_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Melinoe_Shovel_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Shovel_Base_DigIntro_C_00"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "Shovel_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 18
+				Sound = "/SFX/ShovelDigSFX"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Shovel_FireLoop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Shovel_Base_DigLoop_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Shovel_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Shovel_End"
+		InheritFrom = "ToolShovelBase"
+		GrannyAnimation = "Shovel_Tool_Base_DigReturnToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Shovel_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Shovel_Base_DigReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeEquip"
+		CreateAnimation = "MelUnequipShovel"
+		Attachments =
+		[
+			{
+				Name = "Shovel_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Shovel_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+	
+	/* PickAxe Animations */
+	
+	{
+		Name = "ToolPickAxe"
+
+		GrannyModel = "ToolPickAxe_Mesh"
+		GrannyAnimation = "null"
+	}
+	{
+		Name = "ToolPickAxeReturnToIdle"
+
+		GrannyModel = "ToolPickAxe_Mesh"
+		GrannyAnimation = "PickAxe_Tool_Base_MineReturnToIdle_C_00"
+	}
+
+	{
+		Name = "MelinoePickAxeMineStart"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_PickAxe_Base_Mine_C_00"
+		GrannyAnimationSpeed = 8
+		ChainTo = "null"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "ToolPickAxe"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 20
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "MelinoePickAxeMineSwing"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_PickAxe_Base_Mine_C_00"
+		GrannyAnimationSpeed = 1
+		ChainTo = "MelinoePickAxeMineReturnToStart"
+		Attachments =
+		[
+			{
+				Name = "ToolPickAxe"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 21
+				FrameSpeed = 1
+			}
+			{
+				Frame = 32
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 35
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoePickAxeMineReturnToStart"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_PickAxe_Base_Mine_C_00"
+		ChainTo = "MelinoePickAxeMineReturnToIdle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "ToolPickAxe"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 36
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "MelinoePickAxeMineReturnToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_PickAxe_Base_MineReturnToIdle_C_00"
+		ChainTo = "MelinoeEquip"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "ToolPickAxeReturnToIdle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+
+	/* Exorcism Animations */
+
+	{
+		Name = "Tablet_Intro"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismIntro_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Intro"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismIntro_C_00"
+		ChainTo = "Melinoe_Tablet_Idle"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Intro"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				// blend transition from all?
+			}
+		]
+	}
+
+	{
+		Name = "Tablet_Idle"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismCenterIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Idle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismCenterIdle_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Tablet_Idle"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	// Right loop
+	{
+		Name = "Tablet_Right_Start"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismRightTransition_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Right_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismRightTransition_C_00"
+		CreateAnimation = "MelExorcismHandFxRight"
+		VisualFx = "MelExorcismHandFxRight"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		ChainTo = "Melinoe_Tablet_Right_Loop"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Right_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Tablet_Right_Loop"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismRightIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Tablet_Right_Loop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismRightIdle_C_00"
+		Loop = true
+		VisualFx = "MelExorcismHandFxRight"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Attachments =
+		[
+			{
+				Name = "Tablet_Right_Loop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+	{
+		Name = "Tablet_Right_End"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismRightReturnCenter_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Right_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismRightReturnCenter_C_00"
+		ChainTo = "Melinoe_Tablet_Idle"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Right_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_Loop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Left loop
+	{
+		Name = "Tablet_Left_Start"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismLeftTransition_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Left_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismLeftTransition_C_00"
+		ChainTo = "Melinoe_Tablet_Left_Loop"
+		CreateAnimation = "MelExorcismHandFxLeft"
+		VisualFx = "MelExorcismHandFxLeft"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Attachments =
+		[
+			{
+				Name = "Tablet_Left_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Tablet_Left_Loop"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismLeftIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Tablet_Left_Loop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismLeftIdle_C_00"
+		Loop = true
+		CreateAnimation = "MelExorcismHandFxLeft"
+		VisualFx = "MelExorcismHandFxLeft"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Attachments =
+		[
+			{
+				Name = "Tablet_Left_Loop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+	{
+		Name = "Tablet_Left_End"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismLeftReturnCenter_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Left_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismLeftReturnCenter_C_00"
+		ChainTo = "Melinoe_Tablet_Idle"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Left_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_Loop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Both loop
+	{
+		Name = "Tablet_Both_Start"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismTwoHandTransition_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Both_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismTwoHandTransition_C_00"
+		CreateAnimation = "MelExorcismHandFxBoth"
+		VisualFx = "MelExorcismHandFxBoth"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		ChainTo = "Melinoe_Tablet_Both_Loop"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Both_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Right_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_Loop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Left_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Tablet_Both_Loop"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismTwoHandIdle_C_00"
+		VisualFx = "MelExorcismHandFxBoth"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Tablet_Both_Loop"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismTwoHandIdle_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Tablet_Both_Loop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+	{
+		Name = "Tablet_Both_End"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismTwoHandReturnCenter_C_00"
+	}
+	{
+		Name = "Melinoe_Tablet_Both_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismTwoHandReturnCenter_C_00"
+		ChainTo = "Melinoe_Tablet_Idle"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Both_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Tablet_Both_Loop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Tablet_ReturnToIdle"
+		GrannyModel = "ToolTablet_Mesh"
+		GrannyAnimation = "Tablet_Tool_Base_ExorcismReturn_C_00"
+	}	
+	{
+		Name = "Melinoe_Tablet_ReturnToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismReturn_C_00"
+		ChainTo = "MelinoeEquip"
+		Attachments =
+		[
+			{
+				Name = "Tablet_ReturnToIdle"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeExorcismFirstTimeEquip"
+				Duration = 15
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeExorcismFirstTimeEquip"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Tablet_Base_ExorcismIntro_C_00"
+		ChainTo = "Melinoe_Tablet_ReturnToIdle"
+		Attachments =
+		[
+			{
+				Name = "Tablet_Intro"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	/* Fishing Animations */
+
+	{
+		Name = "ToolRodBase"
+		GrannyModel = "ToolFishRod_AnimationMesh"
+		GrannyAnimation = null
+	}
+
+	{
+		Name = "Rod_Start"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingStart_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingStart_C_00"
+		ChainTo = "Melinoe_Fishing_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Idle"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingRelaxedIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Idle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingRelaxedIdle_C_00"
+		Loop = true
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+
+	{
+		Name = "Rod_Fidget"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingFidget_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Fidget"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingFidget_C_00"
+		ChainTo = "Melinoe_Fishing_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Fidget"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Success"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingSucess_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Success"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingSucess_C_00"
+		ChainTo = "Melinoe_Fishing_Celebrate"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Success"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Fidget"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Reel_Hit"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Celebrate"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingCelebrate_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Celebrate"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingCelebrate_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeEquip"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Celebrate"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Failure"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingFail_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Failure"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingFail_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeEquip"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Failure"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Fidget"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Reel_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Fishing_Reel_Miss"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Reel_Start"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingIntoIntense_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Reel_Start"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingIntoIntense_C_00"
+		ChainTo = "Melinoe_Fishing_Reel_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Reel_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Reel_Idle"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingIntenseIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Reel_Idle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingIntenseIdle_C_00"
+		Loop = true
+		Sound = "/SFX/Player Sounds/HeraKnotStatusLoop"
+		StopSoundOnFinishFade = 0.2
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Reel_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Reel_Hit"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingIntensePull_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Reel_Hit"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingIntensePull_C_00"
+		ChainTo = "Melinoe_Fishing_Reel_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Reel_Hit"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Rod_Reel_Miss"
+		InheritFrom = "ToolRodBase"
+		GrannyAnimation = "FishRod_Tool_Base_FishingIntenseEscape_C_00"
+	}
+	{
+		Name = "Melinoe_Fishing_Reel_Miss"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_FishRod_Base_FishingIntenseEscape_C_00"
+		ChainTo = "Melinoe_Fishing_Reel_Idle"
+
+		Attachments =
+		[
+			{
+				Name = "Rod_Reel_Miss"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+] }

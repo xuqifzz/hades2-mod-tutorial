@@ -1,0 +1,513 @@
+{ Animations = [
+	{
+		Name = "ZombieCrewman"
+		GrannyModel = "ZombieCrewman_Mesh"
+	}
+	{
+		Name = "EnemyZombieBaseAnimation"
+
+		GrannyModel = "Zombie_Mesh"
+		ExtraGrannyAnimations = [{ Name = "ZombieCrewman" }]
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Zombie_Idle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Zombie_IdleLookingRandom"
+		Random =
+		[
+			{ Name = "Enemy_Zombie_IdleLookingDown" }
+			{ Name = "Enemy_Zombie_IdleLookingUp" }
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_IdleLookingDown"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_IdleLookingDown_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Zombie_IdleLookingUp"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_IdleLookingUp_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Zombie_Spawn"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_Spawn_C_00"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 0.5
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		Duration = 1.8
+		EaseIn = 0
+		EaseOut = 0.1
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.15
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Zombie/ZombieEmerge"
+			}
+			{
+				Frame = 40
+				VerticalMask = 0.15
+				Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+			}
+			{
+				Frame = 50
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 58
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+			{
+				Frame = 68
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_Move"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_Move_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.25
+		Frames =
+		[
+			{
+				Frame = 13
+				FootstepSound = "/Leftovers/SFX/FootstepsSlime"
+			}
+			{
+				Frame = 77
+				FootstepSound = "/Leftovers/SFX/FootstepsSlime"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_MoveFast"
+		InheritFrom = "Enemy_Zombie_Move"
+		GrannyAnimationSpeed = 2.5
+	}
+
+	{
+		Name = "Enemy_Zombie_MoveStart"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Zombie_Move"
+		GrannyAnimationSpeed = 1.25
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_ProneIdle"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_BackIdle"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_Idle"
+				Duration = 5
+			}	
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_MoveStartFast"
+		InheritFrom = "Enemy_Zombie_MoveStart"
+		ChainTo = "Enemy_Zombie_MoveFast"
+		GrannyAnimationSpeed = 2.5
+	}
+
+	{
+		Name = "Enemy_Zombie_MoveStop"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Zombie_Idle"
+		GrannyAnimationSpeed = 1.25
+		Frames =
+		[
+			{
+				Frame = 46
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_HitToProne"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitToProne_C_00"
+		ChainTo = "Enemy_Zombie_ProneIdle"
+		Sound = "/SFX/Enemy Sounds/Zombie/EmoteHurt"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Zombie_HitToBack" }
+			{ Name = "Enemy_Zombie_BackIdle" }
+			{ Name = "Enemy_Zombie_BackReturnToIdle" }
+			{ Name = "Enemy_Zombie_HitToProne" }
+			{ Name = "Enemy_Zombie_ProneIdle" }
+			{ Name = "Enemy_Zombie_ProneReturnToIdle" }
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_ProneReturnToIdle2"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_BackReturnToIdle2"
+				Duration = 5
+			}	
+		]
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/Zombie/ZombieFallFlop"
+			}
+			{
+				Frame = 29
+				Sound = "/SFX/Enemy Sounds/Zombie/EmoteLanding"
+			}
+			{
+				Frame = 30
+				FootstepFxR = "EphyraMudSplatZombieFall"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_ProneIdle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitProneIdle_C_00"
+		ChainTo = "Enemy_Zombie_ProneReturnToIdle"
+		GrannyAnimationSpeed = 1.3
+	}
+
+	{
+		Name = "Enemy_Zombie_Prone_IdleLoop"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitProneIdle_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.3
+	}	
+
+	{
+		Name = "Enemy_Zombie_ProneReturnToIdle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitProneReturnToIdle_C_00"
+		ChainTo = "Enemy_Zombie_ProneReturnToIdle2"
+		GrannyAnimationSpeed = 1.3
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Zombie/EmoteRising"
+		Frames =
+		[
+
+			{
+				Frame = 60
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Zombie_ProneReturnToIdle2"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitProneReturnToIdle_C_00"
+		ChainTo = "Enemy_Zombie_Idle"
+		GrannyAnimationSpeed = 1.3
+		OwnerImmobile = true
+		Sound = null
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_HitToBack"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitToBack_C_00"
+		ChainTo = "Enemy_Zombie_BackIdle"
+		Sound = "/SFX/Enemy Sounds/Zombie/EmoteHurt"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Zombie_HitToBack" }
+			{ Name = "Enemy_Zombie_BackIdle" }
+			{ Name = "Enemy_Zombie_BackReturnToIdle" }
+			{ Name = "Enemy_Zombie_HitToProne" }
+			{ Name = "Enemy_Zombie_ProneIdle" }
+			{ Name = "Enemy_Zombie_ProneReturnToIdle" }
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_ProneReturnToIdle2"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zombie_BackReturnToIdle2"
+				Duration = 5
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/Zombie/ZombieFallFlop"
+			}
+			{
+				Frame = 17
+				Sound = "/SFX/Enemy Sounds/Zombie/EmoteLanding"
+			}
+			{
+				Frame = 20
+				FootstepFxR = "EphyraMudSplatZombieFall"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_BackIdle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitToBackIdle_C_00"
+		ChainTo = "Enemy_Zombie_BackReturnToIdle"
+		GrannyAnimationSpeed = 1.3
+	}
+
+	{
+		Name = "Enemy_Zombie_BackReturnToIdle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitToBackReturnToIdle_C_00"
+		ChainTo = "Enemy_Zombie_BackReturnToIdle2"
+		GrannyAnimationSpeed = 1.3
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Zombie/EmoteRising"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 60
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_BackReturnToIdle2"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_GetHitToBackReturnToIdle_C_00"
+		ChainTo = "Enemy_Zombie_Idle"
+		GrannyAnimationSpeed = 1.3
+		OwnerImmobile = true
+		Sound = null
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_OnHit"
+		Random =
+		[
+			{ Name = "Enemy_Zombie_HitToProne" }
+			{ Name = "Enemy_Zombie_HitToBack" }
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_MeleePreFire"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_AttackAntic_C_00"
+		CreateAnimations =
+		[
+			{ Name = "ZombieMeleeLPreAttackGlow" }
+			{ Name = "ZombieMeleeRPreAttackGlow" }
+		]
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zombie_Move"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zombie_MoveStart"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Zombie_MeleeReturnToIdle"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_MeleeFire"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_AttackFire_C_00"
+		CreateAnimations =
+		[
+			{ Name = "ZombieAttackSwipeR" }
+			{ Name = "ZombieAttackSwipeL" }
+		]
+		ChainTo = "Enemy_Zombie_MeleeReturnToIdle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_MeleePreFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_MeleeReturnToIdle"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		GrannyAnimation = "Zombie_Base_AttackReturnToIdle_C_00"
+		ChainTo = "Enemy_Zombie_Idle"
+	}
+	
+	{
+		Name = "Enemy_Zombie_Death"
+		Random = [
+			{ Name = "Enemy_Zombie_DeathA" }
+			{ Name = "Enemy_Zombie_DeathB" }
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_DeathA"
+		InheritFrom = "EnemyZombieBaseAnimation"
+		RequireCurrentAnimationNotContains = null
+		GrannyAnimation = "Zombie_Base_GetHitToProne_C_00"
+		AllowRestart = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 2.0
+		GrannyAnimationSpeed = 1.1
+		DeathFxFrameDuration = 120
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 0.5
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		VisualFx = "EphyraUndeadGib"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_ProneReturnToIdle2"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_BackReturnToIdle2"
+				Duration = 5
+			}	
+		]
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/Zombie/ZombieFallFlop"
+			}
+			{
+				Frame = 30
+				FootstepFxR = "EphyraMudSplatZombieFall"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Zombie_DeathB"
+		InheritFrom = "Enemy_Zombie_DeathA"
+		GrannyAnimation = "Zombie_Base_GetHitToBack_C_00"
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/Zombie/ZombieFallFlop"
+			}
+			{
+				Frame = 15
+				FootstepFxR = "EphyraMudSplatZombieFall"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+] }

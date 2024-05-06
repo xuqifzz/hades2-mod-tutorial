@@ -1,0 +1,43 @@
+{
+  Animations = [
+    
+    {
+      Name = "MainMenuBG_Static"
+      FilePath = "Launch\load_bg_logo"
+      EndAlpha = 1.0
+      Duration = 2.0
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "AnnouncementBox"
+      FilePath = "GUI\Shell\Box_HalfScreen"      
+      Material = "Unlit"
+    }
+
+    {
+      Name = "AnnouncementBox_CloudSave"
+      InheritFrom = "AnnouncementBox"
+      ChildAnimation = "CloudSaveScreenHorizontalDiv"
+    }
+
+    {
+      Name = "CloudSaveScreenHorizontalDiv"
+      InheritFrom = "AnnouncementBox"
+      FilePath = "GUI\HorizontalDivider"
+      OffsetY = -315
+      ScaleX = 1.25
+      ChildAnimation = "CloudSaveScreenHorizontalDiv_Bottom"
+    }
+
+    {
+      Name = "CloudSaveScreenHorizontalDiv_Bottom"
+      InheritFrom = "CloudSaveScreenHorizontalDiv"
+      ChildAnimation = null
+      OffsetY = 305
+    }
+  ]
+}

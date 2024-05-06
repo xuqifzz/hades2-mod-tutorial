@@ -1,0 +1,621 @@
+{ Animations = [
+
+	{
+		Name = "EnemySatyrLancerBaseAnimation"
+
+		GrannyModel = "SatyrLancer_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+	}
+
+	// Idle
+	{
+		Name = "Enemy_SatyrLancer_Idle"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// Move
+	{
+		Name = "Enemy_SatyrLancer_Move"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 26
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 27
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+			{
+				Frame = 56
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 57
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_MoveStart"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Move_Start_C_00"
+		ChainTo = "Enemy_SatyrLancer_Move"
+		Frames =
+		[
+			{
+				Frame = 16
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 17
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_MoveStop"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Move_Stop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SatyrLancer_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// On Hit
+	{
+		Name = "Enemy_SatyrLancer_OnHit"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_GetHit_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_SatyrLancer_Idle"
+		Sound = "/SFX/Enemy Sounds/Satyr/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 3
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1.2
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrLancer_OnHit_Heavy"
+		InheritFrom = "Enemy_SatyrLancer_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Defense
+	{
+		Name = "Enemy_SatyrLancer_Defense"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Defense_C_00"
+		OwnerImmobile = true
+		OwnerNoInvulnerableCoverage = false
+		ChainTo = "Enemy_SatyrLancer_Defense_End"
+		Frames =
+		[
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrLancer_Defense_End"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Defense_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+		OwnerImmobile = true
+		OwnerNoInvulnerableCoverage = false
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 42
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	// Back Dash
+	{
+		Name = "Enemy_SatyrLancer_BackDashPreFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_BackDashPreFire_C_00"
+		HoldLastFrame = true
+		OwnerNoInvulnerableCoverage = false
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_BackDashFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_BackDashFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_BackDashPostFire"
+		CreateAnimation = "SatyrDodgeStreakBack"
+		OwnerNoInvulnerableCoverage = false
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerEvade2"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/EmoteEvading"
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 11
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_BackDashPostFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_BackDashPostFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+	}
+
+	// Strafe Left
+	{
+		Name = "Enemy_SatyrLancer_StrafeLeftPreFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeLeftPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_StrafeLeftFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeLeftFire_C_00"
+		CreateAnimation = "SatyrDodgeStreakLeft"
+		ChainTo = "Enemy_SatyrLancer_StrafeLeftPostFire"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerEvade2"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/EmoteEvading"
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 11
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_StrafeLeftPostFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeLeftPostFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+	}
+
+	// Strafe Right
+	{
+		Name = "Enemy_SatyrLancer_StrafeRightPreFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeRightPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_StrafeRightFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeRightFire_C_00"
+		CreateAnimation = "SatyrDodgeStreakRight"
+		ChainTo = "Enemy_SatyrLancer_StrafeRightPostFire"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerEvade2"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/EmoteEvading"
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 11
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/SatyrHoofFootstepsBig"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerRunGear"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_StrafeRightPostFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_StrafeRightPostFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+	}
+
+	// Throw
+	{
+		Name = "Enemy_SatyrLancer_ThrowPreFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_SpearThrowPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerCharge"
+		StopSoundOnFinishFade = 0.3
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_ThrowFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_SpearThrowFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_ThrowPostFire"
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_ThrowPostFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_SpearThrowPostFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 24
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+		]
+	}
+
+	// Thrust
+	{
+		Name = "Enemy_SatyrLancer_ThrustPreFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_ThrustPreFire_C_00"
+		HoldLastFrame = true
+		OwnerNoInvulnerableCoverage = false
+		Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_ThrustFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_ThrustFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_ThrustPostFire"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrLancer_ThrustPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_ThrustPostFire"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_ThrustPostFire_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+		Sound = "/Leftovers/SFX/GeneralWhooshReverse"
+
+		Frames =
+		[
+			{
+				Frame = 22
+				Sound = "/SFX/ArmorIdleSFX2"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_SatyrLancer_Death"
+		InheritFrom = "Enemy_SatyrLancer_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 3.0
+		GrannyAnimationSpeed = 0.05
+		DeathFxFrameDuration = 150
+		DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 1
+		EndAlpha = 0.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		AllowRestart = false
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		CreateAnimation = "EnemySandDeathFx"
+		VisualFx = "EnemySandDeathFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.45
+		VisualFxCap = 4
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_Spawn"
+		InheritFrom = "Enemy_SatyrLancer_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.6 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+] }

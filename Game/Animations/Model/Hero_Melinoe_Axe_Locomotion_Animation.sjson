@@ -1,0 +1,537 @@
+{ Animations = [
+
+  	// Axe Dash Anims
+
+	{
+		Name = "Axe_Dash_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DashAntic_N_02"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Dash_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DashAntic_N_02"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Axe_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Attack4_Start" }
+
+			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
+			{ Name = "Melinoe_Axe_Special1_End" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Dash_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Sprint_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Run_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Equip"
+				Duration = 6
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Dash_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_Dash_N_02"
+	}
+	{
+		Name = "Melinoe_Axe_Dash_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Axe_Base_Dash_N_02"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Dash_End1"
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Axe_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Attack4_Start" }
+
+			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
+			{ Name = "Melinoe_Axe_Special1_End" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Axe_Dash_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Dash_End1"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DashSettle_N_02"
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Dash_End1"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		ChainTo = "Melinoe_Axe_Dash_End2"
+		GrannyAnimation = "Melinoe_Axe_Base_DashSettle_N_02"
+		Attachments =
+		[
+			{
+				Name = "Axe_Dash_End1"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Dash_End2"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DashSettle_N_02"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Dash_End2"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		ChainTo = "Melinoe_Axe_Idle"
+		GrannyAnimation = "Melinoe_Axe_Base_DashSettle_N_02"
+		DisableOwnerManualInteract = false
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Dash_End2"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	// Melinoe Axe Turn Anims
+	{
+		Name = "Axe_Turn_180"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRunDirectionChange180_N_00"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Axe_Turn_180"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunDirectionChange180_N_00"
+		ChainTo = "Melinoe_Axe_Run_FireLoop"
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+		
+		Attachments =
+		[
+			{
+				Name = "Axe_Turn_180"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+	
+	{
+		Name = "Axe_Turn_E90"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRunDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		NativeMoveSpeed = 540
+	}	
+	{
+		Name = "Melinoe_Axe_Turn_E90"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunDirectionChangeE90_N_00"
+		ChainTo = "Melinoe_Axe_Run_FireLoop"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Turn_E90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Turn_W90"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRunDirectionChangeW90_N_00"
+		GrannyRotationY = -90
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Axe_Turn_W90"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunDirectionChangeW90_N_00"
+		ChainTo = "Melinoe_Axe_Run_FireLoop"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Turn_W90"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+	
+
+	// Melinoe Axe Run Anims
+	{
+		Name = "Axe_Run_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRunStart_N_00"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Axe_Run_Start"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunStart_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Axe_Run_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Axe_Run_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 25
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Idle"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Equip"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Run_FireLoop"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRun_N_00"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Axe_Run_FireLoop"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRun_N_00"
+		Loop = true
+		VisualFx = "AxeSparks"
+		VisualFxGrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 100
+		NativeMoveSpeed = 540
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Run_FireLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 25
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeIdleWeaponless"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack2_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack3_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack4_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Attack4_Cancel"
+				Duration = 16
+			}			
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_AttackEx1_End"
+				Duration = 8
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Sprint_FireLoop"
+				Duration = 4
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Dash_End2"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Cast_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Cast_StartLoop"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Cast_Fire_Quick"
+				Duration = 9
+			}
+
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Equip"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Run_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRunStop_N_00"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Axe_Run_End"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunStop_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Run_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 14
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	// Melinoe Axe Sprint
+	{
+		Name = "Axe_Sprint_FireLoop"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_DragRun_N_00"
+		NativeMoveSpeed = 740
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "WeaponAxeDash"
+				Duration = 24
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Sprint_FireLoop"
+		InheritFrom = "MelinoeBaseAxeAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Axe_Base_DragRunSprint_N_00"
+		NativeMoveSpeed = 740
+		VisualFx = "AxeSparks"
+		VisualFxGrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 100
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Axe_Sprint_FireLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 25
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Dash_Fire"
+				Duration = 4
+			}
+		]
+	}
+
+] }

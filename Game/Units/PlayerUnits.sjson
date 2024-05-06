@@ -1,0 +1,110 @@
+{ Units = [
+
+	{
+		Name = "1_BasePlayerUnit"
+		DisplayInEditor = false
+		PlayerControlled = true
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			AllowDrawableCache = false
+			StopsProjectiles = true
+			StopsUnits = true
+		}
+	}
+
+	{
+		Name = "_PlayerUnit"
+		InheritFrom = "1_BasePlayerUnit"
+		BackpedalSpeedModifier = 0.34
+		CosmeticRotationSpeed = 1340
+		DisplayInEditor = true
+		FinishMoveAnimationOnIdle = false
+		Magnetism = 1.0
+		MaxUseZ = 10.0
+		MoveGraphic = "MelinoeRun"
+		PriorityWeapon = "RushWeapon"
+		RotationSpeed = 216000.00
+		Speed = 540.0
+		StartGraphic = "MelinoeStart"
+		StopGraphic = "MelinoeStop"
+		TouchdownVelocityRetention = 0.7
+		CanVelocityBeAbsorbed = false
+		StopShiftOnCollision = false
+		TraitorsTreatAsFriendly = true
+		Life =
+		{
+			LobReflectionSpeedMultiplier = 1.5
+			ProjectileHealCap = 100.0
+			ProjectileHealModifier = 0.1
+			ReflectionSpeedMultiplier = 3.0
+			TriggerOnHit = true
+			HomingEligible = true
+		}
+		Thing =
+		{
+			GrannyModel = "Melinoe_Mesh"
+			CanBeOccluded = true
+			DrawEmbeddedBehind = true
+			EditorOutlineDrawBounds = false
+			FootstepSound = "/SFX/Player Sounds/FootstepsHardSurfaceRun"
+			Graphic = "MelinoeIdle"
+			Grip = 1000.0
+			Material = "Unlit"
+			Scale = 0.7
+			SelectionHeight = 270.0
+			SelectionWidth = 150.0
+			SpeechCapable = true
+			Tallness = 200.0
+			TerminalVelocity = 5000.0
+			UseBoundsForSortDrawArea = true
+			ExtentScale = 1.0
+			Points =
+			[
+				{ X = 16 Y = 24 }
+				{ X = 48 Y = 8 }
+				{ X = 48 Y = -8 }
+				{ X = 16 Y = -24 }
+				{ X = -16 Y = -24 }
+				{ X = -48 Y = -8 }
+				{ X = -48 Y = 8 }
+				{ X = -16 Y = 24 }
+			]
+			Size = { X = 104 Y = 64 }
+		}
+	}
+
+	{
+		Name = "PlayerHadesFlashback"
+		InheritFrom = "_PlayerUnit"
+		StartGraphic = null
+		MoveGraphic = "HadesFlashback_Move"
+		StopGraphic = null
+		Speed = 410
+		Thing =
+		{
+			GrannyModel = "Hades_Mesh"
+			Graphic = "HadesFlashback_Idle"
+			ExtentScale = 1.5
+			SortBoundsScale = 1.5
+			Tallness = 275
+			Using = { Name = "FlashbackHadesBlink" }
+		}
+	}
+
+	{
+		Name = "PlayerMelFlashback"
+		InheritFrom = "_PlayerUnit"
+		Speed = 320
+		StartGraphic = "Melinoe_Young_Run_Start"
+		MoveGraphic = "Melinoe_Young_Run_FireLoop"
+		StopGraphic = "Melinoe_Young_Run_End"
+		Thing =
+		{
+			GrannyModel = "YoungMel_Mesh"
+			Graphic = "Melinoe_Young_Idle"
+			Scale = 0.7
+		}
+	}
+
+] }

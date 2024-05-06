@@ -1,0 +1,317 @@
+{ Animations = [
+	{
+		Name = "SwarmerClockwork"
+		GrannyModel = "SwarmerClockwork_Mesh"
+	}	
+	{
+		Name = "EnemySwarmerBaseAnimation"
+		
+		GrannyModel = "Swarmer_Mesh"
+		ExtraGrannyAnimations = [{ Name = "SwarmerClockwork" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 3.0
+		Loop = false
+		Enable3DShadow = false
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Swarmer_Idle"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_Move"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_Move_C_01"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_MoveStart"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_MoveStart_C_01"
+		ChainTo = "Enemy_Swarmer_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_MoveStop"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_MoveStop_C_01"
+		ChainTo = "Enemy_Swarmer_Idle"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	/*Alert*/
+	{
+		Name = "Enemy_Swarmer_Alert"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_Alert_C_01"
+		ChainTo = "Enemy_Swarmer_AlertReturnToIdle"
+		Sound = "/SFX/Enemy Sounds/Swarmer/EmoteAlerted"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Swarmer_AlertReturnToIdle"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_AlertReturnToIdle_C_01"
+		ChainTo = "Enemy_Swarmer_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_Swarmer_HitStun"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_GetHit_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Swarmer_HitStun2"
+		PlayBackwards = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1.3
+			}
+			{
+				Frame = 15
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Swarmer_HitStun2"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_GetHit_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Swarmer_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Swarmer_HitStun_Heavy"
+		InheritFrom = "Enemy_Swarmer_HitStun"
+		GrannyAnimationSpeed = 0.5
+		ChainTo = "Enemy_Swarmer_HitStun2_Heavy"
+	}
+	{
+		Name = "Enemy_Swarmer_HitStun2_Heavy"
+		InheritFrom = "Enemy_Swarmer_HitStun2"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/*Attacks*/
+
+	{
+		Name = "Enemy_Swarmer_MeleeAttackPreAttack"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_AttackMeleeAntic_C_01"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Swarmer/SwarmerCharge"
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Swarmer/EmoteCharging"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swarmer_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_MeleeAttackFire"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_AttackMeleeFire_C_01"
+		ChainTo = "Enemy_Swarmer_MeleeAttackReturnToIdle"
+		Sound = "/SFX/Enemy Sounds/Swarmer/EmoteAttacking"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.36
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_MeleeAttackReturnToIdle"
+		InheritFrom = "EnemySwarmerBaseAnimation"
+		GrannyAnimation = "Swarmer_Base_AttackMeleeReturnToIdle_C_01"
+		ChainTo = "Enemy_Swarmer_Idle"
+	}
+
+	{
+		Name = "Enemy_Swarmer_Death"
+		InheritFrom = "Enemy_Swarmer_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 3.0
+		GrannyAnimationSpeed = 0.05
+		DeathFxFrameDuration = 150
+		DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 1
+		EndAlpha = 0.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		AllowRestart = false
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		CreateAnimation = "EnemySandDeathFx"
+		VisualFx = "EnemySandDeathFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.45
+		VisualFxCap = 4
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swarmer_Spawn"
+		InheritFrom = "Enemy_Swarmer_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.6 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+]}

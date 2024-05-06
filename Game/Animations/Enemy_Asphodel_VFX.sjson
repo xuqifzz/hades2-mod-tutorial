@@ -1,0 +1,23 @@
+{ Animations = [
+
+	{
+		Name = "LightRangedAsphodelGlow"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.3
+		Color = { Red = 0.1, Green = 0.4, Blue = 1.0}
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "LightRanged_Rig:root_00_M_JNT"
+		UseAttachedFlasher = false
+		StartScale = 1.1
+		EndScale = 0.7
+		Duration = 1
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		PingPongScale = true
+		Scale = 0.7
+		DieWithOwner = true
+		OffsetZ = -50,
+	}
+]}

@@ -1,0 +1,413 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyBrawlerBaseAnimation"
+		
+		GrannyModel = "Brawler_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Brawler_Idle"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		/*
+		GrannyAnimation = "Brawler_Base_Idle_C_00" -- using Move animation for idle for consistency
+		*/
+		GrannyAnimation = "Brawler_Base_Move_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Brawler_MeleeReturnToIdle"
+				Duration = 10
+			}
+		]
+
+	}
+
+	{
+		Name = "Enemy_Brawler_Move"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_Move_C_00"
+		Loop = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Brawler_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStun"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_MoveStart"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Brawler_Move"
+	}
+
+	{
+		Name = "Enemy_Brawler_MoveStop"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_MoveStop_C_00"
+		GrannyAnimationSpeed = 2.0
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Brawler_MeleePreAttack"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_AttackAntic_C_00"
+		CancelOnOwnerMove = false
+		GrannyAnimationSpeed = 1.95
+		AllowRestart = true
+		HoldLastFrame = true
+		CreateAnimation = "BrawlerSwipeCharge"
+		Sound = "/SFX/Enemy Sounds/BrawlerCharge"
+		StopSoundOnFinishFade = 0.2
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStun"
+				Duration = 10
+			}			
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLong"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStunBlock"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_MeleeReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_MeleePreAttack_2"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_MoveStop_C_00"
+		CancelOnOwnerMove = false
+		GrannyAnimationSpeed = 1.5
+		AllowRestart = true
+		HoldLastFrame = true
+		CreateAnimation = "BrawlerSwipeCloseCharge"
+		Sound = "/SFX/Enemy Sounds/BrawlerCharge"
+		StopSoundOnFinishFade = 0.2
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLong"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_HitStunBlock"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Brawler_MeleeReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_MeleeFire_2"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		Sound = "/SFX/Enemy Sounds/Brawler/BrawlerSwipePrimary"
+		GrannyAnimation = "Brawler_Base_Attack_C_00"
+		ChainTo = "Enemy_Brawler_MeleeReturnToIdle"
+		CancelOnOwnerMove = false
+		GrannyAnimationSpeed = 4.0
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Brawler_MeleePreAttack_2"
+				Duration = 5
+			}	
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_MeleeFire"
+		Sound = "/SFX/Enemy Sounds/Brawler/BrawlerSwipeBIG"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_Attack_C_00"
+		ChainTo = "Enemy_Brawler_MeleeReturnToIdle"
+		OwnerHasNoUnitCollision = true
+		CancelOnOwnerMove = false
+		GrannyAnimationSpeed = 2.0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_MeleeReturnToIdle"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_AttackToIdle_C_00"
+		ChainTo = "Enemy_Brawler_Idle"
+		CancelOnOwnerMove = false
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStun"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_HitStun_C_00"
+		CancelOnOwnerMove = false
+		AllowRestart = true
+		GrannyAnimationSpeed = 1.3
+		Sound = "/SFX/Enemy Sounds/Brawler/EmoteHurt"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunLong"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_HitStun_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		GrannyAnimationSpeed = 0.60
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunBlock"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_HitStun_C_00"
+		GrannyAnimationSpeed = 1.0
+		CancelOnOwnerMove = false
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0.001
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunLightning"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		
+		GrannyAnimation = "null"
+		CancelOnOwnerMove = false
+		AllowRestart = true
+		GrannyAnimationSpeed = 1.0
+		Random =
+		[
+			{ Name = "Enemy_Brawler_HitStunLightning1" }
+			{ Name = "Enemy_Brawler_HitStunLightning2" }
+			{ Name = "Enemy_Brawler_HitStunLightning3" }
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunLightning1"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_HitStun_C_00"
+		GrannyAnimationSpeed = 1.0
+		CancelOnOwnerMove = false
+		AllowRestart = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 15
+				FrameSpeed = 0.01
+			}
+		]
+		Blends =
+		[
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning2"
+				Duration = 2
+			}
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning3"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunLightning2"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_AttackToIdle_C_00"
+		GrannyAnimationSpeed = 1.0
+		CancelOnOwnerMove = false
+		AllowRestart = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.01
+			}
+		]
+		Blends =
+		[
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning1"
+				Duration = 2
+			}
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning3"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_HitStunLightning3"
+		InheritFrom = "EnemyBrawlerBaseAnimation"
+		GrannyAnimation = "Brawler_Base_AttackAntic_C_00"
+		GrannyAnimationSpeed = 1.0
+		CancelOnOwnerMove = false
+		AllowRestart = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0.01
+			}
+		]
+		Blends =
+		[
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning1"
+				Duration = 2
+			}
+			{ 
+				BlendTransitionFrom = "Enemy_Brawler_HitStunLightning2"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Brawler_Death"
+		InheritFrom = "Enemy_Brawler_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 45
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Brawler_Spawn"
+		InheritFrom = "Enemy_Brawler_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+	}
+
+] }

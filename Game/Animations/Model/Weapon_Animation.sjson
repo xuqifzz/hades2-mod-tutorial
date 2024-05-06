@@ -1,0 +1,231 @@
+{ Animations = [
+	 {
+		Name = "BaseWeaponKit"
+		GrannyModel = "Melinoe_Axe_Mesh1"
+		Enable3DShadow = false
+		Loop = true
+		Scale = 1.0
+		Angle = 90
+		RandomRotationSpeedMin = 20
+		RandomRotationSpeedMax = 30
+		TransferAngle = true
+		UseIsometricAngle = false
+		ZWobbleSpeed = 10
+		ZWobbleDistance = 20
+	}
+	{
+		Name = "WeaponAxeFloatingIdle"
+		InheritFrom = "BaseWeaponKit"
+		GrannyModel = "Melinoe_Axe_Mesh1"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "Melinoe_Axe_Charon" }
+			{ Name = "Melinoe_Axe_Nergal" }
+			{ Name = "Melinoe_Axe_Thanatos" }
+		]
+		OffsetZ = 120
+	}
+	{
+		Name = "WeaponAxeFloatingIdleVertical"
+		InheritFrom = "WeaponAxeFloatingIdle"
+		GrannyRotationX = -26.5 //Remove camera's isometric angle
+	}
+	{
+		Name = "WeaponAxeFloatingIdleOff"
+		InheritFrom = "WeaponAxeFloatingIdle"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+	{
+		Name = "WeaponTorchMultiple_Eos"
+		GrannyModel = "WeaponTorchMultiple_Eos_Mesh"
+	}
+	{
+		Name = "WeaponTorchMultiple_Supay"
+		GrannyModel = "WeaponTorchMultiple_Supay_Mesh"
+	}
+	{
+		Name = "WeaponTorchMultiple_Moros"
+		GrannyModel = "WeaponTorchMultiple_Moros_Mesh"
+	}	
+	{
+		Name = "WeaponTorchFloatingIdle"
+		InheritFrom = "BaseWeaponKit"
+		GrannyModel = "WeaponHecateMultiple_Mesh"
+		Scale = 0.8
+		OffsetZ = 20
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponTorchMultiple_Eos" }
+			{ Name = "WeaponTorchMultiple_Supay" }
+			{ Name = "WeaponTorchMultiple_Moros" }
+		]
+	}
+	{
+		Name = "WeaponTorchFloatingIdleVertical"
+		InheritFrom = "WeaponTorchFloatingIdle"
+		GrannyRotationX = -26.5 //Remove camera's isometric angle
+	}
+	{
+		Name = "WeaponTorchFloatingIdleOff"
+		InheritFrom = "WeaponTorchFloatingIdle"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "WeaponLobFloatingIdle"
+		InheritFrom = "BaseWeaponKit"
+		GrannyModel = "WeaponLob_Mesh"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponLob_Hel" }
+			{ Name = "WeaponLob_Medea" }
+			{ Name = "WeaponLob_Persephone" }
+		]
+		OffsetZ = 70
+		Scale = 2
+	}
+	{
+		Name = "WeaponLobFloatingIdleVertical"
+		InheritFrom = "WeaponLobFloatingIdle"
+		GrannyRotationX = -26.5 //Remove camera's isometric angle
+	}
+	{
+		Name = "WeaponLobFloatingIdleOff"
+		InheritFrom = "WeaponLobFloatingIdle"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+ 
+	{
+		Name = "WeaponStaffFloatingIdle"
+		InheritFrom = "BaseWeaponKit"
+		GrannyModel = "WeaponStaff_Mesh"
+		OffsetZ = 100
+		ExtraGrannyAnimations = 
+		[
+			{Name = "WeaponStaff_Circe"},
+			{Name = "WeaponStaff_Asclepius"}
+		]
+	}
+	{
+		Name = "WeaponStaffFloatingIdleVertical"
+		InheritFrom = "WeaponStaffFloatingIdle"
+		GrannyRotationX = -26.5 //Remove camera's isometric angle
+	}
+	{
+		Name = "WeaponStaffFloatingIdleOff"
+		InheritFrom = "WeaponStaffFloatingIdle"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}	 
+	{
+		Name = "WeaponDaggerMultiple_Artemis"
+		GrannyModel = "WeaponDaggerMultiple_Artemis_Mesh"
+	}
+	{
+		Name = "WeaponDaggerMultiple_Morrigan"
+		GrannyModel = "WeaponDaggerMultiple_Morrigan_Mesh"
+	}
+	{
+		Name = "WeaponDaggerMultiple_Pan"
+		GrannyModel = "WeaponDaggerMultiple_Pan_Mesh"
+	}	
+	{
+		Name = "WeaponDaggerFloatingIdle"
+		InheritFrom = "BaseWeaponKit"
+		GrannyModel = "WeaponDagger_Mesh"
+		OffsetZ = 20
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponDaggerMultiple_Artemis" }
+			{ Name = "WeaponDaggerMultiple_Morrigan" }
+			{ Name = "WeaponDaggerMultiple_Pan" }
+		]
+		Scale = 1.2
+	}
+	{
+		Name = "WeaponDaggerFloatingIdleVertical"
+		InheritFrom = "WeaponDaggerFloatingIdle"
+		GrannyRotationX = -26.5 //Remove camera's isometric angle
+	}
+	{
+		Name = "WeaponDaggerFloatingIdleOff"
+		InheritFrom = "WeaponDaggerFloatingIdle"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}	
+
+	/* Tools */
+
+	{
+		Name = "BaseToolKit"			
+		GrannyModel = "ToolPickAxe_Mesh"
+		Enable3DShadow = false
+		Loop = true
+		Scale = 1.0
+		Angle = 90
+		RandomRotationSpeedMin = 20
+		RandomRotationSpeedMax = 30
+		UseIsometricAngle = false
+		ZWobbleSpeed = 10
+		ZWobbleDistance = 20
+	}
+
+	{
+		Name = "PickAxeHover"
+		InheritFrom = "BaseToolKit"
+		GrannyModel = "ToolPickAxe_Mesh"
+		OffsetZ = 60
+	}
+	{
+		Name = "PickAxeHoverEquipped"
+		InheritFrom = "PickAxeHover"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+
+	{
+		Name = "ShovelHover"
+		InheritFrom = "BaseToolKit"
+		GrannyModel = "ToolShovel_Mesh"
+		OffsetZ = 30
+	}
+	{
+		Name = "ShovelHoverEquipped"
+		InheritFrom = "ShovelHover"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+
+	}
+
+	{
+		Name = "FishingRodHover"
+		InheritFrom = "BaseToolKit"
+		GrannyModel = "ToolFishRod_Mesh"
+		OffsetZ = 30
+	}
+	{
+		Name = "FishingRodHoverEquipped"
+		InheritFrom = "FishingRodHover"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+
+	}
+
+	{
+		Name = "ExorcismBookHover"
+		InheritFrom = "BaseToolKit"
+		GrannyModel = "ToolTablet_Mesh"
+		OffsetZ = 60
+	}
+	{
+		Name = "ExorcismBookHoverEquipped"
+		InheritFrom = "ExorcismBookHover"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+]}

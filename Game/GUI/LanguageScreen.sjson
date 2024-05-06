@@ -1,0 +1,66 @@
+{
+  LanguageScreen =
+  {
+    Platform = "default"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    TransitionOnTime = 0.0
+    TransitionOffTime = 0.0
+    ForceShowCursor = true
+    GamepadSelectionStyle = "FreeForm"
+    FreeFormSelectGridLock = true
+    FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectStepDistance = 16
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 2
+    
+    LanguageButton =
+    {
+      X = 960
+      Y = 275
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextOffsetX = 0
+      Graphic = "null"
+      SelectedOnAnimation = "null"
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      UseTextArea = true
+      Font = "Lang"
+      TextRed = 0.75
+      TextGreen = 0.75
+      TextBlue = 0.75
+      FontSize = 24
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      TextJustification = "Center"
+      SelectedTextScale = 1.0
+      NonEnglishScaleModifier = 1.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 2
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 4
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      PressSound = "/SFX/Menu Sounds/GodBoonInteract"
+      Spacing = 45
+    }
+    ActiveMarker =
+    {
+      OffsetX = -200
+      OffsetY = 0
+      Graphic = "GUI\Shell\selector"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Scale = 0.8
+      MoveSpeed = 10000
+    }
+  }
+}

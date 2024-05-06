@@ -1,0 +1,226 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyFishSwarmerBaseAnimation"
+		
+		GrannyModel = "FishSwarmer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.75
+		Loop = false
+		Enable3DShadow = false
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_FishSwarmer_Idle"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_Spawn"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_Spawn"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_Spawn_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.0
+		Sound = "/Leftovers/World Sounds/ClickSplashSlosh"
+		VisualFx = "OceanusEnemySplashSmall_Air"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		Enable3DShadow = false
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_Move"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_Move_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_MoveStart"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_MoveStart_C_00"
+		ChainTo = "Enemy_FishSwarmer_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_MoveStop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_BiteReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_HitStun_Heavy"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_Spawn"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_MoveStop"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_MoveStop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_FishSwarmer_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	/*HitStun*/
+
+	{
+		Name = "Enemy_FishSwarmer_HitStun"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_GetHit_C_00"
+		ChainTo = "Enemy_FishSwarmer_Idle"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/FishSwarmer/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 2
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_HitStun_Heavy"
+		InheritFrom = "Enemy_FishSwarmer_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/*Bite Attack*/
+
+	{
+		Name = "Enemy_FishSwarmer_BitePreAttack"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_BiteAntic_C_00"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_BiteReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_MoveStart"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_Move"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_MoveStop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishSwarmer_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.25
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_BiteFire"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_BiteFire_C_00"
+		ChainTo = "Enemy_FishSwarmer_BiteReturnToIdle"
+		OwnerHasNoUnitCollision = true
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_BiteReturnToIdle"
+		InheritFrom = "EnemyFishSwarmerBaseAnimation"
+		GrannyAnimation = "FishSwarmer_Base_BiteReturnToIdle_C_00"
+		ChainTo = "Enemy_FishSwarmer_Idle"
+	}
+
+	{
+		Name = "Enemy_FishSwarmer_Death"
+		InheritFrom = "Enemy_FishSwarmer_HitStun"
+		HoldLastFrame = true
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 100
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+]}

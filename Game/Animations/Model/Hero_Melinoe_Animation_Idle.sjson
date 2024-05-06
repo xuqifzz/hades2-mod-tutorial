@@ -1,0 +1,149 @@
+{ Animations = [
+	
+	{
+		Name = "MelinoeIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeStop"
+				Duration = 20
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteract"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "MelTalkLookingDown01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkGifting01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBothArms"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBothArmsOut"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeLeftArm"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeRightArm"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Witchcraft_End"
+				Duration = 10
+			}
+
+			/* Weapon Idle Blends for conversation start */
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Idle"
+				Duration = 5
+			} 
+
+			/* NPC Interaction Blends */
+			{
+				BlendTransitionFrom = "MelTalkPensive01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01ReturnToIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01ReturnToIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01ReturnToIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "MelTalkFlustered01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Gesture_ToWeaponless"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Kneel"
+				Duration = 20
+			}
+		]
+	}
+
+	/* this is to force the weapons not to overwrite the animation
+	 the exceptions are so presentation sequences that open with an animation don't get stomped
+	*/
+	{
+		Name = "MelinoeIdleWeaponless"
+		InheritFrom = "MelinoeIdle"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeInteract" }
+			{ Name = "MelinoeBoonPreInteract" }
+			{ Name = "MelinoeBoonInteractLoop" }
+			{ Name = "MelTalkGifting01" }
+		]
+	}
+	{
+		Name = "MelinoeIdlePostInteract"
+		InheritFrom = "MelinoeIdle"
+	}
+
+	{
+		Name = "MelinoeEquip"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeIdleWeaponless"
+	}
+] }

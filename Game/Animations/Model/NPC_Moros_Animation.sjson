@@ -1,0 +1,227 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCMorosBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "Moros_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.5
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Moros_Idle"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Moros_Appear"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Moros_WalkStop"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Moros_Greet"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Greet_C_00"
+		ChainTo = "Moros_Idle"
+	}
+
+	{
+		Name = "Moros_Salute"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Salute_C_00"
+		ChainTo = "Moros_Idle"
+	}
+
+	// Pensive
+	{
+		Name = "Moros_Pensive_Start"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PensiveIntro_C_00"
+		ChainTo = "Moros_Pensive_FireLoop"
+	}
+	{
+		Name = "Moros_Pensive_FireLoop"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PensiveLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Moros_Pensive_End"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PensiveReturnToIdle_C_00"
+		ChainTo = "Moros_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Moros_Pensive_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Perplexed
+	{
+		Name = "Moros_Perplexed_Start"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PerplexedIntro_C_00"
+		ChainTo = "Moros_Perplexed_FireLoop"
+	}
+	{
+		Name = "Moros_Perplexed_FireLoop"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PerplexedLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Moros_Perplexed_End"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_PerplexedReturn_C_00"
+		ChainTo = "Moros_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Moros_Perplexed_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Moros_Appear"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Appear_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Moros_Considers"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Considers_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Moros_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Moros_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Moros_Attention"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Attention_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Moros_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Moros_Considers"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Moros_WalkStop"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Moros_WalkStart"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Moros_Walk"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Moros_Idle"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Moros_WalkStart"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_WalkStart_C_00"
+		NativeMoveSpeed = 50
+		ChainTo = "Moros_Walk"
+		Frames =
+		[
+			{
+				Frame = 25
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+			{
+				Frame = 40
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+		]
+	}
+
+	{
+		Name = "Moros_Walk"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_Walk_C_00"
+		NativeMoveSpeed = 90
+		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Moros_Attention" }
+		]
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+			{
+				Frame = 46
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+		]
+	}
+
+	{
+		Name = "Moros_WalkStop"
+		InheritFrom = "NPCMorosBaseAnimation"
+		GrannyAnimation = "Moros_Base_WalkStop_C_00"
+		NativeMoveSpeed = 50
+		CancelOnOwnerMove = true
+		ChainTo = "Moros_Idle"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Moros_Attention" }
+		]
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Moros_Walk"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Moros_WalkStart"
+				Duration = 4
+			}
+		]
+	}
+
+]}

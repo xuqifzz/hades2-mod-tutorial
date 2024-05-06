@@ -1,0 +1,217 @@
+{ Animations = [
+	{
+		Name = "Radiator2"
+		GrannyModel = "Radiator2_Mesh"
+	}	
+	{
+		Name = "EnemyRadiatorBaseAnimation"
+		
+		GrannyModel = "Radiator_Mesh"
+		ExtraGrannyAnimations = [{ Name = "Radiator2" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "Enemy_Radiator_Idle"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Radiator_Move"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_Run_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Radiator_MoveStart"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_RunStart_C_00"
+		ChainTo = "Enemy_Radiator_Move"
+	}
+
+	{
+		Name = "Enemy_Radiator_MoveStop"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_RunStop_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Radiator_HitStun"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Radiator/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_Radiator_360PreAttack"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackAntic_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.5
+		Sound = "/SFX/Enemy Sounds/RadiatorCharge"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Radiator_360Fire"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackLoop_C_00"
+		Loop = true
+		StartAngle = 0
+		EndAngle = -360
+		AngleChangeSpeed = 232
+		Sound = "/SFX/Enemy Sounds/RadiatorAttack"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Radiator_RangedFire"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackLoop_C_00"
+		Loop = false
+		StartAngle = 0
+		EndAngle = 135
+		AngleChangeSpeed = 232
+	}
+
+	{
+		Name = "Enemy_Radiator_RangedFire2"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackLoop_C_00"
+		Loop = false
+		StartAngle = 135
+		EndAngle = 0
+		AngleChangeSpeed = -232
+	}
+
+	{
+		Name = "Enemy_Radiator_LongRangeFire"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackLoop_C_00"
+		Loop = false
+		AngleChangeSpeed = 0
+	}
+
+	{
+		Name = "Enemy_Radiator_RangedReturnToIdle"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_RunStop_C_00"
+		CancelOnOwnerMove = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Radiator_RangedFire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Enemy_Radiator_RangedFire2"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Enemy_Radiator_360Fire_Slow"
+				Duration = 15
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Radiator_360ReturnToIdle"
+		InheritFrom = "EnemyRadiatorBaseAnimation"
+		GrannyAnimation = "Radiator_Base_AttackToIdle_C_00"
+		CancelOnOwnerMove = true
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Radiator_RangedFire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Enemy_Radiator_RangedFire2"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Enemy_Radiator_360Fire_Slow"
+				Duration = 15
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Radiator_360Fire_Fast"
+		InheritFrom = "Enemy_Radiator_360Fire"
+		AngleChangeSpeed = 464
+	}
+
+	{
+		Name = "Enemy_Radiator_360Fire_Slow"
+		InheritFrom = "Enemy_Radiator_360Fire"
+		AngleChangeSpeed = 60
+	}
+
+	{
+		Name = "Enemy_Radiator_Death"
+		InheritFrom = "Enemy_Radiator_HitStun"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.1
+		DeathFxFrameDuration = 70
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Radiator_Spawn"
+		InheritFrom = "Enemy_Radiator_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSwirl"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+	}
+
+]}

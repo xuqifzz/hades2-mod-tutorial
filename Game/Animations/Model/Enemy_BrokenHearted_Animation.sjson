@@ -1,0 +1,260 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyBrokenHeartedBaseAnimation"
+		GrannyModel = "BrokenHearted_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_BrokenHearted_Idle"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_Move"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Idle"
+				Duration = 4
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+				FootstepFxR = "BrokenHeartedBounceDust"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 39
+				FootstepFxR = ""
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_MoveStart"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_MoveStart_C_00"
+		ChainTo = "Enemy_BrokenHearted_Move"
+		GrannyAnimationSpeed = 3.0
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_MoveStop"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_MoveStop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_BrokenHearted_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_OnHit"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 1.3
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/BrokenHearted/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 2.0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_BrokenHearted_OnHit_Heavy"
+		InheritFrom = "Enemy_BrokenHearted_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+
+
+	{
+		Name = "Enemy_BrokenHearted_SlamPreFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SlamPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStop"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "BrokenHeartedBounceDust"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 35
+				Sound = "/Leftovers/SFX/WyrmJump"
+			}
+			{
+				Frame = 39
+				FootstepFxR = ""
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_SlamFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SlamFire_C_00"
+		ChainTo = "Enemy_BrokenHearted_SlamPostFire"
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_SlamPostFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SlamReturnToIdle_C_00"
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "BrokenHeartedBounceDust"
+				FootstepFxL = ""
+				Sound = "/SFX/Enemy Sounds/Heartless/HeartProjectileLand"
+			}
+			{
+				Frame = 39
+				FootstepFxR = ""
+				FootstepFxL = ""
+				Sound = "/Leftovers/SFX/FootstepsSlime"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_SpitPreFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SpitPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_BrokenHearted_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_SpitFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SpitFire_C_00"
+		ChainTo = "Enemy_BrokenHearted_SlamPostFire"
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_SpitPostFire"
+		InheritFrom = "EnemyBrokenHeartedBaseAnimation"
+		GrannyAnimation = "BrokenHearted_Base_SpitReturnToFire_C_00"
+	}
+
+	{
+		Name = "Enemy_BrokenHearted_Spawn"
+		InheritFrom = "Enemy_BrokenHearted_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxReverse = true
+		DeathFxColor = { Red = 0 Green = 0.0 Blue = 0.0 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+	}
+
+]}

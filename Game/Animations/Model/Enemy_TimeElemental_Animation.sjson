@@ -1,0 +1,336 @@
+{ Animations = [
+
+	{
+		Name = "EnemyTimeElementalBaseAnimation"
+
+		GrannyModel = "TimeElemental_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Enemy_TimeElemental_Idle"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_Idle_C_02"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// Move
+	{
+		Name = "Enemy_TimeElemental_Move"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_Walk_C_01"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_TimeElemental_MoveStart"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_PreWalk_C_01"
+		ChainTo = "Enemy_TimeElemental_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_TimeElemental_MoveStop"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_WalkToIdle_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_TimeElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// On Hit
+	{
+		Name = "Enemy_TimeElemental_OnHit"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_OnHit_C_01"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_TimeElemental_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 3.5
+			}
+			{
+				Frame = 18
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_TimeElemental_OnHit_Heavy"
+		InheritFrom = "Enemy_TimeElemental_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// Attack
+	{
+		Name = "Enemy_TimeElemental_PreAttack"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_PreAttack_C_01"
+		HoldLastFrame = true
+		
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_MoveStart"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Move"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_MoveStop"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/Leftovers/World Sounds/CaravanFallWhoosh"
+			}
+			{
+				Frame = 60
+				FrameSpeed = 0.3
+			}
+
+		]
+	}
+
+	/*
+	{
+		Name = "Enemy_TimeElemental_Attack"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_AttackCycle_C_01"
+		Loop = true
+		VisualFx = "TimeElementalSpeed"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_PreAttack"
+				Duration = 8
+			}
+		]
+	}
+	*/
+	{
+		Name = "Enemy_TimeElemental_AttackPostFire"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_AttackReturnToIdle_C_01"
+		ChainTo = "Enemy_TimeElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_TimeElemental_Attack"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/World Sounds/CaravanFallWhoosh"
+			}
+			{
+				Frame = 40
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	// Death
+	{
+		Name = "Enemy_TimeElemental_Death"
+		InheritFrom = "EnemyTimeElementalBaseAnimation"
+		GrannyAnimation = "TimeElemental_Base_Death_C_01"
+		GrannyAnimationSpeed = 0.35
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/TimeElemental/TimeElementalPreExplode"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "Enemy_TimeElemental_Death_End"
+		Frames =
+		[
+			{
+				Frame = 32
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TimeElemental_Death_End"
+		InheritFrom = "Enemy_TimeElemental_Death"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.5
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 0.55 Green = 0.4 Blue = 0.3 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.05
+		StartAlpha = 1
+		EndAlpha = 0.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		AllowRestart = false
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		VisualFx = "EnemySandDeathFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.45
+		VisualFxCap = 4
+		CreateAnimations =
+		[
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "EnemySandDeathFx" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 32
+				FrameSpeed = 1
+			}
+			{
+				Frame = 33
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Small"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TimeElemental_Spawn"
+		InheritFrom = "Enemy_TimeElemental_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.8 Blue = 0.6 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+] }

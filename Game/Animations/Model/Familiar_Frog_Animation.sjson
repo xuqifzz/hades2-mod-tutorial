@@ -1,0 +1,177 @@
+{ Animations = [
+	{
+		Name = "FamailiarFrogBaseAnimation"
+		GrannyModel = "Frog_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Familiar_Frog_Idle"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Idle_C_00"
+		Loop = true
+
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Familiar_Frog_HopTouchdown",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Greet",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Exorcise",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Pet",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Recruit2",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Block",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_DropIn",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Victory",
+				Duration = 10,
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Frog_HopStart"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_HopStart_N_00"
+		ChainTo = "Familiar_Frog_Hop"
+	}
+
+	{
+		Name = "Familiar_Frog_Hop"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_HopLoop_N_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.0
+	}
+
+	{
+		Name = "Familiar_Frog_HopTouchdown"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_HopTouchdown_N_00"
+		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_Greet"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Greet_C_00"
+		ChainTo = "Familiar_Frog_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Frog_Exorcise",
+				Duration = 20,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_HopTouchdown",
+				Duration = 20,
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Frog_Pet"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_PetFrinos_C_00"
+		ChainTo = "Familiar_Frog_Idle"
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Familiar_Frog_Idle",
+				Duration = 10,
+			}
+			{
+				BlendTransitionFrom = "Familiar_Frog_Greet",
+				Duration = 10,
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Frog_Exorcise"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Exorcise_C_00"
+		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_RecruitStart"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Greet_C_00"
+		ChainTo = "Familiar_Frog_Recruit2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll",
+				Duration = 8,
+			}
+		
+		]
+	}
+
+	{
+		Name = "Familiar_Frog_Recruit2"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_PetFrinos_C_00"
+		ChainTo = "Familiar_Frog_Idle"
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Familiar_Frog_RecruitStart",
+				Duration = 10,
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Frog_Block"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Block_N_00"
+		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_DropIn"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_DropIn_N_00"
+		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_GoUp"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_GoUp_N_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.0
+	}
+
+	{
+		Name = "Familiar_Frog_Victory"
+		InheritFrom = "FamailiarFrogBaseAnimation"
+		GrannyAnimation = "Frog_Base_Victory_C_00"
+		ChainTo = "Familiar_Frog_Idle"
+	}
+]}

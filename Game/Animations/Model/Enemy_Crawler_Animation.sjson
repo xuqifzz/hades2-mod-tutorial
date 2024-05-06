@@ -1,0 +1,404 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyCrawlerBaseAnimation"
+		
+		GrannyModel = "RatThugGiant_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+	}
+
+	/* Idle Move*/
+	{
+		Name = "Enemy_Crawler_Idle"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Crawler_GroundPoundReturnToIdle"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "Enemy_Crawler_Hidden"
+		InheritFrom = "Enemy_Crawler_Idle"
+		Alpha = 0.0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = false
+	}
+
+	{
+		Name = "Enemy_Crawler_Move"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_Move_C_00"
+		Loop = true
+	}
+
+	/*Roar*/
+
+	{
+		Name = "Enemy_Crawler_RoarAntic"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_RoarAntic_C_00"
+		HoldLastFrame = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Crawler_RoarLoop"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_RoarLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Crawler/CrawlerMinibossRoar"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Crawler_RoarReturnToIdle"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_RoarReturnToIdle_C_00"
+		ChainTo = "Enemy_Crawler_Idle"
+		OwnerImmobile = true
+	}
+
+	/*Burrow*/
+
+	{
+		Name = "Enemy_Crawler_BurrowIntoGround"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_BurrowIntoGround_C_00"
+		OwnerImmobile = true
+		ChainTo = "Enemy_Crawler_Hidden"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconSubmerge"
+	}
+
+	{
+		Name = "Enemy_Crawler_BurrowOutOfGround"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_BurrowOutOfGround_C_00"
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconEmerge"
+	}
+
+	/*Ram*/
+
+	{
+		Name = "Enemy_Crawler_RushAntic"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushAntic_C_02"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_Crawler_RushFire"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushFire_C_02"
+		OwnerHasNoUnitCollision = true
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Enemy_Crawler_RushToIdle"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackRushReturnToIdle_C_02"
+	}
+
+	/*Ground Pound*/
+
+	{
+		Name = "Enemy_Crawler_GroundPoundAntic"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackGroundPoundAntic_C_01"
+		DisableOwnerRotation = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Crawler_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Crawler_GroundPoundFire"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackGroundPoundFire_C_01"
+		ChainTo = "Enemy_Crawler_GroundPoundReturnToIdle"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Crawler_GroundPoundAntic"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Crawler_GroundPoundReturnToIdle"
+		InheritFrom = "EnemyCrawlerBaseAnimation"
+		GrannyAnimation = "Crawler_Base_AttackGroundPoundReturnToIdle_C_01"
+		ChainTo = "Enemy_Crawler_Idle"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+	}
+
+	{
+		Name = "Enemy_Crawler_Death"
+		FilePath = "Animations\Crawler\CrawlerHowling\CrawlerHowling"
+		OffsetY = -40.0
+		CancelOnOwnerMove = false
+		OwnerNoInvulnerableCoverage = true
+		Material = 
+		{
+			Ambient = 0.0
+			Diffuse = 0.0
+			Directionality = 0.0
+		}
+		AngleFromOwner = "Ignore"
+		NumFrames = 2
+		NumAngles = 1
+		StartScale = 1
+		EndScale = 1.1
+		EaseIn = 0
+		EaseOut = 1
+		StartFrame = 20
+		EndFrame = 21
+		PlaySpeed = 30
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.6
+		ColorFromOwner = "Ignore"
+		CreateAnimation = "HitSparkEnemyDamagedPhysicalRapid"
+		ChainTo = "EnemyCrawlerMiniBossDeathGib"
+		OwnerImmobile = true
+	}
+
+	// SATYR RAT
+	{
+		Name = "EnemySatyrRatBaseAnimation"
+		GrannyModel = "SatyrRat_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.6
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_SatyrRat_Idle"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRat_Move_Start"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Move_C_00"
+		ChainTo = "Enemy_SatyrRat_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_OnHit"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRat_Move"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_OnHit"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_SatyrRat_Move_End"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Move_C_00"
+		ChainTo = "Enemy_SatyrRat_Idle"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRat_OnHit"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SatyrRat_Idle"
+	}
+
+	{
+		Name = "Enemy_SatyrRat_Burrow"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_BurrowDown_C_00"
+		ChainTo = "Enemy_SatyrRat_Invisible"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconSubmerge"
+		Frames =
+		[
+			{
+				Frame = 12
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 19
+				VerticalMask = 0.4
+			}
+			{
+				Frame = 21
+				VerticalMask = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_OnHit"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRat_Invisible"
+		InheritFrom = "Enemy_SatyrRat_Idle"
+		Alpha = 0
+	}
+
+	{
+		Name = "Enemy_SatyrRat_Unburrow"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_BurrowUp_C_00"
+		ChainTo = "Enemy_SatyrRat_Idle"
+		Sound = "/SFX/Enemy Sounds/RangedBurrower/DraconEmerge"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 3
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 12
+				VerticalMask = 0.5
+			}
+			{
+				Frame = 15
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRat_RushPreFire"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Rush_Start_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_Move_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrRat_OnHit"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SatyrRat_RushFire"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Rush_Fire_C_00"
+		ChainTo = "Enemy_SatyrRat_RushPostFire"
+	}
+
+	{
+		Name = "Enemy_SatyrRat_RushPostFire"
+		InheritFrom = "EnemySatyrRatBaseAnimation"
+		GrannyAnimation = "SatyrRat_Base_Rush_End_C_00"
+		ChainTo = "Enemy_SatyrRat_Idle"
+	}
+
+]}

@@ -1,0 +1,4046 @@
+{
+  Animations = [
+
+    /* Emotes */
+
+    {
+      Name = "PortraitEmoteNervous"
+      
+      FilePath = "Dev\blank_invisible"
+      SortFromOwner = "Maintain"
+      Scale = 3
+      Duration = 2
+      VisualFx = "PortraitEmoteNervousSweat"
+      VisualFxIntervalMin = 0.12
+      VisualFxIntervalMax = 0.14
+      LocationFromOwner = "Maintain"
+      CreateAnimations = [
+        { Name = "PortraitEmoteNervousSound" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteNervousSweat"
+      
+      FilePath = "Particles\particle_emote_sweat_01"
+      Material = "Unlit"
+      StartScale = 0
+      EndScale = 1.5
+      EaseIn = 0
+      EaseOut = 1
+      RandomOffsetX = 40
+      RandomOffsetY = 40
+      RandomDurationMin = 0.6
+      RandomDurationMax = 0.9
+      Gravity = 500
+      ScaleMin = 0.4
+      ScaleMax = 1.0
+      PingPongScale = true
+      ScaleFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Maintain"
+      UseOwnAngle = true
+      AngleMin = -20
+      AngleMax = 60
+      VelocityMin = 260
+      VelocityMax = 300
+      StartAngle = 359
+      EndAngle =  320
+      SortFromOwner = "Maintain"
+    }
+
+    {
+      Name = "PortraitEmoteNervousSound"
+      InheritFrom = "PortraitEmoteNervousSweat"
+      StartAlpha = 0
+      EndAlpha = 0
+      Duration = 3
+      Sound = "/SFX/Menu Sounds/PortraitEmoteNervousSFX"
+    }
+
+    {
+      Name = "PortraitEmoteNervousSweatSmall"
+      InheritFrom = "PortraitEmoteNervousSweat"
+      StartAlpha = 0
+      EndAlpha = 0
+      Duration = 3
+      ScaleMin = 0.2
+      ScaleMax = 0.4
+    }
+
+    {
+      Name = "PortraitEmoteDepressed"
+      
+      FilePath = "Dev\blank_invisible"
+      SortFromOwner = "Maintain"
+      Duration = 0.4
+      LocationFromOwner = "Maintain"
+      CreateAnimations = [
+        { Name = "PortraitEmoteDepressedLineA" }
+        { Name = "PortraitEmoteDepressedLineB" }
+        { Name = "PortraitEmoteDepressedLineC" }
+        { Name = "PortraitEmoteDepressedLineD" }
+        { Name = "PortraitEmoteDepressedSound" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteDepressedLineA"
+      
+      FilePath = "Fx\PortraitEmoteDepressedWiggle\PortraitEmoteDepressedWiggle"
+      NumFrames = 30
+      RandomPlaySpeedMin = 24
+      RandomPlaySpeedMax = 30
+      Material = "Unlit"
+      Loop = false
+      LoopFramesOnly = true
+      OffsetX = 80
+      StartOffsetY = -100
+      EndOffsetY = 100
+      Duration = 3
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      ScaleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      ScaleMin = 0.8
+      ScaleMax = 1.0
+      ReRandomizeOnLoop = false
+      SortFromOwner = "Maintain"
+    }
+
+    {
+      Name = "PortraitEmoteDepressedLineB"
+      InheritFrom = "PortraitEmoteDepressedLineA"
+      OffsetX = 110
+      OffsetY = -10
+      Duration = 3.2
+    }
+    {
+      Name = "PortraitEmoteDepressedLineC"
+      InheritFrom = "PortraitEmoteDepressedLineA"
+      OffsetX = 140
+      OffsetY = -20
+      Duration = 3.4
+    }
+    {
+      Name = "PortraitEmoteDepressedLineD"
+      InheritFrom = "PortraitEmoteDepressedLineA"
+      OffsetX = 170
+      OffsetY = -30
+      Duration = 3.6
+    }
+    {
+      Name = "PortraitEmoteDepressedSound"
+      InheritFrom = "PortraitEmoteDepressedLineA"
+      StartAlpha = 0
+      EndAlpha = 0      
+      Sound = "/SFX/Menu Sounds/PortraitEmoteDepressedSFX"
+    }
+
+    {
+      Name = "PortraitEmoteAnger"
+      
+      FilePath = "Dev\blank_invisible"
+      SortFromOwner = "Maintain"
+      Duration = 1
+      VisualFx = "PortraitEmoteAngerFx"
+      VisualFxIntervalMin = 0.12
+      VisualFxIntervalMax = 0.14
+      VisualFxCap = 4
+      LocationFromOwner = "Maintain"
+      CreateAnimations = [
+        { Name = "PortraitEmoteAngerFxExclamation" }
+        { Name = "PortraitEmoteAngerSound" }        
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteAngerFx"
+      
+      Random = [
+        { Name = "PortraitEmoteAngerVeins" }
+        { Name = "PortraitEmoteAngerVeins" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteAngerFxExclamation"
+      
+      FilePath = "Particles\particle_emote_anger_02"
+      Material = "Unlit"
+      ZWobbleDistance = 2.5
+      ZWobbleSpeed = 400.0
+      StartScale = 1
+      EndScale = 0
+      Scale = 1.5
+      EaseIn = 0.001
+      EaseOut = 0.002
+      RandomDurationMin = 0.5
+      RandomDurationMax = 0.7
+      ScaleMin = 0.8
+      ScaleMax = 1.2
+      AngleMin = 25
+      AngleMax = 26
+      Velocity = 900
+      Acceleration = -2000
+      SortFromOwner = "Maintain"
+      UseOwnAngle = false
+      RandomOffsetX = 10
+      RandomOffsetY = 5
+      StartOffsetY = 0
+      EndOffsetY = -20
+      OffsetX = 0
+      OffsetY = -250
+      ScaleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      VisualFx = "PortraitEmoteAngerFxExclamation2"
+      VisualFxIntervalMin = 0.2
+      VisualFxIntervalMax = 0.21
+      VisualFxCap = 1
+    }
+
+    {
+      Name = "PortraitEmoteAngerFxExclamation2"
+      InheritFrom = "PortraitEmoteAngerFxExclamation"
+      VisualFx = null
+      LocationFromOwner = "Take"
+    }
+
+    {
+      Name = "PortraitEmoteAngerSound"
+      InheritFrom = "PortraitEmoteAngerFxExclamation"
+      VisualFx = null
+      StartAlpha = 0
+      EndAlpha = 0
+      Sound = "/SFX/Menu Sounds/PortraitEmoteAngerSFX"
+    }
+
+    {
+      Name = "PortraitEmoteAngerVeins"
+      
+      FilePath = "Particles\particle_emote_anger_01"
+      RandomDurationMin = 0.5
+      RandomDurationMax = 0.7
+      ZWobbleDistance = 2.5
+      ZWobbleSpeed = 100.0
+      ScaleMin = 0.7
+      ScaleMax = 1.2
+      RandomFlipHorizontal = true
+      RandomFlipVertical = true
+      StartScale = 0
+      EndScale = 1
+      EaseIn = 0
+      EaseOut = 1
+      PingPongScale = true
+      ScaleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+      OffsetX = 40
+      OffsetY = -20
+      RandomOffsetX = 80
+      RandomOffsetY = 60
+    }
+
+
+
+    {
+      Name = "PortraitEmoteAffection"
+      
+      FilePath = "Dev\blank_invisible"
+      SortFromOwner = "Maintain"
+      Material = "Unlit"
+      Scale = 3
+      Duration = 2
+      VisualFx = "PortraitEmoteAffectionHearts"
+      VisualFxIntervalMin = 0.12
+      VisualFxIntervalMax = 0.14
+      LocationFromOwner = "Maintain"
+      Sound = "/SFX/Menu Sounds/PortraitEmoteAffectionSFX"
+    }
+
+    {
+      Name = "PortraitEmoteAffectionHearts"
+      
+      Random = [
+        { Name = "PortraitEmoteAffectionA" }
+        { Name = "PortraitEmoteAffectionB" }
+        { Name = "PortraitEmoteAffectionC" }
+        { Name = "PortraitEmoteAffectionD" }
+        { Name = "PortraitEmoteAffectionE" }
+        { Name = "PortraitEmoteAffectionF" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteAffectionA"
+      
+      FilePath = "Particles\particle_emote_affection_01"
+      Material = "Unlit"
+      StartScale = 0
+      EndScale = 1.5
+      RandomFlipHorizontal = true
+      EaseIn = 0
+      EaseOut = 1
+      OffsetX = 100
+      OffsetY = -50
+      RandomOffsetX = 60
+      RandomOffsetY = 50
+      RandomDurationMin = 0.6
+      RandomDurationMax = 0.9
+      Gravity = -250
+      ScaleMin = 0.4
+      ScaleMax = 1.0
+      ZWobbleDistance = 7
+      ZWobbleSpeed = 80.0
+      PingPongScale = true
+      ScaleFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      UseOwnAngle = false
+      AngleMin = -30
+      AngleMax = 30
+      VelocityMin = 0
+      VelocityMax = 200
+      SortFromOwner = "Maintain"
+    }
+
+    {
+      Name = "PortraitEmoteAffectionB"
+      InheritFrom = "PortraitEmoteAffectionA"
+      FilePath = "Particles\particle_emote_affection_02"
+      ZWobbleSpeed = 70
+    }
+
+
+    {
+      Name = "PortraitEmoteAffectionC"
+      InheritFrom = "PortraitEmoteAffectionA"
+      FilePath = "Particles\particle_emote_affection_03"
+      ZWobbleSpeed = 60
+    }
+
+    {
+      Name = "PortraitEmoteAffectionD"
+      InheritFrom = "PortraitEmoteAffectionA"
+      ZWobbleSpeed = 50
+    }
+
+    {
+      Name = "PortraitEmoteAffectionE"
+      InheritFrom = "PortraitEmoteAffectionB"
+      ZWobbleSpeed = 40
+    }
+
+    {
+      Name = "PortraitEmoteAffectionF"
+      InheritFrom = "PortraitEmoteAffectionC"
+      ZWobbleSpeed = 30
+    }
+
+
+    {
+      Name = "PortraitEmoteFiredUp"
+      
+      FilePath = "Dev\blank_invisible"
+      SortFromOwner = "Maintain"
+      Duration = 0.4
+      VisualFx = "PortraitEmoteExcitedExclamationPoints"
+      VisualFxIntervalMin = 0.03
+      VisualFxIntervalMax = 0.04
+      VisualFxCap = 3
+      LocationFromOwner = "Maintain"
+      CreateAnimations = [
+        { Name = "PortraitEmoteExcitedSound" }        
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPoints"
+      
+      Random = [
+        { Name = "PortraitEmoteExcitedExclamationPointA" }
+        { Name = "PortraitEmoteExcitedExclamationPointB" }
+        { Name = "PortraitEmoteExcitedExclamationPointC" }
+        { Name = "PortraitEmoteExcitedExclamationPointD" }
+        { Name = "PortraitEmoteExcitedExclamationPointE" }
+        { Name = "PortraitEmoteExcitedExclamationPointF" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointBase"
+      
+      FilePath = "Particles\particle_emote_excite_01"
+      Material = "Unlit"
+      ZWobbleDistance = 2.5
+      ZWobbleSpeed = 300.0
+      StartScale = 1
+      EndScale = 0
+      Scale = 1.5
+      EaseIn = 0.001
+      EaseOut = 0.002
+      RandomDurationMin = 0.6
+      RandomDurationMax = 0.7
+      ScaleMin = 0.8
+      ScaleMax = 1.2
+      ScaleFromOwner = "Ignore"
+      AngleMin = 25
+      AngleMax = 30
+      Velocity = 1800
+      Acceleration = -9000
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      SortMode = "Id"
+      SortFromOwner = "Maintain"
+      UseOwnAngle = false
+      RandomOffsetX = 100
+      RandomOffsetY = 60
+      StartOffsetY = 0
+      EndOffsetY = -20
+      AngleFromOwner = "Ignore"
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointA"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointB"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      FilePath = "Particles\particle_emote_excite_02"
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointC"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      FilePath = "Particles\particle_emote_excite_01"
+      Hue = 0.02
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointD"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      FilePath = "Particles\particle_emote_excite_02"
+      Hue = 0.02
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointE"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      FilePath = "Particles\particle_emote_excite_01"
+      Hue = -0.02
+    }
+
+    {
+      Name = "PortraitEmoteExcitedExclamationPointF"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      FilePath = "Particles\particle_emote_excite_02"
+      Hue = -0.02
+    }
+
+    {
+      Name = "PortraitEmoteExcitedSound"
+      InheritFrom = "PortraitEmoteExcitedExclamationPointBase"
+      StartAlpha = 0
+      EndAlpha = 0
+      Sound = "/SFX/Menu Sounds/PortraitEmoteFiredUpSFX"
+    }
+
+
+    {
+      Name = "PortraitEmoteCheerful"      
+      FilePath = "Dev\blank_invisible"
+      Duration = 1
+      VisualFx = "PortraitEmoteCheerfulFlowers"
+      VisualFxIntervalMin = 0.08
+      VisualFxIntervalMax = 0.12
+      LocationFromOwner = "Maintain"
+      SortFromOwner = "Maintain"
+      Sound = "/SFX/Menu Sounds/PortraitEmoteCheerfulSFX"
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulFlowers"      
+      Random = [
+        { Name = "PortraitEmoteCheerfulFlowerA" }
+        { Name = "PortraitEmoteCheerfulFlowerB" }
+        { Name = "PortraitEmoteCheerfulFlowerC" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulFlowerBase"      
+      FilePath = "Particles\particle_emote_flower"
+      Material = "Unlit"
+      RandomOffsetX = 60
+      RandomOffsetY = 60
+      OffsetX = 50
+      StartScale = 0
+      EndScale = 1
+      Scale = 1.5
+      PingPongScale = true
+      EaseIn = 0
+      EaseOut = 1
+      PingPongColor = false
+      RandomDurationMin = 1.2
+      RandomDurationMax = 2.5
+      RandomRotationSpeedMin = 60
+      RandomRotationSpeedMax = 240
+      ScaleMin = 0.8
+      ScaleMax = 1.2
+      ScaleFromOwner = "Ignore"
+      AngleMin = -22
+      AngleMax = 90
+      AngleFromOwner = "Ignore"
+      Velocity = 300
+      Gravity = -25
+      Acceleration = -200
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+      SortMode = "Id"
+      CreateAnimation = "PortraitEmoteCheerfulFlowerBaseDark"
+      VisualFx = "PortraitEmoteCheerfulBurst"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 1
+      VisualFxCap = 2
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulFlowerBaseDark"
+      InheritFrom = "PortraitEmoteCheerfulFlowerBase"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Velocity = 200
+      Gravity = -50
+      Scale = 1
+      SortMode = "FromParent"
+      DrawBehindOwner = true
+      ChildAnimation = null
+      CreateAnimation = null
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulBurst"      
+      FilePath = "Particles\particle_emote_flowerBurst"
+      RandomRotation = true
+      StartScale = 0.5
+      EndScale = 2
+      EaseIn = 0.9
+      EaseOut = 1
+      DrawBehindOwner = true
+      LocationFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+      Material = "Unlit"
+      Scale = 1
+      RandomDurationMin = 0.5
+      RandomDurationMax = 0.8
+      StartAlpha = 1
+      EndAlpha = 0
+      CreateAnimation = "PortraitEmoteCheerfulBurstDark"
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulBurstDark"
+      InheritFrom = "PortraitEmoteCheerfulBurst"
+      AddColor = false
+      Red = 0
+      Green = 0
+      Blue = 0
+      CreateAnimation = null
+    }
+
+
+    {
+      Name = "PortraitEmoteCheerfulFlowerA"
+      InheritFrom = "PortraitEmoteCheerfulFlowerBase"
+      FilePath = "Particles\particle_emote_flower"
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulFlowerB"
+      InheritFrom = "PortraitEmoteCheerfulFlowerBase"
+      FilePath = "Particles\particle_emote_flower_02"
+    }
+
+    {
+      Name = "PortraitEmoteCheerfulFlowerC"
+      InheritFrom = "PortraitEmoteCheerfulFlowerBase"
+      FilePath = "Particles\particle_emote_flower_03"
+    }
+
+
+
+    {
+      Name = "PortraitEmoteSparkly"      
+      FilePath = "Dev\blank_invisible"
+      Scale = 3
+      Duration = 1
+      VisualFx = "PortraitEmoteFiredUpSparkle"
+      VisualFxIntervalMin = 0.04
+      VisualFxIntervalMax = 0.06
+      LocationFromOwner = "Maintain"
+      SortFromOwner = "Maintain"
+      Sound = "/SFX/Menu Sounds/PortraitEmoteSparklySFX"
+    }
+
+    {
+      Name = "PortraitEmoteFiredUpSparkle"      
+      Random = [
+        { Name = "PortraitEmoteFiredUpSparkleA" }
+        { Name = "PortraitEmoteFiredUpSparkleB" }
+        { Name = "PortraitEmoteFiredUpSparkleC" }
+        { Name = "PortraitEmoteFiredUpSparkleD" }
+        { Name = "PortraitEmoteFiredUpSparkleE" }
+        { Name = "PortraitEmoteFiredUpSparkleF" }
+      ]
+    }
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleA"      
+      FilePath = "Particles\particle_emote_sparkle_01"
+      Material = "Unlit"
+      StartScale = 0
+      EndScale = 1.5
+      RandomFlipHorizontal = true
+      RandomFlipVertical = true
+      EaseIn = 0
+      EaseOut = 1
+      RandomOffsetX = 160
+      RandomOffsetY = 160
+      RandomDurationMin = 0.2
+      RandomDurationMax = 0.4
+      ScaleMin = 0.5
+      ScaleMax = 1.2
+      PingPongScale = true
+      ScaleFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Maintain"
+      DrawBehindOwner = true
+      ColorFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+    }
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleB"
+      InheritFrom = "PortraitEmoteFiredUpSparkleA"
+      FilePath = "Particles\particle_emote_sparkle_02"
+    }
+
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleC"
+      InheritFrom = "PortraitEmoteFiredUpSparkleA"
+      FilePath = "Particles\particle_emote_sparkle_03"
+    }
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleD"
+      InheritFrom = "PortraitEmoteFiredUpSparkleA"
+      StartRed = 0
+      StartGreen = 0
+      StartBlue = 0
+      EndRed = 0.7
+      EndGreen = 0.6
+      EndBlue = 0.2
+      AddColor = true
+    }
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleE"
+      InheritFrom = "PortraitEmoteFiredUpSparkleD"
+      FilePath = "Particles\particle_emote_sparkle_02"
+    }
+
+
+    {
+      Name = "PortraitEmoteFiredUpSparkleF"
+      InheritFrom = "PortraitEmoteFiredUpSparkleD"
+      FilePath = "Particles\particle_emote_sparkle_03"
+    }
+
+
+    {
+      Name = "PortraitEmoteSurprise"      
+      FilePath = "Particles\particle_emote_surprise_full"
+      Material = "Unlit"
+      ScaleFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      LocationFromOwner = "Maintain"
+      LocationZFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+      EaseIn = 0.9
+      EaseOut = 1.0
+      StartScale = 1
+      EndScale = 1.5
+      Duration = 0.5
+      ZWobbleDistance = 2.5
+      ZWobbleSpeed = 300.0
+      SortMode = "Id"
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      AddColor = true
+      Scale = 1.1
+      ChainTo = "PortraitEmoteSurprise_Fade"
+      ChildAnimation = "PortraitEmoteSurpriseB"
+      Sound = "/SFX/Menu Sounds/PortraitEmoteSurpriseSFX"
+    }
+
+    {
+      Name = "PortraitEmoteSurpriseSpike"      
+      FilePath = "Particles\particle_banished_spike2"
+      ScaleX = 0.2
+      StartScaleX = 1
+      EndScaleX = 0
+      ScaleY = 1.0
+      Duration = 0.2
+      EaseIn = 0.9
+      EaseOut = 1.0
+      Material = "Unlit"
+      Red = 1
+      Green = 0.5
+      Blue = 0
+      OriginY = 1100
+      OriginX = 192.5
+      Angle = -45
+      AngleFromOwner = "Ignore"
+      SortFromOwner = "Maintain"
+      LocationFromOwner = "Ignore"
+      ChildAnimation = "PortraitEmoteSurpriseSpike2"
+    }
+
+    {
+      Name = "PortraitEmoteSurpriseSpike2"
+      InheritFrom = "PortraitEmoteSurpriseSpike"
+      ChildAnimation = null
+      Angle = -135
+      Scale = 0.5
+    }
+
+    {
+      Name = "PortraitEmoteSurprise_Fade"
+      InheritFrom = "PortraitEmoteSurprise"
+      ClearCreateAnimations = true
+      CreateAnimation = null
+      ChildAnimation = null
+      EaseIn = 0
+      EaseOut = 0.1
+      StartScale = 1.5
+      EndScale = 1.6
+      AddColor = false
+      Duration = 0.2
+      ChainTo = null
+      Sound = "/EmptyCue"
+    }
+
+    {
+      Name = "PortraitEmoteSurpriseB"
+      InheritFrom = "PortraitEmoteSurprise"
+      CreateAnimation = null
+      ChildAnimation = "PortraitEmoteSurpriseSpike"
+      ChainTo = "PortraitEmoteSurpriseB_Fade"
+      Angle = -60
+      Duration = 0.45
+      Scale = 0.9
+      Sound = "/EmptyCue"
+    }
+
+    {
+      Name = "PortraitEmoteSurpriseB_Fade"
+      InheritFrom = "PortraitEmoteSurprise_Fade"
+      ChildAnimation = null
+      Angle = -60
+      Duration = 0.18
+      Scale = 0.9
+      ChainTo = null
+    }
+
+
+    /* VFX */
+
+    {
+      Name = "PortraitGodAppear"
+      
+      FilePath = "Particles\particle_flare_blue_huge"
+      ScaleFromOwner = "Ignore"
+      GroupName = "Combat_Menu_TraitTray_Additive"
+      ColorFromOwner = "Ignore"
+      StartAlpha = 1
+      EndAlpha = 0
+      PingPongColor = false
+      Duration = 1.2
+      EaseIn = 0.9
+      EaseOut = 1
+      Angle = 90
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -300
+      StartScale = 3
+      EndScale = 5
+      Ambient = 0.0
+      Alpha = 1.0
+      ChildAnimation = "PortraitGodAppearSpectral"
+      CreateAnimation = "PortraitGodAppearVertical"
+    }
+
+    {
+      Name = "PortraitGodAppearVertical"
+      InheritFrom = "PortraitGodAppear"
+      FilePath = "Particles\particle_streak_npc"
+      EndScale = 2.01
+      Alpha = 1.0
+      StartScaleY = 1
+      EndScaleY = 5
+      ChildAnimation = null
+      CreateAnimation = null
+      AngleFromOwner = "Ignore"
+      Angle = 0
+      ScaleX = 0.5
+      AddColor = true
+      StartOffsetY = 0
+      EndOffsetY = -1500
+      Sound = "/SFX/GodAppearFlash"
+    }
+
+    {
+      Name = "PortraitGodAppearSpectral"
+      InheritFrom = "PortraitGodAppear"
+      ChildAnimation = null
+      FilePath = "Particles\particle_spectral_hoop"
+      StartScale = 2
+      EndScale = 3
+    }
+
+
+    {
+      Name = "PortraitGodAppear2"
+      FilePath = "Fx\PickupFlareA\PickupFlareA"
+      GroupName = "Combat_Menu_TraitTray_Additive"
+      
+      ColorFromOwner = "Ignore"
+      EndFrame = 30
+      NumFrames = 30
+      StartFrame = 1
+      RandomFlipHorizontal = true
+      OffsetZ = 100.0
+      LocationZFromOwner = "Ignore"
+      SortMode = "Id"
+      Scale = 1.5
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+      TimeModifierFraction = 0.0
+      AngleFromOwner = "Ignore"
+      StartAlpha = 0
+      EndAlpha = 0.2
+      Saturation = -1
+      FlipVertical = true
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Base"
+      
+      FilePath = "Particles\particle_glow"
+      StartScale = 8
+      EndScale = 15
+      ScaleFromOwner = "Ignore"
+      Material = "Unlit"
+      ColorFromOwner = "Ignore"
+      OffsetY = -800
+      StartAlpha = 0
+      EndAlpha = 0.4
+      ScaleX = 0.1
+      ScaleY = 1.4
+      PingPongColor = true
+      Duration = 3
+      EaseIn = 0
+      EaseOut = 1
+      Loop = true
+      GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+      VisualFx = "PortraitVerticalRay"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.2
+      Sound = "/SFX/GodRayLoop"
+      StopSoundOnFinishFade = 0.2
+    }
+
+    {
+      Name = "PortraitVerticalRay"
+      
+      FilePath = "Particles\particle_streak_npc"
+      Material = "Unlit"
+      Angle = 0
+      AddColor = false
+      RandomDurationMin = 2
+      RandomDurationMax = 3
+      StartScaleY = 1
+      EndScaleY = 2
+      PingPongScale = false
+      PingPongColor = true
+      ScaleMin = 0.6
+      ScaleMax = 1.5
+      RandomOffsetX = 60
+      ScaleFromOwner = "Ignore"
+      OffsetY = -600
+      RandomOffsetY = 200
+      AlphaMin = 0.1
+      AlphaMax = 0.6
+      StartScaleX = 0
+      EndScaleX = 2
+      StartAlpha = 0
+      EndAlpha = 1
+      Scale = 1
+      StartOffsetY = 0
+      EndOffsetY = 400
+      RandomFlipHorizontal = true
+      GroupName = "Portrait_FX_Behind_Add"
+    }
+
+    {
+      Name = "PortraitRayParticle"
+      
+      FilePath = "Particles\particle_addFlake2"
+      AddColor = true
+      ScaleMin = 0.1
+      ScaleMax = 0.5
+      GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+      RandomRotation = true
+      RandomRotationSpeedMin = -240
+      RandomRotationSpeedMax = 240
+      Material = "Unlit"
+      StartScale = 0
+      EndScale = 1
+      PingPongScale = true
+      RandomOffsetX = 20
+      RandomOffsetY = 200
+      OffsetY = -550
+      VelocityMin = 75
+      VelocityMax = 150
+      Angle = 270
+      Acceleration = -50
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      Scale = 1
+      RandomDurationMin = 1
+      RandomDurationMax = 3
+      AlphaMin = 0.2
+      AlphaMax = 1.0
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Ares"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 1.0
+      StartGreen = 0.1
+      StartBlue = 0.001
+      EndRed = 0.7
+      EndGreen = 0
+      EndBlue = 0
+      OffsetX = 0
+      VisualFx = "PortraitVerticalRay_Ares"
+    }
+    {
+      Name = "PortraitVerticalRay_Ares"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 1.0
+      StartGreen = 0.1
+      StartBlue = 0.001
+      EndRed = 0.7
+      EndGreen = 0
+      EndBlue = 0
+      OffsetX = 0
+      CreateAnimation = "PortraitRayParticle_Ares"
+    }
+    {
+      Name = "PortraitRayParticle_Ares"
+      InheritFrom = "PortraitRayParticle"
+      Red = 1.0
+      Green = 0
+      Blue = 0
+      OffsetX = 0
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Athena"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed =  0
+      StartGreen = 0
+      StartBlue = 1
+      EndRed = 1
+      EndGreen = 0.8
+      EndBlue = 0.1
+      OffsetX = 0
+      VisualFx = "PortraitVerticalRay_Athena"
+    }
+    {
+      Name = "PortraitVerticalRay_Athena"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed =  0
+      StartGreen = 0
+      StartBlue = 1
+      EndRed = 1
+      EndGreen = 0.8
+      EndBlue = 0.1
+      OffsetX = 0
+      CreateAnimation = "PortraitRayParticle_Athena"
+    }
+    {
+      Name = "PortraitRayParticle_Athena"
+      InheritFrom = "PortraitRayParticle"
+      StartRed =  0
+      StartGreen = 0
+      StartBlue = 1
+      EndRed = 1
+      EndGreen = 0.8
+      EndBlue = 0.1
+      OffsetX = 0
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Artemis"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 0
+      StartGreen = 1
+      StartBlue = 0.4
+      EndRed = 0.4
+      EndGreen = 0.999
+      EndBlue = 0
+      OffsetX = 0
+      VisualFx = "PortraitVerticalRay_Artemis"
+    }
+    {
+      Name = "PortraitVerticalRay_Artemis"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 0
+      StartGreen = 1
+      StartBlue = 0.2
+      EndRed = 0.6
+      EndGreen = 0.999
+      EndBlue = 0
+      OffsetX = 0
+      CreateAnimation = "PortraitRayParticle_Artemis"
+    }
+    {
+      Name = "PortraitRayParticle_Artemis"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 0
+      StartGreen = 1
+      StartBlue = 0.4
+      EndRed = 0.4
+      EndGreen = 0.999
+      EndBlue = 0
+      OffsetX = 0
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Aphrodite"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 1.0
+      StartGreen = 0
+      StartBlue = 0.8
+      EndRed = 1.0
+      EndGreen = 0.2
+      EndBlue = 0.5
+      OffsetX = 0
+      VisualFx = "PortraitVerticalRay_Aphrodite"
+    }
+    {
+      Name = "PortraitVerticalRay_Aphrodite"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 1.0
+      StartGreen = 0
+      StartBlue = 0.8
+      EndRed = 1.0
+      EndGreen = 0.3
+      EndBlue = 0.5
+
+      OffsetX = 0
+      CreateAnimation = "PortraitRayParticle_Aphrodite"
+    }
+    {
+      Name = "PortraitRayParticle_Aphrodite"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 1.0
+      StartGreen = 0
+      StartBlue = 0.8
+      EndRed = 1.0
+      EndGreen = 0.3
+      EndBlue = 0.5
+      OffsetX = 0
+      OffsetY = -300
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Demeter"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 0.8
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.6
+      EndGreen = 0.55
+      EndBlue = 0.999
+      OffsetX = -30
+      VisualFx = "PortraitVerticalRay_Demeter"
+    }
+    {
+      Name = "PortraitVerticalRay_Demeter"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 0.8
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.6
+      EndGreen = 0.55
+      EndBlue = 0.999
+      OffsetX = -30
+      CreateAnimation = "PortraitRayParticle_Demeter"
+    }
+    {
+      Name = "PortraitRayParticle_Demeter"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 0.8
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.6
+      EndGreen = 0.55
+      EndBlue = 0.999
+      OffsetX = -30
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Poseidon"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 0.0
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.001
+      EndGreen = 1.0
+      EndBlue = 0.7
+      OffsetX = 30
+      VisualFx = "PortraitVerticalRay_Poseidon"
+    }
+    {
+      Name = "PortraitVerticalRay_Poseidon"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 0.0
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.001
+      EndGreen = 1.0
+      EndBlue = 0.7
+
+      OffsetX = 30
+      CreateAnimation = "PortraitRayParticle_Poseidon"
+    }
+    {
+      Name = "PortraitRayParticle_Poseidon"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 0.0
+      StartGreen = 0.7
+      StartBlue = 1.0
+      EndRed = 0.001
+      EndGreen = 1.0
+      EndBlue = 0.7
+      OffsetX = 30
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Zeus"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 1
+      StartGreen = 1.0
+      StartBlue = 0.255
+      EndRed = 0.999
+      EndGreen = 0.9
+      EndBlue = 0.4
+      OffsetX = 70
+      VisualFx = "PortraitVerticalRay_Zeus"
+    }
+    {
+      Name = "PortraitVerticalRay_Zeus"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 1
+      StartGreen = 1.0
+      StartBlue = 0.255
+      EndRed = 0.999
+      EndGreen = 0.9
+      EndBlue = 0.4
+      OffsetX = 70
+      CreateAnimation = "PortraitRayParticle_Zeus"
+    }
+    {
+      Name = "PortraitRayParticle_Zeus"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 1
+      StartGreen = 1.0
+      StartBlue = 0.255
+      EndRed = 0.999
+      EndGreen = 0.9
+      EndBlue = 0.4
+      OffsetX = 70
+    }
+
+    {
+      Name = "PortraitVerticalRayEmitter_Hermes"
+      InheritFrom = "PortraitVerticalRayEmitter_Base"
+      StartRed = 1
+      StartGreen = 0.2
+      StartBlue = 0.01
+      EndRed = 0.999
+      EndGreen = 0.4
+      EndBlue = 0
+      OffsetX = 0
+      VisualFx = "PortraitVerticalRay_Hermes"
+    }
+    {
+      Name = "PortraitVerticalRay_Hermes"
+      InheritFrom = "PortraitVerticalRay"
+      StartRed = 1
+      StartGreen = 0.2
+      StartBlue = 0.01
+      EndRed = 0.999
+      EndGreen = 0.4
+      EndBlue = 0
+      OffsetX = 0
+      CreateAnimation = "PortraitRayParticle_Hermes"
+    }
+    {
+      Name = "PortraitRayParticle_Hermes"
+      InheritFrom = "PortraitRayParticle"
+      StartRed = 1
+      StartGreen = 0.2
+      StartBlue = 0.01
+      EndRed = 0.999
+      EndGreen = 0.4
+      EndBlue = 0
+      OffsetX = 0
+    }
+
+    {
+      Name = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay01"
+      
+      AngleFromOwner = "Ignore"
+      AngleMax = 360.00
+      ColorFromOwner = "Ignore"
+      PingPongColor = true
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 4.0
+      RandomDurationMin = 3.0
+      StartFrame = 1
+      OffsetY = -200.0
+      OriginY = 40.0
+      LocationFromOwner = "Ignore"
+      SortMode = "FromParent"
+      EndScale = 1.2
+      EndScaleY = 0.0
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 1.2
+      ScaleMin = 0.6
+      StartScale = 0.0
+      StartScaleY = 2.0
+      Material = "Unlit"
+      StartAlpha = 0
+      EndAlpha = 1
+    }
+
+    {
+      Name = "PortraitGodRay02"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay02"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay03"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay03"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay04"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay04"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay05"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay05"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay06"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay06"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay07"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay07"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay08"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay08"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay09"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay09"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay10"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay10"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay11"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay11"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay12"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay12"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay13"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay13"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay14"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay14"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay15"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay15"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay16"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay16"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRay17"
+      InheritFrom = "PortraitGodRay01"
+      FilePath = "Fx\PortraitGodRays\GodRay17"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "PortraitGodRays"
+      FilePath = "Animations\PortraitGodRays\PortraitGodRays"
+      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Random = [
+        { Name = "PortraitGodRay01" }
+        { Name = "PortraitGodRay02" }
+        { Name = "PortraitGodRay03" }
+        { Name = "PortraitGodRay04" }
+        { Name = "PortraitGodRay05" }
+        { Name = "PortraitGodRay06" }
+        { Name = "PortraitGodRay07" }
+        { Name = "PortraitGodRay08" }
+        { Name = "PortraitGodRay09" }
+        { Name = "PortraitGodRay10" }
+        { Name = "PortraitGodRay11" }
+        { Name = "PortraitGodRay12" }
+        { Name = "PortraitGodRay13" }
+        { Name = "PortraitGodRay14" }
+        { Name = "PortraitGodRay15" }
+        { Name = "PortraitGodRay16" }
+        { Name = "PortraitGodRay17" }
+      ]
+    }
+
+    {
+      Name = "PortraitGodRayEmitter"
+      FilePath = "Dev\blank_invisible"
+      
+      VisualFx = "PortraitGodRays"
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      VisualFxIntervalMax = 0.25
+      VisualFxIntervalMin = 0.2
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Hermes"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      CreateAnimation = "PortraitVerticalRayEmitter_Hermes"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Athena"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = -50.0
+      VisualFxOffsetY = 30.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Athena"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Ares"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = -30.0
+      VisualFxOffsetY = -70.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Ares"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Aphrodite"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = -30.0
+      VisualFxOffsetY = 120.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Aphrodite"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Demeter"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = -35.0
+      VisualFxOffsetY = -100.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Demeter"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Poseidon"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = 40.0
+      VisualFxOffsetY = -20.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Poseidon"
+    }
+
+    {
+      Name = "PortraitGodRayEmitter_Zeus"
+      InheritFrom = "PortraitGodRayEmitter"
+      EndFrame = 1
+      StartFrame = 1
+      VisualFxOffsetX = 90.0
+      VisualFxOffsetY = 15.0
+      CreateAnimation = "PortraitVerticalRayEmitter_Zeus"
+    }
+
+    /* Minos NPCs */
+
+    {
+      Name = "NPCHecateExit"
+      InheritFrom = "HecateHubIdle"
+      ChainTo = "NPCHecateExited"
+      StartAlpha = 1.0
+      DurationFrames = 80
+      ScaleFromOwner = "Maintain"
+      Loop = false
+      OwnerHasNoCollision = true
+    }
+    {
+      Name = "NPCHecateExited"
+      InheritFrom = "HecateHubIdle"
+      Alpha = 0.0
+      OwnerHasNoCollision = true
+    }
+
+    {
+      Name = "NPCHeraclesExit"
+      InheritFrom = "Heracles_Hub_Idle"
+      ChainTo = "NPCHeraclesExited"
+      Sound = "/SFX/Menu Sounds/WeaponUnlockPoof"
+      StartAlpha = 1.0
+      DurationFrames = 80
+      EndFrame = 60
+      Loop = false
+      StartFrame = 1
+      OwnerHasNoCollision = true
+    }
+    {
+      Name = "NPCHeraclesExited"
+      InheritFrom = "Heracles_Hub_Idle"
+      Alpha = 0.0
+      EndFrame = 60
+      StartFrame = 1
+      OwnerHasNoCollision = true
+    }
+
+    {
+      Name = "NPCChronosExit"
+      InheritFrom = "ChronosIdle"
+      ChainTo = "NPCChronosExited"
+      Sound = "/Leftovers/Menu Sounds/TextReveal5FilterSweepSubtle"
+      StartAlpha = 1.0
+      Duration = 1.2
+      OwnerHasNoCollision = true
+    }
+    {
+      Name = "NPCChronosExited"
+      InheritFrom = "ChronosIdle"
+      Alpha = 0.0
+      OwnerHasNoCollision = true
+    }
+
+    {
+      Name = "NPCNemesisExit"
+      InheritFrom = "NemesisIdle"
+      ChainTo = "NPCNemesisExited"
+      Sound = "/SFX/Menu Sounds/WeaponUnlockPoof"
+      StartAlpha = 1.0
+      DurationFrames = 80
+      ScaleFromOwner = "Maintain"
+      Loop = false
+      OwnerHasNoCollision = true
+    }
+    {
+      Name = "NPCNemesisExited"
+      InheritFrom = "NemesisIdle"
+      Alpha = 0.0
+      OwnerHasNoCollision = true
+    }
+
+    {
+      Name = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Hades_01"
+      EndAlpha = 1.0
+      EndBlue = 1.0
+      EndGreen = 1.0
+      EndRed = 1.0
+      Duration = 0.15
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+      StartOffsetX = -20.0
+      Scale = 0.8
+      OffsetY = -100
+    }
+
+    {
+      Name = "Portrait_God_01"
+      InheritFrom = "Portrait_Base_01"
+      AddColor = true
+      StartRed = 1
+      StartGreen = 1
+      StartBlue = 1
+      EndRed = 0
+      EndGreen = 0
+      EndBlue = 0
+      Duration = 0.30
+      CreateAnimation = "PortraitGodAppear"
+      Sound = "/Leftovers/World Sounds/MapZoomInShort"
+    }
+
+    {
+      Name = "Portrait_Base_01_Exit"
+      InheritFrom = "Portrait_Base_01"
+      EndAlpha = 0.0
+      EndBlue = 0.0
+      EndGreen = 0.0
+      EndRed = 0.0
+      StartAlpha = 1.0
+      StartBlue = 1.0
+      StartGreen = 1.0
+      StartRed = 1.0
+      EndFrame = 1
+      HoldLastFrame = false
+      StartFrame = 1
+      EndOffsetX = 20.0
+      StartOffsetX = 0.0
+      CancelAllAttached = true
+    }
+
+    {
+      Name = "Portrait_Bathhouse_01"
+      InheritFrom = "Portrait_Base_01"
+      ChildAnimation = "Portrait_Bathhouse_01_Foreground"
+      EndAlpha = 1.0
+      EndBlue = 1.0
+      EndGreen = 1.0
+      EndRed = 1.0
+      Duration = 0.15
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+      StartOffsetX = -20.0
+      Scale = 0.8
+      OffsetY = -100
+    }
+
+    {
+      Name = "Portrait_Bathhouse_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      EndAlpha = 0.0
+      EndBlue = 1.0
+      EndGreen = 1.0
+      EndRed = 1.0
+      Duration = 0.15
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+      StartOffsetX = 0.0
+      Scale = 0.8
+      OffsetY = -100
+    }    
+
+    {
+      Name = "Portrait_Bathhouse_01_Foreground"
+      FilePath = "GUI\Temp\DialogueBackgroundBathhouse_Foreground"
+      EndAlpha = 1.0
+      EndBlue = 1.0
+      EndGreen = 1.0
+      EndRed = 1.0
+      Duration = 0.15
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+      StartOffsetX = -20.0
+      Scale = 1.0
+      OffsetY = 0
+    }
+
+    /* Iris Portrait VFX */
+    {
+      Name = "Portrait_Mel_Moonglow"      
+      FilePath = "Portraits\Animation\MelinoeMoonglow\MelinoeMoonglow"
+      LocationFromOwner = "Maintain"
+      NumFrames = 50
+      Loop = true
+      PlaySpeed = 30
+      Material = "Unlit"
+      OffsetX = -234
+      OffsetY = -76
+      Scale = 1.6
+      GroupName = "Combat_Menu_Additive"
+    }
+
+    {
+      Name = "Portrait_Mel_Moonglow_In"
+      DieWithOwner = true
+      LocationFromOwner = "Maintain"
+      FilePath = "Portraits\Animation\MelinoeMoonglow\MelinoeMoonglow0001"
+      StartOffsetX = -20
+      EndOffsetX = 0
+      Duration = 0.15
+      StartAlpha = 0
+      EndAlpha = 1
+      ChainTo = "Portrait_Mel_Moonglow"
+      GroupName = "Combat_Menu_Additive"
+      OffsetX = -234
+      OffsetY = -76
+      Scale = 1.6
+    }
+
+    {
+      Name = "Portrait_Mel_ArmGlow"
+      DieWithOwner = true
+      LocationFromOwner = "Maintain"
+      FilePath = "Portraits\Animation\MelinoeArmGlow\MelinoeArmGlow"
+      Material = "Unlit"
+      StartAlpha = 0.0
+      EndAlpha = 0.4
+      PingPongColor = true
+      EaseIn = 0
+      EaseOut = 1
+      AlphaMin = 0.5
+      AlphaMax = 1.0
+      RandomDurationMin = 1.5
+      RandomDurationMax = 2.5
+      GroupName = "Combat_Menu_Additive"
+      Loop = true
+      OffsetX = 162
+      OffsetY = 72
+      Scale = 0.80
+    }
+
+    {
+      Name = "Portrait_Mel_MainGlow"
+      InheritFrom = "Portrait_Mel_ArmGlow"
+      FilePath = "Portraits\Animation\MelinoeMoonglow\MelinoeMainGlow"
+      Scale = 1.5
+      OffsetX = 0
+      OffsetY = -100
+    }
+
+    {
+      Name = "Portrait_Mel_Blink"
+      FilePath = "Dev\blank_invisible"
+      ChildAnimation = "Portrait_Mel_Fx"
+      EndFrame = 6
+      Loop = true
+      NumFrames = 6
+      StartFrame = 1
+      Scale = 0.8
+      OffsetY = -100
+      Slides = [
+        { DurationFrames = 2 FilePath = "Portraits\Animation\Portrait_Mel_Blink01" }
+        { DurationFrames = 1 FilePath = "Dev\blank_invisible" RandomDurationFramesMax = 60 RandomDurationFramesMin = 60 }
+        { DurationFrames = 4 FilePath = "Portraits\Animation\Portrait_Mel_Blink01" }
+        { DurationFrames = 1 FilePath = "Dev\blank_invisible" RandomDurationFramesMax = 175 RandomDurationFramesMin = 120 }
+        { DurationFrames = 2 FilePath = "Portraits\Animation\Portrait_Mel_Blink01" }
+        { DurationFrames = 4 FilePath = "Portraits\Animation\Portrait_Mel_Blink02" }
+      ]
+    }
+
+    {
+      Name = "LaurelBurnIris"
+      
+      Random = [
+        { Name = "LaurelBurnIrisA" }
+        { Name = "LaurelBurnIrisB" }
+        { Name = "LaurelBurnIrisC" }
+        { Name = "LaurelBurnIrisD" }
+        { Name = "LaurelBurnIrisA_Front" }
+        { Name = "LaurelBurnIrisB_Front" }
+        { Name = "LaurelBurnIrisC_Front" }
+        { Name = "LaurelBurnIrisD_Front" }
+        { Name = "LaurelBurnIrisA_Front2" }
+        { Name = "LaurelBurnIrisB_Front2" }
+        { Name = "LaurelBurnIrisC_Front2" }
+        { Name = "LaurelBurnIrisD_Front2" }
+      ]
+    }
+
+    {
+      Name = "LaurelBurnIrisA"
+      
+      FilePath = "Fx\LaurelBurnIrisA\LaurelBurnIrisA"
+      NumFrames = 30
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 45
+      Material = "Unlit"
+      VelocityMin = 60
+      VelocityMax = 150
+      RandomRotationSpeedMin = -180
+      RandomRotationSpeedMax = 180
+      GroupName = "Combat_Menu"
+      ScaleMin = 0.6
+      ScaleMax = 0.9
+      AngleMin = 20
+      AngleMax = 80
+      RandomOffsetX = 20
+      RandomOffsetY = 10
+      OffsetX = 60
+      OffsetY = -320
+      StartScale = 0
+      EndScale = 1
+      EaseIn = 0.9
+      EaseOut = 1.0
+      LocationFromOwner = "Take"
+      AngleFromOwner = "Ignore"
+      SortMode = "FromParent"
+      Acceleration = -60
+    }
+
+    {
+      Name = "LaurelBurnIrisB"
+      InheritFrom = "LaurelBurnIrisA"
+      FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+    }
+    {
+      Name = "LaurelBurnIrisC"
+      InheritFrom = "LaurelBurnIrisA"
+      FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+    }
+    {
+      Name = "LaurelBurnIrisD"
+      InheritFrom = "LaurelBurnIrisA"
+      FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+    }
+
+    {
+      Name = "LaurelBurnIrisA_Front"
+      InheritFrom = "LaurelBurnIrisA"
+      GroupName = "Combat_Menu_Overlay"
+    }
+    {
+      Name = "LaurelBurnIrisB_Front"
+      InheritFrom = "LaurelBurnIrisA_Front"
+      FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+    }
+    {
+      Name = "LaurelBurnIrisC_Front"
+      InheritFrom = "LaurelBurnIrisA_Front"
+      FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+    }
+    {
+      Name = "LaurelBurnIrisD_Front"
+      InheritFrom = "LaurelBurnIrisA_Front"
+      FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+    }
+
+    {
+      Name = "LaurelBurnIrisA_Front2"
+      InheritFrom = "LaurelBurnIrisA_Front"
+      OffsetX = -50
+      AngleMin = 60
+      AngleMax = 100
+      GroupName = "Combat_Menu"
+    }
+    {
+      Name = "LaurelBurnIrisB_Front2"
+      InheritFrom = "LaurelBurnIrisA_Front2"
+      FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+      GroupName = "Combat_Menu"
+    }
+    {
+      Name = "LaurelBurnIrisC_Front2"
+      InheritFrom = "LaurelBurnIrisA_Front2"
+      FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+      GroupName = "Combat_Menu"
+    }
+    {
+      Name = "LaurelBurnIrisD_Front2"
+      InheritFrom = "LaurelBurnIrisA_Front2"
+      FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+      GroupName = "Combat_Menu"
+    }
+
+    {
+      Name = "Portrait_Mel_LaurelGlow"
+      DieWithOwner = true
+      LocationFromOwner = "Maintain"
+      FilePath = "Portraits\Animation\MelinoeLaurelGlow\MelinoeLaurelGlow"
+      Material = "Unlit"
+      StartAlpha = 0.3
+      EndAlpha = 1.0
+      RandomDurationMin = 1.5
+      RandomDurationMax = 3
+      EaseIn = 0
+      EaseOut = 1
+      PingPongColor = true
+      Loop = true
+      GroupName = "Combat_Menu_Additive"
+      OffsetX = 7
+      OffsetY = -325
+      VisualFx = "LaurelBurnIris"
+      VisualFxIntervalMin = 0.25
+      VisualFxIntervalMax = 0.45
+    }
+
+    {
+      Name = "Portrait_Mel_Glint"
+      DieWithOwner = true
+      LocationFromOwner = "Maintain"
+      FilePath = "Portraits\Animation\MelinoeGlint\MelinoeGlint"
+      NumFrames = 30
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 60
+      Loop = true
+      GroupName = "Combat_Menu_Additive"
+      Scale = 1.0
+      OffsetX = 0
+      OffsetY = -100
+      Slides = [
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 RandomDurationFramesMin = 120 RandomDurationFramesMax = 420 }
+      ]
+    }
+
+    /* Iris Portraits */
+    {
+      Name = "Portrait_Mel_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_01"
+      EndFrame = 1
+      StartFrame = 1
+      ChildAnimation = "Portrait_Mel_Blink"
+    }
+
+    {
+      Name = "Portrait_Mel_Fx"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Dev\blank_invisible"
+      CreateAnimations = [
+        { Name = "Portrait_Mel_Moonglow_In" }
+        { Name = "Portrait_Mel_ArmGlow"}
+        { Name = "Portrait_Mel_MainGlow"}
+        { Name = "Portrait_Mel_LaurelGlow"}
+        { Name = "Portrait_Mel_Glint" }
+      ]
+    }
+
+    {
+      Name = "Portrait_Mel_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Intense_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_Intense_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Intense_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Intense_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Vulnerable_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_Vulnerable_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Vulnerable_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Vulnerable_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Pleased_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_Pleased_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Pleased_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Pleased_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Mel_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Melinoe_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -100
+      OffsetX = 500
+    }
+    {
+      Name = "Portrait_Mel_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -100
+      OffsetX = 500
+    }
+    {
+      Name = "Portrait_Mel_Child_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_Child_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Child_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Child_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Child_02"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Melinoe_Child_Concerned_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Mel_Child_02_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Melinoe_Child_Concerned_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Hec_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Hecate_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetX = 0
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Hec_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hecate_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetX = 0
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Hec_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Hecate_Bath_01"
+      EndFrame = 1
+      StartFrame = 1
+      Scale = 1.0
+      OffsetX = -40
+      OffsetY = -160
+    }
+    {
+      Name = "Portrait_Hec_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Hecate_Bath_01"
+      EndFrame = 1
+      StartFrame = 1
+      Scale = 1.0
+      OffsetX = -40
+      OffsetY = -160
+    }
+    {
+      Name = "Portrait_Odysseus_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Odysseus_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Odysseus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Odysseus_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Odysseus_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Odysseus_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Odysseus_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Odysseus_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Dora_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Dora_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 5
+    }
+    {
+      Name = "Portrait_Dora_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Dora_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 5
+    }
+    {
+      Name = "Portrait_Dora_Spooky_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Dora_Spooky_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 4
+    }
+    {
+      Name = "Portrait_Dora_Spooky_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Dora_Spooky_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 4
+    }
+    {
+      Name = "Portrait_Dora_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Dora_Bath_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 4
+      OffsetX = -100
+      OffsetY = -50
+      Scale = 1.0
+    }
+    {
+      Name = "Portrait_Dora_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Dora_Bath_01"
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 4
+      OffsetX = -100
+      OffsetY = -50
+      Scale = 1.0
+
+    }
+    {
+      Name = "Portrait_Nemesis_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Nemesis_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Nemesis_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Nemesis_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Nemesis_Bath_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Nemesis_Bath_01"
+      Scale = 1.0
+      OffsetX = 50
+      OffsetY = -120
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Nemesis_Bath_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Nemesis_Bath_01"
+      Scale = 1.0
+      OffsetX = 50
+      OffsetY = -120
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Eris_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Eris_01"
+      OffsetX = -140
+      OffsetY = -145
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Eris_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Eris_01"
+      OffsetX = -140
+      OffsetY = -145
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Eris_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Eris_Bath_01"
+      OffsetX = -140
+      OffsetY = -60
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Eris_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Eris_Bath_01"
+      OffsetX = -140
+      OffsetY = -60
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Moros_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Moros_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Moros_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Moros_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Moros_Bath_01"
+      InheritFrom = "Portrait_Bathhouse_01"
+      FilePath = "Portraits\Portraits_Moros_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -100
+      OffsetX = -20
+    }
+    {
+      Name = "Portrait_Moros_Bath_01_Exit"
+      InheritFrom = "Portrait_Bathhouse_01_Exit"
+      FilePath = "Portraits\Portraits_Moros_Bath_01"
+      Scale = 1.0
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -100
+      OffsetX = -20
+    }    
+    {
+      Name = "Portrait_Chronos_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Chronos_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = 400
+    }
+    {
+      Name = "Portrait_Chronos_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Chronos_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = 400
+    }
+    {
+      Name = "Portrait_Chronos_Averted_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Chronos_Averted_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = -20
+    }
+    {
+      Name = "Portrait_Chronos_Averted_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Chronos_Averted_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = -20
+    }
+    {
+      Name = "Portrait_Chronos_Pained_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Chronos_Pained_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = -20
+    }
+    {
+      Name = "Portrait_Chronos_Pained_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Chronos_Pained_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120
+      OffsetX = -20
+    }
+    {
+      Name = "Portrait_Selene_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Selene_01"
+      ChildAnimation = "PortraitGodRayEmitter_Demeter"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetX = 400
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Selene_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Selene_01"
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+      OffsetX = 400
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Apollo_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Apollo_01"
+      ChildAnimation = "PortraitGodRayEmitter_Athena"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Apollo_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Apollo_01"
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+    {
+      Name = "Portrait_Hera_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Hera_01"
+      ChildAnimation = "PortraitGodRayEmitter_Zeus"
+      OffsetX = -20
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hera_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hera_01"
+      OffsetX = -20
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+    {
+      Name = "Portrait_Hestia_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Hestia_01"
+      ChildAnimation = "PortraitGodRayEmitter_Ares"
+      OffsetX = -70
+      OffsetY = -200
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hestia_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hestia_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetX = -70
+      OffsetY = -200
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+    {
+      Name = "Portrait_Hephaestus_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Hephaestus_01"
+      ChildAnimation = "PortraitGodRayEmitter_Athena"
+      OffsetX = -60
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hephaestus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hephaestus_01"
+      OffsetX = -60
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+    {
+      Name = "Portrait_Arachne_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Arachne_01"
+      OffsetX = 150
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Arachne_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Arachne_01"
+      OffsetX = 150
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Narcissus_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Poseidon_Hooded_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Narcissus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Poseidon_Hooded_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -105
+    }
+    {
+      Name = "Portrait_Echo_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Echo_01"
+      OffsetY = -150
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Echo_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Echo_01"
+      OffsetY = -150
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Medea_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Medea_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Medea_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Medea_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Circe_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Circe_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Circe_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Circe_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Heracles_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Heracles_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Heracles_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Heracles_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Icarus_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Icarus_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Icarus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Icarus_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Cyclops_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Cyclops_01"
+      OffsetX = -40
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Cyclops_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Cyclops_01"
+      OffsetX = -40
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Scylla_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Scylla_01"
+      OffsetX = -100
+      OffsetY = -130
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Scylla_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Scylla_01"
+      OffsetX = -100
+      OffsetY = -130
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Hades_HelmCape_01"
+      InheritFrom = "Portrait_Base_01"
+      ChildAnimation = "null"
+      FilePath = "Portraits\Portraits_Hades_HelmCape01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Hades_HelmCape_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hades_HelmCape01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Hades_Past_01"
+      InheritFrom = "Portrait_Base_01"
+      OffsetX = -100
+      OffsetY = -170
+    }
+    {
+      Name = "Portrait_Hades_Past_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      OffsetX = -100
+      OffsetY = -170
+    }
+
+    {
+      Name = "Portrait_Hades_Chained_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Hades_Chained01"
+      OffsetX = -90
+      OffsetY = -140
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hades_Chained_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hades_Chained01"
+      OffsetX = -90
+      OffsetY = -140
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Cerberus_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Cerberus_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = 0
+    }
+    {
+      Name = "Portrait_Cerberus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Cerberus_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = 0
+    }
+
+    {
+      Name = "Portrait_Chaos_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      ChildAnimation = "Portrait_Chaos_Default_02"
+      FilePath = "Portraits\Portraits_Chaos_01"
+      OffsetY = -250
+      OffsetX = 550
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Chaos_Default_02"
+      FilePath = "Portraits\Portraits_Chaos_01"
+      StartFrame = 1
+      StartAlpha = 0
+      EndAlpha = 0.15
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      RandomDurationMax = 6.0
+      RandomDurationMin = 3.0
+      StartOffsetX = 500
+      EndOffsetX = 720
+      StartOffsetY = -250
+      EndOffsetY = -250
+      StartScaleX = 0.8
+      EndScaleX = 1.1
+      StartScale = 1.0
+      EndScale = 2.0
+      PingPongColor = true
+      StartRed = 0.0
+      EndRed = 1.0
+      StartGreen = 1.0
+      EndGreen = 0.5
+      PingPongShiftOverDuration = false
+    }
+
+
+    {
+      Name = "Portrait_Chaos_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Chaos_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -250
+      OffsetX = 550
+    }
+
+    {
+      Name = "Portrait_Skelly_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Skelly_01"
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/SFX/Enemy Sounds/MiscBoneRattle3"
+    }
+
+    {
+      Name = "Portrait_Skelly_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Skelly_01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Nyx_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Nyx_01"
+      OffsetX = -100
+      OffsetY = -50
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Nyx_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Nyx_01"
+      OffsetX = -100
+      OffsetY = -50
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Nyx_Frozen_01"
+      InheritFrom = "Portrait_Nyx_Default_01"
+      FilePath = "Portraits\Portraits_Nyx_Frozen_01"
+      EndFrame = 1
+      StartFrame = 1
+      Scale = 1.0
+    }
+    
+    {
+      Name = "Portrait_Nyx_Frozen_01_Exit"
+      InheritFrom = "Portrait_Nyx_Default_01_Exit"
+      FilePath = "Portraits\Portraits_Nyx_Frozen_01"
+      Scale = 1.0
+    }
+
+    {
+      Name = "Portrait_Demeter_Default_01"
+      InheritFrom = "Portrait_God_01"
+      FilePath = "Portraits\Portraits_Demeter_01"
+      ChildAnimation = "PortraitGodRayEmitter_Demeter"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -128
+      OffsetX = -90
+    }
+
+    {
+      Name = "Portrait_Demeter_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Demeter_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -128
+      OffsetX = -90
+    }
+
+    {
+      Name = "Portrait_Hypnos_Sleeping_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Hypnos_Sleeping_01"
+      OffsetX = 180
+      OffsetY = -150
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 5
+    }
+
+    {
+      Name = "Portrait_Hypnos_Sleeping_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hypnos_Sleeping_01"
+      OffsetX = 180
+      OffsetY = -150
+      EndFrame = 1
+      StartFrame = 1
+      ZWobbleDistance = 3
+      ZWobbleSpeed = 5
+    }
+
+    {
+      Name = "Portrait_Zeus_Default_01"
+      InheritFrom = "Portrait_God_01"
+      ChildAnimation = "PortraitGodRayEmitter_Zeus"
+      FilePath = "Portraits\Portraits_Zeus_01"
+      OffsetX = 200
+      OffsetY = -250
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Zeus_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Zeus_01"
+      OffsetX = 200
+      OffsetY = -250
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+
+    {
+      Name = "Portrait_Poseidon_Default_01"
+      InheritFrom = "Portrait_God_01"
+      ChildAnimation = "PortraitGodRayEmitter_Poseidon"
+      FilePath = "Portraits\Portraits_Poseidon_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -260.0
+      OffsetX = 100
+    }
+
+    {
+      Name = "Portrait_Poseidon_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Poseidon_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -260.0
+      OffsetX = 100
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+
+    {
+      Name = "Portrait_Artemis_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Artemis_01"
+      OffsetX = -100
+      EndFrame = 1
+      StartFrame = 1
+      Sound = null
+    }
+
+    {
+      Name = "Portrait_Artemis_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Artemis_01"
+      OffsetX = -100
+      EndFrame = 1
+      StartFrame = 1
+      Sound = null
+    }
+
+    {
+      Name = "Portrait_Aphrodite_Default_01"
+      InheritFrom = "Portrait_God_01"
+      ChildAnimation = "PortraitGodRayEmitter_Aphrodite"
+      FilePath = "Portraits\Portraits_Aphrodite_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120.0
+      OffsetX = 470
+    }
+
+    {
+      Name = "Portrait_Aphrodite_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Aphrodite_01"
+      EndFrame = 1
+      StartFrame = 1
+      OffsetY = -120.0
+      OffsetX = 470
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+
+
+    {
+      Name = "Portrait_Hermes_Default_01"
+      InheritFrom = "Portrait_God_01"
+      ChildAnimation = "PortraitGodRayEmitter_Hermes"
+      FilePath = "Portraits\Portraits_Hermes_01"
+      OffsetX = 120
+      OffsetY = -60
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hermes_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hermes_01"
+      OffsetX = 120
+      OffsetY = -60
+      EndFrame = 1
+      StartFrame = 1
+      Sound = "/Leftovers/World Sounds/MapZoomInShortHigh"
+    }
+    {
+      Name = "Portrait_Hermes_InPerson_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Hermes_01"
+      OffsetX = 120
+      OffsetY = -60
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Hermes_InPerson_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Hermes_01"
+      OffsetX = 120
+      OffsetY = -60
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Charon_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_CharonHooded_01"
+      OffsetY = -100
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Charon_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_CharonHooded_01"
+      OffsetY = -100
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Bouldy_Default_01"
+      InheritFrom = "Portrait_Base_01"
+      FilePath = "Portraits\Portraits_Bouldy_01"
+      OffsetX = -100
+      OffsetY = 0
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Portrait_Bouldy_Default_01_Exit"
+      InheritFrom = "Portrait_Base_01_Exit"
+      FilePath = "Portraits\Portraits_Bouldy_01"
+      OffsetX = -100
+      OffsetY = 0
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    /* Wrath Portraits */
+
+    {
+      Name = "Portrait_Artemis_Wrath_01"
+      InheritFrom = "Portrait_Artemis_Default_01"
+      ChildAnimation = "null"
+      AddColor = true
+      EndFrame = 1
+      StartFrame = 1
+      CreateAnimation = "null"
+    }
+
+    {
+      Name = "Portrait_Aphrodite_Wrath_01"
+      InheritFrom = "Portrait_Aphrodite_Default_01"
+      ChildAnimation = "null"
+      AddColor = true
+      EndFrame = 1
+      StartFrame = 1
+      CreateAnimation = "null"
+    }
+
+    {
+      Name = "Portrait_Poseidon_Wrath_01"
+      InheritFrom = "Portrait_Poseidon_Default_01"
+      ChildAnimation = "null"
+      CreateAnimation = "null"
+      AddColor = true
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Zeus_Wrath_01"
+      InheritFrom = "Portrait_Zeus_Default_01"
+      ChildAnimation = "null"
+      CreateAnimation = "null"
+      AddColor = true
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Portrait_Demeter_Wrath_01"
+      InheritFrom = "Portrait_Demeter_Default_01"
+      ChildAnimation = "null"
+      CreateAnimation = "null"
+      AddColor = true
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    /* Codex Portraits */
+
+    {
+      Name = "Codex_Portrait_Base_01"
+	  
+      FilePath = "Portraits\Codex\CodexPortrait_Thanatos"
+      EndAlpha = 1.0
+      EndBlue = 1.0
+      EndGreen = 1.0
+      EndRed = 1.0
+      Duration = 0.1
+      EndFrame = 1
+      HoldLastFrame = true
+      NumFrames = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Melinoe"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Melinoe"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Hecate"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hecate"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Misc01"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Misc01"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Misc02"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Misc02"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Misc03"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Misc03"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Aphrodite"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Aphrodite"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Artemis"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Artemis"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Hermes"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hermes"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Demeter"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Demeter"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Poseidon"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Poseidon"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Odysseus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Odysseus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Medea"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Medea"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Nemesis"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Nemesis"
+      EndFrame = 1
+      StartFrame = 1
+    }
+        
+    {
+      Name = "Codex_Portrait_Chronos"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Chronos"
+      EndFrame = 1
+      StartFrame = 1
+    }
+        
+    {
+      Name = "Codex_Portrait_Icarus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Icarus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+               
+    {
+      Name = "Codex_Portrait_Apollo"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Apollo"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                
+    {
+      Name = "Codex_Portrait_Hephaestus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hephaestus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                      
+    {
+      Name = "Codex_Portrait_Heracles"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Heracles"
+      EndFrame = 1
+      StartFrame = 1
+    }
+         
+
+    {
+      Name = "Codex_Portrait_Polyphemus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Polyphemus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+          
+
+    {
+      Name = "Codex_Portrait_Hestia"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hestia"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                      
+    {
+      Name = "Codex_Portrait_Arachne"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Arachne"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                  
+    {
+      Name = "Codex_Portrait_Narcissus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CharonHooded"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                      
+    {
+      Name = "Codex_Portrait_Hera"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hera"
+      EndFrame = 1
+      StartFrame = 1
+    }
+            
+    {
+      Name = "Codex_Portrait_Scylla"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Scylla"
+      EndFrame = 1
+      StartFrame = 1
+    }
+                        
+    {
+      Name = "Codex_Portrait_Dora"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Dora"
+      EndFrame = 1
+      StartFrame = 1
+    }   
+        
+    {
+      Name = "Codex_Portrait_Moros"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Moros"
+      EndFrame = 1
+      StartFrame = 1
+    }
+       
+
+    {
+      Name = "Codex_Portrait_Circe"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Circe"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    
+
+    {
+      Name = "Codex_Portrait_Selene"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Selene"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Skelly"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Skelly"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Zeus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Zeus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Charon"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CharonHooded"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Hypnos"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hypnos"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Hades"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Hades"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Eris"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Eris"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Echo"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_EchoHooded"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Cerberus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Cerberus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_Chaos"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Chaos"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_BiomeErebus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeErebus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_AsphodelBiome"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeAsphodel"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SurfaceBiome"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeSurface"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeCrossroads"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeCrossroads"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeEphyra"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeEphyra"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeThessaly"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeThessaly"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeTartarus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeTartarus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeFields"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeFields"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeHouseOfHades"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeHouseOfHades"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_BiomeOceanus"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeOceanus"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_ChaosBiome"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BiomeChaos"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Brawler"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Brawler"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_BrokenHearted"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_BrokenHearted"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Carrion"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Carrion"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_CatFamiliar"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CatFamiliar"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Charybdis"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Charybdis"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_CorruptedShadeL"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CorruptedShadeL"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_CorruptedShadeM"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CorruptedShadeM"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_CorruptedShadeS"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CorruptedShadeS"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Crawler"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Crawler"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_CrawlerMiniBoss"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_CrawlerMiniBoss"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_DeadSeaDrunk"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_DeadSeaDrunk"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_DeadSeaStickler"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_DeadSeaStickler"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_DeadSeaSwab"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_DeadSeaSwab"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_DespairElemental"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_DespairElemental"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FishmanMelee"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FishmanMelee"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FishmanRanged"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FishmanRanged"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FishmanSwarmer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FishmanSwarmer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FogEmitter"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FogEmitter"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FogEmitter2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FogEmitter2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_FrogFamiliar"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_FrogFamiliar"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_GoldElemental"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_GoldElemental"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_GoldElementalMiniBoss"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_GoldElementalMiniBoss"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Guard"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Guard"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Guard2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Guard2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_HarpyDropper"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_HarpyDropper"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_HarpyTalonCutter"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_HarpyTalonCutter"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Lamia"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Lamia"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_LamiaMiniBoss"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_LamiaMiniBoss"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Lovesick"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Lovesick"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_LycanSwarmer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_LycanSwarmer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Lycanthrope"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Lycanthrope"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Mage"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Mage"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Mage2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Mage2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Mourner"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Mourner"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Mudman"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Mudman"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_QuestionMark"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_QuestionMark"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_WeaponDagger"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WeaponDagger"
+      EndFrame = 1
+      StartFrame = 1
+    }
+
+    {
+      Name = "Codex_Portrait_WeaponAxe"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WeaponAxe"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WeaponStaff"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WeaponStaff"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WeaponTorch"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WeaponTorch"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WeaponLob"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WeaponLob"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Radiator"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Radiator"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Radiator2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Radiator2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_RavenFamiliar"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_RavenFamiliar"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SatyrCrossbow"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_SatyrCrossbow"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SatyrLancer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_SatyrLancer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SatyrRatCatcher"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_SatyrRatCatcher"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SatyrRatCatcherMiniBoss"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_SatyrRatCatcherMiniBoss"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Scimiterror"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Scimiterror"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Screamer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Screamer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Screamer2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Screamer2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_SiegeVine"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_SiegeVine"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Swarmer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Swarmer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_ThiefMineLayer"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_ThiefMineLayer"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_TimeElemental"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_TimeElemental"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Treant"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Treant"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Treant2"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Treant2"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Turtle"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Turtle"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Vampire"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Vampire"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WaterElemental"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WaterElemental"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WaterUnit"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WaterUnit"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WaterUnitMiniBoss"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WaterUnitMiniBoss"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_WretchThug"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_WretchThug"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_Zombie"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_Zombie"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_ZombieAssassin"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_ZombieAssassin"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_ZombieCrewman"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_ZombieCrewman"
+      EndFrame = 1
+      StartFrame = 1
+
+    }
+    {
+      Name = "Codex_Portrait_ZombieHeavyRanged"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_ZombieHeavyRanged"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "Codex_Portrait_ZombieSpawner"
+      InheritFrom = "Codex_Portrait_Base_01"
+      FilePath = "Portraits\Codex\CodexPortrait_ZombieSpawner"
+      EndFrame = 1
+      StartFrame = 1
+    }
+    {
+      Name = "CardArt_01"  
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card01"
+      Material = "Unlit"
+    }
+
+    {
+      Name = "CardArt_02"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card02"
+    }
+
+    {
+      Name = "CardArt_03"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card03"
+    }
+
+    {
+      Name = "CardArt_04"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card04"
+    }
+
+    {
+      Name = "CardArt_05"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card05"
+    }
+
+    {
+      Name = "CardArt_06"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card06"
+    }
+
+    {
+      Name = "CardArt_07"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card07"
+    }
+
+    {
+      Name = "CardArt_08"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card08"
+    }
+
+    {
+      Name = "CardArt_09"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card09"
+    }
+
+    {
+      Name = "CardArt_10"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card10"
+    }
+
+    {
+      Name = "CardArt_11"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card11"
+    }
+
+    {
+      Name = "CardArt_12"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card12"
+    }
+
+    {
+      Name = "CardArt_13"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card13"
+    }
+
+    {
+      Name = "CardArt_14"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card14"
+    }
+
+    {
+      Name = "CardArt_15"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card15"
+    }
+
+    {
+      Name = "CardArt_16"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card16"
+    }
+
+    {
+      Name = "CardArt_17"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card17"
+    }
+
+    {
+      Name = "CardArt_18"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card18"
+    }
+
+    {
+      Name = "CardArt_19"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card19"
+    }
+
+    {
+      Name = "CardArt_20"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card20"
+    }
+
+    {
+      Name = "CardArt_21"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card21"
+    }
+
+    {
+      Name = "CardArt_22"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card22"
+    }
+
+    {
+      Name = "CardArt_23"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card23"
+    }
+
+    {
+      Name = "CardArt_24"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card24"
+    }
+
+    {
+      Name = "CardArt_25"
+      InheritFrom = "CardArt_01"
+      FilePath = "GUI\Screens\MetaUpgrade\CardArt\card25"
+    }
+
+  ]
+}

@@ -1,0 +1,305 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyFishmanRangedBaseAnimation"		
+		GrannyModel = "FishmanRanged_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+		CreateAnimation = "FishmanRangedTailGlow"
+	}
+
+	/*Idle Move Spawn*/
+
+	{
+		Name = "Enemy_FishmanRanged_Idle"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_Idle_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_AttackFire"
+				Duration = 20
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Spawn"
+				Duration = 20
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_Spawn"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_Spawn_01"
+		Loop = false 
+		GrannyAnimationSpeed = 1.1
+		Sound = "/Leftovers/World Sounds/ClickSplashSlosh"
+		VisualFx = "OceanusEnemySplashSmall_Air"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		Enable3DShadow = false
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		CreateAnimations =
+		[
+			{ Name = "FishmanJumpStreak" }
+		]
+		Frames =
+		[
+			{
+				Frame = 50
+				Sound = "/SFX/Enemy Sounds/FishmanRanged/EmoteAlerted"
+			}
+			{
+				Frame = 51
+				Sound = "/Leftovers/SFX/BallLandWet"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_Move"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_Move_01"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_MoveStart"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_MoveStart_01"
+		ChainTo = "Enemy_FishmanRanged_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Spawn"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_MoveStop"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_MoveStop_01"
+		ChainTo = "Enemy_FishmanRanged_Idle"
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	/*HitStun, Self Destruct*/
+
+	{
+		Name = "Enemy_FishmanRanged_HitStun"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_GetHit_01"
+		ChainTo = "Enemy_FishmanRanged_Idle"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/FishmanRanged/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_HitStun_Heavy"
+		InheritFrom = "Enemy_FishmanRanged_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_SelfDestruct"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_SelfDestruct_01"
+		GrannyAnimationSpeed = 0.7
+		Sound = "/SFX/BombFusePreExplode"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	/*Attack Spit*/
+
+	{
+		Name = "Enemy_FishmanRanged_AttackSpitCharge"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackSpitCharge_00"
+		HoldLastFrame = true
+		CreateAnimation = "FishmanRangedTailGlowEat"
+		GrannyAnimationSpeed = 1.0
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Idle"
+				Duration = 8
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.7
+			}
+			{
+				Frame = 25
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackSpitFireSingle"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackSpitFireInitial_00"
+		ChainTo = "Enemy_FishmanRanged_AttackSpitReturnToIdle"
+		CreateAnimation = null
+		AllowRestart = true
+		GrannyAnimationSpeed = 1.3
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackSpitFireInitial"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackSpitFireInitial_00"
+		ChainTo = "Enemy_FishmanRanged_AttackSpitFireLoop"
+		AllowRestart = true
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackSpitFireLoop"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackSpitFireLoop_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackSpitReturnToIdle"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackSpitReturnToIdle_00"
+		CreateAnimation = "FishmanRangedTailGlowRegrow"
+		ChainTo = "Enemy_FishmanRanged_Idle"
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_AttackSpitFireSingle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_AttackSpitFireLoop"
+				Duration = 4
+			}
+		]
+	}
+	
+	/*Attacks*/
+
+	{
+		Name = "Enemy_FishmanRanged_AttackCharge"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackCharge_01"
+		HoldLastFrame = true,
+		GrannyAnimationSpeed = 4.0
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_HitStun_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackFire"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackFireLoop_01"
+		GrannyAnimationSpeed = 4.0
+		/*
+		Frames = 
+		[
+			{
+				Frame = 30
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+		*/
+	}
+	
+	{ // Currently unused
+		Name = "Enemy_FishmanRanged_AttackFireLoop"
+		InheritFrom = "Enemy_FishmanRanged_AttackFire"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_FishmanRanged_AttackReturnToIdle"
+		InheritFrom = "EnemyFishmanRangedBaseAnimation"
+		GrannyAnimation = "FishmanRanged_Base_AttackReturnToIdle_01"
+		ChainTo = "Enemy_FishmanRanged_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_FishmanRanged_AttackFire"
+				Duration = 2
+			}
+		]
+	}
+
+]}

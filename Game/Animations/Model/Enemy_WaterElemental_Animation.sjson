@@ -1,0 +1,261 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyWaterElementalBaseAnimation"
+		
+		GrannyModel = "WaterElemental_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_WaterElemental_Idle"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_MoveStart"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_WalkStart_C_00"
+		ChainTo = "Enemy_WaterElemental_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_Move"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_Walk_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_MoveStop"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_WalkStop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_WaterElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_OnHit"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_WaterElemental_Idle"
+		Sound = "/SFX/Enemy Sounds/WaterElemental/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_OnHit_Heavy"
+		InheritFrom = "Enemy_WaterElemental_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_WaterElemental_Duplicate"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_Duplicate_C_00"
+		AllowRestart = true
+		ChainTo = "Enemy_WaterElemental_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	// BITE
+
+	{
+		Name = "Enemy_WaterElemental_BitePreFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_BitePreFire_C_00"
+		CreateAnimation = "EnemyChargeFxIn_WaterEle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_BitePostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_BiteFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_Bite_C_00"
+		ChainTo = "Enemy_WaterElemental_BitePostFire"
+	}
+
+	{
+		Name = "Enemy_WaterElemental_BitePostFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_BiteReturnToIdle_C_00"
+		ChainTo = "Enemy_WaterElemental_Idle"
+	}
+
+	// BURST
+
+	{
+		Name = "Enemy_WaterElemental_BurstPreFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_WaterburstPreFire_C_00"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterElemental_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterElemental_BurstFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_Waterburst_C_00"
+		ChainTo = "Enemy_WaterElemental_BurstPostFire"
+	}
+
+	{
+		Name = "Enemy_WaterElemental_BurstPostFire"
+		InheritFrom = "EnemyWaterElementalBaseAnimation"
+		GrannyAnimation = "WaterElemental_Base_WaterburstReturnToIdle_C_00"
+		ChainTo = "Enemy_WaterElemental_Idle"
+	}
+
+]}

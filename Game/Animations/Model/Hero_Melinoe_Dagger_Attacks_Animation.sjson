@@ -1,0 +1,462 @@
+{ Animations = [
+
+	/* Slice Left (Melee2) */
+	{
+		Name = "Melinoe_Dagger_AttackLeft_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee2Antic_C_00"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackLeft_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee2Attack_C_00"
+		ChainTo = "Melinoe_Dagger_AttackLeft_End"
+		GrannyAnimationSpeed = 1.2
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackLeft_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee2Return_C_00"
+		ChainTo = "Melinoe_Dagger_AttackLeft_EndCancelable"
+
+		Frames =
+		[
+			{
+				Frame = 4
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackLeft_EndCancelable"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee2Return_C_00"
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	/* Slice Right (Melee1) */
+	{
+		Name = "Melinoe_Dagger_AttackRight_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee1Antic_C_00"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackRight_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee1Attack_C_00"
+		ChainTo = "Melinoe_Dagger_AttackRight_End"
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackRight_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee1Return_C_00"
+		ChainTo = "Melinoe_Dagger_AttackRight_EndCancelable"
+
+		Frames =
+		[
+			{
+				Frame = 2
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackRight_EndCancelable"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee1Return_C_00"
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	/* Spin (Melee4) */
+	{
+		Name = "Melinoe_Dagger_AttackSpin_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee4Antic_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.5
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackSpin_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee4Attack_C_00"
+		ChainTo = "Melinoe_Dagger_AttackSpin_End"
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackSpin_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee4Return_C_00"
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	/* Multi Stab (Melee5) */
+	{
+		Name = "Melinoe_Dagger_AttackStabs_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee5Antic_C_00"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackStabs_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee5Attack_C_00"
+		ChainTo = "Melinoe_Dagger_AttackStabs_FireLoop"
+		DisableOwnerManualInteract = true
+
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackStabs_FireLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee5AttackLoop_C_00"
+		ChainTo = "Melinoe_Dagger_AttackStabs_End"
+		Loop = false
+		DisableOwnerManualInteract = true
+
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+			{
+				Frame = 8
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+			{
+				Frame = 12
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+			{
+				Frame = 16
+				Sound = "/SFX/Player Sounds/MelDaggerKnifeSwipe"
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackStabs_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee5Return_C_00"
+		ChainTo = "Melinoe_Dagger_AttackStabs_EndCancelable"
+
+		Frames =
+		[
+			{
+				Frame = 4
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackStabs_EndCancelable"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee5Return_C_00"
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	/* Double (Melee6) */
+	{
+		Name = "Melinoe_Dagger_AttackDouble_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee6Antic_C_00"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackDouble_StartLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee6AnticLoop_C_00"
+		Loop = false
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackDouble_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee6Attack_C_00"
+		ChainTo = "Melinoe_Dagger_AttackDouble_End"
+		DisableOwnerManualInteract = true
+	}
+	{
+		Name = "Melinoe_Dagger_AttackDouble_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Melee6Return_C_00"
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	/* Blink Attack */
+	{
+		Name = "Melinoe_Dagger_AttackEx1_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_BlinkAntic_C_00"
+		HoldLastFrame = true
+		LocomotionAnimation = "MelinoeDaggerBlinkLocomotion"
+		LocomotionWeight = 1.0
+		StopSoundOnFinishFade = 0.1
+		DisableOwnerManualInteract = true
+		Frames = 
+		[
+			{
+				Frame = 8
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_AttackEx1_Fire"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_BlinkBackStab_C_00"
+		Frames = 
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+			{
+				Frame = 17
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackEx1_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_BlinkBackStab_C_00"
+		GrannyAnimationSpeed = 1.0
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_AttackEx1_FireCancelable"		
+		Frames = 
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+			{
+				Frame = 8
+				Sound = "/SFX/Player Sounds/MelDaggerMagicAttack"
+			}
+			{
+				Frame = 17
+				FrameSpeed = 0
+			}
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_AttackEx1_FireCancelable"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_BlinkBackStab_C_00"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Dagger_AttackEx1_FireCancelable"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_BlinkBackStab_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_AttackEx1_End"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_AttackEx1_FireCancelable"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_AttackEx1_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_BlinkReturnIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackEx1_Start"
+				Duration = 10
+			}
+		]
+	}
+
+
+	/* Throw */
+	{
+		Name = "Melinoe_Dagger_Special_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_ThrowAntic_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_Special_StartLoop"
+		Frames = 
+		[
+			{
+				Frame = 8
+				Sound = "/VO/MelinoeEmotes/EmoteCharging"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Special_StartLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_ThrowIdleLoop_C_00"
+		AllowRestart = true
+		Loop = true
+		DisableOwnerManualInteract = true
+	}
+
+	{
+		Name = "DaggerL_Special_Fire"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_Throw_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Special_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Throw_C_00"
+		CancelOnOwnerMove = true
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_Special_End"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Special_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_StartLoop"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "DaggerL_Special_End"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_ThrowReturnIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Special_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_ThrowReturnIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Special_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+] }

@@ -1,0 +1,336 @@
+{ Animations = [
+
+	{
+		Name = "EnemyZombieAssassinBaseAnimation"
+
+		GrannyModel = "Assassin_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Idle"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_StabPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Spawn"
+				Duration = 10
+			}
+		]	
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Spawn"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+
+		GrannyAnimation = "Assassin_Base_StalkExit_C_00"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.5
+		GrannyAnimationSpeed = 1.1
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 0.5
+		DeathFxReverse = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		EaseIn = 0.0
+		EaseOut = 0.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 0.05
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_OnHit"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_GetHit_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		ChainTo = "Enemy_ZombieAssassin_Idle"
+		Sound = "/SFX/Enemy Sounds/Assassin/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 6
+				FrameSpeed = 3
+			}
+			{
+				Frame = 12
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_ZombieAssassin_OnHit_Heavy"
+		InheritFrom = "Enemy_ZombieAssassin_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Move"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_Move_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Dash"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 16
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+			{
+				Frame = 32
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_MoveStart"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_MoveStart_C_00"
+		ChainTo = "Enemy_ZombieAssassin_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Spawn"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 10
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavyTemp"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_MoveStop"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_MoveStop_C_00"
+		ChainTo = "Enemy_ZombieAssassin_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Dash"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_Dash_C_00"
+		GrannyAnimationSpeed = 1.25
+		AllowRestart = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Player Sounds/HermesWhooshUpgradeSFX"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Assassin/EmoteEvading"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StalkEntrance"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_StalkEntrance_C_00"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.2
+		EndBlue = 0.2
+		Duration = 0.15
+		ChainTo = "Enemy_ZombieAssassin_Stalk"
+		Sound = "/SFX/Enemy Sounds/Assassin/AssassinDisappear"
+		CancelOnOwnerMove = false
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Stalk"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_Move_C_00"
+		NativeMoveSpeed = 300
+		Alpha = 0.2
+		Red = 0.25
+		Green = 0.25
+		Blue = 0.25
+		Loop = true
+		CancelOnOwnerMove = false
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StalkExit"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		StartRed = 0.25
+		StartGreen = 0.25
+		StartBlue = 0.25
+		EndRed = 1
+		EndGreen = 1
+		Sound = "/SFX/Enemy Sounds/Assassin/AssassinAppear"
+		EndBlue = 1
+		Duration = 0.3
+		GrannyAnimation = "Assassin_Base_StalkExit_C_00"
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StabPreFire"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_MultiStabPreFire_C_00"
+		CreateAnimation = "ZAssassinStabPreAttackGlow"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_OnHit"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_ZombieAssassin_Move"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StabFire"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_MultiStabFire_C_00"
+		ChainTo = "Enemy_ZombieAssassin_StabPostFire"
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_StabPostFire"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_MultiStabPreReturnToIdle_C_00"
+		ChainTo = "Enemy_ZombieAssassin_Idle"
+	}
+
+	{
+		Name = "Enemy_ZombieAssassin_Death"
+		InheritFrom = "EnemyZombieAssassinBaseAnimation"
+		GrannyAnimation = "Assassin_Base_GetHit_C_00"
+		RequireCurrentAnimationNotContains = null
+		AllowRestart = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 0.5
+		GrannyAnimationSpeed = 1
+		DeathFxFrameDuration = 30
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 0.5
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		VisualFx = "EphyraUndeadGib"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.06
+	}
+
+] }

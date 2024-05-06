@@ -1,0 +1,158 @@
+{ Animations = [
+	{
+		Name = "PolyphemusSheepZombie"
+		GrannyModel = "PolyphemusSheepZombie_Mesh"
+	}
+	{
+		Name = "PolyphemusSheepBomb"
+		GrannyModel = "PolyphemusSheepBomb_Mesh"
+	}	
+	{
+		Name = "PolyphemusSheepSick"
+		GrannyModel = "PolyphemusSheepSick_Mesh"
+	}
+	{
+		Name = "PolyphemusSheepSmall"
+		GrannyModel = "PolyphemusSheepSmall_Mesh"
+	}
+	{
+		Name = "EnemySheepBaseAnimation"
+		
+		GrannyModel = "PolyphemusSheep_Mesh"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "PolyphemusSheepZombie" }
+			{ Name = "PolyphemusSheepBomb" }
+			{ Name = "PolyphemusSheepSick" }
+			{ Name = "PolyphemusSheepSmall" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Sheep_Idle"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_Sheep_Move"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_Sheep_Idle",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Sheep_OnHit",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Sheep_OnHit_Heavy",
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Sheep_MoveStop"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_Idle_C_00"
+		ChainTo = "Enemy_Sheep_Idle"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 2.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Sheep_Move",
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Sheep_OnHit"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_GetHit_C_00"
+		ChainTo = "Enemy_Sheep_Idle"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+	}
+	{
+		Name = "Enemy_Sheep_OnHit_Heavy"
+		InheritFrom = "Enemy_Sheep_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}	
+
+	{
+		Name = "Enemy_Sheep_DashPreFire"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_DashAntic_C_00"
+		ChainTo = "Enemy_Sheep_DashFire"
+		CancelOnOwnerMove = false
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_Sheep_DashReturnToIdle",
+				Duration = 2
+			}
+			{
+				BlendTransitionFrom = "Enemy_Sheep_OnHit",
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Sheep_OnHit_Heavy",
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Sheep_Sick_DashPreFire"
+		InheritFrom = "Enemy_Sheep_DashPreFire"
+		Sound = "/SFX/Enemy Sounds/SheepSick/EmoteEvading"
+	}
+
+	{
+		Name = "Enemy_Sheep_DashFire"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_Dash_C_00"
+		ChainTo = "Enemy_Sheep_DashReturnToIdle"
+		CancelOnOwnerMove = false
+		Frames =
+		[
+			{
+				Frame = 5
+				CreateAnimation = "DashDustPuff"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Sheep_DashReturnToIdle"
+		InheritFrom = "EnemySheepBaseAnimation"
+		GrannyAnimation = "Sheep_Base_DashReturnToIdle_C_00"
+		ChainTo = "Enemy_Sheep_Idle"
+		CancelOnOwnerMove = false
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsSand"
+			}
+		]
+	}
+
+]}

@@ -1,0 +1,203 @@
+{ Animations = [
+
+	/* Cast */
+	{
+		Name = "Lob_Cast_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Base_CastCharge_C_00"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Lob_Cast_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_CastCharge_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Cast_StartLoop"
+		Attachments =
+		[
+			{
+				Name = "Lob_Cast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.5
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Cast_StartLoop"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Base_CastIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Cast_StartLoop"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_CastIdle_C_00"
+		ModelCosmeticRotationSpeed = 800
+		DisableOwnerManualInteract = true
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Lob_Cast_StartLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Cast_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Base_Cast_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Cast_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Cast_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Cast_End"
+		Attachments =
+		[
+			{
+				Name = "Lob_Cast_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Cast_StartLoop"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Lob_Cast_Fire_Quick"
+		InheritFrom = "Melinoe_Lob_Cast_Fire"
+	}
+
+	{
+		Name = "Lob_Cast_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Base_CastToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Cast_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_CastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		Attachments =
+		[
+			{
+				Name = "Lob_Cast_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Lob_CrossCast_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Lob_CrossCast_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_UnEquip_C_00"
+		ChainTo = "MelinoeCrossCastAntic"
+		
+		CreateAnimation = "MelUnequipSparkleLob"
+		Attachments =
+		[
+			{
+				Name = "Lob_CrossCast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Lob_ForwardCast_Unequip"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Lob_ForwardCast_Unequip"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_UnEquip_C_00"
+		ChainTo = "Melinoe_ForwardCast_Start"
+		CreateAnimation = "MelUnequipSparkleLob"
+		Attachments =
+		[
+			{
+				Name = "Lob_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0
+			}
+		]
+	}
+
+] }

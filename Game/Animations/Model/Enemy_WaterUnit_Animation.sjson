@@ -1,0 +1,408 @@
+{ Animations = [
+	{
+		Name = "MegaWaterUnit"
+		GrannyModel = "MegaWaterUnit_Mesh"
+	}		
+	{
+		Name = "EnemyWaterUnitBaseAnimation"
+		
+		GrannyModel = "WaterUnit_Mesh"
+		ExtraGrannyAnimations = [{ Name = "MegaWaterUnit" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.75
+		Loop = false
+		Enable3DShadow = false
+		VisualFx = "EnemyWaterUnitRipples"
+		VisualFxIntervalMin = 0.35
+		VisualFxIntervalMax = 0.50
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_WaterUnit_Idle"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_WaterUnit_Hidden"
+		InheritFrom = "Enemy_WaterUnit_Idle"
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+		VisualFx = null
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_WaterUnit_HitStun"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_GetHit_C_00"
+		AllowRestart = true
+		ChainTo = "Enemy_WaterUnit_Idle"
+	}
+	{
+		Name = "Enemy_WaterUnit_HitStun_Heavy"
+		InheritFrom = "Enemy_WaterUnit_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	/*Dive and ReSurface*/
+
+	{
+		Name = "Enemy_WaterUnit_Dive"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_Dive_C_00"
+		CreateAnimation = "WaterUnitDive"
+		Sound = "/SFX/Enemy Sounds/WaterUnit/EmoteDiving"
+		OwnerUntargetable = true
+		OwnerInvulnerable = true
+		OwnerHasNoUnitCollision = true
+		VisualFx = null
+		Frames =
+		[
+			{
+				Frame = 23
+				FrameSpeed = 0.0
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackReturnToIdle"
+				Duration = 10
+			}
+		]	
+	}
+	{
+		Name = "Enemy_WaterUnit_Dive_Large"
+		InheritFrom = "Enemy_WaterUnit_Dive"
+		CreateAnimation = "WaterUnitDiveLarge"
+		Sound = "/SFX/Enemy Sounds/WaterUnit/EmoteDiving"
+	}
+	{
+		Name = "Enemy_WaterUnit_Resurface"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_DiveResurface_C_00"
+		ChainTo = "Enemy_WaterUnit_Idle"
+	}
+
+	/*Lob Attack*/
+
+	{
+		Name = "Enemy_WaterUnit_LobAttackPreFire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_LobAttackAntic_C_00"
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun_Heavy"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterUnit_LobAttackFire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_LobAttackFire_C_00"
+		ChainTo = "Enemy_WaterUnit_LobAttackReturnToIdle"
+	}
+
+	{
+		Name = "Enemy_WaterUnit_LobAttackReturnToIdle"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_LobAttackReturnToIdle_C_00"
+	}
+
+	/*Spit Attack*/
+
+	{
+		Name = "Enemy_WaterUnit_SpitAttackPreFire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_SpitAttackAntic_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyWaterUnitRipples"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun_Heavy"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterUnit_SpitAttackInitialFire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_SpitAttackFireInitial_C_00"
+		ChainTo = "Enemy_WaterUnit_SpitAttackFireLoop"
+		CreateAnimation = "EnemyWaterUnitRipples"
+	}
+
+	{
+		Name = "Enemy_WaterUnit_SpitAttackFireLoop"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_SpitAttackFireLoop_C_00"
+		GrannyAnimationSpeed = 0.38
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_WaterUnit_SpitAttackReturnToIdle"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_SpitAttackReturnToIdle_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackFireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackInitialFire"
+				Duration = 4
+			}
+		]
+	}
+
+	/*Spit Attack Miniboss*/
+
+	{
+		Name = "Enemy_WaterUnit_MiniBoss_Spit_Start"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "WaterUnit_Base_SpitAttackAntic_C_00"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		CreateAnimation = "EnemyWaterUnitRipples"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun_Heavy"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_SpitAttackReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	/* Swipe attack Miniboss */
+
+	{
+		Name = "Enemy_WaterUnit_Swipe_Start"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_CoilAntic_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyWaterUnitRipples"
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartChargeUpSFX"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterUnit_Swipe_Fire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_CoilFire_C_00"
+		//ChainTo = "Enemy_WaterUnit_Swipe_End"
+		CreateAnimation = "EnemyWaterUnitRipples"
+	}
+
+	{
+		Name = "Enemy_WaterUnit_Swipe_End"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_CoilReturnToIdle_C_00"
+		ChainTo = "Enemy_WaterUnit_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Swipe_Fire"
+				Duration = 4
+			}
+		]
+	}
+
+
+	/* Roar attack Miniboss*/
+
+	{
+		Name = "Enemy_WaterUnit_Roar_Start"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_RoarIntro_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyWaterUnitRipples"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_WaterUnit_Roar_Fire"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_Roar_C_00"
+		//ChainTo = "Enemy_WaterUnit_Roar_End"
+		CreateAnimation = "EnemyWaterUnitRipples"
+	}
+
+	{
+		Name = "Enemy_WaterUnit_Roar_End"
+		InheritFrom = "EnemyWaterUnitBaseAnimation"
+		GrannyAnimation = "MegaWaterUnit_Base_RoarReturnToIdle_C_00"
+		ChainTo = "Enemy_WaterUnit_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_WaterUnit_Roar_Fire"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Spawn/Death */ 
+
+    {
+			Name = "Enemy_WaterUnit_Spawn"
+			InheritFrom = "Enemy_WaterUnit_Idle"
+			DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+			Duration = 0.9
+			DeathFxFrameDuration = 54
+			DeathFxReverse = true
+			DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+			DeathFxEaseIn = 0.5
+			DeathFxEaseOut = 1
+			DeathFxThickness = 0.05
+			LocationZFromOwner = "Take"
+			LocationFromOwner = "Take"
+			ColorFromOwner = "Ignore"
+			Red = 0
+			Green = 0
+			Blue = 0
+			OwnerInvulnerable = true
+			OwnerUntargetable = true
+			OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_WaterUnit_Death"
+		InheritFrom = "Enemy_WaterUnit_HitStun"
+		HoldLastFrame = true
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 100
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "EnemyWaterUnitRipples"
+		FilePath = "Fx\OceanusSurfaceRipple\OceanusSurfaceRipple"
+		NumFrames = 41
+		RandomFlipHorizontal = true
+		Scale = 0.35
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartScale = 0.9
+		EndScale = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Ambient = 0
+		AddColor = false
+		Hue = 0.1
+		Alpha = 0.5
+		UseAttachedFlasher = false
+	}
+
+]}

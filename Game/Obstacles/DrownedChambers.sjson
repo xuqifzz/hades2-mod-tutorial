@@ -1,0 +1,3849 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "OceanusExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "OceanusExitDoorClosed"
+        SortMode = "Secondary"
+        StopsLight = false
+        StopsProjectiles = false
+        Interact = 
+        {
+          Distance = 180.0
+        }
+        Tallness = 1
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 126 Y = 20 }
+          { X = 125 Y = -37 }
+          { X = 44 Y = -64 }
+          { X = -64 Y = -62 }
+          { X = -127 Y = -22 }
+          { X = -125 Y = 27 }
+          { X = -53 Y = 67 }
+          { X = 43 Y = 67 }
+          { X = 95 Y = 46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "Breakable_G"
+      DisplayInEditor = true
+      ReflectLobProjectiles = false
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.35
+        Graphic = "Breakable_G01"
+        StopsProjectiles = true
+        StopsUnits = true
+        StopsLight = true
+        Tallness = 100.0
+        UseBoundsForSortDrawArea = true
+        Offset = { X = 0 Y = -100 }
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+
+    {
+      Name = "ArachneCocoon_G"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsProjectiles = true
+        StopsUnits = true
+        Graphic = "OceanusKelpCocoon"
+        Offset = { X = 0 Y = -140 }
+        ExtentScale = 0.25
+        Tallness = 100
+        Points = [
+          { X = 108 Y = -6 }
+          { X = 37 Y = -44 }
+          { X = -66 Y = -43 }
+          { X = -117 Y = 0 }
+          { X = -49 Y = 41 }
+          { X = 64 Y = 36 }
+        ]
+      }
+    }
+
+    {
+      Name = "ArachneCocoonMedium_G"
+      InheritFrom = "ArachneCocoon_G"
+      Thing = 
+      {
+        Scale = 1.2
+      }
+    }
+
+    {
+      Name = "ArachneCocoonLarge_G"
+      InheritFrom = "ArachneCocoon_G"
+      Thing = 
+      {
+        Scale = 1.5
+      }
+    }
+
+    {
+      Name = "ScyllaCover"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        CausesOcclusion = true
+        OcclusionOpacity = 0.25
+        Graphic = "ScyllaCoverEmerge"
+        Scale = 0.7
+        ExtentScale = 1.0
+        Tallness = 999
+        Offset = { X = 30 Y = -323 }
+        Points = [
+          { X = -132 Y = 13 }
+          { X = -53 Y = 53 }
+          { X = 85 Y = 53 }
+          { X = 166 Y = 3 }
+          { X = 165 Y = -60 }
+          { X = 75 Y = -114 }
+          { X = -27 Y = -118 }
+          { X = -132 Y = -73 }
+        ]
+      }
+    }
+    
+    {
+      Name = "SteamWallTrapDestroyed"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+          ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SteamWallTrapDestroyed"
+        Tallness = 433.0
+        Points = [
+			{ X = 0 Y = 32 }
+			{ X = 64 Y = 0 }
+			{ X = 22 Y = -22 }
+			{ X = -42 Y = 11 }
+        ]
+      }
+    }
+    
+    {
+      Name = "SteamCubeFusedDestroyed"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "SteamCubeDestroyed"
+        Scale = 0.55
+        UseBoundsForSortDrawArea = true
+        Tallness = 39
+        Points = [
+          { X = -5 Y = 139 }
+          { X = 222 Y = 19 }
+          { X = 3 Y = -91 }
+          { X = -226 Y = 24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_01"
+        Tallness = 1585.0
+        Offset = { X = 0 Y = -672 }
+        Points = [
+          { X = 152 Y = 3 }
+          { X = 7 Y = -65 }
+          { X = -148 Y = 9 }
+          { X = 15 Y = 73 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipeCluster02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PipeCluster_02"
+        Tallness = 792
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -403 Y = 32 }
+          { X = -222 Y = 168 }
+          { X = 117 Y = 236 }
+          { X = 400 Y = 124 }
+          { X = 388 Y = -113 }
+          { X = 109 Y = -312 }
+          { X = -304 Y = -242 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_02"
+        Tallness = 766.0
+        Offset = { X = 0 Y = -314 }
+        Points = [
+          { X = -49 Y = 13 }
+          { X = -2 Y = 45 }
+          { X = 59 Y = 14 }
+          { X = 1 Y = -16 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_03"
+        Tallness = 1111.0
+        Offset = { X = 0 Y = -394 }
+        Points = [
+          { X = -69 Y = 27 }
+          { X = 58 Y = 90 }
+          { X = 192 Y = 19 }
+          { X = 67 Y = -39 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_04"
+        Tallness = 1143.0
+        Offset = { X = 0 Y = -314 }
+        Points = [
+          { X = -260 Y = 164 }
+          { X = -117 Y = 237 }
+          { X = 36 Y = 164 }
+          { X = -114 Y = 90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar10"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_10"
+        Tallness = 1203
+        Offset = { X = 0 Y = -517 }
+        Points = [
+          { X = -195 Y = -11 }
+          { X = -148 Y = 67 }
+          { X = 30 Y = 129 }
+          { X = 178 Y = 125 }
+          { X = 236 Y = 15 }
+          { X = 159 Y = -97 }
+          { X = -60 Y = -133 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_05"
+        Tallness = 555.0
+        Offset = { X = 0 Y = -190 }
+        Points = [
+          { X = -211 Y = 40 }
+          { X = 16 Y = 145 }
+          { X = 216 Y = 50 }
+          { X = 9 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarBase_01"
+        Tallness = 555.0
+        Offset = { X = 0 Y = -190 }
+        Points = [
+          { X = -211 Y = 40 }
+          { X = 16 Y = 145 }
+          { X = 216 Y = 50 }
+          { X = 9 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarBase02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarBase_02"
+        Tallness = 448
+        Offset = { X = 0 Y = -190 }
+        StopsProjectiles = true
+        StopsUnits = true
+        Points = [
+          { X = -294 Y = 10 }
+          { X = -184 Y = 168 }
+          { X = 78 Y = 168 }
+          { X = 250 Y = 19 }
+          { X = 214 Y = -144 }
+          { X = 4 Y = -155 }
+          { X = -212 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTable01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Table_01"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 448
+        Offset = { X = 0 Y = -190 }
+        Points = [
+          { X = -380 Y = 82 }
+          { X = -162 Y = 173 }
+          { X = 382 Y = -99 }
+          { X = 162 Y = -191 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeChair04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeChair_04"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 388
+        Offset = { X = 0 Y = -132 }
+        Points = [
+          { X = -340 Y = 10 }
+          { X = -32 Y = 177 }
+          { X = 48 Y = 174 }
+          { X = 347 Y = 4 }
+          { X = 161 Y = -133 }
+          { X = -185 Y = -115 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeChair03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeChair_03"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 331
+        Offset = { X = 0 Y = -120 }
+        Points = [
+          { X = -124 Y = -10 }
+          { X = -92 Y = 67 }
+          { X = -18 Y = 81 }
+          { X = 70 Y = 58 }
+          { X = 88 Y = -29 }
+          { X = 39 Y = -55 }
+          { X = -52 Y = -51 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeChair02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeChair_02"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 540
+        Offset = { X = 0 Y = -210 }
+        Points = [
+          { X = -312 Y = 69 }
+          { X = -91 Y = 176 }
+          { X = 325 Y = -40 }
+          { X = 51 Y = -147 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeChair01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeChair_01"
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 533
+        Offset = { X = 0 Y = -190 }
+        Points = [
+          { X = -318 Y = 81 }
+          { X = 2 Y = 236 }
+          { X = 291 Y = 97 }
+          { X = 339 Y = -155 }
+          { X = 169 Y = -187 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_08"
+        Tallness = 780
+        Offset = { X = 0 Y = -296 }
+        Points = [
+          { X = -330 Y = 0 }
+          { X = -105 Y = 170 }
+          { X = 115 Y = 170 }
+          { X = 330 Y = 0 }
+          { X = 115 Y = -170 }
+          { X = -105 Y = -170 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarBase03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarBase_03"
+        Tallness = 468
+        Offset = { X = 0 Y = -309 }
+        Points = [
+          { X = -543 Y = -283 }
+          { X = -580 Y = -71 }
+          { X = -489 Y = 96 }
+          { X = 45 Y = 204 }
+          { X = 481 Y = 93 }
+          { X = 570 Y = -158 }
+          { X = 286 Y = -336 }
+          { X = -283 Y = -361 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarCapital01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarCapital_01"
+        Tallness = 555.0
+        Offset = { X = 0 Y = -190 }
+        Points = [
+          { X = -211 Y = 40 }
+          { X = 16 Y = 145 }
+          { X = 216 Y = 50 }
+          { X = 9 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarCapital02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarCapital_02"
+        Tallness = 524
+        Offset = { X = 0 Y = -223 }
+        Points = [
+          { X = -141 Y = -58 }
+          { X = -166 Y = 50 }
+          { X = -32 Y = 90 }
+          { X = 111 Y = 85 }
+          { X = 188 Y = -9 }
+          { X = 144 Y = -77 }
+          { X = 45 Y = -116 }
+          { X = -71 Y = -117 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLantern01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Lantern_01"
+        Tallness = 1332
+        Offset = { X = 0 Y = -601 }
+        Points = [
+          { X = -93 Y = 10 }
+          { X = -32 Y = 59 }
+          { X = 57 Y = 59 }
+          { X = 105 Y = -6 }
+          { X = 55 Y = -53 }
+          { X = -53 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_06"
+        Tallness = 1362
+        Offset = { X = 0 Y = -559 }
+        Points = [
+          { X = -158 Y = 4 }
+          { X = -115 Y = 80 }
+          { X = 82 Y = 91 }
+          { X = 131 Y = 55 }
+          { X = -83 Y = -53 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_08"
+        Tallness = 1021
+        Offset = { X = 0 Y = -420 }
+        Points = [
+          { X = -129 Y = 11 }
+          { X = -125 Y = 50 }
+          { X = -59 Y = 94 }
+          { X = 47 Y = 94 }
+          { X = 107 Y = 47 }
+          { X = 126 Y = -3 }
+          { X = 86 Y = -58 }
+          { X = -31 Y = -62 }
+          { X = -100 Y = -54 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillarCluster01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PillarCluster_01"
+        Tallness = 1140
+        Offset = { X = 0 Y = -508 }
+        Points = [
+          { X = -262 Y = -71 }
+          { X = -217 Y = 89 }
+          { X = -81 Y = 132 }
+          { X = 182 Y = 132 }
+          { X = 248 Y = 58 }
+          { X = -174 Y = -175 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar09"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_09"
+        Tallness = 1021
+        Offset = { X = 0 Y = -420 }
+        Points = [
+          { X = -74 Y = 18 }
+          { X = -35 Y = 48 }
+          { X = 14 Y = 51 }
+          { X = 64 Y = 38 }
+          { X = 75 Y = 17 }
+          { X = 69 Y = -16 }
+          { X = 16 Y = -32 }
+          { X = -44 Y = -29 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_01"
+        Tallness = 1263.0
+        Offset = { X = 0 Y = -504 }
+        Points = [
+          { X = -710 Y = -236 }
+          { X = 574 Y = 381 }
+          { X = 710 Y = 298 }
+          { X = -556 Y = -304 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_02"
+        Tallness = 1164.0
+        Offset = { X = 0 Y = -497 }
+        Points = [
+          { X = -397 Y = -169 }
+          { X = 368 Y = 211 }
+          { X = 408 Y = 188 }
+          { X = -362 Y = -188 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03"
+        Tallness = 274
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -352 Y = -25 }
+          { X = 120 Y = 217 }
+          { X = 394 Y = 65 }
+          { X = -56 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03c"
+        Tallness = 274
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -352 Y = -25 }
+          { X = 120 Y = 217 }
+          { X = 394 Y = 65 }
+          { X = -56 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03a"
+        Tallness = 274
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -352 Y = -25 }
+          { X = 120 Y = 217 }
+          { X = 394 Y = 65 }
+          { X = -56 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03d"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03d"
+        Tallness = 274
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -352 Y = -25 }
+          { X = 120 Y = 217 }
+          { X = 394 Y = 65 }
+          { X = -56 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03b"
+        Tallness = 329
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = 239 Y = 60 }
+          { X = -7 Y = 181 }
+          { X = -107 Y = 181 }
+          { X = -184 Y = 158 }
+          { X = -245 Y = 111 }
+          { X = -259 Y = 69 }
+          { X = -2 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick03e"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_03e"
+        Tallness = 329
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = 145 Y = 60 }
+          { X = -104 Y = 183 }
+          { X = -190 Y = 187 }
+          { X = -288 Y = 160 }
+          { X = -345 Y = 99 }
+          { X = -355 Y = 69 }
+          { X = -79 Y = -65 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_04"
+        Tallness = 1128
+        Offset = { X = 0 Y = -489 }
+        Points = [
+          { X = -356 Y = 142 }
+          { X = -281 Y = 176 }
+          { X = 355 Y = -149 }
+          { X = 298 Y = -176 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_05"
+        Tallness = 411.0
+        Offset = { X = 0 Y = -39 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick06"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_06"
+        Tallness = 859.0
+        Offset = { X = 0 Y = -308 }
+        Points = [
+          { X = -448 Y = 228 }
+          { X = -356 Y = 294 }
+          { X = 442 Y = -111 }
+          { X = 327 Y = -162 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick08"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_08"
+        Tallness = 1182
+        Offset = { X = 0 Y = -484 }
+        Points = [
+          { X = -341 Y = -100 }
+          { X = 278 Y = 199 }
+          { X = 343 Y = 157 }
+          { X = -265 Y = -139 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallWaterdrip01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wall_Waterdrip_01"
+        Tallness = 1182
+        Offset = { X = 0 Y = 48 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick08a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_08a"
+        Tallness = 1182
+        Offset = { X = 0 Y = -484 }
+        Points = [
+          { X = -341 Y = -100 }
+          { X = 278 Y = 199 }
+          { X = 343 Y = 157 }
+          { X = -265 Y = -139 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_07"
+        Tallness = 1179.0
+        Offset = { X = 0 Y = -308 }
+        Points = [
+          { X = -192 Y = 48 }
+          { X = -308 Y = 106 }
+          { X = 221 Y = 361 }
+          { X = 321 Y = 301 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallbrick07a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Wallbrick_07a"
+        Tallness = 1179.0
+        Offset = { X = 0 Y = -397 }
+        Points = [
+          { X = -192 Y = 48 }
+          { X = -308 Y = 106 }
+          { X = 190 Y = 338 }
+          { X = 303 Y = 293 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_02"
+        Tallness = 796.0
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_01"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_03"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_04"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_05"
+        Tallness = 900
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -383 Y = 343 }
+          { X = 39 Y = 133 }
+          { X = 317 Y = 272 }
+          { X = -105 Y = 482 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallMachinery01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallMachinery_01"
+        Tallness = 401
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -263 Y = 88 }
+          { X = -168 Y = 133 }
+          { X = 279 Y = -91 }
+          { X = 165 Y = -137 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe06"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_06"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFlyers01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Flyers_01"
+        Tallness = 349
+        Offset = { X = 0 Y = -85 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersJellyfish01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Jellyfish_01"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersKelp01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Kelp_01"
+        Tallness = 724.0
+        Offset = { X = 0 Y = -85 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_01"
+        Tallness = 251.0
+        Offset = { X = 0 Y = -89 }
+        Points = [
+          { X = -125 Y = -58 }
+          { X = -166 Y = 5 }
+          { X = -119 Y = 63 }
+          { X = -40 Y = 94 }
+          { X = 123 Y = 94 }
+          { X = 196 Y = 19 }
+          { X = 178 Y = -34 }
+          { X = 98 Y = -74 }
+          { X = -68 Y = -78 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_02"
+        Tallness = 251.0
+        Offset = { X = 0 Y = -89 }
+        Points = [
+          { X = -112 Y = -74 }
+          { X = -168 Y = -39 }
+          { X = -178 Y = 11 }
+          { X = -115 Y = 56 }
+          { X = -37 Y = 75 }
+          { X = 57 Y = 66 }
+          { X = 98 Y = 29 }
+          { X = 121 Y = -15 }
+          { X = 100 Y = -48 }
+          { X = -4 Y = -87 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_03"
+        Tallness = 173.0
+        Offset = { X = 0 Y = -89 }
+        Points = [
+          { X = -201 Y = -31 }
+          { X = 45 Y = 95 }
+          { X = 209 Y = 3 }
+          { X = -47 Y = -119 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_04"
+        Tallness = 127.0
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = -208 Y = -59 }
+          { X = 113 Y = 103 }
+          { X = 167 Y = 114 }
+          { X = 223 Y = 83 }
+          { X = -147 Y = -99 }
+          { X = -200 Y = -96 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_05"
+        Tallness = 245.0
+        Offset = { X = 0 Y = -88 }
+        Points = [
+          { X = -127 Y = 29 }
+          { X = -38 Y = 72 }
+          { X = 128 Y = -19 }
+          { X = 39 Y = -58 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe04a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_04a"
+        Tallness = 113.0
+        Offset = { X = 0 Y = -32 }
+        Points = [
+          { X = -107 Y = 9 }
+          { X = 12 Y = 70 }
+          { X = 86 Y = 69 }
+          { X = 122 Y = 34 }
+          { X = -36 Y = -32 }
+          { X = -94 Y = -23 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersCubeBrick01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_CubeBrick_01"
+        Tallness = 343
+        Offset = { X = 0 Y = -101 }
+        Points = [
+          { X = -589 Y = 214 }
+          { X = -325 Y = 333 }
+          { X = 570 Y = -116 }
+          { X = 336 Y = -246 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersCubeBrick02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_CubeBrick_02"
+        Tallness = 500
+        Offset = { X = 0 Y = -219 }
+        Points = [
+          { X = -381 Y = 98 }
+          { X = -186 Y = 192 }
+          { X = 381 Y = -95 }
+          { X = 179 Y = -194 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersCubeBrick03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_CubeBrick_03"
+        Tallness = 372.0
+        Offset = { X = 0 Y = -150 }
+        Points = [
+          { X = -217 Y = 66 }
+          { X = -109 Y = 130 }
+          { X = 243 Y = -52 }
+          { X = 128 Y = -110 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_01"
+        Tallness = 577.0
+        Offset = { X = 0 Y = -206 }
+        Points = [
+          { X = -664 Y = -262 }
+          { X = 645 Y = 319 }
+          { X = 682 Y = 288 }
+          { X = -596 Y = -294 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipeCluster01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_PipeCluster_01"
+        Tallness = 577
+        Offset = { X = 0 Y = 37 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_02"
+        Tallness = 547.0
+        Offset = { X = 0 Y = -160 }
+        Points = [
+          { X = -551 Y = -281 }
+          { X = 469 Y = 238 }
+          { X = 525 Y = 203 }
+          { X = -487 Y = -308 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_03"
+        Tallness = 595.0
+        Offset = { X = 0 Y = -242 }
+        Points = [
+          { X = -175 Y = 175 }
+          { X = 364 Y = -87 }
+          { X = 177 Y = -180 }
+          { X = -345 Y = 84 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_04"
+        Tallness = 671.0
+        Offset = { X = 0 Y = -292 }
+        Points = [
+          { X = -638 Y = 250 }
+          { X = -479 Y = 337 }
+          { X = 640 Y = -226 }
+          { X = 429 Y = -326 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_05"
+        Tallness = 475
+        Offset = { X = 0 Y = -180 }
+        Points = [
+          { X = -422 Y = 159 }
+          { X = -295 Y = 223 }
+          { X = 412 Y = -126 }
+          { X = 281 Y = -186 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersArch05a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Arch_05a"
+        Tallness = 475
+        Offset = { X = 0 Y = -180 }
+        Points = [
+          { X = -422 Y = 159 }
+          { X = -295 Y = 223 }
+          { X = 412 Y = -126 }
+          { X = 281 Y = -186 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDrain01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Drain_01"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDrain02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Drain_02"
+        Tallness = 19
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = 38 Y = 335 }
+          { X = -668 Y = -15 }
+          { X = -29 Y = -340 }
+          { X = 667 Y = 8 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDrain03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Drain_03"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainScylla01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Scylla_01"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersHarvestPointBase01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_HarvestPointBase_01"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_01"
+        Tallness = 68.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -668 Y = 27 }
+          { X = -3 Y = 355 }
+          { X = 660 Y = 23 }
+          { X = -8 Y = -306 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_02"
+        Tallness = 6.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -270 Y = 99 }
+          { X = -212 Y = 130 }
+          { X = 260 Y = -103 }
+          { X = 186 Y = -135 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_03"
+        Tallness = 6.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -388 Y = -33 }
+          { X = 60 Y = 194 }
+          { X = 388 Y = 29 }
+          { X = -49 Y = -198 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile11"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_11"
+        Tallness = 34
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -585 Y = 18 }
+          { X = -70 Y = 283 }
+          { X = 607 Y = -37 }
+          { X = 59 Y = -303 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersSteamTrap01Idle"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_SteamTrap_01_Idle"
+        Tallness = 6
+        Offset = { X = 0 Y = -5 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile12"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_12"
+        Tallness = 101
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -418 Y = 53 }
+          { X = -60 Y = 233 }
+          { X = 414 Y = -3 }
+          { X = 41 Y = -185 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile13"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_13"
+        Tallness = 101
+        Offset = { X = 0 Y = 73 }
+        Points = [
+          { X = -448 Y = 120 }
+          { X = -15 Y = 326 }
+          { X = 445 Y = 106 }
+          { X = -6 Y = -98 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile14"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_14"
+        Tallness = 101
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -558 Y = 32 }
+          { X = -15 Y = 326 }
+          { X = 561 Y = 25 }
+          { X = 14 Y = -255 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersRoundFlourish01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_RoundFlourish_01"
+        Tallness = 101
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -558 Y = 32 }
+          { X = -15 Y = 326 }
+          { X = 561 Y = 25 }
+          { X = 14 Y = -255 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile18"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_18"
+        Tallness = 101
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -508 Y = -63 }
+          { X = 187 Y = 280 }
+          { X = 509 Y = 120 }
+          { X = -183 Y = -230 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile19"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_19"
+        Tallness = 64
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -379 Y = 110 }
+          { X = -170 Y = 210 }
+          { X = 381 Y = -69 }
+          { X = 177 Y = -173 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_04"
+        Tallness = 89.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -603 Y = 40 }
+          { X = -14 Y = 329 }
+          { X = 599 Y = 19 }
+          { X = 7 Y = -260 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile17"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_17"
+        Tallness = 44
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -370 Y = -233 }
+          { X = -445 Y = -125 }
+          { X = -301 Y = 19 }
+          { X = 130 Y = 216 }
+          { X = 465 Y = 167 }
+          { X = 357 Y = -191 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_05"
+        Tallness = 174.0
+        Offset = { X = 0 Y = -5 }
+        Points = [
+          { X = -608 Y = 175 }
+          { X = -608 Y = 175 }
+          { X = -211 Y = 376 }
+          { X = 600 Y = -31 }
+          { X = 233 Y = -235 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_06"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -359 Y = 3 }
+          { X = 69 Y = 209 }
+          { X = 360 Y = 65 }
+          { X = -53 Y = -150 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_07"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile15"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_15"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_07"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile08"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_08"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile16"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_16"
+        Tallness = 86
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -373 Y = 90 }
+          { X = -170 Y = 204 }
+          { X = 381 Y = -76 }
+          { X = 169 Y = -181 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainFlourish02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Flourish_02"
+        Tallness = 86
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -373 Y = 90 }
+          { X = -170 Y = 204 }
+          { X = 381 Y = -76 }
+          { X = 169 Y = -181 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile16a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_16a"
+        Tallness = 57
+        Offset = { X = 0 Y = -20 }
+        Points = [
+          { X = -183 Y = -8 }
+          { X = 8 Y = 110 }
+          { X = 186 Y = 15 }
+          { X = -12 Y = -99 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainPipes01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Pipes_01"
+        Tallness = 57
+        Offset = { X = 0 Y = -20 }
+        Points = [
+          { X = -371 Y = -107 }
+          { X = -347 Y = 61 }
+          { X = -106 Y = 223 }
+          { X = 362 Y = 50 }
+          { X = 390 Y = -21 }
+          { X = 3 Y = -218 }
+          { X = -167 Y = -267 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile04a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_04a"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile09"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_09"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWaterTile01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WaterTile_01"
+        Tallness = 164
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = 16 Y = 175 }
+          { X = 217 Y = 76 }
+          { X = 12 Y = -107 }
+          { X = -168 Y = -26 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainTile10"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Tile_10"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_01"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_02"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainMosaic01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Mosaic_01"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainFlourish01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Flourish_01"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainFlourish01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Flourish_01a"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainFlourish03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Flourish_03"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainMosaic02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Mosaic_02"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainMosaic03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Mosaic_03"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_03"
+        Tallness = 190
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -254 Y = -3 }
+          { X = -175 Y = 144 }
+          { X = -59 Y = 207 }
+          { X = 111 Y = 184 }
+          { X = 272 Y = 103 }
+          { X = 242 Y = 2 }
+          { X = -58 Y = -126 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlook01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_01a"
+        Tallness = 190
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -254 Y = -3 }
+          { X = -175 Y = 144 }
+          { X = -59 Y = 207 }
+          { X = 111 Y = 184 }
+          { X = 272 Y = 103 }
+          { X = 242 Y = 2 }
+          { X = -58 Y = -126 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_04"
+        Tallness = 132
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -146 Y = 39 }
+          { X = -42 Y = 81 }
+          { X = 105 Y = 64 }
+          { X = 147 Y = 11 }
+          { X = 61 Y = -64 }
+          { X = -40 Y = -62 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlookTerrainPipe01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_TerrainPipe_01"
+        Tallness = 132
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -468 Y = 243 }
+          { X = -292 Y = -148 }
+          { X = 137 Y = -361 }
+          { X = 317 Y = -341 }
+          { X = 445 Y = -233 }
+          { X = 468 Y = -113 }
+          { X = 435 Y = 15 }
+          { X = 346 Y = 200 }
+          { X = 64 Y = 312 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_05"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_01"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_02"
+        Tallness = 500
+        Offset = { X = 0 Y = -172 }
+        Points = [
+          { X = -133 Y = -13 }
+          { X = 7 Y = 77 }
+          { X = 132 Y = 45 }
+          { X = 167 Y = -19 }
+          { X = 81 Y = -81 }
+          { X = -36 Y = -94 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_04"
+        Tallness = 410
+        Offset = { X = 0 Y = -172 }
+        Points = [
+          { X = -133 Y = -13 }
+          { X = 7 Y = 77 }
+          { X = 132 Y = 45 }
+          { X = 167 Y = -19 }
+          { X = 81 Y = -81 }
+          { X = -36 Y = -94 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers02a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_02a"
+        Tallness = 500
+        Offset = { X = 0 Y = -172 }
+        Points = [
+          { X = -133 Y = -13 }
+          { X = 7 Y = 77 }
+          { X = 132 Y = 45 }
+          { X = 167 Y = -19 }
+          { X = 81 Y = -81 }
+          { X = -36 Y = -94 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_03"
+        Tallness = 188
+        Offset = { X = 0 Y = -80 }
+        Points = [
+          { X = -91 Y = 25 }
+          { X = 17 Y = 66 }
+          { X = 109 Y = 25 }
+          { X = 126 Y = -14 }
+          { X = 73 Y = -53 }
+          { X = -32 Y = -48 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussFlowers03a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussFlowers_03a"
+        Tallness = 500
+        Offset = { X = 0 Y = -80 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersTerrainDecor06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Terrain_Decor_06"
+        Tallness = 132.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersManholeClosed01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_ManholeClosed_01"
+        Tallness = 0.0
+        Offset = { X = 0 Y = -29 }
+        Points = [
+
+          { X = -468 Y = -298 }
+          { X = -468 Y = -298 }
+          { X = -623 Y = -178 }
+          { X = -714 Y = -46 }
+          { X = -714 Y = -46 }
+          { X = -678 Y = 89 }
+          { X = -678 Y = 89 }
+          { X = -573 Y = 173 }
+          { X = -345 Y = 269 }
+          { X = -111 Y = 312 }
+
+          { X = 168 Y = 307 }
+          { X = 485 Y = 225 }
+          { X = 643 Y = 113 }
+          { X = 700 Y = -59 }
+          { X = 664 Y = -147 }
+          { X = 544 Y = -267 }
+          { X = 544 Y = -267 }
+          { X = 243 Y = -358 }
+          { X = -99 Y = -382 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersManholeOpen01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_ManholeOpen_01"
+        Tallness = 0.0
+        Offset = { X = 0 Y = -29 }
+        Points = [
+
+          { X = -468 Y = -298 }
+          { X = -468 Y = -298 }
+          { X = -623 Y = -178 }
+          { X = -714 Y = -46 }
+          { X = -714 Y = -46 }
+          { X = -678 Y = 89 }
+          { X = -678 Y = 89 }
+          { X = -573 Y = 173 }
+          { X = -345 Y = 269 }
+          { X = -111 Y = 312 }
+
+          { X = 168 Y = 307 }
+          { X = 485 Y = 225 }
+          { X = 643 Y = 113 }
+          { X = 700 Y = -59 }
+          { X = 664 Y = -147 }
+          { X = 544 Y = -267 }
+          { X = 544 Y = -267 }
+          { X = 243 Y = -358 }
+          { X = -99 Y = -382 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFence01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fence_01"
+        Tallness = 328.0
+        Offset = { X = 0 Y = -134 }
+        Points = [
+          { X = -178 Y = 87 }
+          { X = -153 Y = 98 }
+          { X = 186 Y = -74 }
+          { X = 146 Y = -91 }
+          { X = -178 Y = 87 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFence02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fence_02"
+        Tallness = 423.0
+        Offset = { X = 0 Y = -183 }
+        Points = [
+          { X = -248 Y = 103 }
+          { X = -202 Y = 122 }
+          { X = 253 Y = -93 }
+          { X = 192 Y = -115 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFence03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fence_03"
+        Tallness = 686.0
+        Offset = { X = 0 Y = -288 }
+        Points = [
+          { X = -61 Y = 16 }
+          { X = -4 Y = 45 }
+          { X = 66 Y = 6 }
+          { X = 8 Y = -22 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFence04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fence_04"
+        Tallness = 318.0
+        Offset = { X = 0 Y = -129 }
+        Points = [
+          { X = -167 Y = 61 }
+          { X = -124 Y = 86 }
+          { X = 170 Y = -61 }
+          { X = 119 Y = -83 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_01"
+        Tallness = 61.0
+        Offset = { X = 0 Y = -12 }
+        Points = [
+          { X = -347 Y = 165 }
+          { X = -292 Y = 204 }
+          { X = 351 Y = -145 }
+          { X = 283 Y = -180 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe06"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_06"
+        Tallness = 528
+        Offset = { X = 0 Y = -256 }
+        Points = [
+          { X = -428 Y = -155 }
+          { X = -267 Y = -234 }
+          { X = 410 Y = 107 }
+          { X = 213 Y = 196 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_07"
+        Tallness = 304
+        Offset = { X = 0 Y = -149 }
+        Points = [
+          { X = -382 Y = -145 }
+          { X = -316 Y = -180 }
+          { X = 351 Y = 148 }
+          { X = 272 Y = 189 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe07a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_07a"
+        Tallness = 304
+        Offset = { X = 0 Y = -144 }
+        Points = [
+          { X = 136 Y = 12 }
+          { X = -23 Y = 97 }
+          { X = -184 Y = 15 }
+          { X = -13 Y = -73 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFencePipe07b"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_FencePipe_07b"
+        Tallness = 304
+        Offset = { X = 0 Y = -144 }
+        Points = [
+          { X = 136 Y = 12 }
+          { X = -23 Y = 97 }
+          { X = -184 Y = 15 }
+          { X = -13 Y = -73 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_02"
+        Tallness = 299.0
+        Offset = { X = 0 Y = -122 }
+        Points = [
+          { X = -491 Y = 169 }
+          { X = -318 Y = 261 }
+          { X = 485 Y = -167 }
+          { X = 319 Y = -248 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_03"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -259 }
+        Points = [
+          { X = -220 Y = 7 }
+          { X = 23 Y = 125 }
+          { X = 295 Y = -5 }
+          { X = 41 Y = -122 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe03a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_03a"
+        Tallness = 645
+        Offset = { X = 0 Y = -274 }
+        Points = [
+          { X = 166 Y = 39 }
+          { X = -26 Y = -51 }
+          { X = -151 Y = 24 }
+          { X = -7 Y = 97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPillar07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pillar_07"
+        Tallness = 1196
+        Offset = { X = 0 Y = -501 }
+        Points = [
+          { X = -188 Y = -16 }
+          { X = 21 Y = 94 }
+          { X = 191 Y = 13 }
+          { X = -21 Y = -94 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersScyllaPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_ScyllaPillar_01"
+        Tallness = 1356
+        Offset = { X = 0 Y = -561 }
+        Points = [
+          { X = -137 Y = 11 }
+          { X = -25 Y = 89 }
+          { X = 150 Y = -14 }
+          { X = 42 Y = -83 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_04"
+        Tallness = 350.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlookFG01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_FG_01"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlookFG02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_FG_02"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlookFG03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_FG_03"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersOverlookFG04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Overlook_FG_04"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallPipe07"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallPipe_07"
+        Tallness = 645.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_05"
+        Tallness = 1204.0
+        Offset = { X = 0 Y = -531 }
+        Points = [
+          { X = -82 Y = 86 }
+          { X = 88 Y = 83 }
+          { X = 191 Y = -11 }
+          { X = 108 Y = -76 }
+          { X = -51 Y = -99 }
+          { X = -180 Y = -19 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe06"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_06"
+        Tallness = 602.0
+        Offset = { X = 0 Y = -258 }
+        Points = [
+          { X = -106 Y = -128 }
+          { X = -287 Y = -45 }
+          { X = 108 Y = 131 }
+          { X = 272 Y = 50 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe06a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_06a"
+        Tallness = 609.0
+        Offset = { X = 0 Y = -327 }
+        Points = [
+          { X = -346 Y = -84 }
+          { X = 125 Y = 167 }
+          { X = 338 Y = 57 }
+          { X = -142 Y = -182 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeFood01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeFood_01"
+        Tallness = 266
+        Offset = { X = 0 Y = -9 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersStageLights01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_StageLights_01"
+        Tallness = 266
+        Offset = { X = 0 Y = -9 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersLoungeFood02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeFood_02"
+        Tallness = 267
+        Offset = { X = 0 Y = -97 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe07"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_07"
+        Tallness = 233.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -211 Y = 48 }
+          { X = -108 Y = 142 }
+          { X = 221 Y = -9 }
+          { X = 83 Y = -87 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe08"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_08"
+        Tallness = 233.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersSteamWallTrap01Idle"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_SteamWallTrap_01_Idle"
+        Tallness = 233.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe09"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_09"
+        Tallness = 1300.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe12"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_12"
+        Tallness = 501
+        Offset = { X = 0 Y = -230 }
+        Points = [
+          { X = -449 Y = 111 }
+          { X = -205 Y = 229 }
+          { X = -157 Y = 225 }
+          { X = 472 Y = -106 }
+          { X = 213 Y = -246 }
+          { X = 166 Y = -240 }
+          { X = -448 Y = 71 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe10"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_10"
+        Tallness = 999
+        Offset = { X = 0 Y = -453 }
+        Points = [
+          { X = -245 Y = -13 }
+          { X = -212 Y = 64 }
+          { X = 5 Y = 120 }
+          { X = 231 Y = 62 }
+          { X = 247 Y = -7 }
+          { X = 203 Y = -91 }
+          { X = 33 Y = -145 }
+          { X = -167 Y = -118 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWaterTank01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WaterTank_01"
+        Tallness = 998
+        Offset = { X = 0 Y = -433 }
+        Points = [
+          { X = -199 Y = -18 }
+          { X = -139 Y = 83 }
+          { X = -8 Y = 112 }
+          { X = 88 Y = 109 }
+          { X = 196 Y = 48 }
+          { X = 166 Y = -104 }
+          { X = 51 Y = -123 }
+          { X = -146 Y = -119 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_01"
+        Tallness = 763
+        Offset = { X = 0 Y = -311 }
+        Points = [
+          { X = -253 Y = 6 }
+          { X = -217 Y = 91 }
+          { X = -44 Y = 162 }
+          { X = 131 Y = 140 }
+          { X = 270 Y = 25 }
+          { X = 231 Y = -71 }
+          { X = 74 Y = -129 }
+          { X = -159 Y = -105 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersSteamCubeFusedIdle"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_SteamCubeFused_Idle"
+        Tallness = 791
+        Offset = { X = 0 Y = -311 }
+        Points = [
+          { X = -294 Y = 9 }
+          { X = 0 Y = 157 }
+          { X = 285 Y = 7 }
+          { X = -11 Y = -138 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersVase03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Vase_03"
+        Tallness = 791
+        Offset = { X = 0 Y = -311 }
+        Points = [
+          { X = -294 Y = 9 }
+          { X = 0 Y = 157 }
+          { X = 285 Y = 7 }
+          { X = -11 Y = -138 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_02"
+        Tallness = 920
+        Offset = { X = 0 Y = -372 }
+        Points = [
+          { X = -234 Y = 8 }
+          { X = -219 Y = 119 }
+          { X = -58 Y = 133 }
+          { X = 125 Y = 71 }
+          { X = 122 Y = -52 }
+          { X = -20 Y = -95 }
+          { X = -119 Y = -71 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_04"
+        Tallness = 1034
+        Offset = { X = 0 Y = -399 }
+        Points = [
+          { X = -193 Y = -5 }
+          { X = -121 Y = 98 }
+          { X = 36 Y = 112 }
+          { X = 171 Y = 62 }
+          { X = 208 Y = -7 }
+          { X = 117 Y = -94 }
+          { X = -79 Y = -92 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_07"
+        Tallness = 233
+        Offset = { X = 0 Y = -88 }
+        Points = [
+          { X = -256 Y = 76 }
+          { X = -127 Y = 149 }
+          { X = 266 Y = -50 }
+          { X = 138 Y = -117 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_05"
+        Tallness = 998
+        Offset = { X = 0 Y = -411 }
+        Points = [
+          { X = -270 Y = -20 }
+          { X = 76 Y = 143 }
+          { X = 262 Y = 127 }
+          { X = 283 Y = 72 }
+          { X = 182 Y = -7 }
+          { X = -50 Y = -122 }
+          { X = -215 Y = -119 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersNarcicussGifts01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_NarcicussGifts_01"
+        Tallness = 112
+        Offset = { X = 0 Y = -30 }
+        Points = [
+          { X = -324 Y = -5 }
+          { X = -229 Y = 130 }
+          { X = -68 Y = 211 }
+          { X = 219 Y = 87 }
+          { X = 345 Y = -75 }
+          { X = 227 Y = -172 }
+          { X = -5 Y = -175 }
+          { X = -231 Y = -119 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery06"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_06"
+        Tallness = 343
+        Offset = { X = 0 Y = -79 }
+        Points = [
+          { X = -693 Y = 36 }
+          { X = 14 Y = 377 }
+          { X = 686 Y = 40 }
+          { X = -21 Y = -293 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersMachinery03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Machinery_03"
+        Tallness = 763
+        Offset = { X = 0 Y = -311 }
+        Points = [
+          { X = -253 Y = 6 }
+          { X = -217 Y = 91 }
+          { X = -44 Y = 162 }
+          { X = 131 Y = 140 }
+          { X = 270 Y = 25 }
+          { X = 231 Y = -71 }
+          { X = 74 Y = -129 }
+          { X = -159 Y = -105 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe11"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_11"
+        Tallness = 233.0
+        Offset = { X = 0 Y = -72 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe13"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_13"
+        Tallness = 1137
+        Offset = { X = 0 Y = -441 }
+        Points = [
+          { X = -126 Y = 24 }
+          { X = -18 Y = 152 }
+          { X = 236 Y = 188 }
+          { X = 354 Y = 108 }
+          { X = 225 Y = -38 }
+          { X = -27 Y = -97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersPipe14"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Pipe_14"
+        Tallness = 500
+        Offset = { X = 0 Y = -5 }
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFilter01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Filter_01"
+        Tallness = 1216
+        Offset = { X = 0 Y = -529 }
+        Points = [
+          { X = -326 Y = 51 }
+          { X = -50 Y = 171 }
+          { X = 346 Y = 97 }
+          { X = 293 Y = -106 }
+          { X = -134 Y = -167 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFilter02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Filter_02"
+        Tallness = 325
+        Offset = { X = 0 Y = -267 }
+        Points = [
+          { X = -605 Y = -104 }
+          { X = -465 Y = 64 }
+          { X = -124 Y = 179 }
+          { X = 317 Y = 154 }
+          { X = 595 Y = -64 }
+          { X = 588 Y = -245 }
+          { X = 198 Y = -394 }
+          { X = -392 Y = -377 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersShellLight01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_ShellLight_01"
+        Tallness = 136
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = -96 Y = 15 }
+          { X = -51 Y = 52 }
+          { X = 21 Y = 64 }
+          { X = 119 Y = 23 }
+          { X = 135 Y = -23 }
+          { X = 62 Y = -66 }
+          { X = -53 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersShellLight02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_ShellLight_02"
+        Tallness = 136
+        Offset = { X = 0 Y = -50 }
+        Points = [
+          { X = -130 Y = 20 }
+          { X = -74 Y = 80 }
+          { X = 16 Y = 90 }
+          { X = 100 Y = 72 }
+          { X = 123 Y = -4 }
+          { X = 59 Y = -60 }
+          { X = -53 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFusebox01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fusebox_01"
+        Tallness = 1216.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersFusebox02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Fusebox_02"
+        Tallness = 700.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallRust01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallRust_01"
+        Tallness = 400.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallDecor01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallDecor_01"
+        Tallness = 1216.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersWallLamp01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_WallLamp_01"
+        Tallness = 1216.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersCornice01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Cornice_01"
+        Tallness = 318
+        Offset = { X = 0 Y = -145 }
+        Points = [
+          { X = -413 Y = -119 }
+          { X = 240 Y = 210 }
+          { X = 404 Y = 121 }
+          { X = -219 Y = -215 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersCornice02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Cornice_02"
+        Tallness = 426
+        Offset = { X = 0 Y = -145 }
+        Points = [
+          { X = -428 Y = -139 }
+          { X = 269 Y = 190 }
+          { X = 410 Y = 116 }
+          { X = -279 Y = -212 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGable01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Gable_01"
+        Tallness = 1216.0
+        Offset = { X = 0 Y = 27 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_01"
+        Tallness = 240.0
+        Offset = { X = 0 Y = 87 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_02"
+        Tallness = 240.0
+        Offset = { X = 0 Y = 63 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_03"
+        Tallness = 240.0
+        Offset = { X = 0 Y = 63 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_04"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -40 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_05"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGlassFog06"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_GlassFog_06"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGreeble01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Greeble_01"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGreeble02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Greeble_02"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGreeble03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Greeble_03"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGreeble04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Greeble_04"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "DrownedChambersGreeble05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\DrownedChambers\DrownedChambers_Greeble_05"
+        Tallness = 240.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "NarcissusReflection01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "NarcissusReflection01"
+      }
+    }
+
+{
+Name = "ShadeOceanusMIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeOceanusMIdle"
+        StopsLight = false
+        Tallness = 176
+        Offset = { X = 0 Y = -36 }
+        Points = [
+          { X = 31 Y = -5 }
+          { X = 13 Y = -21 }
+          { X = -19 Y = -22 }
+          { X = -33 Y = -3 }
+          { X = -17 Y = 16 }
+          { X = 21 Y = 16 }
+        ]
+      }
+    }
+{
+Name = "ShadeOceanusSIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Small"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeOceanusSIdle"
+        StopsLight = false
+        Tallness = 137
+        Offset = { X = 0 Y = -41 }
+        Points = [
+          { X = 26 Y = -2 }
+          { X = 9 Y = -16 }
+          { X = -12 Y = -15 }
+          { X = -26 Y = -2 }
+          { X = -12 Y = 13 }
+          { X = 18 Y = 13 }
+        ]
+      }
+    }
+{
+Name = "ShadeOceanusTIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Tall"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeOceanusTIdle"
+        StopsLight = false
+        Tallness = 254
+        Offset = { X = 0 Y = -75 }
+        Points = [
+          { X = 39 Y = -25 }
+          { X = 3 Y = -41 }
+          { X = -40 Y = -36 }
+          { X = -52 Y = -4 }
+          { X = -11 Y = 21 }
+          { X = 38 Y = 12 }
+        ]
+      }
+    }
+    
+
+  ]
+}

@@ -1,0 +1,137 @@
+{ Animations = [
+	{
+		Name = "ClockworkGear"
+		GrannyModel = "Gear_Mesh"
+		GrannyAnimation = "Gear_Rotate"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Enable3DShadow = false
+	}
+
+	{
+		Name = "ClockworkGearSmooth"
+		GrannyModel = "Gear_Mesh"
+		GrannyAnimation = "Gear_Rotate_Smooth"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		Enable3DShadow = false
+	}	
+
+	{
+		Name = "GearRotation"
+		GrannyModel = "PropGear01_Mesh"
+		GrannyAnimation = "Gear_Base_RotateIncrements_M_00"
+		Loop = true
+		GrannyAnimationSpeed = 0.5
+		LargeObstacle3DModel = true
+		Transparent3DModel = true
+		Enable3DShadow = false
+		Frames = 
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/PostBossGears"
+			}
+			{
+				Frame = 81
+				Sound = "/SFX/PostBossGears"
+			}
+			{
+				Frame = 165
+				Sound = "/SFX/PostBossGears"
+			}
+			{
+				Frame = 244
+				Sound = "/SFX/PostBossGears"
+			}
+			{
+				Frame = 324
+				Sound = "/SFX/PostBossGears"
+			}
+			{
+				Frame = 401
+				Sound = "/SFX/PostBossGears"
+			}
+		]
+	}
+
+	{
+		Name = "Gear2Rotation"
+		InheritFrom = "GearRotation"
+		GrannyModel = "PropGear02_Mesh"
+		GrannyAnimation = "Gear_Base_RotateIncrements_M_00"
+		GrannyAnimationSpeed = 0.4
+	}
+
+	{
+		Name = "Gear3Rotation"
+		InheritFrom = "GearRotation"
+		GrannyModel = "PropGear03_Mesh"
+		GrannyAnimation = "Gear_Base_RotateIncrements_M_00"
+		GrannyAnimationSpeed = 0.4
+	}
+
+	{
+		Name = "Gear4Rotation"
+		InheritFrom = "GearRotation"
+		GrannyModel = "PropGear04_Mesh"
+		GrannyAnimation = "Gear_Base_RotateIncrements_M_00"
+		GrannyAnimationSpeed = 0.4
+	}
+
+	{
+		Name = "BaseShipsSteeringWheel"
+		GrannyModel = "PropShipSteeringWheel_Mesh"
+		GrannyAnimation = "null"
+		Loop = false
+		GrannyAnimationSpeed = 1.0
+		//LargeObstacle3DModel = true
+		//Transparent3DModel = true
+		Enable3DShadow = false
+	}
+	{
+		Name = "ShipsSteeringWheel_Idle"
+		InheritFrom = "BaseShipsSteeringWheel"
+		GrannyAnimation = "PropShipSteeringWheel_Base_Idle_M_00"
+		Loop = true
+	}
+	{
+		Name = "ShipsSteeringWheel_Left"
+		InheritFrom = "BaseShipsSteeringWheel"
+		GrannyAnimation = "PropShipSteeringWheel_Base_TurnLeft_M_00"
+		ChainTo = "ShipsSteeringWheel_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "ShipsSteeringWheel_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "ShipsSteeringWheel_Right"
+		InheritFrom = "BaseShipsSteeringWheel"
+		GrannyAnimation = "PropShipSteeringWheel_Base_TurnRight_M_00"
+		ChainTo = "ShipsSteeringWheel_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "ShipsSteeringWheel_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "ShipsSteeringWheel_Forward"
+		InheritFrom = "BaseShipsSteeringWheel"
+		GrannyAnimation = "PropShipSteeringWheel_Base_Forward_M_00"
+		ChainTo = "ShipsSteeringWheel_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "ShipsSteeringWheel_Idle"
+				Duration = 4
+			}
+		]
+	}
+]}

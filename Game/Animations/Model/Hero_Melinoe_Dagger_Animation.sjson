@@ -1,0 +1,325 @@
+{ Animations = [
+
+	/* Dagger Base Animations */
+	{
+		Name = "MelinoeBaseDaggerAnimations"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "DaggerL_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+	{
+		Name = "MelinoeBaseDaggerAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		DirectionChange180 = "Melinoe_Dagger_Turn_180"
+		DirectionChange90R = "Melinoe_Dagger_Turn_E90"
+		DirectionChange90L = "Melinoe_Dagger_Turn_W90"
+	}
+	{
+		Name = "WeaponDaggerA_Artemis"
+		GrannyModel = "WeaponDaggerA_Artemis_Mesh"
+	}
+	{
+		Name = "WeaponDaggerA_Pan"
+		GrannyModel = "WeaponDaggerA_Pan_Mesh"
+	}
+	{
+		Name = "WeaponDaggerA_Morrigan"
+		GrannyModel = "WeaponDaggerA_Morrigan_Mesh"
+	}
+	{
+		Name = "WeaponDaggerRBase"
+		GrannyModel = "WeaponDaggerA_Mesh"
+		Scale = 1.2
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponDaggerA_Artemis" }
+			{ Name = "WeaponDaggerA_Pan" }
+			{ Name = "WeaponDaggerA_Morrigan" }
+		]
+	}
+	{
+		Name = "WeaponDaggerB_Artemis"
+		GrannyModel = "WeaponDaggerB_Artemis_Mesh"
+	}
+	{
+		Name = "WeaponDaggerB_Pan"
+		GrannyModel = "WeaponDaggerB_Pan_Mesh"
+	}
+	{
+		Name = "WeaponDaggerB_Morrigan"
+		GrannyModel = "WeaponDaggerB_Morrigan_Mesh"
+	}
+	{
+		Name = "WeaponDaggerLBase"	
+		GrannyModel = "WeaponDaggerB_Mesh"
+		Scale = 1.2
+		ExtraGrannyAnimations = 
+		[
+			{Name = "WeaponDaggerB_Artemis"}
+			{Name = "WeaponDaggerB_Pan"}
+			{Name = "WeaponDaggerB_Morrigan"}
+		]
+	}
+
+
+
+	/* Dagger Idle */
+	{
+		Name = "DaggerR_Idle"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "null"
+		Loop = true
+	}
+	{
+		Name = "DaggerL_Idle"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "null"
+		Loop = true
+	}
+
+	{
+		Name = "Melinoe_Dagger_Idle"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Idle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeGatherReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoePickAxeMineReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Shovel_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeExorcismReturnToIdle"
+				Duration = 10
+			}	 
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeSalute"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeSpellFireReturn"
+				Duration = 15
+			}
+		]
+	}	
+
+	/* Dagger Get Hit */
+	{
+		Name = "Melinoe_Dagger_GetHit"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		ChainTo = "Melinoe_Dagger_Idle"
+		GrannyAnimation = "Melinoe_Dagger_Base_GetHit_C_00"
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 0
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Dagger_AttackLeft_Start" }
+			{ Name = "Melinoe_Dagger_AttackLeft_Fire" }
+			{ Name = "Melinoe_Dagger_AttackRight_Start" }
+			{ Name = "Melinoe_Dagger_AttackRight_Fire" }
+			{ Name = "Melinoe_Dagger_AttackSpin_Start" }
+			{ Name = "Melinoe_Dagger_AttackSpin_Fire" }
+			{ Name = "Melinoe_Dagger_AttackStabs_Start" }
+			{ Name = "Melinoe_Dagger_AttackStabs_Fire" }
+			{ Name = "Melinoe_Dagger_AttackStabs_FireLoop" }
+			{ Name = "Melinoe_Dagger_AttackDouble_Start" }
+			{ Name = "Melinoe_Dagger_AttackDouble_StartLoop" }
+			{ Name = "Melinoe_Dagger_AttackDouble_Fire" }
+			{ Name = "Melinoe_Dagger_AttackEx1_Start" }
+			{ Name = "Melinoe_Dagger_AttackEx1_Fire" }
+			{ Name = "Melinoe_Dagger_Special_Start" }
+			{ Name = "Melinoe_Dagger_Special_StartLoop" }
+			{ Name = "Melinoe_Dagger_Special_Fire" }
+			{ Name = "Melinoe_Dagger_Cast_Start" }
+			{ Name = "Melinoe_Dagger_Cast_QuickCompleteFire" }
+			{ Name = "Melinoe_Dagger_Cast_Fire2" }
+			{ Name = "Melinoe_Dagger_Cast_StartLoop" }
+			{ Name = "Melinoe_Dagger_Cast_Fire" }
+		]
+	}
+
+	/* Dagger Interact */
+	{
+		Name = "DaggerL_Interact"
+		InheritFrom = "WeaponDaggerLBase"		
+		GrannyAnimation = "DaggerL_Weapon_Base_Interact_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Interact"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Interact_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+		Attachments =
+		[
+			{
+				Name = "DaggerL_Interact"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+			{
+				Name = "DaggerR_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll",
+				Duration = 6,
+			}
+		]
+	}
+
+	/* Dagger Equip/Unequip */
+	{
+		Name = "DaggerR_Equip"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerEquipIdleR_C_00"
+	}
+	{
+		Name = "DaggerL_Equip"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerEquipIdleL_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Equip"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_DaggerEquipIdle_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+		CreateAnimations =
+		[
+			{ Name = "MelEquipSparkleDaggerLSpawner" }
+			{ Name = "MelEquipSparkleDaggerRSpawner" }
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Equip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Equip"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_Unequip"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleR_C_00"
+	}
+	{
+		Name = "DaggerL_Unequip"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_DaggerUnEquipIdleL_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Unequip"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_DaggerUnEquipIdle_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeInteract" }
+			{ Name = "MelinoeBoonPreInteract" }
+			{ Name = "MelTalkGifting01" }
+			{ Name = "MelTalkGifting01ReturnToIdle" }
+			{ Name = "MelinoeBoonInteractLoop" }
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Dagger_InteractUnequip" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleDaggerL" }
+			{ Name = "MelUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_InteractUnequip"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_InteractUnequipToIdle_R_00"
+	}
+	{
+		Name = "DaggerL_InteractUnequip"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_InteractUnequipToIdle_L_00"
+		Loop = false
+	}
+	{
+		Name = "Melinoe_Dagger_InteractUnequip"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_InteractUnequipToIdle_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeIdleWeaponless" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelInteractUnequipSparkleDaggerL" }
+			{ Name = "MelInteractUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "DaggerR_InteractUnequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_InteractUnequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+
+] }

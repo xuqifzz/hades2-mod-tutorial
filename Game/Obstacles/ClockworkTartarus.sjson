@@ -1,0 +1,2789 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "CWTartarusDestructiblePillar"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      AllowStoppingImpacts = false
+      DisplayInEditor = true
+      ReflectLobProjectiles = false
+      Life = 
+      {
+        HitFx = "PillarHitFx"
+      }
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        Graphic = "CWDestructiblePillarA"
+        //OcclusionBaseAnim = "TartarusPillarBase04Footprint"
+        //OcclusionOpacity = 0.25
+        Scale = 0.4
+        Tallness = 1219.0
+        Offset = { X = 0 Y = -488 }
+        ExtentScale = 0.525
+        Points = [
+          { X = 160 Y = 220 }
+          { X = 480 Y = 60 }
+          { X = 480 Y = -100 }
+          { X = 160 Y = -260 }
+          { X = -160 Y = -260 }
+          { X = -480 Y = -100 }
+          { X = -480 Y = 60 }
+          { X = -160 Y = 220 }
+        ]
+      }
+    }
+    {
+      Name = "ChronosRemains"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        Graphic = "ChronosRemains"
+        AttachedAnim = "MedusaShadow"
+        Tallness = 125.0
+        OffsetZ = 100.0
+        Interact = 
+        {
+          Distance = 400.0
+          OffsetY = -72.0
+        }
+        Points = [
+          { X = 0 Y = 8 }
+          { X = 51 Y = -17 }
+          { X = -1 Y = -44 }
+          { X = -52 Y = -18 }
+        ]        
+      }
+    }
+    
+    {
+      Name = "CWTartarusRubble01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        DieOnCollision = false
+        HitFx = "RubbleFall"
+        HitSound = "/SFX/PillarBoulderImpact"
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "MedusaShadow"
+        EditorOutlineDrawBounds = false
+        Graphic = "CWTartarusRubble01"
+        Tallness = 301
+        Offset = { X = 0 Y = -119 }
+        Points = [
+          { X = -232 Y = 34 }
+          { X = -109 Y = 84 }
+          { X = 154 Y = 31 }
+          { X = 227 Y = -46 }
+          { X = 230 Y = -134 }
+          { X = 135 Y = -175 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTartarusRubble02"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      Thing = 
+      {
+        Graphic = "CWTartarusRubble02"
+        Scale = 1.2
+      }
+    }
+    
+    {
+      Name = "TartarusChamberMover"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TartarusChamberMoverActive"
+        Tallness = 343.0
+        Offset = { X = 0 Y = -166 }
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Points = [
+          { X = -446 Y = 116 }
+          { X = -239 Y = 228 }
+          { X = 427 Y = -97 }
+          { X = 203 Y = -211 }
+        ]
+      }
+    }
+    
+    {
+      Name = "TimeTrap"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      AllowStoppingImpacts = false
+      DisplayInEditor = true
+      ReflectLobProjectiles = false
+      Life = 
+      {
+        HitFx = "HitSparkEnemyDamagedGlass"
+      }
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        Graphic = "TimeTrapIdle"
+        //OcclusionBaseAnim = "TartarusPillarBase04Footprint"
+        //OcclusionOpacity = 0.25
+        Scale = 0.4
+        ExtentScale = 0.5
+        Tallness = 1219.0
+        Offset = { X = 0 Y = -488 }
+        Points = [
+          { X = 160 Y = 220 }
+          { X = 480 Y = 60 }
+          { X = 480 Y = -100 }
+          { X = 160 Y = -260 }
+          { X = -160 Y = -260 }
+          { X = -480 Y = -100 }
+          { X = -480 Y = 60 }
+          { X = -160 Y = 220 }
+        ]
+      }
+    }
+
+
+    {
+      Name = "ClockworkToggleCover"
+      CollisionBounce = 0.15
+      CollisionBounceRequiredVelocity = 1000.0
+      CollisionReactionFx = "WallSlamCrumble"
+      CollisionReactionRequiredVelocity = 500.0
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "InvincibleHitSpark"
+        Invulnerable = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ClockworkToggleCoverOn"
+        Grip = 999999.0
+        OcclusionInterpolateDuration = 0.5
+        OcclusionOpacity = 0.5
+        StopsLight = true
+        StopsProjectiles = true
+        StopsUnits = true
+        TouchdownSound = "/EmptyCue"
+        Tallness = 231
+        Offset = { X = 0 Y = -59 }
+        Points = [
+          { X = -214 Y = 55 }
+          { X = -118 Y = 104 }
+          { X = 210 Y = -63 }
+          { X = 115 Y = -109 }
+        ]
+      }
+    }
+    
+    {
+      Name = "H_PostBossDoor"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "Blank"
+        MeshType = "Vertical"
+        Interact = 
+        {
+          Distance = 250.0
+          OffsetY = -72.0
+        }
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -29 Y = 90 }
+          { X = 76 Y = 38 }
+          { X = -120 Y = -61 }
+          { X = -229 Y = -9 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ChronosBossDoor"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "Blank"
+        MeshType = "Vertical"
+        Interact = 
+        {
+          Distance = 400.0
+          OffsetY = -72.0
+        }
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -29 Y = 90 }
+          { X = 76 Y = 38 }
+          { X = -120 Y = -61 }
+          { X = -229 Y = -9 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ChronosBossExitDoor"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "DoorExitLightSoftNE_N_Opening_Locked"
+        MeshType = "Vertical"
+        Interact = 
+        {
+          Distance = 400.0
+          OffsetY = -72.0
+        }
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -29 Y = 90 }
+          { X = 76 Y = 38 }
+          { X = -120 Y = -61 }
+          { X = -229 Y = -9 }
+        ]
+      }
+    }
+    
+    {
+      Name = "BeamTrapDestroyed"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "BeamTrapDestroyed"
+        Tallness = 10.0
+        Offset = { X = 0 Y = -370 }
+        Scale = 0.5
+        Points = [
+          { X = -127 Y = 9 }
+          { X = -1 Y = 76 }
+          { X = 125 Y = 7 }
+          { X = 1 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCapital01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CWCapital"
+        Tallness = 681.0
+        Offset = { X = 0 Y = -243 }
+        Points = [
+          { X = -176 Y = 79 }
+          { X = -68 Y = 125 }
+          { X = 60 Y = 128 }
+          { X = 162 Y = 83 }
+          { X = 156 Y = -24 }
+          { X = 67 Y = -81 }
+          { X = -78 Y = -76 }
+          { X = -177 Y = -32 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWReverseFinial01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_ReverseFinial_01"
+        Tallness = 681
+        Offset = { X = 0 Y = -243 }
+      }
+    }
+    
+    {
+      Name = "CWPillar01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Pillar_01"
+        Tallness = 1412
+        Offset = { X = 0 Y = -605 }
+        Points = [
+          { X = -199 Y = 43 }
+          { X = -68 Y = 125 }
+          { X = 60 Y = 128 }
+          { X = 190 Y = 41 }
+          { X = 199 Y = -52 }
+          { X = 85 Y = -138 }
+          { X = -79 Y = -123 }
+          { X = -188 Y = -61 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Pillar_02"
+        Tallness = 1626
+        Offset = { X = 0 Y = -726 }
+        Points = [
+          { X = -241 Y = -1 }
+          { X = -219 Y = 66 }
+          { X = -85 Y = 112 }
+          { X = 94 Y = 114 }
+          { X = 237 Y = 34 }
+          { X = 248 Y = -4 }
+          { X = 181 Y = -100 }
+          { X = -3 Y = -140 }
+          { X = -175 Y = -119 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallBrick01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_WallBrick_01"
+        Tallness = 466.0
+        Offset = { X = 0 Y = -186 }
+        Points = [
+          { X = -410 Y = -161 }
+          { X = 364 Y = 216 }
+          { X = 399 Y = 191 }
+          { X = -372 Y = -181 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChronosStatue01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_ChronosStatue_01"
+        Tallness = 1386
+        Offset = { X = 0 Y = -620 }
+        Points = [
+          { X = -380 Y = 9 }
+          { X = -213 Y = 78 }
+          { X = -4 Y = 98 }
+          { X = 271 Y = 18 }
+          { X = 328 Y = -61 }
+          { X = 308 Y = -155 }
+          { X = 133 Y = -238 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWStatueHyperion01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Statue_Hyperion_01"
+        Tallness = 2025
+        Offset = { X = 0 Y = -827 }
+        Points = [
+          { X = -309 Y = 118 }
+          { X = -93 Y = -64 }
+          { X = 159 Y = -92 }
+          { X = 282 Y = -41 }
+          { X = 141 Y = 141 }
+          { X = -174 Y = 179 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallStatue01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Wall_Statue_01"
+        Tallness = 1386
+        Offset = { X = 0 Y = -620 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChronosStatue02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_ChronosStatue_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -572 }
+        Points = [
+          { X = 413 Y = -17 }
+          { X = 311 Y = 71 }
+          { X = -75 Y = 152 }
+          { X = -377 Y = 54 }
+          { X = -334 Y = -85 }
+          { X = -206 Y = -190 }
+          { X = 90 Y = -223 }
+          { X = 288 Y = -223 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWThroneRubble01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_ThroneRubble_01"
+        Tallness = 141
+        Offset = { X = 0 Y = -44 }
+        Points = [
+          { X = -241 Y = 22 }
+          { X = -162 Y = 129 }
+          { X = 156 Y = 131 }
+          { X = 242 Y = 91 }
+          { X = 254 Y = 24 }
+          { X = 63 Y = -84 }
+          { X = -160 Y = -124 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallbrick02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Wallbrick_02"
+        Tallness = 1155
+        Offset = { X = 0 Y = -481 }
+        Points = [
+          { X = -410 Y = -161 }
+          { X = 364 Y = 216 }
+          { X = 399 Y = 191 }
+          { X = -372 Y = -181 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallBrick03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_WallBrick_03"
+        Tallness = 1404
+        Offset = { X = 0 Y = -523 }
+        Points = [
+          { X = -301 Y = -60 }
+          { X = 238 Y = 208 }
+          { X = 304 Y = 176 }
+          { X = -226 Y = -106 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWStairs01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Stairs_01"
+        Tallness = 606.0
+        Offset = { X = 0 Y = -182 }
+        Points = [
+          { X = -492 Y = 29 }
+          { X = 115 Y = 344 }
+          { X = 544 Y = 125 }
+          { X = -63 Y = -183 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWStairsFence01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_StairsFence_01"
+        Tallness = 1385
+        Offset = { X = 0 Y = -246 }
+        Points = [
+          { X = -314 Y = 305 }
+          { X = -143 Y = 395 }
+          { X = 352 Y = -198 }
+          { X = 188 Y = -272 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGate01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Gate_01"
+        Tallness = 1239
+        Offset = { X = 0 Y = -463 }
+        Points = [
+          { X = -256 Y = -59 }
+          { X = 179 Y = 164 }
+          { X = 261 Y = 122 }
+          { X = -175 Y = -102 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGate01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Gate_01a"
+        Tallness = 768
+        Offset = { X = 0 Y = -316 }
+        Points = [
+          { X = -49 Y = 10 }
+          { X = 20 Y = 48 }
+          { X = 69 Y = 22 }
+          { X = -4 Y = -20 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGate01b"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Gate_01b"
+        Tallness = 515
+        Offset = { X = 0 Y = -182 }
+        Points = [
+          { X = -253 Y = -76 }
+          { X = 217 Y = 130 }
+          { X = 246 Y = 97 }
+          { X = -198 Y = -109 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFence01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Fence_01"
+        Tallness = 696
+        Offset = { X = 0 Y = -286 }
+        Points = [
+          { X = -398 Y = 134 }
+          { X = -212 Y = 212 }
+          { X = 414 Y = -111 }
+          { X = 250 Y = -199 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTable02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Table_02"
+        Tallness = 352
+        Offset = { X = 0 Y = -146 }
+        Points = [
+          { X = -654 Y = 162 }
+          { X = -362 Y = 310 }
+          { X = 633 Y = -163 }
+          { X = 287 Y = -323 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWUrn01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Urn_01"
+        Tallness = 800
+        Offset = { X = 0 Y = -340 }
+        Points = [
+          { X = -222 Y = 37 }
+          { X = -210 Y = 110 }
+          { X = -145 Y = 127 }
+          { X = 12 Y = 127 }
+          { X = 162 Y = 118 }
+          { X = 210 Y = 90 }
+          { X = 196 Y = 10 }
+          { X = 167 Y = -63 }
+          { X = -3 Y = -100 }
+          { X = -142 Y = -88 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWfence02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_fence_02"
+        Tallness = 529.0
+        Offset = { X = 0 Y = -232 }
+        Points = [
+          { X = -278 Y = 114 }
+          { X = -199 Y = 144 }
+          { X = 283 Y = -94 }
+          { X = 202 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallFlourish01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Wall_Flourish_01"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+        Points = [
+          { X = -337 Y = -141 }
+          { X = 322 Y = 186 }
+          { X = 346 Y = 168 }
+          { X = -315 Y = -157 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWOverlook01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Overlook_01"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+      }
+    }
+    
+    {
+      Name = "CWOverlook02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Overlook_02"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+      }
+    }
+    
+    {
+      Name = "CWOverlook03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Overlook_03"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+      }
+    }
+    
+    {
+      Name = "CWOverlook04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Overlook_04"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+      }
+    }
+    
+    {
+      Name = "CWOverlook05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Overlook_05"
+        Tallness = 1310
+        Offset = { X = 0 Y = -561 }
+      }
+    }
+    
+    {
+      Name = "CWWallChronosAlcove01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Wall_ChronosAlcove_01"
+        Tallness = 1566
+        Offset = { X = 0 Y = -633 }
+        Points = [
+          { X = -440 Y = 144 }
+          { X = -211 Y = 262 }
+          { X = 421 Y = -61 }
+          { X = 201 Y = -177 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWHadesMural01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_HadesMural_01"
+        Tallness = 1383
+        Offset = { X = 0 Y = -561 }
+        Points = [
+          { X = -352 Y = 103 }
+          { X = -146 Y = 217 }
+          { X = 405 Y = -52 }
+          { X = 176 Y = -169 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFence02a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Fence_02a"
+        Tallness = 494.0
+        Offset = { X = 0 Y = -169 }
+        Points = [
+          { X = -258 Y = 44 }
+          { X = 236 Y = 86 }
+          { X = 221 Y = 11 }
+          { X = -217 Y = -28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFence02b"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Fence_02b"
+        Tallness = 463.0
+        Offset = { X = 0 Y = -176 }
+        Points = [
+          { X = 17 Y = -134 }
+          { X = -30 Y = -134 }
+          { X = -33 Y = 168 }
+          { X = 29 Y = 158 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWBrazier01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Brazier_01"
+        Tallness = 606.0
+        Offset = { X = 0 Y = -212 }
+        Points = [
+          { X = -167 Y = 38 }
+          { X = -102 Y = 164 }
+          { X = 155 Y = 164 }
+          { X = 204 Y = 20 }
+          { X = 93 Y = -65 }
+          { X = -87 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWThrone01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Throne_01"
+        Tallness = 419
+        Offset = { X = 0 Y = -147 }
+        Points = [
+          { X = -508 Y = -60 }
+          { X = 129 Y = 255 }
+          { X = 536 Y = 67 }
+          { X = -162 Y = -250 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWBookshelf01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Bookshelf_01"
+        Tallness = 1277
+        Offset = { X = 0 Y = -505 }
+        Points = [
+          { X = -385 Y = 70 }
+          { X = -103 Y = 210 }
+          { X = 369 Y = -41 }
+          { X = 96 Y = -184 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWArch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Arch_01"
+        Tallness = 760
+        Offset = { X = 0 Y = -319 }
+        Points = [
+          { X = -472 Y = 169 }
+          { X = -353 Y = 238 }
+          { X = 497 Y = -163 }
+          { X = 343 Y = -234 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWDoor01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Door_01"
+        Tallness = 760
+        Offset = { X = 0 Y = -319 }
+        Interact = 
+        {
+          Distance = 300.0
+        }
+        Points = [
+          { X = -472 Y = 169 }
+          { X = -353 Y = 238 }
+          { X = 497 Y = -163 }
+          { X = 343 Y = -234 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWBarrier01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Barrier_01"
+        Tallness = 550
+        Offset = { X = 0 Y = -206 }
+        Points = [
+          { X = -475 Y = 280 }
+          { X = 112 Y = 32 }
+          { X = 550 Y = -277 }
+          { X = 502 Y = -317 }
+          { X = -49 Y = -74 }
+          { X = -537 Y = 243 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWVase01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Vase_01"
+        Tallness = 274
+        Offset = { X = 0 Y = -226 }
+        Points = [
+          { X = -154 Y = 15 }
+          { X = -125 Y = 56 }
+          { X = -42 Y = 82 }
+          { X = 41 Y = 80 }
+          { X = 107 Y = 66 }
+          { X = 155 Y = 23 }
+          { X = 146 Y = -14 }
+          { X = 106 Y = -59 }
+          { X = 15 Y = -76 }
+          { X = -103 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWVase02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Vase_02"
+        Tallness = 469
+        Offset = { X = 0 Y = -285 }
+        Points = [
+          { X = -57 Y = 3 }
+          { X = -35 Y = 25 }
+          { X = 8 Y = 30 }
+          { X = 42 Y = 23 }
+          { X = 58 Y = 0 }
+          { X = 43 Y = -25 }
+          { X = -21 Y = -28 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCandles01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Candles_01"
+        Tallness = 141
+        Offset = { X = 0 Y = -54 }
+        Points = [
+          { X = -142 Y = 17 }
+          { X = -153 Y = 38 }
+          { X = -28 Y = 100 }
+          { X = 18 Y = 93 }
+          { X = 99 Y = 54 }
+          { X = 150 Y = -14 }
+          { X = 24 Y = -65 }
+          { X = -81 Y = -74 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWButton01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Button_01"
+        Tallness = 141
+        Offset = { X = 0 Y = -54 }
+        Points = [
+          { X = -142 Y = 17 }
+          { X = -153 Y = 38 }
+          { X = -28 Y = 100 }
+          { X = 18 Y = 93 }
+          { X = 99 Y = 54 }
+          { X = 150 Y = -14 }
+          { X = 24 Y = -65 }
+          { X = -81 Y = -74 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCandles02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Candles_02"
+        Tallness = 325
+        Offset = { X = 0 Y = -137 }
+        Points = [
+          { X = -51 Y = 2 }
+          { X = -24 Y = 27 }
+          { X = 31 Y = 26 }
+          { X = 52 Y = 11 }
+          { X = 36 Y = -17 }
+          { X = -10 Y = -27 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCandelabra01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Candelabra_01"
+        Tallness = 1092
+        Offset = { X = 0 Y = -489 }
+        Points = [
+          { X = -61 Y = -40 }
+          { X = -113 Y = -8 }
+          { X = -95 Y = 44 }
+          { X = 12 Y = 70 }
+          { X = 90 Y = 34 }
+          { X = 88 Y = -34 }
+          { X = 37 Y = -50 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCandelabra02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Candelabra_02"
+        Tallness = 1497
+        Offset = { X = 0 Y = -633 }
+        Points = [
+          { X = -61 Y = -40 }
+          { X = -113 Y = -8 }
+          { X = -128 Y = 55 }
+          { X = 2 Y = 91 }
+          { X = 144 Y = 44 }
+          { X = 88 Y = -34 }
+          { X = 37 Y = -50 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFrameSet01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_FrameSet_01"
+        Tallness = 606.0
+        Offset = { X = 0 Y = -212 }
+        Points = [
+          { X = -253 Y = 112 }
+          { X = -133 Y = 142 }
+          { X = 332 Y = -159 }
+          { X = 280 Y = -213 }
+          { X = -227 Y = 55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChair01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Chair_01"
+        Tallness = 1143.0
+        Offset = { X = 0 Y = -404 }
+        Points = [
+          { X = -262 Y = 64 }
+          { X = -30 Y = 180 }
+          { X = 312 Y = 36 }
+          { X = 54 Y = -79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChair02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Chair_02"
+        Tallness = 1068.0
+        Offset = { X = 0 Y = -404 }
+        Points = [
+          { X = -380 Y = -48 }
+          { X = 91 Y = 194 }
+          { X = 370 Y = 49 }
+          { X = -97 Y = -175 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWBanner01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Banner_01"
+        Tallness = 1068
+        Offset = { X = 0 Y = 44 }
+      }
+    }
+    
+    {
+      Name = "CWStatueHadesWall01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Statue_HadesWall_01"
+        Tallness = 1068
+        Offset = { X = 0 Y = 44 }
+      }
+    }
+    
+    {
+      Name = "CWWallFlourish02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Wall_Flourish_02"
+        Tallness = 1068
+        Offset = { X = 0 Y = 44 }
+      }
+    }
+    
+    {
+      Name = "CWTable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Table_01"
+        Tallness = 976.0
+        Offset = { X = 0 Y = -404 }
+        Points = [
+          { X = -335 Y = -6 }
+          { X = -7 Y = 126 }
+          { X = 309 Y = -1 }
+          { X = -40 Y = -134 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTable03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Table_03"
+        Tallness = 748
+        Offset = { X = 0 Y = -316 }
+        Points = [
+          { X = -646 Y = -83 }
+          { X = 147 Y = 303 }
+          { X = 710 Y = -6 }
+          { X = -94 Y = -380 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_01"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_01a"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_02"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish02a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_02a"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainBrick01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Brick_01"
+        Tallness = 54.0
+        Offset = { X = 0 Y = -41 }
+        Points = [
+          { X = 82 Y = 214 }
+          { X = 454 Y = 31 }
+          { X = -82 Y = -249 }
+          { X = -460 Y = -56 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrrainFlourish03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrrainFlourish_03"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish08"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Flourish_08"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainMosaic01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Mosaic_01"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish09"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Flourish_09"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish10"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Flourish_10"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish04"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Flourish_04"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish05"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_05"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -422 Y = -15 }
+          { X = 43 Y = 223 }
+          { X = 414 Y = 39 }
+          { X = -39 Y = -202 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish06"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_06"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainFlourish06a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainFlourish_06a"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainToggle01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsUnits = false
+        StopsProjectiles = false
+        Graphic = "CWTerrainToggle01Open"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -706 Y = -68 }
+          { X = 140 Y = 374 }
+          { X = 700 Y = 82 }
+          { X = -148 Y = -350 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainToggle02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CWTerrainToggle02Open"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -398 Y = -22 }
+          { X = 44 Y = 201 }
+          { X = 381 Y = 31 }
+          { X = -72 Y = -185 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainToggle03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_TerrainToggle_03"
+        Tallness = 12.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -398 Y = -22 }
+          { X = 44 Y = 201 }
+          { X = 381 Y = 31 }
+          { X = -72 Y = -185 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainRug01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Rug_01"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWTerrainRug02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Rug_02"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWTerrainTimeSpiral01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_TimeSpiral_01"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWTerrainTimeSpiral02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_TimeSpiral_02"
+        Tallness = 12
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "CWTerrainSand01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Sand_01"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTerrainSand02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Sand_02"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWTerrainFlourish07"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Flourish_07"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWTerrainSand03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Sand_03"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWTerrainSand04"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Terrain_Sand_04"
+        Tallness = 463.0
+        Offset = { X = 0 Y = 7 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFencePost01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_FencePost_01"
+        Tallness = 667.0
+        Offset = { X = 0 Y = -276 }
+        Points = [
+          { X = -129 Y = 19 }
+          { X = 15 Y = 80 }
+          { X = 116 Y = 24 }
+          { X = -7 Y = -47 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFencePost02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_FencePost_02"
+        Tallness = 498.0
+        Offset = { X = 0 Y = -159 }
+        Points = [
+          { X = -59 Y = -8 }
+          { X = 2 Y = 24 }
+          { X = 69 Y = -5 }
+          { X = 1 Y = -38 }
+          { X = 1 Y = -38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFencePost04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_FencePost_04"
+        Tallness = 954
+        Offset = { X = 0 Y = -402 }
+        Points = [
+          { X = -114 Y = 3 }
+          { X = 19 Y = 71 }
+          { X = 128 Y = 3 }
+          { X = 10 Y = -61 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Gable_01"
+        Tallness = 343.0
+        Offset = { X = 0 Y = -166 }
+        Points = [
+          { X = -446 Y = 116 }
+          { X = -239 Y = 228 }
+          { X = 427 Y = -97 }
+          { X = 203 Y = -211 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTabletop01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Tabletop_01"
+        Tallness = 343.0
+        Offset = { X = 0 Y = -166 }
+        Points = [
+          { X = -446 Y = 116 }
+          { X = -239 Y = 228 }
+          { X = 427 Y = -97 }
+          { X = 203 Y = -211 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Pillar_Base_01"
+        Tallness = 636
+        Offset = { X = 0 Y = -166 }
+        Points = [
+          { X = -386 Y = 113 }
+          { X = -75 Y = 276 }
+          { X = 64 Y = 278 }
+          { X = 372 Y = 108 }
+          { X = -40 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCrate01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Crate_01"
+        Tallness = 470
+        Offset = { X = 0 Y = -84 }
+        Points = [
+          { X = -409 Y = 117 }
+          { X = -75 Y = 276 }
+          { X = 64 Y = 278 }
+          { X = 417 Y = 122 }
+          { X = -40 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGable02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Gable_02"
+        Tallness = 343.0
+        Offset = { X = 0 Y = -166 }
+        Points = [
+          { X = -446 Y = 116 }
+          { X = -239 Y = 228 }
+          { X = 427 Y = -97 }
+          { X = 203 Y = -211 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWSpire01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Spire_01"
+        Tallness = 1486.0
+        Offset = { X = 0 Y = -607 }
+        Points = [
+          { X = -143 Y = 22 }
+          { X = 4 Y = 97 }
+          { X = 150 Y = 17 }
+          { X = 7 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWSpire01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Spire_01a"
+        Tallness = 1486.0
+        Offset = { X = 0 Y = -607 }
+        Points = [
+          { X = -143 Y = 22 }
+          { X = 4 Y = 97 }
+          { X = 150 Y = 17 }
+          { X = 7 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_01"
+        Tallness = 316
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -282 Y = -99 }
+          { X = 186 Y = 138 }
+          { X = 289 Y = 83 }
+          { X = -177 Y = -152 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWLantern01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Lantern_01"
+        Tallness = 316
+        Offset = { X = 0 Y = -98 }
+      }
+    }
+    
+    {
+      Name = "CWPictureFrame01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_PictureFrame_01"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -296 Y = -91 }
+          { X = 190 Y = 143 }
+          { X = 300 Y = 83 }
+          { X = -177 Y = -152 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWPictureFrame02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_PictureFrame_02"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -296 Y = -91 }
+          { X = 190 Y = 143 }
+          { X = 300 Y = 83 }
+          { X = -177 Y = -152 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWPictureFrame03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_PictureFrame_03"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -296 Y = -91 }
+          { X = 190 Y = 143 }
+          { X = 300 Y = 83 }
+          { X = -177 Y = -152 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_02"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWGlassShards01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_GlassShards_01"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }    
+
+    {
+      Name = "CWGlassShardsDisplacement01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_GlassShards_Displacement_01"
+        Tallness = 316.0
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_03"
+        Tallness = 99
+        Offset = { X = 0 Y = -98 }
+        Points = [
+          { X = -402 Y = -39 }
+          { X = -333 Y = 69 }
+          { X = -36 Y = 152 }
+          { X = 190 Y = 140 }
+          { X = 368 Y = 31 }
+          { X = 395 Y = -81 }
+          { X = 247 Y = -198 }
+          { X = 101 Y = -230 }
+          { X = -240 Y = -205 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_04"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -494 }
+        Points = [
+          { X = -82 Y = 26 }
+          { X = -31 Y = 63 }
+          { X = 66 Y = 63 }
+          { X = 107 Y = 16 }
+          { X = 29 Y = -30 }
+          { X = -43 Y = -34 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork04a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_04a"
+        Tallness = 328.0
+        Offset = { X = 0 Y = -116 }
+        Points = [
+          { X = -90 Y = 32 }
+          { X = -36 Y = 71 }
+          { X = 85 Y = 54 }
+          { X = 101 Y = 30 }
+          { X = 47 Y = -23 }
+          { X = -45 Y = -14 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_05"
+        Tallness = 900
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -127 Y = 108 }
+          { X = 432 Y = 387 }
+          { X = 91 Y = 557 }
+          { X = -468 Y = 278 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_06"
+        Tallness = 400
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -325 Y = 88 }
+          { X = 35 Y = 268 }
+          { X = 291 Y = 140 }
+          { X = -70 Y = -40 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_07"
+        Tallness = 1206
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -503 Y = 265 }
+          { X = -376 Y = 201 }
+          { X = 557 Y = 667 }
+          { X = 412 Y = 739 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWStar01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Star_01"
+        Tallness = 487
+        Offset = { X = 0 Y = -215 }
+        Points = [
+          { X = -156 Y = -6 }
+          { X = 21 Y = 121 }
+          { X = 191 Y = 6 }
+          { X = 16 Y = -95 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork12"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_12"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWHalfGear01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_HalfGear_01"
+        Tallness = 477
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -462 Y = -78 }
+          { X = 247 Y = 293 }
+          { X = 456 Y = 195 }
+          { X = -261 Y = -180 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockworkFlourish01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_Flourish_01"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork08"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_08"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork09"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_09"
+        Tallness = 89
+        Offset = { X = 0 Y = 6 }
+        Points = [
+          { X = -153 Y = 78 }
+          { X = -118 Y = 116 }
+          { X = -72 Y = 131 }
+          { X = 38 Y = 69 }
+          { X = 158 Y = -42 }
+          { X = 114 Y = -52 }
+          { X = -92 Y = 14 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork10"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_10"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWClockwork11"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Clockwork_11"
+        Tallness = 1702
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -86 Y = 677 }
+          { X = 90 Y = 679 }
+          { X = 90 Y = 667 }
+          { X = -87 Y = 662 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWPendulum01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Pendulum_01"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChains01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Chains_01"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWLantern02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Lantern_02"
+        Tallness = 1206.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWChains02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Chains_02"
+        Tallness = 1206
+        Offset = { X = 0 Y = -81 }
+      }
+    }
+    
+    {
+      Name = "CWWindowFrame01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_WindowFrame_01"
+        Tallness = 897.0
+        Offset = { X = 0 Y = -345 }
+        Points = [
+          { X = 201 Y = -135 }
+          { X = -215 Y = 85 }
+          { X = -169 Y = 106 }
+          { X = 245 Y = -107 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWWallTorch01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_WallTorch_01"
+        Tallness = 897.0
+        Offset = { X = 0 Y = -65 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWLight01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ClockworkTorch"
+        Tallness = 897.0
+        Offset = { X = 0 Y = -20 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCurtains01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Curtains_01"
+        Tallness = 897.0
+        Offset = { X = 0 Y = -345 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCurtains02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Curtains_02"
+        Tallness = 1364
+        Offset = { X = 0 Y = -621 }
+        Points = [
+          { X = -328 Y = 117 }
+          { X = -281 Y = 145 }
+          { X = 343 Y = -147 }
+          { X = 303 Y = -174 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCurtains03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Curtains_03"
+        Tallness = 1790
+        Offset = { X = 0 Y = -786 }
+        Points = [
+          { X = -311 Y = 33 }
+          { X = -46 Y = 86 }
+          { X = 162 Y = 79 }
+          { X = 309 Y = -10 }
+          { X = 203 Y = -109 }
+          { X = -175 Y = -79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWCurtains04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Curtains_04"
+        Tallness = 1790
+        Offset = { X = 0 Y = -85 }
+      }
+    }
+    
+    {
+      Name = "CWCurtains05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_Curtains_05"
+        Tallness = 1630
+        Offset = { X = 0 Y = -247 }
+        Points = [
+          { X = -247 Y = 364 }
+          { X = 164 Y = 569 }
+          { X = 212 Y = 545 }
+          { X = -196 Y = 338 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWFencePost03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\ClockworkTartarus\CW_FencePost_03"
+        Tallness = 936.0
+        Offset = { X = 0 Y = -392 }
+        Points = [
+          { X = -42 Y = 7 }
+          { X = -2 Y = 34 }
+          { X = 38 Y = 12 }
+          { X = -2 Y = -15 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTartarusExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CWTartarusExitDoorLocked"
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Tallness = 1543
+        Offset = { X = 0 Y = -175 }
+        Points = [
+          { X = -430 Y = -284 }
+          { X = -690 Y = -154 }
+          { X = 493 Y = 437 }
+          { X = 739 Y = 301 }
+        ]
+      }
+    }
+    {
+      Name = "CWTartarusEntryDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "CWTartarusExitDoorLocked"
+        Tallness = 1339
+        Offset = { X = 0 Y = -130 }
+        Points = [
+          { X = -462 Y = -290 }
+          { X = -722 Y = -160 }
+          { X = 495 Y = 449 }
+          { X = 754 Y = 319 }
+        ]
+      }
+    }
+    
+    {
+      Name = "Breakable_I"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Breakable_I"
+        StopsLight = true
+        Tallness = 114.0
+        UseBoundsForSortDrawArea = true
+        Offset = { X = 0 Y = -105 }
+        Points = [
+          { X = 0 Y = 16 }
+          { X = 32 Y = 0 }
+          { X = 0 Y = -16 }
+          { X = -32 Y = 0 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWGear3D_Chunky"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        GrannyModel = "Gear_Mesh"
+        Graphic = "ClockworkGear"
+        Tallness = 80
+        Offset = { X = 0 Y = 50 }
+        Points = [
+          { X = -40 Y = 95 }
+          { X = 45 Y = 95 }
+          { X = 45 Y = 85 }
+          { X = -40 Y = 85 }
+        ]
+      }
+    }
+
+    {
+      Name = "CWGear3D_Smooth"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        GrannyModel = "Gear_Mesh"
+        Graphic = "ClockworkGearSmooth"
+        Tallness = 75
+        Offset = { X = 0 Y = 50 }
+        Points = [
+          { X = -40 Y = 95 }
+          { X = 40 Y = 95 }
+          { X = 40 Y = 80 }
+          { X = -40 Y = 80 }
+        ]
+      }
+    }
+    
+    {
+      Name = "CWTartarusGlassTile"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepSound = "/Leftovers/SFX/FootstepsSlimeSmall"
+        Graphic = "Tilesets\Tartarus\Tartarus_BlankIsoTile_01"
+        Tallness = 50.0
+        Offset = { X = 0 Y = -2 }
+      }
+    }
+
+{
+Name = "ShadeClockworkIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeClockworkIdle"
+        StopsLight = false
+        Tallness = 193
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = 40 Y = -9 }
+          { X = 12 Y = -26 }
+          { X = -26 Y = -23 }
+          { X = -43 Y = -3 }
+          { X = -18 Y = 22 }
+          { X = 30 Y = 19 }
+        ]
+      }
+}
+{
+      Name = "ShadeClockworkSwaySW01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeClockworkSwaySW"
+        StopsLight = false
+        Tallness = 193
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = 40 Y = -9 }
+          { X = 12 Y = -26 }
+          { X = -26 Y = -23 }
+          { X = -43 Y = -3 }
+          { X = -18 Y = 22 }
+          { X = 30 Y = 19 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusStars01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Stars_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+  ]
+}

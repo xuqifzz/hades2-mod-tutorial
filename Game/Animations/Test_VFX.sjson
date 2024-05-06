@@ -1,0 +1,53 @@
+{ Animations = [
+	{
+		Name = "Test_1"
+		FilePath = "Particles\Test_1" 
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.0 }
+	}		
+	{
+		Name = "Test_2"
+		InheritFrom = "Test_1"
+		FilePath = "Particles\Test_2"
+		Color = { Red = 0.25 Green = 1.0 Blue = 0.0 }
+	}		
+	{
+		Name = "Test_3"
+		InheritFrom = "Test_1"
+		FilePath = "Particles\Test_3"
+		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
+	}		
+	{
+		Name = "Test_4"
+		InheritFrom = "Test_1"
+		FilePath = "Particles\Test_4"
+		Color = { Red = 0.0 Green = 0.10 Blue = 1.0 }
+	}
+
+	{
+		Name = "ThugSwipeArc"
+		FilePath = "Fx\BrawlerSwipeClose\BrawlerSwipeClose"
+		NumFrames = 26
+		FlipHorizontal = true
+		FlipVertical = true
+		PostRotateScaleY = 0.6
+		Scale = 5.0
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		CreateAnimations =
+		[
+			{ Name = "ThugSwipeArcDark" }
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "ThugSwipeArcDark"
+		InheritFrom = "ThugSwipeArc"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+	}
+]}

@@ -1,0 +1,414 @@
+{ Animations = [
+	
+	{
+		Name = "MelinoeBaseLobAnimations"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		CreateAnimation = "LobSkullGlow"
+	}
+	{
+		Name = "MelinoeBaseLobAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		DirectionChange180 = "Melinoe_Lob_Turn_180"
+		DirectionChange90R = "Melinoe_Lob_Turn_E90"
+		DirectionChange90L = "Melinoe_Lob_Turn_W90"
+		CreateAnimation = "LobSkullGlow"
+	}
+	{
+		Name = "WeaponLob_Hel"
+		GrannyModel = "WeaponLob_Hel_Mesh"
+	}
+	{
+		Name = "WeaponLob_Medea"
+		GrannyModel = "WeaponLob_Medea_Mesh"
+	}
+	{
+		Name = "WeaponLob_Persephone"
+		GrannyModel = "WeaponLob_Persephone_Mesh"
+	}
+	{
+		Name = "WeaponLobBase"
+		Disable3DSpotlight = true
+		GrannyModel = "WeaponLob_Mesh"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponLob_Hel" }
+			{ Name = "WeaponLob_Medea" }
+			{ Name = "WeaponLob_Persephone" }
+		]
+		GrannyAnimation = "Lob_Weapon_Base_Idle_C_01"
+		ChainTo = "null"
+		CreateAnimation = "LobSkullGlow"
+	}
+
+	// Lob Idle
+
+	{
+		Name = "Lob_Idle"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Idle_C_01"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Lob_Idle"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Idle_01"
+		CancelOnOwnerMove = true
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Lob_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Attack1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
+				Duration = 4
+			}			
+			{
+				BlendTransitionFrom = "MelinoeSpellFireReturn"
+				Duration = 8
+			}
+		]
+	}
+
+	// Lob Get Hit
+	{
+		Name = "Lob_GetHit"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_GetHit_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_GetHit"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_GetHit_C_00"
+		ChainTo = "Melinoe_Lob_Idle"
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 0
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Lob_Attack1_Start" }
+			{ Name = "Melinoe_Lob_Attack1_Fire" }
+			{ Name = "Melinoe_Lob_AttackEx1_Start" }
+			{ Name = "Melinoe_Lob_AttackEx1_Start2" }
+			{ Name = "Melinoe_Lob_AttackEx1_StartLoop" }
+			{ Name = "Melinoe_Lob_AttackEx1_Fire" }
+			{ Name = "Melinoe_Lob_Special1_Start" }
+			{ Name = "Melinoe_Lob_Special1_StartLoop" }
+			{ Name = "Melinoe_Lob_Special1_Fire" }
+			{ Name = "Melinoe_Lob_Special1Ex_StartTransition" }
+			{ Name = "Melinoe_Lob_Special1Ex_StartLoop" }
+			{ Name = "Melinoe_Lob_Special1Ex_Fire" }
+			{ Name = "Melinoe_Lob_Cast_Start" }
+			{ Name = "Melinoe_Lob_Cast_QuickCompleteFire" }
+			{ Name = "Melinoe_Lob_Cast_Fire2" }
+			{ Name = "Melinoe_Lob_Cast_StartLoop" }
+			{ Name = "Melinoe_Lob_Cast_Fire" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "Lob_GetHit"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+	
+	// VFX
+
+
+	{
+		Name = "LobSkullGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Maintain"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Duration = 1.2
+		Loop = true
+		Red = 0.1
+		Green = 1.0
+		Blue = 0.8
+		StartAlpha = 0.15
+		EndAlpha = 0.3
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		Scale = 0.7
+		RotationSpeed = 45
+		DieWithOwner = true
+		GrannyAttachedMarkerLocation = "WeaponLob_Rig:base_00_M_JNT"
+		OverlayVfx = true
+		VisualFx = "LobSkullAmbientFx"
+		VisualFxIntervalMin = 0.04
+		VisualFxIntervalMax = 0.08
+	}
+
+	{
+		Name = "LobSkullGlowMovement"
+		InheritFrom = "LobSkullGlow"
+		VisualFx = "LobSkullMovementFx"
+	}
+
+	{
+		Name = "LobSkullAmbientFx"
+		Random = [
+			{ Name = "LobSkullAmbientFxA" }
+			{ Name = "LobSkullAmbientFxB" }
+			{ Name = "LobSkullAmbientFxC" }
+			{ Name = "LobSkullAmbientFxD" }
+		]
+	}
+
+	{
+		Name = "LobSkullAmbientFxA"
+		FilePath = "Fx\LobProjectileTrailA\LobProjectileTrailA"
+		DrawBehindOwner = true
+		NumFrames = 20
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		UseOwnAngle = true
+		AddColor = false
+		AngleMin = 140
+		AngleMax = 220
+		AngleFromOwner = "Take"
+		VelocityMin = 60
+		VelocityMax = 120
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 1.2
+		Acceleration = -50
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 0.4
+		EndScale = 0.8
+		RandomFlipVertical = true
+		StartScaleX = 0.25
+		EndScaleX = 1
+		Material = "Unlit"
+		OriginX = 64
+		OriginY = 32
+	}
+
+	{
+		Name = "LobSkullAmbientFxB"
+		InheritFrom = "LobSkullAmbientFxA"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobSkullAmbientFxC"
+		InheritFrom = "LobSkullAmbientFxA"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobSkullAmbientFxD"
+		InheritFrom = "LobSkullAmbientFxA"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+	{
+		Name = "LobSkullMovementFx"
+		Random = [
+			{ Name = "LobSkullMovementFxA" }
+			{ Name = "LobSkullMovementFxB" }
+			{ Name = "LobSkullMovementFxC" }
+			{ Name = "LobSkullMovementFxD" }
+		]
+	}
+
+	{
+		Name = "LobSkullMovementFxA"
+		InheritFrom = "LobSkullAmbientFxA"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		AngleMin = 140
+		AngleMax = 220
+		VelocityMin = 60
+		VelocityMax = 120
+		ScaleMin = 1
+		ScaleMax = 1.2
+		Acceleration = -50
+		StartRed = 0.1
+		StartGreen = 1.0
+		StartBlue = 0.8
+		EndRed = 0
+		EndGreen = 0.1
+		EndBlue = 0.3
+		EaseIn = 0.9
+		EaseOut = 1
+		StartScaleY = 0.4
+		EndScaleY = 1.1
+		StartScaleX = 0.25
+		EndScaleX = 1.2
+		OriginX = 64
+		OriginY = 32
+	}
+
+	{
+		Name = "LobSkullMovementFxB"
+		InheritFrom = "LobSkullMovementFxA"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobSkullMovementFxC"
+		InheritFrom = "LobSkullMovementFxA"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobSkullMovementFxD"
+		InheritFrom = "LobSkullMovementFxA"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+		/* Lob Interact */
+	{
+		Name = "Lob_Interact"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Interact_00"
+	}
+	{
+		Name = "Melinoe_Lob_Interact"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Interact_00"
+		CancelOnOwnerMove = true
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Interact"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Equip"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Equip_C_00"
+	}	
+	{
+		Name = "Melinoe_Lob_Equip"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Equip_C_00"
+		CancelOnOwnerMove = true
+		CreateAnimations =
+		[
+			{ Name = "MelEquipSparkleLobSpawner" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Lob_Equip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Unequip"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_UnEquip_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Unequip"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		ChainTo = "MelinoeIdleWeaponless"
+		GrannyAnimation = "Melinoe_Lob_Base_UnEquip_C_00"
+		GrannyAnimationSpeed = 1.15
+		CancelOnOwnerMove = true
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleLob" }
+		]
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeInteract" }
+			{ Name = "MelinoeBoonPreInteract" }
+			{ Name = "MelTalkGifting01" }
+			{ Name = "MelTalkGifting01ReturnToIdle" }
+			{ Name = "MelinoeBoonInteractLoop" }
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Lob_InteractUnequip" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Lob_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+
+	{
+		Name = "Lob_InteractUnequip"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_InteractUnequipToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_InteractUnequip"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		ChainTo = "MelinoeIdleWeaponless"
+		GrannyAnimation = "Melinoe_Lob_Base_InteractUnequipToIdle_C_00"
+		CancelOnOwnerMove = true
+		CreateAnimation = "MelInteractUnequipSparkleLob"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Lob_Unequip" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Lob_InteractUnequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+] }

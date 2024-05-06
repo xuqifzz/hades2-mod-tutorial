@@ -1,0 +1,679 @@
+{ Animations = [
+
+  	// Staff Dash Anims
+	{
+		Name = "Staff_Dash_Start"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_DashAnticAir_N_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Staff_Dash_Start"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_DashAnticAir_N_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Attack2_Start" }
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "MelinoeSpellCharge" }
+			{ Name = "Melinoe_Staff_Special1_Start" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_Dash_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Sprint_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Run_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Equip"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+
+	}
+
+	{
+		Name = "Staff_Dash_Fire"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_DashAir_N_00"
+	}
+	{
+		Name = "Melinoe_Staff_Dash_Fire"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation =	"Melinoe_Staff_Base_DashAir_N_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Staff_Dash_End1"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Attack2_Start" }
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "MelinoeSpellCharge" }
+			{ Name = "Melinoe_Staff_Special1_Start" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_Dash_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Dash_End1"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_DashSettle_N_00"
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Dash_End1"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_DashSettle_N_00"
+		CancelOnOwnerMove = false
+		ChainTo = "Melinoe_Staff_Dash_End2"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "MelinoeSpellCharge" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_Dash_End1"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 8
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Dash_End2"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_DashSettle_N_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Dash_End2"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_DashSettle_N_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Staff_Idle"
+		Attachments =
+		[
+			{
+				Name = "Staff_Dash_End2"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+			{
+				Frame = 16
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	// Melinoe Staff Turn Anims
+	{
+		Name = "Staff_Turn_180"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunDirectionChange180_N_01"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Staff_Turn_180"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Staff_Base_RunDirectionChange180_N_00"
+		GrannyAnimationSpeed = 1.2
+		NativeMoveSpeed = 540.0
+		/*GrannyRotationY = 180*/
+		CancelOnRestart = true
+		DirectionChange180 = "Melinoe_Staff_Turn_180"
+		AllowTransitionBlend = false
+		ChainTo = "Melinoe_Staff_Run_FireLoop"
+
+		Attachments =
+		[
+			{
+				Name = "Staff_Turn_180"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Turn_E90"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunDirectionChangeE90_N_01"
+		//GrannyRotationY = 90
+		NativeMoveSpeed = 540
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Turn_E90"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Staff_Base_RunDirectionChangeE90_N_00"
+		GrannyAnimationSpeed = 0.8
+		NativeMoveSpeed = 540.0
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		ChainTo = "Melinoe_Staff_Run_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_Turn_E90"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack1_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack2_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack3_End"
+				Duration = 5
+			}				
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackEx1_End"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_End"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackDash1_End"
+				Duration = 5
+			}		
+		]
+	}
+
+	{
+		Name = "Staff_Turn_W90"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunDirectionChangeW90_N_01"
+		//GrannyRotationY = -90
+		NativeMoveSpeed = 540
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_Turn_W90"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_Staff_Base_RunDirectionChangeW90_N_00"
+		Loop = false
+		GrannyAnimationSpeed = 0.8
+		NativeMoveSpeed = 540.0
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		ChainTo = "Melinoe_Staff_Run_FireLoop"
+
+		Attachments =
+		[
+			{
+				Name = "Staff_Turn_W90"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack1_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack2_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack3_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackEx1_End"
+				Duration = 10
+			}	
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_End"
+				Duration = 10
+			}	
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackDash1_End"
+				Duration = 10
+			}
+		]
+	}
+
+	// Melinoe Staff Run Anims
+	{
+		Name = "Staff_Run_Start"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunStart_N_01"		
+	}
+	{
+		Name = "Melinoe_Staff_Run_Start"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_RunStart_N_01"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Staff_Run_FireLoop"
+		Attachments =
+		[
+			{
+				Name = "Staff_Run_Start"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Idle"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End1"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Equip"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Run_FireLoop"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_Run_N_01"
+		NativeMoveSpeed = 540
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Staff_Run_FireLoop"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_Run_N_01"
+		CreateAnimation = "StaffOrbGlowWithTrail"
+		NativeMoveSpeed = 540
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Run_FireLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "MelinoeIdleWeaponless"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack1_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack2_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Attack3_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackEx1_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Sprint_FireLoop"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Special1_End"
+				Duration = 11
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End1"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End2"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_AttackEx1_Fire"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_StartLoop"
+				Duration = 9
+			}
+
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Equip"
+				Duration = 5
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 25
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 41
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 57
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 73
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 89
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 105
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 121
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 137
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 153
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 169
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 185
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Run_End"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunStop_N_01"
+		NativeMoveSpeed = 540
+	}
+	{
+		Name = "Melinoe_Staff_Run_End"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_RunStop_N_01"
+		NativeMoveSpeed = 540
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Staff_Idle"
+		Attachments =
+		[
+			{
+				Name = "Staff_Run_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 6
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+			}
+			{
+				Frame = 8
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	// Melinoe Staff Sprint
+	{
+		Name = "Staff_Sprint_FireLoop"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_RunSprint_01"
+		NativeMoveSpeed = 740
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Staff_Sprint_FireLoop"
+		InheritFrom = "MelinoeBaseStaffAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Staff_Base_RunSprint_01"
+		NativeMoveSpeed = 740
+		CreateAnimation = "StaffOrbGlowWithTrail"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Sprint_FireLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 8
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 22
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_End1"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Dash_Fire"
+				Duration = 8
+			}
+		]
+	}
+] }

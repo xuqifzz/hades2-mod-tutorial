@@ -1,0 +1,639 @@
+{
+  MiscSettingsScreen =
+  {
+    Platform = "default"
+    CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    TransitionOnTime = 0.1
+    TransitionOffTime = 0.15
+    ForceShowCursor = true
+    GamepadSelectionStyle = "FreeForm"
+    FreeFormSelectGridLock = true
+    FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectStepDistance = 16
+    FreeFormSelectSuccessDistance = 8
+    FreeFormSelectSuccessDistanceStep = 2
+    ItemsPerPage = 10
+
+	Back =
+	{
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Width = 1920
+      Height = 1080
+    }
+
+    AnimatedBackground =
+	{
+      X = 960
+      Y = 540
+      Graphic = "GUI\Shell\Box_FullScreen"
+      Scale = 0.98
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+
+    /*TitleText =
+	{
+      X = 960
+      Y = 180
+      Justification = "Center"
+      VerticalJustification = "Center"
+      DisplayNameId = "SettingsScreen_Options"
+      Font = "P22UndergroundSCLightTitling"      
+      FontSize = 40
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0.1
+      TextOutlineGreen = 0.1
+      TextOutlineBlue = 0.1
+      OutlineThickness = 1
+      ShadowRed = 0.176
+      ShadowGreen = 0.184
+      ShadowBlue = 0.18
+      ShadowOffsetY = 2
+      ShadowAlpha = 0
+      ShadowBlur = 2
+    }*/
+
+	/* Toggles */
+
+	OptionToggleButton =
+	{
+      X = 1380
+      Y = 300
+      Spacing = 45
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Graphic = "GUI\\Shell\\settings_toggle_on"
+      AlternateGraphic = "GUI\\Shell\\settings_toggle_off"
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      AddColor = true
+      Red = 0
+      Green = 0
+      Blue = 0
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2      
+      TextOffsetX = -720
+      Scale = 0.75
+      TextJustification = "Left"
+      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
+      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      PressTopAnimation = "InvincibleHitSpark"
+      FadeSpeed = 10.0
+    }
+
+  OptionToggleButtonDebug =
+	{
+      InheritFrom = "OptionToggleButton"
+      TextRed = 0.8
+      TextGreen = 0.3
+      TextBlue = 0.3
+    }
+
+	OptionNumBox =
+	{
+      X = 1380
+      Y = 300
+      Spacing = 45
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Graphic = null
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      Red = 1
+      Green = 1
+      Blue = 1
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      TextOffsetX = -720
+      Scale = 0.85
+      TextJustification = "Left"
+      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
+      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      PressTopAnimation = "InvincibleHitSpark"
+      FadeSpeed = 10.0
+    }
+
+  OptionNumBoxDebug =
+	{
+      InheritFrom = "OptionNumBox"
+      TextRed = 0.8
+      TextGreen = 0.3
+      TextBlue = 0.3
+  }
+
+  OptionRumbleTestButton =
+    {
+      X = 1380
+      Y = 205
+      Spacing = 0//45
+      //Y = 655
+      Graphic = "Button_Default"
+      UnderCursorOnAnimation = "Button_HighlightOn"
+      UnderCursorOffAnimation = "Button_HighlightOff"
+      PressAnimation = "Button_Press"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.714
+      TextBlue = 0.588
+      TextOffsetY = 0
+      PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+      HelpTextId = "Test"
+      Width = 280
+      Height = 60
+      Scale = 0.55
+    }
+
+	OptionNumBoxValueText =
+	{
+      Justification = "Center"
+      VerticalJustification = "Center"
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.9
+      TextGreen = 0.9
+      TextBlue = 0.9
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      AddColor = true
+      Red = 0
+      Green = 0
+      Blue = 0
+      Scale = 0.75
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      TextOffsetX = 0
+      TextJustification = "Center"
+    }
+
+	OptionNumBoxLeftArrow =
+	{
+    Graphic = "Arrow_Left"
+	  SelectedGraphic = "Arrow_LeftHighlight"
+	  Scale = 0.5
+	  OffsetX = -50
+    }
+
+	OptionNumBoxRightArrow =
+    {
+      Graphic = "Arrow_Right"
+	  SelectedGraphic = "Arrow_RightHighlight"
+	  Scale = 0.5
+	  OffsetX = 50
+    }
+
+    OptionLongStringNumBoxLeftArrow =
+    {
+      InheritFrom = "OptionNumBoxLeftArrow"
+      OffsetX = -200
+    }
+
+    OptionLongStringNumBoxRightArrow =
+    {
+      InheritFrom = "OptionNumBoxRightArrow"
+      OffsetX = 200
+    }
+
+    OptionStringNumBoxLeftArrow =
+    {
+      Graphic = "Arrow_Left"
+      SelectedGraphic = "Arrow_LeftHighlight"
+      Scale = 0.5
+      OffsetX = -85
+    }
+
+    OptionStringNumBoxRightArrow =
+    {
+      Graphic = "Arrow_Right"
+      SelectedGraphic = "Arrow_RightHighlight"
+      Scale = 0.5
+      OffsetX = 85
+    }
+
+    OptionSlider =
+	{
+      X = 1134
+      Y = 300
+      ScrollSpeed = 0.4
+      Spacing = 45
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Graphic = null
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      Red = 1
+      Green = 1
+      Blue = 1
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      
+      TextOffsetX = -474
+      Scale = 1.0
+      BackGraphic = "GUI\\Shell\\settings_bar_bg"
+      FillGraphic = "GUI\\Shell\\settings_bar_fill"
+      TextJustification = "Left"
+      Height = 50
+      FlashMin = 0
+      FlashMax = 0.5
+      FlashSpeed = 2.0
+      FlashRed = 1.0
+      FlashGreen = 0.8
+      FlashBlue = 0.2
+    }
+    OptionSliderDebug =
+	{
+        InheritFrom = "OptionSlider"
+        TextRed = 0.8
+        TextGreen = 0.3
+        TextBlue = 0.3
+    }
+
+	OptionSliderValueText =
+	{
+      Justification = "Center"
+      VerticalJustification = "Center"
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.9
+      TextGreen = 0.9
+      TextBlue = 0.9
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      AddColor = true
+      Red = 0
+      Green = 0
+      Blue = 0
+      Scale = 0.75
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      
+      TextOffsetX = 250
+      TextJustification = "Center"
+    }
+
+    OptionDropdown =
+	{
+      X = 1380
+      Y = 300
+      Spacing = 45
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Graphic = null
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.8
+      TextBlue = 0.8
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      Red = 1
+      Green = 1
+      Blue = 1
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      
+      TextOffsetX = -720
+      Scale = 0.85
+      TextJustification = "Left"
+      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
+      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
+      PressTopAnimation = "InvincibleHitSpark"
+      FadeSpeed = 10.0
+    }
+
+    OptionDropdownValueText =
+	{
+      Justification = "Center"
+      VerticalJustification = "Center"
+      AddTextArea = true
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.9
+      TextGreen = 0.9
+      TextBlue = 0.9
+      SelectedTextRed = 0.85
+      SelectedTextGreen = 0.6
+      SelectedTextBlue = 0.25
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      AddColor = true
+      Red = 0
+      Green = 0
+      Blue = 0
+      Scale = 0.75
+      SelectedRed = 0.2
+      SelectedGreen = 0.2
+      SelectedBlue = 0.2
+      TextOffsetX = 0
+      TextJustification = "Center"
+      SpacingY = 22
+    }
+
+    OptionDropdownExpandArrow =
+    {
+      Graphic = "Arrow_Down"
+	    SelectedGraphic = "Arrow_DownHighlight"
+	    Scale = 0.5
+	    OffsetX = 100
+    }
+
+	ActiveMarker =
+	{
+      OffsetX = -220
+      OffsetY = 0
+      Graphic = "OptionSelectorArrow"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Scale = 1
+    }
+
+    DescriptionBox =
+	{
+      X = 660
+      Y = 820
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "LatoMedium"
+      FontSize = 20
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      TextJustification = "Left"
+      OutlineThickness = 3
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      Width = 700
+      Height = 300
+    }
+
+	/* Controls */
+    CancelButton =
+	{
+      Graphic = "CancelButtonFlash"
+      UnderCursorOnAnimation = "CancelButtonFlashHover"
+      UnderCursorOffAnimation = "CancelButtonFlash"
+      FreeFormSelectable = false
+      Justification = "Center"
+      VerticalJustification = "Center"
+      X = 960
+      Y = 1030
+      FlashMin = 0.0
+      FlashMax = 0.5
+      FlashSpeed = 1.2
+      FlashRed = 0.6
+      FlashGreen = 0.4
+      FlashBlue = 0.0
+      PressSound = "null"
+      Scale = 0.8
+    }
+
+    DefaultsButton =
+	{
+      X = 1505
+      Y = 925
+      Graphic = "Button_Default"
+      UnderCursorOnAnimation = "Button_HighlightOn"
+      UnderCursorOffAnimation = "Button_HighlightOff"
+      PressAnimation = "Button_Press"
+      DisplayNameId = "MiscSettingsScreen_RestoreDefaults"
+      HelpTextId = "MiscSettingsScreen_RestoreDefaults"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 26
+      TextRed = 0.8
+      TextGreen = 0.714
+      TextBlue = 0.588
+      TextOffsetY = 0
+      PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+      Width = 280
+      Height = 60
+      FreeFormSelectOffsetX = -120
+    }
+
+    // Rumble test buttons. Only active while GeneralRumbleMultiplier NumBox has focus, but are invisible
+    TestLightRumbleButton =
+    {
+      UseableWhenFadedOut = true
+    }
+
+    TestHeavyRumbleButton =
+    {
+      UseableWhenFadedOut = true
+    }
+
+	// Categories
+
+	CategoryOptionsButton =
+	{
+      X = 435
+      Y = 180
+      Graphic = "Button_Secondary"
+      UnderCursorOnAnimation = "Button_Secondary_HighlightOn"
+      UnderCursorOffAnimation = "Button_Secondary_HighlightOff"
+      PressAnimation = "Button_Secondary_HighlightOn"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.8
+      TextGreen = 0.714
+      TextBlue = 0.588
+      TextOffsetY = 0
+      PressSound = "/SFX/Menu Sounds/DialoguePanelIn"
+      Width = 280
+      Height = 40
+      ScaleX = 1.25
+      ScaleY = 0.9
+    }
+
+    // UserAccessible Categories
+    GameplayOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_GameplayOptions"
+    }
+    ControlsOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "GameplayOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_ControlsOptions"
+        OffsetY = 54
+    }
+    InterfaceOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "ControlsOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_InterfaceOptions"
+        OffsetY = 54
+    }
+    GraphicsOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "InterfaceOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_DisplayOptions"
+        OffsetY = 54
+    }
+    AccessibilityOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "GraphicsOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_AccessibilityOptions"
+        OffsetY = 54
+    }
+	AudioOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+        AttachTo = "AccessibilityOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_AudioOptions"
+        OffsetY = 54
+    }
+    LanguageOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+        AttachTo = "AudioOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_LanguageOptions"
+        OffsetY = 54
+    }
+    CreditsOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+        AttachTo = "LanguageOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_CreditsOptions"
+        OffsetY = 54
+    }
+
+    // Non-UserAccessible Categories
+    EditorOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "CreditsOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_EditorOptions"
+        OffsetY = 54
+    }
+	PerformanceOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "EditorOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_PerformanceOptions"
+        OffsetY = 54
+    }
+	LoggingOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "PerformanceOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_LoggingOptions"
+        OffsetY = 54
+    }
+	SavesOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "LoggingOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_SavesOptions"
+        OffsetY = 54
+    }
+	CheatsOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "SavesOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_CheatsOptions"
+        OffsetY = 54
+    }
+	OverlayOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "CheatsOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_OverlayOptions"
+        OffsetY = 54
+    }
+	DebugOptionsButton =
+	{
+		InheritFrom = "CategoryOptionsButton"
+		AttachTo = "OverlayOptionsButton"
+		DisplayNameId = "MiscSettingsScreen_DebugOptions"
+        OffsetY = 54
+    }
+
+    UpArrow =
+    {
+      X = 1500
+      Y = 220
+      Graphic = "GUI\Shell\UpArrow_Base"
+      SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
+      Scale = 0.4
+      AutoActivateWithGamepad = true
+      FreeFormSelectOffsetX = -120
+    }
+
+    DownArrow =
+    {
+      X = 1500
+      Y = 780
+      Graphic = "GUI\Shell\DownArrow_Base"
+      SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
+      Scale = 0.4
+      AutoActivateWithGamepad = true
+      FreeFormSelectOffsetX = -120
+    }
+
+  }
+}

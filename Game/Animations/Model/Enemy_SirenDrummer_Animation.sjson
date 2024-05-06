@@ -1,0 +1,754 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySirenDrummerBaseAnimation"
+		
+		GrannyModel = "SirenDrummer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		
+		Enable3DShadow = true
+	}
+
+	/*Idle*/
+
+	{
+		Name = "Enemy_SirenDrummer_IdleA"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_Idle_C_03"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsIdleA"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsIdleA"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_Idle_C_03"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_IdleB"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_Idle_C_04"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsIdleB"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsIdleB"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_Idle_C_04"
+		Loop = true
+		
+	}
+
+	/*Death*/
+
+	{
+		Name = "Enemy_SirenDrummer_Death"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_Death_C_00"
+		VisualFx = "ScyllaDeathSplashes"
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.03
+		HoldLastFrame = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 2.0
+		DeathFxFrameDuration = 120
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.01
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 0.1
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		BlockNewOwnerAnims = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyDeathFxStartFlareLarge" }
+			{ Name = "EnemyDeathFxIris" }
+			{ Name = "EnemyDeathFxFish" }
+			{ Name = "OceanusSurfaceRippleLargeA" }
+			{ Name = "OceanusSurfaceRippleLargeB" }
+		]
+
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsDeath"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopA"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Scylla/EmotePowerAttacking"
+			}
+			{
+				Frame = 64
+				CreateAnimation = "SirenDeathSplash"
+			}
+			{
+				Frame = 81
+				CreateAnimation = "SirenDeathSplash"
+			}
+			{
+				Frame = 98
+				CreateAnimation = "SirenDeathSplash"
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsDeath"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_Death_C_00"
+		
+		
+	}
+
+	/*Beat*/
+	/*A*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenDrummer_BeatIntroA"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatAntic_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SirenDrummer_BeatLoopA"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatIntroA"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopB"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopC"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_RumbleFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_RumbleFireSlow"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_IncapacitateReturnToIdle"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 10
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 12
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 32
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 34
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatIntroA"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatAntic_C_00"
+		
+		
+	}
+
+	/*Loop*/
+	{
+		Name = "Enemy_SirenDrummer_BeatLoopA"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatLoop_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatLoopA"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 18
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 26
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 67
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 74
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatLoopA"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatLoop_C_00"
+		Loop = true
+	}
+	/*Return*/
+	{
+		Name = "Enemy_SirenDrummer_BeatReturnToIdleA"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatReturnToIdleA"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatReturnToIdleA"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatReturnToIdle_C_00"
+	}
+
+	/*B*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenDrummer_BeatIntroB"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatAntic_C_01"
+		CancelOnOwnerMove = true
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatIntroB"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopA"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatIntroB"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatAntic_C_01"
+	}
+
+	/*Loop*/
+	{
+		Name = "Enemy_SirenDrummer_BeatLoopB"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatLoop_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatLoopB"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 1
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 22
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 48
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 60
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 98
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 106
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatLoopB"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatLoop_C_01"
+		Loop = true
+	}
+	/*Return*/
+	{
+		Name = "Enemy_SirenDrummer_BeatReturnToIdleB"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatReturnToIdle_C_01"
+		
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatReturnToIdleB"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatReturnToIdleB"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatReturnToIdle_C_01"
+	}
+
+	/*B*/
+	/*Intro*/
+	{
+		Name = "Enemy_SirenDrummer_BeatIntroC"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatAntic_C_02"
+		CancelOnOwnerMove = true
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatIntroC"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopA"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatIntroC"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatAntic_C_02"
+	}
+
+	/*Loop*/
+	{
+		Name = "Enemy_SirenDrummer_BeatLoopC"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatLoop_C_02"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatLoopC"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 7
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 50
+				FootstepFxR = "SirenDrummerDrumImpactSnare"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 98
+				FootstepFxR = "SirenDrummerDrumImpactCymbal"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatLoopC"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatLoop_C_02"
+		Loop = true
+	}
+	/*Return*/
+	{
+		Name = "Enemy_SirenDrummer_BeatReturnToIdleC"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_BeatReturnToIdle_C_02"
+		
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsBeatReturnToIdleC"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsBeatReturnToIdleC"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_BeatReturnToIdle_C_02"
+	}
+
+	/*Rumble*/
+	{
+		Name = "Enemy_SirenDrummer_RumbleIntro"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_RumbleAntic_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SirenDrummer_RumbleFire"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsRumbleIntro"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopA"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsRumbleIntro"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_RumbleAntic_C_01"
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_RumbleIntroSlow"
+		InheritFrom = "Enemy_SirenDrummer_RumbleIntro"
+		ChainTo = "Enemy_SirenDrummer_RumbleFireSlow"
+		GrannyAnimationSpeed = 0.5
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsRumbleIntroSlow"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+	{
+		Name = "SirenInstrumentDrumsRumbleIntroSlow"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_RumbleAntic_C_01"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_RumbleFire"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_RumbleFire_C_01"
+		ChainTo = "Enemy_SirenDrummer_BeatIntroA"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsRumbleFire"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				FootstepFxR = "SirenDrummerDrumImpactTomSmall"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 6
+				FootstepFxR = "SirenDrummerDrumImpactTomSmall"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 14
+				FootstepFxR = "SirenDrummerDrumImpactTomMedium"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 21
+				FootstepFxR = "SirenDrummerDrumImpactTomMedium"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 26
+				FootstepFxR = "SirenDrummerDrumImpactTomLarge"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 66
+				FootstepFxR = "SirenDrummerDrumImpactClamShell"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsRumbleFire"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_RumbleFire_C_01"
+		ChainTo = "SirenInstrumentDrumsBeatIntroA"
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_RumbleFireSlow"
+		InheritFrom = "Enemy_SirenDrummer_RumbleFire"
+		GrannyAnimation = "Siren_Drums_RumbleFire_C_01"
+		GrannyAnimationSpeed = 0.5
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsRumbleFireSlow"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				FootstepFxR = "SirenDrummerDrumImpactTomSmall"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 8
+				FootstepFxR = "SirenDrummerDrumImpactTomSmall"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 14
+				FootstepFxR = "SirenDrummerDrumImpactTomMedium"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 20
+				FootstepFxR = "SirenDrummerDrumImpactTomMedium"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 26
+				FootstepFxR = "SirenDrummerDrumImpactTomLarge"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 66
+				FootstepFxR = "SirenDrummerDrumImpactClamShell"
+				FootstepFxL = ""
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsRumbleFireSlow"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_RumbleFire_C_01"
+		ChainTo = "SirenInstrumentDrumsBeatIntroA"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_RumbleReturnToIdle"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_RumbleReturnToIdle_C_01"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsRumbleReturnToIdle"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsRumbleReturnToIdle"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_RumbleReturnToIdle_C_01"
+	}
+
+	/*Incapacitate*/
+	{
+		Name = "Enemy_SirenDrummer_IncapacitateIntro"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_IncapacitateIntro_C_00"
+		HoldLastFrame = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsIncapacitateIntro"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SirenDrummer_BeatLoopA"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsIncapacitateIntro"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_IncapacitateIntro_C_00"
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_IncapacitateLoop"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_IncapacitateIntro_C_00"
+		Loop = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsIncapacitateLoop"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsIncapacitateLoop"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_IncapacitateIntro_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_SirenDrummer_IncapacitateReturnToIdle"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_IncapacitateReturnToIdle_C_00"
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsIncapacitateReturnToIdle"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsIncapacitateReturnToIdle"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_IncapacitateReturnToIdle_C_00"
+	}
+
+	/*Taunt*/
+	{
+		Name = "Enemy_SirenDrummer_Taunt"
+		InheritFrom = "EnemySirenDrummerBaseAnimation"
+		GrannyAnimation = "Siren_Drums_Taunt_C_00"
+		
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "SirenInstrumentDrumsTaunt"
+				ToBone = "Sirens_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "SirenInstrumentDrumsTaunt"
+		GrannyModel = "SirensInstrumentDrums_Mesh"
+		GrannyAnimation = "Drums_Base_Taunt_C_00"
+	}
+
+]}

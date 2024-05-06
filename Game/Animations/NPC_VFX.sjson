@@ -1,0 +1,130 @@
+{ Animations = [
+
+
+	{
+		Name = "HadesBattleDashStreaks"
+		FilePath = "Fx\HadesBattleDashStreaks\HadesBattleDashStreaks"
+		NumFrames = 1
+		NumAngles = 32
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		Duration = 0.1
+		StartAlpha = 0.7
+		EndAlpha = 0.0
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		CreateAnimation = "HadesBattleDashStreaksDark"
+		StartScale = 1
+		EndScale = 1.05
+		Scale = 1.6
+		OffsetZ = 60
+	}
+
+	{
+		Name = "HadesBattleDashStreaksDark"
+		InheritFrom = "HadesBattleDashStreaks"
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 0.33
+	}
+
+
+	{
+		Name = "HypnosSleepZsEmitter"
+		FilePath = "Dev\blank_invisible"
+		GrannyAttachedMarkerLocation = "HypnosSleep_Rig:hairA_00_M_JNT"
+		VisualFx = "HypnosSleepZs"
+		VisualFxIntervalMax = 0.5
+		VisualFxIntervalMin = 0.6
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+	}
+	{
+		Name = "HypnosSleepZs"
+		InheritFrom = "Blank"
+		FilePath = "Particles\particle_z"
+		AngleFromOwner = "Ignore"
+		AngleMax = 50.00
+		AngleMin = 40.00
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		PingPongColor = true
+		Duration = 2.35
+		EaseOut = 1.0
+		EndFrame = 1
+		StartFrame = 1
+		UseAttachedSpriteEffects = false
+		EndOffsetX = 10.0
+		OffsetX = 15.0
+		OffsetZ = 100
+		RandomOffsetX = 10.0
+		RandomOffsetY = 10.0
+		StartOffsetX = -10.0
+		LocationFromOwner = "Take"
+		SortMode = "Id"
+		Velocity = 50.0
+		EndScale = 0.2
+		PingPongScale = true
+		StartScale = 0.05
+		Material = "Unlit"
+		PingPongShiftOverDuration = true
+		GroupName = "FX_Standing_Top"
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "NemesisAttack1FxSpawner"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimations =
+		[
+			{ Name = "NemesisAttack1Fx" }
+		]
+	}
+	{
+		Name = "NemesisAttack1Fx"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 10
+		StartFrame = 10
+		Material = "Unlit"
+		FlipHorizontal = true
+		IsometricSkew = "X"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		OffsetZ = 0
+		PlaySpeed = 60
+		GroupName = "FX_Add_Top"
+		OriginX = 120
+		OriginY = 180
+		ScaleY = 0.66
+	}
+	{
+		Name = "NemesisAttack2Fx"
+		FilePath = "Fx\ThugMeleeSwipe\ThugMeleeSwipe"
+		NumFrames = 20
+		Material = "Unlit"
+		PostRotateScaleY = 0.6
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		DieWithOwner = false
+		LocationZFromOwner = "Take"
+		OffsetZ = 60
+		FlipVertical = true
+	}
+]}

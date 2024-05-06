@@ -1,0 +1,372 @@
+{ Animations = [
+
+  	// Dagger Dash Anims
+	{
+		Name = "Melinoe_Dagger_Dash_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_DashAntic_N_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Dagger_AttackRight_Start" }
+			{ Name = "Melinoe_Dagger_AttackLeft_Start" }
+			{ Name = "Melinoe_Dagger_AttackStabs_Start" }
+			{ Name = "Melinoe_Dagger_AttackDouble_Start" }
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Sprint_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Run_FireLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Equip"
+				Duration = 6
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 0.3
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Dash_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_Dash_N_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_Dash_End1"
+	}
+
+	{
+		Name = "Melinoe_Dagger_Dash_End1"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_DashSettle_N_00"
+		ChainTo = "Melinoe_Dagger_Dash_End2"
+		Frames =
+		[
+			{
+				Frame = 9
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Dash_End2"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		ChainTo = "Melinoe_Dagger_Idle"
+		GrannyAnimation = "Melinoe_Dagger_Base_DashSettle_N_00"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 9
+				FrameSpeed = 1
+			}
+			{
+				Frame = 16
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 20
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+
+	// Melinoe Dagger Turn Anims
+	{
+		Name = "Melinoe_Dagger_Turn_180"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunDirectionChange180_N_00"
+		GrannyAnimationSpeed = 1.2
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Dagger_Run_FireLoop"
+	}
+	
+	{
+		Name = "Melinoe_Dagger_Turn_E90"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunDirectionChangeE90_N_00"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+		GrannyAnimationSpeed = 0.8
+		ChainTo = "Melinoe_Dagger_Run_FireLoop"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackRight_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackLeft_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackSpin_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackStabs_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackDouble_End"
+				Duration = 4
+			}				
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Turn_W90"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunDirectionChangeW90_N_00"
+		GrannyAnimationSpeed = 0.8
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Dagger_Run_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackRight_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackLeft_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackSpin_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackStabs_EndCancelable"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackDouble_End"
+				Duration = 4
+			}				
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 4
+			}
+		]
+	}
+	
+
+	// Melinoe Dagger Run Anims
+	{
+		Name = "Melinoe_Dagger_Run_Start"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunStart_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Dagger_Run_FireLoop"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_End1"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Equip"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Run_FireLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_Run_N_00"
+		Loop = true
+		NativeMoveSpeed = 540
+
+		Frames = 
+		[
+			{
+				Frame = 7
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 23
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackRight_EndCancelable"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackLeft_EndCancelable"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackStabs_EndCancelable"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackDouble_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_AttackSpin_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Sprint_FireLoop"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_End1"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_End2"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Cast_End"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "MelinoeIdleWeaponless"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Equip"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Dagger_Run_End"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunStop_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "Melinoe_Dagger_Idle"
+		CancelOnOwnerMove = true
+
+		Frames = 
+		[
+			{
+				Frame = 2
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 7
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	// Melinoe Dagger Sprint
+	{
+		Name = "Melinoe_Dagger_Sprint_FireLoop"
+		InheritFrom = "MelinoeBaseDaggerAnimationsWithTurns"
+		GrannyAnimation = "Melinoe_Dagger_Base_RunSprint_00"
+		NativeMoveSpeed = 740
+		Loop = true
+
+		Frames = 
+		[
+			{
+				Frame = 9
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 24
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_Fire"
+				Duration = 4
+			}
+		]
+	}
+] }

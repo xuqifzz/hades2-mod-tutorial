@@ -1,0 +1,1018 @@
+{ Animations = [
+
+	{
+		Name = "DestructibleTreeSplinterFx"
+		InheritFrom = "DustPuffASpikeTrap"
+		CreateAnimations =
+		[
+			{ Name = "DestructibleTreeSplinterFxCone" }
+			{ Name = "DestructibleTreeSplinters" }
+		]
+	}
+
+	{
+		Name = "DestructibleTreeSplinterFxCone"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 120.0
+		StartFrame = 1
+		ScaleX = 2.5
+		ScaleY = 1.5
+		Color = { Red = 0.25 Green = 0.2 Blue = 0.33 }
+	}
+
+	{
+		Name = "DestructibleTreeSplinters"
+		FilePath = "Fx\DestructibleTreeSplinters\DestructibleTreeSplinters"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 29
+		NumFrames = 29
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		OriginX = 60.0
+		OriginY = 338.0
+		SortMode = "FromParent"
+		OverlayVfx = true
+	}
+	
+	{
+		Name = "Breakable_N_Splinters"
+		InheritFrom = "DestructibleTreeSplinters"
+		OffsetZ = 30.0
+		Scale = 0.35
+	}
+	
+	{
+		Name = "DestructibleTree_01_Transition"
+		FilePath = "Fx\DestructibleTree_01_Transition\DestructibleTree_01_Transition"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 29
+		HoldLastFrame = false
+		NumFrames = 29
+		PlaySpeed = 30.0
+		StartFrame = 1
+	}
+
+	{
+		Name = "ErebusMushroomSplat"
+		Random =
+		[
+			{ Name = "ErebusMushroomSplatA" }
+			{ Name = "ErebusMushroomSplatB" }
+		]
+	}
+
+	{
+		Name = "ErebusMushroomSplatA"
+		FilePath = "Fx\ErebusMushroomSplatA\ErebusMushroomSplatA"
+		Sound = "/SFX/MushroomDestroy"
+		NumFrames = 22
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RandomFlipHorizontal = true
+		VisualFx = "null"
+		VisualFxManagerFrameCap = 18
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		OwnerHasNoCollision = true
+		OffsetY = -70
+		Scale = 1.8
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "ErebusMushroomSplatB"
+		InheritFrom = "ErebusMushroomSplatA"
+		FilePath = "Fx\ErebusMushroomSplatB\ErebusMushroomSplatB"
+	}
+
+	{
+		Name = "RespawningCover01_Respawn"
+		FilePath = "Fx\RespawningCover01_Respawn\RespawningCover01_Respawn"
+		Sound = "/SFX/MushroomGrow"
+		EndFrame = 20
+		NumFrames = 20
+		RandomPlaySpeedMax = 33.0
+		RandomPlaySpeedMin = 27.0
+		StartFrame = 1
+		OffsetY = -60.0
+		Scale = 1.0
+	}
+	
+	{
+		Name = "RespawningCover01_Static"
+		FilePath = "Tilesets\Erebus\Erebus_RespawningCover_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -60.0
+	}
+
+	{
+		Name = "RespawningCover02_Respawn"
+		InheritFrom = "RespawningCover01_Respawn"
+		FilePath = "Fx\RespawningCover02_Respawn\RespawningCover02_Respawn"
+	}
+
+	{
+		Name = "RespawningCover02_Static"
+		InheritFrom = "RespawningCover01_Static"
+		FilePath = "Tilesets\Erebus\Erebus_RespawningCover_02"
+	}
+
+	{
+		Name = "RespawningCover03_Respawn"
+		InheritFrom = "RespawningCover01_Respawn"
+		FilePath = "Fx\RespawningCover03_Respawn\RespawningCover03_Respawn"
+	}
+
+	{
+		Name = "RespawningCover03_Static"
+		InheritFrom = "RespawningCover01_Static"
+		FilePath = "Tilesets\Erebus\Erebus_RespawningCover_03"
+	}
+
+	{
+		Name = "ErebusExitDoorLocked"
+		FilePath = "Fx\ErebusDoor01Ambient\ErebusDoor01Ambient"
+		EndFrame = 45
+		NumFrames = 45
+		PlaySpeed = 30
+		StartFrame = 1
+		OffsetY = -140.0
+		Scale = 1.2
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ErebusExitDoorUnlocked"
+		InheritFrom = "ErebusExitDoorLocked"
+		FilePath = "Tilesets\Erebus\Erebus_Door_01_Frame"
+		NumFrames = 1
+		EndFrame = 1
+		StartFrame = 1
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "ErebusExitDoorSticks"
+		Random =
+		[
+			{ Name = "ErebusExitDoorStick1" }
+			{ Name = "ErebusExitDoorStick2" }
+			{ Name = "ErebusExitDoorStick3" }
+			{ Name = "ErebusExitDoorStick4" }
+		]
+	}
+
+	{
+		Name = "ErebusExitDoorStick1"
+		FilePath = "Particles\particle_stick_01"
+		Gravity = 500
+		RadialOffsetMin = 100
+		RadialOffsetMax = 100
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.2
+		ScaleMax = 1.2
+		UpwardVelocityMin = 0
+		UpwardVelocityMax = 100
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.9
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		StartScale = 1
+		EndScale = 0
+		OffsetZ = 140
+		RandomRotation = true
+	}
+
+	{
+		Name = "ErebusExitDoorStick2"
+		InheritFrom = "ErebusExitDoorStick1"
+		FilePath = "Particles\particle_stick_02"
+	}
+	{
+		Name = "ErebusExitDoorStick3"
+		InheritFrom = "ErebusExitDoorStick1"
+		FilePath = "Particles\particle_stick_03"
+	}
+	{
+		Name = "ErebusExitDoorStick4"
+		InheritFrom = "ErebusExitDoorStick1"
+		FilePath = "Particles\particle_stick_04"
+	}
+
+	{
+		Name = "ErebusExitDoorOpen"
+		FilePath = "Fx\ErebusDoor01Out\ErebusDoor01Out"
+		NumFrames = 16
+		Material = "Unlit"
+		PlaySpeed = 45
+		Scale = 1.2
+		HoldLastFrame = true
+		OffsetY = -140.0
+		Sound = "/SFX/ErebusDoorOpen"
+		VisualFx = "ErebusExitDoorSticks"
+		VisualFxCap = 24
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "ErebusExitDoorClose"
+		InheritFrom = "ErebusExitDoorOpen"
+		PlaySpeed = 30
+		NumFrames = 15
+		FilePath = "Fx\ErebusDoor01In\ErebusDoor01In"
+		Sound = "/SFX/ErebusDoorClose"
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "SpiderCocoonDisintegrate"
+		FilePath = "Fx\SpiderCocoonDisintegrate\SpiderCocoonDisintegrate"
+		NumFrames = 36
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Scale = 1.0
+		OffsetY = -20
+		SortMode = "FromParent"
+		AngleFromOwner = "Ignore"
+		UseAttachedShake = false
+		UseOwnAngle = false
+		HoldLastFrame = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Take"
+		CreateAnimation = "SpiderCocoonDestroyed"
+	}
+
+	{
+		Name = "SpiderCocoonDestroyed"
+		FilePath = "Tilesets\Erebus\Erebus_Breakable_01a"
+		StartScale = 0
+		EndScale = 1
+		Duration = 0.25
+		HoldLastFrame = true
+		EaseIn = 0
+		EaseOut = 1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.4
+		OffsetY = -20
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		UseOwnAngle = false
+	}
+	
+	{
+		Name = "SpiderCocoonDisintegrateLarge"
+		InheritFrom = "SpiderCocoonDisintegrate"
+		CreateAnimation = "SpiderCocoonDestroyedLarge"
+	}
+
+	{
+		Name = "SpiderCocoonDestroyedLarge"
+		InheritFrom = "SpiderCocoonDestroyed"
+		FilePath = "Tilesets\Erebus\Erebus_Breakable_02a"
+		Scale = 0.2
+	}
+	
+	{
+		Name = "WaterSpawnFx"
+		FilePath = "Fx\FuryHellfire\FuryHellfire"
+		GroupName = "Standing"
+		
+		VisualFx = "FuryHellfireParticles"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/Megaera/MegaeraFlameBurst"
+		ColorFromOwner = "Ignore"
+		EndFrame = 52
+		NumFrames = 52
+		RandomPlaySpeedMax = 75.0
+		RandomPlaySpeedMin = 45.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 240.0
+		OriginY = 510.0
+		SortMode = "Id"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.75
+		Ambient = 0.0
+		VisualFxCap = 12
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.02
+		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "WaterTeleportStartFx"
+		CreateAnimation = "WaterTeleportStartFx_Standing"
+		FilePath = "Fx\FishingSplashA_Terrain\FishingSplashA_Terrain"
+		
+		Sound = "/Leftovers/World Sounds/ClickSplash"
+		EndFrame = 22
+		NumFrames = 22
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		Ambient = 0.0
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
+	}
+	{
+		Name = "WaterTeleportStartFx_Standing"
+		FilePath = "Fx\FishingSplashA\FishingSplashA"
+		GroupName = "Standing"
+		
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "Isometric"
+		Ambient = 0.0
+		Scale = 1.25
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 0.50 Blue = 1.0 }
+	}
+
+
+	{
+		Name = "ErebusCandleFlames"
+		FilePath = "Fx\ErebusCandleFlames\ErebusCandleFlames"
+		NumFrames = 60
+		RandomPlaySpeedMax = 36
+		RandomPlaySpeedMin = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		Loop = true
+	}
+
+	{
+		Name = "ErebusCandleFlameSingle"
+		FilePath = "Fx\ErebusCandleFlameSingle\ErebusCandleFlameSingle"
+		NumFrames = 60
+		RandomPlaySpeedMax = 36
+		RandomPlaySpeedMin = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		Loop = true
+	}
+
+	{
+		Name = "ErebusRiverGhost"
+		
+		FilePath	= "Fx\ErebusRiverGhost\ErebusRiverGhost"
+		NumFrames = 120
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 30
+		Material = "Unlit"
+		ChainTo = "ErebusRiverGhostDelay"
+	}
+
+	{
+		Name = "ErebusRiverGhostDelay"
+		
+		FilePath	= "Fx\ErebusRiverGhost\ErebusRiverGhost0001"
+		Alpha = 0.0
+		RandomDurationMin = 2.0
+		RandomDurationMax = 7.0
+		ChainTo = "ErebusRiverGhost"
+	}
+
+	{
+		Name = "ErebusLeafStepA"
+		
+		FilePath = "Fx\ErebusLeafStepA\ErebusLeafStepA"
+		NumFrames = 32
+		Hue = -0.35
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		LocationFromOwner = "Take"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Alpha = 1.0
+		Value = -0.1
+		Scale = 1.1
+	}
+
+	{
+		Name = "ErebusLeafStepB"
+		InheritFrom = "ErebusLeafStepA"
+		FilePath = "Fx\ErebusLeafStepB\ErebusLeafStepB"
+	}
+
+	{
+		Name = "ErebusLeafKickA"			
+		FilePath = "Particles\particle_erebusLeaf01"
+		RandomDurationMin = 0.75
+		RandomDurationMax = 1.5
+		RandomRotation = true
+		ScaleMin = 0.75
+		ScaleMax = 1.25
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		VelocityMin = 50
+		VelocityMax = 200
+		Acceleration = -100
+		StartOffsetZ = 30
+		EndOffsetZ = 0
+		LocationFromOwner = "Ignore"
+		AngleMin = 160
+		AngleMax = 200
+		AngleFromOwner = "Take"
+		Hue = -0.12
+		AngleChangeSpeedMin = -300
+		AngleChangeSpeedMax = 300
+	}
+
+	{
+		Name = "ErebusLeafKickB"
+		InheritFrom = "ErebusLeafKickA"
+		FilePath = "Particles\particle_erebusLeaf02"
+		Value = -0.1
+	}
+
+	{
+		Name = "ErebusLeafKickC"
+		InheritFrom = "ErebusLeafKickA"
+		FilePath = "Particles\particle_erebusLeaf03"
+		Value = -0.2
+	}
+
+	{
+		Name = "ErebusLeafKickD"
+		InheritFrom = "ErebusLeafKickA"
+		FilePath = "Particles\particle_erebusLeaf04"
+	}
+
+	{
+		Name = "ErebusLeafKickE"
+		InheritFrom = "ErebusLeafKickA"
+		FilePath = "Particles\particle_erebusLeaf05"
+	}
+
+	{
+		Name = "ErebusLeafKickRandom"			
+		Random =
+		[
+			{ Name = "ErebusLeafKickA" }
+			{ Name = "ErebusLeafKickB" }
+			{ Name = "ErebusLeafKickC" }
+			{ Name = "ErebusLeafKickD" }
+			{ Name = "ErebusLeafKickE" }
+		]
+	}
+
+	{
+		Name = "ErebusLeafKick"			
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		VisualFx = "ErebusLeafKickRandom"
+		VisualFxManagerCap = 250
+		VisualFxCap = 4
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+	}
+
+	{
+		Name = "ErebusLeafStepL"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		VisualFx = "ErebusLeafKickRandom"
+		VisualFxManagerCap = 250
+		VisualFxCap = 4
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_L_JNT"
+		CreateAnimation = "ErebusLeafStepRandom"
+	}
+
+	{
+		Name = "ErebusLeafStepR"
+		InheritFrom = "ErebusLeafStepL"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_R_JNT"
+	}
+
+	{
+		Name = "ErebusLeafStepL-Lite"
+		InheritFrom = "ErebusLeafStepL"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "ErebusLeafStepR-Lite"
+		InheritFrom = "ErebusLeafStepR"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "ErebusLeafStepRandom"			
+		Random =
+		[
+			{ Name = "ErebusLeafStepA" }
+			{ Name = "ErebusLeafStepB" }
+		]
+	}
+
+	{
+		Name = "ErebusForestEyesRandom"			
+		Random =
+		[
+			{ Name = "ErebusForestEyesA" }
+			{ Name = "ErebusForestEyesB" }
+			{ Name = "ErebusForestEyesC" }
+			{ Name = "ErebusForestEyesD" }
+			{ Name = "ErebusForestEyesE" }
+		]
+	}
+
+	{
+		Name = "ErebusForestEyesA"			
+		FilePath = "Fx\ForestEyesA\ForestEyesA"
+		NumFrames = 12
+		Loop = true
+		IsometricSkew = "Y"
+		AngleMin = 80
+		AngleMax = 100
+		Material = "Unlit"
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		ZWobbleDistance = 2.0
+		ZWobbleSpeed = 2
+		AddColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Slides =
+		[
+			{ DurationFrames = 2 RandomDurationFramesMin = 2 RandomDurationFramesMax = 240 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 RandomDurationFramesMin = 2 RandomDurationFramesMax = 30 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "ErebusForestEyesB"
+		InheritFrom = "ErebusForestEyesA"
+		FilePath = "Fx\ForestEyesB\ForestEyesB"
+		ZWobbleDistance = 3.0
+		ZWobbleSpeed = 3
+	}
+
+	{
+		Name = "ErebusForestEyesC"
+		InheritFrom = "ErebusForestEyesA"
+		FilePath = "Fx\ForestEyesC\ForestEyesC"
+		ZWobbleDistance = 2.0
+		ZWobbleSpeed = 4
+	}
+
+	{
+		Name = "ErebusForestEyesD"
+		InheritFrom = "ErebusForestEyesA"
+		FilePath = "Fx\ForestEyesB\ForestEyesB"
+		ZWobbleDistance = 3.0
+		ZWobbleSpeed = 3
+		ScaleY = 0.5
+	}
+
+	{
+		Name = "ErebusForestEyesE"
+		InheritFrom = "ErebusForestEyesA"
+		FilePath = "Fx\ForestEyesC\ForestEyesC"
+		ZWobbleDistance = 2.0
+		ZWobbleSpeed = 4
+		ScaleY = 0.5
+	}
+
+	{
+		Name = "ErebusPetalFall"
+		
+		FilePath = "Fx\ErebusPetalFall\ErebusPetalFall"
+		NumFrames = 141
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Angle = 270
+		VelocityMin = 2
+		VelocityMax = 30
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		Scale = 0.5
+		LocationFromOwner = "Take"
+		Slides =
+		[
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 RandomDurationFramesMin = 120 RandomDurationFramesMax = 360 }
+		]
+	}
+
+	{
+		Name = "ErebusLeafFall"
+		InheritFrom = "ErebusPetalFall"
+		FilePath = "Fx\ErebusLeafFall\ErebusLeafFall"
+	}
+
+	{
+		Name = "Erebus_Shrub_02_Rustle"
+		
+		FilePath = "Fx\Erebus_Shrub_02_Rustle\Erebus_Shrub_02_Rustle"
+		NumFrames = 80
+		Scale = 4
+		Slides =
+		[
+			{ DurationFrames = 6 }
+			{ DurationFrames = 6 }
+			{ DurationFrames = 6 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 5 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 240 }
+		]
+	}
+
+	{
+		Name = "Erebus_Shrub_04_Rustle"
+		InheritFrom = "Erebus_Shrub_02_Rustle"
+		FilePath = "Fx\Erebus_Shrub_04_Rustle\Erebus_Shrub_04_Rustle"
+	}
+
+	{
+		Name = "ErebusFirefliesA"
+		
+		FilePath = "Fx\ErebusFirefliesA\ErebusFirefliesA"
+		NumFrames = 90
+		RandomPlaySpeedMin = 20
+		RandomPlaySpeedMax = 30
+		Material = "Unlit"
+	}
+
+	{
+		Name = "ErebusFirefliesB"
+		InheritFrom = "ErebusFirefliesA"
+		FilePath = "Fx\ErebusFirefliesB\ErebusFirefliesB"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 36
+	}
+
+    
+    {
+      Name = "SafeZonePulseImpact"
+      CreateAnimation = "QuickFlashEnemy"
+      FilePath = "Fx\EnemyProjectileImpact\EnemyProjectileImpact"
+      GroupName = "Standing"
+      
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+      ColorFromOwner = "Ignore"
+      EndFrame = 16
+      NumFrames = 16
+      RandomPlaySpeedMax = 60.0
+      RandomPlaySpeedMin = 45.0
+      StartFrame = 1
+      RandomFlipHorizontal = true
+      RandomFlipVertical = true
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      SortMode = "FromParent"
+      RandomRotation = true
+      Scale = 0.8
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      OverlayVfx = true
+      AddColor = true
+      Color = { Red = 0, Green = 0.8, Blue = 1.0 }
+      CreateAnimations = [
+        { Name = "DisplaceShockwave-SafeZonePulseImpact" }
+      ]
+      Slides = [
+        { DurationFrames = 1 Frame = 1 }
+        { DurationFrames = 1 Frame = 2 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 3 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 4 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 5 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 6 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 7 VisualFx = "SafeZonePulseImpactParticles" }
+        { DurationFrames = 1 Frame = 8 VisualFx = "SafeZonePulseImpactParticles" }
+      ]
+    }
+    {
+      Name = "DisplaceShockwave-SafeZonePulseImpact"
+      InheritFrom = "DisplaceShockwave"
+      StartAlpha = 0.5
+      PlaySpeed = 60.0
+      OffsetZ = 100.0
+      LocationZFromOwner = "Take"
+      TimeModifierFraction = 1.0
+      UseAttachedFlasher = false
+    }
+    {
+      Name = "SafeZonePulseImpactParticles"
+      FilePath = "Particles\particle_ascension_01"
+      GroupName = "FX_Standing_Add"
+      
+      AngleFromOwner = "Ignore"
+      AngleMax = 360.0
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 1.0
+      RandomDurationMin = 0.25
+      StartFrame = 1
+      LocationFromOwner = "Take"
+      VelocityMax = 500.0
+      VelocityMin = 300.0
+      EndScale = 0.0
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 1.0
+      ScaleMin = 0.3
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      RandomAccelerationMax = -500.0
+      RandomAccelerationMin = -700.0
+      Color = { Red = 0.4, Green = 0.8, Blue = 1.0 }
+    }
+
+]}

@@ -1,0 +1,202 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySticklerBaseAnimation"
+		
+		GrannyModel = "DeadSeaStickler_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Stickler_Idle"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Enemy_Stickler_OnHit"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Stickler_Idle"
+		Sound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 4
+			}
+			{
+				Frame = 19
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stickler_OnHit_Heavy"
+		InheritFrom = "Enemy_Stickler_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Stickler_LeapPreFire"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_LeapPreFire_C_00"
+		ChainTo = "Enemy_Stickler_LeapAirLoop"
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/WyrmJump"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stickler_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stickler_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stickler_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stickler_LeapLand"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stickler_LeapAirLoop"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_LeapLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Stickler_LeapLand"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
+		ChainTo = "Enemy_Stickler_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/ArrowImpactSplatter"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stickler_ThrowPreFire"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_ThrowPreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_Stickler"
+		Frames =
+		[
+			{
+				Frame = 30
+				Sound = "/Leftovers/World Sounds/CaravanWoodJostle"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Stickler_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stickler_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Stickler_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stickler_ThrowFire"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_ThrowFire_C_00"
+		ChainTo = "Enemy_Stickler_ThrowPostFire"
+	}
+
+	{
+		Name = "Enemy_Stickler_ThrowPostFire"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_ThrowPostFire_C_00"
+		ChainTo = "Enemy_Stickler_Idle"
+		Frames =
+		[
+			{
+				Frame = 21
+				Sound = "/Leftovers/World Sounds/CaravanWoodJostle"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Stickler_Spawn"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
+		ChainTo = "Enemy_Stickler_Spawn2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.15
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteAttackingRanged"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/EnemyDropInWhoosh"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Stickler_Spawn2"
+		InheritFrom = "EnemySticklerBaseAnimation"
+		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
+		ChainTo = "Enemy_Stickler_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/ArrowImpactSplatter"
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1.5
+			}
+		]
+	}
+
+]}

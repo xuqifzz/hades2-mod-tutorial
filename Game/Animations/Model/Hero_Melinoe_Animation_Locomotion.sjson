@@ -1,0 +1,474 @@
+{ Animations = [
+
+	/*  No Weapon  */
+
+	{
+		Name = "MelinoeBaseNoWeaponRunAnimation"
+		InheritFrom = "MelinoeBaseAnimation"
+		DirectionChange180 = "MelinoeRunDirectionChange180"
+		DirectionChange90R = "MelinoeRunDirectionChangeE90"
+		DirectionChange90L = "MelinoeRunDirectionChangeW90"
+	}
+
+	{
+		Name = "MelinoeRunDirectionChange180"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunDirectionChange180_N_00"
+		Loop = false
+		GrannyAnimationSpeed = 1.2
+		NativeMoveSpeed = 540.0
+		ChainTo = "MelinoeRun"
+		DirectionChange180 = "MelinoeRunDirectionChange180"
+		GrannyRotationY = 180
+		CancelOnRestart = true
+		AllowTransitionBlend = false
+	}
+
+	{
+		Name = "MelinoeRunDirectionChangeE90"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunDirectionChangeE90_N_00"
+		Loop = false
+		GrannyAnimationSpeed = 0.8
+		NativeMoveSpeed = 540.0
+		ChainTo = "MelinoeRun"
+		GrannyRotationY = 90
+		AllowTransitionBlend = false
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+		
+	}
+
+	{
+		Name = "MelinoeRunDirectionChangeW90"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunDirectionChangeW90_N_00"
+		Loop = false
+		GrannyAnimationSpeed = 0.8
+		NativeMoveSpeed = 540.0
+		ChainTo = "MelinoeRun"
+		GrannyRotationY = -90
+		AllowTransitionBlend = false
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+		
+	}
+
+	{
+		Name = "MelinoeRun"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Run_N_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+		LocomotionAnimation = "MelinoeRunLocomotion"
+		LocomotionWeight = 1.0
+		ModelCosmeticRotationSpeed = 1200
+		Frames = 
+		[
+			{
+				Frame = 1
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 16
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Cast_End"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "MelinoeSprint"
+				Duration = 15
+			}
+
+			{
+				BlendTransitionFrom = "MelinoeSpellMovingFire"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "MelinoeSpellMovingReturnToIdle"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "MelinoeDashSettle"
+				Duration = 9
+			}
+
+			{
+				BlendTransitionFrom = "MelinoeDeathReEnterToIdle"
+				Duration = 15
+			}
+
+			/* NPC Interaction Blends */
+			{
+				BlendTransitionFrom = "MelTalkPensive01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkFlustered01"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeRunNoLean"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Run_N_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0		
+	}
+
+	{
+		Name = "MelinoeRunLeanLeft"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunLean_L_01"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+	}
+	{
+		Name = "MelinoeRunLeanRight"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunLean_R_01"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+	}
+
+	{
+		Name = "MelinoeSprintNoLean"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunSprint_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 740.0
+	}
+
+	{
+		Name = "MelinoeSprintLeanLeft"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunSprintLean_L_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 740.0
+	}
+	{
+		Name = "MelinoeSprintLeanRight"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunSprintLean_R_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 740.0
+	}
+
+	{
+		Name = "MelinoeCastNoLean"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastIdle_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+	}
+
+	{
+		Name = "MelinoeCastLeanLeft"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastIdle_W_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+	}
+
+	{
+		Name = "MelinoeCastLeanRight"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CastIdle_E_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 540.0
+	}
+
+	{
+		Name = "MelinoeSprint"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunSprint_00"
+		/*
+		LocomotionAnimation = "MelinoeSprintLocomotion"
+		LocomotionWeight = 1.0
+		*/
+		Loop = true
+		NativeMoveSpeed = 740.0
+		Frames = 
+		[
+			{
+				Frame = 8
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+			{
+				Frame = 24
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeDashSettle"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeStop"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		ChainTo = "MelinoeIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunStop_N_00"
+		NativeMoveSpeed = 540
+		GrannyAnimationSpeed = 1.5
+		CancelOnOwnerMove = true
+		Frames = 
+		[
+			{
+				Frame = 2
+				FrameSpeed = 1
+				FootstepFxL = "FireFootstepL-Spawner"
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+				FootstepFxR = "FireFootstepR-Spawner"
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1
+				FootstepFxL = "FireFootstepL-Spawner"
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeStart"
+		InheritFrom = "MelinoeBaseNoWeaponRunAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_RunStart_N_00"
+		NativeMoveSpeed = 540
+		ChainTo = "MelinoeRun"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeSprint" }
+		]
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				/* FootstepSound = "/SFX/Player Sounds/FootstepsHardSurfaceRun"	sounds wrong here */
+				RightRumble = 0.0
+				LeftRumble = 0.0
+				Rumble = 0.0
+			}
+			{
+				Frame = 12
+				FrameSpeed = 0
+			}
+			{
+				Frame = 13
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "MelinoeSprint"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "MelinoeDashSettle"
+				Duration = 10
+			}
+
+			/* NPC Interaction Blends */
+			{
+				BlendTransitionFrom = "MelTalkPensive01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkPensive01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkBrooding01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01Loop"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkExplaining01ReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelTalkFlustered01"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeBaseDashAnimations"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "null"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DashAntic_N_00"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "MelinoeSpellCharge" }
+
+			{ Name = "Melinoe_Axe_Attack1_Start" }
+			{ Name = "Melinoe_Axe_Attack2_Start" }
+			{ Name = "Melinoe_Axe_Attack4_Start" }
+			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
+			{ Name = "Melinoe_Axe_Special1_End" }
+		]
+	}
+
+	{
+		Name = "MelinoeDashStart"
+		InheritFrom = "MelinoeBaseDashAnimations"
+		ChainTo = "null"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DashAnticAir_N_00"
+		GrannyAnimationSpeed = 1.0
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDash"
+		InheritFrom = "MelinoeBaseDashAnimations"
+		ChainTo = "MelinoeDashSettle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DashAir_N_00"
+		DisableOwnerManualInteract = true
+	}
+
+	{
+		Name = "MelinoeDashSettle"
+		InheritFrom = "MelinoeBaseDashAnimations"
+		ChainTo = "MelinoeIdle"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DashSettle_N_00"		
+		CancelOnOwnerMove = true	 
+	}
+
+] }

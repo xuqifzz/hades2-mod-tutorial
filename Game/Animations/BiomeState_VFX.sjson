@@ -1,0 +1,1254 @@
+{ Animations = [
+	
+
+	{
+		Name = "BiomeStateRainFx"
+		ChildAnimation = "BiomeStateRainRainEmitter"
+		FilePath = "Dev\blank_invisible"
+		ColorFromOwner = "Ignore"
+		VisualFx = "BiomeStateRainCloudShadows"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+			{ Name = "BiomeStateRainCloudShadows" }
+		]
+	}
+	
+	{
+		Name = "BiomeStateRainRainEmitter"
+		ChildAnimation = "BiomeStateRainDropletsEmitter"
+		FilePath = "Dev\blank_invisible"
+		ColorFromOwner = "Ignore"
+		VisualFx = "BiomeStateRainRainStreaks"
+		Sound = "/EmptyCue"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BiomeStateRainDropletsEmitter"
+		/* ChildAnimation = "BiomeStateRainLeavesEmitter" */
+		FilePath = "Dev\blank_invisible"			
+		VisualFx = "BiomeStateRainDroplets"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.03
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BiomeStateRainLeavesEmitter"
+		FilePath = "Dev\blank_invisible"			
+		VisualFx = "BiomeStateRainLeaves"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.06
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BiomeStateRainLeaves"
+		FilePath = "Fx\WhitePetalFloat\WhitePetalFloat"
+		GroupName = "FX_Standing_Top"			
+		AngleFromOwner = "Ignore"
+		AngleMax = 340.0
+		AngleMin = 300.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		Duration = 3.0
+		EndFrame = 150
+		LoopFramesOnly = true
+		NumFrames = 150
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetX = -800.0
+		OffsetY = -540.0
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 500.0
+		VelocityMin = 350.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 180.0
+		RandomRotationSpeedMin = -180.0
+		ScaleMax = 1.1
+		ScaleMin = 0.8
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "BiomeStateRainRainStreaks"			
+		Random =
+		[
+			{ Name = "BiomeStateRainRainStreakA" }
+			{ Name = "BiomeStateRainRainStreakB" }
+		]
+	}
+	
+	{
+		Name = "BiomeStateRainDroplets"			
+		Random =
+		[
+			{ Name = "BiomeStateRainDropletsA" }
+			{ Name = "BiomeStateRainDropletsB" }
+			{ Name = "BiomeStateRainDropletsC" }
+		]
+	}
+	
+	{
+		Name = "BiomeStateRainRipple"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		GroupName = "FX_Terrain"			
+		AngleFromOwner = "Ignore"
+		AlphaMax = 0.6
+		AlphaMin = 0.3
+		EndFrame = 30
+		NumFrames = 30
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleMax = 0.6
+		ScaleMin = 0.3
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BiomeStateRainDropletsA"
+		ChildAnimation = "BiomeStateRainRipple"
+		FilePath = "Fx\WaterSplashDropletsA\WaterSplashDropletsA"
+		GroupName = "FX_Terrain"			
+		AngleFromOwner = "Ignore"
+		AlphaMax = 0.4
+		AlphaMin = 0.1
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 25.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "BiomeStateRainDropletsB"
+		InheritFrom = "BiomeStateRainDropletsA"
+		FilePath = "Fx\WaterSplashDropletsB\WaterSplashDropletsB"
+	}
+	
+	{
+		Name = "BiomeStateRainDropletsC"
+		InheritFrom = "BiomeStateRainDropletsA"
+		FilePath = "Fx\WaterSplashDropletsC\WaterSplashDropletsC"
+	}
+	
+	{
+		Name = "BiomeStateRainRainStreakA"
+		FilePath = "Particles\particle_rainStreaks_01"
+		GroupName = "FX_Standing_Top"
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleMax = 272.0
+		AngleMin = 268.0
+		AlphaMax = 0.5
+		AlphaMin = 0.25
+		EndAlpha = 1.0
+		PingPongColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		RandomFlipVertical = true
+		OffsetY = -800.0
+		OriginX = 127.0
+		OriginY = 23.0
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 2800.0
+		VelocityMin = 1000.0
+		ScaleMax = 1.2
+		ScaleMin = 0.7
+		ScaleX = 5.0
+		ScaleY = 0.7
+		Ambient = 0.0
+		Red = 0.5
+		Green = 0.5
+		Blue = 0.5
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BiomeStateRainRainStreakB"
+		InheritFrom = "BiomeStateRainRainStreakA"
+		FilePath = "Particles\particle_rainStreaks_02"
+		OriginX = 183.0
+		OriginY = 70.0
+	}
+	
+	{
+		Name = "BiomeStateRainCloudShadows"
+		FilePath = "Particles\particle_cloudShadow"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		AngleMax = -20.0
+		AngleMin = -40.0
+		AlphaMax = 0.5
+		AlphaMin = 0.2
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		IgnoreIfMinConfigPreset = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 5.0
+		RandomDurationMin = 3.0
+		StartFrame = 1
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 40.0
+		VelocityMin = 20.0
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 7.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		OnlyWhenVisible = true
+		AddColor = true
+		Red = 0
+		Green = 0.025
+		Blue = 0.1
+		UseAttachedFlasher = false
+	}
+
+
+	{
+		Name = "BiomeStateBloodMoonFx"
+		ChildAnimation = "null"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "BloodMoonFlyers"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 1.3
+		VisualFxIntervalMin = 0.5
+		CreateAnimations = [
+		]
+	}
+
+	{
+		Name = "BloodMoonFlyers"
+		
+		Random =
+		[
+			{ Name = "BloodMoonFlyersA" }
+			{ Name = "BloodMoonFlyersB" }
+		]
+	}
+
+	{
+		Name = "BloodMoonFlyersA"
+		
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		Material = "Unlit"
+		NumFrames = 100
+		RandomPlaySpeedMin = 15
+		RandomPlaySpeedMax = 24
+		RadialOffsetMin = 400
+		RadialOffsetMax = 960
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 60
+		VelocityMax = 120
+		Acceleration = -30
+		Scale = 0.9
+		ScaleMin = 1.0
+		ScaleMax = 1.2
+		StartScale = 1
+		EndScale = 1.3
+		StartScaleY = 0.4
+		EndScaleY = 0.6
+		RandomRotation = true
+		AngleChangeSpeedMin = -10
+		AngleChangeSpeedMax = 10
+		GroupName = "FX_Add_Top"
+		AlphaMin = 0.05
+		AlphaMax = 0.5
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		EaseIn = 0
+		EaseOut = 1
+		StartGreen = 1
+		EndGreen = 0.5
+		VisualFx = "BloodMoonParticles"
+		VisualFxDistanceMin = 0.8
+		VisualFxIntervalMax = 1.0
+	}
+
+	{
+		Name = "BloodMoonParticles"
+		
+		FilePath = "Fx\ParticleFlakeBokeh\ParticleFlakeBokeh"
+		Material = "Unlit"
+		NumFrames = 90
+		PlaySpeed = 30
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GroupName = "FX_Add_Top"
+		Red = 0.0
+		Green = 1.0
+		Blue = 0.2
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		Scale = 0.4
+		VelocityMin = 40
+		VelocityMax = 100
+		Acceleration = -40
+		Gravity = 0
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomOffsetX = 90
+		RandomOffsetY = 45
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		AngleChangeSpeedMin = -180
+		AngleChangeSpeedMax = 180
+	}
+
+	{
+		Name = "BloodMoonFlyersB"
+		InheritFrom = "BloodMoonFlyersA"
+		ScaleX = 1.5
+	}
+
+
+	{
+		Name = "BiomeStateGoldFx"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "GoldFlyers"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		ChildAnimation = "null"
+		CreateAnimations =
+		[
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldFlyers" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+			{ Name = "GoldDustReflections" }
+		]
+	}
+
+	{
+		Name = "GoldFlyers"
+		
+		Random =
+		[
+			{ Name = "GoldFlyersA" }
+			{ Name = "GoldFlyersB" }
+		]
+	}
+
+	{
+		Name = "GoldDustReflectionEmitter"
+		
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "GoldDustReflections"
+		VisualFxIntervalMin = 1
+		VisualFxIntervalMax = 1
+	}
+
+	{
+		Name = "GoldFlyersA"
+		
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		PlaySpeed = 30
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GroupName = "FX_Add_Top"
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 1.5
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -30
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 500
+		RadialOffsetMax = 960
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomRotation = true
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		AddColor = true
+		Red = 1.0
+		Green = 0.6
+		Blue = 0.2
+		VisualFx = "GoldFlyerSparkle"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 1.0
+		ChildAnimation = "GoldFlyerGlow"
+	}
+
+	{
+		Name = "GoldFlyerGlow"
+		
+		FilePath = "Particles\particle_quickflashIris"
+		Red = 1
+		Green = 0.8
+		Blue = 0.2
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 0.4
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		Scale = 0.5
+		Duration = 1
+		Loop = false
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "GoldFlyersB"
+		InheritFrom = "GoldFlyersA"
+		AddColor = false
+		VisualFx = "null"
+	}
+
+	{
+		Name = "GoldFlyerSparkle"
+		
+		Random =
+		[
+			{ Name = "GoldFlyerSparkleA" }
+			{ Name = "GoldFlyerSparkleB" }
+			{ Name = "GoldFlyerSparkleC" }
+		]
+	}
+
+	{
+		Name = "GoldFlyerSparkleA"
+		
+		Material = "Unlit"
+		FilePath = "Particles\particle_sparkle_glow"
+		AddColor = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.1
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 0.15
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 5
+		VelocityMax = 50
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+	}
+
+	{
+		Name = "GoldFlyerSparkleB"
+		InheritFrom = "GoldFlyerSparkleA"
+		Red = 1
+		Green = 0.4
+		Blue = 0.0
+	}
+
+	{
+		Name = "GoldFlyerSparkleC"
+		InheritFrom = "GoldFlyerSparkleA"
+		AddColor = false
+	}
+
+	{
+		Name = "GoldDustReflections"
+		
+		Random =
+		[
+			{ Name = "GoldDustReflectionsA" }
+			{ Name = "GoldDustReflectionsB" }
+			{ Name = "GoldDustReflectionsC" }
+		]
+	}
+
+	{
+		Name = "GoldDustReflectionsA"
+		
+		FilePath = "Fx\GoldDustReflections\GoldDustReflections"
+		NumFrames = 100
+		CameraDistancePerFrame = 30
+		ReRandomizeOnLoop = false
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		PostRotateScaleY = 0.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.8
+		ScaleMax = 2
+		RadialOffsetMin = 30
+		RadialOffsetMax = 960
+		VelocityMin = 3
+		VelocityMax = 6
+		AngleMin = 0
+		AngleMax = 360
+		Loop = true
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		RandomRotationSpeedMin = -2
+		RandomRotationSpeedMax = 2
+		RandomRotation = true
+	}
+
+	{
+		Name = "GoldDustReflectionsB"
+		InheritFrom = "GoldDustReflectionsA"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "GoldDustReflectionsC"
+		InheritFrom = "GoldDustReflectionsA"
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "GoldFlyersDust"
+		InheritFrom = "GoldFlyerSparkle"
+		FilePath = "Particles\particle_goldDust"
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		Scale = 1.0
+		VelocityMin = 40
+		VelocityMax = 60
+		Acceleration = -5
+		RandomRotationSpeedMin = -5
+		RandomRotationSpeedMax = 5
+		RandomRotation = true
+		AngleMin = 0
+		AngleMax = 1
+		AddColor = false
+		VisualFx = null
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 2
+		RandomDurationMax = 3.5
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		EaseIn = 0
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 1.3
+		PingPongScale = false
+		AlphaMin = 0.99
+	}
+
+
+	{
+		Name = "BiomeStateMoonDustFx"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "MoonDustFlyers"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		ChildAnimation = "MoonDustDustReflectionEmitter"
+		CreateAnimations =
+		[
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustFlyers" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+			{ Name = "MoonDustDustReflections" }
+		]
+	}
+
+	{
+		Name = "MoonDustFlyers"
+		
+		Random =
+		[
+			{ Name = "MoonDustFlyersA" }
+			{ Name = "MoonDustFlyersB" }
+		]
+	}
+
+	{
+		Name = "MoonDustDustReflectionEmitter"
+		
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "MoonDustDustReflections"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 1.0
+	}
+
+	{
+		Name = "MoonDustFlyersA"
+		
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		PlaySpeed = 30
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		GroupName = "FX_Add_Top"
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 0.6
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -30
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomOffsetX = 960
+		RandomOffsetY = 540
+		Material = "Unlit"
+		AngleMin = 265
+		AngleMax = 275
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		RandomRotation = true
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		AddColor = true
+		Red = 0.3
+		Green = 0.6
+		Blue = 1.0
+		VisualFx = "MoonDustFlyerSparkle"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 1.0
+		ChildAnimation = "MoonDustFlyerGlow"
+	}
+
+	{
+		Name = "MoonDustFlyerGlow"
+		
+		FilePath = "Particles\particle_quickflashIris"
+		Red = 0.1
+		Green = 0.3
+		Blue = 1.0
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 0.4
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		Scale = 0.25
+		Duration = 1
+		Loop = false
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "MoonDustFlyersB"
+		InheritFrom = "MoonDustFlyersA"
+		AddColor = false
+		VisualFx = "null"
+	}
+
+	{
+		Name = "MoonDustFlyerSparkle"
+		
+		Random =
+		[
+			{ Name = "MoonDustFlyerSparkleA" }
+			{ Name = "MoonDustFlyerSparkleB" }
+			{ Name = "MoonDustFlyerSparkleC" }
+		]
+	}
+
+	{
+		Name = "MoonDustFlyerSparkleA"
+		
+		Material = "Unlit"
+		FilePath = "Particles\particle_sparkle_glow"
+		AddColor = true
+		Red = 0.3
+		Green = 0.6
+		Blue = 1.0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		UseOwnAngle = false
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 0.15
+		ScaleMin = 0.2
+		ScaleMax = 1.0
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 50
+		VelocityMax = 200
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+	}
+
+	{
+		Name = "MoonDustFlyerSparkleB"
+		InheritFrom = "MoonDustFlyerSparkleA"
+		Red = 0.3
+		Green = 0.9
+		Blue = 1.0
+	}
+
+	{
+		Name = "MoonDustFlyerSparkleC"
+		InheritFrom = "MoonDustFlyerSparkleA"
+		AddColor = false
+	}
+
+
+	{
+		Name = "MoonDustDustReflections"
+		
+		FilePath = "Fx\GoldDustReflections\GoldDustReflections"
+		NumFrames = 100
+		RandomDurationMin = 2
+		RandomDurationMax = 5
+		ReRandomizeOnLoop = false
+		EaseIn = 0
+		EaseOut = 1
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		PostRotateScaleY = 1.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1
+		VelocityMin = 20
+		VelocityMax = 70
+		RandomOffsetX = 960
+		RandomOffsetY = 540
+		AngleMin = 265
+		AngleMax = 275
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 60
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		RandomRotationSpeedMin = -8
+		RandomRotationSpeedMax = 8
+		RandomRotation = true
+		Hue = 0.5
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		VisualFx = "MoonDustFlyersDust"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}
+
+
+	{
+		Name = "MoonDustFlyersDust"
+		InheritFrom = "MoonDustFlyerSparkleA"
+		FilePath = "Particles\particle_goldDust"
+		Hue = 0.45
+		ScaleMin = 0.4
+		ScaleMax = 0.7
+		Scale = 1.0
+		VelocityMin = 40
+		VelocityMax = 60
+		Acceleration = -5
+		RandomRotationSpeedMin = -5
+		RandomRotationSpeedMax = 5
+		RandomRotation = true
+		AngleMin = 90
+		AngleMax = 91
+		AddColor = false
+		VisualFx = null
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1
+		StartScale = 1
+		EndScale = 1.1
+		PingPongScale = false
+		AlphaMin = 0.99
+	}
+
+	{
+		Name = "BiomeStateMeteorCindersFx"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "MeteorCinderParticles"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		ChildAnimation = "null"
+		CreateAnimations =
+		[
+		]
+	}
+
+	{
+		Name = "MeteorCinderParticles"
+		
+		Random =
+		[
+			{ Name = "MeteorCinderParticlesA" }
+			{ Name = "MeteorCinderParticlesB" }
+		]
+	}
+
+	{
+		Name = "MeteorCinderParticlesA"
+		
+		FilePath = "Particles\particle_spark_glow2"
+		GroupName = "FX_Add_Top"
+		Material = "Unlit"
+		RandomOffsetX = 960
+		RandomOffsetY = 540
+		AngleMin = 240
+		AngleMax = 300
+		AngleChangeSpeedMin = -30
+		AngleChangeSpeedMax = 30
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		ScaleMin = 0.2
+		ScaleMax = 0.4
+		VelocityMin = 150
+		VelocityMax = 300
+		Acceleration = -40
+		StartRed = 1
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.99
+		EndGreen = 0.3
+		EndBlue = 0.01
+		StartScaleX = 1
+		EndScaleX = 0.6
+	}
+
+	{
+		Name = "MeteorCinderParticlesB"
+		InheritFrom = "MeteorCinderParticlesA"
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0
+		EndRed = 0.99
+		EndGreen = 0.4
+		EndBlue = 0.1
+		ScaleMin = 0.15
+		ScaleMax = 0.3
+	}
+
+	{
+		Name = "BiomeStateMeteorWarning"
+		
+		FilePath = "Dev\blank_invisible"
+		Duration = 2
+		VisualFx = "BiomeStateMeteorWarningDecal"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		CreateAnimation = "BiomeStateMeteorWarningDecal"
+	}
+
+	{
+		Name = "BiomeStateMeteorWarningDecal"
+		
+		FilePath = "Fx\BiomeStateMeteor\Warning"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		StartScale = 1.25
+		EndScale = 0.5
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartRed = 0.9
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 0.6
+		EndBlue = 1
+		AlphaMin = 0.25
+		AlphaMax = 1.0
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.0
+		RandomRotation = true
+		RandomRotationSpeedMin = 45
+		RandomRotationSpeedMax = 135
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		DieWithOwner = true
+		EaseIn = 0
+		EaseOut = 1
+		ScaleRadius = 178
+	}
+
+	{
+		Name = "BiomeStateMeteorWarningSpell"
+		
+		FilePath = "Dev\blank_invisible"
+		Duration = 2
+		VisualFx = "BiomeStateMeteorWarningDecalSpell"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		CreateAnimation = "BiomeStateMeteorWarningDecal"
+	}
+
+	{
+		Name = "BiomeStateMeteorWarningDecalSpell"
+		InheritFrom = "BiomeStateMeteorWarningDecal"
+		RandomDurationMin = 4.0
+		RandomDurationMax = 4.0
+		ScaleRadius = 178
+		Sound = "/Leftovers/SFX/AuraAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "BiomeStateMeteorImpact"
+		FilePath = "Fx\BiomeStateMeteor\Impact\MeteorImpact"
+		NumFrames = 40
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		GroupName = "FX_Standing"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 233
+		OriginY = 455
+		CreateAnimations =
+		[
+			{ Name = "BiomeStateMeteorCrater" }
+			{ Name = "BiomeStateMeteorFlare" }
+			{ Name = "BiomeStateMeteorFlareStreak" }
+			{ Name = "BiomeStateMeteorGlow" }
+		]
+	}
+
+	{
+		Name = "BiomeStateMeteorImpactSpell"
+		InheritFrom = "BiomeStateMeteorImpact"
+		FilePath = "Dev\blank_invisible"
+		NumFrames = 1
+		CreateAnimations =
+		[
+		/*
+			{ Name = "BiomeStateMeteorCraterSpell" }
+			{ Name = "BiomeStateMeteorFlareSpell" }
+			{ Name = "BiomeStateMeteorFlareStreak" }
+			{ Name = "BiomeStateMeteorGlow" }
+			*/
+			{ Name = "SpellMeteorDetonate" }
+		]
+	}
+
+	{
+		Name = "BiomeStateMeteorGlow"
+		
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		Duration = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 0.6
+		StartBlue = 0.12
+		EndRed = 0.99
+		EndGreen = 0.1
+		EndBlue = 0
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		Scale = 2.5
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 100
+	}
+
+	{
+		Name = "BiomeStateMeteorCrater"
+		FilePath = "Fx\BiomeStateMeteor\Crater"
+		Material = "Unlit"
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Maintain"
+		GroupName = "FX_Terrain"
+		Scale = 0.5
+		CancelOverCap = true
+	}
+
+	{
+		Name = "BiomeStateMeteorCraterSpell"
+		InheritFrom = "BiomeStateMeteorCrater"
+		Scale = 1.0
+	}
+
+	{
+		Name = "BiomeStateMeteorFlare"
+		FilePath = "Fx\BiomeStateMeteor\Flare\Flare"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 4
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 215
+		OriginY = 505
+		VisualFx = "BiomeStateMeteorFlareParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+	}
+
+	{
+		Name = "BiomeStateMeteorFlareSpell"
+		InheritFrom = "BiomeStateMeteorFlare"
+		Scale = 3.0
+		Hue = 0.25
+	}
+
+	{
+		Name = "BiomeStateMeteorFlareParticles"
+		
+		FilePath = "Particles\particle_addFlake2"
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.9
+		EndGreen = 0
+		EndBlue = 0
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomOffsetY = 300
+		RandomOffsetX = 12
+		Angle = 270
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		VelocityMin = 30
+		VelocityMax = 100
+		Acceleration = -10
+		RandomDurationMin = 2
+		RandomDurationMax = 4
+		ScaleMin = 0.2
+		ScaleMax = 0.8
+		OffsetZ = 400
+		AlphaMin = 0.1
+		AlphaMax = 1.0
+		RandomRotation = true
+		RandomRotationSpeedMin = -90
+		RandomRotationSpeedMax = 90
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "BiomeStateMeteorFlareStreak"
+		InheritFrom = "BiomeStateMeteorFlare"
+		ScaleY = 4
+		PlaySpeed = 24
+		SortMode = "FromParent"
+		OffsetZ = 20
+		StartScaleY = 1
+		EndScaleY = 0.1
+	}
+]}

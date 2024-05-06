@@ -1,0 +1,644 @@
+{ Animations = [
+	{
+		Name = "Blank"
+		FilePath = "Dev\blank_invisible"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Blank3D"
+		
+		GrannyModel = "Blank_Mesh"
+		Loop = true
+	}
+	
+	{
+		Name = "BlackScreen"
+		FilePath = "Backgrounds\rectangle_01"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "FadingCircle"
+		FilePath = "Dev\Circle"
+		GroupName = "Overlay"
+		
+		StartAlpha = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		ScaleRadius = 149.0
+		Ambient = 0.0
+		AllowRestart = true
+	}
+	
+	{
+		Name = "ReflectionBlob"
+		FilePath = "Tilesets\Gradients\Blob"
+		GroupName = "Additive_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		Scale = 0.5
+	}
+	
+	{
+		Name = "PerfTestAnimSpawner"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "PerfTestAnim"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+	}
+	
+	{
+		Name = "PerfTestAnim"
+		ChildAnimation = "SpearSwipe360BaseEmitter"
+		FilePath = "Fx\SpearSwipe\SpearSwipeGlow"
+		GroupName = "FX_Standing_Add"
+		
+		EndBlue = 0.5
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartBlue = 0.9
+		StartGreen = 0.2
+		StartRed = 1.0
+		DurationFrames = 28
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RotationSpeed = -720.0
+		PostRotateScaleY = 0.5
+		Scale = 0.5
+		ScaleRadius = 300.0
+		Ambient = 0.0
+		TimeModifierFraction = 0.9
+	}
+	
+	{
+		Name = "TestFlame"
+		FilePath = "Fx\TorchFlame\TorchFlame"
+		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndFrame = 80
+		Loop = true
+		NumFrames = 80
+		RandomPlaySpeedMax = 42.0
+		RandomPlaySpeedMin = 28.0
+		StartFrame = 1
+		OriginX = 160.0
+		OriginY = 110.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "GhostSupportIdleAnim"
+		ChildAnimation = "GhostParticles"
+		FilePath = "Dev\blank_invisible"
+		
+		EndFrame = 90
+		Loop = true
+		NumFrames = 90
+		PlaySpeed = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetY = -50.0
+		PingPongShiftOverDuration = true
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.30 }
+	}
+	
+	{
+		Name = "GhostSupportAttackAnim"
+		InheritFrom = "GhostSupportIdleAnim"
+		FilePath = "Fx\Tartarus_Ghost_02\Tartarus_Ghost_02"
+		OffsetY = 0.0
+	}
+	
+	{
+		Name = "LightElevator"
+		ChainTo = "LightElevator2"
+		FilePath = "Particles\particle_flare_ring_spectral"
+		Light = "Lights\DiffuseSpotlight"
+		
+		EndAngle = 25.0
+		Duration = 0.4
+		EaseOut = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 3.0
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "LightElevator2"
+		InheritFrom = "LightElevator"
+		ChainTo = "LightElevator3"
+		EndAngle = 50.0
+		StartAngle = 25.0
+		EaseIn = 1.0
+		EaseOut = 1.0
+		EndScale = 0.0
+		StartScale = 3.0
+	}
+	
+	{
+		Name = "LightElevator3"
+		FilePath = "Fx\SpeedUpFront\SpeedUpFront"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 60.0
+		StartFrame = 1
+		Scale = 2.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "BladeSpin"
+		ChildAnimation = "BladeSpinB"
+		FilePath = "Fx\SpearSwipe\SpearSwipe"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndBlue = 0.5
+		EndRed = 1.0
+		StartBlue = 0.9
+		StartGreen = 0.2
+		StartRed = 1.0
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 90.0
+		StartFrame = 1
+		SortFromOwner = "Maintain"
+		PostRotateScaleY = 0.62
+		ScaleRadius = 260.0
+		Ambient = 0.0
+		TimeModifierFraction = 0.9
+	}
+	
+	{
+		Name = "BladeSpinB"
+		InheritFrom = "BladeSpin"
+		ChildAnimation = "BladeSpinGlow"
+	}
+	
+	{
+		Name = "BladeSpinGlow"
+		ChildAnimation = "SpearSwipe360BaseEmitter"
+		FilePath = "Fx\SpearSwipe\SpearSwipeGlow"
+		GroupName = "FX_Standing_Add"
+		
+		EndBlue = 0.5
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartBlue = 0.9
+		StartGreen = 0.2
+		StartRed = 1.0
+		DurationFrames = 14
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RotationSpeed = -720.0
+		PostRotateScaleY = 0.5
+		Scale = 0.5
+		ScaleRadius = 300.0
+		Ambient = 0.0
+		TimeModifierFraction = 0.9
+	}
+	
+	{
+		Name = "ShadeBladeSpin"
+		InheritFrom = "BladeSpin"
+		ChildAnimation = "BladeSpinGlow"
+		ScaleRadius = 200.0
+	}
+	
+	{
+		Name = "ShadeBladeSpinPreview"
+		ChildAnimation = "SpearSwipe360BaseEmitter"
+		FilePath = "Fx\SpearSwipe\SpearSwipeGlow"
+		GroupName = "FX_Standing_Add"
+		
+		StartAlpha = 1.0
+		StartBlue = 0.9
+		StartGreen = 0.9
+		StartRed = 1.0
+		DurationFrames = 28
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RotationSpeed = -720.0
+		PostRotateScaleY = 0.5
+		Scale = 2.5
+		Ambient = 0.0
+		TimeModifierFraction = 0.9
+	}
+	
+	{
+		Name = "EnemyDaggerIdle"
+		FilePath = "Tilesets\Gameplay\Unused\Dagger_Inert_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetX = -20.0
+		OffsetY = -90.0
+		Scale = 0.5
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "EnemyActivationFadeInContainer"
+		FilePath = "Dev\blank_invisible"
+		
+		Duration = 1.9
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		UseAttachedTimeMultiplier = true
+	}
+	
+	{
+		Name = "EnemyActivationFadeIn"
+		FilePath = "Dev\blank_invisible"
+		
+		DurationFrames = 80
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		UseAttachedTimeMultiplier = true
+	}
+	
+	{
+		Name = "EnemyActivationFlash"
+		FilePath = "Dev\blank_invisible"
+		
+		AddColor = true
+		EndAlpha = 1.0
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		DurationFrames = 4
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "RespawningCoverActiveIn"
+		FilePath = "Fx\SmokeTrapLoop\SmokeTrapLoop"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0.75
+		Duration = 1.5
+		EaseOut = 1.0
+		EndFrame = 50
+		LoopFramesOnly = true
+		NumFrames = 50
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginX = 320.0
+		OriginY = 330.0
+		Scale = 0.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "RespawningCoverActive"
+		CreateAnimation = "RespawningCoverActiveIn"
+		FilePath = "Tilesets\Erebus\Erebus_RespawningCover_01"
+		
+		EndAlpha = 1.0
+		Duration = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetY = -60.0
+		EndScale = 0.3
+		StartScale = 0.15
+		Color = { Red = 0.2 Green = 0.75 Blue = 0.75 }
+	}
+	
+	{
+		Name = "RespawningCoverFoorprint"
+		FilePath = "Tilesets\Surface\Surface_Dirt_01"
+		GroupName = "FX_Terrain_Add"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 1400.0
+		Scale = 1.3
+	}
+	
+	{
+		Name = "N_Round_High"
+		FilePath = "Tilesets\Tartarus\Tartarus_PillarBase_13a"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.25
+	}
+	
+	{
+		Name = "N_Round_Low"
+		FilePath = "Tilesets\Tartarus\Tartarus_Sack_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.075
+	}
+	
+	{
+		Name = "N_Block_Low"
+		FilePath = "Tilesets\Tartarus\Tartarus_CubeBrick_03a"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.0465
+	}
+	
+	{
+		Name = "N_Block_Long"
+		
+		Random =
+		[
+			{ Name = "N_Block_LongA" }
+			{ Name = "N_Block_LongB" }
+			{ Name = "N_Block_LongC" }
+		]
+	}
+	
+	{
+		Name = "N_Block_LongA"
+		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.0665
+	}
+	
+	{
+		Name = "N_Block_LongB"
+		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05a"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.0665
+	}
+	
+	{
+		Name = "N_Block_LongC"
+		FilePath = "Tilesets\Tartarus\Tartarus_WallBrick_05b"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.0665
+	}
+	
+	{
+		Name = "F_Block_Long"
+		FilePath = "Tilesets\Graybox\F_Block_Long"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.0665
+	}
+	
+	{
+		Name = "F_Round_Tall"
+		FilePath = "Tilesets\Erebus\Erebus_Shrub_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.35
+	}
+	
+	{
+		Name = "F_Round_Tall02"
+		FilePath = "Tilesets\Erebus\Erebus_Rock_06"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -25.0
+		Scale = 0.25
+	}
+	
+	{
+		Name = "F_Round_Short"
+		FilePath = "Tilesets\Ephyra\Ephyra_PolyphemusBoulder_01"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.115
+	}
+
+	{
+		Name = "F_Round_ShortAlt"
+		FilePath = "Tilesets\Erebus\Erebus_Rock_01"
+		
+		 GrannyAttachedMarkerLocation = "Polyphemus_Rig:ring_00_R_JNT"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.35
+		StartAlpha = 0
+		EndAlpha = 1.0
+		Duration = 0.8
+		HoldLastFrame = true
+	}
+	
+	{
+		Name = "G_Wall01"
+		FilePath = "Tilesets\Tartarus\Tartarus_Pediment_Left_02"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.25
+	}
+	
+	{
+		Name = "G_Wall02"
+		FilePath = "Tilesets\Tartarus\Tartarus_PillarBase_09"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.12
+	}
+	
+	{
+		Name = "G_Square_Low"
+		FilePath = "Tilesets\Tartarus\Tartarus_CubeBrick_03"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.05
+	}
+	
+	{
+		Name = "G_Round_Tall"
+		FilePath = "Tilesets\Chaos\Chaos_Pillar_01c"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.25
+	}
+	
+	{
+		Name = "GhostWallFadeIn2"
+		FilePath = "Tilesets\Elysium\Elysium_Wall_Hill_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 0.5
+		StartAlpha = 0.0
+		EndAlpha = 0.0
+		HoldLastFrame = true
+	}
+	{
+		Name = "GhostWallFadeIn"
+		FilePath = "Fx\GhostWall\GhostWall"
+		NumAngles = 16
+		NumFrames = 20
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ScaleFromOwner = "Maintain"
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		LoopFramesOnly = true
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 1.0
+		ChainTo = "GhostWall"
+		Scale = 1.5
+		TransferFrameFromThis = true
+	}
+	
+	{
+		Name = "GhostWall"
+		InheritFrom = "GhostWallFadeIn"
+		TransferFrameToThis = true
+		LoopFramesOnly = false
+		Loop = true
+		StartAlpha = 0.9999
+		EndAlpha = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 1.25
+		TransferFrameFromThis = true
+		ChainTo = null
+		UseAttachedFlasher = true
+		Slides =
+		[
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+			{ RandomDurationFramesMin = 2 RandomDurationFramesMax = 6 }
+		]
+	}
+	{
+		Name = "GhostWallFadeOut2"
+		FilePath = "Tilesets\Elysium\Elysium_Wall_Hill_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 0.5
+		StartAlpha = 0.5
+		EndAlpha = 0.0
+		HoldLastFrame = true
+	}
+	
+	{
+		Name = "GhostWallFadeOut"
+		InheritFrom = "GhostWallFadeIn"
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		Loop = false
+		LoopFramesOnly = true
+		PlaySpeed = 10
+		ChainTo = null
+		HoldLastFrame = true
+	}
+
+
+	{
+		Name = "GhostWallFadeIn_Sparse"
+		InheritFrom = "GhostWallFadeIn"
+		FilePath = "Fx\GhostWallB\GhostWallB"
+		ChainTo = "GhostWall_Sparse"
+	}
+	{
+		Name = "GhostWall_Sparse"
+		InheritFrom = "GhostWall"
+		FilePath = "Fx\GhostWallB\GhostWallB"
+	}
+	{
+		Name = "GhostWallFadeOut_Sparse"
+		InheritFrom = "GhostWallFadeOut"
+		FilePath = "Fx\GhostWallB\GhostWallB"
+	}
+	
+
+
+]}

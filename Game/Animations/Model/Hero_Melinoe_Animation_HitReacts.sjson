@@ -1,0 +1,402 @@
+{ Animations = [
+
+
+	/* No Weapon Get Hit */
+	{
+		Name = "MelinoeGetHit"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.5
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 1.00
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeGetHitSurfacePenalty"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.07
+		CancelOnOwnerMove = false
+		TimeModifierFraction = 1.00
+		ChainTo = "MelinoeIdleWeaponless"
+		OwnerImmobile = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeGetHitFinal"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.05
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 1.00
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeGetHitActionPose"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_GetHit_C_01"
+		CancelOnOwnerMove = false
+		TimeModifierFraction = 0.0
+		GrannyAnimationSpeed = 0.24
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 3
+				FrameSpeed = 0.06
+			}
+			{
+				Frame = 5
+				FrameSpeed = 0.0
+			}
+		]
+
+		Blends =
+		[
+
+			{
+				BlendTransitionFrom = "MelinoeIdle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Last Stand */
+	{
+		Name = "Melinoe_LastStand_Fire"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "Melinoe_LastStand_End"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCast_C_00"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Melinoe_LastStand_End"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastToIdle_C_00"
+		CancelOnOwnerMove = true
+	}
+
+	/* Death Sequence */
+	{
+		Name = "MelinoeDeathGetHitX"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeDeathEscape"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathGetHit_C_01"
+		GrannyAnimationSpeed = 1.0
+		TimeModifierFraction = 0
+
+		Blends =
+		[
+
+			{
+				BlendTransitionFrom = "MelinoeGetHit"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_GetHit"
+				Duration = 15
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_GetHit"
+				Duration = 15
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDeathGetHit"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "null"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathGetHit_C_01"
+		GrannyAnimationSpeed = 1.0
+		TimeModifierFraction = 0
+		HoldLastFrame = true
+
+		/*
+		Frames = 
+		[
+			{
+				Frame = 28
+				FrameSpeed = 0.13
+			}
+		]
+		*/
+
+		/*
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.70
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0.045
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0.15
+			}
+		]
+		*/
+
+		Blends =
+		[
+
+			{
+				BlendTransitionFrom = "MelinoeGetHitActionPose"
+				Duration = 15
+			}
+		]
+
+	}
+
+	{
+		Name = "MelinoeDeathEscape"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeDeathEscape2"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathEscape_C_01"
+		GrannyAnimationSpeed = 1.1
+		TimeModifierFraction = 0
+		//HoldLastFrame = true
+		AddColor = false
+		
+		/*
+		CreateAnimation = "MelDeathHandTrailGlow"
+		*/
+		
+
+		Blends =
+		[
+
+			{
+				BlendTransitionFrom = "MelinoeGetHitActionPose"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "MelinoeIdleWeaponless"
+				Duration = 12
+			}
+		]
+
+		Frames = 
+		[	
+			{
+				Frame = 40
+				FrameSpeed = 0.3
+			}
+			{
+				Frame = 60
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDeathEscape2"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "null"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathEscape_C_01"
+		GrannyAnimationSpeed = 0.7
+		TimeModifierFraction = 0
+		HoldLastFrame = true
+		//AddColor = true
+		CreateAnimation = "MelDeathHandTrailGlow"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 60
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDeathReEnter"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathReEnterLoop_C_01"
+		GrannyAnimationSpeed = 1.0
+		TimeModifierFraction = 0
+		Loop = true
+		DisableOwnerInteract = true
+		/*
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathAlphaMaskBase"
+		DeathFxFrameDuration = 180
+		DeathFxColor = { Red = 0.0 Green = 1.0 Blue = 0.9 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1.0
+		DeathFxReverse = true
+		AddColor = false
+		*/
+	}
+
+	{
+		Name = "MelinoeDeathReEnterHeadUp"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathReEnterLoopHeadUp_C_01"
+		GrannyAnimationSpeed = 1.0
+		TimeModifierFraction = 0
+		Loop = true
+		DisableOwnerInteract = true
+		Blends =
+		[
+
+			{
+				BlendTransitionFrom = "MelinoeDeathReEnter"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDeathReEnterToIdle"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeDeathReEnterToIdleCancelable"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathReEnterToIdle_C_01"
+		GrannyAnimationSpeed = 1.5
+		TimeModifierFraction = 0
+		DisableOwnerInteract = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 15
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "MelinoeDeathReEnterToIdleCancelable"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeIdle"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathReEnterToIdle_C_01"
+		GrannyAnimationSpeed = 1.5
+		TimeModifierFraction = 0
+		CancelOnOwnerMove = true
+		DisableOwnerInteract = true
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 15
+				FrameSpeed = 1
+				FootstepFxR = "MelRespawnLandDust"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 24
+				FrameSpeed = 1
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Combat_Return_ReEnter"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeEquip"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_DeathReEnterToIdle_C_01"
+		GrannyAnimationSpeed = 1.5
+		TimeModifierFraction = 0
+		DisableOwnerManualInteract = true
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 15
+				FrameSpeed = 1
+				FootstepFxR = "MelRespawnLandDust"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 24
+				FrameSpeed = 1
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
+	}
+]}

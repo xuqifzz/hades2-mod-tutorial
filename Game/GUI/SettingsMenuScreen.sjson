@@ -1,0 +1,128 @@
+{
+  SettingsMenuScreen = {
+    Platform = "default"
+    CloseSound = "null"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    TransitionOnTime = 0.1
+    TransitionOffTime = 0.15
+    ForceShowCursor = true
+    GamepadSelectionStyle = "VerticalCycle"
+    FreeFormSelectWrapping = true
+    Back = {
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Width = 1920
+      Height = 1080
+      Alpha = 0.9
+    }
+    AnimatedBackground = {
+      X = 960
+      Y = 540
+      Graphic = "GUI\Shell\Box_Settings"
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+    TitleText = {
+      X = 960
+      Y = 310
+      Justification = "Center"
+      VerticalJustification = "Center"
+      HelpTextId = "SettingsMenuScreen_Title"
+      Font = "P22UndergroundSCLightTitling"
+      
+      
+      FontSize = 32
+      TextRed = 1
+      TextGreen = 1
+      TextBlue = 1
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 3
+      ShadowRed = 0.176
+      ShadowGreen = 0.184
+      ShadowBlue = 0.18
+      ShadowOffsetY = 2
+      ShadowAlpha = 1
+      ShadowBlur = 2
+      LangRuScaleModifier = 1.0
+    }
+    SettingsButton = {
+      X = 960
+      Y = 420
+      Justification = "Center"
+      VerticalJustification = "Center"
+      TextOffsetX = 0
+      Graphic = "null"
+      SelectedOnAnimation = "null"
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      UseTextArea = true
+      Font = "P22UndergroundSCMedium"
+      TextRed = 0.75
+      TextGreen = 0.75
+      TextBlue = 0.75
+      FontSize = 28
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      
+      TextJustification = "Center"
+      SelectedTextScale = 1.0
+      NonEnglishScaleModifier = 1.0
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 2
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 3
+      ShadowAlpha = 1
+      ShadowBlur = 0
+      HelpTextId = "SettingsMenuScreen_Settings"
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    }
+  
+    LanguageButton = {
+      InheritFrom = "SettingsButton"
+      AttachTo = "SettingsButton"
+      OffsetY = 75
+      HelpTextId = "SettingsMenuScreen_Language"
+    }
+    AboutUsButton = {
+      InheritFrom = "SettingsButton"
+      AttachTo = "LanguageButton"
+      OffsetY = 75
+      HelpTextId = "SettingsMenuScreen_AboutUs"
+    }
+    
+	CancelButton =
+	{
+      Graphic = "CancelButtonFlash"
+      UnderCursorOnAnimation = "CancelButtonFlashHover"
+      UnderCursorOffAnimation = "CancelButtonFlash"
+      FreeFormSelectable = false
+      Justification = "Center"
+      VerticalJustification = "Center"
+      X = 960
+      Y = 856
+      FlashMin = 0.0
+      FlashMax = 0.5
+      FlashSpeed = 1.2
+      FlashRed = 0.6
+      FlashGreen = 0.4
+      FlashBlue = 0.0
+      MouseOverSound = "null"
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      TooltipId = "SettingsScreen_Back"
+	  Scale = 0.8
+    }
+  }
+}

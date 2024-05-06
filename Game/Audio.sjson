@@ -1,0 +1,355 @@
+{
+  DistantOcclusionLevel = 0.9
+  DistantOcclusionMinDist = 150
+  DistantOcclusionMaxDist = 1700
+  VoiceOutputVolumeScale = 8.0
+  ListenerHeight = 500.0
+  MasterVolumeSample = "/SFX/MelAxeFinisherMenu"
+  MusicVolumeSample = "/Music/EndThemeACOUSTICmenu"
+  DialogueVolumeSample = "/VO/ChronosLaughMenu"
+  SfxVolumeSample = "/SFX/MelAxeFinisherMenu"
+  AmbienceVolumeSample = "/Ambience/ErebusAmbientLoopMENU"
+  Subtitles = [
+    {
+      Name = "IrisMusicScylla1_MC"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 56, G = 255, B = 108 }
+    }
+    {
+      Name = "IrisMusicScylla2_MC"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 56, G = 255, B = 108 }
+    }
+    {
+      Name = "OrpheusSong1VACOUSTIC"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 108, G = 114, B = 157 }
+    }
+    {
+      Name = "OrpheusSong2"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 108, G = 114, B = 157 }
+    }
+    {
+      Name = "EurydiceSong1_Eurydice"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 238, G = 255, B = 100 }
+    }
+    {
+      Name = "EurydiceSong1_Orpheus"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 108, G = 114, B = 157 }
+    }
+    {
+      Name = "EurydiceSong1_Duet"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.1
+      SubtitlesBColor = { R = 193, G = 205, B = 255 }
+    }
+    {
+      Name = "EndTheme"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.0
+      SubtitlesBColor = { R = 193, G = 205, B = 255 }
+    }
+    {
+      Name = "EndThemeACOUSTIC"
+      /*FontA = ""*/
+      /*UseSubtitlesA = true*/
+      /*SubtitlesAColor = { R = 0, G = 0, B = 255 }*/
+      FontB = "LatoBoldItalic"
+      UseSubtitlesB = true
+      VolumeThreshold = 0.6
+      VocalsThreshold = 0.0
+      SubtitlesBColor = { R = 193, G = 205, B = 255 }
+    }
+  ]
+  Actors = [
+    {
+      Name = "Default"
+      GUID = "{2b30dcc5-4cf8-4a92-97e7-77dd73c4097a}"
+    }
+    {
+      Name = "Zagreus"
+      GUID = "{c26f9be9-f103-4b87-a666-8f77751f72bf}"
+    }
+    {
+      Name = "Melinoe"
+      GUID = "{efdd8f5e-3d50-4955-b502-7320a2911fb3}"
+    }
+    {
+      Name = "Echo"
+      GUID = "{153022c5-ede4-4199-8a1b-e03454ec8463}"
+    }
+    {
+      Name = "Hecate"
+      GUID = "{fb7773ac-4800-4676-b5fe-101f4cc362e7}"
+    }
+    {
+      Name = "Medea"
+      GUID = "{04db9e1e-8d2d-4801-ab6b-7a6ea86c0582}"
+    }
+    {
+      Name = "Circe"
+      GUID = "{8e19e702-c167-4283-9517-994620602ac1}"
+    }
+    {
+      Name = "Hades"
+      GUID = "{84b94fdf-b3df-4fd7-b657-68b5153cf5bf}"
+    }
+    {
+      Name = "Chronos"
+      GUID = "{2e4137fe-bbb2-4058-a4c7-bd1cb3fd4556}"
+    }
+    {
+      Name = "DadOcclusion"
+      GUID = "{5ecf8053-ea6c-4d70-b799-0069021450df}"
+    }
+    {
+      Name = "Intercom"
+      GUID = "{166008ad-0bef-4391-ba5d-a35531115d17}"
+    }
+    {
+      Name = "Ships"
+      GUID = "{581a2169-2175-496f-9de6-5416e8a71426}"
+    }
+    {
+      Name = "Aphrodite"
+      GUID = "{59c8287f-1f6d-4f21-8883-2ae83f29d6cb}"
+    }
+    {
+      Name = "Zeus"
+      GUID = "{79dbd137-5277-4c24-abeb-462a629d872d}"
+    }
+    {
+      Name = "Demeter"
+      GUID = "{dd4405b0-b3d2-46df-b315-e74fa3b51122}"
+    }
+    {
+      Name = "Poseidon"
+      GUID = "{3d8a39e4-00e5-4b6d-b531-8e5ae79d52f9}"
+    }
+    {
+      Name = "Hephaestus"
+      GUID = "{132f500a-d909-4269-a08d-e1c9e103e6c4}"
+    }
+    {
+      Name = "Artemis"
+      GUID = "{37c20ca0-abeb-4f89-a43e-dd5e26b11ff0}"
+    }
+    {
+      Name = "Dionysus"
+      GUID = "{7821ff9e-c262-47c7-8c5a-ae24df4f0ec5}"
+    }
+    {
+      Name = "Apollo"
+      GUID = "{de8a0c5e-cef6-4c41-a279-86851610deab}"
+    }
+    {
+      Name = "Athena"
+      GUID = "{d6d14985-471f-47d4-ad03-d3cd98b87e5c}"
+    }
+    {
+      Name = "Hera"
+      GUID = "{fca83f10-47f8-42e2-a12a-a01caa31a65a}"
+    }
+    {
+      Name = "Ares"
+      GUID = "{923e975b-3b3a-499f-8430-13fb234facde}"
+    }
+    {
+      Name = "Dusa"
+      GUID = "{b2f4bdd3-2990-417c-8fd2-f0a5297a59a6}"
+    }
+    {
+      Name = "Dora"
+      GUID = "{ac30b930-c74c-437b-bb2a-c0d7c5ea3842}"
+    }
+    {
+      Name = "GossipOcclusionD"
+      GUID = "{5a59eb1a-d25a-4ff0-89c9-9026812529f6}"
+    }
+    {
+      Name = "Sisyphus"
+      GUID = "{44e43ee3-8912-45d8-988c-9abf41400e7c}"
+    }
+    {  
+      Name = "Megaera"
+      GUID = "{ff4107e3-bfa9-4a4f-a45a-9aa8bce72819}" 
+    }
+    {  
+      Name = "GossipOcclusionM"
+      GUID = "{d4b4d621-61a5-44a7-9b3f-afc4a2ad086b}" 
+    }
+    {
+      Name = "Alecto"
+      GUID = "{579045f8-bf67-45d7-8980-72058345c896}"
+    }
+    {
+      Name = "Arachne"
+      GUID = "{f32b7a3b-1e81-4550-9a78-793e5c801532}"
+    }
+    {
+      Name = "Hestia"
+      GUID = "{a8a6c911-fe51-4b7a-82e3-fd51d187e245}"
+    }
+    {
+      Name = "Nemesis"
+      GUID = "{30bb9db9-a282-411b-9001-e2c9e10e73db}"
+    }
+    {
+      Name = "Scylla"
+      GUID = "{d6c6d3cd-0bc5-448c-80be-da18a29b2947}"
+    }
+    {
+      Name = "Eris"
+      GUID = "{0ec2897f-9b7f-4743-b580-2cebef636cae}"
+    }
+    {
+      Name = "Tisiphone"
+      GUID = "{f5bd6dd1-56f9-4144-a9e4-4085bbc862c0}"
+    }
+    {
+      Name = "Thanatos"
+      GUID = "{8c23c65f-1911-4ad8-81b5-5b0490a74c78}"
+    }
+    {
+      Name = "Nyx"
+      GUID = "{702478bf-62d1-4626-9029-d7015dec79ee}"
+    }
+    {
+      Name = "Persephone"
+      GUID = "{bb7f8d89-b3b4-4407-9345-d91ea23c6444}"
+    }
+    {
+      Name = "Chaos"
+      GUID = "{c1917c44-e5fa-4089-8919-7e38c562c320}"
+    }
+    {
+      Name = "Selene"
+      GUID = "{c575733d-1c53-4b01-9a25-521632882bbd}"
+    }
+    {
+      Name = "Orpheus"
+      GUID = "{56df1201-36a1-466b-9ba6-11b95d90fa1c}"
+    }
+    {
+      Name = "Hypnos"
+      GUID = "{c8041a0f-9efa-49b0-8787-4271511241e3}"
+    }
+    {
+      Name = "SleepyBoyOcclusion"
+      GUID = "{f79d7145-0692-4932-bd5c-45c3cf74a794}"
+    }
+    {
+      Name = "Storyteller"
+      GUID = "{ecc04ba5-481e-414b-a4a6-63263e5d37c2}"
+    }
+    {
+      Name = "Skelly"
+      GUID = "{e2f86eac-c139-411a-8c1e-46ff4dbd7c38}"
+    }
+    {
+      Name = "Charon"
+      GUID = "{2f8be5a9-14bc-4690-abed-db41ac3e08cd}"
+    }
+    {
+      Name = "Achilles"
+      GUID = "{987e1ad3-1ac5-4215-a642-6d0bb965486d}"
+    }
+    {
+      Name = "Icarus"
+      GUID = "{d71b21cd-89eb-474d-97f4-fc1729457f15}"
+    }
+    {
+      Name = "Moros"
+      GUID = "{152f588b-009e-4a7e-9928-f4ac4484bc97}"
+    }
+    {
+      Name = "Odysseus"
+      GUID = "{e7ac10bc-bde0-4313-9961-b80d6ab9c9c3}"
+    }
+    {
+      Name = "Theseus"
+      GUID = "{dbe92875-4388-4af3-bb36-0c927d7e1bcf}"
+    }
+    {
+      Name = "Minotaur"
+      GUID = "{23998452-6e8b-40d4-a7d4-7f7f3ad4d315}"
+    }
+    {
+      Name = "Polyphemus"
+      GUID = "{88f60939-08b5-4e04-9377-5cbdd79afb92}"
+    }
+    {
+      Name = "Heracles"
+      GUID = "{242dd7ba-164c-44f6-858f-8e4c590da219}"
+    }
+    {
+      Name = "Patroclus"
+      GUID = "{a2e3d75a-0bc8-4b2e-88cf-094fc1dc58b6}"
+    }
+    {
+      Name = "Narcissus"
+      GUID = "{db8981d2-8c43-4f89-b60b-4ba55249edf5}"
+    }
+    {
+      Name = "StrangerOcclusionP"
+      GUID = "{9a779bb1-6cc1-41a0-bb8a-6ed97b8c456e}"
+    }
+    {
+      Name = "Hermes"
+      GUID = "{d5ccd857-1a3b-41b6-a615-6f1bbe8087a0}"
+    }
+    {
+      Name = "Eurydice"
+      GUID = "{4109df74-064d-4f15-9219-c5c3f89a2ed9}"
+    }
+  ]
+}

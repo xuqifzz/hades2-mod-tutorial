@@ -1,0 +1,585 @@
+{ Animations = [
+
+	{
+		Name = "DustPuffA"
+		FilePath = "Fx\DustPuffA\DustPuffA"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 40
+		NumFrames = 40
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+	}
+	
+	{
+		Name = "DustPuffB"
+		InheritFrom = "DustPuffA"
+		CreateAnimation = "RubbleFallImpactDecal"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 60.0
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DustPuffBNoDecal"
+		InheritFrom = "DustPuffA"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 60.0
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DustPuffALarge"
+		InheritFrom = "DustPuffA"
+		GroupName = "Standing"
+		RandomPlaySpeedMax = 30.0
+		RandomFlipHorizontal = false
+		Scale = 1.3
+	}
+
+	{
+		Name = "ParticleFlake"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		EaseOut = 1.0
+		EndFrame = 90
+		LoopFramesOnly = true
+		NumFrames = 90
+		RandomDurationMax = 1.5
+		RandomDurationMin = 1.0
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 40.0
+		RandomStartFrame = true
+		StartFrame = 1
+		DieWithOwner = true
+		LocationFromOwner = "Ignore"
+		RandomRotation = true
+		RandomRotationSpeedMax = 180.0
+		RandomRotationSpeedMin = -180.0
+		PingPongScale = true
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "RadialNova"
+		FilePath = "Fx\RadialNova\RadialNova"
+		Light = "WeaponFxLightA"
+		AddColor = true
+		EndFrame = 44
+		NumFrames = 44
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 370.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "GroupChange"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+	}
+
+	{
+		Name = "EditorContainer"
+		FilePath = "Dev\Circle"
+		Alpha = 0.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+	}
+	
+	{
+		Name = "PowerUpFront"
+		ChildAnimation = "PowerUpFrontGlow"
+		CreateAnimation = "PowerUpBack"
+		FilePath = "Fx\PowerUpFront\PowerUpFront"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		EndGreen = 0.1
+		EndRed = 0.999
+		StartBlue = 0.01
+		StartGreen = 0.6
+		StartRed = 1.0
+		EndFrame = 28
+		NumFrames = 28
+		StartFrame = 1
+		OffsetZ = -10.0
+		ScaleFromOwner = "Ignore"
+		Slides =
+		[
+			{ DurationFrames = 4 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+	
+	{
+		Name = "PowerUpBack"
+		InheritFrom = "PowerUpFront"
+		ChildAnimation = "null"
+		CreateAnimation = "null"
+		FilePath = "Fx\PowerUpBack\PowerUpBack"
+		GroupName = "FX_Dark"
+		AddColor = false
+		EndFrame = 25
+		NumFrames = 25
+		StartFrame = 1
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		Slides =
+		[
+			{ DurationFrames = 4 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "PowerUpFrontGlow"
+		FilePath = "Particles\particle_glow_egg"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 0.8
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 90.0
+		EndScaleY = 1.25
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		ScaleX = 0.5
+		StartScaleY = 0.75
+		Ambient = 0.0
+	}
+
+	
+	{
+		Name = "QuickFlash"
+		FilePath = "Fx\ProjectileFlare\ProjectileFlare0001"
+		GroupName = "FX_Standing_Add"
+		
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndBlue = 1.0
+		EndGreen = 0.4
+		StartAlpha = 0.5
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		UseAttachedMarkerLocation = "weapon_2_TRACKING"
+		EndScale = 2.5
+		ScaleFromOwner = "Ignore"
+		StartScale = 5.0
+		Ambient = 0.0
+		TimeModifierFraction = 0.9
+	}
+
+    {
+      Name = "DisplaceShockwave"
+      FilePath = "Fx\DisplaceShockwave\DisplaceShockwave"
+      GroupName = "FX_Displacement"
+      
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      ColorFromOwner = "Ignore"
+      EndFrame = 16
+      NumFrames = 16
+      PlaySpeed = 30.0
+      StartFrame = 1
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+    }
+
+
+	// Inheritance for now, need to be sorted
+	{
+		Name = "MelEntranceSplash"
+		FilePath = "Fx\MelLandSplashVertical\MelLandSplashVertical"
+		NumFrames = 33
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		OriginX = 125
+		OriginY = 280
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Ambient = 0.0
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+		StartScaleX = 1.1
+		EndScaleX = 0.9
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		LocationFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+		VisualFx = "OceanusRandomRipples"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "MelEntranceRipple" }
+		]
+	}
+
+
+	{
+		Name = "MelEntranceRipple"
+		FilePath = "Fx\MelLandSplashRipple\MelLandSplashRipple"
+		NumFrames = 44
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		GroupName = "FX_Terrain"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.75
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "FloodTrapFireFx"
+		FilePath = "Fx\OceanusFloodTrapFireSplash\OceanusFloodTrapFireSplash"
+		NumFrames = 20
+		NumAngles = 2
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 35
+		OffsetZ = 15
+		Scale = 1.2
+		SortMode = "Id"
+		SortFromOwner = "Take"
+		AngleFromOwner = "Take"
+		RadialOffsetMin = 30
+		RadialOffsetMax = 30
+		CreateAnimation = "QuickFlashBlueGreen"
+	}
+
+	{
+		Name = "FloodTrapFx"
+		FilePath = "Fx\OceanusFloodTrapProjectile\OceanusFloodTrapProjectile"
+		NumFrames = 30
+		NumAngles = 4
+		AngleNumAngleOffset = 45.0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 30
+		Material = "Unlit"
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ColorFromOwner = "Ignore"
+		AddColor = false
+		Scale = 1.33
+		VisualFx = "FloodTrapFxTrail"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 200
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		OffsetZ = 10
+		Hue = 0.05
+	}
+
+	{
+		Name = "FloodTrapFxTrailDisplacement"
+		FilePath = "Fx\FloodTrapTrail\FloodTrapTrail"
+		NumFrames = 42
+		AngleFromOwner = "Take"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 28
+		RandomFlipVertical = true
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.7
+		EndBlue = 0.9
+		StartAlpha = 0.2
+		EndAlpha = 0.1
+		LocationFromOwner = "Ignore"
+		GroupName = "FX_Displacement"
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		PostRotateScaleY = 0.5
+		ScaleX = 2
+		Velocity = 200
+		Acceleration = -400
+		StartScale = 1.0
+		EndScale = 1.5
+		EaseIn = 0.9
+		EaseOut = 1
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+		]
+	}
+
+	{
+		Name = "FloodTrapFxTrail"
+		InheritFrom = "FloodTrapFx"
+		Scale = 0.6
+		AngleFromOwner = "Take"
+		VisualFx = null
+		GroupName = "FX_Terrain_Add"
+		LocationFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.2
+		LoopFramesOnly = true
+		Loop = false
+		StartRed = 0.3
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0.1
+		EndGreen = 0.4
+		EndBlue = 0.7
+		SortMode = "FromParent"
+		DrawBehindOwner = true
+		OffsetY = 0
+		Acceleration = -800
+		Velocity = 800
+		StartAlpha = 1
+		EndAlpha = 0
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[ 
+			{ Name = "FloodTrapFxTrailDisplacement" }
+			{ Name = "FloodTrapFxTrailWake" }
+		]
+		Saturation = -0.5
+		Value = -0.25
+	}
+
+
+	{
+		Name = "FloodTrapFxTrailWake"
+		InheritFrom = "FloodTrapFxTrailDisplacement"
+		GroupName = "FX_Terrain"
+		StartAlpha = 0.25
+		EndAlpha = 0.12
+		EndRed = 0.9
+		EndGreen = 0.95
+		EndBlue = 1.0
+		StartRed = 0.7
+		StartGreen = 0.8
+		StartBlue = 1
+		EaseIn = 0
+		EaseOut = 0.5
+		StartScaleY = 0.8
+		EndScaleY = 1
+		PostRotateScaleY = 0.66
+		OffsetZ = 20
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 32
+		ClearSlides = true
+		StartFrame = 12
+		NumFrames = 30
+	}
+
+
+	{
+		Name = "FloodTrapFxTrailWakeUnit"
+		InheritFrom = "FloodTrapFxTrailWake"
+		PlaySpeed = 60
+		ClearSlides = true
+		StartAlpha = 0.5
+		EndAlpha = 0.25
+		OriginX = 240
+		OriginY = 60
+		EndRed = 0.5
+		EndGreen = 0.7
+		EndBlue = 1.0
+		StartRed = 0.4
+		StartGreen = 1.0
+		StartBlue = 0.7
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ErebusTreeDestruction"
+		FilePath = "Fx\ErebusTreeDestruction\ErebusTreeDestruction"
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 19
+		NumFrames = 19
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		StartFrame = 1
+		SortMode = "FromParent"
+		OverlayVfx = true
+		RandomFlipHorizontal = true
+		RandomOffsetX = 60
+		RandomOffsetY = 60
+		OffsetZ = 180
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "HitSparkA_Small"}
+			{ Name = "DustPuffA"}
+		]
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+]}

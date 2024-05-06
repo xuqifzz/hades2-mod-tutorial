@@ -1,0 +1,127 @@
+/*
+NOTE: It is not required to specify both RequiredVendorId and RequiredProductId,
+but it's highly recommended. ProductIds vary wildly across vendors, and each
+vendor makes plenty of non-gamepad USB devices.
+
+GamePadModelId Table:
+
+	Unknown 		= -1
+	PS4				= 0
+	PS5				= 1
+	Xbox360			= 2
+	XboxOne			= 3
+	XboxSeries		= 4
+	SwitchPro		= 5
+*/
+{
+	// Sony PlayStation Controllers
+	// source: https://devicehunt.com/view/type/usb/vendor/054C/device/05C4
+	DualShock4v1 =
+	{
+		// PS4 / CUH_ZCT1x
+		RequiredVendorId	= "0x054c"
+		RequiredProductId	= "0x05C4"
+		GamePadModelId		= 0
+		RumbleMultiplier	= 1.0
+	}
+	DualShock4v2 =
+	{
+		// PS4 / CUH_ZCT2x
+		RequiredVendorId	= "0x054c"
+		RequiredProductId	= "0x09CC"
+		GamePadModelId		= 0
+		RumbleMultiplier	= 1.0
+	}
+	DualSense =
+	{
+		RequiredVendorId	= "0x054c"
+		RequiredProductId	= "0x0CE6"
+		GamePadModelId		= 1
+		RumbleMultiplier	= 1.0
+	}
+
+	// Xbox 360 Controllers
+	Xbox360 = 
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x028E"
+		GamePadModelId		= 2
+		RumbleMultiplier	= 0.8
+	}
+
+	// Xbox One Controllers
+	XboxOne =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x02D1"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxOneWireless1914 =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x0B12"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxElite =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x02E3"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxEliteSeries2 =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x0B22"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxOneSWireless =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x2E0"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxOneS =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x02EA"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+	XboxOneSBluetooth =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x02FD"
+		GamePadModelId		= 3
+		RumbleMultiplier	= 0.8
+	}
+
+	// Xbox Series Controllers
+	XboxSeries =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x02ff"
+		GamePadModelId		= 4
+		RumbleMultiplier	= 0.8
+	}
+	XboxSeriesX1914 =
+	{
+		RequiredVendorId	= "0x045e"
+		RequiredProductId	= "0x0b13"
+		GamePadModelId		= 4
+		RumbleMultiplier	= 0.8
+	}
+
+	// Nintendo Controllers
+	SwitchPro = 
+	{
+		RequiredVendorId	= "0x057e"
+		RequiredProductId	= "0x2009"
+		GamePadModelId		= 5
+		RumbleMultiplier	= 0.8
+	}
+}

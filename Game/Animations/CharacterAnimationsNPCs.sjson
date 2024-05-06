@@ -1,0 +1,655 @@
+{
+  Animations = [
+    
+    // Flashback Frozen characters
+
+    {
+      Name = "FrozenNyxIdle"
+      FilePath = "Animations\NPCNyx\IdleGreeting\NyxIdleGreeting3415"      
+      Material = "Unlit"
+      ChildAnimation = "NightmareStasisFx"
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+    }
+    {
+      Name = "FrozenZagreusIdle"
+      FilePath = "Animations\Zagreus\ZagFrozen"
+      Material = "Unlit"
+      VisualFx = "FrozenZagFx"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+      ChildAnimation = "NightmareStasisFx"
+    }
+
+    {
+      Name = "FrozenZagFx"
+      InheritFrom = "FrozenZagreusIdle"
+      VisualFx = null
+      Velocity = 25
+      StartAlpha = 0
+      EndAlpha = 0.25
+      PingPongColor = true
+      Duration = 1
+      LocationFromOwner = "Take"
+      Angle = 40
+      AngleFromOwner = "Ignore"
+      UseOwnAngle = false
+      LocationZFromOwner = "Take"
+      OffsetY = -75
+      StartRed = 1
+      StartGreen = 0.5
+      StartBlue = 0
+      EndRed = 0.99
+      EndGreen = 1.0
+      EndBlue = 1.0
+      Loop = false
+      ChildAnimation = "null"
+    }
+
+    {
+      Name = "FrozenAchillesIdle"
+      FilePath = "Animations\NPCAchilles\AchillesFrozen"      
+      Material = "Unlit"
+      VisualFx = "FrozenAchillesFx"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+      ChildAnimation = "NightmareStasisFx"
+    }
+
+    {
+      Name = "FrozenAchillesFx"
+      InheritFrom = "FrozenZagFx"
+      OffsetY = -100
+      OffsetX = -110
+      FilePath = "Animations\NPCAchilles\AchillesFrozen"
+    }
+
+    {
+      Name = "FrozenThanatosIdle"
+      FilePath = "Animations\NPCThanatos\ThanatosNoScythe"      
+      Material = "Unlit"
+      VisualFx = "FrozenThanatosFx"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+      ChildAnimation = "NightmareStasisFx"
+    }
+
+    {
+      Name = "FrozenThanatosFx"
+      InheritFrom = "FrozenZagFx"
+      OffsetX = 0
+      OffsetY = -50
+      FilePath = "Animations\NPCThanatos\ThanatosNoScythe"
+    }
+
+    {
+      Name = "FrozenMegaeraIdle"
+      FilePath = "Animations\Fury\MegFrozen"      
+      Material = "Unlit"
+      VisualFx = "FrozenMegaeraIdleFx"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+      ChildAnimation = "NightmareStasisFxMeg"
+    }
+
+    {
+      Name = "FrozenMegaeraIdleFx"
+      InheritFrom = "FrozenZagFx"
+      OffsetX = 0
+      OffsetY = -50
+      FilePath = "Animations\Fury\MegFrozen"
+    }
+
+    {
+      Name = "FrozenDusaIdle"
+      FilePath = "Animations\Dusa\Attack\DusaAttack0056"      
+      Material = "Unlit"
+      VisualFx = "FrozenDusaIdleFx"
+      VisualFxIntervalMin = 0.1
+      VisualFxIntervalMax = 0.11
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true
+      ChildAnimation = "NightmareStasisFx"
+    }
+    {
+      Name = "FrozenDusaIdleFx"
+      InheritFrom = "FrozenZagFx"
+      OffsetX = 0
+      OffsetY = -70
+      Angle = -25
+      FilePath = "Animations\Dusa\Attack\DusaAttack0056"
+    }
+
+    {
+      Name = "FrozenPersephoneIdle"
+      FilePath = "Animations\NPCPersephone\UnderworldVulnerable\PersephoneUnderworldVulnerable1648"      
+      Material = "Unlit"
+      StartAlpha = 0.5
+      EndAlpha = 1.0
+      Duration = 3
+      PingPongColor = true
+      Loop = true      
+      ChildAnimation = "NightmareStasisFx"
+    }
+
+    // Bouldy
+
+    {
+      Name = "BouldyIdle"
+      FilePath = "Tilesets\Tartarus\Tartarus_Rubble_03"      
+    }
+
+    /* _______________________________________________3DGhost_______________________________________________ */
+    
+    {
+      Name = "3DGhostIdleRandomHeadTurn"
+      ChainTo = "3DGhostIdle"
+      FilePath = "Animations\3DGhost\Idle\GhostIdle"      
+      EndFrame = 5
+      NumAngles = 32
+      NumFrames = 5
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      OffsetFromParentZ = true
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      ChildAnimation = "MedusaShadow"
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 1000 RandomDurationFramesMin = 500 }
+        { DurationFrames = 3 }
+        { DurationFrames = 3 }
+        { DurationFrames = 3 }
+        { DurationFrames = 1 RandomDurationFramesMax = 150 RandomDurationFramesMin = 30 }
+      ]
+    }
+    
+    {
+      Name = "3DGhostIdle"
+      InheritFrom = "3DGhostIdleRandomHeadTurn"
+      ChainTo = "3DGhostIdleRandomHeadTurn"
+      PlayBackwards = true
+      ChildAnimation = "MedusaShadow"
+      Slides = [
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+      ]
+    }
+
+    /* _______________________________________________GhostVariants_______________________________________________ */
+    
+    {
+      Name = "AsphodelGhostIdle"
+      FilePath = "Animations\GhostVariants\Asphodel\IdleVFX\AsphodelGhostIdleVFX"      
+      EndFrame = 20
+      Loop = true
+      NumAngles = 16
+      NumFrames = 20
+      RandomPlaySpeedMax = 12.0
+      RandomPlaySpeedMin = 10.0
+      RandomStartFrame = true
+      ReRandomizeOnLoop = false
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -70.0
+      StartOffsetZ = 10.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+    
+    {
+      Name = "BartenderGhostIdle"
+      FilePath = "Animations\GhostVariants\Bartender\Idle\BartenderGhostIdle"      
+      EndFrame = 1
+      Loop = true
+      NumAngles = 32
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+    
+    {
+      Name = "AdminGhostIdle"
+      InheritFrom = "BartenderGhostIdle"
+      FilePath = "Animations\GhostVariants\ContractorTall\Idle\ContractorTallGhostIdle"
+    }
+    
+    {
+      Name = "WorkerGhostIdle"
+      InheritFrom = "BartenderGhostIdle"
+      FilePath = "Animations\GhostVariants\ContractorSmall\Idle\ContractorSmallGhostIdle"
+    }
+    
+    {
+      Name = "BigGhostIdle"
+      FilePath = "Animations\GhostVariants\Big\Idle\BigGhostIdle"
+      EndFrame = 1
+      Loop = true
+      NumAngles = 32
+      NumFrames = 1
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+    
+    {
+      Name = "ExorcismPointGhost"
+      InheritFrom = "BigGhostIdle"
+      VisualFx = "HarvestPointExorcismFx"
+      VisualFxIntervalMin = 0.6
+      VisualFxIntervalMax = 1.0
+      CreateAnimations = [
+       
+      ]
+    }
+    
+    {
+      Name = "ExorcismPointGhostUnavailable"
+      InheritFrom = "ExorcismPointGhost"
+      VisualFx = "null"
+    }
+    
+    {
+      Name = "BrokerGhostIdle"
+      FilePath = "Animations\GhostVariants\Broker\Idle\BrokerGhostIdle"
+      
+      EndFrame = 1
+      Loop = true
+      NumAngles = 32
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+
+    {
+      Name = "HistorianGhostIdle"
+      FilePath = "Tilesets\Gameplay\Gameplay_GameStatsScreen_Ghost_01"
+      OnlyWhenVisible = true
+      RandomDurationMin = 6
+      RandomDurationMax = 8
+      StartAngle = -0.2
+      EndAngle = 0.2
+      PingPongAngle = true
+      StartOffsetZ = -5
+      EndOffsetZ = 5
+      PingPongShiftOverDuration = true
+      Loop = true
+      PhaseOffsetAngle = 90
+      EaseIn = 0
+      EaseOut = 1
+    }
+
+    {
+      Name = "StatisticianGhostIdle"
+      FilePath = "Tilesets\Gameplay\Gameplay_RunHistoryScreen_Ghost_01"
+      OnlyWhenVisible = true
+      RandomDurationMin = 6
+      RandomDurationMax = 8
+      StartAngle = -0.2
+      EndAngle = 0.2
+      PingPongAngle = true
+      StartOffsetZ = -5
+      EndOffsetZ = 5
+      PingPongShiftOverDuration = true
+      Loop = true
+      PhaseOffsetAngle = 90
+      EaseIn = 0
+      EaseOut = 1
+    }
+
+    /* ___________________ElysiumGhost_____________ */
+    
+    {
+      Name = "ElysiumGhostIdle"
+      FilePath = "Animations\GhostVariants\Elysium\Idle\ElysiumGhostIdle"
+      
+      EndFrame = 1
+      NumAngles = 16
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      PingPongShiftOverDuration = true
+    }
+    
+    {
+      Name = "SmallGhostIdle"
+      FilePath = "Animations\GhostVariants\Small\Idle\SmallGhostIdle"
+      
+      EndFrame = 1
+      Loop = true
+      NumAngles = 32
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+
+    {
+      Name = "TallGhostIdle"
+      FilePath = "Animations\GhostVariants\Tall\Idle\TallGhostIdle"
+      
+      EndFrame = 1
+      NumAngles = 32
+      NumFrames = 1
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+    }
+
+    {
+      Name = "Critter_MouseBounce"
+      ChainTo = "Critter_MouseScurry"
+      FilePath = "Animations\CritterMouse\Bounce\MouseBounce"      
+      EndFrame = 6
+      NumAngles = 16
+      NumFrames = 6
+      PlaySpeed = 30.0
+      StartFrame = 1
+      Ambient = 0.0
+    } 
+    {
+      Name = "Critter_MouseScurry"
+      FilePath = "Animations\CritterMouse\Scurry\MouseScurry"      
+      EndFrame = 4
+      Loop = true
+      NumAngles = 16
+      NumFrames = 4
+      PlaySpeed = 30.0
+      StartFrame = 1
+      Ambient = 0.0
+    }
+
+
+    /* ___________________Hecate_____________ */
+    
+    {
+      Name = "HecateIdle"
+      FilePath = "Tilesets\Crossroads\Crossroads_hecate_01"      
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -150.0
+      Scale = 0.5
+    }
+
+    /* ___________________Nemesis_____________ */
+    {
+      Name = "NemesisIdle"
+      FilePath = "Animations\NPCNemesis\Nemesis_01"  
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.5
+    }
+
+
+    /* ___________________Chronos_____________ */
+    
+    {
+      Name = "ChronosIdle"
+      FilePath = "Animations\Chronos\Chronos_2D_01"      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = 
+      {
+        Ambient = 0.5
+        Diffuse = 0.5
+      }
+      OffsetY = -150.0
+      Scale = 1.0
+    }
+    
+
+    /* ___________________Arachne_____________ */
+    
+    {
+      Name = "ArachneIdle"
+      FilePath = "Tilesets\Erebus\Erebus_Spider_01"
+      Sound = "/SFX/Object Ambiences/SpiderSkitterLoop"
+      Scale = 0.7
+      StopSoundOnFinishFade = 0.2
+      Angle = 90
+    }
+
+    /* ___________________Selene_____________ */
+
+    {
+      Name = "SeleneIdle"
+      FilePath = "Animations\NPCSelene\Selene_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      /*ColorFromOwner = "Ignore"*/
+      FlipHorizontal = true      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+      /* ChildAnimation = "DemeterSpinLoop" */
+    }
+
+    /* ___________________Narcissus_____________ */
+
+    {
+      Name = "NarcissusIdle"
+      FilePath = "Animations\NPCNarcissus\Narcissus_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      /*ColorFromOwner = "Ignore"*/
+      FlipHorizontal = true      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+    }
+
+    /* __________________Echo_____________ */
+
+    {
+      Name = "EchoIdle"
+      FilePath = "Animations\NPCNarcissus\Narcissus_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      /*ColorFromOwner = "Ignore"*/
+      FlipHorizontal = true      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+      Hue = -0.05
+      Saturation = -0.2
+      Value = -0.1
+    }
+
+    /* ___________________Medea_____________ */
+    {
+      Name = "MedeaIdle"
+      FilePath = "Animations\NPCMedea\Medea_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      FlipHorizontal = true
+      /*ColorFromOwner = "Ignore"*/      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+    }
+
+    /* ___________________Circe_____________ */
+    {
+      Name = "CirceIdle"
+      FilePath = "Animations\NPCCirce\Circe_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      FlipHorizontal = true
+      /*ColorFromOwner = "Ignore"*/      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+    }
+
+
+    /* ___________________Hermes_____________ */
+    {
+      Name = "HermesIdle"
+      FilePath = "Animations\NPCHermes\Hermes_01"
+      ScaleFromOwner = "Maintain"
+      AngleFromOwner = "Ignore"
+      FlipHorizontal = true
+      /*ColorFromOwner = "Ignore"*/      
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Unlit"
+      OffsetY = -100.0
+      Scale = 0.36
+    }
+
+    /* _________________Familiars____________ */
+    {
+      Name = "FrogIdle"
+      FilePath = "Tilesets\Crossroads\Crossroads_Frinos_01"      
+      Scale = 0.35
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      Material = "Emissive"
+      Mirror = true
+      ChildAnimation = "GenericSparkleEmitterOverlay"
+      AngleFromOwner = "Ignore"
+    }
+     {
+      Name = "FrogIdleKit"
+      InheritFrom = "FrogIdle"
+      ScaleFromOwner = "Ignore"
+    }
+    {
+      Name = "CatIdle"
+      InheritFrom = "FrogIdle"
+      FilePath = "Tilesets\Crossroads\Crossroads_Cat_01"
+      OffsetY = -25
+      Scale = 0.30
+    }
+    {
+      Name = "CatIdleKit"
+      InheritFrom = "CatIdle"
+      ScaleFromOwner = "Ignore"
+    }
+    {
+      Name = "RavenIdle"
+      InheritFrom = "FrogIdle"
+      FilePath = "Tilesets\Crossroads\Crossroads_RavenSpread_01"
+      Scale = 0.8
+      PostRotateScaleY = 0.7
+      AngleFromOwner = "Maintain"
+      RandomDurationMin = 3
+      RandomDurationMax = 4
+      StartOffsetZ = -4
+      EndOffsetZ = 4
+      PingPongShiftOverDuration = true
+      Loop = true
+      PhaseOffsetAngle = 90
+      EaseIn = 0
+      EaseOut = 1
+
+    }
+
+    {
+      Name = "RavenIdleKit"
+      InheritFrom = "RavenIdle"
+      ScaleFromOwner = "Ignore"
+      FilePath = "Tilesets\Crossroads\Crossroads_Raven_01"
+      Scale = 0.35
+    }
+
+  ]
+}

@@ -1,0 +1,208 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCMedeaBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "Medea_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Medea_Idle"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
+	}
+
+	{
+		Name = "Medea_Greet"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Greet_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Medea_Turn"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Sprinkle_C_00"
+		ChainTo = "Medea_Turn2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Medea_Turn2"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Sprinkle_C_00"
+		PlayBackwards = true
+		ChainTo = "Medea_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 110 // frame value should be 140 - Medea_Turn end
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	{
+		Name = "Medea_Salute"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Salute_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Medea_Bless"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Bless_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Medea_Scoff"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Scoff_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Medea_Sprinkle"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_Sprinkle_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+
+	// Casting
+	{
+		Name = "Medea_Casting_Start"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastingLoop_Start_C_00"
+		ChainTo = "Medea_Casting_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Medea_Idle"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 12
+			}
+		]
+	}
+	{
+		Name = "Medea_Casting_FireLoop"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Medea_Casting_End"
+		InheritFrom = "NPCMedeaBaseAnimation"
+		GrannyAnimation = "Medea_Base_CastingLoop_End_C_00"
+		ChainTo = "Medea_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Medea_Casting_FireLoop"
+				Duration = 24
+			}
+		]
+	}
+]}

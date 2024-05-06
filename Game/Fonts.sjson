@@ -1,0 +1,383 @@
+{
+	/* Iris Fonts */
+	Default =
+	{
+		FontSize = 30
+		Font =
+		{
+			default = "en/LatoMedium.xnb"
+			ja = "ja/NotoSansJPMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"		
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+		}
+	}
+
+	LatoBold = 
+	{
+		FontSize = 30
+		EmphasisFont = "LatoBoldItalic"
+		Font =
+		{
+			default = "en/LatoBold.xnb"
+			ko = "ko/NotoSansKRBold.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+		}
+	}
+
+	LatoItalic = 
+	{
+		FontSize = 30
+		EmphasisFont = "LatoItalic"
+		Font =
+		{
+			default = "en/LatoItalic.xnb"
+			ko = "ko/NotoSansKRItalic.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+		}
+	}
+
+	LatoSemibold =
+	{
+		FontSize = 30
+		EmphasisFont = "LatoSemiboldItalic"
+		Font =
+		{
+			default = "en/LatoSemibold.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+		}
+	}
+
+	LatoBoldItalic = 
+	{
+		FontSize = 30
+		Font =
+		{
+			default = "en/LatoBoldItalic.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+			ko = "ko/NotoSansKRItalic.xnb"
+			zh-CN = "zh-CN/NotoSansSCBold.xnb"
+			zh-TW = "zh-TW/NotoSansTCBold.xnb"
+		}
+	}
+
+	LatoSemiboldItalic = 
+	{
+		FontSize = 30
+		Font =
+		{
+			default = "en/LatoSemiboldItalic.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+			ko = "ko/NotoSansKRItalic.xnb"
+			zh-CN = "zh-CN/NotoSansSCBold.xnb"
+			zh-TW = "zh-TW/NotoSansTCBold.xnb"
+		}
+	}
+
+	LatoMedium = 
+	{
+		FontSize = 30
+		EmphasisFont = "LatoBold"
+		Font =
+		{
+			default = "en/LatoMedium.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+		}
+	}
+
+	LatoMediumEventLog = 
+	{
+		FontSize = 30
+		EmphasisFont = "LatoItalic"
+		Font =
+		{
+			default = "en/LatoMedium.xnb"
+			ja = "ja/TogeGothicMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+		}
+	}
+
+	P22UndergroundSCHeavy = 
+	{
+		FontSize = 35
+		Font =
+		{
+			default = "en/P22UndergroundSCHeavy.xnb"
+			tr = "tr/P22UndergroundSCHeavy.xnb"
+			ko = "ko/NotoSansKRBold.xnb"
+			zh-CN = "zh-CN/NotoSansSCBold.xnb"
+			zh-TW = "zh-TW/NotoSansTCBold.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
+	MainMenuP22UndergroundSCHeavy = 
+	{
+		FontSize = 35
+		Font =
+		{
+			default = "en/P22UndergroundSCHeavy.xnb"
+			tr = "tr/P22UndergroundSCHeavy.xnb"
+			ko = "ko/NotoSansKRBold.xnb"
+			zh-CN = "zh-CN/NotoSansSCBold.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
+	NumericP22UndergroundSCHeavy = 
+	{
+		FontSize = 35
+		Font =
+		{
+			default = "en/P22UndergroundSCHeavy.xnb"
+			tr = "tr/P22UndergroundSCHeavy.xnb"
+		}
+	}
+
+	P22UndergroundSCLight = 
+	{
+		FontSize = 64
+		Font =
+		{
+			default = "en/P22UndergroundSCLight.xnb"
+			tr = "tr/P22UndergroundSCLight.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/W04.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBold.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
+	P22UndergroundSCLightTitling = 
+	{
+		FontSize = 64
+		Font =
+		{
+			default = "en/P22UndergroundSCLightTitling.xnb"
+			tr = "tr/P22UndergroundSCLightTitling.xnb"
+			ko = "ko/NotoSansKRTitling.xnb"
+			zh-CN = "zh-CN/W04Titling.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
+	P22UndergroundSCMedium = 
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "en/P22UndergroundSCMedium.xnb"
+			tr = "tr/P22UndergroundSCMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/SourceHanSerifMedium.xnb"
+		}
+	}
+
+	NumericP22UndergroundSCMedium = 
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "en/P22UndergroundSCMedium.xnb"
+			tr = "tr/P22UndergroundSCMedium.xnb"
+		}
+	}
+
+	CreditsP22UndergroundSCMedium =
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "en/P22UndergroundSCMedium.xnb"
+		}
+	}
+
+	CreditsP22UndergroundSCMediumTR = 
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "tr/P22UndergroundSCMedium.xnb"
+		}
+	}
+
+	CaesarDressing = 
+	{
+		FontSize = 36
+		Font =
+		{
+			default = "en/CaesarDressing.xnb"
+			el = "el/Cardo.xnb"
+			ru = "ru/Underdog.xnb"
+			uk = "uk/Kotyhoroshko.xnb"
+			ko = "ko/NotoSansKRBold.xnb"
+			zh-CN = "zh-CN/W04.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/Utsukushi.xnb"
+		}
+	}
+
+	SpectralSCBold = 
+	{
+		FontSize = 20
+		Font =
+		{
+			default = "en/SpectralSCBold.xnb"
+			el = "el/PiazzollaHeavy.xnb"
+			tr = "el/PiazzollaHeavy.xnb"
+			pl = "el/PiazzollaHeavy.xnb"
+			ru = "el/PiazzollaHeavy.xnb"
+			uk = "el/PiazzollaHeavy.xnb"
+			ko = "ko/NotoSansKRBold.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/HomuraSemiBold.xnb"
+		}
+	}
+
+	SpectralSCExtraLight = 
+	{
+		FontSize = 20
+		EmphasisFont = "SpectralSCLight"
+		Font =
+		{
+			default = "en/SpectralSCExtraLight.xnb"
+			el = "el/PiazzollaThin.xnb"
+			tr = "el/PiazzollaThin.xnb"
+			ru = "el/PiazzollaThin.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/HomuraSemiBold.xnb"
+		}
+	}
+
+	SpectralSCLight = 
+	{
+		FontSize = 20
+		EmphasisFont =  "SpectralSCMedium"
+		Font =
+		{
+			default = "en/SpectralSCLight.xnb"
+			el = "el/PiazzollaLight.xnb"
+			tr = "el/PiazzollaLight.xnb"
+			ru = "en/SpectralSCLight.xnb"
+			uk = "en/SpectralSCLight.xnb"
+			ko = "ko/HahmletLight.xnb"
+			zh-CN = "zh-CN/W04.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBold.xnb"
+			ja = "ja/HomuraSemiBold.xnb"
+		}
+	}
+
+	SpectralSCLightTitling = 
+	{
+		FontSize = 64
+		Font =
+		{
+			default = "en/SpectralSCLightTitling.xnb"
+			ru = "el/PiazzollaLightTitling.xnb"
+			uk = "uk/Kotyhoroshko.xnb"
+			el = "el/PiazzollaLight.xnb"
+			tr = "el/PiazzollaLightTitling.xnb"
+			ko = "ko/HahmletLightTitling.xnb"
+			zh-CN = "zh-CN/W04Titling.xnb"
+			zh-TW = "zh-TW/NotoSerifTCBoldTitling.xnb"
+			ja = "ja/HomuraSemiBold.xnb"
+		}
+	}
+
+	SpectralSCMedium = 
+	{
+		FontSize = 20
+		EmphasisFont = "SpectralSCBold"
+		Font =
+		{
+			default = "en/SpectralSCMedium.xnb"
+			el = "el/PiazzollaMedium.xnb"
+			tr = "el/PiazzollaMedium.xnb"
+			ru = "el/PiazzollaMedium.xnb"
+			ko = "ko/NotoSansKR.xnb"
+			zh-CN = "zh-CN/Default.xnb"
+			zh-TW = "zh-TW/NotoSansTC.xnb"
+			ja = "ja/HomuraSemiBold.xnb"
+		}
+	}
+
+	/* Languages Menu */
+	Lang = 
+	{
+		FontSize = 32
+		Font = 
+		{
+			default = "en/LatoMedium.xnb"
+		}
+	}
+
+	ja = 
+	{
+		FontSize = 20
+		Font = 
+		{
+			default = "en/ja.xnb"
+		}
+	}
+
+	ko = 
+	{
+		FontSize = 20
+		Font = 
+		{
+			default = "en/ko.xnb"
+		}
+	}
+
+	zh-CN = 
+	{
+		FontSize = 32
+		Font = 
+		{
+			default = "en/zh-CN.xnb"
+		}
+	}
+
+	zh-TW = 
+	{
+		FontSize = 32
+		Font = 
+		{
+			default = "en/zh-TW.xnb"
+		}
+	}
+
+	/* Debug Overlay */
+	MonospaceTypewriterBold = 
+	{
+		FontSize = 12
+		Font = 
+		{
+			default = "en/MonospaceTypewriterBold.xnb"
+		}
+	}
+
+}

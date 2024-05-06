@@ -1,0 +1,412 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyHarpyCutterBaseAnimation"
+		
+		GrannyModel = "HarpyTalonCutter_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.2
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_Idle"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_MoveStart"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_Move_C_00"
+		ChainTo = "Enemy_HarpyCutter_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_Move"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_MoveStop"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_Move_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_HarpyCutter_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_OnHit"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_HarpyCutter_Idle"
+		Sound = "/SFX/Enemy Sounds/HarpyCutter/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 3
+			}
+			{
+				Frame = 16
+				FrameSpeed = 1.15
+			}
+		]
+	}
+	{
+		Name = "Enemy_HarpyCutter_OnHit_Heavy"
+		InheritFrom = "Enemy_HarpyCutter_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_Swoop"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_Swoop_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+		Sound = "/SFX/Enemy Sounds/Megaera/MegaeraFlipChargeup"
+	}
+
+	// DASH
+
+	{
+		Name = "Enemy_HarpyCutter_DashLeft"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_DashLeft_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/HarpyCutter/EmoteEvading"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Exalted/ExaltedDash"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_DashRight"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_DashRight_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/HarpyCutter/EmoteEvading"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Exalted/ExaltedDash"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	// FLAP
+
+	{
+		Name = "Enemy_HarpyCutter_FlapPreFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_FlapFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapFire_C_00"
+		ChainTo = "Enemy_HarpyCutter_FlapPostFire"
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_FlapPostFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapPostFire_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+	}
+
+	// FLAP_ALT
+
+	{
+		Name = "Enemy_HarpyCutter_FlapPreFire_Alt"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapPreFire_Alt_C_00"
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyChargeFxIn_HarpyFlapLeft" }
+			{ Name = "EnemyChargeFxIn_HarpyFlapRight" }
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_FlapPostFire_Alt"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_FlapFire_Alt"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapFire_Alt_C_00"
+		ChainTo = "Enemy_HarpyCutter_FlapPostFire_Alt"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_FlapPostFire_Alt"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_FlapPostFire_Alt"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_FlapPostFire_Alt_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+	}
+
+	// SLICE
+
+	{
+		Name = "Enemy_HarpyCutter_SlicePreFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_SlicePreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_HarpySlice"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_HarpyCutter_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_SliceFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_SliceFire_C_00"
+		ChainTo = "Enemy_HarpyCutter_SlicePostFire"
+		Sound = "/SFX/Enemy Sounds/HarpyCutter/EmoteAttacking"
+	}
+
+	{
+		Name = "Enemy_HarpyCutter_SlicePostFire"
+		InheritFrom = "EnemyHarpyCutterBaseAnimation"
+		GrannyAnimation = "HarpyTalonCutter_Base_SlicePostFire_C_00"
+		ChainTo = "Enemy_HarpyCutter_Idle"
+	}
+
+]}

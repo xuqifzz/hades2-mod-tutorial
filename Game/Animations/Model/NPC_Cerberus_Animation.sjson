@@ -1,0 +1,29 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCCerberusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Cerberus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Cerberus_Idle_Sitting"
+		InheritFrom = "NPCCerberusBaseAnimation"
+		GrannyAnimation = "Cerberus_Base_HubIdle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	{
+		Name = "Cerberus_Idle_Laying"
+		InheritFrom = "NPCCerberusBaseAnimation"
+		GrannyAnimation = "Cerberus_Base_HouseIdle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+]}

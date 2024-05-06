@@ -1,0 +1,390 @@
+{ Animations = [
+
+	/* Staff Base Animations */
+	{
+		Name = "MelinoeBaseStaffAnimations"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyModel = "Melinoe_Mesh"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_Idle_00"
+		CreateAnimation = "StaffOrbGlow"
+	}
+	{
+		Name = "MelinoeBaseStaffAnimationsWithTurns"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		DirectionChange180 = "Melinoe_Staff_Turn_180"
+		DirectionChange90R = "Melinoe_Staff_Turn_E90"
+		DirectionChange90L = "Melinoe_Staff_Turn_W90"
+	}
+	{
+		Name = "WeaponStaff_Circe"
+		GrannyModel = "WeaponStaff_Circe_Mesh"
+	}
+	{
+		Name = "WeaponStaff_Asclepius"
+		GrannyModel = "WeaponStaff_Asclepius_Mesh"
+	}
+	{
+		Name = "WeaponStaffBase"
+		GrannyModel = "WeaponStaff_Mesh"
+		ExtraGrannyAnimations = 
+		[
+			{ Name = "WeaponStaff_Circe"}
+			{ Name = "WeaponStaff_Asclepius"}
+		]
+	}
+
+	/* Staff Idle */
+
+	{
+		Name = "Staff_Idle"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_Idle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Staff_Idle"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_Idle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Idle"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "MelinoeSpellFireReturn"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "MelinoeGatherReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoePickAxeMineReturnToIdle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Shovel_End"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeExorcismReturnToIdle"
+				Duration = 10
+			}
+
+			{
+				BlendTransitionFrom = "MelinoeInteract"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUp"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeBoonInteractPowerUpCancellable"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeSalute"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "MelinoeSpellFireReturn"
+				Duration = 15
+			}
+		]
+	}	
+	
+
+	/* Staff Get Hit */
+	{
+		Name = "Staff_GetHit"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.5
+		TimeModifierFraction = 0
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Staff_GetHit"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.5
+		CancelOnOwnerMove = true
+		TimeModifierFraction = 0
+		ChainTo = "Melinoe_Staff_Idle"
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Attack1_Start" }
+			{ Name = "Melinoe_Staff_Attack1_Fire" }
+			{ Name = "Melinoe_Staff_Attack2_Start" }
+			{ Name = "Melinoe_Staff_Attack2_Fire" }
+			{ Name = "Melinoe_Staff_Attack3_Start" }
+			{ Name = "Melinoe_Staff_Attack3_Fire" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
+			{ Name = "Melinoe_Staff_AttackEx1_Fire" }
+			{ Name = "Melinoe_Staff_AttackDash1_Start" }
+			{ Name = "Melinoe_Staff_AttackDash1_Fire" }
+			{ Name = "Melinoe_Staff_Special1_Start" }
+			{ Name = "Melinoe_Staff_Special1_StartLoop" }
+			{ Name = "Melinoe_Staff_Special1_Fire" }
+			{ Name = "Melinoe_Staff_Cast_Start" }
+			{ Name = "Melinoe_Staff_Cast_StartLoop" }
+			{ Name = "Melinoe_Staff_Cast_Fire" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "Staff_GetHit"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.0
+			}
+		]
+	}
+
+	// GetHitFinal currently not in use
+	{
+		Name = "WeaponStaffGetHitFinal"
+		
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 0.05
+		TimeModifierFraction = 0
+		HoldLastFrame = true
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0.0
+			}
+		]
+	}
+	{
+		Name = "MelinoeStaffGetHitFinal"
+		InheritFrom = "Melinoe_Staff_GetHit"
+		GrannyAnimationSpeed = 0.05
+		HoldLastFrame = true
+
+		Attachments =
+		[
+			{
+				Name = "WeaponStaffGetHitFinal"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 8
+				FrameSpeed = 0.0
+			}
+		]
+
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathAlphaMaskBase"
+		DeathFxFrameDuration = 6000
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 1.0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+	}
+
+	/* Staff Interact */
+	{
+		Name = "Staff_Interact"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_Interact_00"
+	}
+	{
+		Name = "Melinoe_Staff_Interact"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		ChainTo = "Melinoe_Staff_Idle"
+		GrannyAnimation = "Melinoe_Staff_Base_Interact_00"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Staff_Interact"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	/* Staff Equip/Unequip */
+
+	{
+		Name = "Staff_Equip"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_StaffEquipIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_Equip"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_StaffEquipIdle_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Staff_Idle"
+		CreateAnimations =
+		[
+			{ Name = "MelEquipSparkleStaffSpawner" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_Equip"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Staff_Unequip"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_StaffUnEquipIdle_C_00"
+		GrannyAnimationSpeed = 1.15
+	}
+	{
+		Name = "Melinoe_Staff_Unequip"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_StaffUnEquipIdle_00"
+		GrannyAnimationSpeed = 1.15
+		CancelOnOwnerMove = true
+		ChainTo = "MelinoeIdleWeaponless"
+
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeInteract" }
+			{ Name = "MelinoeBoonPreInteract" }
+			{ Name = "MelTalkGifting01" }
+			{ Name = "MelTalkGifting01ReturnToIdle" }
+			{ Name = "MelinoeBoonInteractLoop" }
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Staff_InteractUnequip" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleStaff" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_Unequip"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Staff_InteractUnequip"
+		InheritFrom = "WeaponStaffBase"
+		GrannyAnimation = "Staff_Weapon_Base_InteractUnequipToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Staff_InteractUnequip"
+		InheritFrom = "MelinoeBaseStaffAnimations"
+		GrannyAnimation = "Melinoe_Staff_Base_InteractUnequipToIdle_C_00"
+		ChainTo = "MelinoeIdleWeaponless"
+		CancelOnOwnerMove = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeIdleWeaponless" }
+			{ Name = "Melinoe_Staff_Unequip" }
+		]
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleStaff" }
+		]
+		Attachments =
+		[
+			{
+				Name = "Staff_InteractUnequip"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+]}

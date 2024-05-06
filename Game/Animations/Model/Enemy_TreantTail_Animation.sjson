@@ -1,0 +1,202 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyTreantTailBaseAnimation"
+		
+		GrannyModel = "TreantTail_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_TreantTail_Idle"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_TreantTail_Hidden"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Idle_C_00"
+		Loop = true
+		Alpha = 0.0
+		CreateAnimation = "TreantTailTrail"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Sound = "/SFX/Enemy Sounds/Treant/TreantBurrowLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_TreantTail_HitStun"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Treant/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_TreantTail_HitStun_Heavy"
+		InheritFrom = "Enemy_TreantTail_HitStun"
+		GrannyAnimationSpeed = 0.6
+	}
+
+
+	/* Attacks */
+	{
+		Name = "Enemy_TreantTail_Burrow"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Burrough_C_00"
+		Loop = false
+		CreateAnimation = "TreantTailMotionLinesBurrow"
+		Frames =
+		[
+			{
+				Frame = 17
+				Sound = "/SFX/Enemy Sounds/Treant/TreantSubmerge"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_TreantTail_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_TreantTail_HitStun"
+				Duration = 10
+			}
+		]
+	}
+	{
+		Name = "Enemy_TreantTail_Unburrow"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Unburrough_C_00"
+		Loop = false
+		GrannyAnimationSpeed = 0.6
+		CreateAnimation = "TreantTailHoleIn"
+		Frames =
+		[
+			{
+				Frame = 17
+				Sound = "/SFX/Enemy Sounds/Treant/TreantEmergeSwipe"
+			}
+		]
+	}
+	{
+		Name = "Enemy_TreantTail_Swipe_PreAttack"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Swipe_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Treant/TreantSwipeCharge"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 29
+				FrameSpeed = 0
+			}
+		]
+		
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_TreantTail_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_TreantTail_HitStun"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TreantTail_Swipe_Fire"
+		InheritFrom = "EnemyTreantTailBaseAnimation"
+		GrannyAnimation = "TreantTail_Base_Swipe_C_00"
+		GrannyAnimationSpeed = 1.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 36
+				FrameSpeed = 1
+			}
+			{
+				Frame = 38
+				Sound = "/SFX/Enemy Sounds/Treant/TreantEmergeSwipe"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_TreantTail_Death"
+		InheritFrom = "Enemy_TreantTail_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 1.6
+		GrannyAnimationSpeed = 0.5
+		DeathFxFrameDuration = 75
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathExplode"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_TreantTail_Spawn"
+		InheritFrom = "Enemy_TreantTail_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		GrannyAnimationSpeed = 0.1
+		Duration = 1.5
+		DeathFxFrameDuration = 90
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+
+] }

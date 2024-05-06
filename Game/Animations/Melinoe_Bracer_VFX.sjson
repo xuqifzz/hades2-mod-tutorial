@@ -1,0 +1,139 @@
+{ Animations = [
+	{
+		Name = "PowerUpComboReady"
+		InheritFrom = "PowerUpFront"
+		EndBlue = 0.999
+		EndGreen = 0.0
+		EndRed = 0.0
+		StartBlue = 1.0
+		StartRed = 0.1
+		Scale = 1.3
+		CreateAnimations =
+		[
+			{ Name = "PowerUpComboReadyBack" }
+			{ Name = "PowerUpComboReadyBackDark" }
+		]
+		Slides =
+		[
+
+			{ DurationFrames = 4 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "PowerUpComboReadyWeaponKit"
+		InheritFrom = "PowerUpFront"
+		Scale = 1.3
+		CreateAnimations =
+		[
+			{ Name = "PowerUpComboReadyBack" }
+			{ Name = "PowerUpComboReadyBackDark" }
+		]
+		Slides =
+		[
+
+			{ DurationFrames = 4 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+	{
+		Name = "PowerUpComboReadyBack"
+		FilePath = "Fx\FistFxDark\FistFxDark"
+		GroupName = "FX_Standing_Add"
+		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndBlue = 0.999
+		EndGreen = 0.5
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 5
+		NumFrames = 5
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginY = 90.0
+		SortMode = "FromParent"
+		EndScaleX = 0.75
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		ScaleY = 0.5
+		StartScaleX = 0.0
+	}
+	
+	{
+		Name = "PowerUpComboReadyBackDark"
+		InheritFrom = "PowerUpComboReadyBack"
+		GroupName = "FX_Dark"
+		PlaySpeed = 24.0
+		FlipVertical = true
+		EndScaleX = 0.9
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+]}

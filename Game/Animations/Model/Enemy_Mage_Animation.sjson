@@ -1,0 +1,288 @@
+{ Animations = [
+	{
+		Name = "Mage2"
+		GrannyModel = "Mage2_Mesh"
+	}
+	{
+		Name = "EnemyMageBaseAnimation"
+		
+		GrannyModel = "Mage_Mesh"
+		ExtraGrannyAnimations = [{ Name = "Mage2" }]
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		VisualFxDistanceMin = 35
+		VisualFxDistanceMax = 40
+		VisualFx = "ErebusDirtTrail_Mage"
+	}
+
+	{
+		Name = "Enemy_Mage_Idle"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Idle_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mage_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Alert"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mage_Alert"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Alert_00"
+		ChainTo = "Enemy_Mage_Idle"
+		GrannyAnimationSpeed = 1.25
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 30
+				FrameSpeed = 0.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mage_MoveStart"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Move_N_Start_00"
+		ChainTo = "Enemy_Mage_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mage_CastFire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Alert"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mage_Move"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Move_N_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mage_CastFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Alert"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mage_MoveStop"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Move_N_Stop_00"
+		CancelOnOwnerMove = true
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Enemy_Mage_Idle"
+	}
+
+	{
+		Name = "Enemy_Mage_HitStun"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_GetHit_Front_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Mage/EmoteHurt"
+		ChainTo = "Enemy_Mage_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0.7
+			}
+		]
+	}
+	{
+		Name = "Enemy_Mage_HitStun_Heavy"
+		InheritFrom = "Enemy_Mage_HitStun"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Mage_CastPreAttack"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_PreFire_00"
+		CancelOnOwnerMove = false
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.48
+		Sound = "/SFX/Enemy Sounds/GuardCharge"
+		StopSoundOnFinishFade = 0.2
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mage_MoveStart"
+				Duration = 7
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Move"
+				Duration = 7
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_MoveStop"
+				Duration = 7
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_HitStun_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mage_Alert"
+				Duration = 7
+			}	
+		]
+	}
+
+	{
+		Name = "Enemy_Mage_CastFire"
+		InheritFrom = "EnemyMageBaseAnimation"
+		GrannyAnimation = "Mage_Fire_00"
+		AllowRestart = false
+		Sound = "/SFX/Enemy Sounds/Mage/MageDartSalvo"
+		StopSoundOnFinishFade = 0.3
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 1.0
+			}
+		]
+
+	}
+
+	{
+		Name = "Enemy_Mage_CastFire_Slow"
+		InheritFrom = "Enemy_Mage_CastFire"
+		GrannyAnimationSpeed = 0.8
+		Sound = "/SFX/Enemy Sounds/Mage/EmoteAttacking"
+	}
+
+	{
+		Name = "Enemy_Mage_Death"
+		InheritFrom = "Enemy_Mage_HitStun"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.05
+		DeathFxFrameDuration = 70
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Mage_Spawn"
+		InheritFrom = "Enemy_Mage_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSwirl"
+		Duration = 1.6
+		DeathFxFrameDuration = 108
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+	}
+	
+] }

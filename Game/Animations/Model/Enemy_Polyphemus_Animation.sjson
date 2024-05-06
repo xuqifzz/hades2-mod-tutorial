@@ -1,0 +1,910 @@
+{ Animations = [
+
+	{
+		Name = "EnemyPolyphemusBaseAnimation"
+
+		GrannyModel = "Polyphemus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Polyphemus_Idle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/NPCLoops/PolyphemusBreathingLoop"
+		SoundAllowedAfterFrame = -1
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Listen"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_SlamReturnToIdle"
+				Duration = 30
+			}
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_MegaLeap_End"
+				Duration = 30
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_Taunt"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Taunt_C_03"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		CancelOnOwnerMove = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 20
+				FrameSpeed = 1
+			}
+			{
+				Frame = 22
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalmIntro"
+			}			
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]
+	}	
+
+
+	/* Move */
+	{
+		Name = "Enemy_Polyphemus_March_Start"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Taunt_C_02"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh"
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh"
+			}
+			{
+				Frame = 124
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}			
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]
+	}	
+
+	{
+		Name = "Enemy_Polyphemus_Move"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Move_C_00"
+		NativeMoveSpeed = 150
+		Loop = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 23
+				FrameSpeed = 1.571
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFootsteps"
+			}
+			{
+				Frame = 80
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFootsteps"
+			}
+			{
+				Frame = 90
+				FrameSpeed = 1.1
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_March_Start"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_MoveStop"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Move"
+				Duration = 12
+			}
+		]
+	}	
+
+	/* Listen/Search */
+	{
+		Name = "Enemy_Polyphemus_Listen"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Listen_C_00"
+		OwnerImmobile = true
+		ChainTo = "Enemy_Polyphemus_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}	
+		]
+
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteSniffing"
+			}
+		]
+	}
+
+	/* Stomp */
+	{
+		Name = "Enemy_Polyphemus_StompPreFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		CreateAnimation = "PolyphemusPreAttackLFoot"
+		GrannyAnimation = "Polyphemus_Base_StompPreFire_C_00"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]	
+	}
+
+	{
+		Name = "Enemy_Polyphemus_StompFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_StompFire_C_00"
+		ChainTo = "Enemy_Polyphemus_StompReturnToIdle"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpLand"
+		CreateAnimation = "CyclopsStompFootImpact"
+	}
+
+	{
+		Name = "Enemy_Polyphemus_StompReturnToIdle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_StompReturnToIdle_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+	}
+
+
+	/* Slam */
+	{
+		Name = "Enemy_Polyphemus_SlamPreFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		CreateAnimation = "PolyphemusPreAttackRHand"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGroundSlamCharge"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		GrannyAnimationSpeed = 0.3
+		HoldLastFrame = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 25
+				FrameSpeed = 0
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_SlamFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_SlamReturnToIdle"
+		GrannyAnimationSpeed = 4.0
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1
+				FootstepFxL = "CyclopsFistSlamFlare"
+			}
+			{
+				Frame = 37
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}			
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_SlamReturnToIdle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		GrannyAnimationSpeed = 1.2
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 43
+				FrameSpeed = 1
+			}
+			{
+				Frame = 75
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	/* Leap */
+	{
+		Name = "Enemy_Polyphemus_LeapPreFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumping"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_LeapFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
+		CreateAnimation = "PolyphemusPreAttackBothFeet"
+		CreateAnimations = [
+			{ Name = "CyclopsDustDebrisCloudJump" }
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_LeapReturnToIdle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapReturnToIdle_C_00"
+		GrannyAnimationSpeed = 1.4
+		ChainTo = "Enemy_Polyphemus_Idle"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustDebrisCloudJump" }
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+			{ Name = "EphyraMudSplatCyclopsSlam" }
+			{ Name = "CyclopsTouchdownCrater" }
+		]
+
+		Frames =
+		[
+			{
+				Frame = 7
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteLanding"
+			}
+		]
+	}
+
+	/* Mega Leap */
+	{
+		Name = "Enemy_Polyphemus_MegaLeap_Start"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumping"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_MegaLeap_Start2"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteJumpingPlusWhoosh"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustDebrisCloudJump" }
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_MegaLeap_Fire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_MegaLeap_End"
+		GrannyAnimationSpeed = 4.0
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 26
+				FrameSpeed = 1
+				FootstepFxL = "CyclopsFistSlamFlare"
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_MegaLeap_Start2"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_MegaLeap_End"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		GrannyAnimationSpeed = 1.2
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 43
+				FrameSpeed = 1
+			}
+			{
+				Frame = 75
+				FrameSpeed = 0
+			}
+		]
+	}	
+
+
+	/* Boulder Throw */
+	
+	{
+		Name = "Enemy_Polyphemus_BoulderThrow_Start"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DebrisPreFire_C_00"
+		GrannyAnimationSpeed = 1.8
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusRockThrowJumpUp"
+		ChainTo = "Enemy_Polyphemus_BoulderThrow_Start2"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsRockPullDirtEmitter" }
+		]
+
+		Frames =
+		[
+			{
+				Frame = 55
+				CreateAnimation = "CyclopsBoulder_InHand_Start"
+			}		
+			{
+				Frame = 75
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Listen"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_BoulderThrow_Start2"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteLanding"
+		GrannyAnimationSpeed = 0.1
+		HoldLastFrame = true
+		CreateAnimation = "CyclopsBoulder_InHand"
+
+		Frames = 
+		[
+			{
+				Frame = 2
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{				
+				BlendTransitionFrom = "Enemy_Polyphemus_BoulderThrow_Start"
+				Duration = 16
+			}
+		]
+	}	
+
+	{
+		Name = "Enemy_Polyphemus_BoulderThrow_Fire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
+		ChainTo = "Enemy_Polyphemus_BoulderThrow_Fire2"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmotePowerAttacking"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsLeapStreakUp" }
+			{ Name = "CyclopsDustDebrisCloudJump" }
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+			{ Name = "CyclopsRockPullDirtEmitter" }
+			{ Name = "CyclopsBoulder_InHand_End" }
+		]
+		Duration = 0.27
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1
+			}
+			{
+				Frame = 18
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Polyphemus_BoulderThrow_Fire2"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapFire_C_00"
+
+		Duration = 0.55
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 19
+				FrameSpeed = 1
+			}
+		]
+	}	
+
+	{
+		Name = "Enemy_Polyphemus_BoulderThrow_End"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_LeapReturnToIdle_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		CreateAnimations =
+		[
+			{ Name = "CyclopsDustDebrisCloudJump" }
+			{ Name = "CyclopsDustRingFrontMarch" }
+			{ Name = "CyclopsDustRingBackMarch" }
+			{ Name = "EphyraMudSplatCyclopsSlam" }
+			{ Name = "CyclopsTouchdownCrater" }
+			{ Name = "CyclopsLeapStreakDown" }
+		]
+	}
+
+
+	/* Kick */
+	{
+		Name = "Enemy_Polyphemus_KickPreFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_KickPreFire_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.65
+		CreateAnimation = "PolyphemusPreAttackRFoot"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_KickFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_KickFire_C_00"
+		ChainTo = "Enemy_Polyphemus_KickReturnToIdle"
+	}
+
+	{
+		Name = "Enemy_Polyphemus_KickReturnToIdle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_KickReturnToIdle_C_00"
+		CreateAnimation = "CyclopsKickStartFlare"
+		ChainTo = "Enemy_Polyphemus_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 35
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFootsteps"
+			}
+		]
+	}
+
+	/* Grab */
+	{
+		Name = "Enemy_Polyphemus_GrabPreFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabPreFire_C_00"
+		ChainTo = "Enemy_Polyphemus_GrabFire"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrabCharge"
+		GrannyAnimationSpeed = 0.4
+		HoldLastFrame = true
+		CreateAnimations =
+		[
+			{ Name = "PolyphemusPreAttackRHandBig" }
+			{ Name = "PolyphemusPreAttackLHandBig" }
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Idle"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabPreFire_Mel"
+		InheritFrom = "Enemy_Polyphemus_GrabPreFire"
+		ChainTo = "Enemy_Polyphemus_GrabFire_Mel"
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabFire"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabFire_C_00"
+		ChainTo = "Enemy_Polyphemus_GrabLoop"
+		Frames =
+		[
+			{
+				Frame = 5
+				FootstepFxL = "PolyphemusGrabFx"
+			}
+			{
+				Frame = 6
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabFire_Mel"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+		ChainTo = "Enemy_Polyphemus_GrabLoop_Mel"
+		Frames =
+		[
+			{
+				Frame = 5
+				FootstepFxL = "PolyphemusGrabFx_Player"
+			}
+		]	
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabLoop"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteEating"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimation = "CyclopsEatEmitter"
+		VisualFx = "CyclopsEatEmitter"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+
+		Frames =
+		[
+			{
+				Frame = 23
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusBite"
+			}
+			{
+				Frame = 57
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusBite"
+			}
+			{
+				Frame = 106
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusBite"
+			}
+		]	
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabLoop_Mel"
+		InheritFrom = "Enemy_Polyphemus_GrabLoop"
+		CreateAnimation = "CyclopsEatEmitter_Mel"
+		VisualFx = "CyclopsEatEmitter_Mel"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.3
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabReturnSatisfied"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabReturnSatisfied_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteLaugh"
+			}
+			{
+				Frame = 36
+				Sound = "/Leftovers/SFX/CurLand"
+			}
+			{
+				Frame = 56
+				Sound = "/Leftovers/SFX/CurLand"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_GrabLoop"
+				Duration = 5
+			}	
+		]		
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabReturnUnsatisfied"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabReturnUnstatisfied_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		OwnerImmobile = true
+		Frames = 
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteAttacking"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_GrabLoop"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabReturnToss"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabReturnUnstatisfied_C_00"
+		ChainTo = "Enemy_Polyphemus_GrabReturnToss2"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
+		OwnerImmobile = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_GrabLoop"
+				Duration = 5
+			}	
+		]
+
+		Frames =
+		[
+			{
+				Frame = 26
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_GrabReturnToss2"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabReturnUnstatisfied_C_00"
+		ChainTo = "Enemy_Polyphemus_Idle"
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteStaggered"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_GrabReturnToss"
+				Duration = 5
+			}	
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 51
+				FrameSpeed = 1.0
+			}
+			{
+				Frame = 120
+				Sound = "/SFX/Enemy Sounds/Polyphemus/EmoteRoaring"
+			}
+		]
+	}
+
+	/* Death */
+	{
+		Name = "Enemy_Polyphemus_Death_Start"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_GrabReturnSatisfied_C_00"
+		ChainTo = "Enemy_Polyphemus_Death"
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 15
+				FrameSpeed = 0.5
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath1"
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_Death"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_Death_C_00"
+		ChainTo = "Enemy_Polyphemus_DeathIdle"
+		OwnerImmobile = true
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath2"
+		Frames =
+		[
+			{
+				Frame = 101
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusDeath3"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Polyphemus_Death_Start"
+				Duration = 20
+				IgnoreFrameData = false
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Polyphemus_DeathIdle"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DeathIdle_C_00"
+		Sound = "/SFX/NPCLoops/Polyphemus_0083"
+		StopSoundOnFinishFade = 0.2
+		Loop = true
+		OwnerImmobile = true
+		CreateAnimation = "StatusSleepingPolyphemus"
+		SoundAllowedAfterFrame = -1
+	}
+	{
+		Name = "Enemy_Polyphemus_DeathIdle_Silent"
+		InheritFrom = "Enemy_Polyphemus_DeathIdle"
+		Sound = null
+	}
+
+	{
+		Name = "Enemy_Polyphemus_DeathOnHit"
+		InheritFrom = "EnemyPolyphemusBaseAnimation"
+		GrannyAnimation = "Polyphemus_Base_DeathGetHit_C_00"
+		ChainTo = "Enemy_Polyphemus_DeathIdle"
+		OwnerImmobile = true
+		AllowRestart = true
+	}
+
+] }

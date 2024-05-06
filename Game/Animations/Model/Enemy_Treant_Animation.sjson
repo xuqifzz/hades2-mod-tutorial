@@ -1,0 +1,326 @@
+{ Animations = [
+	{
+		Name = "Treant2"
+		GrannyModel = "Treant2_Mesh"
+	}		
+	{
+		Name = "EnemyTreantBaseAnimation"
+		
+		GrannyModel = "Treant_Mesh"
+		ExtraGrannyAnimations = [{ Name = "Treant2" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Treant_Idle"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_Idle_C_00"
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_RootsReturnToIdle"
+				Duration = 4
+			}
+		]
+					 
+	}
+
+	/*Get Hit*/
+
+	{
+		Name = "Enemy_Treant_HitStun"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Treant/EmoteHurt"
+	}
+
+	{
+		Name = "Enemy_Treant_HitStun_Heavy"
+		InheritFrom = "Enemy_Treant_HitStun"
+		GrannyAnimationSpeed = 0.6
+	}
+
+	/* Ranged Spray Attack */
+
+	{
+		Name = "Enemy_Treant_SprayPreAttack"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RangedSprayAntic_C_00"
+		Loop = false
+		Sound = "/SFX/Enemy Sounds/Treant/TreantFlurryCharge"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Treant_SprayFire"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RangedSprayFire_C_00"
+		ChainTo = "Enemy_Treant_SprayFireLoop"
+		Loop = false
+	}
+
+
+	{
+		Name = "Enemy_Treant_SprayFireLoop"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RangedSprayFireLoop_C_00"
+		Sound = "/SFX/Enemy Sounds/Treant/TreantFlurryLoop"
+		StopSoundOnFinishFade = 0.3
+		Loop = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_SprayFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Treant_SprayReturnToIdle"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RangedSprayFireReturnToIdle_C_00"
+		Loop = false
+		ChainTo = "Enemy_Treant_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_SprayFireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Roots Attack */
+
+	{
+		Name = "Enemy_Treant_RootsPreAttack"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackAntic_C_00"
+		Loop = false
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Treant_RootsFire"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackFire_C_00"
+		ChainTo = "Enemy_Treant_RootsReturnToIdle"
+		Loop = false
+	}
+
+	{
+		Name = "Enemy_Treant_RootsReturnToIdle"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackReturnToIdle_C_00"
+		Loop = false
+		ChainTo = "Enemy_Treant_Idle"
+	}
+
+	/* Melee Attack */
+
+	{
+		Name = "Enemy_Treant_MeleePreAttack"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_MeleeAntic_C_00"
+		Loop = false
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Treant_MeleeFire"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_MeleeAttack_C_00"
+		ChainTo = "Enemy_Treant_MeleeReturnToIdle"
+		Loop = false
+	}
+
+	{
+		Name = "Enemy_Treant_MeleeReturnToIdle"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_MeleeReturnToIdle_C_00"
+		Loop = false
+		ChainTo = "Enemy_Treant_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_MeleeFire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun"
+				Duration = 10
+			}
+		]
+	}
+
+	// Treant 2 Burrow / Unburrow
+
+	{
+		Name = "Enemy_Treant2_BurrowStart"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackAntic_C_00"
+		ChainTo = "Enemy_Treant2_BurrowFire"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Treant_Idle"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Treant_HitStun_Heavy"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Treant2_BurrowFire"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackFire_C_00"
+	}
+
+	{
+		Name = "Enemy_Treant2_Hidden"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_Idle_C_00"
+		Loop = true
+		Alpha = 0.0
+		CreateAnimation = "TreantTailTrail"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		Sound = "/SFX/Enemy Sounds/Treant/TreantBurrowLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "Enemy_Treant2_Unburrow"
+		InheritFrom = "EnemyTreantBaseAnimation"
+		GrannyAnimation = "Treant_Base_RootsAttackReturnToIdle_C_00"
+		ChainTo = "Enemy_Treant_Idle"
+	}
+
+
+
+	{
+		Name = "Enemy_Treant_Death"
+		InheritFrom = "Enemy_Treant_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskRadial"
+		Duration = 1.1
+		GrannyAnimationSpeed = 0.5
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+	{
+		Name = "Enemy_Treant_Spawn"
+		InheritFrom = "Enemy_Treant_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		GrannyAnimationSpeed = 0.1
+		Duration = 1.5
+		DeathFxFrameDuration = 90
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 0.0 Blue = 0.4 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_Treant_Spawn_Quick"
+		InheritFrom = "Enemy_Treant_Spawn"
+		Duration = 0.7
+		DeathFxFrameDuration = 42
+	}
+
+] }

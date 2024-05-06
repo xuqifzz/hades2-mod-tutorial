@@ -1,0 +1,1205 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyChronosBaseAnimation"
+		
+		GrannyModel = "Chronos_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		OwnerNoInvulnerableCoverage = true
+		GrannyModelMaskTextures = ["", "Models/Chronos/Chronos_Mask_Gold", "Models/Chronos/Chronos_Mask_Gold"]
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Chronos_Idle"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_Move"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_Move_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_MoveStart"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_MoveStart_C_00"
+		ChainTo = "Enemy_Chronos_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_MoveStop"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_MoveStop_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Defense */
+	{
+		Name = "Enemy_Chronos_DefenseIntro"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefenseIntro_C_00"
+		ChainTo = "Enemy_Chronos_DefenseLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_DefenseLoop"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefenseIdle_C_00"
+		Loop = true
+		OwnerInvulnerable = true
+	}
+	{
+		Name = "Enemy_Chronos_DefenseExplodePreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefenseExplodeWindUp_C_00"
+		ChainTo = "Enemy_Chronos_DefenseExplodeFire"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserBlastChargeUp"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.45
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_DefenseLoop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_DefenseExplodeFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefenseExplode_C_00"
+		ChainTo = "Enemy_Chronos_DefenseExplodePostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_DefenseExplodePostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DefenseExplodeReturn_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+
+	/* Dash */
+	{
+		Name = "Enemy_Chronos_DashPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DashAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_DashFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DashFire_C_00"
+		ChainTo = "Enemy_Chronos_DashPostFire"
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Chronos_DashPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_DashReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+
+	/* Rush */
+	{
+		Name = "Enemy_Chronos_RushPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RushPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosChargeup"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_RushPreFire_Combo"
+		InheritFrom = "Enemy_Chronos_RushPreFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 5
+			}
+			{
+				Frame = 55
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_SwingLeftPostFire_Combo"
+				Duration = 14,
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_RushPostFire_Combo"
+				Duration = 14,
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_RushFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RushFire_C_00"
+		ChainTo = "Enemy_Chronos_RushPostFire"
+		OwnerHasNoUnitCollision = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 12
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_RushPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RushReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+	{
+		Name = "Enemy_Chronos_RushPostFire_Combo"
+		InheritFrom = "Enemy_Chronos_RushPostFire"
+		GrannyAnimationSpeed = 2.0
+	}
+
+	/* Grind */
+	{
+		Name = "Enemy_Chronos_GrindPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheGrindPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserSpin"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_GrindFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheGrindLoop_C_00"
+		OwnerNoInvulnerableCoverage = false
+		Loop = true
+		CreateAnimation = "ChronosScytheSpin"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosSuctionStartAndLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "Enemy_Chronos_GrindPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheGrindReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_GrindFire"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Swing Left */
+	{
+		Name = "Enemy_Chronos_SwingLeftPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingLeftPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosChargeup"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingLeftPreFire_Combo"
+		InheritFrom = "Enemy_Chronos_SwingLeftPreFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_SwingRightPostFire_Combo"
+				Duration = 14,
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingLeftPreFireSlow"
+		InheritFrom = "Enemy_Chronos_SwingLeftPreFire"
+		GrannyAnimationSpeed = 0.5
+	}
+	{
+		Name = "Enemy_Chronos_SwingLeftFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingLeftFire_C_00"
+		ChainTo = "Enemy_Chronos_SwingLeftPostFire"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosSwipe"
+	}
+	{
+		Name = "Enemy_Chronos_SwingLeftPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingLeftReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+	{
+		Name = "Enemy_Chronos_SwingLeftPostFire_Combo"
+		InheritFrom = "Enemy_Chronos_SwingLeftPostFire"
+		GrannyAnimationSpeed = 3.0
+	}
+
+	/* Swing Right */
+	{
+		Name = "Enemy_Chronos_SwingRightPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingRightPreFire_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.5
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosChargeup"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingRightPreFireCombo"
+		InheritFrom = "Enemy_Chronos_SwingRightPreFire"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_RushPostFire_Combo"
+				Duration = 14,
+			},
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingRightFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingRightFire_C_00"
+		ChainTo = "Enemy_Chronos_SwingRightPostFire"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosSwipe"
+	}
+	{
+		Name = "Enemy_Chronos_SwingRightPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SwingRightReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+	{
+		Name = "Enemy_Chronos_SwingRightPostFire_Combo"
+		InheritFrom = "Enemy_Chronos_SwingRightPostFire"
+		GrannyAnimationSpeed = 3.0
+	}
+
+	/* Swing Radial */
+	{
+		Name = "Enemy_Chronos_SwingRadialPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RadialSwingPreFire_C_00"
+		ChainTo = "Enemy_Chronos_SwingRadialFire"
+		Sound = "/SFX/BombFusePreExplode"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingRadialFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RadialSwingFire_C_00"
+		ChainTo = "Enemy_Chronos_SwingRadialPostFire"
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/PlayerJump"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_SwingRadialPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_RadialSwingReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+
+	/* Throw */
+	{
+		Name = "Enemy_Chronos_ScytheThrowPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheThrowPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_ScytheThrowFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheThrowFire_C_00"
+		ChainTo = "Enemy_Chronos_ScytheThrowPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_ScytheThrowPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ScytheThrowReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+		Frames =
+		[
+			{
+				Frame = 39
+				Sound = "/Leftovers/World Sounds/QuickSnap2"
+			}
+		]
+	}
+
+
+	/* Ultimate */
+	{
+		Name = "Enemy_Chronos_UltimatePreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_UltimatePreFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 44
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+			{
+				Frame = 66
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 74
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+			{
+				Frame = 90
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 100
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+			{
+				Frame = 114
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 124
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+			{
+				Frame = 137
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 147
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+			{
+				Frame = 161
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab"
+			}
+			{
+				Frame = 173
+				Sound = "/SFX/Player Sounds/ZagreusGunTriggerClickNoAmmo"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_UltimateFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_UltimateFire_C_00"
+		ChainTo = "Enemy_Chronos_UltimatePostFire"
+		Frames = 
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Player Sounds/TimeSlowStart"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_UltimatePostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_UltimateReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+
+	/* Cast Fast */
+	{
+		Name = "Enemy_Chronos_CastFastPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastFastPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosBallPrefireComponent"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+		Frames = 
+		[
+			{
+				Frame = 20
+				FootstepFxL = "ChronosCastFastChargeFxSpawner"
+				FootstepFxR = ""
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_CastFastFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastFastFire_C_00"
+		ChainTo = "Enemy_Chronos_CastFastPostFire"
+	}
+	{
+		Name = "Enemy_Chronos_CastFastPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastFastReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}	
+	{
+		Name = "Enemy_Chronos_TeleportDashOut"
+		InheritFrom = "Enemy_Chronos_Idle"
+		ChainTo = "Enemy_Chronos_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/ChronosTeleportMask"
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 0.41 Green = 0.35 Blue = 0.21 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+	}
+	{
+		Name = "Enemy_Chronos_TeleportDashIn"
+		InheritFrom = "Enemy_Chronos_TeleportDashOut"
+		DeathFxReverse = true
+		DeathFxFrameDuration = 30
+		HoldLastFrame = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.75
+		StartBlue = 0.4
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 0.5
+	}
+
+	/* Cast Slow */
+	{
+		Name = "Enemy_Chronos_CastSlowPreFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastSlowPreFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosGashAmbience"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Chronos/EmotePowerChargingRanged"
+			}
+			{
+				Frame = 20
+				FootstepFxR = "ChronosTransitionFxWingSpread01"
+				FootstepFxL = "ChronosTransitionFxWingSpread02"
+			}			
+			{
+				Frame = 41
+				FootstepFxR = "ChronosTransitionFxWingSpread03"
+				FootstepFxL = "ChronosTransitionFxWingSpread04"
+			}
+			{
+				Frame = 62
+				FootstepFxR = "ChronosTransitionFxWingSpread05"
+				FootstepFxL = "ChronosTransitionFxWingSpread06"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_CastSlowFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastSlowFire_C_00"
+		ChainTo = "Enemy_Chronos_CastSlowPostFire"
+		Sound = "/SFX/Enemy Sounds/Chronos/EmotePowerAttacking"
+		Frames =
+		[
+			{
+				Frame = 7
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosScytheWhirlStart"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_CastSlowPostFire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_CastSlowReturnToIdle_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+	}
+
+	/* Shadowed animations */
+	{
+		Name = "Enemy_Chronos_Shadowed_Idle"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ShadowIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Chronos_Shadowed_Greeting"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_ShadowGreet_C_00"
+		ChainTo = "Enemy_Chronos_Shadowed_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Shadowed_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Field animations */
+	{
+		Name = "Enemy_Chronos_Field_Idle"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_FieldIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Chronos_Field_Greeting"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_FieldGreet_C_00"
+		ChainTo = "Enemy_Chronos_Field_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Field_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_Field_Casting"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_FieldCast_C_00"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Field_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	/* Throne / Battle Intro */
+	{
+		Name = "Enemy_Chronos_SittingIdle"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SittingOnThroneIdle_C_00"
+		Loop = true
+		Enable3DShadow = false
+	}
+	{
+		Name = "Enemy_Chronos_SittingGreeting"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_SittingGreet_C_00"
+		ChainTo = "Enemy_Chronos_SittingIdle"
+		Enable3DShadow = false
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_SittingIdle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_BattleIntro_Start"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleIntroStart_C_00"
+		ChainTo = "Enemy_Chronos_BattleIntro_Fire"
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosFightStart"
+		Enable3DShadow = false
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_SittingIdle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_BattleIntro_Fire"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleIntroMiddle_C_00"
+		ChainTo = "Enemy_Chronos_BattleIntro_Fire2"
+		Sound = "/SFX/Player Sounds/ZagreusGunReloadingLucifer"
+		Enable3DShadow = false
+
+		Frames =
+		[
+			{
+				Frame = 2
+				FootstepFxR = "ChronosTransitionFxIntro01"
+				FootstepFxL = "ChronosTransitionFxIntro02"
+			}
+			{
+				Frame = 20
+				FootstepFxR = "ChronosTransitionFxIntro03"
+				FootstepFxL = "ChronosTransitionFxIntro04"
+			}			
+			{
+				Frame = 40
+				FootstepFxR = "ChronosTransitionFxIntro05"
+				FootstepFxL = "ChronosTransitionFxIntro06"
+			}
+			{
+				Frame = 45
+				FootstepFxR = "ChronosTeleportFxFront"
+				FootstepFxL = "ChronosTeleportFxBack"
+			}
+			{
+				Frame = 50
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_BattleIntro_Fire2"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleIntroMiddle_C_00"
+		ChainTo = "Enemy_Chronos_BattleIntro_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 50
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Chronos_BattleIntro_End"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleIntroEnd_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+		Frames =
+		[
+			{
+				Frame = 55
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosFightStart2"
+			}
+			{
+				Frame = 83
+				Sound = "/SFX/Player Sounds/ZagreusSwordParry"
+			}
+			{
+				Frame = 89
+				FootstepFxR = "ChronosGoldRingGround"
+				FootstepFxL = "ChronosIntroFxDisplace"
+			}
+			{
+				Frame = 90
+				FootstepFxR = "ChronosTransitionFxWingSpread01"
+				FootstepFxL = "ChronosTransitionFxWingSpread02"
+			}			
+			{
+				Frame = 91
+				FootstepFxR = "ChronosTransitionFxWingSpread03"
+				FootstepFxL = "ChronosTransitionFxWingSpread04"
+			}
+			{
+				Frame = 92
+				FootstepFxR = "ChronosTransitionFxWingSpread05"
+				FootstepFxL = "ChronosTransitionFxWingSpread06"
+			}
+		]
+	}
+
+	/* Phase transition */
+	{
+		Name = "Enemy_Chronos_Knockdown_Start"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_Knockdown_C_00"
+		ChainTo = "Enemy_Chronos_Knockdown_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosPhase1Defeat"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Chronos/EmoteStaggered"
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+			}
+			{
+				Frame = 36
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapseSpearDrop"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_Knockdown_FireLoop"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_KnockdownIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Chronos_Teleport_Disappear"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_KnockdownTeleportStart_C_00"
+		ChainTo = "Enemy_Chronos_Teleport_Appear"
+		Sound = "/SFX/Enemy Sounds/Theseus/TheseusGunSpinLoop"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 112
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Knockdown_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_Teleport_Appear"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_KnockdownTeleportEnd_C_00"
+		ChainTo = "Enemy_Chronos_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1
+				Sound = "/SFX/Enemy Sounds/Theseus/TheseusGunSpinEnd"
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Player Sounds/MelinoeAxeSwingFinisherLong"
+			}			
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Teleport_Disappear"
+				Duration = 2
+			}
+		]
+	}
+
+	/* Battle Outro / Death */
+	{
+		Name = "Enemy_Chronos_BattleOutro_Start"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleOutroStart_C_00"
+		ChainTo = "Enemy_Chronos_BattleOutro_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 15
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapse"
+			}
+			{
+				Frame = 43
+				Sound = "/SFX/Enemy Sounds/Hades/HadesCollapseSpearDrop"
+			}	
+		]
+	}
+	{
+		Name = "Enemy_Chronos_BattleOutro_FireLoop"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleOutroIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Chronos_BattleOutro_End"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleOutroEnd_C_00"
+		ChainTo = "Enemy_Chronos_BattleOutro_Death"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 64
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_BattleOutro_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Chronos_BattleOutro_Death"
+		InheritFrom = "EnemyChronosBaseAnimation"
+		GrannyAnimation = "Chronos_Base_BattleOutroEnd_C_00"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 65
+				FrameSpeed = 0.05
+			}
+		]
+
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		DeathFxFrameDuration = 400
+		DeathFxColor = { Red = 0.41 Green = 0.35 Blue = 0.21 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+]}

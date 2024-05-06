@@ -1,0 +1,636 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCNemesisBaseAnimation"		
+		GrannyAnimation = "null"
+		GrannyModel = "Nemesis_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "NPCNemesisBaseHubAnimation"
+		InheritFrom = "NPCNemesisBaseAnimation"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "NPCNemesisBaseCombatAnimation"
+		InheritFrom = "NPCNemesisBaseAnimation"
+	}
+
+	// HUB ANIMATIONS
+	// Idle
+	{
+		Name = "Nemesis_Hub_Idle"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubIdle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+
+	// Glare
+	{
+		Name = "Nemesis_Hub_Glare_Start"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGlareStart_C_00"
+		ChainTo = "Nemesis_Hub_Glare_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 16
+				Sound = "/SFX/Player Sounds/ZagreusHeavyShieldStomp"
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Hub_Glare_FireLoop"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGlareLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Nemesis_Hub_Glare_End"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGlareReturnToIdle_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+	}
+
+	// Personality
+	{
+		Name = "Nemesis_Hub_Greet"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGreet_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+	}
+	{
+		Name = "Nemesis_Hub_Salute"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubSalute_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+	}
+	{
+		Name = "Nemesis_Hub_Toss"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubToss_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+	}
+
+	// Interact
+	{
+		Name = "Nemesis_Hub_Interact"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubInteract_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+	}
+
+	// Turn
+	{
+		Name = "Nemesis_Turn"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGlareStart_C_00"
+		ChainTo = "Nemesis_Turn2"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 20
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Hub_Idle"
+				Duration = 10
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Turn2"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubGlareReturnToIdle_C_00"		
+		ChainTo = "Nemesis_Hub_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Turn"
+				Duration = 10
+			}
+		]
+	}
+
+
+	// Equip
+	{
+		Name = "Nemesis_Hub_Equip"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_Equip_C_00"
+		ChainTo = "Nemesis_Combat_Idle"
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/Player Sounds/ZagreusSwordPull"
+			}
+		]
+	}
+
+	// Exit
+	{
+		Name = "Nemesis_Hub_Exit"
+		InheritFrom = "NPCNemesisBaseHubAnimation"
+		GrannyAnimation = "Nemesis_Base_HubExit_C_00"
+		Frames =
+		[
+			{
+				Frame = 18
+				Sound = "/SFX/Enemy Sounds/Nemesis/EmoteEvading"
+			}
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+			{
+				Frame = 22
+				Sound = "/Leftovers/SFX/PlayerJump"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh"
+			}
+		]
+	}
+
+	// COMBAT ANIMATIONS
+	// Idle
+	{
+		Name = "Nemesis_Combat_Idle"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Interact
+	{
+		Name = "Nemesis_Combat_Interact"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_CombatInteract_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	// Unequip
+	{
+		Name = "Nemesis_Combat_Unequip"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_UnEquip_C_00"
+		ChainTo = "Nemesis_Hub_Idle"
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Player Sounds/ZagreusSwordPull"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	// Hit Stun
+	{
+		Name = "Nemesis_Combat_OnHit"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_GetHit_C_00"
+		AllowRestart = false
+		CancelOnOwnerMove = true
+		Sound = "/SFX/Enemy Sounds/Nemesis/EmoteHurt"
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+
+	// Knockdown
+	{
+		Name = "Nemesis_Combat_Knockdown_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Knockdown_C_00"
+		ChainTo = "Nemesis_Combat_Knockdown_FireLoop"
+		Sound = "/SFX/Enemy Sounds/Nemesis/EmoteStaggered"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_OnHit"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Knockdown_FireLoop"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_KnockdownIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Nemesis_Combat_Knockdown_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_KnockdownReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Knockdown_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Knockdown_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Run
+	{
+		Name = "Nemesis_Combat_Run_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_RunStart_C_00"
+		NativeMoveSpeed = 740
+		ChainTo = "Nemesis_Combat_Run_FireLoop"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack1_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack2_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack3_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Run_FireLoop"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Run_C_00"
+		NativeMoveSpeed = 740
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 7
+				FootstepFxR = ""
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+			{
+				Frame = 24
+				FootstepFxR = ""
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack1_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack2_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Run_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_RunStop_C_00"
+		NativeMoveSpeed = 740
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	// Attack 1
+	{
+		Name = "Nemesis_Combat_Attack1_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack1PreFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Attack1_Fire"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack1Fire_C_00"
+		ChainTo = "Nemesis_Combat_Attack1_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Attack1_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack1ReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+
+	// Attack 2
+	{
+		Name = "Nemesis_Combat_Attack2_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack2PreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack1_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Attack2_Fire"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack2Fire_C_00"
+		ChainTo = "Nemesis_Combat_Attack2_End"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+			{
+				Frame = 5
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Attack2_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack2ReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+
+	// Attack 3
+	{
+		Name = "Nemesis_Combat_Attack3_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack3PreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Attack2_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Attack3_Fire"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack3Fire_C_00"
+		ChainTo = "Nemesis_Combat_Attack3_End"
+	}
+	{
+		Name = "Nemesis_Combat_Attack3_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_Attack3ReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+
+	// Special
+	{
+		Name = "Nemesis_Combat_Special_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_SpecialPreFire_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Run_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Nemesis_Combat_Dash_End"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Special_Fire"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_SpecialFire_C_00"
+		ChainTo = "Nemesis_Combat_Special_End"
+	}
+	{
+		Name = "Nemesis_Combat_Special_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_SpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+
+	// Dash
+	{
+		Name = "Nemesis_Combat_Dash_Start"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_DashPreFire_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Nemesis_Combat_Dash_Fire"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_DashFire_C_00"
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Nemesis/EmoteEvading"
+			}
+			{
+				Frame = 3
+				Sound = "/SFX/Player Sounds/ZagreusDash"
+			}
+		]
+	}
+	{
+		Name = "Nemesis_Combat_Dash_End"
+		InheritFrom = "NPCNemesisBaseCombatAnimation"
+		GrannyAnimation = "Nemesis_Base_DashReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Nemesis_Combat_Idle"
+	}
+]}

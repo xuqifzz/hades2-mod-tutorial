@@ -1,0 +1,344 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyLovesickBaseAnimation"
+		GrannyModel = "Lovesick_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_Lovesick_Idle"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_Idle_C_01"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Move"
+				Duration = 4
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Lovesick_MoveStart"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_MoveStart_C_01"
+		ChainTo = "Enemy_Lovesick_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_Move"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_Move_C_01"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_MoveStop"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_MoveStop_C_01"
+		ChainTo = "Enemy_Lovesick_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	// ON HIT
+
+	{
+		Name = "Enemy_Lovesick_OnHit"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_OnHit_C_01"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Lovesick_Idle"
+		Sound = "/SFX/Enemy Sounds/Heartless/EmoteHurt"
+	}
+	{
+		Name = "Enemy_Lovesick_OnHit_Heavy"
+		InheritFrom = "Enemy_Lovesick_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// OVERHAND
+
+	{
+		Name = "Enemy_Lovesick_OverhandPreFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_OverhandPreFire_C_02"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartChargeUpSFX"
+		StopSoundOnFinishFade = 0.5
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_OverhandFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_OverhandFire_C_02"
+		ChainTo = "Enemy_Lovesick_OverhandPostFire"
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartThrow"
+	}
+
+	{
+		Name = "Enemy_Lovesick_OverhandPostFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_OverhandReturnToIdle_C_02"
+		ChainTo = "Enemy_Lovesick_Idle"
+	}
+
+	// GROUND IMPACT
+
+	{
+		Name = "Enemy_Lovesick_GroundPreFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_GroundImpactPreFire_C_02"
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartChargeUpSFX"
+		StopSoundOnFinishFade = 0.5
+		HoldLastFrame = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_GroundFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_GroundImpactFire_C_02"
+		ChainTo = "Enemy_Lovesick_GroundPostFire"
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartThrow"
+	}
+
+	{
+		Name = "Enemy_Lovesick_GroundPostFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_GroundImpactReturnToIdle_C_02"
+		ChainTo = "Enemy_Lovesick_Idle"
+	}
+
+	// LAUNCHER
+
+	{
+		Name = "Enemy_Lovesick_LauncherPreFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_LauncherFireInitial_C_03"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartChargeUpSFX"
+		StopSoundOnFinishFade = 0.5
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_LauncherFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_LauncherPreFire_C_03"
+		ChainTo = "Enemy_Lovesick_LauncherFireLoop"
+	}
+
+	{
+		Name = "Enemy_Lovesick_LauncherFireLoop"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_LauncherFireLoop_C_03"
+		Sound = "/SFX/Player Sounds/ZagreusBloodshotFire"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Lovesick_LauncherPostFire"
+		InheritFrom = "EnemyLovesickBaseAnimation"
+		GrannyAnimation = "Lovesick_Base_LauncherReturnToIdle_C_03"
+		ChainTo = "Enemy_Lovesick_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Lovesick_LauncherFireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Lovesick_Spawn"
+		InheritFrom = "Enemy_Lovesick_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxReverse = true
+		DeathFxColor = { Red = 0 Green = 0.0 Blue = 0.0 }
+		DeathFxEaseIn = 0.5
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.05
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		StartAlpha = 0
+		EndAlpha = 1
+	}
+
+	{
+		Name = "Enemy_Lovesick_Death"
+		InheritFrom = "Enemy_Lovesick_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2"
+		Duration = 1.0
+		GrannyAnimationSpeed = 0.01
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.2 }
+		DeathFxThickness = 0.02
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+
+
+]}

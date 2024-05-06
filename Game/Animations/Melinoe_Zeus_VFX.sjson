@@ -1,0 +1,855 @@
+{
+Animations =
+[
+
+	
+	{
+		Name = "ZeusCastGroundParticles"
+		FilePath = "Fx\LightningAreaLoop\LightningAreaLoop"
+		GroupName = "FX_Terrain_Add"
+		
+		VisualFx = "ZeusCastGroundParticlesSpread"
+		AngleFromOwner = "Ignore"
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 30.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		Color = { Red = 1.0 Green = 0.90 Blue = 0.70 }
+	}
+	
+	{
+		Name = "ZeusCastGroundParticlesSpread"
+		InheritFrom = "ZeusCastGroundParticles"
+		VisualFx = "null"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		Sound = "/EmptyCue"
+		EndAlpha = 1.0
+		PingPongColor = true
+		Loop = false
+		RadialOffsetMax = 100.0
+		RadialOffsetMin = 20.0
+		RadialOffsetScaleRadius = 100.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Take"
+	}
+	
+	{
+		Name = "ZeusCastWeatherFx"
+		ChildAnimation = "ZeusCastWeatherRainEmitter"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "ZeusCastWeatherCloudShadows"
+		Sound = "/SFX/Player Sounds/ZeusStormCastCircle"
+		StopSoundOnFinishFade = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		CreateAnimations =
+		[
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+			{ Name = "ZeusCastWeatherCloudShadows" }
+		]
+	}
+	
+	{
+		Name = "ZeusCastWeatherRainEmitter"
+		ChildAnimation = "ZeusCastWeatherDropletsEmitter"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "ZeusCastWeatherRainStreaks"
+		Sound = "/EmptyCue"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.03
+	}
+	
+	{
+		Name = "ZeusCastWeatherDropletsEmitter"
+		ChildAnimation = "ZeusCastWeatherLeavesEmitter"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "ZeusCastWeatherDroplets"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.03
+	}
+	
+	{
+		Name = "ZeusCastWeatherLeavesEmitter"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "ZeusCastWeatherLeaves"
+		Duration = 10.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.06
+	}
+	
+	{
+		Name = "ZeusCastWeatherLeaves"
+		FilePath = "Fx\WhitePetalFloat\WhitePetalFloat"
+		GroupName = "FX_Standing_Top"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 340.0
+		AngleMin = 300.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		Duration = 3.0
+		EndFrame = 150
+		LoopFramesOnly = true
+		NumFrames = 150
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetX = -800.0
+		OffsetY = -540.0
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 500.0
+		VelocityMin = 350.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 180.0
+		RandomRotationSpeedMin = -180.0
+		ScaleMax = 1.1
+		ScaleMin = 0.8
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "ZeusCastWeatherRainStreaks"
+		
+		Random =
+		[
+			{ Name = "ZeusCastWeatherRainStreakA" }
+			{ Name = "ZeusCastWeatherRainStreakB" }
+		]
+	}
+	
+	{
+		Name = "ZeusCastWeatherDroplets"
+		
+		Random =
+		[
+			{ Name = "ZeusCastWeatherDropletsA" }
+			{ Name = "ZeusCastWeatherDropletsB" }
+			{ Name = "ZeusCastWeatherDropletsC" }
+		]
+	}
+	
+	{
+		Name = "ZeusCastWeatherRipple"
+		FilePath = "Fx\WaterSplashRipple\WaterSplashRipple"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		AlphaMax = 0.6
+		AlphaMin = 0.3
+		EndFrame = 30
+		NumFrames = 30
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleMax = 0.6
+		ScaleMin = 0.3
+	}
+	
+	{
+		Name = "ZeusCastWeatherDropletsA"
+		ChildAnimation = "ZeusCastWeatherRipple"
+		FilePath = "Fx\WaterSplashDropletsA\WaterSplashDropletsA"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		AlphaMax = 0.6
+		AlphaMin = 0.3
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 25.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+	}
+	
+	{
+		Name = "ZeusCastWeatherDropletsB"
+		InheritFrom = "ZeusCastWeatherDropletsA"
+		FilePath = "Fx\WaterSplashDropletsB\WaterSplashDropletsB"
+	}
+	
+	{
+		Name = "ZeusCastWeatherDropletsC"
+		InheritFrom = "ZeusCastWeatherDropletsA"
+		FilePath = "Fx\WaterSplashDropletsC\WaterSplashDropletsC"
+	}
+	
+	{
+		Name = "ZeusCastWeatherRainStreakA"
+		FilePath = "Particles\particle_rainStreaks_01"
+		GroupName = "FX_Standing_Top"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 280.0
+		AngleMin = 275.0
+		AlphaMax = 0.35
+		AlphaMin = 0.05
+		EndAlpha = 1.0
+		PingPongColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 3.0
+		RandomDurationMin = 2.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OffsetY = -800.0
+		OriginX = 127.0
+		OriginY = 23.0
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 2400.0
+		VelocityMin = 1800.0
+		ScaleMax = 1.2
+		ScaleMin = 0.7
+		ScaleX = 6.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ZeusCastWeatherRainStreakB"
+		InheritFrom = "ZeusCastWeatherRainStreakA"
+		FilePath = "Particles\particle_rainStreaks_02"
+		OriginX = 183.0
+		OriginY = 70.0
+	}
+	
+	{
+		Name = "ZeusCastWeatherCloudShadows"
+		FilePath = "Particles\particle_cloudShadow"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = -20.0
+		AngleMin = -40.0
+		AlphaMax = 0.25
+		AlphaMin = 0.1
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 5.0
+		RandomDurationMin = 3.0
+		StartFrame = 1
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 125.0
+		VelocityMin = 100.0
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 15.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "ZeusLightningAreaPreviewDecal"
+		InheritFrom = "CastCircleBaseArea"
+		CreateAnimations =
+		[
+			{ Name = "ZeusLightningAreaPreviewEdge" }
+		]
+	}
+	
+	{
+		Name = "ZeusLightningAreaPreviewEdge"
+		FilePath = "Fx\CastCircles\CastCircleB"
+		GroupName = "FX_Terrain_Add"
+		
+		VisualFx = "ZeusCastGroundParticlesSpread"
+		EndAlpha = 1.0
+		EndBlue = 0.5
+		EndGreen = 1.0
+		EndRed = 1.0
+		PingPongColor = true
+		StartAlpha = 0.5
+		StartBlue = 0.01
+		StartGreen = 0.9
+		StartRed = 1.0
+		Duration = 1.33
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		RotationSpeed = -5.0
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 720.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.05
+	}
+	
+	{
+		Name = "ZeusLightningIris"
+		
+		Random =
+		[
+			{ Name = "ZeusLightningIrisA" }
+			{ Name = "ZeusLightningIrisB" }
+		]
+	}
+	
+	{
+		Name = "ZeusLightningIrisA"
+		FilePath = "Fx\ZeusLightningA\ZeusLightningA"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		VisualFx = "LightningBoltLingerParticle"
+		AngleFromOwner = "Ignore"
+		AngleMax = 20.0
+		AngleMin = -20.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 39
+		NumFrames = 39
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 270.0
+		OriginY = 1055.0
+		LocationFromOwner = "Take"
+		SortMode = "Isometric"
+		Scale = 0.9
+		StartScaleX = 0.99
+		Ambient = 0.0
+		VisualFxCap = 12
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		OverlayVfx = true
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 VisualFx = "ZeusLightningLight" }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+	
+	{
+		Name = "ZeusLightningIrisB"
+		InheritFrom = "ZeusLightningIrisA"
+		FilePath = "Fx\ZeusLightningB\ZeusLightningB"
+		EndFrame = 31
+		NumFrames = 31
+		StartFrame = 1
+		Slides =
+		[
+
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 VisualFx = "ZeusLightningLight" }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 30*/
+
+			{ DurationFrames = 1 }
+		]
+	}
+	
+	{
+		Name = "ZeusLightningLight"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Add_Top"
+		
+		UseOwnAngle = false
+		EndBlue = 0.25
+		EndGreen = 0.7
+		EndRed = 0.999
+		StartAlpha = 0.7
+		StartBlue = 0.5
+		StartGreen = 0.9
+		StartRed = 1.0
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 2.0
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "ZeusLightningGroundLight" }
+			{ Name = "ZeusLightningFlash" }
+			{ Name = "ZeusLightningDirectionalFlash" }
+		]
+	}
+	
+	{
+		Name = "ZeusLightningFlash"
+		InheritFrom = "ZeusLightningLight"
+		StartAlpha = 1.0
+		Duration = 0.1
+		Scale = 4.0
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "ZeusLightningDirectionalFlash"
+		InheritFrom = "ZeusLightningLight"
+		FilePath = "Particles\particle_directionalFlash"
+		AddColor = true
+		EndBlue = 0.0
+		EndGreen = 0.5
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartGreen = 0.8
+		Duration = 0.06
+		OriginX = 256.0
+		OriginY = 484.0
+		EndScale = 1.2
+		Scale = 1.0
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "ZeusLightningGroundLight"
+		FilePath = "Fx\TerrainFlash\TerrainFlash"
+		GroupName = "FX_Terrain_Add"
+		
+		AddColor = true
+		EndGreen = 0.15
+		EndRed = 0.999
+		StartBlue = 0.2
+		StartGreen = 0.5
+		StartRed = 1.0
+		EndFrame = 7
+		NumFrames = 7
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Scale = 1.5
+	}
+
+	{
+		Name = "ZeusParticlesUpward"
+		FilePath = "Fx\Zeus\ZeusGroundFx\ZeusGroundFx"
+		NumFrames = 41
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OriginX = 160
+		OriginY = 256
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+		StartScaleY = 0.9
+		EndScaleY = 1.1
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+
+	{
+		Name = "ZeusStaffProjectileTrail"
+		Random =
+		[
+			{ Name = "ZeusStaffDirectionalTrailA" }
+			{ Name = "ZeusStaffDirectionalTrailB" }
+			{ Name = "ZeusStaffDirectionalTrailC" }
+		]
+	}
+
+	{
+		Name = "ZeusStaffDirectionalTrailA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailA\ZeusDirectionalTrailA"
+		NumFrames = 43
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		EaseIn = 0.9
+		EaseOut = 1.0
+		FlipHorizontal = true
+		Velocity = 200
+		Acceleration = -200
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		StartScale = 0.25
+		EndScale = 0.75
+		StartScaleX = 1.25
+		EndScaleX = 1.5
+		DrawBehindOwner = true
+		ScaleMin = 1
+		ScaleMax = 1.3
+	}		
+
+	{
+		Name = "ZeusStaffDirectionalTrailB"
+		InheritFrom = "ZeusStaffDirectionalTrailA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailB\ZeusDirectionalTrailB"
+		NumFrames = 53
+	}
+
+	{
+		Name = "ZeusStaffDirectionalTrailC"
+		InheritFrom = "ZeusStaffDirectionalTrailA"
+		FilePath = "Fx\Zeus\ZeusDirectionalTrailC\ZeusDirectionalTrailC"
+		NumFrames = 52
+	}
+
+	{
+		Name = "RadialNovaPentagram_Zeus"
+		InheritFrom = "RadialNovaPentagram"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.8
+        EndRed = 0.9999
+        EndGreen = 0.9
+        EndBlue = 0.5
+        Red = 1
+        Green = 1
+        Blue = 1
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlare" }
+			{ Name = "RadialNovaPentagramGlow_Zeus" }
+			// { Name = "RadialNovaPentagramSecondary_Zeus" }
+			{ Name = "ZeusProjectileExplosionSmall" }
+		]
+	}
+	{
+		Name = "RadialNovaPentagramGlow_Zeus"
+		InheritFrom = "RadialNovaPentagramGlow"
+        Red = 1
+        Green = 0.9
+        Blue = 0.5
+	}
+
+	{
+		Name = "ZeusProjectileExplosion"
+		FilePath = "Fx\Zeus\ZeusProjectileImpact\ZeusProjectileImpact"
+		NumFrames = 32
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		Scale = 1.0
+		OffsetZ = 90
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		ScaleMin = 1
+		ScaleMax = 1.1
+		LocationZFromOwner = "Take"
+	}	
+
+	{
+		Name = "ZeusProjectileExplosionSmall"
+		FilePath = "Fx\Zeus\ZeusGroundFx\ZeusGroundFx"
+		NumFrames = 41
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		Scale = 1.5
+		OffsetZ = 180
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		ScaleMin = 1
+		ScaleMax = 1.1
+	}
+
+	{
+		Name = "ZeusProjectileExplosionCharged"
+		InheritFrom = "ZeusProjectileExplosion"
+		Sound = "/SFX/Player Sounds/ZeusLightningImpactSecondary"
+		Scale = 2
+	}
+
+	{
+		Name = "ZeusAttackGlow"
+		FilePath = "Particles\particle_glow"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.5
+        EndBlue = 0.3
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		Scale = 2.5
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.3
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "RadialNovaPentagramCharged_Zeus"
+		InheritFrom = "RadialNovaPentagram"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.9
+        EndBlue = 0.3
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		ClearCreateAnimations = true
+		VisualFx = "ZeusStaffBallChargedDetonateParticles"
+		VisualFxCap = 32
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+
+		CreateAnimations =
+		[
+			{ Name = "ZeusProjectileExplosionCharged" }
+			{ Name = "RadialNovaPentagramDark" }
+			{ Name = "RadialNovaPentagramFlareCharged_Zeus" }
+			{ Name = "RadialNovaPentagramGlowCharged_Zeus" }
+			{ Name = "RadialNovaPentagramSecondary" }
+			{ Name = "CastCircleOutDisplacement" }
+			{ Name = "RadialNovaPentagramChargedZeusGlowLarge"}
+		]
+	}
+
+
+	{
+		Name = "ZeusStaffBallChargedDetonateParticles"
+		Random = [
+			{ Name = "ZeusStaffBallChargedDetonateParticleA" }
+			{ Name = "ZeusStaffBallChargedDetonateParticleB" }
+			{ Name = "ZeusStaffBallChargedDetonateParticleC" }
+			{ Name = "ZeusStaffBallChargedDetonateParticleD" }
+		]
+	}
+
+	{
+		Name = "ZeusStaffBallChargedDetonateParticleA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 90
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 20
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+	}
+
+	{
+		Name = "ZeusStaffBallChargedDetonateParticleB"
+		InheritFrom = "ZeusStaffBallChargedDetonateParticleA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	{
+		Name = "ZeusStaffBallChargedDetonateParticleC"
+		InheritFrom = "ZeusStaffBallChargedDetonateParticleA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+
+	{
+		Name = "ZeusStaffBallChargedDetonateParticleD"
+		InheritFrom = "ZeusStaffBallChargedDetonateParticleA"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		Scale = 0.5
+		RandomRotation = true
+	}
+
+	{
+		Name = "RadialNovaPentagramGlowCharged_Zeus"
+		InheritFrom = "RadialNovaPentagramGlowCharged"
+		Duration = 0.1
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.5
+        EndBlue = 0.3
+	}
+
+	{
+		Name = "RadialNovaPentagramFlareCharged_Zeus"
+		InheritFrom = "RadialNovaPentagramFlareCharged"
+		Duration = 0.1
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.5
+        EndBlue = 0.3
+	}
+	{
+		Name = "RadialNovaPentagramChargedZeusGlowLarge"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Add_Top"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.5
+        EndBlue = 0.3
+		Material = "Unlit"
+		Scale = 3
+		StartAlpha = 0.7
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Duration = 1
+	}
+
+]}

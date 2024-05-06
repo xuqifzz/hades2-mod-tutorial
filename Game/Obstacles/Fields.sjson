@@ -1,0 +1,2198 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "FieldsExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "FieldsExitDoorLocked"
+        StopsLight = false
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Tallness = 1163
+        Offset = { X = 0 Y = -140 }
+        Points = [
+          { X = -71 Y = 13 }
+          { X = -14 Y = 73 }
+          { X = 95 Y = 73 }
+          { X = 141 Y = 1 }
+          { X = 80 Y = -60 }
+          { X = -14 Y = -59 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsBossExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "FieldsBossExitDoorLocked"
+        StopsLight = false
+        StopsProjectiles = false
+        Interact = 
+        {
+          Distance = 200.0
+          OffsetX = -50
+          OffsetY = -20
+        }
+        Tallness = 85
+        Offset = { X = 0 Y = 3 }
+        Points = [
+          { X = 135 Y = -42 }
+          { X = 74 Y = -67 }
+          { X = -9 Y = -79 }
+          { X = -91 Y = -59 }
+          { X = -153 Y = -25 }
+          { X = -135 Y = 49 }
+          { X = -26 Y = 80 }
+          { X = 99 Y = 56 }
+          { X = 158 Y = 11 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsDestructiblePillar01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "FieldsDestructiblePillar01A"
+        Tallness = 1272
+        Offset = { X = 0 Y = -529 }
+        ExtentScale = 0.6
+        Points = [
+          { X = 160 Y = 220 }
+          { X = 480 Y = 60 }
+          { X = 480 Y = -100 }
+          { X = 160 Y = -260 }
+          { X = -160 Y = -260 }
+          { X = -480 Y = -100 }
+          { X = -480 Y = 60 }
+          { X = -160 Y = 220 }
+        ]
+      }
+    }
+
+    {
+      Name = "FieldsRewardFinder"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "FieldsRewardFinderSpawn"
+        Scale = 1.4
+        Interact = 
+        {
+          Distance = 300.0
+          DistanceZ = 120.0
+          MaxZ = 9999.0
+          OffsetX = -30.0
+          OffsetY = 30.0
+        }
+        Tallness = 302
+        Offset = { X = 0 Y = -424 }
+        Points = [
+          { X = -35 Y = -17 }
+          { X = -15 Y = 7 }
+          { X = 42 Y = 1 }
+          { X = 35 Y = -31 }
+          { X = -5 Y = -42 }
+        ]
+      }
+    }
+
+    {
+      Name = "FieldsTerrainDirt01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Dirt_01a"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRiverEdge01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RiverEdge_01"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRiverEdge01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RiverEdge_01a"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainVeins01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Veins_01"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainVeins02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Veins_02"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRiverEdge01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RiverEdge_01b"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRiverEdge02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RiverEdge_02"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRiverEdge01c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RiverEdge_01c"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_01"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainGoldenLeaves01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_GoldenLeaves_01a"
+      }
+    }
+    
+
+    {
+      Name = "FieldsTerrainGoldenLeaves01b"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_GoldenLeaves_01b"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainPawprint01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Pawprint_01"
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_01"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_01a"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick01b"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_01b"
+        Tallness = 78
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -697 Y = -63 }
+          { X = 161 Y = 380 }
+          { X = 685 Y = 107 }
+          { X = -169 Y = -296 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick01c"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_01c"
+        Tallness = 80
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -686 Y = -67 }
+          { X = 163 Y = 387 }
+          { X = 685 Y = 108 }
+          { X = -169 Y = -296 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_03"
+        Tallness = 128
+        Offset = { X = 0 Y = 0 }
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainRubble01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Rubble_01"
+        Tallness = 128
+        Offset = { X = 0 Y = 0 }
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_02"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor03"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_03"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor03a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_03a"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor03b"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_03b"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDecor04"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Decor_04"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainGrass01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Grass_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainHeartpool01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Heartpool_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainGrass01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Grass_01a"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDestruction01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Destruction_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDestruction01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Destruction_01a"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDestruction01b"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Destruction_01b"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDestruction02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Destruction_02"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainDestruction01c"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Destruction_01c"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsOverlook01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Overlook_01"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsOverlook02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Overlook_02"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsOverlook03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Overlook_03"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsOverlook04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Overlook_04"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsOverlook05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Overlook_05"
+        Tallness = 85
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainBrick02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_TerrainBrick_02"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRewardPad01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RewardPad_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTerrainFlourish01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_Flourish_01"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRewardPad02"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_RewardPad_02"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWheat01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Wheat_01"
+        Tallness = 158.0
+        Offset = { X = 0 Y = -19 }
+        StopsProjectiles = false
+        StopsUnits = false
+        Points = [
+          { X = -461 Y = 78 }
+          { X = -270 Y = 226 }
+          { X = -98 Y = 257 }
+          { X = 359 Y = 208 }
+          { X = 359 Y = 208 }
+          { X = 397 Y = 35 }
+          { X = 359 Y = -138 }
+          { X = -302 Y = -123 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWheatGroup01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Wheat_Group_01"
+        StopsProjectiles = false
+        StopsUnits = false
+        Tallness = 119
+        Offset = { X = 0 Y = -19 }
+        Points = [
+          { X = -432 Y = 441 }
+          { X = -228 Y = 508 }
+          { X = 369 Y = 442 }
+          { X = 450 Y = 353 }
+          { X = 479 Y = 177 }
+          { X = 421 Y = -163 }
+          { X = 112 Y = -434 }
+          { X = -344 Y = -414 }
+          { X = -531 Y = -84 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsThorns01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Thorns_01"
+        Tallness = 158.0
+        Offset = { X = 0 Y = -52 }
+        Points = [
+          { X = -298 Y = 68 }
+          { X = -121 Y = 145 }
+          { X = 2 Y = 154 }
+          { X = 315 Y = -49 }
+          { X = 226 Y = -86 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsThorns02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Thorns_02"
+        Tallness = 197.0
+        Offset = { X = 0 Y = -52 }
+        Points = [
+          { X = -260 Y = 105 }
+          { X = -213 Y = 140 }
+          { X = -178 Y = 133 }
+          { X = 163 Y = -3 }
+          { X = 239 Y = -57 }
+          { X = 193 Y = -103 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsGrassyWheat01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_GrassyWheat_01"
+        Tallness = 426
+        Offset = { X = 0 Y = -97 }
+        Points = [
+          { X = -73 Y = 12 }
+          { X = -56 Y = 32 }
+          { X = 62 Y = 32 }
+          { X = 74 Y = 6 }
+          { X = 18 Y = -33 }
+        ]
+      }
+    }    
+    
+    {
+      Name = "FieldsGrassyWheat02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_GrassyWheat_02"
+        Tallness = 179
+        Offset = { X = 0 Y = -89 }
+        Points = [
+          { X = -207 Y = -34 }
+          { X = -201 Y = 48 }
+          { X = 4 Y = 68 }
+          { X = 183 Y = 31 }
+          { X = 148 Y = -43 }
+          { X = -21 Y = -75 }
+          { X = -115 Y = -82 }
+        ]
+      }
+    }
+    {
+      Name = "FieldsTerrainGrassyWheat01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_GrassyWheat_01"
+        Tallness = 254
+        Offset = { X = 0 Y = -20 }
+      }
+    }
+
+    
+    {
+      Name = "FieldsTerrainGoldenLeaves01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_GoldenLeaves_01"
+        Tallness = 254
+        Offset = { X = 0 Y = -20 }
+      }
+    }
+
+    
+    {
+      Name = "FieldsTerrainGrassyWheat01a"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Terrain_GrassyWheat_01a"
+        Tallness = 254
+        Offset = { X = 0 Y = -20 }
+      }
+    }
+
+    
+    {
+      Name = "FieldsBush01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Bush_01"
+        Tallness = 725
+        Offset = { X = 0 Y = -290 }
+        Points = [
+          { X = -38 Y = 12 }
+          { X = -82 Y = 40 }
+          { X = 134 Y = 148 }
+          { X = 184 Y = 123 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Statue_01"
+        Tallness = 1018
+        Offset = { X = 0 Y = -372 }
+        Points = [
+          { X = -242 Y = 87 }
+          { X = -61 Y = 202 }
+          { X = 213 Y = 156 }
+          { X = 194 Y = -40 }
+          { X = -12 Y = -67 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatue02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Statue_02"
+        Tallness = 969
+        Offset = { X = 0 Y = -400 }
+        Points = [
+          { X = -461 Y = 72 }
+          { X = -336 Y = 187 }
+          { X = -27 Y = 214 }
+          { X = 342 Y = 182 }
+          { X = 446 Y = 53 }
+          { X = 233 Y = -158 }
+          { X = -169 Y = -157 }
+          { X = -360 Y = -70 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatueHead02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_StatueHead_02"
+        Tallness = 443
+        Offset = { X = 0 Y = -311 }
+        Points = [
+          { X = -707 Y = -270 }
+          { X = -568 Y = 200 }
+          { X = 156 Y = 282 }
+          { X = 632 Y = 256 }
+          { X = 623 Y = 16 }
+          { X = 288 Y = -310 }
+          { X = -283 Y = -463 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatue03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Statue_03"
+        Tallness = 633.0
+        Offset = { X = 0 Y = -277 }
+        Points = [
+          { X = -356 Y = 28 }
+          { X = 5 Y = 168 }
+          { X = 384 Y = -20 }
+          { X = 0 Y = -156 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatue04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Statue_04"
+        Tallness = 613.0
+        Offset = { X = 0 Y = -152 }
+        Points = [
+          { X = -486 Y = 151 }
+          { X = -389 Y = 246 }
+          { X = -96 Y = 229 }
+          { X = 488 Y = -63 }
+          { X = 201 Y = -163 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsCandleStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_CandleStatue_01"
+        Tallness = 613.0
+        Offset = { X = 0 Y = -152 }
+        Points = [
+          { X = -486 Y = 151 }
+          { X = -389 Y = 246 }
+          { X = -96 Y = 229 }
+          { X = 488 Y = -63 }
+          { X = 201 Y = -163 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsGoldenBough01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_GoldenBough_01"
+        Tallness = 1157
+        Offset = { X = 0 Y = -471 }
+        Points = [
+          { X = -121 Y = 50 }
+          { X = -21 Y = 70 }
+          { X = 50 Y = 64 }
+          { X = 79 Y = 8 }
+          { X = -18 Y = -23 }
+          { X = -112 Y = -14 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsCandles01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Candles_01"
+        Tallness = 228
+        Offset = { X = 0 Y = -90 }
+        Points = [
+          { X = -107 Y = -2 }
+          { X = -55 Y = 51 }
+          { X = 2 Y = 68 }
+          { X = 45 Y = 55 }
+          { X = 103 Y = 17 }
+          { X = 103 Y = -7 }
+          { X = 54 Y = -58 }
+          { X = -34 Y = -64 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRubble01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Rubble_01"
+        Tallness = 86
+        Offset = { X = 0 Y = -45 }
+        Points = [
+          { X = -468 Y = -301 }
+          { X = -558 Y = -147 }
+          { X = -463 Y = 90 }
+          { X = -176 Y = 298 }
+          { X = 340 Y = 266 }
+          { X = 555 Y = 24 }
+          { X = 276 Y = -98 }
+          { X = -121 Y = -238 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRockGroup01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_RockGroup_01"
+        Tallness = 275
+        Offset = { X = 0 Y = -77 }
+        Points = [
+          { X = -300 Y = 140 }
+          { X = -234 Y = 172 }
+          { X = -9 Y = 203 }
+          { X = 165 Y = 172 }
+          { X = 368 Y = 61 }
+          { X = 370 Y = 23 }
+          { X = 237 Y = -26 }
+          { X = -25 Y = -53 }
+          { X = -192 Y = -14 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRubble02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Rubble_02"
+        Tallness = 381
+        Offset = { X = 0 Y = -45 }
+        Points = [
+          { X = -423 Y = 124 }
+          { X = -175 Y = 300 }
+          { X = 0 Y = 303 }
+          { X = 421 Y = 221 }
+          { X = 458 Y = 145 }
+          { X = 263 Y = -90 }
+          { X = -139 Y = -141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatueHead01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_StatueHead_01"
+        Tallness = 824
+        Offset = { X = 0 Y = -45 }
+        Points = [
+          { X = -802 Y = 251 }
+          { X = -387 Y = 402 }
+          { X = 321 Y = 386 }
+          { X = 734 Y = 238 }
+          { X = 686 Y = -163 }
+          { X = 346 Y = -380 }
+          { X = -155 Y = -334 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallGargoyle01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallGargoyle_01"
+        Tallness = 613.0
+        Offset = { X = 0 Y = -152 }
+        Points = [
+          { X = -486 Y = 151 }
+          { X = -389 Y = 246 }
+          { X = -96 Y = 229 }
+          { X = 488 Y = -63 }
+          { X = 201 Y = -163 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsGargoyle01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Gargoyle_01"
+        Tallness = 674.0
+        Offset = { X = 0 Y = -212 }
+        Points = [
+          { X = 64 Y = -124 }
+          { X = -218 Y = 15 }
+          { X = 39 Y = 143 }
+          { X = 313 Y = 8 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsStatue05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Statue_05"
+        Tallness = 1405
+        Offset = { X = 0 Y = -643 }
+        Points = [
+          { X = 5 Y = -249 }
+          { X = -314 Y = -97 }
+          { X = 4 Y = 71 }
+          { X = 316 Y = -97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTree02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Tree_02"
+        Tallness = 810
+        Offset = { X = 0 Y = -305 }
+        Points = [
+          { X = -101 Y = -137 }
+          { X = -317 Y = -81 }
+          { X = -342 Y = 24 }
+          { X = -200 Y = 141 }
+          { X = 133 Y = 148 }
+          { X = 179 Y = 32 }
+          { X = 91 Y = -69 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsCapital01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Capital_01"
+        Tallness = 894
+        Offset = { X = 0 Y = -337 }
+        Points = [
+          { X = -219 Y = 18 }
+          { X = -87 Y = 124 }
+          { X = 95 Y = 130 }
+          { X = 231 Y = 25 }
+          { X = 110 Y = -119 }
+          { X = -85 Y = -114 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTreeofThornsIdle"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_TreeofThorns_Idle"
+        Tallness = 894
+        Offset = { X = 0 Y = -450 }
+        Points = [
+          { X = -219 Y = 18 }
+          { X = -87 Y = 124 }
+          { X = 95 Y = 130 }
+          { X = 231 Y = 25 }
+          { X = 110 Y = -119 }
+          { X = -85 Y = -114 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_01"
+        Tallness = 1317
+        Offset = { X = 0 Y = -576 }
+        Points = [
+          { X = -495 Y = -149 }
+          { X = 215 Y = 198 }
+          { X = 512 Y = 56 }
+          { X = -239 Y = -267 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_02"
+        Tallness = 1317
+        Offset = { X = 0 Y = -576 }
+        Points = [
+          { X = -527 Y = -132 }
+          { X = 215 Y = 198 }
+          { X = 495 Y = 57 }
+          { X = -267 Y = -243 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick02a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_02a"
+        Tallness = 1317
+        Offset = { X = 0 Y = -576 }
+        Points = [
+          { X = -527 Y = -132 }
+          { X = 164 Y = 197 }
+          { X = 495 Y = 57 }
+          { X = -267 Y = -243 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_01a"
+        Tallness = 1253
+        Offset = { X = 0 Y = -591 }
+        Points = [
+          { X = -353 Y = -57 }
+          { X = 215 Y = 227 }
+          { X = 365 Y = 152 }
+          { X = -203 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick01b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_01b"
+        Tallness = 491
+        Offset = { X = 0 Y = -104 }
+        Points = [
+          { X = -388 Y = 145 }
+          { X = -185 Y = 240 }
+          { X = 394 Y = -38 }
+          { X = 233 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick01d"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_01d"
+        Tallness = 767
+        Offset = { X = 0 Y = -234 }
+        Points = [
+          { X = -302 Y = 152 }
+          { X = -155 Y = 228 }
+          { X = 327 Y = -15 }
+          { X = 193 Y = -96 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallBrick01c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_WallBrick_01c"
+        Tallness = 651
+        Offset = { X = 0 Y = -269 }
+        Points = [
+          { X = -460 Y = 124 }
+          { X = -269 Y = 239 }
+          { X = 512 Y = -152 }
+          { X = 347 Y = -243 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsBoulder01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Boulder_01"
+        Tallness = 232
+        Offset = { X = 0 Y = -226 }
+        Points = [
+          { X = -477 Y = -253 }
+          { X = -633 Y = -54 }
+          { X = -254 Y = 159 }
+          { X = -127 Y = 184 }
+          { X = 488 Y = -42 }
+          { X = 597 Y = -163 }
+          { X = 373 Y = -388 }
+          { X = -89 Y = -384 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRockGroup02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_RockGroup_02"
+        Tallness = 335
+        Offset = { X = 0 Y = -103 }
+        Points = [
+          { X = -638 Y = 124 }
+          { X = -464 Y = 218 }
+          { X = 181 Y = 267 }
+          { X = 568 Y = 213 }
+          { X = 711 Y = 86 }
+          { X = 431 Y = -41 }
+          { X = 80 Y = -171 }
+          { X = -225 Y = -207 }
+          { X = -565 Y = -70 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsWallTorch01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_WallTorch_01"
+        Tallness = 318.0
+        Offset = { X = 0 Y = -104 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Pillar_02"
+        Tallness = 860.0
+        Offset = { X = 0 Y = -358 }
+        Points = [
+          { X = -91 Y = 16 }
+          { X = 8 Y = 68 }
+          { X = 106 Y = 17 }
+          { X = 11 Y = -35 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Pillar_04"
+        Tallness = 1600
+        Offset = { X = 0 Y = -645 }
+        Points = [
+          { X = -79 Y = 14 }
+          { X = 28 Y = 100 }
+          { X = 182 Y = 71 }
+          { X = 235 Y = 28 }
+          { X = 136 Y = -88 }
+          { X = -30 Y = -74 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Pillar_05"
+        Tallness = 1063
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -253 Y = 64 }
+          { X = 11 Y = 185 }
+          { X = 50 Y = 179 }
+          { X = 297 Y = 49 }
+          { X = 1 Y = -85 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Pillar_06"
+        Tallness = 1063
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -253 Y = 64 }
+          { X = 11 Y = 185 }
+          { X = 50 Y = 179 }
+          { X = 297 Y = 49 }
+          { X = 1 Y = -85 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar05a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Pillar_05a"
+        Tallness = 655
+        Offset = { X = 0 Y = -216 }
+        Points = [
+          { X = -250 Y = 52 }
+          { X = 14 Y = 179 }
+          { X = 291 Y = 46 }
+          { X = 17 Y = -85 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsTree01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Tree_01"
+        Tallness = 1395
+        Offset = { X = 0 Y = -582 }
+        Points = [
+          { X = -168 Y = 2 }
+          { X = -104 Y = 60 }
+          { X = 28 Y = 78 }
+          { X = 76 Y = 35 }
+          { X = 45 Y = -34 }
+          { X = -76 Y = -60 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Pillar_01"
+        Tallness = 1533
+        Offset = { X = 0 Y = -661 }
+        Points = [
+          { X = -176 Y = -107 }
+          { X = 35 Y = -137 }
+          { X = 166 Y = -57 }
+          { X = 161 Y = 46 }
+          { X = 48 Y = 109 }
+          { X = -118 Y = 83 }
+          { X = -188 Y = 16 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Pillar_01a"
+        Tallness = 593
+        Offset = { X = 0 Y = -208 }
+        Points = [
+          { X = -186 Y = 11 }
+          { X = -72 Y = 99 }
+          { X = 75 Y = 102 }
+          { X = 200 Y = 16 }
+          { X = 105 Y = -92 }
+          { X = -70 Y = -90 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsBuildingGroup01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_BuildingGroup_01"
+        Tallness = 1034
+        Offset = { X = 0 Y = -455 }
+        Points = [
+          { X = -211 Y = 191 }
+          { X = 22 Y = 191 }
+          { X = 644 Y = -138 }
+          { X = -4 Y = -430 }
+          { X = -706 Y = -41 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
+        Graphic = "Tilesets\Fields\Fields_Pillar_03"
+        Tallness = 593
+        Offset = { X = 0 Y = -91 }
+        Points = [
+          { X = 804 Y = 236 }
+          { X = 644 Y = 392 }
+          { X = -421 Y = 197 }
+          { X = -767 Y = 85 }
+          { X = -778 Y = -136 }
+          { X = -361 Y = -204 }
+          { X = 659 Y = 68 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillar02a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Fields\Fields_Pillar_02a"
+        Tallness = 214.0
+        Offset = { X = 0 Y = -81 }
+        Points = [
+          { X = -99 Y = 4 }
+          { X = 2 Y = 54 }
+          { X = 108 Y = 3 }
+          { X = 5 Y = -49 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_PillarBase_01"
+        Tallness = 882
+        Offset = { X = 0 Y = -288 }
+        Points = [
+          { X = -538 Y = 64 }
+          { X = -21 Y = 323 }
+          { X = 549 Y = 41 }
+          { X = 29 Y = -219 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsGable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Gable_01"
+        Tallness = 320
+        Offset = { X = 0 Y = -125 }
+        Points = [
+          { X = -632 Y = -223 }
+          { X = 394 Y = 316 }
+          { X = 594 Y = 223 }
+          { X = -445 Y = -310 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsButtress01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Buttress_01"
+        Tallness = 1151
+        Offset = { X = 0 Y = -556 }
+        Points = [
+          { X = -493 Y = 39 }
+          { X = -225 Y = -11 }
+          { X = -227 Y = 117 }
+          { X = -541 Y = 183 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsRoseBramble01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_RoseBramble_01"
+        Tallness = 335
+        Offset = { X = 0 Y = -125 }
+        Points = [
+          { X = -532 Y = 20 }
+          { X = -366 Y = 208 }
+          { X = 138 Y = 252 }
+          { X = 507 Y = 149 }
+          { X = 399 Y = -24 }
+          { X = 83 Y = -183 }
+          { X = -297 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsGable01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Gable_01a"
+        Tallness = 321
+        Offset = { X = 0 Y = -22 }
+        Points = [
+          { X = -419 Y = -57 }
+          { X = 226 Y = 251 }
+          { X = 402 Y = 169 }
+          { X = -243 Y = -114 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsArch01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Arch_01"
+        Tallness = 862
+        Offset = { X = 0 Y = -422 }
+        Points = [
+          { X = -298 Y = 14 }
+          { X = -110 Y = 103 }
+          { X = 191 Y = -50 }
+          { X = 2 Y = -136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsSpire01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Spire_01"
+        Tallness = 1440.0
+        Offset = { X = 0 Y = -568 }
+        Points = [
+          { X = -205 Y = 48 }
+          { X = -10 Y = 158 }
+          { X = 217 Y = 35 }
+          { X = 7 Y = -64 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsSpire02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Spire_02"
+        Tallness = 1542
+        Offset = { X = 0 Y = -466 }
+        Points = [
+          { X = -407 Y = 202 }
+          { X = -394 Y = 300 }
+          { X = -204 Y = 336 }
+          { X = 170 Y = 152 }
+          { X = 408 Y = -91 }
+          { X = 273 Y = -217 }
+          { X = -188 Y = -9 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsSpire03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        DrawEmbeddedBehind = true
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Spire_03"
+        Tallness = 1428
+        Offset = { X = 0 Y = -466 }
+        Points = [
+          { X = -228 Y = -164 }
+          { X = -574 Y = 9 }
+          { X = 153 Y = 372 }
+          { X = 561 Y = 230 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsCapital02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_Capital_02"
+        Tallness = 423
+        Offset = { X = 0 Y = -351 }
+        Points = [
+          { X = 465 Y = -308 }
+          { X = -165 Y = -468 }
+          { X = -568 Y = -310 }
+          { X = -718 Y = 32 }
+          { X = -284 Y = 134 }
+          { X = 481 Y = 99 }
+          { X = 732 Y = -1 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsEchoRock01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_EchoRock_01"
+        Tallness = 306
+        Offset = { X = 0 Y = -109 }
+        Points = [
+          { X = -253 Y = 42 }
+          { X = -45 Y = 164 }
+          { X = 38 Y = 153 }
+          { X = 255 Y = 70 }
+          { X = 240 Y = -4 }
+          { X = 51 Y = -102 }
+          { X = -125 Y = -85 }
+        ]
+      }
+    }
+    
+    {
+      Name = "FieldsEchoRock02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_EchoRock_02"
+        Tallness = 605
+        Offset = { X = 0 Y = -223 }
+        Points = [
+          { X = -164 Y = 55 }
+          { X = -31 Y = 102 }
+          { X = 67 Y = 111 }
+          { X = 163 Y = 52 }
+          { X = 123 Y = -13 }
+          { X = -6 Y = -50 }
+          { X = -116 Y = -27 }
+        ]
+      }
+    }
+    
+    {
+      Name = "H_TallGrass"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        DieOnCollision = true
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "H_TallGrass"
+        Tallness = 100.0
+        UseBoundsForSortDrawArea = true
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "H_TallGrassBase"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "WheatClusterC_Cut"
+        StopsProjectiles = false
+        StopsUnits = false
+        Tallness = 1.0
+        UseBoundsForSortDrawArea = true
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "H_GhostWall"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "GhostWall"
+        Grip = 999999.0
+        RotateGeometry = false
+        StopsProjectiles = false
+        Tallness = 85
+        OffsetZ = 50
+        Points = [
+          { X = 160 Y = 220 }
+          { X = 350 Y = 60 }
+          { X = 350 Y = -100 }
+          { X = 160 Y = -260 }
+          { X = -160 Y = -260 }
+          { X = -350 Y = -100 }
+          { X = -350 Y = 60 }
+          { X = -160 Y = 220 }
+        ]
+      }
+    }
+
+    {
+      Name = "H_GhostWall_Sparse"
+      InheritFrom = "H_GhostWall"
+      Thing = {
+        Graphic = "GhostWall_Sparse"
+      }
+      
+    }
+
+ {
+Name = "ShadeFieldsGreyIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeFieldsGreyIdle"
+        StopsLight = false
+        Tallness = 192
+        Offset = { X = 0 Y = -47 }
+        Points = [
+          { X = 37 Y = -7 }
+          { X = 14 Y = -25 }
+          { X = -19 Y = -25 }
+          { X = -36 Y = -6 }
+          { X = -18 Y = 20 }
+          { X = 20 Y = 17 }
+        ]
+      }
+    }
+{
+Name = "ShadeFieldsRedIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeFieldsRedIdle"
+        StopsLight = false
+        Tallness = 192
+        Offset = { X = 0 Y = -47 }
+        Points = [
+          { X = 37 Y = -7 }
+          { X = 14 Y = -25 }
+          { X = -19 Y = -25 }
+          { X = -36 Y = -6 }
+          { X = -18 Y = 20 }
+          { X = 20 Y = 17 }
+        ]
+      }
+    }   
+  ]
+}

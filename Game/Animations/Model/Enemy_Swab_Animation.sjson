@@ -1,0 +1,278 @@
+{ Animations = [
+	
+	{
+		Name = "EnemySwabBaseAnimation"
+		
+		GrannyModel = "DeadSeaSwab_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_Swab_Idle"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_MoveStart"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_Move_Start_C_00"
+		NativeMoveSpeed = 200
+		ChainTo = "Enemy_Swab_Move"
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsSlimeHuge"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_Move"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_Move_C_00"
+		NativeMoveSpeed = 200
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 17
+				Sound = "/Leftovers/SFX/FootstepsSlimeHuge"
+			}
+			{
+				Frame = 44
+				Sound = "/Leftovers/SFX/FootstepsSlimeHuge"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_MoveStop"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 200
+		ChainTo = "Enemy_Swab_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_OnHit"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_GetHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Swab_Idle"
+		Sound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteHurt"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Swab_CannonFly" }
+			{ Name = "Enemy_Swab_Spawn" }
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 5
+				FrameSpeed = 3
+			}
+			{
+				Frame = 18
+				FrameSpeed = 1.7
+			}
+		]
+	}
+	{
+		Name = "Enemy_Swab_OnHit_Heavy"
+		InheritFrom = "Enemy_Swab_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Swab_CannonFly"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_CannonFly_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Swab_Spawn"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_Spawn_C_00"
+		OwnerImmobile = true
+		DisableOwnerRotation = true
+		Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteDying"
+			}
+			{
+				Frame = 2
+				Sound = "/Leftovers/SFX/MeteorStrikeShortWetQuiet"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_CannonFly"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_SwingPreFire"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_SwingPreFire_C_00"
+		HoldLastFrame = true
+		CreateAnimation = "EnemyChargeFxIn_Swab"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Swab_Spawn"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Swab_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_SwingFire"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_SwingFire_C_00"
+		OwnerImmobile = true
+		ChainTo = "Enemy_Swab_SwingPostFire"
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/WretchedThug/ThugAxeAttackBack"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_SwingFire_Fast"
+		InheritFrom = "Enemy_Swab_SwingFire"
+		ChainTo = "Enemy_Swab_SwingPostFire_Fast"
+	}
+
+	{
+		Name = "Enemy_Swab_SwingPostFire"
+		InheritFrom = "EnemySwabBaseAnimation"
+		GrannyAnimation = "DeadSeaSwab_Base_SwingPostFire_C_00"
+		OwnerImmobile = true
+		ChainTo = "Enemy_Swab_Idle"
+		Frames =
+		[
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteCharging"
+			}
+			{
+				Frame = 108
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+			{
+				Frame = 120
+				Sound = "/SFX/ChainRattleQuiet"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Swab_SwingPostFire_Fast"
+		InheritFrom = "Enemy_Swab_SwingPostFire"
+		GrannyAnimationSpeed = 1.5
+	}
+
+]}

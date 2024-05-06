@@ -1,0 +1,293 @@
+{ Animations = [
+
+        /* _______________________________________________ShadeVariants_______________________________________________ */
+    
+    {
+      Name = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubM\Idle\ShadeHubMIdle"      
+      EndFrame = 2
+      Loop = true
+      NumAngles = 32
+      NumFrames = 2
+      LoopFramesOnly = true
+      RandomDurationMax = 3.0
+      RandomDurationMin = 2.0
+      SmoothStep = true
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      EndOffsetZ = 15.0
+      OffsetY = -55.0
+      Ambient = 0.0
+      OnlyWhenVisible = true
+      PingPongShiftOverDuration = true
+      Alpha = 1.0
+      StartAlpha = 1.0
+      EndAlpha = 1.0
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 600 RandomDurationFramesMin = 200 }
+        { DurationFrames = 4 }
+
+      ]
+
+    }
+
+    {
+      Name = "ShadeHubSIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubS\Idle\ShadeHubSIdle"      
+      NumAngles = 64
+      RandomDurationMax = 6.0
+      RandomDurationMin = 3.0
+    }
+
+    {
+      Name = "ShadeHubLIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubL\Idle\ShadeHubLIdle"      
+      RandomDurationMax = 6.0
+      RandomDurationMin = 3.0
+      OffsetY = -135.0
+ 
+
+    }
+
+    {
+      Name = "ShadeHubLNecklaceIdle"
+      InheritFrom = "ShadeHubLIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubLNecklace\Idle\ShadeHubLNecklaceIdle"      
+      Scale = 0.95
+    }
+
+    {
+      Name = "ShadeHubTIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubT\Idle\ShadeHubTIdle"      
+      OffsetY = -85.0
+    }
+
+    {
+      Name = "ShadeHubTBowtieIdle"
+      InheritFrom = "ShadeHubTIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubTBowtie\Idle\ShadeHubTBowtieIdle"      
+      OffsetY = -85.0
+    }
+
+    {
+      Name = "ShadeHubTChefIdle"
+      InheritFrom = "ShadeHubTIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubTChef\Idle\ShadeHubTChefIdle"      
+    }
+
+    {
+      Name = "ShadeHubGuardIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubGuard\Idle\ShadeHubGuardIdle"      
+      EndFrame = 1
+      NumFrames = 1
+
+
+    }
+
+    {
+      Name = "ShadeHubIdle"
+      InheritFrom = "ShadeHubMIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHub\Idle\ShadeHubIdle"      
+      RandomDurationMax = 6.0
+      RandomDurationMin = 3.0
+      OffsetY = -55.0
+
+    }
+
+    {
+      Name = "ShadeHubBerriesIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubBerries\Idle\ShadeHubBerriesIdle"      
+
+    }
+
+    {
+      Name = "ShadeHubBroomIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubBroom\Idle\ShadeHubBroomIdle"      
+    }
+
+    {
+      Name = "ShadeHubGarlicIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubGarlic\Idle\ShadeHubGarlicIdle"      
+    }
+
+    {
+      Name = "ShadeHubTowelIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubTowel\Idle\ShadeHubTowelIdle"      
+    }
+
+    {
+      Name = "ShadeHubWaterIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubWater\Idle\ShadeHubWaterIdle"      
+    }
+
+    {
+      Name = "ShadeHubHatIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeHubHat\Idle\ShadeHubHatIdle"      
+    }
+
+    {
+      Name = "ShadeAsphodelIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeAsphodel\Idle\ShadeAsphodelIdle"      
+    }
+
+    {
+      Name = "ShadeClockworkIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeClockwork\Idle\ShadeClockworkIdle"      
+    }
+
+    {
+      Name = "ShadeClockworkSwaySW"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeClockwork\SwaySW\ShadeClockworkSwaySW"
+      EndFrame = 160
+      NumAngles = 1
+      NumFrames = 160
+      UseAttachedSpriteEffects = true
+    }
+
+    {
+      Name = "ShadeElysiumIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeElysium\Idle\ShadeElysiumIdle"      
+    }
+
+    {
+      Name = "ShadeEphyraIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeEphyra\Idle\ShadeEphyraIdle"      
+    }   
+
+    {
+      Name = "ShadeErebusIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeErebus\Idle\ShadeErebusIdle"      
+    } 
+
+    {
+      Name = "ShadeFieldsGreyIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeFieldsGrey\Idle\ShadeFieldsGreyIdle" 
+      EndFrame = 1
+      NumFrames = 1      
+    } 
+
+    {
+      Name = "ShadeFieldsRedIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeFieldsRed\Idle\ShadeFieldsRedIdle"
+      EndFrame = 1
+      NumFrames = 1      
+    } 
+
+    {
+      Name = "ShadeOceanusMIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeOceanusM\Idle\ShadeOceanusMIdle"
+      Scale = 0.80       
+    } 
+
+    {
+      Name = "ShadeOceanusSIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeOceanusS\Idle\ShadeOceanusSIdle"   
+      Scale = 0.85   
+    } 
+
+    {
+      Name = "ShadeOceanusTIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeOceanusT\Idle\ShadeOceanusTIdle"
+      Scale = 0.80       
+    } 
+
+    {
+      Name = "ShadeShipsFiveIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeShipsFive\Idle\ShadeShipsFiveIdle" 
+      EndFrame = 10
+      NumFrames = 10  
+      EndOffsetZ = 0.0 
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 500 RandomDurationFramesMin = 200 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 25 RandomDurationFramesMin = 10 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 25 RandomDurationFramesMin = 10 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 10 RandomDurationFramesMin = 5 }
+        { DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 150 RandomDurationFramesMin = 30 }
+      ]
+    }
+
+
+    {
+      Name = "ShadeShipsFiveSwaySW"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeShipsFive\SwaySW\ShadeShipsFiveSwaySW"
+      EndFrame = 156
+      NumAngles = 1
+      NumFrames = 156 
+      EndOffsetZ = 0.0   
+      RandomDurationMax = 0
+      RandomDurationMin = 0
+      PlaySpeed = 25   
+      PingPongShiftOverDuration = false 
+      UseAttachedSpriteEffects = true   
+    }
+
+    {
+      Name = "ShadeShipsThreeIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeShipsThree\Idle\ShadeShipsThreeIdle"
+      EndFrame = 5
+      NumFrames = 5
+      EndOffsetZ = 0.0
+      PlaySpeed = 25   
+      PingPongShiftOverDuration = false
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 500 RandomDurationFramesMin = 200 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 500 RandomDurationFramesMin = 200 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 RandomDurationFramesMax = 500 RandomDurationFramesMin = 200 }
+      ]         
+    }
+
+
+    {
+      Name = "ShadeShipsThreeSwaySW"
+      InheritFrom = "ShadeShipsFiveSwaySW"
+      FilePath = "Animations\ShadeVariants\ShadeShipsThree\SwaySW\ShadeShipsThreeSwaySW"      
+    }
+
+    {
+      Name = "ShadeShipsOneIdle"
+      InheritFrom = "ShadeHubIdle"
+      FilePath = "Animations\ShadeVariants\ShadeShipsOne\Idle\ShadeShipsOneIdle"
+      EndOffsetZ = 0.0       
+      PlaySpeed = 25   
+      PingPongShiftOverDuration = false 
+    }
+
+
+    {
+      Name = "ShadeShipsOneSwaySW"
+      InheritFrom = "ShadeShipsFiveSwaySW"
+      FilePath = "Animations\ShadeVariants\ShadeShipsOne\SwaySW\ShadeShipsOneSwaySW"      
+    }
+
+]}

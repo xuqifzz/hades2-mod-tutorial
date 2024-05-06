@@ -1,0 +1,746 @@
+{
+  Animations = [
+
+    {
+      Name = "SpawnerIdleAnim"
+      ChildAnimation = "GhostParticles"
+      FilePath = "Animations\LightSpawner\Idle\SpawnerIdle"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 100
+      Loop = true
+      NumFrames = 100
+      StartFrame = 1
+      OffsetY = -200.0
+      CancelOnOwnerMove = true
+      Slides = [
+
+        { DurationFrames = 0 }
+        /*Start*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 10*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 20*/
+
+        { DurationFrames = 2 }
+        /*Loop Idle 21-50*/
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 30*/
+
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 40*/
+
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 50*/
+
+        { DurationFrames = 0 }
+        /*Hit Animation 51-70*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 60*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 70*/
+
+        { DurationFrames = 0 }
+        /*Popping Skull 71-100*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 80*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 90*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 100*/
+      ]
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+    {
+      Name = "SpawnerPopingSkulls"
+      ChainTo = "SpawnerIdleAnim"
+      ChildAnimation = "GhostParticles"
+      FilePath = "Animations\LightSpawner\Idle\SpawnerIdle"
+      
+      AngleFromOwner = "Ignore"
+      Sound = "/Leftovers/Object Ambiences/SkeletonBonesAmbience"
+	  SoundManagerCap = 16
+      StopSoundOnFinishFade = 0.2
+      EndFrame = 100
+      NumFrames = 100
+      StartFrame = 1
+      OffsetY = -200.0
+      Slides = [
+
+        { DurationFrames = 0 }
+        /*Start*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 10*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 20*/
+
+        { DurationFrames = 0 }
+        /*Loop Idle 21-50*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 30*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 40*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 50*/
+
+        { DurationFrames = 0 }
+        /*Hit Animation 51-70*/
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 60*/
+
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        { DurationFrames = 0 }
+        /*Frame 70*/
+
+        { DurationFrames = 2 Sound = "/SFX/Enemy Sounds/LightSpawner/EmoteCharging" }
+        /*Popping Skull 71-100*/
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 80*/
+
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 90*/
+
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        /*Frame 100*/
+      ]
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+    {
+      Name = "AutomatonSentryTrapIdle"
+      FilePath = "Tilesets\Elysium\Elysium_Statue_05"
+      CreateAnimation = "AutomatonSentryTrapFootprint"
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = -150.0
+      Scale = 0.1
+      Color = { Red = 1.0 Green = 0.8 Blue = 0.3 }
+      CancelOnOwnerMove = true
+      AngleFromOwner = "Ignore"
+    }
+
+    {
+      Name = "ArcherTrapDeactivated"
+      FilePath = "Animations\ArcherTrap\Deactivate\ArcherTrapDeactivate"
+      
+      EndFrame = 1
+      Loop = true
+      NumAngles = 2
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 100.0
+      Scale = 0.4
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 60 RandomDurationFramesMin = 30 }
+      ]
+    }
+    {
+      Name = "BallistaIdle"
+      FilePath = "Animations\ArcherTrap\Idle\ArcherTrapIdle"
+      
+      EndFrame = 1
+      Loop = true
+      NumAngles = 2
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 100.0
+      Scale = 0.4
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 60 RandomDurationFramesMin = 30 }
+      ]
+      Color = { Red = 1.0 Green = 0.3 Blue = 0.3 }
+    }
+    {
+      Name = "BallistaPreAttack"
+      CreateAnimation = "BallistaArrowMaterialize"
+      FilePath = "Animations\ArcherTrap\Idle\ArcherTrapIdle"
+      
+      Sound = "/SFX/ArcherTrapPreAttackSound"
+      StopSoundOnFinishFade = 0.1
+      EndFrame = 1
+      Loop = true
+      NumAngles = 2
+      NumFrames = 1
+      StartFrame = 1
+      OffsetY = 100.0
+      Scale = 0.4
+      SoundAllowedAfterFrame = 3
+      Slides = [
+        { DurationFrames = 1 RandomDurationFramesMax = 60 RandomDurationFramesMin = 30 }
+      ]
+      Color = { Red = 1.0 Green = 0.3 Blue = 0.3 }
+    }
+    {
+      Name = "BallistaReload"
+      InheritFrom = "ArcherTrapDeactivated"
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+    }
+    {
+      Name = "BallistaArrowMaterialize"
+      FilePath = "Fx\ElysiumBallistaMaterialize\ElysiumBallistaMaterialize"
+      GroupName = "Standing"
+      
+      EndFrame = 60
+      NumFrames = 60
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetY = -50.0
+      OriginX = 115.0
+      OriginY = 120.0
+      LocationZFromOwner = "Ignore"
+      SortMode = "FromParent"
+      Scale = 0.99
+      Material = "Unlit"
+    }
+
+    {
+      Name = "EnemyWretchSwarmerEliteAttackStreaks"
+      CreateAnimation = "EnemyWretchSwarmerEliteAttackStreaksDark"
+      FilePath = "Fx\KnockbackLines\KnockbackLines"
+      GroupName = "FX_Standing_Add"
+      
+      ColorFromOwner = "Ignore"
+      EndBlue = 0.4
+      EndGreen = 0.1
+      EndRed = 0.99
+      StartBlue = 0.2
+      StartGreen = 0.6
+      StartRed = 1.0
+      EndFrame = 19
+      NumFrames = 19
+      PlaySpeed = 60.0
+      StartFrame = 1
+      RandomFlipVertical = true
+      OffsetZ = 80.0
+      OriginX = 85.0
+      OriginY = 138.0
+      LocationZFromOwner = "Ignore"
+      SortMode = "FromParent"
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 1.0
+      ScaleMin = 0.9
+      ScaleY = 0.35
+      StartScaleX = 5.0
+      Material = "Unlit"
+      UseVelocityAngleFromOwner = true
+    }
+    {
+      Name = "EnemyWretchSwarmerEliteAttackStreaksDark"
+      InheritFrom = "EnemyWretchSwarmerEliteAttackStreaks"
+      CreateAnimation = "null"
+      GroupName = "FX_Dark"
+      EndBlue = 0.0
+      EndGreen = 0.0
+      EndRed = 0.0
+      StartBlue = 0.001
+      StartGreen = 0.001
+      StartRed = 0.001
+      EndFrame = 19
+      PlaySpeed = 50.0
+      StartFrame = 1
+    }
+    {
+      Name = "EnemyCrawlerRushMiniBossAttackStreaks"
+      InheritFrom = "EnemyWretchSwarmerEliteAttackStreaks"
+      CreateAnimation = "EnemyCrawlerRushMiniBossAttackStreaksDark"
+      OffsetZ = 20.0
+      OriginX = 85.0
+      OriginY = 138.0
+      StartScaleX = 5.0
+      UseVelocityAngleFromOwner = true
+    }
+    {
+      Name = "EnemyCrawlerRushMiniBossAttackStreaksDark"
+      InheritFrom = "EnemyCrawlerRushMiniBossAttackStreaks"
+      CreateAnimation = "null"
+      GroupName = "FX_Dark"
+      EndBlue = 0.0
+      EndGreen = 0.0
+      EndRed = 0.0
+      StartBlue = 0.001
+      StartGreen = 0.001
+      StartRed = 0.001
+      EndFrame = 19
+      PlaySpeed = 50.0
+      StartFrame = 1
+    }
+
+
+    {
+      Name = "Projectile_BloodlessGrenadier"
+      FilePath = "Animations\BloodlessGrenadier\Pot\BloodlessGrenadierPot0001"
+      
+      AngleFromOwner = "Ignore"
+      EndFrame = 1
+      Loop = true
+      NumFrames = 1
+      StartFrame = 1
+      OriginX = 55.0
+      OriginY = 104.0
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+    {
+      Name = "Projectile_BloodlessGrenadierActivate"
+      ChainTo = "Projectile_BloodlessGrenadierSpark"
+      FilePath = "Animations\BloodlessGrenadier\Pot\BloodlessGrenadierPot"
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/Enemy Sounds/EnemyGrenadeMortarLand"
+      EndFrame = 12
+      NumFrames = 12
+      StartFrame = 1
+      OffsetY = 20
+      OriginX = 55.0
+      OriginY = 104.0
+      CreateAnimations = [
+        { Name = "BloodlessGrenadierPotDropDust" }
+      ]
+      Slides = [
+
+        { DurationFrames = 0 }
+        /*Frame 1*/
+        { DurationFrames = 2 }
+        { DurationFrames = 2 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+        /*Frame 10*/
+
+        { DurationFrames = 1 }
+        { DurationFrames = 1 }
+      ]
+      Material =
+      {
+        Ambient = 0.0
+        Diffuse = 0.0
+        Directionality = 0.0
+      }
+    }
+    {
+      Name = "Projectile_BloodlessGrenadierSpark"
+      FilePath = "Fx\BloodlessGrenadierPot\BloodlessGrenadierPot"
+      AngleFromOwner = "Ignore"
+      EndFrame = 30
+      Loop = true
+      NumFrames = 30
+      StartFrame = 1
+      OffsetX = -20.0
+      OffsetY = -20.0
+      OriginX = 55.0
+      OriginY = 182.0
+      DieWithOwner = true
+      Scale = 0.7
+      Material = "Unlit"
+    }
+
+    {
+      Name = "Projectile_BloodlessGrenadierPitch"
+      FilePath = "Animations\BloodlessGrenadier\Pot\BloodlessGrenadierPot0001"
+      VisualFx = "GrenadePitchLines"
+      AngleFromOwner = "Ignore"
+      Sound = "/SFX/BombFusePreExplode"
+      StopSoundOnFinishFade = 0.2
+      ColorFromOwner = "Ignore"
+      Duration = 1.4
+      EndFrame = 1
+      NumFrames = 1
+      StartFrame = 1
+      EndOffsetZ = -60.0
+      OriginX = 55.0
+      OriginY = 50.0
+      StartOffsetZ = 60.0
+      RandomRotation = true
+      RandomRotationSpeedMax = 200.00
+      RandomRotationSpeedMin = 100.00
+      Material = "Emissive"
+      VisualFxDistanceMax = 35.0
+      VisualFxDistanceMin = 30.0
+      Hue = -0.65
+      VisualFxManagerCap = 400
+    }
+
+    {
+      Name = "Projectile_BloodlessGrenadierPitch_Fast"
+      InheritFrom = "Projectile_BloodlessGrenadierPitch"
+      VisualFx = "GrenadePitchLinesCurveball"
+      EndFrame = 1
+      StartFrame = 1
+      RandomRotationSpeedMax = 1280.00
+      RandomRotationSpeedMin = 1080.00
+      VisualFxDistanceMax = 50.0
+      VisualFxDistanceMin = 40.0
+    }
+
+    {
+      Name = "GrenadePitchLinesCurveball"
+      CreateAnimation = "GrenadePitchLinesDarkCurveball"
+      FilePath = "Fx\CurveballTrail\CurveballTrail"
+      GroupName = "FX_Standing_Add"
+      VisualFx = "GrenadePitchParticlesCurveball"
+      AngleFromOwner = "Take"
+      EndFrame = 16
+      NumFrames = 16
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OriginY = 55.0
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      SortMode = "FromParent"
+      EndScaleX = 1.2
+      StartScaleX = 0.5
+      Material = "Unlit"
+      VisualFxCap = 2
+      VisualFxIntervalMax = 0.2
+      VisualFxIntervalMin = 0.05
+      Color = { Red = 0.0 Green = 1.0 Blue = 1.0 }
+    }
+
+    {
+      Name = "GrenadePitchLines"
+      CreateAnimation = "GrenadePitchLinesDark"
+      FilePath = "Fx\KnockbackLines\KnockbackLines"
+      GroupName = "FX_Standing_Add"
+      VisualFx = "GrenadePitchParticles"
+      AngleFromOwner = "Take"
+      EndFrame = 16
+      NumFrames = 16
+      RandomPlaySpeedMax = 60.0
+      RandomPlaySpeedMin = 30.0
+      StartFrame = 1
+      RandomFlipVertical = true
+      OriginX = 82.0
+      OriginY = 185.0
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      EndScaleY = 0.0
+      ScaleX = 2.0
+      ScaleY = 0.2
+      Material = "Unlit"
+      VisualFxCap = 1
+      VisualFxIntervalMax = 0.2
+      VisualFxIntervalMin = 0.05
+      Color = { Red = 0.0 Green = 1.0 Blue = 1.0 }
+    }
+
+    {
+      Name = "GrenadePitchLinesDark"
+      InheritFrom = "GrenadePitchLines"
+      CreateAnimation = "null"
+      GroupName = "FX_Dark"
+      VisualFx = "null"
+      EndFrame = 16
+      RandomPlaySpeedMax = 35.0
+      RandomPlaySpeedMin = 28.0
+      StartFrame = 1
+      OffsetZ = 25.0
+      EndScaleY = 0.2
+      ScaleX = 2.5
+      ScaleY = 0.3
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+    }
+
+    {
+      Name = "GrenadePitchLinesDarkCurveball"
+      InheritFrom = "GrenadePitchLinesCurveball"
+      CreateAnimation = "null"
+      GroupName = "FX_Dark"
+      VisualFx = "null"
+      EndFrame = 16
+      StartFrame = 1
+      OffsetZ = 25.0
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+    }
+
+    {
+      Name = "GrenadePitchParticles"
+      FilePath = "Particles\particle_ember_01_glow"
+      GroupName = "FX_Standing_Add"
+      AngleFromOwner = "Take"
+      AngleMax = 5.00
+      AngleMin = -5.00
+      ColorFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 1.0
+      RandomDurationMin = 0.1
+      StartFrame = 1
+      RandomOffsetX = 40.0
+      RandomOffsetY = 20.0
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      Acceleration = -500.0
+      Gravity = 100.0
+      VelocityMax = 800.0
+      VelocityMin = 50.0
+      RandomRotation = true
+      RandomRotationSpeedMax = 720.00
+      RandomRotationSpeedMin = -720.00
+      EndScale = 0.0
+      Scale = 0.4
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 1.0
+      ScaleMin = 0.3
+      Color = { Red = 0.0 Green = 1.0 Blue = 0.70 }
+    }
+
+    {
+      Name = "GrenadePitchParticlesCurveball"
+      FilePath = "Particles\particle_ember_01_glow"
+      GroupName = "FX_Standing_Add"
+      AngleChangeAcceleration = 200.00
+      AngleChangeSpeedMax = -360.00
+      AngleChangeSpeedMin = -480.00
+      AngleFromOwner = "Take"
+      AngleMax = 5.00
+      AngleMin = -5.00
+      ColorFromOwner = "Ignore"
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 1.0
+      RandomDurationMin = 0.1
+      StartFrame = 1
+      RandomOffsetX = 40.0
+      RandomOffsetY = 20.0
+      LocationFromOwner = "Ignore"
+      LocationZFromOwner = "Take"
+      Acceleration = -500.0
+      Gravity = 100.0
+      VelocityMax = 800.0
+      VelocityMin = 50.0
+      RandomRotation = true
+      RandomRotationSpeedMax = 720.00
+      RandomRotationSpeedMin = -720.00
+      EndScale = 0.0
+      Scale = 0.4
+      ScaleFromOwner = "Ignore"
+      ScaleMax = 1.0
+      ScaleMin = 0.3
+      Color = { Red = 0.0 Green = 1.0 Blue = 0.70 }
+    }
+
+
+    {
+      Name = "CarrionIdle"
+      FilePath = "Fx\BasicBat\BasicBat"
+      
+      Sound = "/SFX/BatGroupLoop"
+      StopSoundOnFinishFade = 0.2
+      ColorFromOwner = "Ignore"
+      EaseIn = 0.01
+      EaseOut = 0.02
+      EndFrame = 13
+      Loop = true
+      NumAngles = 32
+      NumFrames = 13
+      RandomPlaySpeedMax = 70.0
+      RandomPlaySpeedMin = 50.0
+      StartFrame = 1
+      UseAttachedSpriteEffects = false
+      Ambient = 0.0
+      Scale = 2.0
+      StartOffsetY = -100
+      EndOffsetY = -70.0
+      OwnerHasNoUnitCollision = true
+    }
+    {
+      Name = "VampireBird"
+      InheritFrom = "CarrionIdle"
+      Scale = 3.5
+    }
+  ]
+}

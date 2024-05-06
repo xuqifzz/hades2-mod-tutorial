@@ -1,0 +1,3482 @@
+{
+  Obstacles = [
+    
+    {
+      Name = "ErebusExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ErebusExitDoorLocked"
+        StopsLight = false
+        Tallness = 514.0
+        ExtentScale = 1.75
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Offset = { X = 0 Y = -75 }
+        Points = [
+          { X = -96 Y = -25 }
+          { X = 68 Y = 57 }
+          { X = 97 Y = 38 }
+          { X = -63 Y = -42 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusExitDoor_FBoss"
+      InheritFrom = "ErebusExitDoor"
+      Thing = 
+      {
+        Graphic = "DoorExitLocked"
+      }
+    }
+
+    {
+      Name = "Breakable_F"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        StopsProjectiles = true
+        StopsUnits = true
+        Graphic = "Breakable_F01"
+        ExtentScale = 0.3
+        Tallness = 100
+        Offset = { X = 0 Y = -140 }
+        Points = [
+          { X = 108 Y = -6 }
+          { X = 37 Y = -44 }
+          { X = -66 Y = -43 }
+          { X = -117 Y = 0 }
+          { X = -49 Y = 41 }
+          { X = 64 Y = 36 }
+        ]
+      }
+    }
+
+    {
+      Name = "ArachneCocoon"
+      InheritFrom = "Breakable_F"
+      DisplayInEditor = true
+    }
+
+    {
+      Name = "ArachneCocoonMedium"
+      InheritFrom = "ArachneCocoon"
+      Thing = 
+      {
+        Graphic = "ArachneCocoonLarge"
+        Scale = 1.0
+        ExtentScale = 0.66
+        Tallness = 125
+      }
+    }
+
+    {
+      Name = "ArachneCocoonLarge"
+      InheritFrom = "ArachneCocoon"
+      Thing = 
+      {
+        Graphic = "ArachneCocoonLarge"
+        Scale = 1.5
+        ExtentScale = 0.65
+        Tallness = 150
+      }
+    }
+    
+    {
+      Name = "RespawningCover"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Life =
+      {
+        ProjectilesAlwaysPenetrate = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.25
+        Graphic = "RespawningCover01_Static"
+        StopsLight = false
+        StopsProjectiles = true
+        StopsUnits = true
+        Tallness = 110.0
+        Scale = 0.5
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_02"
+        Tallness = 1418.0
+        Offset = { X = 0 Y = -577 }
+        Points = [
+          { X = -356 Y = -42 }
+          { X = -359 Y = 191 }
+          { X = -140 Y = 219 }
+          { X = 193 Y = 252 }
+          { X = 417 Y = 149 }
+          { X = 428 Y = 66 }
+          { X = 188 Y = -125 }
+          { X = -168 Y = -143 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_04"
+        Tallness = 1503.0
+        Offset = { X = 0 Y = -577 }
+        Points = [
+          { X = -470 Y = 116 }
+          { X = -403 Y = 213 }
+          { X = 454 Y = 213 }
+          { X = 306 Y = -60 }
+          { X = -170 Y = -93 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_05"
+        Tallness = 1503.0
+        Offset = { X = 0 Y = -660 }
+        Points = [
+          { X = -268 Y = 56 }
+          { X = -100 Y = 160 }
+          { X = 324 Y = 156 }
+          { X = 576 Y = 72 }
+          { X = 360 Y = -132 }
+          { X = -64 Y = -104 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_06"
+        Tallness = 2215
+        Offset = { X = 0 Y = -982 }
+        Points = [
+          { X = -113 Y = -97 }
+          { X = -121 Y = 0 }
+          { X = 3 Y = 38 }
+          { X = 134 Y = 0 }
+          { X = 124 Y = -89 }
+          { X = 33 Y = -120 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPostbossDoor02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_PostbossDoor_02"
+        Tallness = 1143
+        Offset = { X = 0 Y = -451 }
+        Points = [
+          { X = -596 Y = 10 }
+          { X = -589 Y = 131 }
+          { X = -361 Y = 189 }
+          { X = -35 Y = 105 }
+          { X = -31 Y = -94 }
+          { X = -236 Y = -181 }
+          { X = -487 Y = -141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPostbossDoor01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_PostbossDoor_01"
+        Tallness = 1052
+        Offset = { X = 0 Y = -386 }
+        Points = [
+          { X = 278 Y = 158 }
+          { X = 78 Y = 205 }
+          { X = -137 Y = 149 }
+          { X = -161 Y = 53 }
+          { X = -57 Y = -60 }
+          { X = 203 Y = -83 }
+          { X = 362 Y = 40 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree06b"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_06b"
+        Tallness = 2319.0
+        Offset = { X = 0 Y = -982 }
+        Points = [
+          { X = -123 Y = -43 }
+          { X = -133 Y = 56 }
+          { X = 0 Y = 92 }
+          { X = 185 Y = 58 }
+          { X = 185 Y = 3 }
+          { X = 44 Y = -67 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree06Web"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_06_Web"
+        Tallness = 2015
+        Offset = { X = 0 Y = -982 }
+        Points = [
+          { X = -263 Y = -182 }
+          { X = -268 Y = 6 }
+          { X = -13 Y = 73 }
+          { X = 240 Y = 15 }
+          { X = 230 Y = -185 }
+          { X = -20 Y = -234 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree06c"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_06c"
+        Tallness = 2319
+        Offset = { X = 0 Y = -982 }
+        Points = [
+          { X = -200 Y = -100 }
+          { X = -251 Y = 37 }
+          { X = 0 Y = 92 }
+          { X = 204 Y = 9 }
+          { X = 175 Y = -76 }
+          { X = -21 Y = -136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_08"
+        Tallness = 2319
+        Offset = { X = 0 Y = -982 }
+        Points = [
+          { X = -374 Y = -44 }
+          { X = -267 Y = 88 }
+          { X = 96 Y = 103 }
+          { X = 224 Y = 11 }
+          { X = 189 Y = -83 }
+          { X = 57 Y = -152 }
+          { X = -195 Y = -141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree09"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_09"
+        Tallness = 1489
+        Offset = { X = 0 Y = -662 }
+        Points = [
+          { X = -106 Y = -66 }
+          { X = -144 Y = 10 }
+          { X = -96 Y = 50 }
+          { X = 37 Y = 49 }
+          { X = 88 Y = -8 }
+          { X = 34 Y = -72 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree10"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_10"
+        Tallness = 1218
+        Offset = { X = 0 Y = -568 }
+        Points = [
+          { X = -106 Y = -66 }
+          { X = -161 Y = -14 }
+          { X = -81 Y = 20 }
+          { X = 148 Y = 23 }
+          { X = 204 Y = -3 }
+          { X = 159 Y = -65 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree11"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_11"
+        Tallness = 2051
+        Offset = { X = 0 Y = -905 }
+        Points = [
+          { X = -318 Y = -81 }
+          { X = -231 Y = 37 }
+          { X = -45 Y = 86 }
+          { X = 136 Y = 23 }
+          { X = 105 Y = -88 }
+          { X = -91 Y = -172 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWhiteTree01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WhiteTree_01"
+        Tallness = 2319
+        Offset = { X = 0 Y = -850 }
+        Points = [
+          { X = -81 Y = -72 }
+          { X = -187 Y = 62 }
+          { X = 53 Y = 174 }
+          { X = 327 Y = 72 }
+          { X = 277 Y = -56 }
+          { X = 81 Y = -97 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree12"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_12"
+        Tallness = 1914
+        Offset = { X = 0 Y = -777 }
+        Points = [
+          { X = -225 Y = 3 }
+          { X = -142 Y = 78 }
+          { X = -30 Y = 40 }
+          { X = -46 Y = -30 }
+          { X = -191 Y = -70 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWhiteTree02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WhiteTree_02"
+        Tallness = 2123
+        Offset = { X = 0 Y = -850 }
+        Points = [
+          { X = -299 Y = 34 }
+          { X = -246 Y = 134 }
+          { X = -25 Y = 169 }
+          { X = 188 Y = 179 }
+          { X = 345 Y = 80 }
+          { X = 151 Y = -39 }
+          { X = -202 Y = -56 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_07"
+        Tallness = 1688
+        Offset = { X = 0 Y = -682 }
+        Points = [
+          { X = -130 Y = 61 }
+          { X = -88 Y = 114 }
+          { X = 31 Y = 113 }
+          { X = 58 Y = 60 }
+          { X = -48 Y = 12 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebThread01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WebThread_01"
+        Tallness = 1155
+        Offset = { X = 0 Y = -568 }
+        Points = [
+          { X = -485 Y = -298 }
+          { X = 435 Y = 146 }
+          { X = 321 Y = 215 }
+          { X = -596 Y = -231 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree06a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_06a"
+        Tallness = 2425.0
+        Offset = { X = 0 Y = -1041 }
+        Points = [
+          { X = -232 Y = 50 }
+          { X = 12 Y = 76 }
+          { X = 72 Y = 56 }
+          { X = 72 Y = -64 }
+          { X = -34 Y = -87 }
+          { X = -202 Y = -83 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPortalSpawner01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_PortalSpawner_01"
+        Tallness = 1148.0
+        Offset = { X = 0 Y = -372 }
+        Points = [
+          { X = -315 Y = 24 }
+          { X = 124 Y = 255 }
+          { X = 296 Y = 82 }
+          { X = -48 Y = -105 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusShrub02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Shrub_02"
+        Tallness = 460
+        Offset = { X = 0 Y = -182 }
+        Points = [
+          { X = -237 Y = 63 }
+          { X = -146 Y = 156 }
+          { X = 154 Y = 162 }
+          { X = 268 Y = 75 }
+          { X = 152 Y = -74 }
+          { X = -145 Y = -78 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusShrub01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Shrub_01a"
+        Tallness = 565
+        Offset = { X = 0 Y = -233 }
+        Points = [
+          { X = -350 Y = 26 }
+          { X = -146 Y = 156 }
+          { X = 154 Y = 162 }
+          { X = 353 Y = 56 }
+          { X = 152 Y = -74 }
+          { X = -145 Y = -78 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusShrub02Rustle"
+      InheritFrom = "ErebusShrub02"
+      Thing = 
+      {
+        Graphic = "Erebus_Shrub_02_Rustle"
+      }
+    }
+    
+    {
+      Name = "ErebusShrub03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Shrub_03"
+        Tallness = 1309
+        Offset = { X = 0 Y = -563 }
+        Points = [
+          { X = -402 Y = 54 }
+          { X = -138 Y = 160 }
+          { X = 372 Y = 134 }
+          { X = 510 Y = -18 }
+          { X = 272 Y = -139 }
+          { X = -104 Y = -117 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusShrub04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Shrub_04"
+        Tallness = 800
+        Offset = { X = 0 Y = -217 }
+        Points = [
+          { X = -508 Y = 82 }
+          { X = -169 Y = 226 }
+          { X = 218 Y = 218 }
+          { X = 386 Y = 40 }
+          { X = 192 Y = -145 }
+          { X = -315 Y = -144 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusShrub04a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Shrub_04a"
+        Tallness = 636
+        Offset = { X = 0 Y = -217 }
+        Points = [
+          { X = -291 Y = -40 }
+          { X = 85 Y = 148 }
+          { X = 199 Y = 91 }
+          { X = -177 Y = -97 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusTerrainGrass16"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_16"
+        Tallness = 183
+        Offset = { X = 0 Y = -71 }
+        Points = [
+          { X = -314 Y = -23 }
+          { X = -285 Y = 70 }
+          { X = 67 Y = 148 }
+          { X = 259 Y = 78 }
+          { X = 304 Y = -22 }
+          { X = 179 Y = -103 }
+          { X = -247 Y = -78 }
+        ]
+      }
+    }
+
+    {
+      Name = "ErebusShrub04Rustle"
+      InheritFrom = "ErebusShrub04"
+      Thing = 
+      {
+        Graphic = "Erebus_Shrub_04_Rustle"
+      }
+    }
+    
+    {
+      Name = "ErebusCandles01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Candles_01"
+        Tallness = 498.0
+        StopsProjectiles = false
+        Offset = { X = 0 Y = -188 }
+        Points = [
+          { X = -76 Y = 3 }
+          { X = -137 Y = 38 }
+          { X = -128 Y = 90 }
+          { X = -1 Y = 106 }
+          { X = 115 Y = 86 }
+          { X = 148 Y = 36 }
+          { X = 56 Y = -8 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusBreakable02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Breakable_02"
+        StopsProjectiles = false
+        Tallness = 260
+        Offset = { X = 0 Y = -96 }
+        Points = [
+          { X = -238 Y = -81 }
+          { X = -210 Y = 18 }
+          { X = -62 Y = 120 }
+          { X = 111 Y = 105 }
+          { X = 160 Y = 73 }
+          { X = 249 Y = -23 }
+          { X = 81 Y = -131 }
+          { X = -114 Y = -160 }
+        ]
+      }
+    }
+    {
+      Name = "ErebusBreakable02a"
+      InheritFrom = "ErebusBreakable02"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Breakable_02a"
+        Tallness = 224
+        Offset = { X = 0 Y = -44 }
+      }
+    }
+
+    
+    {
+      Name = "ErebusWitchBook01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchBook_01"
+        Tallness = 70.0
+        Offset = { X = 0 Y = 45 }
+        Points = [
+          { X = -406 Y = 111 }
+          { X = -59 Y = 274 }
+          { X = 404 Y = 23 }
+          { X = 81 Y = -164 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_01"
+        Tallness = 210.0
+        Offset = { X = 0 Y = -73 }
+        Points = [
+          { X = -227 Y = 13 }
+          { X = -143 Y = 77 }
+          { X = 46 Y = 107 }
+          { X = 221 Y = 34 }
+          { X = 232 Y = -45 }
+          { X = -17 Y = -105 }
+          { X = -209 Y = -74 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRiverRock02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_RiverRock_02"
+        Tallness = 134.0
+        Offset = { X = 0 Y = -73 }
+        Points = [
+          { X = -227 Y = 13 }
+          { X = -143 Y = 77 }
+          { X = 46 Y = 107 }
+          { X = 221 Y = 34 }
+          { X = 232 Y = -45 }
+          { X = -17 Y = -105 }
+          { X = -209 Y = -74 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTorch01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Torch_01"
+        Tallness = 1242
+        Offset = { X = 0 Y = -512 }
+        Points = [
+          { X = -96 Y = -15 }
+          { X = -96 Y = 48 }
+          { X = -20 Y = 71 }
+          { X = 63 Y = 71 }
+          { X = 104 Y = 18 }
+          { X = 91 Y = -25 }
+          { X = -28 Y = -40 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_08"
+        Tallness = 401
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -374 Y = -8 }
+          { X = -255 Y = 132 }
+          { X = -9 Y = 212 }
+          { X = 194 Y = 201 }
+          { X = 408 Y = 89 }
+          { X = 239 Y = -108 }
+          { X = -142 Y = -174 }
+          { X = -306 Y = -143 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTugBoat01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_TugBoat_01"
+        Tallness = 450
+        Offset = { X = 0 Y = -181 }
+        Points = [
+          { X = -634 Y = -148 }
+          { X = -411 Y = 164 }
+          { X = -129 Y = 292 }
+          { X = 309 Y = 369 }
+          { X = 495 Y = 303 }
+          { X = 432 Y = 173 }
+          { X = 290 Y = 75 }
+          { X = -470 Y = -269 }
+          { X = -666 Y = -355 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebRock01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WebRock_01"
+        Tallness = 401
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -374 Y = -8 }
+          { X = -255 Y = 132 }
+          { X = -9 Y = 212 }
+          { X = 194 Y = 201 }
+          { X = 408 Y = 89 }
+          { X = 239 Y = -108 }
+          { X = -142 Y = -174 }
+          { X = -306 Y = -143 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree11Web"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_11_Web"
+        Tallness = 1704
+        Offset = { X = 0 Y = -884 }
+        Points = [
+          { X = -404 Y = -155 }
+          { X = -377 Y = 45 }
+          { X = -31 Y = 131 }
+          { X = 312 Y = 85 }
+          { X = 373 Y = -103 }
+          { X = 296 Y = -240 }
+          { X = -3 Y = -306 }
+          { X = -258 Y = -265 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusMoonWellStatue01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_MoonWellStatue_01"
+        Tallness = 1558
+        Offset = { X = 0 Y = -668 }
+        Points = [
+          { X = -420 Y = -213 }
+          { X = -384 Y = -142 }
+          { X = 187 Y = 115 }
+          { X = 344 Y = 117 }
+          { X = 375 Y = 52 }
+          { X = -260 Y = -280 }
+          { X = -387 Y = -290 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ShadeMercResistance01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\ShadeMercResistance_01"
+        Tallness = 1764
+        Offset = { X = 0 Y = -822 }
+        Points = [
+          { X = -420 Y = -213 }
+          { X = -384 Y = -142 }
+          { X = 187 Y = 115 }
+          { X = 304 Y = 103 }
+          { X = 351 Y = 41 }
+          { X = -260 Y = -280 }
+          { X = -387 Y = -290 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock10"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_10"
+        Tallness = 1150
+        Offset = { X = 0 Y = -336 }
+        Points = [
+          { X = -527 Y = 103 }
+          { X = -268 Y = 219 }
+          { X = 2 Y = 296 }
+          { X = 384 Y = 319 }
+          { X = 571 Y = 155 }
+          { X = 446 Y = -51 }
+          { X = -161 Y = -226 }
+          { X = -364 Y = -215 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock11"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_11"
+        Tallness = 980
+        Offset = { X = 0 Y = -336 }
+        Points = [
+          { X = -280 Y = -52 }
+          { X = -283 Y = 137 }
+          { X = -9 Y = 212 }
+          { X = 331 Y = 101 }
+          { X = 298 Y = -27 }
+          { X = -9 Y = -106 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock12"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_12"
+        Tallness = 743
+        Offset = { X = 0 Y = -336 }
+        Points = [
+          { X = -379 Y = -111 }
+          { X = -222 Y = 23 }
+          { X = 124 Y = 86 }
+          { X = 360 Y = -75 }
+          { X = 170 Y = -247 }
+          { X = -188 Y = -260 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchHouse01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchHouse_01"
+        Tallness = 1101
+        Offset = { X = 0 Y = -442 }
+        Points = [
+          { X = -690 Y = 93 }
+          { X = -401 Y = 294 }
+          { X = 90 Y = 368 }
+          { X = 520 Y = 263 }
+          { X = 750 Y = 57 }
+          { X = 669 Y = -259 }
+          { X = 275 Y = -425 }
+          { X = -389 Y = -358 }
+          { X = -693 Y = -223 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchHouse02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchHouse_02"
+        Tallness = 1101
+        Offset = { X = 0 Y = -581 }
+        Points = [
+          { X = -553 Y = 61 }
+          { X = -401 Y = 294 }
+          { X = 90 Y = 368 }
+          { X = 520 Y = 263 }
+          { X = 639 Y = 75 }
+          { X = 492 Y = -213 }
+          { X = 152 Y = -325 }
+          { X = -162 Y = -341 }
+          { X = -484 Y = -234 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock09"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_09"
+        Tallness = 1180
+        Offset = { X = 0 Y = -383 }
+        Points = [
+          { X = -263 Y = 62 }
+          { X = -77 Y = 168 }
+          { X = 137 Y = 173 }
+          { X = 286 Y = 80 }
+          { X = 168 Y = -70 }
+          { X = -14 Y = -98 }
+          { X = -193 Y = -58 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRiverrock01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Riverrock_01"
+        Tallness = 152
+        Offset = { X = 0 Y = -24 }
+        Points = [
+          { X = -331 Y = -77 }
+          { X = -188 Y = 103 }
+          { X = -11 Y = 163 }
+          { X = 248 Y = 117 }
+          { X = 325 Y = 47 }
+          { X = 233 Y = -97 }
+          { X = 52 Y = -157 }
+          { X = -185 Y = -176 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRiverterrain01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Riverterrain_01"
+        Tallness = 172.0
+        Offset = { X = 0 Y = -7 }
+        Points = [
+          { X = -270 Y = 56 }
+          { X = -181 Y = 129 }
+          { X = 69 Y = 132 }
+          { X = 281 Y = -23 }
+          { X = 108 Y = -93 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_02"
+        Tallness = 60.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -152 Y = -52 }
+          { X = -135 Y = -17 }
+          { X = -76 Y = 26 }
+          { X = -2 Y = 64 }
+          { X = 105 Y = 81 }
+          { X = 161 Y = 33 }
+          { X = 44 Y = -61 }
+          { X = -141 Y = -87 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_03"
+        Tallness = 286.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -50 Y = -278 }
+          { X = -392 Y = -91 }
+          { X = -76 Y = 220 }
+          { X = 26 Y = 315 }
+          { X = 117 Y = 378 }
+          { X = 386 Y = 339 }
+          { X = 428 Y = 303 }
+          { X = 348 Y = -1 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_04"
+        Tallness = 992
+        Offset = { X = 0 Y = -343 }
+        Points = [
+          { X = -275 Y = 68 }
+          { X = -20 Y = 192 }
+          { X = 293 Y = 75 }
+          { X = 101 Y = -57 }
+          { X = -64 Y = -79 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_05"
+        Tallness = 139.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -443 Y = -138 }
+          { X = -148 Y = 154 }
+          { X = 434 Y = 240 }
+          { X = 428 Y = 62 }
+          { X = 428 Y = 62 }
+          { X = -48 Y = -136 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_06"
+        Tallness = 800
+        Offset = { X = 0 Y = -296 }
+        Points = [
+          { X = -373 Y = -54 }
+          { X = -181 Y = 168 }
+          { X = -119 Y = 182 }
+          { X = 312 Y = 122 }
+          { X = 373 Y = 17 }
+          { X = 214 Y = -150 }
+          { X = -183 Y = -173 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRock07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rock_07"
+        Tallness = 470
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -630 Y = 94 }
+          { X = -511 Y = 186 }
+          { X = -18 Y = 255 }
+          { X = 169 Y = 248 }
+          { X = 617 Y = -30 }
+          { X = 489 Y = -184 }
+          { X = 110 Y = -250 }
+          { X = -393 Y = -107 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusStoneStatue01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_StoneStatue_01"
+        Tallness = 516
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -434 Y = 4 }
+          { X = -365 Y = 208 }
+          { X = -231 Y = 280 }
+          { X = 198 Y = 258 }
+          { X = 378 Y = 116 }
+          { X = 324 Y = -74 }
+          { X = -72 Y = -166 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_02"
+        Tallness = 754
+        Offset = { X = 0 Y = -170 }
+        Points = [
+          { X = -536 Y = 126 }
+          { X = -309 Y = 363 }
+          { X = 225 Y = 435 }
+          { X = 476 Y = 268 }
+          { X = 527 Y = 89 }
+          { X = 121 Y = -85 }
+          { X = -188 Y = -125 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_03"
+        Tallness = 1743
+        Offset = { X = 0 Y = -752 }
+        Points = [
+          { X = -207 Y = 22 }
+          { X = -81 Y = 142 }
+          { X = 161 Y = 132 }
+          { X = 216 Y = 21 }
+          { X = 147 Y = -93 }
+          { X = -115 Y = -94 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_04"
+        Tallness = 1141
+        Offset = { X = 0 Y = -474 }
+        Points = [
+          { X = -401 Y = 166 }
+          { X = -349 Y = 212 }
+          { X = 373 Y = -267 }
+          { X = 303 Y = -317 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusStoneStatue02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_StoneStatue_02"
+        Tallness = 1117
+        Offset = { X = 0 Y = -486 }
+        Points = [
+          { X = -420 Y = 87 }
+          { X = -163 Y = 163 }
+          { X = 148 Y = 111 }
+          { X = 334 Y = -80 }
+          { X = -2 Y = -196 }
+          { X = -332 Y = -150 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusCharonBoat01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_CharonBoat_01"
+        Tallness = 692
+        Offset = { X = 0 Y = -347 }
+        Points = [
+          { X = -859 Y = -416 }
+          { X = -694 Y = -146 }
+          { X = -396 Y = 61 }
+          { X = -27 Y = 203 }
+          { X = 556 Y = 307 }
+          { X = 688 Y = 217 }
+          { X = 442 Y = -65 }
+          { X = -310 Y = -446 }
+          { X = -853 Y = -633 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusOldPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_OldPillar_01"
+        Tallness = 2077
+        Offset = { X = 0 Y = -867 }
+        Points = [
+          { X = -120 Y = -21 }
+          { X = -176 Y = 11 }
+          { X = -158 Y = 62 }
+          { X = -63 Y = 100 }
+          { X = 86 Y = 91 }
+          { X = 132 Y = 35 }
+          { X = 132 Y = -9 }
+          { X = 58 Y = -46 }
+          { X = -33 Y = -46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusOldPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_OldPillarBase_01"
+        Tallness = 788
+        Offset = { X = 0 Y = -298 }
+        Points = [
+          { X = -674 Y = 231 }
+          { X = -371 Y = 394 }
+          { X = 688 Y = -154 }
+          { X = 377 Y = -323 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusLoom01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Loom_01"
+        Tallness = 586
+        Offset = { X = 0 Y = -239 }
+        Points = [
+          { X = -169 Y = 61 }
+          { X = -133 Y = 95 }
+          { X = -82 Y = 87 }
+          { X = 192 Y = -48 }
+          { X = 176 Y = -95 }
+          { X = 122 Y = -86 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusCharonTent01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_CharonTent_01"
+        Tallness = 937
+        Offset = { X = 0 Y = -298 }
+        Points = [
+          { X = -600 Y = 141 }
+          { X = 41 Y = 460 }
+          { X = 629 Y = 66 }
+          { X = 168 Y = -241 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusSpider01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Spider_01"
+        Tallness = 410
+        Offset = { X = 0 Y = -151 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusOldStatue01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_OldStatue_01"
+        Tallness = 788
+        Offset = { X = 0 Y = -298 }
+        Points = [
+          { X = -674 Y = 231 }
+          { X = -371 Y = 394 }
+          { X = 688 Y = -154 }
+          { X = 377 Y = -323 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusStoneStatue03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_StoneStatue_03"
+        Tallness = 867
+        Offset = { X = 0 Y = -500 }
+        Points = [
+          { X = -555 Y = -188 }
+          { X = -483 Y = -69 }
+          { X = -52 Y = 48 }
+          { X = 331 Y = 12 }
+          { X = 558 Y = -116 }
+          { X = 371 Y = -286 }
+          { X = -215 Y = -342 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHill01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_01"
+        Tallness = 445.0
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -363 Y = 164 }
+          { X = 62 Y = 356 }
+          { X = 433 Y = 144 }
+          { X = 50 Y = -52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHill02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_02"
+        Tallness = 205
+        Offset = { X = 0 Y = -56 }
+        Points = [
+          { X = -788 Y = 46 }
+          { X = -310 Y = 261 }
+          { X = 124 Y = 352 }
+          { X = 723 Y = 202 }
+          { X = 549 Y = 17 }
+          { X = -204 Y = -150 }
+          { X = -577 Y = -163 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHill03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_03"
+        Tallness = 63
+        Offset = { X = 0 Y = -11 }
+        Points = [
+          { X = -452 Y = -99 }
+          { X = -19 Y = 126 }
+          { X = 278 Y = 159 }
+          { X = 368 Y = 113 }
+          { X = 310 Y = -34 }
+          { X = -91 Y = -159 }
+          { X = -335 Y = -120 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusHealthFountain01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_HealthFountain_01"
+        Tallness = 156
+        Offset = { X = 0 Y = -11 }
+        Points = [
+          { X = -175 Y = 367 }
+          { X = 111 Y = 350 }
+          { X = 338 Y = 263 }
+          { X = 551 Y = 141 }
+          { X = 429 Y = -51 }
+          { X = 88 Y = -238 }
+          { X = -161 Y = -214 }
+          { X = -489 Y = -70 }
+          { X = -568 Y = 128 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusRoots01"
+      InheritFrom = "1_BaseTerrainDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Roots_01"
+        Tallness = 96
+        Offset = { X = 0 Y = -16 }
+        Points = [
+          { X = -92 Y = -133 }
+          { X = 26 Y = -145 }
+          { X = 241 Y = -9 }
+          { X = 172 Y = 48 }
+          { X = -86 Y = 125 }
+          { X = -201 Y = 75 }
+          { X = -250 Y = -49 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPlant01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Plant_01"
+        Tallness = 363
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -170 Y = -33 }
+          { X = -200 Y = 96 }
+          { X = -58 Y = 109 }
+          { X = 106 Y = 86 }
+          { X = 185 Y = -43 }
+          { X = -9 Y = -96 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusNightshade01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Nightshade_01"
+        Tallness = 885
+        Offset = { X = 0 Y = -404 }
+        Points = [
+          { X = -318 Y = -14 }
+          { X = -223 Y = 33 }
+          { X = 30 Y = 24 }
+          { X = 19 Y = -37 }
+          { X = -213 Y = -38 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusChocolateSoldier01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_ChocolateSoldier_01"
+        Tallness = 1091
+        Offset = { X = 0 Y = -458 }
+        Points = [
+          { X = -118 Y = 25 }
+          { X = -64 Y = 84 }
+          { X = 78 Y = 72 }
+          { X = 114 Y = 8 }
+          { X = 35 Y = -29 }
+          { X = -29 Y = -43 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusCatTail01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_CatTail_01"
+        Tallness = 866
+        Offset = { X = 0 Y = -339 }
+        Points = [
+          { X = -72 Y = 28 }
+          { X = 4 Y = 86 }
+          { X = 158 Y = 25 }
+          { X = 149 Y = -47 }
+          { X = 16 Y = -74 }
+          { X = -80 Y = -34 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusMoonflower01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Moonflower_01"
+        Tallness = 90
+        Offset = { X = 0 Y = -18 }
+        Points = [
+          { X = -169 Y = -39 }
+          { X = -85 Y = 102 }
+          { X = -14 Y = 114 }
+          { X = 161 Y = 50 }
+          { X = 157 Y = -72 }
+          { X = 17 Y = -157 }
+          { X = -109 Y = -141 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusSnapdragon01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Snapdragon_01"
+        Tallness = 923
+        Offset = { X = 0 Y = -404 }
+        Points = [
+          { X = -81 Y = -16 }
+          { X = 20 Y = -9 }
+          { X = 78 Y = 33 }
+          { X = -24 Y = 49 }
+          { X = -98 Y = 31 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusBlackbat01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Blackbat_01"
+        Tallness = 1144
+        Offset = { X = 0 Y = -461 }
+        Points = [
+          { X = -306 Y = 24 }
+          { X = -128 Y = 111 }
+          { X = 211 Y = 155 }
+          { X = 350 Y = 69 }
+          { X = 100 Y = -28 }
+          { X = -173 Y = -27 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebs01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitSound = "/EmptyCue"
+        HomingEligible = false
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+        RequiresDamageToAffect = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_01"
+        Tallness = 923
+        Offset = { X = 0 Y = 6 }
+        Points = [
+          { X = -265 Y = 57 }
+          { X = -100 Y = -13 }
+          { X = 104 Y = -11 }
+          { X = 331 Y = 65 }
+          { X = 21 Y = 78 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebs02"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_02"
+        Tallness = 923
+        Offset = { X = 0 Y = -184 }
+      }
+    }
+    
+    {
+      Name = "ErebusWebs07"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_07"
+        Tallness = 923
+        Offset = { X = 0 Y = -365 }
+      }
+    }
+    
+    {
+      Name = "ErebusWebs08"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_08"
+        Tallness = 2260
+        Offset = { X = 0 Y = -964 }
+        Points = [
+          { X = -106 Y = 16 }
+          { X = -45 Y = -52 }
+          { X = 67 Y = -46 }
+          { X = 90 Y = 60 }
+          { X = -31 Y = 66 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebs03"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_03"
+        Tallness = 923
+        Offset = { X = 0 Y = -184 }
+      }
+    }
+    
+    {
+      Name = "ErebusWebs04"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_04"
+        Tallness = 923
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -484 Y = 88 }
+          { X = -100 Y = -13 }
+          { X = 104 Y = -11 }
+          { X = 556 Y = 81 }
+          { X = 226 Y = 163 }
+          { X = -249 Y = 158 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebs05"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_05"
+        Tallness = 520
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -710 Y = 65 }
+          { X = -62 Y = 361 }
+          { X = 356 Y = 359 }
+          { X = 675 Y = 266 }
+          { X = 669 Y = 174 }
+          { X = 257 Y = -229 }
+          { X = -213 Y = -270 }
+          { X = -731 Y = -107 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWebs06"
+      InheritFrom = "ErebusWebs01"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Webs_06"
+        Tallness = 923
+        Offset = { X = 0 Y = -184 }
+        Points = [
+          { X = -819 Y = -183 }
+          { X = -560 Y = -317 }
+          { X = 526 Y = -334 }
+          { X = 789 Y = -36 }
+          { X = 830 Y = 235 }
+          { X = 428 Y = 359 }
+          { X = -194 Y = 164 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPlant02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Plant_02"
+        Tallness = 662.0
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = 184 Y = -32 }
+          { X = 16 Y = -66 }
+          { X = -210 Y = 172 }
+          { X = -97 Y = 226 }
+          { X = 68 Y = 248 }
+          { X = 180 Y = 232 }
+          { X = 257 Y = 29 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPlant03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Plant_03"
+        Tallness = 473.0
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -265 Y = 76 }
+          { X = -30 Y = 192 }
+          { X = 181 Y = 136 }
+          { X = 276 Y = 63 }
+          { X = 84 Y = -67 }
+          { X = -168 Y = -52 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPlant04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Plant_04"
+        Tallness = 515.0
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -165 Y = 7 }
+          { X = -48 Y = 143 }
+          { X = 201 Y = 158 }
+          { X = 174 Y = 36 }
+          { X = 45 Y = -32 }
+          { X = -39 Y = -55 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusPlant05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Plant_05"
+        Tallness = 1197.0
+        Offset = { X = 0 Y = -505 }
+        Points = [
+          { X = -400 Y = 101 }
+          { X = 209 Y = 101 }
+          { X = 325 Y = -17 }
+          { X = -18 Y = -107 }
+          { X = -232 Y = -92 }
+          { X = -232 Y = -92 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookFG1"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_FG1"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookMG3"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_MG3"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookSky"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_Sky"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "SurfaceMoon01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Surface\Surface_Moon_01"
+        Tallness = 80.0
+        Offset = { X = 0 Y = -29 }
+      }
+    }    
+
+    {
+      Name = "ErebusOverlookMoon01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_Moon_01"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookFX01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "ErebusOverlookFX01Rotation"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookMG1fog"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_MG1_fog"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookBG1"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_BG1"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookBG1fog"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_BG1_fog"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookMG1"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_MG1"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusOverlookMG2"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Overlook_MG2"
+        Tallness = 1197
+        Offset = { X = 0 Y = -505 }
+      }
+    }
+    
+    {
+      Name = "ErebusLichen01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Lichen_01"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+        Points = [
+          { X = -177 Y = 74 }
+          { X = -46 Y = 109 }
+          { X = 94 Y = 107 }
+          { X = 152 Y = 66 }
+          { X = 63 Y = -24 }
+          { X = -110 Y = -24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusFlowers01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Flowers_01"
+        Tallness = 199
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusTrinket01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Trinket_01"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem05"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_05"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem06"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_06"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusWitchClothes01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchClothes_01"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusWitchClothes02"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchClothes_02"
+        Tallness = 199.0
+        Offset = { X = 0 Y = -53 }
+      }
+    }
+    
+    {
+      Name = "ErebusWitchClothes03"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchClothes_03"
+        Tallness = 1077
+        Offset = { X = 0 Y = -517 }
+        Points = [
+          { X = -407 Y = -61 }
+          { X = -329 Y = 17 }
+          { X = 69 Y = 139 }
+          { X = 403 Y = 111 }
+          { X = 442 Y = 11 }
+          { X = 100 Y = -128 }
+          { X = -303 Y = -182 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchTotem01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchTotem_01"
+        Tallness = 384
+        Offset = { X = 0 Y = -53 }
+        Points = [
+          { X = 157 Y = 29 }
+          { X = 191 Y = 47 }
+          { X = -101 Y = 164 }
+          { X = -163 Y = 144 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusWitchAltar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_WitchAltar_01"
+        Tallness = 465.0
+        Offset = { X = 0 Y = -131 }
+        Points = [
+          { X = -376 Y = -31 }
+          { X = -347 Y = 229 }
+          { X = -228 Y = 253 }
+          { X = 53 Y = 276 }
+          { X = 331 Y = 184 }
+          { X = 388 Y = -23 }
+          { X = -9 Y = -142 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTree03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Tree_03"
+        Tallness = 1152.0
+        Offset = { X = 0 Y = -547 }
+        Points = [
+          { X = -312 Y = -85 }
+          { X = -317 Y = 56 }
+          { X = -88 Y = 82 }
+          { X = 217 Y = 96 }
+          { X = 341 Y = -8 }
+          { X = 117 Y = -165 }
+          { X = -106 Y = -232 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusDoor01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Door_01"
+        Tallness = 909.0
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -311 Y = -118 }
+          { X = 40 Y = 92 }
+          { X = 143 Y = 92 }
+          { X = 288 Y = 45 }
+          { X = -213 Y = -173 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTreeStump02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_TreeStump_02"
+        Tallness = 360
+        Offset = { X = 0 Y = 10 }
+        Points = [
+          { X = -560 Y = 92 }
+          { X = -86 Y = 318 }
+          { X = 516 Y = 318 }
+          { X = 568 Y = 212 }
+          { X = 514 Y = 50 }
+          { X = 328 Y = -96 }
+          { X = -22 Y = -148 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTreeStump03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_TreeStump_03"
+        Tallness = 368
+        Offset = { X = 0 Y = -121 }
+        Points = [
+          { X = -234 Y = -90 }
+          { X = -306 Y = 59 }
+          { X = -19 Y = 167 }
+          { X = 249 Y = 95 }
+          { X = 270 Y = -68 }
+          { X = -1 Y = -118 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTreeset01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Treeset_01"
+        Tallness = 710
+        Offset = { X = 0 Y = -231 }
+        Points = [
+          { X = -685 Y = 234 }
+          { X = -594 Y = 329 }
+          { X = 282 Y = 276 }
+          { X = 681 Y = 41 }
+          { X = 695 Y = -64 }
+          { X = 391 Y = -214 }
+          { X = -105 Y = -198 }
+          { X = -444 Y = -9 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusFallenLog01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_FallenLog_01"
+        StopsProjectiles = false
+        Tallness = 196.0
+        Offset = { X = 0 Y = -35 }
+        Points = [
+          { X = -579 Y = 330 }
+          { X = -219 Y = 495 }
+          { X = 98 Y = 302 }
+          { X = 463 Y = 58 }
+          { X = 624 Y = -260 }
+          { X = 281 Y = -489 }
+          { X = 281 Y = -489 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusDoor02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Door_02"
+        StopsProjectiles = false
+        StopsLight = false
+        Tallness = 1034
+        Offset = { X = 0 Y = -521 }
+        Points = [
+          { X = -741 Y = 147 }
+          { X = -660 Y = 266 }
+          { X = -470 Y = 294 }
+          { X = 587 Y = -82 }
+          { X = 767 Y = -197 }
+          { X = 540 Y = -417 }
+          { X = -503 Y = -36 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusFallenLog02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_FallenLog_02"
+        Tallness = 150
+        Offset = { X = 0 Y = -35 }
+        Points = [
+          { X = -398 Y = 186 }
+          { X = -383 Y = 225 }
+          { X = -224 Y = 273 }
+          { X = -123 Y = 270 }
+          { X = 225 Y = 56 }
+          { X = 400 Y = -125 }
+          { X = 366 Y = -239 }
+          { X = 236 Y = -251 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusFallenLog03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_FallenLog_03"
+        Tallness = 230
+        Offset = { X = 0 Y = -17 }
+        Points = [
+          { X = -137 Y = -307 }
+          { X = -504 Y = -44 }
+          { X = -641 Y = 230 }
+          { X = -374 Y = 330 }
+          { X = -65 Y = 443 }
+          { X = 626 Y = 331 }
+          { X = 382 Y = -111 }
+          { X = 115 Y = -285 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRiverbed01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Riverbed_01"
+        Tallness = 139
+        Offset = { X = 0 Y = 10 }
+        Points = [
+          { X = -425 Y = 3 }
+          { X = -258 Y = 106 }
+          { X = -89 Y = 172 }
+          { X = 271 Y = 198 }
+          { X = 378 Y = 68 }
+          { X = -313 Y = -76 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRiverbed03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Riverbed_03"
+        Tallness = 196
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRiverbed02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Riverbed_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_03"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHill04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_04"
+        Tallness = 632
+        Offset = { X = 0 Y = -215 }
+        Points = [
+          { X = -951 Y = 165 }
+          { X = -915 Y = 355 }
+          { X = -489 Y = 475 }
+          { X = 186 Y = 299 }
+          { X = 651 Y = -55 }
+          { X = 890 Y = -292 }
+          { X = 338 Y = -612 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHill05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_05"
+        Tallness = 337
+        Offset = { X = 0 Y = -131 }
+        Points = [
+          { X = -701 Y = 115 }
+          { X = -322 Y = -225 }
+          { X = 332 Y = -483 }
+          { X = 601 Y = -331 }
+          { X = 406 Y = 137 }
+          { X = -108 Y = 474 }
+          { X = -471 Y = 442 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrassBorder01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_GrassBorder_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirt01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Dirt_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirt02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Dirt_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainTerrace01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Terrace_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_06"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusSafezoneActivated01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Safezone_Activated_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusSafezoneExpired01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Safezone_Expired_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusSafezoneUnactivated01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Safezone_Unactivated_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_05"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass09"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_09"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainLilypads01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Lilypads_01"
+        FootstepSound = "/Leftovers/SFX/FootstepsWetSmall"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+      
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_03"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_04"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusRiverShadow01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_RiverShadow_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusRivergrass01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rivergrass_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusRivergrass02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Rivergrass_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusDuckweed01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Duckweed_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusDuckweed02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Duckweed_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusDuckweed03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Duckweed_03"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_04"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass04a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_04a"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass04b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_04b"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass08"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_08"
+        Tallness = 196
+        Offset = { X = 0 Y = 10 }
+        Points = [
+          { X = -120 Y = 47 }
+          { X = -30 Y = 122 }
+          { X = 81 Y = 101 }
+          { X = 127 Y = 57 }
+          { X = 34 Y = -29 }
+          { X = -89 Y = -15 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_05"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFairyRing01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_FairyRing_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainHecate01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Hecate_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+
+    {
+      Name = "SurfaceTerrainSnowLumps02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepSound = "/SFX/Player Sounds/FootstepsSnow"
+        Graphic = "Tilesets\Surface\Surface_Terrain_SnowLumps_02"
+        Tallness = 80.0
+        Offset = { X = 0 Y = 13 }
+      }
+    }
+    
+    {
+      Name = "ErebusSkeleton01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Skeleton_01"
+        Tallness = 772
+        Offset = { X = 0 Y = -323 }
+        Points = [
+          { X = 389 Y = -163 }
+          { X = 183 Y = -344 }
+          { X = -41 Y = -337 }
+          { X = -332 Y = -127 }
+          { X = -420 Y = 72 }
+          { X = -427 Y = 232 }
+          { X = -201 Y = 316 }
+          { X = 54 Y = 304 }
+          { X = 283 Y = 198 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirt03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Dirt_03"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirt04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Dirt_04"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_06"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_07"
+        Tallness = 403.0
+        Offset = { X = 0 Y = -179 }
+        Points = [
+          { X = -347 Y = -40 }
+          { X = -219 Y = 94 }
+          { X = 263 Y = 88 }
+          { X = 296 Y = -62 }
+        ]
+      }
+    }
+
+    {
+      Name = "FieldsGrassyWheat03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        FootstepFxL = "WheatFootstepL-Spawner"
+        FootstepFxR = "WheatFootstepR-Spawner"
+        Graphic = "Tilesets\Fields\Fields_GrassyWheat_03"
+        Tallness = 726
+        Offset = { X = 0 Y = -321 }
+        Points = [
+          { X = -269 Y = -16 }
+          { X = -172 Y = 54 }
+          { X = 30 Y = 68 }
+          { X = 115 Y = -5 }
+          { X = 90 Y = -96 }
+          { X = -181 Y = -98 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainLeaves01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        FootstepFxL = "ErebusLeafStepL"
+        FootstepFxR = "ErebusLeafStepR"
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Leaves_01"
+        Tallness = 403.0
+        Offset = { X = 0 Y = -179 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainLeaves01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        FootstepFxL = "ErebusLeafStepL-Lite"
+        FootstepFxR = "ErebusLeafStepR-Lite"
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Leaves_01a"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirtRocks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_DirtRocks_01"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainDirtRocks02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_DirtRocks_02"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainFlourish07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Flourish_07"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass10"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_10"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass11"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_11"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass14"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_14"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass12"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_12"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass13"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_13"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainGrass15"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Grass_15"
+        Tallness = 403.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainSticks01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Sticks_01"
+        Tallness = 403.0
+        Offset = { X = 0 Y = -142 }
+        Points = [
+          { X = -305 Y = 13 }
+          { X = -187 Y = 98 }
+          { X = 94 Y = 125 }
+          { X = 397 Y = 40 }
+          { X = 250 Y = -89 }
+          { X = -292 Y = -120 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRock01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Rock_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRock02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Rock_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+    
+    {
+      Name = "ErebusTerrainRock03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Terrain_Rock_03"
+        Tallness = 29
+        Offset = { X = 0 Y = 10 }
+        Points = [
+          { X = -441 Y = 35 }
+          { X = -132 Y = 239 }
+          { X = 152 Y = 151 }
+          { X = 403 Y = -62 }
+          { X = 439 Y = -190 }
+          { X = 361 Y = -206 }
+          { X = -17 Y = -137 }
+        ]
+      }
+    }
+    
+    {
+      Name = "ErebusForegroundBranch01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Foreground_Branch_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+  {
+      Name = "ErebusVineRight01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_VineRight_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+  {
+      Name = "ErebusVineLeft01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_VineLeft_01"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+  {
+      Name = "ErebusForegroundBranch02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Erebus\Erebus_Foreground_Branch_02"
+        Tallness = 196.0
+        Offset = { X = 0 Y = 10 }
+      }
+    }
+
+
+{
+Name = "ShadeErebusIdle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      CollisionAlphaOutDuration = 0.1
+      CollisionEndedAlphaInDuration = 3.0
+      DisplayInEditor = true
+      UseCollisionShift = false
+      Life = 
+      {
+        JumpTargetEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        AttachedAnim = "ShadeShadow_Mid"
+        EditorOutlineDrawBounds = false
+        Graphic = "ShadeErebusIdle"
+        StopsLight = false
+        Tallness = 193
+        Offset = { X = 0 Y = -44 }
+        Points = [
+          { X = 36 Y = -6 }
+          { X = 14 Y = -27 }
+          { X = -16 Y = -27 }
+          { X = -29 Y = -8 }
+          { X = -17 Y = 18 }
+          { X = 28 Y = 15 }
+        ]
+      }
+    }
+
+
+    
+  ]
+}

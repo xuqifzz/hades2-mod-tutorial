@@ -1,0 +1,196 @@
+{ Animations = [
+
+	/* Cast */
+	{
+		Name = "Melinoe_Torch_Cast_Start"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_CastCharge_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Cast_StartLoop"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.5
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Torch_Cast_StartLoop"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_CastIdle_C_00"
+		ModelCosmeticRotationSpeed = 800
+		DisableOwnerManualInteract = true
+		Loop = true
+	}
+
+	{
+		Name = "Melinoe_Torch_Cast_Fire"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_Cast_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Cast_End"
+
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Cast_StartLoop"
+				Duration = 5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Torch_Cast_Fire_Quick"
+		InheritFrom = "Melinoe_Torch_Cast_Fire"
+	}
+
+	{
+		Name = "Melinoe_Torch_Cast_End"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_CastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Torch_Idle"
+	}
+
+	{
+		Name = "TorchR_CrossCast_Start"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 50
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "TorchL_CrossCast_Start"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Torch_CrossCast_Start"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_UnEquip_C_00"
+		ChainTo = "MelinoeCrossCastAntic"
+		
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleDaggerL" }
+			{ Name = "MelUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "TorchR_CrossCast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "TorchL_CrossCast_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "TorchR_ForwardCast_Unequip"
+		InheritFrom = "WeaponTorchRBase"
+		GrannyAnimation = "TorchR_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "TorchL_ForwardCast_Unequip"
+		InheritFrom = "WeaponTorchLBase"
+		GrannyAnimation = "TorchL_Weapon_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Torch_ForwardCast_Unequip"
+		InheritFrom = "MelinoeBaseTorchAnimations"
+		GrannyAnimation = "Melinoe_Torch_Base_UnEquip_C_00"
+		ChainTo = "Melinoe_ForwardCast_Start"
+		
+		CreateAnimations =
+		[
+			{ Name = "MelUnequipSparkleDaggerL" }
+			{ Name = "MelUnequipSparkleDaggerR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "TorchR_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+			{
+				Name = "TorchL_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.1
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+] }

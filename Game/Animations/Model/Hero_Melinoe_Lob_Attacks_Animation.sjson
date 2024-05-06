@@ -1,0 +1,660 @@
+{ Animations = [
+
+	// Lob Attack 1
+
+	{
+		Name = "Lob_Attack1_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundAntic_C_01"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_Lob_Attack1_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1GroundAntic_C_01"
+		HoldLastFrame = true
+		DisableOwnerManualInteract = true
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Attack1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End2"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_Fire"
+				Duration = 3
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_End"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Attack1_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundFire_C_01"
+	}
+	{
+		Name = "Melinoe_Lob_Attack1_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1GroundFire_C_01"
+		GrannyAnimationSpeed = 1.5
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/HellFireShoot"
+		ChainTo = "Melinoe_Lob_Attack1_End"
+		Attachments =
+		[
+			{
+				Name = "Lob_Attack1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_AttackEx1_Start2"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Attack1_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundReturnToIdle_C_01"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Melinoe_Lob_Attack1_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1GroundReturnToIdle_C_01"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		Attachments =
+		[
+			{
+				Name = "Lob_Attack1_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}	
+
+	// Lob Attack EX
+
+	{
+		Name = "Lob_AttackEx1_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundAntic_C_01"
+	}
+	{
+		Name = "Melinoe_Lob_AttackEx1_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1GroundAntic_C_01"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_AttackEx1_Start2"
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Attack1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_AttackEx1_Start2"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackLobUpChargeStanding_C_02"
+	}
+	
+	{
+		Name = "Melinoe_Lob_AttackEx1_Start2"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackLobUpChargeStanding_C_02"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_AttackEx1_StartLoop"
+		Sound = "/VO/MelinoeEmotes/EmoteCharging"
+		VisualFx = "LobHoverFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		CreateAnimation = "LobCharge"
+
+		Attachments =
+		[
+			{
+				Name = "Lob_AttackEx1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_AttackEx1_StartLoop"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1UpHoverIdle_C_02"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Lob_AttackEx1_StartLoop"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1UpHoverIdle_C_02"
+		DisableOwnerManualInteract = true
+		Loop = true
+		CreateAnimation = "LobCharge"
+		VisualFx = "LobHoverFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		Attachments =
+		[
+			{
+				Name = "Lob_AttackEx1_StartLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_AttackEx1_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1UpHoverFire_C_02"
+	}
+	{
+		Name = "Melinoe_Lob_AttackEx1_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1UpHoverFire_C_02"
+		GrannyAnimationSpeed = 1.5
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_AttackEx1_End"
+		Attachments =
+		[
+			{
+				Name = "Lob_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_AttackEx1_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_Attack1UpHoverReturnToIdle_C_02"
+	}
+	{
+		Name = "Melinoe_Lob_AttackEx1_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_Attack1UpHoverReturnToIdle_C_02"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		Attachments =
+		[
+			{
+				Name = "Lob_AttackEx1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	// Lob Special
+	{
+		Name = "Lob_Special1_Start"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSpecialAntic_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Special1_Start"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSpecialAntic_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Special1_StartLoop"
+		// CreateAnimation = "LobCharge"
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End2"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Dash_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_End"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Special1_StartLoop"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSpecialChargeIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Lob_Special1_StartLoop"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSpecialChargeIdle_C_00"
+		DisableOwnerManualInteract = true
+		Loop = true
+		// CreateAnimation = "LobCharge"
+		// VisualFx = "DashLobTrail"
+		// VisualFxDistanceMin = 30
+		// VisualFxDistanceMax = 30
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1_StartLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Special1_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSpecialFire_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Special1_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSpecialFire_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Lob_Special1_End"
+		// VisualFx = "DashLobTrail"
+		// VisualFxDistanceMin = 30
+		// VisualFxDistanceMax = 30
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Special1_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSpecialReturnToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Special1_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+	}
+
+	// Lob Special EX
+	{
+		Name = "Lob_Special1Ex_StartTransition"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialAntic_C_00"
+		GrannyAnimationSpeed = 2.0
+	}
+	{
+		Name = "Melinoe_Lob_Special1Ex_StartTransition"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialAntic_C_00"
+		GrannyAnimationSpeed = 2.0
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/Player Sounds/MelSkullsOmegaSpecialTransform"
+		ChainTo = "Melinoe_Lob_Special1Ex_StartLoop"
+		VisualFx = "LobChargeFxGroundGlow"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_StartTransition"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 42
+				Sound = "/SFX/Player Sounds/MelinoeSkullsTransformChunk"
+			}
+			{
+				Frame = 47
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_Start"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Lob_Special1_StartLoop"
+				Duration = 4
+			}
+		]
+	}
+
+
+
+
+	{
+		Name = "Lob_Special1Ex_StartLoop"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialChargeIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Lob_Special1Ex_StartLoop"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialAntic_C_00"
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/Player Sounds/MelSkullsOmegaSpecialLoop"
+		StopSoundOnFinishFade = 0.2
+		HoldLastFrame = true
+		VisualFx = "LobChargeFxGroundGlow"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_StartLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0.01
+			}
+			{
+				Frame = 49
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Lob_Special1Ex_Fire"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialFire_C_00"
+		GrannyAnimationSpeed = 2.0
+	}
+	{
+		Name = "Melinoe_Lob_Special1Ex_Fire"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialFire_C_00"
+		DisableOwnerManualInteract = true
+		Sound = "/SFX/Enemy Sounds/Hades/HadesSkullLaunchAndLoop"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "Melinoe_Lob_Special1Ex_End"
+		// VisualFx = "DashLobTrail"
+		// VisualFxDistanceMin = 30
+		// VisualFxDistanceMax = 30
+
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_Fire"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		/*
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 0
+			}
+			{
+				Frame = 48
+				FrameSpeed = 0.01
+			}
+			{
+				Frame = 49
+				FrameSpeed = 0
+			}
+		]
+		*/
+	}
+
+	{
+		Name = "Lob_Special1Ex_End"
+		InheritFrom = "WeaponLobBase"
+		GrannyAnimation = "Lob_Weapon_Base_AttackSuperSpecialReturnToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Lob_Special1Ex_End"
+		InheritFrom = "MelinoeBaseLobAnimations"
+		GrannyAnimation = "Melinoe_Lob_Base_AttackSuperSpecialReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Lob_Idle"
+		
+		Attachments =
+		[
+			{
+				Name = "Lob_Special1Ex_End"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/SFX/Player Sounds/MelinoeSkullsTransformChunk2"
+			}
+		]
+	}
+	
+	// VFX
+
+	{
+		Name = "LobHoverFx"
+		Random =
+		[
+			{ Name = "LobHoverFxA" }
+			{ Name = "LobHoverFxB" }
+			{ Name = "LobHoverFxC" }
+			{ Name = "LobHoverFxD" }
+			{ Name = "LobHoverFxA" }
+			{ Name = "LobHoverFxB" }
+			{ Name = "LobHoverFxC" }
+			{ Name = "LobHoverFxD" }
+			{ Name = "LobHoverFxA_Front" }
+			{ Name = "LobHoverFxB_Front" }
+			{ Name = "LobHoverFxC_Front" }
+			{ Name = "LobHoverFxD_Front" }
+		]
+	}
+
+	{
+		Name = "LobHoverFxA"
+		FilePath = "Fx\LobProjectileTrailA\LobProjectileTrailA"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		NumFrames = 20
+		AngleFromOwner = "Ignore"
+		AngleMin = 85
+		AngleMax = 95
+		StartOffsetZ = -25
+		EndOffsetZ = 100
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		GroupName = "Standing"
+		DrawBehindOwner = true
+		Acceleration = -100.0
+		VelocityMin = 100.0
+		VelocityMax = 300.0
+		RandomOffsetX = 20
+		Ambient = 0.0
+		StartRed = 0.02
+		StartGreen = 0.4
+		StartBlue = 0.7
+		EndRed = 0.1
+		EndGreen = 0.6
+		EndBlue = 0.3
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 1
+		ScaleMax = 1.1
+		OriginX = 80
+		OriginY = 32
+		StartScaleX = 1
+		EndScaleX = 0.7
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AddColor = true
+		OverlayVfx = true
+		CreateAnimations =
+		[
+			{ Name = "LobHoverFxA_Dark" }
+			{ Name = "LobProjectileTrailParticle" }
+		]
+	}
+
+	{
+		Name = "LobHoverFxB"
+		InheritFrom = "LobHoverFxA"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+		CreateAnimations =
+		[
+			{ Name = "LobHoverFxB_Dark" }
+			{ Name = "LobProjectileTrailParticle" }
+		]
+	}
+	{
+		Name = "LobHoverFxC"
+		InheritFrom = "LobHoverFxA"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+		CreateAnimations =
+		[
+			{ Name = "LobHoverFxC_Dark" }
+			{ Name = "LobProjectileTrailParticle" }
+		]
+	}
+	{
+		Name = "LobHoverFxD"
+		InheritFrom = "LobHoverFxA"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+		CreateAnimations =
+		[
+			{ Name = "LobHoverFxD_Dark" }
+			{ Name = "LobProjectileTrailParticle" }
+		]
+	}
+
+	{
+		Name = "LobHoverFxA_Front"
+		InheritFrom = "LobHoverFxA"
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "LobHoverFxB_Front"
+		InheritFrom = "LobHoverFxB"
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "LobHoverFxC_Front"
+		InheritFrom = "LobHoverFxC"
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "LobHoverFxD_Front"
+		InheritFrom = "LobHoverFxD"
+		GroupName = "FX_Standing_Add"
+	}
+
+
+	{
+		Name = "LobHoverFxA_Dark"
+		InheritFrom = "LobHoverFxA"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		Scale = 1.2
+	}
+	{
+		Name = "LobHoverFxB_Dark"
+		InheritFrom = "LobHoverFxA_Dark"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobHoverFxC_Dark"
+		InheritFrom = "LobHoverFxA_Dark"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobHoverFxD_Dark"
+		InheritFrom = "LobHoverFxA_Dark"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+]}

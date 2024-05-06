@@ -1,0 +1,1924 @@
+{ Animations = [
+
+	{
+		Name = "FieldsExitDoorLocked"
+		FilePath = "Tilesets\Fields\Fields_ExitSign_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.45
+		ScaleFromOwner = "Ignore"
+		OffsetY = -70
+		Saturation = 0
+		Value = 0
+	}
+	
+	{
+		Name = "FieldsExitDoorUnlocked"
+		FilePath = "Tilesets\Fields\Fields_ExitSign_01"
+		Scale = 0.45
+		ScaleFromOwner = "Ignore"
+		OffsetY = -70
+		ChildAnimation = "FieldsExitDoorUnlockedGlow"
+		AddColor = true
+		Duration = 2
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.3
+		EndGreen = 0.2
+		EndBlue = 0.1
+		PingPongColor = true
+	}
+
+	{
+		Name = "FieldsExitDoorUnlockedGlow"
+		FilePath = "Fx\FieldsExitSignUnlockedGlow\FieldsExitSignUnlockedGlow"
+		NumFrames = 36
+		PlaySpeed = 30
+		Loop = true
+		Material = "Unlit"
+		OffsetY = -210
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		GroupName = "FX_Standing_Add"
+		Scale = 0.9
+		VisualFx = "FieldsExitDoorUnlockedParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		DieWithOwner = true
+		ColorFromOwner = "Ignore"
+		Slides =
+		[
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+
+		]
+	}
+
+	{
+		Name = "FieldsExitDoorUnlockedParticles"
+		FilePath = "Particles\particle_ember_03_glow_add"
+		AddColor = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.1
+		RandomRotation = true
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		ScaleMin = 0.3
+		ScaleMax = 3
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.3
+		OffsetZ = 220
+		VelocityMin = 50
+		VelocityMax = 10
+		RandomAccelerationMin = -30
+		RandomAccelerationMax = -20
+		Scale = 0.3
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Material = "Unlit"
+		RandomOffsetX = 150
+		RandomOffsetY = 250
+		AngleMin = 0
+		AngleMax = 360
+		StartOffsetZ = 0
+		EndOffsetZ = 40
+	}
+	
+	{
+		Name = "FieldsExitDoorUsed"
+		FilePath = "Fx\FieldsExitSignCrumble\FieldsExitSignCrumble"
+		EndFrame = 52
+		NumFrames = 52
+		PlaySpeed = 45
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartFrame = 1
+		OffsetY = -100
+		Scale = 3.2
+		ScaleFromOwner = "Ignore"
+		DieWithOwner = false
+		CreateAnimation = "FieldsExitDoorUsedFx"
+		Sound = "/SFX/FieldsDoorUse"
+	}
+
+	{
+		Name = "FieldsExitDoorUsedFx"
+		FilePath = "Particles\particle_glow"
+		Duration = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Add_Top"
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 2
+		StartScale = 3
+		EndScale = 7
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Red = 1
+		Green = 0.8
+		Blue = 0.4
+		Material = "Unlit"
+		VisualFx = "FieldsExitDoorUsedStreak"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 8
+		CreateAnimations =
+		[
+			{ Name = "FieldsExitDoorUsedFx2" }
+			{ Name = "FieldsExitDoorUsedFx3" }
+			{ Name = "FieldsExitDoorUsedFx4" }
+			{ Name = "FieldsExitDoorUsedFx5" }
+			{ Name = "FieldsExitDoorUsedFx6" }
+		]
+	}
+
+	{ 
+		Name = "FieldsExitDoorUsedFx2" 
+		InheritFrom = "FieldsExitDoorUsedFx"
+		ClearCreateAnimations = true
+		PostRotateScaleY = 0.5
+		VisualFx = "FieldsExitDoorUsedParticles"
+		VisualFxCap = 32
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+	}
+
+	{
+		Name = "FieldsExitDoorUsedFx3"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		VisualFx = null
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		Duration = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 0.5
+		EndAlpha = 0
+		GroupName = "FX_Add_Top"
+		OffsetZ = 150
+		Scale = 2
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "FieldsExitDoorUsedFx4"
+		InheritFrom = "FieldsExitDoorUsedFx3"
+		FilePath = "Particles\particle_spectral_shimmer_01"
+		Scale = 1.5
+		EndScale = 2
+	}
+
+	{ 
+		Name = "FieldsExitDoorUsedFx5" 
+		InheritFrom = "FieldsExitDoorUsedFx"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Scale = 1
+		StartScale = 1
+		EndScale = 2
+		ScaleY = 3
+		StartAlpha = 1
+		FilePath = "Particles\particle_gold_streak"
+	}
+
+	{ 
+		Name = "FieldsExitDoorUsedFx6" 
+		InheritFrom = "FieldsExitDoorUsedFx"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Scale = 1
+		StartScale = 0.5
+		EndScale = 1.25
+		StartAlpha = 1.0
+		FilePath = "Particles\particle_ringNova"
+		EaseIn = 1.1
+		EaseOut = 1.0
+		GroupName = "FX_Add_Top"
+		Duration = 1.2
+	}
+
+	{
+		Name = "FieldsExitDoorUsedStreak"
+		FilePath = "Particles\particle_gold_streak"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		StartAlpha = 1.0
+		EndAlpha = 0.3
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 240
+		OriginY = 340
+		AngleMin = -90
+		AngleMax = 90
+		StartScaleX = 0.5
+		EndScaleX = 0.0
+		StartScaleY = 1
+		EndScaleY = 2
+		Scale = 2
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 100
+	}
+
+	{
+		Name = "FieldsExitDoorUsedParticles"
+		FilePath = "Particles\particle_ember_03_glow_add"
+		AddColor = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.1
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		ScaleMin = 0.3
+		ScaleMax = 1
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.7
+		RandomDurationMax = 2
+		OffsetZ = 0
+		VelocityMin = 50
+		VelocityMax = 300
+		RandomAccelerationMin = -100
+		RandomAccelerationMax = -40
+		Scale = 1.0
+		UseOwnAngle = false
+		RadialOffsetMin = 300
+		RadialOffsetMax = 1200
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+		AngleMin = 0
+		AngleMax = 360
+		StartOffsetZ = 0
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "WheatClusterC"			
+		Random =
+		[
+			{ Name = "WheatClusterC1" }
+			{ Name = "WheatClusterC2" }
+			{ Name = "WheatClusterC3" }
+			{ Name = "WheatClusterC4" }
+			{ Name = "WheatClusterC_Base" }
+		]
+	}
+
+	{
+		Name = "FieldsBossExitDoorLocked"
+		FilePath = "Tilesets\Fields\Fields_BossExit_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.45
+		OwnerHasNoCollision = true
+	}
+	{
+		Name = "FieldsBossExitDoorUnlocked"
+		FilePath = "Tilesets\Fields\Fields_BossExit_01a"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.45
+		OwnerHasNoCollision = false
+	}
+	
+	{
+		Name = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC\WheatClusterC"
+		OnlyWhenVisible = true
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 32.0
+		RandomPlaySpeedMin = 28.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = false
+		OriginX = 160.0
+		OriginY = 200.0
+		ScaleMax = 1.15
+		ScaleMin = 0.85
+		ScaleY = 0.85
+	}
+	
+	{
+		Name = "WheatClusterC1"
+		InheritFrom = "WheatClusterC_Base"
+		Color = { Red = 0.90 Green = 0.90 Blue = 0.90 }
+	}
+	
+	{
+		Name = "WheatClusterC2"
+		InheritFrom = "WheatClusterC_Base"
+		Color = { Red = 0.90 Green = 0.90 Blue = 0.90 }
+	}
+	
+	{
+		Name = "WheatClusterC3"
+		InheritFrom = "WheatClusterC_Base"
+		Color = { Red = 0.85 Green = 0.85 Blue = 0.85 }
+	}
+	
+	{
+		Name = "WheatClusterC4"
+		InheritFrom = "WheatClusterC_Base"
+		Color = { Red = 0.95 Green = 0.95 Blue = 0.95 }
+	}
+	
+	{
+		Name = "WheatClusterC_Cut"
+		Random =
+		[
+			{ Name = "WheatClusterC_CutA" }
+			{ Name = "WheatClusterC_CutB" }
+		]
+	}
+
+	{
+		Name = "WheatClusterC_CutA"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_Cut\WheatClusterC_Cut"
+		Hue = 0.02
+		Value = -0.03
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "WheatClusterC_CutB"
+		InheritFrom = "WheatClusterC_Cut"
+		FilePath = "Fx\WheatClusterC_CutB\WheatClusterC_CutB"
+	}
+
+	{
+		Name = "WheatClusterDestruction"
+		Random =
+		[
+			{ Name = "WheatClusterDestructionA" }
+			{ Name = "WheatClusterDestructionB" }
+		]
+	}
+
+	{
+		Name = "WheatClusterDestructionA"
+		FilePath = "Fx\WheatClusterC_Destruction\WheatClusterC_Destruction"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomOffsetY = 30
+		RandomFlipHorizontal = false
+		FlipHorizontal = true
+		OriginX = 240.0
+		OriginY = 200.0
+		ScaleMax = 1.15
+		ScaleMin = 0.85
+		ScaleY = 0.85
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "WheatClusterDestructionParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Sound = "/Leftovers/World Sounds/LeavesRustleMedium"
+	}
+
+	{
+		Name = "WheatClusterDestructionB"
+		InheritFrom = "WheatClusterDestructionA"
+		FilePath = "Fx\WheatClusterC_DestructionB\WheatClusterC_DestructionB"
+	}
+
+
+	{
+		Name = "WheatClusterDestructionParticles"
+		Random =
+		[
+			{ Name = "WheatClusterDestructionParticleA" }
+			{ Name = "WheatClusterDestructionParticleB" }
+			{ Name = "WheatClusterDestructionParticleC" }
+			{ Name = "WheatClusterDestructionParticleD" }
+			{ Name = "WheatClusterDestructionParticleE" }
+		]
+	}
+
+	{
+		Name = "WheatClusterDestructionParticleA"
+		FilePath = "Particles\particle_hay_01"
+		Acceleration = -200
+		ScaleMin = 0.3
+		ScaleMax = 0.6
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomOffsetX = 60
+		RandomOffsetY = 40
+		AngleMin = -10
+		AngleMax = 10
+		EaseIn = 0
+		EaseOut = 0.01
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing"
+		TransferCopyBody = true
+		ChainTo = null
+		StartScale = 0.5
+		EndScale = 0.2
+		StartOffsetZ = 60
+		EndOffsetZ = 0
+		Gravity = 400
+		VelocityMin = 50
+		VelocityMax = 500
+		UpwardVelocityMin = 25
+		UpwardVelocityMax = 200
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		RandomRotationSpeedMin = -1080
+		RandomRotationSpeedMax = 1080
+	}
+	{
+		Name = "WheatClusterDestructionParticleB"
+		InheritFrom = "WheatClusterDestructionParticleA"
+		FilePath = "Particles\particle_hay_02"
+	}
+	{
+		Name = "WheatClusterDestructionParticleC"
+		InheritFrom = "WheatClusterDestructionParticleA"
+		FilePath = "Particles\particle_hay_03"
+	}
+	{
+		Name = "WheatClusterDestructionParticleD"
+		InheritFrom = "WheatClusterDestructionParticleA"
+		FilePath = "Particles\particle_hay_04"
+	}
+	{
+		Name = "WheatClusterDestructionParticleE"
+		InheritFrom = "WheatClusterDestructionParticleA"
+		FilePath = "Particles\particle_hay_05"
+	}
+
+
+	{
+		Name = "WheatClusterC_Lines"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_Lines\WheatClusterC_Lines"
+	}
+	
+	{
+		Name = "WheatClusterC_Light"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_Light\WheatClusterC_Light"
+	}
+
+	{
+		Name = "WheatClusterC_LightB"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_LightB\WheatClusterC_LightB"
+	}
+	
+	{
+		Name = "WheatClusterC_Burning"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_Burning\WheatClusterC_Burning"
+		VisualFx = "WheatClusterC_Burning_Sparks"
+		VisualFxIntervalMax = 1.0
+		VisualFxIntervalMin = 0.2
+	}
+	
+	{
+		Name = "WheatClusterC_Burning_Sparks"
+		FilePath = "Particles\particle_spark"
+		GroupName = "FX_Standing_Add"
+		
+		AngleChangeSpeedMax = 180.0
+		AngleChangeSpeedMin = -180.0
+		AngleFromOwner = "Ignore"
+		AngleMax = 135.0
+		AngleMin = 45.0
+		EndRed = 0.9
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		OffsetZ = 80.0
+		RandomOffsetX = 50.0
+		RandomOffsetY = 10.0
+		LocationFromOwner = "Take"
+		VelocityMax = 400.0
+		VelocityMin = 100.0
+		EndScale = 0.0
+		ScaleMax = 0.66
+		ScaleMin = 0.25
+		Ambient = 0.0
+		RandomAccelerationMax = -150.0
+		RandomAccelerationMin = -400.0
+	}
+	
+	{
+		Name = "WheatClusterC_Burnt"
+		InheritFrom = "WheatClusterC_Base"
+		FilePath = "Fx\WheatClusterC_Burnt\WheatClusterC_Burnt"
+	}
+	
+	{
+		Name = "WheatFootstepL-Spawner"
+		InheritFrom = "GroupChange"
+		CreateAnimation = "WheatUnitFxEmitter"
+	}
+	
+	{
+		Name = "WheatFootstepR-Spawner"
+		InheritFrom = "GroupChange"
+		CreateAnimation = "WheatUnitFxEmitter"
+	}
+	
+	{
+		Name = "WheatUnitFxEmitter"
+		FilePath = "Fx\MelFrontWheat\MelFrontWheat"
+		GroupName = "FX_Standing"
+		VisualFx = "WheatUnitFxFront"
+		DistancePerFrame = 6
+		OffsetZ = 30
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		EaseIn = 0.9
+		EaseOut = 0.1
+		EndFrame = 26
+		NumFrames = 26
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 160.0
+		OriginY = 240.0
+		DieWithOwner = true
+		SortMode = "FromParent"
+		PingPongScale = true
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.9
+		VisualFxDistanceMax = 71.0
+		VisualFxDistanceMin = 70.0
+	}
+	
+	{
+		Name = "WheatClusterRandom"
+		
+		Random =
+		[
+			{ Name = "WheatClusterA" }
+			{ Name = "WheatClusterB" }
+			{ Name = "WheatClusterC" }
+			{ Name = "WheatClusterD" }
+		]
+	}
+	
+	{
+		Name = "WheatUnitFxFront"
+		
+		Random =
+		[
+			{ Name = "WheatUnitFxFrontA" }
+			{ Name = "WheatUnitFxFrontB" }
+			{ Name = "WheatUnitFxFrontC" }
+		]
+	}
+	
+	{
+		Name = "WheatUnitFxFrontA"
+		CreateAnimation = "WheatUnitFxBackA"
+		FilePath = "Fx\WheatUnitFxFrontA\WheatUnitFxFrontA"
+		GroupName = "FX_Standing"
+		VisualFx = "WheatUnitFxTrail"
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		Sound = "/Leftovers/World Sounds/LeavesRustleSoft"
+		EaseOut = 1.0
+		EndFrame = 29
+		NumFrames = 25
+		RandomPlaySpeedMax = 35.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 5
+		RandomFlipHorizontal = true
+		OffsetZ = 35.0
+		LocationFromOwner = "Take"
+		SortMode = "Isometric"
+		Acceleration = -200.0
+		OwnerVelocityFraction = 0.33
+		ScaleFromOwner = "Ignore"
+		VisualFxCap = 1
+		VisualFxIntervalMax = 1.0
+		VisualFxIntervalMin = 0.33
+	}
+	
+	{
+		Name = "WheatUnitFxFrontB"
+		InheritFrom = "WheatUnitFxFrontA"
+		CreateAnimation = "WheatUnitFxBackB"
+	}
+	
+	{
+		Name = "WheatUnitFxFrontC"
+		InheritFrom = "WheatUnitFxFrontA"
+		CreateAnimation = "WheatUnitFxBackC"
+		FilePath = "Fx\WheatUnitFxFrontC\WheatUnitFxFrontC"
+	}
+	
+	{
+		Name = "WheatUnitFxBackA"
+		InheritFrom = "WheatUnitFxFrontA"
+		CreateAnimation = "null"
+		FilePath = "Fx\WheatUnitFxBackA\WheatUnitFxBackA"
+		EndBlue = 0.8
+		EndGreen = 0.8
+		EndRed = 0.8
+		PingPongColor = true
+		StartBlue = 0.55
+		StartGreen = 0.55
+		StartRed = 0.55
+		OffsetZ = 55.0
+		DrawBehindOwner = true
+		Scale = 0.8
+	}
+	
+	{
+		Name = "WheatUnitFxBackB"
+		InheritFrom = "WheatUnitFxBackA"
+		FilePath = "Fx\WheatUnitFxBackB\WheatUnitFxBackB"
+	}
+	
+	{
+		Name = "WheatUnitFxBackC"
+		InheritFrom = "WheatUnitFxBackA"
+		FilePath = "Fx\WheatUnitFxBackC\WheatUnitFxBackC"
+	}
+	
+	{
+		Name = "WheatUnitFxTrail"
+		
+		Random =
+		[
+			{ Name = "WheatUnitFxTrailA" }
+			{ Name = "WheatUnitFxTrailB" }
+		]
+	}
+	
+	{
+		Name = "WheatUnitFxTrailA"
+		FilePath = "Fx\WheatUnitFxTrailA\WheatUnitFxTrailA"
+		
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		EndFrame = 19
+		NumFrames = 19
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 0.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Isometric"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.6
+		ScaleMin = 0.5
+	}
+	
+	{
+		Name = "WheatUnitFxTrailB"
+		InheritFrom = "WheatUnitFxTrailA"
+		FilePath = "Fx\WheatUnitFxTrailB\WheatUnitFxTrailB"
+	}
+
+	{
+		Name = "FieldsDestructiblePillar01A"
+		FilePath = "Tilesets\Fields\Fields_DestructiblePillar_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		ChildAnimation = "FieldsDestructiblePillarGlint"
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "FieldsDestructiblePillarGlint"
+		FilePath = "Fx\FieldsDestructiblePillarGlint\FieldsDestructiblePillarGlint"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		NumFrames = 30
+		Loop = true
+		Scale = 2
+		OffsetY = -530
+		Slides =
+		[
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 90 }
+
+		]
+	}
+	
+	{
+		Name = "FieldsDestructiblePillar01B"
+		ChildAnimation = "FieldsDestructiblePillarTransitionA"
+		FilePath = "Tilesets\Fields\Fields_DestructiblePillar_01a"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 3
+		Loop = true
+
+	}
+
+	{
+		Name = "FieldsDestructiblePillar01Destroyed"
+		ChildAnimation = "FieldsDestructiblePillarTransitionB"
+		FilePath = "Tilesets\Fields\Fields_DestructiblePillar_01b"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 3
+		Loop = true
+	}
+
+
+	{
+		Name = "FieldsDustPuffFrontPillar"
+		FilePath = "Fx\FieldsDustPuffFront\FieldsDustPuffFront"
+		PlaySpeed = 30
+		NumFrames = 40
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Red = 1
+		Green = 0.4
+		Blue = 0.45
+		ScaleFromOwner = "Ignore"
+		Scale = 2.25
+		Alpha = 0.66
+		OffsetZ = 60
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "FieldsDustPuffBackPillar"
+		InheritFrom = "FieldsDustPuffFrontPillar"
+		ClearCreateAnimations = true
+		FilePath = "Fx\FieldsDustPuffBack\FieldsDustPuffBack"
+		DrawBehindOwner = true
+	}
+
+	{
+		Name = "FieldsDestructiblePillarTransitionA"
+		FilePath = "Fx\FieldsDestructiblePillarTransitionA\FieldsDestructiblePillarTransitionA"
+		NumFrames = 40
+		PlaySpeed = 30
+		Scale = 4
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -550
+		Sound = "/SFX/PillarDestroyed"
+		CreateAnimations =
+		[
+			{ Name = "FieldsDustPuffFrontPillar" }
+			{ Name = "FieldsDustPuffBackPillar" }
+		]
+	}
+
+	{
+		Name = "FieldsDestructiblePillarTransitionB"
+		InheritFrom = "FieldsDestructiblePillarTransitionA"
+		FilePath = "Fx\FieldsDestructiblePillarTransitionB\FieldsDestructiblePillarTransitionB"
+		Sound = "/SFX/PillarDestroyedBIG"
+	}
+	
+	{
+		Name = "FieldsRewardFinderInactive"
+		FilePath = "Tilesets\Fields\Fields_GoldenBough_01a"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 260
+		Scale = 0.35
+		ChildAnimation = "ZoomOutSparkleEmitter"
+		Sound = "/SFX/GoldenBoughAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "FieldsRewardFinderSpawn"
+		InheritFrom = "FieldsRewardFinderInactive"
+		Duration = 0.01
+		ChainTo = "FieldsRewardFinderInactive"
+	}
+	
+	{
+		Name = "FieldsRewardFinderActive"
+		FilePath = "Tilesets\Fields\Fields_GoldenBough_01"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 260
+		Scale = 0.35
+	}
+
+	{
+		Name = "FieldsStatueHead01Eyeball"
+		FilePath = "Fx\FieldsStatueHead01Eyeball\FieldsStatueHead01Eyeball"
+		NumFrames = 1
+		NumAngles = 128
+	}
+
+	{
+		Name = "FieldsStatueHead02Eyeball"
+		InheritFrom = "FieldsStatueHead01Eyeball"
+		FilePath = "Fx\FieldsStatueHead02Eyeball\FieldsStatueHead02Eyeball"
+	}
+
+
+	{
+		Name = "WheatWindShortRandomContainer"
+		InheritFrom = "EditorContainer"
+		ChildAnimation = "WheatWindShortRandom"
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "WheatWindShortRandomDelay"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		ChainTo = "WheatWindShortRandom"
+	}
+
+
+	{
+		Name = "WheatWindShortRandom"
+		Random =
+		[
+			{ Name = "WheatWindShortA" }
+			{ Name = "WheatWindShortB" }
+		]
+	}
+
+	{
+		Name = "WheatWindShortA"
+		FilePath = "Fx\WheatWindShortA\WheatWindShortA"
+		NumFrames = 81
+		RandomPlaySpeedMin = 26
+		RandomPlaySpeedMax = 34
+		Loop = false
+		ChainTo = "WheatWindShortRandomDelay"
+	}
+
+	{
+		Name = "WheatWindShortB"
+		InheritFrom = "WheatWindShortA"
+		FilePath = "Fx\WheatWindShortB\WheatWindShortB"
+		NumFrames = 82
+	}
+
+	{
+		Name = "FieldsVeinsPulse"
+		FilePath = "Fx\FieldsVeinsPulse\FieldsVeinsPulse"
+		Loop = true
+		Scale = 2.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		OnlyWhenVisible = true
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ DurationFrames = 4 }
+			{ RandomDurationFramesMin = 20 RandomDurationFramesMax = 24 }
+		]
+	}
+
+	{
+		Name = "FieldsViscousHighlight"
+		FilePath = "Fx\FieldsViscousHighlight\FieldsViscousHighlight"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+	}
+
+	{
+		Name = "FieldsWallTorch"
+		FilePath = "Fx\FieldsWallTorch\FieldsWallTorch"
+		NumFrames = 30
+		Loop = true
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 34
+	}
+
+	{
+		Name = "FieldsMiniMiasma"
+		FilePath = "Fx\FieldsMiniMiasma\FieldsMiniMiasma"
+		NumFrames = 50
+		Loop = true
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 34
+	}
+
+
+	{
+		Name = "WheatWindRandomContainer"
+		InheritFrom = "EditorContainer"
+		ChildAnimation = "WheatWindRandom"
+	}
+
+	{
+		Name = "WheatWindRandomDelay"
+		FilePath = "Dev\blank_invisible"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		ChainTo = "WheatWindRandom"
+	}
+
+	{
+		Name = "WheatWindRandom"
+		Random =
+		[
+			{ Name = "WheatWindA" }
+			{ Name = "WheatWindB" }
+		]
+	}
+
+	{
+		Name = "WheatWindA"
+		FilePath = "Fx\WheatWindA\WheatWindA"
+		NumFrames = 60
+		RandomPlaySpeedMin = 28
+		RandomPlaySpeedMax = 34
+		PostRotateScaleY = 0.5
+		Loop = true
+	}
+	{
+		Name = "WheatWindB"
+		InheritFrom = "WheatWindA"
+		FilePath = "Fx\WheatWindB\WheatWindB"
+	}
+
+
+	{
+		Name = "MiasmaVignetteSpawner"
+		FilePath = "Particles\particle_glow"
+		VisualFx = "MiasmaVignetteRandom"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetX = 960.0
+		OffsetY = 1080.0
+		ScaleX = 5.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.15
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "MiasmaVignetteEnd"
+		InheritFrom = "MiasmaVignetteSpawner"
+		VisualFx = "null"
+		StartAlpha = 1.0
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.3
+	}
+	
+	{
+		Name = "MiasmaVignetteRandom"
+		
+		Random =
+		[
+			{ Name = "MiasmaVignetteA" }
+			{ Name = "MiasmaVignetteB" }
+			{ Name = "MiasmaVignetteC" }
+		]
+	}
+	
+	{
+		Name = "MiasmaVignetteA"
+		FilePath = "Fx\FieldsMiasmaScreenFx\SadFaceA"
+		GroupName = "Combat_UI_World"
+		DieWithOwner = false
+		PingPongColor = true
+		ColorFromOwner = "Ignore"
+		StartRed = 0
+		EndRed = 0.01
+		StartGreen = 0
+		EndGreen = 0.02
+		StartBlue = 0
+		EndBlue = 0.1
+		StartAlpha = 0
+		EndAlpha = 1
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1.5
+		RandomFlipHorizontal = true
+		Ambient = 0.0
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		RadialOffsetMin = 600
+		RadialOffsetMax = 800
+		AngleChangeSpeedMin = -30
+		AngleChangeSpeedMax = 30
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 200
+		StartScaleX = 1
+		EndScaleX = 2
+		EaseIn = 0.5
+		EaseOut = 1
+		RandomFlipVertical = true
+	}
+	{
+		Name = "MiasmaVignetteB"
+		InheritFrom = "MiasmaVignetteA"
+		FilePath = "Fx\FieldsMiasmaScreenFx\SadFaceB"
+	}
+	{
+		Name = "MiasmaVignetteC"
+		InheritFrom = "MiasmaVignetteA"
+		FilePath = "Fx\FieldsMiasmaScreenFx\SadFaceC"
+	}
+
+	{
+		Name = "CorruptionCageIdle"
+		FilePath = "Fx\FieldsRewardCage_Idle\FieldsRewardCage_Idle"
+		NumFrames = 60
+		PlaySpeed = 30
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Loop = true
+		OffsetZ = 140
+		Scale = 1.33
+		Sound = "/SFX/CorruptionCageLoop"
+		StopSoundOnFinishFade = 0.2
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "CorruptionCageAgitated"
+		InheritFrom = "CorruptionCageIdle"
+		FilePath = "Fx\FieldsRewardCage_Agitated\FieldsRewardCage_Agitated"
+		Sound = "/SFX/CorruptionCageInteract"
+	}
+
+	{
+		Name = "CorruptionCageDepleted"
+		InheritFrom = "CorruptionCageIdle"
+		Sound = "/SFX/CorruptionCageUnlock"
+		NumFrames = 28
+		Loop = false
+		FilePath = "Fx\FieldsRewardCage_Depleted\FieldsRewardCage_Depleted"
+	}
+
+	{
+		Name = "FieldsRewardFinderTransition"
+		FilePath = "Fx\FieldsGoldenBoughTransition\FieldsGoldenBoughTransition"
+		NumFrames = 60
+		PlaySpeed = 30
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 0.95
+		OffsetY = 260
+		HoldLastFrame = true
+		VisualFx = "FieldsRewardFinderSparkles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		CreateAnimations =
+		[
+			{ Name = "FieldsRewardFinderGlowA" }
+			{ Name = "FieldsRewardFinderGlowB" }
+		]
+	}
+
+	{
+		Name = "FieldsRewardFinderGlowA"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		StartAlpha = 0.1
+		EndAlpha = 0.2
+		PingPongColor = true
+		ScaleFromOwner = "Ignore"
+		Scale = 4
+		Duration = 4
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		Material = "Unlit"
+		Red = 1
+		Green = 0.9
+		Blue = 0.6
+		VisualFx = "FieldsRewardFinderStreak"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "FieldsRewardFinderGlowB"
+		InheritFrom = "FieldsRewardFinderGlowA"
+		FilePath = "Particles\particle_glow_egg"
+		PostRotateScaleY = 1.0
+		Blue = 0.6
+		Green = 0.9
+		OffsetZ = 300
+		EndAlpha = 0.5
+		ScaleX = 0.5
+		ScaleY = 1.0
+		VisualFx = "FieldsRewardFinderLeaf"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 30
+	}
+
+	{
+		Name = "FieldsRewardFinderSparkles"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Hue = 0.3
+		Saturation = -0.3
+		ScaleMin = 0.3
+		ScaleMax = 3
+		RadialOffsetMin = 50
+		RadialOffsetMax = 100
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.3
+		AngleMin = 0
+		AngleMax = 360
+		OffsetZ = 300
+		VelocityMin = 50
+		VelocityMax = 10
+		RandomAccelerationMin = -20
+		RandomAccelerationMax = -10
+		AngleChangeSpeedMin = -90
+		AngleChangeSpeedMax = 90
+		Scale = 0.3
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		Material = "Unlit"
+	}
+
+	{
+		Name = "FieldsRewardFinderLeaf"
+		FilePath = "Fx\WhitePetalFloat\WhitePetalFloat"
+		NumFrames = 150
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		RadialOffsetMin = 50
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.25
+		ReRandomizeOnLoop = false
+		VelocityMin = 150
+		VelocityMax = 350
+		Acceleration = -250
+		AngleChangeSpeedMin = -90
+		AngleChangeSpeedMax = 90
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		Gravity = -50
+		RandomRotation = true
+		AngleMin = -225
+		AngleMax = 45
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Red = 0.7
+		Green = 0.6
+		Blue = 0.45
+		OffsetZ = -200
+		GroupName = "FX_Add_Top"
+	}
+
+	{
+		Name = "FieldsRewardFinderStreak"
+		FilePath = "Particles\particle_line_03"
+		Material = "Unlit"
+		Angle = 90
+		RandomOffsetX = 25
+		RandomOffsetY = 100
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		VelocityMin = 50
+		VelocityMax = 250
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 400
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.3
+		ScaleMax = 2
+		StartScaleX = 1
+		EndScaleX = 3
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "FieldsBrambleTrapBush"
+		FilePath = "Tilesets\Fields\Fields_RoseBramble_01"
+		CreateAnimations =
+		[
+			{ Name = "FieldsBrambleTrapBushShine" }
+			{ Name = "FieldsBrambleTrapBushEdgeGlow" }
+		]
+	}
+
+	{
+		Name = "FieldsBrambleTrapBushEdgeGlow"
+		FilePath = "Fx\FieldsRoseBrambleShine\FieldsRoseBrambleEdgeGlow"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 2
+		Loop = true
+		UseOwnAngle = true
+		AngleFromOwner = "Maintain"
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 0.99
+		StartGreen = 0
+		StartBlue = 0.5
+		EndRed = 1
+		EndGreen = 0.5
+		EndBlue = 1
+		Scale = 4
+		OriginX = 267.75
+		OriginY = 180
+		OffsetY = -125
+		ScaleFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "FieldsBrambleTrapBushShine"
+		FilePath = "Fx\FieldsRoseBrambleShine\FieldsRoseBrambleShine"
+		NumFrames = 30
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		UseOwnAngle = true
+		AngleFromOwner = "Maintain"
+		OriginX = 320
+		OriginY = 239
+		OffsetY = -125
+		Scale = 2
+		ScaleFromOwner = "Maintain"
+		Loop = true
+		Red = 1
+		Green = 0.5
+		Blue = 1
+		Slides =
+		[
+			{ RandomDurationFramesMin = 30 RandomDurationFramesMax = 120 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "FieldsBrambleTrapThorns"
+		FilePath = "Tilesets\Fields\Fields_Thorns_01"
+		Scale = 0.35
+		OffsetY = -25
+		ChildAnimation = "FieldsBrambleTrapThornsShine"
+	}
+
+	{
+		Name = "FieldsBrambleTrapThornsShine"
+		InheritFrom = "FieldsBrambleTrapBushShine"
+		FilePath = "Fx\FieldsThornsShine\FieldsThornsShine"
+		Scale = 0.35
+		OffsetY = -25
+		ChildAnimation = "FieldsBrambleTrapThornsEdgeGlow"
+	}		
+
+	{
+		Name = "FieldsBrambleTrapThornsEdgeGlow"
+		InheritFrom = "FieldsBrambleTrapBushEdgeGlow"
+		OriginX = 317
+		OriginY = 204
+		FilePath = "Fx\FieldsThornsShine\FieldsThornsEdgeGlow"
+		Scale = 0.35
+		OffsetY = -25
+		AddColor = true
+		EndAlpha = 0.5
+	}
+
+	{
+		Name = "FieldsBrambleTrapThornsDetonate"
+		FilePath = "Particles\particle_enemyFlare"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1.33
+		EndScale = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFx" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+			{ Name = "FieldsBrambleTrapThornsDetonateFxDark" }
+
+		]
+	}
+
+
+	{
+		Name = "FieldsBrambleTrapThornsDetonateFx"
+		FilePath = "Fx\TreantProjectile\TreantProjectile"
+		NumFrames = 15
+		RandomFlipVertical = true
+		ColorFromOwner = "Ignore"
+		SortMode = "Id"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 0.7
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Loop = false
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		OffsetZ = 0
+		ChainTo = null
+		LoopFramesOnly = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.7
+		VelocityMin = 1200
+		VelocityMax = 1600
+		Acceleration = -5000
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		StartScaleY = 1
+		EndScaleY = 0
+		StartScaleX = 1.5
+		EndScaleX = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 168
+		OriginY = 32
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 20
+		VisualFx = null
+	}
+
+	{
+		Name = "FieldsBrambleTrapThornsDetonateFxDark"
+		InheritFrom = "FieldsBrambleTrapThornsDetonateFx"
+		GroupName = "FX_Standing"
+		AddColor = false
+		StartScaleY = 1
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "GhostWallDissipate"
+		Random =
+		[
+			{ Name = "GhostWallDissipateA" }
+			{ Name = "GhostWallDissipateB" }
+		]
+	}
+
+	{
+		Name = "GhostWallDissipateA"
+		FilePath = "Fx\GhostWallDissipateA\GhostWallDissipateA"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		RandomFlipHorizontal = true
+		ScaleY = 2
+		Material = "Unlit"
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		CreateAnimation = "GhostWallDissipateB_Dark"
+	}
+
+	{
+		Name = "GhostWallDissipateB"
+		InheritFrom = "GhostWallDissipateA"
+		FilePath = "Fx\GhostWallDissipateB\GhostWallDissipateB"
+		CreateAnimation = "GhostWallDissipateA_Dark"
+	}
+
+	{
+		Name = "GhostWallDissipateA_Dark"
+		InheritFrom = "GhostWallDissipateA"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+	}
+
+	{
+		Name = "GhostWallDissipateB_Dark"
+		InheritFrom = "GhostWallDissipateA_Dark"
+		FilePath = "Fx\GhostWallDissipateB\GhostWallDissipateB"
+	}
+
+	{
+		Name = "GhostWallImpactFx"
+		FilePath = "Particles\particle_ringNova"
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		PostRotateScaleY = 0.5
+		StartAlpha = 0.33
+		EndAlpha = 0
+		Scale = 2
+		StartScale = 0.4
+		EndScale = 1.25
+		Velocity = 400
+		Acceleration = -900
+		Duration = 0.75
+		AngleFromOwner = "Take"
+		Angle = 90
+		OffsetZ = 60
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OriginX = 640
+		OriginY = 320
+		CreateAnimations =
+		[
+			{ Name = "GhostWallImpactFxB" }
+			{ Name = "GhostWallDissipate" }
+		]
+	}
+
+	{
+		Name = "GhostWallImpactFxB"
+		InheritFrom = "GhostWallImpactFx"
+		ClearCreateAnimations = true
+		Red = 1
+		Green = 0.3
+		Blue = 1
+		Scale = 0.5
+		Duration = 1.25
+		StartAlpha = 0.25
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "FieldsRewardFinderScreenEdgeIndicator"
+		FilePath = "GUI\HUD\FieldsScreenEdgeIndicatorIn\FieldsScreenEdgeIndicatorIn"
+		Material = "Unlit"
+		HoldLastFrame = true
+		PlaySpeed = 30
+		NumFrames = 23
+		StartScale = 2
+		EndScale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+	{
+		Name = "FieldsOptionalRewardFinderScreenEdgeIndicator"
+		FilePath = "GUI\Shell\ScreenEdgeIndicatorOptional"
+	}
+
+	{
+		Name = "FieldsExitRewardFinder"
+		FilePath = "Items\Loot\PreviewOnly\Bough"
+		AngleFromOwner = "Ignore"
+		Scale = 0.5
+	}
+
+	{
+		Name = "ScreenEdgeIndicatorSpawnFx"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartScale = 1
+		EndScale = 2
+		Scale = 4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 1.5
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		StartRed = 0.999
+		StartGreen = 0.75
+		StartBlue = 0.33
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		VisualFx = "ScreenEdgeIndicatorSpawnFxParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 16
+	}
+
+	{
+		Name = "ScreenEdgeIndicatorSpawnFxParticles"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		Hue = 0.3
+		Saturation = -0.3
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		VelocityMin = 400
+		VelocityMax = 500
+		Acceleration = -450
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.5
+		RadialOffsetMin = 0
+		RadialOffsetMax = 200
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Scale = 0.33
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		UseOwnAngle = false
+		GroupName = "Combat_Menu_TraitTray_Additive"
+	}
+
+	{
+		Name = "FieldsBossDoorOpen"
+		InheritFrom = "FieldsBossExitDoorUnlocked"
+		DurationFrames = 44
+		Loop = true
+		ChildAnimation = "FieldsBossExitOpenTerrain"
+		Sound = "/Ambience/ExitDoorAmbience"
+		StopSoundOnFinishFade = 0.3
+		CreateAnimations =
+		[
+			{ Name = "FieldsBossExitOpenFx" }
+			{ Name = "FieldsBossExitLightColumnIn" }
+		]
+	}
+
+
+	{
+		Name = "FieldsBossExitLightColumn"
+		FilePath = "Fx\FieldsBossExitLightColumn\FieldsBossExitLightColumn"
+		Material = "Unlit"
+		NumFrames = 38
+		Loop = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.8
+		OriginX = 100
+		OriginY = 296
+		TransferFrameToThis = true
+		Alpha = 0.5
+		VisualFx = "FieldsBossExitParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.3
+	}
+
+	{
+		Name = "FieldsBossExitLightColumnIn"
+		InheritFrom = "FieldsBossExitLightColumn"
+		StartScaleX = 0
+		EndScaleX = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ChainTo = "FieldsBossExitLightColumn"
+		Loop = false
+		DurationFrames = 44
+		LoopFramesOnly = true
+		TransferFrameFromThis = true
+	}
+
+	{
+		Name = "FieldsBossExitOpenFx"
+		FilePath = "Fx\FieldsBossExitOpenFx\FieldsBossExitOpenFx"
+		NumFrames = 22
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 30
+		Loop = false
+		Scale = 1.8
+	}
+
+	{
+		Name = "FieldsBossExitOpenTerrain"
+		FilePath = "Fx\FieldsBossExitOpenTerrain\FieldsBossExitOpenTerrain"
+		NumFrames = 22
+		PlaySpeed = 30
+		Loop = false
+		Scale = 1.8
+	}
+
+
+	{
+		Name = "FieldsBossExitParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		AddColor = true
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		ScaleMin = 0.1
+		ScaleMax = 0.4
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		LoopFramesOnly = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomOffsetY = 60
+		RandomOffsetX = 120
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		VelocityMin = 50
+		VelocityMax = 200
+		Acceleration = -25
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "HPostBossDoorDustEmitter_Slow"
+		FilePath = "Dev\blank_invisible"
+		Scale = 0.3
+		VisualFx = "HPostBossDoorDust"
+		Duration = 2.75
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.8
+		VisualFxIntervalMin = 2.5
+	}
+	{
+		Name = "HPostBossDoorDustEmitter_Fast"
+		InheritFrom = "HPostBossDoorDustEmitter_Slow"
+		Duration = 1.0
+		VisualFxIntervalMax = 0.3
+		VisualFxIntervalMin = 1.5
+	}
+	{
+		Name = "HPostBossDoorDust"
+		FilePath = "Fx\DustPuffA\DustPuffA"
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 40
+		NumFrames = 40
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+	}
+]}

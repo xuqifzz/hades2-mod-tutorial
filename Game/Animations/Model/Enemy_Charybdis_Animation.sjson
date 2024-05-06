@@ -1,0 +1,153 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyCharybdisBaseAnimation"
+		
+		GrannyModel = "Charybdis_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_Charybdis_Idle"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_Idle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Charybdis_Appear"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_Appear_C_00"
+		ChainTo = "Enemy_Charybdis_Idle"
+		Enable3DShadow = false
+		OffsetZ = -600
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0
+			}
+			{
+				Frame = 45
+				VerticalMask = 0
+			}
+			{
+				Frame = 70
+				VerticalMask = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Charybdis_Retreat"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_Retreat_C_00"
+		ChainTo = "Enemy_Charybdis_Hidden"
+		VisualFx = "CharybdisDisappearFx"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.03
+		VerticalMaskInModelSpace = true
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 1
+			}
+			{
+				Frame = 20
+				VerticalMask = 1
+			}
+			{
+				Frame = 100
+				VerticalMask = 0.1
+			}
+			{
+				Frame = 119
+				VerticalMask = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Charybdis_Hidden"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_Idle_C_00"
+		HoldLastFrame = true
+		Alpha = 0
+	}
+
+	// SPIT
+
+	{
+		Name = "Enemy_Charybdis_SpitPreFire"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_SpitPreFire_C_00"
+		HoldLastFrame = true
+		AllowRestart = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Charybdis_Idle"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Charybdis_SpitFireLoop"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Enemy_Charybdis_SpitPostFire"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Charybdis_SpitFireLoop"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_SpitFireLoop_C_00"
+		Loop = true
+		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingRange"
+	}
+
+	{
+		Name = "Enemy_Charybdis_SpitPostFire"
+		InheritFrom = "EnemyCharybdisBaseAnimation"
+		GrannyAnimation = "Charybdis_Base_SpitPostFire_C_00"
+		ChainTo = "Enemy_Charybdis_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Charybdis_SpitFireLoop"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Enemy_Charybdis_SpitPreFire"
+				Duration = 8
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Charybdis_SpitFullStart"
+		InheritFrom = "Enemy_Charybdis_SpitPreFire"
+		ChainTo = "Enemy_Charybdis_SpitFullEnd"
+		HoldLastFrame = false
+	}
+	{
+		Name = "Enemy_Charybdis_SpitFullEnd"
+		InheritFrom = "Enemy_Charybdis_SpitFireLoop"
+		Loop = false
+		ChainTo = "Enemy_Charybdis_SpitPostFire"
+		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee"
+	}
+
+] }

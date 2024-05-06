@@ -1,0 +1,474 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyMudmanBaseAnimation"
+		
+		GrannyModel = "Mudman_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_NoAnim"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+	}
+	{
+		Name = "MudmanEyeBaseAnimation"
+		GrannyModel = "MudmanProjectile_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+	}
+	{
+		Name = "MudmanEye_NoAnim"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "null"
+		Loop = true
+	}
+
+	/*Idle and Move*/
+	
+	{
+		Name = "MudmanEye_Idle"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "null"
+		/*GrannyAnimation = "MudmanEye_Base_MudmanIdle_C_00"*/
+		Loop = true
+	}
+	
+	{
+		Name = "MudmanEye_Spawn"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_Spawn_C_00"
+	}
+	
+	{
+		Name = "Enemy_Mudman_Idle"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_Idle"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_ThrowReturnToIdle"
+				Duration = 2
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 218
+				Sound = "/SFX/Enemy Sounds/Mudman/MudmanPalmSquish"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mudman_MoveStart"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_Move_Start_C_00"
+		ChainTo = "Enemy_Mudman_Move"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}	
+	{
+		Name = "Enemy_Mudman_Move"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_Move_C_00"
+		Loop = true
+		Blends = 
+
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit_Heavy"
+				Duration = 4
+			}
+		]	
+
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/SFX/Enemy Sounds/Mudman/MudmanPalmSquish"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Mudman_MoveStop"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_Move_Stop_C_00"
+		ChainTo = "Enemy_Mudman_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mudman_OnHit"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_GetHit_C_00"
+		GrannyAnimationSpeed = 1.2
+		ChainTo = "Enemy_Mudman_Idle"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/Mudman/EmoteHurt"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 3
+				FrameSpeed = 2.5
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Mudman_OnHit_Heavy"
+		InheritFrom = "Enemy_Mudman_OnHit"
+		GrannyAnimationSpeed = 0.6
+	}
+
+	{
+		Name = "Enemy_Mudman_ShovePreFire"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ShovePreFire_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 1.5
+		CreateAnimation = "MudmanShovePreAttackGlow"
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanMeleeCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_ShoveReturnToIdle"
+				Duration = 10
+			}
+		]
+	}
+
+	
+	{
+		Name = "MudmanEye_Shove_Fire"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_ShoveFire_C_00"
+	}
+	
+	{
+		Name = "Enemy_Mudman_ShoveFire"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ShoveFire_C_00"
+		ChainTo = "Enemy_Mudman_ShoveReturnToIdle"
+		
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_Shove_Fire"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mudman_ShoveReturnToIdle"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ShoveReturnToIdle_C_00"
+		ChainTo = "Enemy_Mudman_Idle"
+	}
+
+	
+	{
+		Name = "MudmanEye_Throw_Start"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_ThrowPreFire_C_00"
+	}
+	
+	{
+		Name = "Enemy_Mudman_ThrowPreFire"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ThrowPreFire_C_00"
+		ChainTo = "Enemy_Mudman_ThrowPreFireHold"
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanRangedChargeNoSlap"
+		StopSoundOnFinishFade = 0.2
+
+		Frames =
+		[
+			{
+				Frame = 15
+				Sound = "/SFX/Enemy Sounds/Mudman/MudmanRangedChargeSlapOnly"
+			}
+		]
+		
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_Throw_Start"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+		
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_MoveStop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Mudman_OnHit_Heavy"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Mudman_ThrowPreFireHold"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ThrowPreFireHold_C_00"
+		Loop = true
+	}
+
+	
+	{
+		Name = "MudmanEye_Throw_Fire"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_ThrowFire_C_00"
+		GrannyAnimationSpeed = 0.75
+	}
+	
+	{
+		Name = "Enemy_Mudman_ThrowFire"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ThrowFire_C_00"
+		ChainTo = "Enemy_Mudman_ThrowReturnToIdle"
+		GrannyAnimationSpeed = 0.75
+		
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_Throw_Fire"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+	}
+
+	
+	{
+		Name = "MudmanEye_Throw_End"
+		InheritFrom = "MudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_ThrowReturnToIdle_C_00"
+	}
+	
+	{
+		Name = "Enemy_Mudman_ThrowReturnToIdle"
+		InheritFrom = "EnemyMudmanBaseAnimation"
+		GrannyAnimation = "Mudman_Base_ThrowReturnToIdle_C_00"
+		ChainTo = "Enemy_Mudman_Idle"
+		
+		Attachments =
+		[
+			{
+				Name = "MudmanEye_Throw_End"
+				ToBone = "Mudman_Rig:prop_IK_00_R_JNT" 
+			}
+		]
+	}
+
+
+
+	// Mudman Eye
+
+	{
+		Name = "EnemyMudmanEyeBaseAnimation"
+		GrannyModel = "MudmanProjectile_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		OffsetZ = 30
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "Enemy_MudmanEye_Idle"
+		InheritFrom = "EnemyMudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+	}
+	{
+		Name = "Enemy_MudmanEye_Move"
+		InheritFrom = "EnemyMudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_Move_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_MudmanEye_OnHit"
+		InheritFrom = "EnemyMudmanEyeBaseAnimation"
+		GrannyAnimation = "MudmanEye_Base_GetHit_C_00"
+		ChainTo = "Enemy_MudmanEye_Idle"
+		AllowRestart = true
+		Sound = "/SFX/Enemy Sounds/MudmanEye/EmoteHurt"
+	}
+	{
+		Name = "Enemy_MudmanEye_OnHit_Heavy"
+		InheritFrom = "Enemy_MudmanEye_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+
+	{
+		Name = "Enemy_Mudman_Spawn"
+		InheritFrom = "Enemy_Mudman_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 1.5
+		GrannyAnimationSpeed = 1.1
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 1.0 Green = 0.0 Blue = 0.1 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 0.5
+		DeathFxReverse = true
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		EaseIn = 0.0
+		EaseOut = 0.01
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanSpawn"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+	}
+
+
+	{
+		Name = "Enemy_Mudman_Death"
+		InheritFrom = "Enemy_Mudman_OnHit"
+		RequireCurrentAnimationNotContains = null
+		AllowRestart = true
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear3"
+		Duration = 0.75
+		GrannyAnimationSpeed = 0.75
+		DeathFxFrameDuration = 45
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 0.5
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.01
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		ChainTo = null
+		VisualFx = "EphyraUndeadGib"
+		VisualFxCap = 6
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.06
+	}
+
+]}

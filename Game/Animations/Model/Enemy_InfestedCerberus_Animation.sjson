@@ -1,0 +1,807 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyInfestedCerberusBaseAnimation"
+		GrannyModel = "InfestedCerberus_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	/*Idle and Move*/
+
+	{
+		Name = "Enemy_InfestedCerberus_Idle"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_VacuumPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_BarkPostFire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_PoundLPostFire"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_Hidden"
+		InheritFrom = "Enemy_InfestedCerberus_Idle"
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerInvulnerable = true
+		Alpha = 0
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_Move"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_Move_C_00"
+		Loop = true
+		GrannyAnimationSpeed = 1.0
+		NativeMoveSpeed = 400
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 150
+		VisualFx = "CerbBibMoveTrail"
+		CreateAnimation = "CerbBibMoveTrail"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 20
+				FootstepFxR = "CerbPawPrintLeftSpawner"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 60
+				FootstepFxR = ""
+				FootstepFxL = "CerbPawPrintRightSpawner"
+			}
+		]
+
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_MoveStart"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_MoveStart_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Move"
+		GrannyAnimationSpeed = 1.5
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_MoveStop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_MoveStop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_MoveStop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		GrannyAnimationSpeed = 1.5
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_MoveStart"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_SwipePreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_SwipeFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_SwipePostFire"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/CerberusSwipe"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_SwipePostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_SwipeReturnToIdle_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_ForwardBitePreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_ForwardBiteAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Move"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_ForwardBiteFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_ForwardBiteFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_ForwardBitePostFire"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 150
+		VisualFx = "CerbBibMoveTrailFast"
+		CreateAnimation = "CerbForwardStreaks"
+		Frames =
+		[
+			{
+				Frame = 13
+				FootstepFxR = "CerbBiteFxC"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 14
+				FootstepFxR = "CerbPawPrintRightSpawner"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 6
+				FootstepFxR = "CerbBiteFxL"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 19
+				FootstepFxR = "CerbBiteFxR"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 21
+				FootstepFxR = ""
+				FootstepFxL = "CerbPawPrintLeftSpawner"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_ForwardBitePostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_ForwardBiteReturnToIdle_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundLPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundAntic_L_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_PoundRPostFire"
+				Duration = 8
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0.85
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundLFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundFire_L_00"
+		ChainTo = "Enemy_InfestedCerberus_PoundLPostFire"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundLPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundReturnToIdle_L_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundRPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundAntic_R_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_PoundLPostFire"
+				Duration = 8
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0.85
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundRFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundFire_R_00"
+		ChainTo = "Enemy_InfestedCerberus_PoundRPostFire"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_PoundRPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_GroundPoundReturnToIdle_R_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_VacuumPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_VacuumAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_VacuumFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_VacuumFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_VacuumFireLoop"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_VacuumFireLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_VacuumLoop_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_VacuumPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_VacuumReturnToIdle_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_VacuumFireLoop"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_Howl"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_Howl_C_00"
+		OwnerImmobile = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_Howl_Summons"
+		InheritFrom = "Enemy_InfestedCerberus_Howl"
+		CreateAnimation = "CerberusSummonHowlFx"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BarkPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BarkStart_C_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BarkFireLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BarkLoopC_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 6
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 11
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 30
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 59
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 85
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 102
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+			{
+				Frame = 121
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Bark"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BarkPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BarkReturnToIdle_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_BarkFireLoop",
+				Duration = 16
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_Shake"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_Shake_C_00"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Shake"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_InfestedCerberus_DeathTransition"
+		InheritFrom = "Enemy_InfestedCerberus_Shake"
+		GrannyAnimationSpeed = 0.5
+		ChainTo = "Cerberus_HubIdleNonBink"
+		Sound = "/SFX/Player Sounds/MelMagicalChargeLoop"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Defeated"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_ShakeSlow"
+		InheritFrom = "Enemy_InfestedCerberus_Shake"
+		GrannyAnimationSpeed = 0.6
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_TurnHopPreFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_TurnHop_C_00"
+		GrannyAnimationSpeed = 1.0
+		HoldLastFrame = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3.0
+			}
+			{
+				Frame = 37
+				FrameSpeed = 0.65
+			}
+			{
+				Frame = 46
+				FrameSpeed = 0
+			}
+		]
+
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_TurnHopFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_TurnHop_C_00"
+		GrannyAnimationSpeed = 1.0
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 47
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BurrowStart"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BurrowStart_C_00"
+		OwnerImmobile = true
+		ChainTo = "Enemy_InfestedCerberus_Hidden"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Dig"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		Duration = 1.66
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 20
+				VerticalMask = 1.0
+			}
+			{
+				Frame = 30
+				FootstepFxR = "CerbDirtScrapeR"
+			}
+			{
+				Frame = 40
+				FootstepFxR = "CerberusLargeHole"
+			}
+			{
+				Frame = 43
+				FootstepFxR = "CerbDirtScrapeL"
+			}
+			{
+				Frame = 50
+				VerticalMask = 0.8
+			}
+			{
+				Frame = 54
+				FootstepFxR = "CerbDirtScrapeR"
+			}
+			{
+				Frame = 90
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 119
+				VerticalMask = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BurrowEmerge"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BurrowEmerge_C_00"
+		ChainTo = "Enemy_InfestedCerberus_BurrowToIdle"
+		OwnerImmobile = true
+		GrannyAnimationSpeed = 0.6
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Emerge"
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 1
+
+			}
+			{
+				Frame = 10
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 14
+				FootstepFxR = "CerberusEmergeFx"
+			}
+			{
+				Frame = 18
+				VerticalMask = 0.7
+			}
+			{
+				Frame = 24
+				VerticalMask = 1.0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_BurrowToIdle"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_BurrowReturnToIdle_C_00"
+		OwnerImmobile = true
+		GrannyAnimationSpeed = 0.6
+	}
+
+
+	{
+		Name = "Enemy_InfestedCerberus_L_BreathPreAttack"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballAntic_L_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_Idle"
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_L_BreathFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballFire_L_00"
+		ChainTo = "Enemy_InfestedCerberus_L_BreathFireLoop"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_L_BreathFireLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballLoop_L_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_L_BreathPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballReturnToIdle_L_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_L_BreathFireLoop",
+				Duration = 4
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_R_BreathPreAttack"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballAntic_R_00"
+		HoldLastFrame = true
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_C_BreathPostFire",
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_R_BreathFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballFire_R_00"
+		ChainTo = "Enemy_InfestedCerberus_R_BreathFireLoop"
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_R_BreathFireLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballLoop_R_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_R_BreathPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballReturnToIdle_R_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_R_BreathFireLoop",
+				Duration = 4
+			}
+		]
+
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_C_BreathPreAttack"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_L_BreathPostFire",
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_C_BreathFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_C_BreathFireLoop"
+	}
+
+	{
+		Name = "CerbBreathFireMouthGlow"
+		FilePath = "Particles\particle_glow_egg_horizontal"
+		ScaleX = 1
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0.25
+		PingPongColor = true
+		StartAlpha = 0.5
+		EndAlpha = 1
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.6
+		StartScale = 1
+		EndScale = 1.5
+		PingPongScale = true
+		Loop = true
+		Material = "Unlit"
+		Scale = 1
+		OffsetZ = -60
+		ScaleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "InfestedCerberus_Rig:upperJaw_01_M_JNT"
+		OriginX = 120
+		OriginY = 84
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_C_BreathFireLoop"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballLoop_C_00"
+		Loop = true
+		CreateAnimation = "CerbBreathFireMouthGlow"
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Fireballs"
+		StopSoundOnFinishFade = 0.4
+	}
+
+	{
+		Name = "Enemy_InfestedCerberus_C_BreathPostFire"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_FireballReturnToIdle_C_00"
+		ChainTo = "Enemy_InfestedCerberus_Idle"
+		Blends =
+		[	
+			{
+				BlendTransitionFrom = "Enemy_InfestedCerberus_C_BreathFireLoop",
+				Duration = 8
+			}
+		]
+	}
+
+]}

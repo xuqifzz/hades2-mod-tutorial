@@ -1,0 +1,295 @@
+{
+  RemoteProfileScreen =
+  {
+    Platform = "default"
+    OpenSound = "null"
+    CloseSound = "null"
+    SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+    ForceShowCursor = true
+	  FreeFormSelectGridLock = true
+	  FreeFormSelectSuccessDistance = 16
+    FreeFormSelectSuccessDistanceStep = 0
+    TransitionOnTime = 0.1
+    TransitionOffTime = 0.1
+
+	Back =
+	{
+      Justification = "Left"
+      VerticalJustification = "Top"
+      Red = 0
+      Green = 0
+      Blue = 0
+      Alpha = 0.0
+      Width = 5120
+      Height = 1440
+    }
+
+    NameHighlightFormat =
+	{
+      TextRed = 0.9
+      TextGreen = 0.9
+      TextBlue = 0.9
+      Font = "LatoBold"
+      FontSize = 20
+      LangCnScaleModifier = 1.0
+      LangKoScaleModifier = 1.0
+      LangPlScaleModifier = 1.0
+      LangJaScaleModifier = 1.0
+    }
+
+    AnimatedBackground =
+	{
+      X = 960
+      Y = 540
+      Graphic = "GUI\Shell\Box_FullScreen"
+      Scale = 0.98
+      Justification = "Center"
+      VerticalJustification = "Center"
+    }
+
+    FullScreenFade =
+	{
+      X = 960
+      Y = 540
+      Graphic = "RoomTransitionIn"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      FadeOpacity = 0.0
+      FadeTarget = 0.0
+    }
+
+    TitleText =
+	{
+      Scale = 0
+      X = 960
+      Y = 180
+      Justification = "Center"
+      VerticalJustification = "Center"
+      DisplayNameId = "ProfileScreen_Title"
+      Font = "P22UndergroundSCLightTitling"
+      FontSize = 40
+      TextRed = 0.87
+      TextGreen = 0.87
+      TextBlue = 0.87
+      TextOutlineRed = 0.1
+      TextOutlineGreen = 0.1
+      TextOutlineBlue = 0.1
+      OutlineThickness = 1
+      ShadowRed = 0.176
+      ShadowGreen = 0.184
+      ShadowBlue = 0.18
+      ShadowOffsetY = 2
+      ShadowAlpha = 0
+      ShadowBlur = 2
+    }
+
+    SaveSpinnerHint =
+	{
+      X = 960
+      Y = 215
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 16
+      TextRed = 0.75
+      TextGreen = 0.75
+      TextBlue = 0.75
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      TextSymbolScale = 0.4
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 0
+      ShadowAlpha = 0
+      ShadowBlur = 0
+      Width = 900
+      Height = 100
+      NonEnglishScaleModifier = 1.0
+    }
+
+	InstructionHint =
+	{
+      X = 960
+      Y = 200
+      Justification = "Center"
+      VerticalJustification = "Center"
+      DisplayNameId = "ProfileScreen_Hint"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 0.75
+      TextGreen = 0.75
+      TextBlue = 0.75
+      SelectedTextRed = 0.337
+      SelectedTextGreen = 1.000
+      SelectedTextBlue = 0.714
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      TextSymbolScale = 0.4
+      TextOutlineRed = 0
+      TextOutlineGreen = 0
+      TextOutlineBlue = 0
+      OutlineThickness = 0
+      ShadowRed = 0
+      ShadowGreen = 0
+      ShadowBlue = 0
+      ShadowOffsetY = 0
+      ShadowAlpha = 0
+      ShadowBlur = 0
+      Width = 1200
+      Height = 100
+    }
+
+  ProfileButton =
+  {
+      X = 405
+      Y = 260
+      SpacingX = 370
+      SpacingY = 0
+      Graphic = "GUI\Screens\SaveProfileSlot"
+      Scale = 1
+      ScaleX = 1.1
+      Justification = "Center"
+      VerticalJustification = "Top"
+      SelectedGraphic = "GUI\Screens\SaveProfileSlotHighlight"
+      Font = "P22UndergroundSCMedium"
+      TextRed = 0.45
+      TextGreen = 0.35
+      TextBlue = 0.55
+      FontSize = 22
+      SelectedTextRed = 0.65
+      SelectedTextGreen = 0.5
+      SelectedTextBlue = 0.85
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      ActionSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+      ToggleOnSound = "/SFX/Menu Sounds/TextReveal4"
+      DisabledPressSound = "/Leftovers/SFX/OutOfAmmo2"
+      TextJustification = "Left"
+      TextOffsetX = -152
+      TextOffsetY = 90
+      SelectOnMouseOver = true
+      DeselectOnMouseOff = true
+      TextSymbolScale = 1
+    }
+
+    EasyModeLabel =
+    {
+      X = 405
+      Y = 680
+      SpacingX = 370
+      SpacingY = 0
+      Justification = "Center"
+      VerticalJustification = "Top"
+      DisplayNameId = "ProfileScreen_InProgressSave_EasyMode"
+      Font = "P22UndergroundSCMedium"
+      TextRed = 0.45
+      TextGreen = 0.35
+      TextBlue = 0.55
+      FontSize = 22
+      SelectedTextRed = 0.65
+      SelectedTextGreen = 0.5
+      SelectedTextBlue = 0.85
+      DisabledTextRed = 0.2
+      DisabledTextGreen = 0.2
+      DisabledTextBlue = 0.2
+      TextJustification = "Center"
+      TextOffsetY = 90
+      TextSymbolScale = 1
+    }
+
+    DeleteButton =
+	{
+      X = 405
+      Y = 880
+      SpacingX = 369
+      SpacingY = 0
+      Scale = 0.7
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Graphic = "TrashButtonFlash"
+      UnderCursorOnAnimation = "TrashButtonFlashHover"
+      UnderCursorOffAnimation = "TrashButtonFlash"
+      ActionSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+    }
+
+    ActiveMarker =
+	{
+      OffsetX = 0
+      OffsetY = 48
+      Graphic = "GUI\Shell\Selector_Coin"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Scale = 0.6
+      MoveSpeed = 8000
+    }
+
+    CloudMarker =
+    {
+      OffsetX = 90
+      OffsetY = 56
+      Graphic = "GUI\Shell\CloudSuccess"
+      Justification = "Center"
+      VerticalJustification = "Center"
+      Scale = 0.5
+      MoveSpeed = 8000
+    }
+
+	DescriptionBox =
+	{
+		OffsetX = -40
+		OffsetY = -470
+		Justification = "Left"
+		VerticalJustification = "Top"
+		Font = "LatoMedium"
+		FontSize = 20
+		TextRed = 0.87
+		TextGreen = 0.87
+		TextBlue = 0.87
+		TextOutlineRed = 0
+		TextOutlineGreen = 0
+		TextOutlineBlue = 0
+		OutlineThickness = 3
+		ShadowRed = 0.0
+		ShadowGreen = 0.0
+		ShadowBlue = 0.0
+		ShadowOffsetY = 3
+		ShadowAlpha = 1
+		ShadowBlur = 0
+		Width = 270
+		Height = 600
+    }
+
+    CancelButton =
+	{
+      Graphic = "CancelButtonFlash"
+      UnderCursorOnAnimation = "CancelButtonFlashHover"
+      UnderCursorOffAnimation = "CancelButtonFlash"
+      FreeFormSelectable = false
+      Justification = "Center"
+      VerticalJustification = "Center"
+      X = 960
+      Y = 1030
+      FlashMin = 0.0
+      FlashMax = 0.5
+      FlashSpeed = 1.2
+      FlashRed = 0.6
+      FlashGreen = 0.4
+      FlashBlue = 0.0
+      Scale = 0.8
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+    }
+
+  }
+
+}
