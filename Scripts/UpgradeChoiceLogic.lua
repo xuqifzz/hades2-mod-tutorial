@@ -86,8 +86,19 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 	if upgradeOptions == nil then
 		SetTraitsOnLoot( lootData )
 		upgradeOptions = lootData.UpgradeOptions
+	elseif lootData.StackOnly then
+		local hasAllOptions = true
+		for i, data in pairs( upgradeOptions ) do
+			if not data.ItemName or not HeroHasTrait( data.ItemName ) then
+				hasAllOptions = false
+				break
+			end
+		end
+		if not hasAllOptions then
+			SetTraitsOnLoot( lootData )
+			upgradeOptions = lootData.UpgradeOptions
+		end
 	end
-
 	if not lootData.StackNum then
 		lootData.StackNum = 1
 	end

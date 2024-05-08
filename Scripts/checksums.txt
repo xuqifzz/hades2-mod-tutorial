@@ -76,7 +76,7 @@ bf615e7b121145b7  EncounterData_TimeChallenge.lua
 a0dfe3d6d74dd1ce  EncounterData_Unique.lua
 b21567c0ef8f4d99  EncounterLogic.lua
 42a8987535c8eeac  EncounterPresentation.lua
-6812b4ee7de021f4  EncounterPresentation_Late.lua
+b5758fd73116a002  EncounterPresentation_Late.lua
 67265b3fd74762c2  EncounterSets.lua
 899e026eaa19da16  EncounterSets_Demo.lua
 9909893682ec98f0  EnemyAILogic.lua
@@ -181,7 +181,7 @@ afd9206eabdf6a40  GiftLogic.lua
 03574101f822a0cb  HubPresentation.lua
 3a6f41351a236012  HUDData.lua
 5ae74d60b746b6b4  HUDLogic.lua
-76bcc9ea94e57588  InteractLogic.lua
+7bed429be3cb5cfa  InteractLogic.lua
 1c70ea2ccfef5887  InteractPresentation.lua
 6982838b79db0341  KeepsakeData.lua
 dee407cb17726f22  KeepsakeLogic.lua
@@ -274,7 +274,7 @@ b380fe3bf5f9b9a6  ObjectiveData_Spoilers.lua
 b842b493fe54fab9  ObstacleDataN.lua
 53c814ee71f15c94  ObstacleDataO.lua
 b8c2daa19b8fb834  PlayerAIData.lua
-53d4830c923d097c  PowersLogic.lua
+4f6ae0c7d29ff5e6  PowersLogic.lua
 2260db76dbb61604  PowersPresentation.lua
 da8944491e7af1c0  ProjectileData.lua
 904be36c19f80413  ProjectileData_Chronos.lua
@@ -318,7 +318,7 @@ b5053c4f2e050370  RoomDataG.lua
 e7871d62d1f2c770  RoomDataH.lua
 04f61500765c3966  RoomDataI.lua
 9addfabe5a702e0d  RoomDataN.lua
-3b89a7ba363dd86a  RoomDataO.lua
+f1cec24b06352b3c  RoomDataO.lua
 f50649b499682441  RoomDataSecrets.lua
 bf1810fe047ef5a5  RoomLogic.lua
 4ab88848ee6a927a  RoomPresentation.lua
@@ -400,7 +400,7 @@ dcffaeedd1fd7f5c  UIData.lua
 7a7ec52cda44b498  UILogic.lua
 70386c53dd9cc155  UIPresentation.lua
 d74e2a176bd3aab0  UpgradeChoiceData.lua
-5593726c5072894d  UpgradeChoiceLogic.lua
+ba1aa342bd3873cd  UpgradeChoiceLogic.lua
 11b296fa1439fed6  UpgradeLogic.lua
 2a5be6394bb09363  UtilityLogic.lua
 a945f4cb7a358b79  WeaponData.lua

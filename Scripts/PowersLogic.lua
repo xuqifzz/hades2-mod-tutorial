@@ -1682,7 +1682,7 @@ function HeraSprintSuction( functionArgs )
 end
 
 function HeraSprintLink( functionArgs )
-	if not CurrentRun.Hero.SprintActive or ( functionArgs.StartDelay and (_worldTimeUnmodified - SessionMapState.SprintStartTime) < functionArgs.StartDelay ) then
+	if not CurrentRun.Hero.SprintActive or not SessionMapState.SprintStartTime or ( functionArgs.StartDelay and (_worldTimeUnmodified - SessionMapState.SprintStartTime) < functionArgs.StartDelay ) then
 		return
 	end
 	if  CheckCooldown( "HeraSprintSuction", functionArgs.Cooldown) then

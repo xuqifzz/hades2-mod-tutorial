@@ -1788,6 +1788,28 @@ RoomSetData.O =
 		{
 			{ FunctionName = "MedeaMusicManager" },
 		},
+
+		ExorcismPointRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsNone = { "FrogFamiliar" },
+			},
+		},
+		FishingPointRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsNone = { "CatFamiliar" },
+			},
+		},
+		PickaxePointRequirements =
+		{
+			{
+				Path = { "GameState", "EquippedFamiliar" },
+				IsNone = { "RavenFamiliar" },
+			},
+		},
 	},
 
 }

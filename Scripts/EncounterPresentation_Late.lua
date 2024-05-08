@@ -1037,6 +1037,10 @@ function NemesisBetPresentation( eventSource, args )
 	local encounter = eventSource
 	local nemesis = ActiveEnemies[encounter.NemesisId]
 
+	if nemesis == nil then -- Most likely if the player died during reward sequence
+		return
+	end
+
 	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 1 })
 
 	if args.Result == "playerwin" then

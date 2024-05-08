@@ -549,6 +549,10 @@ function HandleNemesisEncounterReward( eventSource, args )
 	local encounter = eventSource
 	local nemesis = ActiveEnemies[encounter.NemesisId]
 
+	if nemesis == nil then -- Most likely if the player died during reward sequence
+		return
+	end
+
 	wait(2.0, RoomThreadName)
 
 	local betAmount = nemesis.MaxBetAmount or 100
