@@ -676,6 +676,10 @@ end
 
 function StripRoomsForSave( run )
 
+	if run == nil then
+		return
+	end
+
 	if run.RoomHistory ~= nil then
 		for roomIndex, room in pairs( run.RoomHistory ) do
 			if roomIndex ~= TableLength( run.RoomHistory ) then -- Don't strip prevRoom

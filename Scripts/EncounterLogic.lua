@@ -2393,7 +2393,9 @@ function ApplyScyllaFightSpotlight( scylla, args )
 		ApplyEffect(flagData.ApplyEffect)
 	end
 
-	ActiveEnemies[flagData.Id].SpotlightFlag = flagData
+	if ActiveEnemies[flagData.Id] ~= nil then
+		ActiveEnemies[flagData.Id].SpotlightFlag = flagData
+	end
 	MapState.SpotlightUnitId = flagData.Id
 
 	thread( SetMapFlag, flagData)

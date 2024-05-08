@@ -1836,7 +1836,7 @@ function RecordRunCleared()
 		GameState.TimesClearedWeapon[weaponName] = 0
 	end
 
-	GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName] = {}
+	GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName] = GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName] or {}
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
 		if metaUpgradeData.Equipped then
 			GameState.ClearedWithMetaUpgrades[CurrentRun.CurrentRoom.RoomSetName][metaUpgradeName] = true

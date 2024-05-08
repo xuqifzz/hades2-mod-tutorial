@@ -1099,6 +1099,8 @@ function GatherRoomPresentationObjects( currentRun, currentRoom )
 		return
 	end
 
+	local roomData = RoomData[currentRoom.Name] or currentRoom
+
 	if CurrentRun.NextHeroStartPoint ~= nil and CurrentRun.NextHeroEndPoint ~= nil then
 		currentRoom.HeroStartPoint = CurrentRun.NextHeroStartPoint
 		CurrentRun.NextHeroStartPoint = nil
@@ -1118,7 +1120,7 @@ function GatherRoomPresentationObjects( currentRun, currentRoom )
 			end
 			local entranceDirection = nil
 			local entranceAngle = GetAngleBetween({ Id = startId, DestinationId = entranceEndId })
-			if RoomData[currentRoom.Name].CardinalEntranceDirection then
+			if roomData.CardinalEntranceDirection then
 				if entranceAngle > 0 and entranceAngle < 90 then
 					entranceDirection = "North"
 				elseif entranceAngle > 90 and entranceAngle < 180 then
@@ -1128,7 +1130,7 @@ function GatherRoomPresentationObjects( currentRun, currentRoom )
 				else
 					entranceDirection = "East"
 				end
-			elseif RoomData[currentRoom.Name].StrictLeftRight then
+			elseif roomData.StrictLeftRight then
 				if entranceAngle > 0 and entranceAngle < 90 then
 					entranceDirection = "Right"
 				elseif entranceAngle > 90 and entranceAngle < 180 then

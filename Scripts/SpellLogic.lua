@@ -1635,7 +1635,7 @@ function LeapEnableBlink(weaponData,functionArgs, triggerArgs)
 end
 
 function RecordLastDamaged( attacker, args, triggerArgs )
-	if triggerArgs.ManuallyTriggered then
+	if triggerArgs.ManuallyTriggered or not attacker then
 		return
 	end
 	local damage = triggerArgs.DamageAmount

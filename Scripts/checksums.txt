@@ -3,7 +3,7 @@ b1c1f4950f7cdbc7  AchievementLogic.lua
 ace53eb2a9e0105e  AllyData.lua
 23caa917ad7618a4  AmmoLogic.lua
 3285febbe22077a2  AssistLogic.lua
-eddc3de38cfa147b  AudioData.lua
+a0b10aed74f0274e  AudioData.lua
 0f785a41716f0382  AudioData_Challenge.lua
 c4c3c30d8e95978c  AudioData_Chaos.lua
 f4d1e9ec553f4028  AudioData_Chronos.lua
@@ -74,7 +74,7 @@ b37ce09c03515aa1  EncounterData_MiniBoss.lua
 13f4fde6f6c5b11b  EncounterData_Test.lua
 bf615e7b121145b7  EncounterData_TimeChallenge.lua
 a0dfe3d6d74dd1ce  EncounterData_Unique.lua
-960eb23e3007b849  EncounterLogic.lua
+b21567c0ef8f4d99  EncounterLogic.lua
 42a8987535c8eeac  EncounterPresentation.lua
 6812b4ee7de021f4  EncounterPresentation_Late.lua
 67265b3fd74762c2  EncounterSets.lua
@@ -203,7 +203,7 @@ fc25d2f0849a8f19  LootData_Selene.lua
 847d51a6d5baeb2b  MailboxData.lua
 3c5a5845cf629133  MailboxLogic.lua
 76158dc25f819da7  MailboxPresentation.lua
-d2558f4d1497aaea  Main.lua
+458bdce5132bd1da  Main.lua
 f7622dfdaa1641d3  ManaData.lua
 86dc96467d7b0f76  ManaLogic.lua
 f36653db6cc5b5ad  ManaPresentation.lua
@@ -321,7 +321,7 @@ e7871d62d1f2c770  RoomDataH.lua
 3b89a7ba363dd86a  RoomDataO.lua
 f50649b499682441  RoomDataSecrets.lua
 bf1810fe047ef5a5  RoomLogic.lua
-f3ec187ddbc7d567  RoomPresentation.lua
+4ab88848ee6a927a  RoomPresentation.lua
 7a3188a84a7851d0  RoomPresentation_Late.lua
 0ebfe28322320503  RoomSets.lua
 678b71d1b9dc1786  RoomSets_Demo.lua
@@ -331,14 +331,14 @@ f3ec187ddbc7d567  RoomPresentation.lua
 a5fa6262d8e0c6c0  RunHistoryData.lua
 bd463866b6de1fa9  RunHistoryLogic.lua
 a82c21d40fb22d9a  RunHistoryPresentation.lua
-29ee5dd7b1ea3bbf  RunLogic.lua
+cdb39776bd204823  RunLogic.lua
 d56d3070c2292899  SellTraitData.lua
 320c84e6b432de6a  SellTraitLogic.lua
 8f8f71b86693b2c4  ShrineData.lua
 87045f07cecbcbc8  ShrineLogic.lua
 7fb2d965ba9760e5  ShrinePresentation.lua
 d7c062c11644037a  SpellData.lua
-e3967e891e5ec429  SpellLogic.lua
+455c41ee792940a3  SpellLogic.lua
 9de071fefdf79be3  SpellPresentation.lua
 11a094af98f301e2  SpellScreenData.lua
 28e37a7571c20c44  SpellScreenLogic.lua

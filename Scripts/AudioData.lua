@@ -42,10 +42,7 @@ MusicTrackData =
 			GameStateRequirements =
 			{
 				{
-					PathTrue = { "GameState", "RoomCountCache", "G_Boss01" },
-				},
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutSongs01" },
+					PathTrue = { "GameState", "RoomsEntered", "G_PostBoss01" },
 				},
 			},
 			TrackStartEvents =
@@ -2002,7 +1999,7 @@ GlobalVoiceLines.KillingEnemyVoiceLines =
 		{
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01", "H_Boss01", "I_Boss01" },
+				IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "F_Boss01", "N_Opening01", "H_Boss01", "I_Boss01" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
