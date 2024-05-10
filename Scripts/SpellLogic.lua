@@ -372,7 +372,7 @@ function PolymorphCopyStatus( victim, functionArgs, triggerArgs )
 	end
 	local activeCurses = {}
 	for i, enemy in pairs(ActiveEnemies) do
-		if enemy ~= victim then
+		if enemy ~= victim and not enemy.SkipModifiers and enemy.ActiveEffects then
 			for effectName, effectStacks in pairs(enemy.ActiveEffects) do
 				if functionArgs.ValidStatusNames[effectName] then
 					activeCurses[effectName] = {}
@@ -953,7 +953,9 @@ function SpellTransform( user, weaponData, functionArgs, triggerArgs )
 	MapState.TransformArgs = {}
 	MapState.TransformArgs.FunctionArgs = ShallowCopyTable( functionArgs )
 	MapState.TransformArgs.Vfx = functionArgs.Vfx
-	EquipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Names = functionArgs.TransformWeapons })
+	for _, weaponName in pairs( functionArgs.TransformWeapons ) do
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
+	end
 	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
 		if weaponName ~= "WeaponCast" and weaponName ~= "WeaponSprint" and weaponName ~= "WeaponBlink" then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
@@ -1011,7 +1013,10 @@ function EndSpellTransform( )
 		return
 	end
 	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
-	UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Names = MapState.TransformArgs.FunctionArgs.TransformWeapons, IncludeBundled = false })
+	for _, weaponName in pairs( MapState.TransformArgs.FunctionArgs.TransformWeapons ) do
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+	end
+	
 	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
 		if not MapState.HostilePolymorph then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })

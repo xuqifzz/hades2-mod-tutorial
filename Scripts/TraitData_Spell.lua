@@ -13,7 +13,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "SpellTrait" },
 		Icon = "Boon_Selene_34",
-		PreEquipWeapons = { "WeaponSpellTransform" },
+		PreEquipWeapons = { "WeaponSpellTransform", "WeaponTransformAttack", "WeaponTransformSpecial", "WeaponTransformBlink"  },
 		StatLines =
 		{
 			"ManaSpendCostStatDisplay1",

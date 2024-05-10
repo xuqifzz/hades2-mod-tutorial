@@ -364,6 +364,7 @@ UnitSetData.NPC_Dora =
 			},
 
 			-- @ currently disabled; Dora shall haunt you forever if you tamper with this
+			--[[
 			DoraGrantsCosmeticsShop01 =
 			{
 				PlayOnce = true,
@@ -402,6 +403,7 @@ UnitSetData.NPC_Dora =
 				},
 
 			},
+			]]
 
 			DoraAboutReturning01 =
 			{

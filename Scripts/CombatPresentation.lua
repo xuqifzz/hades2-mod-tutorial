@@ -1088,7 +1088,7 @@ function PostEnemyKillPresentation( victim, triggerArgs )
 		sourceProjectileData = ProjectileData[triggerArgs.SourceProjectile]
 	end
 
-	if victim.OnKillGlobalVoiceLines ~= nil and currentRoom.Kills[victim.Name] >= (victim.KillsRequiredForVoiceLines or 0) then
+	if victim.OnKillGlobalVoiceLines ~= nil and (currentRoom.Kills[victim.Name] or 0) >= (victim.KillsRequiredForVoiceLines or 0) then
 		thread( PlayVoiceLines, GlobalVoiceLines[victim.OnKillGlobalVoiceLines], true, nil, { Defer = true } )
 	end
 	if victim.OnKillVoiceLines ~= nil then

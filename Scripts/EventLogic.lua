@@ -1031,6 +1031,9 @@ function CollectRemainingMercenaries(eventSource, args)
 end
 
 function SetupPauseMenuTakeover( source, args )
+	if args == nil then
+		return
+	end
 	SessionMapState.PauseMenuTakeoverCue = PlayVoiceLines( args.VoiceLines, false, nil, { ReturnOnly = true } )
 	SessionMapState.PauseMenuTakeoverSource = source
 	SessionMapState.PauseMenuTakeoverArgs = args

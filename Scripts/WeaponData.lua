@@ -766,6 +766,11 @@
 		},
 	},
 
+	WeaponTransformBlink = 
+	{
+
+	},
+
 	WeaponSpellMeteor = 
 	{
 		InheritFrom = { "BaseSpell", },

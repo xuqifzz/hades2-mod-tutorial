@@ -914,10 +914,11 @@ function ProcessHeroTraitChanges( trait, reverse )
 	end
 	
 	for weaponName in pairs( referencedWeapons ) do
+		local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
 		ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
 		local weaponData = GetWeaponData( CurrentRun.Hero, weaponName) 
-		if weaponData and weaponData.SwapChargedWeapon then
-			SwapWeapon({ Name = weaponData.Name, SwapWeaponName = weaponData.SwapChargedWeapon, ClearFireRequest = true, StompOriginalWeapon = false, GainedControlFrom = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, RequireCurrentControl = true })
+		if weaponData ~= nil then
+			SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
 		end
 	end
 	

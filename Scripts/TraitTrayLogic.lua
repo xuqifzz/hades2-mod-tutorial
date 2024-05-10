@@ -1000,7 +1000,7 @@ function PinTraitDetails( screen, button, args )
 
 		-- Slide others up
 		for index, pin in ipairs( screen.Pins ) do
-			if button.PinIndex ~= nil and index > button.PinIndex then
+			if button.PinIndex ~= nil and index > button.PinIndex and pin.Button ~= nil and pin.Button.PinIndex ~= nil then
 				pin.Button.PinIndex = pin.Button.PinIndex - 1
 			end
 		end

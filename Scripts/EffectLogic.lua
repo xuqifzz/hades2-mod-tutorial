@@ -328,6 +328,9 @@ function PolyphemusPlayerGrabClear( triggerArgs )
 	MapState.HostilePolymorph = false
 	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteHurt", Id = triggerArgs.triggeredById })
 	PolyphemusPlayerGrabClearPresentation( triggerArgs, { } )
+	if CurrentRun.Hero.Weapons.WeaponLob then
+		UpdateWeaponAmmo( "WeaponLob", 0 )
+	end
 end
 
 function ZeusRepeatedStun( unit )

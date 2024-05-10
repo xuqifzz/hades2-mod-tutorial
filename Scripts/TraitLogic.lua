@@ -1487,7 +1487,7 @@ function GetAllUpgradeableGodTraits( stackNum )
 			ExtractValues( CurrentRun.Hero, upgradedTrait, upgradedTrait )
 			local sameValues = true
 			for key, value in pairs( upgradedTrait.ExtractData ) do
-				if trait.ExtractData[key] ~= value then
+				if trait.ExtractData ~= nil and trait.ExtractData[key] ~= value then
 					sameValues = false
 					break
 				end

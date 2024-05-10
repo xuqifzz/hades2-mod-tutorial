@@ -3160,6 +3160,7 @@
 		ChargeTimeFrames = 9
 		ClipSize = 1
 		ClipRegenInterval = 0.74
+		Enabled = false
 	}
 	{
 		Name = "WeaponMorphedBlink"
@@ -3273,6 +3274,7 @@
 		SetCompleteAngleOnFire = false
 		SetCompleteAngleOnCharge = false
 		Cooldown = 0.2
+		Enabled = false
 		Effects =
 		[
 			{
@@ -3390,6 +3392,7 @@
 		IgnoreTriggerLockDuringCooldown = true
 		SetCompleteAngleOnFire = false
 		SetCompleteAngleOnCharge = false
+		Enabled = false
 		Effects =
 		[
 			{

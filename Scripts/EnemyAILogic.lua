@@ -786,7 +786,9 @@ function AttackerAI( enemy )
 		end
 
 		local continue = DoAttackerAILoop( enemy )
-		SurroundEnemiesAttacking[enemy.SurroundAIKey or enemy.Name][enemy.ObjectId] = nil
+		if SurroundEnemiesAttacking[enemy.SurroundAIKey or enemy.Name] ~= nil then
+			SurroundEnemiesAttacking[enemy.SurroundAIKey or enemy.Name][enemy.ObjectId] = nil
+		end
 		if not continue then
 			return
 		end

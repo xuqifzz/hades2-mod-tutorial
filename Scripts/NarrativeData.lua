@@ -191,7 +191,7 @@ OverwriteTableKeys( NarrativeData, {
 		{
 			"DoraFirstMeeting",
 			"DoraAboutChronosBossW01",
-			"DoraGrantsCosmeticsShop01",
+			--"DoraGrantsCosmeticsShop01",
 			"DoraRunProgress01",
 			"DoraAboutTent01",
 			"DoraAboutTask01",
