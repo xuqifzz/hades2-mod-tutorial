@@ -135,6 +135,7 @@
 		Name = "Melinoe_Lob_CrossCast_Start"
 		InheritFrom = "MelinoeBaseLobAnimations"
 		GrannyAnimation = "Melinoe_Lob_Base_UnEquip_C_00"
+		DisableOwnerManualInteract = true
 		ChainTo = "MelinoeCrossCastAntic"
 		
 		CreateAnimation = "MelUnequipSparkleLob"

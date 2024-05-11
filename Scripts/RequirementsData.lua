@@ -478,9 +478,6 @@ NamedRequirementsData =
 			Comparison = ">=",
 			Value = 5,
 		},
-		{
-			PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_2862" },
-		},
 		NamedRequirements =  { "ShrineUnlocked" },
 	},
 	TrophyQuestStage1Complete =

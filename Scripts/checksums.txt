@@ -51,7 +51,7 @@ febc7355b5d1f441  CostumePresentation.lua
 507191d5f2c8118b  DeathLoopData.lua
 bde8caf1e6163200  DeathLoopData_Late.lua
 b1027ea13c599e4a  DeathLoopLogic.lua
-f127dbf9c779a731  Debug.lua
+6f9f4ea5a3d57ef6  Debug.lua
 4184ebbaa12b1db9  EffectData.lua
 3e91defd392fce4e  EffectLogic.lua
 adffabe71d2a5b91  EffectPresentation.lua
@@ -271,10 +271,10 @@ b380fe3bf5f9b9a6  ObjectiveData_Spoilers.lua
 7bef7d4454f63bdf  ObstacleDataG.lua
 8f02fd83d1d026b5  ObstacleDataH.lua
 2f0b412483319595  ObstacleDataI.lua
-b842b493fe54fab9  ObstacleDataN.lua
+c45209b7100f1258  ObstacleDataN.lua
 53c814ee71f15c94  ObstacleDataO.lua
 b8c2daa19b8fb834  PlayerAIData.lua
-4f6ae0c7d29ff5e6  PowersLogic.lua
+62db51cf91ccc0c7  PowersLogic.lua
 2260db76dbb61604  PowersPresentation.lua
 da8944491e7af1c0  ProjectileData.lua
 904be36c19f80413  ProjectileData_Chronos.lua
@@ -297,7 +297,7 @@ e7b519749da43424  QuestData.lua
 0f713832348ea05c  QuestLogLogic.lua
 8d38fb8c115df20c  QuestPresentation.lua
 593168bb083ef801  RandomLogic.lua
-63a26b5350a64c1a  RequirementsData.lua
+af72805cd54d278d  RequirementsData.lua
 e65d3f5477c9830f  RequirementsLogic.lua
 6e1779531e351dbc  ResourceData.lua
 773e674e491722be  ResourceData_Boss.lua
@@ -320,7 +320,7 @@ e7871d62d1f2c770  RoomDataH.lua
 9addfabe5a702e0d  RoomDataN.lua
 f1cec24b06352b3c  RoomDataO.lua
 f50649b499682441  RoomDataSecrets.lua
-bf1810fe047ef5a5  RoomLogic.lua
+fe2f09f051045302  RoomLogic.lua
 4ab88848ee6a927a  RoomPresentation.lua
 7a3188a84a7851d0  RoomPresentation_Late.lua
 0ebfe28322320503  RoomSets.lua
@@ -338,7 +338,7 @@ d56d3070c2292899  SellTraitData.lua
 87045f07cecbcbc8  ShrineLogic.lua
 7fb2d965ba9760e5  ShrinePresentation.lua
 d7c062c11644037a  SpellData.lua
-2fa9dfaf32b7e912  SpellLogic.lua
+415d6d0790c329f9  SpellLogic.lua
 9de071fefdf79be3  SpellPresentation.lua
 11a094af98f301e2  SpellScreenData.lua
 28e37a7571c20c44  SpellScreenLogic.lua
@@ -401,7 +401,7 @@ dcffaeedd1fd7f5c  UIData.lua
 70386c53dd9cc155  UIPresentation.lua
 d74e2a176bd3aab0  UpgradeChoiceData.lua
 ba1aa342bd3873cd  UpgradeChoiceLogic.lua
-1c2949913866f95b  UpgradeLogic.lua
+8d391ff816559ba2  UpgradeLogic.lua
 2a5be6394bb09363  UtilityLogic.lua
 4c112b5f513ca189  WeaponData.lua
 d048cc0ba48a246c  WeaponData_Axe.lua

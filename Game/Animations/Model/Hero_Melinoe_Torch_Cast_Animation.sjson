@@ -95,6 +95,7 @@
 		Name = "Melinoe_Torch_CrossCast_Start"
 		InheritFrom = "MelinoeBaseTorchAnimations"
 		GrannyAnimation = "Melinoe_Torch_Base_UnEquip_C_00"
+		DisableOwnerManualInteract = true
 		ChainTo = "MelinoeCrossCastAntic"
 		
 		CreateAnimations =

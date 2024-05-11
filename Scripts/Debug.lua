@@ -35,6 +35,7 @@ OnKeyPressed{ "Control G", Name = "SafeMode",
 
 OnKeyPressed{ "ControlAlt C", Name = "TogglePlayerCollision",
 	function( triggerArgs )
+		ToggleConfigOption( "SkipCollisionCheck" )
 	end
 }
 

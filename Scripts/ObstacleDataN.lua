@@ -544,6 +544,7 @@ OverwriteTableKeys( ObstacleData, {
 		UsePromptOffsetX = 65,
 		UsePromptOffsetY = -50,
 		CannotUseText = "WellShopBlockedByEncounter",
+		CooldownNamePrefix = "SurfaceShop",
 		BlockDuringChallenge = true,
 
 		DistanceTrigger =

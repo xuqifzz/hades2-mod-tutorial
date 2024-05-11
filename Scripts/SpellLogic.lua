@@ -956,6 +956,7 @@ function SpellTransform( user, weaponData, functionArgs, triggerArgs )
 	for _, weaponName in pairs( functionArgs.TransformWeapons ) do
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 	end
+	EndAllControlSwaps({ DestinationId = CurrentRun.Hero.ObjectId })
 	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
 		if weaponName ~= "WeaponCast" and weaponName ~= "WeaponSprint" and weaponName ~= "WeaponBlink" then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })

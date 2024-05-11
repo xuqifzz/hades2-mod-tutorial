@@ -136,6 +136,7 @@
 		InheritFrom = "MelinoeBaseStaffAnimations"
 		GrannyAnimation = "Melinoe_Staff_Base_StaffUnEquipIdle_00"
 		CreateAnimation = "MelUnequipSparkleStaff"
+		DisableOwnerManualInteract = true
 		ChainTo = "MelinoeCrossCastAntic"
 		Attachments =
 		[

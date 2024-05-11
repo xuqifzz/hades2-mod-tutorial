@@ -822,7 +822,8 @@ function DoPatches()
 					IncrementTableValue(traitsToRemove, trait.Name)
 				elseif TableLength(trait.PropertyChanges) ~= TableLength(TraitData[trait.Name].PropertyChanges) or
 				   TableLength(trait.EnemyPropertyChanges) ~= TableLength(TraitData[trait.Name].EnemyPropertyChanges) or
-				   TableLength( trait.LoadBinks ) ~= TableLength( TraitData[trait.Name].LoadBinks ) then
+				   TableLength( trait.LoadBinks ) ~= TableLength( TraitData[trait.Name].LoadBinks ) or 
+				   TableLength( trait.PreEquipWeapons ) ~= TableLength( TraitData[trait.Name].PreEquipWeapons ) then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "SupportingFireBoon" and trait.ExtractValues[1] and trait.ExtractValues[1].BaseName == "ArtemisLegendary" then
 					addTraitToUpdate( trait )
@@ -1263,6 +1264,7 @@ function AttemptUseDoor( door, args )
 			StartEncounter(CurrentRun, CurrentRun.CurrentRoom, doorEncounter)
 
 			door.EncounterCost = nil
+			door.CanBeRerolled = true
 			CreateDoorRewardPreview( door )
 			thread( ExitDoorUnlockedPresentation, door )
 			if not IsEmpty( MapState.OfferedExitDoors ) then
@@ -4381,6 +4383,7 @@ function CheckExitPreUnlock( door, args )
 		if RandomChance(door.LockedWithEncounterChance) then
 			door.SkipUnlock = true
 			door.ReadyToUse = true
+			door.CanBeRerolled = false
 			door.EncounterCost = currentRoom.LockExtraExitsWithEncounter
 			LockExtraExitsPresentation( door )
 		end

@@ -2379,7 +2379,7 @@ function FireRallyHeal ( attacker, functionArgs, triggerArgs )
 		return
 	end
 	local rallyTraitData = GetHeroTrait("ElementalRallyBoon") 
-	if not IsGameStateEligible( CurrentRun, rallyTraitData.ActivationRequirements) then
+	if rallyTraitData == nil or not IsGameStateEligible( CurrentRun, rallyTraitData.ActivationRequirements) then
 		return
 	end
 	if not triggerArgs or not triggerArgs.DamageAmount or triggerArgs.DamageAmount <= 0 or triggerArgs.PureDamage then

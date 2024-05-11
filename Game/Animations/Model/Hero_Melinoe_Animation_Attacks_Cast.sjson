@@ -190,11 +190,13 @@
 		ChainTo = "MelinoeCrossCastCharge"
 		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastAntic_C_00"
 		GrannyAnimationSpeed = 0.5
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "Melinoe_CrossCast_Start_Fast"
 		InheritFrom = "MelinoeCrossCastAntic"
 		GrannyAnimationSpeed = 1.5
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "MelinoeCrossCastCharge"
@@ -202,6 +204,7 @@
 		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastLoop_C_00"
 		Loop = true
 		GrannyAnimationSpeed = 0.5
+		DisableOwnerManualInteract = true
 	}
 	{
 		Name = "MelinoeCrossCast"

@@ -97,6 +97,7 @@
 		Name = "Melinoe_Dagger_CrossCast_Start"
 		InheritFrom = "MelinoeBaseDaggerAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_DaggerUnEquipIdle_00"
+		DisableOwnerManualInteract = true
 		ChainTo = "MelinoeCrossCastAntic"
 		CreateAnimations =
 		[

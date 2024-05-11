@@ -127,6 +127,7 @@
 		Name = "Melinoe_Axe_CrossCast_Start"
 		InheritFrom = "MelinoeBaseAxeAnimations"
 		GrannyAnimation = "Melinoe_Axe_Base_AxeUnEquipIdle_00"
+		DisableOwnerManualInteract = true
 		ChainTo = "MelinoeCrossCastAntic"
 		CreateAnimations =
 		[

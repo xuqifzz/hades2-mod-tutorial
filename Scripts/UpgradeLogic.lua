@@ -913,12 +913,14 @@ function ProcessHeroTraitChanges( trait, reverse )
 		end
 	end
 	
-	for weaponName in pairs( referencedWeapons ) do
-		local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
-		ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
-		local weaponData = GetWeaponData( CurrentRun.Hero, weaponName) 
-		if weaponData ~= nil then
-			SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
+	if CurrentRun.Hero.ObjectId ~= nil then
+		for weaponName in pairs( referencedWeapons ) do
+			local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
+			ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
+			local weaponData = GetWeaponData( CurrentRun.Hero, weaponName) 
+			if weaponData ~= nil then
+				SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
+			end
 		end
 	end
 	
