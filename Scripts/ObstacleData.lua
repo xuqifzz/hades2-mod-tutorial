@@ -3302,8 +3302,7 @@
 					GameStateRequirements =
 					{
 						{
-							Path = { "GameState", "EquippedToolName" },
-							IsAny = { "ToolFishingRod" },
+							PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod" },
 						},
 						{
 							PathEmpty = { "RequiredKillEnemies" },
@@ -3372,8 +3371,7 @@
 			GameStateRequirements =
 			{
 				{
-					Path = { "GameState", "EquippedToolName" },
-					IsAny = { "ToolPickaxe" },
+					PathTrue = { "GameState", "WeaponsUnlocked", "ToolPickaxe" },
 				},
 				{
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },

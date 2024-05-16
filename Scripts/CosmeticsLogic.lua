@@ -91,7 +91,6 @@ function OpenCosmeticsShopScreen( openedFrom, defaultCategoryIndex )
 	thread( GhostAdminScreenOpenFinishedPresentation, screen )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 

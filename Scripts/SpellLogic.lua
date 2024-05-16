@@ -957,12 +957,18 @@ function SpellTransform( user, weaponData, functionArgs, triggerArgs )
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 	end
 	EndAllControlSwaps({ DestinationId = CurrentRun.Hero.ObjectId })
+	
+	for i, weaponName in pairs(GetHeroTraitValues("ReplaceMeleeWeapon")) do
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		SessionMapState.BlockWeaponFailedToFire[weaponName] = true
+	end
 	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
-		if weaponName ~= "WeaponCast" and weaponName ~= "WeaponSprint" and weaponName ~= "WeaponBlink" then
+		if weaponName ~= "WeaponCast" and weaponName ~= "WeaponSprint" then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
 			SessionMapState.BlockWeaponFailedToFire[weaponName] = true
 		end
 	end
+	SwapWeapon({ Name = "WeaponBlink", SwapWeaponName = "WeaponTransformBlink", DestinationId = CurrentRun.Hero.ObjectId, StompOriginalWeapon = true })
 	local baseThingProperties = {}
 	for propertyName, propertyValue in pairs( functionArgs.ThingProperties or {} ) do
 		baseThingProperties[propertyName] = GetThingDataValue({ Property = propertyName, Id = CurrentRun.Hero.ObjectId  })
@@ -1013,17 +1019,24 @@ function EndSpellTransform( )
 	if not MapState.TransformArgs then
 		return
 	end
+	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "WeaponCastAimSlow" })
 	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
 	for _, weaponName in pairs( MapState.TransformArgs.FunctionArgs.TransformWeapons ) do
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
 	end
-	
+
+	SwapWeapon({ Name = "WeaponTransformBlink", SwapWeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, StompOriginalWeapon = true })
 	for weaponName in pairs( CurrentRun.Hero.Weapons ) do
 		if not MapState.HostilePolymorph then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 		end
 		SessionMapState.BlockWeaponFailedToFire[weaponName] = nil
 	end
+	for i, weaponName in pairs(GetHeroTraitValues("ReplaceMeleeWeapon")) do
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
+		SessionMapState.BlockWeaponFailedToFire[weaponName] = nil
+	end
+	
 	if MapState.TransformArgs.Vfx then
 		StopAnimation({ Name = MapState.TransformArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
 	end

@@ -20,8 +20,9 @@ FamiliarData =
 		UnitName = "BaseFamiliar",
 		MovementType = "Direct",
 		AnimOffsetZ = 150,
+		BaseResourceSpawnChance = 0.03,
 		TickForRested = 30,
-		RestBonusUses = 2,
+		RestBonusResourceSpawnChance = 0.02,
 		AttackBlocks = {},
 
 		EquipVoiceLines =
@@ -85,6 +86,15 @@ FamiliarData =
 		{
 			Chance = 0,
 		},
+
+		SimpleExtractValues =
+		{
+			{
+				Property = "RestBonusResourceSpawnChance",
+				Multiply = 100,
+				NewProperty = "RestBonusResourceSpawnChancePercent",
+			},
+		},
 	},
 
 	-- Frinos
@@ -96,6 +106,9 @@ FamiliarData =
 		LinkedTool = "ToolExorcismBook",
 		TraitName = "HealthFamiliar",
 		KitAngle = 235,
+
+		BaseResourceSpawnChance = 0.12,
+		RestBonusResourceSpawnChance = 0.03,
 
 		ActivatePresentationFunctionName = "FrogFamiliarSpawnPresentation",
 		MoveFunctionName = "FrogFamiliarMoveToLocation",
@@ -1159,6 +1172,9 @@ FamiliarData =
 		TraitName = "LastStandFamiliar",
 		UnitName = "CatFamiliar",
 		EquipObjective = "ActivateCatFamiliar",
+
+		BaseResourceSpawnChance = 0.10,
+		RestBonusResourceSpawnChance = 0.025,
 
 		NumAttacks = 1,
 		MinDistanceToTeleportForFishing = 550,

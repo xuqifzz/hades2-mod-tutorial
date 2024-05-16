@@ -14,6 +14,7 @@
 		ChargeTimeFrames = 9
 		MinChargeToFire = 1.0
 		LockTriggerForCharge = true
+		ForceMaxChargeRelease = false
 		SelfVelocity = 0
 		SelfVelocityCap = 0
 		BlinkDuration = 0.20
@@ -31,6 +32,7 @@
 		ArsenalCooldown = 0.0
 		CancelMovement = false
 		FullyAutomatic = true
+		FireOnRelease = false
 		AutoLock = false
 		ChargeCancelMovement = false
 		UseTargetAngle = true
@@ -41,7 +43,6 @@
 		BlinkDetonateAtEndpoint = false
 		BlinkDetonateAtOrigin = true
 		CheckMovementReactionDistance = 150
-		ConsumeClipOnRelease = true
 		CheckDanger = true
 		CanUseKeyboardAim = true
 		SilentImpact = true
@@ -107,7 +108,7 @@
 				Trigger = "Charging"
 				Type = "SPEED"
 				DurationFrames = 10
-				Modifier = 1.20
+				Modifier = 1.2
 				Cancelable = true
 				Active = true
 			}
@@ -134,8 +135,8 @@
 		InheritFrom = "1_BaseDamagingWeapon"
 		Control = "Rush"
 		Type = "RAM"
-		SelfVelocity = 1100
-		SelfVelocityCap = 740
+		SelfVelocity = 1980
+		SelfVelocityCap = 890
 		RamTotalDistance = 0
 		ProjectileInterval = 0.1
 		FlashDuration = 0
@@ -1584,7 +1585,7 @@
 		[
 			{
 				Name = "SwingMultiDisable"
-				DurationFrames = 20
+				DurationFrames = 12
 				DisableMove = false
 				DisableRotate = true
 				DisableAttack = true
@@ -1643,7 +1644,7 @@
 		[
 			{
 				Name = "SwingDoubleDisable"
-				DurationFrames = 20
+				DurationFrames = 13
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -1688,8 +1689,7 @@
 		ChargeTime = 0.16
 		Cooldown = 0.02
 		ChargeFx = "null"
-		CanCancelDisables = true                          
-		CanCancelOwnDisables = true
+		CanCancelDisables = true
 		Enabled = true
 		LockTriggerTransferFromOnSwap = false
 		LockTrigger = false
@@ -1698,7 +1698,7 @@
 		[
 			{
 				Name = "SwingDashDisable"
-				DurationFrames = 8
+				DurationFrames = 6
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -1706,7 +1706,7 @@
 			}
 			{
 				Name = "SwingDashDisableCancellable"
-				DurationFrames = 18
+				DurationFrames = 10
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -1767,11 +1767,21 @@
 			}
 			{
 				Name = "Swing5Disable"
+				DurationFrames = 17
+				DisableMove = true
+				DisableRotate = false
+				DisableAttack = true
+				RequestTriggerLock = true
+				Active = true
+			}
+			{
+				Name = "Swing5DisableCancellable"
 				DurationFrames = 23
 				DisableMove = true
 				DisableRotate = false
 				DisableAttack = true
 				RequestTriggerLock = true
+				Cancelable = true
 				Active = true
 			}
 			{
@@ -1793,7 +1803,6 @@
 		FireGraphic = "null"
 		UnblockedBlinkFx = "DashStreakBlink"
 		CanCancelDisables = true
-		CanCancelOwnDisables = true
 		ChargeTime = 0
 		WeaponRange = 800
 		BlinkDuration = 0.1
@@ -1867,8 +1876,8 @@
 		Effects =
 		[
 			{
-				Name = "Special1Disable"
-				DurationFrames = 16
+				Name = "DaggerSpecial1Disable"
+				DurationFrames = 8
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -1876,13 +1885,20 @@
 				Active = true
 			}
 			{
-				Name = "Special1DisableCancellable"
-				DurationFrames = 26
+				Name = "DaggerSpecial1DisableCancellable"
+				DurationFrames = 14
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
 				RequestTriggerLock = true
 				Active = true
+				Cancelable = true
+			}
+			{
+				Name = "DaggerSpecial1DisableMoveHold"
+				DurationFrames = 27
+				DisableRotate = true
+				DisableMove = true
 				Cancelable = true
 			}
 			{
@@ -1904,13 +1920,6 @@
 				HaltOnEnd = true
 				Active = true
 				CanAffectInvulnerable = true
-			}
-			{
-				Name = "Special1DisableMoveHold"
-				DurationFrames = 33
-				DisableRotate = true
-				DisableMove = true
-				Cancelable = true
 			}
 		]
 	}
@@ -2214,7 +2223,7 @@
 			}
 			{
 				Name = "Swing3Disable"
-				DurationFrames = 31
+				DurationFrames = 25
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -2281,7 +2290,7 @@
 		TreatProjectilesAsUniqueVolleys = true
 		ProjectileIntervalStart = 0.22
 		ProjectileInterval = 0.22
-		FireEndGraphic = "Melinoe_Axe_Idle"
+		FireEndGraphic = "Melinoe_Axe_AttackEx1_Cancel"
 		MinChargeToFire = 1.0
 		ChargeTime = 0.26
 		ChargeRumbleRight = 0.06
@@ -2307,7 +2316,7 @@
 			{
 				Trigger = "FireEnd"
 				Name = "AxeSpinAttackDisable"
-				DurationFrames = 20
+				DurationFrames = 8
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -2318,7 +2327,7 @@
 			{
 				Trigger = "FireEnd"
 				Name = "AxeSpinAttackDisableCancellable"
-				DurationFrames = 28
+				DurationFrames = 14
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -2329,7 +2338,7 @@
 			{
 				Trigger = "FireEnd"
 				Name = "AxeSpinMoveStop"
-				DurationFrames = 60
+				DurationFrames = 30
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = false
@@ -2605,7 +2614,7 @@
 		[
 			{
 				Name = "BigDisable"
-				DurationFrames = 28
+				DurationFrames = 24
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -2614,7 +2623,7 @@
 			}
 			{
 				Name = "BigDisableCancellable"
-				DurationFrames = 75
+				DurationFrames = 55
 				DisableMove = true
 				DisableRotate = true
 				DisableAttack = true
@@ -3360,6 +3369,7 @@
 		Control = "Attack3"
 		ReloadOnCreation = false
 		Cooldown = 1
+		FailedToFireCooldownDuration = 0.1
 		UseTargetAngle = false
 		Type = "GUN"
 		Projectile = "ProjectileTransformRing"

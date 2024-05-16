@@ -533,7 +533,7 @@ CodexData =
 							{
 								Path = { "GameState", "ItemInteractions", "SpellDrop" },
 								Comparison = ">=",
-								Value = 5,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Selene_01",
@@ -580,7 +580,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Odysseus_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Odysseus_01",
@@ -599,7 +599,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Charon_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Charon_01",
@@ -618,7 +618,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Nemesis_01",
@@ -637,7 +637,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Moros_01" },
 								Comparison = ">=",
-								Value = 10,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Moros_01",
@@ -656,7 +656,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Dora_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Dora_01",
@@ -675,7 +675,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Skelly_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Skelly_01",
@@ -703,7 +703,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Hades_Field_01" },
 								Comparison = ">=",
-								Value = 1,
+								Value = 2,
 							},
 							{
 								PathTrue = { "GameState", "RoomsEntered", "I_Story01" },
@@ -781,7 +781,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Hypnos_01" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Hypnos_01",
@@ -801,7 +801,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Arachne_01" },
 								Comparison = ">=",
-								Value = 10,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Arachne_01",
@@ -821,7 +821,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "TrialUpgrade" },
 								Comparison = ">=",
-								Value = 5,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Chaos_01",
@@ -850,7 +850,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "ZeusUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Zeus_01",
@@ -868,7 +868,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "PoseidonUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Poseidon_01",
@@ -886,7 +886,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "DemeterUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Demeter_01",
@@ -904,7 +904,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "ApolloUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Apollo_01",
@@ -923,7 +923,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "NPC_Artemis_Field_01" },
 								Comparison = ">=",
-								Value = 10,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Artemis_01",
@@ -942,7 +942,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "AphroditeUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Aphrodite_01",
@@ -960,7 +960,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "HephaestusUpgrade" },
 								Comparison = ">=",
-								Value = 10,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Hephaestus_01",
@@ -978,7 +978,7 @@ CodexData =
 							{
 								Path = { "GameState", "UseRecord", "HestiaUpgrade" },
 								Comparison = ">=",
-								Value = 15,
+								Value = 2,
 							},
 						},
 						Text = "CodexData_Hestia_01",

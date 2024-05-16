@@ -837,15 +837,15 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.25
+				Multiplier = 1.5
 			},
 			Epic =
 			{
-				Multiplier = 1.50
+				Multiplier = 2.00
 			},
 			Heroic =
 			{
-				Multiplier = 1.75
+				Multiplier = 2.25
 			},
 		},
 
@@ -854,8 +854,7 @@
 			{
 				WeaponNames = { "WeaponSprint"},
 				WeaponProperty = "SelfVelocity",
-				BaseValue = 220,
-				SourceIsMultiplier = true,
+				BaseValue = 99,
 				ChangeType = "Add",
 				ExcludeLinked = true,
 				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
@@ -863,9 +862,22 @@
 			{
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocityCap",
-				BaseValue = 148,
-				SourceIsMultiplier = true,
+				BaseValue = 44.5,
 				ChangeType = "Add",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponNames = { "WeaponBlink" },
+				WeaponProperty = "ChargeTime",
+				ChangeValue = 0.066,
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponNames = { "WeaponBlink" },
+				WeaponProperty = "ChargeFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
 
@@ -887,6 +899,8 @@
 				BaseType = "Weapon",
 				BaseName = "WeaponSprint",
 				BaseProperty = "SelfVelocity",
+				DecimalPlaces = 1,
+				HideSigns = true,
 			},
 			--[[
 			{

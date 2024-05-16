@@ -74,6 +74,9 @@
 			Graphic = "Enemy_Mage_Idle"
 			Tallness = 180
 			Scale = 0.8
+			SelectionHeight = 360.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -131,6 +134,9 @@
 			Graphic = "Enemy_Guard_Idle"
 			Tallness = 230
 			Scale = 0.65
+			SelectionHeight = 330.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 60.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -223,6 +229,9 @@
 			Tallness = 180
 			AttachedAnim = "MedusaShadow"
 			Gravity = 18000
+			SelectionHeight = 340.0
+			SelectionWidth = 320.0
+			SelectionShiftY = 90.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -252,9 +261,12 @@
 			GrannyModel = "Radiator_Mesh"
 			EditorOutlineDrawBounds = false
 			Graphic = "Enemy_Radiator_Idle"
+			AttachedAnim = "MedusaShadow"
 			OffsetZ = 10.0
 			Tallness = 110
-			AttachedAnim = "MedusaShadow"
+			SelectionHeight = 160.0
+			SelectionWidth = 160.0
+			SelectionShiftY = 20.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -311,6 +323,9 @@
 			ExtentScale = 0.6
 			OffsetZ = 10
 			Tallness = 110
+			SelectionHeight = 140.0
+			SelectionWidth = 140.0
+			SelectionShiftY = -10.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -348,6 +363,9 @@
 			GrannyModel = "Screamer_Mesh"
 			Graphic = "Enemy_Screamer_Idle"
 			Tallness = 200
+			SelectionHeight = 300.0
+			SelectionWidth = 220.0
+			SelectionShiftY = 50.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -398,6 +416,9 @@
 			Tallness = 270
 			Scale = 0.9
 			ExtentScale = 0.65
+			SelectionHeight = 500.0
+			SelectionWidth = 350.0
+			SelectionShiftY = 100.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -443,6 +464,9 @@
 			Tallness = 230
 			Scale = 0.6
 			ImmuneToForce = true
+			SelectionHeight = 450.0
+			SelectionWidth = 280.0
+			SelectionShiftY = 50.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -479,6 +503,9 @@
 			GrannyModel = "SiegeVine_Mesh"
 			Tallness = 260
 			ExtentScale = 2.1
+			SelectionHeight = 380.0
+			SelectionWidth = 400.0
+			SelectionShiftY = 90.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -518,6 +545,9 @@
 			Graphic = "Enemy_FogEmitter_Idle"
 			Tallness = 220
 			ExtentScale = 2.0
+			SelectionHeight = 420.0
+			SelectionWidth = 420.0
+			SelectionShiftY = 120.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -562,6 +592,9 @@
 			GrannyModel = "FishmanMelee_Mesh"
 			ExtentScale = 1.6
 			Tallness = 200
+			SelectionHeight = 360.0
+			SelectionWidth = 360.0
+			SelectionShiftY = 100.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -592,6 +625,9 @@
 			GrannyModel = "FishmanRanged_Mesh"
 			OffsetZ = 10
 			Tallness = 190
+			SelectionHeight = 280.0
+			SelectionWidth = 240.0
+			SelectionShiftY = 50.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -629,9 +665,9 @@
 			ImpulsedFx = "FishSwarmerStreak"
 			OffsetZ = 50.0
 			Scale = 1.0
-			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
-			SelectionWidth = 200.0
+			SelectionHeight = 150.0
+			SelectionWidth = 150.0
+			SelectionShiftY = -40.0
 			Tallness = 130.0
 			UseBoundsForSortDrawArea = true
 			StopsUnits = false
@@ -671,6 +707,9 @@
 			Graphic = "Enemy_Turtle_Idle"
 			GrannyModel = "Turtle_Mesh"
 			Tallness = 110
+			SelectionHeight = 280.0
+			SelectionWidth = 280.0
+			SelectionShiftY = 100.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -706,6 +745,9 @@
 			Tallness = 120
 			Scale = 1.1
 			ImmuneToForce = true
+			SelectionHeight = 240.0
+			SelectionWidth = 150.0
+			SelectionShiftY = 60.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -751,6 +793,9 @@
 			GrannyModel = "Mudman_Mesh"
 			Graphic = "Enemy_Mudman_Idle"
 			Tallness = 200
+			SelectionHeight = 300.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 60.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -763,21 +808,10 @@
 	{
 		Name = "Mudman_Elite"
 		InheritFrom = "Mudman"
-		DisplayInEditor = true
 		Speed = 250
 		Thing = 
 		{
-			EditorOutlineDrawBounds = false
 			Scale = 1.2
-			GrannyModel = "Mudman_Mesh"
-			Graphic = "Enemy_Mudman_Idle"
-			Points =
-			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
-			]
 		}
 	}
 	
@@ -798,6 +832,9 @@
 			GrannyModel = "MudmanProjectile_Mesh"
 			Graphic = "Enemy_MudmanEye_Idle"
 			Tallness = 40
+			SelectionHeight = 80.0
+			SelectionWidth = 80.0
+			SelectionShiftY = 20.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -830,6 +867,9 @@
 			EditorOutlineDrawBounds = false
 			Scale = 0.8
 			Tallness = 210
+			SelectionHeight = 300.0
+			SelectionWidth = 220.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -888,6 +928,9 @@
 			GrannyModel = "Assassin_Mesh"
 			Scale = 1.0
 			Tallness = 160
+			SelectionHeight = 280.0
+			SelectionWidth = 240.0
+			SelectionShiftY = 80.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -952,6 +995,9 @@
 			ExtentScale = 1.2
 			Scale = 0.6
 			Tallness = 250
+			SelectionHeight = 580.0
+			SelectionWidth = 460.0
+			SelectionShiftY = 170.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -968,25 +1014,9 @@
 	{
 		Name = "ZombieSpawner_Elite"
 		InheritFrom = "ZombieSpawner"
-		DisplayInEditor = true
 		Thing = 
 		{
-			EditorOutlineDrawBounds = false
-			Graphic = "Enemy_ZombieSpawner_Idle"
-			GrannyModel = "ZombieSpawner_Mesh"
-			ExtentScale = 1.2
 			Scale = 0.75
-			Points =
-			[
-				{ X = 32 Y = 44 }
-				{ X = 96 Y = 12 }
-				{ X = 96 Y = -20 }
-				{ X = 32 Y = -52 }
-				{ X = -32 Y = -52 }
-				{ X = -96 Y = -20 }
-				{ X = -96 Y = 12 }
-				{ X = -32 Y = 44 }
-			]
 		}
 	}
 	
@@ -1016,9 +1046,9 @@
 			Graphic = "Enemy_CWHeavyMelee_Idle"
 			GrannyModel = "WretchThug_Mesh"
 			ImpulsedFx = "KnockbackLinesWithBlood"
-			SelectionHeight = 500.0
-			SelectionShiftY = 50.0
-			SelectionWidth = 500.0
+			SelectionHeight = 400.0
+			SelectionWidth = 440.0
+			SelectionShiftY = 110.0
 			Tallness = 200.0
 			ExtentScale = 1.2
 			Scale = 0.95
@@ -1069,6 +1099,9 @@
 			OffsetZ = 20
 			Scale = 1.2
 			Tallness = 160
+			SelectionHeight = 200.0
+			SelectionWidth = 200.0
+			SelectionShiftY = 30.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1125,6 +1158,9 @@
 			OffsetZ = 50
 			Scale = 0.80
 			AmbientSound = "/SFX/Enemy Sounds/TimeElemental/TimeElementalAmbientLoop"
+			SelectionHeight = 250.0
+			SelectionWidth = 250.0
+			SelectionShiftY = 10.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1168,6 +1204,9 @@
 			Tallness = 250.0
 			ExtentScale = 0.8
 			Scale = 0.8
+			SelectionHeight = 420.0
+			SelectionWidth = 360.0
+			SelectionShiftY = 120.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -1244,6 +1283,9 @@
 			GrannyModel = "SatyrLancer_Mesh"
 			Tallness = 230.0
 			ExtentScale = 1.6
+			SelectionHeight = 340.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 100.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1277,6 +1319,16 @@
 			Graphic = "Enemy_SatyrCB_Idle"
 			GrannyModel = "SatyrCrossbow_Mesh"
 			Tallness = 230.0
+			SelectionHeight = 340.0
+			SelectionWidth = 300.0
+			SelectionShiftY = 100.0
+			Points =
+			[
+				{ X = 0 Y = 48 }
+				{ X = 96 Y = 0 }
+				{ X = 0 Y = -48 }
+				{ X = -96 Y = 0 }
+			]
 		}
 	}
 	
@@ -1304,9 +1356,9 @@
 			Grip = 6000.0
 			//ImpulsedFx = "KnockbackLinesWithBloodSmall"
 			OffsetZ = 50.0
-			SelectionHeight = 350.0
+			SelectionHeight = 320.0
+			SelectionWidth = 240.0
 			SelectionShiftY = 60
-			SelectionWidth = 200.0
 			Tallness = 100.0
 			Scale = 0.9
 			UseBoundsForSortDrawArea = true
@@ -1322,27 +1374,9 @@
 	{
 		Name = "Carrion_Elite"
 		InheritFrom = "Carrion"
-		DisplayInEditor = true
 		Thing = 
 		{
-			EditorOutlineDrawBounds = false
-			Graphic = "Enemy_Carrion_Idle"
-			GrannyModel = "Carrion_Mesh"
-			Grip = 6000.0
-			OffsetZ = 50.0
-			SelectionHeight = 350.0
-			SelectionShiftY = 60
-			SelectionWidth = 200.0
-			Tallness = 100.0
 			Scale = 1.0
-			UseBoundsForSortDrawArea = true
-			Points =
-			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
-			]
 		}
 	}
 	{
@@ -1367,7 +1401,10 @@
 			UseBoundsForSortDrawArea = true
 			OffsetZ = 20.0
 			Tallness = 200.0
-      Scale = 1.3
+			Scale = 1.3
+			SelectionHeight = 300.0
+			SelectionWidth = 200.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1400,6 +1437,9 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Enemy_Stickler_Idle"
 			Tallness = 170
+			SelectionHeight = 280.0
+			SelectionWidth = 160.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1433,6 +1473,9 @@
 			Graphic = "Enemy_Drunk_Idle"
 			Tallness = 180
 			ExtentScale = 0.65
+			SelectionHeight = 280.0
+			SelectionWidth = 220.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -1471,6 +1514,9 @@
 			UseBoundsForSortDrawArea = true
 			Graphic = "Enemy_Swab_Idle"
 			Tallness = 210
+			SelectionHeight = 320.0
+			SelectionWidth = 280.0
+			SelectionShiftY = 80.0
 			Points =
 			[
 				{ X = 0 Y = 40 }
@@ -1516,6 +1562,9 @@
 			Graphic = "Enemy_DespairElemental_Idle"
 			AmbientSound = "/SFX/Enemy Sounds/DespairElementalRegular/BreathingLoop"
 			Tallness = 200
+			SelectionHeight = 400.0
+			SelectionWidth = 400.0
+			SelectionShiftY = 100.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -1566,6 +1615,9 @@
 			Graphic = "Enemy_CorruptedShadeS_Idle"
 			GrannyModel = "CorruptedShadesS_Mesh"
 			Scale = 1.2
+			SelectionHeight = 180.0
+			SelectionWidth = 160.0
+			SelectionShiftY = 40.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1602,6 +1654,9 @@
 			Graphic = "Enemy_CorruptedShadeM_Idle"
 			GrannyModel = "CorruptedShadesM_Mesh"
 			Scale = 1.1
+			SelectionHeight = 300.0
+			SelectionWidth = 220.0
+			SelectionShiftY = 90.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1636,6 +1691,9 @@
 			ExtentScale = 1.2
 			Tallness = 180
 			Scale = 0.85
+			SelectionHeight = 420.0
+			SelectionWidth = 420.0
+			SelectionShiftY = 130.0
 			Points =
 			[
 				{ X = 32 Y = 44 }
@@ -1673,6 +1731,9 @@
 			Graphic = "Enemy_BrokenHearted_Idle"
 			GrannyModel = "BrokenHearted_Mesh"
 			Scale = 1.15
+			SelectionHeight = 230.0
+			SelectionWidth = 230.0
+			SelectionShiftY = 60.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1720,12 +1781,12 @@
 			GrannyModel = "Vampire_Mesh"
 			Graphic = "Enemy_Vampire_Idle"
 			Grip = 3000
-			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
-			SelectionWidth = 200.0
 			Tallness = 100.0
 			UseBoundsForSortDrawArea = true
 			Scale = 1.4
+			SelectionHeight = 300.0
+			SelectionWidth = 200.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1765,6 +1826,9 @@
 			Scale = 1.2
 			ExtentScale = 1.4
 			Tallness = 200
+			SelectionHeight = 330.0
+			SelectionWidth = 330.0
+			SelectionShiftY = 80.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1810,9 +1874,9 @@
 			GrannyModel = "LycanSwarmer_Mesh"
 			OffsetZ = 80.0
 			Scale = 1.27
-			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
-			SelectionWidth = 200.0
+			SelectionHeight = 170.0
+			SelectionWidth = 170.0
+			SelectionShiftY = 20.0
 			Tallness = 80.0
 			UseBoundsForSortDrawArea = true
 			StopsUnits = false
@@ -1850,6 +1914,9 @@
 			Graphic = "Enemy_Lovesick_Idle"
 			GrannyModel = "Lovesick_Mesh"
 			Scale = 1.25
+			SelectionHeight = 240.0
+			SelectionWidth = 190.0
+			SelectionShiftY = 30.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1883,6 +1950,9 @@
 			GrannyModel = "Lamia_Mesh"
 			Tallness = 180
 			Scale = 1.25
+			SelectionHeight = 320.0
+			SelectionWidth = 200.0
+			SelectionShiftY = 70.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1935,6 +2005,9 @@
 			AmbientSound = "/SFX/Enemy Sounds/Mourner/EmoteBreathingLoop"
 			Tallness = 240
 			Scale = 1.2
+			SelectionHeight = 320.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 40.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -1982,13 +2055,14 @@
 			Grip = 6000.0
 			ImpulsedFx = "KnockbackLinesSmall"
 			OffsetZ = 50.0
-			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
-			SelectionWidth = 200.0
+			SelectionHeight = 400.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 20.0
 			SortBoundsScale = 1.4
 			UseBoundsForSortDrawArea = true
 			Tallness = 400
-			Points = [
+			Points =
+			[
 				{ X = 0 Y = 32 }
 				{ X = 64 Y = 0 }
 				{ X = 0 Y = -32 }
@@ -2022,6 +2096,9 @@
 			OffsetZ = 50
 			Tallness = 80.0
 			UseBoundsForSortDrawArea = true
+			SelectionHeight = 160.0
+			SelectionWidth = 160.0
+			SelectionShiftY = 0.0
 			Points =
 			[
 				{ X = 0 Y = 25 }
@@ -2157,8 +2234,8 @@
 			Grip = 8000.0
 			ImpulsedFx = "KnockbackLines"
 			SelectionHeight = 200.0
-			SelectionShiftY = 40.0
 			SelectionWidth = 160.0
+			SelectionShiftY = 40.0
 			Tallness = 155.0
 			Points =
 			[
@@ -2214,8 +2291,8 @@
 			OffsetZ = 50.0
 			Scale = 0.7
 			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
 			SelectionWidth = 200.0
+			SelectionShiftY = -10.0
 			Tallness = 100.0
 			UseBoundsForSortDrawArea = true
 			Points =
@@ -3349,6 +3426,9 @@
 			SortBoundsScale = 0.75
 			UseBoundsForSortDrawArea = true
 			OffsetZ = 50
+			SelectionHeight = 280.0
+			SelectionWidth = 180.0
+			SelectionShiftY = 40.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -3573,9 +3653,9 @@
 			ImpulsedFx = "KnockbackLinesWithBloodSmall"
 			OffsetZ = 50.0
 			Scale = 0.7
-			SelectionHeight = 200.0
-			SelectionShiftY = -10.0
-			SelectionWidth = 200.0
+			SelectionHeight = 160.0
+			SelectionWidth = 160.0
+			SelectionShiftY = 0.0
 			Tallness = 100.0
 			SortBoundsScale = 0.85
 			UseBoundsForSortDrawArea = true
@@ -3663,13 +3743,14 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "HecateHubTorchBattleIdle"
 			GrannyModel = "HecateHub_Mesh"
-			SelectionHeight = 350.0
-			SelectionShiftY = 40.0
 			SortBoundsScale = 2.0
 			SpeechCapable = true
 			Tallness = 200.0
 			ExtentScale = 1.0
 			Scale = 1.32
+			SelectionHeight = 320.0
+			SelectionWidth = 270.0
+			SelectionShiftY = 90.0
 			Points =
 			[
 				{ X = 18 Y = 27 }
@@ -3721,8 +3802,9 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Enemy_InfestedCerberus_Idle"
 			GrannyModel = "InfestedCerberus_Mesh"
-			SelectionHeight = 350.0
-			SelectionShiftY = 40.0
+			SelectionHeight = 900.0
+			SelectionWidth = 1000.0
+			SelectionShiftY = 300.0
 			SpeechCapable = true
 			SortBoundsScale = 0.35
 			Tallness = 675.0
@@ -3773,8 +3855,9 @@
 			GrannyMaskScrollSpeed = 0.0
 			GrannyMaskScrollSize = 0.0
 			GrannyMaskScrollAngle = 0.0
-			SelectionHeight = 350.0
-			SelectionShiftY = 40.0
+			SelectionHeight = 600.0
+			SelectionWidth = 400.0
+			SelectionShiftY = 150.0
 			SpeechCapable = true
 			Tallness = 400.0
 			ExtentScale = 1.75
@@ -3813,13 +3896,14 @@
 			EditorOutlineDrawBounds = false
 			Graphic = "Enemy_Eris_HubIdle"
 			GrannyModel = "Eris_Mesh"
-			SelectionHeight = 350.0
-			SelectionShiftY = 40.0
 			SortBoundsScale = 2.0
 			SpeechCapable = true
 			OffsetZ = 5.0
 			Tallness = 180.0
 			ExtentScale = 1.2
+			SelectionHeight = 400.0
+			SelectionWidth = 330.0
+			SelectionShiftY = 110.0
 			Points =
 			[
 				{ X = 18 Y = 27 }
@@ -3896,9 +3980,9 @@
 			GrannyModel = "RatThugGiant_Mesh"
 			AmbientSound = "/SFX/Enemy Sounds/Crawler/CrawlerClawLoop"
 			Grip = 6000.0
-			SelectionHeight = 70.0
-			SelectionShiftY = 10.0
-			SelectionWidth = 70.0
+			SelectionHeight = 90.0
+			SelectionWidth = 90.0
+			SelectionShiftY = 40.0
 			Tallness = 82.0
 			Scale = 2.0
 			ExtentScale = 0.5
@@ -4145,8 +4229,9 @@
 			Scale = 1.4
 			Graphic = "Enemy_Polyphemus_Idle"
 			GrannyModel = "Polyphemus_Mesh"
-			SelectionHeight = 350.0
-			SelectionShiftY = 40.0
+			SelectionHeight = 440.0
+			SelectionWidth = 340.0
+			SelectionShiftY = 100.0
 			SpeechCapable = true
 			ImmuneToForce = true
 			Tallness = 390.0

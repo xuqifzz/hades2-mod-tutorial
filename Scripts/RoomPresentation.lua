@@ -197,13 +197,15 @@ function RoomEntranceMaterialize( currentRun, currentRoom, args )
 	]]
 
 	--CreateAnimation({ Name = "ConsecrationFlareSpectral", DestinationId = healTarget, Group = "FX_Standing_Add" })
-
+	
+	SetFixedDashPresentationValues()
 	FireWeaponFromUnit({ Weapon = "WeaponBlink", Id = CurrentRun.Hero.ObjectId })
 	thread( HeroAlphaDelay, currentRun, 0.30 )
 	Destroy({ Id = healTarget })
 
 	wait( 0.3 )
-
+	
+	EndFixedDashPresentationValues()
 	--[[
 	local heroDestination = currentRoom.HeroEndPoint
 	Move({ Id = heroId, DestinationId = heroDestination, SuccessDistance = 32 })
@@ -2405,7 +2407,9 @@ function HarvestPointAvailablePresentation( source, args )
 
 	thread( DirectionHintPresentation, source, { Cooldown = 0, Delay = 0, MoveDuration = 1.5, ArrowAnimationName = "ResourceFinderArrow", } )
 
-	thread( PlayVoiceLines, GlobalVoiceLines.HarvestPointFoundVoiceLines, true )
+	if CheckCooldown( "HarvestPointAvailablePresentation", 90 ) then
+		thread( PlayVoiceLines, GlobalVoiceLines.HarvestPointFoundVoiceLines, true )
+	end
 	wait( 0.25, RoomThreadName )
 	PlaySound({ Name = "/Leftovers/SFX/AnnouncementPing3", Id = source.ObjectId })
 end

@@ -1551,15 +1551,7 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Pickaxe",
 	},
-	ToolPickIconUpgrading =
-	{
-		TexturePath = "GUI\\Icons\\Pickaxe",
-	},
 	ToolBookIcon =
-	{
-		TexturePath = "GUI\\Icons\\ExorcismBook",
-	},
-	ToolBookIconUpgrading =
 	{
 		TexturePath = "GUI\\Icons\\ExorcismBook",
 	},
@@ -1567,15 +1559,7 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Shovel",
 	},
-	ToolShovelIconUpgrading =
-	{
-		TexturePath = "GUI\\Icons\\Shovel",
-	},
 	ToolRodIcon =
-	{
-		TexturePath = "GUI\\Icons\\FishingRod",
-	},
-	ToolRodIconUpgrading =
 	{
 		TexturePath = "GUI\\Icons\\FishingRod",
 	},

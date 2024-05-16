@@ -64,7 +64,7 @@ end
 function UnequipMetaUpgrades( eventSource, hero )
 	hero = hero or CurrentRun.Hero
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
-		if MetaUpgradeCardData[ metaUpgradeName ] and metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName then
+		if MetaUpgradeCardData[ metaUpgradeName ] and metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and not MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead then
 			RemoveWeaponTrait(	MetaUpgradeCardData[ metaUpgradeName ].TraitName )
 		end
 	end

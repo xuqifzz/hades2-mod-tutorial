@@ -1500,7 +1500,7 @@ UnitSetData.Polyphemus =
 		BlocksLootInteraction = false,
 		CannotDieFromDamage = true,
 		UseActivatePresentation = false,
-		
+		ImmuneToPolymorph = true,
 		StunAnimations = 
 		{
 			Default = "Enemy_Polyphemus_DeathOnHit",

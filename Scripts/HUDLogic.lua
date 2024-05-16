@@ -83,19 +83,9 @@ function ShowResourceUIs( args )
 	if GameState.EquippedFamiliar ~= nil then
 		SetAnimation({ Name = FamiliarData[GameState.EquippedFamiliar].Icon, DestinationId = HUDScreen.Components.FamiliarIcon.Id })
 		SetAlpha({ Id = HUDScreen.Components.FamiliarIcon.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = HUDScreen.FadeInDuration })
-		UpdateFamiliarIconUses()
 	else
 		SetAlpha({ Id = HUDScreen.Components.FamiliarIcon.Id, Fraction = 0.0, Duration = 0 })
 	end
-end
-
-function UpdateFamiliarIconUses()
-	ModifyTextBox({ 
-		Id = HUDScreen.Components.FamiliarIcon.Id, 
-		Text = "UI_Uses",
-		LuaKey = "TempTextData", 
-		LuaValue = { Time = GameState.FamiliarUses },
-	})
 end
 
 OnPlayerMoveStarted{
@@ -153,7 +143,9 @@ function HideCombatUI( flag, args )
 	end
 
 	HideTraitUI( args )
-	HideMoneyUI( args )
+	if not args.IgnoreHideMoney then
+		HideMoneyUI( args )
+	end
 	HideRerollUI( args )
 	HideResourceUIs( args )
 
@@ -411,9 +403,9 @@ function HideMoneyUI( args )
 	SetAlpha({ Id = HUDScreen.Components.MoneyIcon.Id, Duration = HUDScreen.FadeOutDuration, Fraction = 0 })
 end
 
-function UpdateMoneyUI( )
+function UpdateMoneyUI( force )
 	local newValue = GetResourceAmount( "Money" )
-	if not ConfigOptionCache.ShowUIAnimations or not ShowingCombatUI then
+	if not force and ( not ConfigOptionCache.ShowUIAnimations or not ShowingCombatUI ) then
 		return
 	end
 	local valueDelta = newValue - MapState.MoneyUI.LastValue

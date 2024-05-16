@@ -960,15 +960,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.34,
+				Multiplier = 4/3,
 			},
 			Epic =
 			{
-				Multiplier = 1.67,
+				Multiplier = 5/3,
 			},
 			Heroic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 2,
 			},
 		},
 		OnSprintAction = 
@@ -980,22 +980,27 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponSprint", "WeaponBlink" },
 				WeaponProperty = "SelfVelocity",
-				BaseValue = 330,
+				BaseValue = 297,
 				ChangeType = "Add",
 				ExcludeLinked = true,
-				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
-				MinMultiplier = 0.17,
+				MinMultiplier = 0.25,
 				IdenticalMultiplier =
 				{
-					Value = -0.67,
+					Value = -0.75,
 				},
 			},
 			{
 				WeaponNames = { "WeaponSprint", "WeaponBlink" },
 				WeaponProperty = "SelfVelocityCap",
-				BaseValue = 375,
+				BaseValue = 133.5,
 				ChangeType = "Add",
 				ExcludeLinked = true,
+				MinMultiplier = 0.25,
+				IdenticalMultiplier =
+				{
+					Value = -0.75,
+				},
+				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponSprint",
@@ -1024,7 +1029,7 @@ OverwriteTableKeys( TraitData, {
 				Format = "PercentOfBase",
 				BaseType = "Weapon",
 				BaseName = "WeaponSprint",
-				BaseProperty = "SelfVelocity",
+				BaseProperty = "SelfVelocityCap",
 			},
 			{
 				ExtractAs = "BlindChance",

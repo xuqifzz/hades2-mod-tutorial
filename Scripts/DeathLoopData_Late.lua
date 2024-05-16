@@ -34,6 +34,7 @@
 		NoAutoEquip = true,
 		FullscreenEffectGroup = "Foreground_01",
 		RichPresence = "#RichPresence_House",
+		BlockCombatUI = true,
 
 		LegalEncounters = { "Empty", },
 
@@ -138,7 +139,10 @@
 
 		ThreadedEvents =
 		{
-
+			{
+				FunctionName = "Flashback02Objective",
+				Args = { Delay = 13.0 },
+			},
 		},
 
 		UnthreadedEvents =

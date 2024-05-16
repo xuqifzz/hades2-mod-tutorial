@@ -2026,10 +2026,17 @@ function DoAttack( enemy, aiData )
 	end
 	if aiData.PreAttackFxAtTarget then
 		CreateAnimation({ DestinationId = aiData.TargetId, Name = aiData.PreAttackFxAtTarget })
+		table.insert(enemy.StopAnimationsOnHitStun, aiData.PreAttackFxAtTarget)
 	end
 	if aiData.PreAttackMultiFxAtTarget ~= nil then
 		for k, name in pairs(aiData.PreAttackMultiFxAtTarget) do
 			CreateAnimation({ DestinationId = aiData.TargetId, Name = name })
+			table.insert(enemy.StopAnimationsOnHitStun, name)
+		end
+	end
+	if aiData.StopAnimationsOnHitStun ~= nil then
+		for k, name in pairs(aiData.StopAnimationsOnHitStun) do
+			table.insert(enemy.StopAnimationsOnHitStun, name)
 		end
 	end
 
@@ -5899,6 +5906,8 @@ function PolyphemusPickup( enemy, aiData, args )
 	if ReachedAIStageEnd(enemy) or CurrentRun.CurrentRoom.InStageTransition then
 		aiData.ForcedEarlyExit = true
 		AdjustColorGrading({ Name = "Off", Duration = 0.3 })
+		PanCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.3, EaseIn = 0.3 })
+		FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction, Duration = 0.3, ZoomType = "Ease" })
 		return true
 	end
 

@@ -35,7 +35,6 @@ function ShowSurfaceShopScreen()
 		thread( PlayVoiceLines, HeroVoiceLines.SurfaceShopUsedVoiceLines, true )
 	end
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 
@@ -286,8 +285,6 @@ function HandleSurfaceShopAction( screen, button )
 			itemIndex = i
 			if value.Purchased then
 				speedUpDelivery = true
-			else
-				value.Purchased = true
 			end
 		end
 	end
@@ -303,6 +300,8 @@ function HandleSurfaceShopAction( screen, button )
 			Flash({ Id = screen.Components["PurchaseButton".. button.Index].Id, Speed = 2, MinFraction = 1, MaxFraction = 0.0, Color = Color.CostUnaffordable, ExpireAfterCycle = true })
 			CantAffordPresentation( upgradeData )
 			return
+		else
+			itemData.Purchased = true
 		end
 	end
 

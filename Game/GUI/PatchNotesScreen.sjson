@@ -135,7 +135,8 @@
       TextGreen = 0.714
       TextBlue = 0.588
       TextOffsetY = 0
-      PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
+      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
+      MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOut"
       Width = 280
       Height = 60
       /*FreeFormSelectOffsetX = -120*/

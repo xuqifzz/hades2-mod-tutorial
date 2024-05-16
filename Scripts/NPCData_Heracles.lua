@@ -442,7 +442,7 @@ UnitSetData.NPC_Heracles =
 					Text = "That's a ringing endorsement, though you must be stronger still. Ever considered putting him to the test? Could save me a lot of trouble." },
 				{ Cue = "/VO/Heracles_0016",
 					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "He's not my type. Besides, he's a spawn of the gods, just like you and me. Wouldn't be proper if we all were fighting all the time, now, would it?" },
+					Text = "He's not my type. Besides, he's a spawn of the gods, just like you and me. Wouldn't be proper if we were all fighting all the time, now would it?" },
 				EndVoiceLines =
 				{
 					{

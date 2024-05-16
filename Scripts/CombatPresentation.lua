@@ -2801,20 +2801,11 @@ function ChronosKillPresentation( unit, args )
 
 	ClearPauseMenuTakeover()
 
-	--[[
+	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
 	ClearEffect({ Ids = { victimId, killerId }, All = true, BlockAll = true, })
-	ExpireProjectiles({ Names = { "HadesCast", "HadesAmmoDrop", "HadesAmmoWeapon", "GraspingHands", "HadesTombstoneSpawn", "HadesCastBeam", "HadesCastBeamNoTracking" } })
-	Destroy({ Ids = GetIdsByType({ Name = "HadesBidentReturnPoint" }) })
-	StopAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "HadesReverseDarknessVignetteHold" })
-	SetAlpha({ Ids = GetIds({ Name = "Terrain_Lighting_01" }), Fraction = 1.0, Duration = 1.0 })
-	
-	ToggleControl({ Names = { "AdvancedTooltip", }, Enabled = false })
-
-	local ammoIds = GetIdsByType({ Name = "AmmoPack" })
-	SetObstacleProperty({ Property = "Magnetism", Value = 3000, DestinationIds = ammoIds })
-	SetObstacleProperty({ Property = "MagnetismSpeedMax", Value = CurrentRun.Hero.LeaveRoomAmmoMangetismSpeed, DestinationIds = ammoIds })
-	StopAnimation({ DestinationIds = ammoIds, Name = "AmmoReturnTimer" })
-	]]--
+	if not IsEmpty( unit.StopAnimationsOnHitStun ) then -- since hit stun isn't applied on death
+		StopAnimation({ Names = unit.StopAnimationsOnHitStun, DestinationId = unit.ObjectId })
+	end
 
 	SetUnitInvulnerable( unit )
 	thread( LastKillPresentation, unit )
@@ -3937,12 +3928,16 @@ end
 
 function EquipPlayerToolPresentation( toolKit )
 	wait( 0.02 )
-	PlaySound({ Name = "/SFX/Player Sounds/ToolEquip", Id = toolKit.ObjectId })
+	-- PlaySound({ Name = "/SFX/Player Sounds/ToolEquip", Id = toolKit.ObjectId })
 	thread( PlayVoiceLines, toolKit.EquipVoiceLines, false )
 
+	-- CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
+	-- AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = toolKit.ObjectId })
+	-- SetAnimation({ Name = "MelinoeSpellFire", DestinationId = CurrentRun.Hero.ObjectId })
+
 	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = toolKit.ObjectId })
-	SetAnimation({ Name = "MelinoeSpellFire", DestinationId = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/FloatingRockInteract", Id = CurrentRun.Hero.ObjectId })
+
 	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.2 }, } )
 
 	Shake({ Id = toolKit.ObjectId, Distance = 2, Speed = 100, Duration = 0.3, FalloffSpeed = 3000 })
@@ -4288,7 +4283,11 @@ function PolymorphApplyPresentation( triggerArgs, args )
 			if value == "nil" then
 				value = nil
 			end
-			SetLifeProperty({ Property = key, Value = value, DestinationId = victim.ObjectId })
+			local dataValue = true
+			if key == "InvulnerableCoverage" then
+				dataValue = false
+			end
+			SetLifeProperty({ Property = key, Value = value, DestinationId = victim.ObjectId, DataValue = dataValue })
 		end
 		if args ~= nil and args.BossPolymorph then
 			AdjustZoom({ Fraction = 1.05, LerpTime = 0.1, Duration = 99999 })
@@ -4352,7 +4351,11 @@ function PolymorphClearPresentation( triggerArgs, args )
 		SetUnitProperty({ Property = key, Value = victim["PrePolymorph"..key], DestinationId = victim.ObjectId })
 	end
 	for key, value in pairs( PolymorphPresentationData.LifeProperties ) do
-		SetLifeProperty({ Property = key, Value = victim["PrePolymorph"..key], DestinationId = victim.ObjectId })
+		local dataValue = true
+		if key == "InvulnerableCoverage" then
+			dataValue = false
+		end
+		SetLifeProperty({ Property = key, Value = victim["PrePolymorph"..key], DestinationId = victim.ObjectId, DataValue = dataValue })
 	end
 
 	if args ~= nil and args.BossPolymorph and CurrentRun.CurrentRoom.ZoomFraction then

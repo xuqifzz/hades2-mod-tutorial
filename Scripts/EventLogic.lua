@@ -1137,28 +1137,22 @@ function CirceRemoveShrineUpgrades( args )
 end
 
 function CircePetMultiplier( args )
-	local upgradeTraits = {}
 	for _, traitData in pairs( CurrentRun.Hero.Traits ) do
 		if traitData.FamiliarTrait then
-			table.insert( upgradeTraits, traitData )
+			if traitData.FamiliarLastStandHealAmount ~= nil then
+				AddLastStand({
+					Name = "LastStandFamiliar",
+					Icon = "ExtraLifeCatFamiliar",
+					InsertAtEnd = true,
+					IncreaseMax = true,
+					HealAmount = GetTotalHeroTraitValue( "FamiliarLastStandHealAmount" )
+				})
+				RecreateLifePips()
+			else
+				IncreaseTraitLevel( traitData, round(( traitData.StackNum or 1 ) * args.BonusMultiplier ))
+			end
 		end
 	end
-	for _, traitData in pairs( upgradeTraits ) do
-		if traitData.FamiliarLastStandHealAmount ~= nil then
-			AddLastStand({
-				Name = "LastStandFamiliar",
-				Icon = "ExtraLifeCatFamiliar",
-				InsertAtEnd = true,
-				IncreaseMax = true,
-				HealAmount = GetTotalHeroTraitValue( "FamiliarLastStandHealAmount" )
-			})
-			RecreateLifePips()
-		else
-			IncreaseTraitLevel( traitData, round(( traitData.StackNum or 1 ) * args.BonusMultiplier ))
-		end
-	end
-	GameState.FamiliarUses = 2 * (1 + GetFamiliarBonusUses( GameState.EquippedFamiliar ))
-	UpdateFamiliarIconUses()
 end
 
 function CirceHeal( args )

@@ -67,7 +67,7 @@ ToolData =
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 				{ Cue = "/VO/Melinoe_0814", Text = "Rod of Fishing." },
-				{ Cue = "/VO/Melinoe_0815", Text = "Could use the Rod." },
+				-- { Cue = "/VO/Melinoe_0815", Text = "Could use the Rod." },
 			},
 			[2] = GlobalVoiceLines.MiscToolEquipVoiceLines,
 		},
@@ -190,7 +190,7 @@ ToolData =
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 				{ Cue = "/VO/Melinoe_1613", Text = "The Tablet." },
-				{ Cue = "/VO/Melinoe_1614", Text = "Should take the Tablet." },
+				-- { Cue = "/VO/Melinoe_1614", Text = "Should take the Tablet." },
 				-- { Cue = "/VO/Melinoe_0818", Text = "Talisman." },
 				-- { Cue = "/VO/Melinoe_0819", Text = "I'll take the talisman." },
 			},
@@ -413,7 +413,10 @@ HarvestData =
 
 ShovelPointData =
 {
-	DefaultSpawnChance = 0.35,
+	DefaultSpawnCap = 1,
+	DefaultSpawnChance = 0.01,
+	HasToolSpawnChance = 0.35,
+	ToolName = "ToolShovel",
 	DefaultGameStateRequirements =
 	{
 		{
@@ -558,7 +561,10 @@ ShovelPointData =
 
 PickaxePointData =
 {
-	DefaultSpawnChance = 0.40,
+	DefaultSpawnCap = 1,
+	DefaultSpawnChance = 0.01,
+	HasToolSpawnChance = 0.40,
+	ToolName = "ToolPickaxe",
 	DefaultGameStateRequirements =
 	{
 		{
@@ -692,7 +698,10 @@ PickaxePointData =
 
 ExorcismData =
 {
-	DefaultSpawnChance = 0.30,
+	DefaultSpawnCap = 1,
+	DefaultSpawnChance = 0.01,
+	HasToolSpawnChance = 0.30,
+	ToolName = "ToolExorcismBook",
 	DefaultGameStateRequirements =
 	{
 		{

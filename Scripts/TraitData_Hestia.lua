@@ -964,6 +964,7 @@ OverwriteTableKeys( TraitData, {
 		AcquireFunctionName = "SacrificeBoon",
 		PrePickSacrificeBoon = true,
 		BlockStacking = true,
+		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements = 
 		{
 			{
@@ -1435,7 +1436,7 @@ OverwriteTableKeys( TraitData, {
 				BurnStacks = 300,
 				ConsumptionDamage = 
 				{ 
-					BaseValue = -0.5,
+					BaseValue = 0.5,
 					IdenticalMultiplier =
 					{
 						Value = -0.75,

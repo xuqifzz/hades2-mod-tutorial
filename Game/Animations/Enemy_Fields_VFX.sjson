@@ -7030,24 +7030,36 @@
 	{
 		Name = "CerbInvertedCircleDarken"
 		GroupName = "FX_Terrain"
-		EaseIn = 0
-		EaseOut = 0.1
 		StartRed = 0
 		StartGreen = 0
 		StartBlue = 0
-		EndRed = 1
-		EndGreen = 0.2
-		EndBlue = 0.1
+		EndRed = 0.5
+		EndGreen = 0.1
+		EndBlue = 0.05
 		Alpha = 0.75
 		StartAlpha = 0
 		EndAlpha = 1
 		FilePath = "Fx\SirenDrummerCircle\SirenDrummerCircleInvert"
-		Duration = 3
+		Duration = 1.5
 		PostRotateScaleY = 0.5
 		Scale = 12
 		HoldLastFrame = false
 		DieWithOwner = true
 		UseAttachedFlasher = false
+		ChainTo = "CerbInvertedCircleDarkenHold"
+	}
+
+	{
+		Name = "CerbInvertedCircleDarkenHold"
+		InheritFrom = "CerbInvertedCircleDarken"
+		ChainTo = null
+		StartAlpha = 0.999
+		StartRed = 0.5
+		StartGreen = 0.1
+		StartBlue = 0.05
+		EndRed = 1
+		EndGreen = 0.2
+		EndBlue = 0.1
 	}
 
 	{
@@ -7203,7 +7215,6 @@
 			{ Name = "InfestedCerberusWorms_InverseNova"}
 			{ Name = "InfestedCerberusWorms_InverseNova"}
 			{ Name = "InfestedCerberusWorms_InverseNova"}
-
 
 			{ Name = "CerbInvertedCircleFlash" }
 

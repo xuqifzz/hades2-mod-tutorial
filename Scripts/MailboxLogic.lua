@@ -454,6 +454,9 @@ function MailboxTimeTick( args )
 end
 
 function SetupMailboxStatus( source, args )
+	if source == nil then
+		return
+	end
 	args = args or {}
 	UseableOff({ Id = source.ObjectId })
 	local mailboxStatus = GameState.MailboxStatus[source.ObjectId]

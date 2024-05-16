@@ -113,6 +113,7 @@ ResourceData =
 			Cooldowns =
 			{
 				{ Name = "MelinoeAnyQuipSpeech" },
+				{ Name = "ErisResourceGranted", Time = 8 }
 			},
 			{
 				RandomRemaining = true,
@@ -205,6 +206,7 @@ ResourceData =
 			Cooldowns =
 			{
 				{ Name = "MelinoeAnyQuipSpeech" },
+				{ Name = "ErisResourceGranted", Time = 8 }
 			},
 			{
 				RandomRemaining = true,

@@ -69,7 +69,6 @@ function OpenBountyBoardScreen( openedFrom, args )
 	end
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 	thread( MarkObjectiveComplete, "BountyPrompt" )

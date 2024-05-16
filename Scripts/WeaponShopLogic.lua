@@ -75,7 +75,6 @@ function OpenWeaponShopScreen( openedFrom, args )
 	thread( WeaponShopScreenOpenFinishedPresentation, screen )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 
@@ -482,10 +481,6 @@ function DoWeaponShopPurchase( screen, button )
 	end
 	WeaponShopPurchasePostActivatePresentation( button, itemData, weaponKit )
 	UpdateAffordabilityStatus()
-end
-
-function WeaponShopScreenControlHotSwap( screen )
-	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY })
 end
 
 function WeaponShopScreenSelectCategory( screen, button )

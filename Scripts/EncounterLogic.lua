@@ -602,7 +602,14 @@ function HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, override
 		OverwriteTableKeys( newEnemy.DefaultAIData, spawnInfo.SpawnDefaultAIDataOverrides)
 	end 
 
+	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or GetRandomValue(GetIds({ Name = spawnInfo.SpawnPointGroupName })) or SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, encounter)
+ 
+	if spawnPointId == nil then
+		return nil
+	end
+
 	if newEnemy.IsUnitGroup then
+		spawnInfo.SpawnOnId = spawnPointId
 		SpawnUnitGroup(newEnemy, encounter, spawnInfo)
 		if not originalSpawnInfo.InfiniteSpawns then
 			originalSpawnInfo.RemainingSpawns = originalSpawnInfo.RemainingSpawns - 1
@@ -616,12 +623,6 @@ function HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, override
 
 	if ignoreSpawnPreferences then
 		newEnemy.PreferredSpawnPoint = nil
-	end
-
-	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or GetRandomValue(GetIds({ Name = spawnInfo.SpawnPointGroupName })) or SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, encounter)
- 
-	if spawnPointId == nil then
-		return nil
 	end
 
 	local spawnPointOffset = { X = RandomInt( -5, 5 ), Y = RandomInt( -5, 5 ) }
@@ -729,6 +730,10 @@ function SpawnUnitGroup(unitGroup, encounter, spawnInfo)
 	spawnInfo = DeepCopyTable(spawnInfo) or {}
 	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or SelectSpawnPoint(CurrentRun.CurrentRoom, unitGroup, encounter or {})
 	unitGroup.UnitIds = {}
+
+	if spawnPointId == nil then
+		return
+	end
 
 	for i, unitName in ipairs(unitGroup.UnitGroup) do
 		spawnInfo.Name = unitName
@@ -962,6 +967,14 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 	if currentEncounter.ActiveEnemyCapBonus ~= nil then
 		enemyCap = enemyCap + currentEncounter.ActiveEnemyCapBonus
 		DebugPrint({ Text="Active Enemy Cap Bonus: +"..currentEncounter.ActiveEnemyCapBonus })
+	end
+
+	if CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId then
+		local assistUnit = ActiveEnemies[CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId]
+		if assistUnit and not assistUnit.IsDead then
+			local activeCapWeight = assistUnit.ActiveCapWeight or 1
+			enemyCap = enemyCap + activeCapWeight
+		end
 	end
 
 	if enemyCap > maxEnemyCap then

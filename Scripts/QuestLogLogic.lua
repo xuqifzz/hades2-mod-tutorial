@@ -151,7 +151,6 @@ function OpenQuestLogScreen( args )
 	QuestLogOpenFinishPresentation( screen )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 end

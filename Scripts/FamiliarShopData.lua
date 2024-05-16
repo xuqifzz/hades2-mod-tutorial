@@ -46,36 +46,40 @@
 	FrogUses = 
 	{
 		InheritFrom = { "BaseFrogUpgrade" },
-		BonusUses = 1,
+		BonusResourceSpawnChance = 0.03,
 		ShowLastInGroup = "FrogUses",
+		SimpleExtractValues =
+		{
+			{
+				Property = "BonusResourceSpawnChance",
+				Multiply = 100 / 0.12, -- Temp divide by BaseResourceSpawnChance 
+				NewProperty = "BonusResourceSpawnChancePercent",
+			},
+		},
 	},
 
 	FrogUses2 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
+		InheritFrom = { "FrogUses" },
 		RarityLevel = 2,
-		ShowLastInGroup = "FrogUses",
 		GameStateRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "FrogUses" },
 			},
 		},
-		BonusUses = 1,
 	},
 
 	FrogUses3 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
+		InheritFrom = { "FrogUses" },
 		RarityLevel = 3,
-		ShowLastInGroup = "FrogUses",
 		GameStateRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "FrogUses2" },
 			},
 		},
-		BonusUses = 1,
 	},
 
 	FrogDamage =
@@ -179,36 +183,40 @@
 	CatUses =
 	{
 		InheritFrom = { "BaseCatUpgrade" },
-		BonusUses = 1,
+		BonusResourceSpawnChance = 0.025,
 		ShowLastInGroup = "CatUses",
+		SimpleExtractValues =
+		{
+			{
+				Property = "BonusResourceSpawnChance",
+				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
+				NewProperty = "BonusResourceSpawnChancePercent",
+			},
+		},
 	},
 
 	CatUses2 =
 	{
-		InheritFrom = { "BaseCatUpgrade" },
+		InheritFrom = { "CatUses" },
 		RarityLevel = 2,
-		ShowLastInGroup = "CatUses",
 		GameStateRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "CatUses" },
 			},
 		},
-		BonusUses = 1,
 	},
 
 	CatUses3 =
 	{
-		InheritFrom = { "BaseCatUpgrade" },
+		InheritFrom = { "CatUses" },
 		RarityLevel = 3,
-		ShowLastInGroup = "CatUses",
 		GameStateRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "FamiliarUpgrades", "CatUses2" },
 			},
 		},
-		BonusUses = 1,
 	},
 
 	CatAttack =

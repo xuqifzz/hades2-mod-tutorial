@@ -1,4 +1,8 @@
 function UseFishingPoint( fishingPoint, args, user )
+
+	if ( HasFamiliarTool( "ToolFishingRod" ) and not MapState.FamiliarUnit ) then
+		return
+	end
 	
 	if not HasAccessToTool( "ToolFishingRod" ) then
 		HarvestNoToolPresentation( fishingPoint, args, user, "ToolFishingRod" )
@@ -29,8 +33,6 @@ function UseFishingPoint( fishingPoint, args, user )
 			DebugPrint({ Text = "caughtFishName = "..tostring(caughtFishName) })
 			local caughtFishData = FishingData.FishValues[caughtFishName]
 			FishingEndPresentation( caughtFishData, fishingPoint.ObjectId, { Success = true, UsedFamiliar = true, } )
-			GameState.FamiliarUses = GameState.FamiliarUses - 1
-			UpdateFamiliarIconUses()
 		else
 			CurrentRun.Hero.FishingStarted = true
 			FreezePlayerUnit( "FishingStartUp", { DisableTray = true, DisableCodex = true } )

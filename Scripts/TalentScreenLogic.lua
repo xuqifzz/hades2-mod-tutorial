@@ -58,7 +58,7 @@
 	end
 	screen.QueuedTalents = {}
 	screen.SelectedTalent = nil
-
+	screen.Source = spellItem
 	CreateScreenFromData( screen, screen.ComponentData )
 	
 	UpdateAdditionalTalentPointButton( screen )
@@ -101,7 +101,6 @@
 	-- Short delay to let animations finish and prevent accidental input
 	wait(0.5)
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 
@@ -141,8 +140,8 @@ function CreateTalentTreeIcons( screen, args )
 			talentObject.OnMouseOffFunctionName = "MouseOffTalentButton"
 			talentObject.LinkObjects = {}
 			if screenObstacle ~= "BlankObstacle" then
-				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetX", Value = screen.TooltipOffsetXStart - (i * xSpacer + offsetX + talentOffsetX) })
-				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetY", Value = screen.TooltipOffsetYStart - (s * ySpacer + offsetY + talentOffsetY) })
+				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetX", Value = ScreenCenterNativeOffsetX + screen.TooltipOffsetXStart - (i * xSpacer + offsetX + talentOffsetX) })
+				SetInteractProperty({ DestinationId = talentObject.Id, Property = "TooltipOffsetY", Value = ScreenCenterNativeOffsetY + screen.TooltipOffsetYStart - (s * ySpacer + offsetY + talentOffsetY) })
 				CreateTextBox({ Id = talentObject.Id,
 					OffsetX = 0, OffsetY = 0,
 					Font = "P22UndergroundSCHeavy",
@@ -351,7 +350,7 @@ end
 
 function TryCloseTalentTree( screen, button )
 	local components = screen.Components
-
+	
 	if not screen.AllInvested and not screen.ReadOnly then
 		IncrementTableValue( CurrentRun, "InvestedTalentPoints" )
 		if not screen.SelectedTalent then
@@ -370,7 +369,7 @@ function TryCloseTalentTree( screen, button )
 			end
 		end
 	end
-	
+
 	SetAlpha({ Id = components.TalentHover.Id, Fraction = 0, Duration = 0.2 })
 	for _, talentInfo in pairs( screen.QueuedTalents ) do
 		talentInfo.Invested = true	
@@ -403,7 +402,9 @@ function TryCloseTalentTree( screen, button )
 			ReduceTraitUses( traitData, {Force = true })
 		end
 	end
-	
+	if screen.Source and CurrentRun.AllSpellInvestedCache then
+		screen.Source.CanDuplicate = false
+	end
 	CurrentRun.Hero.UntargetableFlags[screen.Name] = nil
 	SetPlayerVulnerable( screen.Name )
 	RemovePlayerImmuneToForce( screen.Name )

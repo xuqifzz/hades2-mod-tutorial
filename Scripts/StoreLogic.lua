@@ -628,7 +628,7 @@ function ShowStoreScreen()
 
 	SetPlayerInvulnerable("StoreScreenOpen")
 	OnScreenOpened( screen )
-	HideCombatUI( screen.Name )
+	HideCombatUI( screen.Name, screen.TraitTrayArgs )
 	CreateScreenFromData( screen, screen.ComponentData )
 	
 	CurrentRun.CurrentRoom.IndexesPurchased = CurrentRun.CurrentRoom.IndexesPurchased or {}
@@ -658,7 +658,6 @@ function ShowStoreScreen()
 		thread( PlayVoiceLines, HeroVoiceLines.WellShopUsedVoiceLines, true )
 	end
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 end
@@ -1056,6 +1055,7 @@ function HandleStorePurchase( screen, button )
 	CurrentRun.WellPurchases =  (CurrentRun.WellPurchases or 0) + 1
 
 	SpendResources( upgradeData.ResourceCosts, upgradeData.Name or "WeaponUpgrade", { SkipQuestStatusCheck = true, } )
+	UpdateMoneyUI( true )
 	if upgradeData.ResourceCosts ~= nil and (upgradeData.ResourceCosts.Money or 0) > 0 then
 		CheckCharonPointsOwed( "HandleStorePurchase" )
 	end

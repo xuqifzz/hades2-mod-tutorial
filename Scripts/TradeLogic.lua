@@ -142,7 +142,6 @@
 	wait(0.5)
 	--TeleportCursor({ DestinationId = components.SpellDescription.Id, ForceUseCheck = true })
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 

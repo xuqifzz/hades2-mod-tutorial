@@ -654,7 +654,7 @@ MetaUpgradeCardData =
 			MetaCardPointsCommon = 10,
 		},
 		TraitName = "SprintShieldMetaUpgrade",
-
+		ActiveWhileDead = true,
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 1, },

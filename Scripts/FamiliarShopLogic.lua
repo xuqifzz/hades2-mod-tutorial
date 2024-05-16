@@ -305,7 +305,6 @@ function OpenFamiliarShopScreen( openedFrom, args )
 	thread( FamiliarShopScreenOpenFinishedPresentation, screen )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 

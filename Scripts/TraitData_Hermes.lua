@@ -604,7 +604,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponSprint", "WeaponBlink" },
 				WeaponProperty = "SelfVelocity",
-				ChangeValue = 220,
+				ChangeValue = 297,
 				ChangeType = "Add",
 				ExcludeLinked = true,
 				ReportValues = {ReportedBaseSpeed = "ChangeValue"},
@@ -612,7 +612,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponNames = { "WeaponSprint", "WeaponBlink" },
 				WeaponProperty = "SelfVelocityCap",
-				ChangeValue = 250,
+				ChangeValue = 133.5,
 				ChangeType = "Add",
 				ExcludeLinked = true,
 			},

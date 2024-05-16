@@ -53,7 +53,6 @@ OverwriteTableKeys( ScreenData.GhostAdmin,
 		FreeFormSelectRepeatInterval = 0.1,
 		FreeFormSelecSearchFromId = 0,
 	},
-	OnWASDHotSwapFunctionName = "ScreenResetCursorToStartLocation",
 
 	CameraOffetX = -200,
 	CameraOffetY = 180,

@@ -146,6 +146,16 @@ NamedRequirementsData =
 			Value = 2,
 		},
 	},
+	ErisCurseHealthThreshold =
+	{
+		{
+			Path = { "CurrentRun", "Hero", "LastStands" },
+			UseLength = true,
+			Comparison = "<=",
+			Value = 0,
+		},
+		RequiredMaxHealthFraction = 0.5,
+	},
 	HecateFamiliarsInHub =
 	{
 		{
@@ -324,7 +334,7 @@ NamedRequirementsData =
 			HasAny = { "SurfacePenalty" },
 		},
 		{
-			PathTrue = { "GameState", "TextLinesRecord", "MorosGrantsQuestLog" },
+			PathTrue = { "GameState", "TextLinesRecord", "MorosSecondAppearance" },
 		},
 		{
 			PathFalse = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeMorosUnlock" },

@@ -681,6 +681,18 @@ function EmptyWeaponCharge( weaponData, stageReached, stageData, args )
 	end
 end
 
+
+function CheckAxeSpinDisable( unit, weaponData, args, triggerArgs )
+	if not triggerArgs.NumProjectiles or triggerArgs.NumProjectiles == 0 then
+		ClearEffect({ Id = unit.ObjectId, Name = "IndependentAxeSpinSelfFireSlow"})
+		ClearEffect({ Id = unit.ObjectId, Name = "IndependentAxeSpinAttackDisableCancellable"})
+		ClearEffect({ Id = unit.ObjectId, Name = "AxeSpinSelfFireSlow"})
+		ClearEffect({ Id = unit.ObjectId, Name = "AxeSpinMoveStop"})
+		ClearEffect({ Id = unit.ObjectId, Name = "AxeSpinAttackDisableCancellable"})
+		ClearEffect({ Id = unit.ObjectId, Name = "AxeSpinAttackDisable"})
+	end
+end
+
 function AxeBlockStartCharge()
 	SetPlayerUninterruptible("AxeBlockCharge")
 end

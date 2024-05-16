@@ -593,6 +593,7 @@ OverwriteTableKeys( ObstacleData, {
 		},
 		DistanceTrigger =
 		{
+			PreTriggerWait = 2.0,
 			GameStateRequirements =
 			{
 				{
@@ -612,7 +613,6 @@ OverwriteTableKeys( ObstacleData, {
 					{
 						PathFalse = { "GameState", "SpeechRecord", "/VO/MelinoeField_1365" },
 					},
-					AreIdsNotAlive = { 566363 },
 				},
 				Cooldowns =
 				{

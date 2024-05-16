@@ -164,7 +164,6 @@ function OpenWeaponUpgradeScreen( args )
 
 	screen.KeepOpen = true
 	screen.CanClose = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 

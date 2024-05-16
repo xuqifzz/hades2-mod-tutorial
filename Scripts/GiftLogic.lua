@@ -26,7 +26,7 @@ OnControlPressed{ "Gift",
 				if trait and trait.MetaConversionUses then
 					trait.MetaConversionUses = trait.MetaConversionUses - 1
 				end
-				CurrentRun.CurrentRoom.ChosenRewardType = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, "RunProgress", { { RewardType = "Devotion" }}, { IgnoreForcedReward = true } )
+				CurrentRun.CurrentRoom.ChosenRewardType = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, "RunProgress", { { RewardType = "Devotion" }, { RewardType = "SpellDrop" } }, { IgnoreForcedReward = true } )
 				local previouslyRequired = false
 				if MapState.RoomRequiredObjects[target.ObjectId] then
 					MapState.RoomRequiredObjects[target.ObjectId] = nil

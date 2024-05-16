@@ -684,7 +684,6 @@ function OpenDebugEnemySpawnScreen()
 	end
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 end
@@ -1094,7 +1093,6 @@ function OpenDebugConversationScreen()
 	end
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 

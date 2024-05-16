@@ -206,8 +206,6 @@ function SetupFlashback02( source, args )
 	AddInputBlock({ Name = "SetupFlashback02" })
 	SetupFlashbackPlayerUnitHades( source, args )
 
-	HideCombatUI( "Flashback" )
-
 	local doorOpenAnim = "HouseDoor03_Open"
 	SetAnimation({ DestinationId = 555681, Name = doorOpenAnim })
 
@@ -246,7 +244,23 @@ function SetupFlashback02( source, args )
 	thread( DisplayInfoBanner, nil, { Text = args.NightmareMessage, SubtitleText = args.NightmareMessageSubtitle, Delay = 0.5, Layer = "Overlay" } )
 	CreateCameraWalls({ })
 	RemoveInputBlock({ Name = "SetupFlashback02" })
+end
 
+function Flashback02Objective( source, args )
+
+	killTaggedThreads( CombatUI.HideThreadName )
+	local notifyName = "Flashback02Prompt"
+	NotifyOnPlayerInput({ Notify = notifyName, Timeout = args.Delay })
+	waitUntil( notifyName )
+	if _eventTimeoutRecord[notifyName] then
+		CheckObjectiveSet("Flashback02Prompt")
+
+		local notifyName = "Flashback02Prompt"
+		NotifyOnPlayerInput({ Notify = notifyName })
+		waitUntil( notifyName )
+
+		-- MarkObjectiveComplete("Flashback02Prompt")
+	end
 end
 
 -- Flashback02 -- DeathArea / Hub

@@ -694,13 +694,35 @@ RoomSetData.G =
 					UnitName = "NPC_Eris_01",
 					SpawnOnId = 410264,
 					GoalAngle = 320,
+					GiveRandomConsumables =
+					{
+						UpwardForceMin = 1000,
+						UpwardForceMax = 1000,
+						Range = 0,
+						Force = 0,
+						--NotRequiredPickup = true,
+						LootOptions =
+						{
+							{
+								Name = "MetaCardPointsCommonDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MetaCardPointsCommon = 20,
+									},
+								},
+							},
+						}
+					},
 				},
 				GameStateRequirements =
 				{
+					NamedRequirementsFalse = { "ErisCurseHealthThreshold", },
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = "<=",
-						Value = 2,
+						Value = 1,
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
@@ -1212,6 +1234,8 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 
+		RushMaxRangeOverride = 475,
+
 		GameStateRequirements =
 		{
 			{
@@ -1246,6 +1270,8 @@ RoomSetData.G =
 	G_Combat04 =
 	{
 		InheritFrom = { "BaseG_Combat" },
+
+		RushMaxRangeOverride = 475,
 
 		GameStateRequirements =
 		{
@@ -1314,6 +1340,8 @@ RoomSetData.G =
 		InheritFrom = { "BaseG_Combat" },
 		ZoomFraction = 0.75,
 
+		RushMaxRangeOverride = 475,
+
 		GameStateRequirements =
 		{
 			{
@@ -1348,6 +1376,8 @@ RoomSetData.G =
 		InheritFrom = { "BaseG_Combat" },
 		ZoomFraction = 0.85,
 
+		RushMaxRangeOverride = 475,
+
 		GameStateRequirements =
 		{
 			{
@@ -1362,6 +1392,8 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 		ZoomFraction = 0.85,
+
+		RushMaxRangeOverride = 475,
 
 		GameStateRequirements =
 		{
@@ -1407,6 +1439,8 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 		ZoomFraction = 0.8,
+		
+		RushMaxRangeOverride = 475,
 
 		GameStateRequirements =
 		{

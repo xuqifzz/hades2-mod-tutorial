@@ -510,7 +510,6 @@ function OpenKeepsakeRackScreen( source )
 		thread( PlayVoiceLines, GlobalVoiceLines.OpenedAwardMenuVoiceLines, false )
 	end
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 end

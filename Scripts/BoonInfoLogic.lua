@@ -30,7 +30,6 @@ function ShowBoonInfoScreen( lootName, codexScreen, codexEntryName, codexEntryDa
 
 	screen.KeepOpen = true
 	screen.CanClose = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 
@@ -263,7 +262,7 @@ function CreateTraitRequirements( screen, traitName )
 		end
 	end
 
-	if traitData.GameStateRequirements ~= nil then
+	if traitData.GameStateRequirements ~= nil and not traitData.BoonInfoIgnoreRequirements then
 		hasRequirement = true
 		-- Generic requirements
 		for i, requirement in ipairs( traitData.GameStateRequirements ) do

@@ -196,14 +196,14 @@ OverwriteTableKeys( TraitData, {
 			{
 				ChargeWeaponStages = 
 				{
-						{ ManaCost = 6, WeaponProperties = { NumProjectiles = 4}, Wait = 0.32, ChannelSlowEventOnEnter = true },
-						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, Wait = 0.06, },
-						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, Wait = 0.06, },
-						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, Wait = 0.06, },
-						{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 12}, Wait = 0.06, },
-						{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 13}, Wait = 0.06, },
-						{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 15}, Wait = 0.06, },
-						{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 16, ReportValues = { ReportedAmount = "NumProjectiles" } }, Wait = 0.06, },
+						{ ManaCost = 6, WeaponProperties = { NumProjectiles = 4}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, ChannelSlowEventOnEnter = true },
+						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 12}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 13}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 15}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 16, ReportValues = { ReportedAmount = "NumProjectiles" } }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
 				},
 			}
 		},

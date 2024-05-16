@@ -281,9 +281,11 @@ OverwriteTableKeys( WeaponData,
 
 		DefaultKnockbackForce = 640,
 		DefaultKnockbackScale = 0.8,
+		RequireProjectilesForPresentation = true,
 		
 		CompleteObjectivesOnFire = { "WeaponAxeSpin" },
 		OnChargeFunctionName = "DoWeaponCharge",
+		OnFiredFunctionName = "CheckAxeSpinDisable",
 		ChargeWeaponData =
 		{
 			EmptyChargeFunctionName = "EmptyAxeCharge",

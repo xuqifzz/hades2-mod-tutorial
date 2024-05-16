@@ -25,6 +25,7 @@ ObjectiveData =
 	OpenInventorySkelly = { Description = "Objective_OpenInventorySkelly" },
 	OpenInventory = { Description = "Objective_OpenInventory", },
 	AdvancedTooltipPrompt = { Description = "Objective_AdvancedTooltip" },
+	Flashback02Prompt = { Description = "Objective_AnomalyStart" },
 
 	ExorcismPrompt = { Description = "Objective_Exorcism", StartingScaleTarget = 0.7, PostDisplayWait = 1.5 },
 
@@ -274,6 +275,15 @@ ObjectiveSetData =
 		Objectives =
 		{
 			{ "ExorcismPrompt" }
+		},
+	},
+
+	Flashback02Prompt =
+	{
+		ManualActivationOnly = true,
+		Objectives =
+		{
+			{ "Flashback02Prompt" }
 		},
 	},
 

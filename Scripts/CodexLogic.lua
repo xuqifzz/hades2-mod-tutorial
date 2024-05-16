@@ -199,7 +199,6 @@ function OpenCodexScreen()
 	screen.KeepOpen = true
 	screen.AllowInput = true
 	wait( 0.1 )
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 end

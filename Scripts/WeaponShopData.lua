@@ -2191,8 +2191,6 @@ ScreenData.WeaponShop =
 
 	PinOffsetX = 315,
 
-	OnWASDHotSwapFunctionName = "WeaponShopScreenControlHotSwap",
-
 	GamepadNavigation =
 	{
 		FreeFormSelectWrapY = false,

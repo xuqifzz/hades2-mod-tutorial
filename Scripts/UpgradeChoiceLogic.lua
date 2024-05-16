@@ -72,7 +72,6 @@ function OpenUpgradeChoiceMenu( source, args )
 	-- Short delay to let animations finish and prevent accidental input
 	waitUnmodified(0.5)
 
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 
 end
@@ -1342,7 +1341,7 @@ end
 function UpgradeChoiceScreenCloseTraitTray( screen, args )
 	local traitTrayScreen = args.Screen
 	traitTrayScreen.TraitTrayOpened = false
-	HideCombatUI( args.Screen.Name )
+	HideCombatUI( args.Screen.Name, traitTrayScreen.TraitTrayArgs )
 	local upgradeChoiceScreenComponents = args.Screen.Components
 	SetAlpha({ Id = upgradeChoiceScreenComponents.TraitTrayButton.Id, Fraction = 1.0, Duration = 0.2 })
 	for index = 1, 3 do

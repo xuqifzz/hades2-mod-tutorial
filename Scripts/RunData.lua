@@ -936,6 +936,10 @@ function SetupRunData( args )
 		ProcessTextLines( consumableData, consumableData.GiftTextLineSets, "GiftTextLinePriorities", args )
 	end
 
+	for familiarName, familiarData in pairs( FamiliarData ) do
+		ProcessSimpleExtractValues( familiarData )
+	end
+
 	ProcessDataStore( BiomeStateData.BiomeStates )
 	ProcessDataStore( WorldUpgradeData )
 	ProcessDataStore( WeaponShopItemData )

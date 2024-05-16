@@ -140,6 +140,77 @@ UnitSetData.NPC_Eris =
 		{
 			-- Eris Trash / Rubbish / Litter
 			{
+				FunctionName = "ErisCurseBackCompatSpawnDrops",
+				GameStateRequirements =
+				{
+					-- None
+				},
+				Args =
+				{
+					SpawnPointIds = { 585561, 585562, 585563, 585565, 585566, 585567, 585570 },
+					OceanusRandomConsumables =
+					{
+						Force = 0,
+						NotRequiredPickup = true,
+						IgnoreSounds = true,
+						LootOptions =
+						{
+							{
+								Name = "MetaCardPointsCommonDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MetaCardPointsCommon = 20,
+									},
+									MetaConversionEligible = false,
+								},
+							},
+						}
+					},
+					FieldsRandomConsumables =
+					{
+						Force = 0,
+						NotRequiredPickup = true,
+						IgnoreSounds = true,
+						LootOptions =
+						{
+							{
+								Name = "MemPointsCommonDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MemPointsCommon = 50,
+									},
+									MetaConversionEligible = false,
+								},
+							},
+						}
+					},
+					TartarusGiveRandomConsumables =
+					{
+						Force = 0,
+						NotRequiredPickup = true,
+						IgnoreSounds = true,
+						LootOptions =
+						{
+							{
+								Name = "MetaCurrencyDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MetaCurrency = 300,
+									},
+									MetaConversionEligible = false,
+								},
+							},
+						}
+					},
+				},
+			},
+			{
 				FunctionName = "NPCLittering",
 				GameStateRequirements =
 				{
@@ -2158,6 +2229,10 @@ UnitSetData.NPC_Eris =
 				UsePlayerSource = true,
 				RandomRemaining = true,
 				PreLineWait = 1.15,
+				Cooldowns =
+				{
+					{ Name = "ErisResourceGranted", Time = 8 },
+				},
 
 				{ Cue = "/VO/MelinoeField_1703", Text = "What did she do to me...?", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_1704", Text = "{#Emph}Eugh{#Prev}, great..." },

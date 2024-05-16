@@ -358,19 +358,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "CerberusBurrowPoints",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapLogic",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Phase1GhostWalls",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -469,7 +456,6 @@
         "SpawnPointsPhase2",
         "Phase1Obstacles",
         "Phase1GhostWalls",
-        "CerberusBurrowPoints",
         "Impassable",
         "RoomNumbers",
         "Scripting",

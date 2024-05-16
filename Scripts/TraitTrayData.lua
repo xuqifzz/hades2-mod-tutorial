@@ -12,8 +12,6 @@
 	OpenSound = "/SFX/Menu Sounds/GeneralWhooshMENULoud",
 	CloseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 
-	OnWASDHotSwapFunctionName = "ScreenResetCursorToStartLocation",
-
 	TooltipX = 1686,
 	TooltipY = 260,
 

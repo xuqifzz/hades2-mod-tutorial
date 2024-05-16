@@ -252,13 +252,35 @@ RoomSetData.H =
 					UnitName = "NPC_Eris_01",
 					SpawnOnId = 621444,
 					GoalAngle = 270,
+					GiveRandomConsumables =
+					{
+						UpwardForceMin = 1000,
+						UpwardForceMax = 1000,
+						Range = 0,
+						Force = 0,
+						--NotRequiredPickup = true,
+						LootOptions =
+						{
+							{
+								Name = "MemPointsCommonDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MemPointsCommon = 50,
+									},
+								},
+							},
+						}
+					},
 				},
 				GameStateRequirements =
 				{
+					NamedRequirementsFalse = { "ErisCurseHealthThreshold", },
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = "<=",
-						Value = 6,
+						Value = 4,
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },

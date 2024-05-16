@@ -50,11 +50,13 @@
 	wait(0.2)
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	thread( HandleCardSwapInput, screen )
 	MetaUpgradeCardScreenOpenPresentation( screen )	
 	
-	if CanUpgradeCards() and not GameState.ScreensViewed.CardUpgradeInfoLayout then
+	if CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 then
+		OpenGraspLimitScreen( screen )
+		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
+	elseif CanUpgradeCards() and not GameState.ScreensViewed.CardUpgradeInfoLayout then
 		thread( UpgradeModeAvailablePresentation )
 
 		OpenCardUpgradeInfoScreen( screen )

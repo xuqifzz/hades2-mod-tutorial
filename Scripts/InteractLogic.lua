@@ -168,11 +168,17 @@ function UseNPC( npc, args, user )
 end
 
 function StartedEndVoiceLines( source, args, contextArgs )
-	AddInteractBlock( contextArgs.NPCSource or args.NPCSource, "EndVoiceLinePlaying" )
+	local npcSource = contextArgs.NPCSource or args.NPCSource
+	if not npcSource.AllowInteractDuringEndVoiceLines then
+		AddInteractBlock( npcSource, "EndVoiceLinePlaying" )
+	end
 end
 
 function FinishedEndVoiceLines( source, args, contextArgs )
-	RemoveInteractBlock( contextArgs.NPCSource or args.NPCSource, "EndVoiceLinePlaying" )
+	local npcSource = contextArgs.NPCSource or args.NPCSource
+	if not npcSource.AllowInteractDuringEndVoiceLines then
+		RemoveInteractBlock( contextArgs.NPCSource or args.NPCSource, "EndVoiceLinePlaying" )
+	end
 end
 
 function GetGenusName( source )

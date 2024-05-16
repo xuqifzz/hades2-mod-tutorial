@@ -938,4 +938,53 @@
 		]
 	}
 
+	{
+		Name = "Axe_AttackEx1_Cancel"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_WhirlwindReturnToIdle_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 38
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_AttackEx1_Cancel"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_WhirlwindReturnToIdle_C_00"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+		Attachments =
+		[
+			{
+				Name = "Axe_AttackEx1_Cancel"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 38
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_AttackEx1_Start"
+				Duration = 6
+			}
+		]
+	}
+
 ] }

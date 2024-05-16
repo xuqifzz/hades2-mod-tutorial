@@ -10,17 +10,12 @@ function HarvestBlockedPresentation( source, args, user )
 end
 
 function HarvestNoToolPresentation( source, args, user, toolName )
-	if GameState.EquippedToolName ~= toolName and  GameState.EquippedFamiliar and FamiliarData[GameState.EquippedFamiliar].LinkedTool == toolName then	
-		thread( InCombatText, user.ObjectId, "UseNoFamiliarCharges", 1.0, { ShadowScale = 0.6 } )
-		thread( PulseText, { Id = HUDScreen.Components.FamiliarIcon.Id, Color = Color.Red, OriginalColor = Color.White, ScaleTarget = 2.0, ScaleDuration = 0.1, HoldDuration = 0.15, PulseBias = 0.1 } )
-	else
-		if CheckCooldown( "UseNoToolPlayedRecently", 1.2 ) then
-			thread( InCombatText, user.ObjectId, "UseNoTool", 1.0, { ShadowScale = 0.6 } )
-		end
-		if HUDScreen.Components.ToolIcon ~= nil then
-			Flash({ Id = HUDScreen.Components.ToolIcon.Id, Speed = 4.0, MinFraction = 0, MaxFraction = 1.0, Color = Color.Red, ExpireAfterCycle = true })
-			Shake({ Id = HUDScreen.Components.ToolIcon.Id, Speed = 100, Distance = 2, Duration = 0.3 })
-		end
+	if CheckCooldown( "UseNoToolPlayedRecently", 1.2 ) then
+		thread( InCombatText, user.ObjectId, "UseNoTool", 1.0, { ShadowScale = 0.6 } )
+	end
+	if HUDScreen.Components.ToolIcon ~= nil then
+		Flash({ Id = HUDScreen.Components.ToolIcon.Id, Speed = 4.0, MinFraction = 0, MaxFraction = 1.0, Color = Color.Red, ExpireAfterCycle = true })
+		Shake({ Id = HUDScreen.Components.ToolIcon.Id, Speed = 100, Distance = 2, Duration = 0.3 })
 	end
 	thread( PlayVoiceLines, HeroVoiceLines.ToolTutorialVoiceLines, true )
 	thread( PlayVoiceLines, HeroVoiceLines.InteractionBlockedVoiceLines, true )
@@ -609,7 +604,7 @@ function ExorcismPointGetUseText( useTarget )
 	if not CurrentRun.CurrentRoom.ExitsUnlocked and not roomData.AllowExorcismPreExitsUnlock then
 		return "UseExorcismPointLocked"
 	end
-	if useTarget.FamiliarUseText ~= nil and useTarget.LinkedToolName and OnlyFamiliarHasAccessToTool( useTarget.LinkedToolName ) then
+	if useTarget.FamiliarUseText ~= nil and useTarget.LinkedToolName and HasFamiliarTool( useTarget.LinkedToolName ) then
 		return useTarget.FamiliarUseText
 	end
 	return useTarget.UseText

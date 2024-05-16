@@ -31,7 +31,6 @@
 	for _, weaponName in pairs( validWeapons ) do
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
 	end
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 

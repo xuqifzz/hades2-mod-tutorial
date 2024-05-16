@@ -120,7 +120,6 @@ function OpenTraitTrayScreen( args )
 
 	if not args.SkipInputHandlers then
 		wait( 0.05 )
-		thread( HandleWASDInput, screen )
 		HandleScreenInput( screen )
 	end
 	return screen
@@ -857,8 +856,7 @@ function TraitTrayScreenClose( screen, button )
 	SetAdvancedTooltipMixing( 0 )
 	ShowObjectivesUI()
 
-	if ActiveScreens.UpgradeChoice ~= nil then
-		HideTraitUI()
+	if IsScreenOpen( "UpgradeChoice" ) then
 		local screenIds = GetAllIds({ 
 			ScreenAnchors.ChoiceScreen.Components.PurchaseButton1, 
 			ScreenAnchors.ChoiceScreen.Components.PurchaseButton2, 
@@ -867,11 +865,22 @@ function TraitTrayScreenClose( screen, button )
 		if screenIds[1] then
 			TeleportCursor({ DestinationId = screenIds[1], ForceUseCheck = true })
 		end
-	elseif IsScreenOpen("Store") then
+	elseif IsScreenOpen( "WellShop" ) then
 		local screenIds = GetAllIds({
 			ScreenAnchors.StoreScreen.Components.PurchaseButton1, 
 			ScreenAnchors.StoreScreen.Components.PurchaseButton2, 
 			ScreenAnchors.StoreScreen.Components.PurchaseButton3 })
+
+		screenIds = CollapseTable(screenIds)
+		
+		if screenIds[1] then
+			TeleportCursor({ DestinationId = screenIds[1], ForceUseCheck = true })
+		end
+	elseif IsScreenOpen( "SpellScreen" ) then
+		local screenIds = GetAllIds({
+			ActiveScreens.SpellScreen.Components.PurchaseButton1, 
+			ActiveScreens.SpellScreen.Components.PurchaseButton2, 
+			ActiveScreens.SpellScreen.Components.PurchaseButton3 })
 
 		screenIds = CollapseTable(screenIds)
 		

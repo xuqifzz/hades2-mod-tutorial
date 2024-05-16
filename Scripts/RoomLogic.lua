@@ -309,6 +309,8 @@ function SessionMapStateInit()
 	SessionMapState.CastAttachedProjectiles = {}
 	SessionMapState.AmmoVolleys = {}
 	SessionMapState.LobLock = {}
+	SessionMapState.SpecialLock = {}
+	SessionMapState.BlinkLock = {}
 	SessionMapState.WeaponSpeedMultipliers = {}
 	SessionMapState.ChargeStageManaSpend = {}
 	SessionMapState.FirstHitRecord = {}
@@ -440,8 +442,8 @@ function DoPatches()
 		end
 
 		GameState.CompletedRunsCache = GetCompletedRuns()
-		if GameState.EquippedFamiliar and not GameState.FamiliarUses then
-			GameState.FamiliarUses = 1 + GetFamiliarBonusUses( GameState.EquippedFamiliar )
+		if GameState.EquippedFamiliar and not GameState.FamiliarResourceSpawnChance then
+			GameState.FamiliarResourceSpawnChance = FamiliarData[GameState.EquippedFamiliar].BaseResourceSpawnChance + GetFamiliarBonusResourceSpawnChance( GameState.EquippedFamiliar )
 		end
 
 		for itemName, value in pairs( GameState.WorldUpgradesViewed ) do
@@ -517,6 +519,7 @@ function DoPatches()
 		end
 		CurrentRun.SpellCharge = CurrentRun.SpellCharge or 5000
 		CurrentRun.BiomeStateChangeCount = CurrentRun.BiomeStateChangeCount or 0
+		CurrentRun.ResourceNodesSeen = CurrentRun.ResourceNodesSeen or {}
 
 		if CurrentRun.CurrentRoom ~= nil then
 			CurrentRun.CurrentRoom.SpawnThreads = CurrentRun.CurrentRoom.SpawnThreads or {}
@@ -2356,7 +2359,7 @@ function GiveRandomConsumables( args )
 						OffsetX = RandomFloat( -1 * range, range ),
 						OffsetY = RandomFloat( -1 * range, range ),
 						ForceToValidLocation = args.ForceToValidLocation })
-					local consumable = CreateConsumableItem( consumableId, lootData.Name, 0 )
+					local consumable = CreateConsumableItem( consumableId, lootData.Name, 0, args )
 					if lootData.Overrides ~= nil then
 						for key, value in pairs( lootData.Overrides ) do
 							if consumable[key] ~= nil then
@@ -2995,6 +2998,13 @@ function ClearUpgrades()
 	end
 	for metaUpgradeName in pairs( CurrentRun.TemporaryMetaUpgrades ) do
 		GameState.MetaUpgradeState[metaUpgradeName].Equipped = nil
+	end
+
+	
+	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
+		if metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead then
+			AddTraitToHero({ TraitName = MetaUpgradeCardData[ metaUpgradeName ].TraitName })
+		end
 	end
 end
 
@@ -5333,6 +5343,7 @@ function HandleSecretSpawns( currentRun )
 	-- ShovelPoints
 	local shovelPoints = GetInactiveIdsByType({ Name = "ShovelPoint" })
 	if not IsEmpty( shovelPoints ) and currentRoom.ShovelPointSuccess then
+		CurrentRun.ResourceNodesSeen.ToolShovel = (CurrentRun.ResourceNodesSeen.ToolShovel or 0) + 1
 		UseHeroTraitsWithValue( "ForceShovelPoint", true )
 		local shovelPoint = DeepCopyTable( ObstacleData.ShovelPoint )
 		shovelPoint.ObjectId = currentRoom.ShovelPointId or RemoveRandomValue( shovelPoints )
@@ -5352,6 +5363,7 @@ function HandleSecretSpawns( currentRun )
 	-- PickaxePoints
 	local pickaxePoints = GetInactiveIdsByType({ Name = "PickaxePoint" })
 	if not IsEmpty( pickaxePoints ) and currentRoom.PickaxePointSuccess and not CurrentRun.CurrentRoom.ExorcismPointUsed then
+		CurrentRun.ResourceNodesSeen.ToolPickaxe = (CurrentRun.ResourceNodesSeen.ToolPickaxe or 0) + 1
 		UseHeroTraitsWithValue( "ForcePickaxePoint", true )
 		currentRoom.ChosenPickaxePointData = currentRoom.ChosenPickaxePointData or GetRandomEligibleValueFromWeightedList( PickaxePointData.WeightedOptions )
 		if currentRoom.ChosenPickaxePointData == nil then
@@ -5383,6 +5395,7 @@ function HandleSecretSpawns( currentRun )
 	-- ExorcismPoints
 	local exorcismPoints = GetInactiveIdsByType({ Name = "ExorcismPoint" })
 	if not IsEmpty( exorcismPoints ) and CurrentRun.CurrentRoom.ExorcismPointSuccess and not CurrentRun.CurrentRoom.ExorcismPointUsed then
+		CurrentRun.ResourceNodesSeen.ToolExorcismBook = (CurrentRun.ResourceNodesSeen.ToolExorcismBook or 0) + 1
 		UseHeroTraitsWithValue( "ForceExorcismPoint", true )
 		currentRoom.ChosenExorcismPointData = currentRoom.ChosenExorcismPointData or GetRandomEligibleValueFromWeightedList( ExorcismData.WeightedOptions )
 		if currentRoom.ChosenExorcismPointData == nil then
@@ -5411,6 +5424,7 @@ function HandleSecretSpawns( currentRun )
 	-- FishingPoints
 	local fishingPointIds = GetInactiveIdsByType({ Name = "FishingPoint" })
 	if not IsEmpty( fishingPointIds ) and currentRoom.FishingPointSuccess and not CurrentRun.CurrentRoom.FishingPointUsed then
+		CurrentRun.ResourceNodesSeen.ToolFishingRod = (CurrentRun.ResourceNodesSeen.ToolFishingRod or 0) + 1
 		UseHeroTraitsWithValue( "ForceFishingPoint", true )
 		CurrentRun.CurrentRoom.FishingPointId = CurrentRun.CurrentRoom.FishingPointId or GetRandomValue( fishingPointIds )
 		local fishingPoint = DeepCopyTable( ObstacleData.FishingPoint )
@@ -5434,29 +5448,27 @@ function HandleSecretSpawns( currentRun )
 end
 
 function HasAccessToTool( toolName )
-	if GameState.EquippedToolName == toolName then
+	if GameState.WeaponsUnlocked[toolName] then
 		return true
 	end
 	if HasFamiliarTool( toolName ) then
 		return true
 	end
-	
 	return false
 end
 
 function OnlyFamiliarHasAccessToTool( toolName )
-	if GameState.EquippedToolName == toolName then
+	if GameState.WeaponsUnlocked[toolName] then
 		return false
 	end
 	if HasFamiliarTool( toolName ) then
 		return true
 	end
-	
 	return false
 end
 
 function HasFamiliarTool( toolName )
-	if GameState.EquippedFamiliar and FamiliarData[GameState.EquippedFamiliar].LinkedTool == toolName and GameState.FamiliarUses > 0 then
+	if GameState.EquippedFamiliar and FamiliarData[GameState.EquippedFamiliar].LinkedTool == toolName then
 		return true
 	end
 	return false

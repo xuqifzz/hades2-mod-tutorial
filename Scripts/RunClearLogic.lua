@@ -144,7 +144,6 @@ function OpenRunClearScreen()
 	killTaggedThreads( CombatUI.HideThreadName )
 	RemoveInputBlock({ Name = "OpenRunClearScreen" })
 
-	thread( HandleWASDInput, traitTrayScreen )
 	thread( HandleScreenInput, traitTrayScreen )
 	SetAlpha({ Id = components.CloseButton.Id, Duration = HUDScreen.FadeInDuration, Fraction = 1.0 })
 	SetAlpha({ Id = traitTrayScreen.Components.ScrollLeft.Id, Duration = HUDScreen.FadeInDuration, Fraction = 1.0 })

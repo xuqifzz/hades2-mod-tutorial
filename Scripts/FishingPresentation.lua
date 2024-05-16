@@ -126,18 +126,6 @@ end
 
 function GiftActivityFishingStartPresentation( source, args )
 
-	--[[
-	thread( FullScreenFadeOutAnimation )
-	TimePassesPresentation( source, { SkipAngleTowardTarget = true, IncludeFishingSFX = true, TimeTicks = 16 } )
-	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFadeLOCATION" })
-
-	Activate({ Ids = { 585640 } })
-	SetAlpha({ Ids = { 585640 }, Fraction = 0 })
-	SetAlpha({ Ids = { 585640 }, Fraction = 1, Duration = 0.3 })
-
-	FullScreenFadeInAnimation()
-	]]--
-
 	SetAlpha({ Id = ScreenAnchors.DialogueBackgroundId, Fraction = 0.0, Duration = 0.5 })
 
 	thread( PlayVoiceLines, GlobalVoiceLines.AboutToFishVoiceLines, true )

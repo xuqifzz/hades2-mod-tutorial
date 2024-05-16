@@ -1389,7 +1389,7 @@ OverwriteTableKeys( HubRoomData, {
 						{ Cue = "/VO/Storyteller_0122",
 							PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 							PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
-							Text = "{#Emph}Not even the wiles and strategems of that resourceful sacker of cities, Odysseus, may be sufficient to overcome the Titan of Time..." },
+							Text = "{#Emph}Not even the wiles and stratagems of that resourceful sacker of cities, Odysseus, may be sufficient to overcome the Titan of Time..." },
 						EndVoiceLines =
 						{
 							{

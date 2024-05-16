@@ -651,6 +651,11 @@ function FishingPierEndPresentation( source, args )
 	FadeOut({ Color = Color.Black, Duration = 0.75 })
 	waitUnmodified( 0.75 )
 
+	local timeTicks = 16
+	GardenTimeTick( { Ticks = timeTicks, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
+	CookTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
+	MailboxTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
+
 	TeleportToConversationStartingPoint( source, args )
 
 	waitUnmodified( 0.5 )
@@ -658,6 +663,7 @@ function FishingPierEndPresentation( source, args )
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
 	FadeIn({ Duration = 2.0 })
 	waitUnmodified( 2.5 )
+
 end
 
 function TavernaStartPresentation( source, args )
@@ -741,6 +747,19 @@ function LockedSurfaceRunPresentation( usee, args )
 
 end
 
+function SetFixedDashPresentationValues()
+	SessionState.BlinkChargeDuration = GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponBlink", Property = "ChargeTime" })
+	local baseBlinkSpeed = GetBaseDataValue({ Type = "Weapon", Name = "WeaponBlink", Property = "ChargeTime" })
+	SetWeaponProperty({ WeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, Property = "ChargeTime", Value = baseBlinkSpeed })
+	SetWeaponProperty({ WeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, Property = "ChargeTimeRemaining", Value = baseBlinkSpeed, ValueChangeType = "Absolute", DataValue = false })
+end
+
+function EndFixedDashPresentationValues()
+	SetWeaponProperty({ WeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, Property = "ChargeTime", Value = SessionState.BlinkChargeDuration })
+	SetWeaponProperty({ WeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, Property = "ChargeTimeRemaining", Value = SessionState.BlinkChargeDuration, ValueChangeType = "Absolute", DataValue = false })
+	SessionState.BlinkChargeDuration = nil
+end
+
 function StartNewRunPresentation( runDoor, args )
 	LockCamera({ Id = runDoor.ObjectId, Duration = 1.3, Retarget = true })
 	SetAngle({ Id = CurrentRun.Hero.ObjectId, Angle = GetAngleBetween({ Id = CurrentRun.Hero.ObjectId, DestinationId = args.DashTarget or runDoor.ObjectId }), CompleteAngle = true })
@@ -749,6 +768,7 @@ function StartNewRunPresentation( runDoor, args )
 	end
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithObstacles", Value = false })
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithUnits", Value = false })
+	SetFixedDashPresentationValues()
 	FireWeaponFromUnit({ Weapon = "WeaponBlink", Id = CurrentRun.Hero.ObjectId })
 	thread( PlayVoiceLines, GlobalVoiceLines[args.GlobalVoiceLines] or GlobalVoiceLines.StartNewRunVoiceLines )
 	wait(0.1)
@@ -756,6 +776,7 @@ function StartNewRunPresentation( runDoor, args )
 	EndMusic( AudioState.MusicId, AudioState.MusicName, 0.5 )
 	EndAmbience( 0.5 )
 	wait(0.3)
+	EndFixedDashPresentationValues()
 end
 
 function PreRunOverlook()

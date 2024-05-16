@@ -2575,7 +2575,7 @@
 				},
 				{ Cue = "/VO/Skelly_0371",
 					PreLineAnim = "Skelly_Explaining",
-					Text = "I must not partake in such extravagances! For my disciples are counting on my cleared-eyed counsel and undivided attention. But tell you what I'm gonna save this one for later when I'm off, OK?" },
+					Text = "I must not partake in such extravagances! For my disciples are counting on my clear-eyed counsel and undivided attention. But tell you what I'm gonna save this one for later when I'm off, OK?" },
 				{ Cue = "/VO/Melinoe_3484", UsePlayerSource = true,
 					Text = "What you call an extravagance... it must be nothing compared to the luxuries of my father's House. Yet you never want for anything. Besides the occasional hit or two." },
 				--[[

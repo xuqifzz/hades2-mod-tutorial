@@ -174,13 +174,35 @@ RoomSetData.I =
 					UnitName = "NPC_Eris_01",
 					SpawnOnId = 699326,
 					GoalAngle = 320,
+					GiveRandomConsumables =
+					{
+						UpwardForceMin = 1000,
+						UpwardForceMax = 1000,
+						Range = 0,
+						Force = 0,
+						--NotRequiredPickup = true,
+						LootOptions =
+						{
+							{
+								Name = "MetaCurrencyDrop",
+								Overrides =
+								{
+									AddResources =
+									{
+										MetaCurrency = 300,
+									},
+								},
+							},
+						}
+					},
 				},
 				GameStateRequirements =
 				{
+					NamedRequirementsFalse = { "ErisCurseHealthThreshold", },
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = "<=",
-						Value = 9,
+						Value = 7,
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },

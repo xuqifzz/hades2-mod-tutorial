@@ -517,7 +517,7 @@
 		UpgradeChoiceText = "UpgradeChoiceMenu_Rush",
 		IgnoreCancelSimOnEffects = { "RushWeaponDisable", "RushWeaponDisableCancelable" },
 		CompleteObjectivesOnFire = { "RushWeapon" },
-		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
+		ExpireProjectilesOnFire = {"ProjectileAxeSpin", "ProjectileDagger"},
 		CancelWeaponOnFire = "WeaponAxeBlock2",
 		OnChargeFunctionName = "WeaponBlinkFunction",
 		--OnChargeFunctionArgs = { AlphaDuration = 0.3 },

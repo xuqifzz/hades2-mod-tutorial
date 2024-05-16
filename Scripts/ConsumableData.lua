@@ -1366,6 +1366,7 @@ ConsumableData =
 				Cooldowns =
 				{
 					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "ErisResourceGranted", Time = 8 }
 				},
 
 				{ Cue = "/VO/Melinoe_1902", Text = "Some Bones for later use.", PlayFirst = true, },

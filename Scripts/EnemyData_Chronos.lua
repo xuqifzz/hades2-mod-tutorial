@@ -27,8 +27,6 @@ UnitSetData.Chronos =
 		--DeathFx = "CerberusTeleportCloud",
 		DeathAngle = 210,
 
-		BackstabDistance = 265,
-
 		OnHitFlash = { MaxFraction = 0.45 },
 
 		Material = "Organic",

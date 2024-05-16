@@ -122,7 +122,6 @@ function OpenGhostAdminScreen( openedFrom, defaultCategoryIndex )
 	thread( GenericScreenOpenEndPresentation, screen )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 

@@ -2573,37 +2573,39 @@ OnWeaponFired{
 				SetWeaponProperty({ WeaponName = rushWeaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 			end
 		end
-		thread( DoCameraMotion, weaponData.FireCameraMotion )
-		thread( DoWeaponScreenshake, weaponData, "FireScreenshake", { AttackerId = CurrentRun.Hero.ObjectId, SourceProjectile = triggerArgs.ProjectileName })
+		if not weaponData.RequireProjectilesForPresentation or ( triggerArgs.NumProjectiles and triggerArgs.NumProjectiles > 0 ) then
+			thread( DoCameraMotion, weaponData.FireCameraMotion )
+			thread( DoWeaponScreenshake, weaponData, "FireScreenshake", { AttackerId = CurrentRun.Hero.ObjectId, SourceProjectile = triggerArgs.ProjectileName })
 
-		if triggerArgs.IsPerfectCharge then
-			CreateAnimation({ Name = "PerfectShotShroud", UseScreenLocation = true, OffsetX = ScreenCenterX, OffsetY = ScreenCenterY, GroupName = "Combat_UI_World_Add" })
-			CreateAnimation({ Name = "PerfectShotShroud_Dark", UseScreenLocation = true, OffsetX = ScreenCenterX, OffsetY = ScreenCenterY, GroupName = "Combat_UI_World" })
-		end
 
-		if weaponData.Sounds ~= nil then
-			if weaponData.Sounds.FireSounds ~= nil then
-				if triggerArgs.IsPerfectCharge then
-					DoWeaponSounds( weaponData.Sounds.FireSounds.PerfectChargeSounds, triggerArgs.OwnerTable, weaponData )
-				else
-					DoWeaponSounds( weaponData.Sounds.FireSounds.ImperfectChargeSounds, triggerArgs.OwnerTable, weaponData )
+			if triggerArgs.IsPerfectCharge then
+				CreateAnimation({ Name = "PerfectShotShroud", UseScreenLocation = true, OffsetX = ScreenCenterX, OffsetY = ScreenCenterY, GroupName = "Combat_UI_World_Add" })
+				CreateAnimation({ Name = "PerfectShotShroud_Dark", UseScreenLocation = true, OffsetX = ScreenCenterX, OffsetY = ScreenCenterY, GroupName = "Combat_UI_World" })
+			end
+
+			if weaponData.Sounds ~= nil then
+				if weaponData.Sounds.FireSounds ~= nil then
+					if triggerArgs.IsPerfectCharge then
+						DoWeaponSounds( weaponData.Sounds.FireSounds.PerfectChargeSounds, triggerArgs.OwnerTable, weaponData )
+					else
+						DoWeaponSounds( weaponData.Sounds.FireSounds.ImperfectChargeSounds, triggerArgs.OwnerTable, weaponData )
+					end
+				end
+			
+				if weaponData.Sounds.LowAmmoFireSounds ~= nil and triggerArgs.Ammo < weaponData.LowAmmoSoundThreshold then
+					DoWeaponSounds( weaponData.Sounds.LowAmmoFireSounds, triggerArgs.OwnerTable, weaponData )
+				elseif MapState.WeaponCharge and MapState.WeaponCharge[triggerArgs.name] and MapState.WeaponCharge[triggerArgs.name] > 0 then
+					DoWeaponSounds( weaponData.Sounds.FireStageSounds, triggerArgs.OwnerTable, weaponData )
+				elseif weaponData.Sounds.FireSounds ~= nil then
+					DoWeaponSounds( weaponData.Sounds.FireSounds, triggerArgs.OwnerTable, weaponData )
 				end
 			end
-			
-			if weaponData.Sounds.LowAmmoFireSounds ~= nil and triggerArgs.Ammo < weaponData.LowAmmoSoundThreshold then
-				DoWeaponSounds( weaponData.Sounds.LowAmmoFireSounds, triggerArgs.OwnerTable, weaponData )
-			elseif MapState.WeaponCharge and MapState.WeaponCharge[triggerArgs.name] and MapState.WeaponCharge[triggerArgs.name] > 0 then
-				DoWeaponSounds( weaponData.Sounds.FireStageSounds, triggerArgs.OwnerTable, weaponData )
-			elseif weaponData.Sounds.FireSounds ~= nil then
-				DoWeaponSounds( weaponData.Sounds.FireSounds, triggerArgs.OwnerTable, weaponData )
-			end
+			StopWeaponSounds( "Fired", weaponData.Sounds, triggerArgs.OwnerTable )
+
+			thread( DoWeaponFireSimulationSlow, weaponData )
+			thread( DoWeaponFireRumble, weaponData, projectileData )
+			thread( DoWeaponFireRadialBlur, weaponData )
 		end
-		StopWeaponSounds( "Fired", weaponData.Sounds, triggerArgs.OwnerTable )
-
-		thread( DoWeaponFireSimulationSlow, weaponData )
-		thread( DoWeaponFireRumble, weaponData, projectileData )
-		thread( DoWeaponFireRadialBlur, weaponData )
-
 		if weaponData.OnFireCrowdReaction ~= nil then
 			thread( CrowdReactionPresentation, weaponData.OnFireCrowdReaction )
 		end
@@ -2770,6 +2772,10 @@ OnHit{
 	function( triggerArgs )
 		
 		local victim = triggerArgs.Victim
+		if victim == nil then
+			DebugAssert({ Condition = false, Text = "OnHit triggered with no Victim", Owner = "Gavin" })
+			return
+		end
 		if victim.ExclusiveOnHitFunctionName ~= nil then
 			CallFunctionName( victim.ExclusiveOnHitFunctionName, victim, triggerArgs, victim.ExclusiveOnHitFunctionArgs )
 			return
@@ -4252,5 +4258,8 @@ function AIHealthThresholdReached( victim )
 	end
 	if victim.ExpireProjectileIdsOnHitStun ~= nil then
 		ExpireProjectiles({ ProjectileIds = victim.ExpireProjectileIdsOnHitStun })
+	end
+	if not IsEmpty( victim.StopAnimationsOnHitStun ) then
+		StopAnimation({ Names = victim.StopAnimationsOnHitStun, DestinationId = victim.ObjectId })
 	end
 end

@@ -116,6 +116,7 @@ function GameStateInit()
 	GameState.CompletedObjectiveSets = GameState.CompletedObjectiveSets or {}
 	GameState.RecordLastClearedShrineReward = GameState.RecordLastClearedShrineReward or {}
 	GameState.NemesisTakeExitRecord = GameState.NemesisTakeExitRecord or {}
+	GameState.ErisCurseRewardTaken = GameState.ErisCurseRewardTaken or {}
 
 	GameState.SpeechRecord = GameState.SpeechRecord or {}
 	GameState.PlayedRandomLines = GameState.PlayedRandomLines or {}
@@ -382,6 +383,7 @@ function StartNewRun( prevRun, args )
 	CurrentRun.ActiveBountyClears = GameState.PackagedBountyClears[CurrentRun.ActiveBounty] or 0
 	CurrentRun.ActiveBountyAttempts = GameState.PackagedBountyAttempts[CurrentRun.ActiveBounty] or 0
 	CurrentRun.SpellCharge = 5000
+	CurrentRun.ResourceNodesSeen = {}
 
 	if ConfigOptionCache.EasyMode then
 		CurrentRun.EasyModeLevel = GameState.EasyModeLevel
@@ -531,13 +533,13 @@ function CreateRoom( roomData, args )
 		end
 	end
 
-	local shovelPointChance = (room.ShovelPointChance or ShovelPointData.DefaultSpawnChance) + GetTotalHeroTraitValue( "ShovelPointChanceBonus" )
+	local shovelPointChance = GetResourceNodeSpawnChance( ShovelPointData, room.ShovelPointChance, "ShovelPointChanceBonus" )
 	shovelPointChance = shovelPointChance * (CurrentRun.ShovelPointChanceMultiplier or 1.0)
 	if room.HasShovelPoint and IsGameStateEligible( CurrentRun, room, room.ShovelPointRequirements or ShovelPointData.DefaultGameStateRequirements ) then
 		room.ShovelPointSuccess = HasHeroTraitValue( "ForceShovelPoint" ) or RandomChance( shovelPointChance )
 	end
 
-	local pickaxePointChance = (room.PickaxePointChance or PickaxePointData.DefaultSpawnChance) + GetTotalHeroTraitValue( "PickaxePointChanceBonus" )
+	local pickaxePointChance = GetResourceNodeSpawnChance( PickaxePointData, room.PickaxePointChance, "PickaxePointChanceBonus" )
 	pickaxePointChance = pickaxePointChance * (CurrentRun.PickaxePointChanceMultiplier or 1.0)
 	if room.HasPickaxePoint and IsGameStateEligible( CurrentRun, room, room.PickaxePointRequirements or PickaxePointData.DefaultGameStateRequirements ) then
 		room.PickaxePointSuccess = HasHeroTraitValue( "ForcePickaxePoint" )
@@ -545,13 +547,13 @@ function CreateRoom( roomData, args )
 			or ( room.PickaxePointForceRequirements ~= nil and IsGameStateEligible( CurrentRun, room, room.PickaxePointForceRequirements ) )
 	end
 
-	local exorcismPointChance = (room.ExorcismPointChance or ExorcismData.DefaultSpawnChance) + GetTotalHeroTraitValue( "ExorcismPointChanceBonus" )
+	local exorcismPointChance = GetResourceNodeSpawnChance( ExorcismData, room.ExorcismPointChance, "ExorcismPointChanceBonus" )
 	exorcismPointChance = exorcismPointChance * (CurrentRun.ExorcismPointChanceMultiplier or 1.0)
 	if room.HasExorcismPoint and IsGameStateEligible( CurrentRun, room, room.ExorcismPointRequirements or ExorcismData.DefaultGameStateRequirements ) then
 		room.ExorcismPointSuccess = HasHeroTraitValue( "ForceExorcismPoint" ) or RandomChance( exorcismPointChance )
 	end
 
-	local fishingPointChance = (room.FishingPointChance or FishingData.DefaultSpawnChance) + GetTotalHeroTraitValue( "FishingPointChanceBonus" )
+	local fishingPointChance = GetResourceNodeSpawnChance( FishingData, room.FishingPointChance, "FishingPointChanceBonus" )
 	fishingPointChance = fishingPointChance * (CurrentRun.FishingPointChanceMultiplier or 1.0)
 	if room.HasFishingPoint and IsGameStateEligible( CurrentRun, room, room.FishingPointRequirements or FishingData.DefaultGameStateRequirements ) then
 		room.FishingPointSuccess = HasHeroTraitValue( "ForceFishingPoint" ) or RandomChance( fishingPointChance )

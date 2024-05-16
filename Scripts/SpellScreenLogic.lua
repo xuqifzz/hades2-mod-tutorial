@@ -103,7 +103,6 @@
 	-- Short delay to let animations finish and prevent accidental input
 	wait(0.5)
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 end
 

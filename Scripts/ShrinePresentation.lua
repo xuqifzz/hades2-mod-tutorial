@@ -435,6 +435,17 @@ function ErisCurseAppliedPresentation( source, args )
 
 	wait( 0.4 )
 
+	if eris.GiveRandomConsumables ~= nil then
+		local giveConsumablesArgs = ShallowCopyTable( eris.GiveRandomConsumables )
+		giveConsumablesArgs.DestinationId = eris.ObjectId
+		giveConsumablesArgs.AddUnthreadedOnUseEvent =
+		{
+			FunctionName = "ErisCurseRewardTaken",
+			Args = { RunNum = #GameState.RunHistory + 1 },
+		}
+		GiveRandomConsumables( giveConsumablesArgs )
+	end
+
 	RemoveInputBlock({ Name = "ErisCursePresentation" })
 	ShowCombatUI( "ErisCursePresentation" )
 end

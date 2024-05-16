@@ -162,7 +162,6 @@
       OffsetY = 75
       PressSound = "null"
       HelpTextId = "MainMenuScreen_PatchNotes"
-      Scale = 0.0
     }
 
     LastUpdateText =
@@ -192,16 +191,14 @@
       FadeDelayMin = 1.6
       FadeDelayMax = 1.61
       FadeSpeed = 4.0
-      Scale = 0.0
     }
 
     /* Quit */
     ExitButton =
     {
       InheritFrom = "SettingsButton"
-      /*OffsetY = 110*/
-      /*AttachTo = "AnnouncementButton"*/
-      AttachTo = "SettingsButton"
+      OffsetY = 110
+      AttachTo = "AnnouncementButton"
       PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
       HelpTextId = "MainMenuScreen_Quit"
       FadeDelayMin = 1.6

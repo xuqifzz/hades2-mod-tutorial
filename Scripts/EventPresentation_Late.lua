@@ -74,8 +74,6 @@ function EphyraZoomOut( usee )
 	SetAlpha({ Ids = { ScreenAnchors.EphyraZoomBackground }, Fraction = 0, Duration = 0 })
 	SetAlpha({ Ids = { ScreenAnchors.EphyraZoomBackground }, Fraction = 1.0, Duration = 0.2 })
 
-	wait( 0.21 )
-
 	local letterboxIds = {}
 	if ScreenState.NeedsLetterbox then
 		local letterboxId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = "Combat_Menu", Animation = "GUI\\Graybox\\NativeAspectRatioFrame", Alpha = 0.0 })
@@ -91,6 +89,8 @@ function EphyraZoomOut( usee )
 		SetAlpha({ Id = pillarboxRightId, Fraction = 1.0, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
 	end
 
+	wait( 0.21 )
+
 	ScreenAnchors.EphyraMapId = CreateScreenObstacle({ Name = "rectangle01", Group = groupName, X = ScreenCenterX, Y = ScreenCenterY })
 	table.insert( idsCreated, ScreenAnchors.EphyraMapId )
 	SetAnimation({ Name = usee.MapAnimation, DestinationId = ScreenAnchors.EphyraMapId })
@@ -101,8 +101,9 @@ function EphyraZoomOut( usee )
 	for index, door in ipairs( exitDoorsIPairs ) do
 		if not door.SkipUnlock then
 			local room = door.Room
-			local screenLocation = ObstacleData[usee.Name].ScreenLocations[door.ObjectId]
-			if screenLocation ~= nil then
+			local rawScreenLocation = ObstacleData[usee.Name].ScreenLocations[door.ObjectId]
+			if rawScreenLocation ~= nil then
+				local screenLocation = { X = rawScreenLocation.X + ScreenCenterNativeOffsetX, Y = rawScreenLocation.Y + ScreenCenterNativeOffsetY }
 				local rewardBackingId = CreateScreenObstacle({ Name = "BlankGeoObstacle", Group = groupName, X = screenLocation.X, Y = screenLocation.Y, Scale = 0.6 })
 				if room.RewardStoreName == "MetaProgress" then
 					SetAnimation({ Name = "RoomRewardAvailable_Back_Meta", DestinationId = rewardBackingId })
@@ -191,7 +192,7 @@ function EphyraZoomOut( usee )
 	local melScreenLocation = ObstacleData[usee.Name].ScreenLocations[usee.ObjectId]
 	ScreenAnchors.MelIconId = nil
 	if melScreenLocation ~= nil then
-		ScreenAnchors.MelIconId = CreateScreenObstacle({ Name = "rectangle01", Group = groupName, X = melScreenLocation.X, Y = melScreenLocation.Y, Scale = 1.5 })
+		ScreenAnchors.MelIconId = CreateScreenObstacle({ Name = "rectangle01", Group = groupName, X = melScreenLocation.X + ScreenCenterNativeOffsetX, Y = melScreenLocation.Y + ScreenCenterNativeOffsetY, Scale = 1.5 })
 		table.insert( idsCreated, ScreenAnchors.MelIconId )
 		SetAnimation({ Name = "Mel_Icon", DestinationId = ScreenAnchors.MelIconId })
 	end

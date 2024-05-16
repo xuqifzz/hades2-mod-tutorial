@@ -1090,6 +1090,7 @@ WeaponSetData =
 			},
 
 			PreAttackMultiFxAtTarget = { "ChronosInvertedCircleIn", "ChronosRadialCircleIn", },
+			StopAnimationsOnHitStun = { "ChronosInvertedCircle", "ChronosRadialCircle", },
 			EndPreAttackFx = true,
 
 			PreAttackDuration = 3.17,
@@ -1149,6 +1150,7 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.45,
 
 			PreAttackFxAtTarget = "ChronosRadial3InvertedCircleIn",
+			StopAnimationsOnHitStun = { "ChronosRadial3InvertedCircle", },
 			EndPreAttackFx = true,
 
 			UseRandomTargetId = { 645922, 645923, 645924, 645925, 645926, 645927, 645928, 645929, 645930, 645931, 645932, 645933, },

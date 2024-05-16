@@ -15,6 +15,7 @@ UnitSetData.NPC_Echo =
 		MenuTitle = "EchoChoiceMenu_Title",
 		BoonInfoTitleText = "Codex_BoonInfo_Echo",
 		LastRewardEligible = false,
+		AllowInteractDuringEndVoiceLines = true,
 		FlavorTextIds =
 		{
 			"EchoChoiceMenu_FlavorText01",

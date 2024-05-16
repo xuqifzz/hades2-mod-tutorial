@@ -340,7 +340,10 @@ StoreData =
 ScreenData.WellShop =
 {
 	Components = {},
-	
+	TraitTrayArgs = 
+	{
+		IgnoreHideMoney = true,
+	},
 	FreezePlayerArgs =
 	{
 		DisableTray = false,

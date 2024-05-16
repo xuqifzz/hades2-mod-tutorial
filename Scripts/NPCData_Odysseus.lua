@@ -999,7 +999,7 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_3305", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "I've hardly been discrete in my approach. Is there truly no other way?" },
+					Text = "I've hardly been discreet in my approach. Is there truly no other way?" },
 				{ Cue = "/VO/Odysseus_0244",
 					Text = "We reckon not. We're counting on him thinking you're inconsequential to his plans. As for our own, I shall go over this with the good witch. Be safe, and cheers for the report." },
 				EndVoiceLines =
@@ -1916,7 +1916,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I did. Down to the chambers near the bottom of the sea. Strange music echoing all through the place. I wasn't prepared." },
 				{ Cue = "/VO/Odysseus_0134",
-					Text = "Strange music, huh? Reminds of when... {#Emph}erm{#Prev}. Oh, I'll spare the tales for another time, you've enough on your mind, I can tell." },
+					Text = "Strange music, huh? Reminds me of when... {#Emph}erm{#Prev}. Oh, I'll spare the tales for another time, you've enough on your mind, I can tell." },
 				EndVoiceLines =
 				{
 					{

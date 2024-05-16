@@ -20,6 +20,11 @@ RoomSetData.O =
 		SurfaceShopSpawnChance = 0.25,
 		TargetMetaRewardsRatio = 0.30,
 
+		HarvestPointChances =
+		{
+			0.30,
+		},
+
 		BreakableValueOptions = { MaxHighValueBreakables = 0 },
 
 		TimeChallengeEncounterOptions = { "TimeChallengeO" },

@@ -325,7 +325,6 @@ function OpenInventoryScreen( args )
 	wait( 0.02 )
 
 	screen.KeepOpen = true
-	thread( HandleWASDInput, screen )
 	HandleScreenInput( screen )
 	return screen
 

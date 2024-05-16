@@ -577,23 +577,19 @@ TraitSetData.Chaos =
 		{
 			Common =
 			{
-				MinMultiplier = 1,
-				MaxMultiplier = 1,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				MinMultiplier = 1.34,
-				MaxMultiplier = 1.34,
+				Multiplier = 4/3,
 			},
 			Epic =
 			{
-				MinMultiplier = 1.67,
-				MaxMultiplier = 1.67,
+				Multiplier = 5/3,
 			},
-			Heroic = 
+			Heroic =
 			{
-				MinMultiplier = 2.0,
-				MaxMultiplier = 2.0,
+				Multiplier = 2,
 			},
 		},
 
@@ -602,17 +598,15 @@ TraitSetData.Chaos =
 			{
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocity",
-				BaseValue = 330,
+				BaseValue = 297,
 				ChangeType = "Add",
-				SourceIsMultiplier = true,
 				ExcludeLinked = true,
 			},
 			{
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocityCap",
-				BaseValue = 375,
+				BaseValue = 133.5,
 				ChangeType = "Add",
-				SourceIsMultiplier = true,
 				ExcludeLinked = true,
 			},
 			{
@@ -625,7 +619,7 @@ TraitSetData.Chaos =
 			{
 				UnitProperty = "Speed",
 				ChangeType = "Multiply",
-				BaseValue = 1.3,
+				BaseValue = 1.15,
 				SourceIsMultiplier = true,
 				ReportValues = { ReportedBaseSpeed = "ChangeValue" },
 			},

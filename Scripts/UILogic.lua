@@ -286,8 +286,8 @@ function GetUseText( useTarget )
 		end
 	end
 
-	if useTarget.FamiliarUseText then
-		if useTarget.LinkedToolName and OnlyFamiliarHasAccessToTool( useTarget.LinkedToolName) then
+	if useTarget.FamiliarUseText ~= nil then
+		if useTarget.LinkedToolName ~= nil and HasFamiliarTool( useTarget.LinkedToolName) then
 			customUseText = useTarget.FamiliarUseText
 		end
 	end
@@ -1573,22 +1573,6 @@ function AltAspectRatioFramesHide()
 	elseif HUDScreen.Components.PillarboxLeft ~= nil then
 		SetAlpha({ Id = HUDScreen.Components.PillarboxLeft.Id, Fraction = 0.0, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
 		SetAlpha({ Id = HUDScreen.Components.PillarboxRight.Id, Fraction = 0.0, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
-	end
-end
-
-function HandleWASDInput( screen )
-	while screen.KeepOpen do
-		local notifyName = "WASDInput"
-		NotifyOnControlPressed({ Names = { "Up", "Down", "Left", "Right" }, Notify = notifyName })
-		waitUntil( notifyName )
-		if screen.KeepOpen then
-			if GetConfigOptionValue({ Name = "UseMouse" }) then
-				CallFunctionName( screen.OnWASDHotSwapFunctionName, screen )
-			end
-			SetConfigOption({ Name = "UseMouse", Value = false })
-			CallFunctionName( screen.OnWASDInputFunctionName, screen )
-		end
-		wait( 0.01, RoomThreadName )
 	end
 end
 

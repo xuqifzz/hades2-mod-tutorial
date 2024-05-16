@@ -968,11 +968,11 @@ OnWeaponFired{ "RushWeapon",
 
 function SetupCastCast( unit, args )
 
-	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponCastProjectile", DestinationId = unit.ObjectId })
+	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponCastProjectile", DestinationId = unit.ObjectId, StompOriginalWeapon = true })
 end
 function SetupAnywhereCast( unit, args )
 
-	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponAnywhereCast", DestinationId = unit.ObjectId })
+	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponAnywhereCast", DestinationId = unit.ObjectId, StompOriginalWeapon = true })
 end
 
 function GetNearestEnemyArgs( args )
@@ -1188,6 +1188,11 @@ function RaiseKilledEnemy( enemy, args )
 		local newEnemy = CreateAlliedEnemy( enemyName, summonArgs)
 		DestroyOnDelay({ tempObstacle }, 0.1)
 		CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId = newEnemy.ObjectId
+
+		if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap ~= nil then
+			local activeCapWeight = newEnemy.ActiveCapWeight or 1
+			CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap = math.min(CurrentRun.CurrentRoom.Encounter.ActiveEnemyCapMax, CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap + activeCapWeight)
+		end
 	end
 end
 
@@ -3048,7 +3053,7 @@ end
 
 
 function SetupHadesCast( unit, args )
-	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponCastProjectileHades", DestinationId = unit.ObjectId })
+	SwapWeapon({ Name = "WeaponCast", SwapWeaponName = "WeaponCastProjectileHades", DestinationId = unit.ObjectId, StompOriginalWeapon = true })
 end
 
 function AttachCastAtLocation( triggerArgs )

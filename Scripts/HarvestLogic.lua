@@ -48,7 +48,7 @@ end
 
 function UseShovelPoint( source, args, user )
 
-	if not CheckCooldown( "UseShovelPoint", 0.75, true ) or MapState.HostilePolymorph then
+	if not CheckCooldown( "UseShovelPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolShovel" ) and not MapState.FamiliarUnit ) then
 		return
 	end
 
@@ -116,7 +116,7 @@ end
 
 function UsePickaxePoint( source, args, user )
 
-	if not CheckCooldown( "UsePickaxePoint", 0.75, true ) or MapState.HostilePolymorph then
+	if not CheckCooldown( "UsePickaxePoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolPickaxe" ) and not MapState.FamiliarUnit ) then
 		return
 	end
 
@@ -143,14 +143,14 @@ function UsePickaxePoint( source, args, user )
 
 	wait( 0.02 )
 	
-	if OnlyFamiliarHasAccessToTool( "ToolPickaxe" ) then
+	if HasFamiliarTool( "ToolPickaxe" ) then
 		FamiliarPickaxeStartPresentation( source, args, user )
 	else
 		PickaxeStartPresentation( source, args, user )
 	end
 
 	local swingDamage = source.SwingDamage
-	if OnlyFamiliarHasAccessToTool( "ToolPickaxe" ) then
+	if HasFamiliarTool( "ToolPickaxe" ) then
 		-- familiar instantly kills it
 		swingDamage = source.Health
 	end
@@ -186,8 +186,6 @@ function UsePickaxePoint( source, args, user )
 	if HasFamiliarTool( "ToolPickaxe" ) then
 		MoveFamiliarToLocation( MapState.FamiliarUnit )
 		ReenableFamiliar( MapState.FamiliarUnit )
-		GameState.FamiliarUses = GameState.FamiliarUses - 1
-		UpdateFamiliarIconUses()
 	end
 end
 
@@ -248,7 +246,7 @@ end
 
 function UseExorcismPoint( source, args, user )
 
-	if not CheckCooldown( "UseExorcismPoint", 0.75, true ) or MapState.HostilePolymorph then
+	if not CheckCooldown( "UseExorcismPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolExorcismBook" ) and not MapState.FamiliarUnit ) then
 		return
 	end
 
@@ -287,13 +285,13 @@ function UseExorcismPoint( source, args, user )
 	InvalidateCheckpoint()
 
 	wait( 0.02 )
-	if OnlyFamiliarHasAccessToTool( "ToolExorcismBook" ) then
+	if HasFamiliarTool( "ToolExorcismBook" ) then
 		FamiliarExorcismStartPresentation( source, args, user )
 	else
 		ExorcismStartPresentation( source, args, user )
 	end
 
-	if OnlyFamiliarHasAccessToTool( "ToolExorcismBook" ) then
+	if HasFamiliarTool( "ToolExorcismBook" ) then
 		GameState.ExorcismSuccessesFamiliar = (GameState.ExorcismSuccessesFamiliar or 0) + 1
 		CurrentRun.ExorcismSuccessesFamiliar = (CurrentRun.ExorcismSuccessesFamiliar or 0) + 1
 	else
@@ -349,7 +347,7 @@ function UseExorcismPoint( source, args, user )
 		AddResource( resourceName, finalResourceAmount, source.Name )
 	end
 
-	if OnlyFamiliarHasAccessToTool( "ToolExorcismBook" ) then
+	if HasFamiliarTool( "ToolExorcismBook" ) then
 		FamiliarExorcismSuccessPresentation( source, args, user )
 	else
 		ExorcismSuccessPresentation( source, args, user )
@@ -367,8 +365,6 @@ function UseExorcismPoint( source, args, user )
 	
 	if HasFamiliarTool( "ToolExorcismBook" ) then
 		ReenableFamiliar( MapState.FamiliarUnit )
-		GameState.FamiliarUses = GameState.FamiliarUses - 1
-		UpdateFamiliarIconUses()
 	end
 end
 
@@ -476,4 +472,39 @@ function ActivateHarvestPointBase( source )
 	local baseIds = GetInactiveIdsByType({ Name = roomData.HarvestPointBase })
 	local closestBaseId = GetClosestInactiveId({ Id = source.ObjectId, DestinationIds = baseIds, Distance = 200 })
 	Activate({ Id = closestBaseId })
+end
+
+function GetResourceNodeSpawnChance( resourceData, roomChance, bonusTraitName )
+
+	-- if a room is forcing a spawn chance of 0, we don't want to override that
+	if roomChance ~= nil and roomChance == 0 then
+		return 0
+	end
+
+	local baselineSpawnChance = 0
+	local familiarSpawnChance = 0
+
+	if GameState.EquippedFamiliar and FamiliarData[GameState.EquippedFamiliar].LinkedTool == resourceData.ToolName then
+		familiarSpawnChance = GameState.FamiliarResourceSpawnChance
+	end
+
+	if resourceData.ToolName == GameState.EquippedToolName then
+		if roomChance ~= nil then
+			baselineSpawnChance = roomChance
+		else
+			baselineSpawnChance = resourceData.HasToolSpawnChance
+		end
+	else
+		-- having a familiar equipped ignores the cap for its associated resource
+		if familiarSpawnChance > 0 or ( CurrentRun.ResourceNodesSeen[resourceData.ToolName] or 0 ) < resourceData.DefaultSpawnCap then
+			baselineSpawnChance = resourceData.DefaultSpawnChance
+		end
+	end
+	
+	if baselineSpawnChance ~= 0 then
+		baselineSpawnChance = baselineSpawnChance + GetTotalHeroTraitValue( bonusTraitName )
+	end
+
+	return baselineSpawnChance + familiarSpawnChance
+
 end
