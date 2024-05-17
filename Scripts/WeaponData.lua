@@ -78,7 +78,6 @@
 			ChargeSounds =
 			{
 				{
-					Name = "/VO/MelinoeEmotes/EmoteEvading",
 					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
 					StoppedBy = { "ChargeCancel", "Fired" }
 				}
@@ -164,7 +163,6 @@
 			ChargeSounds =
 			{
 				{
-					Name = "/VO/MelinoeEmotes/EmoteEvading",
 					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
 					StoppedBy = { "ChargeCancel", "Fired" }
 				}
@@ -250,7 +248,6 @@
 			ChargeSounds =
 			{
 				{
-					Name = "/VO/MelinoeEmotes/EmoteCharging",
 					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
 					StoppedBy = { "ChargeCancel", "Fired" }
 				}
@@ -537,7 +534,6 @@
 			ChargeSounds =
 			{
 				{
-					Name = "/VO/MelinoeEmotes/EmoteCharging",
 					Name = "/SFX/Player Sounds/MelMagicalCharge",
 					StoppedBy = { "ChargeCancel", "Fired" }
 				}

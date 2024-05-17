@@ -1290,7 +1290,11 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 	HideCombatUI("ChronosPhaseTransition")
 
 	DestroyRequiredKills( { BlockLoot = true, SkipIds = { boss.ObjectId }, BlockDeathWeapons = true } )
-	--ExpireProjectiles({ Names = { "" }, ExcludeNames = { "" } })
+	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
+	ClearEffect({ Ids = { boss.ObjectId, CurrentRun.Hero.ObjectId }, All = true, BlockAll = true, })
+	if not IsEmpty( boss.StopAnimationsOnHitStun ) then
+		StopAnimation({ Names = boss.StopAnimationsOnHitStun, DestinationId = boss.ObjectId })
+	end
 	SetAnimation({ Name = "Enemy_Chronos_Knockdown_Start", DestinationId = boss.ObjectId })
 	SetGoalAngle({ Id = boss.ObjectId, Angle = 270 })
 	thread( LastKillPresentation, boss )

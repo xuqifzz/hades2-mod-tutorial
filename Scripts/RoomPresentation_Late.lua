@@ -1605,6 +1605,8 @@ function AnomalyExitPresentation(currentRun, exitDoor)
 
 	RemoveInputBlock({ Name = "AnomalyExitPresentation" })
 	ToggleCombatControl( { "AdvancedTooltip" } , true, "LeaveRoom" )
+	ClearAllControlBlocks()
+	ClearAllMoveBlocks()
 end
 
 function EntranceFromAnomalyPresentation(currentRun, currentRoom, args)

@@ -976,6 +976,10 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 			enemyCap = enemyCap + activeCapWeight
 		end
 	end
+	for _, enemy in pairs (MapState.SpellSummons ) do
+		local activeCapWeight = enemy.ActiveCapWeight or 1
+		enemyCap = enemyCap + activeCapWeight
+	end
 
 	if enemyCap > maxEnemyCap then
 		enemyCap = maxEnemyCap

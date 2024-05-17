@@ -1255,6 +1255,8 @@ function DamageEnemy( victim, triggerArgs )
 	if victim.AIEndHealthThreshold ~= nil then
 		if currentHealthFraction <= victim.AIEndHealthThreshold and victim.Health > 0 then
 			AIHealthThresholdReached(victim)
+		elseif currentHealthFraction <= victim.AIEndHealthThreshold and victim.Phases ~= nil and victim.CurrentPhase < victim.Phases then
+			AIHealthThresholdReached(victim)
 		end
 		if victim.Health <= 0 then
 			killWaitUntilThreads(victim.DumbFireThreadName)

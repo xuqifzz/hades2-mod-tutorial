@@ -1832,7 +1832,8 @@ UnitSetData.NPC_Eris =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ErisGrantsCurse01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ErisBossFirstMeeting", "ErisGrantsCurse01" },
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },

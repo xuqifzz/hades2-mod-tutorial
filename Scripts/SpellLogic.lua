@@ -669,6 +669,11 @@ function SpellSummon( triggerArgs, weaponData )
 		end
 	end
 
+	if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap ~= nil then
+		local activeCapWeight = newEnemy.ActiveCapWeight or 1
+		CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap = math.min(CurrentRun.CurrentRoom.Encounter.ActiveEnemyCapMax, CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap + activeCapWeight)
+	end
+
 	MapState.SpellSummons = MapState.SpellSummons or {}
 	table.insert( MapState.SpellSummons , newEnemy )
 	if TableLength( MapState.SpellSummons ) > weaponData.MaxSummons then

@@ -238,8 +238,6 @@ WeaponSets =
 	"GhostWall",
 	"SafeZoneDefense",
 	"SafeZonePulse",
-	"ChronosGrindWall",
-	"ChronosGrindVacuum",
 	"ScyllaCone",
 	"OilPuddleFire",
 	"OilPuddleFire02",
@@ -250,6 +248,8 @@ WeaponSets =
 	ExpireProjectileLastStandExcludeProjectileNames = 
 	{
 		"ProjectileSpellMeteor",
+		"ChronosGrindWall",
+		"ChronosGrindVacuum",
 	},
 	MapTransitionExpireProjectileExcludeNames = 
 	{

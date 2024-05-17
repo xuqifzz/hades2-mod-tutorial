@@ -1498,6 +1498,14 @@ function ClearCombatControlBlock( flag )
 	end
 end
 
+function ClearAllControlBlocks()
+	SessionState.PlayerControlBlocks = {}
+end
+
+function ClearAllMoveBlocks()
+	SessionState.PlayerMoveBlocks = {}
+end
+
 function TogglePlayerMove( enabled, flag )
 	if enabled then
 		SessionState.PlayerMoveBlocks[flag] = nil

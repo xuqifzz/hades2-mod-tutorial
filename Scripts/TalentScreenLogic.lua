@@ -83,9 +83,10 @@
 
 	CreateTalentTreeIcons( screen, { ObstacleName = "ButtonTalent", OnPressedFunctionName = "OnTalentPressed"} )
 	UpdateTalentButtons( screen )
-	if screen.ReadOnly then
+	if screen.ReadOnly or screen.AllInvested then
 		UseableOn({ Id = components.CloseButton.Id })
 		SetAlpha({ Id = components.CloseButton.Id, Fraction = 1.0, Duration = 0.2 })
+		screen.BlockPause = true
 	else
 		UseableOff({ Id = components.CloseButton.Id })
 	end
@@ -342,7 +343,7 @@ end
 
 function LeaveTalentTree( screen, button )
 	local components = screen.Components
-	if not screen.ReadOnly then
+	if not screen.ReadOnly and not screen.AllInvested then
 		return
 	end
 	TryCloseTalentTree(screen, button)

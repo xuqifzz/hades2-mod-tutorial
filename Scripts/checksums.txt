@@ -28,8 +28,8 @@ f682591ee0aeddcf  AudioData_Shrine.lua
 f558b64a1d874eab  BiomeStateLogic.lua
 e8ee53421117acbb  BiomeStatePresentation.lua
 41863a8f157604f5  BoonInfoData.lua
-5f796cf7e161a38a  BoonInfoLogic.lua
-c203fa08a9761b98  BountyData.lua
+79c5a1a9b44c2bc7  BoonInfoLogic.lua
+7fb660cf20fda632  BountyData.lua
 94e6641f908b2317  BountyLogic.lua
 9e368154e87b6834  BountyPresentation.lua
 91dd89734b089942  CodexData.lua
@@ -39,8 +39,8 @@ e8ab1c6b90c9c99f  CodexData_Ordering.lua
 a6c6e48d0b2faa8f  CodexLogic.lua
 6bf92d3e3913b5ef  CodexPresentation.lua
 de2f39a8bbb7d5f7  ColorData.lua
-bb64abe73df047cd  CombatLogic.lua
-6e2f838534a1f057  CombatPresentation.lua
+002ba618af0be186  CombatLogic.lua
+6592325b34e21e50  CombatPresentation.lua
 d52ada6bea0dd089  ConsumableData.lua
 1df456ad1d98a221  CosmeticsData.lua
 8a9c6d08a3948ad4  CosmeticsLogic.lua
@@ -74,9 +74,9 @@ b37ce09c03515aa1  EncounterData_MiniBoss.lua
 13f4fde6f6c5b11b  EncounterData_Test.lua
 bf615e7b121145b7  EncounterData_TimeChallenge.lua
 a0dfe3d6d74dd1ce  EncounterData_Unique.lua
-6820a4f34d722386  EncounterLogic.lua
+c144f84c8c3cce65  EncounterLogic.lua
 42a8987535c8eeac  EncounterPresentation.lua
-b5758fd73116a002  EncounterPresentation_Late.lua
+b3d112de5db68e74  EncounterPresentation_Late.lua
 67265b3fd74762c2  EncounterSets.lua
 899e026eaa19da16  EncounterSets_Demo.lua
 e293945e3673b84d  EnemyAILogic.lua
@@ -147,7 +147,7 @@ b012f0db0e581c4a  EnemyUpgradeData.lua
 1b5ce39697555d32  EventLogic.lua
 c575231c088c6166  EventPresentation.lua
 5eac9d77d38a5ac4  EventPresentation_Late.lua
-f89f039a7b27235d  FamiliarData.lua
+a7ce59389b1bb4fd  FamiliarData.lua
 11fbed8d4acb4916  FamiliarLogic.lua
 52a8394d9cdf7ed4  FamiliarPresentation.lua
 42eb3214ec87b137  FamiliarShopData.lua
@@ -181,7 +181,7 @@ d70c4186cc37d69a  HarvestPresentation.lua
 acad780095682b10  HubPresentation.lua
 3a6f41351a236012  HUDData.lua
 5726d2f5a1cded47  HUDLogic.lua
-328f11c65bfdeee8  InteractLogic.lua
+8ef15791c935f69f  InteractLogic.lua
 1c70ea2ccfef5887  InteractPresentation.lua
 6982838b79db0341  KeepsakeData.lua
 84259c8a564b33ad  KeepsakeLogic.lua
@@ -250,7 +250,7 @@ d2d6300d185bc792  NPCData.lua
 7eb14f005fd3975f  NPCData_Circe.lua
 69bffa408bddef7e  NPCData_Dora.lua
 e8f1c4c32b369fdd  NPCData_Echo.lua
-063c5e5a8f1a19c5  NPCData_Eris.lua
+d3c528ea23531085  NPCData_Eris.lua
 c72e088d66087ff3  NPCData_Hades.lua
 125d09d2d1a877bf  NPCData_Hecate.lua
 30946310599925c5  NPCData_Heracles.lua
@@ -322,7 +322,7 @@ e1f05620a674f6d5  RoomDataG.lua
 f50649b499682441  RoomDataSecrets.lua
 5d5f1e81b0f82305  RoomLogic.lua
 491c4ef622559e4e  RoomPresentation.lua
-7a3188a84a7851d0  RoomPresentation_Late.lua
+9bebdb719281c8de  RoomPresentation_Late.lua
 0ebfe28322320503  RoomSets.lua
 678b71d1b9dc1786  RoomSets_Demo.lua
 fad62b1af4cfba74  RunClearData.lua
@@ -338,7 +338,7 @@ d56d3070c2292899  SellTraitData.lua
 9d03cf76a6035b00  ShrineLogic.lua
 1d78e0cb19b65d58  ShrinePresentation.lua
 d7c062c11644037a  SpellData.lua
-3485483082a6c0ae  SpellLogic.lua
+7717a95f5d545064  SpellLogic.lua
 9de071fefdf79be3  SpellPresentation.lua
 11a094af98f301e2  SpellScreenData.lua
 a2e619177262d042  SpellScreenLogic.lua
@@ -347,7 +347,7 @@ a2e619177262d042  SpellScreenLogic.lua
 2e25e8973de51f7f  SurfaceShopLogic.lua
 b0c70f46557a2063  SurfaceShopPresentation.lua
 f63b7f44acbb70a8  TalentScreenData.lua
-dc930cee1d870ddd  TalentScreenLogic.lua
+abd0c1f58821544b  TalentScreenLogic.lua
 49b28f2aba4c912d  TestAmir.lua
 d6cbac9a8f620d32  TestAndrew.lua
 cb7f294fe3ad35e6  TestDarren.lua
@@ -403,7 +403,7 @@ d74e2a176bd3aab0  UpgradeChoiceData.lua
 88a3d931d6cb66a2  UpgradeChoiceLogic.lua
 8d391ff816559ba2  UpgradeLogic.lua
 2a5be6394bb09363  UtilityLogic.lua
-839b17673bbeb886  WeaponData.lua
+bace47f086eb7d09  WeaponData.lua
 a50ba171fda0bd67  WeaponData_Axe.lua
 89ad851799b5be5e  WeaponData_Bloodless.lua
 46aaf55024f0ba19  WeaponData_Brawler.lua
@@ -460,7 +460,7 @@ c7a0e7aa7e681464  WeaponData_WaterUnit.lua
 d18c1a0517cf720f  WeaponDataEnemies.lua
 48c5d39456859332  WeaponLogic.lua
 ab340cedc7e0b0a5  WeaponPresentation.lua
-f7fe4e04e2fbf233  WeaponSets.lua
+1ffd6030a8ac88d2  WeaponSets.lua
 eb8d81bddda13393  WeaponSets_Demo.lua
 54ee46107706c983  WeaponShopData.lua
 7e48002d7f879348  WeaponShopLogic.lua

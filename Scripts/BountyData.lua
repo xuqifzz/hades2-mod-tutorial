@@ -4822,7 +4822,7 @@ BountyData =
 			},
 			{
 				--PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat12PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat6HBoss" },
+				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat8HBoss" },
 			},
 		},
 		CompleteGameStateRequirements =

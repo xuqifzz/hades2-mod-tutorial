@@ -22,7 +22,7 @@ FamiliarData =
 		AnimOffsetZ = 150,
 		BaseResourceSpawnChance = 0.03,
 		TickForRested = 30,
-		RestBonusResourceSpawnChance = 0.02,
+		RestBonusResourceSpawnChance = 0.25,
 		AttackBlocks = {},
 
 		EquipVoiceLines =

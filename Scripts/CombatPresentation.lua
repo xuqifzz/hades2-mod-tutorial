@@ -2320,6 +2320,7 @@ function LastAttackHold( holdDuration )
 	waitUnmodified(  holdDuration )
 	SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = 1.0, DataValue = false, AllProjectiles = true })
 	SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = 1.0, DataValue = false, DestinationNames = { "HeroTeam" } })
+	CurrentRun.Hero.LastStandTimeMultiplier = nil
 	RemoveInputBlock({ Name = "LastKill" })
 end
 

@@ -195,7 +195,8 @@ function CreateBoonInfoButton( screen, traitName, index )
 	frame.Animation = "Frame_Boon_Menu_"..( newTraitData.Frame or rarity )
 	traitInfo.Frame = CreateScreenComponent( frame )
 
-	traitInfo.QuestIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay", X = offset.X + screenData.QuestIconOffsetX, Y = offset.Y + screenData.QuestIconOffsetY })
+	traitInfo.QuestIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay",
+		X = offset.X + screenData.QuestIconOffsetX + ScreenCenterNativeOffsetX, Y = offset.Y + screenData.QuestIconOffsetY + ScreenCenterNativeOffsetY })
 	traitInfo.TraitName = traitName
 	traitInfo.Index = index
 	
