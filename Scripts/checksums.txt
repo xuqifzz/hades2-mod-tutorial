@@ -39,7 +39,7 @@ e8ab1c6b90c9c99f  CodexData_Ordering.lua
 a6c6e48d0b2faa8f  CodexLogic.lua
 6bf92d3e3913b5ef  CodexPresentation.lua
 de2f39a8bbb7d5f7  ColorData.lua
-002ba618af0be186  CombatLogic.lua
+bb64abe73df047cd  CombatLogic.lua
 6592325b34e21e50  CombatPresentation.lua
 d52ada6bea0dd089  ConsumableData.lua
 1df456ad1d98a221  CosmeticsData.lua
@@ -76,7 +76,7 @@ bf615e7b121145b7  EncounterData_TimeChallenge.lua
 a0dfe3d6d74dd1ce  EncounterData_Unique.lua
 c144f84c8c3cce65  EncounterLogic.lua
 42a8987535c8eeac  EncounterPresentation.lua
-b3d112de5db68e74  EncounterPresentation_Late.lua
+b5758fd73116a002  EncounterPresentation_Late.lua
 67265b3fd74762c2  EncounterSets.lua
 899e026eaa19da16  EncounterSets_Demo.lua
 e293945e3673b84d  EnemyAILogic.lua
@@ -460,7 +460,7 @@ c7a0e7aa7e681464  WeaponData_WaterUnit.lua
 d18c1a0517cf720f  WeaponDataEnemies.lua
 48c5d39456859332  WeaponLogic.lua
 ab340cedc7e0b0a5  WeaponPresentation.lua
-1ffd6030a8ac88d2  WeaponSets.lua
+f7fe4e04e2fbf233  WeaponSets.lua
 eb8d81bddda13393  WeaponSets_Demo.lua
 54ee46107706c983  WeaponShopData.lua
 7e48002d7f879348  WeaponShopLogic.lua
