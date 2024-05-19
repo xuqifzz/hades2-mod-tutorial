@@ -1998,6 +1998,6 @@ RerollCosts =
 	Shop = 1,
 	SellTrait = 1,
 	Talent = 1,
-	Hammer = -1, -- Disabled
+	Hammer = 1, -- Disabled
 	ReuseIncrement = 1,
 }
