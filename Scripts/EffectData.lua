@@ -302,7 +302,7 @@
 		EffectData = {
 			Duration = 10,
 			ElapsedTimeMultiplier = 0.01,
-			ExpiringTimeThreshold = 8,
+			ExpiringTimeThreshold = 0.1,
 			ExpiringModifierFalloff = 1,
 			IsVulnerabilityEffect = true,
 			ExtendDurationOnReapply = false,
