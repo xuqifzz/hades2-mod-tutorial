@@ -135,13 +135,13 @@
 	{
 		InheritFrom = { "StackUpgrade", },
 		DoorIcon = "StackUpgradeBigPreview",
-		StackNum = 2,
+		StackNum = 10,
 	},
 	StackUpgradeTriple =
 	{
 		InheritFrom = { "StackUpgrade", },
 		DoorIcon = "StackUpgradeTriplePreview",
-		StackNum = 3,
+		StackNum = 10,
 	},	
 
 	-- Daedalus Hammer
