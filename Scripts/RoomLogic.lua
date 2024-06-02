@@ -5072,7 +5072,7 @@ function HandleSecretSpawns( currentRun )
 
 	-- Secret Door
 	local secretPointIds = GetIdsByType({ Name = "SecretPoint" })
-	if not IsEmpty( secretPointIds ) and IsSecretDoorEligible( currentRun, currentRoom ) then
+	if not IsEmpty( secretPointIds ) then
 		currentRoom.ForceSecretDoor = true
 		local forcedSecretDoor = HasHeroTraitValue("ForceSecretDoor")
 		UseHeroTraitsWithValue( "ForceSecretDoor", true)
