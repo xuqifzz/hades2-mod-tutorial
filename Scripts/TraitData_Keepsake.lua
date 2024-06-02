@@ -16,7 +16,7 @@ TraitSetData.Keepsakes =
 			"TraitLevel_Keepsake4",
 		},
 		RecordCacheOnEquip = true,
-		ChamberThresholds =  { 25, 50 },
+		ChamberThresholds =  { 1, 1 },
 		InfoBackingAnimation = "KeepsakeSlotBase",
 
 		RarityLevels =
@@ -46,7 +46,7 @@ TraitSetData.Keepsakes =
 		Slot = "Assist",
 		Icon = "Keepsake_Unknown",
 		HideInRunHistory = true,
-		ChamberThresholds =  { 25, 50 },
+		ChamberThresholds =  { 1, 1 },
 
 		RarityLevels =
 		{
