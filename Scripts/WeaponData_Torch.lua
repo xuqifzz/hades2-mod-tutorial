@@ -195,7 +195,8 @@ OverwriteTableKeys( WeaponData,
 				WeaponProperties =
 				{
 					Projectile = "ProjectileTorchOrbit",
-					NumProjectiles = 2,
+					NumProjectiles = 10,
+                    ProjectileAngleOffset = math.rad(36),
 					FireGraphic = "Melinoe_Torch_Special1Ex_Fire",
 					AdditionalProjectileWaveChance = 0
 				},
