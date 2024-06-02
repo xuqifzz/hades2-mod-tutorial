@@ -690,23 +690,12 @@ EncounterData =
 	-- Artemis F Encounters	
 	BaseArtemisCombat =
 	{
+        AlwaysForce = true,
 		GameStateRequirements =
 		{
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "ArtemisCombatIntro" },
 			},
-			{
-				PathFalse = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" },
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">=",
-				Value = 4,
-			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
-			NamedRequirements = { "NoRecentFieldNPCEncounter" },
 		},
 
 		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
