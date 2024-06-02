@@ -401,6 +401,9 @@ function StartNewRun( prevRun, args )
 	end
 	
 	AddResource( "Money", CalculateStartingMoney(), "RunStart" )
+    if HeroHasTrait( "StaffSelfHitAspect" ) then
+        AddTraitToHero( { TraitName= "StaffTripleShotTrait"} )
+    end
 	return CurrentRun
 
 end
