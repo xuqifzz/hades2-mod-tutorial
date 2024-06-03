@@ -382,7 +382,7 @@ OverwriteTableKeys( WeaponData,
 				DeferSwap = "WeaponAxeSpecialSwing",
 				ChannelSlowEventOnStart = true,
 				CompleteObjective = "WeaponAxeSpecialSwing",
-				ForceRelease = true,
+				ForceRelease = false,
 			},
 		},
 
