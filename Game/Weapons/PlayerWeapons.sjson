@@ -2504,7 +2504,7 @@
 				Duration = 0.3
 				Modifier = 1.0
 				Active = true
-				AngleCoverage = 220
+				AngleCoverage = 360
 				CanAffectInvulnerable = true
 			}
 			{
@@ -2514,7 +2514,7 @@
 				Duration = 0.3
 				Range = 75
 				Deflect = false
-				AngleCoverage = 220
+				AngleCoverage = 360
 				Active = true
 				CanAffectInvulnerable = true
 			}
@@ -2524,7 +2524,7 @@
 				DurationFrames = 19
 				Modifier = 1.0
 				Active = true
-				AngleCoverage = 220
+				AngleCoverage = 360
 				CanAffectInvulnerable = true
 			}
 			{
@@ -2533,7 +2533,7 @@
 				DurationFrames = 19
 				Range = 75
 				Deflect = false
-				AngleCoverage = 220
+				AngleCoverage = 360
 				Active = true
 				CanAffectInvulnerable = true
 			}        
