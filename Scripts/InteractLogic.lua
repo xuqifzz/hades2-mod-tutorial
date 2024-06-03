@@ -1387,7 +1387,27 @@ function AttemptRerollDoor( run, door )
 
 	run.CurrentRoom.DeferReward = false
 	room.ChosenRewardType = ChooseRoomReward( run, room, room.RewardStoreName, rewardsChosen, { IgnoreGameStateRequirements = false, } )
-	SetupRoomReward( run, room, rewardsChosen )
+	
+    local myBoonList = {"ZeusUpgrade","HeraUpgrade", "PoseidonUpgrade", "DemeterUpgrade","ApolloUpgrade","AphroditeUpgrade","HephaestusUpgrade","HestiaUpgrade"}
+    local myChosenRewardTypeList = { "WeaponUpgrade","HermesUpgrade","SpellDrop","TalentDrop","MaxHealthDrop","MaxManaDrop","RoomMoneyDrop","StackUpgrade"}
+    
+    if(run.myRollIndex == nil) then run.myRollIndex = 0 end
+    if(run.myCurrentDoor == door) then 
+      run.myRollIndex = run.myRollIndex +1
+    else
+      run.myCurrentDoor = door
+    end 
+    local myLen = #myBoonList + # myChosenRewardTypeList;
+    local idx = run.myRollIndex % myLen + 1
+    if(idx <= #myBoonList) then
+      room.ChosenRewardType = "Boon"
+      room.ForceLootName = myBoonList[idx]
+    else
+      room.ChosenRewardType = myChosenRewardTypeList[idx - #myBoonList]
+    end
+    CurrentRun.NumRerolls = CurrentRun.NumRerolls + 1
+    
+    SetupRoomReward( run, room, rewardsChosen )
 	run.CurrentRoom.OfferedRewards[door.ObjectId] = { Type = room.ChosenRewardType, ForceLootName = room.ForceLootName, UseOptionalOverrides = room.UseOptionalOverrides }
 
 	if room.ChosenRewardType == "Devotion" and prevChosenRewardType ~= "Devotion" then
