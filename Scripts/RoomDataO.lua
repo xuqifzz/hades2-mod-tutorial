@@ -63,6 +63,13 @@ RoomSetData.O =
 		{
 		},
 
+		ExitsUnlockedThreadedEvents =
+		{
+			{
+				FunctionName = "ShipsEndOilFires",
+			},
+		},
+
 		EnterVoiceLines =
 		{
 			{
@@ -464,6 +471,11 @@ RoomSetData.O =
 		},
 		
 		SecretSpawnChance = 0.0,
+
+		HarvestPointChances =
+		{
+			0.35,
+		},
 
 		SkipLastKillPresentation = true,
 		LegalEncounters = { "Shop" },
@@ -966,7 +978,10 @@ RoomSetData.O =
 						--
 					},
 				},
-			},			
+			},
+			{
+				FunctionName = "ShipsEndOilFires",
+			},
 		},
 	},
 

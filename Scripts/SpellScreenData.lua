@@ -13,6 +13,7 @@ ScreenData.SpellScreen =
 	Components = {}, 
 	FreezePlayerArgs = { DisableTray = false,},
 	AllowAdvancedTooltip = false, -- Block the normal hotkey, works through TraitTrayButton
+	BlockPause = true,
 
 	StartX = ScreenCenterX,
 	SpacerY = 240,
@@ -84,6 +85,57 @@ ScreenData.SpellScreen =
 			UseScreenScaleX = true,
 		},
 
+		ActionBarLeft =
+		{
+			X = UIData.ContextualButtonXLeft,
+			Y = UIData.ContextualButtonY,
+			AutoAlignContextualButtons = true,
+			AutoAlignJustification = "Left",
+
+			ChildrenOrder =
+			{
+				"TraitTrayButton",
+				"BoonListButton",
+			},
+
+			Children = 
+			{
+				TraitTrayButton = 
+				{
+					Graphic = "ContextualActionButton",
+					Data =
+					{
+						OnMouseOverFunctionName = "MouseOverContextualAction",
+						OnMouseOffFunctionName = "MouseOffContextualAction",
+						OnPressedFunctionName = "UpgradeChoiceScreenOpenTraitTray",
+						ControlHotkeys = { "AdvancedTooltip", },
+					},
+					Text = "Menu_OpenTraitTray",
+					TextArgs = UIData.ContextualButtonFormatLeft,
+				},
+
+				BoonListButton =
+				{
+					Requirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeBoonList" },
+						}
+					},
+					Graphic = "ContextualActionButton",
+					Data =
+					{
+						OnMouseOverFunctionName = "MouseOverContextualAction",
+						OnMouseOffFunctionName = "MouseOffContextualAction",
+						OnPressedFunctionName = "AttemptOpenUpgradeChoiceBoonInfo",
+						ControlHotkeys = { "MenuInfo", },
+					},
+					Text = "Menu_TraitList",
+					TextArgs = UIData.ContextualButtonFormatLeft,
+				},
+			},
+		},
+
 		ActionBar =
 		{
 			X = UIData.ContextualButtonXRight,
@@ -93,7 +145,6 @@ ScreenData.SpellScreen =
 
 			ChildrenOrder =
 			{
-				"TraitTrayButton",
 				"SelectButton",
 			},
 
@@ -113,19 +164,6 @@ ScreenData.SpellScreen =
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
 
-				TraitTrayButton = 
-				{
-					Graphic = "ContextualActionButton",
-					Data =
-					{
-						OnMouseOverFunctionName = "MouseOverContextualAction",
-						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "UpgradeChoiceScreenOpenTraitTray",
-						ControlHotkeys = { "AdvancedTooltip", },
-					},
-					Text = "Menu_OpenTraitTray",
-					TextArgs = UIData.ContextualButtonFormatRight,
-				},
 			},
 		},
 	}	

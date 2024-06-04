@@ -268,12 +268,9 @@ WorldUpgradeData =
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
 			-- { Cue = "/VO/Melinoe_1339", Text = "The Fates sent me a message, if I could just..." },
 			{ Cue = "/VO/Melinoe_1598", Text = "I think I know how I can do the bidding of the Fates..." },
 		},

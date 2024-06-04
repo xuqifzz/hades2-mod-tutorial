@@ -53,6 +53,7 @@
 		Name = "Enemy_Lamia_MoveStart"
 		InheritFrom = "EnemyLamiaBaseAnimation"
 		GrannyAnimation = "Lamia_Base_Move_Start_C_00"
+		NativeMoveSpeed = 450
 		ChainTo = "Enemy_Lamia_Move"
 		Sound = "/SFX/Enemy Sounds/Lamia/EmoteEvading"
 		Blends = 
@@ -80,6 +81,7 @@
 		Name = "Enemy_Lamia_Move"
 		InheritFrom = "EnemyLamiaBaseAnimation"
 		GrannyAnimation = "Lamia_Base_Move_C_00"
+		NativeMoveSpeed = 450
 		Loop = true
 		Blends = 
 		[
@@ -104,6 +106,7 @@
 		InheritFrom = "EnemyLamiaBaseAnimation"
 		GrannyAnimation = "Lamia_Base_Move_Stop_C_00"
 		CancelOnOwnerMove = true
+		NativeMoveSpeed = 450
 		ChainTo = "Enemy_Lamia_Idle"
 		Blends = 
 		[

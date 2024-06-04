@@ -259,7 +259,7 @@ function DamageAfterInterval( timer, damage )
 	local tollTimes = math.floor(timer)
 	StartBlockDeathPresentation( tollTimes )
 	while tollTimes > 0 do
-		if encounter.Completed and not encounterAlreadyCompleted then
+		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) then
 			SetPlayerVulnerable( "BlockDeath" )
 			return
 		end

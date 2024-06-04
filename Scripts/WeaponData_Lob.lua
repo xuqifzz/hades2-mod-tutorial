@@ -120,7 +120,7 @@ OverwriteTableKeys( WeaponData,
 		{
 			{ 
 				ManaCost = 10,
-				Wait = 0.725,
+				Wait = 0.55,
 				ExChargeAnimation = "Melinoe_Lob_AttackEx1_Start",
 				WeaponProperties = 
 				{ 

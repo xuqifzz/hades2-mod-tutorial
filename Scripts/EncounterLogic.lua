@@ -969,6 +969,10 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 		DebugPrint({ Text="Active Enemy Cap Bonus: +"..currentEncounter.ActiveEnemyCapBonus })
 	end
 
+	if enemyCap > maxEnemyCap then
+		enemyCap = maxEnemyCap
+	end
+
 	if CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId then
 		local assistUnit = ActiveEnemies[CurrentRun.CurrentRoom.DestroyAssistUnitOnEncounterEndId]
 		if assistUnit and not assistUnit.IsDead then
@@ -980,10 +984,11 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 		local activeCapWeight = enemy.ActiveCapWeight or 1
 		enemyCap = enemyCap + activeCapWeight
 	end
-
-	if enemyCap > maxEnemyCap then
-		enemyCap = maxEnemyCap
+	
+	if enemyCap > ConstantsData.MaxActiveEnemyCount then
+		enemyCap = ConstantsData.MaxActiveEnemyCount
 	end
+
 	local debugCapOverride = GetConfigOptionValue({ Name = "DebugEnemyCapOverride" })
 	if debugCapOverride > 0 then
 		enemyCap = debugCapOverride

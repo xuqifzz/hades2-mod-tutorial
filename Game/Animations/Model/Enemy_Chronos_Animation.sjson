@@ -536,10 +536,17 @@
 	{
 		Name = "Enemy_Chronos_ScytheThrowPreFire"
 		InheritFrom = "EnemyChronosBaseAnimation"
-		GrannyAnimation = "Chronos_Base_ScytheThrowPreFire_C_00"
+		GrannyAnimation = "Chronos_Base_ScytheThrowPreFire_C_01"
 		HoldLastFrame = true
 		Sound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged"
 		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.44
+			}
+		]
 		Blends =
 		[
 			{
@@ -563,7 +570,7 @@
 	{
 		Name = "Enemy_Chronos_ScytheThrowFire"
 		InheritFrom = "EnemyChronosBaseAnimation"
-		GrannyAnimation = "Chronos_Base_ScytheThrowFire_C_00"
+		GrannyAnimation = "Chronos_Base_ScytheThrowFire_C_01"
 		ChainTo = "Enemy_Chronos_ScytheThrowPostFire"
 		Frames =
 		[
@@ -580,7 +587,7 @@
 	{
 		Name = "Enemy_Chronos_ScytheThrowPostFire"
 		InheritFrom = "EnemyChronosBaseAnimation"
-		GrannyAnimation = "Chronos_Base_ScytheThrowReturnToIdle_C_00"
+		GrannyAnimation = "Chronos_Base_ScytheThrowReturnToIdle_C_01"
 		ChainTo = "Enemy_Chronos_Idle"
 		Frames =
 		[

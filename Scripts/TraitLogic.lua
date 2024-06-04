@@ -23,9 +23,14 @@ function IncrementHitByShield( victim )
 end
 
 function CheckChillKill( args, attacker, victim, triggerArgs )
+	if SessionMapState.FiredChillKill[victim.ObjectId] then
+		return
+	end
 	if triggerArgs.SourceProjectile ~= args.ProjectileName and attacker == CurrentRun.Hero and HasEffectWithEffectGroup( victim, "Root" ) and victim.RootActive
 		and not victim.IsDead and not victim.CannotDieFromDamage and victim.Health / victim.MaxHealth <= args.ChillDeathThreshold 
 		and ( victim.Phases == nil or victim.CurrentPhase == victim.Phases ) then
+
+		SessionMapState.FiredChillKill[victim.ObjectId] = true
 		PlaySound({ Name = "/SFX/DemeterEnemyFreezeShatter", Id = victim.ObjectId })
 		CreateAnimation({ Name = "DemeterBossIceShatter", DestinationId = victim.ObjectId })
 		CreateProjectileFromUnit({ Name = args.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = victim.ObjectId, DamageMultiplier = args.DamageMultiplier, FireFromTarget = true})
@@ -48,6 +53,9 @@ function GetProcessedTraitData( args )
 end
 
 function ReplaceDerivedValues(traitData)
+	if traitData == nil then
+		return
+	end
 	local changes = {}
 	if traitData.PropertyChanges ~= nil then
 		table.insert( changes, "PropertyChanges" )
@@ -466,7 +474,7 @@ end
 function AddTraitToHero(args)
 	local traitData = args.TraitData
 	if traitData == nil then
-		traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = args.TraitName, Rarity = args.Rarity, CustomMultiplier = args.CustomMultiplier })
+		traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = args.TraitName, Rarity = args.Rarity, CustomMultiplier = args.CustomMultiplier, StackNum = args.StackNum })
 	end
 
 	GameState.LastPickedTraitName = traitData.Name
@@ -1739,28 +1747,31 @@ function SetTraitsOnLoot( lootData, args )
 	end
 
 	-- Fill empty spots with any traits that failed the rarity check the first time around
-	for i = TableLength(upgradeOptions), GetTotalLootChoices() - 1 do
-		local validRarities = {}
+	local numBans = MetaUpgradeData.BanUnpickedBoonsShrineUpgrade.ChangeValue
+	if numBans <= 0 then
+		for i = TableLength(upgradeOptions), GetTotalLootChoices() - 1 do
+			local validRarities = {}
 		
-		for rarityName in pairs( TraitRarityData.RarityValues ) do
-			validRarities[rarityName] = not IsEmpty(rarityTable[rarityName])
-		end
-
-		local chosenUpgrade = GetRandomValue( rarityTable.Common )
-		local chosenRarity = "Common"
-		
-		for _, rarityName in ipairs( lootData.RarityRollOrder ) do
-			if validRarities[rarityName] and lootData.RarityChances[rarityName] then
-				chosenRarity = rarityName
-				chosenUpgrade = GetRandomValue( rarityTable[rarityName])
-			end
-		end
-		
-		if chosenUpgrade then
-			chosenUpgrade.Rarity = chosenRarity
-			table.insert(upgradeOptions, chosenUpgrade)
 			for rarityName in pairs( TraitRarityData.RarityValues ) do
-				rarityTable[rarityName][chosenUpgrade.ItemName] = nil
+				validRarities[rarityName] = not IsEmpty(rarityTable[rarityName])
+			end
+
+			local chosenUpgrade = GetRandomValue( rarityTable.Common )
+			local chosenRarity = "Common"
+		
+			for _, rarityName in ipairs( lootData.RarityRollOrder ) do
+				if validRarities[rarityName] and lootData.RarityChances[rarityName] then
+					chosenRarity = rarityName
+					chosenUpgrade = GetRandomValue( rarityTable[rarityName])
+				end
+			end
+		
+			if chosenUpgrade then
+				chosenUpgrade.Rarity = chosenRarity
+				table.insert(upgradeOptions, chosenUpgrade)
+				for rarityName in pairs( TraitRarityData.RarityValues ) do
+					rarityTable[rarityName][chosenUpgrade.ItemName] = nil
+				end
 			end
 		end
 	end
@@ -1860,6 +1871,8 @@ function ExtractValue( unit, extractToTable, table, extractData)
 				value = EffectData[extractData.BaseName].EffectData.Duration - EffectData[extractData.BaseName].EffectData.ExpiringTimeThreshold
 			elseif EffectData[extractData.BaseName] and EffectData[extractData.BaseName].EffectData then
 				value = EffectData[extractData.BaseName].EffectData[extractData.BaseProperty]
+			elseif EffectData[extractData.BaseName] and EffectData[extractData.BaseName].DataProperties then
+				value = EffectData[extractData.BaseName].DataProperties[extractData.BaseProperty]
 			end			
 		elseif extractData.BaseType == "ConsumableData" then
 			if ConsumableData[extractData.BaseName] then
@@ -1885,6 +1898,9 @@ function ExtractValue( unit, extractToTable, table, extractData)
 			end
 			if autoExtractData.MultiplyHeroValue then
 				value = value * GetTotalHeroTraitValue( autoExtractData .MultiplyHeroValue, { IsMultiplier = true } )
+			end
+			if autoExtractData.ReplaceWithHeroValue and GetTotalHeroTraitValue( autoExtractData.ReplaceWithHeroValue, {IsMultiplier = true }) ~= 1 then
+				value = GetTotalHeroTraitValue( autoExtractData.ReplaceWithHeroValue, {IsMultiplier = true })
 			end
 		end
 	elseif extractData.Format == "TotalDamageTaken" then
@@ -1933,6 +1949,12 @@ function FormatExtractedValue(value, extractData)
 			DebugAssert({ Condition = extractData.BaseProperty ~= nil, Text = "Extracting a PercentOfBase value without a property.", Owner = "Alice" })
 			local baseDataValue = GetBaseDataValue({Type = extractData.BaseType, Name = extractData.BaseName, Property = extractData.BaseProperty })
 			value = value * baseDataValue
+		elseif extractData.Format == "AddToBase" then
+			DebugAssert({ Condition = extractData.BaseType ~= nil, Text = "Extracting a PercentOfBase value without valid type reference (Projectile, Weapon, or WeaponEffect)", Owner = "Alice" })
+			DebugAssert({ Condition = extractData.BaseName ~= nil, Text = "Extracting a PercentOfBase value without a name.", Owner = "Alice" })
+			DebugAssert({ Condition = extractData.BaseProperty ~= nil, Text = "Extracting a PercentOfBase value without a property.", Owner = "Alice" })
+			local baseDataValue = GetBaseDataValue({Type = extractData.BaseType, Name = extractData.BaseName, Property = extractData.BaseProperty })
+			value = value + baseDataValue
 		elseif extractData.Format == "PercentOfBase" then
 			DebugAssert({ Condition = extractData.BaseType ~= nil, Text = "Extracting a PercentOfBase value without valid type reference (Projectile, Weapon, or WeaponEffect)", Owner = "Alice" })
 			DebugAssert({ Condition = extractData.BaseName ~= nil, Text = "Extracting a PercentOfBase value without a name.", Owner = "Alice" })

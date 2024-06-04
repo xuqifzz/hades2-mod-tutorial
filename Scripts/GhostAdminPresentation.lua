@@ -54,6 +54,7 @@ function GhostAdminScreenRevealNewItemsPresentation( screen, button )
 			SetAlpha({ Id = components[newIconKey].Id, Fraction = 0, Duration = 0 })
 		end
 	end
+	local incantationsRevealed = false
 	for itemNum = screen.ScrollOffset, screen.ScrollOffset + screen.ItemsPerPage do
 		local item = screen.AvailableItems[itemNum]
 		if item ~= nil and not GameState.WorldUpgradesRevealed[item.Name] then
@@ -62,7 +63,7 @@ function GhostAdminScreenRevealNewItemsPresentation( screen, button )
 			SetAlpha({ Id = components[purchaseButtonKey].Id, Fraction = 1, Duration = 0 })
 			SetAnimation({ Name = "CriticalItemShopButtonReveal", DestinationId = components[purchaseButtonKey].Id, OffsetX = 0, })
 
-			thread( PlayVoiceLines, item.OfferedVoiceLines or HeroVoiceLines.CauldronSpellDiscoveredVoiceLines, true )
+			thread( PlayVoiceLines, item.OfferedVoiceLines, true )
 
 			local iconKey = "Icon"..itemNum
 			if components[iconKey] ~= nil then
@@ -74,8 +75,12 @@ function GhostAdminScreenRevealNewItemsPresentation( screen, button )
 			end
 			CurrentRun.WorldUpgradesRevealed[item.Name] = true
 			GameState.WorldUpgradesRevealed[item.Name] = true
+			incantationsRevealed = true
 			wait( 0.9 )
 		end
+	end
+	if incantationsRevealed then
+		thread( PlayVoiceLines, HeroVoiceLines.CauldronSpellDiscoveredVoiceLines, true )
 	end
 	wait( 0.5 ) -- Need to wait for last reveal animation to fully finish
 	RemoveInputBlock({ Name = "GhostAdminScreenRevealNewItemspResentation" })

@@ -357,7 +357,36 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+			/*
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Run_Start"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Run_End"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Sprint_FireLoop"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_Fire"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_Fire"
+				Duration = 5
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
+				Duration = 5
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Attack1_StartSequence"
 				Duration = 5
 			}
 			{
@@ -400,6 +429,7 @@
 				BlendTransitionFrom = "Melinoe_Torch_Attack5_Fire"
 				Duration = 5
 			}
+			*/
 		]
 	}
 	{

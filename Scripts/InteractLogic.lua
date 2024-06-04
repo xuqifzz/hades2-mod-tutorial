@@ -46,6 +46,7 @@ function PickupWeaponKit( weaponKit )
 	EquipPlayerWeapon( weaponKit, weaponEquipArgs )
 	wait( 0.02 )-- Distribute workload
 	EquipWeaponUpgrade( CurrentRun.Hero )
+	SelectCodexEntry( weaponKit.Name )
 
 	local weaponData = GetWeaponData( CurrentRun.Hero, weaponKit.Name) 
 	RunEventsGeneric( weaponData.StartRoomEvents, weaponData )

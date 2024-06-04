@@ -2,12 +2,12 @@
 {
 	ShopTrait =
 	{
-		--Frame = "Shop"
+		NoFrame = true,
 	},
 	ExtendedShopTrait = 
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Stein",
+		Icon = "Shop_Seal",
 		RemainingUses = 1,
 		ResourceCosts =
 		{
@@ -24,7 +24,7 @@
 			TemporaryDiscountTrait = true,
 		},
 		BossExtension = {BaseValue = 2},
-		PermanentItemBadgeAnimationName = "Keepsake_13",
+		PermanentItemBadgeAnimationName = "Shop_Seal",
 		ExtractValues = 
 		{
 			{
@@ -131,7 +131,7 @@
 	TemporaryImprovedExTrait =
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Sweet_Jerky",
+		Icon = "Shop_Mark",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Fabric",
 		ResourceCosts =
 		{
@@ -160,7 +160,7 @@
 	TemporaryImprovedDefenseTrait =
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Sweet_Jerky",
+		Icon = "Shop_Scales",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Fabric",
 		ResourceCosts =
 		{
@@ -285,7 +285,7 @@
 	TemporaryDiscountTrait =
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Yarn",
+		Icon = "Shop_Deal",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Crystal",
 		ResourceCosts =
 		{
@@ -311,7 +311,7 @@
 	TemporaryHealExpirationTrait = 
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Shop_Sweet_Jerky",
+		Icon = "Shop_Hope",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Fabric",
 		ResourceCosts =
 		{

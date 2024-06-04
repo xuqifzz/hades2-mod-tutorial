@@ -3276,6 +3276,7 @@ UnitSetData.NPC_Nemesis =
 				EndVoiceLines =
 				{
 					{
+						UsePlayerSource = true,
 						PreLineWait = 0.45,
 						{ Cue = "/VO/Melinoe_2250", Text = "Bye, Nem..." },
 					},

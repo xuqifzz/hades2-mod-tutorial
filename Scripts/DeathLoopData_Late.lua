@@ -141,7 +141,7 @@
 		{
 			{
 				FunctionName = "Flashback02Objective",
-				Args = { Delay = 13.0 },
+				Args = { Delay = 11.0 },
 			},
 		},
 

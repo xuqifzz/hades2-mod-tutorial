@@ -562,7 +562,7 @@ UnitSetData.NPC_Circe =
 				{ Cue = "/VO/MelinoeField_1984", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Did you used to know him? I don't recall you interacting at the Crossroads. Not that I was paying much heed to anything besides my studies then. I was so little last you visited!" },
+					Text = "Did you use to know him? I don't recall you interacting at the Crossroads. Not that I was paying much heed to anything besides my studies then. I was so little last you visited!" },
 				{ Cue = "/VO/Circe_0057",
 					Text = "Once I relocated this isle, the journey to the Crossroads became {#Emph}much {#Prev}more arduous. As for Odysseus, yes, him I have met before. Him and his pig-headed crew. A different age, poppet! Perchance he's learned a bit since then." },
 				PrePortraitExitFunctionName = "CirceBlessingChoice",

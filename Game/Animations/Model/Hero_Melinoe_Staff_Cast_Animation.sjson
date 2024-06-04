@@ -74,6 +74,10 @@
 		GrannyAnimation = "Melinoe_Staff_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Staff_Cast_End"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Special1_Start" }
+		]
 		Attachments =
 		[
 			{

@@ -916,7 +916,7 @@ UnitSetData.NPC_Narcissus =
 				OnQueuedFunctionArgs = PresetEventArgs.NarcissusMuttering,
 
 				{ Cue = "/VO/MelinoeField_1988", UsePlayerSource = true,
-					Text = "Do you ever think you'll visit Echo again in the Fields? You seemed to have no trouble getting there and back." },
+					Text = "Do you think you'll ever visit Echo again in the Fields? You seemed to have no trouble getting there and back." },
 				{ Cue = "/VO/Narcissus_0193",
 					Emote = "PortraitEmoteSparkly",
 					Text = "You know, maybe I might! But it's a little crowded there, and I do like it here. So then again, maybe I won't! We made a clean break. Why mess with a {#Emph}perfectly good thing?" },

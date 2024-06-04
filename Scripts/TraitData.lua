@@ -974,7 +974,8 @@ TraitSetData.Base =
 	SurfacePenalty = 
 	{
 		Frame = "Common",
-		Icon = "BiomeState_Rain",
+		Icon = "Boon_Ares_12",
+		ShowInHUD = true,
 		SetupFunction =
 		{
 			Name = "StartSurfaceHealthPenalty",
@@ -1111,7 +1112,7 @@ TraitSetData.DummyWeapons =
 		CustomTitle = "WeaponStaffSwing",
 		CustomName = "WeaponStaffSwing",
 		FlavorText = "WeaponStaffSwing_FlavorText",
-		Icon = "Hammer_Staff_12",
+		Icon = "Hammer_Staff_39",
 	},
 
 	DummyWeaponDagger = 
@@ -1120,7 +1121,7 @@ TraitSetData.DummyWeapons =
 		CustomTitle = "WeaponDagger",
 		CustomName = "WeaponDagger",
 		FlavorText = "WeaponDagger_FlavorText",
-		Icon = "Hammer_Daggers_01",
+		Icon = "Hammer_Daggers_38",
 	},
 
 	DummyWeaponAxe = 
@@ -1129,7 +1130,7 @@ TraitSetData.DummyWeapons =
 		CustomTitle = "WeaponAxe",
 		CustomName = "WeaponAxe",
 		FlavorText = "WeaponAxe_FlavorText",
-		Icon = "Hammer_Axe_12",
+		Icon = "Hammer_Axe_40",
 	},
 
 	DummyWeaponTorch = 
@@ -1138,7 +1139,7 @@ TraitSetData.DummyWeapons =
 		CustomTitle = "WeaponTorch",
 		CustomName = "WeaponTorch",
 		FlavorText = "WeaponTorch_FlavorText",
-		Icon = "Hammer_Torch_12",
+		Icon = "Hammer_Torch_39",
 	},
 
 	DummyWeaponLob = 
@@ -1147,7 +1148,7 @@ TraitSetData.DummyWeapons =
 		CustomTitle = "WeaponLob",
 		CustomName = "WeaponLob",
 		FlavorText = "WeaponLob_FlavorText",
-		Icon = "Shop_BedroomDecor",
+		Icon = "Hammer_Lob_13",
 	},
 }
 

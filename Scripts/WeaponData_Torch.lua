@@ -56,7 +56,8 @@ OverwriteTableKeys( WeaponData,
 		IgnoreOOMAimlineAlpha = true,
 		ChannelSlowIneligible = true,
 		OnChargeFunctionNames = { "DoWeaponCharge", "MarkTorchTarget" },
-		HideChargeDuration = 2.0,
+		HideChargeDuration = 1.5,
+		AllowManaRegenUntilChargeIndicator = true,
 
 		ChargeWeaponData =
 		{
@@ -106,12 +107,13 @@ OverwriteTableKeys( WeaponData,
 		{
 			{
 				SkipManaSpendOnFire = true,
-				ManaCost = 5,
-				Wait = 3.0,
+				ManaCost = 3,
+				Wait = 2.5,
 				WeaponProperties =
 				{
 					Projectile = "ProjectileTorchBallLarge",
-					AdditionalProjectileWaveChance = 0
+					AdditionalProjectileWaveChance = 0,
+					Cooldown = 0.25,
 				},
 				CompleteObjective = "WeaponTorchCharged",
 			},
@@ -175,7 +177,7 @@ OverwriteTableKeys( WeaponData,
 		StartingWeapon = false,
 		IgnoreOOMAimlineAlpha = true,
 		ShowManaIndicator = true,
-		HideChargeDuration = 0.25,
+		HideChargeDuration = 0.4,
 
 		CauseImpactReaction = true,
 		--ImpactReactionHitsOverride = 0,
@@ -188,7 +190,7 @@ OverwriteTableKeys( WeaponData,
 		ChargeWeaponStages = 
 		{
 			{
-				ManaCost = 20,
+				ManaCost = 25,
 				Wait = 0.925,
 				ChannelSlowEventOnStart = true,
 				ForceRelease = true,

@@ -471,6 +471,7 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					-- Dummy button
 				},
 				Text = "MetaUpgrade_Unlock",
+				AltTexts = { "MetaUpgrade_Unequip", "MetaUpgrade_Equip" },
 				TextArgs = UIData.ContextualButtonFormatRight,
 			},
 

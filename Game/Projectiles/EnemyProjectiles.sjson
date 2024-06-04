@@ -2304,8 +2304,9 @@
 	{
 		Name = "Treant2Ranged"
 		InheritFrom = "TreantRanged"
-		Range = 2600
-		Fuse = 7
+		Range = 2400
+		Speed = 1850
+		Fuse = 5
 		Damage = 3
 	}
 	{
@@ -2922,7 +2923,7 @@
 		DetonateFx = "MineExplosionFadeDecal"
 		DetonateSound = "null"
 		DamageRadiusScaleY = 0.58
-		DamageRadius = 400
+		DamageRadius = 290
 		Damage = 10
 		DamageFalloff = 0.1
 		Fuse = 0.0
@@ -17691,13 +17692,13 @@
 		AffectsEnemies = true
 		AffectsFriends = false
 		AffectsSelf = false
-		CheckUnitImpact = true
-		CheckObstacleImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		CheckObstacleImpactOnDetonation = false
 		UnlimitedUnitPenetration = true
 		NumPenetrations = 99999
 		Fuse = 0.15
 		DamageRadius = 9000
-		BlastDuration = 0.3
 		Damage = 999
 		Range = 1.0
 		DamageRadiusScaleY = 0.6
@@ -17705,7 +17706,6 @@
 		DamageRadiusScaleX = 1.175
 		ProjectileDefenseRadius = 0
 		UseVulnerability = false
-		ResetCollisionOutsideDetonation = true
 		HollowBlastRadiusBand = 8300
 		CanBeProjectileDefenseDestroyed = false
 		GroupName = "FX_Terrain"
@@ -18477,6 +18477,9 @@
 		AttachToOwner = true
 		RotateWithOwner = true
 		GroupName = "FX_Standing_Add"
+		IgnoreCoverageAngles = true
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
 		Thing =
 		{
 			Graphic = "ChronosGrindWallCharge"
@@ -18529,6 +18532,9 @@
 		RotateWithOwner = false
 		UnlimitedObstaclePenetration = false
 		MultipleUnitCollisions = false
+		IgnoreCoverageAngles = true
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
 		Thing =
 		{
 			Graphic = "ChronosGrindWallProjectile"
@@ -18577,6 +18583,9 @@
 		ImpactVelocity = 750
 		ImpactVelocityAngleOffset = -180
 		GroupName = "FX_Standing"
+		IgnoreCoverageAngles = true
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
 		Thing =
 		{
 			Graphic = "ChronosVacuumIn"
@@ -18753,7 +18762,7 @@
 		AffectsFriends = false
 		AffectsSelf = false
 		CheckUnitImpact = false
-		CheckObstacleImpact = true
+		CheckObstacleImpact = false
 		UseVulnerability = false
 		ReflectFx = "GrenadeBounceSpark"
 		DangerDistance = 0

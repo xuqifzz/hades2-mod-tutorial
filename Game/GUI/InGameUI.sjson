@@ -166,6 +166,23 @@
       Alpha = 1
     }
 
+    MiscErrorText =
+    {
+      X = 20
+      Y = 60
+      Justification = "Left"
+      VerticalJustification = "Left"
+      Font = "P22UndergroundSCMedium"
+      FontSize = 22
+      TextRed = 1
+      TextGreen = 1
+      TextBlue = 1
+      TextAlpha = 1
+      FadeOpacity = 0.5
+      FadeTarget = 0.5
+      Alpha = 1
+    }
+
     ElapsedRunTimeText =
     {
       X = 1820

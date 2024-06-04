@@ -8,9 +8,8 @@ LootSetData.Aphrodite =
 		GameStateRequirements =
 		{
 			{
-				Path = { "GameState", "CompletedRunsCache" },
-				Comparison = ">=",
-				Value = 1,
+				Path = { "GameState", "UseRecord" },
+				HasAny = { "PoseidonUpgrade", "DemeterUpgrade" }
 			},
 		},
 		UsePromptOffsetX = 80,

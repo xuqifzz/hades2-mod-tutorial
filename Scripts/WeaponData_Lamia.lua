@@ -77,6 +77,10 @@ WeaponSetData =
 			MoveWithinRange = false,
 			AttackDistance = 9999,
 			ForceUseIfReady = true,
+
+			RetreatAfterAttack = true,
+			RetreatBufferDistance = 1100,
+			RetreatTimeout = 1.5,
 		},
 
 		Sounds =

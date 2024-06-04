@@ -592,6 +592,9 @@ GlobalVoiceLines.ChronosUltimateVoiceLines =
 	},
 	TriggerCooldowns = { "ChronosSpokeRecently" },
 
+	{ Cue = "/VO/Chronos_0597", Text = "{#Emph}Rnngghh..." },
+	{ Cue = "/VO/Chronos_0598", Text = "{#Emph}How...?", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0599", Text = "Such power..." },
 	{ Cue = "/VO/Chronos_0442", Text = "Your time is {#Emph}up!" },
 	{ Cue = "/VO/Chronos_0443", Text = "The end is at hand!" },
 	{ Cue = "/VO/Chronos_0444", Text = "I have {#Emph}had {#Prev}it with you!" },
@@ -607,39 +610,106 @@ GlobalVoiceLines.ChronosUltimateVoiceLines =
 
 GlobalVoiceLines.ChronosSpellResistVoiceLines =
 {
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.15,
-	ObjectType = "Chronos",
-	GameStateRequirements =
+	-- while immune to TimeSlow
 	{
+		GameStateRequirements =
 		{
-			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
-			Comparison = ">=",
-			Value = 0.25,
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = { "SpellTimeSlowTrait" },
+			},
+			{
+				PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeSlowChronosFight" },
+			},
+		},
+		-- only the first time
+		{
+			PlayOnce = true,
+			PlayOnceContext = "TimeSlowFailedVoiceLines",
+			PreLineWait = 0.15,
+			UsePlayerSource = true,
+
+			{ Cue = "/VO/Melinoe_0714", Text = "What the?" },
+		},
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			SuccessiveChanceToPlayAll = 0.35,
+			PreLineWait = 0.2,
+			ObjectType = "Chronos",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+					Comparison = ">=",
+					Value = 0.15,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ChronosSpellReactionSpeech", Time = 50 },
+			},	
+			TriggerCooldowns = { "ChronosSpokeRecently" },
+
+			{ Cue = "/VO/Chronos_0339", Text = "How frightening." },
+			{ Cue = "/VO/Chronos_0340", Text = "{#Emph}Ooh{#Prev}, how fierce." },
+			{ Cue = "/VO/Chronos_0341", Text = "Oh dear." },
+			{ Cue = "/VO/Chronos_0342", Text = "Oh no...!" },
+			{ Cue = "/VO/Chronos_0343", Text = "Shall that be all?" },
+			{ Cue = "/VO/Chronos_0346", Text = "That shall not work..." },
+			{ Cue = "/VO/Chronos_0347", Text = "Embarrassing..." },
+			{ Cue = "/VO/Chronos_0348", Text = "Are you quite done?" },
+			{ Cue = "/VO/Chronos_0349", Text = "{#Emph}Uh-uh!" },
+			{ Cue = "/VO/Chronos_0350", Text = "Alas..." },
+			{ Cue = "/VO/Chronos_0014", Text = "I think not." },
+			{ Cue = "/VO/Chronos_0094", Text = "Oh, please..." },
+			{ Cue = "/VO/Chronos_0095", Text = "That shall not work.", PlayFirst = true },
+			{ Cue = "/VO/Chronos_0096", Text = "You waste your time." },
 		},
 	},
-	Cooldowns =
+	-- no longer immune to TimeSlow
 	{
-		{ Name = "ChronosSpellResistSpeech", Time = 20 },
-	},	
-	TriggerCooldowns = { "ChronosSpokeRecently" },
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		SuccessiveChanceToPlayAll = 0.5,
+		PreLineWait = 0.75,
+		ObjectType = "Chronos",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = { "SpellTimeSlowTrait" },
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeSlowChronosFight" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "ChronosSpellReactionSpeech", Time = 50 },
+		},	
+		TriggerCooldowns = { "ChronosSpokeRecently" },
 
-	{ Cue = "/VO/Chronos_0339", Text = "How frightening." },
-	{ Cue = "/VO/Chronos_0340", Text = "{#Emph}Ooh{#Prev}, how fierce." },
-	{ Cue = "/VO/Chronos_0341", Text = "Oh dear." },
-	{ Cue = "/VO/Chronos_0342", Text = "Oh no...!" },
-	{ Cue = "/VO/Chronos_0343", Text = "Shall that be all?" },
-	{ Cue = "/VO/Chronos_0346", Text = "That shall not work...", PlayFirst = true },
-	{ Cue = "/VO/Chronos_0347", Text = "Embarrassing..." },
-	{ Cue = "/VO/Chronos_0348", Text = "Are you quite done?" },
-	{ Cue = "/VO/Chronos_0349", Text = "{#Emph}Uh-uh!" },
-	{ Cue = "/VO/Chronos_0350", Text = "Alas..." },
-	{ Cue = "/VO/Chronos_0014", Text = "I think not." },
-	{ Cue = "/VO/Chronos_0094", Text = "Oh, please..." },
-	{ Cue = "/VO/Chronos_0095", Text = "That shall not work." },
-	{ Cue = "/VO/Chronos_0096", Text = "You waste your time." },
-	{ Cue = "/VO/Chronos_0097", Text = "Such youthful arrogance." },
+		{ Cue = "/VO/Chronos_0597", Text = "{#Emph}Rnngghh..." },
+		{ Cue = "/VO/Chronos_0598", Text = "{#Emph}How...?" },
+		{ Cue = "/VO/Chronos_0599", Text = "Such power..." },
+		{ Cue = "/VO/Chronos_0374", Text = "Mannerless child..." },
+		{ Cue = "/VO/Chronos_0375", Text = "Contemptuous child..." },
+		{ Cue = "/VO/Chronos_0376", Text = "Meddlesome brat!" },
+		{ Cue = "/VO/Chronos_0377", Text = "Scurrilous brat..." },
+		{ Cue = "/VO/Chronos_0378", Text = "Unrepentant scamp..." },
+		{ Cue = "/VO/Chronos_0379", Text = "You little scamp..." },
+		{ Cue = "/VO/Chronos_0380", Text = "You rascal...", PlayFirst = true },
+		{ Cue = "/VO/Chronos_0381", Text = "Incorrigible..." },
+		{ Cue = "/VO/Chronos_0384", Text = "Bothersome little..." },
+		{ Cue = "/VO/Chronos_0388", Text = "{#Emph}Hrn..." },
+		{ Cue = "/VO/Chronos_0391", Text = "How...?" },
+		{ Cue = "/VO/Chronos_0392", Text = "But..." },
+		{ Cue = "/VO/Chronos_0395", Text = "You would dare?" },
+		{ Cue = "/VO/Chronos_0397", Text = "Absurd..." },
+		{ Cue = "/VO/Chronos_0398", Text = "Preposterous..." },
+		{ Cue = "/VO/Chronos_0400", Text = "Ridiculous..." },
+	},
 }
 
 GlobalVoiceLines.ChronosSurpriseReactionVoiceLines =

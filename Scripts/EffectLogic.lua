@@ -331,6 +331,7 @@ function PolyphemusPlayerGrabClear( triggerArgs )
 	if CurrentRun.Hero.Weapons.WeaponLob then
 		UpdateWeaponAmmo( "WeaponLob", 0 )
 	end
+	UpdateWeaponMana()
 end
 
 function ZeusRepeatedStun( unit )
@@ -388,7 +389,6 @@ end
 
 function OmegaBuffApply( triggerArgs )
 	if not triggerArgs.Reapplied then
-	DebugObject = triggerArgs
 		AddOutgoingDamageModifier( CurrentRun.Hero, 
 		{
 			Name = "OmegaBuff",
@@ -407,11 +407,17 @@ function ClearCastApply( triggerArgs )
 	if not triggerArgs.Reapplied and victim == CurrentRun.Hero then
 		MapState.ClearCastWeapons = ToLookup(AddLinkedWeapons( WeaponSets.HeroAllWeapons ))
 		UpdateWeaponMana()
-		local clearCastSpeed = EffectData.ClearCast.ExChargeMultiplier
-		SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = victim.ObjectId, Property = "ChargeTime", Value = clearCastSpeed, ValueChangeType = "Multiply" })
-		SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = victim.ObjectId, Property = "ChargeTimeRemaining", Value = clearCastSpeed, ValueChangeType = "Multiply", DataValue = false })
-		SetWeaponProperty({ WeaponName = "WeaponCastArm", DestinationId = victim.ObjectId, Property = "ChargeTime", Value = clearCastSpeed, ValueChangeType = "Multiply" })
-		SetWeaponProperty({ WeaponName = "WeaponCastArm", DestinationId = victim.ObjectId, Property = "ChargeTimeRemaining", Value = clearCastSpeed, ValueChangeType = "Multiply", DataValue = false })
+		local effectData = EffectData[triggerArgs.EffectName]
+		local bonus = triggerArgs.Amount
+		if GetTotalHeroTraitValue("ClearCastDamageMultiplierOverride", {IsMultiplier = true}) then
+			bonus = GetTotalHeroTraitValue("ClearCastDamageMultiplierOverride", {IsMultiplier = true})
+		end
+		AddOutgoingDamageModifier( CurrentRun.Hero, 
+		{
+			Name = triggerArgs.EffectName,
+			ExMultiplier = bonus,
+			WeaponNames = WeaponSets.HeroAllWeapons,
+		})
 	end
 end
 
@@ -420,14 +426,8 @@ function ClearCastClear( triggerArgs )
 	if victim == CurrentRun.Hero then
 		MapState.ClearCastWeapons = nil
 		UpdateWeaponMana()
-		local clearCastSpeed = EffectData.ClearCast.ExChargeMultiplier
-		
 		thread( EndClearCastPresentation )
-		SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = victim.ObjectId, Property = "ChargeTime", Value = 1/clearCastSpeed, ValueChangeType = "Multiply" })
-		SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = victim.ObjectId, Property = "ChargeTimeRemaining", Value = 1/clearCastSpeed, ValueChangeType = "Multiply", DataValue = false })
-		SetWeaponProperty({ WeaponName = "WeaponCastArm", DestinationId = victim.ObjectId, Property = "ChargeTime", Value = 1/clearCastSpeed, ValueChangeType = "Multiply" })
-		SetWeaponProperty({ WeaponName = "WeaponCastArm", DestinationId = victim.ObjectId, Property = "ChargeTimeRemaining", Value = 1/clearCastSpeed, ValueChangeType = "Multiply", DataValue = false })
-
+		RemoveOutgoingDamageModifier( CurrentRun.Hero, triggerArgs.EffectName )
 		if ScreenAnchors.StaffUIChargeAmount then
 			SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, Fraction = 0, Instant = true })
 		end

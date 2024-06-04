@@ -9,7 +9,7 @@ WeaponSetData =
 			ProjectileName = "MournerRampage",
 
 			ChargeSelfVelocity = -2000,
-			FireTickSelfVelocity = 710,
+			FireTickSelfVelocity = 750,
 			
 			BarrelLength = -30,
 			NumProjectiles = 20,
@@ -28,7 +28,7 @@ WeaponSetData =
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.01,
 			AngleTowardsTargetWhileFiring = true,
-			FireRotationDampening = 0.09,
+			FireRotationDampening = 0.11,
 
 			AttackDistance = 400,
 			LoSBuffer = 200,
@@ -131,7 +131,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireTickSelfVelocity = 830,
+			FireTickSelfVelocity = 900,
 
 			PostAttackDurationMin = 3.1,
 			PostAttackDurationMax = 4.0,

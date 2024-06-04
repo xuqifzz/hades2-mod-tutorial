@@ -116,6 +116,11 @@ function CheckAutoEquipRequirements( requirementData )
 			return false
 		end
 	end
+	if requirementData.RequiredMetaUpgradesMin then
+		if totalMetaUpgrades < requirementData.RequiredMetaUpgradesMin then
+			return false
+		end
+	end
 	if requirementData.RequiredMetaUpgradesMax then
 		if totalMetaUpgrades > requirementData.RequiredMetaUpgradesMax then
 			return false
@@ -214,6 +219,9 @@ function CheckWeaponCastChannelSlow( weaponData, args )
 	if weaponData.CustomChannelSlowEvent and not skipWait then
 		waitUntil( weaponData.CustomChannelSlowEvent, RoomThreadName )
 	end	
+	if not GameState.Flags.UsedSlowAgainstChronos and CurrentRun.BossHealthBarRecord.Chronos then
+		GameState.Flags.UsedSlowAgainstChronos = true
+	end
 	GameplaySetElapsedTimeMultiplier({ ElapsedTimeMultiplier = args.Modifier, Name = weaponData.Name })
 	thread( EndWeaponCastChannelSlow, weaponData, args )
 end
@@ -246,13 +254,27 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 	end
 	thread( StartCastSlow, triggerArgs.ProjectileId, baseDuration )
 	SessionMapState.CastAttachedProjectiles[triggerArgs.ProjectileId] = attachedProjectileIds
-
+	SessionMapState.LastCastProjectileId = triggerArgs.ProjectileId
 	if weaponData.Name == "WeaponCast" and weaponData.UnarmedCastCompleteGraphic then
 		thread(CheckCastCompleteGraphic, weaponData)
 	end
 	if SessionMapState.ArmCast then
 		RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = "WeaponCastArm", Method = "ArmProjectiles" })
 		SessionMapState.ArmCast = nil
+		local interestedTraits = 
+		{
+		StaffSelfHitAspect = true,
+		}
+		for traitName in pairs( interestedTraits ) do
+			if HeroHasTrait(traitName) then
+				triggerArgs.DisjointExCast = true
+				local traitData = GetHeroTrait(traitName)
+				if traitData.OnWeaponFiredFunctions then
+					thread( CallFunctionName, traitData.OnWeaponFiredFunctions.FunctionName, weaponData, traitData.OnWeaponFiredFunctions.FunctionArgs, triggerArgs )
+				end
+				triggerArgs.DisjointExCast = false
+			end
+		end
 	end
 	if HeroHasTrait("HadesCastProjectileBoon") and triggerArgs.TargetId then
 		AttachProjectiles({ Ids = projectileIds, DestinationId = triggerArgs.TargetId })		
@@ -260,7 +282,7 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 	notifyExistingWaiters(weaponData.Name .. "Fired")
 end
 
-function StartCastSlow (projectileId, duration )
+function StartCastSlow( projectileId, duration )
 	local scaleX = GetProjectileDataValue({ Id = projectileId, Property = "DamageRadiusScaleX" })
 	local scaleY = GetProjectileDataValue({ Id = projectileId, Property = "DamageRadiusScaleY" })
 	while ProjectileExists({ Id = projectileId }) do
@@ -268,13 +290,21 @@ function StartCastSlow (projectileId, duration )
 		local location = GetLocation({ Id = projectileId, IsProjectile = true })
 		local destinationId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = location.X, LocationY = location.Y, Group = "Scripting"})
 		local ids = GetClosestIds({ Id = destinationId, Distance = radius, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, ScaleX = scaleX, ScaleY = scaleY, PreciseCollision = true })
-		for _, id in pairs(ids) do
-			local effectNames = { "ImpactSlow", "ImpactGrip" }
-			for _, effectName in pairs(effectNames) do
-				ApplyEffect({ DestinationId = id, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = EffectData[effectName].DataProperties })
+		for _, id in pairs( ids ) do
+			local victim = ActiveEnemies[id]
+			if victim ~= nil then
+				local effectNames = { "ImpactSlow", "ImpactGrip" }
+				for _, effectName in pairs( effectNames ) do
+					local dataProperties = ShallowCopyTable(EffectData[effectName].DataProperties)
+					if victim.IgnoreCastSlow then
+						dataProperties.Type = "TAG"
+						dataProperties.HaltOnStart = false
+					end
+					ApplyEffect({ DestinationId = id, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
+				end
 			end
 		end
-		if not IsEmpty(GetInProjectilesBlast({ Id = CurrentRun.Hero.ObjectId, DestinationName = "ProjectileCast", UseDamageRadius = true })) then
+		if not IsEmpty( GetInProjectilesBlast({ Id = CurrentRun.Hero.ObjectId, DestinationName = "ProjectileCast", UseDamageRadius = true }) ) then
 			local effectName = "InsideCastBuff"
 			ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = EffectData[effectName].DataProperties })
 		end
@@ -283,7 +313,7 @@ function StartCastSlow (projectileId, duration )
 	end
 end
 
-function RefreshImpactSlow ( victim, victimId, triggerArgs )
+function RefreshImpactSlow( victim, victimId, triggerArgs )
 	local effectNames = { "ImpactSlow", "ImpactGrip" }
 	for _, effectName in pairs(effectNames) do
 		ApplyEffect({ DestinationId = victimId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = EffectData[effectName].DataProperties })

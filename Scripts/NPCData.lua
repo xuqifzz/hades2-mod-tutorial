@@ -2381,6 +2381,7 @@
 				GameStateRequirements =
 				{
 					NamedRequirements = { "LastStandAvailable", },
+					NotMaxLastStands = true,
 				},
 			},
 			{ Name = "HitShieldDrop" },
@@ -2401,6 +2402,7 @@
 				GameStateRequirements =
 				{
 					NamedRequirements = { "LastStandAvailable", },
+					NotMaxLastStands = true,
 				},
 			},
 			{ Name = "StackUpgradeBig",

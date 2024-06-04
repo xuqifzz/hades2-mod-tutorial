@@ -661,8 +661,6 @@ GameData.RunClearMessageData =
 					"ChaosLastStandBlessing",
 					"ChaosManaBlessing",
 					"ChaosManaOverTimeBlessing",
-					--"ChaosWeaponBaseBlessing",
-					--"ChaosSpecialBaseBlessing",
 					"ChaosExSpeedBlessing",
 					"ChaosElementalBlessing",
 					"ChaosManaCostBlessing",
@@ -1079,6 +1077,9 @@ ScreenData.RunClear =
 		DemeterUpgradeRoomWeapon = "NPC_Demeter_01",
 		AphroditeUpgradeRoomWeapon = "NPC_Aphrodite_01",
 		HephaestusUpgradeRoomWeapon = "NPC_Hephaestus_01",
+
+		-- Bosses
+		HecateCopy = "NPC_Hecate_01",
 	},
 
 	DamageSourceTextOverrides =

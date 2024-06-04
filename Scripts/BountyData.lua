@@ -5,7 +5,6 @@ BountyData =
 	{
 		DebugOnly = true,
 		Category = "PackagedBounty",
-		RequireActiveForRun = true,
 		EndRunOnCompletion = true,
 		Repeatable = false,
 		IsPackagedBounty = true,
@@ -2694,18 +2693,24 @@ BountyData =
 			MaxGodsPerRun = 1,
 			LootTypeHistory =
 			{
-				AphroditeUpgrade = 5,
+				AphroditeUpgrade = 9,
+				WeaponUpgrade = 2,
 			},
 		},
 
 		StartingTraits =
 		{
 			{ Name = "AphroditeWeaponBoon", Rarity = "Epic", },
+			{ Name = "AphroditeSpecialBoon", Rarity = "Epic", },
 			{ Name = "AphroditeSprintBoon", Rarity = "Epic", },
 			{ Name = "AphroditeManaBoon", Rarity = "Heroic", },
 			{ Name = "FocusRawDamageBoon", Rarity = "Epic", },
 			{ Name = "WeakVulnerabilityBoon", Rarity = "Epic", },
 			{ Name = "HealthRewardBonusBoon", Rarity = "Heroic", },
+			{ Name = "DoorHealToFullBoon", Rarity = "Epic", },
+			{ Name = "WeakPotencyBoon", Rarity = "Epic", },
+			{ Name = "TorchEnhancedAttackTrait", },
+			{ Name = "TorchSpecialImpactTrait", },
 			{ Name = "RoomRewardMaxManaTrait", },
 			{ Name = "RoomRewardMaxManaTrait", },
 		},
@@ -2765,6 +2770,7 @@ BountyData =
 						},
 					}
 				},
+				--[[
 				{
 					Name = "WeaponUpgrade",
 					GameStateRequirements =
@@ -2777,6 +2783,7 @@ BountyData =
 						},
 					}
 				},
+				]]
 				{
 					Name = "HermesUpgrade",
 					GameStateRequirements =
@@ -3283,7 +3290,7 @@ BountyData =
 			LootTypeHistory =
 			{
 				HermesUpgrade = 2,
-				ApolloUpgrade = 4,
+				ApolloUpgrade = 6,
 				PoseidonUpgrade = 2,
 				WeaponUpgrade = 1,
 			},
@@ -3297,8 +3304,10 @@ BountyData =
 			{ Name = "PoseidonManaBoon", Rarity = "Epic", },
 			{ Name = "PerfectDamageBonusBoon", Rarity = "Epic", },
 			{ Name = "DoubleStrikeChanceBoon", Rarity = "Epic", },
+			{ Name = "BlindChanceBoon", Rarity = "Epic", },
+			{ Name = "ApolloBlindBoon", Rarity = "Epic", },
 			{ Name = "HermesWeaponBoon", Rarity = "Epic", },
-			{ Name = "HermesSpecialBoon", Rarity = "Epic", },
+			{ Name = "DodgeChanceBoon", Rarity = "Epic", },
 			{ Name = "StaffOneWayAttackTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
@@ -3315,6 +3324,7 @@ BountyData =
 		{
 			RunProgress =
 			{
+				--[[
 				{
 					Name = "MaxHealthDrop",
 					GameStateRequirements =
@@ -3329,6 +3339,7 @@ BountyData =
 						-- None
 					},
 				},
+				]]
 				{
 					Name = "RoomMoneyDrop",
 					GameStateRequirements =
@@ -4389,7 +4400,6 @@ BountyData =
 	{
 		DebugOnly = true,
 		Category = "BountyRandom",
-		RequireActiveForRun = true,
 		Repeatable = true,
 		IsPackagedBounty = true,
 		LootDelay = 2.0,

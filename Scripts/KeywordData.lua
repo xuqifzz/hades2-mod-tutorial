@@ -20,6 +20,7 @@ KeywordList =
 	"HoldAlt",
 	"HoldNoTooltip",
 	"Omega",
+	"OmegaAlt",
 	"WeaponSet",
 	"PowerShotSpecial",
 	"DashStrike",
@@ -226,7 +227,9 @@ KeywordList =
 
 	-- Aspects
 	"ClearCastBuff",
-	"SelfHitBuff",
+	"ClearCastBuffAlt",
+	"ThanatosAspectBuff",
+	"EosAspectShot",
 	"DaggerBlockBuff",
 	"Fuel",
 

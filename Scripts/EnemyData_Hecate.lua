@@ -32,6 +32,7 @@
 		LastHitAnimation = "HecateLastHit",
 		InvulnerableFx = "Invincibubble_Hecate",
 		ClearChillOnDeath = true,
+		IgnoreCastSlow = true,
 
 		Material = "Organic",
 		HealthBarTextId = "Hecate_Full",

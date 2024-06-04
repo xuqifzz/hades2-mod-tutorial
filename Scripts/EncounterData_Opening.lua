@@ -541,6 +541,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
+			Append = true,
 			{
 				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
 				Comparison = "<",
@@ -710,11 +711,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "ZombieAssassinIntro" }
 			}
@@ -744,11 +741,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "MudmanIntro" }
 			}
@@ -793,11 +786,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "MudmanIntro" }
 			}
@@ -842,11 +831,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "ZombieSpawnerIntro" }
 			}
@@ -877,11 +862,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "ZombieSpawnerIntro" }
 			}
@@ -925,11 +906,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "BaseHubReturn" },
 		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
-				Comparison = ">=",
-				Value = 1,
-			},
+			Append = true,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "ZombieHeavyRangedIntro" }
 			}

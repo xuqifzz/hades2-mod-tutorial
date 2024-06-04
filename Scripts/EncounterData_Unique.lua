@@ -88,6 +88,13 @@ OverwriteTableKeys( EncounterData,
 	Shop =
 	{
 		InheritFrom = { "NonCombat" },
+		TimerBlock = "ShopEncounter",
+		TimerBlockRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "CurrentRoom", "StoreDataName" },
+			}
+		},
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
 		StartRoomUnthreadedEvents =
 		{

@@ -179,12 +179,72 @@
 
 		PriorityUpgrades = {},
 		WeaponUpgrades = {},
-		Traits = {
-			"StaffDoubleAttackTrait", "StaffLongAttackTrait", "StaffDashAttackTrait", "StaffTripleShotTrait", "StaffJumpSpecialTrait", "StaffExAoETrait", "StaffAttackRecoveryTrait", "StaffFastSpecialTrait", "StaffExHealTrait", "StaffSecondStageTrait", "StaffPowershotTrait", "StaffOneWayAttackTrait",
-			"DaggerBlinkAoETrait", "DaggerSpecialJumpTrait", "DaggerSpecialLineTrait", "DaggerRapidAttackTrait", "DaggerSpecialConsecutiveTrait", "DaggerBackstabTrait", "DaggerSpecialReturnTrait", "DaggerSpecialFanTrait", "DaggerAttackFinisherTrait", "DaggerFinalHitTrait", "DaggerChargeStageSkipTrait",
-			"AxeSpinSpeedTrait", "AxeChargedSpecialTrait", "AxeAttackRecoveryTrait", "AxeMassiveThirdStrikeTrait", "AxeThirdStrikeTrait", "AxeRangedWhirlwindTrait", "AxeFreeSpinTrait", "AxeArmorTrait", "AxeConsecutiveStrikeTrait", "AxeBlockEmpowerTrait", "AxeSecondStageTrait", "AxeDashAttackTrait", "AxeSturdyTrait",
-			"TorchExSpecialCountTrait", "TorchSpecialSpeedTrait", "TorchAttackSpeedTrait", "TorchSpecialLineTrait", "TorchSpecialImpactTrait", "TorchMoveSpeedTrait", "TorchSplitAttackTrait", "TorchEnhancedAttackTrait", "TorchDiscountExAttackTrait", "TorchLongevityTrait", "TorchOrbitPointTrait", --[["TorchSpinAttackTrait", ]]
-			"LobAmmoTrait", "LobAmmoMagnetismTrait", "LobRushArmorTrait", "LobSpreadShotTrait", "LobSpecialSpeedTrait", "LobSturdySpecialTrait", "LobOneSideTrait", "LobInOutSpecialExTrait", "LobStraightShotTrait", "LobPulseAmmoTrait", "LobPulseAmmoCollectTrait", "LobGrowthTrait",
+		Traits =
+		{
+			"StaffDoubleAttackTrait",
+			"StaffLongAttackTrait",
+			"StaffDashAttackTrait",
+			"StaffTripleShotTrait",
+			"StaffJumpSpecialTrait",
+			"StaffExAoETrait",
+			"StaffAttackRecoveryTrait",
+			"StaffFastSpecialTrait",
+			"StaffExHealTrait",
+			"StaffSecondStageTrait",
+			"StaffPowershotTrait",
+			"StaffOneWayAttackTrait",
+
+			"DaggerBlinkAoETrait",
+			"DaggerSpecialJumpTrait",
+			"DaggerSpecialLineTrait",
+			"DaggerRapidAttackTrait",
+			"DaggerSpecialConsecutiveTrait",
+			"DaggerBackstabTrait",
+			"DaggerSpecialReturnTrait",
+			"DaggerSpecialFanTrait",
+			"DaggerAttackFinisherTrait",
+			"DaggerFinalHitTrait",
+			"DaggerChargeStageSkipTrait",
+			"DaggerDashAttackTripleTrait",
+
+			"AxeSpinSpeedTrait",
+			"AxeChargedSpecialTrait",
+			"AxeAttackRecoveryTrait",
+			"AxeMassiveThirdStrikeTrait",
+			"AxeThirdStrikeTrait",
+			"AxeRangedWhirlwindTrait",
+			"AxeFreeSpinTrait",
+			"AxeArmorTrait",
+			"AxeBlockEmpowerTrait",
+			"AxeSecondStageTrait",
+			"AxeDashAttackTrait",
+			"AxeSturdyTrait",
+
+			"TorchExSpecialCountTrait",
+			"TorchSpecialSpeedTrait",
+			"TorchAttackSpeedTrait",
+			"TorchSpecialLineTrait",
+			"TorchSpecialImpactTrait",
+			"TorchMoveSpeedTrait",
+			"TorchSplitAttackTrait",
+			"TorchEnhancedAttackTrait",
+			"TorchDiscountExAttackTrait",
+			"TorchLongevityTrait",
+			"TorchOrbitPointTrait",
+			"TorchSpinAttackTrait",
+
+			"LobAmmoTrait",
+			"LobAmmoMagnetismTrait",
+			"LobRushArmorTrait",
+			"LobSpreadShotTrait",
+			"LobSpecialSpeedTrait",
+			"LobSturdySpecialTrait",
+			"LobOneSideTrait",
+			"LobInOutSpecialExTrait",
+			"LobStraightShotTrait",
+			"LobPulseAmmoTrait",
+			"LobPulseAmmoCollectTrait",
+			"LobGrowthTrait",
 		},
 		Consumables = {},
 
@@ -851,7 +911,7 @@ RewardStoreData =
 				NamedRequirements = { "GiftDropLootRequirements" },
 			},
 		},
-				
+
 		{
 			Name = "MetaCurrencyDrop",
 			GameStateRequirements =
@@ -884,34 +944,183 @@ RewardStoreData =
 				},
 			},
 		},
+
+		-- Ash
 		{
 			Name = "MetaCardPointsCommonDrop",
 			GameStateRequirements =
 			{
-				-- None
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
 			},
 		},
 		{
 			Name = "MetaCardPointsCommonDrop",
 			GameStateRequirements =
 			{
-				-- None
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
 			},
 		},
 		{
 			Name = "MetaCardPointsCommonDrop",
 			GameStateRequirements =
 			{
-				-- None
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
 			},
 		},
 		{
 			Name = "MetaCardPointsCommonDrop",
 			GameStateRequirements =
 			{
-				-- None
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
 			},
 		},
+
+		{
+			Name = "MetaCardPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = "<",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = "<",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = "<",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = "<",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+			},
+		},
+		{
+			Name = "MetaCardPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 100,
+				},
+			},
+		},
+
+		-- Psyche
 		{
 			Name = "MemPointsCommonDrop",
 			GameStateRequirements =
@@ -920,6 +1129,11 @@ RewardStoreData =
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
 					Value = 5,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
 				},
 			},
 		},
@@ -932,16 +1146,10 @@ RewardStoreData =
 					Comparison = ">=",
 					Value = 5,
 				},
-			},
-		},
-		{
-			Name = "MemPointsCommonDrop",
-			GameStateRequirements =
-			{
 				{
-					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
-					Comparison = ">=",
-					Value = 5,
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
 				},
 			},
 		},
@@ -953,6 +1161,197 @@ RewardStoreData =
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
 					Value = 5,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 1,
+				},
+			},
+		},
+
+		{
+			Name = "MemPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = "<",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = "<",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = "<",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = "<",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+
+		{
+			Name = "MemPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
+				},
+			},
+		},
+		{
+			Name = "MemPointsCommonBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 5,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 200,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 1,
 				},
 			},
 		},

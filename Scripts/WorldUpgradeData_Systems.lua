@@ -20,12 +20,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_2539", Text = "The Nocturnal Arms still are holding something back..." },
 		},
 
@@ -57,12 +55,10 @@ OverwriteTableKeys( WorldUpgradeData,
 		},
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3488", Text = "Our Altar can be purified..." },
 		},
 
@@ -104,12 +100,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3444", Text = "Through the knowledge of Almighty Chaos, I can see into the void..." },
 		},
 
@@ -140,12 +134,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3410", Text = "The incantation that Headmistress taught to me..." },
 		},
 

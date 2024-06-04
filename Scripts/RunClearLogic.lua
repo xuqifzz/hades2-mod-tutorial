@@ -75,14 +75,14 @@ function OpenRunClearScreen()
 		end
 
 		local damageSourceComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX, Y = damageLocationY })
-		screen.Components["DamageSource"..damageRecordItem.SourceName] = damageSourceComponent
+		screen.Components["DamageDealtSource"..damageRecordItem.SourceName] = damageSourceComponent
 		local damageSourceFormat = ShallowCopyTable( screen.DamageSourceFormat )
 		damageSourceFormat.Id = damageSourceComponent.Id
 		damageSourceFormat.Text = screen.DamageSourceTextOverrides[damageRecordItem.SourceName] or damageRecordItem.SourceName
 		CreateTextBox( damageSourceFormat )
 
 		local damageAmountComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX + screen.DamageDealtAmountOffsetX, Y = damageLocationY })
-		screen.Components["DamageAmount"..damageRecordItem.SourceName] = damageAmountComponent
+		screen.Components["DamageDealtAmount"..damageRecordItem.SourceName] = damageAmountComponent
 		local damageAmountFormat = ShallowCopyTable( screen.DamageAmountFormat )
 		damageAmountFormat.Id = damageAmountComponent.Id
 		damageAmountFormat.Text = round(damageRecordItem.Amount)
@@ -114,14 +114,14 @@ function OpenRunClearScreen()
 		end
 
 		local damageSourceComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX, Y = damageLocationY })
-		screen.Components["DamageSource"..damageRecordItem.SourceName] = damageSourceComponent
+		screen.Components["DamageTakenSource"..damageRecordItem.SourceName] = damageSourceComponent
 		local damageSourceFormat = ShallowCopyTable( screen.DamageSourceFormat )
 		damageSourceFormat.Id = damageSourceComponent.Id
 		damageSourceFormat.Text = screen.DamageSourceTextOverrides[damageRecordItem.SourceName] or damageRecordItem.SourceName
 		CreateTextBox( damageSourceFormat )
 
 		local damageAmountComponent = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Text", X = damageLocationX + screen.DamageDealtAmountOffsetX, Y = damageLocationY })
-		screen.Components["DamageAmount"..damageRecordItem.SourceName] = damageAmountComponent
+		screen.Components["DamageTakenAmount"..damageRecordItem.SourceName] = damageAmountComponent
 		local damageAmountFormat = ShallowCopyTable( screen.DamageAmountFormat )
 		damageAmountFormat.Id = damageAmountComponent.Id
 		damageAmountFormat.Text = round(damageRecordItem.Amount)

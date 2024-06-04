@@ -152,7 +152,7 @@
 		WeaponCast = true,
 	},
 
-	MaxGodsPerRun = 3,
+	MaxGodsPerRun = 4,
 
 	BoonData =
 	{
@@ -982,7 +982,7 @@ HeroVoiceLines =
 	{
 		BreakIfPlayed = true,
 		RandomRemaining = true,
-		PreLineWait = 0.7,
+		PreLineWait = 0.3,
 		-- SuccessiveChanceToPlayAll = 0.33,
 		Cooldowns =
 		{
@@ -5028,9 +5028,10 @@ HeroVoiceLines =
 	{
 		-- @ update with additional requirements
 		{
+			Queue = "Interrupt",
 			RandomRemaining = true,
 			BreakIfPlayed = true,
-			PreLineWait = 2.0,
+			PreLineWait = 1.85,
 			SuccessiveChanceToPlayAll = 0.1,
 			PlayOnceFromTableThisRun = true,
 			PlayOnceContext = "FamilyPortraitVO",

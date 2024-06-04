@@ -3198,6 +3198,22 @@
       Scale = 0.5
     }
     {
+      Name = "MetaCardPointsCommonBigDrop"
+      InheritFrom = "MetaCardPointsCommonDrop"
+      Scale = 0.4
+      OffsetX = -20
+      OffsetY = -10
+      ChildAnimation = "MetaCardPointsCommonBigDropOffset"
+    }
+    {
+      Name = "MetaCardPointsCommonBigDropOffset"
+      InheritFrom = "MetaCardPointsCommonDrop"
+      OffsetX = 20
+      OffsetY = 10
+      Scale = 0.4
+    }
+
+    {
       Name = "MetaCardPointsCommonShop"
       InheritFrom = "MetaCardPointsCommonDrop"
       ClearCreateAnimations = true
@@ -3445,6 +3461,21 @@
       InheritFrom = "MemPointsCommonDrop"
 
       Sound = null
+    }
+    {
+      Name = "MemPointsCommonBigDrop"
+      InheritFrom = "MemPointsCommonDrop"
+      Scale = 0.4
+      OffsetX = -20
+      OffsetY = -10
+      ChildAnimation = "MemPointsCommonBigDropOffset"
+    }
+    {
+      Name = "MemPointsCommonBigDropOffset"
+      InheritFrom = "MemPointsCommonDrop"
+      OffsetX = 20
+      OffsetY = 10
+      Scale = 0.4
     }
 
     {
@@ -9712,11 +9743,23 @@
       PlaySpeed = 30
       Material = "Unlit"
       ChainTo = "StaffReloadTimerReadyLoop"
+      Sound = "/SFX/Menu Sounds/MenuMagicFlashLong"
+    }
+    {
+      Name = "StaffReloadTimerReady_Silent"
+      FilePath = "GUI\HUD\StaffChargeReady\StaffChargeReady"
+      NumFrames = 10
+      StartFrame = 1
+      PlaySpeed = 30
+      Material = "Unlit"
+      ChainTo = "StaffReloadTimerReadyLoop"
+      Sound = null
     }
 
     {
       Name = "StaffReloadTimerReadyLoop"
       InheritFrom = "StaffReloadTimerReady"
+      Sound = null
       NumFrames = 20
       StartFrame = 10
       Loop = true
@@ -10164,6 +10207,141 @@
 		InheritFrom = "KeepsakeIcon"
 		FilePath = "GUI\Screens\AwardMenu\Keepsake_26"
 	}
+    {
+		Name = "Keepsake_27"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_27"
+	}
+	{
+		Name = "Keepsake_28"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_28"
+	}
+	{
+		Name = "Keepsake_29"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_29"
+	}
+	{
+		Name = "Keepsake_30"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_30"
+	}
+	{
+		Name = "Keepsake_31"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_31"
+	}
+	{
+		Name = "Keepsake_32"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_32"
+	}
+	{
+		Name = "Keepsake_33"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_33"
+	}
+	{
+		Name = "Keepsake_34"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_34"
+	}
+	{
+		Name = "Keepsake_35"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_35"
+	}
+	{
+		Name = "Keepsake_36"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_36"
+	}
+	{
+		Name = "Keepsake_37"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_37"
+	}
+	{
+		Name = "Keepsake_38"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_38"
+	}
+	{
+		Name = "Keepsake_39"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_39"
+	}
+	{
+		Name = "Keepsake_40"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_40"
+	}
+	{
+		Name = "Keepsake_41"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_41"
+	}
+	{
+		Name = "Keepsake_42"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_42"
+	}
+	{
+		Name = "Keepsake_43"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_43"
+	}
+	{
+		Name = "Keepsake_44"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_44"
+	}
+	{
+		Name = "Keepsake_45"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_45"
+	}
+	{
+		Name = "Keepsake_46"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_46"
+	}
+	{
+		Name = "Keepsake_47"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_47"
+	}
+	{
+		Name = "Keepsake_48"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_48"
+	}
+	{
+		Name = "Keepsake_49"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_49"
+	}
+	{
+		Name = "Keepsake_50"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_50"
+	}
+	{
+		Name = "Keepsake_51"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_51"
+	}
+	{
+		Name = "Keepsake_52"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_52"
+	}
+	{
+		Name = "Keepsake_53"
+		InheritFrom = "KeepsakeIcon"
+		FilePath = "GUI\Screens\AwardMenu\Keepsake_53"
+	}
 		 
     {
       Name = "KeepsakeMax_Corner"
@@ -10215,127 +10393,156 @@
     }
 
     {
-      Name = "Shop_Vial"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_02"
-      EndFrame = 1
-      StartFrame = 1
-    }   
+		Name = "Shop_Vial"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_36"
+		EndFrame = 1
+		StartFrame = 1
+	}	
 
-    {
-      Name = "Shop_Stein"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_03"
-      EndFrame = 1
-      StartFrame = 1
-    }
+	{
+		Name = "Shop_Stein"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_33"
+		EndFrame = 1
+		StartFrame = 1
+	}
 
-    {
-      Name = "Shop_Sweet_Jerky"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_04"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Jerky"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_05"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Soul"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_06"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Jug"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_07"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Vase"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_08"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Pearl"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_09"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Braid"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_10"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Yarn"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_11"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Lamp"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_12"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Twist"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_13"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_Gold_Blood"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_14"
-      EndFrame = 1
-      StartFrame = 1
-    }
+	{
+		Name = "Shop_Seal"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_37"
+		EndFrame = 1
+		StartFrame = 1
+	}
 
-    {
-      Name = "Shop_MetaCurrencyRange"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_15"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_MetaCardPointsCommonRange"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_16"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_MemPointsCommonRange"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_16"
-      EndFrame = 1
-      StartFrame = 1
-    }
-    {
-      Name = "Shop_SeedMysteryRange"
-      InheritFrom = "BoonIcon"
-      FilePath = "GUI\Screens\ShopIcons\Shop_17"
-      EndFrame = 1
-      StartFrame = 1
-    }
+	{
+		Name = "Shop_Sweet_Jerky"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_35"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Hope"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_44"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Mark"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_46"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Scales"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_45"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Soul"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_28"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Jug"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_30"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Vase"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_29"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Pearl"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_09"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Braid"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_34"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Yarn"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_32"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Lamp"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_43"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Twist"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_31"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Deal"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_42"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_Gold_Blood"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_27"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "Shop_MetaCurrencyRange"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_40"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_MetaCardPointsCommonRange"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_39"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_MemPointsCommonRange"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_38"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "Shop_SeedMysteryRange"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\ShopIcons\Shop_41"
+		EndFrame = 1
+		StartFrame = 1
+	}
     
     {
       Name = "ShopTrayIcon"
@@ -10445,6 +10652,22 @@
       EndFrame = 1
       StartFrame = 1
     }
+
+    {
+		Name = "Frame_Keepsake_Rank1"
+		InheritFrom = "Menu_Frame"
+		FilePath = "GUI\Screens\AwardMenu\keepsake_frame_1"
+	}
+	{
+		Name = "Frame_Keepsake_Rank2"
+		InheritFrom = "Menu_Frame"
+		FilePath = "GUI\Screens\AwardMenu\keepsake_frame_2"
+	}
+	{
+		Name = "Frame_Keepsake_Rank3"
+		InheritFrom = "Menu_Frame"
+		FilePath = "GUI\Screens\AwardMenu\keepsake_frame_3"
+	}
 
     {
       Name = "Frame_Boon_Menu_Enchantment"
@@ -17248,6 +17471,21 @@
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerAxe_39"
 	}
+    {
+		Name = "Hammer_Axe_40"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_40"
+	}
+	{
+		Name = "Hammer_Axe_41"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_41"
+	}
+	{
+		Name = "Hammer_Axe_42"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerAxe_42"
+	}
 		 
 	{
 		Name = "Hammer_Daggers_01"
@@ -17590,6 +17828,97 @@
     InheritFrom = "BoonIcon"
     FilePath = "GUI\Screens\BoonIcons\HammerDaggers_37"
   }
+  {
+		Name = "Hammer_Daggers_38"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_38"
+	}
+	{
+		Name = "Hammer_Daggers_39"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_39"
+	}
+	{
+		Name = "Hammer_Daggers_40"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerDaggers_40"
+	}
+
+  {
+		Name = "Hammer_Lob_01"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_01"
+	}
+	{
+		Name = "Hammer_Lob_02"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_02"
+	}
+	{
+		Name = "Hammer_Lob_03"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_03"
+	}
+	{
+		Name = "Hammer_Lob_04"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_04"
+	}
+	{
+		Name = "Hammer_Lob_05"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_05"
+	}
+	{
+		Name = "Hammer_Lob_06"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_06"
+	}
+	{
+		Name = "Hammer_Lob_07"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_07"
+	}
+	{
+		Name = "Hammer_Lob_08"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_08"
+	}
+	{
+		Name = "Hammer_Lob_09"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_09"
+	}
+	{
+		Name = "Hammer_Lob_10"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_10"
+	}
+	{
+		Name = "Hammer_Lob_11"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_11"
+	}
+	{
+		Name = "Hammer_Lob_12"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_12"
+	}
+    {
+		Name = "Hammer_Lob_13"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_13"
+	}
+	{
+		Name = "Hammer_Lob_14"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_14"
+	}
+	{
+		Name = "Hammer_Lob_15"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerLob_15"
+	}
 		 
 	{
 		Name = "Hammer_Staff_01"
@@ -17937,23 +18266,22 @@
     InheritFrom = "BoonIcon"
     FilePath = "GUI\Screens\BoonIcons\HammerStaff_38"
   }
+  {
+		Name = "Hammer_Staff_39"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_39"
+	}
+	{
+		Name = "Hammer_Staff_40"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_40"
+	}
+	{
+		Name = "Hammer_Staff_41"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerStaff_41"
+	}
 
-  {
-    Name = "Hammer_Skull_01"
-    InheritFrom = "BoonIcon"
-    FilePath = "GUI\Screens\BoonIcons\HammerSkull_01"
-  }
-  {
-    Name = "Hammer_Skull_02"
-    InheritFrom = "BoonIcon"
-    FilePath = "GUI\Screens\BoonIcons\HammerSkull_02"
-  }
-  {
-    Name = "Hammer_Skull_03"
-    InheritFrom = "BoonIcon"
-    FilePath = "GUI\Screens\BoonIcons\HammerSkull_03"
-  }
-		 
 	{
 		Name = "Hammer_Torch_01"
 		InheritFrom = "BoonIcon"
@@ -18299,6 +18627,21 @@
 		Name = "Hammer_Torch_38"
 		InheritFrom = "BoonIcon"
 		FilePath = "GUI\Screens\BoonIcons\HammerTorch_38"
+	}
+    {
+		Name = "Hammer_Torch_39"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerTorch_39"
+	}
+	{
+		Name = "Hammer_Torch_40"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerTorch_40"
+	}
+	{
+		Name = "Hammer_Torch_41"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\HammerTorch_41"
 	}
 		 
 	{
@@ -21461,6 +21804,20 @@
     GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
     AngleFromOwner = "Ignore"
     Sound = "/SFX/SeleneMoonPickup"
+  }
+
+  {
+    Name = "CursorReappear"
+    FilePath = "GUI\HUD\StaffChargeReady\StaffChargeReady"
+    GroupName = "Combat_Menu_TraitTray_Overlay"
+    LocationFromOwner = "Ignore"
+    LocationZFromOwner = "Ignore"
+    OffsetX = 7
+    OffsetY = 9
+    NumFrames = 10
+    StartFrame = 1
+    PlaySpeed = 30
+    Material = "Unlit"
   }
 
   {

@@ -28,12 +28,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_2609", Text = "I need pure Shadow to permeate the surface wards... so what if...?" },
 		},
 
@@ -85,12 +83,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3144", Text = "With this Star Dust I could form an immutable bond with a beast that has affinity for me..." }
 		},
 

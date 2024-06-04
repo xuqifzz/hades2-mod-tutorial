@@ -1176,6 +1176,7 @@ MetaUpgradeCardData =
 		AutoEquipRequirements = 
 		{
 			MaxDuplicateCount = 2,
+			RequiredMetaUpgradesMin = 1,
 		},
 		TraitName = "DuoRarityBoostMetaUpgrade",
 		CustomTrayText = "DuoRarityBoostMetaUpgrade_Tray",
@@ -1475,6 +1476,7 @@ MetaUpgradeCardData =
 		AutoEquipRequirements = 
 		{
 			RequiredMetaUpgradesMax = 3,
+			RequiredMetaUpgradesMin = 1,
 		},
 
 		UpgradeResourceCost = 

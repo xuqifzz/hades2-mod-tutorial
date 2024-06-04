@@ -99,6 +99,13 @@ OverwriteTableKeys( ResourceData, {
 		TooltipId = "MixerIBossIcon",
 		CostTextId = "MixerIBoss_Short",
 
+		RevealGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesRevealed", "WorldUpgradePauseChronosFight" },
+			},
+		},
+
 		OnAddVoiceLines =
 		{
 			{

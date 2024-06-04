@@ -8,6 +8,7 @@ function ShowBoonInfoScreen( lootName, codexScreen, codexEntryName, codexEntryDa
 	local screen = DeepCopyTable( ScreenData.BoonInfo )
 	screen.LootName = lootName
 	screen.CodexScreen = codexScreen
+	screen.CodexEntryName = codexEntryName
 	screen.CodexEntryData = codexEntryData
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
@@ -38,7 +39,10 @@ function CreateBoonInfoButtons( screen )
 	-- Destroy previous buttons
 	local ids = {}
 	for i, traitContainer in pairs( screen.TraitContainers ) do
-		ids = ConcatTableValues( ids, { traitContainer.QuestIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id, traitContainer.TitleBox.Id, traitContainer.Frame.Id })
+		ids = ConcatTableValues( ids, { traitContainer.QuestIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id, traitContainer.TitleBox.Id })
+		if traitContainer.Frame ~= nil then
+			table.insert( ids, traitContainer.Frame.Id )
+		end
 		for i, component in pairs( traitContainer.Components ) do
 			table.insert( ids, component.Id )
 		end
@@ -75,24 +79,28 @@ function CreateBoonInfoButton( screen, traitName, index )
 
 	screen.Components["BooninfoButton"..index] = traitInfo
 
+	local rarity = "Common"
+	local traitData = TraitData[traitName]
+	if traitData ~= nil then
+		if traitData.TalentCategory then
+			if traitData.TalentCategory == "Unique" then
+				rarity = "Rare"
+				overrideRarityName = "TraitLevel_TalentLvl2"
+			elseif traitData.TalentCategory == "Legendary" then
+				rarity = "Epic"
+				overrideRarityName = "TraitLevel_TalentLvl3"
+			end
+		elseif traitData.IsDuoBoon then
+			rarity = "Duo"
+		elseif traitData.RarityLevels ~= nil and traitData.RarityLevels.Legendary then
+			rarity = "Legendary"
+		end
+	end
+
 	local consumable = GetRampedConsumableData( ConsumableData[traitName], nil, { ForceMin = true } )
-	local newTraitData = consumable or GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = "Common", ForBoonInfo = true })
+	local newTraitData = consumable or GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = rarity, ForBoonInfo = true })
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
-	local rarity = "Common"
-	if newTraitData.TalentCategory then
-		if newTraitData.TalentCategory == "Unique" then
-			rarity = "Rare"
-			overrideRarityName = "TraitLevel_TalentLvl2"
-		elseif newTraitData.TalentCategory == "Legendary" then
-			rarity = "Epic"
-			overrideRarityName = "TraitLevel_TalentLvl3"
-		end
-	elseif newTraitData.IsDuoBoon then
-		rarity = "Duo"
-	elseif newTraitData.RarityLevels ~= nil and newTraitData.RarityLevels.Legendary then
-		rarity = "Legendary"
-	end
 
 	local backingAnim = screenData.RarityBackingAnimations[rarity]
 	
@@ -188,12 +196,14 @@ function CreateBoonInfoButton( screen, traitName, index )
 	icon.Group = "Combat_Menu_TraitTray_Overlay"
 	traitInfo.Icon = CreateScreenComponent( icon )
 
-	local frame = ShallowCopyTable( screenData.Frame )
-	frame.X = screenData.IconOffsetX + itemLocationX + screenData.ButtonOffsetX
-	frame.Y = screenData.IconOffsetY + itemLocationY
-	frame.Group = "Combat_Menu_TraitTray_Overlay"
-	frame.Animation = "Frame_Boon_Menu_"..( newTraitData.Frame or rarity )
-	traitInfo.Frame = CreateScreenComponent( frame )
+	if not newTraitData.NoFrame then
+		local frame = ShallowCopyTable( screenData.Frame )
+		frame.X = screenData.IconOffsetX + itemLocationX + screenData.ButtonOffsetX
+		frame.Y = screenData.IconOffsetY + itemLocationY
+		frame.Group = "Combat_Menu_TraitTray_Overlay"
+		frame.Animation = "Frame_Boon_Menu_"..( newTraitData.Frame or rarity )
+		traitInfo.Frame = CreateScreenComponent( frame )
+	end
 
 	traitInfo.QuestIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay",
 		X = offset.X + screenData.QuestIconOffsetX + ScreenCenterNativeOffsetX, Y = offset.Y + screenData.QuestIconOffsetY + ScreenCenterNativeOffsetY })
@@ -512,8 +522,11 @@ function CloseBoonInfoScreen( screen, button )
 		ids = ConcatTableValues( ids,
 			{
 				traitContainer.PurchaseButton.Id, traitContainer.QuestIcon.Id, traitContainer.Highlight.Id, traitContainer.Icon.Id,
-				traitContainer.TitleBox.Id, traitContainer.Frame.Id,
+				traitContainer.TitleBox.Id,
 			})
+		if traitContainer.Frame ~= nil then
+			table.insert( ids, traitContainer.Frame.Id )
+		end
 		for i, component in pairs( traitContainer.Components ) do
 			table.insert( ids, component.Id )
 		end
@@ -565,7 +578,7 @@ function BoonInfoPopulateTraits( screen )
 	for i, traitName in ipairs( allTraitsList ) do
 		--if not TraitData[traitName] or not TraitData[traitName].RequiredTrait or not screen.HiddenTraits[TraitData[traitName].RequiredTrait ] then
 		local traitData = TraitData[traitName]
-		if traitData ~= nil and ( traitData.RequiredWeapon == nil or traitData.RequiredWeapon == screen.CodexScreen.OpenEntryName ) then
+		if traitData ~= nil and ( traitData.RequiredWeapon == nil or traitData.RequiredWeapon == screen.CodexEntryName ) then
 			table.insert( screen.TraitList, traitName )
 		elseif ConsumableData[traitName] ~= nil then
 			table.insert( screen.TraitList, traitName )

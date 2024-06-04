@@ -709,6 +709,12 @@
 		DamageTextStartColor = Color.HeraDamageLight,
 		DamageTextColor = Color.HeraDamage,
 		OnDamagedFunctionName = "ProcessDamageShare",
+		CancelArmorSpark = true,
+		CancelArmorUnitShake = true,
+		CancelUnitShake = true,
+		CancelRumble = true,
+		CancelHitSpark = true,
+		CancelUnitHitFlash = true,		
 		Using = "HeraRope",
 		OnApplyFunctionName = "DamageShareApply",
 		OnClearFunctionName = "DamageShareClear",
@@ -960,12 +966,13 @@
 	{
 		Name = "ClearCast",
 		Vfx = "ErisPowerUpFx",
-		ExChargeMultiplier = 0.85,
 		DataProperties = 
 		{
 			CanAffectInvulnerable = true,
 			TimeModifierFraction = 0,
-			OnlyAffectName = "_PlayerUnit"
+			OnlyAffectName = "_PlayerUnit",
+			Amount = 1.5,
+			Duration = 5,
 		},
 		OnApplyFunctionName = "ClearCastApply",
 		OnClearFunctionName = "ClearCastClear"

@@ -1137,6 +1137,7 @@ function CirceRemoveShrineUpgrades( args )
 end
 
 function CircePetMultiplier( args )
+	local traitsToIncrease = {}
 	for _, traitData in pairs( CurrentRun.Hero.Traits ) do
 		if traitData.FamiliarTrait then
 			if traitData.FamiliarLastStandHealAmount ~= nil then
@@ -1149,9 +1150,12 @@ function CircePetMultiplier( args )
 				})
 				RecreateLifePips()
 			else
-				IncreaseTraitLevel( traitData, round(( traitData.StackNum or 1 ) * args.BonusMultiplier ))
+				table.insert( traitsToIncrease, traitData )
 			end
 		end
+	end
+	for _, traitData in pairs( traitsToIncrease ) do
+		IncreaseTraitLevel( traitData, round(( traitData.StackNum or 1 ) * args.BonusMultiplier ))
 	end
 end
 

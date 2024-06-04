@@ -162,8 +162,9 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 
 		if item.Icon ~= nil then
 			local iconKey = "Icon"..screen.NumItems
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = item.IconScale or 0.5, Group = "Combat_Menu" })
-			SetAnimation({ DestinationId = components[iconKey].Id , Name = item.Icon })
+			local iconData = TraitData[item.TraitUpgrade or item.Name] or item
+			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = iconData.IconScale or screen.IconScale, Group = screen.ComponentData.DefaultGroup })
+			SetAnimation({ DestinationId = components[iconKey].Id , Name = iconData.Icon })
 		end
 
 		local format = screen.ItemAvailableAffordableNameFormat
@@ -284,8 +285,9 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		
 		if item.Icon ~= nil then
 			local iconKey = "Icon"..screen.NumItems
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = item.IconScale or screen.IconScale, Group = screen.ComponentData.DefaultGroup })
-			SetAnimation({ DestinationId = components[iconKey].Id , Name = item.Icon })
+			local iconData = TraitData[item.TraitUpgrade or item.Name] or item
+			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = iconData.IconScale or screen.IconScale, Group = screen.ComponentData.DefaultGroup })
+			SetAnimation({ DestinationId = components[iconKey].Id , Name = iconData.Icon })
 		end
 
 		local displayName = item.RePurchaseName or item.HelpTextId or item.Name

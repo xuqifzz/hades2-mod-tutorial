@@ -1065,6 +1065,12 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 						local labelAlt = GetDisplayName({ Text = data.AltText })
 						local fontSize = data.TextArgs.FontSize or 20
 						local len = math.max(utf8strlen( label ), utf8strlen( labelAlt ))
+
+						if data.AltTexts ~= nil then
+							for index, text in ipairs( data.AltTexts ) do
+								len = math.max(len, utf8strlen( GetDisplayName({ Text = text }) )) 
+							end
+						end
 						local approxTextSize = fontSize * len - UIData.AutoAlignContextualButtonGlyphWidth
 						
 						local spacing = math.min(dataWidth, approxTextSize) + UIData.AutoAlignContextualButtonSpacing

@@ -451,6 +451,7 @@ RoomSetData.I =
 
 		StoreDataName = "I_WorldShop",
 		SkipShopSecretMusic = true,
+		TimerBlock = "ShopEncounter",
 
 		FamiliarsPreferSpawnPointMovement = true,
 		FrogFamiliarMaxLeapDistance = 800,
@@ -675,7 +676,9 @@ RoomSetData.I =
 		EntranceFunctionName = "RoomEntranceChronos",
 		EntranceFunctionArgs = { LandingTarget = 704921, AngleTowardsIdOnEnd = 609246 },
 		BlockCameraReattach = true,
-		ZoomFraction = 0.75,
+		ZoomFraction = 0.70,
+
+		ToulaFishingTeleportId = 704921,
 
 		Ambience = "/Ambience/DemoEndAmbience",
 		UnthreadedEvents =

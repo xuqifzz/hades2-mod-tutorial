@@ -37,6 +37,10 @@
 		GrannyAnimation = "Melinoe_Dagger_Base_Cast_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Dagger_Cast_End"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Dagger_Special_Start" }
+		]
 		Blends =
 		[ 
 			{

@@ -10,7 +10,7 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = { "WeaponStaffBall", },
 			AddChargeStage = 
 			{ 
-				ManaCost = 50,
+				ManaCost = 40,
 				ResetIndicator = true,
 				Wait = 0.8, 
 				ProjectileProperties = 
@@ -26,6 +26,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		AddOutgoingDamageModifiers =
 		{
+			ValidProjectiles = { "ProjectileStaffBallCharged" },
 			ChargeStageMultiplier = 4,
 			RequiredChargeStage = 2,
 			ReportValues = 
@@ -64,7 +65,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_31",
 		RequiredWeapon = "WeaponStaffSwing",
-		RequiredFalseTraits = { "StaffAttackRecoveryTrait", },
 		OnEnemyDeathFunction = 
 		{
 			Name = "StaffEXHitHeal",
@@ -92,69 +92,21 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_29",
 		RequiredWeapon = "WeaponStaffSwing",
-	
 		PropertyChanges =
 		{
 			{
-				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3" },
-				WeaponProperties = 
-				{
-					NumProjectiles = 2,
-					ProjectileInterval = 0.12,
-					ProjectileIntervalStart = 0.12,
-				},
-				ExcludeLinked = true,
-			},
-			--[[
-			{
 				WeaponName = "WeaponStaffSwing",
-				ProjectileName = "ProjectileStaffSwing1",
-				ProjectileProperty = "Range",
-				ChangeValue = 0.6,
-				ChangeType = "Multiply",
-				ReportValues = { ReportedSlow = "ChangeValue"},
-				ExcludeLinked = true,
+				ProjectileProperty = "Damage",
+				BaseValue = 30,
+				ChangeType = "Add",
+				ReportValues = { ReportedDamageChange = "ChangeValue" },
 			},
-			{
-				WeaponName = "WeaponStaffSwing2",
-				ProjectileName = "ProjectileStaffSwing2",
-				ProjectileProperty = "Range",
-				ChangeValue = 0.6,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponStaffSwing3",
-				ProjectileName = "ProjectileStaffSwing3",
-				ProjectileProperty = "Range",
-				ChangeValue = 0.6,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponStaffSwing5",
-				ProjectileName = "ProjectileStaffSwing5",
-				ProjectileProperty = "Range",
-				ChangeValue = 0.6,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			
-			{
-				WeaponName = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffSwing5" },
-				WeaponProperty = "ChargeTime",
-				ChangeValue = 1.5,
-				ChangeType = "Multiply",
-				ReportValues = { ReportedSlow = "ChangeValue"},
-			},
-			]]
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSlow",
-				ExtractAs = "AttackSlow",
-				Format = "PercentDelta",
+				Key = "ReportedDamageChange",
+				ExtractAs = "TooltipDamageBonus",
 			},
 		}
 	},
@@ -163,12 +115,12 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_36",
 		RequiredWeapon = "WeaponStaffSwing",
-		StagePerfectChargeWindow = 0.15,
+		StagePerfectChargeWindow = 0.275,
 		AddOutgoingDamageModifiers =
 		{
 			PerfectChargeMultiplier =
 			{
-				BaseValue = 1.2,
+				BaseValue = 1.5,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedWeaponMultiplier = "PerfectChargeMultiplier"},
@@ -179,7 +131,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "CheckPerfectChargeRefund",
 			FunctionArgs = 
 			{
-				ManaRefund = 5,
+				ManaRefund = 20,
 				ReportValues = { ReportedRefund = "ManaRefund"},
 			},
 			ExcludeLinked = true,
@@ -277,7 +229,7 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "NumJumps",
 			},
 			{
-				Key = "JumpDamageBonus",
+				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "TooltipDamageBonus",
 				Format = "PercentDelta"
 			},
@@ -324,16 +276,17 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				WeaponNames = { "WeaponStaffBall" },
-				BaseValue = 0.8,
+				BaseValue = 0.75,
 				SourceIsMultiplier = true,
 				SpeedPropertyChanges = true,
 			},
 			{
 				WeaponName = "WeaponStaffBall",
 				ProjectileProperty = "Speed",
-				ChangeValue = 1.2,
+				ChangeValue = 1.25,
 				ChangeType = "Multiply",
 			},
+			--[[
 			{
 				WeaponName = "WeaponStaffBall",
 				ProjectileProperty = "Damage",
@@ -341,13 +294,14 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Add",
 				ReportValues = { ReportedDamageChange = "ChangeValue" },
 			},
+			]]
 		},
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponStaffBall" },
 			Value = 
 			{
-				BaseValue = 0.8,
+				BaseValue = 0.75,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedWeaponMultiplier = "Value" }
@@ -371,50 +325,10 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_27",
 		RequiredWeapon = "WeaponStaffSwing",
-		RequiredFalseTraits = { "StaffOneWayAttackTrait", "StaffExAoETrait", "StaffExHealTrait", "SlowExAttackBoon" },
 		PropertyChanges =
-		{
+		{	
 			{
-				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash"},
-				WeaponProperties = 
-				{
-					FullyAutomatic = true,
-					AddOnFire = "null",
-					ForceReleaseOnSwap = false,
-					AllowExternalForceRelease = false,
-				},
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponStaffSwing3",
-				WeaponProperty = "SwapOnFire",
-				ChangeValue = "WeaponStaffSwing",
-			},
-			--[[
-			{
-				WeaponName = "WeaponStaffSwing",
-				EffectName = "Swing1DisableCancellable",
-				EffectProperty = "Duration",
-				ChangeValue = 0.5,
-				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponStaffSwing2",
-				EffectName = "Swing2DisableCancellable",
-				EffectProperty = "Duration",
-				ChangeValue = 0.5,
-				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponStaffSwing3",
-				EffectName = "Swing3DisableCancellable",
-				EffectProperty = "Duration",
-				ChangeValue = 0.5,
-				ChangeType = "Multiply",
-			},
-			]]
-			{
-				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash" },
+				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash", "WeaponStaffSwing5" },
 				WeaponProperty = "ChargeTime",
 				ChangeValue = 0.5,
 				ChangeType = "Multiply",
@@ -422,11 +336,10 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
 			},
 			{
-				WeaponNames = { "WeaponStaffSwing5" },
-				WeaponProperty = "Enabled",
-				ChangeValue = false,
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ChargeStartAnimation",
+				ChangeValue = "Melinoe_Staff_AttackEx1_Start_Fast",
 				ChangeType = "Absolute",
-				ExcludeLinked = true,
 			},
 		},	
 		ExtractValues =
@@ -444,12 +357,10 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_30",
 		RequiredWeapon = "WeaponStaffSwing",
-		RequiredFalseTraits = { "StaffAttackRecoveryTrait", },
 		IsLastPriorityHammerTrait = true,
 		PropertyChanges =
 		{
 			{
-				FalseTraitName = "StaffOneWayAttackTrait",
 				WeaponName = "WeaponStaffSwing5",
 				ExcludeLinked = true,
 				WeaponProperties = 
@@ -466,34 +377,13 @@ OverwriteTableKeys( TraitData, {
 					AimLineAngleOffsetOverride = math.rad(90),
 				},
 			},
-			{
-				TraitName = "StaffOneWayAttackTrait",
-				WeaponName = "WeaponStaffSwing5",
-				ExcludeLinked = true,
-				WeaponProperties = 
-				{
-					NumProjectiles = 27,
-					ProjectileAngleOffsetScaleY = 0.6,
-					AimLineAnimation = "AuraAimLineNoMovement",
-					ProjectileOffsetStart = "LEFT",
-					ProjectileAngleResetCount = 3,
-					ProjectileAngleOffset = math.rad(90),
-					ProjectileAngleStartOffset = math.rad(90),
-					ProjectileOffset = 120,
-					ProjectileSpacing = 0,
-					ProjectileInterval = 0.005,
-					AimLineCountOverride = 3,
-					AimLineAngleOffsetOverride = math.rad(90),
-					BarrelLength = 0,
-				},
-			},
 		},
 		
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
 			{
-				BaseValue = 1.4,
+				BaseValue = 1.5,
 				SourceIsMultiplier = true,
 			},
 			ValidWeapons = { "WeaponStaffSwing5" },
@@ -513,9 +403,17 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_35",
 		RequiredWeapon = "WeaponStaffSwing",
-		RequiredFalseTraits = { "StaffAttackRecoveryTrait", },
+		AddIncomingDamageModifiers =
+		{
+			GlobalMultiplier = 1.3,
+			ReportValues =
+			{
+				ReportedMultiplier = "GlobalMultiplier"
+			},
+		},
 		PropertyChanges =
 		{
+			--[[
 			{
 				WeaponName = "WeaponStaffSwing5",
 				ExcludeLinked = true,
@@ -529,12 +427,39 @@ OverwriteTableKeys( TraitData, {
 					ProjectileWaveInterval = 0.2,
 				},
 			},
+			]]
 			{
+				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash", },
+				ExcludeLinked = true,
+				WeaponProperties = 
+				{
+					NumProjectiles = 2,
+					ProjectileInterval = 0.12,
+					ProjectileIntervalStart = 0.12,
+				},
+			},
+			{
+				FalseTraitName = "StaffSelfHitAspect",
 				WeaponName = "WeaponStaffSwing5",
 				ExcludeLinked = true,
 				WeaponProperty = "NumProjectileWaves",
 				ChangeValue = 2,
 				ReportValues = { ReportedWaves = "ChangeValue" }
+			},
+			{
+				TraitName = "StaffSelfHitAspect",
+				WeaponName = "WeaponStaffSwing5",
+				ExcludeLinked = true,
+				WeaponProperty = "NumProjectileWaves",
+				ChangeValue = 6,
+			},
+			{
+				TraitName = "StaffSelfHitAspect",
+				WeaponName = "WeaponStaffSwing5",
+				ExcludeLinked = true,
+				WeaponProperty = "ProjectileWaveInterval",
+				ChangeValue = 0.5,
+				ChangeType = "Multiply",
 			}
 		},
 		
@@ -543,6 +468,11 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedWaves",
 				ExtractAs = "Waves",
+			},
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "DamageTakenIncrease",
+				Format = "PercentDelta",
 			},
 		}
 	},
@@ -569,22 +499,48 @@ OverwriteTableKeys( TraitData, {
 		
 			{
 				WeaponName = "WeaponStaffBall",
-				ProjectileName = "ProjectileStaffBall",
+				--ProjectileName = "ProjectileStaffBall",
 				ProjectileProperty  = "NumJumps",
 				ChangeValue = 2,
 				ChangeType = "Absolute",
-				ExcludeLinked = true,
+				--ExcludeLinked = true,
 				ReportValues = { Jumps = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponStaffBall",
-				ProjectileName = "ProjectileStaffBall",
+				--ProjectileName = "ProjectileStaffBall",
 				ProjectileProperty  = "JumpDamageMultiplier",
 				ChangeValue = 1.10,
 				ChangeType = "Absolute",
-				ExcludeLinked = true,
+			--	ExcludeLinked = true,
 				ReportValues = { JumpDamageBonus = "ChangeValue" },
 			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileProperty  = "JumpRange",
+				ChangeValue = 400,
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileProperty  = "JumpType",
+				ChangeValue = "UNIT_PREFERENCE",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileProperty  = "NoJumpTargetRandomSpread",
+				ChangeValue = 90,
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileProperty  = "AllowRepeatedJumpHit",
+				ChangeValue = false,
+				ChangeType = "Absolute",
+			},
+
+			
 		},
 		ExtractValues =
 		{
@@ -609,19 +565,21 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				WeaponName = "WeaponStaffBall",
-				ProjectileName = "ProjectileStaffBall",
+				--ProjectileName = "ProjectileStaffBall",
 				WeaponProperties = 
 				{
 					ProjectileInterval = 0.12,
+					ProjectileIntervalStart = 0.12,
 					ProjectileAngleOffsetMin = math.rad(-5),
 					ProjectileAngleOffsetMax = math.rad(5),
 				},
 				ProjectileProperties = 
 				{
-					MaxAdjustRate = 6,
+				--	MaxAdjustRate = 6,
 				},
 				ExcludeLinked = true,
 			},
+			--[[
 			{
 				WeaponName = "WeaponStaffBall",
 				ProjectileName = "ProjectileStaffBall",
@@ -629,21 +587,42 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 6,
 				ExcludeLinked = true,
 			},
+			]]
 			{
 				WeaponName = "WeaponStaffBall",
 				WeaponProperty = "NumProjectiles",
 				ChangeValue = 2.0,
 				ChangeType = "Absolute",
 				ReportValues = { ReportedProjectiles = "ChangeValue"},
-				ExcludeLinked = true,
 			},
-
 			{
 				WeaponName = "WeaponStaffBall",
 				ProjectileName = "ProjectileStaffBall",
 				ProjectileProperty = "Fuse",
-				ChangeValue = 1.1,
-				ExcludeLinked = true,
+				ChangeValue = 0.60,
+				ChangeType = "Multiply",
+				ReportValues = { ReportedRangePenalty = "ChangeValue"},
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileName = "ProjectileStaffBallCharged",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 0.60,
+				ChangeType = "Multiply"
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileName = "ProjectileStaffBall",
+				ProjectileProperty = "Range",
+				ChangeValue = 0.60,
+				ChangeType = "Multiply"
+			},
+			{
+				WeaponName = "WeaponStaffBall",
+				ProjectileName = "ProjectileStaffBallCharged",
+				ProjectileProperty = "Range",
+				ChangeValue = 0.60,
+				ChangeType = "Multiply"
 			},
 		},
 		ExtractValues =
@@ -651,6 +630,12 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedProjectiles",
 				ExtractAs = "Projectiles",
+			},
+			{
+				Key = "ReportedRangePenalty",
+				ExtractAs = "TooltipRange",
+				Format = "NegativePercentDelta",
+				HideSigns = true,
 			},
 		}
 	},

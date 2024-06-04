@@ -3,7 +3,7 @@
 	BaseStaffAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Staff_12",
+		Icon = "Hammer_Staff_39",
 		RequiredWeapon = "WeaponStaffSwing",
 		WeaponKitGrannyModel = "WeaponStaff_Mesh",
 		ReplacementGrannyModels = 
@@ -75,7 +75,7 @@
 	StaffClearCastAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Staff_13",
+		Icon = "Hammer_Staff_40",
 		RequiredWeapon = "WeaponStaffSwing",
 		WeaponKitGrannyModel = "WeaponStaff_Circe_Mesh",	
 		ReplacementGrannyModels = 
@@ -91,29 +91,46 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.17,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.34,
+				Multiplier = 2,
 			},
 			Heroic =
 			{
-				Multiplier = 1.51,
+				Multiplier = 2.5,
 			},
 			Legendary =
 			{
-				Multiplier = 1.67,
+				Multiplier = 3.0,
 			},
 			Perfect =
 			{
-				Multiplier = 1.84,
+				Multiplier = 3.5,
 			},
 		},
 		SetupFunction =
 		{
 			Threaded = true,
 			Name = "SetupClearCastUI",
+		},
+		ClearCastDamageMultiplierOverride = {BaseValue = 1.4, SourceIsMultiplier = true },
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckClearCastStart",
+			FunctionArgs = 
+			{
+				RequiredCount = 12,
+				EffectName = "ClearCast",
+				DataProperties = 
+				{
+					Duration = 5,
+					ReportValues = { ReportedDuration = "Duration"},
+				},
+				ReportValues = { ReportedCount = "RequiredCount"}
+			},
 		},
 		OnEnemyDamagedAction = 
 		{
@@ -123,14 +140,6 @@
 			Args = 
 			{
 				IsNotEx = true,
-				RequiredCount = 21,
-				EffectName = "ClearCast",
-				DataProperties = 
-				{
-					Duration = { BaseValue = 6 },
-					ReportValues = { ReportedDuration = "Duration"},
-				},
-				ReportValues = { ReportedCount = "RequiredCount"}
 			},
 		},
 		OnManaSpendAction = 
@@ -154,34 +163,36 @@
 				SkipAutoExtract = true,
 			},
 			{
-				Key = "ReportedDuration",
 				ExtractAs = "Duration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "ClearCast",
+				BaseProperty = "Duration",
+			},
+			{
+				Key = "ClearCastDamageMultiplierOverride",
+				ExtractAs = "BonusDamage",
+				Format = "PercentDelta",
 				DecimalPlaces = 1,
 			},
 			{
-				ExtractAs = "ExChargeMultiplier",
+				ExtractAs = "ExDamageMultiplier",
 				SkipAutoExtract = true,
 				External = true,
-				BaseType = "EffectLuaData",
-				Format = "NegativePercentDelta",
+				BaseType = "EffectData",
+				Format = "PercentDelta",
 				BaseName = "ClearCast",
-				BaseProperty = "ExChargeMultiplier",
+				BaseProperty = "Amount",
 				DecimalPlaces = 1,
 			},
 		},
 		FlavorText = "StaffClearCastAspect_FlavorText",
 	},
+	
 	StaffSelfHitAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Staff_14",
-		RequiredWeapon = "WeaponStaffSwing",
-		-- 'I have a good idea for a prank for this Asclepius character' ~Momus
-		WeaponKitGrannyModel = "WeaponStaff_Asclepius_Mesh",
-		ReplacementGrannyModels = 
-		{
-			WeaponStaff_Mesh = "WeaponStaff_Asclepius_Mesh"
-		},
 		RarityLevels =
 		{
 			Common =
@@ -190,84 +201,98 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 3/3.5,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 2.5/3.5,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 2/3.5,
 			},
 			Legendary =
 			{
-				Multiplier = 3.0,
+				Multiplier = 1.5/3.5,
 			},
-			Perfect =
+			Perfect = 
 			{
-				Multiplier = 3.5,
+				Multiplier = 1/3.5,
 			},
 		},
-		
-		AddOutgoingDamageModifiers = 
+		Icon = "Hammer_Staff_41",
+		RequiredWeapon = "WeaponStaffSwing",
+		-- 'I have a good idea for a prank for this Asclepius character' ~Momus
+		WeaponKitGrannyModel = "WeaponStaff_Asclepius_Mesh",
+		ReplacementGrannyModels = 
 		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ValidBaseDamageAddition = 
-			{ 
-				BaseValue = 10,
-			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "ValidBaseDamageAddition" 
-			},
+			WeaponStaff_Mesh = "WeaponStaff_Asclepius_Mesh"
 		},
-		StatLines =
+		OnWeaponFiredFunctions = 
 		{
-			"RawDamageStatDisplay1",
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "DropOriginMarker",
+			FunctionArgs = 
+			{
+				AnimationName = "WitchGrenadeRecallSphere",
+				ExpiringAnimationName = "WitchGrenadeRecallSphereOut",
+				DestroyDelay = 0.5,
+				Repeats = 3,
+				Interval = { BaseValue = 3.5 },
+				ReportValues = { ReportedStrikeCount = "Repeats"},
+			},
 		},
 		OnProjectileDeathFunction = 
 		{
-			Name = "CheckStaffSelfHit",
-			ValidProjectiles = {"ProjectileStaffBallCharged"},
+			Name = "ClearOriginMarker",
 			Args = 
 			{
-				ProjectileName = "ProjectileStaffBallCharged",
-				Threshold = 0.5,
-				HealAmount = 5,
-				ReportValues = 
-				{ 
-					ReportedThreshold = "Threshold" ,
-					ReportedHeal = "HealAmount" 
+				ExpiringAnimationName = "WitchGrenadeRecallSphereOut",
+				DestroyDelay = 0.5,
+				CastRepeats = 3,
+				Interval = { BaseValue = 3.5 },
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponNames = { "WeaponStaffSwing5"},
+				ExcludeLinked = true,
+				WeaponProperties = 
+				{
+					NumProjectileWaves = 3,
 				},
+			},
+			{
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileWaveInterval",
+				BaseValue = 3.5,
+				ReportValues = { ReportedPulseInterval = "ChangeValue"},
 			}
+		},
+		StatLines =
+		{
+			"PulseIntervalStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
-				IncludeSigns = true,
+				Key = "ReportedPulseInterval",
+				ExtractAs = "PulseInterval",
+				DecimalPlaces = 1,
 			},
 			{
-				Key = "ReportedThreshold",
-				ExtractAs = "HealthThreshold",
-				Format = "Percent",
+				Key = "ReportedStrikeCount",
+				ExtractAs = "StrikeCount",
 				SkipAutoExtract = true
-			},
-			{
-				Key = "ReportedHeal",
-				ExtractAs = "HealAmount",
-				SkipAutoExtract = true
-			},
+			}
 		},
 		FlavorText = "StaffSelfHitAspect_FlavorText",
 	},
-	
 	DaggerBackstabAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Daggers_12",
+		Icon = "Hammer_Daggers_38",
 		RequiredWeapon = "WeaponDagger",
 		WeaponKitGrannyModel = "WeaponDagger_Mesh",
 		ReplacementGrannyModels = 
@@ -330,7 +355,7 @@
 	DaggerHomingThrowAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Daggers_13",
+		Icon = "Hammer_Daggers_40",
 		RequiredWeapon = "WeaponDagger",
 		WeaponKitGrannyModel = "WeaponDaggerMultiple_Pan_Mesh",
 		ReplacementGrannyModels = 
@@ -364,7 +389,6 @@
 				ExcludeLinked = true,
 				ProjectileProperties = 
 				{
-					Type = "HOMING",
 					AdjustRateAcceleration = math.rad(10000),
 					MaxAdjustRate = math.rad(2160),
 					RequireTargetsHaveEffect = "ImpactSlow",
@@ -384,7 +408,7 @@
 	DaggerBlockAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Daggers_14",
+		Icon = "Hammer_Daggers_39",
 		RequiredWeapon = "WeaponDagger",
 		WeaponKitGrannyModel = "WeaponDaggerMultiple_Artemis_Mesh",
 		ReplacementGrannyModels = 
@@ -546,7 +570,7 @@
 				Multiplier = 5,
 			},
 		},
-		Icon = "Hammer_Torch_01",
+		Icon = "Hammer_Lob_13",
 		RequiredWeapon = "WeaponLob",
 		WeaponKitGrannyModel = "WeaponLob_Mesh",
 		ReplacementGrannyModels = 
@@ -587,7 +611,7 @@
 	LobCloseAttackAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Torch_11",
+		Icon = "Hammer_Lob_14",
 		RequiredWeapon = "WeaponLob",
 		WeaponKitGrannyModel = "WeaponLob_Medea_Mesh",
 		ReplacementGrannyModels = 
@@ -710,7 +734,7 @@
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
 		PreEquipWeapons = {"WeaponSkullImpulse"},
-		Icon = "Hammer_Torch_01",
+		Icon = "Hammer_Lob_15",
 		RequiredWeapon = "WeaponLob",
 		WeaponKitGrannyModel = "WeaponLob_Persephone_Mesh",
 		ReplacementGrannyModels = 
@@ -763,11 +787,12 @@
 		},
 		OnWeaponFiredFunctions = 
 		{
-			ValidWeapons = {"WeaponSkullImpulse"},
+			ValidWeapons = {"WeaponLobSpecial", "WeaponSkullImpulse"},
 			FunctionName = "SkullImpulseTransform",
 			FunctionArgs = 
 			{
-				Interval = 0.2,
+				BaseDuration = 0.5,			-- Duration of ex attack w/ no charge
+				Interval = 0.2,			-- Pulse rate of EX. 0.1 is default
 			}
 		},
 		StatLines = 
@@ -776,16 +801,14 @@
 		},
 		OnEnemyDamagedAction = 
 		{
-			AllEffectsTrigger = true,
+			ValidWeapons = { "WeaponCast" },
 			FunctionName = "ChargeSkullImpulse",
 			Args = 
 			{
-				BlockedProjectile = "ProjectileThrowCharged",
-				BlockedWeapon = "WeaponLobSpecial",
 				-- One "charge" is equal to full one second of skull car
 				-- 0.001 means 100 damage = 0.1 seconds of skull car charge
-				ChargePerDamage = 0.0002,
-				MaxCharge = 5,
+				ChargePerDamage = 0.00125,
+				MaxCharge = 2,
 				MinChargeToFire = 0.5,
 				ReportValues = 
 				{
@@ -844,7 +867,7 @@
 				Multiplier = 3.0,
 			},
 		},
-		Icon = "Hammer_Torch_01",
+		Icon = "Hammer_Torch_39",
 		RequiredWeapon = "WeaponTorch",
 		WeaponKitGrannyModel = "WeaponHecateMultiple_Mesh",
 		ReplacementGrannyModels = 
@@ -892,78 +915,165 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 2,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 3,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 4,
 			},
 			Legendary =
 			{
-				Multiplier = 2.00,
+				Multiplier = 5,
 			},
 			Perfect =
 			{
-				Multiplier = 2.25,
+				Multiplier = 6,
 			},
 		},
-		Icon = "Hammer_Torch_08",
+		Icon = "Hammer_Torch_41",
 		RequiredWeapon = "WeaponTorch",
 		WeaponKitGrannyModel = "WeaponTorchMultiple_Eos_Mesh",
 		ReplacementGrannyModels = 
 		{
 			WeaponTorchR_Mesh = "WeaponTorchR_Eos_Mesh",
 			WeaponTorchL_Mesh = "WeaponTorchL_Eos_Mesh"
-			},
+		},
+		WeaponDataOverride =
+		{
+			WeaponTorch = 
+			{	
+				HideChargeDuration = 1.5,
+				BlockChargeStageModifiers = 
+				{
+					NumProjectileWaves = true,
+				},
+				ChargeWeaponStages = 
+				{
+					{ 
+						Wait = 2.5, 
+						ManaCost = 10, 
+						WeaponProperties = 
+						{ 
+							Projectile = "ProjectileTorchBallLarge",
+						}, 
+						ForceRelease = true,
+					},
+				},
+			}
+		},
 		OnWeaponFiredFunctions = 
 		{
-			
-			ValidWeapons = WeaponSets.HeroRushWeapons,
-			FunctionName = "TorchSprintRecall",
-		},
-		StatLines = 
-		{
-			"MaximumDamageStatDisplay1",
-		},
-		PropertyChanges =
-		{
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+			FunctionName = "HandleAttachRecord",
+			FunctionArgs = 
 			{
-				WeaponNames = { "WeaponTorch", },
-				ProjectileProperties = 
-				{
-					ResetCollisionOutsideImpact = true,
-					TotalFuse = 4,
-					ReturnToOwnerSpeed = 1200,
-					--Speed = 1000,
-					--Acceleration = -450,
-					MaxSize = 1.75,
-					SizeDuration = 2.5,
-					InheritOwnerVelocityMultiplier = 0,
-					CheckObstacleImpact = false
+				Repeats = 5,
+				StartInterval = 0.5,
+				Interval = 2,
+				ReportValues = 
+				{ 
+					ReportedFuse = "Interval" 
 				},
-				ExcludeLinked = true,
 			},
+		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "RemoveAttachedExProjectiles",
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidWeapons = { "WeaponTorch" },
-			LifetimeMultiplier = { BaseValue = 0.40 },
+			ValidProjectiles = { "ProjectileTorchRepeatStrike" },
+			ValidBaseDamageAddition = 
+			{ 
+				BaseValue = 25,
+			},
 			ReportValues = 
 			{ 
-				LifetimeMultiplier = "LifetimeMultiplier" 
+				ReportedDamageBonus = "ValidBaseDamageAddition" 
 			},
-			ExcludeLinked = true,
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperties = 
+				{
+					MultiDetonate = true,
+					TotalFuse = 1000,
+					Speed = 200,
+					Acceleration = -10,
+					DamageRadius = 200,
+					BlastSpeed = 500,
+					SpinFromOwnerVelocityMultiplier = 0,
+					MaxAdjustRate = math.rad(50),
+				}
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "TorchProjectileLargeIn_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchProjectileShadow_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "TorchProjectileShadowLarge_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchProjectileDissipate_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "DissipateFx",
+				ChangeValue = "TorchProjectileDissipate_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+		},
+		StatLines =
+		{
+			"PulsePowerStatDisplay1",
+		},
+		ReportedMaxPulses = 1,
 		ExtractValues =
 		{
 			{
-				Key = "LifetimeMultiplier",
-				ExtractAs = "TooltipDamageBonus",
-				Format = "Percent",
+				Key = "ReportedDamageBonus",
+				ExtractAs = "Damage",
+				Format = "AddToBase",
+				BaseType = "Projectile",
+				BaseName = "ProjectileTorchRepeatStrike",
+				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedFuse",
+				ExtractAs = "Fuse",
+				DecimalPlaces = 1,
+				SkipAutoExtract = true,
 			},
 		},
 		FlavorText = "TorchSprintRecallAspect_FlavorText",
@@ -999,7 +1109,7 @@
 				Multiplier = 2.5,
 			},
 		},
-		Icon = "Hammer_Torch_08",
+		Icon = "Hammer_Torch_40",
 		RequiredWeapon = "WeaponTorch",
 		WeaponKitGrannyModel = "WeaponTorchMultiple_Supay_Mesh",
 		ReplacementGrannyModels = 
@@ -1040,8 +1150,8 @@
 				ProjectileProperties = 
 				{
 					SpawnOnDetonate = "null",
-					Speed = 400,
-					Acceleration = 0,
+					--Speed = 400,
+					--Acceleration = 0,
 					MaxAdjustRate = math.rad(560),
 					AdjustRateAcceleration = math.rad(-60),
 					ImpactVelocity = 0,
@@ -1105,7 +1215,7 @@
 				Multiplier = 1.75,
 			},
 		},
-		Icon = "Hammer_Torch_08",
+		Icon = "Hammer_Torch_40",
 		RequiredWeapon = "WeaponTorch",
 		WeaponKitGrannyModel = "WeaponTorchMultiple_Moros_Mesh",
 		ReplacementGrannyModels = 
@@ -1173,189 +1283,55 @@
 			},
 			Epic =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Heroic =
 			{
-				Multiplier = 2,
+				Multiplier = 1.5,
 			},
 			Legendary =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.75,
 			},
 			Perfect =
 			{
-				Multiplier = 3,
+				Multiplier = 2,
 			},
 		},
-		Icon = "Hammer_Axe_01",
+		Icon = "Hammer_Axe_40",
 		RequiredWeapon = "WeaponAxe",
 		WeaponKitGrannyModel = "Melinoe_Axe_Mesh1",
 		ReplacementGrannyModels = 
 		{
 			Melinoe_Axe_Mesh1 = "Melinoe_Axe_Mesh1"
 		},
-		PropertyChanges = 
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			NonExBaseDamageAddition = { BaseValue = 20 },
+			ReportValues = 
+			{ 
+				ReportedDamage = "NonExBaseDamageAddition"
+			},
+		},
+		PropertyChanges =
 		{
 			{
-				WeaponName = "WeaponAxe",
-				EffectName = "Swing1SelfSlowFire",
-				EffectProperty = "Duration",
-				BaseValue = 0.9,
-				SourceIsMultiplier = true,
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-				DeriveSource = "DeriveSource",
-				ReportValues = 
-				{
-					ReportedSpeed = "ChangeValue"
-				},
-			},
-			{
-				WeaponName = "WeaponAxe",
-				EffectName = "Swing1Disable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe",
-				EffectName = "Swing1DisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe",
-				EffectName = "Swing1MoveDisable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeDash",
-				EffectName = "SwingDashDisable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeDash",
-				EffectName = "SwingDashDisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe2",
-				EffectName = "Swing2Disable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ChangeType = "Multiply",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe2",
-				EffectName = "Swing2DisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe3",
-				EffectName = "Swing3Disable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxe3",
-				EffectName = "Swing3DisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "AxeSpinAttackDisable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "AxeSpinAttackDisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "AxeSpinMoveStop",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "AxeSpinSelfFireSlow",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "IndependentAxeSpinAttackDisable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "IndependentAxeSpinAttackDisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "IndependentAxeSpinMoveStop",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "IndependentAxeSpinSelfFireSlow",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpecialSwing",
-				EffectName = "BigDisable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponAxeSpecialSwing",
-				EffectName = "BigDisableCancellable",
-				EffectProperty = "Duration",
-				DeriveValueFrom = "DeriveSource",
-				ExcludeLinked = true,
+				LuaProperty = "MaxHealth",
+				BaseValue = 20,
+				ChangeType = "Add",
 			},
 		},
 		StatLines =
 		{
-			"AxeRecoveryStatDisplay",
+			"AxeDamageHealthStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSpeed",
-				ExtractAs = "Speed",
-				Format = "NegativePercentDelta"
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+				IncludeSigns = true,
 			},
 		},
 		FlavorText = "AxeRecoveryAspect_FlavorText",
@@ -1363,7 +1339,7 @@
 	AxeArmCastAspect = 
 	{
 		InheritFrom = { "WeaponEnchantmentTrait" },
-		Icon = "Hammer_Axe_08",
+		Icon = "Hammer_Axe_41",
 		RequiredWeapon = "WeaponAxe",
 		WeaponKitGrannyModel = "Melinoe_Axe_Charon_Mesh",
 		ReplacementGrannyModels = 
@@ -1517,26 +1493,26 @@
 			},
 			Rare =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 3.0,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 4.0,
+				Multiplier = 2.5,
 			},
 			Legendary =
 			{
-				Multiplier = 5.0,
+				Multiplier = 3.0,
 			},
 			Perfect =
 			{
-				Multiplier = 6.0,
+				Multiplier = 3.5,
 			},
 		},
-		Icon = "Hammer_Axe_08",
+		Icon = "Hammer_Axe_42",
 		RequiredWeapon = "WeaponAxe",
 		WeaponKitGrannyModel = "Melinoe_Axe_Thanatos_Mesh",
 		ReplacementGrannyModels = 
@@ -1546,6 +1522,7 @@
 		AddOutgoingCritModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroAllWeapons,
+			IsEx = true,
 			HeroTraitValue = "PerfectCritChance",
 		},
 		PerfectCritChance = 0,
@@ -1562,7 +1539,7 @@
 			Args = 
 			{
 				Increment = 0.01,
-				MaxCrit = {BaseValue = 0.04},
+				MaxCrit = 0.13,
 				ReportValues = 
 				{
 					ReportedIncrement = "Increment",
@@ -1574,9 +1551,96 @@
 		{
 			Name = "ResetPerfectAxeCrit",
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				BaseValue = 0.9,
+				SourceIsMultiplier = true,
+				SpeedPropertyChanges = true,
+			},
+			{
+				WeaponName = "WeaponAxe",
+				EffectName = "Swing1SelfSlowFire",
+				EffectProperty = "Duration",
+				BaseValue = 0.9,
+				SourceIsMultiplier = true,
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+				DeriveSource = "DeriveSource",
+				ReportValues = 
+				{
+					ReportedSpeed = "ChangeValue"
+				},
+			},
+			{
+				WeaponName = "WeaponAxe",
+				EffectName = "Swing1Disable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe",
+				EffectName = "Swing1DisableCancellable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe",
+				EffectName = "Swing1MoveDisable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				EffectName = "SwingDashDisable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				EffectName = "SwingDashDisableCancellable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				EffectName = "Swing2Disable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe2",
+				EffectName = "Swing2DisableCancellable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				EffectName = "Swing3Disable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponAxe3",
+				EffectName = "Swing3DisableCancellable",
+				EffectProperty = "Duration",
+				DeriveValueFrom = "DeriveSource",
+				ExcludeLinked = true,
+			},
+		},
 		StatLines = 
 		{
-			"MaximumCritStatDisplay1",
+			"AttackSpeedStatDisplay1",
 		},
 		ExtractValues =
 		{
@@ -1591,6 +1655,12 @@
 				Key = "ReportedMaxCrit",
 				ExtractAs = "TooltipMax",
 				Format = "Percent",
+				SkipAutoExtract = true
+			},
+			{
+				Key = "ReportedSpeed",
+				ExtractAs = "TooltipSpeedIncrease",
+				Format = "NegativePercentDelta",
 			},
 		},
 		FlavorText = "AxePerfectCriticalAspect_FlavorText",

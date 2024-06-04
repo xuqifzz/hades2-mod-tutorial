@@ -4,8 +4,7 @@
 
 	WeaponStaffSwing =
 	{
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		Icon = "Hammer_Staff_39",
 		Cost =
 		{
 			--
@@ -19,8 +18,7 @@
 	
 	WeaponDagger =
 	{
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		Icon = "Hammer_Daggers_38",
 		Cost =
 		{
 			OreFSilver = 1,
@@ -41,8 +39,7 @@
 	
 	WeaponTorch =
 	{
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		Icon = "Hammer_Torch_39",
 		Cost =
 		{
 			OreFSilver = 3,
@@ -64,8 +61,7 @@
 	
 	WeaponAxe =
 	{
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		Icon = "Hammer_Axe_40",
 		Cost =
 		{
 			OreFSilver = 15,
@@ -85,8 +81,7 @@
 	
 	WeaponLob =
 	{
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		Icon = "Hammer_Lob_13",
 		Cost =
 		{
 			OreNBronze = 1,
@@ -158,7 +153,6 @@
 		WeaponName = "WeaponStaffSwing",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -197,7 +191,6 @@
 		WeaponName = "WeaponDagger",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -236,7 +229,6 @@
 		WeaponName = "WeaponDagger",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -275,7 +267,6 @@
 		WeaponName = "WeaponTorch",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -313,7 +304,6 @@
 		WeaponName = "WeaponTorch",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -352,7 +342,6 @@
 		WeaponName = "WeaponAxe",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -391,7 +380,6 @@
 		WeaponName = "WeaponAxe",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -429,7 +417,6 @@
 		WeaponName = "WeaponLob",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -467,7 +454,6 @@
 		WeaponName = "WeaponLob",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -516,7 +502,6 @@
 		WeaponName = "WeaponStaffSwing",
 		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
 		IconScale = 0.18,
-		Graphic = "WeaponArt05",
 		TraitUpgrade = "BaseStaffAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
@@ -1900,8 +1885,8 @@
 	-- Tools
 	ToolPickaxe =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt01",
+		Icon = "GUI\\Icons\\Pickaxe",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		Cost =
 		{
@@ -1923,8 +1908,8 @@
 	
 	ToolExorcismBook =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt03",
+		Icon = "GUI\\Icons\\ExorcismBook",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		Cost =
 		{
@@ -1947,8 +1932,8 @@
 
 	ToolShovel =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt02",
+		Icon = "GUI\\Icons\\Shovel",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		Cost =
 		{
@@ -1971,8 +1956,8 @@
 
 	ToolFishingRod =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt04",
+		Icon = "GUI\\Icons\\FishingRod",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		Cost =
 		{
@@ -1996,8 +1981,8 @@
 	-- Tool Upgrades
 	ToolPickaxe2 =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt01",
+		Icon = "GUI\\Icons\\Pickaxe",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolPickaxe2_Shop",
 		ToolName = "ToolPickaxe",
@@ -2027,8 +2012,8 @@
 
 	ToolExorcismBook2 =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt03",
+		Icon = "GUI\\Icons\\ExorcismBook",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolExorcismBook2_Shop",
 		ToolName = "ToolExorcismBook",
@@ -2067,8 +2052,8 @@
 
 	ToolShovel2 =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt02",
+		Icon = "GUI\\Icons\\Shovel",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolShovel2_Shop",
 		ToolName = "ToolShovel",
@@ -2091,8 +2076,8 @@
 
 	ToolFishingRod2 =
 	{
-		Icon = "Shop_BedroomDecor",
-		Graphic = "ToolArt04",
+		Icon = "GUI\\Icons\\FishingRod",
+		IconScale = 1.0,
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolFishingRod2_Shop",
 		ToolName = "ToolFishingRod",

@@ -617,11 +617,22 @@ function StartRoomMusic( currentRun, currentRoom )
 	local lastRoom = GetPreviousRoom( currentRun )
 	if lastRoom ~= nil then
 		local lastRoomData = RoomData[lastRoom.Name] or lastRoom
-		local lastEncounterData = nil
+		local encounterNextRoomResumeMusic = false
 		if lastRoom.Encounter ~= nil then
-			lastEncounterData = EncounterData[lastRoom.Encounter.Name]
+			local lastEncounterData = EncounterData[lastRoom.Encounter.Name]
+			if lastEncounterData ~= nil and lastEncounterData.NextRoomResumeMusic then
+				encounterNextRoomResumeMusic = true
+			end
 		end
-		if secretMusic == nil and ( lastRoomData.NextRoomResumeMusic or (lastEncounterData ~= nil and lastEncounterData.NextRoomResumeMusic) ) then
+		if lastRoom.EncountersOccurredCache ~= nil then
+			for encounterName, v in pairs( lastRoom.EncountersOccurredCache ) do
+				local encounterOccurredData = EncounterData[encounterName]
+				if encounterOccurredData ~= nil and encounterOccurredData.NextRoomResumeMusic then
+					encounterNextRoomResumeMusic = true
+				end
+			end
+		end
+		if secretMusic == nil and ( lastRoomData.NextRoomResumeMusic or encounterNextRoomResumeMusic ) then
 			ResumeMusic()
 		elseif lastRoom.NextRoomMusic ~= nil then
 			if lastRoom.Encounter.NextRoomMusic then
@@ -1245,8 +1256,6 @@ function DeathPresentation( currentRun, killer, args )
 		AudioState.ChronosTimeSlowSoundId = nil
 	end
 
-	currentRun.Hero.SpeechParams.Chipmunk = nil
-	SetAudioEffectState({ Name = "Chipmunk", Value = 0 })
 	SetAudioEffectState({ Name = "SpellCharge", Value = 0 })
 	SetAudioEffectState({ Name = "GlobalEcho", Value = 0 })
 
@@ -1382,7 +1391,7 @@ function DeathPresentation( currentRun, killer, args )
 		PlaySound({ Name = randomSound })
 	end
 
-	if ConfigOptionCache.EasyMode and not currentRun.Cleared and not currentRun.BountyCleared and not currentRun.Hero.TraitDictionary.SurfacePenalty then
+	if ShouldIncrementEasyMode() then
 		thread( EasyModeLevelUpPresentation )
 		wait( 3.0 )
 	end
@@ -1446,6 +1455,10 @@ function DeathPresentation( currentRun, killer, args )
 	SetThingProperty({ Property = "AllowAnyFire", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
 
 	WaitForSpeechFinished()
+
+	-- un-chipmunkify Mel only after all speech has finished
+	currentRun.Hero.SpeechParams.Chipmunk = nil
+	SetAudioEffectState({ Name = "Chipmunk", Value = 0 })
 
 	RemoveInputBlock({ Name = "DeathPresentation" })
 	ToggleCombatControl( CombatControlsDefaults, true, "DeathPresentation")
@@ -2467,7 +2480,7 @@ function BiomeTimeCheckpointPresentation( run, additionalTime )
 
 	wait( 1.0, RoomThreadName )
 
-	local textStartX = 1830
+	local textStartX = 1830 + (ScreenCenterNativeOffsetX * 2.0)
 	local textStartY = 180
 	local textAnchorId = CreateScreenObstacle({ Name = "BlankObstacle", X = textStartX, Y = textStartY, Group = "Overlay" })
 
@@ -2661,7 +2674,15 @@ function ViewPortraitPresentation( eventSource, args )
 	
 	SetScale({ Id = portraitId, Fraction = portraitEndScale, Duration = args.PanDuration or 9.8, EaseOut = 1.0, EaseIn = 0.0 })
 
-	wait( args.FadeOutWait or 12.0 )
+	local totalSequenceDuration = 12.0
+	local durationBeforeAllowingInput = 8.0
+
+	wait( durationBeforeAllowingInput )
+
+	local notifyName = "PortraitPressAnyButton"
+	local timeoutDuration = totalSequenceDuration - durationBeforeAllowingInput
+	NotifyOnControlPressed({ Names = { "Confirm", "Rush", "Attack1", "Attack2", "Attack3", "Attack4", "Interact", "Codex", "Shout", "AutoLock", }, Notify = notifyName, Timeout = timeoutDuration })
+	waitUntil( notifyName )
 
 	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFade" })
 

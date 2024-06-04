@@ -163,6 +163,7 @@ WeaponSetData =
 
 			NoProjectile = true,
 			MoveWithinRange = false,
+			DoNotRepeatOnAttackFail = true,
 
 			FireSelfVelocity = 1000,
 			FireSelfVelocityAngleOffset = 180,

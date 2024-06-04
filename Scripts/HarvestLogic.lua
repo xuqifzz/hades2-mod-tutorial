@@ -142,43 +142,50 @@ function UsePickaxePoint( source, args, user )
 	end
 
 	wait( 0.02 )
+
+	local keepMining = true
+	while keepMining do
 	
-	if HasFamiliarTool( "ToolPickaxe" ) then
-		FamiliarPickaxeStartPresentation( source, args, user )
-	else
-		PickaxeStartPresentation( source, args, user )
-	end
+		if HasFamiliarTool( "ToolPickaxe" ) then
+			FamiliarPickaxeStartPresentation( source, args, user )
+		else
+			PickaxeStartPresentation( source, args, user )
+		end
 
-	local swingDamage = source.SwingDamage
-	if HasFamiliarTool( "ToolPickaxe" ) then
-		-- familiar instantly kills it
-		swingDamage = source.Health
-	end
-	local resourceCount = math.min( swingDamage, source.Health )
-	source.Health = source.Health - swingDamage
-	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Health", source.Health )
-	if source.Health > 0 then
-		PickaxeDepositDamagedPresentation( source, args, user )
-	else
-		PickaxeDepositDestroyedPresentation( source, args, user )
+		local swingDamage = source.SwingDamage
+		if HasFamiliarTool( "ToolPickaxe" ) then
+			-- familiar instantly kills it
+			swingDamage = source.Health
+		end
+		local resourceCount = math.min( swingDamage, source.Health )
+		source.Health = source.Health - swingDamage
+		RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Health", source.Health )
+		if source.Health > 0 then
+			PickaxeDepositDamagedPresentation( source, args, user )
+		else
+			PickaxeDepositDestroyedPresentation( source, args, user )
 
-		GameState.PickaxeSuccesses = (GameState.PickaxeSuccesses or 0) + 1
-		CurrentRun.PickaxeSuccesses = (CurrentRun.PickaxeSuccesses or 0) + 1
+			GameState.PickaxeSuccesses = (GameState.PickaxeSuccesses or 0) + 1
+			CurrentRun.PickaxeSuccesses = (CurrentRun.PickaxeSuccesses or 0) + 1
 
-		UseableOff({ Id = source.ObjectId })
-		RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", source.EmptyAnimation )
-		RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
-	end
-	local resourceTimes = 1
-	if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance")) then
-		resourceTimes = resourceTimes + 1
-	end
+			UseableOff({ Id = source.ObjectId })
+			RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", source.EmptyAnimation )
+			RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
+		end
+		local resourceTimes = 1
+		if RandomChance( GetTotalHeroTraitValue("DoubleToolRewardChance")) then
+			resourceTimes = resourceTimes + 1
+		end
 	
-	if resourceTimes > 1 then
-		thread( ChaosRewardIncreasedPresentation, source.ObjectId )
-		waitUnmodified( 0.25, RoomThreadName)
+		if resourceTimes > 1 then
+			thread( ChaosRewardIncreasedPresentation, source.ObjectId )
+			waitUnmodified( 0.25, RoomThreadName)
+		end
+		AddResource( source.ResourceName, resourceCount * resourceTimes, source.Name )
+
+		keepMining = source.Health > 0 and IsControlDown({ Name = "Use" })
+
 	end
-	AddResource( source.ResourceName, resourceCount * resourceTimes, source.Name )
 		
 	RemoveInputBlock({ Name = "UsePickaxePoint" })
 	RemoveTimerBlock( CurrentRun, "UsePickaxePoint" )

@@ -222,7 +222,9 @@ function resume( thread, threadTable )
 			if unmodifiedTime then
 				resumeTime = wait + _worldTimeUnmodified
 			else
-				wait = wait / _elapsedTimeMultiplier
+				if not SessionMapState.ElapsedTimeMultiplierIgnores[info.tag] then
+					wait = wait / _elapsedTimeMultiplier
+				end
 				resumeTime = wait + _worldTime
 			end
 
@@ -313,9 +315,9 @@ function HasThread( tag )
 end
 
 function SetElapsedTimeMultiplier( newTimeMultiplier, tag )
-	local threadTargets = {_threads, _workingThreads}
+	local threadTargets = { _threads, _workingThreads }
 	for k, threadTarget in pairs( threadTargets ) do
-		for k, threadInfo in pairs(threadTarget) do
+		for k, threadInfo in pairs( threadTarget ) do
 			if threadInfo.resumeTime then
 				if not threadInfo.unmodifiedTime then
 					threadInfo.processed = false
@@ -330,13 +332,14 @@ function SetElapsedTimeMultiplier( newTimeMultiplier, tag )
 		end
 	end
 	for k, threadTarget in pairs( threadTargets ) do
-		for k, threadInfo in pairs(threadTarget) do
+		for k, threadInfo in pairs( threadTarget ) do
 			if threadInfo.resumeTime then
-				local remainingTime
-			
+				local remainingTime = nil
 				if not threadInfo.unmodifiedTime and not threadInfo.processed then
 					remainingTime = threadInfo.resumeTime - _worldTime
-					remainingTime = remainingTime / newTimeMultiplier
+					if not SessionMapState.ElapsedTimeMultiplierIgnores[threadInfo.tag] then
+						remainingTime = remainingTime / newTimeMultiplier
+					end
 					threadInfo.resumeTime = _worldTime + remainingTime
 					threadInfo.processed = true
 				end
@@ -360,7 +363,11 @@ function SetThreadWait( tag, duration )
 			if threadInfo.unmodifiedTime then
 				resumeTime = _worldTimeUnmodified + duration
 			else
-				resumeTime = _worldTime + ( duration / _elapsedTimeMultiplier )
+				if SessionMapState.ElapsedTimeMultiplierIgnores[threadInfo.tag] then
+					resumeTime = _worldTime + duration
+				else
+					resumeTime = _worldTime + ( duration / _elapsedTimeMultiplier )
+				end
 			end
 			threadInfo.resumeTime = resumeTime
 			foundThread = true

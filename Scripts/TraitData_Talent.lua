@@ -283,7 +283,15 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent" },
 		Icon = "Boon_Selene_88",
-		ClearCastDuration = 3,
+		OnManaSpendAction = 
+		{
+			FunctionName = "CheckClearCastManaRefund",
+			FunctionArgs = 
+			{
+				AnimationName = "ManaRegenFlashFx",
+				Duration = 1,
+			}
+		},
 		ExtractValues =
 		{
 			{
@@ -291,13 +299,21 @@
 				ExtractAs = "Duration",
 			},
 			{
-				ExtractAs = "ExChargeMultiplier",
+				ExtractAs = "Duration",
 				SkipAutoExtract = true,
 				External = true,
-				BaseType = "EffectLuaData",
-				Format = "NegativePercentDelta",
+				BaseType = "EffectData",
 				BaseName = "ClearCast",
-				BaseProperty = "ExChargeMultiplier",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "ExDamageMultiplier",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				Format = "PercentDelta",
+				BaseName = "ClearCast",
+				BaseProperty = "Amount",
 				DecimalPlaces = 1,
 			},
 		},
@@ -322,7 +338,7 @@
 			Name = "RecordDamageInWindow",
 			FunctionArgs = 
 			{
-				HealWindowDuration = 3.0,
+				HealWindowDuration = 2.0,
 				ReportValues = { ReportedWindow = "HealWindowDuration"}
 			}
 		},
@@ -796,7 +812,7 @@
 	-- Laser Talents --
 	LaserCrystalTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait"},
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_74",
 		
 		SetupFunction =
@@ -966,7 +982,7 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_72",
-		LaserDurationBonus = { BaseValue = 2 },
+		LaserDurationBonus = { BaseValue = 1 },
 		RarityLevels =
 		{
 			Common =
@@ -1056,7 +1072,7 @@
 	},
 	LaserPrimaryTalent = 
 	{
-		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_76",
 		AddWeaponsToTraits = 
 		{
@@ -1135,7 +1151,7 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent" },
 		Icon = "Boon_Selene_68",
-		PolymorphHealthMultiplier = 0.90,
+		PolymorphHealthMultiplier = 0.95,
 		ExtractValues =
 		{
 			{
@@ -2096,7 +2112,7 @@
 		Icon = "Boon_Selene_44",
 		AddOutgoingDamageModifiers =
 		{
-			HealthBufferDamageMultiplier = 1.25,
+			HealthBufferDamageMultiplier = 1.20,
 			ValidWeapons = { "WeaponStaffDash" },
 			ReportValues = { ReportedWeaponMultiplier = "HealthBufferDamageMultiplier"},
 		},
@@ -2144,7 +2160,7 @@
 	{
 		InheritFrom = { "SpellTalentTrait" },
 		Icon = "Boon_Selene_81",
-		LeapInvulnerability = 2,
+		LeapInvulnerability = 1,
 		ExtractValues =
 		{
 			{

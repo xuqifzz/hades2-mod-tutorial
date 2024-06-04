@@ -960,7 +960,6 @@
 	{
 		Name = "DaggerSwipeFastDarkFlipDash_Hera"
 		InheritFrom = "DaggerSwipeFastDarkFlipDash"
-		Scale = 2.0
 		EaseIn = 0.9
 		EaseOut = 1
 		StartOffsetZ = 60
@@ -1051,7 +1050,6 @@
 		EndRed = 0.999
 		EndGreen = 0.0
 		EndBlue = 0.04
-		Scale = 2.0
 		PlaySpeed = 90
 		ClearCreateAnimations = true
 		VisualFx = "null"
@@ -1073,7 +1071,6 @@
 		Name = "DaggerSwipeFastFlip_Hestia"
 		InheritFrom = "DaggerSwipeFast_Hestia"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		CreateAnimations =
 		[
@@ -1112,7 +1109,6 @@
 		EndRed = 0.1
 		EndGreen = 0.3
 		EndBlue = 1.0
-		Scale = 2.0
 		PlaySpeed = 90
 		ClearCreateAnimations = true
 		UseAttachedTipLocation = true
@@ -1251,6 +1247,7 @@
 		OriginY = 480
 		PlaySpeed = 120
 		OffsetZ = 60
+		Scale = 0.65
 		LocationZFromOwner = "Ignore"
 	}
 
@@ -1276,14 +1273,13 @@
 		PlaySpeed = 90
 		StartOffsetZ = 60
 		EndOffsetZ = -20
-		Scale = 1.0
+		Scale = 0.65
 	}
 
 	{
 		Name = "DaggerSwipeFastFlip_Hera"
 		InheritFrom = "DaggerSwipeFast_Hera"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		VisualFxRadialOffsetStartAngle = -70
 		VisualFxRadialOffsetIncrementAngle = 30
@@ -1330,7 +1326,6 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 		ColorFromOwner = "Ignore"
-		Scale = 2.0
 		Hue = 0
 		PlaySpeed = 75
 	}
@@ -1351,7 +1346,6 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 		ColorFromOwner = "Ignore"
-		Scale = 2.0
 		Hue = 0
 		PlaySpeed = 75
 	}
@@ -1374,7 +1368,7 @@
 		PostRotateScaleY = 0.6
 		FlipVertical = true
 		ScaleFromOwner = "Ignore"
-		Scale = 1.85
+		Scale = 1.2
 		OriginX = 120
 		OriginY = 160
 		GroupName = "FX_Standing_Add"
@@ -1504,10 +1498,17 @@
 		EaseOut = 1
 		CreateAnimations =
 		[
-			{ Name = "DaggerSwipeFastDarkFlipDash" }
+			{ Name = "DaggerSwipeFastDarkFlipDash_Apollo" }
 			{ Name = "DaggerSwipeFastLight_Apollo" }
 			{ Name = "ApolloDaggerFlash" }
 		]
+	}
+
+
+	{
+		Name = "DaggerSwipeFastDarkFlipDash_Apollo"
+		InheritFrom = "DaggerSwipeFastDarkFlipDash"
+		Scale = 2
 	}
 
 	{
@@ -2502,7 +2503,6 @@
 		GroupName = "FX_Standing_Add"
 		PostRotateScaleY = 0.6
 		AngleFromOwner = "Take"
-		OffsetZ = 60
 		OriginX = 270
 		OriginY = 270
 		ScaleRadius = 220
@@ -2534,7 +2534,6 @@
 		RadialOffsetMin = 240
 		RadialOffsetMax = 240
 		RadialOffsetScaleY = 0.5
-		OffsetZ = 60
 		RandomRotation = true
 		AngleFromOwner = "Take"
 		StartScale = 0.6
@@ -2708,7 +2707,6 @@
 		LocationZFromOwner = "Take"
 		OriginX = 240
 		OriginY = 240
-		OffsetZ = 60
 		GroupName = "FX_Standing_Add"
 		Slides =
 		[
@@ -2810,7 +2808,6 @@
 		GroupName = "FX_Standing_Add"
 		NumFrames = 23
 		PostRotateScaleY = 0.5
-		OffsetZ = 33
 		LocationZFromOwner = "Take"
 		VisualFx = "HeraDaggerParticlesFlip"
 		VisualFxIntervalMin = 0.01
@@ -2916,7 +2913,6 @@
 		EndRed = 0.8
 		EndGreen = 0.6
 		EndBlue = 0.999
-		Scale = 2.0
 		PlaySpeed = 90
 		ClearCreateAnimations = true
 		UseAttachedTipLocation = true
@@ -2946,7 +2942,6 @@
 		Name = "DaggerSwipeFastFlip_Demeter"
 		InheritFrom = "DaggerSwipeFast_Demeter"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		VisualFxRadialOffsetStartAngle = -70
 		VisualFxRadialOffsetIncrementAngle = 30
@@ -2996,7 +2991,6 @@
 		EndGreen = 0.1
 		EndBlue = 1.0
 		ColorFromOwner = "Ignore"
-		Scale = 1.7
 		Hue = 0
 		PlaySpeed = 75
 		Saturation = -0.5
@@ -3041,7 +3035,7 @@
 		ScaleY = 1.1
 		PlaySpeed = 75
 		OffsetZ = 60
-		Scale = 1.2
+		Scale = 0.8
 		LocationZFromOwner = "Ignore"
 		ColorFromOwner = "Ignore"
 	}
@@ -3086,7 +3080,6 @@
 		Hue = 0
 		PlaySpeed = 75
 		Saturation = -0.5
-		Scale = 2.0
 		EaseIn = 0.9
 		EaseOut = 1
 		StartOffsetZ = 60
@@ -3254,7 +3247,6 @@
 		GroupName = "FX_Standing_Add"
 		NumFrames = 23
 		PostRotateScaleY = 0.5
-		OffsetZ = 66
 		Scale = 1.2
 		LocationZFromOwner = "Take"
 		VisualFx = "DemeterDaggerParticlesFlip"
@@ -3618,7 +3610,6 @@
 		EndRed = 0.99
 		EndGreen = 0.05
 		EndBlue = 0.99
-		Scale = 2.0
 		PlaySpeed = 90
 		Sound = "/SFX/Player Sounds/AphroditeLoveSwipeFast"
 		ClearCreateAnimations = true
@@ -3821,7 +3812,7 @@
 		FlipVertical = true
 		OriginX = 220
 		OriginY = 360
-		Scale = 1.33
+		Scale = 0.85
 		PlaySpeed = 60
 		OffsetZ = 60
 		LocationZFromOwner = "Ignore"
@@ -3864,7 +3855,7 @@
 		FlipVertical = true
 		FlipHorizontal = true
 		Angle = 180
-		Scale = 0.75
+		Scale = 0.8
 		OriginX = 420
 		AngleFromOwner = "Maintain"
 	}
@@ -3885,14 +3876,12 @@
 		PlaySpeed = 90
 		StartOffsetZ = 60
 		EndOffsetZ = -20
-		Scale = 1.0
 	}
 
 	{
 		Name = "DaggerSwipeFastFlip_Aphrodite"
 		InheritFrom = "DaggerSwipeFast_Aphrodite"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		VisualFxRadialOffsetStartAngle = -70
 		VisualFxRadialOffsetIncrementAngle = 30
@@ -3940,7 +3929,6 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 		ColorFromOwner = "Ignore"
-		Scale = 2.0
 		Hue = 0
 		PlaySpeed = 75
 	}
@@ -3984,7 +3972,6 @@
 		GroupName = "FX_Standing_Add"
 		NumFrames = 23
 		PostRotateScaleY = 0.5
-		OffsetZ = 66
 		Scale = 1.2
 		LocationZFromOwner = "Take"
 		VisualFx = "AphroditeDaggerParticlesFlip"
@@ -4445,7 +4432,6 @@
 		EndRed = 0
 		EndGreen = 0.6
 		EndBlue = 1.0
-		Scale = 2.0
 		PlaySpeed = 90
 		ClearCreateAnimations = true
 		UseAttachedTipLocation = true
@@ -4453,7 +4439,7 @@
 		VisualFx = "PoseidonDaggerParticles"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
-		VisualFxRadialOffsetLength = 250
+		VisualFxRadialOffsetLength = 150
 		VisualFxRadialOffsetScaleY = 0.5
 		VisualFxRadialOffsetStartAngle = -70
 		VisualFxRadialOffsetIncrementAngle = 20
@@ -4594,7 +4580,7 @@
 		FlipVertical = true
 		OriginX = 220
 		OriginY = 360
-		Scale = 1.33
+		Scale = 0.85
 		OffsetZ = 60
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Take"
@@ -4698,7 +4684,6 @@
 		Name = "DaggerSwipeFastFlip_Poseidon"
 		InheritFrom = "DaggerSwipeFast_Poseidon"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		VisualFx = "PoseidonDaggerParticlesFlip"
 		VisualFxRadialOffsetStartAngle = 70
@@ -4746,7 +4731,6 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 		ColorFromOwner = "Ignore"
-		Scale = 2.0
 		Hue = 0
 		PlaySpeed = 75
 	}
@@ -4790,7 +4774,6 @@
 		GroupName = "FX_Standing_Add"
 		NumFrames = 40
 		PostRotateScaleY = 0.5
-		OffsetZ = 50
 		Scale = 1.2
 		LocationZFromOwner = "Take"
 		VisualFx = "PoseidonDaggerParticlesFlip"
@@ -5288,7 +5271,6 @@
         EndRed = 0.9999
         EndGreen = 0.8
         EndBlue = 0.5
-		Scale = 2.0
 		PlaySpeed = 90
 		ClearCreateAnimations = true
 		UseAttachedTipLocation = true
@@ -5461,7 +5443,7 @@
 		FlipVertical = true
 		OriginX = 220
 		OriginY = 360
-		Scale = 1.33
+		Scale = 0.85
 		OffsetZ = 60
 		LocationZFromOwner = "Ignore"
 		LocationFromOwner = "Take"
@@ -5565,7 +5547,6 @@
 		Name = "DaggerSwipeFastFlip_Zeus"
 		InheritFrom = "DaggerSwipeFast_Zeus"
 		FlipVertical = true
-		Scale = 2
 		ClearCreateAnimations = true
 		VisualFx = "ZeusDaggerParticleFlip"
 		VisualFxRadialOffsetStartAngle = 70
@@ -5613,7 +5594,6 @@
 		EndGreen = 0.999
 		EndBlue = 0.999
 		ColorFromOwner = "Ignore"
-		Scale = 2.0
 		Hue = 0
 		PlaySpeed = 75
 	}
@@ -5657,7 +5637,6 @@
 		GroupName = "FX_Standing_Add"
 		NumFrames = 40
 		PostRotateScaleY = 0.5
-		OffsetZ = 50
 		Scale = 1.2
 		LocationZFromOwner = "Take"
 		VisualFx = "ZeusDaggerParticleFlip"

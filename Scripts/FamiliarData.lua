@@ -408,6 +408,7 @@ FamiliarData =
 				},
 				-- successful clears
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -462,6 +463,7 @@ FamiliarData =
 				},
 				-- cleared Chaos Trial
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -699,6 +701,7 @@ FamiliarData =
 				},
 				-- lost in Fields
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -745,6 +748,7 @@ FamiliarData =
 				},
 				-- lost in Tartarus
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -771,7 +775,7 @@ FamiliarData =
 
 				-- lost to Polyphemus
 				{
-					RandomRemaining = true,
+					-- RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -793,6 +797,7 @@ FamiliarData =
 				},
 				-- lost in Ephyra
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -810,6 +815,7 @@ FamiliarData =
 					{ Cue = "/VO/Melinoe_2842", Text = "Not my finest night back there, but I had to try..." },
 				},
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -852,6 +858,7 @@ FamiliarData =
 				},
 				-- lost in Ships
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -871,6 +878,7 @@ FamiliarData =
 				},
 				-- lost due to Oath / Shrine
 				{
+					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.4,
 					SuccessiveChanceToPlayAll = 0.15,
@@ -1172,12 +1180,14 @@ FamiliarData =
 		TraitName = "LastStandFamiliar",
 		UnitName = "CatFamiliar",
 		EquipObjective = "ActivateCatFamiliar",
+		OnFieldsEncounterActivatedFunctionName = "CatFamiliarFieldsTeleportPresentation",
 
 		BaseResourceSpawnChance = 0.10,
 		RestBonusResourceSpawnChance = 0.025,
 
 		NumAttacks = 1,
 		MinDistanceToTeleportForFishing = 550,
+		MinDistanceToTeleportInFields = 550,
 
 		NonHeroKillCombatText = "PartnerKill",
 
@@ -1397,6 +1407,9 @@ FamiliarData =
 			TargetSearchDistance = 1500,
 			AttackDistance = 500,
 			AttackVelocity = 2000,
+
+			WanderDistance = 2000,
+			WanderDistanceScaleY = 0.6,
 		},
 
 		PreAttackVoiceLines =

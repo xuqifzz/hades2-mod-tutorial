@@ -1567,7 +1567,7 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_2193", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "It can't be. I did confront a vermin of extraordinary savagery, but it was so little! I assumed the King Vermin was huge." },
+					Text = "It can't be. I did confront a rodent of extraordinary savagery, but it was so little! I assumed the King Vermin was huge." },
 				{ Cue = "/VO/Odysseus_0194",
 					Text = "Tall tales. The King Vermin's wrath is inversely proportional to its stature. And its stature, as I understand, is very small indeed..." },
 				EndVoiceLines =

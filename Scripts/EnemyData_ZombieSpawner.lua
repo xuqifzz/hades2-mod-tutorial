@@ -20,6 +20,10 @@ UnitSetData.ZombieSpawner =
 		ImpactSound = "/SFX/RockStoneImpact",
 		AttachedAnimationName = "ZombieSpawnerShadow",
 		DeathAnimation = "Enemy_ZombieSpawner_Death",
+		
+		BlockRaiseDead = true,
+		BlockRespawnShrineUpgrade = true,
+		BlockCharm = true,
 
 		StunAnimations = 
 		{

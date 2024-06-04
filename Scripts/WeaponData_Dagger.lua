@@ -249,6 +249,7 @@ OverwriteTableKeys( WeaponData,
 			BackstabDistance = 150,
 		},
 		ManaCost = 10,
+		HideChargeDuration = 0.2,
 
 		DefaultKnockbackForce = 880,
 		DefaultKnockbackScale = 1.1,
@@ -327,11 +328,11 @@ OverwriteTableKeys( WeaponData,
 
 		SkipAttackNotReadySounds = true,
 
-		HitSimSlowCooldown = 0.2,
+		HitSimSlowCooldown = 0.3,
 		HitSimSlowParameters =
 		{
 			{ ScreenPreWait = 0.06, Fraction = 0.1, LerpTime = 0 },
-			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.07 },
+			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0.07 },
 		},
 
 		FireRumbleParameters =

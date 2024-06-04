@@ -7,7 +7,10 @@ LootSetData.Hestia =
 		OffersElementalTrait = {"Fire"},
 		GameStateRequirements =
 		{
-			--
+			{
+				Path = { "GameState", "UseRecord" },
+				HasAny = { "PoseidonUpgrade", "DemeterUpgrade" }
+			},
 		},
 		UsePromptOffsetX = 80,
 		UsePromptOffsetY = 48,

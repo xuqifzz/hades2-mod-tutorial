@@ -170,6 +170,7 @@ OverwriteTableKeys( QuestData, {
 
 		OnViewedVoiceLines =
 		{
+			Queue = "Interrupt",
 			PlayOnce = true,
 			SkipAnim = true,
 			PreLineWait = 0.75,
@@ -591,7 +592,6 @@ OverwriteTableKeys( QuestData, {
 					"ChaosRestrictBoonCurse",
 					"ChaosStunCurse",
 					"ChaosTimeCurse",
-					"ChaosMetaUpgradeCurse"
 				},
 			},
 		},
@@ -637,8 +637,6 @@ OverwriteTableKeys( QuestData, {
 					"ChaosWeaponBlessing",
 					"ChaosSpecialBlessing",
 					"ChaosCastBlessing",
-					"ChaosWeaponBaseBlessing",
-					"ChaosSpecialBaseBlessing",
 					"ChaosSpeedBlessing",
 					"ChaosHealthBlessing",
 					"ChaosRarityBlessing",
@@ -821,6 +819,7 @@ OverwriteTableKeys( QuestData, {
 					"DaggerAttackFinisherTrait",
 					"DaggerFinalHitTrait",
 					"DaggerChargeStageSkipTrait",
+					"DaggerDashAttackTripleTrait",
 				},
 				Comparison = ">=",
 				Value = 3,
@@ -843,6 +842,7 @@ OverwriteTableKeys( QuestData, {
 					"DaggerAttackFinisherTrait",
 					"DaggerFinalHitTrait",
 					"DaggerChargeStageSkipTrait",
+					"DaggerDashAttackTripleTrait",
 				},
 			},
 		},
@@ -963,7 +963,7 @@ OverwriteTableKeys( QuestData, {
 					"AxeRangedWhirlwindTrait",
 					"AxeFreeSpinTrait",
 					"AxeArmorTrait",
-					"AxeConsecutiveStrikeTrait",
+					--"AxeConsecutiveStrikeTrait",
 					"AxeBlockEmpowerTrait",
 					"AxeSecondStageTrait",
 					"AxeDashAttackTrait",
@@ -987,7 +987,7 @@ OverwriteTableKeys( QuestData, {
 					"AxeRangedWhirlwindTrait",
 					"AxeFreeSpinTrait",
 					"AxeArmorTrait",
-					"AxeConsecutiveStrikeTrait",
+					--"AxeConsecutiveStrikeTrait",
 					"AxeBlockEmpowerTrait",
 					"AxeSecondStageTrait",
 					"AxeDashAttackTrait",

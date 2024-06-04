@@ -33,6 +33,7 @@ OverwriteTableKeys( QuestData, {
 
 		OnViewedVoiceLines =
 		{
+			Queue = "Interrupt",
 			PlayOnce = true,
 			SkipAnim = true,
 			PreLineWait = 0.75,

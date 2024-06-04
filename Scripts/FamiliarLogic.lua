@@ -143,6 +143,7 @@ function UseFamiliar( familiar, args, user )
 	UnequipFamiliar( user, args )
 	EquipFamiliar( familiar, { FamiliarName = familiar.Name, EnableAI = true, } )
 	UpdateFamiliarKits()
+	SelectCodexEntry( familiar.Name )
 	EquipFamiliarPresentation( familiar )
 	wait( 1.0 )
 	RemoveInteractBlock( kit, "UseFamiliar" )
@@ -683,10 +684,9 @@ end
 
 function CatFamiliarMoveToRandomLocation( familiar, aiData, args )
 	args = args or {}
-	local spawnPointIds = GetIds({ Name = "SpawnPoints" })
+	local spawnPointIds = GetClosestIds({ Id = familiar.ObjectId, DestinationName = "SpawnPoints", Distance = aiData.WanderDistance, ScaleY = aiData.WanderDistanceScaleY, RequiredLocationUnblocked = true })
 	RemoveValue( spawnPointIds, familiar.LastSpawnPointId )
 	local randomSpawnPointId = GetRandomValue( spawnPointIds )
-	--local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints", Distance = aiData.WanderDistance, ExcludeId = familiar.LastSpawnPointId })
 	familiar.LastSpawnPointId = randomSpawnPointId
 	Move({ Id = familiar.ObjectId, DestinationId = randomSpawnPointId, SuccessDistance = 50 })
 	familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId

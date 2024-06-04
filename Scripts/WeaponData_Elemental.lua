@@ -348,10 +348,10 @@ WeaponSetData =
 
 			WaitForAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
-			PreAttackRotationDampening = 0.026,
+			PreAttackRotationDampening = 0.036,
 			StopBeforeFire = true,
 			TrackTargetDuringFire = true,
-			FireRotationDampening = 0.076,
+			FireRotationDampening = 0.024,
 			PostAttackStop = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/GoldElementalMiniboss/EmoteChargingRanged",

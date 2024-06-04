@@ -726,7 +726,7 @@
 		VisualFxUse3DAngle = true
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 14
-		Scale = 0.75
+		Scale = 0.6
 		StartScale = 1
 		EndScale = 0.66
 		PingPongScale = true

@@ -260,7 +260,18 @@ function ManaRegen()
 				end
 			end	
 		end
+		local chargeBlocksRegen = false
 		if not IsEmpty( MapState.ChargedManaWeapons ) then
+			for weaponName in pairs( MapState.ChargedManaWeapons ) do
+				local data = GetWeaponData( CurrentRun.Hero, weaponName )
+				if not data.AllowManaRegenUntilChargeIndicator then
+					chargeBlocksRegen = true
+				elseif not IsEmpty(MapState.ManaChargeIndicatorIds) then
+					chargeBlocksRegen = true
+				end
+			end
+		end
+		if chargeBlocksRegen then
 			manaRegenPerSecond = 0
 		end
 		local encounter = CurrentRun.CurrentRoom.Encounter

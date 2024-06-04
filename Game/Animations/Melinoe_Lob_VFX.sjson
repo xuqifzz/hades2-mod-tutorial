@@ -100,6 +100,17 @@
 		Scale = 0.75
 		Ambient = 0.0
 	}
+	{
+		Name = "WitchGrenadeRecallSphereOut"
+		InheritFrom = "WitchGrenadeRecallSphere"
+		Loop = false
+		Duration = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 0.75
+		EndScale = 0
+		Ambient = 0.0
+	}
 
 	{
 		Name = "LobEXProjectileReticle"
@@ -109,7 +120,7 @@
 		Loop = false
 		LocationZFromOwner = "Ignore"
 		PostRotateScaleY = 0.5
-		ScaleRadius = 430.0
+		ScaleRadius = 360
 		Ambient = 0.0
 		RotationSpeed = 20
 		Angle = 45
@@ -661,6 +672,7 @@
 		UseOwnAngle = false
 		LocationZFromOwner = "Ignore"
 		PlaySpeed = 30
+		ScaleRadius = 330
 		Slides =
 		[
 			{ DurationFrames = 10 }

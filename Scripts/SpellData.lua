@@ -260,7 +260,7 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"ManaDiscountTalent",
+				"MinorManaDiscountTalent",
 				"PolymorphDurationTalent",
 				"PolymorphDamageTalent",
 			},
@@ -399,13 +399,13 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"ManaDiscountTalent",
+				"MinorManaDiscountTalent",
 				"LaserDamageTalent",
 				"LaserDefenseTalent",
 			},
 			Unique = 
 			{
-				"LaserCrystalTalent",
+				"LaserPrimaryTalent",
 				"LaserAoETalent",
 				"LaserPenetrationTalent",
 				"LaserDurationTalent",
@@ -413,7 +413,7 @@ SpellData =
 			Legendary = 
 			{
 				"LaserTripleTalent",
-				"LaserPrimaryTalent",
+				"LaserCrystalTalent",
 			}
 		}
 	},
@@ -435,7 +435,7 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"ManaDiscountTalent",
+				"MinorManaDiscountTalent",
 				"SummonDamageTalent",
 			},
 			Unique = 

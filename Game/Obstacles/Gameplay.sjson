@@ -1417,6 +1417,14 @@
 			]
 		}
 	}
+	{
+		Name = "MetaCardPointsCommonBigDrop"
+		InheritFrom = "MetaCardPointsCommonDrop"
+		Thing =
+		{
+			Graphic = "MetaCardPointsCommonBigDrop"			
+		}
+	}
 	
 	{
 		Name = "MemPointsCommonDrop"
@@ -1435,6 +1443,14 @@
 				{ X = 0 Y = -24 }
 				{ X = -48 Y = 0 }
 			]
+		}
+	}
+	{
+		Name = "MemPointsCommonBigDrop"
+		InheritFrom = "MemPointsCommonDrop"
+		Thing =
+		{
+			Graphic = "MemPointsCommonBigDrop"			
 		}
 	}
 	

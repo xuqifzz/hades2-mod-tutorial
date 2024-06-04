@@ -2724,7 +2724,7 @@ end
 function StartTimeSlowPresentation( duration )
 	PlaySound({ Name = "/SFX/TimeSlowStart" })
 	duration = duration or 0.3
-	AdjustColorGrading({ Name = "TimeStopB", Duration = duration })
+	-- AdjustColorGrading({ Name = "TimeStopB", Duration = duration })
 	AdjustFullscreenBloom({ Name = "TimeStopBloom", Duration = duration })
 	AdjustRadialBlurDistance({ Fraction = 0.05, Duration = duration })
 	AdjustRadialBlurStrength({ Fraction = 2, Duration = duration })
@@ -3008,9 +3008,10 @@ function DaggerBlockActivePresentation( traitData, reloadTime )
 	waitUnmodified(reloadTime, RoomThreadName )
 	if not CurrentRun.Hero.IsDead then
 		PlaySound({ Name = "/SFX/Menu Sounds/KeepsakeArtemisArrow", Id = CurrentRun.Hero.ObjectId })
+		PlaySound({ Name = "/SFX/Menu Sounds/MenuMagicFlashLong", Id = CurrentRun.Hero.ObjectId })
 		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "RiposteCooldown", Duration = 1.0, ShadowScaleX = 0.7 } )
 		if ScreenAnchors.DaggerUI then
-			SetAnimation({ Name = "StaffReloadTimerReady", DestinationId = ScreenAnchors.DaggerUI, Group = "Combat_Menu_TraitTray_Overlay_Additive" })
+			SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.DaggerUI, Group = "Combat_Menu_TraitTray_Overlay_Additive" })
 		end
 	end
 end
@@ -3084,21 +3085,33 @@ function BonusManaPresentation( bonusMana )
 	thread( InCombatText, CurrentRun.Hero.ObjectId, "PostEncounterMaxManaIncrease", 0.9, { ShadowScaleX = 0.6, LuaKey = "TooltipData", LuaValue = { TooltipMana = bonusMana }} )
 end
 
-
-function StartClearCastPresentation()
+function ClearCastChargedPresentation()
 	if ScreenAnchors.StaffUI then
 		CreateAnimation({Name = "KeepsakeLevelUpFlare", DestinationId = ScreenAnchors.StaffUI, GroupName = "Overlay"})
 		SetAnimation({Name = "StaffReloadTimerReady", DestinationId = ScreenAnchors.StaffUI })
+	end
+end
+
+function StartClearCastPresentation( duration )
+	if ScreenAnchors.StaffUI and duration then
+		CreateAnimation({Name = "ErisPowerUpFx", DestinationId = CurrentRun.Hero.ObjectId })
 		PlaySound({ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup", Id = CurrentRun.Hero.ObjectId})
 		thread( InCombatTextArgs, { TargetId = ScreenAnchors.StaffUI, Text = "Hint_StaffClearCastBuff", Duration = 3.0, ShadowScaleX = 0.8, OffsetX = 0, OffsetY = -65, ScreenSpace = true, SkipRise = true })
+		thread( DrainClearCastMeter, duration )
 		--thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Hint_StaffClearCastBuff", Duration = 2.0, ShadowScaleX = 0.8, OffsetX = 20 })
 	end
 end
 
+function DrainClearCastMeter( duration )
+	SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, PlaySpeed = 100 / duration })
+	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, Fraction = 0 })
+end
 function EndClearCastPresentation()
 	if ScreenAnchors.StaffUI then
 		SetAnimation({ Name = "StaffReloadTimerOut", DestinationId = ScreenAnchors.StaffUI})
 	end
+	
+	StopAnimation({Name = "ErisPowerUpFx", DestinationId = CurrentRun.Hero.ObjectId })
 end
 
 function MedeaCursePreChoicePresentation( source, args )

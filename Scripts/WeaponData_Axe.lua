@@ -242,7 +242,9 @@ OverwriteTableKeys( WeaponData,
 		{
 			ChargeSounds =
 			{
-				{ Name = "/VO/MelinoeEmotes/EmoteChargingAxe" },
+				{ Name = "/VO/MelinoeEmotes/EmoteChargingAxe",
+					StoppedBy = { "ChargeCancel", "TriggerRelease", "Fired" }
+				},
 				{ Name = "/SFX/Player Sounds/MelinoeAxePhysicalChargeUp",
 					StoppedBy = { "ChargeCancel", "TriggerRelease", "Fired" }
 				},
@@ -282,7 +284,8 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackForce = 640,
 		DefaultKnockbackScale = 0.8,
 		RequireProjectilesForPresentation = true,
-		
+		UniqueDetonationHits = true,
+
 		CompleteObjectivesOnFire = { "WeaponAxeSpin" },
 		OnChargeFunctionName = "DoWeaponCharge",
 		OnFiredFunctionName = "CheckAxeSpinDisable",
@@ -294,16 +297,16 @@ OverwriteTableKeys( WeaponData,
 		ChargeWeaponStages = 
 		{
 				{ ManaCost = 10, WeaponProperties = { NumProjectiles = 1, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.32, ChannelSlowEventOnEnter = true, HideStageReachedFx = true },
-				{ ManaCost = 11, WeaponProperties = { NumProjectiles  = 2, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 3, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 13, WeaponProperties = { NumProjectiles  = 4, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 5, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 15, WeaponProperties = { NumProjectiles  = 6, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 7, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 17, WeaponProperties = { NumProjectiles  = 8, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 9, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 19, WeaponProperties = { NumProjectiles  = 10, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, HideStageReachedFx = true },
-				{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 11, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.2, },
+				{ ManaCost = 11, WeaponProperties = { NumProjectiles  = 2, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 3, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 13, WeaponProperties = { NumProjectiles  = 4, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 5, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 15, WeaponProperties = { NumProjectiles  = 6, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 7, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 17, WeaponProperties = { NumProjectiles  = 8, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 9, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 19, WeaponProperties = { NumProjectiles  = 10, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
+				{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 11, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, },
 		},
 		ShowManaIndicator = true,
 		OnWeaponTriggerReleaseFunctionName = "CheckCastControl",
@@ -364,40 +367,23 @@ OverwriteTableKeys( WeaponData,
 	WeaponAxeBlock2 =
 	{
 		StartingWeapon = false,
-		ShowManaIndicator = true,
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
 		DoProjectileBlockPresentation = true,
-		OnChargeFunctionNames = { "DoWeaponCharge", "CheckAxeBlockThread" },
-		ChargeWeaponData =
-		{
-			EmptyChargeFunctionName = "EmptyAxeBlockCharge",
-			OnStageReachedFunctionName = "AxeBlockChargeStage",
-		},
-		ChargeWeaponStages = 
-		{
-			{ 
-				ManaCost = 25,
-				Wait = 1.25,
-				SkipManaSpendOnFire = true,
-				DeferSwap = "WeaponAxeSpecialSwing",
-				ChannelSlowEventOnStart = true,
-				CompleteObjective = "WeaponAxeSpecialSwing",
-				ForceRelease = true,
-			},
-		},
 
 		DefaultKnockbackForce = 480,
 		DefaultKnockbackScale = 0.6,
 
-		HideChargeDuration = 0.45,
 		--ProjectileBlockFunctionName = "ShieldBlock",
 		--ProjectileBlockFunctionArgs = { EffectName = "BlockStun", MaxDistance = 350 },
 		SkipAttackNotReadySounds = true,
 		NoControlSound = "/Leftovers/SFX/OutOfAmmo2",
 
-
 		Sounds =
 		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/ZagreusFistWhoosh" },
+			},
 			ImpactSounds =
 			{
 				Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
@@ -412,13 +398,6 @@ OverwriteTableKeys( WeaponData,
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 				Shell = "/SFX/ShellImpact",
 			},
-			ChargeSounds =
-			{
-				{
-					Name = "/SFX/Player Sounds/MelinoeAxeSpecialChargeLoop",
-					StoppedBy = { "ChargeCancel", "TriggerRelease" },
-				},
-			},
 
 		},
 
@@ -428,16 +407,19 @@ OverwriteTableKeys( WeaponData,
 	{
 		StartingWeapon = false,
 		IsExWeapon = true,
-		OnChargeFunctionName = "SpendQueuedMana",
+		ManaCost = 30,
+		HideChargeDuration = 0.02,
 
 		DefaultKnockbackForce = 960,
 		DefaultKnockbackScale = 1.2,
 
 		Sounds =
-		{
+		{		
 			FireSounds =
 			{
-				{ Name = "/VO/MelinoeEmotes/EmotePoweringUp" },
+				{ Name = "/VO/MelinoeEmotes/EmotePoweringUp",
+					StoppedBy = { "ChargeCancel", "TriggerRelease", "Fired" }
+				},
 				{ Name = "/SFX/Player Sounds/ZagreusFistWhoosh" },
 			},
 			ImpactSounds =

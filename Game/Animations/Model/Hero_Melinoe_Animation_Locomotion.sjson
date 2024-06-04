@@ -416,6 +416,7 @@
 		[
 			{ Name = "Melinoe_Staff_Attack3_Start" }
 			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start_Fast" }
 			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
 			{ Name = "MelinoeSpellCharge" }
 

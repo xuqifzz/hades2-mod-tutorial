@@ -283,9 +283,6 @@ function GetLuaWeaponSpeedMultiplier( weaponName )
 	if SessionMapState.WeaponSpeedMultipliers[weaponName] then
 		speedMultiplier = speedMultiplier * SessionMapState.WeaponSpeedMultipliers[weaponName]
 	end
-	if MapState.ClearCastWeapons and MapState.ClearCastWeapons[ weaponName ] then
-		speedMultiplier = speedMultiplier * EffectData.ClearCast.ExChargeMultiplier
-	end
 	return speedMultiplier
 end
 
@@ -324,7 +321,7 @@ OnWeaponChargeCanceled{ "WeaponDagger5",
 		end
 		if MapState.DaggerBlockShieldActive then
 			MapState.DaggerBlockShieldActive = false
-		
+			SetThingProperty({ Property = "AllowDodge", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
 			local traitData = GetHeroTrait("DaggerBlockAspect")
 			local chargeFunctionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs
 			StopAnimation({ Name = chargeFunctionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
@@ -433,10 +430,12 @@ function GetWeaponChargeStages( weaponData )
 			if data.AddWeaponProperties and not IsEmpty(chargeStages) then
 				chargeStages[1].WeaponProperties = chargeStages[1].WeaponProperties or {}
 				for key, value in pairs( data.AddWeaponProperties ) do
-					if value == "null" then
-						chargeStages[1].WeaponProperties[key] = nil
-					else
-						chargeStages[1].WeaponProperties[key] = value 
+					if IsEmpty(weaponData.BlockChargeStageModifiers) or not weaponData.BlockChargeStageModifiers[key] then
+						if value == "null" then
+							chargeStages[1].WeaponProperties[key] = nil
+						else
+							chargeStages[1].WeaponProperties[key] = value 
+						end
 					end
 				end
 			end
@@ -853,6 +852,19 @@ function AllowAxeSpin()
 	SetWeaponProperty({ WeaponName = "WeaponAxeSpin", DestinationId = CurrentRun.Hero.ObjectId, Property = "RequireControlRelease", Value = false, DataValue = false })
 end
 
+function HasDisjointedCast()
+	local weaponFireOverrides = {}
+	for i, data in pairs(GetHeroTraitValues("OverrideWeaponFireNames")) do
+		weaponFireOverrides = MergeTables( weaponFireOverrides, data )
+	end
+	for weaponName, overriddenFireName in pairs( weaponFireOverrides ) do
+		if overriddenFireName == "WeaponCast" then
+			return true
+		end
+	end
+	return false
+end
+
 function CheckCastControl( unit, weaponData, triggerArgs )
 	if not triggerArgs.DidFire then
 		local weaponFireOverrides = {}
@@ -959,13 +971,14 @@ function DoThrowEx( weaponName )
 			MatchProjectileName = true,
 		})
 		CreateProjectileFromUnit({ WeaponName = weaponName, Name = "ProjectileThrowCharged", Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Angle = angle + 90, DataProperties = derivedValues.PropertyChanges, ThingProperties = derivedValues.ThingPropertyChanges, ProjectileCap = 12 })
-		if not HeroHasTrait("LobOneSideTrait") then
+		--if not HeroHasTrait("LobOneSideTrait") then
 			CreateProjectileFromUnit({ WeaponName = weaponName, Name = "ProjectileThrowCharged", Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Angle = angle - 90,DataProperties = derivedValues.PropertyChanges, ThingProperties = derivedValues.ThingPropertyChanges, ProjectileCap = 12  })
-		end
+		--end
 		local lowestSimSpeed = GetLowestSimSpeed({"WeaponFire", "WeaponHit", "WeaponCancelEffect",})
 		if weaponData.MinSimSpeedAdjustValue and lowestSimSpeed < weaponData.MinSimSpeedAdjustValue then
 			lowestSimSpeed = weaponData.MinSimSpeedAdjustValue
 		end
+	
 		waitUnmodified( MapState.ThrowWeaponInterval / lowestSimSpeed / GetPlayerGameplayElapsedTimeMultiplier(), RoomThreadName)
 	end
 end
@@ -979,6 +992,12 @@ function EmptyThrowCharge( weaponName, stageReached )
 			
 		MapState.ThrowWeaponDeferred = true
 		MapState.ThrowWeaponInterval = 0.1
+		if HeroHasTrait("LobImpulseAspect") then
+			local traitData = GetHeroTrait("LobImpulseAspect")
+			if traitData.OnWeaponFiredFunctions and traitData.OnWeaponFiredFunctions.FunctionArgs then
+				MapState.ThrowWeaponInterval = traitData.OnWeaponFiredFunctions.FunctionArgs.Interval or 0.1
+			end
+		end
 		thread(DoThrowEx, weaponName )
 		ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = "LobWeaponInvulnerable", DataProperties = EffectData.LobWeaponInvulnerable.EffectData})
 	end
@@ -1021,6 +1040,10 @@ OnBlinkFinished{ "WeaponLobSpecial",
 				ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = effectData })
 			end
 			MapState.LobCharge = nil
+		end
+
+		if HeroHasTrait("LobCloseAttackAspect") and triggerArgs.Blocked then
+			RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = "WeaponLob", Method = "ArmProjectiles" })
 		end
 		
 		if HeroHasTrait("LobSturdySpecialTrait") then
@@ -1134,9 +1157,6 @@ function TorchRepeatedFire( unit, weaponData, functionArgs, triggerArgs )
 		local chargeStages = GetWeaponChargeStages( weaponData )
 		local cost = GetManaCost( weaponData, false, { ManaCostOverride = chargeStages[MapState.WeaponCharge[weaponData.Name]].ManaCost })
 		local weaponName = weaponData.Name
-		if HeroHasTrait("TorchSingleStrikeAspect") then
-			SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "RefreshProjectileOnFire", Value = true })
-		end
 		if CurrentRun.Hero.Mana >= cost or HeraManaRestoreEligible(cost) then
 			TorchHasMana( weaponData )
 			if CurrentRun.Hero.Mana >= cost then
@@ -1161,7 +1181,6 @@ end
 
 
 function ResetFireSequence( unit, weaponData )
-
 	if weaponData.OnFiredFunctionArgs and not IsEmpty(weaponData.OnFiredFunctionArgs.SequencedAnimations) then
 		MapState.TorchFireIndex = 1	
 		local initialSequence = weaponData.OnFiredFunctionArgs.SequencedAnimations[1]
@@ -1170,10 +1189,6 @@ function ResetFireSequence( unit, weaponData )
 		end
 		for propertyName, propertyValue in pairs(initialSequence) do
 			SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = propertyName, Value = propertyValue })
-		end
-		
-		if HeroHasTrait("TorchSingleStrikeAspect") then
-			ExpireProjectiles({ Names = {"ProjectileTorchBall", "ProjectileTorchBallLarge"} })
 		end
 	end
 end

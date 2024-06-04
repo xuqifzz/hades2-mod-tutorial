@@ -310,7 +310,7 @@
 			CanBeOccluded = true
 			EditorOutlineDrawBounds = false
 			Grip = 20000.0
-			ImpulsedFx = "KnockbackLines"
+			ExternalForceMultiplier = 0.0
 			Scale = 0.7
 			SelectionHeight = 250.0
 			SelectionShiftY = 50.0

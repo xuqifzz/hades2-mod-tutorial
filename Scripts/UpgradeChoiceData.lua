@@ -306,19 +306,17 @@ ScreenData.UpgradeChoice =
 			},
 		},
 
-		ActionBar =
+		ActionBarLeft =
 		{
-			X = UIData.ContextualButtonXRight,
+			X = UIData.ContextualButtonXLeft,
 			Y = UIData.ContextualButtonY,
 			AutoAlignContextualButtons = true,
-			AutoAlignJustification = "Right",
+			AutoAlignJustification = "Left",
 
 			ChildrenOrder =
 			{
 				"TraitTrayButton",
-				"SelectButton",
-				"RerollButton",
-				"RarifyButton",
+				"BoonListButton",
 			},
 
 			Children = 
@@ -336,9 +334,48 @@ ScreenData.UpgradeChoice =
 						ControlHotkeys = { "AdvancedTooltip", },
 					},
 					Text = "Menu_OpenTraitTray",
-					TextArgs = UIData.ContextualButtonFormatRight,
+					TextArgs = UIData.ContextualButtonFormatLeft,
 				},
 
+				BoonListButton =
+				{
+					Requirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeBoonList" },
+						}
+					},
+					Graphic = "ContextualActionButton",
+					Alpha = 0.0,
+					Data =
+					{
+						OnMouseOverFunctionName = "MouseOverContextualAction",
+						OnMouseOffFunctionName = "MouseOffContextualAction",
+						OnPressedFunctionName = "AttemptOpenUpgradeChoiceBoonInfo",
+						ControlHotkeys = { "MenuInfo", },
+					},
+					Text = "Menu_TraitList",
+					TextArgs = UIData.ContextualButtonFormatLeft,
+				},
+			},
+		},
+
+		ActionBar =
+		{
+			X = UIData.ContextualButtonXRight,
+			Y = UIData.ContextualButtonY,
+			AutoAlignContextualButtons = true,
+			AutoAlignJustification = "Right",
+
+			ChildrenOrder =
+			{
+				"SelectButton",
+				"RerollButton",
+				"RarifyButton",
+			},
+
+			Children = 
+			{
 				SelectButton =
 				{
 					Graphic = "ContextualActionButton",
@@ -379,6 +416,7 @@ ScreenData.UpgradeChoice =
 					Text = "Boon_Upgrade",
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
+
 			},
 		},
 	}

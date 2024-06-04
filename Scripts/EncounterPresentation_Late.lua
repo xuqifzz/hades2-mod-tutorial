@@ -1199,6 +1199,9 @@ function FieldsEncounterActivatedPresentation( rewardCage, args )
 	PlayInteractAnimation( rewardCage.ObjectId, { Animation = GetEquippedWeaponValue( "WeaponInteractAnimation" ) })
 	thread( PlayVoiceLines, HeroVoiceLines.FieldsEncounterStartedVoiceLines, true )
 	thread( FieldsEncounterStartPresentation )
+	if MapState.FamiliarUnit ~= nil and MapState.FamiliarUnit.OnFieldsEncounterActivatedFunctionName ~= nil then
+		thread( CallFunctionName, MapState.FamiliarUnit.OnFieldsEncounterActivatedFunctionName, MapState.FamiliarUnit )
+	end
 end
 
 function FieldsEncounterStartPresentation( eventSource, args )
@@ -1275,6 +1278,13 @@ function InfestedCerberusSpawnPresentation( enemy )
 	AdjustRadialBlurStrength({ Fraction = 0, Duration = 1.0 })
 end
 
+function ChronosMinorStageTransition( boss, currentRun, aiStage )
+	Stop({ Id = boss.ObjectId })
+	SetAnimation({ DestinationId = boss.ObjectId, Name = "Enemy_Chronos_Idle" })
+	ExpireProjectiles({ Names = { "ChronosGrindWall", "ChronosGrindVacuum", } })
+	BossStageTransition( boss, currentRun, aiStage )
+end
+
 function ChronosPhaseTransition( boss, currentRun, aiStage )
 	boss.InTransition = true
 
@@ -1290,7 +1300,11 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 	HideCombatUI("ChronosPhaseTransition")
 
 	DestroyRequiredKills( { BlockLoot = true, SkipIds = { boss.ObjectId }, BlockDeathWeapons = true } )
-	--ExpireProjectiles({ Names = { "" }, ExcludeNames = { "" } })
+	ExpireProjectiles({ ExcludeNames = WeaponSets.ExpireProjectileExcludeProjectileNames, BlockSpawns = true })
+	ClearEffect({ Ids = { boss.ObjectId }, All = true })
+	if not IsEmpty( boss.StopAnimationsOnHitStun ) then
+		StopAnimation({ Names = boss.StopAnimationsOnHitStun, DestinationId = boss.ObjectId, PreventChain = true })
+	end
 	SetAnimation({ Name = "Enemy_Chronos_Knockdown_Start", DestinationId = boss.ObjectId })
 	SetGoalAngle({ Id = boss.ObjectId, Angle = 270 })
 	thread( LastKillPresentation, boss )

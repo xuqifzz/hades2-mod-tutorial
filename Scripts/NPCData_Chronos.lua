@@ -288,6 +288,10 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosAnomalyIntro01", "ChronosBossFirstMeeting", "ChronosBossFirstMeeting_B", "ChronosBossFirstMeeting_C" },
+					},				
+					{
 						Path = { "GameState", "RoomCountCache", "F_PostBoss01", },
 						Comparison = ">=",
 						Value = 5,
@@ -338,6 +342,10 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosMeeting03" },
+					},
+					{
 						Path = { "GameState", "RoomCountCache", "F_PostBoss01", },
 						Comparison = ">=",
 						Value = 7,
@@ -375,6 +383,10 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosMeeting04" },
+					},
+					{
 						Path = { "GameState", "RoomCountCache", "F_PostBoss01", },
 						Comparison = ">=",
 						Value = 9,
@@ -404,6 +416,10 @@ UnitSetData.NPC_Chronos =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosAnomalyIntro01", "ChronosBossFirstMeeting", "ChronosBossFirstMeeting_B", "ChronosBossFirstMeeting_C" },
+					},
 					{
 						Path = { "GameState", "RoomCountCache", "F_PostBoss01", },
 						Comparison = ">=",
@@ -447,6 +463,10 @@ UnitSetData.NPC_Chronos =
 				GameStateRequirements =
 				{
 					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosPostSurfaceMeeting01" },
+					},
+					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
@@ -484,6 +504,10 @@ UnitSetData.NPC_Chronos =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosPostSurfaceMeeting02" },
+					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
@@ -526,6 +550,10 @@ UnitSetData.NPC_Chronos =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosPostSurfaceMeeting03" },
+					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},

@@ -3,7 +3,7 @@
   {
     Platform = "default"
     TransitionOnTime = 0.1
-    TransitionOffTime = 0.15
+    TransitionOffTime = 0.25
     OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear"
     CloseSound = "null"
     SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"

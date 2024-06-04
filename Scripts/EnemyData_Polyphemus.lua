@@ -755,7 +755,7 @@ UnitSetData.Polyphemus =
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
-					Text = "It won't be. That {#Emph}town {#Prev}back there, as you call it, ought have been bustling with mortals. Now it's a festering necropolis. All thanks to the Titan." },
+					Text = "It won't be. That {#Emph}town {#Prev}back there, as you call it, would have been bustling with mortals. Now it's a festering necropolis. All thanks to the Titan." },
 				{ Cue = "/VO/Polyphemus_0128",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
@@ -1495,6 +1495,7 @@ UnitSetData.Polyphemus =
 	PolyphemusCorpse =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
+		GenusName = "Polyphemus",
 		RequiredKill = false,
 		TriggersOnHitEffects = true,
 		BlocksLootInteraction = false,

@@ -575,7 +575,7 @@ ScreenData.RunHistory =
 			},
 			Data =
 			{
-				OnPressedFunctionName = "QuestLogScrollUp",
+				OnPressedFunctionName = "RunHistoryScrollUp",
 				ControlHotkeys = { "MenuUp", },
 			}
 		},
@@ -592,7 +592,7 @@ ScreenData.RunHistory =
 			},
 			Data =
 			{
-				OnPressedFunctionName = "QuestLogScrollDown",
+				OnPressedFunctionName = "RunHistoryScrollDown",
 				ControlHotkeys = { "MenuDown", },
 			}
 		},

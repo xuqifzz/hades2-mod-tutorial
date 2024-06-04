@@ -260,6 +260,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			ImmuneToProjectileSlow = true,
 
 			ProjectileName = "CharybdisRangedTransport",
 			SpawnFromMarker = "Charybdis_Rig:mawTooth_01_M_JNT",

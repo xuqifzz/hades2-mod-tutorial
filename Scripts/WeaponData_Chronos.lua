@@ -1153,7 +1153,8 @@ WeaponSetData =
 			StopAnimationsOnHitStun = { "ChronosRadial3InvertedCircle", },
 			EndPreAttackFx = true,
 
-			UseRandomTargetId = { 645922, 645923, 645924, 645925, 645926, 645927, 645928, 645929, 645930, 645931, 645932, 645933, },
+			TargetFromGroup = "ClockFacePoints",
+			TargetMinDistance = 530,
 
 			PreAttackDuration = 3.17,
 			FireDuration = 0.78,
@@ -1440,13 +1441,13 @@ WeaponSetData =
 
 			FireProjectileStartDelay = 0.07,
 			PreAttackDuration = 0.87,
-			FireDuration = 0.44,
+			FireDuration = 0.32,
 			PostAttackDuration = 2.0,
 
 			PreAttackEndShake = true,
 			PreAttackEndDuration = 0.34,
 
-			PreAttackSound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged",
+			-- PreAttackSound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged",
 			PreAttackAnimation = "Enemy_Chronos_ScytheThrowPreFire",
 			FireAnimation = "Enemy_Chronos_ScytheThrowFire",
 			PostAttackAnimation = "Enemy_Chronos_ScytheThrowPostFire",

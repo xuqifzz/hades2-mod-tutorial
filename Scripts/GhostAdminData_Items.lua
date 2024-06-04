@@ -47,6 +47,7 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeBreakableValue1",
 		"WorldUpgradeEphyraZoomOut",
 		"WorldUpgradeFieldsRewardFinder",
+		--"WorldUpgradeTimeSlowChronosFight",
 		"WorldUpgradePauseChronosFight",
 		"WorldUpgradeUnusedWeaponBonus",
 		"WorldUpgradePostBossGiftRack",

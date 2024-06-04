@@ -1818,7 +1818,7 @@ LootSetData.Poseidon =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Poseidon_0040",
-					Text = "I see that my great brother Zeus already blessed you with his incomparable strength! Well, maybe not {#Emph}incomparable. {#Prev}Here! Have some of {#Emph}mine{#Prev}, and you can weigh the benefits!" },
+					Text = "I see that my great brother Zeus already blessed you with his incomparable strength! Well, perhaps not {#Emph}incomparable. {#Prev}Here! Have some of {#Emph}mine{#Prev}, and you can weigh the benefits!" },
 			},
 			PoseidonAboutHera01 =
 			{

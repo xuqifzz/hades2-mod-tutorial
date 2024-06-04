@@ -392,6 +392,23 @@
 			}
 
 			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_End"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 8
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_FireLoop"
+				Duration = 8
+			}
+
+			{
 				BlendTransitionFrom = "Melinoe_Axe_Sprint_FireLoop"
 				Duration = 4
 			}

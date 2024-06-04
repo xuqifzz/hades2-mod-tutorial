@@ -729,8 +729,13 @@ end
 function CheckBoonSkipShrineUpgrade( source, args )
 	local currentRoom = CurrentRun.CurrentRoom
 	local boonSkipRank = GetNumShrineUpgrades( "BoonSkipShrineUpgrade" )
-	if boonSkipRank > (CurrentRun.BiomeBoonSkips[currentRoom.RoomSetName] or 0) then
-		CurrentRun.BiomeBoonSkips[currentRoom.RoomSetName] = (CurrentRun.BiomeBoonSkips[currentRoom.RoomSetName] or 0) + 1
+	local roomSetName = currentRoom.RoomSetName
+	if currentRoom.UsePreviousRoomSet then
+		local previousRoom = GetPreviousRoom( CurrentRun ) or currentRoom
+		roomSetName = previousRoom.RoomSetName
+	end
+	if boonSkipRank > (CurrentRun.BiomeBoonSkips[roomSetName] or 0) then
+		CurrentRun.BiomeBoonSkips[roomSetName] = (CurrentRun.BiomeBoonSkips[roomSetName] or 0) + 1
 		local consumableId = SpawnObstacle({ Name = "RoomRewardConsolationPrize", DestinationId = args.LootPointId, Group = "Standing", OffsetX = args.LootOffset.X, OffsetY = args.LootOffset.Y })
 		local reward = CreateConsumableItem( consumableId, "RoomRewardConsolationPrize", 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds } )
 		MapState.RoomRequiredObjects[reward.ObjectId] = reward

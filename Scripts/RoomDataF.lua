@@ -15,6 +15,7 @@
 
 		LegalEncounters = EncounterSets.FEncountersDefault,
 		DevotionEncounters = {"DevotionTestF"},
+		TargetMetaRewardsRatio = 0.4,
 
 		SecretSpawnChance = 0.10,
 		WellShopSpawnChance = 0.25,
@@ -250,6 +251,20 @@
 			},
 			{
 				Name = "Boon",
+				LootName = "AphroditeUpgrade",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "UseRecord" },
+						HasAll = { "DemeterUpgrade", "PoseidonUpgrade", "HestiaUpgrade" },
+					},
+					{
+						PathFalse = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+				}
+			},
+			{
+				Name = "Boon",
 				LootName = "HephaestusUpgrade",
 				GameStateRequirements =
 				{
@@ -265,20 +280,6 @@
 					},
 					{
 						PathFalse = { "GameState", "UseRecord", "SpellDrop" },
-					},
-				}
-			},
-			{
-				Name = "Boon",
-				LootName = "AphroditeUpgrade",
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "UseRecord" },
-						HasAll = { "DemeterUpgrade", "PoseidonUpgrade", "HestiaUpgrade" },
-					},
-					{
-						PathFalse = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
 				}
 			},

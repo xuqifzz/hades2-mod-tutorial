@@ -221,7 +221,7 @@ OnAnyLoad
 		RemoveTimerBlock( CurrentRun, "MapLoad" )
 
 		if roomData ~= nil then
-			LoadCurrentRoomVoiceBanks( CurrentRun.CurrentRoom )
+			LoadCurrentRoomResources( CurrentRun.CurrentRoom )
 			if CurrentRun.CurrentRoom.ExitsUnlocked then
 				RestoreUnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
 			else
@@ -250,11 +250,18 @@ OnAnyLoad
 	end
 }
 
-function LoadCurrentRoomVoiceBanks(currentRoom)
-	LoadVoiceBanks("MelinoeField")
+function LoadCurrentRoomResources(currentRoom)
+	LoadVoiceBanks("MelinoeField", true)
 	local voiceBanks = { currentRoom.Name, currentRoom.ForceLootName, currentRoom.ChosenRewardType, currentRoom.Encounter.Name, currentRoom.Encounter.LootAName, currentRoom.Encounter.LootBName }
 	for _, name in pairs(voiceBanks) do
 		LoadVoiceBanks( GetSpeakerName( name ) )
+	end
+
+	local packages = { currentRoom.ForceLootName, currentRoom.Encounter.LootAName, currentRoom.Encounter.LootBName }
+	for _, name in pairs(packages) do
+		if not GameData.MissingPackages[lootName] then
+			LoadPackages({ Name = name })
+		end
 	end
 end
 
@@ -265,6 +272,7 @@ function MapStateInit()
 	MapState.PhasingFlags = {}
 	MapState.FullManaAtFireStart = {}
 	MapState.FullManaVolleys = {}
+	MapState.StaffClearCountHits = 0
 	MapState.HeroNotStopsProjectile = {}
 	MapState.ActiveObstacles = {}
 	MapState.AggroedUnits = {}
@@ -306,7 +314,10 @@ end
 function SessionMapStateInit()
 	SessionMapState = {}
 	SessionMapState.SpawnPointsUsed = {}
+	SessionMapState.OriginMarkers = {}
+	SessionMapState.InvalidRepeatCastIds = {}
 	SessionMapState.CastAttachedProjectiles = {}
+	SessionMapState.CurrentExAttachedProjectiles = {}
 	SessionMapState.AmmoVolleys = {}
 	SessionMapState.LobLock = {}
 	SessionMapState.SpecialLock = {}
@@ -340,7 +351,9 @@ function SessionMapStateInit()
 	SessionMapState.HUDTraitsShown = {}
 	SessionMapState.SpellHealWindow = 0
 	SessionMapState.LifeOnKillRecord = SessionMapState.LifeOnKillRecord or {}
+	SessionMapState.FiredChillKill = SessionMapState.FiredChillKill or {}
 	SessionMapState.DeferredTableWrite = {}
+	SessionMapState.ElapsedTimeMultiplierIgnores = {}
 end
 
 function ValidateIdLeaks( trace, tableToCheck )
@@ -449,6 +462,8 @@ function DoPatches()
 		for itemName, value in pairs( GameState.WorldUpgradesViewed ) do
 			GameState.WorldUpgradesRevealed[itemName] = true
 		end
+		GameState.WorldUpgrades.WorldUpgradeTimeSlowChronosFight = nil
+		GameState.WorldUpgradesAdded.WorldUpgradeTimeSlowChronosFight = nil
 
 		for id, plot in pairs( GameState.GardenPlots ) do
 			local plotData = ObstacleData[plot.Name]
@@ -813,7 +828,7 @@ function DoPatches()
 						trait.OnExpire = nil
 						IncrementTableValue( traitsToRemove, trait.Name )
 					else
-						IncrementTableValue( traitsToAdd, trait.Name )
+						traitsToAdd[trait.Name] = { Rarity = trait.Rarity or "Common", StackCount = trait.StackNum or 1 }
 					end
 
 				end
@@ -913,6 +928,10 @@ function DoPatches()
 				if trait.AddOutgoingDamageModifiers and trait.AddOutgoingDamageModifiers.ValidWeapons and not trait.AddOutgoingDamageModifiers.ValidWeaponsLookup then
 					addTraitToUpdate( trait )
 				end
+
+				if trait.PrePickSacrificeBoon and not trait.SacrificedTraitName then
+					trait.SacrificedTraitName = "None_In_Slot"
+				end
 				
 				if not traitsToRemove[trait.Name] and not traitsToAdd[trait.Name] then			
 					ExtractValues( CurrentRun.Hero, trait, trait )
@@ -941,15 +960,10 @@ function DoPatches()
 			local orderedTraitsToAdd = CollapseTableAsOrderedKeyValuePairs(traitsToAdd)
 			for index, kvp in ipairs(orderedTraitsToAdd) do
 				local traitName = kvp.Key
-				local traitNumber = kvp.Value
-				for i=1, traitNumber do
-					DebugPrint({Text = " Removing " .. traitName })
-					RemoveTrait( CurrentRun.Hero, traitName, { SkipActivatedTraitUpdate = true })
-				end
-				for i=1, traitNumber do
-					DebugPrint({Text = " Readding " .. traitName })
-					AddTraitToHero({ TraitName = traitName, Rarity = "Common", SkipActivatedTraitUpdate = true, FromLoot = TraitData[traitName].FromLootOnUpdate })
-				end
+				local traitData = kvp.Value
+				DebugPrint({Text = " Updating " .. traitName })
+				RemoveWeaponTrait( traitName, { Silent = true, SkipActivatedTraitUpdate = true })
+				AddTraitToHero({ TraitName = traitName, Rarity = traitData.Rarity, StackNum = traitData.StackCount, SkipActivatedTraitUpdate = true, FromLoot = TraitData[traitName].FromLootOnUpdate })
 			end
 
 			local orderedTraitsToRemove = CollapseTableAsOrderedKeyValuePairs(traitsToRemove)
@@ -1993,13 +2007,13 @@ function LoadSpawnPackages( encounter )
 	end
 end
 
-function LoadVoiceBanks( characters )
+function LoadVoiceBanks( characters, persist )
 	if type(characters) == "table" then
 		for _, value in pairs(characters) do
-			LoadVoiceBanks(value)
+			LoadVoiceBanks(value, persist)
 		end
 	elseif type(characters) == "string" then
-		LoadVoiceBank({ Name = characters })
+		LoadVoiceBank({ Name = characters, Persist = persist })
 	end
 end
 
@@ -2248,7 +2262,7 @@ function StartEncounter( currentRun, currentRoom, encounter )
 		currentRun.EncounterDepth = currentRun.EncounterDepth + 1
 	end
 	table.insert(currentRoom.ActiveEncounters, encounter)
-	if encounter.TimerBlock ~= nil then
+	if encounter.TimerBlock ~= nil and ( encounter.TimerBlockRequirements == nil or IsGameStateEligible( currentRun, currentRoom, encounter.TimerBlockRequirements ) ) then
 		AddTimerBlock( currentRun, encounter.TimerBlock )
 	end
 	if CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth <= HealthUI.LowHealthThreshold and not currentRoom.HideLowHealthShroud then
@@ -3565,7 +3579,7 @@ function SetupUnit( unit, currentRun, args )
 	ActiveEnemies[unit.ObjectId] = unit
 	SurroundEnemiesAttacking[unit.Name] = SurroundEnemiesAttacking[unit.Name] or {}
 	AttachLua({ Id = unit.ObjectId, Table = unit })
-	unit.AIThreadName = "AIThread_"..unit.Name.."_"..unit.ObjectId
+	unit.AIThreadName = "AIThread_"..unit.Name.."_"..unit.ObjectId	
 
 	if unit.SetupEvents ~= nil then
 		RunEventsGeneric( unit.SetupEvents, unit, args )
@@ -4035,7 +4049,10 @@ function CheckConversations( source, args )
 	for id, unit in ipairs( sortedUnits ) do
 		CheckAvailableTextLines( unit )
 		SetAvailableUseText( unit )
-		if unit.NextInteractLines == nil and args.CheckNoConversationFunctions and unit.NoConversationFunctions ~= nil then
+		
+	end
+	for id, unit in ipairs( sortedUnits ) do
+		if unit.NextInteractLines == nil and not unit.InPartnerConversation and args.CheckNoConversationFunctions and unit.NoConversationFunctions ~= nil then
 			for k, functionEntry in ipairs( unit.NoConversationFunctions ) do
 				if functionEntry.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, unit, functionEntry.GameStateRequirements ) then
 					CallFunctionName( functionEntry.Name, unit, functionEntry.Args )
@@ -4569,6 +4586,9 @@ function LeaveRoom( currentRun, door )
 	RemoveTimerBlock( currentRun, "LeaveRoom" )
 	if currentRoomData.TimerBlock ~= nil then
 		RemoveTimerBlock( currentRun, currentRoomData.TimerBlock )
+	end
+	if currentRun.CurrentRoom.Encounter ~= nil and currentRun.CurrentRoom.Encounter.TimerBlock ~= nil then
+		RemoveTimerBlock( currentRun, currentRun.CurrentRoom.Encounter.TimerBlock )
 	end
 	SetPlayerVulnerable( "LeaveRoom" )
 	
@@ -6139,8 +6159,9 @@ function UseFieldsRewardFinder( source, args )
 	wait(1.0)
 
 	if not CurrentRun.CurrentRoom.SpawnedRewardCageIndicators then
-		for rewardId, reward in pairs( MapState.RoomRequiredObjects ) do
-			if not reward.FieldsRewardFinderIgnores then
+		local requiredObjects = ShallowCopyTable( MapState.RoomRequiredObjects ) -- copying because the original table may change during iteration
+		for rewardId, reward in pairs( requiredObjects ) do
+			if IsAlive({ Id = rewardId }) and not reward.FieldsRewardFinderIgnores then
 				local spellIcon = nil
 				if SpellData[reward.LootName] ~= nil then
 					spellIcon = SpellData[reward.LootName].DoorIcon

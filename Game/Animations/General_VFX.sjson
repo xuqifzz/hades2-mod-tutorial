@@ -470,7 +470,7 @@
 		GroupName = "Overlay"			
 		VisualFx = "TimeStopStreaks"
 		AngleFromOwner = "Ignore"
-		EndAlpha = 1.0
+		EndAlpha = 0.3
 		EndBlue = 0.9
 		EndGreen = 0.1
 		EndRed = 0.3
@@ -488,8 +488,8 @@
 		UseAttachedFlasher = false
 		CreateAnimations =
 		[
-			{ Name = "TimeStopTerrainFx" }
-			{ Name = "TimeStopStartFlare" }
+			// { Name = "TimeStopTerrainFx" }
+			// { Name = "TimeStopStartFlare" }
 			{ Name = "TimeStopStartFlareDark" }
 			{ Name = "TimeStopStreaks" }
 			{ Name = "TimeStopStreaks" }
@@ -525,8 +525,8 @@
 		Name = "TimeStopStartFlareDark"
 		InheritFrom = "TimeStopStartFlare"
 		GroupName = "FX_Dark"
-		StartAlpha = 1.0
-		Duration = 1.0
+		StartAlpha = 0.33
+		Duration = 1
 		StartScale = 0.0
 		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
 	}
@@ -572,6 +572,8 @@
 		ScaleMax = 1.2
 		ScaleMin = 0.8
 		Ambient = 0.0
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
 	}
 	
 	{

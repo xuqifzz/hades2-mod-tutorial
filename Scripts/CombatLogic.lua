@@ -78,13 +78,13 @@ OnControlPressed{ "Reload",
 
 OnWeaponTriggerRelease{
 	function( triggerArgs )
-
+	
+		local attacker = triggerArgs.OwnerTable
 		local weaponData = GetWeaponData( attacker, triggerArgs.name)
 		if weaponData == nil then
 			return
 		end
 
-		local attacker = triggerArgs.OwnerTable
 		StopWeaponSounds( "TriggerRelease", weaponData.Sounds, attacker )
 
 		CallFunctionName( weaponData.OnWeaponTriggerReleaseFunctionName, attacker, weaponData, triggerArgs )
@@ -1255,6 +1255,8 @@ function DamageEnemy( victim, triggerArgs )
 	if victim.AIEndHealthThreshold ~= nil then
 		if currentHealthFraction <= victim.AIEndHealthThreshold and victim.Health > 0 then
 			AIHealthThresholdReached(victim)
+		elseif currentHealthFraction <= victim.AIEndHealthThreshold and victim.Phases ~= nil and victim.CurrentPhase < victim.Phases then
+			SetThreadWait(victim.AIThreadName, 0.01)
 		end
 		if victim.Health <= 0 then
 			killWaitUntilThreads(victim.DumbFireThreadName)
@@ -1863,7 +1865,7 @@ function CheckLastStand( victim, triggerArgs )
 		CallFunctionName( functionData.Name, functionData.FunctionArgs, triggerArgs )
 	end
 
-	wait( 1.0, RoomThreadName )
+	wait( 1.5, RoomThreadName )
 
 
 	SetPlayerVulnerable("LastStand")
@@ -2047,7 +2049,7 @@ function DoReaction( victim, reaction, triggerArgs )
 		if reaction.Damage ~= nil and triggerArgs.CollideeTable ~= CurrentRun.Hero and triggerArgs.TriggeredByTable ~= CurrentRun.Hero then
 			local damageArgs = { AttackerName = triggerArgs.AttackerName, WeaponName = "BaseCollision", Angle = triggerArgs.SourceAngle + math.pi, DamageAmount = triggerArgs.Velocity * reaction.Damage.PerVelocity, Silent = false, PureDamage = true } 
 			Damage( victim, damageArgs )
-			WallHitPresentation( victim, damageArgs )
+			--WallHitPresentation( victim, damageArgs )
 		end
 	end
 
@@ -2854,7 +2856,7 @@ OnHit{
 					return
 				end
 
-				if HeroHasTrait( "ReserveManaHitShieldBoon" ) then
+				if HeroHasTrait( "ReserveManaHitShieldBoon" ) and not (MapState.DaggerBlockShieldActive and HeroHasTrait("DaggerBlockAspect")) then
 					-- Player hit
 					local tempInvulnerabilityTrait = nil
 					for k, currentTrait in pairs( CurrentRun.Hero.Traits ) do
@@ -2897,6 +2899,7 @@ OnHit{
 				SetAnimation({ Name = "StaffReloadTimerOut", DestinationId = ScreenAnchors.DaggerUI })
 				UpdateDaggerUI()
 				thread( DaggerBlockActivePresentation, traitData, functionArgs.Cooldown )
+				thread( CheckDaggerBlockRecharge, traitData, functionArgs.Cooldown )
 				if functionArgs.InvulnerableDuration then
 					local effectName = functionArgs.InvulnerableEffectName
 					local dataProperties = EffectData[effectName].DataProperties
@@ -2905,7 +2908,7 @@ OnHit{
 				end
 				MapState.DaggerCharges = functionArgs.CritCount
 				MapState.DaggerBlockShieldActive = false
-
+				SetThingProperty({ Property = "AllowDodge", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
 				return
 			end
 
@@ -3792,7 +3795,7 @@ function GameplaySetElapsedTimeMultiplier( args )
 		SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = currentMultiplier/ startingMultiplier, ValueChangeType = "Multiply", DataValue = false, DestinationNames = { "EnemyTeam" } })
 		for enemyId, enemy in pairs( ActiveEnemies ) do
 			if enemy.IgnoreTimeSlowEffects then
-				SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = 1, ValueChangeType = "Absolute", DataValue = false, DestinationId = enemyId })
+				SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = enemy.SpeedMultiplier or 1.0, ValueChangeType = "Absolute", DataValue = false, DestinationId = enemyId })
 			end
 		end
 		if args.ApplyToPlayerUnits then
@@ -4260,6 +4263,11 @@ function AIHealthThresholdReached( victim )
 		ExpireProjectiles({ ProjectileIds = victim.ExpireProjectileIdsOnHitStun })
 	end
 	if not IsEmpty( victim.StopAnimationsOnHitStun ) then
-		StopAnimation({ Names = victim.StopAnimationsOnHitStun, DestinationId = victim.ObjectId })
+		StopAnimation({ Names = victim.StopAnimationsOnHitStun, DestinationId = victim.ObjectId, PreventChain = true })
+		if victim.FxTargetIdsUsed ~= nil then
+			for id, v in pairs( victim.FxTargetIdsUsed ) do
+				StopAnimation({ Names = victim.StopAnimationsOnHitStun, DestinationId = id, PreventChain = true })
+			end
+		end
 	end
 end

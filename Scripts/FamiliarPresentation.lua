@@ -527,3 +527,33 @@ end
 function CatFamiliarAttackPresentation( familiar, args )
 	SetAnimation({ Name = "Familiar_Cat_Attack_Fire", DestinationId = familiar.ObjectId })
 end
+
+function CatFamiliarFieldsTeleportPresentation( familiar )
+
+	if GetDistance({ Id = familiar.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) >= FamiliarData.CatFamiliar.MinDistanceToTeleportInFields then
+
+		local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
+		if spawnPointId == 0 then
+			-- fall back to the hero's position if no spawn points exist
+			spawnPointId = CurrentRun.Hero.ObjectId
+		end
+
+		SetAnimation({ Name = "Familiar_Cat_DropIn_Exit", DestinationId = familiar.ObjectId })
+		wait(0.2)
+
+		-- teleport to the closest spawn point
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 0.0, Duration = 0.2 })
+		wait( 0.65 )
+		AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = spawnPointId })
+		PlaySound({ Name = "/SFX/Familiars/CatGrumpy", Id = familiar.ObjectId })
+		Teleport({ Id =  familiar.ObjectId, DestinationId = spawnPointId })
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAnimation({ Name = "Familiar_Cat_DropIn_Enter", DestinationId = familiar.ObjectId })
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 1.0, Duration = 0.2 })
+		wait( 0.5 )
+		SetAnimation({ Name = "Familiar_Cat_Sleep_Start", DestinationId = familiar.ObjectId })
+
+	end
+
+end

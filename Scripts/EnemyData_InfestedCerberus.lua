@@ -61,6 +61,7 @@ UnitSetData.InfestedCerberus =
 			"InfestedCerberusHowlCircles",
 			"InfestedCerberusHowlCircles2",
 			"InfestedCerberusHowlCirclesRotating",
+			"InfestedCerberusHowlCirclesBackGuard",
 
 			"InfestedCerberusHowlSummonSelector",
 			"InfestedCerberusHowlSummonSelector",

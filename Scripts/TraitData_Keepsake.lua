@@ -3,9 +3,15 @@ TraitSetData.Keepsakes =
 {
 	GiftTrait =
 	{
-		NoFrame = true,
+		FrameRarities =
+		{
+			Common = "Frame_Keepsake_Rank1",
+			Rare = "Frame_Keepsake_Rank2",
+			Epic = "Frame_Keepsake_Rank3",
+		},
 		Slot = "Keepsake",
 		ShowInHUD = true,
+		HUDScale = 0.435,
 		HideInRunHistory = true,
 		ActiveSlotOffsetIndex = 0,
 		CustomRarityLevels =
@@ -96,7 +102,8 @@ TraitSetData.Keepsakes =
 	BlockDeathKeepsake = 
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_06",
+		Icon = "Keepsake_32",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeSisyphusShackle",
 		InRackTitle = "BlockDeathKeepsake_Rack",
 		RarityLevels =
 		{
@@ -117,7 +124,6 @@ TraitSetData.Keepsakes =
 				Multiplier = 2.5,
 			}
 		},
-		EquipSound = "/SFX/Menu Sounds/KeepsakeSkellyTooth",
 		BlockDeathTimer = 10,
 		BlockDeathHealth = { BaseValue = 30, AsInt = true },
 		ExtractValues =
@@ -186,7 +192,7 @@ TraitSetData.Keepsakes =
 	ReincarnationKeepsake =
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_03",
+		Icon = "Keepsake_29",
 		InRackTitle = "ReincarnationKeepsake_Rack",
 		RarityLevels =
 		{
@@ -273,7 +279,8 @@ TraitSetData.Keepsakes =
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "DoorHealReserveKeepsake_Rack",
 		ZeroBonusTrayText = "DoorHealReserveKeepsake_Expired",
-		Icon = "Keepsake_04",
+		Icon = "Keepsake_30",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeCharonBoneHourglass",
 		-- OnExpireSound = "/Leftovers/SFX/AuraOff",
 		RarityLevels =
 		{
@@ -331,7 +338,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "DeathVengeanceKeepsake_Rack",
-		Icon = "Keepsake_05",
+		Icon = "Keepsake_31",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeAresBloodVial",
 		RarityLevels =
 		{
 			Common =
@@ -416,7 +424,7 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "LowHealthCritKeepsake_Rack",
-		Icon = "Keepsake_10",
+		Icon = "Keepsake_44",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeArtemisArrow",
 		PriorityDisplay = true,
 		LowHealthThresholdText =
@@ -490,7 +498,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "SpellTalentKeepsake_Rack",
-		Icon = "Keepsake_11",
+		Icon = "Keepsake_45",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		ZeroBonusTrayText = "SpellTalentKeepsake_Expired",
 
 		RarityLevels =
@@ -501,22 +510,22 @@ TraitSetData.Keepsakes =
 			},
 			Rare =
 			{
-				Multiplier = 2,
+				Multiplier = 4/3,
 			},
 			Epic =
 			{
-				Multiplier = 3,
+				Multiplier = 5/3,
 			},
 			Heroic =
 			{
-				Multiplier = 4,
+				Multiplier = 6/3,
 			}
 		},
-		TalentPointCount = { BaseValue = 1 },
+		TalentPointCount = { BaseValue = 3 },
 		AcquireFunctionName = "AddTalentPoints",
 		AcquireFunctionArgs =
 		{ 
-			Count = { BaseValue = 1 },
+			Count = { BaseValue = 3 },
 			ReportValues = 
 			{ 
 				ReportedCount = "Count",
@@ -557,9 +566,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "BonusMoneyKeepsake_Rack",
-		Icon = "Keepsake_08",
+		Icon = "Keepsake_34",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
-
 		UnequippedKeepsakeTitle = "BonusMoneyKeepsake_Rack",
 		CustomTrayNameWhileDead = "BonusMoneyKeepsake",
 		RarityLevels =
@@ -620,7 +628,8 @@ TraitSetData.Keepsakes =
 	BossPreDamageKeepsake =
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_02",
+		Icon = "Keepsake_28",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeMegSkullEarring",
 		InRackTitle = "BossPreDamageKeepsake_Rack",
 		RarityLevels =
 		{
@@ -714,7 +723,8 @@ TraitSetData.Keepsakes =
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "ManaOverTimeRefundKeepsake_Rack",
 		ZeroBonusTrayText = "ManaOverTimeRefundKeepsake_Expired",
-		Icon = "Keepsake_01",
+		Icon = "Keepsake_27",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeNyxShawl",
 		-- OnExpireSound = "/Leftovers/SFX/AuraOff",
 		RarityLevels =
 		{
@@ -841,7 +851,8 @@ TraitSetData.Keepsakes =
 			}
 		},
 		InRackTitle = "BossMetaUpgradeKeepsake_Rack",
-		Icon = "Keepsake_21",
+		Icon = "Keepsake_37",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeOrpheysDistantMemoryJar",
 		PostBossCardRarity = { BaseValue = 1 },
 		RemainingUses = 1,
 		ExtractValues =
@@ -878,7 +889,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "FountainRarityKeepsake_Rack",
-		Icon = "Keepsake_23",
+		Icon = "Keepsake_39",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeDionysusCup",
 		RarityLevels =
 		{
 			Common =
@@ -973,8 +985,10 @@ TraitSetData.Keepsakes =
 	ArmorGainKeepsake = 
 	{
 		InheritFrom = { "GiftTrait", "CostumeTrait" },
+		Frame = "nil",
 		InRackTitle = "ArmorGainKeepsake_Rack",
-		Icon = "Keepsake_22",
+		Icon = "Keepsake_38",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeNyxShawl",
 		RarityLevels =
 		{
 			Common =
@@ -1054,8 +1068,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = {"GiftTrait"},
 		InRackTitle = "TempHammerKeepsake_Rack",
-		Icon = "Keepsake_25",
-		
+		Icon = "Keepsake_41",
+		EquipSound = "/SFX/WeaponUpgradeHammerPickup",
 		AcquireFunctionName = "GiveDurationHammer",
 		AcquireFunctionArgs =
 		{ 
@@ -1165,7 +1179,8 @@ TraitSetData.Keepsakes =
 	DecayingBoostKeepsake = 
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_19",
+		Icon = "Keepsake_35",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeCerberusCollar",
 		InRackTitle = "DecayingBoostKeepsake_Rack",
 		CustomTrayNameWhileDead = "DecayingBoostKeepsake",
 		CustomTrayText = "DecayingBoostKeepsake_Tray",
@@ -1241,8 +1256,8 @@ TraitSetData.Keepsakes =
 	DamagedDamageBoostKeepsake = 
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_20",
-		-- EquipSound = "",
+		Icon = "Keepsake_36",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeNyxShawl",
 		InRackTitle = "DamagedDamageBoostKeepsake_Rack",
 		RarityLevels =
 		{
@@ -1335,8 +1350,8 @@ TraitSetData.Keepsakes =
 				Multiplier = 2.5,
 			}
 		},
-		Icon = "Keepsake_07",
-		-- EquipSound = "",
+		Icon = "Keepsake_33",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeThanatosButterflyBell",
 		InRackTitle = "EscalatingKeepsake_Rack",
 		CustomTrayNameWhileDead = "EscalatingKeepsake",
 		CustomTrayText = "EscalatingKeepsake_Tray",
@@ -1396,7 +1411,8 @@ TraitSetData.Keepsakes =
 	TimedBuffKeepsake = 
 	{
 		InheritFrom = { "GiftTrait" },
-		Icon = "Keepsake_09",
+		Icon = "Keepsake_43",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeHermesFastClear",
 		InRackTitle = "TimedBuffKeepsake_Rack",
 		ZeroBonusTrayText = "TimedBuffKeepsake_Expired",
 		FromLootOnUpdate = true,
@@ -1491,7 +1507,6 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		Icon = "Keepsake_13",
-		-- EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "SpeedRunBossKeepsake_Rack",
 		Timers =
 		{
@@ -1542,8 +1557,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "UnpickedBoonKeepsake_Rack",
-		Icon = "Keepsake_24",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
+		Icon = "Keepsake_40",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeSkellyTooth",
 		RarityLevels =
 		{
 			Common =
@@ -1602,8 +1617,8 @@ TraitSetData.Keepsakes =
 	{
 		InheritFrom = { "GiftTrait" },
 		InRackTitle = "RandomBlessingKeepsake_Rack",
-		Icon = "Keepsake_26",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
+		Icon = "Keepsake_42",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeChaosEgg",
 		RarityLevels =
 		{
 			Common =
@@ -1700,8 +1715,8 @@ TraitSetData.Keepsakes =
 	ForceHephaestusBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_17",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
+		Icon = "Keepsake_52",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeAchillesBracer",
 		InRackTitle = "ForceHephaestusBoonKeepsake_Rack",
 		ForceBoonName = "HephaestusUpgrade",
 		RarityUpgradeData = 
@@ -1753,7 +1768,7 @@ TraitSetData.Keepsakes =
 	ForceZeusBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_12",
+		Icon = "Keepsake_46",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "ForceZeusBoonKeepsake_Rack",
 		ForceBoonName = "ZeusUpgrade",
@@ -1826,7 +1841,7 @@ TraitSetData.Keepsakes =
 	ForceDemeterBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_14",
+		Icon = "Keepsake_49",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDemeterHorn",
 		InRackTitle = "ForceDemeterBoonKeepsake_Rack",
 		ForceBoonName = "DemeterUpgrade",
@@ -1898,7 +1913,7 @@ TraitSetData.Keepsakes =
 	ForceAphroditeBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_16",
+		Icon = "Keepsake_51",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAphroditeRose",
 		InRackTitle = "ForceAphroditeBoonKeepsake_Rack",
 		ForceBoonName = "AphroditeUpgrade",
@@ -1951,7 +1966,7 @@ TraitSetData.Keepsakes =
 	ForcePoseidonBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_14",
+		Icon = "Keepsake_48",
 		EquipSound = "/SFX/Menu Sounds/KeepsakePoseidonShell",
 		InRackTitle = "ForcePoseidonBoonKeepsake_Rack",
 		ForceBoonName = "PoseidonUpgrade",
@@ -2005,8 +2020,8 @@ TraitSetData.Keepsakes =
 	ForceApolloBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_15",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeDionysusCup",
+		Icon = "Keepsake_50",
+		EquipSound = "/SFX/Menu Sounds/KeepsakePersephonePomBlossom",
 		InRackTitle = "ForceApolloBoonKeepsake_Rack",
 		ForceBoonName = "ApolloUpgrade",
 		RarityUpgradeData = 
@@ -2059,8 +2074,8 @@ TraitSetData.Keepsakes =
 	ForceHestiaBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_18",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
+		Icon = "Keepsake_53",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeCharonBoneHourglass",
 		InRackTitle = "ForceHestiaBoonKeepsake_Rack",
 		ForceBoonName = "HestiaUpgrade",
 		RarityUpgradeData = 
@@ -2112,8 +2127,8 @@ TraitSetData.Keepsakes =
 	ForceHeraBoonKeepsake =
 	{
 		InheritFrom = { "BaseBoonUpgradeKeepsake" },
-		Icon = "Keepsake_13",
-		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
+		Icon = "Keepsake_47",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeThanatosLegendary",
 		InRackTitle = "ForceHeraBoonKeepsake_Rack",
 		ForceBoonName = "HeraUpgrade",
 		RarityUpgradeData = 

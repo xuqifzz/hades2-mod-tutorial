@@ -151,7 +151,13 @@ WeaponSetData =
 			DeepInheritance = true,
 			ProjectileName = "Treant2Ranged",
 
-			FireRotationDampening = 0.26,
+			AttackDistance = 1200,
+			AttackDistanceScaleY = 0.6,
+
+			StopBeforeFire = true,
+			AngleTowardsTargetWhileFiring = false,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 		},
 	},
 

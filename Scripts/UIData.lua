@@ -29,6 +29,10 @@ AutomaticExtractProperties =
 	{
 		MultiplyHeroValue = "BurnDamageMultiplier",
 	},
+	ExDamageMultiplier =
+	{
+		ReplaceWithHeroValue = "ClearCastDamageMultiplierOverride",
+	}
 }
 
 TextFormats =

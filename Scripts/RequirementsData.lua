@@ -240,6 +240,10 @@ NamedRequirementsData =
 						"O_PreBoss01", "O_Boss01", "O_PostBoss01",
 						"P_PreBoss01", "P_Boss01", "P_PostBoss01", },
 		},
+		{
+			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+			IsNone = { "Anomaly" },
+		},
 	},
 
 	-- Flashback01 / Hecate Flashback
@@ -352,6 +356,14 @@ NamedRequirementsData =
 		-- RequireQuestsComplete = { "QuestUnlockBountyBoard" },
 		MinRunsSinceAnyTextLines = { TextLines = { "MorosFirstMeeting" }, Count = 2 },
 	},
+
+	UsedTimeSlowAgainstChronos =
+	{
+		{
+			PathTrue = { "GameState", "Flags", "UsedSlowAgainstChronos" },
+		},
+	},
+
 	NarcissusInFields =
 	{
 		{

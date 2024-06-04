@@ -6010,6 +6010,25 @@
 	}
 
 	{
+		Name = "ChronosRadial3DangerZone"
+		FilePath = "Fx\Chronos\ChronosRadial\ChronosRadial3DangerZone"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Duration = 1.5
+		PingPongColor = true
+		StartAlpha = 0.0
+		EndAlpha = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		PostRotateScaleY = 0.5
+		Scale = 4
+		RandomRotation = true
+		RotationSpeed = 30
+		StartScale = 2
+		EndScale = 0.25
+	}
+
+	{
 		Name = "ChronosRadial3InvertedCircleIn"
 		InheritFrom = "ChronosRadial3InvertedCircle"
 		ChainTo = "ChronosRadial3InvertedCircle"
@@ -6018,6 +6037,7 @@
 		EaseIn = 0
 		EaseOut = 1
 		Duration = 0.25
+		ClearCreateAnimations = true
 	}
 
 	{
@@ -6027,6 +6047,7 @@
 		StartAlpha = 1
 		EndAlpha = 0
 		ChainTo = null
+		ClearCreateAnimations = true
 	}
 
 	{
@@ -6037,6 +6058,7 @@
 		ChildAnimation = "ChronosRadial3InvertedCircleC"
 		RotationSpeed = 24
 		OffsetZ = 0
+		ClearCreateAnimations = true 
 	}
 
 	{
@@ -6044,10 +6066,23 @@
 		InheritFrom = "ChronosRadial3InvertedCircle"
 		Sound = "/EmptyCue"
 		FilePath = "Fx\Chronos\ChronosRadial\Outer2Small"
-		ChildAnimation = null
+		ChildAnimation = "ChronosRadial3DangerZoneEmitter"
 		RotationSpeed = 32
 		OffsetZ = 5
+		ClearCreateAnimations = true
 	}
+
+	{
+		Name = "ChronosRadial3DangerZoneEmitter"
+		FilePath = "Dev\blank_invisible"
+		CreateAnimation = "ChronosRadial3DangerZone"
+		VisualFx = "ChronosRadial3DangerZone"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		Duration = 1
+		Loop = true
+	}
+
 
 
 	{
@@ -6080,7 +6115,12 @@
 		UseAttachedFlasher = false
 		UseAttachedShake = false
 		UseAttachedAddColor = false
-		Color = { Red = 0.0 Green = 0.0 Blue = 0.00 }
+		EndRed = 1
+		EndGreen = 0.8
+		EndBlue = 0.1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
 		CreateAnimation = "ChronosRadial3InvertedCircleFxBrightRandom"
 	}
 

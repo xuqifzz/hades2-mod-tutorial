@@ -1722,6 +1722,9 @@ OverwriteTableKeys( HubRoomData, {
 				SetupEvents =
 				{
 					{
+						FunctionName = "GenerateMarketItems",
+					},
+					{
 						FunctionName = "PlayStatusAnimation",
 						Args = { Animation = "StatusIconWantsToTalkImportant" },
 						GameStateRequirements =
@@ -2027,6 +2030,13 @@ OverwriteTableKeys( HubRoomData, {
 							RandomRemaining = true,
 							UsePlayerSource = true,
 							PlayOnceFromTableThisRun = true,
+							SuccessiveChanceToPlayAll = 0.5,
+							GameStateRequirements =
+							{
+								{
+									PathFalse = { "CurrentRun", "UseRecord", "Mailbox" }
+								},
+							},
 							Cooldowns =
 							{
 								{ Name = "MelinoeAnyQuipSpeech", Time = 3 },
@@ -2500,12 +2510,15 @@ OverwriteTableKeys( HubRoomData, {
 
 							-- { Cue = "/VO/Melinoe_2951", Text = "It's calmed here since last night..." },
 							{ Cue = "/VO/Melinoe_3566", Text = "{#Emph}<Sigh> {#Prev}OK...",
+								PlayOnce = true,
+								PlayOnceContext = "DocksSighVO",
 								GameStateRequirements =
 								{
 									NamedRequirementsFalse = { "MailboxUnlocked" },
 								},
 							},
 							{ Cue = "/VO/Melinoe_0028", Text = "I'm just procrastinating at this point.",
+								PlayOnce = true,
 								GameStateRequirements =
 								{
 									{
@@ -2964,6 +2977,7 @@ OverwriteTableKeys( HubRoomData, {
 					{
 						PathFalse = { "GameState", "RoomsEntered", "N_Opening01" },
 					},
+					NamedRequirementsFalse = { "ShrineUnlocked" },
 				},
 			},
 			{

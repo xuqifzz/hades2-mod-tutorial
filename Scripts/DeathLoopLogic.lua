@@ -35,8 +35,6 @@ function KillHero( victim, triggerArgs )
 		return
 	end
 
-	SendSaveFileEmail({ })
-
 	AddTimerBlock( CurrentRun, "HandleDeath" )
 	if ActiveScreens.TraitTrayScreen ~= nil then
 		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
@@ -46,7 +44,8 @@ function KillHero( victim, triggerArgs )
 	CurrentRun.Hero.IsDead = true
 	CurrentRun.ActiveBiomeTimer = false
 	CurrentRun.ActiveBiomeTimerKeepsake = false
-	if ConfigOptionCache.EasyMode and not CurrentRun.Cleared then
+
+	if ShouldIncrementEasyMode() then
 		GameState.EasyModeLevel = GameState.EasyModeLevel + 1
 	end
 	if not CurrentRun.Cleared then -- Already recorded if cleared
@@ -126,15 +125,23 @@ function KillHero( victim, triggerArgs )
 			end
 		end
 	end
-	RequestSave({ StartNextMap = deathMap, DevSaveName = CreateDevSaveName( CurrentRun, { StartNextMap = deathMap, PostDeath = true, } ) })
+	CurrentRun.Hero.PreDeathTraits = CurrentRun.Hero.Traits
+	RequestSave({ StartNextMap = deathMap, DevSaveName = CreateDevSaveName( CurrentRun, { StartNextMap = deathMap, PostDeath = true, } ), SendSave = true })
 	ClearUpgrades()
 	SetConfigOption({ Name = "FlipMapThings", Value = false })
 
 	LoadMap({ Name = deathMap, ResetBinks = true })
 end
 
-function StartDeathLoop( currentRun )
+function ShouldIncrementEasyMode()
+	if ConfigOptionCache.EasyMode and not CurrentRun.Cleared and not CurrentRun.BountyCleared and not CurrentRun.Hero.TraitDictionary.SurfacePenalty then
+		return true
+	end
+	return false
+end
 
+function StartDeathLoop( currentRun )
+	UnloadVoiceBanks({ Name = "MelinoeField" })
 	ToggleCombatControl( CombatControlsDefaults, false, "DeathLoopStart" )
 	RestorePackagedBountyGameState()
 	

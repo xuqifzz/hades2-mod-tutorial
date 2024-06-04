@@ -320,6 +320,7 @@ WeaponSetData =
 		{
 			MinAttacksBetweenUse = 2,
 			MaxActiveSpawns = 3,
+			RequiresNotCharmed = true,
 		},
 
 		AIData =
@@ -328,6 +329,7 @@ WeaponSetData =
 
 			NoProjectile = true,
 			PreAttackStop = true,
+			DoNotRepeatOnAttackFail = true,
 
 			AttackDistance = 99999,
 			MoveWithinRange = false,

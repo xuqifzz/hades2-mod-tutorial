@@ -21,6 +21,7 @@ UnitSetData.NPC_Charon =
 				PathTrue = { "GameState", "TextLinesRecord", "CharonGift01" },
 			},
 		},
+		BoonInfoTitleText = "Codex_BoonInfo_Charon",
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{

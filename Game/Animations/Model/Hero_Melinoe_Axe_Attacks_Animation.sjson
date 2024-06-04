@@ -35,7 +35,7 @@
 	{
 		Name = "Melinoe_Axe_Attack1_Start_Fast"
 		InheritFrom = "Melinoe_Axe_Attack1_Start"
-		GrannyAnimationSpeed = 4.416
+		GrannyAnimationSpeed = 2.0
 	}
 
 	{
@@ -140,7 +140,7 @@
 	{
 		Name = "Melinoe_Axe_Attack2_Start_Fast"
 		InheritFrom = "Melinoe_Axe_Attack2_Start"
-		GrannyAnimationSpeed = 1.667
+		GrannyAnimationSpeed = 1.3
 	}
 
 	{
@@ -238,7 +238,7 @@
 	{
 		Name = "Melinoe_Axe_Attack3_Start_Fast"
 		InheritFrom = "Melinoe_Axe_Attack3_Start"
-		GrannyAnimationSpeed = 11.11
+		GrannyAnimationSpeed = 1.35
 	}
 
 	{
@@ -356,7 +356,7 @@
 	{
 		Name = "Melinoe_Axe_Attack4_Start_Fast"
 		InheritFrom = "Melinoe_Axe_Attack4_Start"
-		GrannyAnimationSpeed = 2.316
+		GrannyAnimationSpeed = 1.3
 	}
 	
 	{
@@ -484,7 +484,7 @@
 		InheritFrom = "MelinoeBaseAxeAnimations"
 		GrannyAnimation = "Melinoe_Axe_Base_DragBlockIntro_C_00"
 		DisableOwnerManualInteract = true
-		GrannyAnimationSpeed = 1.84
+		GrannyAnimationSpeed = 1.8
 		HoldLastFrame = true
 		Attachments =
 		[
@@ -496,6 +496,14 @@
 			{
 				Name = "Blur_Axe_Special1_Start"
 				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
 			}
 		]
 	}
@@ -531,6 +539,45 @@
 			}
 			
 		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Special1_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_DragBlock_C_00"
+		DisableOwnerManualInteract = true
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Axe_Special1_End"
+		Sound = "/SFX/Player Sounds/MelinoeAxeSpecialChargeLoop"
+		StopSoundOnFinishFade = 0.2
+		Attachments =
+		[
+			{
+				Name = "Axe_Special1_FireLoop"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			
+			{
+				Name = "Blur_Axe_Special1_FireLoop"
+				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
+			}
+			
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
+			}
+		]
 	}
 
 	{
@@ -562,6 +609,26 @@
 			{
 				Frame = 25
 				Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_FireLoop"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_Start"
+				Duration = 11
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_SpecialEx1_Fire"
+				Duration = 11
 			}
 		]
 	}
@@ -608,7 +675,7 @@
 		GrannyAnimation = "Melinoe_Axe_Base_AttackDragToLevitateSlamIntro_C_00"
 		DisableOwnerManualInteract = true
 		HoldLastFrame = true
-		GrannyAnimationSpeed = 1.0
+		GrannyAnimationSpeed = 0.6
 		Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
 		Attachments =
 		[
@@ -639,14 +706,22 @@
 		[
 			{
 				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
-				Duration = 4
+				Duration = 7
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 7
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_FireLoop"
+				Duration = 7
 			}
 		]
 	}
 	{
 		Name = "Melinoe_Axe_SpecialEx1_Start_Fast"
 		InheritFrom = "Melinoe_Axe_SpecialEx1_Start"
-		GrannyAnimationSpeed = 1.15
+		GrannyAnimationSpeed = 0.75
 	}
 
 	{
@@ -823,6 +898,15 @@
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Axe_Attack3_End"
+				Duration = 10
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 10
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
 				Duration = 10
 			}
 		]

@@ -671,8 +671,16 @@
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellTransformPrompt" },
-		ManaSpendCost = 90,
+		ManaSpendCost = 100,
 		Duration = 5.0,
+
+		OnChargeFunctionArgs = 
+		{
+			TimeSlowModifier = 0.001,
+			Duration = 1.1,
+			DisableBlink = true,
+			Force = true,
+		},
 
 		OnFiredFunctionNames = { "SpellFire", "SpellTransform", },
 		OnFiredFunctionArgs = 
@@ -822,7 +830,15 @@
 		OnFiredFunctionNames = { "LaserSpellFire" },
 		OnClipEmptyFunctionName = "LaserSpellReload", 
 		MaxDuration = 3,
-		ManaSpendCost = 120,
+		ManaSpendCost = 70,
+
+		OnChargeFunctionArgs = 
+		{
+			TimeSlowModifier = 0.001,
+			Duration = 1.0,
+			DisableBlink = true,
+			Force = true,
+		},
 		
 		Sounds =
 		{
@@ -858,14 +874,23 @@
 		Duration = 12,
 		MaxSummons = 1,
 		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire" },
-		ManaSpendCost = 100,
+		ManaSpendCost = 60,
 		SummonMultipliers = 
 		{
-			MaxHealthMultiplier = 1.5,
+			MaxHealthMultiplier = 100,
 			SpeedMultiplier = 1.6,
 			ScaleMultiplier = 1.2,
-			DamageMultiplier = 2.0,
+			DamageMultiplier = 1.5,
 		},
+
+		OnChargeFunctionArgs = 
+		{
+			TimeSlowModifier = 0.001,
+			Duration = 1.0,
+			DisableBlink = true,
+			Force = true,
+		},
+
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
 		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.0 },
@@ -891,7 +916,15 @@
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellPolymorphPrompt" },
 		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire" },
-		ManaSpendCost = 140,
+		ManaSpendCost = 50,
+
+		OnChargeFunctionArgs = 
+		{
+			TimeSlowModifier = 0.001,
+			Duration = 1.0,
+			DisableBlink = true,
+			Force = true,
+		},
 
 		PolymorphExtractModifier = 0.5,
 
@@ -987,10 +1020,10 @@
 		OnChargeFunctionArgs = {},
 
 		OnFiredFunctionNames = { "SpellPotion", "SpellFire" },
-		OnFiredFunctionArgs = { Amount = 25, HealDelay = 0.35 },
-		HealingAmount = 25,
+		OnFiredFunctionArgs = { Amount = 15, HealDelay = 0.35 },
+		HealingAmount = 15,
 		ShowManaIndicator = false,
-		ManaSpendCost = 70,
+		ManaSpendCost = 80,
 
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.08, Angle = 225, ScreenPreWait = 0.19 },
 
@@ -1018,7 +1051,7 @@
 		CompleteObjectivesOnFire = { "SpellLeapPrompt" },
 		OnFiredFunctionNames = {"SpellFire", "SetupSpellLeap" },
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
-		ManaSpendCost = 80,
+		ManaSpendCost = 40,
 		ShowManaIndicator = false,
 		RiseDistance = 400,
 		RiseTime = 0.6,			--Ascent duration

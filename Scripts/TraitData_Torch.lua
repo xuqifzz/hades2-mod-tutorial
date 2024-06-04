@@ -10,7 +10,7 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = { "WeaponTorchSpecial" },
 			NonExBaseDamageAddition = 
 			{ 
-				BaseValue = 50,
+				BaseValue = 75,
 			},
 			ReportValues = 
 			{ 
@@ -71,14 +71,14 @@ OverwriteTableKeys( TraitData, {
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponTorchSpecial" },
-			Value = 0.80,
+			Value = 0.8,
 			ReportValues = { ReportedSpeedBonus = "Value" }
 		},
 		ManaCostModifiers = 
 		{
 			WeaponNames = WeaponSets.HeroSecondaryWeapons,
 			ExWeapons = true,
-			ManaCostAdd = -2,
+			ManaCostAdd = -10,
 			ReportValues = 
 			{ 
 				ReportedCost = "ManaCostAdd" 
@@ -97,6 +97,58 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+	TorchEnhancedAttackTrait = 
+	{
+		InheritFrom = { "WeaponTrait" },
+		Icon = "Hammer_Torch_29",
+		RequiredWeapon = "WeaponTorch",
+		OnWeaponFiredFunctions = 
+		{
+			
+			ValidWeapons = WeaponSets.HeroRushWeapons,
+			FunctionName = "TorchSprintRecall",
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponNames = { "WeaponTorch", },
+				ProjectileProperties = 
+				{
+					ResetCollisionOutsideImpact = true,
+					InheritOwnerVelocityMultiplier = 0,
+					CheckObstacleImpact = false
+				},
+				ExcludeLinked = true,
+			},
+			{
+				FalseTraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileProperty = "ReturnToOwnerSpeed",
+				ChangeValue = 1200,
+			},
+			{
+				TraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "ReturnToOwnerSpeed",
+				ChangeValue = 100,
+			},
+			{
+				TraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "ReturnToOwnerRecallOnly",
+				ChangeValue = true,
+			},
+			{
+				TraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "ReturnToOwnerSpeed",
+				ChangeValue = 1200,
+			},
+		},
+	},
 	TorchDiscountExAttackTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
@@ -106,14 +158,14 @@ OverwriteTableKeys( TraitData, {
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
-			Value = 0.9,
+			Value = 0.5,
 			ReportValues = { ReportedSpeedIncrease = "Value" }
 		},
 		ManaCostModifiers = 
 		{
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
 			ExWeapons = true,
-			ManaCostAdd = -3,
+			ManaCostAdd = -1,
 			ReportValues = 
 			{ 
 				ReportedCost = "ManaCostAdd" 
@@ -213,57 +265,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	TorchEnhancedAttackTrait = 
-	{
-		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_29",
-		RequiredWeapon = "WeaponTorch",
-		ChargeStageModifiers = 
-		{
-			ValidWeapons = { "WeaponTorch" },
-			AddProperty = { ForceRelease = true },
-			AddWeaponProperties = 
-			{
-				SelfVelocity = -850,
-			},
-			AddProjectileProperties = 
-			{
-				InheritOwnerVelocityMultiplier = 0,
-			},
-			ExcludeLinked = true,
-		},
-		ManaCostModifiers = 
-		{
-			WeaponNames = WeaponSets.HeroPrimaryWeapons,
-			ExWeapons = true,
-			ManaCostAdd = 20,
-			ReportValues = 
-			{ 
-				ReportedCost = "ManaCostAdd" 
-			},
-		},
-		AddOutgoingDamageModifiers =
-		{
-			ExMultiplier = 16,
-			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			ReportValues = { ReportedDamageBonus = "ExMultiplier"},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
-				Format = "PercentDelta",
-				IncludeSigns = true,
-			},
-			{
-				Key = "ReportedCost",
-				ExtractAs = "ManaCostAdd",
-			},
-		},
-	},
 
-	--[[
 	TorchSpinAttackTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
@@ -286,37 +288,9 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponTorch",
 				ProjectileProperties = 
 				{
-					Type = "ARC",
-					Speed = 360,
-					MinRange = 180,
-					MaxRange = 700,
-					ArcStart = 0,
-					UseStartLocation = true,
-					ArcEnd = math.rad(-3600),
+					ImpactVelocity = 800,
 				}
 			},
-	
-			{
-				FalseTraitName = "TorchSprintRecallAspect",
-				WeaponName = "WeaponTorch",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 2,
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "TorchSprintRecallAspect",
-				WeaponName = "WeaponTorch",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 4, --Match extended fuse of the aspect
-				ChangeType = "Absolute",
-			},
-			{
-				TraitName = "TorchDetonateAspect",
-				WeaponName = "WeaponTorch",
-				ProjectileProperty = "Fuse",
-				ChangeValue = 6, --Match extended fuse of the aspect
-				ChangeType = "Absolute",
-			}
 		},
 		ExtractValues =
 		{
@@ -326,7 +300,6 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	]]
 
 	TorchOrbitPointTrait = 
 	{
@@ -355,10 +328,23 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Speed",
-				ChangeValue = 1.5,
+				ChangeValue = 1.6,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedMoveSpeedBonus = "ChangeValue"},
-		
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchSpiral",
+				ProjectileProperty = "Speed",
+				ChangeValue = 1.6,
+				ChangeType = "Multiply",
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchSpiral",
+				ProjectileProperty = "Acceleration",
+				ChangeValue = -330,
+				ChangeType = "Absolute",
 			},
 		},
 		ExtractValues =
@@ -379,12 +365,13 @@ OverwriteTableKeys( TraitData, {
 		RequiredWeapon = "WeaponTorch",
 		AddOutgoingDamageModifiers =
 		{
-			NonExHealthBufferRemoval = 0.8,
+			HealthBufferRemoval = 0.20,
 			ValidWeapons = { "WeaponTorchSpecial" },
-			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
+			ReportValues = { ReportedWeaponMultiplier = "HealthBufferRemoval"},
 		},
 		PropertyChanges =
 		{	
+			--[[
 			{
 				WeaponName = "WeaponTorchSpecial",
 				WeaponProperty = "AutoLock",
@@ -445,6 +432,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			]]
 		},
 		ExtractValues =
 		{
@@ -465,7 +453,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			ValidWeaponMultiplier =
 			{
-				BaseValue = 1.10,
+				BaseValue = 1.3,
 				SourceIsMultiplier = true,
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -475,17 +463,23 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				WeaponName = "WeaponTorch",
-				EffectName = "TorchAttackChargeSpeed",
-				EffectProperty = "Modifier",
-				BaseValue = 1.3,
+				ProjectileName = "ProjectileTorchBall",
+				ProjectileProperty = "Speed",
+				ChangeValue = 1.2,
 				ChangeType = "Multiply",
-				ReportValues = { ReportedSpeedIncrease= "ChangeValue" }
+				ReportValues = { ReportedRangeIncrease = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponTorch",
-				EffectName = "TorchAttackFireSpeed",
-				EffectProperty = "Modifier",
-				BaseValue = 1.3,
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "Speed",
+				ChangeValue = 1.2,
+				ChangeType = "Multiply",
+			},
+			{
+				WeaponName = "WeaponTorch",
+				WeaponProperty = "AutoLockRange",
+				ChangeValue = 1.2,
 				ChangeType = "Multiply",
 			},
 		},
@@ -497,8 +491,8 @@ OverwriteTableKeys( TraitData, {
 				Format = "PercentDelta"
 			},
 			{
-				Key = "ReportedSpeedIncrease",
-				ExtractAs = "TooltipSpeedIncrease",
+				Key = "ReportedRangeIncrease",
+				ExtractAs = "TooltipRangeIncrease",
 				Format = "PercentDelta"
 			},
 		},
@@ -513,10 +507,26 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponTorch",
 				WeaponProperty = "Cooldown",
-				ChangeValue = 0.85,
+				ChangeValue = 0.8,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedBonus = "ChangeValue" }
 			},
+			{
+				WeaponName = "WeaponTorch",
+				EffectName = "TorchAttackChargeSpeed",
+				EffectProperty = "Modifier",
+				BaseValue = 1.8,
+				ChangeType = "Multiply",
+				--ReportValues = { ReportedSpeedIncrease= "ChangeValue" }
+			},
+			{
+				WeaponName = "WeaponTorch",
+				EffectName = "TorchAttackFireSpeed",
+				EffectProperty = "Modifier",
+				BaseValue = 1.8,
+				ChangeType = "Multiply",
+			},
+			--[[
 			{
 				WeaponName = "WeaponTorch",
 				EffectName = "TorchAttackChargeSpeed",
@@ -525,13 +535,7 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedPenalty= "ChangeValue" }
 			},
-			{
-				WeaponName = "WeaponTorch",
-				EffectName = "TorchAttackFireSpeed",
-				EffectProperty = "Modifier",
-				BaseValue = 0.85,
-				ChangeType = "Multiply",
-			},
+			]]
 		},
 		ExtractValues =
 		{

@@ -878,6 +878,12 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "LegendaryTrait", "EarthBoon" },
 		Icon = "Boon_Hephaestus_40",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+			},
+		},
 		AcquireFunctionName = "UpgradeAspect",
 		AcquireFunctionArgs = 
 		{

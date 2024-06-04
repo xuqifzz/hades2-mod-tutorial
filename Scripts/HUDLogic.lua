@@ -575,7 +575,7 @@ function ShowTorchUI( )
 	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.TorchUIChargeAmount, Fraction = currentCharge/ maxCharge, Instant = true })
 		
 	if trait.Charge >= trait.OnEnemyDamagedAction.Args.MaxCharge then
-		SetAnimation({ Name = "StaffReloadTimerReady", DestinationId = ScreenAnchors.TorchUI })
+		SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.TorchUI })
 	end
 
 	SetAlpha({ Id = ScreenAnchors.TorchUI, Duration = 0, Fraction = 0 })
@@ -636,7 +636,7 @@ function ShowDaggerUI()
 		SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, StartFrameFraction = 1 - remainingTime/totalTime })
 		SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, Fraction = 1 })
 	else
-		SetAnimation({ Name = "StaffReloadTimerReady", DestinationId = ScreenAnchors.DaggerUI })
+		SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.DaggerUI })
 		SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount})
 		SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, Fraction = 1, Instant = true })
 	end
@@ -698,7 +698,12 @@ function ShowStaffUI( )
 
 	SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount })
 	local currentHits = MapState.StaffClearCountHits or 0
-	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, Fraction = currentHits/ trait.OnEnemyDamagedAction.Args.RequiredCount, Instant = true })
+	local requiredCount = 12
+	local traitData = GetHeroTrait("StaffClearCastAspect")
+	if traitData.OnWeaponFiredFunctions and traitData.OnWeaponFiredFunctions.FunctionArgs then
+		requiredCount = traitData.OnWeaponFiredFunctions.FunctionArgs.RequiredCount or requiredCount
+	end
+	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, Fraction = currentHits / requiredCount, Instant = true })
 	
 	SetAlpha({ Id = ScreenAnchors.StaffUI, Duration = 0, Fraction = 0 })
 	SetAlpha({ Id = ScreenAnchors.StaffUI, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
@@ -928,7 +933,8 @@ function TraitUIAdd( trait, args )
 		end
 	end
 
-	local traitComponent = CreateScreenComponent({ Name = "TraitTrayIconButton", X = locationX, Y = locationY, Group = ScreenData.TraitTrayScreen.ComponentData.DefaultGroup, Scale = 0.5 })
+	local rawTraitData = TraitData[trait.Name] or trait
+	local traitComponent = CreateScreenComponent({ Name = "TraitTrayIconButton", X = locationX, Y = locationY, Group = ScreenData.TraitTrayScreen.ComponentData.DefaultGroup, Scale = rawTraitData.HUDScale or 0.5 })
 	AttachLua({ Id = traitComponent.Id, Table = traitComponent })
 	traitComponent.TraitData = trait
 	traitComponent.ActiveOffsetIndex = activeOffsetIndex
@@ -944,7 +950,7 @@ function TraitUIAdd( trait, args )
 		container[traitComponent.Id] = traitComponent
 	end
 	SetAlpha({ Id = trait.AnchorId, Fraction = 0, Duration = 0 })
-
+	
 	local traitFrameId = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ActiveTraitGroup, Scale = 0.5 })
 	Attach({ Id = traitFrameId, DestinationId = trait.AnchorId })
 	local frameAnim = GetTraitFrame( trait )
@@ -1054,7 +1060,7 @@ function TraitUICreateText( trait, args )
 	if trait.RarityUpgradeData then
 		time = trait.RarityUpgradeData.Uses
 	end
-	local hasSubtitle = ( time ~= nil ) or ( traitCount > 1) or ( trait.Slot == "Keepsake" ) or ( trait.Slot == "Assist" ) or ( trait.RoomsPerUpgrade and IsTraitActive( trait ) ) or ( trait.CustomLabel )
+	local hasSubtitle = ( time ~= nil ) or ( traitCount > 1) or ( trait.RoomsPerUpgrade and IsTraitActive( trait ) ) or ( trait.CustomLabel ) or (trait.TotalManaRecovered ~= nil) or (trait.DoorHealReserve ~= nil)
 
 	if not hasSubtitle then
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0.2 })
@@ -1067,10 +1073,6 @@ function TraitUICreateText( trait, args )
 		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = 40 })
 	else
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = args.FadeDuration or 0.2 })	
-	end
-	if trait.Slot == "Keepsake" or trait.Slot == "Assist" then
-		SetAnimation({ DestinationId = trait.TraitInfoCardId, Name = "KeepsakeRank" .. GetKeepsakeLevel( trait.Name ), Scale = 1.25 })
-		yOffset = yOffset + 15
 	end
 	if trait.CustomLabel then
 		local textData = {}
@@ -1356,6 +1358,9 @@ function GetTraitFrame( trait )
 	if trait.Frame then
 		return "Frame_Boon_Menu_"..trait.Frame
 	elseif trait.Rarity ~= nil then
+		if trait.FrameRarities ~= nil then
+			return trait.FrameRarities[trait.Rarity]
+		end
 		return "Frame_Boon_Menu_"..trait.Rarity
 	end
 	return "BoonIcon_Frame_Common"

@@ -4,7 +4,7 @@ UnitSetData.Lamia =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
 
-		MaxHealth = 430,
+		MaxHealth = 480,
 		HealthBarOffsetY = -230,
 		HealthBarType = "Small",
 
@@ -76,7 +76,7 @@ UnitSetData.Lamia =
 	Lamia_Elite =
 	{
 		InheritFrom = { "Elite", "Lamia" },
-		HealthBuffer = 320,
+		HealthBuffer = 380,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Lamia/EmoteTaunting",
 
@@ -133,7 +133,7 @@ UnitSetData.Lamia =
 	Lamia_Miniboss =
 	{
 		InheritFrom = { "Elite", "Lamia" },
-		HealthBuffer = 3500,
+		HealthBuffer = 3800,
 
 		HealthBarOffsetY = -340,
 		HealthBarType = "Large",

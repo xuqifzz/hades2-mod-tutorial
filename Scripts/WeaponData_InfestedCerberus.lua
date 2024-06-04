@@ -893,6 +893,32 @@ WeaponSetData =
 		},
 	},
 
+	InfestedCerberusHowlCirclesBackGuard =
+	{
+		InheritFrom = { "InfestedCerberusHowlCircles" },
+		Requirements =
+		{
+			MinPlayerArc = 100,
+			MaxPlayerArc = 360,
+			MinAttacksBetweenUse = 4,
+		},
+		AIData =
+		{
+			ForceUseIfReady = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 600, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 260, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 100, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
+
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 220, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 140, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
+			},
+		},
+		PostAttackDuration = 10,
+	},
+
 	InfestedCerberusHowlCircleCenter =
 	{
 		GenusName = "InfestedCerberusHowl",

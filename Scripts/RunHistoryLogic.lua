@@ -35,60 +35,14 @@ function OpenRunHistoryScreen( openedFrom )
 		categoryTitleX = categoryTitleX + screen.CategorySpacingX
 	end
 
-	local itemLocationX = screen.ItemStartX
-	local itemLocationY = screen.ItemStartY
-
-	local firstUseable = false
-	screen.NumItems = 0
-
-	for runIndex = #GameState.RunHistory + 1, 1, -1 do
-		DebugPrint({ Text = "runIndex = "..runIndex })
-		local run = GameState.RunHistory[runIndex] or CurrentRun
-		screen.NumItems = screen.NumItems + 1
-		local buttonKey = screen.ButtonName..screen.NumItems
-		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
-		components[buttonKey] = button
-		button.Screen = screen
-		button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
-		button.OnMouseOverFunctionName = "RunHistoryMouseOverRun"
-		button.OnMouseOffFunctionName = "RunHistoryMouseOffRun"
-		button.RunIndex = runIndex
-		button.Run = run		
-		button.Index = screen.NumItems
-		AttachLua({ Id = button.Id, Table = button })
-		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
-
-		local routeName = "MysteryResource"
-		local endingRoom = RoomData[run.EndingRoomName or run.CurrentRoom.Name]
-		if endingRoom ~= nil then
-			routeName = "RunHistoryScreen_Route"..endingRoom.RoomSetName
-			DebugAssert({ Condition = endingRoom.ResultText ~= nil, Text = "Missing ResultText for biome "..endingRoom.RoomSetName.." | Run Index:"..runIndex, Owner = "Caleb" })
-		end
-		local runNameFormat = nil
-		if run.Cleared then
-			runNameFormat = ShallowCopyTable( screen.RunNameClearedFormat )
-		else
-			runNameFormat = ShallowCopyTable( screen.RunNameUnclearedFormat )
-		end
-		runNameFormat.Id = button.Id
-		runNameFormat.LuaKey = "TempTextData"
-		runNameFormat.LuaValue = { RunNum = runIndex, RouteName = routeName }		
-		CreateTextBox( runNameFormat )
-
-		if not firstUseable then
-			TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
-			firstUseable = true
-		end
-
-		itemLocationY = itemLocationY + screen.ItemSpacingY
-
-	end
-
 	RunHistoryScreenOpenPresentation( screen )
 
-	screen.RunIndex = #GameState.RunHistory + 1
+	screen.NumItems = #GameState.RunHistory + 1
+	screen.RunIndex = screen.NumItems
+	screen.ButtonIds = {}
+
 	RunHistoryUpdateArrows( screen )
-	QuestLogUpdateVisibility( screen )
+	RunHistoryUpdateVisibility( screen )
 	wait( 0.01 )
 
 	HandleScreenInput( screen )
@@ -203,7 +157,93 @@ function ShowRunHistory( screen, run, index, args )
 	--if run.RunClearMessage ~= nil then
 		--thread( RunClearMessagePresentation, screen, GameData.RunClearMessageData[run.RunClearMessage.Name], { Delay = 0, Silent = true, OffsetX = 0, OffsetY = -225, ComponentId = components.DynamicTextAnchor.Id } )
 	--end
+end
 
+function RunHistoryUpdateVisibility( screen )
+
+	local components = screen.Components
+
+	-- Destroy all the buttons from the last screen
+	if not IsEmpty( screen.ButtonIds ) then
+		Destroy({ Ids = screen.ButtonIds })
+		screen.ButtonIds = {}
+	end
+
+	-- Create the new batch of buttons
+	local firstIndex = screen.NumItems - screen.ScrollOffset
+	local lastIndex = math.max( 1, firstIndex - screen.ItemsPerPage + 1 )
+	local itemLocationY = screen.ItemStartY
+	for runIndex = firstIndex, lastIndex, -1 do
+		local run = GameState.RunHistory[runIndex] or CurrentRun
+		local buttonKey = screen.ButtonName..runIndex
+		local button = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = screen.ItemStartX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup })
+		components[buttonKey] = button
+		table.insert( screen.ButtonIds, button.Id )
+		button.Screen = screen
+		button.MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+		button.OnMouseOverFunctionName = "RunHistoryMouseOverRun"
+		button.OnMouseOffFunctionName = "RunHistoryMouseOffRun"
+		button.RunIndex = runIndex
+		button.Run = run
+		AttachLua({ Id = button.Id, Table = button })
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+
+		local routeName = "MysteryResource"
+		local endingRoom = RoomData[run.EndingRoomName or run.CurrentRoom.Name]
+		if endingRoom ~= nil then
+			routeName = "RunHistoryScreen_Route"..endingRoom.RoomSetName
+			DebugAssert({ Condition = endingRoom.ResultText ~= nil, Text = "Missing ResultText for biome "..endingRoom.RoomSetName.." | Run Index:"..runIndex, Owner = "Caleb" })
+		end
+		local runNameFormat = nil
+		if run.Cleared then
+			runNameFormat = ShallowCopyTable( screen.RunNameClearedFormat )
+		else
+			runNameFormat = ShallowCopyTable( screen.RunNameUnclearedFormat )
+		end
+		runNameFormat.Id = button.Id
+		runNameFormat.LuaKey = "TempTextData"
+		runNameFormat.LuaValue = { RunNum = runIndex, RouteName = routeName }
+		CreateTextBox( runNameFormat )
+
+		itemLocationY = itemLocationY + screen.ItemSpacingY
+	end
+
+	if screen.ScrollOffset <= 0 then
+		SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
+		UseableOff({ Id = components.ScrollUp.Id })
+	else
+		SetAlpha({ Id = components.ScrollUp.Id, Fraction = 1, Duration = 0.1 })
+		UseableOn({ Id = components.ScrollUp.Id })
+	end
+
+	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
+		SetAlpha({ Id = components.ScrollDown.Id, Fraction = 0, Duration = 0.1 })
+		UseableOff({ Id = components.ScrollDown.Id })
+	else
+		SetAlpha({ Id = components.ScrollDown.Id, Fraction = 1, Duration = 0.1 })
+		UseableOn({ Id = components.ScrollDown.Id })
+	end
+
+end
+
+function RunHistoryScrollUp( screen, button )
+	if screen.ScrollOffset <= 0 then
+		return
+	end
+	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
+	RunHistoryUpdateVisibility( screen )
+	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
+	GenericScrollPresentation( screen, button )
+end
+
+function RunHistoryScrollDown( screen, button )
+	if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
+		return
+	end
+	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
+	RunHistoryUpdateVisibility( screen )
+	TeleportCursor({ OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY, ForceUseCheck = true })
+	GenericScrollPresentation( screen, button )
 end
 
 function RunHistoryPrevRun( screen, button )

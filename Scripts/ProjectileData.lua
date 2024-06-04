@@ -571,7 +571,7 @@ OverwriteTableKeys( ProjectileData, {
 		DefaultKnockbackForce = 720,
 		DefaultKnockbackScale = 0.9,
 
-		HitScreenshake = { Distance = 5, Speed = 300, FalloffSpeed = 2000, Duration = 0.20, DistanceThreshold = 330 },
+		HitScreenshake = { Distance = 2, Speed = 300, FalloffSpeed = 2000, Duration = 0.1, DistanceThreshold = 330 },
 
 		--[[
 		SimSlowDistanceThreshold = 130,
@@ -745,6 +745,15 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		OnDeathFunctionName = "ArtemisHealDrop",
 		DropSound = "/SFX/GodAppearFlash",
+	},
+
+	ProjectileAxeBlockSpin =
+	{
+		IgnoreOnHitEffects = false,
+		CancelUnitHitFlash = true,
+		CancelArmorSpark = true,
+		CancelUnitShake = true,
+		CancelCameraShake = true,
 	},
 
 	ProjectileAxeBlock2 = 

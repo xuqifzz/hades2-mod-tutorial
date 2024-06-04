@@ -1401,7 +1401,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Demeter_38",
 		InheritFrom = { "BaseTrait", "EarthBoon" },
-		RequiredFalseTraits = { "StaffAttackRecoveryTrait", "DaggerRapidAttackTrait", "AxeAttackRecoveryTrait" }, 
+		--RequiredFalseTraits = { "StaffAttackRecoveryTrait", "DaggerRapidAttackTrait", "AxeAttackRecoveryTrait" }, 
 		RarityLevels =
 		{
 			Common =

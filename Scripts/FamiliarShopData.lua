@@ -398,10 +398,9 @@ ScreenData.FamiliarShop =
 		{
 			Graphic = "rectangle01",
 			AnimationName = "WeaponShopVignette",
-			GroupName = "Combat_Menu_Backing",
-			ScaleX = 10.0,
-			ScaleY = 20.0,
-			X = ScreenCenterX,
+			ScaleX = 30.0,
+			ScaleY = 30.0,
+			X = ScreenCenterX + 300,
 			Y = ScreenCenterY,
 			UseNativeScreenCenter = true,
 			Color = { 1.0, 1.0, 1.0, 0.8 },

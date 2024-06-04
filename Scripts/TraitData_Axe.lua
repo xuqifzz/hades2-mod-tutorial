@@ -59,6 +59,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_32",
 		RequiredWeapon = "WeaponAxe",
+		--[[
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
@@ -69,6 +70,7 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = { "WeaponAxeDash" },
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
+		]]
 		PropertyChanges =
 		{	
 			--[[
@@ -82,17 +84,34 @@ OverwriteTableKeys( TraitData, {
 			]]
 			{
 				WeaponName = "WeaponAxeDash",
+				WeaponProperty = "NumProjectiles",
+				ChangeValue = 2,
+				ChangeType = "Absolute",
+				ReportValues = { ReportedChange = "ChangeValue" }
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				WeaponProperty = "ProjectileInterval",
+				ChangeValue = 0.15,
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponAxeDash",
+				WeaponProperty = "ProjectileIntervalStart",
+				ChangeValue = 0.15,
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponAxeDash",
 				ProjectileProperty = "DamageRadius",
 				ChangeValue = 380,
 				ChangeType = "Absolute",
-				ReportValues = { ReportedChange = "ChangeValue" }
 			},
 			{
 				WeaponName = "WeaponAxeDash",
 				ProjectileProperty = "BlastSpeed",
 				ChangeValue = 3000,
 				ChangeType = "Absolute",
-				ReportValues = { ReportedChange = "ChangeValue" }
 			},
 			{
 				WeaponName = "WeaponAxeDash",
@@ -117,14 +136,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "DamageIncrease",
-				Format = "PercentDelta",
-			},
-			{
 				Key = "ReportedChange",
-				ExtractAs = "SizeIncrease",
-				Format = "PercentDelta"
+				ExtractAs = "HitCount",
+				--Format = "PercentDelta",
 			},
 		},
 	},
@@ -133,7 +147,18 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_36",
 		RequiredWeapon = "WeaponAxe",
+		ManaCostModifiers = 
+		{
+			WeaponNames = { "WeaponAxeSpecialSwing" },
+			ExWeapons = true,
+			ManaCostAdd = { BaseValue = 15 },
+			ReportValues = 
+			{ 
+				ReportedCost = "ManaCostAdd" 
+			},
+		},
 		
+		--[[
 		WeaponDataOverride =
 		{
 			WeaponAxeSpecialSwing = 
@@ -157,7 +182,8 @@ OverwriteTableKeys( TraitData, {
 						ReportValues = 
 						{
 							ReportedBaseManaCost = "ManaCost",
-						}					},
+						}					
+					},
 					{ 
 						ManaCost = 40,
 						Wait = 0.6,
@@ -182,11 +208,27 @@ OverwriteTableKeys( TraitData, {
 					}
 				},
 			}
-		},
+			]]
+			PropertyChanges =
+			{
+				{
+					WeaponName = "WeaponAxeSpecialSwing",
+					WeaponProperty = "NumProjectileWaves",
+					ChangeValue = 2,
+					ChangeType = "Absolute",
+					ReportValues = { ReportedChange = "ChangeValue" }
+				},
+				{
+					WeaponName = "WeaponAxeSpecialSwing",
+					WeaponProperty = "ProjectileWaveInterval",
+					ChangeValue = 0.2,
+					ChangeType = "Absolute",
+				},
+			},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponWaves",
+				Key = "ReportedChange",
 				ExtractAs = "Count",
 				SkipAutoExtract = true,
 			},
@@ -196,9 +238,9 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			},
 			{
-				Key = "ReportedManaCost",
+				Key = "ReportedCost",
 				ExtractAs = "ManaCost",
-				Subtractor = "BaseManaCost",
+				--Subtractor = "BaseManaCost",
 				IncludeSigns = true,
 			},
 		}
@@ -247,7 +289,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_31",	
 		RequiredWeapon = "WeaponAxe",
-		RequiredFalseTraits = { "AxeAttackRecoveryTrait"},
 		PropertyChanges =
 		{
 			{
@@ -276,7 +317,7 @@ OverwriteTableKeys( TraitData, {
 		RequiredWeapon = "WeaponAxe",
 		AddOutgoingDamageModifiers =
 		{
-			NonExHealthBufferRemoval = 0.35,
+			NonExHealthBufferRemoval = 0.20,
 			ValidWeapons = { "WeaponAxeBlock2" },
 			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
 		},
@@ -294,7 +335,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_33",	
 		RequiredWeapon = "WeaponAxe",
-		RequiredFalseTraits = { "AxeAttackRecoveryTrait"},
 		WeaponDataOverride = 
 		{
 			WeaponBlink = 
@@ -412,7 +452,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_35",
 		RequiredWeapon = "WeaponAxe",
-		RequiredFalseTraits = { "AxeAttackRecoveryTrait"},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
@@ -422,6 +461,10 @@ OverwriteTableKeys( TraitData, {
 			},
 			ValidWeapons = { "WeaponAxeSpin"},
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
+		},
+		AddRush = 
+		{
+			FunctionName = "BlockWhirlwindDisable",
 		},
 		ChargeStageModifiers = 
 		{
@@ -445,12 +488,6 @@ OverwriteTableKeys( TraitData, {
 					Fuse = 0.22,
 				},
 			},
-			{
-				WeaponName = "WeaponAxeSpin",
-				EffectName = "AxeSpinSelfFireSlow",
-				EffectProperty = "Cancelable",
-				ChangeValue = false,
-			}
 		},
 		ExtractValues =
 		{
@@ -466,13 +503,12 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_37",
 		RequiredWeapon = "WeaponAxe",
-		RequiredFalseTraits = { "AxeAttackRecoveryTrait"},
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponAxeSpin" },
 			Value = 
 			{
-				BaseValue = 0.35,
+				BaseValue = 0.5,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedSpinTime = "Value" }
@@ -483,7 +519,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponAxeSpin",
 				EffectName = "AxeSpinSelfFireSlow",
 				EffectProperty = "Modifier",
-				ChangeValue = 1.6,
+				ChangeValue = 1.5,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
 			},
@@ -491,7 +527,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponAxeSpin",
 				EffectName = "IndependentAxeSpinSelfFireSlow",
 				EffectProperty = "Modifier",
-				ChangeValue = 1.6,
+				ChangeValue = 1.5,
 				ChangeType = "Multiply",
 			},
 		},
@@ -515,30 +551,31 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_30",
 		RequiredWeapon = "WeaponAxe",
-		
+		--[[
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponAxeBlock2" },
 			Value = 
 			{
-				BaseValue = 0.5,
+				BaseValue = 0.6,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedSpeedIncrease = "Value" }
 		},
+		]]
 		PropertyChanges = 
 		{
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.5,
+				ChangeValue = 0.75,
 				ChangeType = "Multiply",
-				-- ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
+				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
 				WeaponProperty = "ProjectileInterval",
-				ChangeValue = 0.5,
+				ChangeValue = 0.75,
 				ChangeType = "Multiply",
 			},
 			{
@@ -569,7 +606,6 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Hammer_Axe_28",
 		RequiredWeapon = "WeaponAxe",
 		IsLastPriorityHammerTrait = true,
-		RequiredFalseTraits = { "AxeConsecutiveStrikeTrait", "AxeFreeSpinTrait", "AxeSpinSpeedTrait", "AxeRangedWhirlwindTrait", "SlowExAttackBoon" },
 		PropertyChanges =
 		{
 			{
@@ -618,36 +654,6 @@ OverwriteTableKeys( TraitData, {
 				WeaponProperty = "ControlWindow",
 				ChangeValue = 0.7,
 				ChangeType = "Multiply",
-			},
-			{
-				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
-				WeaponProperty = "FullyAutomatic",
-				ChangeValue = true,
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
-				WeaponProperty = "ControlReleaseOnUncontrollable",
-				ChangeValue = true,
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
-				WeaponProperty = "AddOnFire",
-				ChangeValue = "null",
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
-				WeaponProperty = "LockTriggerTransferFromOnSwap",
-				ChangeValue = true,
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponNames = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash" },
-				WeaponProperty = "ForceReleaseOnSwap",
-				ChangeValue = false,
-				ChangeType = "Absolute",
 			},
 		},
 		ExtractValues =

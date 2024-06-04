@@ -78,7 +78,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponSpellPolymorph",
 				EffectName = "PolymorphTag",
 				EffectProperty = "Duration",
-				ChangeValue = 8.0,
+				ChangeValue = 4.0,
 				ReportValues = { ReportedDuration = "ChangeValue" },
 				DeriveSource = "DeriveSource",
 			},
@@ -144,7 +144,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponSpellLaser",
 				ProjectileProperty = "Damage",
-				ChangeValue = 40,
+				ChangeValue = 30,
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
 		},

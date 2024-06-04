@@ -387,6 +387,7 @@
 		FilePath = "Fx\WaterUnitProjectileTrailB\WaterUnitProjectileTrailB"
 		PlaySpeed = 30
 		NumFrames = 19
+		GroupName = "FX_Standing"
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
 		OverlayVfx = true

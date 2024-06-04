@@ -46,25 +46,22 @@ WeaponSetData =
 
 			ProjectileName = "SheepRam",
 
-			FireSelfVelocity = 1100,
+			FireSelfVelocity = 1000,
 			ApplyEffectsOnWeaponFire =
 			{
 				WeaponEffectData.AttackLowGrip,
 			},
 
-			FireTicksMin = 2,
-			FireTicksMax = 5,
-			FireInterval = 0.4,
-			ResetTargetPerTick = true,
+			AttackDistance = 300,
 
-			AttackDistance = 400,
-
-			PreAttackDuration = 0.0,
+			PreAttackDuration = 0.7,
+			PreAttackEndShake = true,
 			FireDuration = 0.3,
-			PostAttackDuration = 0.1,
+			PostAttackDuration = 1.0,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			PreAttackRotationDampening = 0.03,
+			StopBeforeFire = true,
 
 			FireAnimation = "Enemy_Sheep_DashPreFire",
 		},

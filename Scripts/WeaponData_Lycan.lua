@@ -128,6 +128,7 @@ WeaponSetData =
 		{
 			MinAttacksBetweenUse = 6,
 			MaxActiveSpawns = 3,
+			RequiresNotCharmed = true,
 		},
 
 		AIData =
@@ -135,6 +136,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			PreAttackStop = true,
+			DoNotRepeatOnAttackFail = true,
 
 			AttackDistance = 99999,
 			MoveWithinRange = false,

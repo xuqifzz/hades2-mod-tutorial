@@ -111,7 +111,12 @@ RoomStartMusicEvents =
 				Path = { "CurrentRun", "RunDepthCache" },
 				Comparison = "==",
 				Value = 2,
-			}
+			},
+			{
+				-- Actually started in Erebus, not faked from a Bounty
+				Path = { "CurrentRun", "RoomsEntered" },
+				HasAny = { "F_Opening01", "F_Opening02", "F_Opening03", },
+			},
 		},
 		MusicSection = 2,
 	},
@@ -128,7 +133,12 @@ RoomStartMusicEvents =
 				Path = { "CurrentRun", "RunDepthCache" },
 				Comparison = "==",
 				Value = 3,
-			}
+			},
+			{
+				-- Actually started in Erebus, not faked from a Bounty
+				Path = { "CurrentRun", "RoomsEntered" },
+				HasAny = { "F_Opening01", "F_Opening02", "F_Opening03", },
+			},
 		},
 		MusicSection = 3,
 	},
@@ -8816,6 +8826,10 @@ GlobalVoiceLines.AwardMenuClosedVoiceLines =
 -- Global Misc Lines
 GlobalVoiceLines.SpellReactionVoiceLines =
 {
+	Cooldowns =
+	{
+		{ Name = "SpellReactionVOPlayedRecently", Time = 30 },
+	},
 	-- Hecate
 	{
 		BreakIfPlayed = true,
@@ -9007,6 +9021,9 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		{ Cue = "/VO/Scylla_0186", Text = "No {#Emph}fair!!" },
 	},
 
+	-- Chronos
+	-- handled in GlobalVoiceLines.ChronosSpellResistVoiceLines
+
 	-- Polyphemus
 	{
 		BreakIfPlayed = true,
@@ -9074,6 +9091,10 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 }
 GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 {
+	Cooldowns =
+	{
+		{ Name = "SpellReactionVOPlayedRecently", Time = 30 },
+	},
 	-- Hecate
 	{
 		RandomRemaining = true,

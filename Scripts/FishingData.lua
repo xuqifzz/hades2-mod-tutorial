@@ -414,7 +414,7 @@ GlobalVoiceLines.FishIdentifiedVoiceLines =
 FishingData =
 {
 	DefaultSpawnCap = 1,
-	DefaultSpawnChance = 0.02,
+	DefaultSpawnChance = 0.01,
 	HasToolSpawnChance = 0.25,
 	ToolName = "ToolFishingRod",
 	DefaultGameStateRequirements =

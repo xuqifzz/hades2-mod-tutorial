@@ -260,8 +260,7 @@ TraitSetData.Chaos =
 				{ 
 					"ChaosWeaponBlessing", "ChaosSpecialBlessing", "ChaosCastBlessing", "ChaosHealthBlessing", 
 					"ChaosRarityBlessing", "ChaosMoneyBlessing", "ChaosLastStandBlessing", "ChaosManaBlessing", 
-					"ChaosManaOverTimeBlessing", "ChaosWeaponBaseBlessing", "ChaosSpecialBaseBlessing",
-					"ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
+					"ChaosManaOverTimeBlessing", "ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
 					"ChaosSpeedBlessing", "ChaosDoorHealBlessing", "ChaosHarvestBlessing",
 					"ChaosOmegaDamageBlessing"
 				},
@@ -369,60 +368,7 @@ TraitSetData.Chaos =
 		
 		},
 	},
-	
-	ChaosWeaponBaseBlessing =
-	{
-		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_09",
-		CustomName = "ChaosWeaponBaseBlessing_Complete",
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			ValidBaseDamageAddition = 
-			{ 
-				BaseMin = 10,
-				BaseMax = 14
-			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "ValidBaseDamageAddition" 
-			},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
-			},
-		}
-	},
-	ChaosSpecialBaseBlessing =
-	{
-		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_10",
-		CustomName = "ChaosSpecialBaseBlessing_Complete",
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			ValidBaseDamageAddition = 
-			{ 
-				BaseMin = 15,
-				BaseMax = 20
-			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "ValidBaseDamageAddition" 
-			},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
-			},
-		}
-	},
-	
+
 	ChaosExSpeedBlessing = 
 	{
 		InheritFrom = { "ChaosBlessing" },
@@ -1164,8 +1110,7 @@ TraitSetData.Chaos =
 				{ 
 					"ChaosWeaponBlessing", "ChaosSpecialBlessing", "ChaosCastBlessing", "ChaosHealthBlessing", 
 					"ChaosRarityBlessing", "ChaosMoneyBlessing", "ChaosLastStandBlessing", "ChaosManaBlessing", 
-					"ChaosManaOverTimeBlessing", "ChaosWeaponBaseBlessing", "ChaosSpecialBaseBlessing",
-					"ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
+					"ChaosManaOverTimeBlessing", "ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
 					"ChaosSpeedBlessing", "ChaosDoorHealBlessing", "ChaosHarvestBlessing",
 					"ChaosOmegaDamageBlessing"
 				},

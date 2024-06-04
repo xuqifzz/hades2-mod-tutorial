@@ -716,6 +716,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "ClockFacePoints",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "SpawnPointsPhase2",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -842,6 +855,7 @@
         "SpawnPoints",
         "SpawnPointsPhase1",
         "SpawnPointsPhase2",
+        "ClockFacePoints",
         "Impassable",
         "ChronosDeathDelete",
         "ChronosFightStartDelete",

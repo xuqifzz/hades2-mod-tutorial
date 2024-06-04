@@ -142,6 +142,7 @@
 			{ Name = "Melinoe_Staff_Attack3_Start" }
 			{ Name = "Melinoe_Staff_Attack3_Fire" }
 			{ Name = "Melinoe_Staff_AttackEx1_Start" }
+			{ Name = "Melinoe_Staff_AttackEx1_Start_Fast" }
 			{ Name = "Melinoe_Staff_AttackEx1_StartLoop" }
 			{ Name = "Melinoe_Staff_AttackEx1_Fire" }
 			{ Name = "Melinoe_Staff_AttackDash1_Start" }

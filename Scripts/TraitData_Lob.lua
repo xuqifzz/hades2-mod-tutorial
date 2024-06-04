@@ -3,7 +3,7 @@ OverwriteTableKeys( TraitData, {
 	LobAmmoTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Skull_02",
+		Icon = "Hammer_Lob_02",
 		RequiredWeapon = "WeaponLob",
 		WeaponAmmoModification = 
 		{
@@ -22,7 +22,7 @@ OverwriteTableKeys( TraitData, {
 	LobAmmoMagnetismTrait =
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Skull_01",
+		Icon = "Hammer_Lob_01",
 		RequiredWeapon = "WeaponLob",
 		RequiredFalseTraits = { "LobPulseAmmoTrait" },
 		PropertyChanges =
@@ -60,7 +60,7 @@ OverwriteTableKeys( TraitData, {
 	LobRushArmorTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_15",
+		Icon = "Hammer_Lob_08",
 		RequiredWeapon = "WeaponLob",
 		AddOutgoingDamageModifiers =
 		{
@@ -80,7 +80,7 @@ OverwriteTableKeys( TraitData, {
 	LobSpreadShotTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_17",
+		Icon = "Hammer_Lob_10",
 		RequiredWeapon = "WeaponLob",
 		WeaponDataOverride =
 		{
@@ -101,7 +101,7 @@ OverwriteTableKeys( TraitData, {
 	LobOneSideTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_18",
+		Icon = "Hammer_Lob_05",
 		RequiredWeapon = "WeaponLob",
 		
 		AddOutgoingDamageModifiers =
@@ -110,13 +110,15 @@ OverwriteTableKeys( TraitData, {
 
 			ExMultiplier =
 			{
-				BaseValue = 2.2,
+				BaseValue = 1.5,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedWeaponMultiplier = "ExMultiplier"},
 		},
+		
 		PropertyChanges = 
 		{
+			--[[
 			{
 				WeaponName = "WeaponLobSpecial",
 				ProjectileName = "ProjectileThrowCharged",
@@ -153,6 +155,14 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1,
 				ChangeType = "Absolute",
 			}
+			]]
+
+			{
+				WeaponName = "WeaponLobSpecial",
+				WeaponProperty = "ChargeRangeMultiplier",
+				ChangeValue = 1.5,
+				ChangeType = "Multiply",
+			},
 		},
 		ExtractValues =
 		{
@@ -166,7 +176,7 @@ OverwriteTableKeys( TraitData, {
 	LobSturdySpecialTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_19",
+		Icon = "Hammer_Lob_12",
 		RequiredWeapon = "WeaponLob",
 		
 		OnWeaponFiredFunctions = 
@@ -182,6 +192,7 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 		},
+		--[[
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
@@ -192,6 +203,19 @@ OverwriteTableKeys( TraitData, {
 			ReportValues = 
 			{ 
 				ReportedDamageBonus = "NonExBaseDamageAddition" 
+			},
+		},
+		]]
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = { "WeaponLobSpecial" },
+			ValidBaseDamageAddition = 
+			{ 
+				BaseValue = 30,
+			},
+			ReportValues = 
+			{ 
+				ReportedDamageBonus = "ValidBaseDamageAddition" 
 			},
 		},
 		ExtractValues =
@@ -211,7 +235,7 @@ OverwriteTableKeys( TraitData, {
 	LobSpecialSpeedTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_16",
+		Icon = "Hammer_Lob_09",
 		RequiredWeapon = "WeaponLob",
 		PropertyChanges = 
 		{
@@ -247,7 +271,7 @@ OverwriteTableKeys( TraitData, {
 	LobInOutSpecialExTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_20",
+		Icon = "Hammer_Lob_04",
 		RequiredWeapon = "WeaponLob",
 		PropertyChanges = 
 		{
@@ -262,7 +286,7 @@ OverwriteTableKeys( TraitData, {
 	LobPulseAmmoCollectTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_22",
+		Icon = "Hammer_Lob_06",
 		RequiredWeapon = "WeaponLob",
 		PreEquipWeapons = { "WeaponLobChargedPulse" },
 		OnCollectAmmoFunctionName = 
@@ -275,6 +299,7 @@ OverwriteTableKeys( TraitData, {
 			}
 		},
 
+		--[[
 		WeaponDataOverride =
 		{
 			WeaponLob =
@@ -300,11 +325,12 @@ OverwriteTableKeys( TraitData, {
 				},
 			},
 		},
+		]]
 	},
 	LobPulseAmmoTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_22",
+		Icon = "Hammer_Lob_07",
 		RequiredWeapon = "WeaponLob",
 		PreEquipWeapons = { "WeaponLobPulse" },
 		RequiredFalseTraits = { "LobAmmoMagnetismTrait" },
@@ -337,7 +363,7 @@ OverwriteTableKeys( TraitData, {
 	LobGrowthTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Skull_03",
+		Icon = "Hammer_Lob_03",
 		RequiredWeapon = "WeaponLob",
 		PropertyChanges = 
 		{
@@ -376,7 +402,7 @@ OverwriteTableKeys( TraitData, {
 	LobStraightShotTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Torch_21",
+		Icon = "Hammer_Lob_11",
 		RequiredWeapon = "WeaponLob",
 		ChargeStageModifiers = 
 		{

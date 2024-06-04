@@ -715,11 +715,11 @@
     {
       Name = "TimeStopBloom"
       BloomThreshold = 0.5
-      BlurAmount = 0.5
-      BloomIntensity = 2.0
-      BaseIntensity = 1.5
-      BloomSaturation = 1.5
-      BaseSaturation = 0.5
+      BlurAmount = 10
+      BloomIntensity = 0.5
+      BaseIntensity = 1
+      BloomSaturation = 0.33
+      BaseSaturation = 1
     }
 
     {

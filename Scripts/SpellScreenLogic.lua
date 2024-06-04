@@ -235,6 +235,12 @@ function CreateSpellButtons( screen )
 			CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "TraitQuestItem", Color = Color.Transparent, LuaKey = "TooltipData", LuaValue = traitData, })
 		end
 
+		local frame = ScreenData.UpgradeChoice.Frame
+		frame.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
+		frame.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY
+		frame.Animation = GetTraitFrame( traitData )
+		components[purchaseButtonKey.."Frame"] = CreateScreenComponent( frame )
+
 		local button = components[purchaseButtonKey]
 		button.Screen = screen
 		AttachLua({ Id = button.Id, Table = button })

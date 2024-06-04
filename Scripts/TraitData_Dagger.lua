@@ -5,7 +5,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Daggers_29",
 		RequiredWeapon = "WeaponDagger",
-		RequiredFalseTraits = { "DaggerRapidAttackTrait", },
 		ManaCostModifiers = 
 		{
 			ExcludeLinked = true,
@@ -50,85 +49,67 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+	DaggerDashAttackTripleTrait = 
+	{
+		InheritFrom = { "WeaponTrait" },
+		Icon = "Hammer_Daggers_01",
+		RequiredWeapon = "WeaponDagger",
+		
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = {"WeaponDaggerDash"},
+			FunctionName = "FireDaggerSpecial",
+			ExcludeLinked = true,
+			FunctionArgs =
+			{
+				Projectiles = 3,
+				Spread = 60,
+				ReportValues = 
+				{
+					ReportedProjectiles = "Projectiles"
+				},
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponDaggerDash",
+				WeaponProperty = "FireSound",
+				ChangeValue = "/SFX/Player Sounds/MelDaggerKnifeThrowSwishGROUP",
+				ChangeType = "Absolute",
+			},
+		},
+
+		ExtractValues =
+		{
+			{
+				Key = "ReportedProjectiles",
+				ExtractAs = "Count",
+			},
+		}
+	},
 	DaggerRapidAttackTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		RequiredFalseTraits = { "DaggerBlockAspect", "DaggerBlinkAoETrait", "DaggerFinalHitTrait", "SlowExAttackBoon" },
 		Icon = "Hammer_Daggers_32",
 		RequiredWeapon = "WeaponDagger",
 		PropertyChanges =
 		{	
-			
 			{
-				WeaponNames = { "WeaponDagger", "WeaponDagger2", "WeaponDaggerDash", "WeaponDaggerMultiStab", "WeaponDaggerDouble" },
-				WeaponProperties = 
-				{
-					FullyAutomatic = true,
-					AddOnFire = "null",
-					ForceReleaseOnSwap = false,
-					AllowExternalForceRelease = false,
-				},
-				ExcludeLinked = true,
-			},
-			{
-				WeaponNames = { "WeaponDagger" },
-				WeaponProperties = 
-				{
-				--	ChargeStartAnimation = "MelinoeDaggerAttack1Charge",
-				--	FireGraphic = "MelinoeDaggerAttack1Fire",
-				--	Projectile = "ProjectileDagger",
-				},
-				ExcludeLinked = true,
-			},
-			{
-				WeaponNames = { "WeaponDagger2" },
-				WeaponProperties = 
-				{
-				--	ChargeStartAnimation = "MelinoeDaggerAttack2Charge",
-				--	FireGraphic = "MelinoeDaggerAttack2Fire",
-				--	Projectile = "ProjectileDagger",
-				},
-				ExcludeLinked = true,
-			},
-			--[[
-			{
-				WeaponName = "WeaponDagger2",
-				WeaponProperty = "SwapOnFire",
-				ChangeValue = "WeaponDagger",
-			},
-			{
-				WeaponName = "WeaponDaggerDash",
-				WeaponProperty = "AddOnFire",
-				ChangeValue = "null",
-			},
-			{
-				WeaponName = "WeaponDagger",
-				EffectName = "Swing1DisableCancellable",
-				EffectProperty = "Duration",
-				ChangeValue = 0.72,
-				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponDagger2",
-				EffectName = "Swing2DisableCancellable",
-				EffectProperty = "Duration",
-				ChangeValue = 0.72,
-				ChangeType = "Multiply",
-			},
-			]]--
-			{
-				WeaponNames = { "WeaponDagger", "WeaponDagger2", "WeaponDaggerDash", "WeaponDaggerMultiStab", "WeaponDaggerDouble" },
+				WeaponNames = { "WeaponDagger", "WeaponDagger2", "WeaponDaggerDash", "WeaponDaggerMultiStab", "WeaponDaggerDouble", "WeaponDaggerBlink" },
 				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.60,
+				ChangeValue = 0.65,
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
+				ReportValues = { ReportedWeaponMultiplier = "ChangeValue" },
 			},
+		},
+		ExtractValues =
+		{
 			{
-				WeaponNames = { "WeaponDagger5" },
-				WeaponProperty = "Enabled",
-				ChangeValue = false,
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "SpeedIncrease",
+				Format = "NegativePercentDelta",
 			},
 		},	
 	},
@@ -151,7 +132,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileProperty = "Range",
-				BaseValue = 1.2,
+				BaseValue = 1.3,
 				SourceIsMultiplier = true,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedRangeBonus = "ChangeValue"},
@@ -159,7 +140,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponDaggerThrow",
 				WeaponProperty = "AutoLockRange",
-				ChangeValue = 1.2,
+				ChangeValue = 1.3,
 				ChangeType = "Multiply",
 			},
 		},	
@@ -183,7 +164,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			ValidWeaponMultiplier =
 			{
-				BaseValue = 1.4,
+				BaseValue = 1.2,
 				SourceIsMultiplier = true,
 			},
 			ValidWeapons = { "WeaponDaggerThrow" },
@@ -197,12 +178,12 @@ OverwriteTableKeys( TraitData, {
 				ChargeWeaponStages = 
 				{
 						{ ManaCost = 6, WeaponProperties = { NumProjectiles = 4}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, ChannelSlowEventOnEnter = true },
-						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-						{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 12}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-						{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 13}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
-						{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 15}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
+						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
+						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
+						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
+						{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 12}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
+						{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 13}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
+						{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 15}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
 						{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 16, ReportValues = { ReportedAmount = "NumProjectiles" } }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.06, },
 				},
 			}
@@ -241,8 +222,23 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Daggers_33",
 		RequiredWeapon = "WeaponDagger",
+		AddOutgoingDamageModifiers = 
+		{	
+			--[[
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			NonExBaseDamageAddition = { BaseValue = 25 },
+			ReportValues = 
+			{ 
+				ReportedDamage = "NonExBaseDamageAddition"
+			},
+			]]
+			NonExHealthBufferRemoval = 0.50,
+			ValidWeapons = { "WeaponDaggerThrow" },
+			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval" },
+		},
 		PropertyChanges =
-		{
+		{	
+			--[[
 			{
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileProperty = "DamagePerConsecutiveHit",
@@ -256,12 +252,18 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "ConsecutiveHitWindow",
 				ChangeValue = 0.20,
 			},
+			]]
 		},	
 		ExtractValues =
 		{
 			{
-				Key = "ReportedConsecutiveHit",
+				Key = "ReportedDamage",
 				ExtractAs = "DamageBonus",
+			},
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "ArmorDamageIncrease",
+				Format = "Percent",
 			},
 		}
 	},
@@ -400,6 +402,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"WeaponTrait"},
 		Icon = "Hammer_Daggers_30",
 		RequiredWeapon = "WeaponDagger",
+		--[[
 		ChargeStageModifiers = 
 		{
 			ValidWeapons = { "WeaponDaggerThrow", },
@@ -410,14 +413,28 @@ OverwriteTableKeys( TraitData, {
 			WeaponNames = { "WeaponDaggerThrow" },
 			ManaCostMultiplier = 0.34 ,
 			ReportValues = { ReportedManaCost = "ManaCostMultiplier" }
+		},
+		]]
+		WeaponSpeedMultiplier =
+		{
+			WeaponNames = WeaponSets.HeroSecondaryWeapons,
+			Value = 0.6,
+			ReportValues = { ReportedSpeedIncrease = "Value" }
 		},	
 		ExtractValues =
 		{
+			{
+				Key = "ReportedSpeedIncrease",
+				ExtractAs = "TooltipChargeSpeed",
+				Format = "NegativePercentDelta",
+			},
+			--[[
 			{
 				Key = "ReportedManaCost",
 				ExtractAs = "ManaDelta",
 				Format = "PercentDelta",
 			},
+			]]
 		}
 	},
 	DaggerFinalHitTrait = 
@@ -441,7 +458,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = {
 				RequiredWeapon = "WeaponDagger5",
 				CombatText = "DaggerFinalHit",
-				DamageIncrease = 5,
+				DamageIncrease = 15,
 				ReportValues = 
 				{ 
 					ReportedDamageBonus = "DamageIncrease",
@@ -465,14 +482,6 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Daggers_37",
 		RequiredWeapon = "WeaponDagger",
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeapons = { "WeaponDaggerThrow" },
-			ExcludeLinked = true,
-			HitVulnerabilityMultiplier = 1.5,
-			ReportValues = { ReportedWeaponMultiplier = "HitVulnerabilityMultiplier" },
-		},
-
 		WeaponDataOverride =
 		{
 			WeaponDaggerThrow =
@@ -530,13 +539,14 @@ OverwriteTableKeys( TraitData, {
 					Fuse = 1,
 					UseVulnerability = true,
 					RepeatHitOnReturn = true,
+					Speed = 3000,
 				},
 			},
 			{
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "ReturnToOwnerAfterInactiveSeconds",
-				ChangeValue = 0.138,
+				ChangeValue = 0.276,
 				ChangeType = "Absolute",
 				ReportValues = 
 				{

@@ -442,6 +442,11 @@
 			}
 		]
 	}
+	{
+		Name = "Melinoe_Staff_AttackEx1_Start_Fast"
+		InheritFrom = "Melinoe_Staff_AttackEx1_Start"
+		GrannyAnimationSpeed = 1.4
+	}
 	
 	{
 		Name = "Staff_AttackEx1_StartLoop"
@@ -558,7 +563,7 @@
 		Name = "Staff_Special1_Start"
 		InheritFrom = "WeaponStaffBase"
 		GrannyAnimation = "Staff_Weapon_Base_SpecialAntic_C_01"
-		GrannyAnimationSpeed = 0.30
+		GrannyAnimationSpeed = 0.37
 		AllowRestart = true
 		Frames = 
 		[
@@ -577,7 +582,7 @@
 		InheritFrom = "MelinoeBaseStaffAnimations"
 		GrannyAnimation = "Melinoe_Staff_Base_SpecialAntic_C_01"
 		ChainTo = "Melinoe_Staff_Special1_StartLoop"
-		GrannyAnimationSpeed = 0.30
+		GrannyAnimationSpeed = 0.37
 		AllowRestart = true
 		DisableOwnerManualInteract = true
 		Attachments =
@@ -591,12 +596,20 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Cast_Fire"
-				Duration = 5
+				BlendTransitionFrom = "Melinoe_Staff_Cast_Start"
+				Duration = 6
 			}
 			{
-				BlendTransitionFrom = "Melinoe_Cast_End"
-				Duration = 5
+				BlendTransitionFrom = "Melinoe_Staff_Cast_StartLoop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_Fire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Staff_Cast_End"
+				Duration = 6
 			}
 			{
 				BlendTransitionFrom = "Melinoe_Staff_Special1_Fire"

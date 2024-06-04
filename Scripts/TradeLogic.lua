@@ -80,8 +80,8 @@
 
 	if giveItemData.StatLines ~= nil then
 		local statLine = giveItemData.StatLines[1]
-		ModifyTextBox({ Id = components.GiveInfoBoxStatLineLeft.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
-		ModifyTextBox({ Id = components.GiveInfoBoxStatLineRight.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
+		ModifyTextBox({ Id = components.GiveInfoBoxStatLineLeft.Id, AppendToId = components.GiveInfoBoxBacking.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
+		ModifyTextBox({ Id = components.GiveInfoBoxStatLineRight.Id, AppendToId = components.GiveInfoBoxBacking.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = giveItemData, FadeTarget = 1.0 })
 	end
 
 	-- Get Option
@@ -127,8 +127,8 @@
 
 	if getItemData.StatLines ~= nil then
 		local statLine = getItemData.StatLines[1]
-		ModifyTextBox({ Id = components.GetInfoBoxStatLineLeft.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
-		ModifyTextBox({ Id = components.GetInfoBoxStatLineRight.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
+		ModifyTextBox({ Id = components.GetInfoBoxStatLineLeft.Id, AppendToId = components.GetInfoBoxBacking.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
+		ModifyTextBox({ Id = components.GetInfoBoxStatLineRight.Id, AppendToId = components.GetInfoBoxBacking.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = getItemData, FadeTarget = 1.0 })
 	end
 
 	if giveItemData.ResourceName ~= nil and not HasResource( giveItemData.ResourceName, giveItemData.Cost ) then

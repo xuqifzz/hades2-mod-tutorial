@@ -299,6 +299,7 @@ WeaponSetData =
 		{
 			MinAttacksBetweenUse = 3,
 			MinRequiredKillEnemies = 5,
+			RequiresNotCharmed = true,
 		},
 
 		Sounds =

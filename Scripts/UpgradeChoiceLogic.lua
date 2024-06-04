@@ -229,6 +229,14 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 			SetAlpha({ Id = screen.Components.RerollButton.Id, Fraction = 0.0, Duration = 0.2 })
 		end
 	end
+
+	if screen.Components.BoonListButton ~= nil then
+		if lootData.StackOnly then
+			screen.Components.BoonListButton.OnPressedFunctionName = nil
+		else
+			SetAlpha({ Id = screen.Components.BoonListButton.Id, Fraction = 1.0, Duration = 0.2 })
+		end
+	end
 end
 
 function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
@@ -257,12 +265,14 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		upgradeData.TraitToReplace = itemData.TraitToReplace
 		upgradeData.OldRarity = itemData.OldRarity
 		local existingNum = GetTraitCount( CurrentRun.Hero, { Name = upgradeData.TraitToReplace } )
-		local newNum = existingNum + GetTotalHeroTraitValue("ExchangeLevelBonus") 
+		local newNum = existingNum + GetTotalHeroTraitValue("ExchangeLevelBonus")
 		tooltipData =  GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, StackNum = newNum, RarityMultiplier = upgradeData.RarityMultiplier})
 		if newNum > 1 then
 			upgradeTitle = "TraitLevel_Exchange"
 			tooltipData.Title = GetTraitTooltipTitle( TraitData[upgradeData.Name])
 			tooltipData.Level = newNum
+			upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, StackNum = newNum, Rarity = itemData.Rarity, RarityMultiplier = upgradeData.RarityMultiplier})
+			upgradeData.TraitToReplace = itemData.TraitToReplace
 		end
 		SetTraitTextData( tooltipData )
 	elseif lootData.StackOnly and upgradeData.Name ~= "FallbackGold" then
@@ -909,11 +919,8 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 	-- handle trait
 	local newTrait = nil
 	if upgradeData.TraitToReplace then
-		local numOldTrait = CurrentRun.Hero.TraitDictionary[upgradeData.TraitToReplace][1].StackNum or 1
-		numOldTrait = numOldTrait + GetTotalHeroTraitValue("ExchangeLevelBonus")
 		RemoveWeaponTrait( upgradeData.TraitToReplace )
 		newTrait = AddTraitToHero({ TraitData = upgradeData, FromLoot = true })
-		IncreaseTraitLevel( upgradeData, numOldTrait - 1 )
 		currentRun.CurrentRoom.ReplacedTraitSource = GetLootSourceName(upgradeData.TraitToReplace)
 	else
 		if button.LootData.StackOnly and upgradeData.Name ~= "FallbackGold" then
@@ -1320,6 +1327,9 @@ function UpgradeChoiceScreenOpenTraitTray( screen, button )
 		screen.Components.RarifyButton.Visible = nil
 		SetAlpha({ Id = screen.Components.RarifyButton.Id, Fraction = 0.0, Duration = 0.2 })
 	end
+	if screen.Components.BoonListButton then
+		SetAlpha({ Id = screen.Components.BoonListButton.Id, Fraction = 0.0, Duration = 0.2 })
+	end
 	if screen.Components.AcceptButton then
 		SetAlpha({ Id = screen.Components.AcceptButton.Id, Fraction = 0.0, Duration = 0.2 })
 	end
@@ -1354,6 +1364,11 @@ function UpgradeChoiceScreenCloseTraitTray( screen, args )
 			SetAlpha({ Id = upgradeChoiceScreenComponents.RerollButton.Id, Fraction = 1.0, Duration = 0.2 })
 		end
 	end
+	if upgradeChoiceScreenComponents.BoonListButton then
+		if upgradeChoiceScreenComponents.BoonListButton.OnPressedFunctionName ~= nil then
+			SetAlpha({ Id = upgradeChoiceScreenComponents.BoonListButton.Id, Fraction = 1.0, Duration = 0.2 })
+		end
+	end
 	if upgradeChoiceScreenComponents.AcceptButton then
 		if not upgradeChoiceScreenComponents.AcceptButton.Disabled then
 			SetAlpha({ Id = upgradeChoiceScreenComponents.AcceptButton.Id, Fraction = 1.0, Duration = 0.2 })
@@ -1369,4 +1384,37 @@ function UpgradeChoiceRetaliate( victim, triggerArgs )
 	if attacker ~= nil then
 		Kill( attacker )
 	end
+end
+
+function AttemptOpenUpgradeChoiceBoonInfo( screen, button )
+
+	local sourceName = screen.Source.Name
+	local entryName = nil
+	local entryData = nil
+
+	if sourceName == "WeaponUpgrade" then
+		for equippedWeaponName, _ in pairs( CurrentRun.Hero.Weapons ) do
+			if CodexData.Weapons.Entries[equippedWeaponName] then
+				entryName = equippedWeaponName
+				entryData = CodexData.Weapons.Entries[entryName]
+				break
+			end
+		end
+	else
+		for categoryName, categoryData in pairs( CodexData ) do
+			if categoryName ~= "Weapons" then
+				for codexEntryName, codexEntryData in pairs( categoryData.Entries ) do
+					if codexEntryName == sourceName or codexEntryData.BoonInfoEnemyName == sourceName then
+						entryName = codexEntryName
+						entryData = codexEntryData
+						break
+					end
+				end
+			end
+		end
+	end
+
+	HideTopMenuScreenTooltips({ })
+	ShowBoonInfoScreen( sourceName, nil, entryName, entryData )
+
 end

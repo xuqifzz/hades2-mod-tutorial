@@ -3023,6 +3023,9 @@
 		OffsetZ = 30
 		ChainTo = "AxeDeflectBaseFade"
 		TransferAngle = true
+		TimeModifierFraction = 0
+		Sound = "/SFX/Player Sounds/ZagreusShieldProjectileLoop"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "AxeDeflectDisplacement" }
@@ -3046,11 +3049,13 @@
 		EndAlpha = 0.25
 		PingPongColor = true
 		Scale = 2
+		TimeModifierFraction = 0
 	}
 
 	{
 		Name = "AxeDeflectDark"
 		InheritFrom = "AxeDeflectBase"
+		Sound = null
 		Red = 0
 		Green = 0
 		Blue = 0
@@ -3067,6 +3072,7 @@
 	{
 		Name = "AxeDeflectBaseFade"
 		InheritFrom = "AxeDeflectBase"
+		Sound = null
 		TransferAngle = true
 		ChainTo = null
 		StartAlpha = 1
@@ -3079,12 +3085,14 @@
 	{
 		Name = "AxeDeflectDisplacement"
 		InheritFrom = "AxeDeflectBase"
+		Sound = null
 		ChainTo = null
 		GroupName = "FX_Displacement"
 		StartAlpha = 0.1
 		EndAlpha = 0.5
 		CreateAnimation = null
 		ClearCreateAnimations = true
+		TimeModifierFraction = 0
 	}
 
 
@@ -4909,7 +4917,7 @@
 		EndBlue = 0.999
 		Scale = 1.2
 		Sound = "/SFX/Player Sounds/AphroditeSprintLoop"
-		StopSoundOnFinishFade = 0.3
+		StopSoundOnFinishFade = 0.8
 		ChainTo = "AxeDeflectFade_Aphrodite"
 		VisualFx = "AxeDeflectAphroditeFx"
 		VisualFxIntervalMin = 0.2

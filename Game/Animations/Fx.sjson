@@ -12386,9 +12386,10 @@
     }
     {
       Name = "SacrificeHealthFx"
-      FilePath = "Fx\MelDeathFlash\MelDeathFlash"
-      
+      FilePath = "Fx\MelDeathFlash\MelDeathFlash"      
       VisualFx = "SacrificeHealthFxStreaks"
+      VisualFxManagerCap = 400
+      VisualFxManagerFrameCap = 18
       AngleFromOwner = "Ignore"
       AngleMax = 360.0
       Sound = "/SFX/Menu Sounds/ChaosSelfDamage"
@@ -12417,8 +12418,7 @@
     {
       Name = "SacrificeHealthFxStreaks"
       FilePath = "Fx\WeaponSwipePointed\WeaponSwipePointed"
-      GroupName = "Standing"
-      
+      GroupName = "FX_Standing"
       AngleFromOwner = "Ignore"
       AngleMax = 360.0
       StartBlue = 0.001

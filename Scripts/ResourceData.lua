@@ -951,6 +951,9 @@ ResourceData =
 					GameStateRequirements =
 					{
 						{
+							PathFalse = { "CurrentRun", "UseRecord", "NPC_Eris_01" },
+						},
+						{
 							PathTrue = { "GameState", "UseRecord", "NPC_Eris_01" },
 						},
 						AreIdsAlive = { 585573 },

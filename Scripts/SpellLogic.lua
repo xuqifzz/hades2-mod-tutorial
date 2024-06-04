@@ -671,7 +671,7 @@ function SpellSummon( triggerArgs, weaponData )
 
 	if CurrentRun.CurrentRoom.Encounter ~= nil and CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap ~= nil then
 		local activeCapWeight = newEnemy.ActiveCapWeight or 1
-		CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap = math.min(CurrentRun.CurrentRoom.Encounter.ActiveEnemyCapMax, CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap + activeCapWeight)
+		CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap = math.min(ConstantsData.MaxActiveEnemyCount, CurrentRun.CurrentRoom.Encounter.ActiveEnemyCap + activeCapWeight)
 	end
 
 	MapState.SpellSummons = MapState.SpellSummons or {}
@@ -746,6 +746,9 @@ function StartSpellSlow( unit, weaponData, args, triggerArgs )
 			args.Modifier = timeSlow
 			args.Force = true
 		end
+	end	
+	if not GameState.Flags.UsedSlowAgainstChronos and CurrentRun.BossHealthBarRecord.Chronos then
+		GameState.Flags.UsedSlowAgainstChronos = true
 	end
 	StartWeaponSlowMotion( triggerArgs, weaponData, args ) 
 end
@@ -1028,6 +1031,7 @@ function EndSpellTransform( )
 	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
 	for _, weaponName in pairs( MapState.TransformArgs.FunctionArgs.TransformWeapons ) do
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })
+		RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = weaponName, Method = "cancelCharge" })
 	end
 
 	SwapWeapon({ Name = "WeaponTransformBlink", SwapWeaponName = "WeaponBlink", DestinationId = CurrentRun.Hero.ObjectId, StompOriginalWeapon = true })

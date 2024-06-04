@@ -551,10 +551,18 @@ function FamiliarFishingPresentation( fishingPoint )
 		AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = fishingPoint.ObjectId })
 		PlaySound({ Name = "/SFX/Familiars/CatGrumpy", Id = familiar.ObjectId })
 
-		local spawnPointId = GetClosest({ Id = fishingPoint.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
-		if spawnPointId == 0 then
-			-- fall back to the hero's position if no spawn points exist
-			spawnPointId = CurrentRun.Hero.ObjectId
+		local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
+		local roomData = RoomData[currentRoom.Name] or currentRoom
+
+		local spawnPointId = 0
+		if roomData.ToulaFishingTeleportId ~= nil then
+			spawnPointId = roomData.ToulaFishingTeleportId
+		else
+			spawnPointId = GetClosest({ Id = fishingPoint.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
+			if spawnPointId == 0 then
+				-- fall back to the hero's position if no spawn points exist
+				spawnPointId = CurrentRun.Hero.ObjectId
+			end
 		end
 		Teleport({ Id =  familiar.ObjectId, DestinationId = spawnPointId })
 		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })

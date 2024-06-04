@@ -1254,7 +1254,7 @@ UnitSetData.NPC_Hecate =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ChronosRevealFollowUp" },
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosRevealFollowUp" },
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "HecateAboutChronosAnomaly01" },
@@ -1300,11 +1300,15 @@ UnitSetData.NPC_Hecate =
 						HasAll = { "ChronosRevealFollowUp", "HecateAboutChronosAnomaly01" },
 					},
 					{
+						PathTrue = { "CurrentRun", "UseRecord", "NPC_Chronos_01" },
+					},
+					{
 						PathFalse = { "GameState", "TextLinesRecord", "HecateAboutChronos01" },
 					},
 					{
 						PathFalse = { "CurrentRun", "RoomsEntered", "I_Boss01" }
 					},
+					MaxRunsSinceAnyTextLines = { TextLines = { "ChronosRevealFollowUp" }, Count = 3 },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HecateGreeting,
@@ -2944,7 +2948,7 @@ UnitSetData.NPC_Hecate =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "EncountersOccurredCache", "GeneratedAnomalyB" },
+						PathTrue = { "CurrentRun", "EncountersOccurredCache", "GeneratedAnomalyB" },
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "HecateAboutChronos01" },
@@ -2991,6 +2995,9 @@ UnitSetData.NPC_Hecate =
 					{
 						PathTrue = { "CurrentRun", "EncountersOccurredCache", "GeneratedAnomalyB" },
 					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HecateAboutChronosAnomaly01" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HecateGreeting,
@@ -3002,6 +3009,16 @@ UnitSetData.NPC_Hecate =
 					Text = "The influence of Chronos is much stronger in Oceanus than here. He attempted to ensnare me in a vision of another time. A field of flame." },
 				{ Cue = "/VO/Hecate_0537",
 					Text = "Yet you were able to elude his grasp. An aspect of your condition we expected would come into play as you pushed closer to our foe. Continue with still-greater caution, nonetheless..." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.5,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_2519", Text = "Yes, Headmistress." },
+					},
+				},
+
 			},
 
 			HecateAboutTimeStop01 =

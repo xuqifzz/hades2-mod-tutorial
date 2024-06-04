@@ -26,6 +26,7 @@
 		UpgradeScreenOpenSound = "/Leftovers/Menu Sounds/SkillUpgradeConfirm",
 		UpgradeSelectedSound = "/SFX/ChaosBoonChoice",
 		MenuTitle = "UpgradeChoiceMenu_Chaos",
+		EchoLastRewardId = "EchoLastRewardBoon_Chaos",
 		SuperSacrificeCombatText = "SuperSacrifice_CombatText_ChaosUpgrade",
 		BoxAnimation = "DialogueSpeechBubble",
 		BoxExitAnimation = "DialogueSpeechBubbleOut",
@@ -56,8 +57,7 @@
 		PermanentTraits = { 
 			"ChaosWeaponBlessing", "ChaosSpecialBlessing", "ChaosCastBlessing", "ChaosHealthBlessing", 
 			"ChaosRarityBlessing", "ChaosMoneyBlessing", "ChaosLastStandBlessing", "ChaosManaBlessing", 
-			"ChaosManaOverTimeBlessing", --"ChaosWeaponBaseBlessing", "ChaosSpecialBaseBlessing",
-			"ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
+			"ChaosManaOverTimeBlessing", "ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
 			"ChaosSpeedBlessing", "ChaosDoorHealBlessing", "ChaosHarvestBlessing",
 			"ChaosOmegaDamageBlessing"},
 		TemporaryTraits = { 

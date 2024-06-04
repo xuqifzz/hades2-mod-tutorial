@@ -30,12 +30,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_2823", Text = "{#Emph}Death to Chronos... {#Prev}there has to be a way..." },
 		},
 	},
@@ -83,12 +81,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_1346", Text = "I need to make my own way to the surface..." },
 		},
 
@@ -132,12 +128,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_1347", Text = "Can I suppress my illness on the surface...?" },
 		},
 
@@ -179,12 +173,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3071", Text = "I owe Narcissus crystal clarity..." },
 		},
 

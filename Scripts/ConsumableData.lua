@@ -34,6 +34,7 @@ ConsumableData =
 	BaseWellShopConsumable =
 	{
 		InheritFrom = { "BaseConsumable" },
+		NoFrame = true,
 		--CanDuplicate = false,
 	},
 	Tier1Consumable =
@@ -507,6 +508,7 @@ ConsumableData =
 	TalentDrop =
 	{
 		InheritFrom = { "BaseConsumable", "Tier1Consumable" },
+		GenusName = "SpellDrop",
 		SurfaceShopText = "TalentDrop_Store",
 		SurfaceShopIcon = "TalentDropPreview",
 		DoorIcon = "TalentDropPreview",
@@ -523,7 +525,7 @@ ConsumableData =
 		AddTalentPoints = 3,
 		ResourceCosts =
 		{
-			Money = 100,
+			Money = 60,
 		},
 		FlavorTextIds =
 		{
@@ -888,6 +890,10 @@ ConsumableData =
 	{
 		InheritFrom = { "BaseConsumable", },
 		HideWorldText = true,
+		GameStateRequirements =
+		{
+			RequiredMinWeaponUpgrades = 1,
+		},		
 		PurchaseRequirements =
 		{
 			RequiredMinWeaponUpgrades = 1,
@@ -924,6 +930,7 @@ ConsumableData =
 		},
 		UseText = "UsePurchaseLoot",
 		UseFunctionName = "GiveLoot",
+		CanDuplicate = false,
 	},
 	BoostedRandomLoot =
 	{
@@ -932,6 +939,7 @@ ConsumableData =
 		{
 			Money = 450,
 		},
+		CanDuplicate = false,
 	},
 	BlindBoxLoot = 
 	{
@@ -951,6 +959,7 @@ ConsumableData =
 		ReplaceWithRandomLoot = true,
 		HideWorldText = true,
 		BlockPurchasedVoiceLines = true,
+		CanDuplicate = false,
 	},
 	WeaponUpgradeDrop =
 	{
@@ -1290,6 +1299,19 @@ ConsumableData =
 			MetaCardPointsCommon = 5,
 		},
 	},
+	MetaCardPointsCommonBigDrop =
+	{
+		InheritFrom = { "MetaCardPointsCommonDrop" },
+		ResourceCosts =
+		{
+			Money = 100,
+		},
+		Icon = "MetaCardPointsCommonBigDrop",
+		AddResources =
+		{
+			MetaCardPointsCommon = 10,
+		},
+	},
 	MemPointsCommonDrop =
 	{
 		InheritFrom = { "BaseResource", "BaseMetaRoomReward" },
@@ -1310,6 +1332,19 @@ ConsumableData =
 		AddResources =
 		{
 			MemPointsCommon = 10,
+		},
+	},
+	MemPointsCommonBigDrop =
+	{
+		InheritFrom = { "MemPointsCommonDrop", },
+		ResourceCosts =
+		{
+			Money = 100,
+		},
+		Icon = "MemPointsCommonBigDrop",
+		AddResources =
+		{
+			MemPointsCommon = 20,
 		},
 	},
 	MetaCurrencyDrop =

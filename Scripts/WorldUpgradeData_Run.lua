@@ -217,15 +217,44 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_2783", Text = "How to find my way in the Mourning Fields..." },
 		},
 	},
+	--[[
+	WorldUpgradeTimeSlowChronosFight =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_chronos",
+		Cost =
+		{
+			PlantIShaderot = 1,
+			PlantFMoly = 2,
+			MetaFabric = 3,
+			MemPointsCommon = 4,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "RoomsEntered", "I_Boss01" },
+			},
+			NamedRequirements = { "UsedTimeSlowAgainstChronos" },
+		},
+
+		OfferedVoiceLines =
+		{
+			PreLineWait = 0.7,
+			PlayOnce = true,
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
+			{ Cue = "/VO/Melinoe_3070", Text = "Time thinks he can't be stopped. I think otherwise." },
+		},
+	},
+	]]
 	WorldUpgradePauseChronosFight =
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
@@ -245,9 +274,6 @@ OverwriteTableKeys( WorldUpgradeData,
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChronosBossWonAgainstHim01" },
-			},
-			{
 				Path = { "GameState", "SpeechRecord" },
 				HasAny = { "/VO/Chronos_0563_B" }
 			},
@@ -255,12 +281,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_3070", Text = "Time thinks he can't be stopped. I think otherwise." },
 		},
 	},
@@ -285,12 +309,10 @@ OverwriteTableKeys( WorldUpgradeData,
 
 		OfferedVoiceLines =
 		{
-			PreLineWait = 0.5,
+			PreLineWait = 0.7,
 			PlayOnce = true,
-			Cooldowns =
-			{
-				{ Name = "MelCauldronSpellRevealedSpeech", Time = 20 },
-			},
+			TriggerCooldowns = { "MelCauldronSpellRevealedSpeech" },
+
 			{ Cue = "/VO/Melinoe_2822", Text = "The Arms of Night seek something more from me..." },
 		},
 	},

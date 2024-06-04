@@ -247,19 +247,12 @@ function SetupFlashback02( source, args )
 end
 
 function Flashback02Objective( source, args )
-
 	killTaggedThreads( CombatUI.HideThreadName )
 	local notifyName = "Flashback02Prompt"
-	NotifyOnPlayerInput({ Notify = notifyName, Timeout = args.Delay })
+	NotifyOnControlPressed({ Names = { "Up", "Down", "Left", "Right", "Move", }, Notify = notifyName, Timeout = args.Delay })
 	waitUntil( notifyName )
 	if _eventTimeoutRecord[notifyName] then
-		CheckObjectiveSet("Flashback02Prompt")
-
-		local notifyName = "Flashback02Prompt"
-		NotifyOnPlayerInput({ Notify = notifyName })
-		waitUntil( notifyName )
-
-		-- MarkObjectiveComplete("Flashback02Prompt")
+		CheckObjectiveSet( "Flashback02Prompt" )
 	end
 end
 

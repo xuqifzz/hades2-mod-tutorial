@@ -2,7 +2,6 @@ function UseMarketObject( usee, args )
 	PlayInteractAnimation( usee.ObjectId )
 	UseableOff({ Id = usee.ObjectId })
 	StopStatusAnimation( usee )
-	GenerateMarketItems()
 	local screen = OpenMarketScreen()
 	UseableOn({ Id = usee.ObjectId })
 	MarketSessionCompletePresentation( usee, screen )
@@ -485,7 +484,11 @@ function HasUnviewedMarketItem( source, args )
 			if not category.FlipSides and IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
 				for j, item in ipairs( category ) do
 					if not GameState.ItemsViewed[item.BuyName] and IsGameStateEligible( CurrentRun, item, item.GameStateRequirements ) then
-						return true
+						for k, marketItem in ipairs( CurrentRun.MarketItems[i] ) do
+							if marketItem.BuyName == item.BuyName then
+								return true
+							end
+						end
 					end
 				end
 			end

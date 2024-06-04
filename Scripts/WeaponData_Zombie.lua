@@ -232,6 +232,7 @@ WeaponSetData =
 		{
 			MinAttacksBetweenUse = 5,
 			MinRequiredKillEnemies = 3,
+			RequiresNotCharmed = true,
 		},
 
 		Sounds =
@@ -307,6 +308,8 @@ WeaponSetData =
 			ProjectileName = "ZombieMelee_Elite",
 			FireSelfVelocity = 1300,
 
+			RetreatAfterAttackChance = 0.0,
+
 			AttackDistance = 400,
 			LoSBuffer = 85,
 
@@ -326,15 +329,18 @@ WeaponSetData =
 			ProjectileName = "ZombieMelee_Elite",
 			FireSelfVelocity = 400,
 
-			PreAttackAngleTowardTarget = true,
-			WaitForAngleTowardTarget = true,
-			PreAttackRotationDampening = 0.005,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.11,
+			StopBeforeFire = true,
 
 			AttackDistance = 9999,
-			LoSBuffer = 85,
+			MoveWithinRange = false,
 			DoNotRepeatOnAttackFail = true,
 
 			PreAttackDuration = 0.3,
+			PreAttackEndShake = false,
+			PreAttackEndDuration = 0.0,
+			PreAttackEndFlashFraction = 0.0,
 			PreAttackAnimationSpeed = 2.5,
 		},
 	},

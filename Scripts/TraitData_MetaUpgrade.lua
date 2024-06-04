@@ -241,7 +241,7 @@
 		
 		OnWeaponChargeFunctions =
 		{
-			ValidWeapons = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponStaffBall", "WeaponDaggerThrow", "WeaponAxeSpin", "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponCastArm", "WeaponCastProjectileHades", "WeaponCastProjectile", "WeaponAnywhereCast" },
+			ValidWeapons = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponStaffBall", "WeaponDaggerThrow", "WeaponAxeSpecialSwing", "WeaponAxeSpin", "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponCastArm", "WeaponCastProjectileHades", "WeaponCastProjectile", "WeaponAnywhereCast" },
 			FunctionName = "CheckWeaponCastChannelSlow",
 			FunctionArgs =
 			{

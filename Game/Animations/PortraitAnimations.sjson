@@ -3314,7 +3314,7 @@
     {
       Name = "Codex_Portrait_Echo"
       InheritFrom = "Codex_Portrait_Base_01"
-      FilePath = "Portraits\Codex\CodexPortrait_EchoHooded"
+      FilePath = "Portraits\Codex\CodexPortrait_Echo"
       EndFrame = 1
       StartFrame = 1
     }

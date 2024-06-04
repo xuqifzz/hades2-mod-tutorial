@@ -472,7 +472,7 @@ OverwriteTableKeys( WeaponData,
 		InheritFrom = { "WeaponStaffBolt", },
 		ImpactReactionHitsOverride = 10,
 		ShowManaIndicator = true,
-		HideChargeDuration = 0.28,
+		HideChargeDuration = 0.325,
 		OnChargeFunctionName = "DoWeaponCharge",
 		CustomChannelSlowEvent = "StaffBallSlow",
 
@@ -486,9 +486,9 @@ OverwriteTableKeys( WeaponData,
 		{
 			{ 
 				ManaCost = 10, 
-				Wait = 0.8, 
+				Wait = 0.65, 
 				 
-				WeaponProperties = { Projectile = "ProjectileStaffBallCharged", NumProjectiles = 1, AdditionalProjectileWaveChance = 0},
+				WeaponProperties = { Projectile = "ProjectileStaffBallCharged", AdditionalProjectileWaveChance = 0},
 				--AnimOnStart = "Melinoe_Staff_Special1_Start", 
 				FxOnStart = "StaffBoltCharge", 
 				ChargeRumbleParameters =

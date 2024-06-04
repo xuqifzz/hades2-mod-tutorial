@@ -392,6 +392,17 @@
 				Sound = "/VO/MelinoeEmotes/EmoteCharging"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Cast_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Cast_StartLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	{
@@ -428,7 +439,7 @@
 		]
 
 		Blends =
-		[	
+		[
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Special_StartLoop"
 				Duration = 2
