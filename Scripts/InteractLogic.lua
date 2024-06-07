@@ -1089,7 +1089,7 @@ function UseConsumableItem( consumableItem, args, user )
 			thread( CallFunctionName, functionName, consumableItem, consumableItem.UseThreadedFunctionArgs[i] )
 		end
 	end
-	if (consumableItem.CanDuplicate and RandomChance( GetTotalHeroTraitValue("DoubleRewardChance"))) or consumableItem.RespawnAfterUse then
+	if (consumableItem.CanDuplicate ) or consumableItem.RespawnAfterUse then
 		UseableOn({ Id = consumableItem.ObjectId })
 		SetAlpha({ Id = consumableItem.ObjectId, Fraction = 1, Duration = 0 })
 		thread( DoubleRewardPresentation, consumableItem.ObjectId )
