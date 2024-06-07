@@ -491,8 +491,10 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 	--wait( 1.5 )
 	wait( 1.51 )
 	Destroy({ Id = ScreenAnchors.FishingVignette })
-	local cameraClamps = roomData.CameraClamps or GetDefaultClampIds()
-	SetCameraClamp({ Ids = cameraClamps, SoftClamp = roomData.SoftClamp })
+	if not roomData.IgnoreFishingCameraClamps then
+		local cameraClamps = roomData.CameraClamps or GetDefaultClampIds()
+		SetCameraClamp({ Ids = cameraClamps, SoftClamp = roomData.SoftClamp })
+	end
 end
 
 function FishingWayLatePresentation()

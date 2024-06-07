@@ -29,7 +29,7 @@ LootSetData.Selene =
 		AnimOffsetZ = 100,
 		ResourceCosts =
 		{
-			Money = 150,
+			Money = 100,
 		},
 		ConfirmSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
 		

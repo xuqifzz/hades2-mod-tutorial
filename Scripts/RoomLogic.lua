@@ -4423,6 +4423,7 @@ end
 
 function LeaveRoom( currentRun, door )
 
+	CurrentRun.CurrentRoom.Leaving = true
 	local nextRoom = door.Room
 	local currentRoomData = RoomData[CurrentRun.CurrentRoom.Name]
 	if CurrentRun.CurrentRoom.TempHealth then

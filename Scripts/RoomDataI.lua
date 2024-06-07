@@ -679,6 +679,7 @@ RoomSetData.I =
 		ZoomFraction = 0.70,
 
 		ToulaFishingTeleportId = 704921,
+		IgnoreFishingCameraClamps = true,
 
 		Ambience = "/Ambience/DemoEndAmbience",
 		UnthreadedEvents =

@@ -991,6 +991,7 @@ ScreenData.RunClear =
 
 		WeaponAxe2 = "WeaponAxe",
 		WeaponAxe3 = "WeaponAxe",
+		ProjectileAxeBlockSpin = "WeaponAxeBlock2",
 		ProjectileAxeBlock2 = "WeaponAxeSpecialSwing",
 
 		ProjectileTorchBall = "WeaponTorch",

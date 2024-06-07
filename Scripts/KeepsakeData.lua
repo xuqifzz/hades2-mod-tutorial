@@ -453,10 +453,10 @@ ScreenData.KeepsakeRack =
 	},
 	-- OpenSound = "/Leftovers/World Sounds/Caravan Interior/CabinetClose",
 
-	BaseIconScale = 0.48,
-	HoverIconScale = 0.58,
+	BaseIconScale = 0.55,
+	HoverIconScale = 0.65,
 
-	SpacerX = 115,
+	SpacerX = 115.5,
 	SpacerY = 176,
 	StartX = 446,
 	StartY = 226,

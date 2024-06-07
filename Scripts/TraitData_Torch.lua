@@ -226,7 +226,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Torch_38",
 		RequiredWeapon = "WeaponTorch",
-		RequiredFalseTraits = {"TorchDetonateAspect"},
+		RequiredFalseTraits = {"TorchDetonateAspect", "TorchSprintRecallAspect"},
 		PropertyChanges =
 		{	
 			{

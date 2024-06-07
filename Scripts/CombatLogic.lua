@@ -2856,18 +2856,22 @@ OnHit{
 					return
 				end
 
-				if HeroHasTrait( "ReserveManaHitShieldBoon" ) and not (MapState.DaggerBlockShieldActive and HeroHasTrait("DaggerBlockAspect")) then
+				if HeroHasTrait( "ReserveManaHitShieldBoon" )  then
 					-- Player hit
-					local tempInvulnerabilityTrait = nil
-					for k, currentTrait in pairs( CurrentRun.Hero.Traits ) do
-						if currentTrait.Name == "ReserveManaHitShieldBoon" and IsOnlyInvulnerableSource("ManaReserveTraitInvulnerability") and CurrentRun.Hero.ActiveEffects.ReserveManaInvulnerability then
-							tempInvulnerabilityTrait = currentTrait
+					if (MapState.DaggerBlockShieldActive and HeroHasTrait("DaggerBlockAspect")) then
+						triggerArgs.InvulnerablePassthrough = true
+					else
+						local tempInvulnerabilityTrait = nil
+						for k, currentTrait in pairs( CurrentRun.Hero.Traits ) do
+							if currentTrait.Name == "ReserveManaHitShieldBoon" and IsOnlyInvulnerableSource("ManaReserveTraitInvulnerability") and CurrentRun.Hero.ActiveEffects.ReserveManaInvulnerability then
+								tempInvulnerabilityTrait = currentTrait
+							end
 						end
-					end
 
-					if tempInvulnerabilityTrait ~= nil and IsTraitActive( tempInvulnerabilityTrait ) then
-						triggerArgs.IsInvulnerable = true
-						thread( VulnerableAfterDelay, 1, "ReserveManaInvulnerability", "ManaReserveTraitInvulnerability" )
+						if tempInvulnerabilityTrait ~= nil and IsTraitActive( tempInvulnerabilityTrait ) then
+							triggerArgs.IsInvulnerable = true
+							thread( VulnerableAfterDelay, 1, "ReserveManaInvulnerability", "ManaReserveTraitInvulnerability" )
+						end
 					end
 				end
 			end
@@ -2888,8 +2892,7 @@ OnHit{
 		if victim == CurrentRun.Hero 
 			and triggerArgs.DamageAmount ~= nil 
 			and triggerArgs.DamageAmount > 0 
-			and not triggerArgs.IsInvulnerable 
-			and not triggerArgs.InvulnerableFromCoverage then
+			and ( triggerArgs.InvulnerablePassthrough or ( not triggerArgs.IsInvulnerable and not triggerArgs.InvulnerableFromCoverage)) then
 			if MapState.DaggerBlockShieldActive and HeroHasTrait("DaggerBlockAspect") then
 				local traitData = GetHeroTrait("DaggerBlockAspect")
 				local functionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs

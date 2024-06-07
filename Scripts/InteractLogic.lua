@@ -80,7 +80,7 @@ function UseNPC( npc, args, user )
 	end
 
 	if npc.AggroedEnemyUseText ~= nil then
-		if not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits ) then
+		if not IsEmpty( RequiredKillEnemies ) or IsAggroedUnitBlockingInteract() then
 			thread( InteractBlockedByEnemiesPresentation, npc, nil, user )
 			return
 		end

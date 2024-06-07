@@ -1011,6 +1011,7 @@
 					BlastSpeed = 500,
 					SpinFromOwnerVelocityMultiplier = 0,
 					MaxAdjustRate = math.rad(50),
+					MultipleObstacleCollisions = false,
 				}
 			},
 			{

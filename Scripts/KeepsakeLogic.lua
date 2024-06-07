@@ -259,7 +259,7 @@ function DamageAfterInterval( timer, damage )
 	local tollTimes = math.floor(timer)
 	StartBlockDeathPresentation( tollTimes )
 	while tollTimes > 0 do
-		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) then
+		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving then
 			SetPlayerVulnerable( "BlockDeath" )
 			return
 		end
@@ -276,14 +276,17 @@ function DamageAfterInterval( timer, damage )
 			end
 		end
 		if PlayingTextLines then
-			wait(0.3)
+			wait( 0.3 )
 		else
 			TickBlockDeathPresentation( tollTimes )
-			wait (1, RoomThreadName )
+			wait( 1, RoomThreadName )
 			tollTimes = tollTimes - 1
 		end
 	end
 	SetPlayerVulnerable( "BlockDeath" )
+	if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving then
+		return
+	end
 	if ( encounterAlreadyCompleted and ( not CurrentRun.Hero.InvulnerableFlags or not CurrentRun.Hero.InvulnerableFlags.LeaveRoom)) or ( not encounter.Completed and not encounter.BossKillPresentation and encounter.InProgress ) then
 		CurrentRun.Hero.HealthBuffer = 0
 		SacrificeHealth({SacrificeHealthMin = damage, SacrificeHealthMax = damage, MinHealth = 0, Silent = true })

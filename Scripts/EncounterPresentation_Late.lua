@@ -1026,6 +1026,10 @@ function NemesisEncounterEndPresentation( eventSource )
 	local nemesis = ActiveEnemies[encounter.NemesisId]
 
 	SetSoundCueValue({ Names = { "Section" }, Id = AudioState.SecretMusicId, Value = 1 })
+
+	if nemesis == nil then -- Most likely if the player died during reward sequence
+		return
+	end
 	
 	killTaggedThreads( nemesis.AIThreadName )
 	killWaitUntilThreads( nemesis.AINotifyName )

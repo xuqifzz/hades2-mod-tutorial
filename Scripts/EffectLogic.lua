@@ -394,6 +394,7 @@ function OmegaBuffApply( triggerArgs )
 			Name = "OmegaBuff",
 			ExMultiplier = triggerArgs.Modifier,
 			WeaponNames = WeaponSets.HeroAllWeapons,
+			Temporary = true,
 		})
 	end
 end
@@ -417,6 +418,7 @@ function ClearCastApply( triggerArgs )
 			Name = triggerArgs.EffectName,
 			ExMultiplier = bonus,
 			WeaponNames = WeaponSets.HeroAllWeapons,
+			Temporary = true,
 		})
 	end
 end

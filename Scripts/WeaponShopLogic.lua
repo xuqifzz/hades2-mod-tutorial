@@ -597,6 +597,9 @@ function WeaponShopScreenHideItems( screen )
 		ModifyTextBox({ Id = screen.Components.InfoBoxStatLineLeft.Id, FadeTarget = 0.0, })
 		ModifyTextBox({ Id = screen.Components.InfoBoxStatLineRight.Id, FadeTarget = 0.0, })
 		ModifyTextBox({ Id = screen.Components.InfoBoxFlavor.Id, FadeTarget = 0.0, })
+
+		SetAlpha({ Id = screen.Components.InfoBoxIcon.Id, Fraction = 0.0, Duration = 0.2 })
+		SetAlpha({ Id = screen.Components.InfoBoxFrame.Id, Fraction = 0.0, Duration = 0.2 })
 	end
 
 end

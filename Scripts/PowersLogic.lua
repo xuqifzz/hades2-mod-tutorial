@@ -3605,38 +3605,6 @@ function HandleAttachRecord( weaponData, functionArgs, triggerArgs )
 		end
 		thread(StartTorchRepeatDetonationThread, functionArgs, triggerArgs )
 		
-		if HeroHasTrait("DoubleExManaBoon") then
-		
-			if SessionMapState.SecondExProjectile then
-				ExpireProjectiles({ ProjectileIds = { SessionMapState.SecondExProjectile }})
-			end
-			ExpireProjectiles({ ProjectileIds = SessionMapState.SecondExAttachedProjectiles})
-			SessionMapState.SecondExAttachedProjectiles = {}
-			local weaponName = weaponData.Name
-			local projectileName = triggerArgs.ProjectileName
-			local derivedValues = GetDerivedPropertyChangeValues({
-				ProjectileName = projectileName,
-				WeaponName = weaponName,
-				Type = "Projectile",
-				MatchProjectileName = true,
-			})
-			waitUnmodified(0.25)
-			SessionMapState.SecondExProjectile = CreateProjectileFromUnit({
-				WeaponName = weaponName, 
-				Name = projectileName,
-				Angle = angle,
-				Id = CurrentRun.Hero.ObjectId, 
-				DataProperties = derivedValues.PropertyChanges, 
-				ThingProperties = derivedValues.ThingPropertyChanges
-				})
-			local threadName = "SecondTorchRepeatDetonationThread"
-			if HasThread( threadName ) then
-				killTaggedThreads( threadName )
-				waitUnmodified(0.1)
-			end
-			thread(StartTorchRepeatDetonationThread, functionArgs, triggerArgs )
-		
-		end
 	elseif weaponData.Name == "WeaponTorchSpecial" and SessionMapState.CurrentExProjectile then
 		local weaponName = weaponData.Name
 		local projectileName = triggerArgs.ProjectileName
@@ -3666,7 +3634,7 @@ function HandleAttachRecord( weaponData, functionArgs, triggerArgs )
 					Id = CurrentRun.Hero.ObjectId, 
 					ProjectileDestinationId = SessionMapState.CurrentExProjectile, 
 					FireFromTarget = true, 
-					AttachToTarget = isEx, 
+					AttachToTarget = isEx and not HeroHasTrait("TorchOrbitPointTrait"), 
 					DataProperties = derivedValues.PropertyChanges, 
 					ThingProperties = derivedValues.ThingPropertyChanges
 					})

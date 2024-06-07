@@ -160,7 +160,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponLobSpecial",
 				WeaponProperty = "ChargeRangeMultiplier",
-				ChangeValue = 1.5,
+				ChangeValue = 1.1,
 				ChangeType = "Multiply",
 			},
 		},

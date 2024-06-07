@@ -250,6 +250,15 @@ function IsAggoredUnitBlockingHarvest()
 	end
 	return false
 end
+function IsAggroedUnitBlockingInteract()
+	for id, v  in pairs( MapState.AggroedUnits ) do
+		local unit = ActiveEnemies[id]
+		if unit ~= nil and not unit.AlwaysTraitor then
+			return true
+		end
+	end
+	return false
+end
 
 function UseExorcismPoint( source, args, user )
 

@@ -117,6 +117,10 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 		exitDoor.AdditionalIcons[animName] = doorBIconId
 		SetColor({ Id = doorBIconId, Color = {1.0, 1.0, 1.0, 0}, Duration = 0 })
 		SetColor({ Id = doorBIconId, Color = {0, 0, 0, 1}, Duration = 0.2 })
+
+		if IsHorizontallyFlipped({ Id = exitDoor.ObjectId }) then
+			FlipHorizontal({ Ids = { doorAIconId, doorBIconId } })
+		end
 	else
 		local animName = chosenRewardType
 		local lootData = LootData[chosenRewardType]

@@ -273,7 +273,7 @@ function GetUseText( useTarget )
 	end
 
 	if useTarget.AggroedEnemyUseText ~= nil then
-		if not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits ) then
+		if not IsEmpty( RequiredKillEnemies ) or IsAggroedUnitBlockingInteract() then
 			return useTarget.AggroedEnemyUseText
 		end
 	end
