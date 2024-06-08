@@ -310,8 +310,8 @@ ConsumableData =
 
 		CompleteObjective = "WeaponLobPickup",
 
-		MagnetismEscalateDelay = 10.0,
-		MagnetismHintRemainingTime = 5.0,
+		MagnetismEscalateDelay = 1,
+		MagnetismHintRemainingTime = 0.5,
 		MagnetismEscalateAmount = 99000,
 	},
 
