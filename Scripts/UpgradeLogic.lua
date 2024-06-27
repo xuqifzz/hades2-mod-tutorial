@@ -44,6 +44,21 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 			return
 		end
 	end
+	if propertyChange.FalseTraitNames ~= nil then
+		for _, traitName in pairs( propertyChange.FalseTraitNames ) do
+			if HeroHasTrait(traitName) then
+				return
+			end
+		end
+	end
+
+	if propertyChange.RecordExState and MapState.WeaponCharge[weaponName] and MapState.WeaponCharge[weaponName] > 0 then
+		if reverse then
+			SessionMapState.SpeedExPropertyChangeRecord[weaponName] = nil
+		else
+			SessionMapState.SpeedExPropertyChangeRecord[weaponName] = ShallowCopyTable( propertyChange )
+		end
+	end
 
 	local changeValue = propertyChange.ChangeValue
 	if reverse then
@@ -59,7 +74,7 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 	end
 
 	if propertyChange.WeaponProperty ~= nil then
-		if propertyChange.WeaponProperty == "ChargeTime" then
+		if propertyChange.WeaponProperty == "ChargeTime" and GetWeaponChargeFraction({ Name = weaponName }) > 0 then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = "ChargeTimeRemaining", Value = changeValue, ValueChangeType = propertyChange.ChangeType, DataValue = false })
 		end
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = propertyChange.WeaponProperty, Value = changeValue, ValueChangeType = propertyChange.ChangeType })

@@ -934,6 +934,13 @@ function RefundKeepsakeExpiredPresentation( sourceTrait )
 	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ManaKeepsakeExpired", Duration = 1.3, PreDelay = 0.2 } )
 end
 
+
+function LowHealthCritKeepsakeExpiredPresentation( sourceTrait )
+	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
+	thread( PlayVoiceLines, HeroVoiceLines.KeepsakeExpiredVoiceLines, true )
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "LowHealthCritKeepsakeExpired", Duration = 1.3, PreDelay = 0.2 } )
+end
+
 function DoorHealKeepsakeExpiredPresentation( sourceTrait )
 	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
 	thread( PlayVoiceLines, HeroVoiceLines.KeepsakeExpiredVoiceLines, true )
@@ -1742,6 +1749,18 @@ function ReducedTraitRarityPresentation( traitNamesDowngraded, delay )
 	end
 end
 
+function BoonGrantedPresentation( traitNamesImproved, delay )
+	if delay then
+		wait( delay )
+	end
+	local offsetY = -100
+	for traitName in pairs( traitNamesImproved ) do
+		PlaySound({ Name = "/SFX/Player Sounds/DemeterRushImpactPoof", Id = CurrentRun.Hero.ObjectId })
+		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "BoonGranted_CombatText", SkipRise = false, SkipFlash = false, Duration = 1.5, ShadowScaleX = 1.35, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		wait(1.5)
+		offsetY = offsetY - 60
+	end
+end
 function HarvestBoonTraitPresentation( traitNamesImproved, delay )
 	if delay then
 		wait( delay )
@@ -1814,7 +1833,7 @@ function ChaosTransformationPresentation( oldTraitName, newTraitName )
 	end
 end
 
-function ElementalTraitUpdatedPresentation( activatedTraitNames, deactivatedTraitNames, upgradedTraitNames, downgradedTraitNames, delay )
+function SetupElementalTraitUpdatedPresentation( activatedTraitNames, deactivatedTraitNames, upgradedTraitNames, downgradedTraitNames )
 	UIScriptsDeferred.ElementalCountDirty = true
 	if not UIScriptsDeferred.ElementalPresentationData  then
 		UIScriptsDeferred.ElementalPresentationData = { Activated = ToLookup(activatedTraitNames), Deactivated = ToLookup(deactivatedTraitNames), Upgraded = ToLookup(upgradedTraitNames), Downgraded = ToLookup(downgradedTraitNames) }
@@ -1856,10 +1875,20 @@ function ElementalTraitUpdatedPresentationReal( )
 	if not UIScriptsDeferred.ElementalPresentationData then
 		return
 	end
+
+	if UIScriptsDeferred.ElementalPresentationData.Gained ~= nil then
+		local traitName = UIScriptsDeferred.ElementalPresentationData.Gained
+		PlaySound({ Name = TraitData[traitName].ElementGainSound, Id = CurrentRun.Hero.ObjectId })
+		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementGranted_CombatText", ShadowScaleX = 1.5, SkipRise = true, SkipFlash = false, Duration = 1.8, OffsetY = 80, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		wait(0.5)
+	end
+	UIScriptsDeferred.ElementalPresentationData.Gained = nil
+
 	local offsetY = -100
+
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Activated ) do
 		PlaySound({ Name = "/SFX/WrathEndingWarning", Id = CurrentRun.Hero.ObjectId })
-		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementalTraitActivated", ShadowScaleX = 1.3, SkipRise = false, SkipFlash = false, Duration = 1.5, ShadowScaleX = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementalTraitActivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		thread( PlayVoiceLines, HeroVoiceLines.BoonActivatedVoiceLines, true )
 		wait(0.75)
 		offsetY = offsetY - 60
@@ -1868,7 +1897,7 @@ function ElementalTraitUpdatedPresentationReal( )
 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Deactivated ) do
 		PlaySound({ Name = "/SFX/WrathOver2", Id = CurrentRun.Hero.ObjectId })
-		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementalTraitDeactivated", SkipRise = false, SkipFlash = false, Duration = 1.5, ShadowScaleX = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementalTraitDeactivated", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		thread( PlayVoiceLines, HeroVoiceLines.BoonDectivatedVoiceLines, true )
 		wait(0.75)
 		offsetY = offsetY - 60
@@ -1876,14 +1905,14 @@ function ElementalTraitUpdatedPresentationReal( )
 	UIScriptsDeferred.ElementalPresentationData.Deactivated = {} 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Upgraded ) do
 		PlaySound({ Name = "/SFX/Player Sounds/DemeterRushImpactPoof", Id = CurrentRun.Hero.ObjectId })
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementalTraitUpgraded", SkipRise = false, SkipFlash = false, Duration = 1.5, ShadowScaleX = 1.5, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementalTraitUpgraded", ShadowScaleX = 1.5, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		wait(0.75)
 		offsetY = offsetY - 60
 	end
 	UIScriptsDeferred.ElementalPresentationData.Upgraded = {} 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Downgraded ) do
 		PlaySound({ Name = "/SFX/Player Sounds/DemeterRushImpactPoof", Id = CurrentRun.Hero.ObjectId })
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementalTraitDowngraded", SkipRise = false, SkipFlash = false, Duration = 1.5, ShadowScaleX = 1.7, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementalTraitDowngraded", ShadowScaleX = 1.7, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		wait(0.75)
 		offsetY = offsetY - 60
 	end
@@ -2832,12 +2861,17 @@ function CollectRemainingMercenariesPresentation()
 	wait(1.8)
 end
 
+function EncounterStartInvulnerableWarnPresentation()
+	PlaySound({ Name = "/SFX/HexEndingWarning", Id = CurrentRun.Hero.ObjectId })
+	Flash({ Id = CurrentRun.Hero.ObjectId, Speed = 2, MinFraction = 0, MaxFraction = 0.5, Color = Color.White,  ExpireAfterCycle = true })
+end
+
 function StartBlinkTrailPresentation()
 	local initialId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = CurrentRun.Hero.ObjectId, Group = "Standing" })
 	local blinkIds = { initialId }
 	local blinkAnimationIds = {}
 	local nextClipRegenTime  = GetWeaponProperty({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponBlink", Property = "NextClipRegenTime" }) or 0
-	local waitPeriod = nextClipRegenTime + GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponBlink", Property = "BlinkDuration" }) - 0.08
+	local waitPeriod = nextClipRegenTime + (GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponBlink", Property = "BlinkDuration" }) or 0) - 0.08
 	local startTime = _worldTime
 	local maxTrailLength = 99 
 
@@ -3005,13 +3039,13 @@ function DaggerBlockClearedPresentation( functionArgs )
 end
 
 function DaggerBlockActivePresentation( traitData, reloadTime )
-	waitUnmodified(reloadTime, RoomThreadName )
+	wait(reloadTime, RoomThreadName )
 	if not CurrentRun.Hero.IsDead then
 		PlaySound({ Name = "/SFX/Menu Sounds/KeepsakeArtemisArrow", Id = CurrentRun.Hero.ObjectId })
 		PlaySound({ Name = "/SFX/Menu Sounds/MenuMagicFlashLong", Id = CurrentRun.Hero.ObjectId })
 		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "RiposteCooldown", Duration = 1.0, ShadowScaleX = 0.7 } )
 		if ScreenAnchors.DaggerUI then
-			SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.DaggerUI, Group = "Combat_Menu_TraitTray_Overlay_Additive" })
+			SetAnimation({ Name = "StaffReloadTimerReady", SuppressSounds = true, DestinationId = ScreenAnchors.DaggerUI, Group = "Combat_Menu_TraitTray_Overlay_Additive" })
 		end
 	end
 end
@@ -3114,6 +3148,15 @@ function EndClearCastPresentation()
 	StopAnimation({Name = "ErisPowerUpFx", DestinationId = CurrentRun.Hero.ObjectId })
 end
 
+function PerfectDamageBoonRenewed()
+	PlaySound({ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup", Id = CurrentRun.Hero.ObjectId})
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "PerfectDamageBonusBoon_Triggered", Duration = 1.45, PreDelay = 0.1, LuaKey = "TempTextData", LuaValue = { TimeLeft = threshold } } )
+end
+
+function PerfectDamageBoonExpire()
+	PlaySound({ Name = "/SFX/WrathOver", Id = CurrentRun.Hero.ObjectId })
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "PerfectDamageBonusBoon_Expired", Duration = 1.45, PreDelay = 0.1, LuaKey = "TempTextData", LuaValue = { TimeLeft = threshold } } )
+end
 function MedeaCursePreChoicePresentation( source, args )
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.SecretMusicId, Value = 1.0, Duration = 1.0 })
 end

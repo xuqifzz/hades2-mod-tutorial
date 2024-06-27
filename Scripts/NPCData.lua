@@ -1321,7 +1321,7 @@
 						{ Cue = "/VO/Eris_0076", Text = "What're you looking at?",
 							GameStateRequirements =
 							{
-								MinRunsSinceAnyTextLines = { TextLines = { "ErisAboutPurpose01" }, Count = 20 },
+								MinRunsSinceAnyTextLines = { TextLines = { "ErisAboutPurpose01" }, Count = 8 },
 							},
 						},
 						{ Cue = "/VO/Eris_0077", Text = "Hey babe!" },
@@ -2398,19 +2398,23 @@
 		Consumables =
 		{
 			RandomSelection = true,
-			{ Name = "LastStandDrop",
+			{
+				Name = "LastStandDrop",
 				GameStateRequirements =
 				{
 					NamedRequirements = { "LastStandAvailable", },
 					NotMaxLastStands = true,
 				},
+				IgnoreSpawnRewardOnId = true,
 			},
-			{ Name = "StackUpgradeBig",
+			{
+				Name = "StackUpgradeBig",
 				IgnoreLootPoints = true,
 				GameStateRequirements =
 				{
 					NamedRequirements = { "StackUpgradeLegal", },
 				},
+				IgnoreSpawnRewardOnId = true,
 			},
 			{ Name = "MaxHealthDropBig" },
 			{ Name = "MaxManaDropBig"},

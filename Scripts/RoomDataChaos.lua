@@ -65,7 +65,6 @@ RoomSetData.Chaos =
 		FishingPointChance = 0.30,
 		FishingPointRequirements =
 		{
-			--RequiredMinRoomsSinceFishingPoint = 5,
 		},
 
 		ShovelPointChance = 1.0,

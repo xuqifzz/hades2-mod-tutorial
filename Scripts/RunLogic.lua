@@ -50,6 +50,9 @@ function InitHeroLastStands( newHero )
 end
 
 function IsTraitEligible( currentRun, traitData )
+	if traitData == nil then
+		return false
+	end
 	if traitData.MaxAmount ~= nil and traitData.MaxAmount <= GetTraitCount(CurrentRun.Hero, { Name = traitData.Name }) then
 		return false
 	end
@@ -100,7 +103,7 @@ function GameStateInit()
 	GameState.LootPickups = GameState.LootPickups or {}
 	GameState.UseRecord = GameState.UseRecord or {}
 	GameState.SpecialInteractRecord = GameState.SpecialInteractRecord or {}
-	GameState.TriggerRecord = GameState.TriggerRecord or {}
+	--GameState.TriggerRecord = GameState.TriggerRecord or {}  -- Unused, wasting save space
 
 	GameState.NPCInteractions = GameState.NPCInteractions or {}
 	GameState.SpawnRecord = GameState.SpawnRecord or {}
@@ -281,6 +284,7 @@ function RunStateInit()
 	CurrentRun.TemporaryMetaUpgrades = CurrentRun.TemporaryMetaUpgrades or {}
 	CurrentRun.ViewableWorldUpgrades = CurrentRun.ViewableWorldUpgrades or {}
 	CurrentRun.ScreenViewRecord = CurrentRun.ScreenViewRecord or {}
+	CurrentRun.RewardPriorities = CurrentRun.RewardPriorities or {}
 
 	CurrentRun.ResourcesSpent = CurrentRun.ResourcesSpent or {}
 	CurrentRun.ResourcesGained = CurrentRun.ResourcesGained or {}
@@ -384,6 +388,7 @@ function StartNewRun( prevRun, args )
 	CurrentRun.ActiveBountyAttempts = GameState.PackagedBountyAttempts[CurrentRun.ActiveBounty] or 0
 	CurrentRun.SpellCharge = 5000
 	CurrentRun.ResourceNodesSeen = {}
+	CurrentRun.ToolElementsSpawned = {}
 
 	if ConfigOptionCache.EasyMode then
 		CurrentRun.EasyModeLevel = GameState.EasyModeLevel
@@ -466,6 +471,7 @@ function CreateRoom( roomData, args )
 	room.UnavailableDoors = {}
 	room.RoomCreations = {}
 	room.NemesisTakeExitRecord = {}
+	room.UseRecord = {}
 	if args.RoomOverrides ~= nil then
 		for key, value in pairs( args.RoomOverrides ) do
 			room[key] = value
@@ -798,6 +804,10 @@ function IsRoomEligible( currentRun, currentRoom, nextRoomData, args )
 
 		-- If in a regular wing and we are a MiniBoss room, we are ineligible (except Reprieve)
 		if not currentRoom.RequireWingEndMiniBoss and nextRoomData.WingEndRoom and nextRoomData.WingEndMiniBoss and not nextRoomData.AllowAsAnyWingEnd then
+			return false
+		end
+
+		if nextRoomData.MaxCreationsPerRoom ~= nil and currentRoom.RoomCreations[nextRoomData.Name] ~= nil and currentRoom.RoomCreations[nextRoomData.Name] >= nextRoomData.MaxCreationsPerRoom then
 			return false
 		end
 	end
@@ -1573,12 +1583,28 @@ end
 
 function IsInspectPointEligible( currentRun, source, inspectPointData )
 
-	if inspectPointData.PlayOnce and HasUsed( inspectPointData.ObjectId ) then
-		return false
+	if verboseLogging and inspectPointData.InteractTextLineSets ~= nil and TableLength( inspectPointData.InteractTextLineSets ) >= 2 then
+		DebugAssert({ Condition = false, Text = "InspectPoint with more than 1 TextLine found ("..GetFirstKey( inspectPointData.InteractTextLineSets )..")", Owner = "Gavin" })
 	end
 
-	if inspectPointData.PlayOnceThisRun and HasUsedThisRun( inspectPointData.ObjectId ) then
-		return false
+	if inspectPointData.PlayOnce then
+		if inspectPointData.InteractTextLineSets ~= nil then
+			for textLineName, textLine in pairs( inspectPointData.InteractTextLineSets ) do
+				if GameState.TextLinesRecord[textLineName] then
+					return false
+				end
+			end
+		end
+	end
+
+	if inspectPointData.PlayOnceThisRun then
+		if inspectPointData.InteractTextLineSets ~= nil then
+			for textLineName, textLine in pairs( inspectPointData.InteractTextLineSets ) do
+				if CurrentRun.TextLinesRecord[textLineName] then
+					return false
+				end
+			end
+		end
 	end
 
 	if inspectPointData.SetupGameStateRequirements ~= nil and not IsGameStateEligible( currentRun, inspectPointData, inspectPointData.SetupGameStateRequirements ) then
@@ -1803,8 +1829,8 @@ function RecordRunStats()
 	for k, run in pairs( GameState.RunHistory ) do
 		if run.Cleared then
 			runsCleared = runsCleared + 1
-			if not run.ActiveBounty and run.BiomesReached ~= nil then
-				if run.BiomesReached.F then
+			if not run.ActiveBounty then
+				if run.BiomesReached == nil or run.BiomesReached.F or run.EndingRoomName == "I_Boss01" then
 					underworldRunsCleared = underworldRunsCleared + 1
 				else
 					surfaceRunsCleared = surfaceRunsCleared + 1
@@ -1816,8 +1842,8 @@ function RecordRunStats()
 	GameState.ClearedUnderworldRunsCache = underworldRunsCleared
 	GameState.ClearedSurfaceRunsCache = surfaceRunsCleared
 
-	GameState.HighestShrinePointClearUnderworldCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F" } )
-	GameState.HighestShrinePointClearSurfaceCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N" } )
+	GameState.HighestShrinePointClearUnderworldCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F", IgnoreSameMode = true } )
+	GameState.HighestShrinePointClearSurfaceCache = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N", IgnoreSameMode = true } )
 
 	for bossName, healthFraction in pairs( CurrentRun.BossHealthBarRecord ) do
 		GameState.LastBossHealthBarRecord[bossName] = healthFraction

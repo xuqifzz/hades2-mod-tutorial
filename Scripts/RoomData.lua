@@ -98,7 +98,6 @@ RoomSetData.Base =
 		ShrinePointDoorSpawnChance = 0.3,
 		ShrinePointDoorRequirements =
 		{
-			RequiredMinRoomsSinceShrinePointDoor = 4,
 			RequiredCosmetics = { "ShrinePointGates", },
 		},
 		TimeChallengeSwitchSpawnChance = 0.25,

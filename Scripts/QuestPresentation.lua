@@ -143,6 +143,16 @@ function QuestLogNextProgressPage( screen, button )
 	QuestScreenShowDescription( screen.SelectedButton )
 end
 
+function QuestLogPulsePageButton( button )
+	waitUnmodified(1.0, "QuestLogPulse")
+	while button and button.Visible and button.Screen and not button.Screen.Closing do
+		SetAnimation({ Name = "SkillProcFeedbackFx", DestinationId = button.Id, GroupName = "ScreenOverlay", OffsetX = -150 })
+		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitementShort", Id = button.Id })
+		PulseText({ Id = button.Id, Color = Color.BoonPatchRare, OriginalColor = Color.ContextActionLabel, ScaleTarget = 1.25, ScaleDuration = 0.2, HoldDuration = 0.1, StartColorDuration = 0.1, EndColorDuration = 2, ResetDuration = 4.0 })
+		waitUnmodified(5.0, "QuestLogPulse")
+	end
+end
+
 --[[
 function MouseOffQuestPresentation( button )
 	if GetConfigOptionValue({ Name = "UseMouse" }) then

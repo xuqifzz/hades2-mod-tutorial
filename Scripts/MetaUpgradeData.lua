@@ -1,10 +1,10 @@
 ﻿MetaUpgradeDefaultCardLayout = 
 {
-	{ "ChanneledCast",			"HealthRegen",			"LowManaDamageBonus",	"MagicCrit",			"BonusDodge", },
-	{ "CastBuff",				"BonusHealth",			"ManaOverTime",			"SorceryRegenUpgrade",	"ChanneledBlock" },
-	{ "SprintShield",			"LastStand",			"MaxHealthPerRoom",		"CastCount",			"LowHealthBonus" },
-	{ "DoorReroll",				"StartingGold",			"StatusVulnerability",	"RarityBoost", 			"BonusRarity" },
-	{ "TradeOff",				"ScreenReroll",			"MetaToRunUpgrade",		"EpicRarityBoost",		"CardDraw" },
+	{ "ChanneledCast",			"HealthRegen",			"LowManaDamageBonus",	"CastCount",			"SorceryRegenUpgrade", },
+	{ "CastBuff",				"BonusHealth",			"BonusDodge",			"ManaOverTime",		"MagicCrit" },
+	{ "SprintShield",			"LastStand",			"MaxHealthPerRoom",		"StatusVulnerability",	"ChanneledBlock" },
+	{ "DoorReroll",				"StartingGold",			"MetaToRunUpgrade",	"RarityBoost", 			"BonusRarity" },
+	{ "TradeOff",				"ScreenReroll",			"LowHealthBonus",		"EpicRarityBoost",		"CardDraw" },
 }
 
 MetaUpgradeSwapGameStateRequirement = 
@@ -199,7 +199,7 @@ MetaUpgradeCardData =
 		TraitName = "LowManaDamageMetaupgrade",
 
 		Image = "CardArt_03",
-		Cost = 3,
+		Cost = 2,
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 10,
@@ -251,18 +251,19 @@ MetaUpgradeCardData =
 	MagicCrit = 
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
+		TraitName = "MagicCritMetaUpgrade",
 		Cost = 3,
-		Image = "CardArt_04",
+		
+
+		Image = "CardArt_10",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 15,
+			MetaCardPointsCommon = 30,
 		},
-		TraitName = "MagicCritMetaUpgrade",
-
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 4 },
-			{ CardUpgradePoints = 8, PlantNMoss = 10 },
+			{ CardUpgradePoints = 3, },
+			{ CardUpgradePoints = 6, OreGLime = 15 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -305,21 +306,24 @@ MetaUpgradeCardData =
 	BonusDodge = 
 	{
 		InheritFrom = { "BaseBonusMetaUpgrade" },
-		Image = "CardArt_05",
+		Cost = 1,
+		Image = "CardArt_08",
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 20,
-			MixerGBoss = 1,
 		},
+
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MixerGBoss = 5, },
+			{ CardUpgradePoints = 5, PlantGCattail = 10, },
 		},
+		--[[
 		AutoEquipRequirements = 
 		{
 			MinDuplicateCount = 3,
 		},
+		]]
 		TraitName = "DodgeBonusMetaUpgrade",
 		CustomTrayText = "DodgeBonusMetaUpgrade_Tray",
 
@@ -347,7 +351,7 @@ MetaUpgradeCardData =
 			},
 		},
 
-		AutoEquipText = "BonusDodge_AutoEquip",
+		--AutoEquipText = "BonusDodge_AutoEquip",
 		FlavorTextData = 
 		{
 			{
@@ -479,20 +483,18 @@ MetaUpgradeCardData =
 	ManaOverTime = 
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 5,
-		Image = "CardArt_08",
 		TraitName = "ManaOverTimeMetaUpgrade",
 		Type = "Soul",
-
+		Cost = 5,
+		Image = "CardArt_09",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 20,
+			MetaCardPointsCommon = 25,
 		},
-
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantGCattail = 10, },
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, PlantHMyrtle = 8, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -536,18 +538,18 @@ MetaUpgradeCardData =
 	SorceryRegenUpgrade =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 4,
-		Image = "CardArt_09",
+		TraitName = "SorceryRegenMetaUpgrade",
+		Cost = 0,
+		Image = "CardArt_05",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 25,
+			MetaCardPointsCommon = 20,
+			MixerGBoss = 1,
 		},
-		TraitName = "SorceryRegenMetaUpgrade",
-
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantHMyrtle = 8, },
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 6, MixerGBoss = 5, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -557,7 +559,7 @@ MetaUpgradeCardData =
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_2987", Text = "Night." },
+			{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
 		},
 		EquipVoiceLines =
 		{
@@ -570,9 +572,17 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_2987", Text = "Night." },
+				{ Cue = "/VO/Melinoe_1145", Text = "The Moon." },
+				{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
 			},
 		},
+
+		AutoEquipRequirements = 
+		{
+			SurroundEquipped = true,
+			MetaUpgradeName = "SorceryRegenUpgrade"
+		},
+		AutoEquipText = "SorceryRegenUpgrade_AutoEquip",
 
 		FlavorTextData = 
 		{
@@ -591,20 +601,18 @@ MetaUpgradeCardData =
 	ChanneledBlock =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 2,
-		Image = "CardArt_10",
+		TraitName = "BossShieldMetaUpgrade",
+		Cost = 3,
+		Image = "CardArt_15",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 30,
+			MetaCardPointsCommon = 35,
 		},
-		TraitName = "BossShieldMetaUpgrade",
-
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3, },
-			{ CardUpgradePoints = 6, OreGLime = 15 },
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 8, OreOIron = 8 },
 		},
-
 		UnlockedCardVoiceLines =
 		{
 			PreLineWait = 0.65,
@@ -824,20 +832,18 @@ MetaUpgradeCardData =
 	CastCount = 
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 3,
-		Image = "CardArt_14",
+		TraitName = "CastDamageMetaUpgrade",
+		Cost = 2,
+		Image = "CardArt_04",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 30,
+			MetaCardPointsCommon = 15,
 		},
-
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantNGarlic = 8, },
+			{ CardUpgradePoints = 4 },
+			{ CardUpgradePoints = 8, PlantNMoss = 10 },
 		},
-
-		TraitName = "CastDamageMetaUpgrade",
 
 		UnlockedCardVoiceLines =
 		{
@@ -846,8 +852,7 @@ MetaUpgradeCardData =
 			UsePlayerSource = true,
 			SkipAnim = true,
 
-			{ Cue = "/VO/Melinoe_1145", Text = "The Moon." },
-			{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+			{ Cue = "/VO/Melinoe_2987", Text = "Night." },
 		},
 		EquipVoiceLines =
 		{
@@ -860,8 +865,7 @@ MetaUpgradeCardData =
 					{ Name = "MelinoeAnyQuipSpeech" },
 				},
 
-				{ Cue = "/VO/Melinoe_1145", Text = "The Moon." },
-				{ Cue = "/VO/Melinoe_2791", Text = "The Moon." },
+				{ Cue = "/VO/Melinoe_2987", Text = "Night." },
 			},
 		},
 
@@ -882,19 +886,20 @@ MetaUpgradeCardData =
 	LowHealthBonus =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 5,
-		Image = "CardArt_15",
+		TraitName = "LowHealthBuffMetaUpgrade",
+		DamageResistancePlaceholder = -30,
+		Cost = 4,
+		Image = "CardArt_23",
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 35,
 		},
-		TraitName = "LowHealthBuffMetaUpgrade",
-		DamageResistancePlaceholder = -30,
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 8, OreOIron = 8 },
+			-- Replace with grown Olympus plant
+			{ CardUpgradePoints = 8 },
+			{ CardUpgradePoints = 15, PlantIPoppy = 8 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1052,18 +1057,18 @@ MetaUpgradeCardData =
 	StatusVulnerability =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 3,
-		Image = "CardArt_18",
+		TraitName = "EffectVulnerabilityMetaUpgrade",
+		Cost = 5,
+		Image = "CardArt_14",
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 30,
 		},
-		TraitName = "EffectVulnerabilityMetaUpgrade",
 
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantOMandrake = 3 },
+			{ CardUpgradePoints = 5, PlantNGarlic = 8, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1345,20 +1350,19 @@ MetaUpgradeCardData =
 	MetaToRunUpgrade =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
-		Cost = 6,
-		Image = "CardArt_23",
+		TraitName = "MetaToRunMetaUpgrade",
+		Cost = 3,
+		Image = "CardArt_18",
 		ResourceCost = 
 		{
-			MetaCardPointsCommon = 35,
+			MetaCardPointsCommon = 30,
 		},
-		TraitName = "MetaToRunMetaUpgrade",
-
 		UpgradeResourceCost = 
 		{
-			-- Replace with grown Olympus plant
-			{ CardUpgradePoints = 8 },
-			{ CardUpgradePoints = 15, PlantIPoppy = 8 },
+			{ CardUpgradePoints = 3 },
+			{ CardUpgradePoints = 5, PlantOMandrake = 3 },
 		},
+
 
 		UnlockedCardVoiceLines =
 		{
@@ -1409,11 +1413,11 @@ MetaUpgradeCardData =
 		},
 		TraitName = "EpicRarityBoostMetaUpgrade",
 		
-		AutoEquipText = "EpicRarity_AutoEquip",
+		AutoEquipText = "EpicRarity_AutoEquip_Alt",
 		AutoEquipRequirements = 
 		{
 			MetaUpgradeName = "EpicRarityBoost",
-			OtherRowEquipped = true,
+			OtherRowOrColumnEquipped = true,
 			CardsRequired = 5, -- used for text
 		},
 
@@ -1955,8 +1959,8 @@ MetaUpgradeData =
 		},
 		Ranks =
 		{
-			--{ Points = 1, ChangeValue = 0.5 },
-			{ Points = 1, ChangeValue = 0.0 },
+			{ Points = 1, ChangeValue = 0.5 },
+			--{ Points = 1, ChangeValue = 0.0 },
 		},
 		FlavorText = "RoomStartManaShrineUpgrade_Flavor",
 	},

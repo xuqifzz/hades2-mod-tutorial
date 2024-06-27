@@ -22,6 +22,9 @@ function OpenRunHistoryScreen( openedFrom )
 	screen.ItemStartX = screen.ItemStartX + ScreenCenterNativeOffsetX
 	screen.ItemStartY = screen.ItemStartY + ScreenCenterNativeOffsetY
 
+	ModifyTextBox({ Id = components.PackagedBountyLabel.Id, FadeTarget = 0.0 })
+	ModifyTextBox({ Id = components.PackagedBountyValue.Id, FadeTarget = 0.0 })
+
 	local categoryTitleX = screen.CategoryStartX
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
 		--if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
@@ -70,13 +73,19 @@ function ShowRunHistory( screen, run, index, args )
 	]]
 
 	-- Result
-	local resultText = "RunHistoryScreen_Cleared"
-	if not run.Cleared then
+	local resultText = "RunHistoryScreen_Missing"
+	if run.ActiveBounty then
+		if run.BountyCleared then
+			resultText = "RunHistoryScreenResult_BountyCleared"
+		else
+			resultText = "RunHistoryScreenResult_BountyFailed"
+		end
+	elseif run.Cleared then
+		resultText = "RunHistoryScreen_Cleared"
+	else
 		local roomData = RoomData[run.EndingRoomName]
 		if roomData ~= nil then
 			resultText = roomData.ResultText
-		else
-			resultText = "RunHistoryScreen_Missing"
 		end
 	end
 	ModifyTextBox({ Id = components.RunResultValue.Id, Text = resultText })
@@ -145,6 +154,16 @@ function ShowRunHistory( screen, run, index, args )
 		end
 	end
 	ModifyTextBox({ Id = components.FamiliarValue.Id, Text = familiarText })
+
+	-- PackagedBounty
+	local packagedBountyText = run.ActiveBounty
+	if packagedBountyText ~= nil then
+		ModifyTextBox({ Id = components.PackagedBountyLabel.Id, FadeTarget = 1.0, FadeDuration = 0.1 })
+		ModifyTextBox({ Id = components.PackagedBountyValue.Id, Text = packagedBountyText, FadeTarget = 1.0, FadeDuration = 0.1 })
+	else
+		ModifyTextBox({ Id = components.PackagedBountyLabel.Id, FadeTarget = 0.0, FadeDuration = 0.1 })
+		ModifyTextBox({ Id = components.PackagedBountyValue.Id, FadeTarget = 0.0, FadeDuration = 0.1 })
+	end
 	
 	-- Traits
 	ModifyTextBox({ Id = components.TraitCount.Id, Text = run.VisibleTraitCountCache })
@@ -195,7 +214,7 @@ function RunHistoryUpdateVisibility( screen )
 			DebugAssert({ Condition = endingRoom.ResultText ~= nil, Text = "Missing ResultText for biome "..endingRoom.RoomSetName.." | Run Index:"..runIndex, Owner = "Caleb" })
 		end
 		local runNameFormat = nil
-		if run.Cleared then
+		if run.Cleared or ( run.ActiveBounty and run.BountyCleared ) then
 			runNameFormat = ShallowCopyTable( screen.RunNameClearedFormat )
 		else
 			runNameFormat = ShallowCopyTable( screen.RunNameUnclearedFormat )

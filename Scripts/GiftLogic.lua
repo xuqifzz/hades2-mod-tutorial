@@ -52,6 +52,10 @@ OnControlPressed{ "Reroll",
 			return
 		end
 
+		if not IsEmpty( ActiveScreens ) then
+			return
+		end
+
 		if not IsInputAllowed({}) then
 			return
 		end

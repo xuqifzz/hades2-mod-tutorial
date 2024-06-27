@@ -852,4 +852,54 @@ Animations =
 		Duration = 1
 	}
 
+
+	{
+		Name = "ManaDropZeus"
+		FilePath = "Fx\Zeus\ZeusStaffBall\ZeusStaffBall"
+		NumFrames = 60
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		RandomPlaySpeedMin = 80
+		RandomPlaySpeedMax = 90
+		Scale = 1.2
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		OffsetZ = 0
+		// ChildAnimation = "ZeusChargedCircleEmitter"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 120
+		Sound = "/SFX/Player Sounds/ZeusLightningProjectileBallLoop"
+		StopSoundOnFinishFade = 0.4
+	}
+	{
+		Name = "ManaDropZeusIn"
+		InheritFrom = "ManaDropZeus"
+		ChainTo = "ManaDropZeus"
+		AddColor = true
+		StartScale = 0
+		EndScale = 1
+		LoopFramesOnly = true
+		Duration = 0.4
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		TransferFrameFromThis = true
+		Loop = false
+	}
+	{
+		Name = "ManaDropZeusOut"
+		InheritFrom = "ManaDropZeus"
+		StartScale = 0.9
+		EndScale = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.25
+		Loop = false
+	}
+
 ]}

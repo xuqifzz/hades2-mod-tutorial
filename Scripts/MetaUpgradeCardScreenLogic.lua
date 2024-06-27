@@ -53,8 +53,8 @@
 	thread( HandleCardSwapInput, screen )
 	MetaUpgradeCardScreenOpenPresentation( screen )	
 	
-	if CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 then
-		OpenGraspLimitScreen( screen )
+	if CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 and GetMaximumUnlockedMetaUpgradeCost() > GetMaxMetaUpgradeCost() then
+		OpenGraspLimitScreen( screen, true )
 		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
 	elseif CanUpgradeCards() and not GameState.ScreensViewed.CardUpgradeInfoLayout then
 		thread( UpgradeModeAvailablePresentation )
@@ -454,6 +454,17 @@ function GetCoordsInRow( row )
 	return neighboringNames
 end
 
+function GetCoordsInColumn( col )
+	local neighboringNames = {}
+	local maxRow = GetZoomLevel()
+	for i = 1, maxRow do
+		if GameState.MetaUpgradeCardLayout[ i ][ col ] then
+			table.insert(neighboringNames, { Row = i, Column = col })
+		end
+	end
+	return neighboringNames
+end
+
 function GetMetaUpgradeCardButton( screen, metaUpgradeName )
 	
 	local components = screen.Components
@@ -534,6 +545,16 @@ function GetCurrentMetaUpgradeCost()
 		GameState.MetaUpgradeCostCache = totalCost
 	else
 		GameState.MetaUpgradeCostCache = 0
+	end
+	return totalCost
+end
+
+function GetMaximumUnlockedMetaUpgradeCost()
+	local totalCost = 0
+	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
+		if MetaUpgradeCardData[ metaUpgradeName ] and MetaUpgradeCardData[ metaUpgradeName ].Cost and metaUpgradeData.Unlocked then
+			totalCost = MetaUpgradeCardData[ metaUpgradeName ].Cost + totalCost
+		end
 	end
 	return totalCost
 end

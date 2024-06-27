@@ -1228,8 +1228,7 @@ UnitSetData.NPC_Odysseus =
 					},
 					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusBackstory02", "OdysseusAboutMood01" }, Count = 2 },
 				},
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.OdysseusFeasting,
+				OnQueuedFunctionName = "OdysseusAtTaverna",
 
 				{ Cue = "/VO/Melinoe_2202", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -2323,7 +2322,6 @@ UnitSetData.NPC_Odysseus =
 					{
 						PathFalse = { "CurrentRun", "Cleared" },
 					},
-					-- MaxRunsSinceAnyTextLines = { TextLines = { "HecateHideAndSeek01" }, Count = 10 },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2560,8 +2558,7 @@ UnitSetData.NPC_Odysseus =
 					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusAboutMood01" }, Count = 2 },
 					-- @ update with more requirements later
 				},
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.OdysseusFeasting,
+				OnQueuedFunctionName = "OdysseusAtTaverna",
 
 				{ Cue = "/VO/Odysseus_0178",
 					Text = "Come join us, Goddess! I was just regaling the Shades about when first I traveled to the Underworld. Whilst I yet lived and breathed, if you can believe it! And thusly I got out." },
@@ -2605,8 +2602,7 @@ UnitSetData.NPC_Odysseus =
 					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusBackstory02" }, Count = 2 },
 					-- @ update with more requirements later
 				},
-				OnQueuedFunctionName = "CheckDistanceTriggerThread",
-				OnQueuedFunctionArgs = PresetEventArgs.OdysseusFeasting,
+				OnQueuedFunctionName = "OdysseusAtTaverna",
 
 				{ Cue = "/VO/Odysseus_0180",
 					Emote = "PortraitEmoteSurprise",

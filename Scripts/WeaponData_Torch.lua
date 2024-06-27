@@ -121,6 +121,7 @@ OverwriteTableKeys( WeaponData,
 		SpeedPropertyChanges = 
 		{
 			{
+				RecordExState = true,
 				WeaponProperty = "Cooldown",
 			},
 		},

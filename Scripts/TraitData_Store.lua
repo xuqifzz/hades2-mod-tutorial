@@ -348,7 +348,51 @@
 				Format = "PercentHeal",
 			},
 		}
-	}
+	},
+	FirstHitHealTrait =
+	{
+		InheritFrom = { "ShopTrait" },
+		Icon = "Keepsake_01",
+		ResourceCosts =
+		{
+			Money = 15,
+		},
+		SetupFunction =
+		{
+			Name = "FirstHealHitSetup",
+			Args =
+			{
+				HealPercent = 1,
+				CombatText = "FirstHitHeal_CombatText",
+				Vfx = "ZagreusWrathFire",
+				SoundName = "/SFX/GyroHealthPickupMunch",
+				ReportValues = { ReportedHealPercent = "HealPercent" }
+			},
+		},
+		IncreaseUsesOnStack = true,
+		RemainingUses = 1,
+		StatLines = 
+		{
+			"HitsRemainingDisplay1",
+		},
+		CustomStatLinesWithShrineUpgrade = 
+		{
+			ShrineUpgradeName = "HealingReductionShrineUpgrade",
+			StatLines = 
+			{
+				"HitsRemainingDisplay1",
+				"HealingReductionNotice",
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedHealPercent",
+				ExtractAs = "TooltipHeal",
+				Format = "PercentHeal",
+			}
+		}
+	},
 
 }
 

@@ -270,7 +270,7 @@ function FishingReelSequenceStartPresentation( source, args, fishData )
 	local pipOffsetX = ((fishData.CatchZoneHits - 1) / 2) * -pipSpacing
 	for index = 1, fishData.CatchZoneHits do
 		local key = "MovePipId"..index
-		args[key] = SpawnObstacle({ Name = "BlankObstacle", DestinationId = args.FishingReelPointId, OffsetX = pipOffsetX, OffsetZ = -200, })
+		args[key] = SpawnObstacle({ Name = "BlankObstacle", DestinationId = args.FishingReelPointId, OffsetX = pipOffsetX, OffsetZ = -200, Group = "Combat_UI" })
 		SetAnimation({ Name = "ExorcismPip", DestinationId = args[key] })
 		pipOffsetX = pipOffsetX + pipSpacing
 		wait( 0.1 )
@@ -304,12 +304,6 @@ function FishingReelMissPresentation( source, args, fishData )
 	PlaySound({ Name = "/SFX/Enemy Sounds/Exalted/EnemyShieldBlock" })
 	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteHurt", Id = CurrentRun.Hero.ObjectId })
 	thread( FishingReelCooldownPresentation, source, args, fishData, false )
-
-	local index = (fishData.CatchZoneHits - args.HitsRemaining) + 1
-	local key = "MovePipId"..index
-	SetColor({ Color = Color.Red, Id = args[key], Duration = 0.2 })
-	thread( GenericPresentation, source, { PreWait = 0.5, Color = Color.White, Id = args[key], Duration = 0.2 } )
-
 end
 
 function FishingReelCooldownPresentation( source, args, fishData, fishHit )
@@ -397,6 +391,8 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 			waitUnmodified( 0.25, RoomThreadName )
 		end
 		AddResource( fishData.Name, 1 * resourceTimes, "Fishing" )
+
+		CheckForToolElement( fishingAnimationPointId, "ToolFishingRod2" )
 
 		PlaySound({ Name = "/Leftovers/SFX/VictoryScreenUpdateSFX", Delay = 1 })
 

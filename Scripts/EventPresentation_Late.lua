@@ -52,6 +52,8 @@ end
 
 function EphyraZoomOut( usee )
 	AddInputBlock({ Name = "EphyraZoomOut" })
+	AddTimerBlock( CurrentRun, "EphyraZoomOut" )
+	SessionMapState.BlockPause = true
 	thread( HideCombatUI, "EphyraZoomOut", { SkipHideObjectives = true } )
 	SetInvulnerable({ Id = CurrentRun.Hero.ObjectId })
 	
@@ -216,7 +218,7 @@ function EphyraZoomOut( usee )
 
 	wait(0.3)
 	local notifyName = "ephyraZoomBackIn"
-	NotifyOnControlPressed({ Names = { "Use", "Rush", "Shout", "Attack2", "Attack1", "Attack3", "AutoLock" }, Notify = notifyName })
+	NotifyOnControlPressed({ Names = { "Use", "Rush", "Shout", "Attack2", "Attack1", "Attack3", "AutoLock", "Cancel", }, Notify = notifyName })
 	waitUntil( notifyName )
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShort" })
 
@@ -251,7 +253,9 @@ function EphyraZoomOut( usee )
 	thread( ShowCombatUI, "EphyraZoomOut" )
 	--SetAlpha({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom, }, Fraction = 0, Duration = 0.25 })
 	
+	RemoveTimerBlock( CurrentRun, "EphyraZoomOut" )
 	RemoveInputBlock({ Name = "EphyraZoomOut" })
+	SessionMapState.BlockPause = false
 
 	wait( 0.4 )
 	Destroy({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom, ScreenAnchors.EphyraZoomBackground, ScreenAnchors.MelIconId, ScreenAnchors.EphyraMapId } })
@@ -576,19 +580,14 @@ function EchoLastRunBoonPresentation( traitName )
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement", Id = CurrentRun.Hero.ObjectId })
 	thread( InCombatText, CurrentRun.Hero.ObjectId, "EchoLastRunBoon_CombatText", 2.0 , { ShadowScaleX = 1.35, LuaKey = "TempTextData", LuaValue = { Name = tostring(traitName) } })
 end
+
 function FirstPylonHubReturnPresentation(room, args)
 	AddInputBlock({ Name = "FirstPylonHubReturnPresentation" })
 	local shadeIds = { 664247, 664248, 664249 }
 	Activate({ Ids = shadeIds })
 	SetupUnits(shadeIds)
 	HideCombatUI( "FirstPylonHubReturnPresentation" )
-	ScreenAnchors.LetterBoxTop = ScreenAnchors.LetterBoxTop or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY - 1220 })
-	ScreenAnchors.LetterBoxBottom = ScreenAnchors.LetterBoxBottom or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY + 1220 })
-	SetScale({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom}, Fraction = 5 })
-	SetColor({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom}, Color = Color.Black })
-	SetAlpha({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom}, Fraction = 1.0, Duration = 0 })
-	Move({ Id = ScreenAnchors.LetterBoxTop, Angle = 270, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
-	Move({ Id = ScreenAnchors.LetterBoxBottom, Angle = 90, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
+	CutsceneAddLetterbox()
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
 
 	--Shake({ Id = 645847, Distance = 1, Speed = 150, Duration = 2.5 })
@@ -704,7 +703,7 @@ function CerberusStageEnter(enemy, CurrentRun, aiStage)
 
 	wait(1.2)
 
-	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_InfestedCerberus_BurrowEmerge" })
+	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro" })
 	PlaySound({ Name = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_PlagueRoar", Id = enemy.ObjectId })
 
 	SetUnitVulnerable( enemy )

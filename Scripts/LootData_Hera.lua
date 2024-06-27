@@ -98,8 +98,8 @@ LootSetData.Hera =
 			"BoonDecayBoon",
 			"DamageSharePotencyBoon",
 			"LinkedDeathDamageBoon",
-			"FullManaExBoostBoon",
 			"CommonGlobalDamageBoon",
+			"OmegaHeraProjectileBoon",
 
 			-- Legendary
 			"HeraManaShieldBoon",
@@ -112,8 +112,8 @@ LootSetData.Hera =
 			"MoneyDamageBoon",
 			"KeepsakeLevelBoon",
 			"RaiseDeadBoon",
-			"MaximumShareBoon",
-			"BurnOmegaBoon",
+			"CharmCrowdBoon",
+			"AllElementalBoon",
 			"EmptySlotDamageBoon",
 		},
 		Consumables = { },
@@ -217,7 +217,7 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MaximumShareBoon",
+					HasTraitNameInRoom = "CharmCrowdBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0109",
@@ -251,7 +251,7 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnOmegaBoon",
+					HasTraitNameInRoom = "AllElementalBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0105",

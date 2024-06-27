@@ -38,6 +38,8 @@ end
 function PickupWeaponKit( weaponKit )
 	AddInputBlock({ Name = "PickupWeaponKit" })
 	ClearObjectives()
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
 	PlayWeaponEquipAnimation( weaponKit )
 	local weaponUntouched = IsWeaponUntouched( weaponKit.Name )
 	local weaponEquipArgs = {}
@@ -277,37 +279,9 @@ function UseWellShop( challengeSwitch )
 	StartUpStore()
 end
 
-function HasUsed( id )
-	local mapName = (CurrentHubRoom or CurrentRun.CurrentRoom).Name
-	if GameState.UseRecord[mapName] == nil then
-		return false
-	end
-	return GameState.UseRecord[mapName][id]
-end
-
-function HasUsedThisRun( id )
-	local mapName = (CurrentHubRoom or CurrentRun.CurrentRoom).Name
-	if CurrentRun.UseRecord[mapName] == nil then
-		return false
-	end
-	return CurrentRun.UseRecord[mapName][id]
-end
-
 function RecordUse( id, name )
 
-	local mapName = (CurrentHubRoom or CurrentRun.CurrentRoom).Name
-
-	GameState.UseRecord[mapName] = GameState.UseRecord[mapName] or {}
-	GameState.UseRecord[mapName][id] = (GameState.UseRecord[mapName][id] or 0) + 1
-
-	CurrentRun.UseRecord[mapName] = CurrentRun.UseRecord[mapName] or {}
-	CurrentRun.UseRecord[mapName][id] = (CurrentRun.UseRecord[mapName][id] or 0) + 1
-
-	CurrentRun.BiomeUseRecord[mapName] = CurrentRun.BiomeUseRecord[mapName] or {}
-	CurrentRun.BiomeUseRecord[mapName][id] = (CurrentRun.BiomeUseRecord[mapName][id] or 0) + 1
-
 	CurrentRun.CurrentRoom.UseRecord = CurrentRun.CurrentRoom.UseRecord or {}
-	CurrentRun.CurrentRoom.UseRecord[id] = (CurrentRun.CurrentRoom.UseRecord[id] or 0) + 1
 
 	if name ~= nil then
 		GameState.UseRecord[name] = (GameState.UseRecord[name] or 0) + 1
@@ -828,7 +802,7 @@ function CreateConsumableItem( consumableId, consumableName, costOverride, args 
 	if consumableData ~= nil and consumableData.SpawnSound ~= nil and not args.IgnoreSounds then
 		PlaySound({ Name = consumableData.SpawnSound, Id = consumableId })
 	end
-	return CreateConsumableItemFromData( consumableId, consumableItem, costOverride )
+	return CreateConsumableItemFromData( consumableId, consumableItem, costOverride, args )
 end
 
 function SetupResourceText( consumable )
@@ -841,6 +815,16 @@ function SetupResourceText( consumable )
 		consumable.ResourceAmount = resourceAmount
 		break
 	end
+	if consumable.RunProgress ~= nil then
+		local propertyChanges = consumable.RunProgress.PropertyChanges
+		if propertyChanges.AddMaxHealth then
+			local healthRewardMultiplier = GetTotalHeroTraitValue("HealthRewardBonus", { IsMultiplier = true })
+			consumable.RunProgressResourceAmount = round( propertyChanges.AddMaxHealth * healthRewardMultiplier )
+		else
+			consumable.RunProgressResourceAmount = propertyChanges.AddMaxMana or propertyChanges.AddArmor or 0
+		end
+		consumable.RunProgressResourceIconPath = consumable.RunProgress.ResourceIcon
+	end
 end
 
 function CreateConsumableItemFromData( consumableId, consumableItem, costOverride, args )
@@ -849,6 +833,9 @@ function CreateConsumableItemFromData( consumableId, consumableItem, costOverrid
 	AttachLua({ Id = consumableId, Table = consumableItem })
 	MapState.ActiveObstacles[consumableItem.ObjectId] = consumableItem
 	AddToGroup({ Id = consumableId, Name = "ConsumableItems" })
+	if consumableItem.RunProgress ~= nil and args.RunProgressUpgradeEligible and IsGameStateEligible( CurrentRun, consumableItem, consumableItem.RunProgress.GameStateRequirements ) then
+		OverwriteSelf( consumableItem, consumableItem.RunProgress.PropertyChanges )
+	end
 	consumableItem.OnUsedFunctionName = consumableItem.OnUsedFunctionName or "UseConsumableItem"
 
 	if consumableItem.ShowWorldText then
@@ -975,10 +962,10 @@ function UseConsumableItem( consumableItem, args, user )
 		RecordUse( consumableItem.ObjectId, consumableItem.Name )
 	end
 	UseableOff({ Id = consumableItem.ObjectId })
-
+	
+	ConsumableUsedPresentation( currentRun, consumableItem, args )
 	if not consumableItem.IgnorePurchase then
 		RemoveStoreItem( { Id = consumableItem.ObjectId, Name = consumableItem.Name } )
-		ConsumableUsedPresentation( currentRun, consumableItem, args )
 		RecordConsumableItem( consumableItem )
 
 		SpendResources( consumableItem.ResourceCosts, consumableItem.Name )
@@ -1263,7 +1250,7 @@ function SacrificeHealth( args )
 			CurrentRun.Hero.Health = args.MinHealth
 		end
 	else
-		Damage( CurrentRun.Hero, { triggeredById = CurrentRun.Hero.ObjectId, DamageAmount = randomDamageValue, MinHealth = args.MinHealth, PureDamage = true, Silent = args.Silent } )
+		Damage( CurrentRun.Hero, { triggeredById = CurrentRun.Hero.ObjectId, DamageAmount = randomDamageValue, MinHealth = args.MinHealth, PureDamage = true, Silent = args.Silent, IgnoreCap = args.IgnoreCap } )
 	end
 	if not args.Silent then
 		CreateAnimation({ Name = "SacrificeHealthFx", DestinationId = CurrentRun.Hero.ObjectId })
@@ -1473,15 +1460,15 @@ function AddKeepsakeCharge( args )
 end
 
 function AddControlBlock( controlName, flag )
-	SessionState.PlayerControlBlocks[controlName] = SessionState.PlayerControlBlocks[controlName] or {}
-	SessionState.PlayerControlBlocks[controlName][flag] = true
+	SessionMapState.PlayerControlBlocks[controlName] = SessionMapState.PlayerControlBlocks[controlName] or {}
+	SessionMapState.PlayerControlBlocks[controlName][flag] = true
 	ToggleControl({ Names = controlName, Enabled = false })
 end
 
 function RemoveControlBlock( controlName, flag )
-	SessionState.PlayerControlBlocks[controlName] = SessionState.PlayerControlBlocks[controlName] or {}
-	SessionState.PlayerControlBlocks[controlName][flag] = nil
-	if IsEmpty( SessionState.PlayerControlBlocks[controlName] ) then
+	SessionMapState.PlayerControlBlocks[controlName] = SessionMapState.PlayerControlBlocks[controlName] or {}
+	SessionMapState.PlayerControlBlocks[controlName][flag] = nil
+	if IsEmpty( SessionMapState.PlayerControlBlocks[controlName] ) then
 		ToggleControl({ Names = controlName, Enabled = true })
 	end	
 end
@@ -1489,7 +1476,7 @@ end
 function ClearCombatControlBlock( flag )
 	flag = flag or "Generic"
 	local enabledControls = {}
-	for controlName, data in pairs( SessionState.PlayerControlBlocks ) do
+	for controlName, data in pairs( SessionMapState.PlayerControlBlocks ) do
 		if data[flag] then
 			table.insert( enabledControls, controlName )
 		end
@@ -1499,22 +1486,14 @@ function ClearCombatControlBlock( flag )
 	end
 end
 
-function ClearAllControlBlocks()
-	SessionState.PlayerControlBlocks = {}
-end
-
-function ClearAllMoveBlocks()
-	SessionState.PlayerMoveBlocks = {}
-end
-
 function TogglePlayerMove( enabled, flag )
 	if enabled then
-		SessionState.PlayerMoveBlocks[flag] = nil
+		SessionMapState.PlayerMoveBlocks[flag] = nil
 	else
-		SessionState.PlayerMoveBlocks[flag] = true
+		SessionMapState.PlayerMoveBlocks[flag] = true
 	end
 
-	if IsEmpty( SessionState.PlayerMoveBlocks) then
+	if IsEmpty( SessionMapState.PlayerMoveBlocks) then
 		ToggleMove({ Enabled = true })
 	else
 		ToggleMove({ Enabled = false })
@@ -1526,14 +1505,14 @@ function ToggleCombatControl( controlNames, enabled, flag )
 	local enabledControls = {}
 	local disabledControls = {}
 	for i, controlName in pairs( controlNames ) do
-		local wasEnabled = not SessionState.PlayerControlBlocks[controlName] or IsEmpty( SessionState.PlayerControlBlocks[controlName] )
-		SessionState.PlayerControlBlocks[controlName] = SessionState.PlayerControlBlocks[controlName] or {}
+		local wasEnabled = not SessionMapState.PlayerControlBlocks[controlName] or IsEmpty( SessionMapState.PlayerControlBlocks[controlName] )
+		SessionMapState.PlayerControlBlocks[controlName] = SessionMapState.PlayerControlBlocks[controlName] or {}
 		if not enabled then 
-			SessionState.PlayerControlBlocks[controlName][flag] = true
+			SessionMapState.PlayerControlBlocks[controlName][flag] = true
 		else			
-			SessionState.PlayerControlBlocks[controlName][flag] = nil
+			SessionMapState.PlayerControlBlocks[controlName][flag] = nil
 		end
-		local isEnabled = not SessionState.PlayerControlBlocks[controlName] or IsEmpty( SessionState.PlayerControlBlocks[controlName] )
+		local isEnabled = not SessionMapState.PlayerControlBlocks[controlName] or IsEmpty( SessionMapState.PlayerControlBlocks[controlName] )
 		if wasEnabled ~= isEnabled then
 			if isEnabled then
 				table.insert( enabledControls, controlName )

@@ -109,6 +109,21 @@ RoomSetData.I =
 		},
 	},
 
+	I_TwoExits =
+	{
+		DebugOnly = true,
+		GameStateRequirements =
+		{
+			Append = true,
+			{
+				Path = { "CurrentRun", "BiomeRewardsSpawned", },
+				Comparison = "<",
+				ValuePath = { "CurrentRun", "MaxClockworkNonGoalRewards", },
+				ValuePathAddition = -1,
+			}
+		},
+	},
+
 	I_Intro =
 	{
 		InheritFrom = { "BaseI","BiomeStartRoom" },
@@ -187,6 +202,8 @@ RoomSetData.I =
 								Name = "MetaCurrencyDrop",
 								Overrides =
 								{
+									CanDuplicate = false,
+									MetaConversionEligible = false,
 									AddResources =
 									{
 										MetaCurrency = 300,
@@ -417,6 +434,7 @@ RoomSetData.I =
 				Value = 0,
 			}
 		},
+		MaxCreationsPerRoom = 1,
 
 		AlwaysForceOncePerRoom = true,
 		AlwaysForceRequirements =
@@ -1183,7 +1201,7 @@ RoomSetData.I =
 
 	I_Reprieve01 =
 	{
-		InheritFrom = { "BaseI" },
+		InheritFrom = { "BaseI", "I_TwoExits" },
 		IneligibleRewards = { "Devotion", },
 		-- SuppressRewardSpawnSounds = true,
 
@@ -1225,6 +1243,7 @@ RoomSetData.I =
 
 		GameStateRequirements =
 		{
+			Append = true,
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeTartarusReprieve" },
 			},
@@ -1322,23 +1341,9 @@ RoomSetData.I =
 
 	},
 
-	I_CombatTwoExits =
-	{
-		DebugOnly = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "BiomeRewardsSpawned", },
-				Comparison = "<",
-				ValuePath = { "CurrentRun", "MaxClockworkNonGoalRewards", },
-				ValuePathAddition = -1,
-			}
-		},
-	},
-
 	I_Combat01 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 
 		EntranceDirection = "Left",
 
@@ -1367,7 +1372,7 @@ RoomSetData.I =
 
 	I_Combat03 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 
 		EntranceDirection = "Right",
@@ -1386,7 +1391,7 @@ RoomSetData.I =
 
 	I_Combat04 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 
 		EntranceDirection = "Left",
@@ -1441,7 +1446,7 @@ RoomSetData.I =
 
 	I_Combat09 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 
 		EntranceDirection = "Right",
@@ -1458,7 +1463,7 @@ RoomSetData.I =
 
 	I_Combat10 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		EntranceDirection = "LeftRight",
 
 		ExitsUnlockedDistanceTriggers =
@@ -1473,7 +1478,7 @@ RoomSetData.I =
 
 	I_Combat11 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		EntranceDirection = "LeftRight",
 
 		ExitsUnlockedDistanceTriggers =
@@ -1488,7 +1493,7 @@ RoomSetData.I =
 
 	I_Combat12 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		EntranceDirection = "Right",
 
 		ExitsUnlockedDistanceTriggers =
@@ -1536,7 +1541,7 @@ RoomSetData.I =
 
 	I_Combat18 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 
 		EntranceDirection = "Left",
@@ -1570,7 +1575,7 @@ RoomSetData.I =
 
 	I_Combat21 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 		DebugOnly = true,
 
@@ -1588,7 +1593,7 @@ RoomSetData.I =
 
 	I_Combat22 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat", "I_CombatTwoExits" },
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
 
 		EntranceDirection = "Right",

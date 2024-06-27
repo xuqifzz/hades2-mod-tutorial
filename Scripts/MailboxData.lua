@@ -111,6 +111,26 @@ ScreenData.MailboxScreen =
 					},
 				},
 			},
+			{ 
+				BuyName = "WeaponPointsRare", BuyAmount = 2,
+				DeliveryTimeMin = 100,
+				DeliveryTimeMax = 100,
+				Cost =
+				{
+					CharonPoints = 5,
+				},
+				Priority = true, 
+				PurchaseSound = "/SFX/TitanBloodPickupSFX",
+
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "WeaponPointsRare" },
+						Comparison = ">=",
+						Value = 5,
+					},
+				},
+			},
 		},
 	},
 

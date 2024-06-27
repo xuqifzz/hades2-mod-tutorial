@@ -409,10 +409,15 @@ function FrogFamiliarMoveToLocation( familiar, args )
 end
 
 function CatFamiliarMoveToLocation( familiar, args )
+	killTaggedThreads( familiar.AIThreadName )
+	familiar.AIBehavior = nil
 	SetAnimation({ Name = "Familiar_Cat_Sleep_Awaken", DestinationId = familiar.ObjectId })
+	StopAnimation({ Name = familiar.DefaultAIData.RecruitAnimation, DestinationId = familiar.ObjectId })
+	familiar.RecruitAnimationId = nil
+	familiar.ReadyToAttack = false
 	wait( 1.0 )
 	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
-	local notifyName = "FamiliarNotify"		
+	local notifyName = "FamiliarNotify"
 	familiar.AIDisabled = true
 	familiar.DisableAIWhenReady = true
 	local collideCache = GetUnitDataValue({ Id = familiar.ObjectId, Property = "CollideWithObstacles" })
@@ -613,7 +618,7 @@ function CatFamiliarAI( familiar, args )
 		CatFamiliarMoveToRandomLocation( familiar, familiar.DefaultAIData )
 		wait( 0.5, familiar.AIThreadName )
 		SetAnimation({ Name = "Familiar_Cat_Sleep_Start", DestinationId = familiar.ObjectId })
-		wait( 1.0, familiar.AIThreadName )
+		wait( 3.0, familiar.AIThreadName )
 	end
 
 	local aiData = familiar.DefaultAIData
@@ -650,7 +655,7 @@ function CatFamiliarAI( familiar, args )
 					if distanceToTarget > aiData.AttackDistance then
 						Move({ Id = familiar.ObjectId, DestinationId = targetId })
 						NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = targetId, Distance = aiData.AttackDistance, Notify = familiar.AINotifyName, Timeout = 9.0 })
-						waitUntil( familiar.AINotifyName )	
+						waitUntil( familiar.AINotifyName )
 					end
 					Stop({ Id = familiar.ObjectId })
 					CatFamiliarPreAttackPresentation( familiar, args )
@@ -692,7 +697,7 @@ function CatFamiliarMoveToRandomLocation( familiar, aiData, args )
 	familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId
 	NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = randomSpawnPointId, Distance = 100, Notify = familiar.AINotifyName, Timeout = 9.0 })
 	waitUntil( familiar.AINotifyName )
-	wait( 0.5 )
+	wait( 0.5, familiar.AIThreadName )
 	Stop({ Id = familiar.ObjectId })
 end
 

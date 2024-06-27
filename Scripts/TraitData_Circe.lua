@@ -7,7 +7,7 @@ OverwriteTableKeys( TraitData, {
 	RandomArcanaTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Circe_06",
 		
 		AcquireFunctionName = "CirceRandomMetaUpgrade",
 		AcquireFunctionArgs = 
@@ -27,7 +27,7 @@ OverwriteTableKeys( TraitData, {
 	RemoveShrineTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Circe_07",
 		
 		AcquireFunctionName = "CirceRemoveShrineUpgrades",
 		AcquireFunctionArgs = 
@@ -47,7 +47,7 @@ OverwriteTableKeys( TraitData, {
 	DoubleFamiliarTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Circe_04",
 		
 		AcquireFunctionName = "CircePetMultiplier",
 		AcquireFunctionArgs = 
@@ -68,7 +68,7 @@ OverwriteTableKeys( TraitData, {
 	HealAmplifyTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Circe_05",
 		CustomTrayText = "HealAmplifyTrait_Tray",
 		AcquireFunctionName = "CirceHeal",
 		AcquireFunctionArgs = 
@@ -94,7 +94,7 @@ OverwriteTableKeys( TraitData, {
 	ArcanaRarityTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Circe_01",
 		
 		AcquireFunctionName = "CirceMetaUpgradeRarity",
 		AcquireFunctionArgs = 
@@ -106,7 +106,7 @@ OverwriteTableKeys( TraitData, {
 	CirceEnlargeTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Circe_02",
 		BaseChipmunkValue = -1,
 		SetupFunction = 
 		{
@@ -139,7 +139,7 @@ OverwriteTableKeys( TraitData, {
 	CirceShrinkTrait = 
 	{
 		InheritFrom = {"BaseCirce"},
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Circe_03",
 		BaseChipmunkValue = 0.75,
 		SetupFunction = 
 		{

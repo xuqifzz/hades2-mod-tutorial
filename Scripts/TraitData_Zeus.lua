@@ -36,10 +36,8 @@ OverwriteTableKeys( TraitData, {
 					MinMultiplier = 0.10, 
 					AbsoluteStackValues =
 					{
-						[1] = 0.4,
-						[2] = 0.3,
-						[3] = 0.2,
-						[4] = 0.1,
+						[1] = 0.20,
+						[2] = 0.15,
 					},
 				},
 				ReportValues = { ReportedMultiplier  = "Modifier"}
@@ -210,7 +208,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Zeus",
 				ChangeType = "Absolute",
@@ -470,7 +468,6 @@ OverwriteTableKeys( TraitData, {
 						[1] = 0.4,
 						[2] = 0.3,
 						[3] = 0.2,
-						[4] = 0.1,
 					},
 				},
 				ReportValues = { ReportedMultiplier  = "Modifier"}
@@ -687,7 +684,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	ZeusCastBoon =
+	ZeusCastBoon = 
 	{
 		Icon = "Boon_Zeus_35",
 		InheritFrom = { "BaseTrait", "AirBoon" },
@@ -700,15 +697,90 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.334,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 1.667,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 2.000,
+				Multiplier = 1.75,
+			},
+		},
+		
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = WeaponSets.HeroNonPhysicalWeapons,
+			FunctionName = "OnZeusCast",
+			FunctionArgs = 
+			{
+				SourceName = "ProjectileCast",
+				ProjectileName = "ZeusCastStrike",
+				DamageMultiplier =
+				{
+					BaseValue = 1.0,
+					AbsoluteStackValues =
+					{
+						[1] = 0.25,
+						[2] = 0.20,
+						[3] = 0.15,
+					},
+				},
+				Range = 440,
+				StrikeInterval = 0.25,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+					ReportedStrikes = "StrikeCount",
+					ReportedInterval = "StrikeInterval",
+				},
+			}
+		},
+		StatLines =
+		{
+			"BoltDamageStatDisplay2",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "ZeusCastStrike",
+				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 2,
+			}
+		}
+
+	},
+	ZeusExCastBoon =
+	{
+		Icon = "Boon_Zeus_35",
+		InheritFrom = { "BaseTrait", "AirBoon" },
+		RequiredFalseTraits = { "PoseidonExCastBoon", "ApolloExCastBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.50,
 			},
 		},
 		
@@ -840,8 +912,6 @@ OverwriteTableKeys( TraitData, {
 					AbsoluteStackValues =
 					{
 						[1] = 0.25,
-						[2] = 0.15,
-						[3] = 0.10,
 					},
 				},
 				ReportValues = 
@@ -879,71 +949,70 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+	
 	ZeusManaBoon = 
 	{
 		Icon = "Boon_Zeus_34",
-		InheritFrom = { "BaseTrait", "AirBoon", "ManaOverTimeSource" },
+		InheritFrom = { "BaseTrait", "AirBoon" },
 		Slot = "Mana",
-		BlockStacking = true,
 		RarityLevels =
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 9/10,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 8/10,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
-			}
-		},
-		StatLines =
-		{
-			"ManaRegenStatDisplay1",
-		},
-		MaxManaMultiplier = 0.3,
-		PropertyChanges =
-		{
-			{
-				LuaProperty = "MaxMana",
-				ChangeValue = 0.3,
-				ChangeType = "Multiply",
-				SourceIsMultiplier = true,
-				MaintainDelta = true,
-				ReportValues = { ReportedHealthPenalty = "ChangeValue"}
+				Multiplier = 7/10,
 			},
 		},
 		SetupFunction =
 		{
-			Name = "ManaRegenSetup",
+			Name = "CheckZeusManaSpawn",
+			Threaded = true,
+			RunOnce = true,
 			Args =
 			{
-				Name = "ZeusManaBoon",
-				ManaRegenPerSecond = { BaseValue = 4 },
-				ReportValues = { ReportedManaRecovery = "ManaRegenPerSecond" }
+				ConsumableName = "ManaDropZeus",
+				Interval = 
+				{
+					BaseValue = 10,
+					MinimumSourceValue = 2,
+					AbsoluteStackValues =
+					{
+						[1] = -1,
+						--[2] = -1,
+					},
+				},
+				MinRange = 450,
+				MaxRange = 1200,
+				DespawnRange = 2500,
+				
+				ThreadName = "HeraManaBoonRespawn",
+				Sound = "/SFX/Player Sounds/ZeusLightningWrathImpact",
+				ReportValues = { ReportedInterval = "Interval" },
 			},
+		},
+		StatLines = 
+		{
+			"ManaRespawnIntervalStatDisplay1"
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedManaRecovery",
-				ExtractAs = "TooltipManaRecovery",
-				DecimalPlaces = 1,
-				IncludeSigns = true,
+				Key = "ReportedInterval",
+				ExtractAs = "Amount",
+				DecimalPlaces = 2,
 			},
-			{
-				Key = "MaxManaMultiplier",
-				ExtractAs = "TooltipMana",
-				Format = "PercentDelta",
-			},
-		},
+		}
 	},
 
 	ZeusManaBoltBoon = 
@@ -1154,6 +1223,7 @@ OverwriteTableKeys( TraitData, {
 				IdenticalMultiplier =
 				{
 					Value = -0.6,
+					MinMultiplier = 0.4,
 				},
 				ExcludeLinked = true,
 			},
@@ -1253,9 +1323,9 @@ OverwriteTableKeys( TraitData, {
 				DamageMultiplier =
 				{
 					BaseValue = 1.0,
-					IdenticalMultiplier =
+					AbsoluteStackValues =
 					{
-						Value = -0.5,
+						[1] = 0.50,
 					},
 				},
 				ReportValues = 
@@ -1310,26 +1380,26 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 3.0,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 4.0,
+				Multiplier = 2.5,
 			},
 		},
 		DoubleBoltChance =
 		{
-			BaseValue = 0.05,
+			BaseValue = 0.10,
 			AbsoluteStackValues =
 			{
 				[1] = 0.05,
 				[2] = 0.03,
 				[3] = 0.02,
-				[4] = 0.01,
+				--[4] = 0.01,
 			},
 		},
 		StatLines = 
@@ -1484,12 +1554,12 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "LegendaryTrait", "AirBoon" },
 		Icon = "Boon_Zeus_39",
-		OnEnemySpawnFunction =
+		OnEnemyDamagedAction =
 		{
 			FunctionName = "CheckSpawnZeusDamage",
 			Args = 
 			{
-				Chance = 0.07,
+				Chance = 0.20,
 				Damage = 9999,
 				Vfx = "ZeusLightningIris",
 				ReportValues = { ReportedChance = "Chance" },

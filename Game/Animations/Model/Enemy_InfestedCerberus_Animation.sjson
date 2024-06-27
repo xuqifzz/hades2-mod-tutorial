@@ -216,6 +216,29 @@
 			}
 		]
 	}
+	{
+		Name = "Enemy_InfestedCerberus_LungeTurn"
+		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
+		GrannyAnimation = "InfestedCerberus_Base_ForwardBiteFire_C_00"
+		ChainTo = "Enemy_InfestedCerberus_ForwardBitePostFire"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 150
+		VisualFx = "CerbBibMoveTrailFast"
+		CreateAnimation = "CerbForwardStreaks"
+		Frames =
+		[
+			{
+				Frame = 14
+				FootstepFxR = "CerbPawPrintRightSpawner"
+				FootstepFxL = ""
+			}
+			{
+				Frame = 21
+				FootstepFxR = ""
+				FootstepFxL = "CerbPawPrintLeftSpawner"
+			}
+		]
+	}
 
 	{
 		Name = "Enemy_InfestedCerberus_ForwardBitePostFire"
@@ -344,6 +367,7 @@
 		Name = "Enemy_InfestedCerberus_VacuumPostFire"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
 		GrannyAnimation = "InfestedCerberus_Base_VacuumReturnToIdle_C_00"
+		GrannyAnimationSpeed = 4.0
 		ChainTo = "Enemy_InfestedCerberus_Idle"
 		Blends =
 		[	
@@ -460,6 +484,7 @@
 	{
 		Name = "Enemy_InfestedCerberus_DeathTransition"
 		InheritFrom = "Enemy_InfestedCerberus_Shake"
+		LargeObstacle3DModel = true
 		GrannyAnimationSpeed = 0.5
 		ChainTo = "Cerberus_HubIdleNonBink"
 		Sound = "/SFX/Player Sounds/MelMagicalChargeLoop"
@@ -603,7 +628,7 @@
 		GrannyAnimation = "InfestedCerberus_Base_BurrowEmerge_C_00"
 		ChainTo = "Enemy_InfestedCerberus_BurrowToIdle"
 		OwnerImmobile = true
-		GrannyAnimationSpeed = 0.6
+		GrannyAnimationSpeed = 1.0
 		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_Emerge"
 		Frames =
 		[
@@ -633,12 +658,23 @@
 			}
 		]
 	}
+	{
+		Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro"
+		InheritFrom = "Enemy_InfestedCerberus_BurrowEmerge"
+		GrannyAnimationSpeed = 0.6
+		ChainTo = "Enemy_InfestedCerberus_BurrowToIdle_Intro"
+	}
 
 	{
 		Name = "Enemy_InfestedCerberus_BurrowToIdle"
 		InheritFrom = "EnemyInfestedCerberusBaseAnimation"
 		GrannyAnimation = "InfestedCerberus_Base_BurrowReturnToIdle_C_00"
 		OwnerImmobile = true
+		GrannyAnimationSpeed = 2.0
+	}
+	{
+		Name = "Enemy_InfestedCerberus_BurrowToIdle_Intro"
+		InheritFrom = "Enemy_InfestedCerberus_BurrowToIdle"
 		GrannyAnimationSpeed = 0.6
 	}
 

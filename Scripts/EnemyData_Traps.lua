@@ -556,6 +556,7 @@
 			MoveWithinRange = false,
 			IdleAnimation = "BeamTrapIdle",
 			DisabledAnimation = "BeamTrapIdle",
+
 		},
 
 		WeaponOptions =
@@ -563,6 +564,7 @@
 			"BeamTrap",
 		},
 
+		WakeUpDelay = 3.0,
 		AIOptions =
 		{
 			"PassiveAI",

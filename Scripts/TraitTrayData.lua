@@ -229,7 +229,7 @@
 			TextArgs =
 			{
 				Text = "NoMetaUpgradesShrineUpgrade_TrayHint",
-				Font = "NumericP22UndergroundSCMedium",
+				Font = "P22UndergroundSCMedium",
 				FontSize = 22,
 				OffsetX = 60,
 				OffsetY = 2,

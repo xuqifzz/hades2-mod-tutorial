@@ -265,6 +265,8 @@ RoomSetData.H =
 								Name = "MemPointsCommonDrop",
 								Overrides =
 								{
+									CanDuplicate = false,
+									MetaConversionEligible = false,
 									AddResources =
 									{
 										MemPointsCommon = 50,
@@ -514,16 +516,22 @@ RoomSetData.H =
 
 		SlingshotRepulseTowardId = 410264,
 
+		AlwaysForce = true,
 		GameStateRequirements =
 		{
 			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "<",
-				Value = 4,
+				Path = { "CurrentRun", "RoomsEntered" },
+				SumOf =
+				{
+					"H_Combat01", "H_Combat02", "H_Combat03", "H_Combat04", "H_Combat05", "H_Combat06", "H_Combat07", "H_Combat08",
+					"H_Combat09", "H_Combat10", "H_Combat11", "H_Combat12", "H_Combat13", "H_Combat14", "H_Combat15",
+					"H_MiniBoss01", "H_MiniBoss02",
+				},
+				Comparison = ">=",
+				Value = 2,
 			},
 		},
-		ForceAtBiomeDepthMin = 3,
-		ForceAtBiomeDepthMax = 3,
+
 		MaxCreationsThisRun = 1,
 		MaxAppearancesThisBiome = 1,
 
@@ -773,12 +781,21 @@ RoomSetData.H =
 
 		ZoomFraction = 0.7,
 
-		ForceAtBiomeDepthMin = 5,
-		ForceAtBiomeDepthMax = 5,
-
+		AlwaysForce = true,
 		GameStateRequirements =
 		{
-			-- None
+			{
+				Path = { "CurrentRun", "RoomsEntered" },
+				SumOf =
+				{
+					"H_Combat01", "H_Combat02", "H_Combat03", "H_Combat04", "H_Combat05", "H_Combat06", "H_Combat07", "H_Combat08",
+					"H_Combat09", "H_Combat10", "H_Combat11", "H_Combat12", "H_Combat13", "H_Combat14", "H_Combat15",
+					"H_MiniBoss01", "H_MiniBoss02",
+					"H_Bridge01",
+				},
+				Comparison = ">=",
+				Value = 4,
+			},
 		},
 
 		HarvestPointChances =

@@ -11,6 +11,83 @@
 			},
 		},
 	},
+	PreChargeTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_43",
+		MaxCount = 2,						--How many maximum times this can be served in a tree
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =	
+			{
+				Multiplier = 2,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			},
+		},
+		SpellPreCharge = { BaseValue = 0.4 },
+		ExtractValues = 
+		{
+			{
+				Key = "SpellPreCharge",
+				ExtractAs = "Charge",
+				Format = "Percent",
+				HideSigns = true,
+			},
+		},
+	},
+	ChargeRegenTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_35",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =	
+			{
+				Multiplier = 2,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			},
+		},
+		SetupFunction =
+		{
+			Threaded = true,
+			Name = "SorceryChargeSetup",
+			Args =
+			{
+				Name = "Talent",
+				ChargePerSecond = { BaseValue = 1 },
+				ReportValues = { ReportedCharge = "ChargePerSecond" }
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedCharge",
+				ExtractAs = "ChargePerSecond"
+			}
+		},
+	},
 	CooldownDamageTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait"},
@@ -292,6 +369,15 @@
 				Duration = 1,
 			}
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
@@ -316,6 +402,12 @@
 				BaseProperty = "Amount",
 				DecimalPlaces = 1,
 			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
 		},
 	},
 	
@@ -327,7 +419,25 @@
 		OnSelfDamagedFunction = 
 		{
 			Name = "RecordLastDamaged",
-		}
+		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 	HealLastTalent = 
 	{
@@ -656,6 +766,15 @@
 		{
 			Name = "EndTimeSlowCrit",
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 40,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
@@ -664,7 +783,13 @@
 				Format = "Percent",
 				IncludeSigns = true,
 			},
-		}
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 	TimeSlowDestroyProjectilesTalent = 
 	{
@@ -680,6 +805,15 @@
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_64",
 		TimeSlowModifier = 0.05,
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues = 
 		{
 			{
@@ -687,8 +821,14 @@
 				ExtractAs = "TimeSlow",
 				Format = "NegativePercentDelta",
 				HideSigns = true,
-			}
-		}
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 	SpellChargeBonusTalent = 
 	{
@@ -700,6 +840,15 @@
 			Multiplier = 1.2,
 			ReportValues = { ReportedMultiplier = "Multiplier" }
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
@@ -707,7 +856,13 @@
 				ExtractAs = "Multiplier",
 				Format = "PercentDelta",
 			},
-		}
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 	TimeSlowCumulativeBuffTalent = 
 	{
@@ -818,6 +973,24 @@
 		SetupFunction =
 		{
 			Name = "LaserMatchDuration",
+		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 60,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
 		},
 		PropertyChanges =
 		{
@@ -942,11 +1115,26 @@
 				ReportValues = { ReportedProjectiles = "ChangeValue" }
 			},
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 60,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedProjectiles",
 				ExtractAs = "Projectiles",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		}
 	},
@@ -1131,7 +1319,7 @@
 		Icon = "Boon_Selene_69",
 		OnWeaponFiredFunctions =
 		{
-			ValidWeapons = { "WeaponCastProjectileHades", "WeaponCastProjectile", "WeaponCast", "WeaponAnywhereCast" },
+			ValidWeapons = {"WeaponCast" },
 			FunctionName = "PolymorphCastTeleport",
 		},
 		ExtractValues =
@@ -1368,15 +1556,15 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.0,
 			},
 			Epic =
 			{
-				Multiplier = 2,
+				Multiplier = 1.0,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.0,
 			},
 		},
 		OnEnemyDeathFunction = 
@@ -1417,6 +1605,15 @@
 		PolymorphSandwichChance = { BaseValue = 0.2 },
 		PolymorphRoomCap = 1,
 		ReportedSandwichHealValue = 10,
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
@@ -1444,12 +1641,36 @@
 				SkipAutoExtract = true,
 				ExtractAs = "Duration",
 			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
 		},
 	},
 	PolymorphCurseTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_70",
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 		OnEffectApplyFunction = 
 		{
 		
@@ -1837,12 +2058,27 @@
 		{
 			Slot = "Secondary",
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 10,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues = 
 		{
 			{
 				ExtractAs = "SlotBoon",
 				Slot = "Secondary",
 				Format = "SlottedBoon"
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		},
 	},
@@ -1861,6 +2097,15 @@
 				ReportValues = { ReportedDamageMultiplier = "DamageMultiplier" }
 			},
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 10,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues = 
 		{
 			{
@@ -1870,6 +2115,12 @@
 				BaseType = "Projectile",
 				BaseName = "SummonDeathWeapon",
 				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		},
 	},
@@ -2049,11 +2300,26 @@
 				ChangeValue = 2,
 			}
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 50,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues = 
 		{
 			{
 				Key = "ReportedInterval",
 				ExtractAs = "Interval",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		},
 	},
@@ -2061,6 +2327,24 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_102",
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 		OnProjectileDeathFunction = 
 		{
 			Name = "MeteorExCast",
@@ -2203,13 +2487,28 @@
 		Icon = "Boon_Selene_83",
 		SpellMultiuse = 1,
 		MultiuseTimeout = 3,
+		ManaSpendCostModifiers = 
+		{
+			Add = 15,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
 				Key = "MultiuseTimeout",
 				ExtractAs = "Window",
 			},
-		}
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 	LeapSprintTalent = 
 	{
@@ -2226,6 +2525,15 @@
 				ReportValues = { ReportedCount = "MaximumCount"},
 			},
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 10,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		ExtractValues =
 		{
 			{
@@ -2238,7 +2546,13 @@
 				Format = "SlottedBoon",
 				SkipAutoExtract = true,
 			},
-		}
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 
 	-- Transform
@@ -2409,12 +2723,21 @@
 			WeaponName = "WeaponTransformAttack",
 			Slot = "Melee",
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		PropertyChanges = 
 		{
 			{
 				TraitName = "ApolloWeaponBoon",
 				WeaponName = "WeaponTransformAttack",
-				ProjectileProperty = "ProjectileScaleMultiplier",
+				WeaponProperty = "ProjectileScaleMultiplier",
 				ChangeValue = 1.4,
 				ChangeType = "Multiply",
 			},
@@ -2425,6 +2748,12 @@
 				ExtractAs = "SlotBoon",
 				Slot = "Melee",
 				Format = "SlottedBoon"
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		},
 	},
@@ -2437,12 +2766,21 @@
 			WeaponName = "WeaponTransformSpecial",
 			Slot = "Secondary",
 		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
 		PropertyChanges = 
 		{
 			{
 				TraitName = "ApolloSpecialBoon",
 				WeaponName = "WeaponTransformSpecial",
-				ProjectileProperty = "ProjectileScaleMultiplier",
+				WeaponProperty = "ProjectileScaleMultiplier",
 				ChangeValue = 1.4,
 				ChangeType = "Multiply",
 			},
@@ -2454,6 +2792,12 @@
 				Slot = "Secondary",
 				Format = "SlottedBoon"
 			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
 		},
 	},
 	TransformExCastTalent = 
@@ -2464,6 +2808,24 @@
 		{
 			StartTransformFunctionName = "DisableCastArm",
 			EndTransformFunctionName = "EnableCastArm",
+		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
 		},
 		OnWeaponFiredFunctions =
 		{

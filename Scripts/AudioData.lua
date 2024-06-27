@@ -182,7 +182,7 @@ RoomStartMusicEvents =
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
-				IsNone = { "G_Intro", "H_Intro", "I_Intro", "G_Reprieve01", "H_Reprieve01", "I_Reprieve01", "I_Boss01" },
+				IsNone = { "G_Intro", "H_Intro", "I_Intro", "G_Reprieve01", "H_Reprieve01", "I_Reprieve01", "I_PreBoss01", "I_Boss01", },
 			},
 		},
 		PlayBiomeMusic = true,
@@ -2795,7 +2795,6 @@ GlobalVoiceLines.UsedHealDropVoiceLines =
 		BreakIfPlayed = true,
 		PreLineWait = 0.55,
 		SuccessiveChanceToPlay = 0.5,
-		-- RequiredFalseRooms = { "A_PostBoss01", "B_PostBoss01", "C_PostBoss01" },
 		Cooldowns =
 		{
 			{ Name = "MelinoeAnyQuipSpeech" },
@@ -2880,7 +2879,6 @@ GlobalVoiceLines.UsedManaDropVoiceLines =
 		BreakIfPlayed = true,
 		PreLineWait = 0.55,
 		SuccessiveChanceToPlay = 0.5,
-		-- RequiredFalseRooms = { "A_PostBoss01", "B_PostBoss01", "C_PostBoss01" },
 		Cooldowns =
 		{
 			{ Name = "MelinoeAnyQuipSpeech" },
@@ -2906,7 +2904,6 @@ GlobalVoiceLines.UsedShieldDropVoiceLines =
 		BreakIfPlayed = true,
 		PreLineWait = 0.55,
 		SuccessiveChanceToPlay = 0.5,
-		-- RequiredFalseRooms = { "A_PostBoss01", "B_PostBoss01", "C_PostBoss01" },
 		GameStateRequirements =
 		{
 			{
@@ -5388,7 +5385,7 @@ GlobalVoiceLines.BoonUsedVoiceLines =
 			{
 				PathFromArgs = true,
 				Path = { "OriginalSource", "Name" },
-				IsNone = { "WeaponUpgrade", "StackUpgrade", "StackUpgradeBig", "SpellDrop", "TalentDrop", "MinorTalentDrop", "TrialUpgrade" },
+				IsNone = { "WeaponUpgrade", "StackUpgrade", "StackUpgradeBig", "StackUpgradeTriple", "SpellDrop", "TalentDrop", "MinorTalentDrop", "TrialUpgrade" },
 			},
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Name" },
@@ -8828,7 +8825,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 {
 	Cooldowns =
 	{
-		{ Name = "SpellReactionVOPlayedRecently", Time = 30 },
+		{ Name = "SpellReactionVOPlayedRecently", Time = 40 },
 	},
 	-- Hecate
 	{
@@ -8895,17 +8892,17 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "SpellLaserTrait", "SpellLeapTrait" },
+						HasAny = { "SpellLaserTrait" },
 					},
 				},
 			},
 			{ Cue = "/VO/HecateField_0232", Text = "Here it comes...",
-				PreLineWait = 1.5,
+				PreLineWait = 1,
 				GameStateRequirements =
 				{
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "SpellLaserTrait", "SpellLeapTrait" },
+						HasAny = { "SpellLaserTrait" },
 					},
 				},
 			},
@@ -8914,7 +8911,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 				{
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "SpellLaserTrait", "SpellLeapTrait" },
+						HasAny = { "SpellLaserTrait" },
 					},
 				},
 			},
@@ -8923,7 +8920,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 				{
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "SpellLaserTrait", "SpellLeapTrait" },
+						HasAny = { "SpellLaserTrait" },
 					},
 					{
 						PathFalse = { "CurrentRun", "SpeechRecord", "/VO/HecateField_0142" },
@@ -8933,6 +8930,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		},
 		{
 			RandomRemaining = true,
+			SuccessiveChanceToPlay = 0.5,
 			GameStateRequirements =
 			{
 				{
@@ -8951,6 +8949,7 @@ GlobalVoiceLines.SpellReactionVoiceLines =
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 1.8,
+		SuccessiveChanceToPlay = 0.5,
 		ObjectType = "Scylla",
 		GameStateRequirements =
 		{
@@ -9100,6 +9099,7 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.5,
 		ObjectType = "Hecate",
 		GameStateRequirements =
 		{
@@ -9123,6 +9123,7 @@ GlobalVoiceLines.SpellPolymorphReactionVoiceLines =
 		RandomRemaining = true,
 		BreakIfPlayed = true,
 		PreLineWait = 0.65,
+		SuccessiveChanceToPlay = 0.5,
 		ObjectType = "Polyphemus",
 		GameStateRequirements =
 		{

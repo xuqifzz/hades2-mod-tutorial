@@ -1945,63 +1945,76 @@
       Name = "ZeusOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Zeus_01"
+      OffsetX = 800
+      OffsetY = -100
     }
     
     {
       Name = "PoseidonOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Poseidon_01"
+      OffsetX = 700
+      OffsetY = -200
     }
     
     {
       Name = "AphroditeOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Aphrodite_01"
+      OffsetX = 1100
     }
     
     {
       Name = "ArtemisOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Artemis_01"
+      OffsetX = 350
     }
 
     {
       Name = "HermesOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Hermes_01"
+      OffsetX = 450
+      OffsetY = 200
     }
 
     {
       Name = "ApolloOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Apollo_01"
+      OffsetX = 500
+      OffsetY = 200
     }
     
     {
       Name = "HeraOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Hera_01"
-      Color = { Red = 0.8 Green = 0.2 Blue = 0.8 }
+      OffsetX = 400
+      OffsetY = 250
     }
     
     {
       Name = "HestiaOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Hestia_01"
-      Color = { Red = 0.8 Green = 0.2 Blue = 0.8 }
+      OffsetX = 450
     }
     
     {
       Name = "HephaestusOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Hephaestus_01"
-      Color = { Red = 0.8 Green = 0.2 Blue = 0.8 }
+      OffsetX = 300
     }
 
     {
       Name = "DemeterOverlay"
       InheritFrom = "HadesOverlay"
       FilePath = "Portraits\Portraits_Demeter_01"
+      OffsetX = 300
+      OffsetY = 200
     }
     
     {

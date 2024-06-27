@@ -379,6 +379,7 @@ OverwriteTableKeys( CodexData.ChthonicGods.Entries,
 {
 	NPC_Medea_01 =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{
@@ -399,6 +400,7 @@ OverwriteTableKeys( CodexData.ChthonicGods.Entries,
 
 	NPC_Circe_01 =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{
@@ -441,6 +443,7 @@ OverwriteTableKeys( CodexData.OtherDenizens.Entries,
 		
 	NPC_Icarus_01 =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{
@@ -616,6 +619,7 @@ OverwriteTableKeys( CodexData.Weapons.Entries,
 {
 	WeaponTorch =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{
@@ -637,6 +641,7 @@ OverwriteTableKeys( CodexData.Weapons.Entries,
 	},
 	WeaponAxe =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{
@@ -658,6 +663,7 @@ OverwriteTableKeys( CodexData.Weapons.Entries,
 	},
 	WeaponLob =
 	{
+		NoRequirements = true,
 		Entries =
 		{
 			{

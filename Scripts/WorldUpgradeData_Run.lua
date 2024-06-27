@@ -224,17 +224,15 @@ OverwriteTableKeys( WorldUpgradeData,
 			{ Cue = "/VO/Melinoe_2783", Text = "How to find my way in the Mourning Fields..." },
 		},
 	},
-	--[[
 	WorldUpgradeTimeSlowChronosFight =
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_chronos",
 		Cost =
 		{
-			PlantIShaderot = 1,
-			PlantFMoly = 2,
-			MetaFabric = 3,
-			MemPointsCommon = 4,
+			PlantIShaderot = 3,
+			PlantFMoly = 3,
+			MetaFabric = 7,
 		},
 
 		GameStateRequirements =
@@ -253,8 +251,7 @@ OverwriteTableKeys( WorldUpgradeData,
 
 			{ Cue = "/VO/Melinoe_3070", Text = "Time thinks he can't be stopped. I think otherwise." },
 		},
-	},
-	]]
+	},	
 	WorldUpgradePauseChronosFight =
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
@@ -369,6 +366,28 @@ OverwriteTableKeys( WorldUpgradeData,
 			},
 		},
 	},
+	WorldUpgradeSafeZoneSpellCharge =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_erebus",
+		Cost =
+		{
+			PlantFMoly = 1,
+			PlantGLotus = 1,
+			PlantOMandrake = 1,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "WorldUpgrades" },
+				HasAll = { "WorldUpgradeErebusSafeZones" },
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "SeleneFirstPickUp" },
+			},
+		},
+	},
 	WorldUpgradeShadeMercs =
 	{
 		InheritFrom = { "DefaultHubItem", "DefaultCriticalItem" },
@@ -420,6 +439,142 @@ OverwriteTableKeys( WorldUpgradeData,
 			{
 				Path = { "GameState", "WorldUpgrades" },
 				HasAll = { "WorldUpgradeMarket", "WorldUpgradeToolsShop", "WorldUpgradeErebusReprieve", "WorldUpgradePostBossGiftRack", "WorldUpgradePostBossWellShops" },
+			},
+		},
+	},
+	WorldUpgradeMetaCardPointsCommonRunProgress =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_altar",
+		Cost =
+		{
+			PlantGCattail = 5,
+			MetaCardPointsCommon = 50,
+			MixerGBoss = 5,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+				Comparison = ">=",
+				Value = 300,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+				Comparison = ">=",
+				Value = 1000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+				Comparison = ">=",
+				Value = 2000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "GiftPoints" },
+				Comparison = ">=",
+				Value = 20,
+			},
+		},
+	},
+	WorldUpgradeMemPointsCommonRunProgress =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_altar",
+		Cost =
+		{
+			PlantOMandrake = 5,
+			MemPointsCommon = 100,
+			MixerFBoss = 5,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+				Comparison = ">=",
+				Value = 300,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+				Comparison = ">=",
+				Value = 1000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+				Comparison = ">=",
+				Value = 2000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "GiftPoints" },
+				Comparison = ">=",
+				Value = 20,
+			},
+		},
+	},
+	WorldUpgradeMetaCurrencyRunProgress =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_bones",
+		Cost =
+		{
+			PlantHWheat = 5,
+			MetaFabric = 10,
+			MixerHBoss = 5,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+				Comparison = ">=",
+				Value = 300,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+				Comparison = ">=",
+				Value = 1000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+				Comparison = ">=",
+				Value = 2000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "GiftPoints" },
+				Comparison = ">=",
+				Value = 20,
+			},
+		},
+	},
+	WorldUpgradeGiftDropRunProgress =
+	{
+		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
+		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_gifting",
+		Cost =
+		{
+			PlantNGarlic = 5,
+			GiftPoints = 5,
+			MixerNBoss = 5,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+				Comparison = ">=",
+				Value = 300,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+				Comparison = ">=",
+				Value = 1000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+				Comparison = ">=",
+				Value = 2000,
+			},
+			{
+				Path = { "GameState", "LifetimeResourcesGained", "GiftPoints" },
+				Comparison = ">=",
+				Value = 20,
 			},
 		},
 	},

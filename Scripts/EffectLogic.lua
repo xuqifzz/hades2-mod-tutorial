@@ -52,6 +52,25 @@ function CheckStunAnimation( triggerArgs )
 	end
 end
 
+
+function CheckInvulnerableFalloff( triggerArgs )
+	if IsCombatEncounterActive(CurrentRun) then
+		thread( EncounterInvulnerableFalloffWarning, triggerArgs.EffectName)
+	end
+end
+
+function EncounterInvulnerableFalloffWarning( effectName )
+	local duration = GetTotalHeroTraitValue( "EncounterStartInvulnerabilityDuration")
+	wait( duration - 3 )
+	thread(EncounterStartInvulnerableWarnPresentation)
+	wait(1)
+	thread(EncounterStartInvulnerableWarnPresentation)
+	wait(1)
+	thread(EncounterStartInvulnerableWarnPresentation)
+	wait(1)
+	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = effectName })
+end
+
 function DamageEchoApply( triggerArgs )
 	if not triggerArgs.Reapplied then
 		local victim = triggerArgs.Victim
@@ -133,6 +152,11 @@ function RemoveEffectBlockOnDelay( id, delay, effectName )
 	RemoveEffectBlock({ Id = id, Name = effectName })
 end
 
+function RemoveEffectOnDelay( id, delay, effectName )
+	wait( delay, RoomThreadName )
+	ClearEffect({ Id = id, Name = effectName })
+end
+
 function DamageEchoTrigger( enemy, effectName, damageMultiplier, cooldown )
 
 	if enemy and not enemy.IsDead and IsEmpty( enemy.InvulnerableFlags ) then
@@ -147,17 +171,18 @@ function DamageEchoTrigger( enemy, effectName, damageMultiplier, cooldown )
 			Delay = 0.45, 
 			Count = 1
 		})
+		ApplyEffect({ DestinationId = enemy.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = "DamageEchoVulnerabilityPlaceholder", DataProperties = EffectData.DamageEchoVulnerabilityPlaceholder.DataProperties })
 		ClearEffect({ Id = enemy.ObjectId, Name = effectName })
 		if cooldown then
 			AddEffectBlock({ Id = enemy.ObjectId, Name = effectName })
 			thread( RemoveEffectBlockOnDelay, enemy.ObjectId, cooldown, effectName )
+			thread( RemoveEffectOnDelay, enemy.ObjectId, cooldown, "DamageEchoVulnerabilityPlaceholder")
 		end
 	end
 end
 
 function ProcessDamageShare( victim, triggerArgs)
-
-	if not victim.IsDead and victim.DamageShareAmount and HasEffectWithEffectGroup( victim, "DamageShare") and not triggerArgs.PureDamage and not IsEmpty(ActiveEnemies) and ( not victim.SkipModifiers or victim.BondAlwaysApplies) then
+	if victim.DamageShareAmount and HasEffectWithEffectGroup( victim, "DamageShare") and not triggerArgs.PureDamage and not IsEmpty(ActiveEnemies) and ( not victim.SkipModifiers or victim.BondAlwaysApplies) then
 		local range = EffectData.DamageShareEffect.Range
 		local damageAmount = triggerArgs.DamageAmount * victim.DamageShareAmount		
 		for id, enemy in pairs( ActiveEnemies ) do
@@ -189,8 +214,8 @@ end
 function HecatePolymorphApply( triggerArgs )
 	local victim = triggerArgs.Victim
 	victim.SkipDamageAnimation = true
-	MapState.HostilePolymorph = true
 	if victim == CurrentRun.Hero then
+		MapState.HostilePolymorph = true
 		EndBlinkWeapons({ Id = CurrentRun.Hero.ObjectId })
 		SetThingProperty({ Property = "GrannyTexture", Value = "null", DestinationId = CurrentRun.Hero.ObjectId })
 		SetupCostume( true )
@@ -671,6 +696,13 @@ function BurnEffectApply( triggerArgs )
 	thread( HandleBurnTicks, triggerArgs  )
 end
 
+function BurnEffectClear( triggerArgs )
+	local victim = triggerArgs.Victim
+	if victim and victim.UseBossHealthBar then
+		UpdateHealthBar( victim, 0, {Force = true})
+	end
+end
+
 function HandleBurnTicks( triggerArgs )
 	local victim = triggerArgs.Victim
 	local effectName = triggerArgs.EffectName
@@ -699,9 +731,17 @@ function HandleBurnTicks( triggerArgs )
 				stackReduction = victim.ActiveEffects[effectName]
 				interval = stackReduction / damagePerSecond
 			end
-			victim.ActiveEffects[effectName] = victim.ActiveEffects[effectName] - stackReduction
+			local refreshBurn = false
+			for i, value in pairs( GetHeroTraitValues("EternalBurnRequirements")) do
+				if value.RequiredEffect and victim.ActiveEffects[ value.RequiredEffect ] then
+					refreshBurn = true
+				end
+			end
+			if not refreshBurn then
+				victim.ActiveEffects[effectName] = victim.ActiveEffects[effectName] - stackReduction
+				thread( HandleBurnStacks, victim, { EffectData = effectData, StartingStacks = victim.ActiveEffects[effectName], Stacks = stackReduction, Duration = interval, PresentationThreadName = presentationThreadName })
+			end
 			Damage( victim, { AttackerTable = CurrentRun.Hero, AttackerId = CurrentRun.Hero.ObjectId, EffectName = "BurnEffect", DamageAmount = stackReduction, Silent = false})
-			thread( HandleBurnStacks, victim, { EffectData = effectData, StartingStacks = victim.ActiveEffects[effectName], Stacks = stackReduction, Duration = interval, PresentationThreadName = presentationThreadName })
 			if victim.ActiveEffects[effectName] and victim.ActiveEffects[effectName] <= 0 then
 				-- final wait to allow presentation to finish catching up
 				wait( stackReduction / damagePerSecond, threadName)
@@ -741,5 +781,12 @@ function HandleBurnStacks( victim, args )
 		else
 			wait( 1 / effectData.DamagePerSecond, threadName )
 		end
+	end
+end
+
+function CheckSafeZoneRecharge()
+	if GameState.WorldUpgradesAdded.WorldUpgradeSafeZoneSpellCharge and not CurrentRun.CurrentRoom.TriggeredSpellRecharge then
+		CurrentRun.CurrentRoom.TriggeredSpellRecharge = true
+		ChargeSpell( -1000, {Force = true} )
 	end
 end

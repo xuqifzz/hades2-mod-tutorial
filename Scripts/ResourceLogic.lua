@@ -244,6 +244,9 @@ function OpenInventoryScreen( args )
 		ModifyTextBox({ Id = components.MoonPhaseButton.Id, Text = GamePhaseData.GamePhases[ GameState.GamePhase ].Text  })
 	end
 	screen.ActiveCategoryIndex = args.DefaultCategoryIndex or 1
+	if screen.ActiveCategoryIndex > #screen.ItemCategories then
+		screen.ActiveCategoryIndex = #screen.ItemCategories
+	end
 
 	screen.NumCategories = 0
 	screen.GridStartX = screen.GridStartX + ScreenCenterNativeOffsetX
@@ -851,6 +854,7 @@ function InvenotryScreenRemovePin( screen, button )
 		return
 	end
 	RemoveStoreItemPin( screen.SelectedPin.ItemData.Name )
+	UpdateToolKitPins()
 	screen.SelectedPin.Removed = true
 	InventoryScreenUpdateVisibility( screen )
 end

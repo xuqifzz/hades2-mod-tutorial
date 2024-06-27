@@ -213,6 +213,11 @@ OnRamWeaponComplete{ "WeaponSprint",
 			StopAnimation({ Name = MapState.SprintShieldFx, DestinationId = CurrentRun.Hero.ObjectId })
 		end
 		
+		for _, actionData in pairs( GetHeroTraitValues( "OnSprintEndAction" ) ) do
+			if _G[actionData.FunctionName] ~= nil then
+				_G[actionData.FunctionName]( ShallowCopyTable( actionData.FunctionArgs ))
+			end
+		end
 		SetThreadWait( "DashWeapon", CurrentRun.Hero.DashManeuverTimeThreshold )
 	end
 }
@@ -322,6 +327,7 @@ OnWeaponChargeCanceled{ "WeaponDagger5",
 		if MapState.DaggerBlockShieldActive then
 			MapState.DaggerBlockShieldActive = false
 			SetThingProperty({ Property = "AllowDodge", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
+			RemoveEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "HeroOnHitStun" })
 			local traitData = GetHeroTrait("DaggerBlockAspect")
 			local chargeFunctionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs
 			StopAnimation({ Name = chargeFunctionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
@@ -408,7 +414,8 @@ function GetWeaponChargeStages( weaponData )
 	local appliedChanges = {}
 	for i, data in pairs( chargeStageModifiers ) do
 		local validWeapon = data.ValidWeaponsLookup == nil or data.ValidWeaponsLookup[weaponData.Name]
-		if validWeapon then
+		local validTrait = data.TraitName == nil or HeroHasTrait( data.TraitName )
+		if validWeapon and validTrait then
 			if data.AddChargeStage then
 				table.insert(chargeStages, data.AddChargeStage)
 			end
@@ -486,7 +493,8 @@ function GetWeaponChargeStages( weaponData )
 
 	for i, data in pairs( chargeStageModifiers ) do
 		local validWeapon = data.ValidWeaponsLookup == nil or data.ValidWeaponsLookup[weaponData.Name]
-		if validWeapon then
+		local validTrait = data.TraitName == nil or HeroHasTrait( data.TraitName )
+		if validWeapon and validTrait then
 			if data.HideStageReachedFxExceptForFinal then
 				for i in pairs( chargeStages ) do
 					chargeStages[i].HideStageReachedFx = true
@@ -504,6 +512,18 @@ function GetWeaponChargeStages( weaponData )
 		end
 	end
 	return chargeStages
+end
+
+function HasForceRelease( weaponData, stageData )
+	local manaCost = GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } )
+
+	if stageData.ForceReleaseWithoutMana and manaCost > CurrentRun.Hero.Mana and not HeraManaRestoreEligible( stageData.ManaCost ) then
+		return true
+	end
+	if stageData.ForceRelease and ( not stageData.BlockForceReleaseWithoutMana or manaCost <= CurrentRun.Hero.Mana or HeraManaRestoreEligible( stageData.ManaCost )) then
+		return true
+	end
+	return false
 end
 
 function DoWeaponCharge( triggerArgs, weaponData, args )
@@ -527,7 +547,7 @@ function DoWeaponCharge( triggerArgs, weaponData, args )
 		local stageData = chargeStages[stage]
 		local startTime = _worldTime
 
-		while stageData.ManaCost and GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) > CurrentRun.Hero.Mana and not stageData.ForceRelease and not stageData.ForceReleaseWithoutMana and not HeraManaRestoreEligible( stageData.ManaCost ) do
+		while stageData.ManaCost and GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) > CurrentRun.Hero.Mana and not HasForceRelease( weaponData, stageData ) and not HeraManaRestoreEligible( stageData.ManaCost ) do
 			SetManaIndicatorDisallowed( weaponName )
 			NotifyOnWeaponCharge({ Id = CurrentRun.Hero.ObjectId, Notify = notifyName, WeaponName = weaponName, ChargeFraction = 0.0, Comparison = "<=", Timeout = 0.25  })
 			waitUntil( notifyName )
@@ -566,7 +586,8 @@ function DoWeaponCharge( triggerArgs, weaponData, args )
 			EmptyWeaponCharge( weaponData, stageReached, chargeStages[stageReached] )
 			return
 		end
-		if stageData.ManaCost and GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) > CurrentRun.Hero.Mana and ( stageData.ForceRelease or stageData.ForceReleaseWithoutMana ) and not HeraManaRestoreEligible( stageData.ManaCost ) then
+
+		if stageData.ManaCost and GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ) > CurrentRun.Hero.Mana and HasForceRelease( weaponData, stageData )  and not HeraManaRestoreEligible( stageData.ManaCost ) then
 			CallFunctionName( weaponData.ChargeWeaponData.OnNoManaForceRelease, weaponName, stageData )
 			RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = weaponName, Method = "ForceControlRelease"})
 			RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = weaponName, Method = "cancelCharge"})
@@ -902,7 +923,7 @@ end
 
 function CastChargeStage( weaponName, stageData )
 	if stageData.ForceRelease then
-		SessionMapState.SuperchargeCast = true
+		SessionMapState.SuperchargeCast = true 
 	else
 		SessionMapState.SuperchargeCast = nil
 	end
@@ -1023,8 +1044,12 @@ OnBlinkFinished{ "WeaponBlink",
 	function(triggerArgs) 
 		SetWeaponProperty({ WeaponName = "WeaponLob", DestinationId = CurrentRun.Hero.ObjectId, Property = "RequireControlRelease", Value = false, DataValue = false })
 		SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = CurrentRun.Hero.ObjectId, Property = "RequireControlRelease", Value = false, DataValue = false })
-		SetWeaponProperty({ WeaponName = "WeaponAxeBlock2", DestinationId = CurrentRun.Hero.ObjectId, Property = "RequireControlRelease", Value = false, DataValue = false })
-		SetWeaponProperty({ WeaponName = "WeaponAxeSpecialSwing", DestinationId = CurrentRun.Hero.ObjectId, Property = "RequireControlRelease", Value = false, DataValue = false })
+	
+		for _, actionData in pairs( GetHeroTraitValues( "OnBlinkEndAction" ) ) do
+			if _G[actionData.FunctionName] ~= nil then
+				_G[actionData.FunctionName]( ShallowCopyTable( actionData.FunctionArgs ), triggerArgs)
+			end
+		end
 	end
 }
 
@@ -1111,8 +1136,12 @@ function ApplyDeferredThrowReversions( weaponData )
 end
 
 function TorchChargeStage( weaponName, stageData )
-	if HeroHasTrait("TorchSingleStrikeAspect") then
-		ExpireProjectiles({ Names = {"ProjectileTorchBall"} })
+end
+
+function EmptyTorchCharge( weaponName, stageReached )
+	if SessionMapState.SpeedExPropertyChangeRecord[weaponName] then
+		ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, SessionMapState.SpeedExPropertyChangeRecord[weaponName] )
+		SessionMapState.SpeedExPropertyChangeRecord[weaponName] = nil
 	end
 end
 
@@ -1133,9 +1162,6 @@ function TorchOutOfMana( weaponData )
 	RevertWeaponChanges( CurrentRun.Hero, weaponData )
 	ApplyProjectilePropertyChanges( ToLookup({ weaponData.Name }), SessionState.PropertyChangeList.ProjectileChanges )
 	SessionMapState.TorchOutOfMana = true
-end
-
-function EmptyTorchCharge( weaponName, stageReached )
 end
 
 function EmptyTorchSpecialCharge( weaponName, stageReached )
@@ -1246,6 +1272,14 @@ function PulseAmmo ( consumable, args )
 end
 
 function FireAmmoCollectionPulse( weaponName, args )
+	if args and args.ManaCost then
+		local cost = args.ManaCost
+		if cost > CurrentRun.Hero.Mana and not HeraManaRestoreEligible( cost ) then
+			return
+		else
+			ManaDelta(-cost)
+		end
+	end
 	FireWeaponFromUnit({ Weapon = args.PulseWeaponName, Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
 	
 end
@@ -1406,4 +1440,37 @@ function ProjectileHasUnitHit( projectileId, name )
 		return false
 	end
 	return SessionMapState.FirstHitRecord[projectileId][name]
+end
+
+function ClearVolleyHitRecord( weaponName )
+	if not weaponName then
+		return
+	end
+	SessionMapState.VolleyHitRecord[weaponName] = {}
+end
+
+function VolleyRecordUnitHit( weaponName, volleyId, name )
+	if not volleyId or not weaponName then
+		return
+	end 
+	if not SessionMapState.VolleyHitRecord[weaponName] then
+		SessionMapState.VolleyHitRecord[weaponName] = {}
+	end 
+	if not SessionMapState.VolleyHitRecord[weaponName][volleyId] then
+		SessionMapState.VolleyHitRecord[weaponName][volleyId] = {}
+	end
+	SessionMapState.VolleyHitRecord[weaponName][volleyId][name] = true
+end
+
+function VolleyHasUnitHit( weaponName, volleyId, name )
+	if not volleyId or not weaponName then
+		return false
+	end
+	if not SessionMapState.VolleyHitRecord[weaponName] then
+		return false
+	end
+	if not SessionMapState.VolleyHitRecord[weaponName][volleyId] then
+		return false
+	end
+	return SessionMapState.VolleyHitRecord[weaponName][volleyId][name]
 end

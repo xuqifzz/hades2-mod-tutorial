@@ -208,8 +208,8 @@ WeaponSetData =
 			RetreatBufferDistance = 9999,
 			--RetreatToSpawnPointRadiusMin = 600,
 			--RetreatToSpawnPoints = 2000,
-			RetreatTimeoutMin = 4.5,
-			RetreatTimeoutMax = 6.5,
+			RetreatTimeoutMin = 3.5,
+			RetreatTimeoutMax = 4.5,
 
 			AttackDistance = 1100,
 			AttackDistanceScaleY = 0.5,

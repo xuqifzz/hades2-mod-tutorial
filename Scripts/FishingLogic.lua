@@ -68,7 +68,7 @@ function FishingSequence( source, args )
 	local caughtFishData = FishingData.FishValues[caughtFishName]
 
 	if caughtFishData ~= nil and caughtFishData.ReelTime ~= nil then
-		args.FishingReelPointId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = args.FishingAnimationPointId, Group = GetGroupName({ Id = args.FishingAnimationPointId, DrawGroup = true }) })
+		args.FishingReelPointId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = args.FishingAnimationPointId, Group = "Combat_UI" })
 		FishingReelSequenceStartPresentation( source, args, caughtFishData )
 		FishingReelSequence( source, args, caughtFishData )
 	else

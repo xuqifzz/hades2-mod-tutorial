@@ -97,15 +97,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 18/20,
+				Multiplier = 13/16,
 			},
 			Epic =
 			{
-				Multiplier = 16/20,
+				Multiplier = 11/16,
 			},
 			Heroic =
 			{
-				Multiplier = 14/20,
+				Multiplier = 9/16,
 			}
 		},
 		SetupFunction =
@@ -134,7 +134,7 @@ OverwriteTableKeys( TraitData, {
 				ProjectileName = "MassiveSlamBlast",
 				Cooldown = 
 				{ 
-					BaseValue = 20,
+					BaseValue = 16,
 					MinimumSourceValue = 2,
 					AbsoluteStackValues =
 					{
@@ -257,14 +257,6 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1.0,
 				ReportValues = {ReportedFuse = "ChangeValue"}
 			},
-			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "DamageRadius",
-				ChangeValue = 0.55,
-				ChangeType = "Multiply",
-				ReportValues = { ReportedRadius = "ChangeValue"}
-			},
-
 		},
 		StatLines =
 		{
@@ -456,65 +448,6 @@ OverwriteTableKeys( TraitData, {
 		]]
 	},
 
-	ChargeCounterBoon = 
-	{
-		Icon = "Boon_Hephaestus_37",
-		InheritFrom = { "BaseTrait", "FireBoon" },
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 1.25,
-			},
-			Epic =
-			{
-				Multiplier = 1.50,
-			},
-			Heroic =
-			{
-				Multiplier = 1.75,
-			}
-		},
-		OnSelfDamagedFunction = 
-		{
-			Name = "PrepOnHitEmpower",
-			FunctionArgs = 
-			{
-				ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
-				Vfx = "ErisPowerUpFx",
-				BonusMultiplier = 
-				{ 
-					BaseValue = 1.0,
-					AbsoluteStackValues =
-					{
-						[1] = 0.25,
-						[2] = 0.15,
-						[3] = 0.10,
-					},
-				}, 
-				ReportValues = 
-				{ 
-					ReportedMultiplier = "BonusMultiplier"
-				},
-			}
-		},
-		StatLines = 
-		{
-			"BonusCounterDamageDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "BonusDamage",
-				Format = "Percent",
-			},
-		}
-	},
 	AntiArmorBoon = 
 	{
 		InheritFrom = { "BaseTrait", "FireBoon" },
@@ -739,24 +672,15 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 1.75,
 			}
 		},
-		PropertyChanges =
+		EncounterStartInvulnerabilityDuration = 
 		{
+			BaseValue = 8,		
+			AbsoluteStackValues = 
 			{
-				WeaponName = "EncounterStartBuffWeapon",
-				EffectName = "EncounterStartInvulnerableBuff",
-				EffectProperty = "Duration",
-				BaseValue = 8,
-				ReportValues = { ReportedDuration = "ChangeValue" },
-
-				MinValue = 1,
-				AbsoluteStackValues = 
-				{
-					[1] = 2,
-					[2] = 1,
-				},
+				[1] = 2,
+				[2] = 1,
 			},
 		},
-		
 		StatLines =
 		{
 			"InvulnerableDurationStatDisplay1",
@@ -764,7 +688,7 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDuration",
+				Key = "EncounterStartInvulnerabilityDuration",
 				ExtractAs = "TooltipAmount",
 				DecimalPlaces = 2,
 			},
@@ -805,6 +729,68 @@ OverwriteTableKeys( TraitData, {
 				Key = "MaxManaToMaxHealthConversion",
 				ExtractAs = "BonusHealth",
 				Format = "Percent",
+			},
+		}
+	},
+	MassiveDamageBoon = 
+	{	
+		Icon = "Boon_Hephaestus_37",
+		InheritFrom = { "BaseTrait", "FireBoon" },
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.0,
+			}
+		},
+		MassiveAttackSizeModifier = 1.5,
+		AddOutgoingDamageModifiers = 
+		{
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidBaseDamageAddition = { BaseValue = 50 },
+			AbsoluteStackValues =
+			{
+				[1] = 25,
+				[2] = 20,
+				[3] = 15,
+				[4] = 10,
+			},
+			ReportValues = 
+			{ 
+				ReportedDamage = "ValidBaseDamageAddition",
+			}
+		},
+		
+		StatLines = 
+		{
+			"BlastDamageBoostStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamage",
+				ExtractAs = "TooltipDamage",
+				IncludeSigns = true,
+			},
+			{
+				Key = "MassiveAttackSizeModifier",
+				ExtractAs = "AoEChange",
+				Format = "PercentDelta",
+				HideSigns = true,
+				SkipAutoExtract = true,
 			},
 		}
 	},

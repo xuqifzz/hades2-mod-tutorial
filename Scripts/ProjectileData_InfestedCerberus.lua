@@ -1,7 +1,7 @@
 OverwriteTableKeys( ProjectileData, {
 	CerberusSkyProjectile =
 	{
-		Fuse = 5.0,
+		Fuse = 3.0,
 		ReticleAnimation = "CerbAoEDecal_In",
 		CancelIfOwnerAIStageEnd = true,
 
@@ -29,8 +29,8 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		InheritFrom = { "CerberusSkyProjectile" },
 		OrbitOwner = true,
-		OrbitOwnerDetonateBuffer = 1.0,
-		OrbitSpeed = 0.5,
+		OrbitOwnerDetonateBuffer = 0.25,
+		OrbitSpeed = 1.0,
 	},
 	CerberusCircleSequenceProjectile =
 	{

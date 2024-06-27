@@ -474,6 +474,36 @@ ScreenData.RunHistory =
 			},
 		},
 
+		PackagedBountyLabel =
+		{
+			Text = "RunHistoryScreen_PackagedBounty",
+			X = 1380,
+			Y = 600,
+			TextArgs =
+			{
+				FontSize = 24,
+				OffsetX = 0, OffsetY = 0,
+				Color = Color.White,
+				Font = "P22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+				Justification = "Right",
+			},
+		},
+		PackagedBountyValue =
+		{
+			X = 1420,
+			Y = 600,
+			TextArgs =
+			{
+				FontSize = 24,
+				OffsetX = 0, OffsetY = 0,
+				Color = Color.Yellow,
+				Font = "P22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+				Justification = "Left",
+			},
+		},
+
 		CategoryTitleText = 
 		{
 			X = 680,

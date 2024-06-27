@@ -174,6 +174,7 @@ UnitSetData.Sheep =
 	{
 		InheritFrom = { "Sheep" },
 		AllowHarvestWhileAggored = true,
+		AllowInteractWhileAggroed = true,
 
 		WeaponOptions = { "SheepSkip" },
 
@@ -188,6 +189,7 @@ UnitSetData.Sheep =
 	{
 		InheritFrom = { "Sheep" },
 		AllowHarvestWhileAggored = true,
+		AllowInteractWhileAggroed = true,
 
 		WeaponOptions = { "SheepSkip" },
 		SheepHitVelocity = 750,

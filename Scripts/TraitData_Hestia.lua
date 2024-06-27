@@ -9,19 +9,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1.00,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.34,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 1.67,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.00,
 			},
 		},
 		OnEnemyDamagedAction = 
@@ -33,15 +33,15 @@ OverwriteTableKeys( TraitData, {
 				EffectName = "BurnEffect",
 				NumStacks = 
 				{
-					BaseValue = 20,
+					BaseValue = 30,
 					MinValue = 1,
 					AbsoluteStackValues =
 					{
-						[1] = 5,
-						[2] = 4,
-						[3] = 3,
-						[4] = 2,
-						[5] = 1,
+						[1] = 10,
+						[2] = 5,
+						--[3] = 3,
+						--[4] = 2,
+						--[5] = 1,
 					},
 					AsInt = true,
 				},
@@ -169,8 +169,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
-				WeaponProperty = "FireFx",
+				ProjectileName = "ProjectileDaggerDash",
+				WeaponProperty = "FireFx", 
 				ChangeValue = "DaggerSwipeFastFlipDash_Hestia",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
@@ -445,15 +445,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.34,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 1.67,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 1.75,
 			},
 		},
 		Slot = "Secondary",
@@ -466,15 +466,15 @@ OverwriteTableKeys( TraitData, {
 				EffectName = "BurnEffect",
 				NumStacks = 
 				{
-					BaseValue = 15,
+					BaseValue = 20,
 					MinValue = 1,
 					AbsoluteStackValues =
 					{
-						[1] = 5,
-						[2] = 4,
+						[1] = 10,
+						[2] = 5,
 						[3] = 3,
 						[4] = 2,
-						[5] = 1,
+						--[5] = 1,
 					},
 					AsInt = true,
 				},
@@ -766,13 +766,13 @@ OverwriteTableKeys( TraitData, {
 				EffectName = "BurnEffect",
 				NumStacks = 
 				{
-					BaseValue = 30,
+					BaseValue = 40,
 					MinValue = 1,
 					AbsoluteStackValues =
 					{
-						[1] = 15,
-						[2] = 10,
-						[3] = 5,
+						[1] = 20,
+						[2] = 15,
+						[3] = 10,
 					},
 					AsInt = true,
 				},
@@ -840,11 +840,13 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnWeaponFiredFunctions = 
 		{
-			ValidWeapons = { "WeaponBlink", "WeaponSprint"},
+			ValidWeapons = {"WeaponSprint"},
+			ExcludeLinked = true,
 			FunctionName = "HestiaSprintDefense",
 			FunctionArgs = 
 			{
 				ProjectileName = "HestiaSprintDefense",
+				StartDelay = 0.1,
 				EffectArgs = 
 				{
 					EffectName = "BurnEffect",
@@ -893,50 +895,43 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Hestia_31",
 		InheritFrom = { "BaseTrait", "ManaOverTimeSource", "FireBoon" },
 		Slot = "Mana",
-		BlockStacking = true,
-		MaxHealthMultiplier = 0.80,
 		RarityLevels =
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 10/7,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 13/7,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 16/7,
-			}
-		},
-		PropertyChanges =
-		{
-			{
-				LuaProperty = "MaxHealth",
-				ChangeValue = 0.80,
-				ChangeType = "Multiply",
-				SourceIsMultiplier = true,
-				MaintainDelta = true,
-				ReportValues = { ReportedHealthPenalty = "ChangeValue"}
+				Multiplier = 2.5,
 			},
 		},
-		StatLines =
+		OnEnemyDamagedAction = 
 		{
-			"ManaRegenStatDisplay1",
-		},
-		SetupFunction =
-		{
-			Name = "ManaRegenSetup",
-			Args =
+			FunctionName = "CheckManaOnHit",
+			Args = 
 			{
-				Name = "HestiaManaBoon",
-				ManaRegenPerSecond = { BaseValue = 7 },
-				ReportValues = { ReportedManaRecovery = "ManaRegenPerSecond" }
+				FirstHitOnly = true,
+				IsNotEx = true,
+				ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
+				ManaGain = 
+				{
+					BaseValue = 4,
+					AbsoluteStackValues =
+					{
+						[1] = 2,
+						[2] = 1,
+					},
+				},
+				ReportValues = { ReportedManaRecovery = "ManaGain" }
 			},
 		},
 		ExtractValues =
@@ -945,14 +940,11 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedManaRecovery",
 				ExtractAs = "TooltipManaRecovery",
 				DecimalPlaces = 1,
-				IncludeSigns = true,
 			},
-			{
-				Key = "ReportedHealthPenalty",
-				ExtractAs = "HealthPenalty",
-				Format = "PercentDelta",
-				SkipAutoExtract = true,
-			},
+		},
+		StatLines =
+		{
+			"ManaOnHitStatDisplay1",
 		},
 	},
 
@@ -1048,7 +1040,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.50,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
@@ -1056,27 +1048,18 @@ OverwriteTableKeys( TraitData, {
 			},
 			Heroic =
 			{
-				Multiplier = 2.50,
+				Multiplier = 2.5,
 			},
-		},	
-		OnEnemyDamagedAction = 
+		},
+		BonusFirstTimeBurn = 
 		{
-			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
-			FunctionName = "CheckOmegaZeroBurn",
-			Args = 
+			BaseValue = 50,
+			AbsoluteStackValues =
 			{
-				EffectName = "BurnEffect",
-				NumStacks = 
-				{ 
-					BaseValue = 60,
-					MinMultiplier = 0.1,
-					IdenticalMultiplier =
-					{
-						Value = -0.5,
-					}, 
-				},
-				ReportValues = { ReportedStacks = "NumStacks" },
-			},		
+				[1] = 25,
+				[2] = 15,
+				[3] = 10,
+			},
 		},
 		StatLines =
 		{
@@ -1085,8 +1068,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedStacks",
+				Key = "BonusFirstTimeBurn",
 				ExtractAs = "Stacks",
+				IncludeSigns = true,
 			},
 			{
 				ExtractAs = "BurnRate",
@@ -1112,15 +1096,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.4,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.8,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 2.2,
+				Multiplier = 2.5,
 			}
 		},
 		
@@ -1174,13 +1158,13 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponCastProjectile",
 				ProjectileProperty = "Damage",
-				BaseValue = 50,
+				BaseValue = 60,
 				ChangeType = "Absolute",
 				ReportValues = { ReportedDamage = "ChangeValue" },
 				AbsoluteStackValues =
 				{
-					[1] = 20,
-					[2] = 15,
+					[1] = 30,
+					[2] = 20,
 					[3] = 10,
 				},
 				AsInt = true,
@@ -1253,7 +1237,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1.00,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
@@ -1291,7 +1275,7 @@ OverwriteTableKeys( TraitData, {
 					MinMultiplier = 0.1,
 					AbsoluteStackValues = 
 					{
-						[1] = 0.5,
+						[1] = 0.50,
 						[2] = 0.25,
 						[3] = 0.20,
 						[4] = 0.10,
@@ -1403,81 +1387,6 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	BurnConsumeBoon = 
-	{
-		Icon = "Boon_Hestia_38",
-		InheritFrom = {"BaseTrait", "FireBoon" },
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 1.25,
-			},
-			Epic =
-			{
-				Multiplier = 1.50,
-			},
-			Heroic =
-			{
-				Multiplier = 1.75,
-			}
-		},
-		OnEffectApplyFunction = 
-		{
-			FunctionName = "CheckBurnConsumption",
-			FunctionArgs = 
-			{
-				Delay = 0.1,
-				EffectName = "BurnEffect",
-				BurnStacks = 300,
-				ConsumptionDamage = 
-				{ 
-					BaseValue = 0.5,
-					IdenticalMultiplier =
-					{
-						Value = -0.75,
-					},
-				},
-				ProjectileName = "HestiaBurnConsumeStrike",
-				ReportValues = 
-				{
-					ReportedDamage = "ConsumptionDamage",
-					ReportedStacks = "BurnStacks",
-				}
-			},
-		},
-		StatLines =
-		{
-			"BurnConsumeStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedDamage",
-				ExtractAs = "Damage",
-				Format = "Percent",
-				HideSigns = true,
-			},
-			{
-				Key = "ReportedStacks",
-				ExtractAs = "Stacks",
-				SkipAutoExtract = true,
-			},
-			{
-				ExtractAs = "BurnRate",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectLuaData",
-				BaseName = "BurnEffect",
-				BaseProperty = "DamagePerSecond",
-				DecimalPlaces = 1,
-			},
-		}
-	},
 	BurnArmorBoon = 
 	{
 		InheritFrom = { "BaseTrait", "FireBoon" },
@@ -1537,11 +1446,40 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	BurnStackBoon = -- Legendary
+	BurnStackBoon =
 	{
 		Icon = "Boon_Hestia_40",
-		InheritFrom = { "LegendaryTrait", "FireBoon" },
-		BurnDamageMultiplier = 2.0,
+		InheritFrom = { "BaseTrait", "FireBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			}
+		},
+		BurnDamageMultiplier = 
+		{ 
+			BaseValue = 1.5, 
+			SourceIsMultiplier = true,
+			AbsoluteStackValues =
+			{
+				[1] = 1.25,
+				[2] = 1.15,
+				[3] = 1.10,
+			},
+		},
 		StatLines =
 		{
 			"BurnIncreaseStatDisplay1",
@@ -1561,6 +1499,64 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "BurnEffect",
 				BaseProperty = "DamagePerSecond",
 				DecimalPlaces = 1,
+			},
+		}
+	},
+	BurnSprintBoon = --Legendary
+	{
+		InheritFrom = { "LegendaryTrait", "FireBoon" },
+		Icon = "Boon_Hestia_33",
+		DamageClamps = 
+		{
+			ValidProjectiles = 
+			{
+				"ZombieHRFire",
+				"GreekFire",
+				"OilPuddleFire",
+				"InfestedCerberusExplosiveFireball",
+			},
+			Value = 1,
+			ReportValues = { ReportedDamage = "Value"},
+		},
+		StatLines =
+		{
+			"SprintDamageStatDisplay1",
+		},
+		OnSprintAction = 
+		{
+			FunctionName = "HestiaSprintFlames",
+			RunOnce = true,
+			Args = 
+			{
+				ProjectileName = "HestiaSprintPuddle",
+				Cooldown = 0.2,
+				MinDistance = 150,
+				MaxSpawns = 5,
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamage",
+				ExtractAs = "DamageTaken",
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "Fuse",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "HestiaSprintPuddle",
+				BaseProperty = "Fuse",
+				DecimalPlaces = 2,
+			},
+			{
+				BaseType = "ProjectileBase",
+				BaseName = "HestiaSprintPuddle",
+				BaseProperty = "Damage",
+				ExtractAs = "ReportedDamage",
+				SkipAutoExtract = true,
+				External = true,
 			},
 		}
 	},

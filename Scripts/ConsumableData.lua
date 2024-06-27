@@ -208,6 +208,18 @@ ConsumableData =
 		UseFunctionName = "ManaDropUsePresentation",
 		AddMana = 20,
 	},
+	ManaDropZeus =
+	{
+		InheritFrom = { "ManaDropMinor" },
+		OnUsedFunctionName = "ZeusManaPickup",
+
+		UseText = "UseManaFountain",
+		UseSound = "/Leftovers/SFX/StaminaRefilled",
+		OnUsedFunctionArgs = 
+		{
+			InputLockDuration = 0.3,
+		}
+	},
 	RoomMoneyDrop =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -1283,7 +1295,6 @@ ConsumableData =
 		SurfaceShopText = "MetaCardPointsCommon_Surface",
 		SurfaceShopTraitText = "MetaCardPointsCommon_Surface_Trait",
 		SurfaceShopIcon = "MetaCardPointsCommonShop",
-		UseText = "UseResourcePickup",
 		UseTextTalkAndGift = "UseOrConvertResourcePickup",
 		ConsumeFx = "ItemConsumeFx",
 		LastRewardEligible = true,
@@ -1297,6 +1308,27 @@ ConsumableData =
 		AddResources =
 		{
 			MetaCardPointsCommon = 5,
+		},
+		RunProgress =
+		{
+			ResourceIcon = "GUI\\Icons\\LifeUp",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeMetaCardPointsCommonRunProgress" },
+				},
+			},
+			PropertyChanges =
+			{
+				AddMaxHealth = 5,
+				AddMaxHealthArgs =
+				{
+					Thread = true,
+					Delay = 0.25,
+				},
+				UseText = "UseResourcePickupRunProgress",
+				UseTextTalkAndGift = "UseOrConvertResourcePickupRunProgress",
+			},
 		},
 	},
 	MetaCardPointsCommonBigDrop =
@@ -1320,6 +1352,7 @@ ConsumableData =
 		SurfaceShopText = "MemPointsCommon_Surface",
 		SurfaceShopTraitText = "MemPointsCommon_Surface_Trait",
 		SurfaceShopIcon = "MemPointsCommonShop",
+		UseTextTalkAndGift = "UseOrConvertResourcePickup",
 		ConsumeFx = "ItemConsumeFx",
 		LastRewardEligible = true,
 		ResourceCosts =
@@ -1332,6 +1365,27 @@ ConsumableData =
 		AddResources =
 		{
 			MemPointsCommon = 10,
+		},
+		RunProgress =
+		{
+			ResourceIcon = "GUI\\Icons\\ManaUp",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeMemPointsCommonRunProgress" },
+				},
+			},
+			PropertyChanges =
+			{
+				AddMaxMana = 3,
+				AddMaxManaArgs =
+				{
+					Thread = true,
+					Delay = 0.25,
+				},
+				UseText = "UseResourcePickupRunProgress",
+				UseTextTalkAndGift = "UseOrConvertResourcePickupRunProgress",
+			},
 		},
 	},
 	MemPointsCommonBigDrop =
@@ -1367,6 +1421,27 @@ ConsumableData =
 		AddResources =
 		{
 			MetaCurrency = 50,
+		},
+		RunProgress =
+		{
+			ResourceIcon = "GUI\\Icons\\Armor",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeMetaCurrencyRunProgress" },
+				},
+			},
+			PropertyChanges =
+			{
+				AddArmor = 5,
+				AddArmorArgs =
+				{
+					Thread = true,
+					Delay = 0.25,
+				},
+				UseText = "UseResourcePickupRunProgress",
+				UseTextTalkAndGift = "UseOrConvertResourcePickupRunProgress",
+			},
 		},
 		ConsumedVoiceLines =
 		{
@@ -1527,6 +1602,22 @@ ConsumableData =
 		AddResources =
 		{
 			GiftPoints = 1,
+		},
+		RunProgress =
+		{
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeGiftDropRunProgress" },
+				},
+			},
+			PropertyChanges =
+			{
+				UseFunctionName =  "UseStoreRewardRandomStack",
+				UseFunctionArgs = { Thread = true, NumTraits = 1, NumStacks = 1, Delay = 0.25 },
+				UseText = "UseGiftPointDropRunProgress",
+				UseTextTalkAndGift = "UseOrConvertGiftPointDropRunProgress",
+			},
 		},
 		UsePromptOffsetY = 30,
 		UseText = "UseGiftPointDrop",
@@ -1704,6 +1795,7 @@ ConsumableData =
 		--UseText = "UseMetaPointDrop",
 		SpawnSound = "/SFX/Player Sounds/DarknessRewardDrop",
 		ConsumeSound = "/SFX/Player Sounds/DarknessCollectionPickup",
+		ExitsUnlockedFunctionName = "HarvestPointAvailablePresentation",
 	},
 	CardUpgradePointsDrop =
 	{

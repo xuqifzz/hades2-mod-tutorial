@@ -167,7 +167,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		waitUnmodified( 0.06 )
 	end
 	
-	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) then
+	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) and lootData.GodLoot then
 		waitUnmodified(0.2)
 		for itemIndex, itemData in ipairs( upgradeOptions ) do
 			local elementIconKey = "PurchaseButton"..itemIndex.."ElementIcon"
@@ -304,7 +304,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		upgradeDescription = curseData.Name
 		upgradeDescription2 = blessingData.Name
 		upgradeData = DeepCopyTable( curseData )
-		upgradeData.Icon = blessingData.Icon
+		--upgradeData.Icon = blessingData.Icon
 		upgradeData.ExtractData = upgradeData.ExtractData or {}
 		local extractedData = GetExtractData( blessingData )
 		for i, value in pairs(extractedData) do

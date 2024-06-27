@@ -155,8 +155,6 @@ function OpenWeaponUpgradeScreen( args )
 				SetAnimation({ Name = weaponData.UpgradeScreenKitAnimation, GrannyModel = traitData.WeaponKitGrannyModel, DestinationId = components.WeaponImage.Id })		
 				TeleportCursor({ OffsetX = ScreenCenterX + 40, OffsetY = 20 + itemIndex * 220, ForceUseCheck = true })
 			end
-
-			wait(0.02)
 		end
 	end
 
@@ -378,6 +376,7 @@ function EquipWeaponUpgrade( hero, args )
 	local rarity = TraitRarityData.WeaponRarityUpgradeOrder[numRanks]
 	AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = traitName, Rarity = rarity })
 	UpdateWeaponKitUpgrade(currentWeaponName, traitName)
+	RefillMana()
 end
 
 function GetWeaponUpgradeLevel( traitName )

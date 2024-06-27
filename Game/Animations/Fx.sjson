@@ -19382,6 +19382,8 @@
       ChainTo = "DemeterWrathOut-Devotion"
       ChildAnimation = "DemeterWrathSwirlC-Devotion"
       VisualFx = "DemeterDevotionDetonateFx"
+      Alpha = 1.0
+      Value = 0.8
       AddColor = true
       PostRotateScaleY = 0.7
       Color = { Red = 0.2 Green = 0.50 Blue = 1.0 }
@@ -19446,7 +19448,7 @@
       PostRotateScaleY = 0.5
       ScaleRadius = 512.0
       Ambient = 0.0
-      Color = { Red = 0.6 Green = 0.8 Blue = 1.0 }
+      Value = 0.8
     }
     
     {
@@ -19501,7 +19503,7 @@
     
     {
       Name = "DemeterWrathSwirlB-Devotion"
-      InheritFrom = "DemeterWrathSwirlC"
+      InheritFrom = "DemeterWrathSwirlC-Devotion"
       ChildAnimation = "DemeterWrathSwirlA-Devotion"
       FilePath = "Fx\DemeterWrathSwirl\DemeterWrathSwirlB"
       OffsetY = -25.0
@@ -19516,7 +19518,7 @@
       FilePath = "Fx\DemeterWrathSwirl\DemeterWrathSwirlA"
       OffsetY = -50.0
       RotationSpeed = -280.0
-      Color = { Red = 0.12 Green = 0.12 Blue = 0.12 }
+      Color = { Red = 1 Green = 1 Blue = 1 }
     }
 
     {

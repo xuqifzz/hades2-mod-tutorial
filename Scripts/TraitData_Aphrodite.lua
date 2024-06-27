@@ -193,7 +193,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Aphrodite",
 				ChangeType = "Absolute",
@@ -679,6 +679,9 @@ OverwriteTableKeys( TraitData, {
 				DistanceMultiplier = 0.45,
 				Interval = 0.85,
 				PullVfx = "AphroditeCastPull",
+				ProjectileName = "AphroditeCastProjectile",
+				DamageMultiplier = { BaseValue = 1 },
+				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
 			}
 		},
 		OnEffectApplyFunction = 
@@ -687,20 +690,6 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = 
 			{
 				EffectName = "WeakEffect",
-				EffectArgs = 
-				{
-					Modifier =  
-					{
-						BaseValue = 0.9,
-						SourceIsMultiplier = true,
-						IdenticalMultiplier =
-						{
-							Value = -0.5,
-							DiminishingReturnsMultiplier = 0.5,
-						},
-					},
-					ReportValues = {ReportedModifier = "Modifier"}
-				},
 			},
 		},
 		PropertyChanges =
@@ -728,14 +717,17 @@ OverwriteTableKeys( TraitData, {
 			},		},
 		StatLines =
 		{
-			"WeakModifierStatDisplay1",
+			"AphroCastDamageStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedModifier",
-				ExtractAs = "Modifier",
-				Format = "NegativePercentDelta",
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "AphroditeCastProjectile",
+				BaseProperty = "Damage",
 			},
 			{
 				ExtractAs = "TooltipWeakDuration",
@@ -782,52 +774,58 @@ OverwriteTableKeys( TraitData, {
 		},		
 		OnEnemyDamagedAction = 
 		{
-			ValidWeapons = WeaponSets.HeroBlinkWeapons,
+			ValidProjectiles = {"AphroditeRushProjectile"},
 			FunctionName = "ApplyAphroditeVulnerability",
 			Args = 
 			{
 				EffectName = "WeakEffect",
 			}
 		},
-		PropertyChanges = 
+		OnWeaponFiredFunctions = 
 		{
+			ValidWeapons = { "WeaponBlink" },
+			ExcludeLinked = true,
+			FunctionName = "FireAphroditeSprintProjectile",
+			FunctionArgs = 
 			{
-				WeaponName = "WeaponBlink",
-
-				WeaponProperties = 
-				{
-					BlinkDuration = 0.21,
-					BlinkEaseOut = 0.8,
-					WeaponRange = 300,
-					BlinkMaxRange = 400,
-					BlinkDetonateAtOrigin = true,
-					BlinkDetonateAtEndpoint = true,
-					Projectile = "AphroditeRushProjectile",
+				ProjectileName = "AphroditeRushProjectile",
+				DamageMultiplier = 
+				{ 
+					BaseValue = 1,
+					AbsoluteStackValues =
+					{
+						[1] = 0.50,
+						[2] = 0.25,
+					},
 				},
-				ExcludeLinked = true,
-			},
-			{
-				WeaponName = "WeaponBlink",
-				ProjectileProperty = "Damage",
-				BaseValue = 20,
-				ReportValues = {ReportedDamage = "ChangeValue"},
-				AbsoluteStackValues =
-				{
-					[1] = 10,
-					[2] = 5,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier" 
 				},
-				AsInt = true,
 			},
+		},
+		OnSprintEndAction = 
+		{
+			FunctionName = "FireAphroditeSprintProjectile",
+		},
+		OnBlinkEndAction = 
+		{
+			FunctionName = "FireAphroditeSprintProjectile",
+			FunctionArgs = { CheckSprint = true },
 		},
 		StatLines =
 		{
 			"BlastDamageStatDisplay1",
 		},
-		ExtractValues =
+		ExtractValues = 
 		{
 			{
-				Key = "ReportedDamage",
-				ExtractAs = "BlinkDamage",
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "AphroditeRushProjectile",
+				BaseProperty = "Damage",
 			},
 			{
 				ExtractAs = "TooltipWeakDuration",
@@ -888,7 +886,7 @@ OverwriteTableKeys( TraitData, {
 				},
 				ManaRegenStartFx = "ManaRegenFlashFx",
 				ActiveFx = "ManaRegenLoopingNoSound",
-				Range = 400, -- should match AprhoditeWeapon definition of "close"
+				Range = 430, -- should match AprhoditeWeapon definition of "close"
 				ProximityThresholdExclusionBoon = "AllCloseBoon",
 				Minimum = 1,
 				ReportValues = {ReportedRegen = "ManaRegen"},
@@ -961,6 +959,7 @@ OverwriteTableKeys( TraitData, {
 			HighHealthSourceMultiplierData = 
 			{ 
 				Threshold = 0.8,
+				ThresholdMultiplier = 2, --to double bonus when above threshold
 				Multiplier = 
 				{ 
 					BaseValue = 1.1, 
@@ -1376,31 +1375,84 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	CharmCrowdBoon = -- Legendary
+	RandomStatusBoon = -- Legendary
 	{
 		Icon = "Boon_Aphrodite_31",
 		InheritFrom = { "LegendaryTrait", "AirBoon" },
 		
-		SetupFunction =
+		OnEffectApplyFunction = 
 		{
-			Threaded = true,
-			Name = "CharmCrowd",
-			Args =
+			FunctionName = "CheckRandomStatusCurse",
+			FunctionArgs = 
 			{
-				Minimum = 3,
-				ReportValues = { ReportedMinimum = "Minimum"},
-				EffectName = "Charm",
+				Count = 3,
+				Effects = 
+				{
+					AmplifyKnockbackEffect = 
+					{
+						CopyValuesFromTraits = 
+						{
+							Modifier = {"PoseidonStatusBoon" }
+						}
+					},
+					BlindEffect = {},
+					DamageEchoEffect = 
+					{ 
+						ExtendDuration = "EchoDurationIncrease", 
+						DefaultModifier = 1,
+						CopyValuesFromTraits = 
+						{
+							Modifier = {"ZeusWeaponBoon", "ZeusSpecialBoon"}
+						}
+					},
+					
+					DelayedKnockbackEffect = 
+					{
+						CopyValuesFromTraits = 
+						{
+							TriggerDamage = { "MassiveKnockupBoon" }
+						}
+					},
+					ChillEffect = { CustomFunction = "ApplyRoot"},
+					DamageShareEffect = { CustomFunction = "ApplyDamageShare" },
+					
+					BurnEffect = 
+					{ 
+						CustomFunction = "ApplyBurn", 
+						DefaultNumStacks = 30,
+						CopyNumStacksFromTraits = { "HestiaWeaponBoon", "HestiaSpecialBoon" },
+					},
+				},
+				ReportValues = { ReportedCount = "Count" }
 			},
 		},
-		StatLines = 
+		StatLines =
 		{
-			"CharmSizeStatDisplay1",
+			"RandomStatusStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMinimum",
-				ExtractAs = "TooltipMinimum",
+				ExtractAs = "TooltipWeakDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "WeakEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "TooltipWeakModifier",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "WeakEffect",
+				BaseProperty = "Modifier",
+				Format = "NegativePercentDelta"
+			},
+			{
+				ExtractAs = "Count",
+				Key = "ReportedCount",
+				SkipAutoExtract = true,
 			}
 		}
 	},

@@ -575,7 +575,7 @@ function ShowTorchUI( )
 	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.TorchUIChargeAmount, Fraction = currentCharge/ maxCharge, Instant = true })
 		
 	if trait.Charge >= trait.OnEnemyDamagedAction.Args.MaxCharge then
-		SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.TorchUI })
+		SetAnimation({ Name = "StaffReloadTimerReady", SuppressSounds = true, DestinationId = ScreenAnchors.TorchUI })
 	end
 
 	SetAlpha({ Id = ScreenAnchors.TorchUI, Duration = 0, Fraction = 0 })
@@ -636,7 +636,7 @@ function ShowDaggerUI()
 		SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, StartFrameFraction = 1 - remainingTime/totalTime })
 		SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, Fraction = 1 })
 	else
-		SetAnimation({ Name = "StaffReloadTimerReady_Silent", DestinationId = ScreenAnchors.DaggerUI })
+		SetAnimation({ Name = "StaffReloadTimerReady",SuppressSounds = true, DestinationId = ScreenAnchors.DaggerUI })
 		SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount})
 		SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.DaggerUIChargeAmount, Fraction = 1, Instant = true })
 	end
@@ -704,7 +704,9 @@ function ShowStaffUI( )
 		requiredCount = traitData.OnWeaponFiredFunctions.FunctionArgs.RequiredCount or requiredCount
 	end
 	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.StaffUIChargeAmount, Fraction = currentHits / requiredCount, Instant = true })
-	
+	if currentHits >= requiredCount then
+		SetAnimation({Name = "StaffReloadTimerReady", SuppressSounds = true, DestinationId = ScreenAnchors.StaffUI })
+	end
 	SetAlpha({ Id = ScreenAnchors.StaffUI, Duration = 0, Fraction = 0 })
 	SetAlpha({ Id = ScreenAnchors.StaffUI, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
 
@@ -883,6 +885,10 @@ function HUDShowTrait( trait, args )
 	if not args.ForceShow and trait.HideInHUD then
 		return
 	end
+	if trait.QueuedNumberUpdate then
+		UpdateTraitNumber( trait ) 
+		trait.QueuedNumberUpdate = nil
+	end
 
 	if trait.AnchorId ~= nil then
 		SetAlpha({ Id = trait.AnchorId, Duration = args.FadeDuration or HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
@@ -1024,6 +1030,7 @@ end
 
 function UpdateTraitNumber( trait )
 	if not ShowingCombatUI then
+		trait.QueuedNumberUpdate = true
 		return
 	end
 	local existingTraitData = GetExistingUITrait( trait )
@@ -1293,8 +1300,8 @@ function TraitUIActivateTraits()
 			table.insert(traits, GetHeroTrait("TimedBuffKeepsake"))
 		end
 		for _, trait in pairs(traits) do
-			local currentTime = trait.CurrentTime
-			local totalTime = trait.StartingTime
+			local currentTime = trait.CurrentTime or 0.0
+			local totalTime = trait.StartingTime or 1.0
 			TraitUIActivateTrait( trait , { CustomAnimation = "ActiveTraitCooldownNoFlash", PlaySpeed = 101 / totalTime })
 			if IsBiomeTimerPaused() or HasTimerBlock( CurrentRun ) then
 				SetAnimationFrameTarget({ Name = "ActiveTraitCooldownNoFlash", Fraction = 1 - currentTime/totalTime, DestinationId = trait.TraitActiveOverlay, Instant = true })
@@ -1440,6 +1447,10 @@ function TraitUIRemove( trait )
 		Destroy({ Id = trait.TraitInfoUsesId })
 		trait.TraitInfoUsesId = nil
 	end
+	if trait.TraitInfoChargeId ~= nil then
+		Destroy({ Id = trait.TraitInfoChargeId })
+		trait.TraitInfoChargeId = nil
+	end
 	if trait.TraitIconOverlay ~= nil then
 		Destroy({ Id = trait.TraitIconOverlay })
 		trait.TraitIconOverlay = nil
@@ -1452,7 +1463,7 @@ function TraitUIRemove( trait )
 	if traitComponent ~= nil and traitComponent.ActiveOffsetIndex ~= nil and trait.ActiveSlotOffsetIndex == nil then
 		for id, otherTraitComponent in pairs( HUDScreen.ActiveTraitComponents ) do
 			if otherTraitComponent.ActiveOffsetIndex ~= nil and otherTraitComponent.ActiveOffsetIndex > traitComponent.ActiveOffsetIndex then
-				local ids = CollapseTable( { otherTraitComponent.TraitData.AnchorId, otherTraitComponent.TraitData.TraitInfoCardId, otherTraitComponent.TraitData.TraitInfoUsesId, otherTraitComponent.TraitData.TraitIconOverlay, otherTraitComponent.TraitData.TraitActiveOverlay } )
+				local ids = CollapseTable( { otherTraitComponent.TraitData.AnchorId, otherTraitComponent.TraitData.TraitInfoCardId, otherTraitComponent.TraitData.TraitInfoUsesId,otherTraitComponent.TraitData.TraitInfoChargeId, otherTraitComponent.TraitData.TraitIconOverlay, otherTraitComponent.TraitData.TraitActiveOverlay } )
 				Move({ Ids = ids, Distance = ScreenData.TraitTrayScreen.TraitSpacingX, Angle = 180, Duration = 0.3, EaseOut = 1, Additive = true })
 				otherTraitComponent.ActiveOffsetIndex = otherTraitComponent.ActiveOffsetIndex - 1
 			end
@@ -1495,6 +1506,9 @@ function HUDHideTrait( trait, args )
 	end
 	if trait.TraitInfoUsesId ~= nil then
 		SetAlpha({ Id = trait.TraitInfoUsesId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+	end
+	if trait.TraitInfoChargeId ~= nil then
+		SetAlpha({ Id = trait.TraitInfoChargeId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
 	end
 	if trait.TraitIconOverlay ~= nil then
 		SetAlpha({ Id = trait.TraitIconOverlay, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })

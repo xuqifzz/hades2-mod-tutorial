@@ -371,6 +371,11 @@ function TraitTrayShowTraits( screen, activeCategory, args )
 				table.insert( screen.Frames, trait.TraitInfoCardId )
 				trait.TraitInfoCardId = nil
 			end
+			if trait.TraitInfoChargeId ~= nil then
+				SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1.0, Duration = 0.1 })
+				table.insert( screen.Frames, trait.TraitInfoChargeId )
+				trait.TraitInfoChargeId = nil
+			end
 
 			local uniqueTraitName = TraitTrayGetUniqueName( traitIcon )
 			if uniqueTraitName == args.HighlightName or uniqueTraitName == activeCategory.PrevHighlightName then
@@ -1115,6 +1120,7 @@ function PinTraitDetails( screen, button, args )
 		MergeTables(
 		{ 
 			Id = components.FlavorText.Id,
+			LineSpacingBottom = GetLocalizedValue(0, { { Code = "zh-TW", Value = -7 } } ),
 		},
 		ScreenData.UpgradeChoice.FlavorText ))
 	Attach({ Id = components.FlavorText.Id, DestinationId = components.DetailsBacking.Id })

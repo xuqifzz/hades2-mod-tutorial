@@ -267,7 +267,6 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "PerfectClearChallenge", "GeneratedF" },
 		EnemySet = EnemySets.BiomeF;
-		--RequiredBiome = "F",
 		
 		ActiveEnemyCapBase = 2.3,
 		ActiveEnemyCapMax = 8,

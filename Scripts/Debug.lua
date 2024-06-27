@@ -277,7 +277,7 @@ OnKeyPressed{ "Shift C", Name = "Spawn Consumable",
 	local consumableName = "LastStandDrop"
 	local spawnPoint = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints" })
 	local consumableId = SpawnObstacle({ Name = consumableName, DestinationId = spawnPoint, Group = "Standing", })
-	local consumable = CreateConsumableItem( consumableId, consumableName, 0 )
+	local consumable = CreateConsumableItem( consumableId, consumableName, 0, { RunProgressUpgradeEligible = true } )
 		MapState.RoomRequiredObjects[consumableId] = consumable
 	end
 }

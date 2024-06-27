@@ -998,6 +998,7 @@ CodexData =
 		{
 			WeaponStaffSwing =
 			{
+				NoRequirements = true,
 				Entries =
 				{
 					{
@@ -1019,6 +1020,7 @@ CodexData =
 			},
 			WeaponDagger =
 			{
+				NoRequirements = true,
 				Entries =
 				{
 					{

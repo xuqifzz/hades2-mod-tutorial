@@ -43,12 +43,12 @@ LootSetData.Poseidon =
 		Traits =
 		{
 			"EncounterStartOffenseBuffBoon",
-			"MinorLootBoon",
 			"RoomRewardBonusBoon",
 			"FocusDamageShaveBoon",
-			"SlamExplosionBoon",
 			"DoubleRewardBoon",
 			"PoseidonStatusBoon",
+			"PoseidonExCastBoon",
+			"OmegaPoseidonProjectileBoon",
 
 			-- Legendary
 			"AmplifyConeBoon",

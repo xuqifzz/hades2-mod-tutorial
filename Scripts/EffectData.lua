@@ -113,6 +113,7 @@
 	SafeZone = 
 	{
 		InheritFrom = {"InvulnerableEffect"},
+		OnApplyFunctionName = "CheckSafeZoneRecharge",
 	},
 	BuffInvulnerable = 
 	{
@@ -121,6 +122,7 @@
 	EncounterStartInvulnerableBuff = 
 	{
 		InheritFrom = {"InvulnerableEffect"},
+		OnApplyFunctionName = "CheckInvulnerableFalloff",
 	},
 	HeraColorProjectile =
 	{
@@ -143,6 +145,15 @@
 		OnApplyFunctionName = "DamageEchoApply",
 		OnClearFunctionName = "DamageEchoClear",
 		ProjectileName = "ZeusEchoStrike",
+	},
+	DamageEchoVulnerabilityPlaceholder = 
+	{
+		DataProperties = 
+		{
+			Duration = 0.5,
+			IsVulnerabilityEffect = true,
+			IgnoreName = "_PlayerUnit",
+		}
 	},
 	SelfBuffOutput = 
 	{
@@ -213,7 +224,7 @@
 		OnClearFunctionName = "BurnEffectClear",
 		CustomStackHandling = true,
 		DamageHoldDuration = 0.15,
-		DamagePerSecond = 40,
+		DamagePerSecond = 80,
 		DamageInterval = 1/6, -- Logical times damage is applied
 		DamagePresentationInterval = 1/40, -- maximum times to pop and update damage text
 		DamageTextDisplayCount = 40,
@@ -299,6 +310,7 @@
 		Vfx = "DemeterRootFxFront",
 		BackVfx = "DemeterRootFxBack",
 		ShowDuration = true,
+		SharedVulnerabilityCategory = "Root",
 		EffectData = {
 			Duration = 10,
 			ElapsedTimeMultiplier = 0.01,
@@ -341,11 +353,12 @@
 		EffectGroup = "Chill",
 		Icon = "ChillSmall",
 		Vfx = "DemeterSlowFront",
+		SharedVulnerabilityCategory = "Root",
 		EffectData = {
 			Duration = 3,
 			ElapsedTimeMultiplier = 0.8,
+			IgnoreName = "_PlayerUnit",
 			IsVulnerabilityEffect = true,
-			IgnoreName = "_PlayerUnit"
 		},
 		OnApplyPresentationFunctionName = "ChillApplyPresentation",
 		OnClearPresentationFunctionName = "ChillClearPresentation",
@@ -409,7 +422,7 @@
 		ShowDuration = true,
 		EffectData = {
 			Type = "DELAYED_KNOCKBACK",
-			Duration = 5,					-- Delay before knockback is applied
+			Duration = 4,					-- Delay before knockback is applied
 			Amount = 0,					-- Force of knockback
 			TriggerDamage = 300,
 			IsVulnerabilityEffect = true,
@@ -437,7 +450,7 @@
 		EffectData = {
 			Type = "DAMAGE_TAKEN",
 			Duration = 3,
-			Modifier = 1.0,
+			Modifier = 1.05,
 			IsVulnerabilityEffect = true,
 			IgnoreName = "_PlayerUnit"
 		},
@@ -652,8 +665,8 @@
 		DamageTextColor = Color.AphroditeDamage,
 		EffectData = {
             Type = "DAMAGE_OUTPUT",
-            Duration = 3,
-            Modifier = 0.9,
+            Duration = 4,
+            Modifier = 0.7,
             IsVulnerabilityEffect = true,
             IgnoreName = "_PlayerUnit"
 		},

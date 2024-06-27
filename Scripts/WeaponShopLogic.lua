@@ -373,7 +373,7 @@ function WeaponShopPinItem( screen, button )
 		AddStoreItemPin( itemName, "WeaponShopItemData" )
 		AddStoreItemPinPresentation( screen.SelectedItem )
 	end
-	UpdateToolKits()
+	UpdateToolKitPins()
 end
 
 function CloseWeaponShopScreen( screen, button )
@@ -456,6 +456,7 @@ function DoWeaponShopPurchase( screen, button )
 			EquipWeaponUpgrade( CurrentRun.Hero )
 		end
 
+		UpdateToolKitPins()
 		WeaponShopPurchaseNoEquipPresentation( screen, button, itemData, weaponData )
 		OpenWeaponShopScreen( screen.OpenedFrom, { DefaultCategoryIndex = screen.ActiveCategoryIndex, IgnoreCamera = true, } )
 
@@ -481,6 +482,7 @@ function DoWeaponShopPurchase( screen, button )
 	if toolData ~= nil then
 		thread( UpdateToolKits )
 	end
+	UpdateToolKitPins()
 	WeaponShopPurchasePostActivatePresentation( button, itemData, weaponKit )
 	UpdateAffordabilityStatus()
 end
@@ -662,7 +664,9 @@ function WeaponShopUpdateVisibility( screen )
 				table.insert( onIds, components[sellTextKey].Id )
 			end
 			if components[pinIconKey] ~= nil then
-				table.insert( onIds, components[pinIconKey].Id )
+				if HasStoreItemPin( button.Data.Name ) then
+					table.insert( onIds, components[pinIconKey].Id )
+				end
 			end
 			if components[newButtonKey] ~= nil then
 				local record = GameState[components[questButtonKey].GameStateRecord or "WorldUpgradesViewed"]
@@ -982,6 +986,7 @@ function AssignToolKits( eventSource, args )
 	end
 
 	UpdateToolKits()
+	UpdateToolKitPins()
 end
 
 function ActivateToolKit( itemData, args )
@@ -1020,6 +1025,14 @@ function UpdateToolKits( args )
 			StopAnimation({ Name = "ToolKitEquippedFront", DestinationId = kitId })
 			StopAnimation({ Name = "ToolKitEquippedBack", DestinationId = kitId })
 		end
+	end
+
+end
+
+function UpdateToolKitPins()
+
+	if MapState.ToolKits == nil then
+		return
 	end
 
 	for kitId, toolKit in pairs( MapState.ToolKits ) do

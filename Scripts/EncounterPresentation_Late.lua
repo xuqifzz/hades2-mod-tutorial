@@ -740,6 +740,11 @@ function HeraclesExit( source, args )
 		return
 	end
 
+	-- Don't vanish during the gifting process
+	while heracles.ReceivingGift or ( ActiveScreens.InventoryScreen ~= nil and ActiveScreens.InventoryScreen.Args.GiftTarget == heracles ) do
+		wait( 1.0 )
+	end
+
 	UseableOff({ Id = heracles.ObjectId })
 	heracles.SpecialInteractFunctionName = nil
 	heracles.CanReceiveGift = false
@@ -1271,7 +1276,7 @@ function InfestedCerberusSpawnPresentation( enemy )
 	ShakeScreen({ Speed = 550, Distance = 7, FalloffSpeed = 800, Duration = 1.1, Angle = 0 })
 	thread( DoRumble, { { ScreenPreWait = 0.04, LeftFraction = 0.17, Duration = 1.3 }, { ScreenPreWait = 1.5, RightFraction = 0.5, Duration = 0.6 } } )
 	SetAlpha({ Id = enemy.ObjectId, Fraction = 1, Duration = 0.3 })
-	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_InfestedCerberus_BurrowEmerge" })
+	SetAnimation({ DestinationId = enemy.ObjectId, Name = "Enemy_InfestedCerberus_BurrowEmerge_Intro" })
 	AdjustRadialBlurDistance({ Fraction = 10, Duration = 3.0 })
 	AdjustRadialBlurStrength({ Fraction = 2, Duration = 3.0 })
 	wait(1.5)
@@ -1291,6 +1296,7 @@ end
 
 function ChronosPhaseTransition( boss, currentRun, aiStage )
 	boss.InTransition = true
+	currentRun.CurrentRoom.Encounter.ChronosTransition = true
 
 	-- this needs to be above the CurrentPhase transition
 	thread( PlayVoiceLines, boss.PhaseEndedVoiceLines, nil, boss )
@@ -1358,8 +1364,15 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 			ExpireProjectiles({ Names = {"ProjectileLobCharged", "ProjectileLob"}, BlockSpawns = true})
 			Destroy({ Ids = GetIdsByType({ Name = "LobAmmoPack"})  })
 		end
+
+		if MapState.ManaDropId then
+			Destroy({ Id = MapState.ManaDropId })
+			MapState.ManaDropId = nil
+		end
 		Activate({ Name = "SpawnPointsPhase2" })
 		Destroy({ Ids = GetIds({ Name = "SpawnPointsPhase1" }) })
+		CurrentRun.CurrentRoom.SpawnPoints = {}
+		MapState.SpawnPoints = GetIds({ Name = "SpawnPoints" })
 		Teleport({ Id = boss.ObjectId, DestinationId = 625757 })
 		Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 645921 })
 		if MapState.FamiliarUnit ~= nil then
@@ -1409,4 +1422,5 @@ function ChronosPhaseTransition( boss, currentRun, aiStage )
 	SetUnitVulnerable( boss )
 	wait(0.5, boss.AIThreadName)
 	boss.InTransition = false
+	currentRun.CurrentRoom.Encounter.ChronosTransition = nil
 end

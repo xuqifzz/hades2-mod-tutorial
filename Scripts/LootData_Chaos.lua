@@ -18,6 +18,7 @@
 		SurfaceShopText = "Blank",
 		SurfaceShopIcon = "Blank",
 		BoonInfoIcon = "BoonInfoSymbolChaosIcon",
+		BoonInfoTitleText = "UpgradeChoiceMenu_Chaos",
 		Icon = "BoonSymbolChaos",
 		DoorIcon = "BoonSymbolChaos",
 		SpawnSound = "/SFX/Menu Sounds/KeepsakeChaosEgg",
@@ -587,7 +588,7 @@
 				{ Cue = "/VO/Chaos_0208",
 					SecretMusicActiveStems = { "ChaosBass" },
 					PreContentSound = "/SFX/Menu Sounds/ChaosMiscSFX",
-					Text = "Your usage of the pitch-black standing stone enables me to temporarily emerge from my abyss, and I thank you for that. I can observe more clearly, both the outcome of your Trial, and all else." },
+					Text = "Your usage of the pitch-black standing-stone enables me to temporarily emerge from my abyss, and I thank you for that. I can observe more clearly, both the outcome of your Trial, and all else." },
 			},
 
 			ChaosAboutStarDust01 =

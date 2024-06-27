@@ -5371,7 +5371,7 @@
 		Name = "CerbAoEDecalFill"
 		FilePath = "Fx\Cerb\CerbAoEFill\CerbAoEFill"
 		NumFrames = 120
-		Duration = 4.8
+		Duration = 2.8
 		DieWithOwner = true
 		HoldLastFrame = true
 		Material = "Unlit"
@@ -5682,12 +5682,12 @@
 		OriginY = 120
 		ScaleX = 2
 		Scale = 2
-		ScaleY = 1.0
+		ScaleY = 2.0
 		ChainTo = "CerbVacuumFade"
 		TransferFrameFromThis = true
 		TransferFrameToThis = true
 		LocationZFromOwner = "Ignore"
-		OffsetZ = 100
+		OffsetZ = 300
 		Material = "Unlit"
 		VisualFx = "CorruptedShadeVacuumDebris"
 		VisualFxIntervalMin = 0.03

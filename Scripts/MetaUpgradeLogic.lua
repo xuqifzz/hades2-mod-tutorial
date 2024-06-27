@@ -64,7 +64,8 @@ end
 function UnequipMetaUpgrades( eventSource, hero )
 	hero = hero or CurrentRun.Hero
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
-		if MetaUpgradeCardData[ metaUpgradeName ] and metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and not MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead then
+		if MetaUpgradeCardData[ metaUpgradeName ] and metaUpgradeData.Equipped and MetaUpgradeCardData[ metaUpgradeName ].TraitName and 
+		( eventSource == nil or not MetaUpgradeCardData[ metaUpgradeName ].ActiveWhileDead ) then
 			RemoveWeaponTrait(	MetaUpgradeCardData[ metaUpgradeName ].TraitName )
 		end
 	end
@@ -140,14 +141,52 @@ function CheckAutoEquipRequirements( requirementData )
 		end
 	end
 
-	if requirementData.OtherRowEquipped then
+	if requirementData.SurroundEquipped then
+		local sourceCoords = GetMetaUpgradeCardCoords( requirementData.MetaUpgradeName )
+		if not sourceCoords then
+			return false
+		end
+		local coordsCheck = GetNeighboringCoords( sourceCoords.Row, sourceCoords.Column, true )
+		local noneEquipped = true
+		for i, coords in pairs(coordsCheck) do
+			local metaUpgradeName = GameState.MetaUpgradeCardLayout[ coords.Row ][ coords.Column ]
+			if GameState.MetaUpgradeState[metaUpgradeName] and GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+				noneEquipped = false
+			end
+		end
+		if noneEquipped then
+			return false
+		end
+	end
+
+	if requirementData.OtherRowOrColumnEquipped then
 		local sourceCoords = GetMetaUpgradeCardCoords( requirementData.MetaUpgradeName )
 		if not sourceCoords then
 			return false
 		end
 		local hasOtherRowEquipped = false
+		local hasOtherColumnEquipped = false
 		for i=1, GetZoomLevel() do
 			local rowEquipped = true
+			local columnEquipped = true
+			-- Column check
+			if i == sourceCoords.Column then
+				columnEquipped = false
+			else
+				local coordsCheck = GetCoordsInColumn( i )
+				columnEquipped = true	
+				for i, coords in pairs(coordsCheck) do
+					local metaUpgradeName = GameState.MetaUpgradeCardLayout[ coords.Row ][ coords.Column ]
+					if not GameState.MetaUpgradeState[metaUpgradeName] or not GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+						columnEquipped = false
+					end
+				end
+			end
+			if columnEquipped then
+				hasOtherColumnEquipped = true
+				break
+			end
+			-- Row check
 			if i == sourceCoords.Row then
 				rowEquipped = false
 			else
@@ -165,7 +204,7 @@ function CheckAutoEquipRequirements( requirementData )
 				break
 			end
 		end
-		if not hasOtherRowEquipped then
+		if not hasOtherRowEquipped and not hasOtherColumnEquipped then
 			return false
 		end
 	end
@@ -255,6 +294,7 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 	thread( StartCastSlow, triggerArgs.ProjectileId, baseDuration )
 	SessionMapState.CastAttachedProjectiles[triggerArgs.ProjectileId] = attachedProjectileIds
 	SessionMapState.LastCastProjectileId = triggerArgs.ProjectileId
+	SessionMapState.LastCastProjectileVolley = triggerArgs.ProjectileVolley
 	if weaponData.Name == "WeaponCast" and weaponData.UnarmedCastCompleteGraphic then
 		thread(CheckCastCompleteGraphic, weaponData)
 	end
@@ -264,6 +304,7 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 		local interestedTraits = 
 		{
 		StaffSelfHitAspect = true,
+		StaffClearCastAspect = true,
 		}
 		for traitName in pairs( interestedTraits ) do
 			if HeroHasTrait(traitName) then

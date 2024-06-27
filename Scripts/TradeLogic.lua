@@ -192,7 +192,7 @@ function TradeDoExchange( screen, args )
 			end
 		end
 		local consumableId = SpawnObstacle({ Name = getConsumableData.Name, DestinationId = screen.Source.ObjectId, Group = "Standing" })
-		item = CreateConsumableItem( consumableId, getConsumableData.Name, 0 )
+		item = CreateConsumableItem( consumableId, getConsumableData.Name, 0, { RunProgressUpgradeEligible = true } )
 		item.NPCDrop = true
 		ApplyConsumableItemResourceMultiplier( CurrentRun.CurrentRoom, item )
 	else

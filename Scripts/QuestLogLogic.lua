@@ -181,6 +181,7 @@ end
 
 function CloseQuestLogScreen( screen, button )
 	--SetAnimation({ DestinationId = screen.Components.ShopBackground.Id, Name = screen.CloseAnimation })
+	killTaggedThreads("QuestLogPulse")
 	OnScreenCloseStarted( screen )
 	CloseScreen( GetAllIds( screen.Components ), 0.1 )
 	OnScreenCloseFinished( screen )
@@ -278,7 +279,7 @@ function ShowQuestProgress( screen, questData, requirements )
 	local index = 0
 	local visibleIndex = 1
 	local spacing = questData.Spacing or screen.RequirementRowSpacing
-	local baseOffsetY = screen.CompleteRequirementsOffsetY
+	local baseOffsetY = GetLocalizedValue( 0, screen.CompleteRequirementsOffsetY )
 	local offsetY = baseOffsetY	
 
 	local maxEntriesPerColumn = questData.MaxEntriesPerColumn or screen.RequirementEntriesPerColumn
@@ -473,8 +474,14 @@ function ShowQuestProgress( screen, questData, requirements )
 	end
 	if screen.ProgressPageOffset <= (screen.NumRequirementsColumns - screen.RequirementEntriesMaxColumns) - 1 then
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 1.0, Duration = 0.2 })
+		if not screen.Components.ScrollRight.Visible then
+			screen.Components.ScrollRight.Visible = true
+			thread( QuestLogPulsePageButton, screen.Components.ScrollRight )
+		end
 	else
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 0.0, Duration = 0.2 })
+		screen.Components.ScrollRight.Visible = false
+		killTaggedThreads("QuestLogPulse")
 		MouseOffContextualAction( screen.Components.ScrollRight )
 	end
 

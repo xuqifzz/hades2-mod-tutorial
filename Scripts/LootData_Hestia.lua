@@ -67,22 +67,22 @@ LootSetData.Hestia =
 			"CastProjectileBoon",
 			"FireballManaSpecialBoon",
 			"BurnExplodeBoon",
-			"BurnConsumeBoon",
 			"BurnArmorBoon",
+			"BurnStackBoon",
 
 			-- Legendary
-			"BurnStackBoon",
+			"BurnSprintBoon",
 
 			-- Elemental
 			"ElementalBaseDamageBoon",
 
 			-- Duos
 			"EchoBurnBoon",
-			"BurnOmegaBoon",
+			"AllElementalBoon",
 			"SteamBoon",
-			"DoubleBurnBoon",
+			"BurnConsumeBoon",
 			"CoverRegenerationBoon",
-			"ShadeMercFireballBoon",
+			"BurnRefreshBoon",
 			"DoubleMassiveAttackBoon",
 		},
 		Consumables = { },
@@ -147,7 +147,7 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnOmegaBoon",
+					HasTraitNameInRoom = "AllElementalBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0147",
@@ -198,7 +198,7 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "DoubleBurnBoon",
+					HasTraitNameInRoom = "BurnConsumeBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0153",
@@ -215,7 +215,7 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ShadeMercFireballBoon",
+					HasTraitNameInRoom = "BurnRefreshBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0155",

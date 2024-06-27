@@ -846,7 +846,7 @@ RoomSetData.O =
 
 		LegalEncounters = { "MiniBossCharybdis" },
 		FlipHorizontalChance = 0.0,
-		ZoomFraction = 0.75,
+		ZoomFraction = 0.60,
 
 		IntroSequenceDuration = 3.0,
 		IntroPanDuration = 1.0,
@@ -854,6 +854,25 @@ RoomSetData.O =
 		ForcedRewardStore = "RunProgress",
 		EligibleRewards = { "Boon" },
 		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
+		ForceDoorAllowReroll = true,
+
+		StartUnthreadedEvents =
+		{
+			{
+				FunctionName = "DestroyObjectNames",
+				GameStateRequirements =
+				{
+					{
+						Path = { "ConfigOptionCache", "GraphicsQualityPreset" },
+						IsAny = { "GraphicsQualityPreset_Low", },
+					}
+				},
+				Args = 
+				{
+					NamesToDestroy = { "ShipsSeaSprayEmitterContinuous", "ShipsSeaSprayEmitter" },
+				},
+			},
+		},
 
 		TentacleBurrowPoints =
 		{

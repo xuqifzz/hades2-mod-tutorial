@@ -98,6 +98,13 @@
 							OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
 							OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
 						},
+						SpellFrame =
+						{
+							Graphic = "BlankObstacle",
+							Scale = ScreenData.UpgradeChoice.Icon.Scale,
+							OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
+							OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+						},
 						SpellText = 
 						{
 							TextArgs = ScreenData.UpgradeChoice.TitleText,
@@ -130,7 +137,24 @@
 							GroupName = "Combat_Menu_TraitTray_Backing",
 							TextArgs = ScreenData.UpgradeChoice.RarityText,
 						},
+						StatLineLeft =
+						{ 
+							GroupName = "Combat_Menu_TraitTray",
+							TextArgs = ScreenData.UpgradeChoice.StatLineLeft,
+						},
+						StatLineRight =
+						{ 
+							GroupName = "Combat_Menu_TraitTray",
+							TextArgs = ScreenData.UpgradeChoice.StatLineRight,
+						},
 						TalentIcon = 
+						{
+							Graphic = "BlankObstacle",
+							Scale = ScreenData.UpgradeChoice.Icon.Scale,
+							OffsetX = ScreenData.UpgradeChoice.IconOffsetX,
+							OffsetY = ScreenData.UpgradeChoice.IconOffsetY,
+						},
+						TalentFrame = 
 						{
 							Graphic = "BlankObstacle",
 							Scale = ScreenData.UpgradeChoice.Icon.Scale,

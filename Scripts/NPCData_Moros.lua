@@ -734,7 +734,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "ScreensViewed", "Shrine" },
+						PathTrue = { "GameState", "ScreensViewed", "Shrine" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",

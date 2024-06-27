@@ -719,7 +719,6 @@ UnitSetData.NPC_Hecate =
 					{
 						-- PathFalse = { "CurrentRun", "Cleared" }
 					},
-					-- MaxRunsSinceAnyTextLines = { TextLines = { "HecateHideAndSeek01" }, Count = 10 },
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HecateGreeting,
@@ -3883,6 +3882,7 @@ UnitSetData.NPC_Hecate =
 					Portrait = "Portrait_Mel_Default_01",
 					Text = "The Cocytus teems with life there by the riverbank again, Headmistress. Would you please join me for a look?" },
 				{ Cue = "/VO/Hecate_0378",
+					PostLineRemoveContextArt = true,
 					PortraitExitAnimation = "Portrait_Hec_Default_01_Exit",
 					Text = "{#Emph}Ah{#Prev}, very well, why not! I suppose I could use a little walk, and we could use the fish." },
 

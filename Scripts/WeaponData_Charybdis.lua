@@ -9,11 +9,11 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "TentacleShockwave",
-			FireProjectileStartDelay = 0.05,
+			--FireProjectileStartDelay = 0.05,
 			FireProjectileAtSelf = true,
 
 			PreAttackAnimation = "Enemy_CharybdisTentacle_Hidden",
-			PreAttackFx = "CyclopsStompPreviewRing",
+			PreAttackFx = "TentacleUnburrowRadialPreview_In",
 			EndPreAttackFx = true,
 			FireAnimation = "Enemy_CharybdisTentacle_Surface",
 			PostAttackAnimation = "Enemy_CharybdisTentacle_Idle",

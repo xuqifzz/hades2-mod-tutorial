@@ -293,6 +293,7 @@ function UpdateHealthBar( enemy, damageAmount, damageEventArgs )
 	local screenId = EnemyHealthDisplayAnchors[key]
 	if enemy.UseGroupHealthBar and CurrentRun.CurrentRoom.Encounter ~= nil then
 		screenId = EnemyHealthDisplayAnchors[CurrentRun.CurrentRoom.Encounter.Name]
+		scorchId = EnemyHealthDisplayAnchors[CurrentRun.CurrentRoom.Encounter.Name.."scorch"]
 	end
 	if screenId == nil then
 		return
@@ -308,23 +309,31 @@ function UpdateGroupHealthBarReal( args )
 	local screenId = args[2]
 	local encounter = CurrentRun.CurrentRoom.Encounter
 	local backingScreenId = EnemyHealthDisplayAnchors[encounter.Name.."falloff"]
+	local scorchId = EnemyHealthDisplayAnchors[encounter.Name.."scorch"]
 
 	local maxHealth = encounter.GroupMaxHealth
 	local currentHealth = 0
-
+	local predictedHealth = 0
 	for k, unitId in pairs(encounter.HealthBarUnitIds) do
 		local unit = ActiveEnemies[unitId]
 		if unit ~= nil then
 			currentHealth = currentHealth + unit.Health
+			if unit.ActiveEffects and unit.ActiveEffects.BurnEffect then
+				predictedHealth = predictedHealth + math.max( 0, unit.Health - unit.ActiveEffects.BurnEffect )
+			else
+				predictedHealth = predictedHealth + unit.Health
+			end
 		end
 	end
 	encounter.GroupHealth = currentHealth
 
 	local healthFraction = currentHealth / maxHealth
+	local predictedHealthFraction = predictedHealth / maxHealth
 	CurrentRun.BossHealthBarRecord[encounter.Name] = healthFraction
+	-- is screenid correct? i don't think it is
+	SetAnimationFrameTarget({ Name = encounter.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - predictedHealthFraction, DestinationId = screenId, Instant = true })
+	SetAnimationFrameTarget({ Name = encounter.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - healthFraction, DestinationId = scorchId, Instant = true })	
 
-
-	SetAnimationFrameTarget({ Name = encounter.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - healthFraction, DestinationId = screenId, Instant = true  })
 	thread( UpdateGroupHealthBarFalloff, encounter )
 end
 
@@ -359,9 +368,15 @@ function UpdateHealthBarReal( args )
 	UpdateHealthBarIcons( enemy )
 
 	if enemy.UseBossHealthBar then
-		local healthFraction = currentHealth / maxHealth
-		CurrentRun.BossHealthBarRecord[enemy.Name] = healthFraction
-		SetAnimationFrameTarget({ Name = enemy.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - healthFraction, DestinationId = screenId, Instant = true })
+		local displayedHealthPercent = currentHealth / maxHealth
+		local predictedHealthPercent = displayedHealthPercent
+		if enemy.ActiveEffects and enemy.ActiveEffects.BurnEffect then
+			predictedHealthPercent = math.max(0, currentHealth - enemy.ActiveEffects.BurnEffect ) / maxHealth
+		end
+
+		CurrentRun.BossHealthBarRecord[enemy.Name] = displayedHealthPercent
+		SetAnimationFrameTarget({ Name = enemy.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - predictedHealthPercent, DestinationId = screenId, Instant = true })
+		SetAnimationFrameTarget({ Name = enemy.HealthBarFill or "EnemyHealthBarFill", Fraction = 1 - displayedHealthPercent, DestinationId = scorchId, Instant = true })
 		if enemy.HitShields > 0 then
 			SetColor({ Id = screenId, Color = Color.HitShield})
 		else
@@ -666,8 +681,6 @@ function PlayerLastStandPresentationStart( args )
 	thread( PlayerLastStandVoicelines, args )
 	thread( PlayerLastStandSFX )
 	waitUnmodified( 0.3, RoomThreadName )
-
-	thread( CrowdReactionPresentation, { AnimationNames = { "StatusIconGrief", "StatusIconOhBoy", "StatusIconEmbarrassed" }, Sound = "/SFX/TheseusCrowdBoo", ReactionChance = 0.05, Requirements = { RequiredRoom = "C_Boss01" }, Delay = 1, Shake = true, RadialBlur = true } )
 
 	-- pop the death defiance
 	LostLastStandPresentation()
@@ -2830,8 +2843,8 @@ function ChronosKillPresentation( unit, args )
 		CloseCodexScreen()
 	end
 
-	if IsScreenOpen("TraitTrayScreen") then
-		CloseAdvancedTooltipScreen()
+	if ActiveScreens.TraitTrayScreen ~= nil then
+		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
 	end
 
 	SetMusicSection( 3 )
@@ -3453,8 +3466,6 @@ function DoAssistPresentation( assistData )
 			thread( PlayVoiceLines, enemy.AssistReactionVoiceLines, nil, enemy )
 		end
 	end
-
-	thread( CrowdReactionPresentation, { AnimationNames = { "StatusIconSmile", "StatusIconOhBoy", "StatusIconEmbarrassed" }, Sound = "/SFX/TheseusCrowdCheer", ReactionChance = 0.05, Requirements = { RequiredRoom = "C_Boss01" }, Delay = 1, Shake = true, RadialBlur = true } )
 
 	SetAlpha({ Id = godImage, Fraction = 0, Duration = 0.12, TimeModifierFraction = 0 })
 

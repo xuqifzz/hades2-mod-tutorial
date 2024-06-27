@@ -731,6 +731,10 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Common\\MoneyDrop_Text",
 	},
+	MoneyDrop_NoTooltip =
+	{
+		TexturePath = "Items\\Resources\\Common\\MoneyDrop_Text",
+	},
 
 	MaxManaDrop =
 	{
@@ -1572,7 +1576,23 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Element_Earth_Text",
 	},
+	EarthNoTooltip = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Earth_Text",
+	},
+	EarthBoonAlt = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Earth_Text",
+	},
 	CurseFire = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Fire_Text",
+	},
+	FireNoTooltip = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Fire_Text",
+	},
+	FireBoonAlt = 
 	{
 		TexturePath = "GUI\\Icons\\Element_Fire_Text",
 	},
@@ -1580,11 +1600,35 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\Element_Air_Text",
 	},
+	AirNoTooltip = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Air_Text",
+	},
+	AirBoonAlt = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Air_Text",
+	},
 	CurseWater = 
 	{
 		TexturePath = "GUI\\Icons\\Element_Water_Text",
 	},
+	WaterNoTooltip = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Water_Text",
+	},
+	WaterBoonAlt = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Water_Text",
+	},
 	CurseAether = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Aether_Text",
+	},
+	AetherNoTooltip = 
+	{
+		TexturePath = "GUI\\Icons\\Element_Aether_Text",
+	},
+	AetherBoonAlt = 
 	{
 		TexturePath = "GUI\\Icons\\Element_Aether_Text",
 	},
@@ -1807,6 +1851,7 @@ UIData =
 
 	AutoAlignContextualButtonSpacing = 25,
 	AutoAlignContextualButtonGlyphWidth = 35,
+	AutoAlignContextualButtonMinWidth = 175,
 
 	ContextualButtonXLeft = 40,
 	ContextualButtonXMiddleLeft = 960 + 528,

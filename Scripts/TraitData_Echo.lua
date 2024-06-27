@@ -8,7 +8,7 @@ OverwriteTableKeys( TraitData, {
 	EchoLastReward =
 	{
 		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Echo_04",
 		GameStateRequirements =
 		{
 			{
@@ -37,7 +37,7 @@ OverwriteTableKeys( TraitData, {
 	EchoLastRunBoon = 
 	{
 		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Echo_05",
 		GameStateRequirements =
 		{
 				{
@@ -54,7 +54,7 @@ OverwriteTableKeys( TraitData, {
 	EchoDeathDefianceRefill = 
 	{
 		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Echo_03",
 		GameStateRequirements =
 		{
 			NotMaxLastStands = true,
@@ -97,7 +97,7 @@ OverwriteTableKeys( TraitData, {
 	DiminishingDodgeBoon = 
 	{
 		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Echo_01",
 		SetupFunction = 
 		{
 			Name = "DiminishingDodgeSetup",
@@ -145,7 +145,7 @@ OverwriteTableKeys( TraitData, {
 	DiminishingHealthAndManaBoon = 
 	{
 		InheritFrom = { "BaseEcho" },
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Echo_02",
 		AcquireFunctionName = "EchoIncreaseStats",
 		AcquireFunctionArgs = 
 		{

@@ -2360,7 +2360,7 @@ function ConsumableUsedPresentation( run, consumableItem, args )
 	if consumableItem.OnConsumedGlobalVoiceLines ~= nil then
 		thread( PlayVoiceLines, GlobalVoiceLines[consumableItem.OnConsumedGlobalVoiceLines], true )
 	end
-	if consumableItem.Cost ~= nil and consumableItem.Cost > 0 then
+	if consumableItem.Cost ~= nil and consumableItem.Cost > 0 and not consumableItem.IgnorePurchase then
 		PlaySound({ Name = "/Leftovers/Menu Sounds/StoreBuyingItem" })
 		if consumableItem.PurchasedVoiceLines ~= nil then
 			thread( PlayVoiceLines, consumableItem.PurchasedVoiceLines, true )
@@ -2536,6 +2536,18 @@ function EncounterCostDoorUsedPresentation( exitDoor, args )
 	RemoveInputBlock({ Name = "EncounterDoorPresentation" })
 end
 
+function CutsceneAddLetterbox()
+	ScreenAnchors.LetterBoxTop = ScreenAnchors.LetterBoxTop or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY - 1220 })
+	ScreenAnchors.LetterBoxBottom = ScreenAnchors.LetterBoxBottom or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY + 1220 })
+	SetScale({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = 5 })
+	SetScaleX({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = ScreenScaleX })
+	SetColor({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Color = Color.Black })
+	SetAlpha({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = 1.0, Duration = 0 })
+	Move({ Id = ScreenAnchors.LetterBoxTop, Angle = 270, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
+	Move({ Id = ScreenAnchors.LetterBoxBottom, Angle = 90, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
+end
+
+
 function AltRunDoorUnlockedFirstPresentation(room, args)
 
 	wait( 1.0 )
@@ -2548,14 +2560,7 @@ function AltRunDoorUnlockedFirstPresentation(room, args)
 	ClearCameraClamp({ LerpTime = 1.35 })
 	thread( PlayVoiceLines, HeroVoiceLines.AltRunDoorUnlockedVoiceLines, true )
 
-	ScreenAnchors.LetterBoxTop = ScreenAnchors.LetterBoxTop or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY - 1220 })
-	ScreenAnchors.LetterBoxBottom = ScreenAnchors.LetterBoxBottom or CreateScreenObstacle({ Name = "rectangle01", Group = "Combat_UI", X = ScreenCenterX, Y = ScreenCenterY + 1220 })
-	SetScale({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = 5 })
-	SetScaleX({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = ScreenScaleX })
-	SetColor({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Color = Color.Black })
-	SetAlpha({ Ids = { ScreenAnchors.LetterBoxTop, ScreenAnchors.LetterBoxBottom }, Fraction = 1.0, Duration = 0 })
-	Move({ Id = ScreenAnchors.LetterBoxTop, Angle = 270, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
-	Move({ Id = ScreenAnchors.LetterBoxBottom, Angle = 90, Distance = 100, EaseIn = 0.99, EaseOut = 1.0, Duration = 1.25 })
+	CutsceneAddLetterbox()
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow" })
 
 	wait( 1.35 )

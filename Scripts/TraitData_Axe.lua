@@ -713,6 +713,23 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Axe_34",
 		RequiredWeapon = "WeaponAxe",
+		WeaponDataOverride = 
+		{
+			WeaponAxe3 = 
+			{
+				ManaChanges = 
+				{
+					Disabled = 
+					{
+						NumProjectiles = 1,
+					},
+					Enabled = 
+					{
+						NumProjectiles = 2,
+					}
+				}
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -720,6 +737,7 @@ OverwriteTableKeys( TraitData, {
 				WeaponProperties = 
 				{
 					NumProjectiles = 2,
+					ProjectileIntervalStart = 0.08,
 					ProjectileInterval = 0.08,
 					ReportValues = { ProjectileCount = "NumProjectiles" },
 					ChargeCancelGraphic = "Melinoe_Axe_Attack4_Cancel",

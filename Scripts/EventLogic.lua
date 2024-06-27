@@ -65,8 +65,7 @@ function CallFunctionName( functionName, arg1, arg2, arg3, arg4, arg5, arg6, arg
 	end
 	local func = _G[functionName]
 	if func ~= nil then
-		local args = { arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ... }
-		local funcReturn = func( unpackTableArgs( args ) )
+		local funcReturn = func( arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, ... )
 		return funcReturn
 	else
 		DebugAssert({ Condition = false, Text = "Function "..tostring(functionName).." does not exist" })
@@ -1064,6 +1063,11 @@ function ClearPauseMenuTakeover()
 	SessionMapState.PauseMenuTakeoverArgs = nil
 end
 
+function DestroyObjectNames( source, args )
+	local ids = GetIdsByType({ Names = args.NamesToDestroy })
+	Destroy({ Ids = ids })
+end
+
 function OnionTransformation( source, args, user)
 	AddInputBlock({ Name = "OnionPresentation" })
 	if MapState.RoomRequiredObjects[source.ObjectId] then
@@ -1203,7 +1207,7 @@ function EchoLastReward( args )
 	if CurrentRun.LastReward.Type == "Consumable" then
 		local consumableName = CurrentRun.LastReward.Name
 		local consumableId = SpawnObstacle({ Name = consumableName, DestinationId = spawnPoint, Group = "Standing", })
-		local consumable = CreateConsumableItem( consumableId, consumableName, 0 )
+		local consumable = CreateConsumableItem( consumableId, consumableName, 0, { RunProgressUpgradeEligible = true } )
 		consumable.MetaConversionEligible = false
 		MapState.RoomRequiredObjects[consumableId] = consumable
 	else

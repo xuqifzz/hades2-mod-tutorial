@@ -5,7 +5,6 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultHubItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_bar",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 
@@ -29,13 +28,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		CameraFocusId = 586614,
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 576167,
+		InspectPointId = 576167,
 	},
 	WorldUpgradeBathHouse =
 	{
 		InheritFrom = { "DefaultHubItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_spring",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 		Cost =
@@ -59,13 +57,12 @@ OverwriteTableKeys( WorldUpgradeData,
 		CameraFocusId = 589478,
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 589546,
+		InspectPointId = 589546,
 	},
 	WorldUpgradeFishingPoint =
 	{
 		InheritFrom = { "DefaultHubItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_dock",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 		Cost =
@@ -88,6 +85,6 @@ OverwriteTableKeys( WorldUpgradeData,
 		CameraFocusId = 586672,
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 589545,
+		InspectPointId = 589545,
 	},
 })

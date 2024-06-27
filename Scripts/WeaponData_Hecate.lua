@@ -185,6 +185,8 @@ WeaponSetData =
 			EndPreAttackFx = true,
 			PreAttackStop = true,
 
+			ImmuneToProjectileSlow = true,
+
 			AttackSlots =
 			{
 				{ ProjectileName = "HecateLaser", },

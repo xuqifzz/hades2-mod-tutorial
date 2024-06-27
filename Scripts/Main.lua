@@ -609,6 +609,7 @@ GlobalSaveWhitelist =
 	"NextSeeds",
 }
 
+--[[
 RunSaveWhitelist = ToLookup(
 {
 	"CurrentRoom",
@@ -641,6 +642,43 @@ RunSaveWhitelist = ToLookup(
 	"CauldronWitchcraftOccurred",
 	"EncountersOccurredCache",
 })
+]]
+
+PermanentRunSaveWhitelist = ToLookup(
+{
+	"EndingRoomName",
+	"TotalTime",
+	"GameplayTime",
+	"MetaPointsCache",
+	"VisibleTraitCountCache",
+	"MetaUpgradeCostCache",
+	"ShrinePointsCache",
+	"EasyModeLevel",
+	"RunDepthCache",
+	"Cleared",
+	"ActiveBounty",
+	"BountyCleared",
+	"BiomesReached",
+})
+
+MainRunSaveWhitelist = ToLookup(
+{
+	"WeaponsCache",
+	"TraitCache",
+	"ShrineUpgradesCache",
+	"EndingKeepsakeName",
+	"RunClearMessage",
+	"BiomeStateChangeCount",
+	"CauldronWitchcraftOccurred",
+})
+
+RecentRunSaveWhitelist = ToLookup(
+{
+	"EncountersOccurredCache",
+	"RoomCountCache",
+	"SpawnRecord",
+	"TextLinesRecord",	
+})
 
 RoomSaveBlacklist = ToLookup(
 {
@@ -672,10 +710,15 @@ AudioSaveWhitelist = ToLookup(
 	"AmbientMusicSource",
 })
 
-function StripRunForSave( run )
+function StripRunForSave( run, runsBackFromCurrent )
+
+	if runsBackFromCurrent <= 1 then
+		return -- Don't strip prevRun
+	end
 
 	for key, value in pairs( run ) do
-		if not RunSaveWhitelist[key] then
+		--if not RunSaveWhitelist[key] then
+		if not PermanentRunSaveWhitelist[key] and ( runsBackFromCurrent > 999 or not MainRunSaveWhitelist[key] ) and ( runsBackFromCurrent > 10 or not RecentRunSaveWhitelist[key] ) then
 			run[key] = nil
 		end
 	end
@@ -712,10 +755,11 @@ function Save()
 
 	-- Iris specific stripping
 	StripRoomsForSave( CurrentRun )
-	for runIndex, run in pairs( GameState.RunHistory ) do
-		StripRoomsForSave( run )
-		if runIndex ~= TableLength( GameState.RunHistory ) then -- Don't strip prevRun
-			StripRunForSave( run )
+	local runCount = #GameState.RunHistory
+	for runIndex, run in ipairs( GameState.RunHistory ) do
+		StripRunForSave( run, runCount - runIndex )
+		if run.RoomHistory ~= nil then
+			StripRoomsForSave( run )
 		end
 	end
 
@@ -727,8 +771,8 @@ function Save()
 	end
 
 	local saveTable = {}
+	--local totalKeys = 0
 	for i, key in ipairs( GlobalSaveWhitelist ) do
-
 		local value = _G[key]
 		if value ~= nil then
 			local valueType = type(value)
@@ -736,13 +780,14 @@ function Save()
 				if verboseLogging and valueType == "table" then
 					ValidateLoops( key, value )
 					ValidateTypes( value, key, 1, tostring(key) )
-					--CalcTotalNumEntries( value, key )
+					--totalKeys = totalKeys + CalcTotalNumEntries( value, key )
 				end
 				saveTable[key] = value
 			end
 		end
-
 	end
+
+	--DebugPrint({ Text = "totalKeys =  "..totalKeys })
 
 	_saveData = assert( luabins.save( saveTable ) )
 

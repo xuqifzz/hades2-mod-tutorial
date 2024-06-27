@@ -56,7 +56,7 @@ TraitSetData.Chaos =
 	ChaosWeaponBlessing =
 	{
 		InheritFrom = { "ChaosBlessing", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Chaos_44",
 		CustomName = "ChaosWeaponBlessing_Complete",
 		AddOutgoingDamageModifiers =
 		{
@@ -76,7 +76,7 @@ TraitSetData.Chaos =
 	ChaosSpecialBlessing =
 	{
 		InheritFrom = { "ChaosBlessing", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Chaos_45",
 		CustomName = "ChaosSpecialBlessing_Complete",
 		AddOutgoingDamageModifiers =
 		{
@@ -97,7 +97,7 @@ TraitSetData.Chaos =
 	ChaosCastBlessing = 
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Chaos_46",
 		CustomName = "ChaosCastBlessing_Complete",
 		AddOutgoingDamageModifiers =
 		{
@@ -118,7 +118,7 @@ TraitSetData.Chaos =
 	ChaosHealthBlessing =
 	{
 		InheritFrom = { "ChaosBlessing", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Chaos_47",
 		CustomName = "ChaosHealthBlessing_Complete",
 
 		RarityLevels =
@@ -155,7 +155,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedHealth",
-				Format = "MaxHealth",
+				Format = "MaxHealthIgnoreCap",
 				ExtractAs = "TooltipHealth",
 			},
 		}
@@ -164,7 +164,7 @@ TraitSetData.Chaos =
 	ChaosRarityBlessing =
 	{
 		InheritFrom = { "ChaosBlessing", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Chaos_48",
 		CustomName = "ChaosRarityBlessing_Complete",
 
 		RarityLevels =
@@ -211,7 +211,7 @@ TraitSetData.Chaos =
 	ChaosMoneyBlessing =
 	{
 		InheritFrom = { "ChaosBlessing", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Chaos_49",
 		CustomName = "ChaosMoneyBlessing_Complete",
 		RarityLevels =
 		{
@@ -275,7 +275,7 @@ TraitSetData.Chaos =
 				MaxMultiplier = 1,
 			},
 		},
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Chaos_59",
 		CustomName = "ChaosLastStandBlessing_Complete",
 		AddLastStand =
 		{
@@ -301,7 +301,7 @@ TraitSetData.Chaos =
 	ChaosManaBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_07",
+		Icon = "Boon_Chaos_50",
 		CustomName = "ChaosManaBlessing_Complete",
 		PropertyChanges =
 		{
@@ -326,7 +326,7 @@ TraitSetData.Chaos =
 	ChaosManaOverTimeBlessing = 
 	{
 		InheritFrom = {"ChaosBlessing", "ManaOverTimeSource"},
-		Icon = "Boon_Chaos_08",
+		Icon = "Boon_Chaos_51",
 		CustomName = "ChaosManaOverTimeBlessing_Complete",
 		RarityLevels =
 		{
@@ -347,6 +347,7 @@ TraitSetData.Chaos =
 				Multiplier = 4,
 			}
 		},
+		AcquireFunctionName = "SetManaRegenUnique",
 		SetupFunction =
 		{
 			Name = "ManaRegenSetup",
@@ -372,7 +373,7 @@ TraitSetData.Chaos =
 	ChaosExSpeedBlessing = 
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_11",
+		Icon = "Boon_Chaos_52",
 		CustomName = "ChaosExSpeedBlessing_Complete",
 
 		RarityLevels =
@@ -459,7 +460,7 @@ TraitSetData.Chaos =
 			},
 		},
 		Elements = {},
-		Icon = "Boon_Chaos_12",
+		Icon = "Boon_Chaos_53",
 		AddAllElements = {BaseValue = 1},
 		CustomName = "ChaosElementalBlessing_Complete",
 		ExtractValues =
@@ -474,7 +475,7 @@ TraitSetData.Chaos =
 	ChaosManaCostBlessing = 
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_13",
+		Icon = "Boon_Chaos_54",
 		CustomName = "ChaosManaCostBlessing_Complete",
 		RarityLevels =
 		{
@@ -516,7 +517,7 @@ TraitSetData.Chaos =
 	ChaosSpeedBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_14",
+		Icon = "Boon_Chaos_55",
 		CustomName = "ChaosSpeedBlessing_Complete",
 
 		RarityLevels =
@@ -584,7 +585,7 @@ TraitSetData.Chaos =
 	ChaosDoorHealBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_15",
+		Icon = "Boon_Chaos_56",
 		CustomName = "ChaosDoorHealBlessing_Complete",
 		DoorHealFixed = { BaseMin = 3, BaseMax = 4, AsInt = true },
 		RarityLevels =
@@ -617,7 +618,7 @@ TraitSetData.Chaos =
 	ChaosHarvestBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
-		Icon = "Boon_Chaos_16",
+		Icon = "Boon_Chaos_57",
 		CustomName = "ChaosHarvestBlessing_Complete",
 		DoubleToolRewardChance = { BaseMin = 0.40, BaseMax = 0.50, MaximumValue = 1},
 		DoubleRewardValue = 100, -- used for text
@@ -652,7 +653,7 @@ TraitSetData.Chaos =
 	ChaosOmegaDamageBlessing =
 	{
 		InheritFrom = {"UnityTrait", "ChaosBlessing" },
-		Icon = "Boon_Chaos_17",
+		Icon = "Boon_Chaos_58",
 		CustomName = "ChaosOmegaDamageBlessing_Complete",
 		GameStateRequirements = 
 		{
@@ -728,13 +729,13 @@ TraitSetData.Chaos =
 	ChaosNoMoneyCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Chaos_28",
 		BlockMoney = true,
 	},
 	ChaosHealthCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Chaos_27",
 		PropertyChanges =
 		{
 			{
@@ -763,7 +764,7 @@ TraitSetData.Chaos =
 	ChaosHiddenRoomRewardCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Chaos_29",
 		GameStateRequirements =
 		{
 			{
@@ -785,7 +786,7 @@ TraitSetData.Chaos =
 	ChaosDamageCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Chaos_30",
 		AddIncomingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
@@ -812,7 +813,7 @@ TraitSetData.Chaos =
 	ChaosPrimaryAttackCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Chaos_31",
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
@@ -839,7 +840,7 @@ TraitSetData.Chaos =
 	ChaosSecondaryAttackCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Chaos_32",
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroSecondaryWeapons,
@@ -867,7 +868,7 @@ TraitSetData.Chaos =
 	ChaosDeathWeaponCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
-		Icon = "Boon_Chaos_07",
+		Icon = "Boon_Chaos_33",
 		AddEnemyOnDeathProjectile =
 		{
 			EnemyBombs = true,
@@ -878,7 +879,7 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
 		RelativeSprintModifier = true,
-		Icon = "Boon_Chaos_08",
+		Icon = "Boon_Chaos_34",
 		PropertyChanges = 
 		{
 			{
@@ -935,7 +936,7 @@ TraitSetData.Chaos =
 	ChaosExAttackCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_09",
+		Icon = "Boon_Chaos_35",
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroAllWeapons,
@@ -963,7 +964,7 @@ TraitSetData.Chaos =
 	ChaosCommonCurse = 
 	{
 		InheritFrom = { "ChaosCurse" },
-		Icon = "Boon_Chaos_10",
+		Icon = "Boon_Chaos_36",
 		RemainingUses = { BaseMin = 2, BaseMax = 3, AsInt = true },
 		ForceCommon = true,
 		ExtractValues =
@@ -978,7 +979,7 @@ TraitSetData.Chaos =
 	ChaosCastCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_11",
+		Icon = "Boon_Chaos_37",
 		DamageOnFireWeapons =
 		{
 			WeaponNames = WeaponSets.HeroRangedWeapons,
@@ -1005,7 +1006,7 @@ TraitSetData.Chaos =
 	ChaosDashCurse =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_12",
+		Icon = "Boon_Chaos_38",
 		OnWeaponFiredFunctions =
 		{
 			ValidWeapons =  {"WeaponBlink"},
@@ -1032,13 +1033,13 @@ TraitSetData.Chaos =
 	ChaosManaFocusCurse = 
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_13",
+		Icon = "Boon_Chaos_39",
 	},
 
 	ChaosRestrictBoonCurse = 
 	{
 		InheritFrom = { "ChaosCurse", },
-		Icon = "Boon_Chaos_14",
+		Icon = "Boon_Chaos_40",
 		RemainingUses = { BaseMin = 2, BaseMax = 4, AsInt = true },
 		RestrictBoonChoices = true,
 		ExtractValues =
@@ -1053,7 +1054,7 @@ TraitSetData.Chaos =
 	ChaosStunCurse = 
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_15",
+		Icon = "Boon_Chaos_41",
 		
 		OnSelfDamagedFunction = 
 		{
@@ -1081,7 +1082,7 @@ TraitSetData.Chaos =
 	ChaosTimeCurse = 
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters" },
-		Icon = "Boon_Chaos_16",
+		Icon = "Boon_Chaos_42",
 		RemainingUses = { BaseMin = 2, BaseMax = 3, AsInt = true },
 		StartingTime = 120,
 		Damage = 500,
@@ -1118,7 +1119,7 @@ TraitSetData.Chaos =
 		},
 		ChanceToPlay = 0.1,
 		UpgradePairedRarity = true,
-		Icon = "Boon_Chaos_17",
+		Icon = "Boon_Chaos_43",
 		AcquireFunctionName = "RemoveArcana",
 		RemainingUses =
 		{

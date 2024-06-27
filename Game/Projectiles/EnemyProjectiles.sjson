@@ -1564,14 +1564,14 @@
 		}
 		Effect =
 		{
-			Name = "HeroOnHitStun"
-			Duration = 0.2
+			Name = "OnHitStun"
+			Duration = 0.5
 			DisableMove = true
 			DisableRotate = true
-			DisableAttack = false
+			DisableAttack = true
 			Active = true
 			CanAffectInvulnerable = false
-			Cancelable = true
+			FrontFx = "null"
 		}
 	}
 	{
@@ -3828,6 +3828,7 @@
 		Name = "CerberusVacuum"
 		InheritFrom = "1_BaseEnemyProjectile"
 		Type = "STRAIGHT"
+		IgnoreDodge = true
 		AffectsEnemies = true
 		AffectsFriends = false
 		AffectsSelf = false
@@ -3840,15 +3841,12 @@
 		RotateWithOwner = false
 		DetonateSound = null
 		MultiDetonate = true
-		TotalFuse = 0.7
-		ImmunityDuration = 0.233
+		TotalFuse = 1.0
+		ImmunityDuration = 0.1
 		Damage = 0
-		ImpactVelocity = 1100
+		ImpactVelocity = 1500
 		ImpactVelocityAngleOffset = -180
 		GroupName = "FX_Standing_Add"
-		IgnoreCoverageAngles = true
-		CanBeProjectileDefenseDestroyedByName2 = "null"
-		CanBeProjectileDefenseDestroyedByLayer = "null"
 		Thing =
 		{
 			Graphic = "CerbVacuumIn"
@@ -3861,105 +3859,119 @@
 			[
 				{
 					X = 0
-					Y = 100
-				}
-				{
-					X = 1500
 					Y = 250
 				}
 				{
-					X = 1500
+					X = 2000
+					Y = 650
+				}
+				{
+					X = 2000
+					Y = -650
+				}
+				{
+					X = 0
 					Y = -250
-				}
-				{
-					X = 0
-					Y = -100
-				}
-			]
-		}
-		Effect =
-		{
-			Name = "CorruptedShadeStun"
-			Duration = 0.25
-			DisableMove = true
-			DisableRotate = true
-			DisableAttack = true
-			Active = true
-			CanAffectInvulnerable = false
-			Cancelable = false
-			FrontFx = "DionysusStunnedFx"
-			OnlyAffectName = "_PlayerUnit"
-		}
-	}
-	{
-		Name = "CerberusImpulse"
-		InheritFrom = "1_BaseEnemyProjectile"
-		Type = "STRAIGHT"
-		AffectsEnemies = true
-		AffectsFriends = false
-		AffectsSelf = false
-		CheckUnitImpact = true
-		CheckObstacleImpact = false
-		UnlimitedUnitPenetration = true
-		MultipleUnitCollisions = true
-		CanHitWithoutDamage = true
-		AttachToOwner = false
-		RotateWithOwner = false
-		DetonateSound = null
-		MultiDetonate = true
-		TotalFuse = 0.7
-		ImmunityDuration = 0.233
-		Damage = 0
-		ImpactVelocity = 1100
-		GroupName = "FX_Standing_Add"
-		Thing =
-		{
-			Graphic = "CerbImpulseIn"
-			AttachedAnim = "null"
-			Grip = 999999
-			UseBoundsForSortDrawArea = true
-			RotateGeometry = true
-			Scale = 1.0
-			Points =
-			[
-				{
-					X = 0
-					Y = 100
-				}
-				{
-					X = 1500
-					Y = 250
-				}
-				{
-					X = 1500
-					Y = -250
-				}
-				{
-					X = 0
-					Y = -100
 				}
 			]
 		}
 		Effects =
 		[
 			{
-				Name = "HeroOnHitStun"
-				Duration = 0.2
-				DisableMove = true
-				DisableRotate = true
-				DisableAttack = true
+				Name = "KnockbackGrip"
+				Type = "GRIP"
+				Duration = 0.095
+				Modifier = 0.0001
+				HaltOnEnd = true
 				Active = true
-				CanAffectInvulnerable = false
-				Cancelable = false
-				FrontFx = "DionysusStunnedFx"
-				OnlyAffectName = "_PlayerUnit"
+				CanAffectInvulnerable = true
 			}
+			{
+				Name = "VacuumSlow"
+				Type = "SPEED"
+				Duration = 0.1
+				Modifier = 0.85
+				Active = true
+				CanAffectInvulnerable = true
+			}
+		]
+	}
+
+	{
+		Name = "CerberusLungeKnockback"
+		InheritFrom = "1_BaseEnemyProjectile"
+		Type = "INSTANT"
+		DetonateFx = "null"
+		DetonateSound = "null"
+		
+		Damage = 0
+		ImpactVelocity = 1500
+		ImmunityDuration = 0.1
+		AttachToOwner = true
+
+		BlastDuration = 0.55
+		BlastSpeed = 100
+		BlastStartRadius = 590
+		DamageRadius = 600
+		DamageRadiusScaleY = 0.58
+
+		AffectsSelf = false
+		AffectsFriends = true
+		AffectsEnemies = true
+		DangerDistance = 0
+		UseRadialImpact = true
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		CanBeReflected = false
+		MultipleUnitCollisions = true
+		Thing =
+		{
+			Graphic = "null"
+			RotateGeometry = false
+			Scale = 1.0
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+			Points =
+			[
+				{
+					X = 0
+					Y = 8
+				}
+				{
+					X = 32
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -8
+				}
+				{
+					X = -32
+					Y = 0
+				}
+			]
+		}
+		Effects =
+		[
 			{
 				Name = "KnockbackGrip"
 				Type = "GRIP"
-				Duration = 0.1
-				Modifier = 0.01
+				Duration = 0.095
+				Modifier = 0
 				HaltOnEnd = true
+				Active = true
+				CanAffectInvulnerable = true
+			}
+			{
+				Name = "VacuumSlow"
+				Type = "SPEED"
+				Duration = 0.1
+				Modifier = 0.85
 				Active = true
 				CanAffectInvulnerable = true
 			}
@@ -7816,12 +7828,12 @@
 	{
 		Name = "TentacleShockwave"
 		InheritFrom = "1_BaseEnemyProjectile"
-		DetonateFx = "CyclopsStompFx"
+		DetonateFx = "TentacleUnburrowNova"
 		Type = "INSTANT"
 		Damage = 9
 		DamageRadius = 240
 		DamageRadiusScaleY = 0.5
-		Fuse = 0.1
+		Fuse = 0.15
 		AffectsFriends = false
 		AffectsSelf = false
 		AffectsEnemies = true
@@ -7834,7 +7846,7 @@
 		DangerDistance = 0
 		Thing =
 		{
-			Graphic = "CyclopsStompPreviewRing"
+			Graphic = "TentacleUnburrowRadial"
 			RotateGeometry = false
 			Scale = 1.0
 			Points = [ { X = 0 Y = 0 } ]
@@ -9094,6 +9106,9 @@
 		CheckUnitImpact = true
 		CheckObstacleImpact = true
 		UnlimitedUnitPenetration = true
+		CanBeProjectileDefenseDestroyed = false
+		CanBeReflected = false
+		IgnoreCoverageAngles = true
 		Damage = 8
 		NumPenetrations = 99999
 		ImpactLineOfSightFromOwner = true
@@ -11151,10 +11166,10 @@
 		CheckObstacleImpact = true
 		UnlimitedUnitPenetration = true
 		Damage = 15
-		Speed = 950
-		Acceleration = -185
+		Speed = 190
+		Acceleration = 0
 		ImmunityDuration = 1.0
-		Fuse = 2.25
+		Fuse = 5.25
 		ImpactLineOfSight = true
 		DissipateFx = "CerbSwipeWaveDissipate"
 		Thing =
@@ -11544,7 +11559,7 @@
 		DetonateFx = "CerbAoERandomFlip"
 		DamageRadius = 825
 		DamageRadiusScaleY = 0.5
-		BlastSpeed = 1330
+		BlastSpeed = 4500
 		Damage = 40
 		AffectsSelf = false
 		AffectsFriends = false
@@ -13065,7 +13080,7 @@
 		LaunchAngle = 90
 		Speed = 2000
 		SpeedVariance = 50
-		MinRange = 1600
+		MinRange = 1050
 	}
 	{
 		Name = "Miasma"
@@ -17647,6 +17662,7 @@
 		Name = "ChronosCircle"
 		InheritFrom = "1_BaseEnemyProjectile"
 		Type = "STRAIGHT"
+		IgnoreDodge = true
 		AffectsEnemies = true
 		AffectsFriends = false
 		AffectsSelf = false
@@ -17654,7 +17670,9 @@
 		CheckObstacleImpact = true
 		UnlimitedUnitPenetration = true
 		NumPenetrations = 99999
+		InheritOwnerElapsedTimeMultiplier = false
 		Fuse = 0.15
+		BlastDuration = 0.15
 		DamageRadius = 400
 		Damage = 999
 		Range = 1.0
@@ -17689,6 +17707,7 @@
 		Name = "ChronosCircleInverted"
 		InheritFrom = "1_BaseEnemyProjectile"
 		Type = "STRAIGHT"
+		IgnoreDodge = true
 		AffectsEnemies = true
 		AffectsFriends = false
 		AffectsSelf = false
@@ -17698,6 +17717,7 @@
 		UnlimitedUnitPenetration = true
 		NumPenetrations = 99999
 		Fuse = 0.15
+		BlastDuration = 0.15
 		DamageRadius = 9000
 		Damage = 999
 		Range = 1.0
@@ -17706,6 +17726,7 @@
 		DamageRadiusScaleX = 1.175
 		ProjectileDefenseRadius = 0
 		UseVulnerability = false
+		InheritOwnerElapsedTimeMultiplier = false
 		HollowBlastRadiusBand = 8300
 		CanBeProjectileDefenseDestroyed = false
 		GroupName = "FX_Terrain"

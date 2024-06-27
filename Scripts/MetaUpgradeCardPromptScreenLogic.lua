@@ -54,13 +54,17 @@ function CloseMetaUpgradeCardPromptScreen( screen )
 	notifyExistingWaiters("CardPromptScreenClosed")
 end
 
-function OpenGraspLimitScreen( parentScreen )
+function OpenGraspLimitScreen( parentScreen, useAltText )
 	args = args or {}
 	local screen = DeepCopyTable( ScreenData.GraspLimitLayout )
 	local components = screen.Components
 	screen.ParentScreen = parentScreen
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
+	if useAltText then
+		ModifyTextBox({ Id = components.TitleText.Id, Text = "MetaUpgradeTable_UnableToEquip_Alt"})
+		ModifyTextBox({ Id = components.DescriptionText.Id, UseDescription = true, Text = "MetaUpgradeTable_UnableToEquip_Alt"})
+	end
 	TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
 	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })

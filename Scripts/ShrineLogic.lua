@@ -209,12 +209,12 @@ function OpenShrineScreen( args )
 	ModifyTextBox({ Id = components.BountyHeader.Id, LuaKey = "TempTextData", LuaValue = { WeaponName = currentWeaponName, Completed = completeBountyNum, Total = totalBountyNum, }, })
 
 	if components.SkellyQuestSurface ~= nil then
-		local surfaceShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N" } )
+		local surfaceShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N", IgnoreSameMode = true } )
 		DebugPrint({ Text = "surfaceShrinePointRecord = "..surfaceShrinePointRecord })
-		local underworldShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F" } )
+		local underworldShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F", IgnoreSameMode = true } )
 		DebugPrint({ Text = "underworldShrinePointRecord = "..underworldShrinePointRecord })
 		for i, shrinePointThreshold in ipairs( screen.ShrinePointThresholds ) do
-			if surfaceShrinePointRecord >= shrinePointThreshold and underworldShrinePointRecord >= shrinePointThreshold then
+			if surfaceShrinePointRecord >= shrinePointThreshold and underworldShrinePointRecord >= shrinePointThreshold and i < #screen.ShrinePointThresholds then
 				-- Both runs complete, move to next threshold
 			else
 				screen.NextSkellyShrinePointGoal = shrinePointThreshold
@@ -646,7 +646,7 @@ function ErisCurseBackCompatSpawnDrops( source, args )
 	local spawnPointIds = ShallowCopyTable( args.SpawnPointIds )
 	for runIndex, run in ipairs( GameState.RunHistory ) do
 		for curseConversationName, curseConversation in pairs( VariantSetData.NPC_Eris_01.ErisCurseGiver.InteractTextLineSets ) do
-			if run.TextLinesRecord[curseConversationName] and not GameState.ErisCurseRewardTaken[runIndex] then
+			if run.TextLinesRecord ~= nil and run.TextLinesRecord[curseConversationName] and not GameState.ErisCurseRewardTaken[runIndex] then
 				local spawnPointId = RemoveRandomValue( spawnPointIds ) or source.ObjectId
 				if runIndex <= 3 then	
 					local giveConsumablesArgs = ShallowCopyTable( args.OceanusRandomConsumables )

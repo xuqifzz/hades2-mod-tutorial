@@ -50,94 +50,95 @@ OverwriteTableKeys( TraitData, {
 			}
 		}
 	},
-	FirstHitHealBoon = -- Aphrodite x Hephaestus
+
+	SlamManaBurstBoon = -- Aphrodite x Hephaestus
 	{
 		Icon = "Boon_Hephaestus_42",
 		InheritFrom = { "SynergyTrait" },
-		SetupFunction =
+		OnProjectileCreationFunction = 
 		{
-			Name = "FirstHealHitSetup",
-			Args =
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			Name = "QueueManaBurst",
+			Args = 
 			{
-				HealPercent = 1,
-				CombatText = "FirstHitHeal_CombatText",
-				Vfx = "ZagreusWrathFire",
-				ReportValues = { ReportedHealPercent = "HealPercent" }
-			},
-		},
-		StatLines =
-		{
-			"HealHitStatDisplay1",
-		},
-		CustomStatLinesWithShrineUpgrade = 
-		{
-			ShrineUpgradeName = "HealingReductionShrineUpgrade",
-			StatLines = 
-			{
-				"HealHitStatDisplay1",
-				"HealingReductionNotice",
-			},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedHealPercent",
-				ExtractAs = "TooltipHeal",
-				Format = "PercentHeal",
+				ProjectileName = "AphroditeBurst",
+				DamageMultiplier = 1,
+				StartDelay = 0.15,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier",
+				}
 			}
-		}
-	},
-	MaximumShareBoon = -- Aphrodite x Hera
-	{
-		InheritFrom = {"SynergyTrait"},
-		Icon = "Boon_Aphrodite_41",
-		AddOutgoingDamageModifiers = 
-		{
-			ValidActiveEffects = {"DamageShareEffect"},
-			ValidWeaponMultiplier = 1.2,
-			ReportValues = { ReportedMultiplier = "ValidWeaponMultiplier" },
 		},
 		
 		StatLines =
 		{
-			"AdditionalDamageTakenStatDisplay1",
+			"ManaBurstDamageStatDisplay1",
 		},
-		OnEffectApplyFunction = 
+		ExtractValues = 
 		{
-			FunctionName = "CheckMaximumLink",
-			FunctionArgs = 
 			{
-				EffectName = "WeakEffect",
-				EffectArgs = {},
-				MaxLinks = 2, -- added for text extraction
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Damage",
 			},
+			{
+				ExtractAs = "Duration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "AphroditeBurst",
+				BaseProperty = "Fuse",
+			},
+		}
+	},
+	
+	CharmCrowdBoon =  -- Aphrodite x Hera
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Aphrodite_41",
+		
+		SetupFunction =
+		{
+			Threaded = true,
+			Name = "CharmCrowd",
+			Args =
+			{
+				Minimum = 2,
+				ReportValues = { ReportedMinimum = "Minimum"},
+				EffectName = "Charm",
+			},
+		},
+		StatLines = 
+		{
+			"CharmSizeStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "TooltipDamageBonus",
-				Format = "PercentDelta",
-				-- HideSigns = true,
-			},
-			{
-				ExtractAs = "DamageShareDuration",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "DamageShareEffect",
-				BaseProperty = "Duration",
-			},
-			{
-				ExtractAs = "DamageShareAmount",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "DamageShareEffect",
-				BaseProperty = "Amount",
-				Format = "Percent",
-				HideSigns = true,
-			},
+				Key = "ReportedMinimum",
+				ExtractAs = "TooltipMinimum",
+			}
+		}
+	},
+
+	BurnRefreshBoon = -- Aphrodite x Hestia
+	{
+		Icon = "Boon_Hestia_45",
+		InheritFrom = {"SynergyTrait"},
+		EternalBurnRequirements = 
+		{
+			RequiredEffect = "WeakEffect",
+		},
+		StatLines = 
+		{
+			"BurnRefreshStatDisplay",
+		},
+		ExtractValues = 
+		{
 			{
 				ExtractAs = "TooltipWeakDuration",
 				SkipAutoExtract = true,
@@ -155,35 +156,14 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Modifier",
 				Format = "NegativePercentDelta"
 			},
-		},
-	},
-	ShadeMercFireballBoon = -- Aphrodite x Hestia
-	{
-		GameStateRequirements =
-		{
 			{
-				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeShadeMercs" },
-			},
-		},
-		Icon = "Boon_Hestia_45",
-		InheritFrom = {"SynergyTrait"},
-		ShadeMercCountBonus = 12,
-		-- Checked with HasTrait for fireball
-		StatLines =
-		{
-			"FireballShadeMercDamage",
-		},
-		EnemyMultiplier = 4,
-		ExtractValues =
-		{
-
-			{
-				Key = "EnemyMultiplier",
-				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "ShadeMercFireball",
-				BaseProperty = "Damage",
+				ExtractAs = "BurnRate",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "BurnEffect",
+				BaseProperty = "DamagePerSecond",
+				DecimalPlaces = 1,
 			},
 		}
 	},
@@ -260,59 +240,136 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	CastRampBoon = -- Apollo x Demeter
+	StormSpawnBoon =  -- Apollo x Demeter
 	{
 		Icon = "Boon_Apollo_41",
 		InheritFrom = {"SynergyTrait"},
-		AddOutgoingDamageModifiers = 
+		
+		SetupFunction =
 		{
-			ValidWeapons = WeaponSets.HeroRangedWeapons,
-			ExCastCountMultiplier = 0.20,
-			ReportValues = { ReportedMultiplier = "ExCastCountMultiplier"}
-		},
-		ManaCostModifiers = 
-		{
-			WeaponNames = WeaponSets.HeroRangedWeapons,
-			ExWeapons = true,
-			ManaCostAddPerCast = 5,
-			ReportValues = 
-			{ 
-				ReportedCost = "ManaCostAddPerCast" 
+			Threaded = true,
+			Name = "CheckDemeterStormSpawn",
+			Args =
+			{
+				SpawnInterval = 0.3,
+				TargetProjectileName = "DemeterSprintStorm",
+				ProjectileName = "DemeterMiniStorm",
+				ProjectileCap = 6,
+				ReportValues = {ReportedInterval= "SpawnInterval" }
 			},
 		},
-		StatLines =
+		OnEnemyDamagedAction = 
 		{
-			"CastRampDamageStatDisplay",
+			ValidProjectiles = { "DemeterMiniStorm" },
+			EffectName = "LegacyChillEffect",
+		},
+		StatLines = 
+		{
+			"StormSpawnDamageStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Damage",
-				Format = "Percent"
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 2,
+				SkipAutoExtract = true,
 			},
 			{
-				Key = "ReportedCost",
-				ExtractAs = "Cost",
-				IncludeSigns = true,
+				External = true,
+				ExtractAs = "Damage",
+				BaseType = "ProjectileBase",
+				BaseName = "DemeterMiniStorm",
+				BaseProperty = "Damage",
+			},
+			{
+				ExtractAs = "Fuse",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "DemeterMiniStorm",
+				BaseProperty = "Fuse",
+				DecimalPlaces = 2,
+			},
+			{
+				ExtractAs = "ChillAmount",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "LegacyChillEffect",
+				BaseProperty = "ElapsedTimeMultiplier",
+				Format = "NegativePercentDelta",
+			},
+			{
+				ExtractAs = "ProjectileSlow",
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "DemeterSprintDefense",
+				BaseProperty = "SpeedMultiplierOfEnemyProjectilesInside",
+				Format = "NegativePercentDelta",
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "ChillDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "LegacyChillEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "Duration",
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "DemeterSprintStorm",
+				BaseProperty = "TotalFuse",
+				DecimalPlaces = 2,
+				SkipAutoExtract = true,
 			},
 		}
 	},
-	MassiveAoEIncrease = -- Apollo x Hephaestus
+	BlindClearBoon = -- Apollo x Hephaestus
 	{
 		Icon = "Boon_Apollo_43",
 		InheritFrom = {"SynergyTrait"},
-		MassiveAttackSizeModifier = 1.5,
+		AddOutgoingDamageModifiers = 
+		{
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidActiveEffects = {"BlindEffect"},
+			ValidBaseDamageAddition = 220,
+			ReportValues = { ReportedDamageAddition = "ValidBaseDamageAddition"}
+		},
 		StatLines =
 		{
-			"MassiveAoEIncreaseStatDisplay1",
+			"BlindClearBoonStatDisplay1",
 		},
-		ExtractValues =
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			FunctionName = "ClearBlindEffect",
+		},
+		ExtractValues = 
 		{
 			{
-				Key = "MassiveAttackSizeModifier",
-				ExtractAs = "AoEChange",
-				Format = "PercentDelta",
+				Key = "ReportedDamageAddition",
+				ExtractAs = "DamageAddition",
+			},
+			{
+				ExtractAs = "BlindChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "MissChance",
+				Format = "Percent"
+			},
+			{
+				ExtractAs = "BlindDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "Duration",
 			},
 		}
 	},
@@ -473,6 +530,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Zeus_41",
 		
 		ReportedDifference = 30, -- display variable for charge difference
+		WeaponDataOverrideTraitRequirement = "ApolloExCastBoon",
 		WeaponDataOverride =
 		{
 			WeaponCastArm = 
@@ -505,6 +563,7 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = { "WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" },
 			AddChargeStage = 
 			{ 
+				TraitName = "ApolloExCastBoon",
 				ManaCost = 45,
 				ResetIndicator = true,
 				Wait = 0.7,
@@ -513,12 +572,12 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-		
 			ValidProjectiles = { "ApolloCast",},	
 			FunctionName = "RecordSecondStageApolloCast",
 			Args = 
 			{
 				ProjectileName = "ZeusApolloSynergyStrike",
+				RequiredTrait = "ApolloExCastBoon",
 				DamageMultiplier = 1
 			},
 		},
@@ -620,33 +679,37 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	DoubleBurnBoon = -- Demeter x Hestia
+	BurnConsumeBoon = 
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Hestia_43",
-		BurnStackIncrease = 500,
-		
 		OnEffectApplyFunction = 
 		{
-			FunctionName = "DoubleBurnBoon",
+			FunctionName = "CheckBurnConsumption",
 			FunctionArgs = 
 			{
-				RequiredEffect = "ChillEffect",
-				MultipliedEffect = "BurnEffect",
-				Multiplier = 2,
-				ReportValues = {ReportedMultiplier = "Multiplier"}
-			}
+				Delay = 0.1,
+				EffectName = "ChillEffect",
+				ClearEffectName = "BurnEffect",
+				ConsumptionDamage = 2, -- Multiplier
+				ProjectileName = "HestiaBurnConsumeStrike",
+				ReportValues = 
+				{
+					ReportedDamage = "ConsumptionDamage",
+				}
+			},
 		},
 		StatLines =
 		{
-			"DoubleBurnStatDisplay1",
+			"BurnConsumeStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "BurnStackIncrease",
-				ExtractAs = "MaxStacks",
-				IncludeSigns = true,
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+				Format = "Percent",
+				HideSigns = true,
 			},
 			{
 				ExtractAs = "BurnRate",
@@ -673,11 +736,6 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "ChillEffect",
 				BaseProperty = "ActiveDuration",
 			},
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Multiplier",
-				Format = "PercentDelta",
-			}
 		}
 	},
 	GoodStuffBoon = -- Demeter x Poseidon
@@ -687,9 +745,9 @@ OverwriteTableKeys( TraitData, {
 		
 		RarityBonus =
 		{
-			Rare = 0.2,
-			Epic = 0.1,
-			Legendary = 0.1,
+			Rare = 0.45,
+			Epic = 0.20,
+			Legendary = 0.15,
 			ReportValues = { ReportedRarity = "Rare"}
 		},
 		StatLines =
@@ -705,39 +763,54 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	EchoAllBoon = -- Demeter x Zeus
+	RootStrikeBoon = -- Demeter x Zeus
 	{
 		Icon = "Boon_Zeus_42",
 		InheritFrom = {"SynergyTrait"},
-		-- Checked with HasTrait 
-		EchoDurationIncrease = 8,
-		ReportedMultiplier = 1,
+		OnEffectApplyFunction = 
+		{
+			FunctionName = "CheckRootStrike",
+			FunctionArgs = 
+			{
+				Interval = 0.25,
+				ProjectileName = "ZeusRootStrike",
+				ReportValues = { ReportedInterval = "Interval"}
+			}
+		},
 		StatLines =
 		{
-			"EchoAllDurationStatDisplay",
+			"RootStrikeDamageStatDisplay",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "EchoDurationIncrease",
-				ExtractAs = "Duration",
-				IncludeSigns = true,
+				External = true,
+				ExtractAs = "Damage",
+				BaseType = "ProjectileBase",
+				BaseName = "ZeusRootStrike",
+				BaseProperty = "Damage",
 			},
 			{
-				ExtractAs = "EchoDuration",
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 1,
+				SkipAutoExtract = true,
+			},
+			{
+				ExtractAs = "ChillDuration",
 				SkipAutoExtract = true,
 				External = true,
 				BaseType = "EffectData",
-				BaseName = "DamageEchoEffect",
+				BaseName = "ChillEffect",
 				BaseProperty = "Duration",
 			},
 			{
-				ExtractAs = "EchoThreshold",
+				ExtractAs = "ChillActiveDuration",
 				SkipAutoExtract = true,
 				External = true,
 				BaseType = "EffectData",
-				BaseName = "DamageEchoEffect",
-				BaseProperty = "DamageThreshold",
+				BaseName = "ChillEffect",
+				BaseProperty = "ActiveDuration",
 			},
 		}
 	},
@@ -790,7 +863,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		Icon = "Boon_Hestia_44",
 		InheritFrom = {"SynergyTrait"},
-		DoubleAttackInterval = 0.85,
+		DoubleAttackInterval = 2,
 		NumAttacks = 2, -- used for trait description only
 		StatLines =
 		{
@@ -828,7 +901,7 @@ OverwriteTableKeys( TraitData, {
 				Name = "MassiveCast",
 				TraitName = "PoseidonCastBoon",
 				ProjectileName = "MassiveSlamBlastCast",
-				Cooldown = 15,
+				Cooldown = 6,
 				BlastDelay = 0.26,
 				DamageMultiplier = 2.5,
 				ReportValues = 
@@ -868,7 +941,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers = 
 		{
 			ProjectileName = "ProjectileZeusSpark",
-			JumpMultiplier = 0.15,
+			JumpMultiplier = 0.20,
 			ReportValues = { ReportedWeaponMultiplier = "JumpMultiplier"},
 		},
 		StatLines =
@@ -884,55 +957,30 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	BurnOmegaBoon = -- Hera x Hestia
+	AllElementalBoon = -- Hera x Hestia
 	{
 		Icon = "Boon_Hestia_41",
 		InheritFrom = {"SynergyTrait"},
+		Elements = { "Aether", "Earth", "Air", "Fire", "Water" }, 
+		AcquireFunctionName = "GrantBoons",
+		AcquireFunctionArgs = 
+		{
+			BoonSets = 
+			{	
+				-- Earth
+				{ "ElementalDamageBoon", "ElementalRarityUpgradeBoon", },
+				-- Fire
+				{ "ElementalBaseDamageBoon", "ElementalRallyBoon" },
+				-- Air
+				{ "ElementalDamageFloorBoon", "ElementalDodgeBoon" },
+				-- Water
+				{ "ElementalHealthBoon", "ElementalDamageCapBoon" },
+			},
+		},
 		StatLines =
 		{
-			"BurnOverTimeStatDisplay",
+			"AllElementStatDisplay",
 		},
-		OnWeaponChargeFunctions = 
-		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			FunctionName = "StartExBurn",
-			FunctionArgs =
-			{
-				EffectName = "BurnEffect",
-				StartDelay = 0.15,
-				Interval = 1.0,
-				NumStacks = 90,
-				Fx = "CastCircleOutHestia",
-				Range = 415,
-				ReportValues = 
-				{
-					ReportedInterval = "Interval",
-					ReportedStacks = "NumStacks",
-				}
-			},
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedInterval",
-				ExtractAs = "Interval",
-				DecimalPlaces = 2,
-				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedStacks",
-				ExtractAs = "Stacks",
-			},
-			{
-				ExtractAs = "BurnRate",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectLuaData",
-				BaseName = "BurnEffect",
-				BaseProperty = "DamagePerSecond",
-				DecimalPlaces = 1,
-			},
-		}
 	},
 	MoneyDamageBoon = -- Hera x Poseidon
 	{
@@ -941,7 +989,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroAllWeapons,
-			GoldMultiplier = 0.05,
+			GoldMultiplier = 0.10,
 			ReportValues = {ReportedMultiplier = "GoldMultiplier"}
 		},
 		InflationIndex = 100,
@@ -955,7 +1003,6 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedMultiplier",
 				ExtractAs = "TooltipPercentIncrease",
 				Format = "TimesOneHundred",
-				IncludeSigns = true,
 			}
 		}
 	},
@@ -969,7 +1016,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			RemoveGod = "ZeusUpgrade",
 			BuffGod = "HeraUpgrade",
-			LevelBonus = 3,
+			LevelBonus = 4,
 			ReportValues = { ReportedLevelBonus = "LevelBonus" }
 		},
 		StatLines =
@@ -998,7 +1045,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			RemoveGod = "HeraUpgrade",
 			BuffGod = "ZeusUpgrade",
-			LevelBonus = 2,
+			LevelBonus = 4,
 			ReportValues = { ReportedLevelBonus = "LevelBonus" }
 		},
 		StatLines =
@@ -1031,7 +1078,7 @@ OverwriteTableKeys( TraitData, {
 				ValidEffect = "BurnEffect",
 				EffectName = "AmplifyKnockbackEffect",
 				ProjectileName = "SteamBlast",
-				DamageMultiplier = 1.0,
+				DamageMultiplier = 1.2,
 				ReportValues = 
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
@@ -1144,6 +1191,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				"ZeusEchoStrike",
 				"ZeusCastStrike",
+				"ZeusRootStrike",
 				"ZeusSprintStrike",
 				"ProjectileZeusSpark",
 				"ZeusZeroManaStrike",

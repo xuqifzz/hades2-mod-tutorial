@@ -75,12 +75,12 @@ LootSetData.Demeter =
 			"ElementalDamageCapBoon",
 
 			-- Duos
-			"EchoAllBoon",
+			"RootStrikeBoon",
 			"KeepsakeLevelBoon",
 			"GoodStuffBoon",
-			"CastRampBoon",
+			"StormSpawnBoon",
 			"MaxHealthDamageBoon",
-			"DoubleBurnBoon",
+			"BurnConsumeBoon",
 			"ClearRootBoon",
 		},
 		Consumables = { },
@@ -145,7 +145,7 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EchoAllBoon",
+					HasTraitNameInRoom = "RootStrikeBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0099",
@@ -197,7 +197,7 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CastRampBoon",
+					HasTraitNameInRoom = "StormSpawnBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0103",
@@ -249,7 +249,7 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "DoubleBurnBoon",
+					HasTraitNameInRoom = "BurnConsumeBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0109",

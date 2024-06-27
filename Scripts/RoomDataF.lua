@@ -311,11 +311,6 @@
 					},
 					{
 						Type = "Trait",
-						ItemName = "MinorLootBoon",
-						Rarity = "Common",
-					},
-					{
-						Type = "Trait",
 						ItemName = "EncounterStartOffenseBuffBoon",
 						Rarity = "Common",
 					},
@@ -1473,6 +1468,7 @@
 		ResetBinksOnExit = true,
 		LegalEncounters = { "BossHecate01", },
 		ForcedReward = "MixerFBossDrop",
+		IgnoreForRewardStoreCount = true,
 		NoReroll = true,
 
 		EntranceFunctionName = "RoomEntranceBoss",

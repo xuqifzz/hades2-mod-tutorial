@@ -824,6 +824,101 @@
 	}
 
 	{
+		Name = "TentacleUnburrowRadial"
+		FilePath = "Fx\Chronos\ChronosRadialPreviewA\ChronosRadialPreviewA"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		RandomRotation = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleRadius = 220
+		TransferFrameToThis = true
+		Loop = true
+	}
+
+	{
+		Name = "TentacleUnburrowRadialPreview"
+		FilePath = "Fx\Chronos\ChronosRadialPreviewA\ChronosRadialPreviewA"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ReRandomizeOnLoop = false
+		RandomStartFrame = true
+		RandomRotation = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Scale = 1.1
+		TransferFrameToThis = true
+		Loop = true
+	}
+
+	{
+		Name = "TentacleUnburrowRadialPreview_In"
+		InheritFrom = "TentacleUnburrowRadialPreview"
+		TransferFrameToThis = false
+		TransferFrameFromThis = true
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = "TentacleUnburrowRadialPreview"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.2
+		StartRed = 0.99
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "TentacleUnburrowNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		PlaySpeed = 90
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 120
+		CreateAnimations =
+		[
+			{ Name = "TentacleUnburrowNovaDark" }
+			{ Name = "TentacleUnburrowNovaDisplace" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "SlowFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "TentacleUnburrowNovaDark"
+		InheritFrom = "TentacleUnburrowNova"
+		PlaySpeed = 80
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "TentacleUnburrowNovaDisplace"
+		InheritFrom = "TentacleUnburrowNova"
+		PlaySpeed = 70
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.05
+		EndAlpha = 0.1
+	}
+
+	{
 		Name = "ErisDeathHandsFxIn"
 		FilePath = "Fx\CastSlowHandsLoop\CastSlowHandsLoop"
 		GroupName = "Combat_Menu_Overlay_Backing"

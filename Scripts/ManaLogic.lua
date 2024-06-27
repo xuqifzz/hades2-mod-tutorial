@@ -52,9 +52,9 @@
 	for weaponName, manaLimit in pairs( weaponManaToCheck ) do
 		if manaLimit then
 			if SessionState.UnlimitedMana then
-				SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+				SetWeaponManaAllowedFire( weaponName )
 			elseif CurrentRun.Hero.Mana >= manaLimit and ( CurrentRun.Hero.Mana - delta < manaLimit or args.ForceCheck ) then
-				SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+				SetWeaponManaAllowedFire( weaponName )
 				local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
 				if weaponData.OnHasManaFunctionName then
 					thread( CallFunctionName, weaponData.OnHasManaFunctionName, weaponData )
@@ -64,7 +64,7 @@
 				local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
 				SetManaIndicatorDisallowed( weaponName, false, manaLimit )
 				if not HeraManaRestoreEligible( manaLimit ) then
-					SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = false })				
+					SetWeaponManaDisallowedFire( weaponName )				
 					if weaponData.OnHasNoManaFunctionName then
 						thread( CallFunctionName, weaponData.OnHasNoManaFunctionName, weaponData )
 					end
@@ -75,16 +75,16 @@
 	for weaponName, manaLimit in pairs( weaponReservationManaToCheck ) do
 		if manaLimit then
 			if SessionState.UnlimitedMana then
-				SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+				SetWeaponManaAllowedFire( weaponName )
 			elseif manaLimit <= GetHeroMaxAvailableMana() then
-				SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+				SetWeaponManaAllowedFire( weaponName )
 				SetManaIndicatorAllowed( weaponName )
 				local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
 				if weaponData.OnHasManaFunctionName then
 					thread( CallFunctionName, weaponData.OnHasManaFunctionName, weaponData )
 				end
 			elseif manaLimit > GetHeroMaxAvailableMana() then
-				SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = false })
+				SetWeaponManaDisallowedFire( weaponName )
 				SetManaIndicatorDisallowed( weaponName )
 				local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
 				if weaponData.OnHasNoManaFunctionName then
@@ -95,6 +95,29 @@
 	end
 end
 
+function SetWeaponManaAllowedFire( weaponName )
+	local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
+	if weaponData and weaponData.ManaChanges and not IsEmpty(weaponData.ManaChanges.Enabled) then
+		for name, value in pairs(weaponData.ManaChanges.Enabled) do
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = name, Value = value })
+		end
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+	else
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+	end
+end
+
+function SetWeaponManaDisallowedFire( weaponName )
+	local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
+	if weaponData and weaponData.ManaChanges and not IsEmpty(weaponData.ManaChanges.Disabled) then
+		for name, value in pairs(weaponData.ManaChanges.Disabled) do
+			SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = name, Value = value })
+		end
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = true })
+	else
+		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowFire", Value = false })
+	end
+end
 
 function GetManaCost( weaponData, useRequiredMana, args )
 	args = args or {}
@@ -205,6 +228,12 @@ end
 function RefillMana()
 	local missingMana = GetHeroMaxAvailableMana() - CurrentRun.Hero.Mana
 	ManaDelta(missingMana)
+end
+
+function SetManaRegenUnique( args, traitData )
+	if traitData and traitData.SetupFunction and traitData.SetupFunction.Args then
+		traitData.SetupFunction.Args.Name = traitData.Id
+	end
 end
 
 function ManaRegenSetup( hero, args )
@@ -396,7 +425,7 @@ function IdleManaRegen( args )
 	local traitArgs = idleManaTrait.SetupFunction.Args
 	wait( traitArgs.MovePenaltyDuration, "IdleManaRegen" )
 	CurrentRun.Hero.ManaRegenSources = CurrentRun.Hero.ManaRegenSources or {}
-	CurrentRun.Hero.ManaRegenSources.IdleManaRegen = { Value = traitArgs.ManaRegenPerSecond, ShowManaRegen = true }
+	CurrentRun.Hero.ManaRegenSources.IdleManaRegen = { Value = CurrentRun.Hero.MaxMana * traitArgs.PercentManaRegenPerSecond, ShowManaRegen = true }
 
 	if traitArgs.ManaRegenStartFx then
 		CreateAnimation({ Name = traitArgs.ManaRegenStartFx, DestinationId = CurrentRun.Hero.ObjectId, OffsetX = 0 })
@@ -440,8 +469,12 @@ function CheckManaRefund( weaponData, functionArgs )
 end
 
 function CheckManaOnHit( victim, functionArgs, triggerArgs )
+	if functionArgs.IsNotEx and IsExWeapon( triggerArgs.SourceWeapon, {Combat = true}, triggerArgs ) then
+		return
+	end	
 	local validWeapons = ConcatTableValues( ShallowCopyTable(functionArgs.ValidWeapons), AddLinkedWeapons( functionArgs.ValidWeapons))
 	local passesHitCheck = functionArgs.FirstHitOnly == nil or (functionArgs.FirstHitOnly and not ProjectileHasUnitHit( triggerArgs.ProjectileId, "ManaOnHit" ))
+	
 	if Contains( validWeapons, triggerArgs.SourceWeapon ) and passesHitCheck then
 		ProjectileRecordUnitHit( triggerArgs.ProjectileId, "ManaOnHit")
 		ManaDelta(functionArgs.ManaGain)

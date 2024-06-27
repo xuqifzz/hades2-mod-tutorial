@@ -89,6 +89,11 @@ WeaponSetData =
 			},
 		},
 
+		Requirements =
+		{
+			MaxConsecutiveUses = 2,
+		},
+
 	},
 
 	HarpyFlap_Elite =

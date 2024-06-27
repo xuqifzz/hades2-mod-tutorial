@@ -85,7 +85,9 @@ function OpenRunClearScreen()
 		screen.Components["DamageDealtAmount"..damageRecordItem.SourceName] = damageAmountComponent
 		local damageAmountFormat = ShallowCopyTable( screen.DamageAmountFormat )
 		damageAmountFormat.Id = damageAmountComponent.Id
-		damageAmountFormat.Text = round(damageRecordItem.Amount)
+		damageAmountFormat.Text = "{$TempTextData.DamageRecordAmount:N}"
+		damageAmountFormat.LuaKey = "TempTextData"
+		damageAmountFormat.LuaValue = { DamageRecordAmount = round(damageRecordItem.Amount) }
 		CreateTextBox( damageAmountFormat )
 
 		damageLocationY = damageLocationY + screen.DamageDealtSpacingY

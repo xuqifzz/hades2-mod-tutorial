@@ -1986,8 +1986,18 @@
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolPickaxe2_Shop",
 		ToolName = "ToolPickaxe",
-		MaxHealthBonus = 1,
 		Level = 2,
+		ElementChance = 0.5,
+		ElementName = "FireEssence",
+		ElementPopupDelay = 0.6,
+		SimpleExtractValues =
+		{
+			{
+				Property = "ElementChance",
+				Multiply = 100,
+				NewProperty = "ElementChancePercent",
+			},
+		},
 		Cost =
 		{
 			OreHGlassrock = 6,
@@ -2017,15 +2027,16 @@
 		UnlockTextId = "ToolShopUnlock",
 		HelpTextId = "ToolExorcismBook2_Shop",
 		ToolName = "ToolExorcismBook",
-		ResourceBonus = 1.2,
 		Level = 2,
+		ElementChance = 0.5,
+		ElementName = "AirEssence",
+		ElementPopupDelay = 1.0,
 		SimpleExtractValues =
 		{
 			{
-				Property = "ResourceBonus",
+				Property = "ElementChance",
 				Multiply = 100,
-				Add = -100,
-				NewProperty = "ResourceBonusPercent",
+				NewProperty = "ElementChancePercent",
 			},
 		},
 		Cost =
@@ -2058,6 +2069,17 @@
 		HelpTextId = "ToolShovel2_Shop",
 		ToolName = "ToolShovel",
 		Level = 2,
+		ElementChance = 0.5,
+		ElementName = "EarthEssence",
+		ElementPopupDelay = 1.0,
+		SimpleExtractValues =
+		{
+			{
+				Property = "ElementChance",
+				Multiply = 100,
+				NewProperty = "ElementChancePercent",
+			},
+		},
 		Cost =
 		{
 			PlantOMandrake = 2,
@@ -2082,6 +2104,17 @@
 		HelpTextId = "ToolFishingRod2_Shop",
 		ToolName = "ToolFishingRod",
 		Level = 2,
+		ElementChance = 0.5,
+		ElementName = "WaterEssence",
+		ElementPopupDelay = 1.8,
+		SimpleExtractValues =
+		{
+			{
+				Property = "ElementChance",
+				Multiply = 100,
+				NewProperty = "ElementChancePercent",
+			},
+		},
 		Cost =
 		{
 			PlantODriftwood = 4,

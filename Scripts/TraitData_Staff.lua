@@ -450,13 +450,6 @@ OverwriteTableKeys( TraitData, {
 				TraitName = "StaffSelfHitAspect",
 				WeaponName = "WeaponStaffSwing5",
 				ExcludeLinked = true,
-				WeaponProperty = "NumProjectileWaves",
-				ChangeValue = 6,
-			},
-			{
-				TraitName = "StaffSelfHitAspect",
-				WeaponName = "WeaponStaffSwing5",
-				ExcludeLinked = true,
 				WeaponProperty = "ProjectileWaveInterval",
 				ChangeValue = 0.5,
 				ChangeType = "Multiply",

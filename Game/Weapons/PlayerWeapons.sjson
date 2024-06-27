@@ -162,7 +162,7 @@
 		AcceptTriggerLockRequests = true
 		AllowMultiFireRequest = false
 		BlockedByAllOtherFireRequest = true
-		ForceReleaseOnFail = true
+		ForceReleaseOnFail = false
 		ChargeTime = 0.1
 		Strafe = false
 		LoseControlOnRelease = true
@@ -707,7 +707,7 @@
 			{
 				Name = "EncounterStartInvulnerableBuff"
 				Type = "INVULNERABLE"
-				Duration = 1.0
+				Duration = 30.0
 				Modifier = 1.0
 				CanAffectInvulnerable = true
 				Active = true
@@ -1948,7 +1948,7 @@
 		FireFx = "AxeSwipe1"
 		ChargeCancelGraphic = "Melinoe_Axe_Attack1_End"
 		LockTrigger = true
-		CancelChargeOnRelease = false
+		CancelChargeOnRelease = true
 		SwapOnFire = "WeaponAxe2"
 		AddOnFire = "WeaponAxeSpin"
 		ForceReleaseOnSwap = true
@@ -2533,7 +2533,7 @@
 				Trigger = "Fire"
 				Name = "ShieldSelfInvulnerableRush2"
 				Type = "INVULNERABLE"
-				DurationFrames = 24
+				DurationFrames = 19
 				Modifier = 1.0
 				Active = true
 				AngleCoverage = 220
@@ -2555,7 +2555,7 @@
 			{
 				/* Trigger = "Fire" */
 				Name = "ShieldFireDisableAttack"
-				DurationFrames = 9
+				DurationFrames = 13
 				DisableAttack = true
 				RequestTriggerLock = true
 				Cancelable = false
@@ -2563,7 +2563,7 @@
 			{
 				/* Trigger = "Fire" */
 				Name = "ShieldFireDisableAttack"
-				DurationFrames = 16
+				DurationFrames = 19
 				DisableAttack = true
 				RequestTriggerLock = true
 				Cancelable = true
@@ -2581,7 +2581,7 @@
 			{
 				Trigger = "Fire"
 				Name = "ShieldFireDisableRotate2"
-				DurationFrames = 24
+				DurationFrames = 34
 				DisableRotate = true
 				Cancelable = true
 				TimeModifierFraction = 0
@@ -2589,7 +2589,7 @@
 			{
 				Trigger = "Fire"
 				Name = "ShieldFireDisableMove2"
-				DurationFrames = 25
+				DurationFrames = 34
 				DisableMove = true
 				DisableRotate = false
 				Cancelable = true
@@ -3010,7 +3010,7 @@
 		FireSound = "null"
 		AutoLock = true
 		AutoLockRange = 1210
-		AutoLockArcDistance = 360
+		AutoLockArcDistance = 100
 		Cooldown = 0.13
 		ChargeStartAnimation = "Melinoe_ForwardCast_Start"
 		LockTriggerForCharge = true

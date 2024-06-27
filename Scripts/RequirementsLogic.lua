@@ -130,13 +130,14 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		end
 	end
 
-	local prevRun = GameState.RunHistory[#GameState.RunHistory]
-
 	if requirements.RequiredWeapon ~= nil and not CurrentRun.Hero.Weapons[requirements.RequiredWeapon] then
 		return false
 	end
 
 	if requirements.ConsecutiveDeathsInRoom ~= nil then
+		if verboseLogging and requirements.ConsecutiveDeathsInRoom.Count >= 10 then
+			DebugAssert({ Condition = false, Text = "requirements.ConsecutiveDeathsInRoom.Count = "..requirements.ConsecutiveDeathsInRoom.Count.." (Max is 10)", Owner = "Gavin" })
+		end
 		local consecutiveDeathsInRoom = 0
 		if HasSeenRoomEarlierInRun( currentRun, requirements.ConsecutiveDeathsInRoom.Name ) then
 			if not currentRun.Cleared and currentRun.EndingRoomName == requirements.ConsecutiveDeathsInRoom.Name then
@@ -166,6 +167,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	end
 
 	if requirements.ConsecutiveClearsOfRoom ~= nil then
+		if verboseLogging and requirements.ConsecutiveClearsOfRoom.Count >= 10 then
+			DebugAssert({ Condition = false, Text = "requirements.ConsecutiveClearsOfRoom.Count = "..requirements.ConsecutiveClearsOfRoom.Count.." (Max is 10)", Owner = "Gavin" })
+		end
 		local consecutiveClearsOfRoom = 0
 		if HasSeenRoomEarlierInRun( currentRun, requirements.ConsecutiveClearsOfRoom.Name ) then
 			if currentRun.Cleared or currentRun.EndingRoomName ~= requirements.ConsecutiveClearsOfRoom.Name then
@@ -244,14 +248,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		end
 	end
 
-	if requirements.RequiredTrait ~= nil and ( not TraitData[requirements.RequiredTrait] or not HeroHasTrait( requirements.RequiredTrait )) then
-		return false
-	end
-
-	if requirements.RequiredFalseTrait ~= nil and TraitData[requirements.RequiredFalseTrait] and HeroHasTrait( requirements.RequiredFalseTrait ) then
-		return false
-	end
-
 	if requirements.RequiredFalseTraits ~= nil  then
 		for i, traitName in pairs(requirements.RequiredFalseTraits) do
 			if HeroHasTrait( traitName ) then
@@ -263,18 +259,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	if requirements.RequiredTraitCount ~= nil and requirements.RequiredTraitCount > GetTotalTraitCount(CurrentRun.Hero) then
 		return false
 	end
-
 	
-	if requirements.RequiredRoom ~= nil then
-		if currentRun.Hero.IsDead and CurrentHubRoom ~= nil then
-			if CurrentHubRoom.Name ~= requirements.RequiredRoom then
-				return false
-			end
-		elseif currentRun.CurrentRoom.Name ~= requirements.RequiredRoom then
-			return false
-		end
-	end
-
 	if requirements.RequiresInRun then
 		if currentRun.Hero.IsDead then
 			return false
@@ -291,53 +276,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		end
 	end
 
-	if requirements.RequiredMinOfferedRewardTypes ~= nil then
-		local offeredTypes = {}
-		if currentRun.CurrentRoom.OfferedRewards ~= nil then
-			for k, offeredReward in pairs( currentRun.CurrentRoom.OfferedRewards ) do
-				if offeredReward.Type ~= nil then
-					offeredTypes[offeredReward.Type] = true
-				end
-			end
-		end
-		if TableLength( offeredTypes ) < requirements.RequiredMinOfferedRewardTypes then
-			return false
-		end
-	end
-
-	if requirements.RequiredFalseRooms ~= nil and currentRun.CurrentRoom ~= nil and Contains( requirements.RequiredFalseRooms, currentRun.CurrentRoom.Name ) then
-		return false
-	end
-
-	if requirements.RequiredFalseEncounters ~= nil and Contains( requirements.RequiredFalseEncounters, currentRun.CurrentRoom.Encounter.Name ) then
-		return false
-	end
-
-	if requirements.NotInCombat and IsCombatEncounterActive( currentRun ) then
-		return false
-	end
-
-	if requirements.RequiredBiome ~= nil then
-		if currentRun.CurrentRoom == nil or currentRun.CurrentRoom.RoomSetName ~= requirements.RequiredBiome then
-			return false
-		end
-	end
-
-	if requirements.RequiredBiomes ~= nil then
-		if currentRun.CurrentRoom == nil or not Contains(requirements.RequiredBiomes, currentRun.CurrentRoom.RoomSetName ) then
-			return false
-		end
-	end
-
-	if requirements.RequiredCompletedRuns ~= nil and GetCompletedRuns() ~= requirements.RequiredCompletedRuns then
-		return false
-	end
-
 	if requirements.RequiredMinCompletedRuns ~= nil and GetCompletedRuns() < requirements.RequiredMinCompletedRuns then
-		return false
-	end
-
-	if requirements.RequiresLastRunCleared ~= nil and (prevRun == nil or not prevRun.Cleared) then
 		return false
 	end
 
@@ -358,21 +297,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	if requirements.RequiredPlayed ~= nil then
 		for k, voiceLine in pairs( requirements.RequiredPlayed ) do
 			if GameState.SpeechRecord[voiceLine] == nil then
-				return false
-			end
-		end
-	end
-	if requirements.RequiredFalsePlayed ~= nil then
-		for k, voiceLine in pairs( requirements.RequiredFalsePlayed ) do
-			if GameState.SpeechRecord[voiceLine] ~= nil then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredFalsePlayedThisRun ~= nil then
-		for k, voiceLine in pairs( requirements.RequiredFalsePlayedThisRun ) do
-			if currentRun.SpeechRecord[voiceLine] then
 				return false
 			end
 		end
@@ -450,14 +374,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		if GetNumLastStands( currentRun.Hero ) > requirements.RequiredMaxLastStands then
 			return false
 		end
-	end
-
-	if requirements.RequiredLastGodLoot ~= nil and CurrentLootData ~= nil and CurrentLootData.Name ~= requirements.RequiredLastGodLoot then
-		return false
-	end
-
-	if requirements.RequiredSwappedGodLoot ~= nil and currentRun.CurrentRoom.ReplacedTraitSource ~= requirements.RequiredSwappedGodLoot then
-		return false
 	end
 
 	if requirements.RequiresLastUpgradeSwapped ~= nil and currentRun.CurrentRoom.ReplacedTraitSource == nil then
@@ -548,9 +464,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	if requirements.AnyQuestWithStatus ~= nil and not HasAnyQuestWithStatus( requirements.AnyQuestWithStatus ) then
 		return false
 	end
-	if requirements.AllQuestsWithStatus ~= nil and not HasAllQuestsWithStatus( requirements.AllQuestsWithStatus ) then
-		return false
-	end
 
 	if requirements.RequiredMinQuestsComplete ~= nil then
 		local numQuestsComplete = 0
@@ -575,26 +488,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 			end
 		end
 		if numQuestsComplete > requirements.RequiredMaxQuestsComplete then
-			return false
-		end
-	end
-
-	if requirements.RequireQuestsComplete ~= nil then
-		for k, questName in pairs(requirements.RequireQuestsComplete) do
-			if GameState.QuestStatus[questName] ~= "CashedOut" then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequireAnyQuestsComplete ~= nil then
-		local anyComplete = false
-		for k, questName in pairs(requirements.RequireAnyQuestsComplete) do
-			if GameState.QuestStatus[questName] == "CashedOut" then
-				anyComplete = true
-			end
-		end
-		if not anyComplete then
 			return false
 		end
 	end
@@ -657,6 +550,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	end
 
 	if requirements.MinRunsSinceAnyTextLines ~= nil then
+		if verboseLogging and requirements.MinRunsSinceAnyTextLines.Count >= 10 then
+			DebugAssert({ Condition = false, Text = "requirements.MinRunsSinceAnyTextLines.Count = "..requirements.MinRunsSinceAnyTextLines.Count.." (Max is 10)", Owner = "Gavin" })
+		end
 		for k, textLines in pairs( requirements.MinRunsSinceAnyTextLines.TextLines ) do
 			local runsSinceOccurred = 0
 			for runIndex = #GameState.RunHistory + 1, 1, -1 do
@@ -676,6 +572,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		end
 	end
 	if requirements.MaxRunsSinceAnyTextLines ~= nil then
+		if verboseLogging and requirements.MaxRunsSinceAnyTextLines.Count >= 10 then
+			DebugAssert({ Condition = false, Text = "requirements.MaxRunsSinceAnyTextLines.Count = "..requirements.MaxRunsSinceAnyTextLines.Count.." (Max is 10)", Owner = "Gavin" })
+		end
 		for k, textLines in pairs( requirements.MaxRunsSinceAnyTextLines.TextLines ) do
 			local runsSinceOccurred = 0
 			for runIndex = #GameState.RunHistory + 1, 1, -1 do
@@ -986,6 +885,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 			end
 
 			if requirement.SumPrevRuns ~= nil then
+				if verboseLogging and requirement.SumPrevRuns >= 10 then
+					DebugAssert({ Condition = false, Text = "SumPrevRuns ("..requirement.SumPrevRuns..") cannot exceed 10 on "..tostring(source.Name), Owner = "Gavin", })
+				end
 				local prevRunSum = 0
 				--DebugPrint({ Text = "Summing previous runs" })
 				for runsBack = 0, requirement.SumPrevRuns - 1 do
@@ -1338,12 +1240,6 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 
 	if requirements.RequiredMinRoomsSinceWellShop ~= nil then
 		if currentRun.LastWellShopDepth ~= nil and currentRun.LastWellShopDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceWellShop < currentRun.LastWellShopDepth then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinRoomsSinceShrinePointDoor ~= nil then
-		if currentRun.LastShrinePointDoorDepth ~= nil and currentRun.LastShrinePointDoorDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceShrinePointDoor < currentRun.LastShrinePointDoorDepth then
 			return false
 		end
 	end

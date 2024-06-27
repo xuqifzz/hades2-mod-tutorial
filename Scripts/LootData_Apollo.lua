@@ -51,7 +51,7 @@ LootSetData.Apollo =
 			"PerfectDamageBonusBoon",
 			"BlindChanceBoon",
 			"ApolloBlindBoon",
-			"ApolloMissStrikeBoon",
+			"ApolloExCastBoon",
 			"ApolloCastAreaBoon",
 			"DoubleStrikeChanceBoon",
 
@@ -65,10 +65,10 @@ LootSetData.Apollo =
 			"ApolloSecondStageCastBoon",
 			"RaiseDeadBoon",
 			"PoseidonSplashSprintBoon",
-			"CastRampBoon",
+			"StormSpawnBoon",
 			"ManaBurstCountBoon",
 			"CoverRegenerationBoon",
-			"MassiveAoEIncrease",
+			"BlindClearBoon",
 		},
 		Consumables = { },
 
@@ -181,7 +181,7 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CastRampBoon",
+					HasTraitNameInRoom = "StormSpawnBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0097",
@@ -217,7 +217,7 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MassiveAoEIncrease",
+					HasTraitNameInRoom = "BlindClearBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0101",
@@ -1267,7 +1267,7 @@ LootSetData.Apollo =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0039",
-					Text = "{#Emph}Ah{#Prev}, 'twas poetry in motion, the way you handled yourself back there! Talent runs in the family! Some of us just got the lion's share." },
+					Text = "{#Emph}Ah{#Prev}, 'twas poetry in motion, the way you handled yourself back there! Talent runs in the family and some of us wound up with the bigger share." },
 			},
 			ApolloAboutFoes01 =
 			{

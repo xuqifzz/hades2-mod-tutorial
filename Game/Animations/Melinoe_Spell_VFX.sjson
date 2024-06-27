@@ -1666,11 +1666,29 @@ Animations = [
 		AngleFromOwner = "Ignore"
 		RandomFlipHorizontal = true
 		ScaleFromOwner = "Ignore"
+		Duration = 10
+		ChainTo = "SpellMeteorCrater_Out"
+	}
+
+	{
+		Name = "SpellMeteorCrater_Out"
+		InheritFrom = "SpellMeteorCrater"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 3
+		ChainTo = null
 	}
 
 	{
 		Name = "SpellMeteorCraterOceanus"
 		InheritFrom = "SpellMeteorCrater"
+		GroupName = "Terrain_Gameplay"
+		ChainTo = "SpellMeteorCraterOceanus_Out"
+	}
+
+	{
+		Name = "SpellMeteorCraterOceanus_Out"
+		InheritFrom = "SpellMeteorCrater_Out"
 		GroupName = "Terrain_Gameplay"
 	}
 

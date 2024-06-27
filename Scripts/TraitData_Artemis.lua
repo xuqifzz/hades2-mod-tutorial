@@ -2,7 +2,7 @@ OverwriteTableKeys( TraitData, {
 	-- Artemis
 	InsideCastCritBoon = 
 	{
-		Icon = "Boon_Artemis_02",
+		Icon = "Boon_Artemis_30",
 		InheritFrom = { "InPersonOlympianTrait", "EarthBoon" },
 		RarityLevels =
 		{
@@ -12,21 +12,21 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.3,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 1.6,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 1.9,
 			},
 		},
 		AddOutgoingCritModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			Chance = { BaseValue = 0.08 },
+			Chance = { BaseValue = 0.10 },
 			ValidActiveEffects = {"ImpactSlow"},
 			ReportValues = { ReportedCritBonus = "Chance"},
 		},
@@ -45,7 +45,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	OmegaCastVolleyBoon = 
 	{
-		Icon = "Boon_Artemis_01",
+		Icon = "Boon_Artemis_31",
 		InheritFrom = { "InPersonOlympianTrait", "AirBoon" },
 		RarityLevels =
 		{
@@ -55,15 +55,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 30/20,
+				Multiplier = 40/30,
 			},
 			Epic =
 			{
-				Multiplier = 40/20,
+				Multiplier = 50/30,
 			},
 			Heroic =
 			{
-				Multiplier = 50/20,
+				Multiplier = 60/30,
 			},
 		},
 		
@@ -113,7 +113,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	HighHealthCritBoon = 
 	{
-		Icon = "Boon_Artemis_03",
+		Icon = "Boon_Artemis_29",
 		InheritFrom = { "InPersonOlympianTrait", "EarthBoon" },
 		RarityLevels =
 		{
@@ -136,7 +136,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		AddOutgoingCritModifiers =
 		{
-			TargetHighHealthChance = { BaseValue = 0.10 },
+			TargetHighHealthChance = { BaseValue = 0.15 },
 			TargetHighHealthPercentThreshold = 0.8,
 			ReportValues = 
 			{ 
@@ -166,7 +166,7 @@ OverwriteTableKeys( TraitData, {
 	CritBonusBoon =
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "EarthBoon" },
-		Icon = "Boon_Artemis_08",
+		Icon = "Boon_Artemis_27",
 		RarityLevels =
 		{
 			Common =
@@ -209,7 +209,7 @@ OverwriteTableKeys( TraitData, {
 	DashOmegaBuffBoon = 
 	{
 		InheritFrom = { "BaseTrait", "AirBoon" },
-		Icon = "Boon_Artemis_04",
+		Icon = "Boon_Artemis_28",
 		RarityLevels =
 		{
 			Common =
@@ -218,15 +218,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.5,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.75,
 			},
 		},		
 		OnSprintAction = 
@@ -237,7 +237,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				EffectName = "OmegaDamageBuffEffect",
 				EffectArgs = { 
-					Modifier = { BaseValue = 1.10, SourceIsMultiplier = true},
+					Modifier = { BaseValue = 1.20, SourceIsMultiplier = true},
 					Duration = 2,
 					ReportValues = 
 					{
@@ -269,7 +269,7 @@ OverwriteTableKeys( TraitData, {
 	SupportingFireBoon =
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "AirBoon" },
-		Icon = "Boon_Artemis_12",
+		Icon = "Boon_Artemis_32",
 		RarityLevels =
 		{
 			Common =
@@ -329,7 +329,7 @@ OverwriteTableKeys( TraitData, {
 	TimedCritVulnerabilityBoon = 
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
-		Icon = "Boon_Artemis_05",
+		Icon = "Boon_Artemis_33",
 		RarityLevels =
 		{
 			Common =

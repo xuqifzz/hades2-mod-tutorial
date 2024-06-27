@@ -99,19 +99,19 @@ LootSetData.Aphrodite =
 			"FocusRawDamageBoon",
 
 			-- Legendary
-			"CharmCrowdBoon",
+			"RandomStatusBoon",
 
 			-- Elemental
 			"ElementalDodgeBoon",
 			
 			-- Duos
 			"SprintEchoBoon",
-			"MaximumShareBoon",
+			"CharmCrowdBoon",
 			"AllCloseBoon",
 			"MaxHealthDamageBoon",
 			"ManaBurstCountBoon",
-			"ShadeMercFireballBoon",
-			"FirstHitHealBoon",
+			"BurnRefreshBoon",
+			"SlamManaBurstBoon",
 		},
 
 		Consumables = { },
@@ -147,7 +147,7 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MaximumShareBoon",
+					HasTraitNameInRoom = "CharmCrowdBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0142",
@@ -219,7 +219,7 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "FirstHitHealBoon",
+					HasTraitNameInRoom = "SlamManaBurstBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0092",
@@ -236,7 +236,7 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ShadeMercFireballBoon",
+					HasTraitNameInRoom = "BurnRefreshBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0146",

@@ -36,7 +36,11 @@
 	
 	HideCombatUI( screen.Name )	
 	OnScreenOpened( screen )
-	
+	if HeroHasTrait( "SpellTalentKeepsake" ) then
+		local trait = GetHeroTrait("SpellTalentKeepsake")
+		ReduceTraitUses( trait, {Force = true })
+		trait.CustomTrayText = trait.ZeroBonusTrayText
+	end
 	if spellItem ~= nil then
 		LootPickupPresentation( spellItem )
 		RecordConsumableItem( spellItem )

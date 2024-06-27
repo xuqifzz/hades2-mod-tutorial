@@ -52,7 +52,7 @@ OverwriteTableKeys( TraitData, {
 	DaggerDashAttackTripleTrait = 
 	{
 		InheritFrom = { "WeaponTrait" },
-		Icon = "Hammer_Daggers_01",
+		Icon = "Hammer_Daggers_41",
 		RequiredWeapon = "WeaponDagger",
 		
 		OnWeaponFiredFunctions = 

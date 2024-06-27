@@ -884,39 +884,29 @@ function GetTimerStringHours( totalSeconds, args )
 end
 
 function GetTimerString( totalSeconds, decimals )
+	decimals = decimals or 0
+
 	local minutes = math.floor( totalSeconds / 60 )
 	local remainingSeconds = totalSeconds - (minutes * 60)
-	decimals = decimals or 0
+	local seconds = math.floor( remainingSeconds )
+	local milliseconds = math.floor( (remainingSeconds - seconds) * 100 )
+	
 	local str = ""
 	if minutes < 10 then
 		str = str.."0"
 	end
 	str = str..minutes..":"
-	if remainingSeconds == 0 then
-		if decimals > 0 then
-			str = str.."00."
-		else
-			str = str.."00"
-		end
-	elseif remainingSeconds < 10 then
+	if seconds < 10 then
 		-- Pad leading zero
 		str = str.."0"
 	end
-	remainingSeconds = round( remainingSeconds, decimals )
-	if decimals > 0 then
-		str = str..remainingSeconds
-		if remainingSeconds == math.floor(remainingSeconds) then
-			-- Exactly 0 milliseconds
-			str = str..".00"
-		elseif (remainingSeconds * 100) % 10 == 0 then
-			-- Pad trailing zero
-			str = str.."0"
-		end
-	else
-		if remainingSeconds > 0 then
-			str = str..remainingSeconds
-		end
+	str = str..seconds.."."
+	if milliseconds < 10 then
+		-- Pad leading zero
+		str = str.."0"
 	end
+	str = str..milliseconds
+
 	return str
 end
 

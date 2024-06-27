@@ -2957,6 +2957,9 @@ OverwriteTableKeys( HubRoomData, {
 						HasNone = { "/VO/Skelly_0300" },
 					},
 					NamedRequirements = { "ShrineUnlocked" },
+					{
+						PathFalse = { "CurrentRun", "WorldUpgradesAdded", "WorldUpgradeBountyBoard" },
+					},
 				},
 			},
 			{
@@ -4989,7 +4992,6 @@ GlobalVoiceLines.EnteredDeathAreaVoiceLines =
 		{ Cue = "/VO/Melinoe_2570", Text = "...I did all right that time...", PreLineWait = 2.0 },
 		{ Cue = "/VO/Melinoe_2399", Text = "{#Emph}Mph{#Prev}... well {#Emph}that {#Prev}was productive." },
 	},
-
 	[7] = {},
 	[8] = {},
 

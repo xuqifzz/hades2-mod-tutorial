@@ -201,6 +201,16 @@
 		}
 	}
 
+	MonospaceNumericP22UndergroundSCMedium = 
+	{
+		FontSize = 35
+		OutlineExtraSpace = 2
+		Font =
+		{
+			default = "en/MonospaceNumericP22UndergroundSCMedium.xnb"
+		}
+	}
+
 	CreditsP22UndergroundSCMedium =
 	{
 		FontSize = 35

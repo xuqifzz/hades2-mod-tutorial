@@ -57,18 +57,15 @@ UnitSetData.InfestedCerberus =
 			"InfestedCerberusPoundR",
 
 			-- Special
-			"InfestedCerberusHowlCircleCenter",
-			"InfestedCerberusHowlCircles",
-			"InfestedCerberusHowlCircles2",
-			"InfestedCerberusHowlCirclesRotating",
-			"InfestedCerberusHowlCirclesBackGuard",
+			"InfestedCerberusCirclesP1_Intro",
+			"InfestedCerberusCircleSelectorP1",
 
 			"InfestedCerberusHowlSummonSelector",
 			"InfestedCerberusHowlSummonSelector",
-			
+
 			-- Ranged
 			"InfestedCerberusMiasmaGeyser",
-			"InfestedCerberusFireBallCombo", 
+			"InfestedCerberusFireBallCombo",
 			"InfestedCerberusVacuumC",
 		},
 
@@ -168,14 +165,12 @@ UnitSetData.InfestedCerberus =
 					"InfestedCerberusForwardBite",
 					"InfestedCerberusForwardBite",
 
+					"InfestedCerberusLungeTurn",
 					"InfestedCerberusTurnSlam",
 					
 					-- ranged
 					"InfestedCerberus_C_Breath",
 					"InfestedCerberus_C_Breath",
-					
-					"InfestedCerberusImpulseC",
-					"InfestedCerberusImpulseC",
 
 					"InfestedCerberusFireBallCombo2",
 
@@ -186,7 +181,7 @@ UnitSetData.InfestedCerberus =
 					--"InfestedCerberusHowlSummonFogEmitters", -- Forced first and fires once
 
 					-- circles
-					"InfestedCerberusCircleSelector_P2",
+					"InfestedCerberusCircleSelectorP2",
 				},
 			},
 		},

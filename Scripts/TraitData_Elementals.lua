@@ -88,7 +88,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
 		ElementalMultipliers = 
@@ -162,7 +162,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
 		ElementalMultipliers = 
@@ -233,7 +233,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Fire" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
 		ActivationRequirements = 
@@ -287,7 +287,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Air" },
 				Comparison = ">=",
-				Value = 2,
+				Value = 3,
 			},
 		},
 		ActivationRequirements = 
@@ -329,7 +329,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
 		ActivationRequirements = 
@@ -376,15 +376,15 @@ OverwriteTableKeys( TraitData, {
 		GameStateRequirements = 
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Path = { "CurrentRun", "Hero", "Elements", "Water" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 4,
 			},
 		},
 		ActivationRequirements = 
 		{
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Earth" },
+				Path = { "CurrentRun", "Hero", "Elements", "Water" },
 				Comparison = ">=",
 				Value = 6,
 			},
@@ -421,44 +421,54 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Water" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
-		ActivationRequirements = 
+		ElementalMultipliers = 
 		{
+			Water = true,
+		},		
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Water" },
-				Comparison = ">=",
-				Value = 4,
+				Multiplier = 1
 			},
 		},
-		ActivatedPropertyChanges = 
+		PropertyChanges = 
 		{
-			
 			{
 				LuaProperty = "MaxHealth",
-				BaseValue = 100,
-				ChangeType = "Add",	
-				AsInt = true,
-				IdenticalMultiplier =
-				{
-					Value = DuplicateMultiplier,
-				}, 
-				ReportValues = { ReportedHealthBonus = "ChangeValue"}
+				BaseValue = 15,
+				ChangeType = "Add",
+				MultipliedByElement = "Water",
+				ReportValues = 
+				{ 
+					ReportedTotalHealthBonus = "ChangeValue",
+					ReportedHealthBonus = "BaseValue",
+				},
 			},
 		},
 		StatLines =
 		{
 			"MaxLifeStatDisplay1",
 		},
+		TrayStatLines =
+		{
+			"TotalMaxLifeStatDisplay1",
+		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedHealthBonus",
-				ExtractAs = "TooltipHealth",
-				IncludeSigns = true,
+				Key = "ReportedTotalHealthBonus",
+				ExtractAs = "TooltipTotalHealthBonus",
+				SkipAutoExtract = true,
 			},
-		}
+			{
+				Key = "ReportedHealthBonus",
+				ExtractAs = "TooltipDamageBonus",
+			},
+		},
 	},
 	ElementalDodgeBoon = 
 	{
@@ -469,42 +479,56 @@ OverwriteTableKeys( TraitData, {
 			{
 				Path = { "CurrentRun", "Hero", "Elements", "Air" },
 				Comparison = ">=",
-				Value = 1,
+				Value = 2,
 			},
 		},
-		ActivationRequirements = 
+		ElementalMultipliers = 
 		{
+			Air = true,
+		},		
+		RarityLevels =
+		{
+			Common =
 			{
-				Path = { "CurrentRun", "Hero", "Elements", "Air" },
-				Comparison = ">=",
-				Value = 4,
+				Multiplier = 1
 			},
 		},
-		ActivatedPropertyChanges = 
+		PropertyChanges = 
 		{
 			{
 				LifeProperty = "DodgeChance",
-				BaseValue = 0.15,
+				BaseValue = 0.03,
 				ChangeType = "Add",
+				MultipliedByElement = "Air",
 				DataValue = false,
-				IdenticalMultiplier =
-				{
-					Value = DuplicateWeakMultiplier,
+				ReportValues = 
+				{ 
+					ReportedTotalDodgeBonus = "ChangeValue",
+					ReportedDodgeBonus = "BaseValue",
 				},
-				ReportValues = { ReportedDodgeChance = "ChangeValue"},
 			},
 		},
 		StatLines =
 		{
-			"DodgeChanceStatDisplay1",
+			"ElementalDodgeStatDisplay1",
+		},
+		TrayStatLines = 
+		{
+			"TotalDodgeChanceStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDodgeChance",
+				Key = "ReportedTotalDodgeBonus",
+				ExtractAs = "TooltipTotalDodgeBonus",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedDodgeBonus",
 				ExtractAs = "TooltipDodgeBonus",
 				Format = "Percent",
 			},
-		}
+		},
 	},
 })

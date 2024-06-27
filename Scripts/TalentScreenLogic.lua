@@ -70,6 +70,7 @@
 		traitData = GetHeroTrait( CurrentRun.Hero.SlottedSpell.TraitName )
 	end
 	SetAnimation({ DestinationId = components.SpellIcon.Id, Name = traitData.Icon})
+	SetAnimation({ DestinationId = components.SpellFrame.Id, Name = GetTraitFrame( traitData ) })
 	ModifyTextBox({ Id = components.SpellText.Id, Text = traitData.Name, LuaKey = "TooltipData", LuaValue = traitData  })
 	ModifyTextBox({ Id = components.SpellDescription.Id, Text = traitData.Name, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData })
 	if spellItem ~= nil then
@@ -97,6 +98,12 @@
 		newSpellItem.RespawnAfterUse = spellItem.RespawnAfterUse
 		newSpellItem.RotateAfterUse = spellItem.RotateAfterUse
 		spellItem.RespawnAfterUse = false
+	end
+	
+	if HeroHasTrait( "SpellTalentKeepsake" ) then
+		local trait = GetHeroTrait("SpellTalentKeepsake")
+		ReduceTraitUses( trait, {Force = true })
+		trait.CustomTrayText = trait.ZeroBonusTrayText
 	end
 
 	-- Short delay to let animations finish and prevent accidental input
@@ -313,9 +320,18 @@ function HighlightTalentButton( button )
 	local newTraitData =  GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = button.Data.Name, Rarity = button.Data.Rarity, ForBoonInfo = true })
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
-
+	DebugObject = components
 	ModifyTextBox({ Id = button.Id, Text = button.Data.Name, UseDescription = true, LuaKey = "TooltipData", LuaValue = newTraitData })
-	SetTraitTrayDetails( { TraitData = newTraitData, ForBoonInfo = true, DetailsBox = components.DetailsBacking, RarityBox = components.RarityBox, TitleBox = components.TitleBox, Icon = components.TalentIcon })
+	if newTraitData.StatLines then
+		SetAlpha({ Id = components.StatLineLeft.Id, Fraction = 1, Duration = 0.2 })
+		SetAlpha({ Id = components.StatLineRight.Id, Fraction = 1, Duration = 0.2 })
+	else
+		SetAlpha({ Id = components.StatLineLeft.Id, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = components.StatLineRight.Id, Fraction = 0, Duration = 0.2 })
+	end
+	SetTraitTrayDetails( { TraitData = newTraitData, ForBoonInfo = true, DetailsBox = components.DetailsBacking, RarityBox = components.RarityBox, 
+		StatLines = {{ components.StatLineLeft.Id, components.StatLineRight.Id }}, TitleBox = components.TitleBox, Icon = components.TalentIcon })
+	SetAnimation({ DestinationId = components.TalentFrame.Id, Name = GetTraitFrame( newTraitData) })
 	PlaySound({ Name = "/SFX/Menu Sounds/VictoryScreenBoonToggle", Id = button.Id })
 end
 

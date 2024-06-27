@@ -75,6 +75,51 @@ WeaponSetData =
 		},
 	},
 
+	InfestedCerberusLungeTurn =
+	{
+		Requirements =
+		{
+			MinPlayerArc = 100,
+			MinAttacksBetweenUse = 4,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			PreAttackAngleTowardTarget = false,
+			ProjectileName = "CerberusLungeKnockback",
+
+			ChargeSelfVelocity = 3900,
+
+			PreAttackDuration = 0.67,
+			FireDuration = 0.65,
+			PostAttackDuration = 1.1,
+
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+			
+			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_ChargeGrowl",
+			PreAttackAnimation = "Enemy_InfestedCerberus_ForwardBitePreFire",
+			FireAnimation = "Enemy_InfestedCerberus_LungeTurn",
+			PostAttackAnimation = "Enemy_InfestedCerberus_ForwardBitePostFire",
+
+			ChainedWeaponOptions = { "InfestedCerberusSwipe", "InfestedCerberus_C_Breath", },
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Werewolf/EmoteAttacking" },
+			},
+		},
+	},
+
 	InfestedCerberusSwipe =
 	{
 		Requirements =
@@ -109,6 +154,10 @@ WeaponSetData =
 			FireDuration = 0.55,
 			PostAttackDuration = 1.8,
 			FireProjectileStartDelay = 0.08,
+
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.08,
+			StopBeforeFire = true,
 
 			AttackDistance = 965,
 			AttackDistanceBuffer = 375,
@@ -282,6 +331,10 @@ WeaponSetData =
 	InfestedCerberusHyperPoundL1 =
 	{
 		InheritFrom = { "InfestedCerberusPoundL" },
+		Requirements =
+		{
+			-- none
+		},
 		AIData =
 		{
 			DeepInheritance = true,
@@ -318,7 +371,7 @@ WeaponSetData =
 			},
 			--ClearPreAttackStartEffectsOnFireEnd = true,
 
-			FireSelfVelocity = 2650,
+			FireSelfVelocity = 2250,
 			ApplyEffectsOnWeaponFire =
 			{
 				WeaponEffectData.AttackHighGrip,
@@ -352,7 +405,7 @@ WeaponSetData =
 			},
 			ClearPreAttackStartEffectsOnFireEnd = true,
 
-			FireSelfVelocity = 2650,
+			FireSelfVelocity = 2250,
 			ApplyEffectsOnWeaponFire =
 			{
 				WeaponEffectData.AttackHighGrip,
@@ -376,7 +429,7 @@ WeaponSetData =
 		Requirements =
 		{
 			MaxPlayerDistance = 2000,
-			MinAttacksBetweenUse = 7,
+			MinAttacksBetweenUse = 14,
 		},
 		WeaponComboOnly = true,
 		WeaponCombo =
@@ -403,7 +456,7 @@ WeaponSetData =
 	{
 		Requirements =
 		{
-			MinPlayerDistance = 650,
+			MinPlayerDistance = 1100,
 			MinAttacksBetweenUse = 2,
 		},
 
@@ -652,21 +705,15 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusVacuum", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_00_M_JNT" }  },
-				{ ProjectileName = "CerberusVacuum", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_01_R_JNT" }  },
-				{ ProjectileName = "CerberusVacuum", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_01_L_JNT" }  },
-			},
-			FireTicks = 1,
-			FireInterval = 0.1,
+			ProjectileName = "CerberusVacuum",
+			BarrelLength = 200,
 
 			FireProjectileStartDelay = 0.35,
 
 			PreAttackAnimationSpeed = 1.5,
 			PreAttackDuration = 0.5,
-			FireDuration = 0.7,
-			PostAttackDuration = 0.1,
+			FireDuration = 1.35,
+			PostAttackDuration = 0.3,
 
 			AttackDistance = 2000,
 
@@ -675,7 +722,7 @@ WeaponSetData =
 			FireAnimation = "Enemy_InfestedCerberus_VacuumFire",
 			PostAttackAnimation = "Enemy_InfestedCerberus_VacuumPostFire",
 
-			ChainedWeaponOptions = { "InfestedCerberusSwipe", "InfestedCerberusHyperPoundL1" },
+			ChainedWeaponOptions = { "InfestedCerberusHyperPoundL1", "InfestedCerberusHyperPoundR1" },
 		},
 
 		Sounds =
@@ -694,323 +741,28 @@ WeaponSetData =
 		},
 	},
 
-	InfestedCerberusImpulseC =
-	{
-		Requirements =
-		{
-			MinAttacksBetweenUse = 3,
-			MinPlayerDistance = 700,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusImpulse", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_00_M_JNT" }  },
-				{ ProjectileName = "CerberusImpulse", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_01_R_JNT" }  },
-				{ ProjectileName = "CerberusImpulse", AIDataOverrides = { FireProjectileAngleRelative = 0, SpawnFromMarker = "InfestedCerberus_Rig:lowerTeeth_01_L_JNT" }  },
-			},
-			FireTicks = 1,
-			FireInterval = 0.1,
-
-			FireProjectileStartDelay = 0.35,
-
-			PreAttackAnimationSpeed = 1.5,
-			PreAttackDuration = 0.5,
-			FireDuration = 0.7,
-			PostAttackDuration = 0.1,
-
-			AttackDistance = 2000,
-
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_SwipeCharge",
-			PreAttackAnimation = "Enemy_InfestedCerberus_VacuumPreFire",
-			FireAnimation = "Enemy_InfestedCerberus_VacuumFire",
-			PostAttackAnimation = "Enemy_InfestedCerberus_VacuumPostFire",
-
-			ChainedWeaponOptions = { "InfestedCerberus_C_Breath" },
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				--{ Name = "/SFX/Enemy Sounds/Crawler/CrawlerMinibossRoar" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
-	},
-
-	InfestedCerberusHowlCircles =
+	InfestedCerberusCircles =
 	{
 		GenusName = "InfestedCerberusHowl",
-		Requirements =
-		{
-			MinAttacksBetweenUse = 1,
-			MaxUses = 3,
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-			},
-			FireProjectileAtTarget = true,
-
-			ImmuneToProjectileSlow = true,
-
-			PreAttackDuration = 0.5,
-			FireDuration = 0.63,
-			PostAttackDuration = 0.5,
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_ChargeGrowl",
-			PreAttackAnimation = "Enemy_InfestedCerberus_BarkPreFire",
-			FireAnimation = "Enemy_InfestedCerberus_BarkFireLoop",
-			PostAttackAnimation = "Enemy_InfestedCerberus_BarkPostFire",
-
-			PreAttackAngleTowardTarget = false,
-
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
-
-		Sounds =
-		{
-			FireSounds =
-			{
-				--{ Name = "/SFX/Enemy Sounds/Werewolf/EmoteHowling" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
-	},
-
-	InfestedCerberusHowlCircles2 =
-	{
-		InheritFrom = { "InfestedCerberusHowlCircles" },
-		GenusName = "InfestedCerberusHowl",
-		Requirements =
-		{
-			MinAttacksBetweenUse = 3,
-			WeaponHistory =
-			{
-				InfestedCerberusHowlCircles = 3,
-			},
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 60, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 300, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-			},
-			AttackSlotInterval = 0.5,
-			PostAttackDuration = 0.5,
-		},
-	},
-
-	InfestedCerberusHowlCirclesRotating =
-	{
-		InheritFrom = { "InfestedCerberusHowlCircles" },
-		GenusName = "InfestedCerberusHowl",
-		Requirements =
-		{
-			MinAttacksBetweenUse = 3,
-			WeaponHistory =
-			{
-				InfestedCerberusHowlCircles = 3,
-			},
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 0, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 120, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 240, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetFromAttacker = true },
-			},
-			PostAttackDuration = 0.5,
-
-			PreAttackVoiceLines =
-			{
-				GameStateRequirements =
-				{
-					RequiredMinHealthFraction = 0.18,
-				},
-				{
-					PlayOnceFromTableThisRun = true,
-					BreakIfPlayed = true,
-					PreLineWait = 1.25,
-					SuccessiveChanceToPlay = 0.15,
-					UsePlayerSource = true,
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech", Time = 25 },
-					},
-					{ Cue = "/VO/MelinoeField_1234", Text = "Easy now...!" },
-					{ Cue = "/VO/MelinoeField_1236", Text = "Easy, boy!" },
-					{ Cue = "/VO/MelinoeField_1238", Text = "Calm yourself...!" },
-				},
-			},
-
-		},
-	},
-
-	InfestedCerberusHowlCirclesRotating2 =
-	{
-		InheritFrom = { "InfestedCerberusHowlCirclesRotating" },
-		Requirements =
-		{
-			MinAttacksBetweenUse = 1,
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-		},
-	},
-
-	InfestedCerberusHowlCirclesBackGuard =
-	{
-		InheritFrom = { "InfestedCerberusHowlCircles" },
-		Requirements =
-		{
-			MinPlayerArc = 100,
-			MaxPlayerArc = 360,
-			MinAttacksBetweenUse = 4,
-		},
-		AIData =
-		{
-			ForceUseIfReady = true,
-			AttackSlots =
-			{
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 600, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 260, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 100, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
-
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 220, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 140, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
-			},
-		},
-		PostAttackDuration = 10,
-	},
-
-	InfestedCerberusHowlCircleCenter =
-	{
-		GenusName = "InfestedCerberusHowl",
-		Requirements =
-		{
-			MinAttacksBetweenUse = 1,
-		},
-
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "CerberusCircleSequenceProjectile",
-
-			FireProjectileAtSelf = true,
-
-			-- free circle
-			PreAttackDuration = 0.0,
-			FireDuration = 0.0,
-			PostAttackDuration = 0.05,
-
-			PreAttackStop = false,
-			TrackTargetDuringCharge = false,
-			AngleTowardsTargetWhileFiring = false,
-			PreAttackAngleTowardTarget = false,
-
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_SwipeCharge",
-			PreAttackAnimation = nil,
-			FireAnimation = nil,
-			PostAttackAnimation = nil,
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
-		},
-	},
-
-	InfestedCerberusCircleSelector_P2 =
-	{
-		Requirements =
-		{
-			MinAttacksBetweenUse = 4,
-		},
-		AIData =
-		{
-			DeepInheritance = true,
-			ForceUseIfReady = true,
-
-			SkipFireWeapon = true,
-			AttackDistance = 99999,
-
-			ChainedWeaponOptions =
-			{
-				"InfestedCerberusCirclesClose",
-				"InfestedCerberusCirclesMid",
-				"InfestedCerberusCirclesPlayer",
-				"InfestedCerberusCirclesCone",
-				"InfestedCerberusCirclesScatter",
-				"InfestedCerberusCirclesSpiral",
-				"InfestedCerberusCirclesRotatingP2",
-			},
-		},
-	},
-
-	InfestedCerberusCirclesClose =
-	{
 		SkipWeaponCount = true,
 		AIData =
 		{
 			DeepInheritance = true,
 
+			--[[
 			AttackSlots =
 			{
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 60, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 300, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
 			},
+			]]
 			FireProjectileAtTarget = true,
 
 			ImmuneToProjectileSlow = true,
 
-			PreAttackDuration = 0.5,
+			PreAttackDuration = 0.25,
+			PreAttackAnimationSpeed = 2.0,
 			FireDuration = 0.3,
 			PostAttackDuration = 0.4,
 			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_ChargeGrowl",
@@ -1040,11 +792,249 @@ WeaponSetData =
 		},
 	},
 
-	InfestedCerberusCirclesMid =
+	InfestedCerberusCirclesP1_Intro =
 	{
-		InheritFrom = { "InfestedCerberusCirclesClose" },
+		InheritFrom = { "InfestedCerberusCircles" },
+		GenusName = "InfestedCerberusHowl",
+
+		Requirements =
+		{
+			MaxUses = 1,
+			RequireTotalAttacks = 1,
+		},
+
+		AIData =
+		{			
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 950, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+			},
+		},
+	},
+
+	InfestedCerberusCircleSelectorP1 =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 4,
+			RequireTotalAttacks = 7,
+		},
 		AIData =
 		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			SkipFireWeapon = true,
+			AttackDistance = 99999,
+
+			ChainedWeaponOptions =
+			{
+				"InfestedCerberusCirclesP1_Close",
+				"InfestedCerberusCirclesP1_Far",
+				"InfestedCerberusCirclesP1_Spiral",
+				"InfestedCerberusCirclesP1_Rotating",
+				"InfestedCerberusCirclesP1_Player",
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP1_Close =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 72, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 144, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 216, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 288, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP1_Far =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 45, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 90, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 135, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 225, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 270, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 315, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP1_Spiral =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		GenusName = "InfestedCerberusHowl",
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 2000, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = -45, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 45, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.75 },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 2000, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 75, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 165, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.75 },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 2000, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 195, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 285, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP1_Rotating =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		GenusName = "InfestedCerberusHowl",
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 0, AnchorAngleOffset = 1200, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 0, AnchorAngleOffset = 2400, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 120, AnchorAngleOffset = 1200, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 120, AnchorAngleOffset = 2400, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 240, AnchorAngleOffset = 1200, OffsetRadius = 0, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 240, AnchorAngleOffset = 2400, OffsetRadius = 0, OffsetFromAttacker = true },
+			},
+			PostAttackDuration = 0.5,
+
+			PreAttackVoiceLines =
+			{
+				GameStateRequirements =
+				{
+					RequiredMinHealthFraction = 0.18,
+				},
+				{
+					PlayOnceFromTableThisRun = true,
+					BreakIfPlayed = true,
+					PreLineWait = 1.25,
+					SuccessiveChanceToPlay = 0.15,
+					UsePlayerSource = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 25 },
+					},
+					{ Cue = "/VO/MelinoeField_1234", Text = "Easy now...!" },
+					{ Cue = "/VO/MelinoeField_1236", Text = "Easy, boy!" },
+					{ Cue = "/VO/MelinoeField_1238", Text = "Calm yourself...!" },
+				},
+			},
+
+		},
+	},
+
+	InfestedCerberusCirclesP1_Player =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
+			},
+		},
+	},
+
+	InfestedCerberusCirclesBackGuard =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 600, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 260, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 100, AnchorAngleOffset = 1500, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
+
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1800, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 220, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 140, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
+			},
+		},
+	},
+
+	InfestedCerberusCircleSelectorP2 =
+	{
+		Requirements =
+		{
+			MinAttacksBetweenUse = 4,
+		},
+		AIData =
+		{
+			DeepInheritance = true,
+			ForceUseIfReady = true,
+
+			SkipFireWeapon = true,
+			AttackDistance = 99999,
+
+			ChainedWeaponOptions =
+			{
+				"InfestedCerberusCirclesP2_Close",
+				"InfestedCerberusCirclesP2_Mid",
+				"InfestedCerberusCirclesP2_Player",
+				"InfestedCerberusCirclesP2_Cone",
+				"InfestedCerberusCirclesP2_Scatter",
+				"InfestedCerberusCirclesP2_Spiral",
+				"InfestedCerberusCirclesP2_Rotating",
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP2_Close =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 60, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 180, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 300, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
+			},
+		},
+	},
+
+	InfestedCerberusCirclesP2_Mid =
+	{
+		InheritFrom = { "InfestedCerberusCircles" },
+		AIData =
+		{
+			DeepInheritance = true,
 			AttackSlots =
 			{
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
@@ -1059,25 +1049,30 @@ WeaponSetData =
 		},
 	},
 
-	InfestedCerberusCirclesPlayer =
+	InfestedCerberusCirclesP2_Player =
 	{
-		InheritFrom = { "InfestedCerberusCirclesClose" },
+		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
+			DeepInheritance = true,
 			AttackSlots =
 			{
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 120, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
-				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 800, OffsetRadius = 0, OffsetScaleY = 0.48,  },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetScaleY = 0.48, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 72, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 144, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 216, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, },
+				{ ProjectileName = "CerberusSkyProjectile", Angle = 288, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, },
 			},
 		},
 	},
 
-	InfestedCerberusCirclesCone =
+	InfestedCerberusCirclesP2_Cone =
 	{
-		InheritFrom = { "InfestedCerberusCirclesClose" },
+		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
+			DeepInheritance = true,
 			AttackSlots =
 			{
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 400, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.1, },
@@ -1097,60 +1092,41 @@ WeaponSetData =
 		},
 	},
 
-	InfestedCerberusCirclesScatter =
+	InfestedCerberusCirclesP2_Scatter =
 	{
-		SkipWeaponCount = true,
+		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
 			DeepInheritance = true,
 
-			ProjectileName = "CerberusSkyProjectile",
-
-			ImmuneToProjectileSlow = true,
-
-			TargetSpawnPoints = true,
-			TargetSpawnPointsRadius = 99999,
-
-			FireTicksMin = 15,
-			FireTicksMax = 15,
-			FireInterval = 0.1,
-			ResetTargetPerTick = true,
-
-			PreAttackDuration = 0.5,
-			FireDuration = 0.0,
-			PostAttackDuration = 0.4,
-			PreAttackSound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_ChargeGrowl",
-			PreAttackAnimation = "Enemy_InfestedCerberus_BarkPreFire",
-			FireAnimation = "Enemy_InfestedCerberus_BarkFireLoop",
-			PostAttackAnimation = "Enemy_InfestedCerberus_BarkPostFire",
-
-			PreAttackAngleTowardTarget = false,
-
-			AttackDistance = 9999,
-			MoveWithinRange = false,
-		},
-
-		Sounds =
-		{
-			FireSounds =
+			RandomizeAttackSlotOrder = true,
+			AttackSlots =
 			{
-				--{ Name = "/SFX/Enemy Sounds/Werewolf/EmoteHowling" },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626601, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626573, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626575, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 702572, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626681, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626707, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 723317, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 723339, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 723326, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626646, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626701, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 723323, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626594, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626617, PauseDuration = 0.1, },
+				{ ProjectileName = "CerberusSkyProjectile", AnchorAngleOffset = 0, UseMapObjectId = 626641, PauseDuration = 0.1, },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
 		},
 	},
 
-	InfestedCerberusCirclesSpiral =
+	InfestedCerberusCirclesP2_Spiral =
 	{
-		InheritFrom = { "InfestedCerberusCirclesClose" },
+		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
+			DeepInheritance = true,
 			AttackSlots =
 			{
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 0, AnchorAngleOffset = 900, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true, PauseDuration = 0.2, },
@@ -1170,11 +1146,12 @@ WeaponSetData =
 		},
 	},
 
-	InfestedCerberusCirclesRotatingP2 =
+	InfestedCerberusCirclesP2_Rotating =
 	{
-		InheritFrom = { "InfestedCerberusCirclesClose" },
+		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
+			DeepInheritance = true,
 			AttackSlots =
 			{
 				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 0, AnchorAngleOffset = 0, OffsetRadius = 0, OffsetFromAttacker = true },
@@ -1189,12 +1166,7 @@ WeaponSetData =
 				{ ProjectileName = "CerberusSkyProjectileRotating", Angle = 240, AnchorAngleOffset = 3600, OffsetRadius = 0, OffsetFromAttacker = true },
 			},
 		},
-
-		PostAttackDuration = 4.1, -- needs to be longer so he doesn't drag them
 	},
-
-	-- series circles?
-	-- line circles?
 
 	InfestedCerberusHowlSummonSelector =
 	{
@@ -1467,7 +1439,7 @@ WeaponSetData =
 	{
 		Requirements = 
 		{
-			MinAttacksBetweenUse = 6,
+			MinAttacksBetweenUse = 8,
 		},
 
 		AIData =
@@ -1484,8 +1456,8 @@ WeaponSetData =
 			PostAttackStop = true,
 
 			PreAttackDuration = 0.0,
-			FireDuration = 1.6,
-			PostAttackDuration = 0.0,
+			FireDuration = 0.7,
+			PostAttackDuration = 0.45,
 			TeleportPreWaitAnimation = "Enemy_InfestedCerberus_BurrowStart",
 			TeleportAnimation = "Enemy_InfestedCerberus_BurrowEmerge",
 
@@ -1495,8 +1467,8 @@ WeaponSetData =
 
 			TeleportToSpawnPoints = true,
 			--TeleportToSpawnPointType = "EnemyPointMelee",
-			TeleportMinDistance = 350,
-			TeleportMaxDistance = 650,
+			TeleportMinDistance = 1200,
+			TeleportMaxDistance = 4750,
 			TeleportPreWaitFx = "EnemyBurrowExitSmall",
 			TeleportEndFx = "EnemyBurrowEntranceSmall",
 			TeleportDestinationFx = "CerbAoEDecal_In_Unburrow",
@@ -1508,8 +1480,6 @@ WeaponSetData =
 			StopBeforeTeleport = true,
 			AngleTowardsTeleportTarget = false,
 			AngleTowardsTeleportTargetMidTeleport = true,
-
-			PostAttackDuration = 0.85,
 
 			--ChainedWeaponOptions = { "InfestedCerberusUnburrowRadialInverted" },
 			ChainedWeapon = "InfestedCerberusUnburrowRadialInverted",
@@ -1642,7 +1612,7 @@ WeaponSetData =
 	{
 		Requirements = 
 		{
-			MinAttacksBetweenUse = 8,
+			MinAttacksBetweenUse = 12,
 		},
 
 		AIData =
@@ -1650,7 +1620,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "MiasmaLobEdge",
-			NumProjectiles = 16,
+			NumProjectiles = 10,
 			ProjectileInterval = 0.06,
 			Spread = 360,
 			BarrelLength = 0,

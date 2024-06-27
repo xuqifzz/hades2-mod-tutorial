@@ -103,6 +103,9 @@ function CreateBoonInfoButton( screen, traitName, index )
 	SetTraitTextData( newTraitData )
 
 	local backingAnim = screenData.RarityBackingAnimations[rarity]
+	if traitData ~= nil and traitData.UpgradeChoiceBackingAnimation ~= nil then
+		backingAnim = traitData.UpgradeChoiceBackingAnimation
+	end
 	
 	local purchaseButton = ShallowCopyTable( screenData.PurchaseButton )
 	purchaseButton.Group = "Combat_Menu_TraitTray"
@@ -380,9 +383,10 @@ function CreateTraitRequirementList( screen, headerTextArgs, traitList, startY, 
 	local sharedGod = nil
 	local allSame = true
 	for i, traitName in ipairs( traitList ) do
+		local lootSourceName = GetLootSourceName( traitName )
 		if not sharedGod then
-			sharedGod = GetLootSourceName( traitName )
-		elseif sharedGod ~= GetLootSourceName(traitName) then
+			sharedGod = lootSourceName
+		elseif sharedGod ~= lootSourceName and not LootData[sharedGod].TraitIndex[traitName] then
 			allSame = false
 		end
 		local displayedTraitName = traitName
@@ -576,7 +580,6 @@ function BoonInfoPopulateTraits( screen )
 	]]
 
 	for i, traitName in ipairs( allTraitsList ) do
-		--if not TraitData[traitName] or not TraitData[traitName].RequiredTrait or not screen.HiddenTraits[TraitData[traitName].RequiredTrait ] then
 		local traitData = TraitData[traitName]
 		if traitData ~= nil and ( traitData.RequiredWeapon == nil or traitData.RequiredWeapon == screen.CodexEntryName ) then
 			table.insert( screen.TraitList, traitName )
@@ -656,9 +659,6 @@ function BoonInfoSort( itemA, itemB )
 					value = 40
 				elseif trait.RequiredWeapon == "FistWeapon" or Contains(trait.RequiredWeapons, "FistWeapon") then
 					value = 50
-				end
-				if trait.RequiredTrait then
-					value = value + 2
 				end
 				return value
 			end

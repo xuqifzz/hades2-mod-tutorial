@@ -329,19 +329,19 @@
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 3.0,
+				Multiplier = 1.75,
 			},
 		},
 		SetupFunction =
@@ -350,7 +350,7 @@
 			Args =
 			{
 				Name = "ManaOverTimeMetaUpgrade",
-				ManaRegenPerSecond = { BaseValue = 2 },
+				ManaRegenPerSecond = { BaseValue = 4 },
 				ReportValues = { ReportedManaRecovery = "ManaRegenPerSecond" }
 			},
 		},
@@ -1059,26 +1059,35 @@
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 0.9,
 			},
 			Rare =
 			{
-				Multiplier = 4/3,
+				Multiplier = 1.2,
 			},
 			Epic =
 			{
-				Multiplier = 5/3,
+				Multiplier = 1.5,
 			},
 			Heroic = 
 			{
-				Multiplier = 2,
+				Multiplier = 1.8,
 			}
 		},
 		AddOutgoingCritModifiers =
 		{
 			IsEx = true,
-			Chance = { BaseValue = 0.03 },
-			ReportValues = { ReportedCritBonus = "Chance"}
+			DifferentOmegaChance = { BaseValue = 0.10 },
+			ReportValues = { ReportedCritBonus = "DifferentOmegaChance"}
+		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "RemoveOmegaCritVolley",
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckDifferentOmegaCrit",
 		},
 		ExtractValues = 
 		{
@@ -1566,7 +1575,7 @@
 		{
 			{
 				LifeProperty = "DodgeChance",
-				BaseValue = 0.06,
+				BaseValue = 0.03,
 				ChangeType = "Add",
 				DataValue = false,
 				ReportValues = { ReportedDodgeBonus = "ChangeValue"}
@@ -1709,15 +1718,15 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 2,
 			},
 			Epic =
 			{
-				Multiplier = 2.0,
+				Multiplier = 3,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 4,
 			},
 		},
 		InheritFrom = { "MetaUpgradeTrait" },
@@ -1727,7 +1736,8 @@
 			Name = "SorceryChargeSetup",
 			Args =
 			{
-				ChargePerSecond = { BaseValue = 2 },
+				Name = "MetaUpgrade",
+				ChargePerSecond = { BaseValue = 1 },
 				ReportValues = { ReportedCharge = "ChargePerSecond" }
 			},
 		},

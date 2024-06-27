@@ -106,6 +106,7 @@ OverwriteTableKeys( EncounterData,
 	ClockworkIntro =
 	{
 		AlwaysForce = true,
+		CountsForRoomEncounterDepth = true,
 		DifficultyModifier = 100,
 		
 		ActiveEnemyCapBase = 1.0,

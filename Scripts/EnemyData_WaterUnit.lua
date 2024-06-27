@@ -59,6 +59,8 @@ UnitSetData.WaterUnit =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			PreAttackAlpha = 1,
 		},
 
 		WeaponOptions =

@@ -373,13 +373,12 @@ OverwriteTableKeys( QuestData, {
 					"PoseidonWeaponBoon",
 					"PoseidonSpecialBoon",
 					"PoseidonCastBoon",
+					"PoseidonExCastBoon",
 					"PoseidonSprintBoon",
 					"PoseidonManaBoon",
 					"EncounterStartOffenseBuffBoon",
-					"MinorLootBoon",
 					"RoomRewardBonusBoon",
 					"FocusDamageShaveBoon",
-					"SlamExplosionBoon",
 					"DoubleRewardBoon",
 					"PoseidonStatusBoon",
 					"AmplifyConeBoon", -- Legendary
@@ -429,13 +428,13 @@ OverwriteTableKeys( QuestData, {
 					"ApolloWeaponBoon",
 					"ApolloSpecialBoon",
 					"ApolloCastBoon",
+					"ApolloExCastBoon",
 					"ApolloSprintBoon",
 					"ApolloManaBoon",
 					"ApolloRetaliateBoon",
 					"PerfectDamageBonusBoon",
 					"BlindChanceBoon",
 					"ApolloBlindBoon",
-					"ApolloMissStrikeBoon",
 					"ApolloCastAreaBoon",
 					"DoubleStrikeChanceBoon",
 					"DoubleExManaBoon", -- Legendary
@@ -548,7 +547,6 @@ OverwriteTableKeys( QuestData, {
 					"CastProjectileBoon",
 					"FireballManaSpecialBoon",
 					"BurnExplodeBoon",
-					"BurnConsumeBoon",
 					"BurnArmorBoon",
 					"BurnStackBoon", -- Legendary
 				},
@@ -606,7 +604,7 @@ OverwriteTableKeys( QuestData, {
 					"WeakVulnerabilityBoon",
 					"ManaBurstBoon",
 					"FocusRawDamageBoon",
-					"CharmCrowdBoon", -- Legendary
+					"RandomStatusBoon", -- Legendary
 				},
 			},
 		},
@@ -655,7 +653,7 @@ OverwriteTableKeys( QuestData, {
 					"HephaestusCastBoon",
 					"HephaestusSprintBoon",
 					"HephaestusManaBoon",
-					"ChargeCounterBoon",
+					"MassiveDamageBoon",
 					"AntiArmorBoon",
 					"HeavyArmorBoon",
 					"ArmorBoon",
@@ -971,7 +969,14 @@ ScreenData.QuestLog =
 	RequirementIncompleteColor = { 94, 94, 94, 255 },
 
 	CompleteRequirementsOffsetX = 0,
-	CompleteRequirementsOffsetY = 0,
+	CompleteRequirementsOffsetY = 
+	{
+		{ Code = "en", Value = 0 },
+		{ Code = "ja", Value = 5 },
+		{ Code = "ko", Value = 5 },
+		{ Code = "zh-CN", Value = 5 },
+		{ Code = "zh-TW", Value = 5 },
+	},
 	RequirementEntriesPerColumn = 9,
 	RequirementEntriesMaxColumns = 2,
 	RequirementRowSpacing = 40,

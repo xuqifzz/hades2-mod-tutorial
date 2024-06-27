@@ -25,36 +25,24 @@ OverwriteTableKeys( TraitData, {
 		},
 		PropertyChanges = {
 			{
-				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				WeaponNames = WeaponSets.HeroNonExWeapons,
 				WeaponProperty = "FireFx2",
 				ChangeValue = "HermesSwipeLineC_Sword3",
 				ChangeType = "Absolute",
+				ExcludeLinked = true,
 			},
 			{
-				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				WeaponNames = WeaponSets.HeroNonExWeapons,
 				BaseValue = 0.9,
 				SourceIsMultiplier = true,
 				SpeedPropertyChanges = true,
-			}
-		},
-		WeaponSpeedMultiplier =
-		{
-			WeaponNames = WeaponSets.HeroPrimaryWeapons,
-			Value = 
-			{
-				BaseValue = 0.9,
-				SourceIsMultiplier = true,
+				ExcludeLinked = true,
+				ReportValues = { ReportedWeaponMultiplier = "ChangeValue" }
 			},
-			ReportValues = { ReportedWeaponMultiplier = "Value" }
-		},
-		
-		AllyDataModifiers = 
-		{
-			SpeedMultiplier = { BaseValue = 1.10, SourceIsMultiplier = true },
 		},
 		StatLines =
 		{
-			"AttackSpeedStatDisplay1",
+			"NonOmegaSpeedStatDisplay1",
 		},
 		ExtractValues =
 		{
@@ -73,49 +61,45 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.8,
+				Multiplier = 1.34,
 			},
 			Epic =
 			{
-				Multiplier = 2.1,
+				Multiplier = 1.67,
 			},
 			Heroic =
 			{
-				Multiplier = 2.4,
+				Multiplier = 2.0,
 			},
-		},
-		PropertyChanges = {
-			{
-				WeaponNames = WeaponSets.HeroSecondaryWeapons,
-				WeaponProperty = "FireFx2",
-				ChangeValue = "HermesSwipeLineC_Sword3",
-				ChangeType = "Absolute",
-			},
-			{
-				WeaponNames = WeaponSets.HeroSecondaryWeapons,
-				BaseValue = 0.9,
-				SourceIsMultiplier = true,
-				SpeedPropertyChanges = true,
-			}
 		},
 		
 		WeaponSpeedMultiplier =
 		{
-			WeaponNames = WeaponSets.HeroSecondaryWeapons,
+			WeaponNames = WeaponSets.HeroAllWeapons,
 			Value = 
 			{
-				BaseValue = 0.9,
+				BaseValue = 0.85,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedWeaponMultiplier = "Value" }
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponNames = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponLobChargedPulse", "WeaponCastArm" },
+				BaseValue = 0.9,
+				SourceIsMultiplier = true,
+				SpeedPropertyChanges = true,
+				ExcludeLinked = true,
+			},
+		},
 		StatLines =
 		{
-			"SpecialSpeedStatDisplay1",
+			"OmegaSpeedStatDisplay1",
 		},
 		ExtractValues =
 		{
@@ -208,10 +192,30 @@ OverwriteTableKeys( TraitData, {
 	},
 	MoneyMultiplierBoon = 
 	{
-		InheritFrom = { "AirBoon" },
+		InheritFrom = { "BaseTrait", "AirBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			}
+		},	
 		Icon = "Boon_Hermes_33",
 		CustomTrayText = "MoneyMultiplierBoon_Tray",
-		MoneyMultiplier = { BaseValue = 1.2, SourceIsMultiplier = true },
+		MoneyMultiplier = { BaseValue = 1.2, 
+				SourceIsMultiplier = true},
 		
 		GameStateRequirements = 
 		{					
@@ -444,7 +448,8 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedReduction",
 				ExtractAs = "TooltipMultiplier",
-				Format = "PercentDelta"
+				Format = "PercentDelta",
+				HideSigns = true,
 			},
 		},
 	},

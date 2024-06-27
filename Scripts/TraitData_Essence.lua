@@ -148,21 +148,29 @@ TraitSetData.Essence =
 	{
 		InheritFrom = {"AirBoon"},
 		Hidden = true,
+		ShowElementGain = true,
+		ElementGainSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh",
 	},
 	FireEssence = 
 	{
 		InheritFrom = {"FireBoon"},
 		Hidden = true,
+		ShowElementGain = true,
+		ElementGainSound = "/SFX/HellFireImpact",
 	},
 	EarthEssence = 
 	{
 		InheritFrom = {"EarthBoon"},
 		Hidden = true,
+		ShowElementGain = true,
+		ElementGainSound = "/SFX/WallSlamMeatyRocks",
 	},
 	WaterEssence = 
 	{
 		InheritFrom = {"WaterBoon"},
 		Hidden = true,
+		ShowElementGain = true,
+		ElementGainSound = "/SFX/Player Sounds/PoseidonWaterDashImpact",
 	},
 }
 

@@ -84,11 +84,19 @@ OverwriteTableKeys( ProjectileData, {
 		CancelUnitHitFlash = true,
 		CancelArmorSpark = true,
 	},
+	PoseidonOmegaProjectile = 
+	{
+		InheritFrom = { "PoseidonColorProjectile", },
+	},
 	PoseidonCollisionBlast = 
 	{
 		InheritFrom = { "PoseidonColorProjectile", },
 	},
 	PoseidonSplashSplinter = 
+	{
+		InheritFrom = { "PoseidonColorProjectile", },
+	},
+	PoseidonCastSplashSplinter = 
 	{
 		InheritFrom = { "PoseidonColorProjectile", },
 	},
@@ -187,6 +195,10 @@ OverwriteTableKeys( ProjectileData, {
 		IsExProjectile = true,
 		IsAdditionalCastProjectile = true,
 	},
+	DemeterMiniStorm =
+	{
+		InheritFrom = { "ApolloColorProjectile", },	-- Apollo x Demeter duo
+	},
 	PoseidonCast = 
 	{
 		InheritFrom = { "PoseidonColorProjectile", },	
@@ -198,8 +210,7 @@ OverwriteTableKeys( ProjectileData, {
 	},
 	ZeusCastStrike = 
 	{
-		InheritFrom = { "ZeusColorProjectile", },	
-		IsExProjectile = true,
+		InheritFrom = { "ZeusColorProjectile", },
 		IsAdditionalCastProjectile = true,
 		KillingEnemyVoiceLines =
 		{
@@ -234,6 +245,10 @@ OverwriteTableKeys( ProjectileData, {
 		},
 
 	},
+	ZeusRootStrike = 
+	{
+		InheritFrom = { "ZeusColorProjectile", },	
+	},
 	ZeusSprintStrike = 
 	{
 		InheritFrom = { "ZeusColorProjectile", },	
@@ -249,6 +264,7 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.02, RightFraction = 0.135, Duration = 0.22 },
 		},
 
+		--[[
 		SimSlowDistanceThreshold = 280,
 		HitSimSlowCooldown = 0.2,
 		HitSimSlowParameters =
@@ -256,6 +272,7 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.01, Fraction = 0.1, LerpTime = 0.0 },
 			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.07 },
 		},	
+		]]
 	},
 	ZeusZeroManaStrike =
 	{
@@ -642,7 +659,10 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.02, RightFraction = 0.22, Duration = 0.3 },
 		},
 	},
-
+	ProjectileTorchRepeatStrike = 
+	{
+		IsExProjectile = true,
+	},
 	ProjectileThrowCharged =
 	{
 		IsExProjectile = true,
@@ -745,6 +765,11 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		OnDeathFunctionName = "ArtemisHealDrop",
 		DropSound = "/SFX/GodAppearFlash",
+	},
+
+	CerberusVacuum =
+	{
+		BypassRetaliate = true,
 	},
 
 	ProjectileAxeBlockSpin =

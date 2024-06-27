@@ -414,13 +414,12 @@ GameData.RunClearMessageData =
 					"PoseidonWeaponBoon",
 					"PoseidonSpecialBoon",
 					"PoseidonCastBoon",
+					"PoseidonExCastBoon",
 					"PoseidonSprintBoon",
 					"PoseidonManaBoon",
 					"EncounterStartOffenseBuffBoon",
-					"MinorLootBoon",
 					"RoomRewardBonusBoon",
 					"FocusDamageShaveBoon",
-					"SlamExplosionBoon",
 					"DoubleRewardBoon",
 					"PoseidonStatusBoon",
 				},
@@ -435,7 +434,7 @@ GameData.RunClearMessageData =
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "CharmCrowdBoon" },
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "RandomStatusBoon" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
@@ -511,7 +510,6 @@ GameData.RunClearMessageData =
 					"BoonDecayBoon",
 					"DamageSharePotencyBoon",
 					"LinkedDeathDamageBoon",
-					"FullManaExBoostBoon",
 					"CommonGlobalDamageBoon",
 				},
 				Comparison = ">=",
@@ -534,13 +532,13 @@ GameData.RunClearMessageData =
 					"ApolloWeaponBoon",
 					"ApolloSpecialBoon",
 					"ApolloCastBoon",
+					"ApolloExCastBoon",
 					"ApolloSprintBoon",
 					"ApolloManaBoon",
 					"ApolloRetaliateBoon",
 					"PerfectDamageBonusBoon",
 					"BlindChanceBoon",
 					"ApolloBlindBoon",
-					"ApolloMissStrikeBoon",
 					"ApolloCastAreaBoon",
 					"DoubleStrikeChanceBoon",
 				},
@@ -566,7 +564,7 @@ GameData.RunClearMessageData =
 					"HephaestusCastBoon",
 					"HephaestusSprintBoon",
 					"HephaestusManaBoon",
-					"ChargeCounterBoon",
+					"MassiveDamageBoon",
 					"AntiArmorBoon",
 					"HeavyArmorBoon",
 					"ArmorBoon",
@@ -601,7 +599,6 @@ GameData.RunClearMessageData =
 					"CastProjectileBoon",
 					"FireballManaSpecialBoon",
 					"BurnExplodeBoon",
-					"BurnConsumeBoon",
 					"BurnArmorBoon",
 				},
 				Comparison = ">=",
@@ -686,27 +683,27 @@ GameData.RunClearMessageData =
 					"EmptySlotDamageBoon",
 					"RaiseDeadBoon",
 					"MoneyDamageBoon",
-					"EchoAllBoon",
+					"RootStrikeBoon",
 					"KeepsakeLevelBoon",
 					"GoodStuffBoon",
 					"ApolloSecondStageCastBoon",
 					"PoseidonSplashSprintBoon",
-					"CastRampBoon",
+					"StormSpawnBoon",
 					"SprintEchoBoon",
-					"MaximumShareBoon",
+					"CharmCrowdBoon",
 					"MaxHealthDamageBoon",
 					"ManaBurstCountBoon",
 					"EchoBurnBoon",
-					"BurnOmegaBoon",
+					"AllElementalBoon",
 					"SteamBoon",
-					"DoubleBurnBoon",
+					"BurnConsumeBoon",
 					"CoverRegenerationBoon",
-					"ShadeMercFireballBoon",
+					"BurnRefreshBoon",
 					"ReboundingSparkBoon",
 					"MassiveCastBoon",
 					"ClearRootBoon",
-					"MassiveAoEIncrease",
-					"FirstHitHealBoon",
+					"BlindClearBoon",
+					"SlamManaBurstBoon",
 					"DoubleMassiveAttackBoon",
 					"SuperSacrificeBoonZeus",
 					"SuperSacrificeBoonHera",
@@ -727,7 +724,7 @@ GameData.RunClearMessageData =
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
 				CountOf =
 				{
-					"CharmCrowdBoon",
+					"RandomStatusBoon",
 					"DoubleExManaBoon",
 					"InstantRootKill",
 					"WeaponUpgradeBoon",
@@ -964,7 +961,7 @@ ScreenData.RunClear =
 
 	DamageAmountFormat =
 	{
-		Font = "NumericP22UndergroundSCMedium",
+		Font = "MonospaceNumericP22UndergroundSCMedium",
 		FontSize = 21,
 		Color = {255,237,153,255},
 		ShadowBlur = 0,
@@ -997,6 +994,8 @@ ScreenData.RunClear =
 		ProjectileTorchBall = "WeaponTorch",
 		ProjectileTorchSpiral = "WeaponTorchSpecial",
 		ProjectileTorchExplosion = "WeaponTorch",
+		ProjectileTorchRepeatStrike = "ProjectileTorchBallLarge",
+		ProjectileTorchRepeatStrikeLarge = "ProjectileTorchBallLarge",
 
 		ProjectileLob = "WeaponLob",
 		ProjectileThrowCharged = "WeaponLobSpecial",
@@ -1029,10 +1028,12 @@ ScreenData.RunClear =
 		BurnEffect = "Burn",
 		MassiveSlamBlast = "MassiveSlam_Name",
 		PoseidonSplashSplinter = "PoseidonSplash_Name",
+		PoseidonCastSplashSplinter = "PoseidonSplash_Name",
 
 		ProjectileFireball = "FireballManaSpecialBoon",
 		ProjectileZeusSpark = "FocusLightningBoon",
 		ArtemisSupportingFire = "SupportingFireBoon",
+		ArtemisCastVolley = "OmegaCastVolleyBoon",
 		ZeusZeroManaStrike = "ZeusManaBoltBoon",
 		HeraDamageShareProjectile = "DamageShareRetaliateBoon",
 		DelayedKnockbackEffect = "MassiveKnockupBoon",
@@ -1040,6 +1041,13 @@ ScreenData.RunClear =
 		WeaponCastProjectileHades = "HadesCastProjectileBoon",
 		AphroditeBurst = "ManaBurstBoon",
 		BurnNova = "BurnExplodeBoon",
+		HestiaBurnConsumeStrike = "BurnConsumeBoon",
+		ProjectileSprintBall = "PoseidonSplashSprintBoon",
+		ZeusRootStrike = "RootStrikeBoon",
+		PoseidonCollisionBlast = "SlamExplosionBoon",
+		ProjectileHeraOmega = "OmegaHeraProjectileBoon",
+		PoseidonOmegaProjectile = "OmegaPoseidonProjectileBoon",
+		DemeterMiniStorm = "StormSpawnBoon",
 
 		-- Traps
 		ShadeMercSpiritball = "WorldUpgradeShadeMercs",
@@ -1068,6 +1076,7 @@ ScreenData.RunClear =
 
 		-- Familiars
 		CatFamiliarPounce = "CatFamiliar",
+		FrogFamiliarLand = "FrogFamiliar",
 
 		-- Devotions
 		ZeusUpgradeRoomWeapon = "NPC_Zeus_01",
@@ -1080,7 +1089,7 @@ ScreenData.RunClear =
 		HephaestusUpgradeRoomWeapon = "NPC_Hephaestus_01",
 
 		-- Bosses
-		HecateCopy = "NPC_Hecate_01",
+		HecateCopy = "Hecate",
 	},
 
 	DamageSourceTextOverrides =
@@ -1119,6 +1128,7 @@ ScreenData.RunClear =
 		WeaponSpellLaser = "SpellLaserTrait",
 		WeaponSpellSummon = "SpellSummonTrait",
 		WeaponSpellLeap = "SpellLeapTrait",
+		WeaponSpellPolymorph = "SpellPolymorphTrait",
 	},
 	
 	ComponentData =

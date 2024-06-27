@@ -240,7 +240,7 @@
 		DetonateFx = "PoseidonCastBoonFx"
 		DetonateSound = "/SFX/Player Sounds/PoseidonWaterImpactDetonate"
 		HideGraphicOnDetonate = true
-		Damage = 140
+		Damage = 300
 		DamageRadiusScaleY = 0.5
 		ImpactVelocity = 0
 		DeathFx = "null"
@@ -393,6 +393,59 @@
 		}
 	}
 	{
+		Name = "ApolloSingleCastStrike"
+		InheritFrom = "1_BaseDamagingProjectile"
+		Type = "INSTANT"
+		Range = 0.0
+		Damage = 60
+		DamageRadius = 500
+		DamageRadiusScaleY = 0.5
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		ImpactVelocity = 0
+		ImpactFx = "CastCircleUnitFxFront"
+		DeathFx = "null"
+		UseVulnerability = false
+		DetonateFx = "ApolloAoEStrike"
+		AnimIgnoreBlastRadius = true
+		ExpandBlastDuringDetonation = true
+		BlastSpeed = 3000
+		GroupName = "FX_Terrain"
+		UseStartLocation = true
+		SpawnType = "PROJECTILE"
+		SilentImpactOnInvulnerable = true
+		IgnoreCoverageAngles = true
+		//DissipateFx = "ApolloAoEGroundBurnLong"
+		Thing =
+		{
+			Graphic = "ApolloAoECircle"
+			OffsetZ = 0
+			Tallness = 50
+			AttachedAnim = "null"
+			Grip = 999999
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = 32
+					Y = 16
+				}
+				{
+					X = 32
+					Y = -16
+				}
+				{
+					X = -32
+					Y = -16
+				}
+				{
+					X = -32
+					Y = 16
+				}
+			]
+		}
+	}
+	{
 		Name = "ProjectileTorchRepeatStrike"
 		InheritFrom = "1_BaseDamagingProjectile"
 		Type = "INSTANT"
@@ -454,7 +507,7 @@
 		Type = "INSTANT"
 		Fuse = 0.02
 		Range = 0
-		Damage = 100
+		Damage = 200
 		DamageRadius = 500.0
 		DamageRadiusScaleY = 0.6
 		DamageRadiusScaleX = 1.1
@@ -498,6 +551,16 @@
 				}
 			]
 		}
+	}
+	{
+		Name = "PoseidonOmegaProjectile"
+		InheritFrom = "PoseidonCast"
+		DetonateFx = "PoseidonElementalKnockupFxAlt"
+		Damage = 50
+		Fuse = 0.6
+		DetonateOnImpact = false
+		DamageRadius = 300.0
+		ImpactVelocity = 0
 	}
 	{
 		Name = "PoseidonCollisionBlast"
@@ -2600,7 +2663,7 @@
 		AttachToOwner = true
 		DamageRadius = 1600
 		Fuse = 0
-		Damage = 80
+		Damage = 100
 		Range = 1.0
 		DamageRadiusScaleY = 0.6
 		DoesNotAffectName = "_PlayerUnit"
@@ -2657,7 +2720,7 @@
 		StartFx = "StaffProjectileFireFx3"
 		UseRadialImpact = false
 		ImpactLineOfSightFromOwner = true
-		Damage = 20
+		Damage = 30
 		DissipateFx = "SorceryDarksideProjectileOut"
 		ImpactFx = null
 		GroupName = "FX_Standing_Add"
@@ -3179,7 +3242,7 @@
 		DamageRadius = 320
 		MaxAdjustRate = 60
 		Range = 1100
-		Speed = 600
+		Speed = 800
 		StartDelay = 0.2
 		FuseStart = 0
 		Fuse = -1
@@ -3189,7 +3252,7 @@
 		CheckUnitImpact = true
 		CheckObstacleImpact = true
 		ImpactFx = "FireballExplosion"
-		Damage = 80
+		Damage = 100
 		DamageRadiusScaleY = 0.5
 		BlastSpeed = 2500
 		ImpactVelocity = 0
@@ -3536,7 +3599,7 @@
 		Range = 50
 		BlastSpeed = 2000
 		DamageRadius = 550
-		Damage = 500
+		Damage = 300
 		ImpactVelocity = 0
 		ImpactVelocityFalloff = 0.1
 		ClearOnAttackEffects = false
@@ -3760,7 +3823,106 @@
 		CheckObstacleImpact = true
 		UnlimitedUnitPenetration = true
 		Type = "INSTANT"
-		Damage = 70
+		Damage = 50
+		DamageRadius = 10
+		DamageRadiusScaleX = 1.175
+		DamageRadiusScaleY = 0.56
+		ImpactVelocity = 0
+		AffectsFriends = false
+		AffectsSelf = false
+		AffectsEnemies = true
+		DetonateSound = "/SFX/Player Sounds/ZeusLightningDashAttack"
+		MaxVictimZ = 9999
+		UseVulnerability = false
+		IgnoreCoverageAngles = true
+		ClearOnAttackEffects = false
+		Thing =
+		{
+			Graphic = "null"
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+		}
+	}
+	
+	{
+		Name = "ProjectileHeraOmega"
+		InheritFrom = "1_BaseProjectile"
+		Type = "STRAIGHT"
+		StartDelay = 0.85
+		Fuse = 0.05
+		Damage = 100
+		CheckUnitImpact = true
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		UnlimitedObstaclePenetration = true
+		ImpactFx = "HeraUnitFx"
+		UseVulnerability = false
+		DetonateFx = "HeraCastDetonate"
+		DetonateSound = "/Leftovers/SFX/MeteorStrikeShort"
+		GroupName = "FX_Terrain_Add"
+		UseStartLocation = true
+		DrawDuringPause = true
+		UnitCollisionCheck = "PointInPolygon"
+		SilentImpactOnInvulnerable = true
+		IgnoreCoverageAngles = true
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
+		Thing =
+		{
+			Graphic = "HeraProjectileAnim"
+			OffsetZ = 0
+			Tallness = 50
+			AttachedAnim = "null"
+			Grip = 999999
+			RotateGeometry = true
+			Points =
+			[
+				{
+					X = -1000
+					Y = 90
+				}
+				{
+					X = -1000
+					Y = -90
+				}
+				{
+					X = 1000
+					Y = -90
+				}
+				{
+					X = 1000
+					Y = 90
+				}
+			]
+		}
+		Effect =
+		{
+			Name = "OnHitStun"
+			Duration = 0.2
+			DisableMove = true
+			DisableRotate = true
+			DisableAttack = true
+			Active = true
+			CanAffectInvulnerable = false
+			FrontFx = "null"
+			Cancelable = true
+		}
+	} 
+	{
+		Name = "HeraSprintProjectile"
+		InheritFrom = "1_BaseProjectile"
+		DetonateFx = "HeraCastSpawnDamageFx"
+		Range = 200
+		AutoAdjustForTarget = false
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Type = "INSTANT"
+		Damage = 60
 		DamageRadius = 10
 		DamageRadiusScaleX = 1.175
 		DamageRadiusScaleY = 0.56
@@ -4163,6 +4325,136 @@
 		}
 	}
 	{
+		Name = "DemeterMiniStorm"
+		InheritFrom = "1_BaseProjectile"
+		Type = "HOMING"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		UnlimitedUnitPenetration = true
+		MultipleUnitCollisions = false
+		MultipleObstacleCollisions = true
+		RotateWithOwner = false
+		NumPenetrations = 9999
+		Range = 0
+		Speed = 510
+		Acceleration = 40
+		DamageRadius = 160
+		DamageRadiusScaleY = 0.7
+		DamageRadiusScaleX = 1.3
+		Damage = 70
+		ImpactVelocity = 0
+		BlastSpeed = 2000
+		ExpandBlastDuringDetonation = true
+		AnimIgnoreBlastRadius = true
+		MultiDetonate = true
+		TotalFuse = 1.5
+		Fuse = 0.5
+		ImmunityDuration = 0.5
+		NumJumps = 99999
+		JumpType = "OBSTACLE_ONLY"
+		ImpactFx = "HitSparkSwordOrb"
+		UseVulnerability = false
+		IgnoreCoverageAngles = true
+		SilentImpactOnInvulnerable = true
+		Thing =
+		{
+			Graphic = "DemeterSprintStormFx"
+			OffsetZ = 0
+			Grip = 999999
+			UseBoundsForSortDrawArea = true
+			SortBoundsScale = 2
+			Tallness = 20
+			Points =
+			[
+				{
+					X = 90
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -45
+				}
+				{
+					X = -90
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 45
+				}
+			]
+			Color =
+			{
+				Red = 1.0
+				Green = 0.5
+				Blue = 0
+				Opacity = 0.82
+			}
+		}
+	}
+	{
+		Name = "MelSprintFire"
+		Type = "INSTANT"
+		GroupName = "FX_Terrain"
+		Range = 0
+		CheckObstacleImpact = false
+		CheckObstacleImpactOnDetonation = false
+		UnlimitedUnitPenetration = true
+		CanBeReflected = false
+		AffectsFriends = false
+		AffectsEnemies = true
+		DamageRadius = 200
+		DamageRadiusScaleX = 1.0
+		DamageRadiusScaleY = 0.6
+		/*StartFx = "IrisExplosionA_Small",*/
+		TotalFuse = 5.0
+		Fuse = 0.2
+		InflictedDamageSound = "/SFX/BurnDamageSizzle"
+		InflictedDamageFx = "Immolation"
+		ImmunityKey = "LavaTileWeapon"
+		IgnoreDodge = true
+		ImmunityDuration = 0.18
+		Damage = 20
+		MoveInterval = 0.19
+		/*
+		DamagePerConsecutiveHit = 1
+		RoundDamageDown = true
+		ConsecutiveHitWindow = 0.8
+		*/
+		MaxVictimZ = 1
+		MultiDetonate = true
+		DangerDistance = 0
+		IgnoreCoverageAngles = true
+		DissipateFx = "GreekFireLargeFade"
+		CanBeProjectileDefenseDestroyedByName2 = "null"
+		CanBeProjectileDefenseDestroyedByLayer = "null"
+		Thing =
+		{
+			Graphic = "GreekFireLarge"
+			AmbientSound = "/Leftovers/Object Ambiences/FireAmbientLoop"
+			Points =
+			[
+				{
+					X = 4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = -2
+				}
+				{
+					X = -4
+					Y = 0
+				}
+				{
+					X = 0
+					Y = 2
+				}
+			]
+		}
+	}
+	{
 		Name = "HestiaSprintDefense"
 		InheritFrom = "1_BaseProjectile"
 		Type = "HOMING"
@@ -4301,15 +4593,25 @@
 		]
 	}
 	{
+		Name = "PoseidonCastSplashSplinter"
+		InheritFrom = "PoseidonSplashSplinter"
+		DetonateSound = "/SFX/Player Sounds/PoseidonWaterImpactDetonate"
+		Damage = 90
+		Thing =
+	    {
+	      Scale = 2.1
+	    }
+	}
+	{
 		Name = "PoseidonSplashBackSplinter"
 		InheritFrom = "PoseidonSplashSplinter"
 		ImpactVelocitySpawnProximityExclusion = 0
 		ImpactVelocity = 1200
 		Damage = 20
-    Thing =
-    {
-      Scale = 1.4
-    }
+	    Thing =
+	    {
+	      Scale = 1.4
+	    }
 	}
 	{
 		Name = "PoseidonSprintBlast"
@@ -4453,6 +4755,39 @@
 			}
 		]
 	}
+	
+	{
+		Name = "AphroditeCastProjectile"
+		InheritFrom = "1_BaseProjectile"
+		Range = 200
+		AutoAdjustForTarget = false
+		CheckObstacleImpact = true
+		UnlimitedUnitPenetration = true
+		Type = "INSTANT"
+		Damage = 10
+		DamageRadius = 10
+		DamageRadiusScaleY = 0.5
+		BlastSpeed = 2000
+		ImpactVelocity = 0
+		AffectsFriends = false
+		AffectsSelf = false
+		AffectsEnemies = true
+		MaxVictimZ = 9999
+		UseVulnerability = false
+		IgnoreCoverageAngles = true
+		ClearOnAttackEffects = false
+		Thing =
+		{
+			Graphic = "null"
+			Color =
+			{
+				Red = 1.0
+				Green = 1.0
+				Blue = 1.0
+				Opacity = 1.0
+			}
+		}
+	}
 	{
 		Name = "AphroditeBurst"
 		InheritFrom = "1_BaseProjectile"
@@ -4486,7 +4821,7 @@
 		AffectsEnemies = true
 		AffectsFriends = false
 		AffectsSelf = false
-		CheckObstacleImpact = true
+		CheckObstacleImpact = false
 		ClearOnAttackEffects = false
 		Thing =
 		{
@@ -4654,7 +4989,7 @@
 		DamageRadius = 200
 		DamageRadiusScaleY = 0.7
 		DamageRadiusScaleX = 1.3
-		Damage = 10
+		Damage = 20
 		ImpactVelocity = 0
 		MultiDetonate = true
 		TotalFuse = 3.5
@@ -4748,7 +5083,7 @@
 		Type = "STRAIGHT"
 		Range = 99999
 		Speed = 12500
-		Damage = 20
+		Damage = 30
 		Fuse = 1.0
 		AffectsFriends = true
 		AffectsSelf = false
@@ -4904,6 +5239,11 @@
 	{
 		Name = "ZeusCastStrike"
 		InheritFrom = "ZeusLightningStrikeBase"
+		Damage = 20
+	}
+	{
+		Name = "ZeusRootStrike"
+		InheritFrom = "ZeusLightningStrikeBase"
 		Damage = 30
 	}
 	{
@@ -4934,7 +5274,7 @@
 	{
 		Name = "ZeusApolloSynergyStrike"
 		InheritFrom = "ZeusLightningStrikeBase"
-		Damage = 50
+		Damage = 25
 	}
 	
 	{
@@ -5090,10 +5430,10 @@
 		InheritFrom = "1_BaseProjectile"
 		DetonateSound = "null"
 		DetonateFx = "AphroditeHeartDash"
-		Type = "STRAIGHT"
+		Type = "INSTANT"
 		Fuse = 0.0
 		Range = 250
-		Damage = 5
+		Damage = 20
 		DamageRadius = 230.0
 		DamageRadiusScaleY = 0.6
 		DamageRadiusScaleX = 1.1

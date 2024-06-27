@@ -50,6 +50,7 @@
 		Name = "Enemy_Charybdis_Retreat"
 		InheritFrom = "EnemyCharybdisBaseAnimation"
 		GrannyAnimation = "Charybdis_Base_Retreat_C_00"
+		LargeObstacle3DModel = true
 		ChainTo = "Enemy_Charybdis_Hidden"
 		VisualFx = "CharybdisDisappearFx"
 		VisualFxIntervalMin = 0.03

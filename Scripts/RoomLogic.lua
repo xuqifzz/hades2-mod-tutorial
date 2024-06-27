@@ -108,8 +108,6 @@ SessionState.GlobalCooldowns = {}
 SessionState.GlobalCounts = {}
 SessionState.GameplaySlows = {}
 SessionState.PlayerGameplaySlows = {}
-SessionState.PlayerControlBlocks = {}
-SessionState.PlayerMoveBlocks = {}
 SessionState.ValidProjectileIds = {}
 SessionState.PropertyChangeList = { WeaponChanges = {}, ProjectileChanges = {}, EffectChanges = {}}
 
@@ -318,6 +316,8 @@ function SessionMapStateInit()
 	SessionMapState.InvalidRepeatCastIds = {}
 	SessionMapState.CastAttachedProjectiles = {}
 	SessionMapState.CurrentExAttachedProjectiles = {}
+	SessionMapState.FirstBurnRecord = {}
+	SessionMapState.SpawnKillRecord = {}
 	SessionMapState.AmmoVolleys = {}
 	SessionMapState.LobLock = {}
 	SessionMapState.SpecialLock = {}
@@ -325,6 +325,7 @@ function SessionMapStateInit()
 	SessionMapState.WeaponSpeedMultipliers = {}
 	SessionMapState.ChargeStageManaSpend = {}
 	SessionMapState.FirstHitRecord = {}
+	SessionMapState.VolleyHitRecord = {}
 	SessionMapState.ProjectileChargeStageReached = {}
 	SessionMapState.BurstCounter = 0
 	SessionMapState.TimedBuff = 0
@@ -353,7 +354,12 @@ function SessionMapStateInit()
 	SessionMapState.LifeOnKillRecord = SessionMapState.LifeOnKillRecord or {}
 	SessionMapState.FiredChillKill = SessionMapState.FiredChillKill or {}
 	SessionMapState.DeferredTableWrite = {}
+	SessionMapState.PlayerControlBlocks = {}
+	SessionMapState.PlayerMoveBlocks = {}
 	SessionMapState.ElapsedTimeMultiplierIgnores = {}
+	SessionMapState.DifferentOmegaVolleys = {}
+	SessionMapState.DifferentOmegaProjectileIds = {}
+	SessionMapState.SpeedExPropertyChangeRecord = {}
 end
 
 function ValidateIdLeaks( trace, tableToCheck )
@@ -462,8 +468,6 @@ function DoPatches()
 		for itemName, value in pairs( GameState.WorldUpgradesViewed ) do
 			GameState.WorldUpgradesRevealed[itemName] = true
 		end
-		GameState.WorldUpgrades.WorldUpgradeTimeSlowChronosFight = nil
-		GameState.WorldUpgradesAdded.WorldUpgradeTimeSlowChronosFight = nil
 
 		for id, plot in pairs( GameState.GardenPlots ) do
 			local plotData = ObstacleData[plot.Name]
@@ -519,6 +523,14 @@ function DoPatches()
 
 		GameState.ShrineUpgrades.EnemyEliteShrineUpgrade = 0
 		GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
+
+		for roomName, room in pairs( RoomData ) do
+			GameState.UseRecord[roomName] = nil
+		end
+		for hubRoomName, hubRoom in pairs( HubRoomData ) do
+			GameState.UseRecord[hubRoomName] = nil
+		end
+		GameState.TriggerRecord = nil
 	end
 
 	if CurrentRun ~= nil then
@@ -535,6 +547,7 @@ function DoPatches()
 		CurrentRun.SpellCharge = CurrentRun.SpellCharge or 5000
 		CurrentRun.BiomeStateChangeCount = CurrentRun.BiomeStateChangeCount or 0
 		CurrentRun.ResourceNodesSeen = CurrentRun.ResourceNodesSeen or {}
+		CurrentRun.ToolElementsSpawned = CurrentRun.ToolElementsSpawned or {}
 
 		if CurrentRun.CurrentRoom ~= nil then
 			CurrentRun.CurrentRoom.SpawnThreads = CurrentRun.CurrentRoom.SpawnThreads or {}
@@ -629,6 +642,19 @@ function DoPatches()
 			end
 			if CurrentRun.CurrentRoom.ChosenRewardType == "Mixer4CommonDrop" then
 				CurrentRun.CurrentRoom.ChosenRewardType = "MixerGBossDrop"
+			end
+
+			if CurrentRun.CurrentRoom.ForcedReward and not IsEmpty( CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions) then
+				local condemnedIndexes = {}
+				for index, data in pairs(CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions) do
+					if data.Type == "Trait" and not TraitData[data.ItemName] then
+						table.insert(condemnedIndexes, index)
+					end
+				end
+				for _, index in pairs(condemnedIndexes) do
+					CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions[index] = nil
+				end
+				CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions = CollapseTable( CurrentRun.CurrentRoom.ForcedReward.ForcedUpgradeOptions )
 			end
 
 		end
@@ -818,6 +844,7 @@ function DoPatches()
 				trait.TraitIconOverlay = nil
 				trait.TraitInfoCardId = nil
 				trait.TraitInfoUsesId = nil
+				trait.TraitInfoChargeId = nil
 				trait.TraitActiveOverlay = nil
 				trait.AdditionalDataAnchorId = nil
 				trait.AdvancedTooltipFrame = nil
@@ -846,6 +873,8 @@ function DoPatches()
 				elseif trait.Name == "SupportingFireBoon" and trait.ExtractValues[1] and trait.ExtractValues[1].BaseName == "ArtemisLegendary" then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "LastStandFamiliar" and trait.ExtractValues[1] and trait.ExtractValues[1].BaseName == "CatFamiliarBall" then
+					addTraitToUpdate( trait )
+				elseif trait.Name == "DemeterManaBoon" and trait.SetupFunction and trait.SetupFunction.Args and not trait.SetupFunction.Args.PercentManaRegenPerSecond then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "FamiliarCatCrit" and Revision <= 79800 then
 					addTraitToUpdate( trait )
@@ -995,10 +1024,6 @@ function DoPatches()
 			end
 		end
 
-		if CurrentRun.CurrentRoom.Encounter.Name == "BossScylla01" then
-			CurrentRun.CurrentRoom.Encounter.LastKillPresentationFunction = nil
-		end
-
 		if CurrentRun.ActiveBiomeTimer and CurrentRun.ShrineUpgradesDisabled["BiomeSpeedShrineUpgrade"] then
 			CurrentRun.ActiveBiomeTimer = false
 		end
@@ -1024,7 +1049,7 @@ function DoPatches()
 	DebugPrint({ Text = "Done patching." })
 end
 
-function GetMaxHealthUpgradeIncrement( value )
+function GetMaxHealthUpgradeIncrement( value, ignoreCap )
 	local expectedMaxHealth = HeroData.MaxHealth
 	for i, trait in pairs(CurrentRun.Hero.Traits) do
 		if trait.PropertyChanges ~= nil then
@@ -1045,11 +1070,23 @@ function GetMaxHealthUpgradeIncrement( value )
 			expectedMaxHealth = expectedMaxHealth + math.ceil(GetExpectedMaxMana()) * trait.MaxManaToMaxHealthConversion
 		end
 	end
+	if ignoreCap then
+		local prevMaxHealth = expectedMaxHealth
+		expectedMaxHealth = expectedMaxHealth + value
+		prevMaxHealth = math.max(1, round(prevMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
+		expectedMaxHealth = math.max(1, round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
+		return expectedMaxHealth - prevMaxHealth
+	else
+		expectedMaxHealth = expectedMaxHealth + value
+		expectedMaxHealth = math.max(1, round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
+	
+		local capMaxHealthTrait = HasHeroTraitValue("CapMaxHealth")
+		if capMaxHealthTrait and IsTraitActive(capMaxHealthTrait) and capMaxHealthTrait.CapMaxHealth > 0 then
+			expectedMaxHealth = capMaxHealthTrait.CapMaxHealth
+		end
 
-	expectedMaxHealth = expectedMaxHealth + value
-	expectedMaxHealth = math.max(1, round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
-
-	return expectedMaxHealth - CurrentRun.Hero.MaxHealth
+		return expectedMaxHealth - CurrentRun.Hero.MaxHealth
+	end
 end
 
 function DoesRunMatchBounty(run, bountyName)
@@ -1139,6 +1176,12 @@ function ValidateMaxHealth( blockDelta )
 		end
 	end
 	expectedMaxHealth = math.max(1, round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
+	
+	local capMaxHealthTrait = HasHeroTraitValue("CapMaxHealth")
+	if capMaxHealthTrait and IsTraitActive(capMaxHealthTrait) and capMaxHealthTrait.CapMaxHealth > 0 then
+		expectedMaxHealth = capMaxHealthTrait.CapMaxHealth
+	end
+
 	if expectedMaxHealth ~= CurrentRun.Hero.MaxHealth then
 		local delta = expectedMaxHealth - CurrentRun.Hero.MaxHealth
 		CurrentRun.Hero.MaxHealth = math.max(1, round( CurrentRun.Hero.MaxHealth + delta ))
@@ -1647,7 +1690,9 @@ function StartRoom( currentRun, currentRoom )
 	end
 
 	if currentRoom.BiomeStartRoom and HeroHasTrait("BonusMoneyKeepsake") then
-		ReduceTraitUses( GetHeroTrait("BonusMoneyKeepsake"), {Force = true })
+		local trait = GetHeroTrait("BonusMoneyKeepsake")
+		ReduceTraitUses( trait, {Force = true })
+		trait.CustomTrayText = trait.ZeroBonusTrayText
 	end
 	if currentRoom.BiomeStartRoom then
 		IncrementTableValue( CurrentRun, "ClearedBiomes" )
@@ -2094,7 +2139,7 @@ function SetupHeroObject( room, applyLuaUpgrades )
 	end
 	-- Build all upgrades.
 	UpdateHeroTraitDictionary()
-	CheckActivatedTraits( CurrentRun.Hero, true )
+	CheckActivatedTraits( CurrentRun.Hero, { SkipPresentation = true } )
 	ApplyMetaUpgrades( currentRun.Hero, applyLuaUpgrades )
 	ApplyTraitUpgrade( currentRun.Hero, applyLuaUpgrades )
 	ApplyTraitSetupFunctions( currentRun.Hero )
@@ -2332,7 +2377,7 @@ function GiveRandomConsumables( args )
 					OffsetX = RandomFloat( -1 * range, range ),
 					OffsetY = RandomFloat( -1 * range, range ),
 					ForceToValidLocation = args.ForceToValidLocation })
-				local consumable = CreateConsumableItem( consumableId, lootData.Name, 0 )
+				local consumable = CreateConsumableItem( consumableId, lootData.Name, 0, args )
 				if lootData.Overrides ~= nil then
 					for key, value in pairs( lootData.Overrides ) do
 						if consumable[key] ~= nil then
@@ -2653,14 +2698,15 @@ function SelectLootSpawnPoint( currentRoom, args )
 	end
 
 	if args.IgnoreLootPoints or currentRoom.SpawnPoints.Loot == nil or IsEmpty( currentRoom.SpawnPoints.Loot ) then
-		return SelectRoomRewardSpawnPoint( currentRoom )
+		return SelectRoomRewardSpawnPoint( currentRoom, args )
 	end
 
 	return GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationIds = currentRoom.SpawnPoints.Loot })
 end
 
-function SelectRoomRewardSpawnPoint( currentRoom )
-	if currentRoom.SpawnRewardOnId then
+function SelectRoomRewardSpawnPoint( currentRoom, args )
+	args = args or {}
+	if currentRoom.SpawnRewardOnId and not args.IgnoreSpawnRewardOnId then
 		return currentRoom.SpawnRewardOnId
 	end
 
@@ -3092,7 +3138,7 @@ function AddMaxMana( manaGained, source, args )
 	manaTraitData.PropertyChanges[1].ChangeValue = manaGained
 	AddTraitToHero({ TraitData = manaTraitData })
 	if not( args.Silent ) then
-		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, PreDelay = args.Delay, Text = "MaxManaIncrease", Duration = 0.7, LuaKey = "TooltipData", ShadowScale = 0.7, OffsetY = -100,  LuaValue = { TooltipMana = manaGained }})
+		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "MaxManaIncrease", Duration = 0.7, LuaKey = "TooltipData", ShadowScale = 0.7, OffsetY = -100,  LuaValue = { TooltipMana = manaGained }})
 	end
 end
 
@@ -3113,7 +3159,7 @@ function AddArmor( armorGained, args )
 		local traitData = GetHeroTrait(traitName)
 		traitData.CurrentArmor = traitData.CurrentArmor + armorGained
 		AddHealthBuffer( traitData.CurrentArmor, traitData.Name, { Silent = true } )	
-		thread(OnPlayerArmorGain, { Amount = armorGained } )
+		thread(OnPlayerArmorGain, { Amount = armorGained,  Silent = args.Silent } )
 		thread( UpdateHealthUI )
 	end
 end
@@ -3238,10 +3284,10 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 			thread( ShowCodexUpdate )
 			thread( CheckQuestStatus )
 		end
-	end
 
-	if MapState.FamiliarUnit ~= nil then
-		RunEventsGeneric( MapState.FamiliarUnit.EncounterEndEvents, MapState.FamiliarUnit )
+		if MapState.FamiliarUnit ~= nil then
+			RunEventsGeneric( MapState.FamiliarUnit.EncounterEndEvents, MapState.FamiliarUnit )
+		end
 	end
 
 	if currentEncounter == currentRoom.Encounter or currentEncounter == MapState.EncounterOverride then
@@ -3273,6 +3319,23 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 						table.insert( traitsToRemove, trait )
 					end
 					TraitUIUpdateText( trait )
+				end
+				if trait.Name == "LowHealthCritKeepsake" and IsTraitActive( trait ) then
+					trait.CustomName = trait.ZeroBonusTrayText
+					ReduceTraitUses( trait, { Force = true })
+
+					-- Usually we'd just remove the trait but keepsakes should stay equipped, hence...this.
+					trait.MaxHealthMultiplier = 1
+					trait.CapMaxHealth = -1
+					if trait.PropertyChanges and trait.PropertyChanges[1] then
+						ApplyUnitPropertyChange( CurrentRun.Hero, trait.PropertyChanges[1], true, true)
+						trait.PropertyChanges[1].ChangeValue = 1
+					end
+					ValidateMaxHealth()
+					thread(UpdateHealthUI)
+					if not currentEncounter or not currentEncounter.BlockPostBossKeepsakeExpiration then
+						thread( LowHealthCritKeepsakeExpiredPresentation, trait )
+					end
 				end
 			end
 			if trait.RemainingUses ~= nil and trait.UsesAsEncounters and (not trait.UsesRequireSpawnMultiplier or ( trait.UsesRequireSpawnMultiplier and not currentEncounter.BlockSpawnMultipliers )) then
@@ -4393,8 +4456,14 @@ function AssignRoomToExitDoor( door, room )
 		end
 		CurrentRun.CurrentRoom.OfferedRewards[door.ObjectId] = offeredReward
 	end
+	if room.ForceDoorAllowReroll then
+		door.AllowReroll = true
+	end
 	if door.AllowReroll and not room.NoReroll and CheckSpecialDoorRequirement( door ) == nil and room.ChosenRewardType ~= "Shop" and HasHeroTraitValue( "AllowDoorReroll" ) then
 		door.CanBeRerolled = true
+		if door == SessionMapState.ActiveUseTarget and CurrentRun.NumRerolls > 0 then
+			AddControlBlock( "Shout", "ActiveUseTarget" )
+		end
 	end
 	RefreshUseButton( door.ObjectId, door )
 
@@ -4739,7 +4808,7 @@ function DistanceTrigger( source, args )
 		notifiedById = notifiedById or 0
 
 		CurrentRun.TriggerRecord[triggerName] = (CurrentRun.TriggerRecord[triggerName] or 0) + 1
-		GameState.TriggerRecord[triggerName] = (GameState.TriggerRecord[triggerName] or 0) + 1
+		--GameState.TriggerRecord[triggerName] = (GameState.TriggerRecord[triggerName] or 0) + 1 -- Unused, wasting save space
 
 		if args.PostTriggerEvents ~= nil then
 			RunEventsGeneric( args.PostTriggerEvents, source, args )
@@ -4862,7 +4931,7 @@ function CheckDistanceTrigger( trigger, triggerSource, id )
 		notifiedById = notifiedById or 0
 
 		currentRun.TriggerRecord[trigger.Name] = (currentRun.TriggerRecord[trigger.Name] or 0) + 1
-		GameState.TriggerRecord[trigger.Name] = (GameState.TriggerRecord[trigger.Name] or 0) + 1
+		--GameState.TriggerRecord[trigger.Name] = (GameState.TriggerRecord[trigger.Name] or 0) + 1 -- Unused, wasting save space
 
 		local triggeredBy = ActiveEnemies[notifiedById]
 
@@ -5103,10 +5172,11 @@ function HandleSecretSpawns( currentRun )
 			local secretDoor = DeepCopyTable( ObstacleData.SecretDoor )
 			secretDoor.ObjectId = SpawnObstacle({ Name = "SecretDoor", Group = "FX_Terrain", DestinationId = secretPointId, AttachedTable = secretDoor })
 			SetupObstacle( secretDoor )
-			secretDoor.HealthCost = GetSecretDoorCost()
+			secretDoor.HealthCost = currentRoom.SecretDoorHealthCost or GetSecretDoorCost()
 			if forcedSecretDoor then
 				secretDoor.HealthCost = 0	
 			end
+			currentRoom.SecretDoorHealthCost = secretDoor.HealthCost
 			local secretRoom = CreateRoom( secretRoomData )
 			AssignRoomToExitDoor( secretDoor, secretRoom )
 			--AddToGroup({ Id = secretDoor.ObjectId, Name = "ExitDoors" })
@@ -5393,9 +5463,6 @@ function HandleSecretSpawns( currentRun )
 		local chosenOption = DeepCopyTable( currentRoom.ChosenPickaxePointData )
 		local pickaxePoint = DeepCopyTable( ObstacleData.PickaxePoint )
 		OverwriteTableKeys( pickaxePoint, chosenOption )
-		if GameState.WeaponsUnlocked.ToolPickaxe2 then
-			pickaxePoint.MaxHealth = pickaxePoint.MaxHealth + WeaponShopItemData.ToolPickaxe2.MaxHealthBonus
-		end
 		pickaxePoint.ObjectId = currentRoom.PickaxePointId or RemoveRandomValue( pickaxePoints )
 		currentRoom.PickaxePointId = pickaxePoint.ObjectId
 		Activate({ Id = pickaxePoint.ObjectId, TriggerOnSpawn = false })

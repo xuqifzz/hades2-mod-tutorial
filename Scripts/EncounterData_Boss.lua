@@ -311,7 +311,8 @@ OverwriteTableKeys( EncounterData,
 	{
 		InheritFrom = { "BossEncounter" },
 		DelayedStart = true,
-		
+		BlockPostBossKeepsakeExpiration = true,
+
 		StartRoomUnthreadedEvents =
 		{
 			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Chronos", "SatyrCultist" }, IgnoreAI = true, SkipPresentation = true, } },

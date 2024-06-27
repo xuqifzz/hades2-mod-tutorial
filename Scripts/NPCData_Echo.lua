@@ -1031,7 +1031,11 @@ UnitSetData.NPC_Echo =
 				{
 					{
 						PathTrue = { "PrevRun", "Cleared" }
-					}
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "EchoGift01" },
+					},
+					RequiredMinHealthFraction = 0.7,
 				},
 				-- OnQueuedThreadedFunctionName = "AmbientChatting",
 				-- OnQueuedFunctionArgs = PresetEventArgs.NarcissusMutteringRepeatable,

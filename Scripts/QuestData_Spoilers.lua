@@ -478,7 +478,6 @@ OverwriteTableKeys( QuestData, {
 					"BoonDecayBoon",
 					"DamageSharePotencyBoon",
 					"LinkedDeathDamageBoon",
-					"FullManaExBoostBoon",
 					"HeraManaShieldBoon", -- Legendary
 				},
 			},

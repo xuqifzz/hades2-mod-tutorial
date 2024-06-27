@@ -692,6 +692,9 @@ function SetupRunData( args )
 					traitData.AddOutgoingLifestealModifiers.ValidWeaponsLookup = ToLookup( traitData.AddOutgoingLifestealModifiers.ValidWeapons )
 				end
 			end
+			if traitData.DamageClamps and traitData.DamageClamps.ValidProjectiles then
+				traitData.DamageClamps.ValidProjectilesLookup = ToLookup( traitData.DamageClamps.ValidProjectiles )
+			end
 			if traitData.AddOutgoingDamageModifiers then
 				if traitData.AddOutgoingDamageModifiers.ValidWeapons then
 					if not traitData.AddOutgoingDamageModifiers.ExcludeLinked then

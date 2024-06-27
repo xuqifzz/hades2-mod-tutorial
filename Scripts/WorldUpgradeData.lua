@@ -172,7 +172,6 @@ WorldUpgradeData =
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_fatescroll",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 		Cost =
@@ -380,7 +379,7 @@ WorldUpgradeData =
 		ActivateGroups = { "BrokerDecor" },
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 576166,
+		InspectPointId = 576166,
 
 		PreRevealVoiceLines =
 		{

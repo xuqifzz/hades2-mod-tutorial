@@ -90,6 +90,7 @@ end
 
 function EquipKeepsake( heroUnit, traitName, args )
 	local unit = heroUnit or CurrentRun.Hero
+	args = args or {}
 	traitName = traitName or GameState.LastAwardTrait
 	if traitName == nil or HeroHasTrait( traitName ) then
 		return
@@ -100,6 +101,9 @@ function EquipKeepsake( heroUnit, traitName, args )
 		CurrentRun.TraitCache[traitName] = CurrentRun.TraitCache[traitName] or 1
 	end
 
+	if traitData.CapMaxHealth and not args.SkipSetup then
+		ValidateMaxHealth( true )
+	end
 	if traitName == "DecayingBoostKeepsake" then
 		traitData.CurrentKeepsakeDamageBonus = traitData.InitialKeepsakeDamageBonus
 	end
@@ -119,14 +123,22 @@ end
 function UnequipKeepsake( heroUnit, traitName )
 	local unit = heroUnit or CurrentRun.Hero
 	RemoveTrait( unit, traitName )
+	
+	if TraitData[traitName] and TraitData[traitName].CapMaxHealth then
+		ValidateMaxHealth()
+	end
 	if traitName == "ReincarnationKeepsake" then
 		RemoveLastStand( unit, "ReincarnationKeepsake" )
 		unit.MaxLastStands = unit.MaxLastStands - 1
 		RecreateLifePips()
 	end
 	if traitName == "ArmorGainKeepsake" and MapState.HealthBufferSources and MapState.HealthBufferSources.ArmorGainKeepsake then
+		local storedArmor = MapState.HealthBufferSources.ArmorGainKeepsake
 		CurrentRun.Hero.HealthBuffer = CurrentRun.Hero.HealthBuffer - MapState.HealthBufferSources.ArmorGainKeepsake
 		MapState.HealthBufferSources.ArmorGainKeepsake = nil
+		if not unit.IsDead then
+			AddArmor( storedArmor, { Silent = true } )
+		end
 		thread( UpdateHealthUI )
 	end
 end
@@ -160,7 +172,9 @@ function AdvanceKeepsake()
 			local currentArmor = 0
 			local currentTime = nil
 			local customText = nil
+			local customName = nil
 			local escalatingBonus = 1
+			local capMaxHealth = -1
 			for i, traitData in pairs( CurrentRun.Hero.Traits ) do
 				if traitData.Name == traitName then
 					accumulatedDamageBonus = traitData.AccumulatedDamageBonus
@@ -172,6 +186,8 @@ function AdvanceKeepsake()
 					currentTime = traitData.CurrentTime
 					escalatingBonus = traitData.EscalatingKeepsakeValue
 					customText = traitData.CustomTrayText
+					customName = traitData.CustomName
+					capMaxHealth = traitData.CapMaxHealth
 					break
 				end
 			end
@@ -190,11 +206,13 @@ function AdvanceKeepsake()
 					end
 					traitData.AccumulatedDamageBonus = accumulatedDamageBonus
 					traitData.CurrentKeepsakeDamageBonus = lastDamageBonus
+					traitData.CapMaxHealth = capMaxHealth
 					traitData.EscalatingKeepsakeValue = escalatingBonus
 					traitData.CurrentTime = currentTime
 					traitData.Uses = lastUses
 					traitData.CurrentRoom = lastRoomNumber
 					traitData.CustomTrayText = customText
+					traitData.CustomName = customName
 					
 					if traitData.CostumeTrait and traitData.SetupFunction and traitData.SetupFunction.Name == "CostumeArmor" then
 						traitData.CurrentArmor = currentArmor
@@ -203,6 +221,12 @@ function AdvanceKeepsake()
 							thread( UpdateHealthUI )
 						end
 					end
+
+					if traitData.Name == "LowHealthCritKeepsake" and not IsTraitActive(traitData) and traitData.PropertyChanges and traitData.PropertyChanges[1] then
+						-- kludge, unfortunately, due to how we assume (correctly) that no one should be tweaking property changes like this
+						traitData.PropertyChanges[1].ChangeValue = 1
+					end
+
 					UpdateTraitNumber(traitData)
 					break
 				end
@@ -259,7 +283,7 @@ function DamageAfterInterval( timer, damage )
 	local tollTimes = math.floor(timer)
 	StartBlockDeathPresentation( tollTimes )
 	while tollTimes > 0 do
-		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving then
+		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition then
 			SetPlayerVulnerable( "BlockDeath" )
 			return
 		end
@@ -284,12 +308,12 @@ function DamageAfterInterval( timer, damage )
 		end
 	end
 	SetPlayerVulnerable( "BlockDeath" )
-	if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving then
+	if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition then
 		return
 	end
 	if ( encounterAlreadyCompleted and ( not CurrentRun.Hero.InvulnerableFlags or not CurrentRun.Hero.InvulnerableFlags.LeaveRoom)) or ( not encounter.Completed and not encounter.BossKillPresentation and encounter.InProgress ) then
 		CurrentRun.Hero.HealthBuffer = 0
-		SacrificeHealth({SacrificeHealthMin = damage, SacrificeHealthMax = damage, MinHealth = 0, Silent = true })
+		SacrificeHealth({SacrificeHealthMin = damage, SacrificeHealthMax = damage, MinHealth = 0, Silent = true, IgnoreCap = true  })
 	end
 end
 
@@ -919,4 +943,9 @@ function GetAssistKeepsakeLevel( giftName )
 		level = GameState.AssistUnlocks[giftName] + 1
 	end
 	return level
+end
+
+function KeepsakeAcquireSpellDrop( args, trait )
+	AddTalentPoints( args, trait )
+	RewardStoreAddPriority( args, trait )
 end

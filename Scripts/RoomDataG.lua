@@ -707,6 +707,8 @@ RoomSetData.G =
 								Name = "MetaCardPointsCommonDrop",
 								Overrides =
 								{
+									CanDuplicate = false,
+									MetaConversionEligible = false,
 									AddResources =
 									{
 										MetaCardPointsCommon = 20,

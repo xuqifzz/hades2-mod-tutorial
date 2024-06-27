@@ -397,7 +397,9 @@ HeroVoiceLines =
 			RequiredSourceValueFalse = "InPartnerConversation",
 			GameStateRequirements =
 			{
-				RequiredFalseQueuedTextLines = GameData.OdysseusTavernaEvents,
+				{
+					PathFalse = { "SessionMapState", "OdysseusAtTaverna" },
+				},
 			},
 
 			{ Cue = "/VO/Odysseus_0328", Text = "{#Emph}Ah{#Prev}, that's a nice touch." },
@@ -3663,7 +3665,6 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			PreLineWait = 0.65,
 			SuccessiveChanceToPlayAll = 0.33,
-			RequiredSwappedGodLoot = "ZeusUpgrade",
 			CooldownName = "SaidZeusRecently",
 			CooldownTime = 40,
 
@@ -3674,7 +3675,6 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			PreLineWait = 0.65,
 			SuccessiveChanceToPlayAll = 0.33,
-			RequiredSwappedGodLoot = "PoseidonUpgrade",
 			CooldownName = "SaidPoseidonRecently",
 			CooldownTime = 40,
 
@@ -3685,7 +3685,6 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			PreLineWait = 0.65,
 			SuccessiveChanceToPlayAll = 0.33,
-			RequiredSwappedGodLoot = "AphroditeUpgrade",
 			CooldownName = "SaidAphroditeRecently",
 			CooldownTime = 40,
 
@@ -3696,7 +3695,6 @@ HeroVoiceLines =
 			BreakIfPlayed = true,
 			PreLineWait = 0.65,
 			SuccessiveChanceToPlayAll = 0.33,
-			RequiredSwappedGodLoot = "DemeterUpgrade",
 			CooldownName = "SaidDemeterRecently",
 			CooldownTime = 40,
 
@@ -4393,7 +4391,7 @@ HeroVoiceLines =
 			{
 				{
 					Path = { "CurrentRun", "Hero", "LastActivatedElementalTrait" },
-					IsAny = { "ElementalDamageCapBoon" },
+					IsAny = { "ElementalRarityUpgradeBoon", "ElementalDamageBoon", },
 				}
 			},
 		},
@@ -4403,7 +4401,7 @@ HeroVoiceLines =
 			{
 				{
 					Path = { "CurrentRun", "Hero", "LastActivatedElementalTrait" },
-					IsAny = { "ElementalDodgeBoon" },
+					IsAny = { "ElementalDodgeBoon", "ElementalDamageFloorBoon", },
 				}
 			},
 		},
@@ -4413,7 +4411,7 @@ HeroVoiceLines =
 			{
 				{
 					Path = { "CurrentRun", "Hero", "LastActivatedElementalTrait" },
-					IsAny = { "ElementalHealthBoon" },
+					IsAny = { "ElementalHealthBoon", "ElementalDamageCapBoon" },
 				}
 			},
 		},

@@ -21,10 +21,7 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellTransform",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellTransform",
 				ExtractAs = "ManaCost",
 			},
@@ -72,6 +69,10 @@ OverwriteTableKeys( TraitData, {
 		{
 			"ManaSpendCostStatDisplay1",
 		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "CheckPolymorphCharge",
+		},
 		PropertyChanges = 
 		{
 			{
@@ -92,10 +93,7 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellPolymorph",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellPolymorph",
 				ExtractAs = "ManaCost",
 			},
@@ -148,6 +146,10 @@ OverwriteTableKeys( TraitData, {
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
 		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "ReenableLaserCharge",
+		},
 		StatLines =
 		{
 			"ManaSpendCostStatDisplay1",
@@ -155,13 +157,9 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellLaser",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellLaser",
 				ExtractAs = "ManaCost",
-
 			},
 			{
 				Key = "ReportedDamage",
@@ -235,13 +233,14 @@ OverwriteTableKeys( TraitData, {
 		{
 			"ManaSpendCostStatDisplay1",
 		},
+		OnProjectileDeathFunction = 
+		{
+			Name = "CheckMeteorCharge",
+		},
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellMeteor",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellMeteor",
 				ExtractAs = "ManaCost",
 			},
@@ -299,10 +298,7 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellSummon",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellSummon",
 				ExtractAs = "ManaCost",
 			},
@@ -369,10 +365,7 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "SlowAmount",
 			},
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellTimeSlow",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellTimeSlow",
 				ExtractAs = "ManaCost",
 			},
@@ -419,10 +412,7 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			},
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellPotion",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellPotion",
 				ExtractAs = "ManaCost",
 			},
@@ -472,10 +462,7 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues = 
 		{
 			{
-				External = true,
-				BaseType = "WeaponData",
-				BaseName = "WeaponSpellLeap",
-				BaseProperty = "ManaSpendCost",
+				Format = "ManaSpendCost",
 				WeaponName = "WeaponSpellLeap",
 				ExtractAs = "ManaCost",
 			},

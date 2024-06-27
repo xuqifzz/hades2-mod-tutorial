@@ -580,6 +580,7 @@
 	{
 		Name = "ManaRegenFlashFx"
 		InheritFrom = "ManaRegenFx"
+		Sound = "/Leftovers/SFX/SprintChargeUp"
 		CreateAnimations =
 		[
 			{ Name = "ManaRegenGlow" }

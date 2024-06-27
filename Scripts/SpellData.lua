@@ -260,7 +260,8 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"MinorManaDiscountTalent",
+				--"MinorManaDiscountTalent",
+				"ChargeRegenTalent",
 				"PolymorphDurationTalent",
 				"PolymorphDamageTalent",
 			},
@@ -297,7 +298,8 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"ManaDiscountTalent",
+				--"ManaDiscountTalent",
+				"PreChargeTalent",
 				"MeteorSizeTalent",
 				"MeteorDamageTalent",
 			},
@@ -336,6 +338,7 @@ SpellData =
 				"TransformDurationTalent",
 				"TransformDamageTalent",
 				"TransformCooldownDodgeTalent",
+				"ChargeRegenTalent",
 			},
 			Unique = 
 			{
@@ -370,7 +373,8 @@ SpellData =
 		{
 			Repeatable = 
 			{
-				"MinorManaDiscountTalent",
+				--"MinorManaDiscountTalent",
+				"ChargeRegenTalent",
 				"LeapDamageTalent",
 				"LeapArmorDamageTalent",
 				"LeapCooldownSpeedTalent",
@@ -399,7 +403,8 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"MinorManaDiscountTalent",
+				--"MinorManaDiscountTalent",
+				"ChargeRegenTalent",
 				"LaserDamageTalent",
 				"LaserDefenseTalent",
 			},
@@ -435,7 +440,9 @@ SpellData =
 			Repeatable = 
 			{
 				"CooldownDamageTalent",
-				"MinorManaDiscountTalent",
+				--"MinorManaDiscountTalent",
+				"ChargeRegenTalent",
+				"PreChargeTalent",
 				"SummonDamageTalent",
 			},
 			Unique = 
@@ -461,7 +468,9 @@ SpellData =
 		{
 			Repeatable = 
 			{
-				"ManaDiscountTalent",
+				--"ManaDiscountTalent",
+				"PreChargeTalent",
+				"ChargeRegenTalent",
 				"TimeSlowAmountTalent",
 				"CooldownDefenseTalent",
 			},
@@ -476,7 +485,7 @@ SpellData =
 			{
 				"TimeSlowCritTalent",
 				"TimeSlowFreezeTimeTalent",
-				"SpellChargeBonusTalent",
+				--"SpellChargeBonusTalent",
 			}
 		}
 	},

@@ -361,10 +361,10 @@ end
 
 function RunShopGeneration( room )
 	if IsWellShopEligible( CurrentRun, room ) then
-		roomData.Store = FillInShopOptions({ StoreData = StoreData.RoomShop, RoomName = room.Name })
+		room.Store = FillInShopOptions({ StoreData = StoreData.RoomShop, RoomName = room.Name })
 	end
 	if IsSurfaceShopEligible( CurrentRun, room ) then
-		roomData.Store = FillInShopOptions({ StoreData = StoreData.SurfaceShop, RoomName = room.Name })
+		room.Store = FillInShopOptions({ StoreData = StoreData.SurfaceShop, RoomName = room.Name })
 	end
 	if room.StoreDataName == nil and room.ChosenRewardType == "Shop" then
 		room.StoreDataName = "WorldShop"
@@ -1087,7 +1087,13 @@ function HandleStorePurchase( screen, button )
 			UseHeroTraitsWithValue( "BossExtension", true )
 			thread( PermafyShopItemPresentation, upgradeData.Name )
 		end
-		AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, })
+		if upgradeData.IncreaseUsesOnStack and HeroHasTrait(upgradeData.Name) then
+			local trait = GetHeroTrait( upgradeData.Name )
+			trait.RemainingUses = trait.RemainingUses + upgradeData.RemainingUses
+			UpdateTraitNumber( trait )
+		else
+			AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, })
+		end
 		IncrementTableValue( GameState.ItemInteractions, upgradeData.Name )
 		CheckCodexUnlock( "Items", upgradeData.Name )
 	elseif upgradeData.Type == "Consumable" then

@@ -192,7 +192,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		ActivateGroups = { "HistorianDecor" },
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 589466,
+		InspectPointId = 589466,
 	},
 	-- Record Keeper -- Keeper
 	WorldUpgradeGameStats =
@@ -231,7 +231,7 @@ OverwriteTableKeys( WorldUpgradeData,
 		ActivateGroups = { "StatisticianDecor" },
 		PanDuration = 1.5,
 		PanHoldDuration = 2.0,
-		InspectPoint = 589548,
+		InspectPointId = 589548,
 	},
 	WorldUpgradeGiftsShop =
 	{
@@ -273,7 +273,6 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultInstantItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_relationship",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 		Cost =

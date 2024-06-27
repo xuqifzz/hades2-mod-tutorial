@@ -197,7 +197,7 @@ OverwriteTableKeys( EncounterData,
 	WaterUnitIntro =
 	{
 		InheritFrom = { "BaseIntroEncounter", "GeneratedG" },
-		DifficultyModifier = 70,
+		DifficultyModifier = 45,
 		MinWaves = 3,
 		MaxWaves = 3,
 		ActiveEnemyCapBase = 4,

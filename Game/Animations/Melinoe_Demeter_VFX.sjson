@@ -32,7 +32,7 @@
 	{
 		Name = "DevotionRings_Demeter"
 		InheritFrom = "DevotionRings"
-		Scale = 0.25
+		Scale = 0.55
 		Color = { Red = 0.6 Green = 0.50 Blue = 1.0 }
 	}
 	

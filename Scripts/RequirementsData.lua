@@ -353,7 +353,6 @@ NamedRequirementsData =
 		{
 			PathTrue = { "GameState", "UseRecord", "NPC_Moros_01" },
 		},
-		-- RequireQuestsComplete = { "QuestUnlockBountyBoard" },
 		MinRunsSinceAnyTextLines = { TextLines = { "MorosFirstMeeting" }, Count = 2 },
 	},
 
@@ -725,7 +724,7 @@ NamedRequirementsData =
 	HammerLootRequirements = 
 	{
 		-- unlock requirements
-		RequiredMinAnyTextLines = { TextLines = { "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp", "ZeusFirstPickUp" }, Count = 3 },
+		RequiredMinAnyTextLines = { TextLines = { "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp", "ZeusFirstPickUp" }, Count = 4 },
 
 		-- run requirements
 		RequiredNotInStore = "WeaponUpgradeDrop",

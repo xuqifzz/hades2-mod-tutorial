@@ -226,7 +226,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Torch_38",
 		RequiredWeapon = "WeaponTorch",
-		RequiredFalseTraits = {"TorchDetonateAspect", "TorchSprintRecallAspect"},
+		RequiredFalseTraits = {"TorchDetonateAspect"},
 		PropertyChanges =
 		{	
 			{
@@ -249,6 +249,10 @@ OverwriteTableKeys( TraitData, {
 				MatchProjectileName = false,
 				SpawnCount = 2,
 				SpawnArc = 60,
+				ProjectileNameMapIgnores = 
+				{
+					ProjectileTorchBallLarge = "TorchSprintRecallAspect",
+				},
 				ProjectileNameMap = 
 				{
 					ProjectileTorchBall = "ProjectileTorchBallSplit",

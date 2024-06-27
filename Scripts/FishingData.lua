@@ -481,37 +481,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishFRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishFCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishFLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishFRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishFLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishFRare" },
 						Comparison = ">=",
@@ -540,37 +512,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishGRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishGCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishGLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishGRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishGLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishGRare" },
 						Comparison = ">=",
@@ -600,37 +544,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishHRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishHCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishHLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishHRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishHLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishHRare" },
 						Comparison = ">=",
@@ -660,37 +576,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishIRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishICommon" },
-						Comparison = ">=",
-						Value = 3,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishILegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishIRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishILegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishIRare" },
 						Comparison = ">=",
@@ -720,37 +608,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishNRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishNCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishNLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishNRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishNLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishNRare" },
 						Comparison = ">=",
@@ -780,37 +640,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishORare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishOCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishOLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishORare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishOLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishORare" },
 						Comparison = ">=",
@@ -840,37 +672,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishPRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishPCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishPLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishPRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishPLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishPRare" },
 						Comparison = ">=",
@@ -899,37 +703,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishBRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishBCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishBLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishBRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishBLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishBRare" },
 						Comparison = ">=",
@@ -959,37 +735,9 @@ FishingData =
 				},
 			},
 			{
-				Weight = 2, Name = "FishChaosRare",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishChaosCommon" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
 				Weight = 1, Name = "FishChaosLegendary",
 				GameStateRequirements =
 				{
-					{
-						Path = { "GameState", "LifetimeResourcesGained", "FishChaosRare" },
-						Comparison = ">=",
-						Value = 2,
-					},
-				},
-			},
-			{
-				Weight = 1, Name = "FishChaosLegendary",
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod2", }
-					},
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "FishChaosRare" },
 						Comparison = ">=",

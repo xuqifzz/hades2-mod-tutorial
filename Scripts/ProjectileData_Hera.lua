@@ -8,5 +8,8 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		InheritFrom = { "HeraColorProjectile" },
 	},
-
+	ProjectileHeraOmega = 
+	{
+		InheritFrom = { "HeraColorProjectile" },
+	},
 })

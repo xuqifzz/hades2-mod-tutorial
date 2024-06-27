@@ -7,7 +7,7 @@ OverwriteTableKeys( TraitData, {
 	HealingOnDeathCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Medea_03",
 		DropOnKill = {
 			Chance = { BaseValue = 0.05 },
 			DropCap = 1,
@@ -43,7 +43,7 @@ OverwriteTableKeys( TraitData, {
 	MoneyOnDeathCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Medea_05",
 		DropOnKill = {
 			Chance = { BaseValue = 0.10 },
 			DropCap = 2,
@@ -79,7 +79,7 @@ OverwriteTableKeys( TraitData, {
 	ManaOverTimeCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Medea_04",
 		
 		RoomsPerUpgrade = 
 		{ 
@@ -104,7 +104,7 @@ OverwriteTableKeys( TraitData, {
 	SpawnDamageCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Medea_07",
 		OnEnemySpawnFunction =
 		{
 			FunctionName = "CheckSpawnCurseDamage",
@@ -154,7 +154,7 @@ OverwriteTableKeys( TraitData, {
 	ArmorPenaltyCurse = 
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Medea_01",
 		
 		OnEnemySpawnFunction =
 		{
@@ -181,7 +181,7 @@ OverwriteTableKeys( TraitData, {
 	SlowProjectileCurse =
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Medea_06",
 		EnemyProjectileSpeedMultiplier = 0.60,
 		ExtractValues = 
 		{
@@ -195,7 +195,7 @@ OverwriteTableKeys( TraitData, {
 	DeathDefianceRetaliateCurse =
 	{
 		InheritFrom = {"BaseCurse"},
-		Icon = "Boon_Chaos_07",
+		Icon = "Boon_Medea_02",
 		OnLastStandFunction = 
 		{
 			Name = "CurseRetaliate",

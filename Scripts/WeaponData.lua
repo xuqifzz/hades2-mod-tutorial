@@ -671,7 +671,7 @@
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellTransformPrompt" },
-		ManaSpendCost = 100,
+		ManaSpendCost = 80,
 		Duration = 5.0,
 
 		OnChargeFunctionArgs = 
@@ -779,8 +779,8 @@
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellMeteorPrompt" },
-		OnFiredFunctionNames = {"SpellFire", "SpellMeteorPresentation", },
-		ManaSpendCost = 200,
+		OnFiredFunctionNames = {"SpellFire", "SpellMeteorPresentation", "SpellMeteorFire" },
+		ManaSpendCost = 90,
 		
 		FireSimSlowParameters =
 		{
@@ -830,7 +830,7 @@
 		OnFiredFunctionNames = { "LaserSpellFire" },
 		OnClipEmptyFunctionName = "LaserSpellReload", 
 		MaxDuration = 3,
-		ManaSpendCost = 70,
+		ManaSpendCost = 30,
 
 		OnChargeFunctionArgs = 
 		{
@@ -915,7 +915,7 @@
 	{
 		InheritFrom = { "BaseSpell", },
 		CompleteObjectivesOnFire = { "SpellPolymorphPrompt" },
-		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire" },
+		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire", "SpellPolymorphFire" },
 		ManaSpendCost = 50,
 
 		OnChargeFunctionArgs = 
@@ -976,14 +976,14 @@
 		OnFiredFunctionArgs = 
 		{ 
 			Modifier = 0.2, 
-			Duration = 7.0, 
+			Duration = 4.0, 
 			LoopingSound = "/SFX/Player Sounds/TimeSlowLoop",
 			EndWarnNum = 3,
 			EndWarnPresentationFunction = "SpellSlowWarnPresentation",
 			EndSlowMotionSound = "/VO/MelinoeEmotes/EmoteGasping",
 			EndSlowMotionFunctionName = "EndTimeSlow" },
-		BaseDuration = 5.0,
-		ManaSpendCost = 150,
+			BaseDuration = 4.0,
+			ManaSpendCost = 100,
 
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.16, Angle = 225, ScreenPreWait = 0.19 },
 
@@ -1023,7 +1023,7 @@
 		OnFiredFunctionArgs = { Amount = 15, HealDelay = 0.35 },
 		HealingAmount = 15,
 		ShowManaIndicator = false,
-		ManaSpendCost = 80,
+		ManaSpendCost = 70,
 
 		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.08, Angle = 225, ScreenPreWait = 0.19 },
 

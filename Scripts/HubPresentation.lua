@@ -630,6 +630,7 @@ end
 function FishingPierStartPresentation( source, args )
 	args = args or {}
 
+	LoadVoiceBanks({ Name = "MelinoeField" })
 	FadeOut({ Color = Color.Black, Duration = 0.5 })
 	EstablishConversationStartingPoint( source )
 	waitUnmodified( 0.5 )
@@ -663,7 +664,7 @@ function FishingPierEndPresentation( source, args )
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
 	FadeIn({ Duration = 2.0 })
 	waitUnmodified( 2.5 )
-
+	UnloadVoiceBanks({ Name = "MelinoeField" })
 end
 
 function TavernaStartPresentation( source, args )
@@ -1643,6 +1644,11 @@ function OdysseusArriveAtGardenPlot( source, args, node )
 	else
 		wait( 3.0, source.AIThreadName )
 	end
+end
+
+function OdysseusAtTaverna( source, args )
+	CheckDistanceTriggerThread( source, PresetEventArgs.OdysseusFeasting )
+	SessionMapState.OdysseusAtTaverna = true
 end
 
 function MorosObserveFatedList( source, args, node )

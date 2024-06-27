@@ -379,17 +379,20 @@ end
 
 function NPCLittering( source, args )
 
-	local numLitterSpawns = RandomInt( args.LitterSpawnsMin, args.LitterSpawnsMax )
-	local litterSpawnPointIds = ShallowCopyTable( args.LitterSpawnPointIds )
-	for i = 1, numLitterSpawns do
-		local litterSpawnPointId = RemoveRandomValue( litterSpawnPointIds )
-		if litterSpawnPointId ~= nil and GameState.ActiveLitter[litterSpawnPointId] == nil then
-			-- Always created by RestoreLitter below
-			--local consumableId = SpawnObstacle({ DestinationId = litterSpawnPointId, Name = args.LitterName, Group = args.LitterGroupName })
-			--local consumable = CreateConsumableItem( consumableId, args.LitterName, nil, { IgnoreSounds = true } )
-			--consumable.SpawnPointId = litterSpawnPointId
-			GameState.ActiveLitter[litterSpawnPointId] = { Name = args.LitterName, Group = args.LitterGroupName }
+	if not CurrentRun.NewErisLitterCreated then
+		local numLitterSpawns = RandomInt( args.LitterSpawnsMin, args.LitterSpawnsMax )
+		local litterSpawnPointIds = ShallowCopyTable( args.LitterSpawnPointIds )
+		for i = 1, numLitterSpawns do
+			local litterSpawnPointId = RemoveRandomValue( litterSpawnPointIds )
+			if litterSpawnPointId ~= nil and GameState.ActiveLitter[litterSpawnPointId] == nil then
+				-- Always created by RestoreLitter below
+				--local consumableId = SpawnObstacle({ DestinationId = litterSpawnPointId, Name = args.LitterName, Group = args.LitterGroupName })
+				--local consumable = CreateConsumableItem( consumableId, args.LitterName, nil, { IgnoreSounds = true } )
+				--consumable.SpawnPointId = litterSpawnPointId
+				GameState.ActiveLitter[litterSpawnPointId] = { Name = args.LitterName, Group = args.LitterGroupName }
+			end
 		end
+		CurrentRun.NewErisLitterCreated = true
 	end
 
 	thread( CheckDistanceTrigger, args.UnitDistanceTrigger, source )
@@ -426,7 +429,8 @@ function UseTrashPoint( source, args, user )
 		AddResource( resourceName, count, source.Name )
 	end
 
-	GameState.ActiveLitter[source.SpawnPointId or source.ObjectId] = nil
+	GameState.ActiveLitter[source.SpawnPointId] = nil
+	GameState.ActiveLitter[source.ObjectId] = nil
 
 	UseableOff({ Id = source.ObjectId })
 	--RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "Blank" )

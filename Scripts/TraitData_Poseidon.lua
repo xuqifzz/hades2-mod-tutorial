@@ -67,7 +67,7 @@ OverwriteTableKeys( TraitData, {
 					AbsoluteStackValues =
 					{
 						[1] = 0.334,
-						[2] = 0.170,
+						--[2] = 0.170,
 					},
 				},
 				ReportValues = 
@@ -225,7 +225,7 @@ OverwriteTableKeys( TraitData, {
 
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Poseidon",
 				ChangeType = "Absolute",
@@ -742,6 +742,71 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 		
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = {"WeaponCast"},
+			ExcludeLinked = true,
+			FunctionName = "CheckPoseidonCastSplash",
+			FunctionArgs = 
+			{
+				ProjectileName = "PoseidonCastSplashSplinter",
+				DamageMultiplier = 
+				{
+					BaseValue = 1.0,
+					MinMultiplier = 3/15,
+					IdenticalMultiplier =
+					{
+						Value = -0.5,
+						DiminishingReturnsMultiplier = 0.80,
+					},
+				},
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier" 
+				},
+			},
+		},
+		StatLines = 
+		{
+			"SplashDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "PoseidonCastSplashSplinter",
+				BaseProperty = "Damage",
+			},
+		}
+	},
+	PoseidonExCastBoon =
+	{
+		Icon = "Boon_Poseidon_29",
+		InheritFrom = { "BaseTrait", "WaterBoon" },
+		RequiredFalseTraits = { "ZeusExCastBoon", "ApolloExCastBoon" },		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.2,
+			},
+			Epic =
+			{
+				Multiplier = 1.4,
+			},
+			Heroic =
+			{
+				Multiplier = 1.6,
+			},
+		},
+		
 		WeaponDataOverride =
 		{
 			WeaponCast =
@@ -812,10 +877,9 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1,
 					AbsoluteStackValues = 
 					{
-						[1] = 0.50,
-						[2] = 0.30,
-						[3] = 0.20,
-						[4] = 0.10,
+						[1] = 0.20,
+						[2] = 0.15,
+						[3] = 0.10,
 					},
 				},
 				
@@ -834,6 +898,69 @@ OverwriteTableKeys( TraitData, {
 				Format = "MultiplyByBase",
 				BaseType = "Projectile",
 				BaseName = "PoseidonCast",
+				BaseProperty = "Damage",
+			},
+		}
+	},
+	OmegaPoseidonProjectileBoon = 
+	{
+		InheritFrom = { "BaseTrait", "WaterBoon" },
+		Icon = "Boon_Poseidon_38",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.2,
+			},
+			Epic =
+			{
+				Multiplier = 1.4,
+			},
+			Heroic =
+			{
+				Multiplier = 1.6,
+			}
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckExProjectileOnHit",
+			Args = 
+			{
+				ProjectileName = "PoseidonOmegaProjectile",
+				DamageMultiplier = 
+				{
+					BaseValue = 1,
+					AbsoluteStackValues = 
+					{
+						[1] = 0.20,
+						[2] = 0.10,
+					},
+				},
+				Cooldown = 0.75,
+				ProjectileCap = 1,
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier" 
+				},
+			}
+		},
+		StatLines = 
+		{
+			"PoseidonOmegaProjectileDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "PoseidonOmegaProjectile",
 				BaseProperty = "Damage",
 			},
 		}
@@ -950,10 +1077,10 @@ OverwriteTableKeys( TraitData, {
 				Chance = 
 				{ 
 					BaseValue = 0.10, 
-					IdenticalMultiplier =
+					AbsoluteStackValues =
 					{
-						Value = -0.8,
-						DiminishingReturnsMultiplier = 0.5,
+						[1] = 0.02,
+						[2] = 0.01,
 					},
 				},
 				Duration = 30,
@@ -1061,19 +1188,11 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	MinorLootBoon =
+	RoomRewardBonusBoon =
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
+		Icon = "Boon_Poseidon_36",
 		BlockStacking = true,
-		BlockInRunRarify = true,
-		BlockSacrifice = true,
-		GameStateRequirements = 
-		{					
-			{
-				Path = { "CurrentRun", "CurrentRoom" },
-				HasNone = { "BlockGiftBoons" },
-			},
-		},
 		RarityLevels =
 		{
 			Common =
@@ -1082,27 +1201,25 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.3,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.6,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 1.9,
-			},
+				Multiplier = 2.5,
+			}
 		},
-		Icon = "Boon_Poseidon_35",
 		AcquireFunctionName = "GiveRandomConsumables",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = true,
-			ExtractAmount = { BaseValue = 90 },
+			RunProgressUpgradeEligible = true,
 			ReportValues = {ReportedMinMoney = "ExtractAmount"},
-			LootMultiplier = { BaseValue = 1 },
 			LootOptions =
 			{
 				{
@@ -1137,42 +1254,6 @@ OverwriteTableKeys( TraitData, {
 						}
 					},
 				},
-			}
-		},
-		StatLines =
-		{
-			"MoneyStatDisplay",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMinMoney",
-				ExtractAs = "Money",
-			},
-		}
-	},
-	RoomRewardBonusBoon =
-	{
-		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
-		Icon = "Boon_Poseidon_36",
-		BlockStacking = true,
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
 			}
 		},
 		MoneyRewardBonus =
@@ -1405,6 +1486,7 @@ OverwriteTableKeys( TraitData, {
 			ValidProjectiles = 
 			{
 				"PoseidonSplashSplinter",
+				"PoseidonCastSplashSplinter",
 				"PoseidonSplashBackSplinter",
 			},
 			EffectName = "AmplifyKnockbackEffect",
@@ -1450,17 +1532,18 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "LegendaryTrait", "WaterBoon" },
 		ConeModifier = 
 		{
-			ScaleIncrease = 1.2,
-			MaxScale = 1.5,			--Search for DefaultKnockbackScale to see normal scales
+			ScaleIncrease = 1.35,
+			MaxScale = 1.70,			--Search for DefaultKnockbackScale to see normal scales
 		},
 		AddOutgoingDamageModifiers = 
 		{
 			ValidProjectiles = 
 			{
 				"PoseidonSplashSplinter",
+				"PoseidonCastSplashSplinter",
 				"PoseidonSplashBackSplinter",
 			},
-			BossDamageMultiplier = 2.5,
+			BossDamageMultiplier = 3.0,
 			ReportValues = { ReportedWeaponMultiplier = "BossDamageMultiplier"},
 		},
 		StatLines =

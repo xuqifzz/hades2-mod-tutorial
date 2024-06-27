@@ -329,7 +329,7 @@ BountyData =
 			{ Name = "PoseidonSprintBoon", Rarity = "Epic", },
 			{ Name = "PoseidonManaBoon", Rarity = "Epic", },
 			{ Name = "EncounterStartOffenseBuffBoon", Rarity = "Epic", },
-			{ Name = "SlamExplosionBoon", Rarity = "Epic", },
+			{ Name = "PoseidonStatusBoon", Rarity = "Epic", },
 			{ Name = "RoomRewardMaxHealthTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
@@ -1677,7 +1677,7 @@ BountyData =
 					},
 					{
 						Type = "Trait",
-						ItemName = "MinorLootBoon",
+						ItemName = "RoomRewardBonusBoon",
 						Rarity = "Heroic",
 					},
 					{
@@ -1914,21 +1914,12 @@ BountyData =
 			{
 				{
 					Name = "MaxHealthDrop",
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "FirstHitHealBoon" },
-						},
-					},
 				},
 				{
 					Name = "StackUpgrade",
 					GameStateRequirements =
 					{
 						NamedRequirements = { "StackUpgradeLegal", },
-						{
-							PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "FirstHitHealBoon" },
-						},
 					},
 				},
 				{
@@ -1946,9 +1937,6 @@ BountyData =
 
 						-- run requirements				
 						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "FirstHitHealBoon" },
-						},
 						{
 							Path = { "CurrentRun", "BiomeUseRecord", },
 							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
@@ -3752,7 +3740,7 @@ BountyData =
 					},
 					{
 						Type = "Trait",
-						ItemName = "ChargeCounterBoon",
+						ItemName = "AntiArmorBoon",
 						Rarity = "Epic",
 					},
 					{

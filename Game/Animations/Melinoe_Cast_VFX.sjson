@@ -2128,5 +2128,318 @@
 		InheritFrom = "AphroditeCastPullSparkles"
 		FilePath = "Particles\particle_aphrodite_heart"
 		StartScale = 1.0
+		Sound = "/SFX/Player Sounds/AphroditeLoveDashHeart"
+	}
+
+	{
+		Name = "CastCircleInApollo"
+		FilePath = "Fx\CastCircleIn\CastCircleIn"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
+		Saturation = -0.3
+		//Value = 0.2
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/MelCastCircleLoop"
+		UseOwnAngle = false
+		StopSoundOnFinishFade = 0.5
+		Duration = 3.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 15
+		HoldLastFrame = true
+		NumFrames = 15
+		PlaySpeed = 30.0
+		StartFrame = 1
+		EndScale = 1.05
+		TransferChildren = true
+		ScaleRadius = 310.0
+		Ambient = 0.0
+		VisualFx = "ApolloDotsRadial"
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.1
+		CreateAnimations =
+		[
+			{ Name = "CastCircleEdgeGlowApollo" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleLineApollo" }
+			{ Name = "CastCircleLine2Apollo" }
+			{ Name = "CastCircleInOverlayApollo" }
+			{ Name = "CastCircleInOverlayApollo" }
+			{ Name = "CastCircleInOverlayApollo" }
+			{ Name = "CastCircleLine3Apollo" }
+			{ Name = "CastCircleInApolloUnderlay" }
+			{ Name = "CastCircleApolloRingB" }
+			{ Name = "CastCircleApolloRingC" }
+			{ Name = "CastCircleApolloRingC" }
+			//{ Name = "CastCircleApolloGlowLarge" }
+		]
+	}
+
+	{
+		Name = "CastCircleApolloGlowLarge"
+		FilePath = "Particles\particle_glow"
+		Scale = 8
+		GroupName = "FX_Add_Top"
+		Red = 1
+		Green = 0.9
+		Blue = 0.8
+		Alpha = 0.33
+		Duration = 3.0
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+
+	}
+
+	{
+		Name = "CastCircleInOverlayApollo"
+		InheritFrom = "CastCircleInOverlay"
+		Hue = 0.5
+		Red = 1
+		Green = 0.95
+		Blue = 0.8
+		Value = 0.2
+		StartAlpha = 0
+		EndAlpha = 0.33
+		PingPongColor = true
+	}
+
+
+	{ 
+		Name = "CastCircleApolloRingB" 
+		FilePath = "Fx\Apollo\ApolloCastRingB"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		Duration = 1.0
+		Loop = false
+		DieWithOwner = true
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.7
+		EndScale = 1.3
+		Scale = 0.9
+		Alpha = 1
+		HoldLastFrame = true
+		PingPongColor = true
+		EaseIn = 0.99
+		EaseOut = 1
+		VisualFx = "CastCircleApolloRingC"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.4
+	}
+
+	{
+		Name = "CastCircleApolloRingC"
+		InheritFrom = "CastCircleApolloRingB"
+		FilePath = "Fx\Apollo\ApolloCastRingC"
+		VisualFx = null
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomDurationMin = 1
+		RandomDurationMax = 1.2
+		Alpha = 1
+		StartScale = 1
+		EndScale = 1.2
+		Scale = 0.7
+		ScaleMin = 1.2
+		ScaleMax = 1.3
+		StartAlpha = 0
+		Loop = false
+		GroupName = "FX_Terrain_Top"
+		HoldLastFrame = false
+		CreateAnimations = [
+			{ Name = "ApolloCastBeams" }
+			{ Name = "CastCircleApolloRingC_Dark" }
+		]
+	}
+
+	{
+		Name = "CastCircleApolloRingC_Dark"
+		InheritFrom = "CastCircleApolloRingC"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		Scale = 0.85
+		GroupName = "FX_Terrain"
+	}
+
+	{
+		Name = "CastCircleEdgeGlowApollo"
+		InheritFrom = "CastCircleEdgeGlow"
+		Saturation = -0.5
+		Value = 0.2
+	}
+
+	{
+		Name = "CastCircleLineApollo"
+		InheritFrom = "CastCircleLine"
+		Hue = 0.5
+	}
+	{
+		Name = "CastCircleLine2Apollo"
+		InheritFrom = "CastCircleLineHestia"
+		Angle = 120
+	}
+	{
+		Name = "CastCircleLine3Apollo"
+		InheritFrom = "CastCircleLineHestia"
+		Angle = 240
+	}
+	{
+		Name = "CastCircleInApolloUnderlay"
+		InheritFrom = "CastCircleInHestia"
+		ClearCreateAnimations = true
+		VisualFx = null
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		DieWithOwner = true
+		Alpha = 0.77
+		ScaleRadius = 340.0
+		Sound = null
+	}
+
+	{
+		Name = "CastCircleOutApollo"
+		InheritFrom = "CastCircleOut"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.8
+		EndBlue = 0.6
+		Saturation = 0
+		Value = 0.2		
+		ClearCreateAnimations = true
+		CreateAnimations = []
+	}
+
+	
+	{
+		Name = "ApolloCastBeams"
+		FilePath = "Particles\particle_apolloGlow2"
+		GroupName = "FX_Add_Top"
+		VisualFx = null
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AlphaMax = 0.5
+		AlphaMin = 0.25
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		LoopFramesOnly = true
+		RandomDurationMax = 2.0
+		RandomDurationMin = 0.6
+		RadialOffsetMin = 0
+		RadialOffsetMax = 200
+		RadialOffsetScaleRadius = 200
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		ScaleY = 4
+		ScaleX = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.5
+		ScaleMin = 0.7
+		AngleMin = 0
+		AngleMax = 360
+		OffsetZ = 300
+		DieWithOwner = true
+	}
+	{
+		Name = "CastCircleArmedApollo"
+		InheritFrom = "CastCircleArmed"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
+		Saturation = -0.3
+		Value = 0.2
+		ClearCreateAnimations = true
+		VisualFx = "CastCircleArmedC_Fx_Apollo"
+		CreateAnimations =
+		[
+			{ Name = "CastCircleArmedA_Apollo" }
+			{ Name = "CastCircleArmedB_Apollo" }
+			{ Name = "CastCircleArmedC_Apollo" }
+			{ Name = "CastCircleApolloRingC" }
+			{ Name = "CastCircleApolloRingC" }
+			{ Name = "CastCircleApolloRingC" }
+		]
+	}
+
+
+	{
+		Name = "CastCircleArmedA_Apollo"
+		InheritFrom = "CastCircleArmedA"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
+		Saturation = -0.3
+		Value = 0.2
+		VisualFx = "CastCircleApolloRingC"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+	}
+	{
+		Name = "CastCircleArmedB_Apollo"
+		InheritFrom = "CastCircleArmedB"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
+		Saturation = -0.3
+		Value = 0.2
+	}
+	{
+		Name = "CastCircleArmedC_Apollo"
+		InheritFrom = "CastCircleArmedC"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
+		Saturation = -0.3
+		Value = 0.2
+	}
+
+
+	{
+		Name = "CastCircleArmedC_Fx_Apollo"
+		InheritFrom = "CastCircleArmedC_Fx"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.85
 	}
 ]}

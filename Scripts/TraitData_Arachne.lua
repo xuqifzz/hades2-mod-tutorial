@@ -3,7 +3,7 @@ OverwriteTableKeys( TraitData, {
 	AgilityCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Athena_03",
+		Icon = "Boon_Arachne_01",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorC",
 		WeaponSpeedMultiplier =
 		{
@@ -58,7 +58,7 @@ OverwriteTableKeys( TraitData, {
 	CastDamageCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Athena_01",
+		Icon = "Boon_Arachne_04",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorD",
 		AddOutgoingDamageModifiers = 
 		{
@@ -104,7 +104,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "CostumeTrait" },
 		ManaOverTimeSource = true,
-		Icon = "Boon_Athena_01",
+		Icon = "Boon_Arachne_02",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorB",
 		SetupFunctions =
 		{
@@ -152,7 +152,7 @@ OverwriteTableKeys( TraitData, {
 	VitalityCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Athena_02",
+		Icon = "Boon_Arachne_03",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorA",
 		DoorHealFixed = { BaseValue = 2 },
 		SetupFunction =
@@ -188,7 +188,7 @@ OverwriteTableKeys( TraitData, {
 	HighArmorCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Athena_02",
+		Icon = "Boon_Arachne_06",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorF",
 		AcquireFunctionName = "GiveRandomConsumables",
 		AcquireFunctionArgs =
@@ -239,7 +239,7 @@ OverwriteTableKeys( TraitData, {
 	IncomeCostume = 
 	{
 		InheritFrom = { "CostumeTrait" },
-		Icon = "Boon_Athena_02",
+		Icon = "Boon_Arachne_05",
 		Costume = "Models/Melinoe/Melinoe_ArachneArmorE",
 		DoorCash = { BaseValue = 5 },
 		SetupFunction =

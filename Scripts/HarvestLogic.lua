@@ -96,6 +96,8 @@ function UseShovelPoint( source, args, user )
 		end
 	end
 
+	CheckForToolElement( source.ObjectId, "ToolShovel2" )
+
 	UseableOff({ Id = source.ObjectId })
 	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", "ShovelPointUsed" )
 	RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "UseableOff", true )
@@ -167,6 +169,8 @@ function UsePickaxePoint( source, args, user )
 
 			GameState.PickaxeSuccesses = (GameState.PickaxeSuccesses or 0) + 1
 			CurrentRun.PickaxeSuccesses = (CurrentRun.PickaxeSuccesses or 0) + 1
+
+			CheckForToolElement( source.ObjectId, "ToolPickaxe2" )
 
 			UseableOff({ Id = source.ObjectId })
 			RecordObjectState( CurrentRun.CurrentRoom, source.ObjectId, "Animation", source.EmptyAnimation )
@@ -253,7 +257,7 @@ end
 function IsAggroedUnitBlockingInteract()
 	for id, v  in pairs( MapState.AggroedUnits ) do
 		local unit = ActiveEnemies[id]
-		if unit ~= nil and not unit.AlwaysTraitor then
+		if unit ~= nil and not unit.AllowInteractWhileAggroed and not unit.AlwaysTraitor then
 			return true
 		end
 	end
@@ -353,15 +357,10 @@ function UseExorcismPoint( source, args, user )
 	end
 
 	for resourceName, resourceAmount in pairs( source.AddResources ) do
-		local finalResourceAmount = resourceAmount
-		if GameState.WeaponsUnlocked.ToolExorcismBook2 then
-			finalResourceAmount = round( finalResourceAmount * WeaponShopItemData.ToolExorcismBook2.ResourceBonus )
-		end
-
-		finalResourceAmount = finalResourceAmount * resourceTimes 
-		
-		AddResource( resourceName, finalResourceAmount, source.Name )
+		AddResource( resourceName, resourceAmount * resourceTimes, source.Name )
 	end
+
+	CheckForToolElement( source.ObjectId, "ToolExorcismBook2" )
 
 	if HasFamiliarTool( "ToolExorcismBook" ) then
 		FamiliarExorcismSuccessPresentation( source, args, user )
@@ -523,4 +522,19 @@ function GetResourceNodeSpawnChance( resourceData, roomChance, bonusTraitName )
 
 	return baselineSpawnChance + familiarSpawnChance
 
+end
+
+function CheckForToolElement( spawnPointId, toolName )
+	if GameState.WeaponsUnlocked[toolName] and not CurrentRun.ToolElementsSpawned[toolName] and not CurrentRun.Hero.IsDead then
+		local toolData = WeaponShopItemData[toolName]
+		if RandomChance( toolData.ElementChance ) then
+			thread( GrantElementFromTool, toolData )
+		end
+	end
+end
+
+function GrantElementFromTool( toolData )
+	wait( toolData.ElementPopupDelay )
+	AddOrIncreaseTrait( { TraitName = toolData.ElementName } )
+	CurrentRun.ToolElementsSpawned[toolData.Name] = (CurrentRun.ToolElementsSpawned[toolData.Name] or 0) + 1
 end

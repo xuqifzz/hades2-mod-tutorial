@@ -66,7 +66,7 @@ LootSetData.Hephaestus =
 		},
 		Traits =
 		{ 
-			"ChargeCounterBoon",
+			"MassiveDamageBoon",
 			"AntiArmorBoon",
 			"HeavyArmorBoon",
 			"ArmorBoon",
@@ -85,8 +85,8 @@ LootSetData.Hephaestus =
 			"ReboundingSparkBoon",
 			"MassiveCastBoon",
 			"ClearRootBoon",
-			"MassiveAoEIncrease",
-			"FirstHitHealBoon",
+			"BlindClearBoon",
+			"SlamManaBurstBoon",
 			"DoubleMassiveAttackBoon",
 		},
 		Consumables = { },
@@ -170,7 +170,7 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MassiveAoEIncrease",
+					HasTraitNameInRoom = "BlindClearBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0125",
@@ -206,7 +206,7 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "FirstHitHealBoon",
+					HasTraitNameInRoom = "SlamManaBurstBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0129",

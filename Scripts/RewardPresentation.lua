@@ -41,7 +41,6 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 		backingId = exitDoor.RewardPreviewBackingIds[index]
 	else
 		backingId = SpawnObstacle({ Name = "BlankGeoObstacle", Group = "Combat_UI_World" })
-		SetThingProperty({ Property = "AllowDrawableCache", Value = false, DestinationId = backingId })
 		table.insert( exitDoor.RewardPreviewBackingIds, backingId )
 		SetAlpha({ Id = backingId, Fraction = 0.0, Duration = 0.0 })
 		SetAlpha({ Id = backingId, Fraction = 1.0, Duration = 0.1 })
@@ -238,7 +237,6 @@ function AddDoorInfoIcon( args )
 		iconId = exitDoor.AdditionalIcons[args.Name]
 	else
 		iconId = SpawnObstacle({ Name = "BlankGeoObstacle", Group = args.Group })
-		SetThingProperty({ Property = "AllowDrawableCache", Value = false, DestinationId = iconId })
 		local offsetAngle = 330
 		if IsHorizontallyFlipped({ Id = exitDoor.ObjectId }) then
 			offsetAngle = 30
@@ -257,6 +255,13 @@ function RemoveRoomRewardPreviews()
 			Destroy({ Ids = door.RewardPreviewBackingIds })
 			Destroy({ Ids = door.RewardPreviewIconIds })
 			Destroy({ Ids = GetAllValues( door.AdditionalIcons ) })
+		end
+	end
+	if MapState.ShipWheels ~= nil then
+		for id, wheel in pairs( MapState.ShipWheels ) do
+			Destroy({ Ids = wheel.RewardPreviewBackingIds })
+			Destroy({ Ids = wheel.RewardPreviewIconIds })
+			Destroy({ Ids = GetAllValues( wheel.AdditionalIcons ) })
 		end
 	end
 end

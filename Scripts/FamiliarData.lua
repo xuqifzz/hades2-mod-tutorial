@@ -1663,13 +1663,11 @@ TraitSetData.Familiar =
 	{
 		InheritFrom = { "FamiliarUpgradeTrait" },
 		FamiliarDataModifiers =
-		{			
+		{
 			AddOutgoingDamageModifiers =
 			{
 				{
-					ValidBaseDamageAddition = 10,
-					--NonPlayerMultiplier = { BaseValue = 1.5, SourceIsMultiplier = true },
-					--ReportValues = { ReportedDamageBoost = "NonPlayerMultiplier"}
+					ValidBaseDamageAddition = { BaseValue = 10 },
 				},
 			},
 		},

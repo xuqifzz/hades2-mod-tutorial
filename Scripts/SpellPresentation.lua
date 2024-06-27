@@ -61,7 +61,7 @@ function SpellFailToFirePresentation( triggerArgs )
 			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = CurrentRun.Hero.ObjectId })
 		end
 		if existingTraitData and existingTraitData.TraitInfoCardId then
-			thread( PulseText, { Id = existingTraitData.TraitInfoCardId, Color = Color.Red, OriginalColor = Color.White, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.1, PulseBias = 0.1 } )
+			thread( PulseText, { Id = existingTraitData.TraitInfoChargeId, Color = Color.Red, OriginalColor = Color.White, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.1, PulseBias = 0.1 } )
 		end
 
 		if CheckCountInWindow( "SpellFailedToFire", 1.0, 4 ) and CheckCooldown("AttackNotReady", 1.0) then
@@ -127,6 +127,7 @@ function CreateSpellHUD( trait, args )
 	
 	if not hasSubtitle then
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 0, Duration = 0.2 })	
 		return
 	end
 
@@ -141,23 +142,34 @@ function CreateSpellHUD( trait, args )
 	local data = GetWeaponData( CurrentRun.Hero, trait.PreEquipWeapons[1] )
 	local manaSpend = GetManaSpendCost( data )
 	local remainingSpend = math.max( manaSpend - CurrentRun.SpellCharge, 0 )
-	if remainingSpend > 0 then
+	if trait.TraitInfoChargeId == nil then		
+		trait.TraitInfoChargeId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
+		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })
+		Attach({ Id = trait.TraitInfoChargeId, DestinationId = anchorId, OffsetY = 32 })
 		CreateTextBox({
-			Id = trait.TraitInfoCardId,
-			Text = "UI_SpellCharge", Font = "NumericP22UndergroundSCMedium",
+			Id = trait.TraitInfoChargeId,
+			Font = "NumericP22UndergroundSCMedium",
 			Color = Color.White, FontSize = 22, 
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset - 2, OffsetY = yOffset - 1,
 			Justification = "Center",
-			LuaKey = "TempTextData",
-			LuaValue = { CurrentSpend = math.min( CurrentRun.SpellCharge, manaSpend ), RequiredSpend = manaSpend, RemainingSpend = remainingSpend },
 			DataProperties =
 			{
 				OpacityWithOwner = true,
 			},
 		})
+	else
+		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })	
+	end
+	if remainingSpend > 0 then
+		ModifyTextBox({
+			Id = trait.TraitInfoChargeId,
+			Text = "UI_SpellCharge", 
+			LuaKey = "TempTextData",
+			LuaValue = { CurrentSpend = math.min( CurrentRun.SpellCharge, manaSpend ), RequiredSpend = manaSpend, RemainingSpend = remainingSpend },
+		})
 	else	
-		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0.2 })
+		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 0, Duration = 0.2 })
 	end
 
 	yOffset = yOffset - 70
@@ -202,8 +214,8 @@ function CreateSpellHUD( trait, args )
 end
 
 function SpellChargeNumber( traitData, manaSpendCost, remainingSpend)
-	ModifyTextBox({ Id = traitData.TraitInfoCardId, Text = "UI_SpellCharge", LuaKey = "TempTextData", LuaValue = { CurrentSpend = math.min( CurrentRun.SpellCharge, manaSpendCost ), RequiredSpend = manaSpendCost, RemainingSpend = remainingSpend },})
-	PulseText({ Id = traitData.TraitInfoCardId, ScaleTarget = 1.04, ScaleDuration = 0.1, HoldDuration = 0.05, Color = Color.LightBlue, OriginalColor = Color.White})
+	ModifyTextBox({ Id = traitData.TraitInfoChargeId, Text = "UI_SpellCharge", LuaKey = "TempTextData", LuaValue = { CurrentSpend = math.min( CurrentRun.SpellCharge, manaSpendCost ), RequiredSpend = manaSpendCost, RemainingSpend = remainingSpend },})
+	PulseText({ Id = traitData.TraitInfoChargeId, ScaleTarget = 1.04, ScaleDuration = 0.1, HoldDuration = 0.05, Color = Color.LightBlue, OriginalColor = Color.White})
 end
 
 function SpellActivateTrait( traitData )
@@ -211,6 +223,10 @@ function SpellActivateTrait( traitData )
 	if traitData.TraitInfoCardId ~= nil then
 		Destroy({ Id = traitData.TraitInfoCardId })
 		traitData.TraitInfoCardId = nil
+	end
+	if traitData.TraitInfoChargeId ~= nil then
+		Destroy({ Id = traitData.TraitInfoChargeId })
+		traitData.TraitInfoChargeId = nil
 	end
 	if traitData.AnchorId then
 		StopAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId })

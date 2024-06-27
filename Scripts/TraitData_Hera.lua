@@ -30,11 +30,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				BaseValue = 1.50,
 				SourceIsMultiplier = true,
-				MinMultiplier = 0.125,
-				IdenticalMultiplier =
+				AbsoluteStackValues =
 				{
-					Value = -0.75,
-					DiminishingReturnsMultiplier = 0.5,
+					[1] = 1.200,
+					[2] = 1.150,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -169,7 +168,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Hera",
 				ChangeType = "Absolute",
@@ -485,11 +484,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				BaseValue = 1.6,
 				SourceIsMultiplier = true,
-				MinMultiplier = 0.17,
-				IdenticalMultiplier =
+				AbsoluteStackValues =
 				{
-					Value = -0.67,
-					DiminishingReturnsMultiplier = 0.5,
+					[1] = 1.150,
+					[2] = 1.100,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
@@ -744,15 +742,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.425,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 1.850,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 2.075,
+				Multiplier = 2.5,
 			},
 		},	
 		WeaponDataOverride =
@@ -765,6 +763,14 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 		},
+		OnEffectApplyFunction = 
+		{
+			FunctionName = "CheckApplyDamageShare",
+			FunctionArgs = 
+			{
+				EffectName = "DamageShareEffect",
+			},
+		},
 		OnEnemySpawnFunction =
 		{
 			FunctionName = "CheckCastSummonDamage",
@@ -776,9 +782,10 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1,
 					AbsoluteStackValues = 
 					{
-						[1] = 0.4250,
-						[2] = 0.2125,
-						[3] = 0.1423,
+						[1] = 0.50,
+						[2] = 0.25,
+						[3] = 0.20,
+						--[4] = 0.10,
 					},
 				},
 				ReportValues = 
@@ -804,13 +811,15 @@ OverwriteTableKeys( TraitData, {
 					DetonateFx = "CastCircleOutHera",
 				}
 			},
+		},
+		OnEnemyDamagedAction = 
+		{
+			ValidProjectiles = {"HeraCastSummonProjectile"},			
+			FunctionName = "ApplyDamageShare",
+			Args = 
 			{
-				WeaponName = "WeaponCast",
-				ProjectileProperty = "FuseStart",
-				ChangeValue = 3,
-				ChangeType = "Multiply",
-				ReportValues = { DurationIncrease = "ChangeValue", SourceIsMultiplier = true },
-			},
+				EffectName = "DamageShareEffect",
+			},			
 		},
 		StatLines = 
 		{
@@ -827,10 +836,22 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Damage",
 			},
 			{
-				Key = "DurationIncrease",
-				ExtractAs = "DurationIncrease",
-				Format = "PercentDelta",
+				ExtractAs = "DamageShareDuration",
 				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "DamageShareAmount",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Amount",
+				Format = "Percent",
+				HideSigns = true,
 			},
 		}
 	},
@@ -847,15 +868,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 2,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 3,
+				Multiplier = 2,
 			},
 			Heroic =
 			{
-				Multiplier = 4,
+				Multiplier = 2.5,
 			},
 		},
 		PropertyChanges = {
@@ -884,19 +905,22 @@ OverwriteTableKeys( TraitData, {
 				Cooldown = 0.2,
 				Vfx = "HeraSprintPullFx",
 				EffectName = "DamageShareEffect",
-				NumJumps = 
-				{
+				NumJumps = 1,
+				ProjectileName = "HeraSprintProjectile",
+				VfxCooldown = 0.1, -- For the projectile link damage
+				DamageMultiplier = { 
 					BaseValue = 1,
-					MinValue = 1,
-					AsInt = true,
-					IdenticalMultiplier =
+					MinMultiplier = 0.1,
+					AbsoluteStackValues = 
 					{
-						Value = 0,
-					},					
+						[1] = 0.50,
+						[2] = 0.25,
+					}, 
 				},
 				ReportValues = 
 				{
 					ReportedJumps = "NumJumps",
+					ReportedMultiplier = "DamageMultiplier",
 				}
 			}
 		},
@@ -919,14 +943,17 @@ OverwriteTableKeys( TraitData, {
 
 		StatLines =
 		{
-			"DamageShareJumpMaxStatDisplay1",
+			"DamageShareFirstHitDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedJumps",
-				ExtractAs = "Jumps",
-				IncludeSigns = true,
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "HeraSprintProjectile",
+				BaseProperty = "Damage",
 			},
 			{
 				ExtractAs = "DamageShareDuration",
@@ -960,15 +987,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 0.8,
+				Multiplier = 0.9,
 			},
 			Epic =
 			{
-				Multiplier = 0.6,
+				Multiplier = 0.8,
 			},
 			Heroic =
 			{
-				Multiplier = 0.4,
+				Multiplier = 0.7,
 			},
 		},
 
@@ -976,7 +1003,7 @@ OverwriteTableKeys( TraitData, {
 		{
 			Amount =
 			{
-				BaseValue = 10,
+				BaseValue = 20,
 				AsInt = true,
 				MinMultiplier = -1,
 				IdenticalMultiplier =
@@ -1036,6 +1063,14 @@ OverwriteTableKeys( TraitData, {
 			}
 		},
 		ActivationRequirements = 
+		{
+			{
+				Path = { "CurrentRun", "Hero", "GodBoonRarities", "Common" },
+				Comparison = "<=",
+				Value = 0,
+			},
+		},
+		GameStateRequirements = 
 		{
 			{
 				Path = { "CurrentRun", "Hero", "GodBoonRarities", "Common" },
@@ -1267,6 +1302,85 @@ OverwriteTableKeys( TraitData, {
 			}
 		},
 	},
+	OmegaHeraProjectileBoon = 
+	{
+		InheritFrom = { "BaseTrait", "EarthBoon" },
+		Icon = "Boon_Hera_31",
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.2,
+			},
+			Epic =
+			{
+				Multiplier = 1.4,
+			},
+			Heroic =
+			{
+				Multiplier = 1.6,
+			}
+		},
+		ManaCostModifiers = 
+		{
+			WeaponNames = WeaponSets.HeroAllWeapons,
+			ExWeapons = true,
+			ManaCostAdd = 15,
+			ReportValues = 
+			{ 
+				ReportedCost = "ManaCostAdd" 
+			},
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckExProjectileSpawn",
+			FunctionArgs = 
+			{
+				ProjectileName = "ProjectileHeraOmega",
+				DamageMultiplier = 
+				{
+					BaseValue = 1,
+					DecimalPlaces = 4, -- Needs additional precision due to the number being operated on
+					AbsoluteStackValues = 
+					{
+						[1] = 0.25,
+						[2] = 0.15,
+						[3] = 0.10,
+					},
+				},
+				ReportValues = 
+				{ 
+					ReportedMultiplier = "DamageMultiplier" 
+				},
+			}
+		},
+		StatLines = 
+		{
+			"HeraRiftDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "ProjectileHeraOmega",
+				BaseProperty = "Damage",
+			},
+			{
+				Key = "ReportedCost",
+				ExtractAs = "ManaCostAddition",
+				IncludeSigns = true,
+				SkipAutoExtract = true,
+			},
+		}
+	},
 	DamageSharePotencyBoon = 
 	{
 		Icon = "Boon_Hera_38",
@@ -1400,65 +1514,6 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "DamageShareEffect",
 				BaseProperty = "Amount",
 				Format = "Percent",
-			},
-		}
-	},
-	FullManaExBoostBoon = 
-	{
-		Icon = "Boon_Hera_31",
-		InheritFrom = { "BaseTrait", "EarthBoon" },
-		TraitTextManaValue = 100, -- added for text extraction
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-		AddOutgoingDamageModifiers =
-		{
-			FullManaVolleyMultiplier =
-			{
-				BaseValue = 1.3,
-				SourceIsMultiplier = true,
-				IdenticalMultiplier =
-				{
-					Value = -0.5,
-				},
-			},
-			ReportValues = { ReportedWeaponMultiplier = "FullManaVolleyMultiplier"},
-		},
-		OnProjectileDeathFunction = 
-		{
-			Name = "RemoveWeaponFullManaFire",
-		},
-		OnWeaponFiredFunctions = 
-		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			FunctionName = "CheckWeaponFullManaFire",
-		},
-		StatLines =
-		{
-			"BonusOmegaDamageDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-					Key = "ReportedWeaponMultiplier",
-					ExtractAs = "Amount",
-					Format = "PercentDelta"
 			},
 		}
 	},

@@ -78,7 +78,6 @@ OverwriteTableKeys( WorldUpgradeData,
 	{
 		InheritFrom = { "DefaultMajorItem", "DefaultCriticalItem" },
 		Icon = "GUI\\Screens\\CriticalItemShop\\Icons\\cauldron_bounty",
-		-- InspectPoint = 422257,
 		OnPurchasedFunctionName = "CheckQuestStatus",
 		OnPurchasedFunctionArgs = { Silent = true, },
 		Cost =
@@ -197,7 +196,8 @@ OverwriteTableKeys( WorldUpgradeData,
 				HasNone = { "ToolPickaxe", "ToolExorcismBook", "ToolShovel", "ToolFishingRod" },
 			},
 			{
-				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				Path = { "GameState", "WorldUpgrades" },
+				HasAll = { "WorldUpgradeWeaponUpgradeSystem", "WorldUpgradeElementalBoons" },
 			},
 		},
 

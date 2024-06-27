@@ -36,13 +36,16 @@ function CheckChillKill( args, attacker, victim, triggerArgs )
 		CreateProjectileFromUnit({ Name = args.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = victim.ObjectId, DamageMultiplier = args.DamageMultiplier, FireFromTarget = true})
 		
 		if victim.IsBoss then
-	      BossChillKillPresentation( victim )
+			BossChillKillPresentation( victim )
 		end
 		if victim.DeathAnimation ~= nil and not victim.ManualDeathAnimation then
 			SetAnimation({ Name = victim.DeathAnimation, DestinationId = victim.ObjectId })
 			-- @todo Notify on death animation finish
 		end
 		thread( Kill, victim, { ImpactAngle = 0, AttackerTable = CurrentRun.Hero, AttackerId = CurrentRun.Hero.ObjectId })
+		if victim.UseBossHealthBar then
+			CurrentRun.BossHealthBarRecord[victim.Name] = 0 -- Health bar won't get updated again normally
+		end
 	end
 end
 
@@ -766,7 +769,8 @@ function UpdateHeroTraitDictionary( )
 	CurrentRun.Hero.EligiblePrevRunTraits = eligiblePrevRunTraits
 end
 
-function CheckActivatedTraits( unit, skipPresentation )
+function CheckActivatedTraits( unit, args )
+	args = args or {}
 	if unit ~= CurrentRun.Hero then
 		return
 	end
@@ -809,7 +813,6 @@ function CheckActivatedTraits( unit, skipPresentation )
 						table.insert( activatedTraitNames, trait.Name )
 					elseif not isEligible and trait.Activated[i] then
 						trait.Activated[i] = false
-							DebugPrint({Text = " trait activated 2 "})
 						table.insert( deactivatedTraitNames, trait.Name )
 					end
 				end
@@ -820,17 +823,16 @@ function CheckActivatedTraits( unit, skipPresentation )
 			for elementName in pairs(trait.ElementalMultipliers) do
 				expectedMultiplier = expectedMultiplier + CurrentRun.Hero.Elements[elementName]
 			end
-			if expectedMultiplier ~= trait.ElementalMultiplier then
-				local info = { Index = i, ExpectedMultiplier = expectedMultiplier }
+			if expectedMultiplier ~= trait.ElementalMultiplier then		
+				local info = { Name = trait.Name, ExpectedMultiplier = expectedMultiplier }
 				table.insert(scalingTraitIndexes, info)
 			end
 		end
 		
 	end
 	for i, data in pairs( scalingTraitIndexes ) do
-		local index = data.Index
 		local expectedMultiplier = data.ExpectedMultiplier
-		local trait = CurrentRun.Hero.Traits[index]
+		local trait = GetHeroTrait( data.Name )
 		local startingMultiplier = trait.ElementalMultiplier or 0
 		local newtrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = trait.Name, StackNum = trait.StackNum, Rarity = trait.Rarity })
 		RemoveTraitData(CurrentRun.Hero, trait, { SkipActivatedTraitUpdate = true })
@@ -843,8 +845,11 @@ function CheckActivatedTraits( unit, skipPresentation )
 			table.insert( downgradedTraitNames, trait.Name )
 		end
 	end
-	if not skipPresentation then
-		thread( ElementalTraitUpdatedPresentation, activatedTraitNames, deactivatedTraitNames, upgradedTraitNames, downgradedTraitNames)
+	if not args.SkipPresentation then
+		SetupElementalTraitUpdatedPresentation( activatedTraitNames, deactivatedTraitNames, upgradedTraitNames, downgradedTraitNames )
+		if args.NewTrait ~= nil and args.NewTrait.ShowElementGain then
+			UIScriptsDeferred.ElementalPresentationData.Gained = args.NewTrait.Name
+		end
 	end
 end
 
@@ -968,7 +973,7 @@ function AddTraitData( unit, traitData, args )
 	if unit == CurrentRun.Hero then
 		ProcessHeroTraitChanges( traitData )
 		if not args.SkipActivatedTraitUpdate then
-			CheckActivatedTraits( unit )
+			CheckActivatedTraits( unit, { NewTrait = newTrait } )
 		end
 		if traitData.MaxManaToMaxHealthConversion then
 			local startingHealth = CurrentRun.Hero.MaxHealth
@@ -1063,6 +1068,9 @@ end
 function MergeWeaponDataOverride( unit, traitData )
 
 	if not traitData.WeaponDataOverride then
+		return
+	end
+	if traitData.WeaponDataOverrideTraitRequirement and not HeroHasTrait(traitData.WeaponDataOverrideTraitRequirement) then
 		return
 	end
 	
@@ -1243,6 +1251,7 @@ function RemoveTraitData( unit, trait, args )
 			local rewardItem = SpawnStoreItemInWorld( expiringActions.SpawnShopItem, consumableId )
 			if rewardItem then
 				MapState.RoomRequiredObjects[rewardItem.ObjectId] = rewardItem
+				rewardItem.IgnorePurchase = true
 			end
 			thread( SurfaceShopItemPresentation, consumableId )
 			thread( DestroyOnDelay, { consumableId }, 0.05 )
@@ -1911,6 +1920,9 @@ function ExtractValue( unit, extractToTable, table, extractData)
 		end
 	elseif extractData.Format == "EasyModeMultiplier" then
 		value = round( (1.0 - CalcEasyModeMultiplier( GameState.EasyModeLevel ) ) * 100 )
+	elseif extractData.Format == "ManaSpendCost" then
+		local weaponData = WeaponData[extractData.WeaponName]
+		value = GetManaSpendCost( weaponData )
 	elseif extractData.Format == "TotalMetaUpgradeChangeValue" then
 		local name = extractData.MetaUpgradeName
 		local numUpgrades = GetNumMetaUpgrades( name )
@@ -1930,6 +1942,9 @@ function ExtractValue( unit, extractToTable, table, extractData)
 		value = table[keyToExtract]
 		if extractData.Format == "MaxHealth" then
 			value = GetMaxHealthUpgradeIncrement( value )
+		end
+		if extractData.Format == "MaxHealthIgnoreCap" then
+			value = GetMaxHealthUpgradeIncrement( value, true )
 		end
 		if extractData.Format == "MaxMana" then
 			value = GetMaxManaUpgradeIncrement( value )
@@ -2361,6 +2376,26 @@ function UpgradeAllCommon( args, origTraitData )
 	end
 end
 
+function GrantBoons( args, originalTraitData )
+	local addedTraits = {}
+	for _, boonNames in pairs( args.BoonSets ) do
+		local eligibleTraits = {}
+		for s, traitName in pairs( boonNames ) do
+			if not HeroHasTrait( traitName ) then
+				table.insert(eligibleTraits, traitName )
+			end
+		end
+		if not IsEmpty(eligibleTraits) then
+			local traitName  = GetRandomValue( eligibleTraits )
+			AddTraitToHero({ TraitName = traitName, SkipActivatedTraitUpdate = true })
+			addedTraits[traitName] = true
+		end
+	end
+	thread( BoonGrantedPresentation, addedTraits, 2.0 )
+	
+	CheckActivatedTraits( CurrentRun.Hero, { SkipPresentation = true } )
+end
+
 function SacrificeAllBoon( args, origTraitData )
 
 	local traitDictionary = {}
@@ -2427,7 +2462,7 @@ function HeroicDowngradeBoons( args, origTraitData )
 	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
 		if AreTraitsIdentical( origTraitData, traitData ) then
 			sourceTraitData = CurrentRun.Hero.Traits[i]
-		elseif not traitDictionary[traitData.Name] and IsGodTrait(traitData.Name) and TraitData[traitData.Name] and not traitData.BlockInRunRarify and traitData.RarityLevels and traitData.RarityLevels.Heroic then
+		elseif not traitDictionary[traitData.Name] and IsGodTrait(traitData.Name) and TraitData[traitData.Name] and not traitData.BlockInRunRarify and traitData.RarityLevels and traitData.RarityLevels.Heroic and traitData.Rarity ~= "Heroic" then
 			table.insert(upgradableTraits, traitData )
 			traitDictionary[traitData.Name] = true
 		end

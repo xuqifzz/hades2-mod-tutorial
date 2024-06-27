@@ -7,7 +7,7 @@ OverwriteTableKeys( TraitData, {
 	FocusAttackDamageTrait = 
 	{
 		InheritFrom = {"BaseIcarus"},
-		Icon = "Boon_Chaos_01",
+		Icon = "Boon_Icarus_04",
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -42,7 +42,7 @@ OverwriteTableKeys( TraitData, {
 	FocusSpecialDamageTrait = 
 	{
 		InheritFrom = {"BaseIcarus"},
-		Icon = "Boon_Chaos_02",
+		Icon = "Boon_Icarus_05",
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
@@ -77,7 +77,7 @@ OverwriteTableKeys( TraitData, {
 	
 	OmegaExplodeBoon = 
 	{
-		Icon = "Boon_Chaos_03",
+		Icon = "Boon_Icarus_06",
 		InheritFrom = {"BaseIcarus"},
 
 		ManaCostModifiers = 
@@ -156,7 +156,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	CastHazardBoon = 
 	{
-		Icon = "Boon_Chaos_04",
+		Icon = "Boon_Icarus_03",
 		InheritFrom = {"BaseIcarus"},
 
 		OnWeaponFiredFunctions =
@@ -213,7 +213,7 @@ OverwriteTableKeys( TraitData, {
 	BreakExplosiveArmorBoon = 
 	{
 		InheritFrom = { "BaseIcarus", "CostumeTrait" },
-		Icon = "Boon_Chaos_05",
+		Icon = "Boon_Icarus_01",
 		Frame = "nil",
 		Uses = 1,
 		Invincible = true,
@@ -269,7 +269,7 @@ OverwriteTableKeys( TraitData, {
 	BreakInvincibleArmorBoon = 
 	{
 		InheritFrom = { "BaseIcarus", "CostumeTrait" },
-		Icon = "Boon_Chaos_06",
+		Icon = "Boon_Icarus_02",
 		Frame = "nil",
 		Uses = 1,
 		Invincible = true,
@@ -321,7 +321,7 @@ OverwriteTableKeys( TraitData, {
 	
 	SupplyDropBoon =
 	{
-		Icon = "Boon_Chaos_07",
+		Icon = "Boon_Icarus_07",
 		InheritFrom = {"BaseIcarus"},
 		CurrentRoom = 0,
 		RoomsPerUpgrade = 

@@ -14,15 +14,15 @@ OverwriteTableKeys( TraitData, {
 			},
 			Rare =
 			{
-				Multiplier = 1.25,
+				Multiplier = 1.50,
 			},
 			Epic =
 			{
-				Multiplier = 1.50,
+				Multiplier = 2.00,
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.50,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -33,8 +33,9 @@ OverwriteTableKeys( TraitData, {
 				SourceIsMultiplier = true,
 				AbsoluteStackValues =
 				{
-					[1] = 1.10,
-					[2] = 1.05,
+					[1] = 1.20,
+					[2] = 1.15,
+					[3] = 1.10,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -242,7 +243,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Apollo",
 				ChangeType = "Absolute",
@@ -833,6 +834,157 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 2.5,
 			},
 		},
+		WeaponDataOverride =
+		{
+			WeaponCast =
+			{
+				HitScreenshake = {},
+				HitSimSlowParameters =
+				{
+				},
+
+				Sounds =
+				{
+					ChargeSounds =
+					{
+						{ Name = "/VO/MelinoeEmotes/EmoteCasting" },
+						{ Name = "/SFX/Player Sounds/MelMagicalCharge",
+							StoppedBy = { "ChargeCancel", "Fired" } },
+					},
+					FireSounds =
+					{
+						{ Name = "/VO/MelinoeEmotes/EmoteCasting" },
+						{ Name = "/Leftovers/SFX/WyrmCastAttack" },
+					},
+
+					ImpactSounds =
+					{
+						Invulnerable = "/SFX/Player Sounds/ElectricZapSmall",
+						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+						Bone = "/SFX/Player Sounds/ElectricZapSmall",
+						Brick = "/SFX/Player Sounds/ElectricZapSmall",
+						Stone = "/SFX/Player Sounds/ElectricZapSmall",
+						Organic = "/SFX/Player Sounds/ElectricZapSmall",
+						StoneObstacle = "/SFX/Player Sounds/ElectricZapSmall",
+						BrickObstacle = "/SFX/Player Sounds/ElectricZapSmall",
+						MetalObstacle = "/SFX/Player Sounds/ElectricZapSmall",
+						BushObstacle = "/SFX/Player Sounds/ElectricZapSmall",
+					},
+				},
+			},
+		},
+		OnEffectApplyFunction = 
+		{
+			FunctionName = "CheckBlindApply",
+			FunctionArgs = 
+			{
+				EffectName = "BlindEffect",
+			},
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons =  WeaponSets.HeroNonPhysicalWeapons,
+			FunctionName = "ApolloDelayedBlast",
+			FunctionArgs =
+			{
+				ProjectileName = "ApolloSingleCastStrike",
+				Delay = 0.15,
+				DamageMultiplier = 
+				{ 
+					BaseValue = 1.0,
+					AbsoluteStackValues = 
+					{
+						[1] = 0.6,
+						[2] = 0.4,
+						[3] = 0.2,
+					},
+				},
+				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponCast",
+				WeaponProperty = "FireFx",
+				ChangeValue = "QuickFlashYellow",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperties =
+				{
+					ImpactFx = "null",
+					Graphic = "CastCircleInApollo",
+					ArmedGraphic = "CastCircleArmedApollo",
+					GroupName = "FX_Terrain_Add",
+					DetonateFx = "null",
+					ArmedImpactFx = "null",
+					InflictedDamageFx = "GraspingHandsAttack",
+					DissipateFx = "CastCircleOutApollo",
+					HideGraphicOnDetonate = false
+				}
+			},
+		},
+		
+		StatLines =
+		{
+			"CastDamageStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "ApolloSingleCastStrike",
+				BaseProperty = "Damage",
+			},
+			{
+				ExtractAs = "BlindChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "MissChance",
+				Format = "Percent"
+			},
+			{
+				ExtractAs = "BlindDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "Duration",
+			},
+		}
+	},
+	ApolloExCastBoon =
+	{
+		Icon = "Boon_Apollo_31",
+		InheritFrom = { "BaseTrait", "FireBoon" },
+		RequiredFalseTraits = { "ZeusExCastBoon", "PoseidonExCastBoon" },
+		
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.2,
+			},
+			Epic =
+			{
+				Multiplier = 1.4,
+			},
+			Heroic =
+			{
+				Multiplier = 1.6,
+			},
+		},
 		
 		WeaponDataOverride =
 		{
@@ -889,7 +1041,7 @@ OverwriteTableKeys( TraitData, {
 					BaseValue = 1,
 					IdenticalMultiplier =
 					{
-						Value = -0.5,
+						Value = -0.8,
 						DiminishingReturnsMultiplier = 0.8,
 					},
 				},
@@ -1074,22 +1226,29 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 2.5,
 			},
 		},
-		SetupFunction =
-		{
-			Name = "InCastCircleManaRegenSetup",
-			RunOnce = true
-		},
 		StatLines =
 		{
-			"ManaRegenStatDisplay1",
+			"ManaRestoreStatDisplay1",
 		},
-		CastCircleManaRegen = { 
-			BaseValue = 12, 
-			IdenticalMultiplier =
+		
+		OnProjectileDeathFunction = 
+		{
+			Name = "CheckApolloManaRestore",
+			Args = 
 			{
-				Value = -0.5,
+				ManaRestore = 
+				{
+					BaseValue = 50,
+					AbsoluteStackValues = 
+					{
+						[1] = 25,
+						[2] = 20,
+						[3] = 15,
+						[4] = 10,
+					},
+				},
+				ReportValues = { ReportedManaRestore = "ManaRestore" }
 			},
-			MinMultiplier = 1/12,
 		},
 		PropertyChanges =
 		{	
@@ -1104,10 +1263,8 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "CastCircleManaRegen",
+				Key = "ReportedManaRestore",
 				ExtractAs = "TooltipManaRecovery",
-				IncludeSigns = true,
-				DecimalPlaces = 1,
 			},
 		
 		},
@@ -1228,7 +1385,19 @@ OverwriteTableKeys( TraitData, {
 			},
 			ReportValues = { ReportedMultiplier = "UndamagedMultiplier"},
 		},
-	
+		SetupFunction =
+		{
+			Name = "RoomStartResetPerfectDamageBonus",
+		},
+		OnSelfDamagedFunction = 
+		{
+			Name = "ResetPerfectDamageBonusBoon",
+			FunctionArgs = 
+			{
+				Cooldown = 15,
+				ReportValues  = { ReportedCooldown = "Cooldown" },
+			}
+		},
 		StatLines =
 		{
 			"UnscathedDamageStatDisplay1",
@@ -1239,6 +1408,11 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
 				Format = "PercentDelta",
+			},
+			{
+				Key = "ReportedCooldown",
+				ExtractAs = "Cooldown",
+				SkipAutoExtract = true,
 			},
 		}
 	},
@@ -1364,84 +1538,6 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
 				Format = "PercentDelta",
-			},
-			{
-				ExtractAs = "BlindDuration",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "BlindEffect",
-				BaseProperty = "Duration",
-			},
-			{
-				ExtractAs = "BlindChance",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "BlindEffect",
-				BaseProperty = "MissChance",
-				Format = "Percent"
-			},
-		}
-	},
-	ApolloMissStrikeBoon =
-	{
-		Icon = "Boon_Apollo_38",
-		InheritFrom = { "BaseTrait", "AirBoon" },
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.0,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},
-		OnDodgeFunction = 
-		{
-			FunctionName = "ApolloBlindStrike",
-			RunOnce = true,
-			FunctionArgs =
-			{
-				ValidActiveEffectGenus = "Blind",
-				ProjectileName = "ApolloPerfectDashStrike",
-				DamageMultiplier = { 
-					BaseValue = 1,
-					MinMultiplier = 0.1,
-					IdenticalMultiplier =
-					{
-						Value = -0.5,
-						DiminishingReturnsMultiplier = 0.8,
-					}, 
-				},
-				Cooldown = 0.2,
-				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
-			},
-		},
-		StatLines =
-		{
-			"MissDamageStatDisplay1",
-		},
-		ExtractValues =
-		{
-			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "Damage",
-				Format = "MultiplyByBase",
-				BaseType = "Projectile",
-				BaseName = "ApolloPerfectDashStrike",
-				BaseProperty = "Damage",
-				ExtractAs = "Damage",
 			},
 			{
 				ExtractAs = "BlindDuration",
@@ -1644,7 +1740,7 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
-				FalseTraitName = "StaffOneWayAttackTrait",
+				FalseTraitNames = { "StaffOneWayAttackTrait", "StaffSelfHitAspect" },
 				WeaponNames = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponLobChargedPulse", "WeaponAxeSpecialSwing" },
 				WeaponProperties = 
 				{
@@ -1672,6 +1768,86 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedCost",
 				ExtractAs = "ManaCostAddition",
 				IncludeSigns = true,
+			},
+		}
+	},
+
+	-- Cut
+	ApolloMissStrikeBoon =
+	{
+		Icon = "Boon_Apollo_38",
+		InheritFrom = { "BaseTrait", "AirBoon" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			},
+		},
+		OnDodgeFunction = 
+		{
+			FunctionName = "ApolloBlindStrike",
+			RunOnce = true,
+			FunctionArgs =
+			{
+				ValidActiveEffectGenus = "Blind",
+				ProjectileName = "ApolloPerfectDashStrike",
+				DamageMultiplier = { 
+					BaseValue = 1,
+					MinMultiplier = 0.1,
+					IdenticalMultiplier =
+					{
+						Value = -0.5,
+						DiminishingReturnsMultiplier = 0.8,
+					}, 
+				},
+				Cooldown = 0.2,
+				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
+			},
+		},
+		StatLines =
+		{
+			"MissDamageStatDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "ApolloPerfectDashStrike",
+				BaseProperty = "Damage",
+				ExtractAs = "Damage",
+			},
+			{
+				ExtractAs = "BlindDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "BlindChance",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "BlindEffect",
+				BaseProperty = "MissChance",
+				Format = "Percent"
 			},
 		}
 	},

@@ -4,13 +4,14 @@ OverwriteTableKeys( TraitData, {
 	{
 		BlockStacking = true,
 		BlockInRunRarify = true,
-		Icon = "Boon_Poseidon_13",
+		Icon = "Boon_Narcissus_01",
 		AcquireFunctionName = "GiveRandomConsumables",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -49,11 +50,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusB =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_02",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -83,11 +86,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusC =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_03",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -117,11 +122,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusD =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_04",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -150,11 +157,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusE =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_05",
 		AcquireFunctionArgs =
 		{ 
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -183,11 +192,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusF =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_06",
 		AcquireFunctionArgs =
 		{
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -220,6 +231,7 @@ OverwriteTableKeys( TraitData, {
 	NarcissusG =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_07",
 		GameStateRequirements =
 		{
 			-- see NarcissusBenefitChoices =
@@ -229,6 +241,7 @@ OverwriteTableKeys( TraitData, {
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -255,11 +268,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusH =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_08",
 		AcquireFunctionArgs =
 		{
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,
@@ -281,11 +296,13 @@ OverwriteTableKeys( TraitData, {
 	NarcissusI =
 	{
 		InheritFrom = { "NarcissusA", },
+		Icon = "Boon_Narcissus_09",
 		AcquireFunctionArgs =
 		{
 			Delay = 0.5,
 			NotRequiredPickup = true,
 			ForceToValidLocation = false,
+			RunProgressUpgradeEligible = true,
 			DestinationId = 591878,
 			Range = 0,
 			Force = 280,

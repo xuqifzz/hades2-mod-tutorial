@@ -41,7 +41,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			},
 		},
 	},
@@ -121,7 +121,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			}
 		},
 		BlockDeathTimer = 10,
@@ -210,7 +210,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 126/51,
+				Multiplier = 151/51,
 			}
 		},
 		EquipSound = "/SFX/Menu Sounds/KeepsakeSkellyTooth",
@@ -298,7 +298,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic = 
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			}
 		},
 		DoorHealReserve = { BaseValue = 50 },
@@ -356,7 +356,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.0,
 			}
 		},
 		AddOutgoingDamageModifiers =
@@ -418,7 +418,6 @@ TraitSetData.Keepsakes =
 			Text = "SignoffNemesis",
 		  },
 		},
-
 	},
 	LowHealthCritKeepsake = 
 	{
@@ -426,24 +425,41 @@ TraitSetData.Keepsakes =
 		InRackTitle = "LowHealthCritKeepsake_Rack",
 		Icon = "Keepsake_44",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeArtemisArrow",
-		PriorityDisplay = true,
-		LowHealthThresholdText =
+		ZeroBonusTrayText = "LowHealthCritKeepsake_Expired",
+		RarityLevels =
 		{
-			-- Display variable only, to change the data value change the value below under "LowHealthThreshold"
-			Threshold = 30,
-			Text = "Hint_LowHealthDamageTrait",
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 0.25/0.20,
+			},
+			Epic =
+			{
+				Multiplier = 0.30/0.20,
+			},
+			Heroic =
+			{
+				Multiplier = 0.50/0.20,
+			}
 		},
+		PriorityDisplay = true,
+		CapMaxHealth = 30,
 		AddOutgoingCritModifiers =
 		{
-			LowHealthThreshold = 30,
-			LowHealthChance = { BaseValue = 0.2 },
-			ReportValues = { ReportedHealthThreshold = "LowHealthThreshold", ReportedCritBonus = "LowHealthChance"}
+			TraitName = "LowHealthCritKeepsake",
+			ActiveTraitChance = { BaseValue = 0.20 },
+			ReportValues = { ReportedCritBonus = "ActiveTraitChance"}
 		},
+		Uses = 1,
 		ExtractValues =
 		{
 			{
-				Key = "ReportedHealthThreshold",
+				Key = "CapMaxHealth",
 				ExtractAs = "Health",
+				HideSigns = true,
 			},
 			{
 				Key = "ReportedCritBonus",
@@ -518,13 +534,14 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 6/3,
+				Multiplier = 7/3,
 			}
 		},
 		TalentPointCount = { BaseValue = 3 },
-		AcquireFunctionName = "AddTalentPoints",
+		AcquireFunctionName = "KeepsakeAcquireSpellDrop",
 		AcquireFunctionArgs =
 		{ 
+			Name = "SpellDrop",
 			Count = { BaseValue = 3 },
 			ReportValues = 
 			{ 
@@ -570,6 +587,7 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
 		UnequippedKeepsakeTitle = "BonusMoneyKeepsake_Rack",
 		CustomTrayNameWhileDead = "BonusMoneyKeepsake",
+		ZeroBonusTrayText = "SpellTalentKeepsake_Expired",
 		RarityLevels =
 		{
 			Common =
@@ -586,7 +604,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.00,
 			}
 		},
 		BonusMoney = { BaseValue = 100 },
@@ -647,7 +665,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 4.00,
+				Multiplier = 5.00,
 			}
 		},
 		EncounterPreDamage =
@@ -1005,7 +1023,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			}
 		},
 		Invincible = true,
@@ -1201,7 +1219,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 0.6,
+				Multiplier = 0.7,
 			}
 		},
 		AddOutgoingDamageModifiers =
@@ -1275,7 +1293,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			}
 		},
 
@@ -1347,7 +1365,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 3.0,
 			}
 		},
 		Icon = "Keepsake_33",
@@ -1433,7 +1451,7 @@ TraitSetData.Keepsakes =
 			},
 			Heroic =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.0,
 			}
 		},
 
@@ -1719,6 +1737,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAchillesBracer",
 		InRackTitle = "ForceHephaestusBoonKeepsake_Rack",
 		ForceBoonName = "HephaestusUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "HephaestusUpgrade",
@@ -1772,6 +1795,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 		InRackTitle = "ForceZeusBoonKeepsake_Rack",
 		ForceBoonName = "ZeusUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "ZeusUpgrade",
@@ -1845,6 +1873,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDemeterHorn",
 		InRackTitle = "ForceDemeterBoonKeepsake_Rack",
 		ForceBoonName = "DemeterUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "DemeterUpgrade",
@@ -1917,6 +1950,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAphroditeRose",
 		InRackTitle = "ForceAphroditeBoonKeepsake_Rack",
 		ForceBoonName = "AphroditeUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "AphroditeUpgrade",
@@ -1970,6 +2008,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakePoseidonShell",
 		InRackTitle = "ForcePoseidonBoonKeepsake_Rack",
 		ForceBoonName = "PoseidonUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "PoseidonUpgrade",
@@ -2024,6 +2067,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakePersephonePomBlossom",
 		InRackTitle = "ForceApolloBoonKeepsake_Rack",
 		ForceBoonName = "ApolloUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "ApolloUpgrade",
@@ -2078,6 +2126,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeCharonBoneHourglass",
 		InRackTitle = "ForceHestiaBoonKeepsake_Rack",
 		ForceBoonName = "HestiaUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "HestiaUpgrade",
@@ -2131,6 +2184,11 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeThanatosLegendary",
 		InRackTitle = "ForceHeraBoonKeepsake_Rack",
 		ForceBoonName = "HeraUpgrade",
+		AcquireFunctionName = "RewardStoreAddPriority",
+		AcquireFunctionArgs =
+		{ 
+			Name = "Boon",
+		},
 		RarityUpgradeData = 
 		{
 			LootName = "HeraUpgrade",

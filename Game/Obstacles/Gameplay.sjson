@@ -1182,7 +1182,33 @@
 			]
 		}
 	}
-	
+	{
+		Name = "ManaDropZeus"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		MagnetismWhileBlockedDistance = 9999.0
+		RequiresUsable = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "ManaDropZeusIn"
+			AttachedAnim = "LootShadowBoon"
+			Scale = 1.0
+			StopsProjectiles = false
+			StopsUnits = false
+			Interact = 
+			{
+				OffsetY = -60.0
+			}
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
 	{
 		Name = "BaseBoonDrop"
 		InheritFrom = "BaseLoot"

@@ -41,6 +41,11 @@ StoreData =
 					Weight = 0.2,
 				},
 				{
+					Name = "FirstHitHealTrait",
+					Type = "Trait",
+					Weight = 1,
+				},
+				{
 					Name = "TemporaryDoorHealTrait",
 					Type = "Trait",
 					Weight = 1,

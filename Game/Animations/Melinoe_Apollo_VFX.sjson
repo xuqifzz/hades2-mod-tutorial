@@ -505,7 +505,7 @@
 		VisualFxIntervalMin = 0.06
 		CreateAnimations =
 		[
-			{ Name = "ApolloAoEGlow" }
+			//{ Name = "ApolloAoEGlow" }
 		]
 	}
 	

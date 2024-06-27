@@ -700,6 +700,7 @@ UnitSetData.NPC_Heracles =
 				{
 					GiftPoints = 1,
 				},
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -725,6 +726,7 @@ UnitSetData.NPC_Heracles =
 				{
 					GiftPoints = 1,
 				},
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -1024,7 +1026,7 @@ UnitSetData.NPC_Heracles =
 			PreLineWait = 0.5,
 
 			-- Let's call this one a draw.
-			-- { Cue = "/VO/Thanatos_0346", RequiredPlayed = { "/VO/Thanatos_0347" } },
+			-- { Cue = "/VO/Thanatos_0346", },
 		},
 		EncounterLostVoiceLines =
 		{

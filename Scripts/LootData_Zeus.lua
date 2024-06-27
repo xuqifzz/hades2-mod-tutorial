@@ -64,7 +64,7 @@ LootSetData.Zeus =
 			-- Duos
 			"SuperSacrificeBoonZeus",
 			"LightningVulnerabilityBoon",
-			"EchoAllBoon","ApolloSecondStageCastBoon",
+			"RootStrikeBoon","ApolloSecondStageCastBoon",
 			"SprintEchoBoon",
 			"EchoBurnBoon",
 			"ReboundingSparkBoon",
@@ -212,7 +212,7 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EchoAllBoon",
+					HasTraitNameInRoom = "RootStrikeBoon",
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0157",

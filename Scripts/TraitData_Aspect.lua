@@ -59,7 +59,7 @@
 			},
 			Perfect = 
 			{
-				Multiplier = 2.34,
+				Multiplier = 3.00,
 			},
 		},
 		ExtractValues =
@@ -107,7 +107,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 3.5,
+				Multiplier = 4.5,
 			},
 		},
 		SetupFunction =
@@ -217,7 +217,7 @@
 			},
 			Perfect = 
 			{
-				Multiplier = 1/3.5,
+				Multiplier = 0.5/3.5,
 			},
 		},
 		Icon = "Hammer_Staff_41",
@@ -269,6 +269,10 @@
 				BaseValue = 3.5,
 				ReportValues = { ReportedPulseInterval = "ChangeValue"},
 			}
+		},
+		OnExpire = 
+		{
+			FunctionName = "ClearAllOriginMarkers"
 		},
 		StatLines =
 		{
@@ -324,7 +328,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 5,
+				Multiplier = 7,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -441,7 +445,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 3.5,
+				Multiplier = 4.5,
 			},
 		},
 		PriorityDisplay = true,
@@ -567,7 +571,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 5,
+				Multiplier = 7,
 			},
 		},
 		Icon = "Hammer_Lob_13",
@@ -642,7 +646,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 3.5,
+				Multiplier = 4.5,
 			},
 		},
 		OnEnemyDamagedAction = 
@@ -767,7 +771,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 4,
+				Multiplier = 4.5,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -801,7 +805,17 @@
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidWeapons = { "WeaponCast" },
+			ValidProjectiles = 
+			{
+				"ProjectileCast",
+				"PoseidonCastSplashSplinter",
+				"PoseidonCast",
+				"ApolloSingleCastStrike",
+				"ApolloCast",
+				"HeraCastSummonProjectile",
+				"AphroditeCastProjectile",
+				"ZeusCastStrike",
+			},
 			FunctionName = "ChargeSkullImpulse",
 			Args = 
 			{
@@ -864,7 +878,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 3.0,
+				Multiplier = 4.0,
 			},
 		},
 		Icon = "Hammer_Torch_39",
@@ -911,27 +925,27 @@
 		{
 			Common =
 			{
-				Multiplier = 1,
+				Multiplier = 1.0,
 			},
 			Rare =
 			{
-				Multiplier = 2,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 3,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
-				Multiplier = 4,
+				Multiplier = 2.5,
 			},
 			Legendary =
 			{
-				Multiplier = 5,
+				Multiplier = 3.0,
 			},
 			Perfect =
 			{
-				Multiplier = 6,
+				Multiplier = 4.0,
 			},
 		},
 		Icon = "Hammer_Torch_41",
@@ -955,12 +969,12 @@
 				{
 					{ 
 						Wait = 2.5, 
-						ManaCost = 10, 
+						ManaCost = 15, 
 						WeaponProperties = 
 						{ 
 							Projectile = "ProjectileTorchBallLarge",
 						}, 
-						ForceRelease = true,
+						ForceRelease = false,
 					},
 				},
 			}
@@ -1005,13 +1019,15 @@
 				{
 					MultiDetonate = true,
 					TotalFuse = 1000,
-					Speed = 200,
-					Acceleration = -10,
+					Speed = 186,
+					MaxSpeed = 266,
+					Acceleration = 54,
 					DamageRadius = 200,
 					BlastSpeed = 500,
 					SpinFromOwnerVelocityMultiplier = 0,
-					MaxAdjustRate = math.rad(50),
-					MultipleObstacleCollisions = false,
+					MaxAdjustRate = math.rad(90),
+					CheckObstacleImpact = false,
+					AllowRepeatedJumpHit = true,
 				}
 			},
 			{
@@ -1213,7 +1229,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 1.75,
+				Multiplier = 2.05,
 			},
 		},
 		Icon = "Hammer_Torch_40",
@@ -1296,7 +1312,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 2,
+				Multiplier = 2.5,
 			},
 		},
 		Icon = "Hammer_Axe_40",
@@ -1372,7 +1388,7 @@
 			},
 			Perfect = 
 			{
-				Multiplier = 3.5
+				Multiplier = 4.5,
 			}
 		},
 		WeaponDataOverride =
@@ -1510,7 +1526,7 @@
 			},
 			Perfect =
 			{
-				Multiplier = 3.5,
+				Multiplier = 4.5,
 			},
 		},
 		Icon = "Hammer_Axe_42",

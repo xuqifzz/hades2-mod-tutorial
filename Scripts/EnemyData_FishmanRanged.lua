@@ -44,7 +44,7 @@ UnitSetData.FishmanRanged =
 
 		GeneratorData =
 		{
-			DifficultyRating = 36,
+			DifficultyRating = 39,
 			BlockEnemyTypes = {"FishmanRanged_Elite"}
 		},
 

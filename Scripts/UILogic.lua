@@ -223,8 +223,11 @@ OnActiveUseTarget{
 			return
 		end
 		local useTarget = triggerArgs.AttachedTable
+		SessionMapState.ActiveUseTarget = useTarget
 		if CanReceiveGift( useTarget ) then
 			SessionMapState.ActiveGiftableUseTarget = true
+			AddControlBlock( "Shout", "ActiveUseTarget" )
+		elseif useTarget ~= nil and useTarget.RerollFunctionName ~= nil and CurrentRun.NumRerolls > 0 and useTarget.CanBeRerolled then
 			AddControlBlock( "Shout", "ActiveUseTarget" )
 		end
 		ShowUseButton( triggerArgs.triggeredById, useTarget )
@@ -236,6 +239,7 @@ OnActiveUseTargetLost{
 		if triggerArgs.AutoActivate then
 			return
 		end
+		SessionMapState.ActiveUseTarget = nil
 		SessionMapState.ActiveGiftableUseTarget = nil
 		
 		local useTarget = triggerArgs.AttachedTable
@@ -652,7 +656,7 @@ end
 
 function IsPauseBlocked()
 
-	if SessionMapState.HandlingDeath then
+	if SessionMapState.HandlingDeath or SessionMapState.BlockPause then
 		return true
 	end
 
@@ -1072,6 +1076,7 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 							end
 						end
 						local approxTextSize = fontSize * len - UIData.AutoAlignContextualButtonGlyphWidth
+						approxTextSize = math.max(approxTextSize, UIData.AutoAlignContextualButtonMinWidth)
 						
 						local spacing = math.min(dataWidth, approxTextSize) + UIData.AutoAlignContextualButtonSpacing
 						-- Subtract for right-align, Add for left-align
@@ -1155,12 +1160,15 @@ function CreateGroupHealthBar( encounter )
 	local fallOffBar = CreateScreenObstacle({Name = "BossHealthBarFillFalloff", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
 	SetColor({ Id = fallOffBar, Color = Color.HealthFalloff })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 0, DestinationId = fallOffBar, Instant = true })
+		
+	local scorchBar = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
+	SetColor({ Id = scorchBar, Color = Color.HealthScorch })
 
 	ScreenAnchors.BossHealthFill = CreateScreenObstacle( {Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
 
 	CreateAnimation({ Name = "BossNameShadow", DestinationId = ScreenAnchors.BossHealthBack })
 
-	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = 1, Duration = 0 })
+	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 0 })
 
 	local barName = EncounterData[encounter.Name].HealthBarTextId or encounter.Name
 
@@ -1178,11 +1186,13 @@ function CreateGroupHealthBar( encounter )
 	EnemyHealthDisplayAnchors[encounter.Name.."back"] = ScreenAnchors.BossHealthBack
 
 	encounter.HealthBarFill = "EnemyHealthBarFillBoss"
+	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1, DestinationId = scorchBar })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1, DestinationId = ScreenAnchors.BossHealthFill })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = 0.01, Duration = 0.0 })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = 1, Duration = 2.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 0.01, Duration = 0.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 2.0 })
 	EnemyHealthDisplayAnchors[encounter.Name] = ScreenAnchors.BossHealthFill
 	EnemyHealthDisplayAnchors[encounter.Name.."falloff"] = fallOffBar
+	EnemyHealthDisplayAnchors[encounter.Name.."scorch"] = scorchBar
 	thread( GroupHealthBarPresentation, encounter )
 end
 
@@ -1197,6 +1207,7 @@ function GroupHealthBarPresentation( encounter )
 		healthFraction = healthFraction + 0.01
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = screenId })
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 1 - healthFraction, DestinationId = fallOffBar, Instant = true })
+		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = scorchId })
 		wait(0.005)
 	end
 	StopSound({ Id = bossHealthBarSoundId, Duration = 0.25 })
@@ -1213,6 +1224,7 @@ function CheckRemoveGroupHealthBar(encounter)
 		DestroyTextBox({ Id = ScreenAnchors.BossHealthTitles[encounter.Name] })
 		ScreenAnchors.BossHealthTitles[ encounter.Name ] = nil
 		Destroy({ Id = EnemyHealthDisplayAnchors[encounter.Name.."back"] })
+		Destroy({ Id = EnemyHealthDisplayAnchors[encounter.Name.."scorch"] })
 		Destroy({ Id = EnemyHealthDisplayAnchors[encounter.Name] })
 		Destroy({ Id = EnemyHealthDisplayAnchors[encounter.Name.."falloff"] })
 	end
@@ -1266,12 +1278,16 @@ function CreateBossHealthBar( boss )
 	SetColor({ Id = fallOffBar, Color = Color.HealthFalloff })
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 0, DestinationId = fallOffBar, Instant = true })
 	
-	ScreenAnchors.BossHealthFill = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })	
+	local scorchBar = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })
+	SetColor({ Id = scorchBar, Color = Color.HealthScorch })
 
+	ScreenAnchors.BossHealthFill = CreateScreenObstacle({ Name = "BossHealthBarFill", Group = "Combat_UI", X = xOffset , Y = 72 + yOffset })	
+	
+	
 	CreateAnimation({ Name = "BossNameShadow", DestinationId = ScreenAnchors.BossHealthBack })
 
-	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = xScale, Duration = 0 })
-
+	SetScaleX({ Ids = { ScreenAnchors.BossHealthBack, ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = xScale, Duration = 0 })
+	
 	local bossName = boss.HealthBarTextId or boss.Name
 
 	if boss.AltHealthBarTextIds ~= nil then
@@ -1301,10 +1317,11 @@ function CreateBossHealthBar( boss )
 
 	boss.HealthBarFill = "EnemyHealthBarFillBoss"
 	SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = boss.Health / boss.MaxHealth, DestinationId = screenId })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = 0.01, Duration = 0.0 })
-	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar }, Fraction = 1, Duration = 2.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 0.01, Duration = 0.0 })
+	SetAlpha({ Ids = { ScreenAnchors.BossHealthFill, fallOffBar, scorchBar }, Fraction = 1, Duration = 2.0 })
 	EnemyHealthDisplayAnchors[boss.ObjectId] = ScreenAnchors.BossHealthFill
 	EnemyHealthDisplayAnchors[boss.ObjectId.."falloff"] = fallOffBar
+	EnemyHealthDisplayAnchors[boss.ObjectId.."scorch"] = scorchBar
 
 	thread( BossHealthBarPresentation, boss )
 end
@@ -1312,6 +1329,7 @@ end
 function BossHealthBarPresentation( boss )
 	local screenId = EnemyHealthDisplayAnchors[boss.ObjectId]
 	local falloffId = EnemyHealthDisplayAnchors[boss.ObjectId.."falloff"]
+	local scorchId = EnemyHealthDisplayAnchors[boss.ObjectId.."scorch"]
 	local healthFraction = 0
 	local bossHealthBarSoundId = PlaySound({ Name = "/SFX/Enemy Sounds/Megaera/MegaeraHealthFillUp", Id = screenId })
 	if boss.HitShields > 0 then
@@ -1324,6 +1342,7 @@ function BossHealthBarPresentation( boss )
 		healthFraction = healthFraction + 0.01
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = screenId })
 		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillSlowBoss", Fraction = 1 - healthFraction, DestinationId = falloffId, Instant = true })
+		SetAnimationFrameTarget({ Name = "EnemyHealthBarFillBoss", Fraction = 1 - healthFraction, DestinationId = scorchId })
 		wait(0.005)
 	end
 	StopSound({ Id = bossHealthBarSoundId, Duration = 0.25 })

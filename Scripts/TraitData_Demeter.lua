@@ -182,7 +182,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponDaggerDash",
-				ProjectilName = "ProjectileDaggerDash",
+				ProjectileName = "ProjectileDaggerDash",
 				WeaponProperty = "FireFx",
 				ChangeValue = "DaggerSwipeFastFlipDash_Demeter",
 				ChangeType = "Absolute",
@@ -1008,19 +1008,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 25/25,
+				Multiplier = 1,
 			},
 			Rare =
 			{
-				Multiplier = 35/25,
+				Multiplier = 1.5,
 			},
 			Epic =
 			{
-				Multiplier = 45/25,
+				Multiplier = 2,
 			},
 			Heroic =
 			{
-				Multiplier = 55/25,
+				Multiplier = 2.5,
 			},
 		},
 		SetupFunction =
@@ -1028,49 +1028,49 @@ OverwriteTableKeys( TraitData, {
 			Name = "IdleManaRegenSetup",
 			Args =
 			{
-				ManaRegenPerSecond =
+				PercentManaRegenPerSecond =
 				{
-					BaseValue = 25,
-					AsInt = true,
+					BaseValue = 0.4,
 					AbsoluteStackValues =
 					{
-						[1] = 10,
-						[2] = 5,
-						[3] = 3,
-						[4] = 2,
-						[5] = 1,
+						[1] = 0.20,
+						[2] = 0.15,
+						[3] = 0.10,
+						[4] = 0.05,
 					},
 				},
 				MovePenaltyDuration = 1,
 				ManaRegenStartFx = "ManaRegenFlashFx",
 				ManaRegenStartSound = "/Leftovers/SFX/SprintChargeUp",
-				ReportValues = { ReportedManaRecovery = "ManaRegenPerSecond", ReportedMovePenaltyDuration = "MovePenaltyDuration" }
+				ReportValues = { ReportedManaRecovery = "PercentManaRegenPerSecond", ReportedMovePenaltyDuration = "MovePenaltyDuration" }
 			},
 			RunOnce = true
 		},
 		StatLines =
 		{
-			"ManaRegenStatDisplay1",
+			"RelativeManaRegenStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
 				Key = "ReportedManaRecovery",
 				ExtractAs = "TooltipManaRecovery",
+				Format = "Percent",
 				DecimalPlaces = 1,
-				IncludeSigns = true,
+				HideSigns = true,
 			},
 			{
 				Key = "ReportedMovePenaltyDuration",
 				ExtractAs = "TooltipMovePenaltyDuration",
 				DecimalPlaces = 1,
+				SkipAutoExtract = true,
 			},
 		}
 	},
 
 	CastNovaBoon =
 	{
-		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
+		InheritFrom = { "BaseTrait", "WaterBoon" },
 		Icon = "Boon_Demeter_32",
 		God = "Demeter",
 		RarityLevels =
@@ -1376,6 +1376,7 @@ OverwriteTableKeys( TraitData, {
 				{
 					BaseValue = 20,
 					AsInt = true,
+					MinimumSourceValue = 1,
 					MinMultiplier = -1,
 					IdenticalMultiplier =
 					{

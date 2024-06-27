@@ -615,6 +615,7 @@
         {
           FreeFormSelectable = true
           UseExtents = true
+          FreeFormSelectOffsetY = 200
         }
       }
     }

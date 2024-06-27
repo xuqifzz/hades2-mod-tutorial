@@ -328,8 +328,9 @@ function CalculateBaseDamageAdditions( attacker, victim, triggerArgs )
 		for i, modifierData in pairs(attacker.OutgoingDamageModifiers) do
 			local validWeapon = modifierData.ValidWeaponsLookup == nil or ( modifierData.ValidWeaponsLookup[ triggerArgs.SourceWeapon ] ~= nil and triggerArgs.EffectName == nil )
 			local validProjectile = modifierData.ValidProjectilesLookup == nil or ( triggerArgs.SourceProjectile and modifierData.ValidProjectilesLookup[ triggerArgs.SourceProjectile ] ~= nil and triggerArgs.EffectName == nil )
+			local validActiveEffect = modifierData.ValidActiveEffects == nil or (victim.ActiveEffects and ContainsAnyKey( victim.ActiveEffects, modifierData.ValidActiveEffects))
 			
-			if validWeapon and validProjectile then
+			if validWeapon and validProjectile and validActiveEffect then
 				if modifierData.ExBaseDamageAddition ~= nil and IsExWeapon( triggerArgs.SourceWeapon , { Combat = true }, triggerArgs) then
 					damageAddition = damageAddition + modifierData.ExBaseDamageAddition
 				end
@@ -361,8 +362,9 @@ function CalculateDamageAdditions( attacker, victim, weaponData, triggerArgs )
 
 			local validWeapon = modifierData.ValidWeaponsLookup == nil or ( modifierData.ValidWeaponsLookup[ triggerArgs.SourceWeapon ] ~= nil and triggerArgs.EffectName == nil )
 			local validActiveEffect = modifierData.ValidActiveEffects == nil or (victim.ActiveEffects and ContainsAnyKey( victim.ActiveEffects, modifierData.ValidActiveEffects))
-
-			if validWeapon and validActiveEffect then
+			local validProjectile = modifierData.ValidProjectilesLookup == nil or ( triggerArgs.SourceProjectile and modifierData.ValidProjectilesLookup[ triggerArgs.SourceProjectile ] ~= nil and triggerArgs.EffectName == nil )
+			
+			if validWeapon and validActiveEffect and validProjectile then
 				if modifierData.ValidAdditiveDamageAddition then
 					damageAddition = damageAddition + modifierData.ValidAdditiveDamageAddition
 				end
@@ -449,7 +451,9 @@ function CalculateDamageMultipliers( attacker, victim, weaponData, triggerArgs )
 				if modifierData.ProjectileDeflectedMultiplier and triggerArgs.ProjectileDeflected then
 					addDamageMultiplier( modifierData, modifierData.ProjectileDeflectedMultiplier)
 				end
-
+				if modifierData.SprintDamageMultiplier and MapState.SprintActive and victim == CurrentRun.Hero then
+					addDamageMultiplier( modifierData, modifierData.SprintDamageMultiplier)
+				end
 				if modifierData.BossDamageMultiplier and attacker and ( attacker.IsBoss or attacker.IsBossDamage ) then
 					addDamageMultiplier( modifierData, modifierData.BossDamageMultiplier)
 				end
@@ -546,11 +550,16 @@ function CalculateDamageMultipliers( attacker, victim, weaponData, triggerArgs )
 					addDamageMultiplier( modifierData, modifierData.VengeanceMultiplier )
 					triggerArgs.TriggeredVengeanceMultiplier = true
 				end
-				if modifierData.UndamagedMultiplier and not CurrentRun.CurrentRoom.Encounter.PlayerTookDamage then
+				if modifierData.UndamagedMultiplier and not SessionMapState.DeactivatePerfectDamageBonus then
 					addDamageMultiplier( modifierData, modifierData.UndamagedMultiplier )
 				end
-				if modifierData.HighHealthSourceMultiplierData and attacker.Health / attacker.MaxHealth >= modifierData.HighHealthSourceMultiplierData.Threshold then
-					addDamageMultiplier( modifierData, modifierData.HighHealthSourceMultiplierData.Multiplier )
+				if modifierData.HighHealthSourceMultiplierData then
+					if attacker.Health / attacker.MaxHealth >= modifierData.HighHealthSourceMultiplierData.Threshold and modifierData.HighHealthSourceMultiplierData.ThresholdMultiplier then
+						local newModifier = 1 + (modifierData.HighHealthSourceMultiplierData.Multiplier - 1) * modifierData.HighHealthSourceMultiplierData.ThresholdMultiplier
+						addDamageMultiplier( modifierData, newModifier )
+					else
+						addDamageMultiplier( modifierData, modifierData.HighHealthSourceMultiplierData.Multiplier )
+					end
 				end
 				if modifierData.JumpMultiplier and triggerArgs.NumJumps and triggerArgs.SourceProjectile == modifierData.ProjectileName then
 					addDamageMultiplier( modifierData, 1 + ( modifierData.JumpMultiplier ) * triggerArgs.NumJumps )
@@ -840,11 +849,18 @@ function CalculateCritChance( attacker, victim, weaponData, triggerArgs )
 					if modifierData.ValidVolleyChance and MapState.CritVolleys and MapState.CritVolleys [triggerArgs.SourceWeapon] and MapState.CritVolleys[triggerArgs.SourceWeapon][triggerArgs.ProjectileVolley] then
 						addCritMultiplier( modifierData, modifierData.ValidVolleyChance)	
 					end
+					if modifierData.DifferentOmegaChance and SessionMapState.DifferentOmegaVolleys and SessionMapState.DifferentOmegaVolleys [triggerArgs.SourceWeapon] and 
+					 (SessionMapState.DifferentOmegaVolleys[triggerArgs.SourceWeapon][triggerArgs.ProjectileVolley] or ( SessionMapState.DifferentOmegaProjectileIds[triggerArgs.SourceWeapon] and SessionMapState.DifferentOmegaProjectileIds[triggerArgs.SourceWeapon][triggerArgs.ProjectileId] ))  then
+						addCritMultiplier( modifierData, modifierData.DifferentOmegaChance)	
+					end
 					if modifierData.ValidLeapVolleyChance and MapState.LeapCritVolleys and MapState.LeapCritVolleys [triggerArgs.SourceWeapon] and MapState.LeapCritVolleys[triggerArgs.SourceWeapon][triggerArgs.ProjectileVolley] then
 						addCritMultiplier( modifierData, modifierData.ValidLeapVolleyChance)	
 					end
 					if modifierData.HeroTraitValue then
 						addCritMultiplier( modifierData, GetTotalHeroTraitValue(modifierData.HeroTraitValue))	
+					end
+					if modifierData.ActiveTraitChance and HeroHasTrait( modifierData.TraitName ) and IsTraitActive( GetHeroTrait( modifierData.TraitName )) then
+						addCritMultiplier( modifierData, modifierData.ActiveTraitChance )
 					end
 				end
 			end
@@ -993,7 +1009,15 @@ function Damage( victim, triggerArgs )
 				end
 			end
 		end
-
+		
+		if victim == CurrentRun.Hero then
+			for _, modifierData in pairs(GetHeroTraitValues("DamageClamps")) do
+				local validProjectile = modifierData.ValidProjectilesLookup == nil or ( triggerArgs.SourceProjectile and modifierData.ValidProjectilesLookup[ triggerArgs.SourceProjectile ] ~= nil and triggerArgs.EffectName == nil )
+				if validProjectile then
+					triggerArgs.DamageAmount = modifierData.Value
+				end
+			end
+		end
 		CalculateLifestealModifiers( attacker, victim, sourceWeaponData, triggerArgs )
 
 		if sourceProjectileData ~= nil and sourceProjectileData.ClearEffect ~= nil then
@@ -1100,7 +1124,7 @@ function Damage( victim, triggerArgs )
 		end
 
 		local damageCapTraitData = HasHeroTraitValue("ActivatedDamageCap") 
-		if damageCapTraitData then
+		if damageCapTraitData and not triggerArgs.IgnoreCap then
 			if IsGameStateEligible( CurrentRun, damageCapTraitData.ActivationRequirements ) then
 				if triggerArgs.DamageAmount > damageCapTraitData.ActivatedDamageCap then
 					triggerArgs.DamageAmount = damageCapTraitData.ActivatedDamageCap
@@ -2548,7 +2572,7 @@ OnWeaponFired{
 			MapState.ChargedManaWeapons[triggerArgs.name] = true
 		end
 		local manaLimit = GetManaCost( weaponData )
-        if triggerArgs.OwnerTable.ObjectId == CurrentRun.Hero.ObjectId and manaLimit > 0 then
+        if triggerArgs.OwnerTable.ObjectId == CurrentRun.Hero.ObjectId and manaLimit > 0 and (IsEmpty( weaponData.ManaChanges ) or manaLimit <= CurrentRun.Hero.Mana ) then
 			ManaDelta(- manaLimit, {Source = weaponData.Name })
 		end
 		if IsExWeapon(weaponData.Name, {Combat = true}, triggerArgs ) and not SessionMapState.ChargeStageManaSpend[weaponData.Name] and manaLimit > 0 then
@@ -2569,6 +2593,7 @@ OnWeaponFired{
 
 		CurrentRun.WeaponsFiredRecord[weaponData.Name] = (CurrentRun.WeaponsFiredRecord[weaponData.Name] or 0) + 1
 		GameState.WeaponsFiredRecord[weaponData.Name] = (GameState.WeaponsFiredRecord[weaponData.Name] or 0) + 1
+		ClearVolleyHitRecord( weaponData.Name )
 
 		if weaponData.RushOverride then
 			for i, rushWeaponName in pairs( WeaponSets.HeroRushWeapons ) do
@@ -2833,8 +2858,8 @@ OnHit{
 			
 		if victim == CurrentRun.Hero and not triggerArgs.InvulnerableFromCoverage then
 			if not ( victim == attacker and ( not attackerWeaponData or attackerWeaponData.SelfMultiplier == 0 )) then
-				if HeroHasTrait("FirstHitHealBoon") and SessionMapState.FirstHitHeal then
-
+				if HeroHasTrait("FirstHitHealTrait") and triggerArgs.DamageAmount > 0 and not triggerArgs.IsInvulnerable then
+					
 					local baseDamage = triggerArgs.DamageAmount + CalculateBaseDamageAdditions( attacker, victim, triggerArgs )
 					local multipliers = CalculateDamageMultipliers( attacker, victim, sourceWeaponData, triggerArgs )
 					local additive = CalculateDamageAdditions( attacker, victim, sourceWeaponData, triggerArgs )
@@ -2845,15 +2870,25 @@ OnHit{
 						triggerArgs.DamageAmount = triggerArgs.DamageAmount * 3
 					end					
 					local args = SessionMapState.FirstHitHeal
-					Heal( CurrentRun.Hero, {HealAmount = triggerArgs.DamageAmount * args.HealPercent, SourceName = "FirstHitHealBoon" })
+					Heal( CurrentRun.Hero, {HealAmount = triggerArgs.DamageAmount * args.HealPercent, SourceName = "FirstHitHealTrait" })
 					if args.Vfx then
 						CreateAnimation({ Name = args.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
+					end
+					if args.SoundName then
+						PlaySound({ Name = args.SoundName, Id = CurrentRun.Hero.ObjectId })
 					end
 					if args.CombatText then
 						thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = args.CombatText, PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )	
 					end
-					SessionMapState.FirstHitHeal = nil
-					return
+					UseTrait( CurrentRun.Hero, "FirstHitHealTrait")
+					if HeroHasTrait( "FirstHitHealTrait" ) then
+						UpdateTraitNumber( GetHeroTrait("FirstHitHealTrait") )
+					end
+					if (MapState.DaggerBlockShieldActive and HeroHasTrait("DaggerBlockAspect")) then
+						triggerArgs.InvulnerablePassthrough = true
+					else
+						return
+					end
 				end
 
 				if HeroHasTrait( "ReserveManaHitShieldBoon" )  then
@@ -2898,6 +2933,7 @@ OnHit{
 				local functionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs
 				thread( DaggerBlockTriggeredPresentation, functionArgs )
 				StopAnimation({ Name = functionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
+				StopAnimation({ Name = functionArgs.ActivatedVfx, DestinationId = CurrentRun.Hero.ObjectId })
 				CheckCooldown( "DaggerBlockShield", functionArgs.Cooldown)		
 				SetAnimation({ Name = "StaffReloadTimerOut", DestinationId = ScreenAnchors.DaggerUI })
 				UpdateDaggerUI()
@@ -2912,6 +2948,7 @@ OnHit{
 				MapState.DaggerCharges = functionArgs.CritCount
 				MapState.DaggerBlockShieldActive = false
 				SetThingProperty({ Property = "AllowDodge", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
+				RemoveEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "HeroOnHitStun" })
 				return
 			end
 
@@ -3611,6 +3648,9 @@ OnEffectApply{
 			local categoryName = triggerArgs.EffectName
 			if EffectData[triggerArgs.EffectName] and EffectData[triggerArgs.EffectName].DisplaySuffix then
 				categoryName = EffectData[triggerArgs.EffectName].DisplaySuffix
+			end
+			if EffectData[triggerArgs.EffectName] and EffectData[triggerArgs.EffectName].SharedVulnerabilityCategory then
+				categoryName = EffectData[triggerArgs.EffectName].SharedVulnerabilityCategory
 			end
 			victim.VulnerabilityEffects[ categoryName ] = true
 			if HeroHasTrait("EffectVulnerabilityMetaUpgrade") then

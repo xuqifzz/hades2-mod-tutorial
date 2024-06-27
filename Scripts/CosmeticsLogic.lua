@@ -664,12 +664,22 @@ function ActivateConditionalItem( itemData, args )
 	if itemData.ActivatePrePlaced ~= nil then
 		ActivatePrePlaced( itemData, itemData.ActivatePrePlaced )
 	end
-	if itemData.InspectPoint and CurrentHubRoom.InspectPoints[itemData.InspectPoint] and not HasUsed( itemData.InspectPoint ) then
-		local inspectPointData = CurrentHubRoom.InspectPoints[itemData.InspectPoint]
-		inspectPointData.ObjectId = itemData.InspectPoint
-		SetupInspectPoint( inspectPointData )
-		SetAlpha({ Id = itemData.InspectPoint, Fraction = 1 })
-		UseableOn({ Id = itemData.InspectPoint })
+	if itemData.InspectPointId ~= nil and CurrentHubRoom.InspectPoints[itemData.InspectPointId] ~= nil then
+		local inspectPointData = CurrentHubRoom.InspectPoints[itemData.InspectPointId]
+		local hasUsed = false
+		if inspectPointData.InteractTextLineSets ~= nil then
+			for textLineName, textLine in pairs( inspectPointData.InteractTextLineSets ) do
+				if GameState.TextLinesRecord[textLineName] then
+					hasUsed = true
+				end
+			end
+		end
+		if not hasUsed then
+			inspectPointData.ObjectId = itemData.InspectPointId
+			SetupInspectPoint( inspectPointData )
+			SetAlpha({ Id = itemData.InspectPointId, Fraction = 1 })
+			UseableOn({ Id = itemData.InspectPointId })
+		end
 	end
 
 	if itemData.SetAnimations ~= nil then
@@ -744,9 +754,20 @@ function DeactivateConditionalItem( itemData )
 		if itemData.ConnectedIds then
 			SetAlpha({ Ids = itemData.ConnectedIds, Fraction = 0 })
 		end
-		if itemData.InspectPoint and CurrentHubRoom.InspectPoints[itemData.InspectPoint] and not HasUsed( itemData.InspectPoint ) then
-			UseableOff({ Id = itemData.InspectPoint })
-			SetAlpha({ Id = itemData.InspectPoint, Fraction = 0 })
+		if itemData.InspectPointId ~= nil and CurrentHubRoom.InspectPoints[itemData.InspectPointId] ~= nil then
+			local inspectPointData = CurrentHubRoom.InspectPoints[itemData.InspectPointId]
+			local hasUsed = false
+			if inspectPointData.InteractTextLineSets ~= nil then
+				for textLineName, textLine in pairs( inspectPointData.InteractTextLineSets ) do
+					if GameState.TextLinesRecord[textLineName] then
+						hasUsed = true
+					end
+				end
+			end
+			if not hasUsed then
+				UseableOff({ Id = itemData.InspectPointId })
+				SetAlpha({ Id = itemData.InspectPointId, Fraction = 0 })
+			end
 		end
 		if itemData.DeactivateAnimations ~= nil then
 			for name, animation in pairs( itemData.DeactivateAnimations ) do

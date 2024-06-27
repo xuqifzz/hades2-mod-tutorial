@@ -296,36 +296,18 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = 
 			{
 				PulseWeaponName = "WeaponLobChargedPulse",
+				ManaCost = 10,
+				ReportValues = { ReportedCost = "ManaCost" }
 			}
 		},
-
-		--[[
-		WeaponDataOverride =
+		ExtractValues =
 		{
-			WeaponLob =
 			{
-				OnProjectileDeathFunctionArgs = 
-				{
-					CollideForces = 
-					{
-						UpwardForceMin = 830 * 1.35,
-						UpwardForceMax = 920 * 1.35,
-						ForceMin = 0,
-						ForceMax = 0,
-						Scatter = 0,
-					},
-					DropForces = 
-					{
-						UpwardForceMin = 900 * 1.35,
-						UpwardForceMax = 1000 * 1.35,
-						ForceMin = 0,
-						ForceMax = 0,
-						Scatter = 0,
-					},
-				},
-			},
-		},
-		]]
+				Key = "ReportedCost",
+				ExtractAs = "Cost",
+			}
+		}
+
 	},
 	LobPulseAmmoTrait = 
 	{

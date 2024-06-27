@@ -288,8 +288,6 @@ UnitSetData.Enemies =
 			--[[
 			Molten =
 			{
-				RequireEncounterCompleted = "BossHarpy1", -- Require that you've been to Asphodel
-				RequiredBiome = "Asphodel",
 				AddDumbFireWeaponsOnSpawn = { "EliteLavaSplash" },
 			},
 			]]
@@ -385,7 +383,6 @@ UnitSetData.Enemies =
 			--[[
 			Disguise =
 			{
-				RequiredBiome = "Tartarus",
 				SkipApplyOnClones = true,
 				DifficultyRatingMultiplier = 5.0,
 				AddDumbFireWeaponsOnSpawn = { "EliteClones" },

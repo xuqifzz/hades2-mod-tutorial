@@ -4947,26 +4947,28 @@ function UnitSplit( enemy, aiData )
 		newEnemy.SkipChallengeKillCounts = true
 		local spawnPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, { SpawnNearId = enemy.ObjectId, SpawnRadius = aiData.SpawnRadius, SpawnRadiusMin = aiData.SpawnRadiusMin, },
 																				{ RequiredSpawnPoint = aiData.RequiredSpawnPointType, SpawnAwayFromTypes = aiData.SpawnAwayFromTypes, SpawnAwayFromTypesDistance = aiData.SpawnAwayFromTypesDistance })
-		newEnemy.OccupyingSpawnPointId = spawnPointId
-		SessionMapState.SpawnPointsUsed[spawnPointId] = newEnemy.ObjectId
-		thread( UnoccupySpawnPointOnDistance, newEnemy, spawnPointId, 400 )
+		if spawnPointId ~= nil then
+			newEnemy.OccupyingSpawnPointId = spawnPointId
+			SessionMapState.SpawnPointsUsed[spawnPointId] = newEnemy.ObjectId
+			thread( UnoccupySpawnPointOnDistance, newEnemy, spawnPointId, 400 )
 
-		newEnemy.ObjectId = SpawnUnit({ Name = aiData.SpawnedUnit, Group = "Standing", DestinationId = spawnPointId, ForceToValidLocation = true })
-		enemy.SplitIds[newEnemy.ObjectId] = true
+			newEnemy.ObjectId = SpawnUnit({ Name = aiData.SpawnedUnit, Group = "Standing", DestinationId = spawnPointId, ForceToValidLocation = true })
+			enemy.SplitIds[newEnemy.ObjectId] = true
 
-		thread(SetupUnit, newEnemy, CurrentRun )
-		AddToGroup({ Id = newEnemy.ObjectId, Name = spawnGroupName })
-		newEnemy.SkipActiveCount = true
+			thread(SetupUnit, newEnemy, CurrentRun )
+			AddToGroup({ Id = newEnemy.ObjectId, Name = spawnGroupName })
+			newEnemy.SkipActiveCount = true
 
-		if aiData.SyncChainedWeapons then
-			newEnemy.WeaponName = enemy.ChainedWeapon
-		end
+			if aiData.SyncChainedWeapons then
+				newEnemy.WeaponName = enemy.ChainedWeapon
+			end
 
-		if newEnemy.EliteIcon or ( newEnemy.HealthBuffer ~= nil and newEnemy.HealthBuffer > 0 ) then
-			CreateHealthBar( newEnemy )
-			UpdateHealthBar( newEnemy, 0, { Force = true })
-			newEnemy.Outline.Id = newEnemy.ObjectId
-			AddOutline( newEnemy.Outline )
+			if newEnemy.EliteIcon or ( newEnemy.HealthBuffer ~= nil and newEnemy.HealthBuffer > 0 ) then
+				CreateHealthBar( newEnemy )
+				UpdateHealthBar( newEnemy, 0, { Force = true })
+				newEnemy.Outline.Id = newEnemy.ObjectId
+				AddOutline( newEnemy.Outline )
+			end
 		end
 	end
 end

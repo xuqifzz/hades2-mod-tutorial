@@ -2,7 +2,7 @@ OverwriteTableKeys( TraitData, {
 	-- Hades
 	HadesLifestealBoon = 
 	{
-		Icon = "Boon_Hades_02",
+		Icon = "Boon_Hades_05",
 		HUDTextOverride = "LimitedLifesteal",
 		InheritFrom = { "InPersonOlympianTrait" },
 		RemainingUses = 1,
@@ -60,7 +60,7 @@ OverwriteTableKeys( TraitData, {
 	
 	HadesCastProjectileBoon =
 	{
-		Icon = "Boon_Hades_05",
+		Icon = "Boon_Hades_01",
 		InheritFrom = { "InPersonOlympianTrait" },
 		BlockInRunRarify = true,
 		PreEquipWeapons = { "WeaponCastProjectileHades" },
@@ -192,7 +192,7 @@ OverwriteTableKeys( TraitData, {
 	HadesPreDamageBoon =
 	{
 		InheritFrom = { "InPersonOlympianTrait" },
-		Icon = "Boon_Hades_04",
+		Icon = "Boon_Hades_06",
 		BlockInRunRarify = true,
 		EncounterPreDamage =
 		{
@@ -222,7 +222,7 @@ OverwriteTableKeys( TraitData, {
 	HadesChronosDebuffBoon = 
 	{
 		InheritFrom = { "InPersonOlympianTrait" },
-		Icon = "Boon_Hades_06",
+		Icon = "Boon_Hades_02",
 		BlockInRunRarify = true,
 		RarityLevels =
 		{
@@ -261,7 +261,7 @@ OverwriteTableKeys( TraitData, {
 	HadesInvisibilityRetaliateBoon = 
 	{
 		InheritFrom = { "InPersonOlympianTrait" },
-		Icon = "Boon_Hades_03",
+		Icon = "Boon_Hades_04",
 		BlockInRunRarify = true,
 		AddOutgoingDamageModifiers =
 		{
@@ -325,7 +325,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	HadesDeathDefianceDamageBoon = 
 	{
-		Icon = "Boon_Hades_01",
+		Icon = "Boon_Hades_03",
 		InheritFrom = { "InPersonOlympianTrait" },
 		BlockInRunRarify = true,
 		AddOutgoingDamageModifiers =

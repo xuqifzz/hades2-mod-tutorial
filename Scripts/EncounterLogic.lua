@@ -885,6 +885,10 @@ function IsSpawnPointEligible( spawnPointId, encounter, currentRoom, args )
 		return false
 	end
 
+	if args.IgnoreIds ~= nil and args.IgnoreIds[spawnPointId] then
+		return false
+	end
+
 	if encounter.SpawnNearId ~= nil and encounter.SpawnRadius ~= nil then
 		local distance = GetDistance({ Id = spawnPointId, DestinationId = encounter.SpawnNearId })
 		if distance > encounter.SpawnRadius then

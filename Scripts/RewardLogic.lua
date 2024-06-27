@@ -118,6 +118,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 					room.ForceLootName = forcedReward.LootName
 					room.ForcedReward = forcedReward
 					room.Reward = room.ForcedReward
+					DebugPrint({ Text = "Forced Reward: "..forcedReward.Name })
 					return forcedReward.Name
 				end
 			end
@@ -147,7 +148,21 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		return ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, args )
 	end
 
-	local rewardKey = GetRandomValue( eligibleRewardKeys )
+	local rewardKey = nil
+	for i, priorityName in ipairs( CurrentRun.RewardPriorities ) do
+		for j, eligibleRewardKey in ipairs( eligibleRewardKeys ) do
+			local eligibleReward = run.RewardStores[rewardStoreName][eligibleRewardKey]
+			if eligibleReward ~= nil and eligibleReward.Name == priorityName then
+				DebugPrint({ Text = "Priority Reward: "..priorityName })
+				rewardKey = eligibleRewardKey
+				RemoveValueAndCollapse( CurrentRun.RewardPriorities, priorityName )
+				break
+			end
+		end
+	end
+	if rewardKey == nil then
+		rewardKey = GetRandomValue( eligibleRewardKeys )
+	end
 	local reward = run.RewardStores[rewardStoreName][rewardKey]
 	run.RewardStores[rewardStoreName][rewardKey] = nil
 	CollapseTable( run.RewardStores[rewardStoreName] )
@@ -253,6 +268,9 @@ end
 
 function SpawnClockworkGoalReward( rewardData, room, args )
 	CurrentRun.RemainingClockworkGoals = (CurrentRun.RemainingClockworkGoals or 0) - 1
+	if CurrentRun.RemainingClockworkGoals <= 0 then
+		CurrentRun.RemainingClockworkGoals = 0
+	end
 end
 
 function SetupClockworkGoalReward( rewardData, currentRoom, room, previouslyChosenRewards, args, setupFunctionArgs )
@@ -361,8 +379,9 @@ function SpawnRoomReward( eventSource, args )
 		reward.CanReceiveGift = false
 	else
 		local consumableId = SpawnObstacle({ Name = rewardType, DestinationId = lootPointId, Group = "Standing", OffsetX = lootOffset.X, OffsetY = lootOffset.Y })
-		reward = CreateConsumableItem( consumableId, rewardType, 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds } )
+		reward = CreateConsumableItem( consumableId, rewardType, 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds, RunProgressUpgradeEligible = true } )
 		if reward ~= nil then
+			reward.IgnorePurchase = true
 			reward.LootName = args.LootName
 			ApplyConsumableItemResourceMultiplier( currentRoom, reward )
 			ExtractValues( CurrentRun.Hero, reward, reward )
@@ -458,4 +477,8 @@ function CalcRoomRewardStores( room, rewardStoreCounts )
 		rewardStoreCounts.Total = (rewardStoreCounts.Total or 0) + 1
 		rewardStoreCounts[room.RewardStoreName] = (rewardStoreCounts[room.RewardStoreName] or 0) + 1
 	end
+end
+
+function RewardStoreAddPriority( args, trait )
+	table.insert( CurrentRun.RewardPriorities, args.Name )
 end
