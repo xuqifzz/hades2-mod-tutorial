@@ -17,7 +17,7 @@ MetaUpgradeSwapGameStateRequirement =
 
 MetaUpgradeCostData = 
 {
-	StartingMetaUpgradeLimit = 10,		-- Base metaupgrade 'MEM' limit
+	StartingMetaUpgradeLimit = 100,		-- Base metaupgrade 'MEM' limit
 	MetaUpgradeLevelData = 
 	{
 		{ CostIncrease = 2, ResourceCost = { MemPointsCommon = 40 }},
