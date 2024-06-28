@@ -534,7 +534,7 @@ ConsumableData =
 		ExitUnlockDelay = 1.1,
 		UseFunctionName = "OpenTalentScreen",
 		RerollColor = Color.White,
-		AddTalentPoints = 3,
+		AddTalentPoints = 10,
 		ResourceCosts =
 		{
 			Money = 60,
@@ -583,7 +583,7 @@ ConsumableData =
 	MinorTalentDrop = 
 	{
 		InheritFrom = { "TalentDrop" },
-		AddTalentPoints = 1,
+		AddTalentPoints = 10,
 	},
 	StoreRewardRandomStack = 
 	{
