@@ -406,6 +406,9 @@ function StartNewRun( prevRun, args )
 	end
 	
 	AddResource( "Money", CalculateStartingMoney(), "RunStart" )
+
+    CurrentRun.CurrentRoom.ChosenRewardType = "WeaponUpgrade"
+
 	return CurrentRun
 
 end
