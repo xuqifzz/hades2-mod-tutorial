@@ -1815,7 +1815,7 @@
 	MetaToRunMetaUpgrade = 
 	{
 		InheritFrom = {"MetaUpgradeTrait" },
-		MetaConversionUses = { BaseValue = 1 },
+		MetaConversionUses = { BaseValue = 100 },
 		ExtractValues = 
 		{
 			{
