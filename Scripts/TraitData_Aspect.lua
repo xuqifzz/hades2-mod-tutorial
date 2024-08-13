@@ -316,19 +316,19 @@
 			},
 			Epic =
 			{
-				Multiplier = 2,
+				Multiplier = 1.5,
 			},
 			Heroic =
 			{
-				Multiplier = 3,
+				Multiplier = 2.0,
 			},
 			Legendary =
 			{
-				Multiplier = 4,
+				Multiplier = 2.5,
 			},
 			Perfect =
 			{
-				Multiplier = 7,
+				Multiplier = 5,
 			},
 		},
 		AddOutgoingDamageModifiers =
@@ -336,7 +336,7 @@
 			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
 			HitVulnerabilityMultiplier =
 			{
-				BaseValue = 1.10,
+				BaseValue = 1.40,
 				SourceIsMultiplier = true,
 			},
 			ReportValues = { ReportedMultiplier = "HitVulnerabilityMultiplier"},
@@ -473,7 +473,7 @@
 				CritCount = 9,
 				InvulnerableEffectName = "DaggerBlockInvincibubble",
 				InvulnerableDuration = 1,
-				Vfx = "EurydiceDefenseFront",
+				Vfx = "ArtemisDefenseFront",
 				ActivatedVfx = "DaggerBlockActiveFx",
 				ReportValues = 
 				{ 
@@ -584,7 +584,9 @@
 	
 		AddOutgoingDamageModifiers =
 		{
-			ValidWeapons = {"WeaponLob"},
+			ValidWeapons = { "WeaponLob", "WeaponLobPulse" },
+			SourceWeapon = "WeaponLob",
+			LinkedWeapon = "WeaponLobPulse",
 			ExcludeLinked = true,
 			MissingAmmoBaseDamageAddition = { BaseValue = 5 },
 			ReportValues = { ReportedWeaponMultiplier = "MissingAmmoBaseDamageAddition"},
@@ -1567,6 +1569,7 @@
 		OnSelfDamagedFunction = 
 		{
 			Name = "ResetPerfectAxeCrit",
+			NotDamagingRetaliate = true,
 		},
 		PropertyChanges = 
 		{

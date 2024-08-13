@@ -164,6 +164,7 @@ function GameStateInit()
 	GameState.LifetimeResourcesGained = GameState.LifetimeResourcesGained or {}
 	GameState.LifetimeResourcesSpent = GameState.LifetimeResourcesSpent or {}
 	GameState.NextCharonPointCache = GameState.NextCharonPointCache or 0
+	GameState.MoneySpentTowardCharonPoints = GameState.MoneySpentTowardCharonPoints or 0
 	GameState.StoreItemPins = GameState.StoreItemPins or {}
 	GameState.StoreItemPinsPurchased = GameState.StoreItemPinsPurchased or {}
 	GameState.EnemyEliteAttributeKills = GameState.EnemyEliteAttributeKills or {}
@@ -2402,7 +2403,7 @@ function UpdateTimers( elapsed )
 			local traitData = GetHeroTrait("TimedBuffKeepsake")
 			traitData.CurrentTime = traitData.CurrentTime - elapsed
 			if traitData.CurrentTime  <= 0 and (traitData.CurrentTime  + elapsed) > 0 then
-				traitData.CustomTrayText = traitData.ZeroBonusTrayText
+				traitData.CustomName = traitData.ZeroBonusTrayText
 				EndTimedBuff( traitData )
 				thread( TimedBuffExpiredPresentation, traitData )
 				ReduceTraitUses( traitData, {Force = true } )
@@ -2418,7 +2419,9 @@ function UpdateTimers( elapsed )
 			if traitData.CurrentTime  <= threshold and (traitData.CurrentTime  + elapsed) > threshold then
 				ChaosTimerAboutToExpirePresentation(threshold )
 			elseif traitData.CurrentTime  <= 0 and (traitData.CurrentTime  + elapsed) > 0 then
-				thread( SacrificeHealth, { SacrificeHealthMin = traitData.Damage, SacrificeHealthMax = traitData.Damage, MinHealth = 0 })
+				if not CurrentRun.Hero.InvulnerableFlags.BlockDeath then
+					thread( SacrificeHealth, { SacrificeHealthMin = traitData.Damage, SacrificeHealthMax = traitData.Damage, MinHealth = 0 })
+				end
 				thread( RemoveTraitData, CurrentRun.Hero, traitData )
 			end
 		end

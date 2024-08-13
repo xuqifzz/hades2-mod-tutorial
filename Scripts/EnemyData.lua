@@ -202,6 +202,7 @@ UnitSetData.Enemies =
 		UseBossHealthBar = true,
 		UseActivatePresentation = false,
 		BlockRespawnShrineUpgrade = true,
+		IgnoreFinalEnemyDirectionHint = true,
 
 		SkipAISetupOnActivate = true,
 		

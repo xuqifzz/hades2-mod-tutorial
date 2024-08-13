@@ -392,7 +392,11 @@ function CloseSurfaceShopScreen( screen, button )
 	local closeItems = DeepCopyTable( screen.OnCloseItems )
 	CloseStoreScreen( screen, button )
 	
-	local spawnPoints = FYShuffle(GetIdsByType({ Name = "EnemyPoint" }))
+	local enemyPoints = GetIdsByType({ Name = "EnemyPoint" })
+	local spawnPoints = GetClosestIds({ Id = CurrentRun.Hero.ObjectId, DestinationIds = enemyPoints, Distance = 400 })
+	if TableLength(spawnPoints) < 3 then
+		spawnPoints = ShallowCopyTable(enemyPoints)
+	end
 	local startIndex = 1
 	for s, name in pairs( closeItems ) do
 		for i, trait in pairs( CurrentRun.Hero.TraitDictionary.StorePendingDeliveryItem) do

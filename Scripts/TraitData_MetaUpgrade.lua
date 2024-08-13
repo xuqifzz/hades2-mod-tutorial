@@ -214,7 +214,7 @@
 		},
 	},
 	]]
-
+	
 	ChannelSlowMetaUpgrade =
 	{
 		InheritFrom = { "MetaUpgradeTrait" },

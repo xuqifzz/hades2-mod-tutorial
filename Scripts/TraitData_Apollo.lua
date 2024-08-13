@@ -888,7 +888,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs =
 			{
 				ProjectileName = "ApolloSingleCastStrike",
-				Delay = 0.15,
+				Delay = 2.85,
 				DamageMultiplier = 
 				{ 
 					BaseValue = 1.0,
@@ -900,6 +900,24 @@ OverwriteTableKeys( TraitData, {
 					},
 				},
 				ReportValues = { ReportedMultiplier = "DamageMultiplier"},
+			},
+		},
+		OnEarlyCastDetonation = 
+		{
+			FunctionName = "ApolloEarlyCastBlast",
+			FunctionArgs = 
+			{
+				ProjectileName = "ApolloSingleCastStrike",
+				DamageMultiplier = 
+				{ 
+					BaseValue = 1.0,
+					AbsoluteStackValues = 
+					{
+						[1] = 0.6,
+						[2] = 0.4,
+						[3] = 0.2,
+					},
+				},
 			},
 		},
 		PropertyChanges =
@@ -1391,6 +1409,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnSelfDamagedFunction = 
 		{
+			NotDamagingRetaliate = true,
 			Name = "ResetPerfectDamageBonusBoon",
 			FunctionArgs = 
 			{
@@ -1729,7 +1748,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		ChargeStageModifiers = 
 		{
-			WeaponNames = WeaponSets.HeroPrimarySecondaryWeapons,
+			ValidWeapons = WeaponSets.HeroPrimarySecondaryWeapons,
 			ExWeapons = true,
 			AddWeaponProperties = 
 			{

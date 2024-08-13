@@ -19,6 +19,7 @@ function KillHero( victim, triggerArgs )
 
 	EndAmbience( 0.5 )
 	EndMusic( AudioState.MusicId, AudioState.MusicName, triggerArgs.MusicEndTime or 0.0 )
+	SetAudioEffectState({ Name = "ChronosSlow", Value = 0 })
 
 	if killer == nil then
 		killer = {}

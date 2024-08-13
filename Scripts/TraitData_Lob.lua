@@ -82,6 +82,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Lob_10",
 		RequiredWeapon = "WeaponLob",
+		ForceWeaponRefreshOnRemove = "WeaponLob",
 		WeaponDataOverride =
 		{
 			WeaponLob =
@@ -316,22 +317,12 @@ OverwriteTableKeys( TraitData, {
 		RequiredWeapon = "WeaponLob",
 		PreEquipWeapons = { "WeaponLobPulse" },
 		RequiredFalseTraits = { "LobAmmoMagnetismTrait" },
-		PulseArgs = 
+		OnTouchdownFunction =
 		{
-			Interval = 2.5,
-			
-			ReportValues = 
-			{ 
-				ReportedInterval = "Interval" 
-			},
+			Name = "CheckLobPulse",
 		},
 		ExtractValues =
 		{
-			{
-				Key = "ReportedInterval",
-				ExtractAs = "Interval",
-				DecimalPlaces = 2,
-			},
 			{
 				External = true,
 				BaseType = "WeaponData",
@@ -416,7 +407,7 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
 			ExBaseDamageAddition = 
 			{ 
-				BaseValue = 20,
+				BaseValue = 60,
 			},
 			ReportValues = 
 			{ 

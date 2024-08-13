@@ -210,8 +210,11 @@ function CanOpenInventoryScreen()
 		if CurrentRun.CurrentRoom.StartedChallengeEncounter and not CurrentRun.CurrentRoom.ChallengeEncounter.Completed then
 			return false
 		end
-		if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BlockCodexBeforeStart and not CurrentRun.CurrentRoom.Encounter.Completed then
-			return false
+		if CurrentRun.CurrentRoom.Encounter ~= nil then
+			local encounterData = EncounterData[CurrentRun.CurrentRoom.Encounter.Name] or CurrentRun.CurrentRoom.Encounter
+			if encounterData.BlockCodexBeforeStart and not CurrentRun.CurrentRoom.Encounter.Completed then
+				return false
+			end
 		end
 	end
 	return true

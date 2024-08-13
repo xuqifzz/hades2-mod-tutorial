@@ -656,7 +656,7 @@ function HUDTraitAddedPresentation( newTrait, args )
 		UpdateTraitSummary( { TextUpdateDelay = 0.5 } )
 		wait( 1.0 )
 		if tempDisplay then
-			HUDHideTrait( newTrait )
+			thread( HUDHideTrait, newTrait, { RemoveAfterHidden = true } )
 		end
 	end
 

@@ -318,8 +318,12 @@ function UpdateGroupHealthBarReal( args )
 		local unit = ActiveEnemies[unitId]
 		if unit ~= nil then
 			currentHealth = currentHealth + unit.Health
-			if unit.ActiveEffects and unit.ActiveEffects.BurnEffect then
-				predictedHealth = predictedHealth + math.max( 0, unit.Health - unit.ActiveEffects.BurnEffect )
+			if unit.ActiveEffects and unit.ActiveEffects.BurnEffect and not MapState.GroupHealthWaiters[unitId] and not unit.InTransition then
+				if unit.AIEndHealthThreshold and (unit.Health - unit.ActiveEffects.BurnEffect)/unit.MaxHealth < unit.AIEndHealthThreshold then
+					predictedHealth = predictedHealth + unit.MaxHealth * unit.AIEndHealthThreshold 
+				else
+					predictedHealth = predictedHealth + math.max( 0, unit.Health - unit.ActiveEffects.BurnEffect )
+				end
 			else
 				predictedHealth = predictedHealth + unit.Health
 			end
@@ -370,8 +374,11 @@ function UpdateHealthBarReal( args )
 	if enemy.UseBossHealthBar then
 		local displayedHealthPercent = currentHealth / maxHealth
 		local predictedHealthPercent = displayedHealthPercent
-		if enemy.ActiveEffects and enemy.ActiveEffects.BurnEffect then
+		if enemy.ActiveEffects and enemy.ActiveEffects.BurnEffect and not enemy.InTransition then
 			predictedHealthPercent = math.max(0, currentHealth - enemy.ActiveEffects.BurnEffect ) / maxHealth
+			if enemy.AIEndHealthThreshold and predictedHealthPercent < enemy.AIEndHealthThreshold then
+				predictedHealthPercent = enemy.AIEndHealthThreshold
+			end
 		end
 
 		CurrentRun.BossHealthBarRecord[enemy.Name] = displayedHealthPercent
@@ -651,10 +658,10 @@ function ArmorBreakPresentation( enemy )
 		})
 	Move({ Id = promptId, Distance = 100, Angle = 0, Duration = 1, EaseOut = 1, TimeModifierFraction = 0 })
 
-	waitUnmodified(0.5)
+	waitUnmodified( 0.5 )
 	ModifyTextBox({ Id = promptId, FadeTarget = 0.0, FadeDuration = 0.4, ColorTarget = {1, 0, 0, 1}, ColorDuration = 0.5, AutoSetDataProperties = false })
-	waitUnmodified(1.0)
-	DestroyTextBox({ Id = promptId })
+	waitUnmodified( 1.0 )
+	Destroy({ Id = promptId })
 
 end
 

@@ -890,6 +890,8 @@ ResourceData =
 		TooltipId = "MysteryResourceIcon",
 		CostTextId = "CharonPoints_Short",
 
+		OnAddedFunctionName = "SetupCharonPoints",
+
 		InventoryVoiceLines =
 		{
 			PlayOnce = true,

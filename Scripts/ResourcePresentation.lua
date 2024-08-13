@@ -193,6 +193,7 @@ end
 
 function MoneyGainPresentation(amount, delta)
 	if not ShowingCombatUI then
+		MapState.MoneyUI.Floating = 0
 		return
 	end
 

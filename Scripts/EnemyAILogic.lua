@@ -101,6 +101,7 @@ function MinionFollowAI( enemy )
 		Stop({ Id = enemy.ObjectId })
 		if enemy.CreatedOwnTarget ~= nil then
 			Destroy({ Id = enemy.CreatedOwnTarget })
+			enemy.CreatedOwnTarget = nil
 		end
 		thread(SetAI, enemy.LeaderDeadAI, enemy)
 	end
@@ -808,6 +809,13 @@ function DoAttackerAILoop( enemy, aiData )
 	end
 	table.insert(enemy.WeaponHistory, enemy.WeaponName)
 
+	if enemy.TargetIdsLeaked ~= nil then
+		for id, v in pairs( enemy.TargetIdsLeaked ) do
+			Destroy({ Id = id })
+		end
+		enemy.TargetIdsLeaked = nil
+	end
+
 	if not aiData.SkipSurroundAICount then
 		local surroundAIKey = aiData.SurroundAIKey or enemy.Name
 		SurroundEnemiesAttacking[surroundAIKey] = SurroundEnemiesAttacking[surroundAIKey] or {}
@@ -1115,6 +1123,7 @@ function DoAttackerAILoop( enemy, aiData )
 
 		if enemy.CreatedOwnTarget then
 			Destroy({ Id = enemy.CreatedOwnTarget })
+			enemy.CreatedOwnTarget = nil
 		end
 
 
@@ -3511,6 +3520,7 @@ function AIFireWeapon( enemy, aiData )
 			if aiData.ResetTargetPerTick then
 				if enemy.CreatedOwnTarget ~= nil then
 					Destroy({ Id = enemy.CreatedOwnTarget })
+					enemy.CreatedOwnTarget = nil
 				end
 				
 				aiData.TargetId = GetTargetId(enemy, aiData)
@@ -4239,6 +4249,7 @@ function DumbFireAttack( enemy, weaponData )
 
 				if enemy.CreatedOwnTarget then
 					Destroy({ Id = enemy.CreatedOwnTarget })
+					enemy.CreatedOwnTarget = nil
 				end
 			end
 		end
@@ -5337,6 +5348,10 @@ function GetTargetId( enemy, aiData )
 		end
 		local newTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = aiData.AnchorTargetId or enemy.ObjectId, Group = "Scripting", OffsetX = offset.X, OffsetY = offset.Y })
 		targetId = newTargetId
+		if enemy.CreatedOwnTarget ~= nil then
+			enemy.TargetIdsLeaked = enemy.TargetIdsLeaked or {}
+			enemy.TargetIdsLeaked[enemy.CreatedOwnTarget] = true
+		end
 		enemy.CreatedOwnTarget = targetId
 
 	elseif aiData.TargetRequiredKillEnemy or IsCharmed({ Id = enemy.ObjectId }) then
@@ -5455,6 +5470,10 @@ function GetTargetId( enemy, aiData )
 			offset.Y = offset.Y * aiData.OffsetDistanceScaleY
 		end
 		targetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = aiData.AnchorTargetId or targetId, Group = "Scripting", OffsetX = offset.X, OffsetY = offset.Y })
+		if enemy.CreatedOwnTarget ~= nil then
+			enemy.TargetIdsLeaked = enemy.TargetIdsLeaked or {}
+			enemy.TargetIdsLeaked[enemy.CreatedOwnTarget] = true
+		end
 		enemy.CreatedOwnTarget = targetId
 	end
 
@@ -5696,6 +5715,10 @@ function IsAIActive( enemy )
 
 	if enemy.AIDisabled then
 		return false
+	end
+
+	if verboseLogging and not IsAlive({ Id = enemy.ObjectId }) then
+		DebugAssert({ false, Text = enemy.Name.." ("..enemy.ObjectId..") doesn't exist but still running AI", Owner = "Eduardo" })
 	end
 
 	return true

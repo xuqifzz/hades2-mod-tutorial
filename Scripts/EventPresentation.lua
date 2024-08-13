@@ -476,6 +476,10 @@ function RootClearPresentation( victim, victimId )
 		if not victim.RootActive then
 			return
 		end
+		if victim.BlockEffectWhileRootActive then
+			RemoveEffectBlock({ Id = victim.ObjectId, Name = victim.BlockEffectWhileRootActive})
+			victim.BlockEffectWhileRootActive = nil
+		end
 		victim.RootActive = nil
 	end
 	
@@ -642,14 +646,23 @@ function CannotUseDoorPresentation( door )
 	elseif not IsEmpty( RequiredKillEnemies ) and not door.CannotBeBlockedByEnemies then
 		text = "ExitBlockedByEnemies"
 		voiceLines = HeroVoiceLines.ExitBlockedByEnemiesVoiceLines
+		local count = TableLength( RequiredKillEnemies )
 		for id, blockedByEnemy in pairs( RequiredKillEnemies ) do
 			DebugPrint({ Text = "Door Blocked By: "..GetTableString( blockedByEnemy ) })
+			if count <= 1 and not blockedByEnemy.IgnoreFinalEnemyDirectionHint then
+				thread( DirectionHintPresentation, blockedByEnemy, { Cooldown = 1.0, Delay = 0.0 } )
+			end
 		end
 	elseif not IsEmpty( CurrentRun.CurrentRoom.Encounter.ActiveSpawns ) and not door.CannotBeBlockedByEnemies then
 		text = "ExitBlockedByEnemies"
 		voiceLines = HeroVoiceLines.ExitBlockedByEnemiesVoiceLines
+		local count = TableLength( CurrentRun.CurrentRoom.Encounter.ActiveSpawns )
 		for id, _ in pairs( CurrentRun.CurrentRoom.Encounter.ActiveSpawns ) do
 			DebugPrint({ Text = "Door Blocked By: "..id })
+			local spawn = ActiveEnemies[id]
+			if count <= 1 and spawn ~= nil and not spawn.IgnoreFinalEnemyDirectionHint then
+				thread( DirectionHintPresentation, spawn, { Cooldown = 1.0, Delay = 0.0 } )
+			end
 		end
 	else
 		local hintDelay = 0.0
@@ -1872,7 +1885,7 @@ end
 
 function ElementalTraitUpdatedPresentationReal( )
 	UIScriptsDeferred.ElementalCountDirty = false
-	if not UIScriptsDeferred.ElementalPresentationData then
+	if UIScriptsDeferred.ElementalPresentationData == nil then
 		return
 	end
 
@@ -1881,6 +1894,9 @@ function ElementalTraitUpdatedPresentationReal( )
 		PlaySound({ Name = TraitData[traitName].ElementGainSound, Id = CurrentRun.Hero.ObjectId })
 		thread( InCombatTextArgs, { TargetId= CurrentRun.Hero.ObjectId, Text = "ElementGranted_CombatText", ShadowScaleX = 1.5, SkipRise = true, SkipFlash = false, Duration = 1.8, OffsetY = 80, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		wait(0.5)
+	end
+	if UIScriptsDeferred.ElementalPresentationData == nil then
+		return
 	end
 	UIScriptsDeferred.ElementalPresentationData.Gained = nil
 
@@ -1893,6 +1909,9 @@ function ElementalTraitUpdatedPresentationReal( )
 		wait(0.75)
 		offsetY = offsetY - 60
 	end
+	if UIScriptsDeferred.ElementalPresentationData == nil then
+		return
+	end
 	UIScriptsDeferred.ElementalPresentationData.Activated = {} 
 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Deactivated ) do
@@ -1902,6 +1921,10 @@ function ElementalTraitUpdatedPresentationReal( )
 		wait(0.75)
 		offsetY = offsetY - 60
 	end
+
+	if UIScriptsDeferred.ElementalPresentationData == nil then
+		return
+	end
 	UIScriptsDeferred.ElementalPresentationData.Deactivated = {} 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Upgraded ) do
 		PlaySound({ Name = "/SFX/Player Sounds/DemeterRushImpactPoof", Id = CurrentRun.Hero.ObjectId })
@@ -1909,12 +1932,20 @@ function ElementalTraitUpdatedPresentationReal( )
 		wait(0.75)
 		offsetY = offsetY - 60
 	end
+
+	if UIScriptsDeferred.ElementalPresentationData == nil then
+		return
+	end
 	UIScriptsDeferred.ElementalPresentationData.Upgraded = {} 
 	for traitName in pairs( UIScriptsDeferred.ElementalPresentationData.Downgraded ) do
 		PlaySound({ Name = "/SFX/Player Sounds/DemeterRushImpactPoof", Id = CurrentRun.Hero.ObjectId })
 		thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ElementalTraitDowngraded", ShadowScaleX = 1.7, SkipRise = false, SkipFlash = false, Duration = 1.5, OffsetY = offsetY, LuaKey = "TempTextData", LuaValue = { Name = traitName }})
 		wait(0.75)
 		offsetY = offsetY - 60
+	end
+
+	if UIScriptsDeferred.ElementalPresentationData == nil then
+		return
 	end
 	UIScriptsDeferred.ElementalPresentationData.Downgraded = {} 
 end
@@ -3030,7 +3061,8 @@ function DaggerBlockTriggeredPresentation( functionArgs )
 
 	CreateAnimation({ Name = "HephMassiveHitDark", DestinationId = CurrentRun.Hero.ObjectId })
 	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteAttackingStaff", Id = CurrentRun.Hero.ObjectId })
-
+	StopAnimation({ Name = functionArgs.ActivatedVfx, DestinationId = CurrentRun.Hero.ObjectId })
+	waitUnmodified(0.05)
 	CreateAnimation({ Name = functionArgs.ActivatedVfx, DestinationId = CurrentRun.Hero.ObjectId })			
 end
 
@@ -3039,7 +3071,7 @@ function DaggerBlockClearedPresentation( functionArgs )
 end
 
 function DaggerBlockActivePresentation( traitData, reloadTime )
-	wait(reloadTime, RoomThreadName )
+	wait(reloadTime, "DaggerBlockShield" )
 	if not CurrentRun.Hero.IsDead then
 		PlaySound({ Name = "/SFX/Menu Sounds/KeepsakeArtemisArrow", Id = CurrentRun.Hero.ObjectId })
 		PlaySound({ Name = "/SFX/Menu Sounds/MenuMagicFlashLong", Id = CurrentRun.Hero.ObjectId })

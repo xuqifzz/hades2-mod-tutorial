@@ -744,6 +744,11 @@
 		Name = "RespawnEgg"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
+		Magnetism = 200.0
+		MagnetismSpeedMin = 750.0
+		MagnetismSpeedMax = 1000.0
+		MagnetismWhileBlocked = 0.0
+		RequiresUsable = true
 		Life = 
 		{
 			HomingEligible = false
@@ -757,10 +762,12 @@
 			Grip = 1000
 			ImmuneToForce = false
 			TriggerOnSpawn = false
-			OffsetZ = 30,
+			OffsetZ = 30
+			StopsUnits = false
+			StopsProjectiles = false
 			Interact = 
 			{
-				Distance = 130
+				Distance = 50
 				OffsetY = -20
 				AutoActivate = true
 				DestroyOnUse = true

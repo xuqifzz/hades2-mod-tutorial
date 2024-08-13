@@ -212,7 +212,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		if CurrentRun.NumRerolls < cost or cost < 0 then
 			color = Color.CostUnaffordable
 		end
-
+		components.RerollButton.Cost = cost
 		if CurrentRun.NumRerolls < cost or cost < 0 then
 			SetAlpha({ Id = screen.Components.RerollButton.Id, Fraction = 0.0, Duration = 0.2 })
 		elseif baseCost > 0 then
@@ -253,7 +253,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	local tooltipData = nil
 	upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, Rarity = itemData.Rarity })
 	local traitNum = GetTraitCount(CurrentRun.Hero, { TraitData = upgradeData })
-	if HeroHasTrait(itemData.ItemName) and not TraitData[itemData.ItemName].Hidden then
+	if lootData.StackOnly and HeroHasTrait(itemData.ItemName) and not TraitData[itemData.ItemName].Hidden then
 		upgradeTitle = "TraitLevel_Upgrade"
 		upgradeData.Title = upgradeData.Name
 	else
@@ -283,6 +283,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		local stackTooltipData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, StackNum = startingStackNum + lootData.StackNum, RarityMultiplier = tooltipData.RarityMultiplier})
 		SetTraitTextData( tooltipData, { ReplacementTraitData = stackTooltipData })
 		itemData.Rarity = tooltipData.Rarity
+		upgradeData.Rarity = tooltipData.Rarity
 	elseif itemData.Type == "TransformingTrait" then
 		local blessingData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.ItemName, Rarity = itemData.Rarity })
 		local curseData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.SecondaryItemName, Rarity = itemData.Rarity })
@@ -314,7 +315,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 			end
 		end
 	else
-		if upgradeData.PrePickSacrificeBoon then
+		if upgradeData.PrePickSacrificeBoon and upgradeData.SacrificedTraitName == nil then
 			upgradeData.SacrificedTraitName = GetRandomSacrificeTraitData().Name
 		end
 		tooltipData = upgradeData
@@ -428,10 +429,10 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	local selectionString = "UpgradeChoiceMenu_PermanentItem"
 	local selectionStringColor = Color.Black
 
-		local traitData = TraitData[itemData.ItemName]
-		if traitData.Slot ~= nil then
-			selectionString = "UpgradeChoiceMenu_"..traitData.Slot
-		end
+	local traitData = TraitData[itemData.ItemName]
+	if traitData.Slot ~= nil then
+		selectionString = "UpgradeChoiceMenu_"..traitData.Slot
+	end
 
 	local textOffset = -70 - screen.ButtonOffsetX
 	local exchangeIconOffset = 0
@@ -1076,7 +1077,7 @@ function CloseUpgradeChoiceScreen( screen, button )
 	end
 	if screen.Source.UseSwapTrait then
 		local forceSwapTrait = HasHeroTraitValue("ForceSwaps")
-		if forceSwapTrait then
+		if forceSwapTrait and forceSwapTrait.Uses > 0 then
 			forceSwapTrait.Uses = forceSwapTrait.Uses - 1
 			UpdateTraitNumber( forceSwapTrait )
 		end
@@ -1190,6 +1191,7 @@ function TryUpgradeBoon( lootData, screen, button )
 	local components = screen.Components
 
 	local traitData = button.Data
+	local sacrificeTrait = traitData.SacrificedTraitName
 	local validUpgradeIndex = false
 	for i, upgradeData in pairs(lootData.UpgradeOptions) do
 		if traitData.Name == upgradeData.ItemName and GetUpgradedRarity(traitData.Rarity) ~= nil and traitData.RarityLevels[GetUpgradedRarity(traitData.Rarity)] ~= nil then
@@ -1222,6 +1224,9 @@ function TryUpgradeBoon( lootData, screen, button )
 		Destroy({ Ids = toDestroy })
 		UpgradeBoonRarityPresentation( button )
 		local newButton = CreateUpgradeChoiceButton( screen, lootData, validUpgradeIndex, lootData.UpgradeOptions[validUpgradeIndex])
+		if newButton.Data and sacrificeTrait then
+			newButton.Data.SacrificedTraitName = sacrificeTrait
+		end
 		local notifyName = "ScreenInput"
 		if screen.Name ~= nil then
 			notifyName = notifyName..screen.Name

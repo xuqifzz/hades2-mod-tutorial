@@ -517,7 +517,7 @@ TraitSetData.Keepsakes =
 		Icon = "Keepsake_45",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
 		ZeroBonusTrayText = "SpellTalentKeepsake_Expired",
-
+		PartialActiveTrayText = "SpellTalentKeepsake_Inactive",
 		RarityLevels =
 		{
 			Common =
@@ -587,7 +587,7 @@ TraitSetData.Keepsakes =
 		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
 		UnequippedKeepsakeTitle = "BonusMoneyKeepsake_Rack",
 		CustomTrayNameWhileDead = "BonusMoneyKeepsake",
-		ZeroBonusTrayText = "SpellTalentKeepsake_Expired",
+		ZeroBonusTrayText = "BonusMoneyKeepsake_Expired",
 		RarityLevels =
 		{
 			Common =
@@ -872,6 +872,7 @@ TraitSetData.Keepsakes =
 		Icon = "Keepsake_37",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeOrpheysDistantMemoryJar",
 		PostBossCardRarity = { BaseValue = 1 },
+		ZeroBonusTrayText = "BossMetaUpgradeKeepsake_Expired",
 		RemainingUses = 1,
 		ExtractValues =
 		{

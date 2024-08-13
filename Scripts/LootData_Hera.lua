@@ -94,10 +94,10 @@ LootSetData.Hera =
 		Traits =
 		{
 			"DamageShareRetaliateBoon",
-			"SwapBonusBoon",
+			"LinkedDeathDamageBoon",
 			"BoonDecayBoon",
 			"DamageSharePotencyBoon",
-			"LinkedDeathDamageBoon",
+			"SpawnCastDamageBoon",
 			"CommonGlobalDamageBoon",
 			"OmegaHeraProjectileBoon",
 
@@ -980,9 +980,9 @@ LootSetData.Hera =
 					-- @ update with additional requirements
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "HeraGift04", "MorosGift06", "NemesisGift06" },
+						HasAll = { "HeraGift04", "MorosTaverna01", "NemesisTaverna01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosGift06", "NemesisGift06" }, Count = 8 },
+					MinRunsSinceAnyTextLines = { TextLines = { "MorosTaverna01", "NemesisTaverna01" }, Count = 8 },
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1308,7 +1308,7 @@ LootSetData.Hera =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0075",
 					
-					Text = "Confronted one-eyed Polyphemus, have you, then? That is the sort of {#Emph}help {#Prev}Chronos employs. A hollow fool! But strong, admittedly. No sneaking past {#Emph}him{#Prev}, I'm afraid. We've tried...." },
+					Text = "Confronted Polyphemus, have you, then? That is the sort of {#Emph}help {#Prev}Chronos employs. A hollow fool! But strong, admittedly. No sneaking past {#Emph}him{#Prev}, I'm afraid. We've tried...." },
 			},
 
 			-- about other gods

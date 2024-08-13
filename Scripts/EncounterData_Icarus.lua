@@ -27,7 +27,7 @@ OverwriteTableKeys( EncounterData,
 		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
 
 		BlockFishingBeforeStart = true,
-		BlockCodexBeforeStart = true,
+		BlockCodexBeforeStart = false,
 		DelayedStart = true,
 		-- SkipCombatBeginsVoiceLines = true,
 		RequireCompletedIntro = true,

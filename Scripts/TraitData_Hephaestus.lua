@@ -759,7 +759,7 @@ OverwriteTableKeys( TraitData, {
 		MassiveAttackSizeModifier = 1.5,
 		AddOutgoingDamageModifiers = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast" },
 			ValidBaseDamageAddition = { BaseValue = 50 },
 			AbsoluteStackValues =
 			{
@@ -819,7 +819,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
 			EffectName = "DelayedKnockbackEffect",
 			Args = 
 			{

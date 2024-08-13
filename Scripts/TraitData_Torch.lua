@@ -5,37 +5,31 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Torch_34",
 		RequiredWeapon = "WeaponTorch",
-		AddOutgoingDamageModifiers = 
-		{
-			ValidWeapons = { "WeaponTorchSpecial" },
-			NonExBaseDamageAddition = 
-			{ 
-				BaseValue = 75,
-			},
-			ReportValues = 
-			{ 
-				ReportedDamageBonus = "NonExBaseDamageAddition" 
-			},
-			ExcludeLinked = true,
-		},
+		
 		PropertyChanges =
 		{
 			{
 				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "UnlimitedUnitPenetration",
-				ChangeValue = false,
+				WeaponProperty = "NumProjectiles",
+				ChangeValue = 2,
+				ChangeType = "Add",
+				ReportValues = { ReportedCount = "ChangeValue" }
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "ProjectileAngleOffset",
+				ChangeValue = math.rad(-60),
 				ChangeType = "Absolute",
 			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamageBonus",
-				ExtractAs = "DamageBonus",
-				IncludeSigns = true,
+				Key = "ReportedCount",
+				ExtractAs = "Count",
 			},
 		},
+
 	},
 	TorchExSpecialCountTrait = 
 	{
@@ -97,7 +91,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	TorchEnhancedAttackTrait = 
+	TorchEnhancedAttackTrait =  
 	{
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Torch_29",
@@ -116,9 +110,15 @@ OverwriteTableKeys( TraitData, {
 				{
 					ResetCollisionOutsideImpact = true,
 					InheritOwnerVelocityMultiplier = 0,
-					CheckObstacleImpact = false
 				},
 				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileProperty = "TotalFuse",
+				ChangeValue = 2,
+				ChangeType = "Add",
+				ReportValues = { ReportedDurationIncrease = "ChangeValue" }
 			},
 			{
 				FalseTraitName = "TorchSprintRecallAspect",
@@ -148,6 +148,13 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1200,
 			},
 		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDurationIncrease",
+				ExtractAs = "DurationIncrease",
+			},
+		}
 	},
 	TorchDiscountExAttackTrait = 
 	{
@@ -312,27 +319,11 @@ OverwriteTableKeys( TraitData, {
 		RequiredWeapon = "WeaponTorch",
 		PropertyChanges =
 		{	
-			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
-				ProjectileProperty = "AttachToOwner",
-				ChangeValue = false,
-				ExcludeLinked = true,
-			},
-			
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchOrbit",
-				ProjectileProperty = "UseStartLocation",
-				ChangeValue = false,
-				ExcludeLinked = true,
-			},
 			{
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "Speed",
-				ChangeValue = 1.6,
+				ChangeValue = 1.4,
 				ChangeType = "Multiply",
 				ReportValues = { ReportedMoveSpeedBonus = "ChangeValue"},
 			},
@@ -340,15 +331,8 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchSpiral",
 				ProjectileProperty = "Speed",
-				ChangeValue = 1.6,
+				ChangeValue = 1.4,
 				ChangeType = "Multiply",
-			},
-			{
-				WeaponName = "WeaponTorchSpecial",
-				ProjectileName = "ProjectileTorchSpiral",
-				ProjectileProperty = "Acceleration",
-				ChangeValue = -330,
-				ChangeType = "Absolute",
 			},
 		},
 		ExtractValues =

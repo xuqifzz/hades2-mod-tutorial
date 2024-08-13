@@ -15,7 +15,7 @@
 		SpendResources( spellItem.ResourceCosts, spellItem.Name or "Loot" )
 		RemoveStoreItem( { Id = spellItem.ObjectId, Name = spellItem.Name } )
 		if (spellItem.ResourceCosts.Money or 0) > 0 then
-			CheckCharonPointsOwed( "UseLoot" )
+			HandleCharonPurchase( "UseLoot", spellItem.ResourceCosts.Money )
 		end
 		PlaySound({ Name = "/Leftovers/Menu Sounds/StoreBuyingItem" })
 		thread( PlayVoiceLines, GlobalVoiceLines.PurchasedConsumableVoiceLines, true )
@@ -39,7 +39,7 @@
 	if HeroHasTrait( "SpellTalentKeepsake" ) then
 		local trait = GetHeroTrait("SpellTalentKeepsake")
 		ReduceTraitUses( trait, {Force = true })
-		trait.CustomTrayText = trait.ZeroBonusTrayText
+		trait.CustomTrayText = trait.PartialActiveTrayText
 	end
 	if spellItem ~= nil then
 		LootPickupPresentation( spellItem )

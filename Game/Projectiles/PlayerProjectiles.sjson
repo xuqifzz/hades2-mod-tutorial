@@ -232,7 +232,7 @@
 		NumPenetrations = 9999
 		BlastSpeed = 2000
 		TotalFuse = 3
-		DamageRadius = 400
+		DamageRadius = 250
 		MaxAdjustRate = 20
 		AdjustRateAcceleration = 0
 		Speed = 1200
@@ -3659,6 +3659,30 @@
 
 	/* Boons */
 	{
+		Name = "LinkNova"
+		InheritFrom = "1_BaseProjectile"
+		DetonateFx = "AxeNova_Hera"
+		Type = "INSTANT"
+		AffectsEnemies = true
+		AffectsFriends = false
+		AffectsSelf = false
+		CheckUnitImpact = false
+		CheckObstacleImpact = false
+		Fuse = 0.01
+		BlastSpeed = 2000
+		Range = 1
+		DamageRadius = 360
+		DamageRadiusScaleY = 0.58
+		Damage = 50
+		ImpactVelocity = 0
+		ImpactVelocityFalloff = 0.1
+		ClearOnAttackEffects = false
+		Thing =
+		{
+			Graphic = "null"
+		}
+	}
+	{
 		Name = "BurnNova"
 		InheritFrom = "1_BaseProjectile"
 		DetonateFx = "RadialNovaPentagram_Hestia"
@@ -3823,7 +3847,7 @@
 		CheckObstacleImpact = true
 		UnlimitedUnitPenetration = true
 		Type = "INSTANT"
-		Damage = 50
+		Damage = 60
 		DamageRadius = 10
 		DamageRadiusScaleX = 1.175
 		DamageRadiusScaleY = 0.56
@@ -5264,7 +5288,7 @@
 	{
 		Name = "ZeusZeroManaStrike"
 		InheritFrom = "ZeusLightningStrikeBase"
-		Damage = 60
+		Damage = 20
 	}
 	{
 		Name = "ZeusRetaliateStrike"
@@ -5274,7 +5298,7 @@
 	{
 		Name = "ZeusApolloSynergyStrike"
 		InheritFrom = "ZeusLightningStrikeBase"
-		Damage = 25
+		Damage = 20
 	}
 	
 	{

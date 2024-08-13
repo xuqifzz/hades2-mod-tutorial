@@ -1386,7 +1386,7 @@ LootSetData.Hephaestus =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Hephaestus_0071",
-					Text = "Fresh-faced Apollo got to you before me, {#Emph}eh? {#Prev}Well ain't that a surprise. He can help boost your spirit, {#Emph}I {#Prev}can boost your weapon. Tough choice om?" },
+					Text = "Fresh-faced Apollo got to you before me, {#Emph}eh? {#Prev}Well ain't that a surprise. He can help boost your spirit, {#Emph}I {#Prev}can boost your weapon. Tough choice, isn't it?" },
 			},
 			HephaestusAboutAphrodite01 =
 			{

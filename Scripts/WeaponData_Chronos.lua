@@ -11,13 +11,14 @@ WeaponSetData =
 
 			PreAttackDuration = 1.40,
 			FireDuration = 0.25,
-			PostAttackDuration = 3.90,
+			PostAttackDuration = 1.35,
 
 			FireFunctionName = "ChronosTimeSlow",
-			TimeSlowDuration = 5,
+			TimeSlowDuration = 7,
 
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Chronos/ChronosPreDash",
 			PreAttackAnimation = "Enemy_Chronos_CastSlowPreFire",
@@ -25,6 +26,8 @@ WeaponSetData =
 			--PostAttackAnimation = "Enemy_Chronos_CastSlowPostFire",
 
 			AttackDistance = 9999,
+
+			ChainedWeaponOptions = { "ChronosRadialChained","ChronosRadial2", },
 
 			AttackVoiceLines =
 			{
@@ -79,7 +82,8 @@ WeaponSetData =
 
 			WaitForAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged",
 			PreAttackAnimation = "Enemy_Chronos_DefenseIntro",
@@ -349,10 +353,12 @@ WeaponSetData =
 			PreAttackDuration = 0.83,
 			FireDuration = 0.7,
 			PostAttackDuration = 0.0,
-			PreTeleportWait = 0.6,
-			PostTeleportWait = 1.2,
+			PreTeleportWait = 0.3,
+			PostTeleportWait = 0.8,
 
 			PreAttackDumbFireWeapons = { "ChronosDashRadial" },
+
+			ChainedWeaponOptions = { "ChronosScytheThrow", "ChronosGrind" },
 
 			AttackDistance = 9999,
 
@@ -973,8 +979,9 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.25,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
+			PostAttackStop = true,
 
 			PreAttackVoiceLines =
 			{
@@ -1049,7 +1056,7 @@ WeaponSetData =
 
 			PreAttackDuration = 0.68,
 			FireDuration = 1.21,
-			PostAttackDuration = 2.1,
+			PostAttackDuration = 0.95,
 
 			AttackDistance = 9999,
 
@@ -1060,6 +1067,8 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = false,
 			AngleTowardsTargetWhileFiring = false,
+
+			ChainedWeaponOptions = { "ChronosScytheThrow", },
 		},
 
 		Sounds =
@@ -1069,6 +1078,12 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab" },
 			},
 		},
+	},
+
+	ChronosRadialChained =
+	{
+		InheritFrom = { "ChronosRadial" },
+		Requirements = {},
 	},
 
 	ChronosRadial2 =
@@ -1211,8 +1226,9 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.08,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.08,
+			PostAttackStop = true,
 
 			MoveWithinRange = true,
 			AttackDistance = 500,
@@ -1266,8 +1282,9 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.08,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.08,
+			PostAttackStop = true,
 
 			MoveWithinRange = true,
 			AttackDistance = 500,

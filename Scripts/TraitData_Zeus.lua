@@ -759,11 +759,12 @@ OverwriteTableKeys( TraitData, {
 		}
 
 	},
+	-- Cut
 	ZeusExCastBoon =
 	{
 		Icon = "Boon_Zeus_35",
 		InheritFrom = { "BaseTrait", "AirBoon" },
-		RequiredFalseTraits = { "PoseidonExCastBoon", "ApolloExCastBoon" },
+		RequiredFalseTraits = { "PoseidonExCastBoon", "ApolloExCastBoon"},
 		RarityLevels =
 		{
 			Common =
@@ -1038,16 +1039,15 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 1.75,
 			},
 		},
-		ShowLowManaIndicator = true,
-		SetupFunction =
+	
+		OnManaSpendAction = 
 		{
-			Threaded = true,
-			Name = "CheckZeusManaBolt",
-			Args = 
+			FunctionName = "CheckZeusManaBolt",
+			FunctionArgs = 
 			{
-				ManaThreshold = 10,
-				Cooldown = 5,
+				Cooldown = 0.25,
 				ProjectileName = "ZeusZeroManaStrike",
+				Range = 380,
 				DamageMultiplier =
 				{
 					BaseValue = 1,
@@ -1060,13 +1060,12 @@ OverwriteTableKeys( TraitData, {
 				{ 
 					ReportedMultiplier = "DamageMultiplier",
 					ReportedCooldown = "Cooldown",
-					ReportedManaThreshold = "ManaThreshold"
 				}
 			},
 		},
 		StatLines =
 		{
-			"BoltDamageStatDisplay1",
+			"BoltDamageStatDisplay3",
 		},
 		ExtractValues =
 		{
@@ -1080,12 +1079,8 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				Key = "ReportedCooldown",
-				ExtractAs = "Cooldown",
-				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedManaThreshold",
-				ExtractAs = "ManaThreshold",
+				ExtractAs = "Fuse",
+				DecimalPlaces = 2,
 				SkipAutoExtract = true,
 			},
 		}

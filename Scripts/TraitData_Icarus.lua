@@ -223,7 +223,7 @@ OverwriteTableKeys( TraitData, {
 				Name = "CostumeArmor",
 				Args =
 				{
-					Source = "Tradeoff",
+					Source = "Icarus",
 					Delay = 0.75,
 					BaseAmount = { BaseValue = 40 },
 					ReportValues = 
@@ -279,7 +279,7 @@ OverwriteTableKeys( TraitData, {
 				Name = "CostumeArmor",
 				Args =
 				{
-					Source = "Tradeoff",
+					Source = "Icarus",
 					Delay = 0.75,
 					BaseAmount = { BaseValue = 80 },
 					ReportValues = 

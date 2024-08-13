@@ -1,5 +1,5 @@
 OverwriteTableKeys( TraitData, {
-	-- Hera
+	-- Hera 
 	HeraWeaponBoon = 
 	{
 		Icon = "Boon_Hera_27",
@@ -32,8 +32,8 @@ OverwriteTableKeys( TraitData, {
 				SourceIsMultiplier = true,
 				AbsoluteStackValues =
 				{
-					[1] = 1.200,
-					[2] = 1.150,
+					[1] = 1.150,
+					[2] = 1.100,
 				},
 			},
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -752,16 +752,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Multiplier = 2.5,
 			},
-		},	
-		WeaponDataOverride =
-		{
-			WeaponCast =
-			{
-				OnFiredFunctionArgs = 
-				{
-					ProjectileDataPropertiesMap = { TotalFuse = "FuseStart" },
-				},
-			}
 		},
 		OnEffectApplyFunction = 
 		{
@@ -769,6 +759,102 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs = 
 			{
 				EffectName = "DamageShareEffect",
+			},
+		},
+		OnEnemyDeathFunction = 
+		{
+			Name = "CheckLinkDeath",
+			FunctionArgs = 
+			{
+				EffectName = "DamageShareEffect",
+				EffectName2 = "ImpactSlow",
+				ProjectileName = "LinkNova",
+				ProjectileDamageMultiplier =
+				{
+					BaseValue = 1.0,
+					IdenticalMultiplier =
+					{
+						Value = -0.75,
+					},
+				},
+				ReportValues = {
+					ReportedDamageMultiplier = "ProjectileDamageMultiplier"
+				}
+			}
+		},
+		PropertyChanges =
+		{	
+			{
+				WeaponName = "WeaponCast",
+				ProjectileProperties = 
+				{
+					Graphic = "CastCircleInHera",
+				}
+			},
+			{
+				WeaponName = "WeaponCast",
+				ProjectileName = "ProjectileCast",
+				ProjectileProperties = 
+				{
+					DetonateFx = "CastCircleOutHera",
+				}
+			},
+		},
+		StatLines =
+		{
+			"LinkedDeathDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedDamageMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "LinkNova",
+				BaseProperty = "Damage",
+			},
+			{
+				ExtractAs = "DamageShareDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "DamageShareAmount",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Amount",
+				Format = "Percent",
+				HideSigns = true,
+			},
+		}
+	},
+	SpawnCastDamageBoon = 
+	{
+		Icon = "Boon_Hera_37",
+		InheritFrom = { "BaseTrait", "EarthBoon" },
+			RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 4/3,
+			},
+			Epic =
+			{
+				Multiplier = 5/3,
+			},
+			Heroic =
+			{
+				Multiplier = 6/3,
 			},
 		},
 		OnEnemySpawnFunction =
@@ -811,15 +897,6 @@ OverwriteTableKeys( TraitData, {
 					DetonateFx = "CastCircleOutHera",
 				}
 			},
-		},
-		OnEnemyDamagedAction = 
-		{
-			ValidProjectiles = {"HeraCastSummonProjectile"},			
-			FunctionName = "ApplyDamageShare",
-			Args = 
-			{
-				EffectName = "DamageShareEffect",
-			},			
 		},
 		StatLines = 
 		{
@@ -1195,6 +1272,81 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+	LinkedDeathDamageBoon = 
+	{
+		Icon = "Boon_Hera_35",
+		InheritFrom = { "BaseTrait", "EarthBoon" }, 
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.00,
+			},
+			Rare =
+			{
+				Multiplier = 1.5,
+			},
+			Epic =
+			{
+				Multiplier = 2.0,
+			},
+			Heroic =
+			{
+				Multiplier = 2.5,
+			},
+		},		
+		OnEnemyDeathFunction = 
+		{
+			Name = "CheckLinkDeathDamage",
+			FunctionArgs = 
+			{
+				EffectName = "DamageShareEffect",
+				DamageAmount = 
+				{
+					BaseValue = 40,
+					MinMultiplier = 0.1,
+					IdenticalMultiplier =
+					{
+						Value = -0.5,
+						DiminishingReturnsMultiplier = 0.8,
+					},
+				},
+				Vfx = "HeraRetaliateFx",
+				Delay = 0.2,
+				ReportValues = {
+					ReportedDamage = "DamageAmount",
+				}
+			}
+		},
+		StatLines =
+		{
+			"LinkedDeathDamageStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+			},
+			{
+				ExtractAs = "DamageShareDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Duration",
+			},
+			{
+				ExtractAs = "DamageShareAmount",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "DamageShareEffect",
+				BaseProperty = "Amount",
+				Format = "Percent",
+			},
+		}
+	},
 	SwapBonusBoon = 
 	{
 		Icon = "Boon_Hera_37",
@@ -1327,7 +1479,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		ManaCostModifiers = 
 		{
-			WeaponNames = WeaponSets.HeroAllWeapons,
+			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeapons, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" }),
 			ExWeapons = true,
 			ManaCostAdd = 15,
 			ReportValues = 
@@ -1337,7 +1489,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnWeaponFiredFunctions =
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeapons, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" }),	
 			FunctionName = "CheckExProjectileSpawn",
 			FunctionArgs = 
 			{
@@ -1422,81 +1574,6 @@ OverwriteTableKeys( TraitData, {
 				Key = "DamageShareAmountIncrease",
 				ExtractAs = "TooltipAmount",
 				Format = "Percent",
-			},
-			{
-				ExtractAs = "DamageShareDuration",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "DamageShareEffect",
-				BaseProperty = "Duration",
-			},
-			{
-				ExtractAs = "DamageShareAmount",
-				SkipAutoExtract = true,
-				External = true,
-				BaseType = "EffectData",
-				BaseName = "DamageShareEffect",
-				BaseProperty = "Amount",
-				Format = "Percent",
-			},
-		}
-	},
-	LinkedDeathDamageBoon = 
-	{
-		Icon = "Boon_Hera_35",
-		InheritFrom = { "BaseTrait", "EarthBoon" }, 
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},		
-		OnEnemyDeathFunction = 
-		{
-			Name = "CheckLinkDeath",
-			FunctionArgs = 
-			{
-				EffectName = "DamageShareEffect",
-				DamageAmount = 
-				{
-					BaseValue = 40,
-					MinMultiplier = 0.1,
-					IdenticalMultiplier =
-					{
-						Value = -0.5,
-						DiminishingReturnsMultiplier = 0.8,
-					},
-				},
-				Vfx = "HeraRetaliateFx",
-				Delay = 0.2,
-				ReportValues = {
-					ReportedDamage = "DamageAmount",
-				}
-			}
-		},
-		StatLines =
-		{
-			"LinkedDeathDamageStatDisplay1",
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ReportedDamage",
-				ExtractAs = "Damage",
 			},
 			{
 				ExtractAs = "DamageShareDuration",

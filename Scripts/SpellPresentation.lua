@@ -134,7 +134,7 @@ function CreateSpellHUD( trait, args )
 	if trait.TraitInfoCardId == nil then
 		trait.TraitInfoCardId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = 0.2 })
-		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = 32 })
+		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
 	else
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = 0.2 })	
 	end
@@ -145,7 +145,7 @@ function CreateSpellHUD( trait, args )
 	if trait.TraitInfoChargeId == nil then		
 		trait.TraitInfoChargeId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
 		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })
-		Attach({ Id = trait.TraitInfoChargeId, DestinationId = anchorId, OffsetY = 32 })
+		Attach({ Id = trait.TraitInfoChargeId, DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
 		CreateTextBox({
 			Id = trait.TraitInfoChargeId,
 			Font = "NumericP22UndergroundSCMedium",
@@ -178,7 +178,7 @@ function CreateSpellHUD( trait, args )
 		if trait.TraitInfoUsesId == nil then
 			trait.TraitInfoUsesId  = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Labels" })
 			SetAlpha({ Id = trait.TraitInfoUsesId , Fraction = 1, Duration = 0.2 })
-			Attach({ Id = trait.TraitInfoUsesId , DestinationId = anchorId, OffsetY = 32 })
+			Attach({ Id = trait.TraitInfoUsesId , DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
 			CreateTextBox({
 				Id = trait.TraitInfoUsesId,
 				Text = "UI_Uses",

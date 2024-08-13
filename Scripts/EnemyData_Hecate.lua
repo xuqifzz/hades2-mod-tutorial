@@ -2077,7 +2077,7 @@
 				{
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Hecate" },
-						Comparison = "<=",
+						Comparison = ">",
 						Value = 0,
 					},
 				},
@@ -2092,7 +2092,7 @@
 				{
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Hecate" },
-						Comparison = "<=",
+						Comparison = ">",
 						Value = 0,
 					},
 				},
@@ -2651,6 +2651,7 @@
 	{
 		InheritFrom = { "BaseVulnerableEnemy"},
 		GenusName = "Hecate",
+		BlockCharm = true,
 		MaxHealth = 999999,
 		ProjectileBlockPresentationFunctionName = "HecateCloneHitPresentation",
 		--IgnoreDamage = true,

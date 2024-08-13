@@ -18109,6 +18109,7 @@
 
     {
       Name = "PoseidonConeFxEmitter"
+      FilePath = "Dev\blank_invisible"
       Material = "Unlit"
       Duration = 0.25
       Red = 0
@@ -21512,6 +21513,38 @@
       FilePath = "Fx\HermesSlowBack\HermesSlowBack"
       GroupName = "FX_Dark"
       StopSoundOnFinishFade = 0.2
+    }
+    
+    {
+      Name = "ArtemisDefenseFront"
+      ChainTo = "ArtemisDefenseFrontFade"
+      FilePath = "Fx\EurydiceShield\EurydiceShield"
+      GroupName = "FX_Standing_Add"
+      
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      EndFrame = 30
+      Loop = true
+      NumFrames = 30
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetZ = 80.0
+      SortMode = "FromParent"
+      TransferFrameFromThis = true
+      Scale = 0.85
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "ArtemisDefenseFrontFade"
+      InheritFrom = "ArtemisDefenseFront"
+      ChainTo = "null"
+      CreateAnimation = "QuickFlashGreen"
+      StartAlpha = 1.0
+      Duration = 0.25
+      Loop = false
+      EndScale = 1.25
     }
     
     {

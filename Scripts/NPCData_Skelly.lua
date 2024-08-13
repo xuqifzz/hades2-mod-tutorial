@@ -472,7 +472,7 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I've revealed in the Pool the Aspects of the Nocturnal Arms. Not their true forms, exactly... but different ones, with their own great power." },
 				{ Cue = "/VO/Skelly_0186",
-					Text = "Ah, the {#DialogLegendaryFormat}Nocturnal Arms{#Prev}! Your brother, he once used their counterparts, and those ones too turned into other stuff. Well if you need test your newfound strength, I'm here." },
+					Text = "Ah, the {#DialogLegendaryFormat}Nocturnal Arms{#Prev}! Your brother, he once used their counterparts, and those ones too turned into other stuff. Well if you need to test your newfound strength, I'm here." },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.4,
@@ -1142,7 +1142,7 @@
 					{
 						Path = { "GameState", "BountiesCompleted" },
 						UseLength = true,
-						Comparison = "<=",
+						Comparison = "<",
 						Value = 2,
 					},
 					NamedRequirements =  { "ShrineUnlocked" },

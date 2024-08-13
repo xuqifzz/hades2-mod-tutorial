@@ -11,7 +11,7 @@ function DumbFireWeapon(source, traitName, args)
 	while UseTrait( CurrentRun.Hero, traitName ) do
 		local randomStrikePointId = SpawnObstacle({ Name = "InvisibleTarget", Group = "Scripting", DestinationId = CurrentRun.Hero.ObjectId, OffsetX = RandomFloat(-1 * args.Radius, args.Radius), OffsetY = RandomFloat(-1 * args.Radius, args.Radius )})
 		FireWeaponFromUnit({ Weapon = args.Weapon,  AutoEquip = true, Id = source.ObjectId, DestinationId = randomStrikePointId, })
-		Destroy({Id = randomSTrikePointId})
+		Destroy({Id = randomStrikePointId})
 		wait(RandomFloat(args.IntervalMin, args.IntervalMax))
 	end
 end
@@ -501,6 +501,22 @@ function AddTraitToHero(args)
 			AddHeroWeaponUpgrade( weaponName, traitData.UpgradeHeroWeapon.UpgradeName )
 		end
 	end
+	if traitData.MoneyMultiplier then
+		if not IsEmpty( MapState.RoomRequiredObjects ) then
+			for id, object in pairs( MapState.RoomRequiredObjects ) do
+				if object.DropMoney then
+					object.DropMoney = object.DropMoney * traitData.MoneyMultiplier
+				end
+			end
+		end
+		if not IsEmpty( MapState.OptionalRewards ) then 
+			for id, object in pairs( MapState.OptionalRewards ) do
+				if object.DropMoney then
+					object.DropMoney = object.DropMoney * traitData.MoneyMultiplier
+				end
+			end
+		end
+	end
 
 	if traitData.EnemyPropertyChanges and not IsEmpty( ActiveEnemies ) then
 		for enemyId, enemy in pairs( ActiveEnemies ) do
@@ -835,10 +851,10 @@ function CheckActivatedTraits( unit, args )
 		local trait = GetHeroTrait( data.Name )
 		local startingMultiplier = trait.ElementalMultiplier or 0
 		local newtrait = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = trait.Name, StackNum = trait.StackNum, Rarity = trait.Rarity })
-		RemoveTraitData(CurrentRun.Hero, trait, { SkipActivatedTraitUpdate = true })
 		newtrait.ElementalMultiplier = expectedMultiplier
 		newtrait.StackNum = trait.StackNum
 		AddTraitData( CurrentRun.Hero, newtrait, { SkipActivatedTraitUpdate = true, SkipNewTraitHighlight = true})
+		RemoveTraitData(CurrentRun.Hero, trait, { SkipActivatedTraitUpdate = true })
 		if expectedMultiplier > startingMultiplier then
 			table.insert( upgradedTraitNames, trait.Name )
 		elseif expectedMultiplier < startingMultiplier then
@@ -1145,6 +1161,14 @@ function RemoveTraitData( unit, trait, args )
 	end
 	
 	if unit == CurrentRun.Hero and not args.SkipActivatedTraitUpdate then
+
+		if trait.OverrideWeaponFireNames then
+			for weaponName, overriddenWeaponName in pairs( trait.OverrideWeaponFireNames ) do
+				if overriddenWeaponName ~= "nil" then
+					SwapWeapon({ Name = weaponName, SwapWeaponName = overriddenWeaponName, DestinationId = unit.ObjectId, StompOriginalWeapon = true })
+				end
+			end
+		end
 		CheckActivatedTraits( unit )
 	end
 	if trait.AddOutgoingLifestealModifiers and unit.OutgoingLifestealModifiers then	
@@ -1467,9 +1491,10 @@ function IsGodTrait( traitName, args )
 	return false
 end
 
-function GetLootSourceName( traitName )
+function GetLootSourceName( traitName, args )
+	args = args or {}
 	for lootName, god in pairs(LootData) do
-		if ( god.GodLoot or god.TreatAsGodLootByShops ) and not god.DebugOnly and god.TraitIndex[traitName] then
+		if ( god.GodLoot or god.TreatAsGodLootByShops or args.ForBoonInfo ) and not god.DebugOnly and god.TraitIndex[traitName] then
 			return lootName
 		end
 	end
@@ -2372,6 +2397,9 @@ function UpgradeAllCommon( args, origTraitData )
 	if sourceTraitData and args.ActivatedValues then
 		for name, data in pairs( args.ActivatedValues ) do
 			sourceTraitData[name] = DeepCopyTable( data )
+			if CurrentRun.Hero.HeroTraitValuesCache then
+				CurrentRun.Hero.HeroTraitValuesCache[name] = nil
+			end
 		end
 	end
 end
@@ -2741,7 +2769,7 @@ function UpgradeHarvestBoon( traitDatas )
 				for i, key in pairs( PersistentTraitKeys ) do
 					processedData[key] = persistentValues[key]
 				end
-				AddTraitToHero({ TraitData = processedData, SkipActivatedTraitUpdate = true })
+				AddTraitToHero({ TraitData = processedData, SkipActivatedTraitUpdate = true, SkipSetup = true })
 			end
 
 			if index == 1 then

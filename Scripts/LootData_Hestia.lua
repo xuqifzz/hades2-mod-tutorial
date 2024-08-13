@@ -1170,7 +1170,7 @@ LootSetData.Hestia =
 
 				{ Cue = "/VO/Hestia_0075",
 					
-					Text = "You really are an odd one, hot stuff. At first I thought you were a little stuck up, much like some others whom I happen to know only too well. But you truly are committed to righting this wrong from well before your time, aren't you?" },
+					Text = "You really are an odd one, hot stuff. At first I thought you were a little stuck up, much like some others whom I happen to know only too well. But you truly are committed to righting this wrong from before your time, aren't ya?" },
 			},
 
 			HestiaLegendaryPickUp01 =

@@ -317,7 +317,7 @@ OverwriteTableKeys( TraitData, {
 		RequiredWeapon = "WeaponAxe",
 		AddOutgoingDamageModifiers =
 		{
-			NonExHealthBufferRemoval = 0.20,
+			NonExHealthBufferRemoval = 0.35,
 			ValidWeapons = { "WeaponAxeBlock2" },
 			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
 		},

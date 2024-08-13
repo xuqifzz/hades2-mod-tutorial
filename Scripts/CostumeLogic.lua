@@ -90,7 +90,12 @@ function HealthBufferTraitSort( itemA, itemB )
 	end
 	local indexA = GetKey( { "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe" }, slotA )
 	local indexB = GetKey( { "Renewable", "Tradeoff", "Essence", "Keepsake", "Robe" }, slotB )
-
+	if indexA and not indexB then
+		return false
+	end
+	if indexB and not indexA then
+		return true
+	end
 	if indexA ~= indexB then
 		return indexA < indexB
 	end

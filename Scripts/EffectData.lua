@@ -309,6 +309,7 @@
 		VfxRequireKey = "RootActive",
 		Vfx = "DemeterRootFxFront",
 		BackVfx = "DemeterRootFxBack",
+		VfxRequiresTimeSlow = true,
 		ShowDuration = true,
 		SharedVulnerabilityCategory = "Root",
 		EffectData = {
@@ -1105,7 +1106,9 @@
 			Duration = 8,
 			Modifier = 1.0,
 			CanAffectInvulnerable = true,
-		}
+		},
+		OnApplyFunctionName = "EffectUninterruptibleApply",
+		OnClearFunctionName = "EffectUninterruptibleClear"
 	},
 	MiasmaSlow = 
 	{

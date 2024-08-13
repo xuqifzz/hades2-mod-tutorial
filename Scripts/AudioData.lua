@@ -7572,6 +7572,14 @@ GlobalVoiceLines.CannotAffordMemUpgradeVoiceLines =
 	SuccessiveChanceToPlayAll = 0.1,
 	UsePlayerSource = true,
 	SkipAnim = true,
+	GameStateRequirements =
+	{
+		{
+			Path = { "GameState", "MaxMetaUpgradeCostCache" },
+			Comparison = "<",
+			Value = 30,
+		}
+	},
 
 	{ Cue = "/VO/Melinoe_0779", Text = "I need more Psyche..." },
 	{ Cue = "/VO/Melinoe_0780", Text = "Don't have enough Psyche..." },

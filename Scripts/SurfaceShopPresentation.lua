@@ -31,7 +31,7 @@ function HermesWipePresentation()
 	local godImage = SpawnObstacle({ Name = "BlankObstacle", DestinationId = CurrentRun.Hero.ObjectId, Group = "Combat_Menu" })
 	Teleport({ Id = godImage, OffsetX = -1500, OffsetY = (1080/2) })
 	DrawScreenRelative({ Ids = { godImage } })
-	CreateAnimation({ Name = "Portrait_Hermes_Default_01", DestinationId = godImage, Scale = 1.1 })
+	SetAnimation({ Name = "Portrait_Hermes_Default_01", DestinationId = godImage, Scale = 1.1 })
 
 	local godDestination = SpawnObstacle({ Name = "BlankObstacle", DestinationId = CurrentRun.Hero.ObjectId, Group = "Combat_Menu" })
 	Teleport({ Id = godDestination, OffsetX = 3000, OffsetY = (1080/2) })
@@ -41,5 +41,6 @@ function HermesWipePresentation()
 	wait(0.35)
 
 	SetAlpha({ Id = godImage, Fraction = 0, Duration = 0.12, TimeModifierFraction = 0 })
-	--Destroy({ Id = godImage })
+	wait(0.12)
+	Destroy({ Id = godImage })
 end

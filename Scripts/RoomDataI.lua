@@ -204,6 +204,7 @@ RoomSetData.I =
 								{
 									CanDuplicate = false,
 									MetaConversionEligible = false,
+									NPCDrop = true,
 									AddResources =
 									{
 										MetaCurrency = 300,

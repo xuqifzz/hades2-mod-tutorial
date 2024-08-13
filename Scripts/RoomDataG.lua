@@ -708,6 +708,7 @@ RoomSetData.G =
 								Overrides =
 								{
 									CanDuplicate = false,
+									NPCDrop = true,
 									MetaConversionEligible = false,
 									AddResources =
 									{

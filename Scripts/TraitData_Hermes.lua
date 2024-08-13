@@ -217,6 +217,7 @@ OverwriteTableKeys( TraitData, {
 		MoneyMultiplier = { BaseValue = 1.2, 
 				SourceIsMultiplier = true},
 		
+		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements = 
 		{					
 			{

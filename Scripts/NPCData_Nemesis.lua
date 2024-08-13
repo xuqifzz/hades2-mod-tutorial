@@ -2528,7 +2528,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NemesisGift06", "MorosGift06", "NemesisBathHouse02", "MorosBathHouse02" }
+						HasAll = { "NemesisTaverna01", "MorosTaverna01", "NemesisBathHouse02", "MorosBathHouse02" }
 					},
 				},
 				UseText = "UseListenNPC",
@@ -3288,6 +3288,8 @@ UnitSetData.NPC_Nemesis =
 				PlayOnce = true,
 				UseableOffSource = true,
 				OnGiftTrack = true,
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
 				HintId = "Codex_TavernaGiftHint",
 				Cost =
 				{
@@ -4364,7 +4366,7 @@ UnitSetData.NPC_Nemesis =
 					GameStateRequirements =
 					{
 						{
-							PathTrue = { "GameState", "TextLinesRecord", "NemesisGift06" },
+							PathTrue = { "GameState", "TextLinesRecord", "NemesisTaverna01" },
 						},
 					},
 				},

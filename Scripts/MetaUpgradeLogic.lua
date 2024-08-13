@@ -245,10 +245,9 @@ function CheckWeaponCastChannelSlow( weaponData, args )
 		return
 	end
 	wait( GetHideChargeDuration(weaponData), RoomThreadName)
-	
 	local chargeStages = GetWeaponChargeStages( weaponData )
 	local skipWait = false
-	if chargeStages[1] and chargeStages[1].ChannelSlowEventOnStart then
+	if chargeStages[1] and ( chargeStages[1].ChannelSlowEventOnStart or chargeStages[1].ChannelSlowEventOnEnter ) then
 		if not MapState.WeaponCharge or not MapState.WeaponCharge[weaponData.Name] then
 			return
 		end	

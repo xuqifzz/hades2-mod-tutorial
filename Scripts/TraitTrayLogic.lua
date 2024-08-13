@@ -73,6 +73,10 @@ function OpenTraitTrayScreen( args )
 	args.TransitionTime = 0
 	TraitTrayScreenShowCategory( screen, screen.ActiveCategoryIndex, args )
 
+	if screen.Closing then
+		return screen
+	end
+
 	SetAlpha({ Ids = { HUDScreen.Components.WeaponSlotIcon.Id, HUDScreen.Components.FamiliarSlotIcon.Id }, Duration = 0.2, Fraction = ConfigOptionCache.HUDOpacity })	
 	local allTraitComponents = MergeTables( HUDScreen.SlottedTraitComponents, HUDScreen.ActiveTraitComponents )
 	for id, activeTraitComponent in pairs( allTraitComponents ) do
@@ -104,7 +108,7 @@ function OpenTraitTrayScreen( args )
 		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
 	end
-	if args.HideInfoButton then
+	if args.HideInfoButton or not IsEmpty( RequiredKillEnemies ) or IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForInventory } ) or IsAggroedUnitBlockingInteract() then
 		UseableOff({ Id = screen.Components.InfoButton.Id })
 		screen.Components.InfoButton.OnPressedFunctionName = nil
 	end
@@ -179,6 +183,9 @@ function TraitTrayScreenSetupTabs( screen, data )
 end
 
 function TraitTrayScreenShowCategory( screen, categoryIndex, args )
+	if screen.Closing then
+		return
+	end
 	args = args or {}
 	AddInputBlock({ Name = "TraitTrayScreenSelectCategory" })
 	local prevCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
@@ -199,7 +206,11 @@ function TraitTrayScreenShowCategory( screen, categoryIndex, args )
 	end
 	TraitTrayScreenRemoveItems( screen )	
 	wait( args.TransitionTime or 0.02 )
-	
+	if screen.Closing then
+		RemoveInputBlock({ Name = "TraitTrayScreenSelectCategory" })
+		return
+	end
+
 	screen.ActiveCategoryIndex = categoryIndex
 	local activeCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
 	-- Highlight new category

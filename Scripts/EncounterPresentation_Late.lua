@@ -150,9 +150,6 @@ end
 
 function FloodEncounterStartPresentation( eventSource )
 
-	-- PlaySound({ Name = "/Leftovers/SFX/StandardAscensionSFX" })
-	-- PlaySound({ Name = "/SFX/Player Sounds/PoseidonWaterImpactDetonate" })
-
 	if AudioState.FloodSoundId == nil then
 		AudioState.FloodSoundId = PlaySound({ Name = "/Leftovers/Object Ambiences/WaterRushingLarge" })
 	end
@@ -167,8 +164,10 @@ end
 
 function FloodEncounterStartEndAudio()
 	wait( 5.0, RoomThreadName )
-	StopSound({ Id = AudioState.FloodSoundId, Duration = 5.0 })
-	AudioState.FloodSoundId = nil
+	if AudioState.FloodSoundId ~= nil then
+		StopSound({ Id = AudioState.FloodSoundId, Duration = 5.0 })
+		AudioState.FloodSoundId = nil
+	end
 end
 
 function FloodTrapFireStartPresentation()
@@ -959,8 +958,11 @@ end
 
 function NemesisFieldsApproachPresentation( nemesis, args )
 	args = args or {}
-	AngleTowardTarget({ Id = nemesis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
-	SetAnimation({ Name = nemesis.TurnInPlaceAnimation, DestinationId = nemesis.ObjectId })
+
+	if not nemesis.TakingExitDoorId then
+		AngleTowardTarget({ Id = nemesis.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
+		SetAnimation({ Name = nemesis.TurnInPlaceAnimation, DestinationId = nemesis.ObjectId })
+	end
 
 	if AudioState.SecretMusicName ~= nemesis.ThemeMusic then
 		-- First approach

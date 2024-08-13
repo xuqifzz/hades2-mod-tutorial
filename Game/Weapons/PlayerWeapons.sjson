@@ -451,7 +451,7 @@
 		ChargeCancelMovement = true
 		FullyAutomatic = false
 		BarrelLength = 32
-		AutoLock = true
+		AutoLock = false
 		AutoLockRange = 1000
 		AutoLockArcDistance = 75
 		ShowFreeAimLine = true
@@ -3697,7 +3697,7 @@
 		SelfVelocity = 0
 		ChargeStartFx = "null"
 		ChargeFinishFx = "null"
-		Cooldown = 0.3
+		Cooldown = 0.5
 		MinChargeToFire = 1.0
 		ChargeFx = "null"
 		ChargeTime = 0.1

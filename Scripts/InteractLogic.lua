@@ -624,7 +624,7 @@ function UseLoot( usee, args, user )
 			SpendResources( usee.ResourceCosts, usee.Name or "Loot" )
 			RemoveStoreItem( { Id = usee.ObjectId, Name = usee.Name, IsBoon = true, BoonRaritiesOverride = usee.BoonRaritiesOverride, StackNum = usee.StackNum } )
 			if (usee.ResourceCosts.Money or 0) > 0 then
-				CheckCharonPointsOwed( "UseLoot" )
+				HandleCharonPurchase( "UseLoot", usee.ResourceCosts.Money )
 			end
 			PlaySound({ Name = "/Leftovers/Menu Sounds/StoreBuyingItem" })
 			thread( PlayVoiceLines, GlobalVoiceLines.PurchasedConsumableVoiceLines, true )
@@ -970,7 +970,7 @@ function UseConsumableItem( consumableItem, args, user )
 
 		SpendResources( consumableItem.ResourceCosts, consumableItem.Name )
 		if consumableItem.ResourceCosts ~= nil and (consumableItem.ResourceCosts.Money or 0) > 0 then
-			CheckCharonPointsOwed( "UseConsumableItem" )
+			HandleCharonPurchase( "UseConsumableItem", consumableItem.ResourceCosts.Money )
 		end
 	end
 
@@ -1428,7 +1428,7 @@ function AttemptRerollShipWheel( run, wheel )
 	end
 
 	wheel.ChosenRewardType = ChooseRoomReward( CurrentRun, CurrentRun.CurrentRoom, wheel.RewardStoreName, rewardsChosen, { IgnoreForcedReward = true } )
-	SetupRoomReward( CurrentRun, wheel.Room, rewardsChosen, { ChosenRewardType = wheel.ChosenRewardType } )
+	SetupRoomReward( CurrentRun, wheel.Room, rewardsChosen, { ChosenRewardType = wheel.ChosenRewardType, AlwaysSetupForceLootName = true } )
 	wheel.ForceLootName = wheel.Room.ForceLootName
 
 	CreateDoorRewardPreview( wheel, wheel.ChosenRewardType, wheel.ForceLootName, nil, { ReUseIds = true } )

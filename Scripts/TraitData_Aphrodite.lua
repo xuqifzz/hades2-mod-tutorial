@@ -873,6 +873,7 @@ OverwriteTableKeys( TraitData, {
 		SetupFunction =
 		{
 			Threaded = true,
+			RequiredContext = "StartRoom",
 			Name = "WeakCrowdMana",
 			Args =
 			{

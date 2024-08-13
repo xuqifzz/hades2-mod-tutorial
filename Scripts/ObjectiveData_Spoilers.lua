@@ -42,7 +42,7 @@ OverwriteTableKeys( ObjectiveData,
 	PerfectClear = { Description = "Objective_PerfectClear" },
 	PerfectClearCleanup = { Description = "Objective_PerfectClearCleanup" },
 
-	NemesisDamageContest = { Description = "Objective_NemesisDamageContest", },
+	NemesisDamageContest = { Description = "Objective_NemesisDamageContest", LuaKey = "TempTextData", StartingLuaValue = { DamageContestAmount = 0, DamageGoal = PresetEventArgs.NemesisDamageContestArgs.DamageGoal }  },
 })
 
 OverwriteTableKeys( ObjectiveSetData, 

@@ -229,6 +229,18 @@
       OffsetX = 200
     }
 
+    OptionControlsStyleLeftArrow =
+    {
+      InheritFrom = "OptionNumBoxLeftArrow"
+      OffsetX = -160
+    }
+
+    OptionControlsStyleRightArrow =
+    {
+      InheritFrom = "OptionNumBoxRightArrow"
+      OffsetX = 160
+    }
+
     OptionStringNumBoxLeftArrow =
     {
       Graphic = "Arrow_Left"

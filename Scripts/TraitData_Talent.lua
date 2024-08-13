@@ -768,7 +768,7 @@
 		},
 		ManaSpendCostModifiers = 
 		{
-			Add = 40,
+			Add = 50,
 			ReportValues = { ReportedManaCost = "Add" }
 		},
 		StatLines =
@@ -804,10 +804,10 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_64",
-		TimeSlowModifier = 0.05,
+		TimeSlowModifier = 0.25,
 		ManaSpendCostModifiers = 
 		{
-			Add = 20,
+			Add = 30,
 			ReportValues = { ReportedManaCost = "Add" }
 		},
 		StatLines =
@@ -970,10 +970,6 @@
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_74",
 		
-		SetupFunction =
-		{
-			Name = "LaserMatchDuration",
-		},
 		ManaSpendCostModifiers = 
 		{
 			Add = 60,
@@ -2357,7 +2353,7 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_45",
-		HexCooldownMoveSpeedBuff = 1.05,
+		HexCooldownMoveSpeedBuff = { BaseValue = 1.05, SourceIsMultiplier = true },
 		
 		ExtractValues =
 		{
@@ -2396,8 +2392,8 @@
 		Icon = "Boon_Selene_44",
 		AddOutgoingDamageModifiers =
 		{
-			HealthBufferDamageMultiplier = 1.20,
-			ValidWeapons = { "WeaponStaffDash" },
+			HealthBufferDamageMultiplier = { BaseValue = 1.2, SourceIsMultiplier = true },
+			ValidWeapons = { "WeaponSpellLeap" },
 			ReportValues = { ReportedWeaponMultiplier = "HealthBufferDamageMultiplier"},
 		},
 		ExtractValues = 
@@ -2597,14 +2593,24 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_54",
-		AddOutgoingDamageModifiers =
+		TransformFunctionNames = 
 		{
-			BossDamageMultiplier =
+			StartTransformFunctionName = "AddTransformDamage",
+			EndTransformFunctionName = "RemoveTransformDamage",
+			Args = 
 			{
-				BaseValue = 1.1,
-				SourceIsMultiplier = true,
+				DamageModifier = 
+				{
+					Name = "TransformBossDamage",
+					Temporary = true,
+					BossDamageMultiplier =
+					{
+						BaseValue = 1.1,
+						SourceIsMultiplier = true,
+					},
+					ReportValues = { ReportedDamageBoost = "BossDamageMultiplier"},
+				}
 			},
-			ReportValues = { ReportedDamageBoost = "BossDamageMultiplier"},
 		},
 		ExtractValues = 
 		{
@@ -2619,7 +2625,7 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_55",
-		HexCooldownDodgeBuff = 0.01,
+		HexCooldownDodgeBuff = { BaseValue = 0.01},
 		
 		ExtractValues =
 		{

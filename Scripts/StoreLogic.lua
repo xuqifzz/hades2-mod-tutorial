@@ -855,12 +855,14 @@ function CreateStoreButtons( screen )
 						statLineLeft.Text = statLine
 						statLineLeft.OffsetY = offsetY
 						statLineLeft.LuaValue = statLineData
+						statLineLeft.AppendToId = descriptionText.Id
 						CreateTextBoxWithFormat( statLineLeft )
 
 						local statLineRight = DeepCopyTable(ScreenData.UpgradeChoice.StatLineRight)
 						statLineRight.Id = components[purchaseButtonKey].Id
 						statLineRight.Text = statLine
 						statLineRight.OffsetY = offsetY
+						statLineRight.AppendToId = descriptionText.Id
 						statLineRight.LuaValue = statLineData
 						CreateTextBoxWithFormat( statLineRight )
 
@@ -1057,7 +1059,7 @@ function HandleStorePurchase( screen, button )
 	SpendResources( upgradeData.ResourceCosts, upgradeData.Name or "WeaponUpgrade", { SkipQuestStatusCheck = true, } )
 	UpdateMoneyUI( true )
 	if upgradeData.ResourceCosts ~= nil and (upgradeData.ResourceCosts.Money or 0) > 0 then
-		CheckCharonPointsOwed( "HandleStorePurchase" )
+		HandleCharonPurchase( "HandleStorePurchase", upgradeData.ResourceCosts.Money )
 	end
 
 	local values = {}

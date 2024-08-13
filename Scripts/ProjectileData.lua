@@ -183,6 +183,12 @@ OverwriteTableKeys( ProjectileData, {
 		InheritFrom = { "HestiaColorProjectile", },
 		CanIgnite = true,
 	},
+
+	ZeusOnSpawn =
+	{
+		InheritFrom = { "ZeusColorProjectile", },
+	},
+
 	ProjectileZeusSpark =
 	{
 		InheritFrom = { "ZeusColorProjectile", },

@@ -1077,7 +1077,7 @@ function TraitUICreateText( trait, args )
 	if trait.TraitInfoCardId == nil then
 		trait.TraitInfoCardId = CreateScreenObstacle({ Name = "TraitTray_LevelBacking", Group = "Combat_Menu_TraitTray_Labels" })
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = args.FadeDuration or 0.2 })
-		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = 40 })
+		Attach({ Id = trait.TraitInfoCardId, DestinationId = anchorId, OffsetY = ScreenData.HUD.TraitInfoCardOffsetY })
 	else
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 1, Duration = args.FadeDuration or 0.2 })	
 	end
@@ -1497,24 +1497,29 @@ end
 
 function HUDHideTrait( trait, args )
 	args = args or {}
+	local duration = args.FadeOutDuration or HUDScreen.FadeOutDuration
 	if trait.AnchorId ~= nil then
-		SetAlpha({ Id = trait.AnchorId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.AnchorId, Duration = duration, Fraction = 0 })
 		UseableOff({ Id = trait.AnchorId })
 	end
 	if trait.TraitInfoCardId ~= nil then
-		SetAlpha({ Id = trait.TraitInfoCardId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.TraitInfoCardId, Duration = duration, Fraction = 0 })
 	end
 	if trait.TraitInfoUsesId ~= nil then
-		SetAlpha({ Id = trait.TraitInfoUsesId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.TraitInfoUsesId, Duration = duration, Fraction = 0 })
 	end
 	if trait.TraitInfoChargeId ~= nil then
-		SetAlpha({ Id = trait.TraitInfoChargeId, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.TraitInfoChargeId, Duration = duration, Fraction = 0 })
 	end
 	if trait.TraitIconOverlay ~= nil then
-		SetAlpha({ Id = trait.TraitIconOverlay, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.TraitIconOverlay, Duration = duration, Fraction = 0 })
 	end
 	if trait.TraitActiveOverlay ~= nil then
-		SetAlpha({ Id = trait.TraitActiveOverlay, Duration = args.FadeOutDuration or HUDScreen.FadeOutDuration, Fraction = 0 })
+		SetAlpha({ Id = trait.TraitActiveOverlay, Duration = duration, Fraction = 0 })
+	end
+	if args.RemoveAfterHidden then
+		wait( duration )
+		TraitUIRemove( trait )
 	end
 end
 

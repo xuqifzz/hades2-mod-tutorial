@@ -531,7 +531,7 @@ CodexData =
 						UnlockGameStateRequirements =
 						{
 							{
-								Path = { "GameState", "ItemInteractions", "SpellDrop" },
+								Path = { "GameState", "UseRecord", "SpellDrop" },
 								Comparison = ">=",
 								Value = 2,
 							},

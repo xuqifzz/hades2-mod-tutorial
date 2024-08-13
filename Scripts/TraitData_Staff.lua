@@ -403,31 +403,73 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "WeaponTrait" },
 		Icon = "Hammer_Staff_35",
 		RequiredWeapon = "WeaponStaffSwing",
-		AddIncomingDamageModifiers =
+		WeaponDataOverride = 
 		{
-			GlobalMultiplier = 1.3,
-			ReportValues =
+			WeaponStaffSwing = 
 			{
-				ReportedMultiplier = "GlobalMultiplier"
+				ManaChanges = 
+				{
+					Disabled = 
+					{
+						NumProjectiles = 1,
+					},
+					Enabled = 
+					{
+						NumProjectiles = 2,
+					}
+				}
 			},
+			WeaponStaffSwing2 = 
+			{
+				ManaChanges = 
+				{
+					Disabled = 
+					{
+						NumProjectiles = 1,
+					},
+					Enabled = 
+					{
+						NumProjectiles = 2,
+					}
+				}
+			},
+			WeaponStaffDash = 
+			{
+				ManaChanges = 
+				{
+					Disabled = 
+					{
+						NumProjectiles = 1,
+					},
+					Enabled = 
+					{
+						NumProjectiles = 2,
+					}
+				}
+			},
+			WeaponStaffSwing3 = 
+			{
+				ManaChanges = 
+				{
+					Disabled = 
+					{
+						NumProjectiles = 1,
+					},
+					Enabled = 
+					{
+						NumProjectiles = 2,
+					}
+				}
+			},
+		},
+		ManaCostModifiers = 
+		{
+			WeaponNames = WeaponSets.HeroPrimaryWeapons,
+			ManaCostAdd = 5,
+			ReportValues = { ReportedManaCost = "ManaCostAdd" }
 		},
 		PropertyChanges =
 		{
-			--[[
-			{
-				WeaponName = "WeaponStaffSwing5",
-				ExcludeLinked = true,
-				WeaponProperties = 
-				{
-					AimLineAnimation = "StaffAuraAimLineNoMovement",
-					BarrelLength = 800,
-					ProjectileOffsetStart = "LEFT",
-					AimLineCountOverride = 1,
-					NumProjectiles = 9,
-					ProjectileWaveInterval = 0.2,
-				},
-			},
-			]]
 			{
 				WeaponNames = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash", },
 				ExcludeLinked = true,
@@ -463,9 +505,8 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Waves",
 			},
 			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "DamageTakenIncrease",
-				Format = "PercentDelta",
+				Key = "ReportedManaCost",
+				ExtractAs = "Mana",
 			},
 		}
 	},

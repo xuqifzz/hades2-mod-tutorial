@@ -301,7 +301,7 @@ NamedRequirementsData =
 		},
 		]]--
 		{
-			Path = { "GameState", "LifetimeResourcesSpent", "Money" },
+			Path = { "GameState", "MoneySpentTowardCharonPoints" },
 			Comparison = ">=",
 			Value = 1000,
 		},

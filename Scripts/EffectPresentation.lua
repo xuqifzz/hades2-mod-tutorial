@@ -5,7 +5,7 @@
 	if not ConfigOptionCache.ShowUIAnimations then
 		return
 	end
-	if not args.Reapplied and not victim.IsDead then
+	if not args.Reapplied and not victim.IsDead and (not effectData.VfxRequiresTimeSlow or not victim.IgnoreTimeSlowEffects) then
 		if effectData.Vfx ~= nil then
 			CreateAnimation({ Name = effectData.Vfx, DestinationId = victim.ObjectId, OffsetZ = victim.EffectVfxOffsetZ, Scale = victim.EffectVfxScale })
 		end

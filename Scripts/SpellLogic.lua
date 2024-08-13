@@ -591,6 +591,8 @@ function PolymorphCastTeleport( weaponData, traitArgs, triggerArgs )
 		return
 	end
 	local castProjectilePointId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.ProjectileX, LocationY = triggerArgs.ProjectileY, Group = "Scripting" })
+	local testPoint = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.ProjectileX, LocationY = triggerArgs.ProjectileY, Group = "Scripting" })
+	
 	local teleportEnemies = {}	
 	for id, enemy in pairs( ActiveEnemies ) do
 		if enemy.ActiveEffects and enemy.ActiveEffects.PolymorphStun then
@@ -601,19 +603,35 @@ function PolymorphCastTeleport( weaponData, traitArgs, triggerArgs )
 	if #teleportEnemies > 0 then
 		for i, enemyId in pairs( teleportEnemies ) do
 			-- Primary attempt within cast radius
-			local spawnPointId = SelectSpawnPoint( CurrentRun.CurrentRoom, nil, { SpawnNearId = castProjectilePointId, SpawnRadius = 350 }, { IgnoreIds = usedIds } )
-			if spawnPointId == nil or spawnPointId <= 0 then
+			local spawnPoints = FindSpawnPointsInCast( castProjectilePointId, 350 )
+			if IsEmpty(spawnPoints) then
 				-- Backup attempt, outside cast radius but still close
-				spawnPointId = SelectSpawnPoint( CurrentRun.CurrentRoom, nil, { SpawnNearId = castProjectilePointId, SpawnRadius = 600 }, { IgnoreIds = usedIds } )
+				spawnPoints = FindSpawnPointsInCast( castProjectilePointId, 600 )
 			end
-			if spawnPointId ~= nil and spawnPointId > 0 then
-				usedIds[spawnPointId] = true
-				Teleport({ Id = enemyId, DestinationId = spawnPointId })
+			if not IsEmpty(spawnPoints) then
+				Teleport({ Id = testPoint, DestinationId = spawnPoints[i % #spawnPoints + 1], OffsetX = RandomFloat(-50,50), OffsetY = RandomFloat(-50,50)})
+				if IsLocationBlocked({ Id = testPoint }) then
+					Teleport({ Id = enemyId, DestinationId = spawnPoints[i % #spawnPoints + 1] })
+				else
+					Teleport({ Id = enemyId, DestinationId = testPoint })
+				end
 			end
 		end
 	end
-	Destroy({ Id = castProjectilePointId })
+	Destroy({ Ids = {testPoint, castProjectilePointId }})
 end
+
+function FindSpawnPointsInCast( centerId, range)
+	local spawnPointIds = FYShuffle( MapState.SpawnPoints )
+	local output = {}
+	for _, id in pairs( spawnPointIds ) do
+		if IsWithinDistance({ Id = id, DestinationId = centerId, ScaleY = 0.55, Distance = range }) then
+			table.insert(output, id)
+		end
+	end
+	return output
+end
+
 
 function SelfBuffOutputApply( triggerArgs )
 	if not triggerArgs.Reapplied then
@@ -856,6 +874,7 @@ function TimeSlowDamageBonus( enemy, functionArgs, triggerArgs )
 end
 
 function StartTimeSlowSpeed()
+	SessionMapState.TimeSlowSpeed = true
 	local totalSpeedChange = GetTotalHeroTraitValue( "TimeSlowSpeed", {IsMultiplier = true })
 	if totalSpeedChange ~= 1 then
 		MapState.MapSpeedMultiplier = MapState.MapSpeedMultiplier * totalSpeedChange
@@ -916,6 +935,8 @@ function StartTimeSlowSpeed()
 end
 
 function EndTimeSlowSpeed()
+
+	SessionMapState.TimeSlowSpeed = nil
 	local totalSpeedChange = GetTotalHeroTraitValue( "TimeSlowSpeed", {IsMultiplier = true })
 	if not IsEmpty(MapState.TimeSlowSpeedPropertyChanges) and totalSpeedChange ~= 1 then
 		MapState.MapSpeedMultiplier = MapState.MapSpeedMultiplier / totalSpeedChange
@@ -1170,7 +1191,29 @@ function AddTransformAttackSpeed( functionArgs )
 end
 
 function RemoveTransformAttackSpeed( functionArgs )
-	-- Automatically reset via unequipping the weapons
+	ApplyUnitPropertyChanges( CurrentRun.Hero, 
+	{
+		{
+			WeaponName = "WeaponTransformAttack",
+			WeaponProperty = "Cooldown",
+			ChangeValue = 1/functionArgs.AttackSpeed,
+			ChangeType = "Multiply",
+		},
+		{
+			WeaponName = "WeaponTransformAttack",
+			ProjectileProperty = "Speed",
+			ChangeValue = functionArgs.AttackSpeed,
+			ChangeType = "Multiply",
+		}
+	}, false, true )
+end
+
+function AddTransformDamage( functionArgs )
+	AddOutgoingDamageModifier( CurrentRun.Hero, ShallowCopyTable(functionArgs.DamageModifier))
+end
+
+function RemoveTransformDamage( functionArgs )
+	RemoveOutgoingDamageModifier( CurrentRun.Hero, functionArgs.DamageModifier.Name )
 end
 
 function DisableCastArm()
@@ -1291,7 +1334,7 @@ function StartSpellCharge( triggerArgs, weaponData, dataArgs)
 	end
 end
 
-function LaserSpellFire(unit, weaponData )
+function LaserSpellFire(unit, weaponData, functionArgs, triggerArgs )
 	if not SessionMapState.LaserSpellDown then
 		for i, data in pairs( GetHeroTraitValues("AddWeaponsToTraits") ) do
 			if CurrentRun.Hero.SlottedTraits[data.Slot] then
@@ -1324,6 +1367,7 @@ function LaserSpellFire(unit, weaponData )
 			SessionMapState.BlockSpellCharge = true
 			thread( ForceLaserFacing )
 		else
+			thread( LaserMatchDuration, triggerArgs )
 			SessionMapState.LaserSpellDown = true
 			SessionMapState.BlockSpellCharge = true
 			LaserHoldClear()
@@ -1344,10 +1388,15 @@ function LaserSpellForceRelease( weaponData )
 	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "LaserFireCancelable"})
 end
 
-function LaserMatchDuration( hero, args )
+function LaserMatchDuration( triggerArgs )
 	local weaponData = GetWeaponData( CurrentRun.Hero, "WeaponSpellLaser")
 	local duration = weaponData.MaxDuration + GetTotalHeroTraitValue("LaserDurationBonus")
-	SetProjectileProperty({ WeaponName = "WeaponSpellLaser", DestinationId = CurrentRun.Hero.ObjectId, Property = "TotalFuse", Value = duration })
+	wait( duration, RoomThreadName )
+	if triggerArgs and triggerArgs.ProjectileId and triggerArgs.NumProjectiles == 1 then
+		ExpireProjectiles({ ProjectileIds = {triggerArgs.ProjectileId }})
+	else
+		ExpireProjectiles({ Names = {"ProjectileSpellLaser"} })
+	end
 end
 
 function ForceLaserFacing()
@@ -1838,7 +1887,7 @@ function MeteorVulnerabilityThread( destinationId, weaponData, args)
 	Destroy({Id = destinationId })
 end
 function MeteorFirePreattack( weaponData, args, triggerArgs )
-	local touchdownPoint = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.ProjectileX, LocationY = triggerArgs.ProjectileY, Group = "Scripting"})
+	local touchdownPoint = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.TargetX, LocationY = triggerArgs.TargetY, Group = "Scripting"})
 	thread( MeteorPreattackThread, touchdownPoint, weaponData, args )
 end
 

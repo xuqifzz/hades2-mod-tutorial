@@ -103,6 +103,7 @@ function EquipKeepsake( heroUnit, traitName, args )
 
 	if traitData.CapMaxHealth and not args.SkipSetup then
 		ValidateMaxHealth( true )
+		thread( UpdateHealthUI )
 	end
 	if traitName == "DecayingBoostKeepsake" then
 		traitData.CurrentKeepsakeDamageBonus = traitData.InitialKeepsakeDamageBonus
@@ -120,11 +121,12 @@ function EquipKeepsake( heroUnit, traitName, args )
 	end
 end
 
-function UnequipKeepsake( heroUnit, traitName )
+function UnequipKeepsake( heroUnit, traitName, args )
+	args = args or {}
 	local unit = heroUnit or CurrentRun.Hero
 	RemoveTrait( unit, traitName )
 	
-	if TraitData[traitName] and TraitData[traitName].CapMaxHealth then
+	if TraitData[traitName] and TraitData[traitName].CapMaxHealth and not args.SkipValidateHealth then
 		ValidateMaxHealth()
 	end
 	if traitName == "ReincarnationKeepsake" then
@@ -192,7 +194,7 @@ function AdvanceKeepsake()
 				end
 			end
 			
-			UnequipKeepsake( CurrentRun.Hero, traitName )			
+			UnequipKeepsake( CurrentRun.Hero, traitName, { SkipValidateHealth = true })			
 			EquipKeepsake( CurrentRun.Hero, traitName, { SkipSetup = true } )
 			if traitName == "ReincarnationTrait" then
 				RecreateLifePips()
@@ -213,7 +215,6 @@ function AdvanceKeepsake()
 					traitData.CurrentRoom = lastRoomNumber
 					traitData.CustomTrayText = customText
 					traitData.CustomName = customName
-					
 					if traitData.CostumeTrait and traitData.SetupFunction and traitData.SetupFunction.Name == "CostumeArmor" then
 						traitData.CurrentArmor = currentArmor
 						if currentArmor ~= 0 then
@@ -222,9 +223,13 @@ function AdvanceKeepsake()
 						end
 					end
 
-					if traitData.Name == "LowHealthCritKeepsake" and not IsTraitActive(traitData) and traitData.PropertyChanges and traitData.PropertyChanges[1] then
-						-- kludge, unfortunately, due to how we assume (correctly) that no one should be tweaking property changes like this
-						traitData.PropertyChanges[1].ChangeValue = 1
+					if traitData.Name == "LowHealthCritKeepsake" then
+						if not IsTraitActive(traitData) and traitData.PropertyChanges and traitData.PropertyChanges[1] then
+							-- kludge, unfortunately, due to how we assume (correctly) that no one should be tweaking property changes like this
+							traitData.PropertyChanges[1].ChangeValue = 1
+						end
+						ValidateMaxHealth( true )
+						thread( UpdateHealthUI )
 					end
 
 					UpdateTraitNumber(traitData)
@@ -283,7 +288,7 @@ function DamageAfterInterval( timer, damage )
 	local tollTimes = math.floor(timer)
 	StartBlockDeathPresentation( tollTimes )
 	while tollTimes > 0 do
-		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition then
+		if encounter.BossKillPresentation or (encounter.Completed and not encounterAlreadyCompleted) or CurrentRun.CurrentRoom.Leaving or encounter.ChronosTransition or not encounter.InProgress then
 			SetPlayerVulnerable( "BlockDeath" )
 			return
 		end
@@ -333,7 +338,7 @@ function CheckOverTimeManaRefund( functionArgs, manaDelta )
 	thread( ManaOverTimeRefund, functionArgs.Duration, functionArgs.Interval, manaRestored )
 	sourceTrait.TotalManaRecovered = sourceTrait.TotalManaRecovered - manaRestored
 	if sourceTrait.TotalManaRecovered <= 0 then
-		sourceTrait.CustomTrayText = sourceTrait.ZeroBonusTrayText
+		sourceTrait.CustomName = sourceTrait.ZeroBonusTrayText
 		ReduceTraitUses( sourceTrait, { Force = true })
 		thread( RefundKeepsakeExpiredPresentation, sourceTrait )
 	else

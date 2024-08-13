@@ -90,3 +90,7 @@ function PulseManaIndicator()
 		thread( PulseAnimation, { Id = MapState.ManaChargeIndicatorIds.BackingId, ScaleTarget= 1.05, ScaleDuration = 0.1, HoldDuration = 0 })
 	end
 end
+
+function NoManaCastSecondStageForceRelease( args )
+	SetAnimation({ Name = WeaponData.WeaponCast.UnarmedCastCompleteGraphic, DestinationId = CurrentRun.Hero.ObjectId })
+end

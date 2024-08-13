@@ -474,10 +474,13 @@ OverwriteTableKeys( QuestData, {
 					"HeraSprintBoon",
 					"HeraManaBoon",
 					"DamageShareRetaliateBoon",
-					"SwapBonusBoon",
+					"LinkedDeathDamageBoon",
 					"BoonDecayBoon",
 					"DamageSharePotencyBoon",
-					"LinkedDeathDamageBoon",
+					"SpawnCastDamageBoon",
+					"CommonGlobalDamageBoon",
+					"OmegaHeraProjectileBoon",
+					"ElementalRarityUpgradeBoon", -- Elemental
 					"HeraManaShieldBoon", -- Legendary
 				},
 			},
@@ -526,12 +529,12 @@ OverwriteTableKeys( QuestData, {
 					"DodgeChanceBoon",
 					"SorcerySpeedBoon",
 					"HermesCastDiscountBoon",
-					"ElementalUnifiedBoon",
 					"SlowProjectileBoon",
 					"HexCooldownBuffBoon",
 					"MoneyMultiplierBoon",
 					"TimedKillBuffBoon",
 					"SprintShieldBoon",
+					"ElementalUnifiedBoon", -- Elemental
 					"TimeStopLastStandBoon", -- Legendary
 				},
 			},

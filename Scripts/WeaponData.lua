@@ -829,7 +829,7 @@
 		CompleteObjectivesOnFire = { "SpellLaserPrompt" },
 		OnFiredFunctionNames = { "LaserSpellFire" },
 		OnClipEmptyFunctionName = "LaserSpellReload", 
-		MaxDuration = 3,
+		MaxDuration = 2,
 		ManaSpendCost = 30,
 
 		OnChargeFunctionArgs = 
@@ -975,7 +975,7 @@
 		OnFiredFunctionNames = { "SpellReloadStarted", "SpellFire", "StartSpellSlow" },
 		OnFiredFunctionArgs = 
 		{ 
-			Modifier = 0.2, 
+			Modifier = 0.5, 
 			Duration = 4.0, 
 			LoopingSound = "/SFX/Player Sounds/TimeSlowLoop",
 			EndWarnNum = 3,

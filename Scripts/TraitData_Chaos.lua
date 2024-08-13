@@ -47,6 +47,7 @@ TraitSetData.Chaos =
 
 	ChaosLegacyTrait =
 	{
+		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements =
 		{
 			NamedRequirements = { "ChaosLegacyTraitsAvailable" },
@@ -736,6 +737,13 @@ TraitSetData.Chaos =
 	{
 		InheritFrom = { "ChaosCurse", "ChaosCurseRemainingEncounters", "ChaosLegacyTrait" },
 		Icon = "Boon_Chaos_27",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "LowHealthCritKeepsake" },
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -755,7 +763,7 @@ TraitSetData.Chaos =
 		{
 			{
 				Key = "ReportedHealth",
-				Format = "MaxHealth",
+				Format = "MaxHealthIgnoreCap",
 				ExtractAs = "TooltipHealthCurse",
 				SkipAutoExtract = true,
 			},

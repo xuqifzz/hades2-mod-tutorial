@@ -103,7 +103,7 @@
 	if HeroHasTrait( "SpellTalentKeepsake" ) then
 		local trait = GetHeroTrait("SpellTalentKeepsake")
 		ReduceTraitUses( trait, {Force = true })
-		trait.CustomTrayText = trait.ZeroBonusTrayText
+		trait.CustomName = trait.ZeroBonusTrayText
 	end
 
 	-- Short delay to let animations finish and prevent accidental input
@@ -218,13 +218,13 @@ end
 function RecreateTalentTree( screen, button )
 	local components = screen.Components
 	local componentKey = "TalentObject"..button.TalentColumn.."_"..button.TalentRow
-	UpdateTalentButtons( screen )
+	UpdateTalentButtons( screen, true )
 	TeleportCursor({ DestinationId = components[componentKey].Id, ForceUseCheck = true })
 end
 
-function UpdateTalentButtons( screen )
+function UpdateTalentButtons( screen, skipUsableCheck )
 	local components = screen.Components
-	local firstUsable = nil
+	local firstUsable = skipUsableCheck
 	screen.AllInvested = true
 
 	for i, column in ipairs( CurrentRun.Hero.SlottedSpell.Talents ) do
@@ -320,7 +320,6 @@ function HighlightTalentButton( button )
 	local newTraitData =  GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = button.Data.Name, Rarity = button.Data.Rarity, ForBoonInfo = true })
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
-	DebugObject = components
 	ModifyTextBox({ Id = button.Id, Text = button.Data.Name, UseDescription = true, LuaKey = "TooltipData", LuaValue = newTraitData })
 	if newTraitData.StatLines then
 		SetAlpha({ Id = components.StatLineLeft.Id, Fraction = 1, Duration = 0.2 })
@@ -415,7 +414,7 @@ function TryCloseTalentTree( screen, button )
 		CloseTalentScreenPresentation( screen )
 		if HeroHasTrait("SpellTalentKeepsake") then
 			local traitData = GetHeroTrait("SpellTalentKeepsake")
-			traitData.CustomTrayText = traitData.ZeroBonusTrayText
+			traitData.CustomName = traitData.ZeroBonusTrayText
 			ReduceTraitUses( traitData, {Force = true })
 		end
 	end

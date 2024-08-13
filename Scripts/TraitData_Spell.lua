@@ -18,6 +18,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			"ManaSpendCostStatDisplay1",
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellTransform",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellTransform",
+			},
+		},
 		ExtractValues = 
 		{
 			{
@@ -88,7 +101,17 @@ OverwriteTableKeys( TraitData, {
 				EffectName = "PolymorphDamageTaken",
 				EffectProperty = "Duration",
 				DeriveValueFrom = "DeriveSource"
-			}
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellPolymorph",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellPolymorph",
+			},
 		},
 		ExtractValues = 
 		{
@@ -142,9 +165,19 @@ OverwriteTableKeys( TraitData, {
 			{
 				WeaponName = "WeaponSpellLaser",
 				ProjectileProperty = "Damage",
-				ChangeValue = 30,
+				ChangeValue = 40,
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellLaser",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellLaser",
+			}
 		},
 		OnProjectileDeathFunction = 
 		{
@@ -186,7 +219,7 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "ClipRegenInterval",
 				ExtractAs = "Cooldown",
 				SkipAutoExtract = true,
-			},
+			}
 		},
 
 		UpgradePickedVoiceLines =
@@ -228,6 +261,16 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 4,
 				ReportValues = { ReportedFuse = "ChangeValue" },
 			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellMeteor",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellMeteor",
+			}
 		},
 		StatLines =
 		{
@@ -295,6 +338,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			Name = "RecordSpellSummonEnemyDeath",
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellSummon",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellSummon",
+			},
+		},
 		ExtractValues = 
 		{
 			{
@@ -345,6 +401,19 @@ OverwriteTableKeys( TraitData, {
 		StatLines =
 		{
 			"ManaSpendCostStatDisplay1",
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellTimeSlow",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellTimeSlow",
+			},
 		},
 		ExtractValues = 
 		{
@@ -401,6 +470,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			"ManaSpendCostStatDisplay1",
 		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellPotion",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellPotion",
+			},
+		},
 		ExtractValues = 
 		{
 			{
@@ -454,6 +536,16 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 200,
 				ReportValues = { ReportedDamage = "ChangeValue" },
 			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellLeap",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellLeap",
+			}
 		},
 		StatLines =
 		{

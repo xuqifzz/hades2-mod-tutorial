@@ -108,7 +108,7 @@ SessionState.GlobalCooldowns = {}
 SessionState.GlobalCounts = {}
 SessionState.GameplaySlows = {}
 SessionState.PlayerGameplaySlows = {}
-SessionState.ValidProjectileIds = {}
+SessionState.EarlyDetonationProjectileIds = {}
 SessionState.PropertyChangeList = { WeaponChanges = {}, ProjectileChanges = {}, EffectChanges = {}}
 
 OnPreThingCreation
@@ -296,6 +296,7 @@ function MapStateInit()
 	MapState.LastBlinkTimeUnmodified = 0
 	MapState.HexCooldownDodgeChance = 0
 	MapState.InvisibleVolleys = {}
+	MapState.UsedSafeZones = {}
 	MapState.SpellSummons = {}
 	MapState.MapSpeedMultiplier = 1
 	MapState.WeaponCharge = {}
@@ -318,6 +319,7 @@ function SessionMapStateInit()
 	SessionMapState.CurrentExAttachedProjectiles = {}
 	SessionMapState.FirstBurnRecord = {}
 	SessionMapState.SpawnKillRecord = {}
+	SessionMapState.PulseAmmoVolleys = {}
 	SessionMapState.AmmoVolleys = {}
 	SessionMapState.LobLock = {}
 	SessionMapState.SpecialLock = {}
@@ -360,6 +362,8 @@ function SessionMapStateInit()
 	SessionMapState.DifferentOmegaVolleys = {}
 	SessionMapState.DifferentOmegaProjectileIds = {}
 	SessionMapState.SpeedExPropertyChangeRecord = {}
+	SessionMapState.SpeedNonExPropertyChangeRecord = {}
+	SessionMapState.PendingStageManaRefund = {}
 end
 
 function ValidateIdLeaks( trace, tableToCheck )
@@ -523,6 +527,12 @@ function DoPatches()
 
 		GameState.ShrineUpgrades.EnemyEliteShrineUpgrade = 0
 		GameState.SpentShrinePointsCache = GetTotalSpentShrinePoints()
+
+		if Revision <= 94275 then
+			GameState.MoneySpentTowardCharonPoints = GameState.LifetimeResourcesSpent.Money or 0
+			local charonPointsEarned = math.floor( GameState.MoneySpentTowardCharonPoints / ScreenData.MailboxScreen.MoneySpentPerCharonPoint )
+			GameState.NextCharonPointCache = (ScreenData.MailboxScreen.MoneySpentPerCharonPoint * (charonPointsEarned + 1)) - GameState.MoneySpentTowardCharonPoints
+		end
 
 		for roomName, room in pairs( RoomData ) do
 			GameState.UseRecord[roomName] = nil
@@ -876,6 +886,8 @@ function DoPatches()
 					addTraitToUpdate( trait )
 				elseif trait.Name == "DemeterManaBoon" and trait.SetupFunction and trait.SetupFunction.Args and not trait.SetupFunction.Args.PercentManaRegenPerSecond then
 					addTraitToUpdate( trait )
+				elseif trait.Name == "ChannelSlowMetaUpgrade" and Revision <= 94115 then
+					addTraitToUpdate( trait )
 				elseif trait.Name == "FamiliarCatCrit" and Revision <= 79800 then
 					addTraitToUpdate( trait )
 				elseif trait.Name == "LastStandFamiliar" and Revision <= 79800 then
@@ -1073,8 +1085,8 @@ function GetMaxHealthUpgradeIncrement( value, ignoreCap )
 	if ignoreCap then
 		local prevMaxHealth = expectedMaxHealth
 		expectedMaxHealth = expectedMaxHealth + value
-		prevMaxHealth = math.max(1, round(prevMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
-		expectedMaxHealth = math.max(1, round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true })))
+		prevMaxHealth = round(prevMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true }))
+		expectedMaxHealth = round(expectedMaxHealth * GetTotalHeroTraitValue("MaxHealthMultiplier", { IsMultiplier = true }))
 		return expectedMaxHealth - prevMaxHealth
 	else
 		expectedMaxHealth = expectedMaxHealth + value
@@ -1439,7 +1451,7 @@ function GetDoorHealAmount( currentRun )
 			else
 				healAmount = healAmount + trait.DoorHealReserve
 				trait.DoorHealReserve = 0
-				trait.CustomTrayText = trait.ZeroBonusTrayText
+				trait.CustomName = trait.ZeroBonusTrayText
 				if healReserve ~= 0 then
 					thread( DoorHealKeepsakeExpiredPresentation )
 				end
@@ -1675,6 +1687,15 @@ function StartRoom( currentRun, currentRoom )
 		thread( BiomeSpeedTimerLoop )
 	end
 
+	if GetNumShrineUpgrades( "FirstDamageShrineUpgrade" ) > 0 then
+		AddIncomingDamageModifier( CurrentRun.Hero,
+		{
+			Name = "FirstDamageShrineUpgrade",
+			NonPlayerMultiplier = MetaUpgradeData.FirstDamageShrineUpgrade.ChangeValue,
+			Temporary = true,
+		})
+	end
+
 	local currentArea = CurrentRun.CurrentRoom.BiomeMapArea or CurrentRun.CurrentRoom.RoomSetName
 	if currentRoom.BiomeStartRoom and HeroHasTrait("SpeedRunBossKeepsake") then
 		trait = GetHeroTrait("SpeedRunBossKeepsake")
@@ -1692,7 +1713,7 @@ function StartRoom( currentRun, currentRoom )
 	if currentRoom.BiomeStartRoom and HeroHasTrait("BonusMoneyKeepsake") then
 		local trait = GetHeroTrait("BonusMoneyKeepsake")
 		ReduceTraitUses( trait, {Force = true })
-		trait.CustomTrayText = trait.ZeroBonusTrayText
+		trait.CustomName = trait.ZeroBonusTrayText
 	end
 	if currentRoom.BiomeStartRoom then
 		IncrementTableValue( CurrentRun, "ClearedBiomes" )
@@ -2262,7 +2283,7 @@ function StartEncounter( currentRun, currentRoom, encounter )
 	local roomData = RoomData[currentRoom.Name]
 	local encounterData = EncounterData[encounter.Name] or encounter
 
-	if CurrentRun.CurrentRoom.Encounter.EncounterType ~= "NonCombat" then
+	if CurrentRun.CurrentRoom.Encounter.EncounterType ~= "NonCombat" or encounter.ForceEncounterStart then
 		if encounter.ForceEncounterStart or ( CurrentRun.CurrentRoom.Encounter == encounter and encounter ~= currentRoom.ChallengeEncounter and not CurrentRun.CurrentRoom.Encounter.DelayedStart ) then
 			StartEncounterEffects( currentRun )
 		end
@@ -3205,6 +3226,7 @@ function StartEncounterEffects( currentRun )
 				SetupDodgeBonus( currentRun.CurrentRoom.Encounter, traitData )
 			end
 			if traitData.EncounterStartWeapon then
+				DebugPrint({Text = " encounter start weapon " })
 				FireWeaponFromUnit({ Weapon = traitData.EncounterStartWeapon, Id = CurrentRun.Hero.ObjectId, DestinationId = CurrentRun.Hero.ObjectId })
 			end
 			if traitData.EncounterStartEffect then
@@ -3362,7 +3384,7 @@ function EndEncounterEffects( currentRun, currentRoom, currentEncounter )
 				if traitData.CurrentKeepsakeDamageBonus and traitData.CurrentKeepsakeDamageBonus > 1 then
 					traitData.CurrentKeepsakeDamageBonus = traitData.CurrentKeepsakeDamageBonus - traitData.DecayRate
 					if traitData.CurrentKeepsakeDamageBonus <= 1 then
-						traitData.CustomTrayText = traitData.ZeroBonusTrayText
+						traitData.CustomName = traitData.ZeroBonusTrayText
 						traitData.CurrentKeepsakeDamageBonus = 1
 						ReduceTraitUses( traitData, { Force = true })
 					end
@@ -3410,6 +3432,13 @@ function IsCombatEncounterActive( currentRun, args  )
 	end
 	if currentRun.CurrentRoom.AlwaysInCombat then
 		return true
+	end
+	if not IsEmpty(MapState.OfferedExitDoors) then
+		for i, door in pairs(MapState.OfferedExitDoors) do
+			if door.EncounterCostStarted and door.EncounterCost then
+				return true
+			end
+		end
 	end
 
 	if not currentRun.Hero.IsDead then
@@ -3907,7 +3936,6 @@ function SetupUnit( unit, currentRun, args )
 	CreateLevelDisplay( unit, CurrentRun )
 
 	if unit.IgnoreTimeSlowEffects then
-		AddEffectBlock({ Id = unit.ObjectId, Name = "ChillEffect" })	
 		AddEffectBlock({ Id = unit.ObjectId, Name = "LegacyChillEffect" })	
 	end
 end
@@ -5776,7 +5804,11 @@ function ShadeMercManager( room, args )
 	room.ShadeMercInactiveIds = GetInactiveIdsByType({ Names = args.ObjectNames })
 	room.ShadeMercActiveIds = {}
 
-	wait (0.2)
+	wait( 0.2 )
+
+	if SessionMapState.HandlingDeath then
+		return
+	end
 
 	local activeCount = args.MaxActive
 	local startingCount = args.StartingCount or 0

@@ -1169,7 +1169,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "MorosGift06" },
+						PathTrue = { "GameState", "TextLinesRecord", "MorosTaverna01" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1328,6 +1328,9 @@ UnitSetData.NPC_Moros =
 				{
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMorosUnlock" },
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Moros_01" },
 					},
 					{
 						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
@@ -2885,6 +2888,8 @@ UnitSetData.NPC_Moros =
 				PlayOnce = true,
 				OnGiftTrack = true,
 				UseableOffSource = true,
+				UnfilledIcon = "EmptyHeartWithAmbrosiaIcon",
+				FilledIcon = "FilledHeartWithAmbrosiaIcon",
 				HintId = "Codex_TavernaGiftHint",
 				Cost =
 				{

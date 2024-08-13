@@ -267,6 +267,7 @@ RoomSetData.H =
 								{
 									CanDuplicate = false,
 									MetaConversionEligible = false,
+									NPCDrop = true,
 									AddResources =
 									{
 										MemPointsCommon = 50,

@@ -54,20 +54,28 @@ end
 
 
 function CheckInvulnerableFalloff( triggerArgs )
-	if IsCombatEncounterActive(CurrentRun) then
-		thread( EncounterInvulnerableFalloffWarning, triggerArgs.EffectName)
-	end
+	local showFalloffWarning = IsCombatEncounterActive(CurrentRun) or not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits )
+	thread( EncounterInvulnerableFalloffWarning, triggerArgs.EffectName, showFalloffWarning)
 end
 
-function EncounterInvulnerableFalloffWarning( effectName )
+function EncounterInvulnerableFalloffWarning( effectName, showFalloffWarning )
+	local threadName = "EncounterInvulnerabilityFalloff"
+	if HasThread( threadName ) then
+		killTaggedThreads( threadName )
+		waitUnmodified(0.1)
+	end
 	local duration = GetTotalHeroTraitValue( "EncounterStartInvulnerabilityDuration")
-	wait( duration - 3 )
-	thread(EncounterStartInvulnerableWarnPresentation)
-	wait(1)
-	thread(EncounterStartInvulnerableWarnPresentation)
-	wait(1)
-	thread(EncounterStartInvulnerableWarnPresentation)
-	wait(1)
+	if showFalloffWarning then
+		wait( duration - 3, "EncounterInvulnerabilityFalloff" )
+		thread(EncounterStartInvulnerableWarnPresentation)
+		wait(1, "EncounterInvulnerabilityFalloff")
+		thread(EncounterStartInvulnerableWarnPresentation)
+		wait(1, "EncounterInvulnerabilityFalloff")
+		thread(EncounterStartInvulnerableWarnPresentation)
+		wait(1, "EncounterInvulnerabilityFalloff")
+	else
+		wait( duration, "EncounterInvulnerabilityFalloff" )
+	end
 	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = effectName })
 end
 
@@ -784,9 +792,34 @@ function HandleBurnStacks( victim, args )
 	end
 end
 
+function RecordSafeZoneFired( enemy, aiData, currentRun )
+	SessionMapState.LastTriggeredSafeZoneId = enemy.ObjectId
+end
+
 function CheckSafeZoneRecharge()
-	if GameState.WorldUpgradesAdded.WorldUpgradeSafeZoneSpellCharge and not CurrentRun.CurrentRoom.TriggeredSpellRecharge then
+	local safeZoneId = SessionMapState.LastTriggeredSafeZoneId
+
+	if GameState.WorldUpgradesAdded.WorldUpgradeSafeZoneSpellCharge and (not safeZoneId or not MapState.UsedSafeZones[safeZoneId] ) then
 		CurrentRun.CurrentRoom.TriggeredSpellRecharge = true
 		ChargeSpell( -1000, {Force = true} )
+		if safeZoneId then
+			MapState.UsedSafeZones[safeZoneId] = true
+		end
+	end
+end
+
+
+function EffectUninterruptibleApply( triggerArgs )
+	local victim = triggerArgs.Victim
+	local effectName = triggerArgs.EffectName
+	if victim == CurrentRun.Hero and not triggerArgs.Reapplied then
+		SetPlayerUninterruptible( effectName )
+	end
+end
+
+function EffectUninterruptibleClear( triggerArgs )
+	local victim = triggerArgs.Victim
+	if victim and victim == CurrentRun.Hero then
+		SetPlayerInterruptible( triggerArgs.EffectName )
 	end
 end

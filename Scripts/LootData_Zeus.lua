@@ -64,7 +64,8 @@ LootSetData.Zeus =
 			-- Duos
 			"SuperSacrificeBoonZeus",
 			"LightningVulnerabilityBoon",
-			"RootStrikeBoon","ApolloSecondStageCastBoon",
+			"RootStrikeBoon",
+			"ApolloSecondStageCastBoon",
 			"SprintEchoBoon",
 			"EchoBurnBoon",
 			"ReboundingSparkBoon",

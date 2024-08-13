@@ -764,6 +764,10 @@ function LeaveRoomAudio( currentRun, exitDoor )
 	end
 	
 	SetAudioEffectState({ Name = "SpellCharge", Value = 0 })
+	if AudioState.FloodSoundId ~= nil then
+		StopSound({ Id = AudioState.FloodSoundId, Duration = 1.0 })
+		AudioState.FloodSoundId = nil
+	end
 
 	local roomData = RoomData[currentRun.CurrentRoom.Name]
 	local encounterData = EncounterData[currentRun.CurrentRoom.Encounter.Name] or currentRun.CurrentRoom.Encounter

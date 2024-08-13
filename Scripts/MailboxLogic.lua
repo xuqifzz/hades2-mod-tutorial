@@ -411,18 +411,30 @@ function UpdateMailboxScreenInteractionText( screen, button )
 
 end
 
-function CheckCharonPointsOwed( sourceName )
+function SetupCharonPoints( sourceName )
+	if GameState.LifetimeResourcesGained.CharonPoints == 1 then
+		-- After you collect your first CharonPoint, you need to spend 1000 more to earn the next reward,
+		-- no matter how much you spent previously.
+		GameState.MoneySpentTowardCharonPoints = ScreenData.MailboxScreen.MoneySpentPerCharonPoint
+		GameState.NextCharonPointCache = ScreenData.MailboxScreen.MoneySpentPerCharonPoint
+	end
+end
+
+function HandleCharonPurchase( sourceName, spent )
 	
+	local prevMoneySpent = GameState.MoneySpentTowardCharonPoints
+	GameState.MoneySpentTowardCharonPoints = prevMoneySpent + spent
+
 	if not IsGameStateEligible( CurrentRun, ScreenData.MailboxScreen.CharonPointsRequirements ) then
 		return
 	end
 
-	local lifetimeOwed = math.floor( (GameState.LifetimeResourcesSpent.Money or 0) / ScreenData.MailboxScreen.MoneySpentPerCharonPoint )
-	DebugPrint({ Text = "lifetimeOwed = "..lifetimeOwed })
-	local lifetimeRecieved = GameState.LifetimeResourcesGained.CharonPoints or 0
-	DebugPrint({ Text = "lifetimeRecieved = "..lifetimeRecieved })
-	GameState.NextCharonPointCache = (ScreenData.MailboxScreen.MoneySpentPerCharonPoint * (lifetimeOwed + 1)) - GameState.LifetimeResourcesSpent.Money
-	local currentlyOwed = lifetimeOwed - lifetimeRecieved
+	local prevCharonPointsEarned = math.floor( prevMoneySpent / ScreenData.MailboxScreen.MoneySpentPerCharonPoint )
+	local charonPointsEarned = math.floor( GameState.MoneySpentTowardCharonPoints / ScreenData.MailboxScreen.MoneySpentPerCharonPoint )
+
+	GameState.NextCharonPointCache = (ScreenData.MailboxScreen.MoneySpentPerCharonPoint * (charonPointsEarned + 1)) - GameState.MoneySpentTowardCharonPoints
+
+	local currentlyOwed = charonPointsEarned - prevCharonPointsEarned
 	if currentlyOwed > 0 then
 		AddResource( "CharonPoints", currentlyOwed, sourceName, { PresentationDelay = 0.5 } )
 		CharonPointsGrantedPresentation( currentlyOwed, sourceName )

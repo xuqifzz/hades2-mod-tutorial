@@ -133,7 +133,7 @@ UnitSetData.Chronos =
 				UnequipAllWeapons = true,
 				EquipWeapons = {
 					"ChronosRush", "ChronosSwingRight", "ChronosSwingLeft",
-					"ChronosGrind",
+					--"ChronosGrind",
 					"ChronosScytheThrow", "ChronosCastOrbit2",
 					"ChronosUltimate",
 					"ChronosRadial","ChronosRadial2", "ChronosRadial3"
@@ -155,7 +155,7 @@ UnitSetData.Chronos =
 				UnequipAllWeapons = true,
 				EquipWeapons = {
 					"ChronosMeleeComboSelector", "ChronosMeleeComboSelector", "ChronosMeleeComboSelector",
-					"ChronosGrind",
+					--"ChronosGrind",
 					"ChronosScytheThrow", "ChronosCastOrbit2",
 					--"ChronosUltimate",
 					"ChronosRadial","ChronosRadial2", "ChronosRadial3"

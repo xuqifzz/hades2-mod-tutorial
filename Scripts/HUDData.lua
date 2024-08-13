@@ -78,6 +78,8 @@ ScreenData.HUD =
 	ObjectiveStartY = 150,
 	ObjectiveSpacingY = 40,
 
+	TraitInfoCardOffsetY = 40,
+
 	AmmoX = 630,
 	--AmmoY = 980,
 	AmmoBottomOffset = 100,

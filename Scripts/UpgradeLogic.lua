@@ -74,10 +74,16 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 	end
 
 	if propertyChange.WeaponProperty ~= nil then
+		local wasWeaponCharging = false
 		if propertyChange.WeaponProperty == "ChargeTime" and GetWeaponChargeFraction({ Name = weaponName }) > 0 then
 			SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = "ChargeTimeRemaining", Value = changeValue, ValueChangeType = propertyChange.ChangeType, DataValue = false })
+			wasWeaponCharging = true
 		end
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = unit.ObjectId, Property = propertyChange.WeaponProperty, Value = changeValue, ValueChangeType = propertyChange.ChangeType })
+		if propertyChange.WeaponProperty == "ChargeTime" and not wasWeaponCharging then
+			RunWeaponMethod({ Id = unit.ObjectId, Weapon = weaponName, Method = "cancelCharge"})
+		end
+		
 		if propertyChange.WeaponProperty == "ClipSize" then
 			RunWeaponMethod({ Id = unit.ObjectId, Weapon = "WeaponBlink", Method = "forceReload" })
 		end
@@ -838,7 +844,7 @@ function ProcessHeroTraitChanges( trait, reverse )
 		end
 	end
 
-	if not trait.PropertyChanges and not trait.ActivatedPropertyChanges then
+	if not trait.PropertyChanges and not trait.ActivatedPropertyChanges and not (trait.ForceWeaponRefreshOnRemove and reverse) then
 		return
 	end
 	SessionState.PropertyChangeList = SessionState.PropertyChangeList or { WeaponChanges = {}, ProjectileChanges = {}, EffectChanges = {}}
@@ -926,6 +932,9 @@ function ProcessHeroTraitChanges( trait, reverse )
 		if WeaponData[weaponName] and WeaponData[weaponName].IsModifiedByTraits then
 			referencedWeapons[weaponName] = true
 		end
+	end
+	if trait.ForceWeaponRefreshOnRemove and reverse then
+		referencedWeapons[trait.ForceWeaponRefreshOnRemove] = true
 	end
 	
 	if CurrentRun.Hero.ObjectId ~= nil then

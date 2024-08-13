@@ -271,8 +271,12 @@ function CheckOnDamagedPowers( victim, attacker, args )
 	if validVictim and ( attacker ~= victim or projectileData.SelfDamage )
 		and ( not args.SourceProjectile or not projectileData.BypassRetaliate ) 
 		and (( victim.HealthBuffer and victim.HealthBuffer > 0) or (victim.Health - args.DamageAmount) > 0 or HasLastStand( victim )) then
-		for i, functionData in pairs( GetHeroTraitValues("OnSelfDamagedFunction") ) do
-			CallFunctionName( functionData.Name, attacker, functionData.FunctionArgs, args )
+		for i, functionData in pairs( GetHeroTraitValues("OnSelfDamagedFunction") ) do 
+			local validRetaliateTarget = (victim == CurrentRun.Hero) or (not functionData.NotDamagingRetaliate)
+			local shouldBypass = (not functionData.NotDamagingRetaliate and projectileData.BypassDamagingRetaliate)
+			if validRetaliateTarget and not shouldBypass then
+				CallFunctionName( functionData.Name, attacker, functionData.FunctionArgs, args )
+			end
 		end
 	end
 
@@ -468,12 +472,13 @@ function StasisStunApply( triggerArgs )
 end
 
 function StasisStunClear( triggerArgs )
-	local victim = triggerArgs.Victim	if victim.Frozen then
+	local victim = triggerArgs.Victim	
+	if victim.Frozen then
 		local notifyName = "FreezeStunExpired"..victim.ObjectId
 		NotifyOnEffectExpired({ Id = victim.ObjectId, Notify = notifyName, EffectName = "FreezeStun" })
 		waitUntil( notifyName )
+		UnfrozenPresentation( victim )
 	end
-	UnfrozenPresentation( victim )
 	victim.Frozen = false
 	victim.Mute = false
 end
@@ -556,7 +561,7 @@ function EnlargeApply(triggerArgs)
 	local victim = triggerArgs.Victim
 	local effectData = EffectData[triggerArgs.EffectName]
 
-	if victim.Enlarged then
+	if victim.Enlarged or victim == CurrentRun.Hero then
 		return
 	end
 
@@ -593,8 +598,11 @@ end
 
 function EnlargeClear(triggerArgs)
 	local victim = triggerArgs.Victim
-	StopAnimation({ Name = "SatyrRatCatcherSpellBuffFx", DestinationId = victim.ObjectId, })
-	SetScale({ Id = victim.ObjectId, Fraction = victim.OriginalScale, Duration = 0.5 })
+		
+	if victim and victim.Enlarged then
+		StopAnimation({ Name = "SatyrRatCatcherSpellBuffFx", DestinationId = victim.ObjectId, })
+		SetScale({ Id = victim.ObjectId, Fraction = victim.OriginalScale, Duration = 0.5 })
+	end
 end
 
 function InsideCastBuffApply( triggerArgs )
@@ -631,26 +639,28 @@ end
 
 function TimeSlowApply( triggerArgs )
 	local victim = triggerArgs.Victim
-	if not triggerArgs.Reapplied and not victim.IgnoreTimeSlowEffects then
+	if not triggerArgs.Reapplied then
 		CallFunctionName( EffectData[triggerArgs.EffectName].OnApplyPresentationFunctionName, victim, triggerArgs.triggeredById )
-		local oldMultiplier = victim.SpeedMultiplier or 1
-		if victim.SpeedMultiplier then
-			victim.SpeedMultiplier = victim.SpeedMultiplier * triggerArgs.ElapsedTimeMultiplier
-		else
-			victim.SpeedMultiplier = triggerArgs.ElapsedTimeMultiplier
-		end
-		if victim.AIThreadName then
-			SetElapsedTimeMultiplier( victim.SpeedMultiplier / oldMultiplier, victim.AIThreadName)
-		end
-		if not IsEmpty( victim.ExpireProjectileIdsOnFreeze ) then
-			ExpireProjectiles({ ProjectileIds = victim.ExpireProjectileIdsOnFreeze })
+		if not victim.IgnoreTimeSlowEffects then
+			local oldMultiplier = victim.SpeedMultiplier or 1
+			if victim.SpeedMultiplier then
+				victim.SpeedMultiplier = victim.SpeedMultiplier * triggerArgs.ElapsedTimeMultiplier
+			else
+				victim.SpeedMultiplier = triggerArgs.ElapsedTimeMultiplier
+			end
+			if victim.AIThreadName then
+				SetElapsedTimeMultiplier( victim.SpeedMultiplier / oldMultiplier, victim.AIThreadName)
+			end
+			if not IsEmpty( victim.ExpireProjectileIdsOnFreeze ) then
+				ExpireProjectiles({ ProjectileIds = victim.ExpireProjectileIdsOnFreeze })
+			end
 		end
 	end
 end
 
 function TimeSlowUpdate( triggerArgs )
 	local unit = triggerArgs.Victim
-	if unit.SpeedMultiplier and not unit.IgnoreTimeSlowEffects then
+	if unit.SpeedMultiplier then
 		if EffectData[triggerArgs.EffectName].Vfx ~= nil then
 			StopAnimation({ Name = EffectData[triggerArgs.EffectName].Vfx, DestinationId = unit.ObjectId })
 		end
@@ -661,12 +671,13 @@ function TimeSlowUpdate( triggerArgs )
 			StopAnimation({ Names = EffectData[triggerArgs.EffectName].StopVfxes, DestinationId = unit.ObjectId })
 		end
 		CallFunctionName( EffectData[triggerArgs.EffectName].OnStackDecreasePresentationFunctionName, unit, triggerArgs.triggeredById )
+		if not unit.IgnoreTimeSlowEffects then
+			local oldMultiplier = unit.SpeedMultiplier
+			unit.SpeedMultiplier = unit.SpeedMultiplier * triggerArgs.ElapsedTimeMultiplier / triggerArgs.OldElapsedTimeMultiplier
 		
-		local oldMultiplier = unit.SpeedMultiplier
-		unit.SpeedMultiplier = unit.SpeedMultiplier * triggerArgs.ElapsedTimeMultiplier / triggerArgs.OldElapsedTimeMultiplier
-		
-		if unit.AIThreadName then
-			SetElapsedTimeMultiplier( unit.SpeedMultiplier / oldMultiplier, unit.AIThreadName)
+			if unit.AIThreadName then
+				SetElapsedTimeMultiplier( unit.SpeedMultiplier / oldMultiplier, unit.AIThreadName)
+			end
 		end
 	end
 end
@@ -674,12 +685,12 @@ end
 function TimeSlowClear( triggerArgs )
 	local unit = triggerArgs.Victim
 	
-	if unit.IgnoreTimeSlowEffects then
-		return
-	end
 	local oldMultiplier = unit.SpeedMultiplier or 1
 	CallFunctionName( EffectData[triggerArgs.EffectName].OnClearPresentationFunctionName, unit, triggerArgs.triggeredById )
-		
+	
+	if unit.IgnoreTimeSlowEffects then
+		return
+	end	
 	if unit.SpeedMultiplier and not unit.IgnoreTimeSlowEffects then
 		unit.SpeedMultiplier = unit.SpeedMultiplier / triggerArgs.ElapsedTimeMultiplier
 	else
@@ -926,9 +937,10 @@ function FireWeaponWithinRange( args )
 			if runFunctionOnTarget then
 				CallFunctionName( runFunctionOnTarget, { Id = targetId, Args = runFunctionArgsOnTarget} )
 			end
-			if createdObstacleId ~= nil then
-				Destroy({ Id = createdObstacleId })
-			end
+		end
+		if createdObstacleId ~= nil then
+			Destroy({ Id = createdObstacleId })
+			createdObstacleId = nil
 		end
 		waitUnmodified( args.Delay )
 	end
@@ -1517,21 +1529,19 @@ function ManageZeusCloud( functionArgs, tempObstacleId, projectileId )
 	Destroy({ Id = tempObstacleId})
 end
 
-function CheckZeusManaBolt( unit, functionArgs )
-	while CurrentRun and CurrentRun.Hero and not CurrentRun.Hero.IsDead do
-		if (IsCombatEncounterActive(CurrentRun) or (not IsEmpty(ActiveEnemies) and (not CurrentRun.CurrentRoom.Encounter or not CurrentRun.CurrentRoom.Encounter.DelayedStart ))) and CurrentRun.Hero.Mana <= functionArgs.ManaThreshold then
-			local targetedEnemies = GetAllKeys( ActiveEnemies )
-			local delay = 0.1
-			for _, enemy in pairs(ActiveEnemies) do
-				if not enemy.IsDead and IsEmpty( enemy.InvulnerableFlags ) and not enemy.SkipModifiers and not enemy.IgnoreAutoLock then
-					thread( CreateZeusBolt, { ProjectileName = functionArgs.ProjectileName, TargetId = enemy.ObjectId, DamageMultiplier = functionArgs.DamageMultiplier, Delay = delay })
-					delay = delay + 0.1
-				end
-			end
-			wait( functionArgs.Cooldown, RoomThreadName )
-		else
-			wait( 0.1, RoomThreadName )
-		end
+function CheckZeusManaBolt( functionArgs )
+
+	if CheckCooldown("ZeusManaBolt", functionArgs.Cooldown, true ) then
+		thread(CreateZeusBolt, {
+			SourceId = functionArgs.TargetId or CurrentRun.Hero.ObjectId,
+			Range = functionArgs.Range, 
+			SeekTarget = true, 
+			ProjectileName = functionArgs.ProjectileName, 
+			DamageMultiplier = functionArgs.DamageMultiplier,
+			InitialDelay = 0, 
+			Delay = 0.1, 
+			Count = 1
+		}) 
 	end
 end
 
@@ -1756,8 +1766,7 @@ function CheckZeusManaSpawn( unit, functionArgs )
 	local despawnRange = functionArgs.DespawnRange or (functionArgs.MaxRange + 500)
 	while CurrentRun and CurrentRun.Hero and not CurrentRun.Hero.IsDead do
 		local delay = 0.1
-		if (IsCombatEncounterActive(CurrentRun) or (not CurrentRun.CurrentRoom.Encounter or not CurrentRun.CurrentRoom.Encounter.DelayedStart )) then
-
+		if IsCombatEncounterActive(CurrentRun) or not CurrentRun.CurrentRoom.Encounter or ( CurrentRun.CurrentRoom.Encounter.DelayedStart and CurrentRun.CurrentRoom.Encounter.StartTime ) then
 
 			if MapState.ManaDropId and GetDistance({Id = CurrentRun.Hero.ObjectId, DestinationId = MapState.ManaDropId }) > despawnRange then
 				Destroy({Id = MapState.ManaDropId })
@@ -1790,6 +1799,7 @@ end
 function ZeusManaPickup( interactableObject, functionArgs, user )
 	local manaBoon = GetHeroTrait( "ZeusManaBoon" )
 
+	UseableOff({ Id = interactableObject.ObjectId })
 	AddInputBlock({ Name = "ZeusManaPickup" })
 	FreezePlayerUnit("ZeusManaPickup")
 	waitUnmodified( 0.05 )
@@ -1803,7 +1813,7 @@ function ZeusManaPickup( interactableObject, functionArgs, user )
 	
 	SetAnimation({ Name =  "ManaDropZeusOut", DestinationId = interactableObject.ObjectId })
 	PlaySound({ Name = "/SFX/Player Sounds/ZeusLightningWrathImpact" })
-	DestroyOnDelay({ interactableObject.ObjectId }, 0.20 )
+	thread(DestroyOnDelay, { interactableObject.ObjectId }, 0.20, {Unmodified = true })
 
 	waitUnmodified( functionArgs.InputLockDuration / 2 )
 	RefillMana()
@@ -1894,9 +1904,12 @@ end
 function CheckBurnConsumptionDelay( victim, functionArgs, triggerArgs )
 	waitUnmodified( functionArgs.Delay, RoomThreadName )
 	if not victim.IsDead and victim.ActiveEffects[functionArgs.ClearEffectName] then
-		DebugPrint({Text = " clearing effect " .. victim.ActiveEffects[functionArgs.ClearEffectName] })
 		CreateProjectileFromUnit({ Name = functionArgs.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = victim.ObjectId, DamageMultiplier = victim.ActiveEffects[functionArgs.ClearEffectName] * functionArgs.ConsumptionDamage })
 		ClearEffect({ Id = victim.ObjectId, Name = functionArgs.ClearEffectName })
+		if victim.RootActive then
+			victim.BlockEffectWhileRootActive = functionArgs.ClearEffectName
+			AddEffectBlock({ Id = victim.ObjectId, Name = functionArgs.ClearEffectName})
+		end
 	end
 end
 
@@ -1917,6 +1930,11 @@ end
 function ApplyBurn( victim, functionArgs, triggerArgs )
 	functionArgs = ShallowCopyTable(functionArgs) or { EffectName = "BurnEffect", NumStacks = 1 }
 	local effectName = functionArgs.EffectName 
+	
+	if victim and victim.BlockEffectWhileRootActive == effectName then
+		return
+	end
+
 	if not EffectData[effectName] then
 		return
 	end
@@ -1940,7 +1958,6 @@ function ApplyBurn( victim, functionArgs, triggerArgs )
 		end
 	end
 	local baseMaxStacks = EffectData[effectName].EffectData.MaxStacks or 1
-	
 	if not SessionMapState.FirstBurnRecord[ victim.ObjectId ] then
 		functionArgs.NumStacks = functionArgs.NumStacks + GetTotalHeroTraitValue("BonusFirstTimeBurn")
 		SessionMapState.FirstBurnRecord[ victim.ObjectId ] = true
@@ -2016,14 +2033,14 @@ function CheckMaximumLink( victim, functionArgs, triggerArgs )
 end
 
 function CheckCastAphroditeVulnerabilityApply( victim, functionArgs, triggerArgs )
-	if triggerArgs.EffectName == "ImpactSlow" then
+	if triggerArgs.EffectName == "ImpactSlow" and victim.ActivationFinished then
 		local effectName = functionArgs.EffectName 	
 		ApplyAphroditeVulnerability( victim, functionArgs, triggerArgs )
 	end
 end
 
 function CheckRandomStatusCurse( victim, functionArgs, triggerArgs )
-	if triggerArgs.EffectName == "WeakEffect" and not triggerArgs.Reapplied then
+	if triggerArgs.EffectName == "WeakEffect" and not triggerArgs.Reapplied and victim.ActivationFinished then
 		local eligibleEffects = ShallowCopyTable( functionArgs.Effects )
 		local count = functionArgs.Count or 3
 		for i=1, count do 
@@ -2091,6 +2108,12 @@ function ApplyDamageShare( victim, functionArgs, triggerArgs )
 end
 
 function CheckLinkDeath( unit, args )
+	if unit.ActiveEffectsAtDamageStart and unit.ActiveEffectsAtDamageStart [args.EffectName] and unit.ActiveEffectsAtDamageStart [args.EffectName2]then
+		CreateProjectileFromUnit({ Name = args.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = unit.ObjectId, DamageMultiplier = args.ProjectileDamageMultiplier, ProjectileCap = 4})
+	end
+end
+
+function CheckLinkDeathDamage( unit, args )
 	if unit.ActiveEffectsAtDamageStart and unit.ActiveEffectsAtDamageStart [args.EffectName] then
 		for id, enemy in pairs( ActiveEnemies ) do
 			if enemy and 
@@ -2109,17 +2132,16 @@ function DoLinkDeath( enemy, args )
 		Damage (enemy, { EffectName = "DamageShareDeath", DamageAmount = args.DamageAmount, Silent = false, } )
 	end
 end
-
 function CheckCastSummonDamage( enemy, traitArgs)
 	if not ProjectileExists({ Names = { "ProjectileCast"} }) then
 		return
 	end
+	local castId = GetFirstKey( SessionMapState.CastAttachedProjectiles )
 	traitArgs = traitArgs or {}
 	delay = traitArgs.Delay or 0.1
 	wait( delay, RoomThreadName)
 	CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = enemy.ObjectId, DamageMultiplier = traitArgs.DamageMultiplier })
 	if CheckCooldown("HeraCastPresentation", traitArgs.VfxCooldown) then
-		local castId = GetFirstKey( SessionMapState.CastAttachedProjectiles )
 		local location = GetLocation({ Id = castId, IsProjectile = true})
 		local ropeTargetId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = location.X, LocationY = location.Y}) 
 		CreateAnimationsBetween({
@@ -2160,16 +2182,21 @@ function CheckTimedKillBuff (enemy, args )
 		end
 		SessionMapState.TimedBuff = SessionMapState.TimedBuff + 1
 		thread(ReduceKillBuff, args )
-		local trait = GetHeroTrait( "TimedKillBuffBoon")
-		UpdateTraitNumber( trait )
+		
+		if HeroHasTrait( "TimedKillBuffBoon" ) then
+			local trait = GetHeroTrait( "TimedKillBuffBoon")
+			UpdateTraitNumber( trait )
+		end
 	end
 end
 
 function ReduceKillBuff( args )	
 	waitUnmodified( args.Duration, RoomThreadName )
 	SessionMapState.TimedBuff = SessionMapState.TimedBuff - 1
-	local trait = GetHeroTrait( "TimedKillBuffBoon")
-	UpdateTraitNumber( trait )
+	if HeroHasTrait( "TimedKillBuffBoon" ) then
+		local trait = GetHeroTrait( "TimedKillBuffBoon")
+		UpdateTraitNumber( trait )
+	end
 	if SessionMapState.TimedBuff <= 0 then
 		StopAnimation({ Name = args.Fx, DestinationId = CurrentRun.Hero.ObjectId })
 	end
@@ -2208,6 +2235,8 @@ function ManageProjectilePull( traitArgs, centerId, projectileId )
 	local radius = GetProjectileDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponCast", Property = "DamageRadius" })
 	while pullCount < traitArgs.PullCount and ProjectileExists({ Id = projectileId }) do
 		pullCount = pullCount + 1
+		local location = GetLocation({ IsProjectile = true, Id = projectileId })
+		Teleport({ Id = centerId, OffsetX = location.X, OffsetY = location.Y })
 		if traitArgs.ProjectileName then
 			CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, Id = CurrentRun.Hero.ObjectId, DestinationId = centerId, DamageMultiplier = traitArgs.DamageMultiplier, DataProperties = { DamageRadius = radius } })				
 		end
@@ -2238,10 +2267,26 @@ function ApolloDelayedBlast( weaponData, traitArgs, triggerArgs )
 	if not triggerArgs.ProjectileX or not triggerArgs.ProjectileY or not triggerArgs.ProjectileId then
 		return
 	end
-	waitUnmodified( traitArgs.Delay )
-	CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, ProjectileDestinationId = triggerArgs.ProjectileId, Id = CurrentRun.Hero.ObjectId, DamageMultiplier = traitArgs.DamageMultiplier, FireFromTarget = true, DataProperties = dataProperties, BlastRadiusModifier = traitArgs.BlastRadiusMultiplier })				
+	local delay = traitArgs.Delay or 0
+	if HeroHasTrait("AxeArmCastAspect") then
+		local trait = GetHeroTrait("AxeArmCastAspect")
+		if trait.DurationIncrease then
+			delay = delay+ trait.DurationIncrease
+		end
+	end
+	waitUnmodified( delay )
+	if ProjectileExists({ Id = triggerArgs.ProjectileId }) then
+		CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, ProjectileDestinationId = triggerArgs.ProjectileId, Id = CurrentRun.Hero.ObjectId, DamageMultiplier = traitArgs.DamageMultiplier, FireFromTarget = true })
+	end
 end
 
+function ApolloEarlyCastBlast( projectileId, traitArgs )
+
+	if not projectileId or not ProjectileExists({Id = projectileId }) or SessionState.EarlyDetonationProjectileIds[projectileId] or GetProjectileProperty({ ProjectileId = projectileId, Property = "Armed" }) then
+		return
+	end
+	CreateProjectileFromUnit({ Name = traitArgs.ProjectileName, ProjectileDestinationId = projectileId, Id = CurrentRun.Hero.ObjectId, DamageMultiplier = traitArgs.DamageMultiplier, FireFromTarget = true })
+end
 function DemeterCastBlast( weaponData, traitArgs, triggerArgs )
 	if not triggerArgs.ProjectileX or not triggerArgs.ProjectileY then
 		return
@@ -2257,7 +2302,7 @@ function DemeterCastBlast( weaponData, traitArgs, triggerArgs )
 	}
 	local targetId = SpawnObstacle({ Name = "InvisibleTarget", LocationX = triggerArgs.ProjectileX, LocationY = triggerArgs.ProjectileY })
 	for _, projectileName in pairs( traitArgs.ProjectileNames or {} ) do
-		if HeroHasTrait("CastAttachBoon") then
+		if HeroHasTrait("CastAttachBoon") and IsControlDown({ Name = "Attack1" }) then
 			dataProperties.AttachToOwner = true
 			dataProperties.IgnoreCancelAttachedProjectiles = true
 		end
@@ -2369,6 +2414,7 @@ end
 function DaggerBlockSetup( hero, args )
 	ResetCooldown( "DaggerBlockShield" )
 	wait(0.1)
+	SessionMapState.ElapsedTimeMultiplierIgnores.DaggerBlockShield = true
 	ShowDaggerUI()
 end
 
@@ -2531,7 +2577,7 @@ end
 function WeakCrowdMana( hero, args )
 	thread( ManaRegen )
 	while CurrentRun and CurrentRun.CurrentRoom and CurrentRun.Hero and not CurrentRun.Hero.IsDead do
-		if IsCombatEncounterActive(CurrentRun) or (not IsEmpty(ActiveEnemies) and (not CurrentRun.CurrentRoom.Encounter or not CurrentRun.CurrentRoom.Encounter.DelayedStart )) then
+		if IsCombatEncounterActive(CurrentRun) or not CurrentRun.CurrentRoom.Encounter or ( CurrentRun.CurrentRoom.Encounter.DelayedStart and CurrentRun.CurrentRoom.Encounter.StartTime ) or not IsEmpty(MapState.AggroedUnits) then
 			local range = args.Range
 			if  HeroHasTrait(args.ProximityThresholdExclusionBoon) then
 				range = 3000
@@ -2571,6 +2617,10 @@ function WeakCrowdMana( hero, args )
 			end
 			wait(0.3, RoomThreadName)
 		else
+			if CurrentRun.Hero.ManaRegenSources.WeakCrowdRegen and args.ActiveFx then
+				StopAnimation({ Name = args.ActiveFx, DestinationId = CurrentRun.Hero.ObjectId })
+			end
+			CurrentRun.Hero.ManaRegenSources.WeakCrowdRegen = nil
 			wait(0.3, RoomThreadName)
 		end
 	end
@@ -2630,7 +2680,7 @@ function CheckPerfectChargeRefund( weaponData, args, triggerArgs )
 			if not refund then
 				refund = GetManaCost( weaponData, false, { ManaCostOverride = chargeStages[MapState.WeaponCharge[ weaponData.Name ]].ManaCost } )
 			end
-			ManaDelta( refund )
+			SessionMapState.PendingStageManaRefund[ weaponData.Name ] = refund
 		end
 	end
 end
@@ -2698,7 +2748,11 @@ function CheckFireballSpawn(weaponData, functionArgs, triggerArgs )
 end
 
 function CheckExProjectileSpawn(weaponData, functionArgs, triggerArgs )
-	if IsExWeapon( weaponData.Name, {Combat = true}, triggerArgs ) then
+	local isExIndirectCast = false
+	if SessionMapState.ArmCast and weaponData.ArmedCastChargeStage then
+		isExIndirectCast = true
+	end
+	if IsExWeapon( weaponData.Name, {Combat = true}, triggerArgs ) or isExIndirectCast then
 		CreateProjectileFromUnit({ Name = functionArgs.ProjectileName, Id = CurrentRun.Hero.ObjectId, DamageMultiplier = functionArgs.DamageMultiplier})
 	end
 end
@@ -3027,13 +3081,13 @@ function CheckClearCastManaRefund( functionArgs, manaDelta )
 end
 
 function CheckDaggerBlockRecharge( traitData, reloadTime )
-	wait(reloadTime, RoomThreadName )
+	wait(reloadTime, "DaggerBlockShield" )
 	if not CurrentRun.Hero.IsDead and MapState.ChargedManaWeapons.WeaponDagger5 ~= nil and traitData and traitData.OnWeaponChargeFunctions and traitData.OnWeaponChargeFunctions.FunctionArgs then
 		local functionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs
 		CreateAnimation({ Name = functionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
 		MapState.DaggerBlockShieldActive = true
 		SetThingProperty({ Property = "AllowDodge", Value = false, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-		AddEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "HeroOnHitStun" })
+		SetPlayerUninterruptible("DaggerBlock")
 	end
 end
 
@@ -3042,7 +3096,7 @@ function CheckDaggerBlock( weaponData, functionArgs )
 		CreateAnimation({ Name = functionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
 		MapState.DaggerBlockShieldActive = true
 		SetThingProperty({ Property = "AllowDodge", Value = false, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-		AddEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "HeroOnHitStun" })
+		SetPlayerUninterruptible("DaggerBlock")
 	end
 end
 
@@ -3100,18 +3154,18 @@ function DropOriginMarker( weaponData, functionArgs, triggerArgs )
 			startX = playerLocation.X
 			startY = playerLocation.Y
 
-			if HeroHasTrait("DoubleExManaBoon") then	
+			if HeroHasTrait("DoubleExManaBoon") or HeroHasTrait("StaffOneWayAttackTrait") then	
 				local baseCount = 3
 				if HeroHasTrait("StaffOneWayAttackTrait") then
 					baseCount = baseCount * 2
 				end
 				if HeroHasTrait("DoubleExManaBoon") then
 					baseCount = baseCount + 1
+					SetNextWaveTime({ WeaponName = "WeaponStaffSwing5", DestinationId = CurrentRun.Hero.ObjectId, Value = 0.2 })
 				end
 
 				SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = CurrentRun.Hero.ObjectId, Property = "NumProjectileWaves", Value = baseCount })
 				SetWeaponProperty({ WeaponName = "WeaponStaffSwing5", DestinationId = CurrentRun.Hero.ObjectId, Property = "NumWavesQueued", Value = baseCount - 1, ValueChangeType = "Absolute", DataValue = false })
-				SetNextWaveTime({ WeaponName = "WeaponStaffSwing5", DestinationId = CurrentRun.Hero.ObjectId, Value = 0.2 })
 			end
 		end
 		local traitData = GetHeroTrait("StaffSelfHitAspect")
@@ -3120,6 +3174,7 @@ function DropOriginMarker( weaponData, functionArgs, triggerArgs )
 			local threadName = "RepeatCastThread"
 			if HasThread( threadName ) then
 				killTaggedThreads( threadName )
+				waitUnmodified(0.1)
 				local id = SessionMapState.OriginMarkers.WeaponCast
 				SessionMapState.OriginMarkers.WeaponCast = nil
 				SetAnimation({ Name = functionArgs.ExpiringAnimationName, DestinationId = id })
@@ -3213,6 +3268,10 @@ function StartCastRepeatThread( startX, startY, functionArgs )
 	local weaponName = "WeaponCast"
 	local projectileName = "ProjectileCast"
 	local repeats = 1
+	if HasThread( threadName ) then
+		killTaggedThreads( threadName )
+		waitUnmodified(0.1)
+	end
 	local id = SessionMapState.OriginMarkers[weaponName]
 	SessionMapState.InvalidRepeatCastIds = {}
 	local traitData = GetHeroTrait("StaffSelfHitAspect")
@@ -3300,6 +3359,7 @@ function CheckWeaponAmmoFire( weaponData, functionArgs, triggerArgs )
 end
 
 function RemoveWeaponAmmoFire(triggerArgs)
+	wait(2)
 	if SessionMapState.AmmoVolleys and SessionMapState.AmmoVolleys[triggerArgs.ProjectileVolley] then
 		SessionMapState.AmmoVolleys[triggerArgs.ProjectileVolley].Count = SessionMapState.AmmoVolleys[triggerArgs.ProjectileVolley].Count - 1
 		if SessionMapState.AmmoVolleys[triggerArgs.ProjectileVolley].Count <= 0 then
@@ -3365,7 +3425,7 @@ function ConvertArmorToHealth( trait )
 end
 
 function CheckSpawnZeusDamage( enemy, traitArgs )
-	if not enemy or not enemy.ObjectId or SessionMapState.SpawnKillRecord[enemy.ObjectId] then
+	if not enemy or not enemy.ObjectId or SessionMapState.SpawnKillRecord[enemy.ObjectId] or enemy == CurrentRun.Hero then
 		return
 	end
 	if enemy.IsBoss or enemy.UseBossHealthBar or not RandomChance(traitArgs.Chance) then
@@ -3740,9 +3800,14 @@ end
 function CheckAxeCastArm( triggerArgs, args )
 	local intersectionProjectiles = GetInProjectilesBlast({ ProjectileId = triggerArgs.ProjectileId, DestinationName = "ProjectileCast", UseDamageRadius = true })
 	if not IsEmpty(intersectionProjectiles) then
-		ArmAndDetonateProjectiles({ Ids = intersectionProjectiles, BlastMultiplier = args.BlastMultiplier })
 		for _, projectileId in pairs( intersectionProjectiles) do
-			SessionState.ValidProjectileIds[ projectileId ] = true
+			for _, data in pairs( GetHeroTraitValues("OnEarlyCastDetonation")) do
+				thread( CallFunctionName, data.FunctionName, projectileId, data.FunctionArgs )
+			end
+		end
+		ArmAndDetonateProjectiles({ Ids = intersectionProjectiles, BlastMultiplier = args.BlastMultiplier })
+		for _, projectileId in pairs( intersectionProjectiles) do	
+			SessionState.EarlyDetonationProjectileIds[ projectileId ] = true
 			--ExpireProjectiles({ ProjectileIds = { projectileId })
 			if not IsEmpty(SessionMapState.CastAttachedProjectiles[projectileId]) then
 				ExpireProjectiles({ ProjectileIds = SessionMapState.CastAttachedProjectiles[projectileId] })
@@ -3802,7 +3867,9 @@ function ThreadedPerfectDamageReset( delay )
 	SessionMapState.DeactivatePerfectDamageBonus = true
 	waitUnmodified( delay, "PerfectDamageReset" )
 	SessionMapState.DeactivatePerfectDamageBonus = nil
-	PerfectDamageBoonRenewed()
+	if not CurrentRun.Hero.IsDead then
+		PerfectDamageBoonRenewed()
+	end
 end
 
 function ChargeSkullImpulse( victim, args, triggerArgs )
@@ -3975,9 +4042,9 @@ function HandleAttachRecord( weaponData, functionArgs, triggerArgs )
 			MatchProjectileName = true,
 		})
 		local angle = GetAngle({ Id = CurrentRun.Hero.ObjectId })
+		local baseAngle = angle
 		local offset = 0
 		local repeats = 1
-		
 		if HeroHasTrait("DoubleExManaBoon") and isEx then
 			repeats = 2
 		end
@@ -3985,6 +4052,11 @@ function HandleAttachRecord( weaponData, functionArgs, triggerArgs )
 			for i=1, triggerArgs.NumProjectiles do
 				if isEx then
 					angle = 360 / triggerArgs.NumProjectiles * i + offset
+				else
+					if triggerArgs.NumProjectiles > 1 then
+						local spread = math.deg( GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = weaponData.Name, Property = "ProjectileAngleOffset"}) * 2 )
+						angle = baseAngle - spread +  i * ( spread / ( triggerArgs.NumProjectiles  - 1 ))
+					end
 				end
 				local projectileId = CreateProjectileFromUnit({
 					WeaponName = weaponName, 
@@ -3993,7 +4065,7 @@ function HandleAttachRecord( weaponData, functionArgs, triggerArgs )
 					Id = CurrentRun.Hero.ObjectId, 
 					ProjectileDestinationId = SessionMapState.CurrentExProjectile, 
 					FireFromTarget = true, 
-					AttachToTarget = isEx and not HeroHasTrait("TorchOrbitPointTrait"), 
+					AttachToTarget = isEx, 
 					DataProperties = derivedValues.PropertyChanges, 
 					ThingProperties = derivedValues.ThingPropertyChanges
 					})
@@ -4401,6 +4473,7 @@ function PoseidonSprintFollow( functionArgs )
 	local speed = functionArgs.Speed
 	local interval = 0.1
 	local startTime = _worldTimeUnmodified
+	local startDamageMultiplier = functionArgs.StartingDamageMultiplier or 0.25
 	while MapState.AttachedBallProjectileId do
 		local playerFacing = GetAngle({ Id = CurrentRun.Hero.ObjectId })
 		local offset = CalcOffset( math.rad( playerFacing + 180 ), functionArgs.Offset )
@@ -4410,6 +4483,9 @@ function PoseidonSprintFollow( functionArgs )
 		else
 			Move({ Id = MapState.AttachedStormTargetId, DestinationId = CurrentRun.Hero.ObjectId, OffsetX = offset.X, OffsetY = offset.Y, Speed = speed })
 		end
+		
+		local damageLerp = math.min(1, (_worldTimeUnmodified - startTime)/functionArgs.ChargeRadiusTime)
+		SetProjectileProperty({ ProjectileId = MapState.AttachedBallProjectileId, Property = "DamageMultiplier", Value = startDamageMultiplier + damageLerp*(functionArgs.DamageMultiplier - startDamageMultiplier) })
 		if functionArgs.ChargePushbackForce and functionArgs.ChargePushbackRadius then
 			local pushbackLerp = math.min(1, (_worldTimeUnmodified - startTime)/functionArgs.ChargeRadiusTime)
 			local pushbackDistance =  functionArgs.ChargePushbackRadius * pushbackLerp * functionArgs.ChargeRadiusMultiplier

@@ -553,6 +553,7 @@ function ExorcismSuccessPresentation( source, args, user )
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction or 1.0, Duration = 0.3, ZoomType = "Ease" })
 	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
 
+	LoadVoiceBanks({ Name = "Selene" })
 	thread( PlayVoiceLines, HeroVoiceLines.ExorcismSucceededVoiceLines, true )
 
 	PlaySound({ Name = "/SFX/Menu Sounds/WeaponUnlockPoof" })

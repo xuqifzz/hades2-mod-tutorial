@@ -164,7 +164,8 @@ OverwriteTableKeys( QuestData, {
 		UnlockGameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "HecateBossFirstAppearance" },
+				Path = { "GameState", "TextLinesRecord" },
+				HasAny = { "HecateBossFirstAppearance", "HecateBossFirstAppearanceAlt" },
 			},
 		},
 		CompleteGameStateRequirements =
@@ -326,6 +327,7 @@ OverwriteTableKeys( QuestData, {
 					"LightningDebuffGeneratorBoon",
 					"DoubleBoltBoon",
 					"EchoExpirationBoon",
+					"ElementalDamageFloorBoon", -- Elemental
 					"SpawnKillBoon", -- Legendary
 				},
 			},
@@ -373,14 +375,16 @@ OverwriteTableKeys( QuestData, {
 					"PoseidonWeaponBoon",
 					"PoseidonSpecialBoon",
 					"PoseidonCastBoon",
-					"PoseidonExCastBoon",
 					"PoseidonSprintBoon",
 					"PoseidonManaBoon",
+					"PoseidonExCastBoon",
+					"OmegaPoseidonProjectileBoon",
 					"EncounterStartOffenseBuffBoon",
 					"RoomRewardBonusBoon",
 					"FocusDamageShaveBoon",
 					"DoubleRewardBoon",
 					"PoseidonStatusBoon",
+					"ElementalHealthBoon", -- Elemental
 					"AmplifyConeBoon", -- Legendary
 				},
 			},
@@ -428,15 +432,16 @@ OverwriteTableKeys( QuestData, {
 					"ApolloWeaponBoon",
 					"ApolloSpecialBoon",
 					"ApolloCastBoon",
-					"ApolloExCastBoon",
 					"ApolloSprintBoon",
 					"ApolloManaBoon",
+					"ApolloExCastBoon",
 					"ApolloRetaliateBoon",
 					"PerfectDamageBonusBoon",
 					"BlindChanceBoon",
 					"ApolloBlindBoon",
 					"ApolloCastAreaBoon",
 					"DoubleStrikeChanceBoon",
+					"ElementalRallyBoon", -- Elemental
 					"DoubleExManaBoon", -- Legendary
 				},
 			},
@@ -493,6 +498,7 @@ OverwriteTableKeys( QuestData, {
 					"SlowExAttackBoon",
 					"CastAttachBoon",
 					"RootDurationBoon",
+					"ElementalDamageCapBoon", -- Elemental
 					"InstantRootKill", -- Legendary
 				},
 			},
@@ -548,7 +554,9 @@ OverwriteTableKeys( QuestData, {
 					"FireballManaSpecialBoon",
 					"BurnExplodeBoon",
 					"BurnArmorBoon",
-					"BurnStackBoon", -- Legendary
+					"BurnStackBoon",
+					"ElementalBaseDamageBoon", -- Elemental
+					"BurnSprintBoon", -- Legendary
 				},
 			},
 		},
@@ -604,6 +612,7 @@ OverwriteTableKeys( QuestData, {
 					"WeakVulnerabilityBoon",
 					"ManaBurstBoon",
 					"FocusRawDamageBoon",
+					"ElementalDodgeBoon", -- Elemental
 					"RandomStatusBoon", -- Legendary
 				},
 			},
@@ -660,6 +669,7 @@ OverwriteTableKeys( QuestData, {
 					"EncounterStartDefenseBuffBoon",
 					"ManaToHealthBoon",
 					"MassiveKnockupBoon",
+					"ElementalDamageBoon", -- Elemental
 					"WeaponUpgradeBoon", -- Legendary
 				},
 			},
@@ -717,6 +727,7 @@ OverwriteTableKeys( QuestData, {
 				{
 					"TemporaryDoorHealTrait",
 					"TemporaryHealExpirationTrait",
+					"FirstHitHealTrait",
 					"TemporaryImprovedSecondaryTrait",
 					"TemporaryImprovedCastTrait",
 					"TemporaryMoveSpeedTrait",
@@ -755,6 +766,7 @@ OverwriteTableKeys( QuestData, {
 				{
 					"TemporaryDoorHealTrait",
 					"TemporaryHealExpirationTrait",
+					"FirstHitHealTrait",
 					"TemporaryImprovedSecondaryTrait",
 					"TemporaryImprovedCastTrait",
 					"TemporaryMoveSpeedTrait",
@@ -908,8 +920,9 @@ ScreenData.QuestLog =
 	GamepadNavigation =
 	{
 		FreeFormSelectWrapY = false,
+		FreeFormSelectGridLock = true,
 		FreeFormSelectStepDistance = 8,
-		FreeFormSelectSuccessDistanceStep = 8,
+		FreeFormSelectSuccessDistanceStep = 1,
 		FreeFormSelectRepeatDelay = 0.6,
 		FreeFormSelectRepeatInterval = 0.1,
 	},

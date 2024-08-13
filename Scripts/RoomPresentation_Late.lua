@@ -673,6 +673,9 @@ function NemesisLeaveRoomPresentation( nemesis, exitDoor )
 	end
 
 	SetAlpha({ Id = nemesis.ObjectId, Fraction = 0.0, Duration = 1.0 })
+	-- Should probably call full CleanupEnemy() but keeping this narrow
+	killTaggedThreads( nemesis.AIThreadName )
+	killWaitUntilThreads( nemesis.AINotifyName )
 	thread( DestroyOnDelay, { nemesis.ObjectId }, 1.0 )
 end
 
@@ -1904,8 +1907,20 @@ end
 
 function ShipsSteeringWheelChoicePresentation( wheel )
 	local heroId = CurrentRun.Hero.ObjectId
-	PanCamera({ Ids = { heroId, wheel.ObjectId }, Duration = 2.5 })
-	FocusCamera({ Fraction = 0.965, Duration = 2.5, ZoomType = "Ease" })
+	if IsEmpty(MapState.SurfaceShopItems) then
+		PanCamera({ Ids = { heroId, wheel.ObjectId }, Duration = 2.5 })
+		--FocusCamera({ Fraction = 0.965, Duration = 2.5, ZoomType = "Ease" })
+		local zoomAmount = CurrentRun.CurrentRoom.ZoomFraction
+		local dist = GetDistance({ Id = heroId, DestinationId = wheel.ObjectId })
+		if dist ~= nil and dist > 0 then
+			if dist > 1000 then
+				zoomAmount = zoomAmount * Lerp( 0.6, 1.0, 1000 / dist )
+			else
+				zoomAmount = zoomAmount * 1.05
+			end
+		end
+		FocusCamera({ Fraction = zoomAmount, Duration = 2.5, ZoomType = "Ease" })
+	end
 	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/NauticalBell", Id = wheelId }) 
 	SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.MusicId, Value = 0.0, Duration = 0.25 })
 	--thread( GustWinds, { ObjectId = wheel.ObjectId, Count = 2 } )

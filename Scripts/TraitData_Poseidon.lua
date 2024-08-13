@@ -1127,8 +1127,6 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
 		Icon = "Boon_Poseidon_39",
-		EncounterStartWeapon = "EncounterStartBuffWeapon",
-		PreEquipWeapons = { "EncounterStartBuffWeapon" },
 		RarityLevels =
 		{
 			Common =
@@ -1219,6 +1217,7 @@ OverwriteTableKeys( TraitData, {
 			NotRequiredPickup = true,
 			ForceToValidLocation = true,
 			RunProgressUpgradeEligible = true,
+			MultiplyMoney = true,
 			ReportValues = {ReportedMinMoney = "ExtractAmount"},
 			LootOptions =
 			{
@@ -1235,6 +1234,10 @@ OverwriteTableKeys( TraitData, {
 				{
 					Name = "MemPointsCommonDrop",
 					Chance = 0.5,
+					Overrides = 
+					{
+						MetaConversionEligible = false,
+					},
 					GameStateRequirements = 
 					{
 						{ 
@@ -1246,6 +1249,10 @@ OverwriteTableKeys( TraitData, {
 				{
 					Name = "MetaCardPointsCommonDrop",
 					Chance = 0.5,
+					Overrides = 
+					{
+						MetaConversionEligible = false,
+					},
 					GameStateRequirements = 
 					{
 						{ 
@@ -1373,6 +1380,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+	-- Cut
 	SlamExplosionBoon =
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },

@@ -21,7 +21,7 @@ UnitSetData.NPC_Selene =
 				GameStateRequirements =
 				{
 					{
-						Path = { "GameState", "ItemInteractions", "SpellDrop", },
+						Path = { "GameState", "UseRecord", "SpellDrop", },
 						Comparison = ">=",
 						Value = 7,
 					},
@@ -78,7 +78,7 @@ UnitSetData.NPC_Selene =
 						HasAll = { "HecateAboutSurfaceSurvival02", "SeleneHome01" },
 					},
 					{
-						Path = { "GameState", "ItemInteractions", "SpellDrop", },
+						Path = { "GameState", "UseRecord", "SpellDrop", },
 						Comparison = ">=",
 						Value = 8,
 					},

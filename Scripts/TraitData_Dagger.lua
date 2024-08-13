@@ -442,7 +442,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"WeaponTrait" },
 		Icon = "Hammer_Daggers_31",
 		RequiredWeapon = "WeaponDagger",
-		RequiredFalseTraits = { "DaggerRapidAttackTrait", },
+		--[[
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = {"WeaponDagger5"},
@@ -476,6 +476,25 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipAccumulatedBonus",
 			},
 		},
+		]]
+
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponDagger",
+				ProjectileProperty = "Damage",
+				BaseValue = 20,
+				ChangeType = "Add",
+				ReportValues = { ReportedDamageChange = "ChangeValue" },
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamageChange",
+				ExtractAs = "TooltipDamageBonus",
+			},
+		}
 	},
 	DaggerSpecialReturnTrait = 
 	{
@@ -576,7 +595,7 @@ OverwriteTableKeys( TraitData, {
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
-			HitVulnerabilityMultiplier = 3.0,
+			HitVulnerabilityMultiplier = 2.5,
 			ReportValues = { ReportedWeaponMultiplier = "HitVulnerabilityMultiplier" },
 		},	
 		ExtractValues =

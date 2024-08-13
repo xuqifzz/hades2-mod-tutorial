@@ -369,8 +369,9 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.05,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
+			PostAttackStop = true,
 		},
 
 		Sounds =
@@ -422,8 +423,9 @@ WeaponSetData =
 
 			TrackTargetDuringCharge = true,
 			PreAttackRotationDampening = 0.05,
-			AngleTowardsTargetWhileFiring = true,
+			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.05,
+			PostAttackStop = true,
 		},
 
 		Sounds =
@@ -506,6 +508,7 @@ WeaponSetData =
 			TrackTargetDuringCharge = true,
 			AngleTowardsTargetWhileFiring = true,
 			FireRotationDampening = 0.09,
+			PostAttackStop = true,
 
 			PreAttackDuration = 1.0,
 			PreAttackAnimationSpeed = 0.5,

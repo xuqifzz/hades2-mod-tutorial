@@ -711,6 +711,12 @@ function StartNemesisDamageContest( source, args )
 	source.Health = source.MaxHealth
 	source.TriggersOnDamageEffects = true
 	SetVulnerable({ Id = source.ObjectId })
+	table.insert( source.Groups, "EnemyTeam" )
+	AddToGroup({ Id = source.ObjectId, Names = {"EnemyTeam"} })
+	ActiveEnemies[source.ObjectId] = source
+	
+	SetLifeProperty({ DestinationId = source.ObjectId, Property = "HomingEligible", Value = true })
+
 	AddAutoLockTarget({ Id = source.ObjectId })
 	--source.OnHitFunctionName = "NemesisDamageContestHit"
 	source.OnDamagedFunctionName = "NemesisDamageContestHit"
@@ -728,7 +734,7 @@ function NemesisDamageContestHit( victim, attacker, args )
 		thread( NemesisDamageContestTimer, victim, args )
 	end
 	victim.DamageContestAmount = (victim.DamageContestAmount or 0) + args.DamageAmount
-	UpdateObjective( "NemesisDamageContest", nil, nil, { Pulse = true } )
+	UpdateObjective( "NemesisDamageContest", "TempTextData", { DamageContestAmount = victim.DamageContestAmount, DamageGoal = victim.DamageContestArgs.DamageGoal }, { Pulse = true } )
 	if victim.DamageContestAmount < victim.DamageContestArgs.ExcessDamageGoal then
 		NemesisDamageContestHitPresentation( victim, args )
 	elseif not victim.DamageContestGreatSuccess then
@@ -739,12 +745,19 @@ end
 
 function NemesisDamageContestTimer( source, args )
 	local timeRemaining = source.DamageContestArgs.Timer
+	
 	while timeRemaining > 0.0 do
 		NemesisDamageContestCountdownPresentation( source, args, timeRemaining )
 		local interval = 1.0
 		timeRemaining = timeRemaining - interval
 		wait( interval )
 	end
+
+	RemoveValueAndCollapse( source.Group, "EnemyTeam" )
+	RemoveFromGroup({ Id = source.ObjectId, Names = {"EnemyTeam"} })
+	ActiveEnemies[source.ObjectId] = nil
+	
+	SetLifeProperty({ DestinationId = source.ObjectId, Property = "HomingEligible", Value = false })
 	SetInvulnerable({ Id = source.ObjectId })
 	RemoveAutoLockTarget({ Id = source.ObjectId })
 	source.OnDamagedFunctionName = nil
@@ -1208,6 +1221,7 @@ function EchoLastReward( args )
 		local consumableName = CurrentRun.LastReward.Name
 		local consumableId = SpawnObstacle({ Name = consumableName, DestinationId = spawnPoint, Group = "Standing", })
 		local consumable = CreateConsumableItem( consumableId, consumableName, 0, { RunProgressUpgradeEligible = true } )
+		ApplyConsumableItemResourceMultiplier( CurrentRun.CurrentRoom, consumable )
 		consumable.MetaConversionEligible = false
 		MapState.RoomRequiredObjects[consumableId] = consumable
 	else

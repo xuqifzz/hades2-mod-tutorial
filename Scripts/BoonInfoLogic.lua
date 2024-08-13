@@ -238,7 +238,7 @@ function CreateBoonInfoButton( screen, traitName, index )
 		--ElementalIcons = traitInfo.ElementalIcons 
 	})
 
-	if not GameState.TraitsTaken[traitName] and HasActiveQuestForName( traitName ) then
+	if not GameState.TraitsTaken[traitName] and not GameState.ItemInteractions[traitName] and HasActiveQuestForName( traitName ) then
 		SetAnimation({ DestinationId = traitInfo.QuestIcon.Id, Name = "QuestItemFound" })
 	else
 		SetAnimation({ DestinationId = traitInfo.QuestIcon.Id, Name = "Blank" })
@@ -383,7 +383,7 @@ function CreateTraitRequirementList( screen, headerTextArgs, traitList, startY, 
 	local sharedGod = nil
 	local allSame = true
 	for i, traitName in ipairs( traitList ) do
-		local lootSourceName = GetLootSourceName( traitName )
+		local lootSourceName = GetLootSourceName( traitName, { ForBoonInfo = true } )
 		if not sharedGod then
 			sharedGod = lootSourceName
 		elseif sharedGod ~= lootSourceName and not LootData[sharedGod].TraitIndex[traitName] then

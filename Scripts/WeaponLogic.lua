@@ -327,7 +327,7 @@ OnWeaponChargeCanceled{ "WeaponDagger5",
 		if MapState.DaggerBlockShieldActive then
 			MapState.DaggerBlockShieldActive = false
 			SetThingProperty({ Property = "AllowDodge", Value = true, DestinationId = CurrentRun.Hero.ObjectId, DataValue = false })
-			RemoveEffectBlock({ Id = CurrentRun.Hero.ObjectId, Name = "HeroOnHitStun" })
+			SetPlayerInterruptible("DaggerBlock")
 			local traitData = GetHeroTrait("DaggerBlockAspect")
 			local chargeFunctionArgs = traitData.OnWeaponChargeFunctions.FunctionArgs
 			StopAnimation({ Name = chargeFunctionArgs.Vfx, DestinationId = CurrentRun.Hero.ObjectId })
@@ -511,7 +511,13 @@ function GetWeaponChargeStages( weaponData )
 			end
 		end
 	end
-	return chargeStages
+	local finalizedChargeStages = {}
+	for i, data in ipairs( chargeStages ) do
+		if not data.RequiredTraitName or HeroHasTrait( data.RequiredTraitName ) then
+			table.insert(finalizedChargeStages, data )
+		end
+	end
+	return finalizedChargeStages
 end
 
 function HasForceRelease( weaponData, stageData )
@@ -636,6 +642,10 @@ function EmptyWeaponCharge( weaponData, stageReached, stageData, args )
 			if not stageData.SkipManaSpendOnFire and ( not weaponData.CheckPostFireFail or not SessionMapState.FrameFlags[weaponData.Name.."PostFireFail"] ) then
 				ManaDelta( -GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } ))
 				SessionMapState.ChargeStageManaSpend[weaponData.Name] = GetManaCost( weaponData, false, { ManaCostOverride = stageData.ManaCost } )
+				if SessionMapState.PendingStageManaRefund[ weaponData.Name ] then
+					ManaDelta( SessionMapState.PendingStageManaRefund[ weaponData.Name ] )
+					SessionMapState.PendingStageManaRefund[ weaponData.Name ] = nil
+				end
 			end
 		end
 		Rumble({ RightFraction = 0.7, Duration = 0.3 })
@@ -886,7 +896,7 @@ function HasDisjointedCast()
 	return false
 end
 
-function CheckCastControl( unit, weaponData, triggerArgs )
+function CheckSpinControl( unit, weaponData, triggerArgs )
 	if not triggerArgs.DidFire then
 		local weaponFireOverrides = {}
 		for i, data in pairs(GetHeroTraitValues("OverrideWeaponFireNames")) do
@@ -899,6 +909,12 @@ function CheckCastControl( unit, weaponData, triggerArgs )
 			end
 		end
 		AddWeaponControl({ DestinationId = unit.ObjectId, Name = castOverridden })
+
+		for i, traitData in pairs( CurrentRun.Hero.Traits ) do
+			if traitData.Slot == "Spell" and not IsEmpty(traitData.PreEquipWeapons) then		
+				AddWeaponControl({ DestinationId = CurrentRun.Hero.ObjectId, Name = traitData.PreEquipWeapons[1] })
+			end
+		end
 	end
 end
 
@@ -1086,7 +1102,7 @@ OnBlinkFinished{ "WeaponLobSpecial",
 		end
 		local chargeTime = GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponLob", Property = "ChargeTime" })
 		local minCharge = GetWeaponDataValue({ Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponLob", Property = "MinChargeToFire" })
-		waitUnmodified(chargeTime * minCharge + 0.06 )
+		waitUnmodified( chargeTime * minCharge )
 		SessionMapState.WeaponSpeedMultipliers.WeaponLob = nil
 		RemoveLobWeaponLockLayer("Charge")	
 	end
@@ -1136,12 +1152,25 @@ function ApplyDeferredThrowReversions( weaponData )
 end
 
 function TorchChargeStage( weaponName, stageData )
+	if MapState.TimeSlowSpeedPropertyChanges and SessionMapState.TimeSlowSpeed then
+		DebugPrint({Text = " torch charge stage "})
+		for s, newPropertyChange in pairs(MapState.TimeSlowSpeedPropertyChanges) do
+			if newPropertyChange.RecordExState then
+				SessionMapState.SpeedNonExPropertyChangeRecord[weaponName] = ShallowCopyTable( newPropertyChange )
+			end
+		end
+	end
 end
 
 function EmptyTorchCharge( weaponName, stageReached )
 	if SessionMapState.SpeedExPropertyChangeRecord[weaponName] then
 		ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, SessionMapState.SpeedExPropertyChangeRecord[weaponName] )
 		SessionMapState.SpeedExPropertyChangeRecord[weaponName] = nil
+	end
+	if SessionMapState.SpeedNonExPropertyChangeRecord[weaponName] then
+		DebugPrint({Text = " revert charge stage "})
+		ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, SessionMapState.SpeedNonExPropertyChangeRecord[weaponName], true )
+		SessionMapState.SpeedNonExPropertyChangeRecord[weaponName] = nil
 	end
 end
 
@@ -1159,9 +1188,14 @@ function TorchHasMana ( weaponData )
 end
 
 function TorchOutOfMana( weaponData )
+	if SessionMapState.SpeedNonExPropertyChangeRecord[weaponData.Name] then
+		ApplyWeaponPropertyChange( CurrentRun.Hero, weaponData.Name, SessionMapState.SpeedNonExPropertyChangeRecord[weaponData.Name], true )
+		SessionMapState.SpeedNonExPropertyChangeRecord[weaponData.Name] = nil
+	end
 	RevertWeaponChanges( CurrentRun.Hero, weaponData )
 	ApplyProjectilePropertyChanges( ToLookup({ weaponData.Name }), SessionState.PropertyChangeList.ProjectileChanges )
 	SessionMapState.TorchOutOfMana = true
+	
 end
 
 function EmptyTorchSpecialCharge( weaponName, stageReached )
@@ -1244,7 +1278,7 @@ function WeaponLobAmmoDrop( triggerArgs, weaponDataArgs )
 	local consumableId = SpawnObstacle({ Name = "LobAmmoPack", LocationX = triggerArgs.LocationX, LocationY = triggerArgs.LocationY, Group = "Standing" })
 	local consumable = CreateConsumableItem( consumableId, "LobAmmoPack" )
 	local ammoDropData = weaponDataArgs.DropForces
-
+	consumable.ProjectileVolley = triggerArgs.ProjectileVolley
 	if triggerArgs.HasImpact ~= nil and weaponDataArgs.CollideForces then
 		ammoDropData = weaponDataArgs.CollideForces
 	end
@@ -1256,18 +1290,16 @@ function WeaponLobAmmoDrop( triggerArgs, weaponDataArgs )
 		end
 		ApplyForce({ Id = consumableId, Speed = RandomFloat( ammoDropData.ForceMin, ammoDropData.ForceMax ), Angle = triggerArgs.Angle + scatter, SelfApplied = true })
 	end
-	if HeroHasTrait("LobPulseAmmoTrait") then
-		local pulseArgs = GetHeroTrait("LobPulseAmmoTrait").PulseArgs
-		thread( PulseAmmo, consumable, pulseArgs)
-	end
 	thread( EscalateMagnetism, consumable )
 end
 
-function PulseAmmo ( consumable, args )
-	wait( RandomFloat(args.Interval/2, args.Interval), RoomThreadName)
-	while IsAlive({ Id = consumable.ObjectId }) do
-		FireWeaponFromUnit({ Weapon = "WeaponLobPulse", Id = CurrentRun.Hero.ObjectId, DestinationId = consumable.ObjectId, FireFromTarget = true })
-		wait( args.Interval, RoomThreadName )
+function CheckLobPulse ( touchdowner, functionArgs, triggerArgs )
+	if touchdowner and touchdowner.Name == "LobAmmoPack" and not triggerArgs.Magnetized then
+		local currentVolley = GetWeaponProperty({Id = CurrentRun.Hero.ObjectId, WeaponName = "WeaponLobPulse", Property = "Volley" }) + 1
+		if HeroHasTrait("LobAmmoBoostAspect") and touchdowner.ProjectileVolley and SessionMapState.AmmoVolleys[ touchdowner.ProjectileVolley ] then
+			SessionMapState.PulseAmmoVolleys[currentVolley] = { AmmoCount = SessionMapState.AmmoVolleys[ touchdowner.ProjectileVolley ].AmmoCount, Count = 1 }
+		end	
+		FireWeaponFromUnit({ Weapon = "WeaponLobPulse", Id = CurrentRun.Hero.ObjectId, DestinationId = touchdowner.ObjectId, FireFromTarget = true })
 	end
 end
 

@@ -441,6 +441,7 @@ OverwriteTableKeys( TraitData, {
 				LuaProperty = "MaxHealth",
 				BaseValue = 15,
 				ChangeType = "Add",
+				MaintainDelta = true,
 				MultipliedByElement = "Water",
 				ReportValues = 
 				{ 

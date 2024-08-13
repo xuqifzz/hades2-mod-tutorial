@@ -1069,7 +1069,7 @@ UnitSetData.NPC_Artemis =
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PreLineWait = 0.35,
-					Text = "...That she is not. She's just trying to make herself useful, I get it. And the Fates themselves know that I probably could use the help. Though, how have you two been?" },
+					Text = "...That she is not. She's just trying to make herself useful, I get it. And the Fates themselves know that I could probably use the help. Though, how have you two been?" },
 				{ Cue = "/VO/Artemis_0207",
 					Text = "We each need company, we each need solitude, the same old thing. She's frustrated, which can go a couple of ways depending on the night. Anyway, she's a big girl!" },
 			},

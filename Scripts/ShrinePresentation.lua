@@ -134,7 +134,6 @@ function ShrineScreenMouseOverItem( button )
 	end
 
 	local text = button.Data.Name
-	local upgradedRarity = nil
 	local metaUpgradeData = button.Data
 	
 	local rarityLevel = GetNumShrineUpgrades( text )
@@ -143,8 +142,6 @@ function ShrineScreenMouseOverItem( button )
 	local rarityColor = Color.White
 	if rarityName ~= nil then
 		rarityColor = Color["BoonPatch"..rarityName]
-	else
-		rarityColor = screen.InactiveColor
 	end
 	SetAlpha({ Id = components.InfoBoxRarity.Id, Fraction = 1.0, Duration = 0.2 })
 	ModifyTextBox({ Id = components.InfoBoxRarity.Id,
@@ -224,7 +221,9 @@ function ShrineScreenRankDownPresentation( screen, button )
 	local components = screen.Components
 	ShrineScreenUpdateItems( screen, button )
 	ShrineScreenUpdateActivePoints( screen )
-	ShrineScreenMouseOverItem( button )
+	if screen.SelectedItem == button then
+		ShrineScreenMouseOverItem( button )
+	end
 	ShrineScreenUpdateNextRankText( button )
 	ShrineScreenUpdateRankActions( button )
 	PlaySound({ Name = screen.ToggleOnSound, Id = button.Id })
@@ -239,7 +238,9 @@ function ShrineScreenRankUpPresentation( screen, button )
 	local components = screen.Components
 	ShrineScreenUpdateItems( screen, button )
 	ShrineScreenUpdateActivePoints( screen )
-	ShrineScreenMouseOverItem( button )
+	if screen.SelectedItem == button then
+		ShrineScreenMouseOverItem( button )
+	end
 	ShrineScreenUpdateNextRankText( button )
 	ShrineScreenUpdateRankActions( button )
 	thread( PlayVoiceLines, button.Data.SelectedVoiceLines or GlobalVoiceLines.ShrineUpgradePickedVoiceLines, true )

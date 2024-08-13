@@ -387,6 +387,8 @@ function MouseOffGhostAdminItem( button )
 	ModifyTextBox({ Id = components.InfoBoxFlavor.Id, FadeTarget = 0.0, })
 	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
 	DestroyTextBox({ Ids = screen.CostIds })
+	Destroy({ Ids = screen.CostIds })
+	screen.CostIds = nil
 
 	UpdateGhostAdminInteractionText( button.Screen )
 end

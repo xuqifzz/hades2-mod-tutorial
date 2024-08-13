@@ -758,6 +758,9 @@ FamiliarData =
 							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 							IsAny = { "I" },
 						},
+						{
+							PathFalse = { "CurrentRun", "Cleared" },
+						},
 					},
 					{ Cue = "/VO/Melinoe_2840", Text = "Where does Chronos find those blasted Satyrs, anyway...?",
 						GameStateRequirements =

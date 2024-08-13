@@ -238,7 +238,8 @@ WeaponSetData =
 			FireProjectileAtSelf = true,
 			FireFromTarget = true,
 			FireAsPlayerProjectile = true,
-			
+			FireStartFunctionName = "RecordSafeZoneFired",
+
 			PreAttackDuration = 0.2,
 			FireDuration = 5.0,
 			PostAttackCooldown = 0.0,

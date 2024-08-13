@@ -29,7 +29,8 @@ PersistentTraitKeys =
 	"TraitListTextString",
 	"HarvestBoons",
 	"SacrificedTraitName", 
-	"Uses" 
+	"Uses",
+	"CurrentArmor",
 }
 
 TraitMultiplierData =
@@ -111,6 +112,10 @@ TraitRequirements =
 		},
 	},
 
+	-- Chaos
+	ChaosLastStandBlessing = { OneOf = LootData.TrialUpgrade.PermanentTraits, },
+	ChaosMetaUpgradeCurse = { OneOf = LootData.TrialUpgrade.PermanentTraits, },
+
 	-- Demeter
 	--ReserveManaHitShieldBoon = { OneOf = LinkedTraitData.DemeterCoreTraits, },
 	SlowExAttackBoon = { OneOf = LinkedTraitData.WeaponTraits, },
@@ -143,6 +148,7 @@ TraitRequirements =
 
 	-- Hera
 	DamageSharePotencyBoon = { OneOf = LinkedTraitData.HeraLinkTraits, },
+	SpawnCastDamageBoon = { OneOf = LinkedTraitData.CastTraits, },
 	LinkedDeathDamageBoon = { OneOf = LinkedTraitData.HeraLinkTraits, },
 	--FullManaExBoostBoon = { OneOf = LinkedTraitData.HeraCoreTraits, },
 	HeraManaShieldBoon = 
@@ -150,8 +156,8 @@ TraitRequirements =
 		OneFromEachSet = 
 		{
 			{ "HeraWeaponBoon", "HeraSpecialBoon", "HeraCastBoon", "HeraSprintBoon" },
-			{ "BoonDecayBoon", "SwapBonusBoon", "CommonGlobalDamageBoon", "OmegaHeraProjectileBoon", },
-			{ "DamageSharePotencyBoon", "LinkedDeathDamageBoon", },
+			{ "BoonDecayBoon", "CommonGlobalDamageBoon", "OmegaHeraProjectileBoon", },
+			{ "DamageSharePotencyBoon", "SpawnCastDamageBoon"},
 		},
 	},
 
@@ -227,7 +233,7 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			{ "DamageShareRetaliateBoon", "SwapBonusBoon", "DamageSharePotencyBoon", "LinkedDeathDamageBoon", "OmegaHeraProjectileBoon", },
+			{ "DamageShareRetaliateBoon", "LinkedDeathDamageBoon", "DamageSharePotencyBoon", "SpawnCastDamageBoon", "OmegaHeraProjectileBoon", },
 			{ "MassiveDamageBoon", "AntiArmorBoon", "HeavyArmorBoon", "ArmorBoon", "EncounterStartDefenseBuffBoon", "ManaToHealthBoon", "MassiveKnockupBoon", },
 		},
 	},
@@ -969,6 +975,7 @@ TraitSetData.Base =
 		{ 
 			Delay = 0.2,
 			NotRequiredPickup = true,
+			MultiplyMoney = true,
 			LootOptions =
 			{
 				{

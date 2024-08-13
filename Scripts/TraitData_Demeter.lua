@@ -1187,6 +1187,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "BaseTrait", "EarthBoon"},
 		God = "Demeter",
 		
+		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements = 
 		{
 			{

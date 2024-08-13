@@ -44,7 +44,7 @@ ScreenData.MailboxScreen =
 		FreeFormSelectWrapY = true,
 		FreeFormSelectGridLock = true,
 		FreeFormSelectStepDistance = 8,
-		FreeFormSelectSuccessDistanceStep = 2,
+		FreeFormSelectSuccessDistanceStep = 4,
 		FreeFormSelectRepeatDelay = 0.6,
 		FreeFormSelectRepeatInterval = 0.1,
 	},

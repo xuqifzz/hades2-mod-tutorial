@@ -1328,10 +1328,10 @@ LootSetData.Selene =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord", },
-						HasAll = { "ApolloFirstPickUp", "ZeusFirstPickUp", "PoseidonFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp" },
+						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp" },
 					},
 					{
-						Path = { "GameState", "ItemInteractions", "SpellDrop" },
+						Path = { "GameState", "UseRecord", "SpellDrop" },
 						Comparison = ">=",
 						Value = 4,
 					},

@@ -57,7 +57,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "SynergyTrait" },
 		OnProjectileCreationFunction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
 			Name = "QueueManaBurst",
 			Args = 
 			{
@@ -334,7 +334,7 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"SynergyTrait"},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
 			ValidActiveEffects = {"BlindEffect"},
 			ValidBaseDamageAddition = 220,
 			ReportValues = { ReportedDamageAddition = "ValidBaseDamageAddition"}
@@ -345,7 +345,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast" },
+			ValidProjectiles = { "HephSprintBlast", "MassiveSlamBlast", "MassiveSlamBlastCast"  },
 			FunctionName = "ClearBlindEffect",
 		},
 		ExtractValues = 
@@ -483,8 +483,9 @@ OverwriteTableKeys( TraitData, {
 			FunctionArgs =
 			{
 				ProjectileName = "ProjectileSprintBall",
+				StartingDamageMultiplier = 0.30,
 				DamageMultiplier = 1,
-				ChargeRadiusTime = 2,
+				ChargeRadiusTime = 1.5,
 				Speed = 1000, -- Maximum speed of orb while following
 				Offset = 80, -- How far behind the player the orb trails
 				StartScale = 0.1,
@@ -495,7 +496,7 @@ OverwriteTableKeys( TraitData, {
 				ChargePushbackRadius = 80, --Multiplied by scale of ball
 				ChargePushbackFx = "PoseidonWaveCurlImpact",
 				ChargePushbackSound = "/SFX/Player Sounds/DemeterRushImpactPoof",
-				ChargeRadiusMultiplier = 1.5,
+				ChargeRadiusMultiplier = 2.4,
 				ReportValues = 
 				{
 					ReportedMultiplier = "DamageMultiplier",
@@ -505,7 +506,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		StatLines = 
 		{
-			"DetonateDamageStatDisplay1",
+			"MaxDetonateDamageStatDisplay1",
 		},
 		ExtractValues =
 		{
@@ -528,7 +529,12 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Zeus_41",
-		
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "ApolloExCastBoon" },
+			}
+		},
 		ReportedDifference = 30, -- display variable for charge difference
 		WeaponDataOverrideTraitRequirement = "ApolloExCastBoon",
 		WeaponDataOverride =
@@ -541,6 +547,7 @@ OverwriteTableKeys( TraitData, {
 				{
 					OnStageReachedFunctionName = "CastChargeStage",
 					EmptyChargeFunctionName = "EmptyCastCharge",
+					OnNoManaForceRelease = "NoManaCastSecondStageForceRelease"
 				},
 				ChargeWeaponStages = 
 				{
@@ -549,6 +556,7 @@ OverwriteTableKeys( TraitData, {
 						Wait = 0.7,
 					},
 					{ 
+						RequiredTraitName = "ApolloExCastBoon",
 						ManaCost = 45,
 						Wait = 1.5,
 						ForceRelease = true,
@@ -560,13 +568,13 @@ OverwriteTableKeys( TraitData, {
 		
 		ChargeStageModifiers = 
 		{
+			TraitName = "ApolloExCastBoon",
 			ValidWeapons = { "WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" },
 			AddChargeStage = 
 			{ 
-				TraitName = "ApolloExCastBoon",
 				ManaCost = 45,
 				ResetIndicator = true,
-				Wait = 0.7,
+				Wait = 1.5,
 				SuperCharge = true,
 			},
 		},
@@ -584,11 +592,13 @@ OverwriteTableKeys( TraitData, {
 		PropertyChanges = 
 		{
 			{
+				TraitName = "ApolloExCastBoon",
 				WeaponName = "WeaponCastArm",
 				WeaponProperty = "ForceMaxChargeRelease",
 				ChangeValue = false,
 			},
 			{
+				TraitName = "ApolloExCastBoon",
 				WeaponName = "WeaponCastArm",
 				WeaponProperty = "ChargeTime",
 				ChangeValue = 0.7, -- Needs to match charge time of above 
@@ -629,7 +639,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Demeter_43",
 		OnEnemyDamagedAction = 
 		{
-			ValidProjectiles = { "MassiveSlamBlast", "HephSprintBlast"},
+			ValidProjectiles = { "MassiveSlamBlast", "HephSprintBlast", "MassiveSlamBlastCast" },
 			FunctionName = "ClearRoot",
 			Args = 
 			{
@@ -772,7 +782,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "CheckRootStrike",
 			FunctionArgs = 
 			{
-				Interval = 0.25,
+				Interval = 0.50,
 				ProjectileName = "ZeusRootStrike",
 				ReportValues = { ReportedInterval = "Interval"}
 			}
@@ -988,8 +998,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Poseidon_44",
 		AddOutgoingDamageModifiers = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			GoldMultiplier = 0.10,
+			GoldMultiplier = 0.03,
 			ReportValues = {ReportedMultiplier = "GoldMultiplier"}
 		},
 		InflationIndex = 100,

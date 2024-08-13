@@ -314,6 +314,11 @@
 						ItemName = "EncounterStartOffenseBuffBoon",
 						Rarity = "Common",
 					},
+					{
+						Type = "Trait",
+						ItemName = "DoubleRewardBoon",
+						Rarity = "Common",
+					},
 				},
 				GameStateRequirements =
 				{

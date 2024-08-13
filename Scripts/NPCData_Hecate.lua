@@ -3364,7 +3364,7 @@ UnitSetData.NPC_Hecate =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "NemesisGift06", "NemesisBathHouse02", "MorosGift06", "MorosBathHouse02" },
+						HasAll = { "NemesisTaverna01", "NemesisBathHouse02", "MorosTaverna01", "MorosBathHouse02" },
 					},
 					{
 						Path = { "PrevRun", "UseRecord" },

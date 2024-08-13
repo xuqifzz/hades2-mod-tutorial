@@ -522,7 +522,7 @@
 	BeamTrap =
 	{
 		InheritFrom = { "BaseTrap" },
-
+		Groups = {"RoomWeapon"},
 		MaxHealth = 1000,
 		HealthBarType = "Medium",
 		HealthBarOffsetY = -375,

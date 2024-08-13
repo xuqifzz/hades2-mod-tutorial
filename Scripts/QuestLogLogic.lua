@@ -272,6 +272,19 @@ function HasAllQuestsWithStatus( status )
 
 end
 
+function QuestLogHideScrollButtons( screen, args )
+	if args.HideLeft then
+		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.2 })
+		MouseOffContextualAction( screen.Components.ScrollLeft )
+	end
+	if args.HideRight then
+		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 0.0, Duration = 0.2 })
+		screen.Components.ScrollRight.Visible = false
+		killTaggedThreads("QuestLogPulse")
+		MouseOffContextualAction( screen.Components.ScrollRight )
+	end
+end
+
 function ShowQuestProgress( screen, questData, requirements )
 
 	requirements = requirements or questData.CompleteGameStateRequirements
@@ -299,6 +312,9 @@ function ShowQuestProgress( screen, questData, requirements )
 		completionRequirementFormat.OffsetY = offsetY
 		completionRequirementFormat.Color = completeColor
 		CreateTextBox( completionRequirementFormat )
+		QuestLogHideScrollButtons( screen, { HideLeft = true, HideRight = true } )
+		screen.NumRequirements = 1
+		screen.NumRequirementsColumns = 1
 		return
 	end
 
@@ -310,6 +326,9 @@ function ShowQuestProgress( screen, questData, requirements )
 		completionRequirementFormat.OffsetY = offsetY
 		completionRequirementFormat.Color = incompleteColor
 		CreateTextBox( completionRequirementFormat )
+		QuestLogHideScrollButtons( screen, { HideLeft = true, HideRight = true } )
+		screen.NumRequirements = 1
+		screen.NumRequirementsColumns = 1
 		return
 	end
 
@@ -469,8 +488,7 @@ function ShowQuestProgress( screen, questData, requirements )
 	if screen.ProgressPageOffset >= 1 then
 		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.2 })
 	else
-		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.2 })
-		MouseOffContextualAction( screen.Components.ScrollLeft )
+		QuestLogHideScrollButtons( screen, { HideLeft = true } )
 	end
 	if screen.ProgressPageOffset <= (screen.NumRequirementsColumns - screen.RequirementEntriesMaxColumns) - 1 then
 		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 1.0, Duration = 0.2 })
@@ -479,12 +497,8 @@ function ShowQuestProgress( screen, questData, requirements )
 			thread( QuestLogPulsePageButton, screen.Components.ScrollRight )
 		end
 	else
-		SetAlpha({ Id = screen.Components.ScrollRight.Id, Fraction = 0.0, Duration = 0.2 })
-		screen.Components.ScrollRight.Visible = false
-		killTaggedThreads("QuestLogPulse")
-		MouseOffContextualAction( screen.Components.ScrollRight )
+		QuestLogHideScrollButtons( screen, { HideRight = true } )
 	end
-
 	
 end
 
@@ -513,12 +527,13 @@ function CheckQuestStatus( args )
 
 	for k, questName in ipairs( QuestOrderData ) do
 		local questData = QuestData[questName]
+		local thisQuestAdded = false
 		if GameState.QuestStatus[questData.Name] == nil then
 			-- Locked
 			if IsGameStateEligible( CurrentRun, questData, questData.UnlockGameStateRequirements ) then
 				-- Unlocked
 				GameState.QuestStatus[questData.Name] = "Unlocked"
-				questAdded = true
+				thisQuestAdded = true
 			end
 			if not args.Silent then
 				wait( 0.02, threadName ) -- Distribute workload over frames
@@ -529,11 +544,16 @@ function CheckQuestStatus( args )
 				-- Completed
 				GameState.QuestStatus[questData.Name] = "Complete"
 				questCompleted = true
+				-- If you simultaneously unlock and complete a quest, skip the unlock presentation.
+				if thisQuestAdded then
+					thisQuestAdded = false
+				end
 			end
 			if not args.Silent then
 				wait( 0.02, threadName ) -- Distribute workload over frames
 			end
 		end
+		questAdded = questAdded or thisQuestAdded
 	end
 
 	if not args.Silent then

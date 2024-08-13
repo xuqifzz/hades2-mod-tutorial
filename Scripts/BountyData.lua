@@ -1677,7 +1677,7 @@ BountyData =
 					},
 					{
 						Type = "Trait",
-						ItemName = "RoomRewardBonusBoon",
+						ItemName = "DoubleRewardBoon",
 						Rarity = "Heroic",
 					},
 					{
@@ -1694,7 +1694,7 @@ BountyData =
 			MaxGodsPerRun = 2,
 			LootTypeHistory =
 			{
-				PoseidonUpgrade = 4,
+				PoseidonUpgrade = 3,
 				HeraUpgrade = 3,
 				HermesUpgrade = 1,
 			},
@@ -1707,9 +1707,8 @@ BountyData =
 			{ Name = "HeraCastBoon", Rarity = "Epic", },
 			{ Name = "HeraSprintBoon", Rarity = "Epic", },
 			{ Name = "PoseidonManaBoon", Rarity = "Epic", },
-			{ Name = "MoneyMultiplierBoon", },
+			{ Name = "MoneyMultiplierBoon", Rarity = "Epic", },
 			{ Name = "RoomRewardBonusBoon", Rarity = "Heroic", },
-			{ Name = "DoubleRewardBoon", Rarity = "Heroic", },
 			{ Name = "RoomRewardMaxHealthTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
 			{ Name = "RoomRewardMaxHealthTrait", },
@@ -3060,7 +3059,7 @@ BountyData =
 			LootTypeHistory =
 			{
 				PoseidonUpgrade = 3,
-				HestiaUpgrade = 6,
+				HestiaUpgrade = 5,
 				WeaponUpgrade = 2,
 			},
 		},
@@ -3074,7 +3073,6 @@ BountyData =
 			{ Name = "HestiaManaBoon", Rarity = "Heroic", },
 			{ Name = "CastProjectileBoon", Rarity = "Heroic", },
 			{ Name = "PoseidonStatusBoon", Rarity = "Epic", },
-			{ Name = "BurnConsumeBoon", Rarity = "Heroic", },
 			{ Name = "BurnArmorBoon", Rarity = "Heroic", },
 			{ Name = "TorchExSpecialCountTrait", },
 			{ Name = "TorchSpecialSpeedTrait", },			
@@ -5395,8 +5393,9 @@ ScreenData.BountyBoard =
 	GamepadNavigation =
 	{
 		FreeFormSelectWrapY = false,
+		FreeFormSelectGridLock = true,
 		FreeFormSelectStepDistance = 8,
-		FreeFormSelectSuccessDistanceStep = 8,
+		FreeFormSelectSuccessDistanceStep = 1,
 		FreeFormSelectRepeatDelay = 0.6,
 		FreeFormSelectRepeatInterval = 0.1,
 	},

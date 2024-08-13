@@ -144,7 +144,7 @@ OverwriteTableKeys( ProjectileData, {
 	ChronosCircle =
 	{
 		CancelIfOwnerAIStageEnd = true,
-		BypassRetaliate = true,
+		BypassDamagingRetaliate = true,
 		HitScreenshake = { Distance = 9, Speed = 1500, Duration = 0.12, FalloffSpeed = 3000 },
 		HitSimSlowParameters =
 		{

@@ -152,7 +152,7 @@ function ActivateNemesisPostRandomEventCombat(eventSource)
 
 	if nemesisId ~= nil then
 		local nemesis = ActiveEnemies[nemesisId]
-		if nemesis.Exiting then
+		if nemesis == nil or nemesis.Exiting then
 			return
 		end
 		OverwriteSelf( nemesis, NPCVariantData.NemesisPostRandomEventCombat )
@@ -249,6 +249,7 @@ function NemesisTakeRoomExit( eventSource, args )
 			GameState.NemesisTakeExitRecord[rewardType] = (GameState.NemesisTakeExitRecord[rewardType] or 0) + 1
 		end
 	end
+	RemoveScreenEdgeIndicator( randomExitDoor )
 	
 	NemesisLeaveRoomPresentation( nemesis, randomExitDoor )
 
@@ -345,8 +346,13 @@ function HandleEnemySpawns( encounter )
 		encounter.PassiveRoomWeapons = {}
 		for k, name in pairs(encounter.SpawnPassiveRoomWeapons) do
 			local newEnemy = DeepCopyTable( EnemyData[name] )
-			newEnemy.ObjectId = SpawnUnit({ Name = name, Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId })
+			newEnemy.ObjectId = SpawnUnit({ Name = name, Group = "Standing", DestinationId = CurrentRun.Hero.ObjectId })	
 			thread(SetupUnit, newEnemy, CurrentRun )
+			newEnemy.Groups = newEnemy.Groups or {}
+			table.insert( newEnemy.Groups, "RoomWeapon" )
+			SetThingProperty({ Property = "ElapsedTimeMultiplier", Value = _elapsedTimeMultiplier, DataValue = false, ValueChangeType = "Multiply", DestinationId = newEnemy.ObjectId })
+			AddToGroup({ Id = newEnemy.ObjectId, Names = newEnemy.Groups })
+			
 			if not newEnemy.DontDieWithEncounter then
 				table.insert(encounter.PassiveRoomWeapons, newEnemy.ObjectId)
 			end
@@ -1174,6 +1180,11 @@ function OnAllEnemiesDead(currentRoom, currentEncounter)
 	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "StyxPoison" })
 	ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "DamageOverTime" })
 	if currentEncounter.PassiveRoomWeapons ~= nil then
+		for k, id in pairs( currentEncounter.PassiveRoomWeapons ) do
+			if ActiveEnemies[id] ~= nil then
+				CleanupEnemy( ActiveEnemies[id] )
+			end
+		end
 		Destroy({ Ids = currentEncounter.PassiveRoomWeapons })
 	end
 

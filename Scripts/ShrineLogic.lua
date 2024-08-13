@@ -417,14 +417,12 @@ function CheckEggRespawn( victim, triggerArgs )
 		return false
 	end
 	local eggChance = GetShrineUpgradeChangeValue( "EnemyRespawnShrineUpgrade" )
-	if RandomChance( eggChance ) then
-		local egg = DeepCopyTable( ObstacleData["RespawnEgg"] )
-		local eggId = SpawnObstacle({ Name = "RespawnEgg", DestinationId = victim.ObjectId, SkipIfBlocked = true, Group = "Standing", })
+	if RandomChance( eggChance ) and not IsLocationBlocked({ Id = victim.ObjectId }) then
+		local egg = DeepCopyTable( ObstacleData.RespawnEgg )
+		local eggId = SpawnObstacle({ Name = "RespawnEgg", DestinationId = victim.ObjectId, Group = "Standing", })
 		egg.SpawnedFromName = victim.Name
 		egg.ObjectId = eggId
 		SetupObstacle( egg )
-		--RequiredKillEnemies[egg.ObjectId] = egg
-		--ActiveEnemies[egg.ObjectId] = egg
 		table.insert( SessionMapState.DeferredTableWrite, { TableName = "RequiredKillEnemies", Key = egg.ObjectId, Value = egg } )
 		table.insert( SessionMapState.DeferredTableWrite, { TableName = "ActiveEnemies", Key = egg.ObjectId, Value = egg } )
 		if victim.Encounter ~= nil then
@@ -448,11 +446,16 @@ function RespawnEggCountdown( egg, args )
 		RespawnEggCountdownTickPresentation( egg, args )
 		wait( args.Interval, egg.AIThreadName )
 		egg.TicksRemaining = egg.TicksRemaining - 1
+		if IsLocationBlocked({ Id = egg.ObjectId }) then
+			RespawnEggPickedUp( egg )
+			return
+		end
 	end
 
 	local enemyData = EnemyData[egg.SpawnedFromName]
 	local newEnemy = DeepCopyTable( enemyData )
 	newEnemy.ObjectId = SpawnUnit({ Name = enemyData.Name, Group = "Standing", DestinationId = egg.ObjectId })
+	newEnemy.BlockRespawnShrineUpgrade = true
 	RespawnEggRespawnPresentation( egg, newEnemy )
 
 	RequiredKillEnemies[egg.ObjectId] = nil	

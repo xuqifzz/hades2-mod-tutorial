@@ -309,7 +309,7 @@ OverwriteTableKeys( WeaponData,
 				{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 11, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, },
 		},
 		ShowManaIndicator = true,
-		OnWeaponTriggerReleaseFunctionName = "CheckCastControl",
+		OnWeaponTriggerReleaseFunctionName = "CheckSpinControl",
 		OutOfManaFunctionName = "WeaponCooldownOutOfMana",
 		OutOfManaFunctionArgs = { Cooldown = 0.85 },
 

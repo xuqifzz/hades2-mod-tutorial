@@ -1068,6 +1068,7 @@ ConsumableData =
 			Money = 200,
 		},
 		
+		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements =
 		{
 			RequiredMinMaximumLastStands = 1,
@@ -1298,6 +1299,7 @@ ConsumableData =
 		UseTextTalkAndGift = "UseOrConvertResourcePickup",
 		ConsumeFx = "ItemConsumeFx",
 		LastRewardEligible = true,
+		NPCDrop = false,
 		ResourceCosts =
 		{
 			Money = 50,
@@ -1355,6 +1357,7 @@ ConsumableData =
 		UseTextTalkAndGift = "UseOrConvertResourcePickup",
 		ConsumeFx = "ItemConsumeFx",
 		LastRewardEligible = true,
+		NPCDrop = false,
 		ResourceCosts =
 		{
 			Money = 50,
@@ -1413,6 +1416,7 @@ ConsumableData =
 		UseTextTalkAndGift = "UseOrConvertResourcePickup",
 		ConsumeFx = "ItemConsumeFx",
 		LastRewardEligible = true,
+		NPCDrop = false,
 		ResourceCosts =
 		{
 			Money = 90,
