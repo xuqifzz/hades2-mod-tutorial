@@ -695,21 +695,6 @@ RewardStoreData =
 		},
 		]]
 		{
-			Name = "SpellDrop",
-			GameStateRequirements =
-			{
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
-			},
-		},
-		{
 			Name = "Boon",
 			AllowDuplicates = true,
 			GameStateRequirements =
@@ -1584,24 +1569,6 @@ RewardStoreData =
 			}
 		},
 		{
-			Name = "SpellDrop",
-			GameStateRequirements =
-			{
-				-- unlock requirements
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
-
-				-- run requirements
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
-			},
-		},
-		{
 			Name = "TalentDrop",
 			GameStateRequirements =
 			{
@@ -1810,24 +1777,6 @@ RewardStoreData =
 				RequiredMinRoomsSinceDevotion = 15,
 				RequiredMinExits = 2,
 			}
-		},
-		{
-			Name = "SpellDrop",
-			GameStateRequirements =
-			{
-				-- unlock requirements
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
-
-				-- run requirements
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
-			},
 		},
 		{
 			Name = "Boon",
