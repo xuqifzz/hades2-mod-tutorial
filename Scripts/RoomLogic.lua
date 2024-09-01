@@ -2662,7 +2662,7 @@ function CreateLoot( args )
 	loot.ObjectId = lootId
 	loot.BlockExitText = "ExitBlockedByBoon"
 	loot.BoughtFromShop = args.BoughtFromShop
-	loot.StackNum = args.StackNum or loot.StackNum
+	loot.StackNum = 5
 	loot.ExchangeOnlyFromLootName = args.ExchangeOnlyFromLootName
 
 	if not GameData.MissingPackages[loot.Name] then
