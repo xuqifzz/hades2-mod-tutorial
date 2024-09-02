@@ -11,7 +11,7 @@
 		FireGraphic = "MelinoeDash"
 		ChargeCancelGraphic = "MelinoeDash"
 		FireFx = "BlinkStreak"
-		ChargeTimeFrames = 9
+		ChargeTimeFrames = 1
 		MinChargeToFire = 1.0
 		LockTriggerForCharge = true
 		ForceMaxChargeRelease = false
@@ -25,7 +25,7 @@
 		WeaponRange = 320
 		BlinkMaxRange = 450
 		ClipSize = 1
-		ClipRegenInterval = 0.74
+		ClipRegenInterval = 0.01
 		FullClipRegen = true
 		Cooldown = 0.05
 		ChargeFx = "MelBlinkCharge"
