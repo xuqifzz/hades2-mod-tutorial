@@ -2582,7 +2582,7 @@
 		Fuse = 12
 		Range = 300
 		ArcStart = 0
-		ArcEnd = -1080
+		ArcEnd = -10800
 		ArcScaleY = 0.5
 		Speed = 220
 		UseStartLocation = true
