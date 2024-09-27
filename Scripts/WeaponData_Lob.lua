@@ -81,7 +81,7 @@ OverwriteTableKeys( WeaponData,
 		NoAmmoFunctionName = "RangedFailedNoAmmoPresentation",
 		AmmoPackName = "LobAmmoPack",
 		CheckPostFireFail = true,
-		MaxAmmo = 3,
+		MaxAmmo = 20,
 		
 		SpeedPropertyChanges = 
 		{
