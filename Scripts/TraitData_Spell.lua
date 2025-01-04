@@ -581,5 +581,80 @@ OverwriteTableKeys( TraitData, {
 			[2] = GlobalVoiceLines.PickedMoonSpellVoiceLines
 		},
 	},
+	
+	SpellMoonBeamTrait = 
+	{
+		InheritFrom = { "SpellTrait" },
+		Icon = "Boon_Selene_110",
+		PreEquipWeapons = { "WeaponSpellMoonBeam" },
+		StatLines =
+		{
+			"ManaSpendCostStatDisplay1",
+		},
+		CodexGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
+			},
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "WeaponSuit" },
+			},
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "RemoveControlOnCharge2",
+				ChangeValue = "WeaponSpellMoonBeam",
+			},
+			{
+				WeaponName = "WeaponAxeSpin",
+				WeaponProperty = "AddControlOnFireEnd2",
+				ChangeValue = "WeaponSpellMoonBeam",
+			},
+		},
+		ExtractValues = 
+		{
+			{
+				Format = "ManaSpendCost",
+				WeaponName = "WeaponSpellMoonBeam",
+				ExtractAs = "ManaCost",
+			},
+			{
+				External = true,
+				BaseType = "WeaponData",
+				BaseProperty = "FiredFunctionArgs",
+				BaseName = "WeaponSpellMoonBeam",
+				FiredFunctionArg = "Count",
+				ExtractAs = "MoonBeamCount",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "ProjectileMoonBeam",
+				BaseProperty = "Damage",
+				ExtractAs = "MoonBeamDamage",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Modifier",
+				Format = "PercentDelta",
+				ExtractAs = "MoonBeamVulnerability",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Duration",
+				ExtractAs = "MoonBeamDuration",
+				SkipAutoExtract = true,
+			},
+		},
+	},
 
 })

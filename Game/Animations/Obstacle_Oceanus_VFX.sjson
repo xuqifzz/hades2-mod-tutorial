@@ -819,5 +819,275 @@
 		Loop = true
 		ChainTo = null
 	}
+	
+	{
+		Name = "Breakable_G"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100
+		Random =
+		[
+			{ Name = "Breakable_G01" }
+			{ Name = "Breakable_G02" }
+			{ Name = "Breakable_G03" }
+		]
+	}
+	{
+		Name = "Breakable_G01"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.22
+		OffsetY = 45
+	}
+	{
+		Name = "Breakable_G02"
+		InheritFrom = "Breakable_G01"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_02"
+	}
+	{
+		Name = "Breakable_G03"
+		InheritFrom = "Breakable_G01"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_03"
+	}
+	{
+		Name = "ArachneCocoon_G"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_KelpCocoon_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.4
+		OffsetY = 112
+	}
+
+	{
+		Name = "ScyllaCoverEmerge"
+		FilePath = "Fx\ScyllaStatueEmergeFrontFx\ScyllaStatueEmergeFrontFx"
+		NumFrames = 26
+		Scale = 2.857
+		ChainTo = "ScyllaCoverStatic"
+		PlaySpeed = 30
+		OffsetY = 106
+		OffsetX = -25
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+		VisualFx = "ScyllaStatueRipple"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.7
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		FlipHorizontal = true
+		CreateAnimations =
+		[
+			{ Name = "ScyllaCoverEmergeTerrainFx" }
+		]
+	}
+
+	{
+		Name = "ScyllaCoverEmergeTerrainFx"
+		GroupName = "FX_Terrain"
+		FilePath = "Fx\ScyllaStatueEmergeTerrainFx\ScyllaStatueEmergeTerrainFx"
+		NumFrames = 39
+		PlaySpeed = 30
+		Scale = 2.857
+		OffsetY = -240
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "ScyllaCoverStatic"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_ScyllaStatue_01"
+		StartScale = 0.349999
+		EndScale = 0.35
+		Duration = 100
+		Loop = true
+		VisualFx = "ScyllaStatueRipple"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.7
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "ScyllaCoverSubmerge"
+		InheritFrom = "ScyllaCoverEmerge"
+		NumFrames = 40
+		FilePath = "Fx\ScyllaStatueSubmergeFrontFx\ScyllaStatueSubmergeFrontFx"
+		VisualFx = null
+		OffsetY = -150
+		OffsetX = 10
+		ClearCreateAnimations = true
+		DieWithOwner = false
+		ChainTo = null
+		CreateAnimations =
+		[
+			{ Name = "ScyllaCoverSubmergeTerrainFx" }
+		]
+
+		Slides =
+		[
+			{ DurationFrames = 1 Sound = "/SFX/SpikeTrapSetWithShake" }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 Sound = "/Leftovers/World Sounds/BigSplash" }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "ScyllaCoverSubmergeTerrainFx"
+		InheritFrom = "ScyllaCoverEmergeTerrainFx"
+		DieWithOwner = false
+		FilePath = "Fx\ScyllaStatueSubmergeTerrainFx\ScyllaStatueSubmergeTerrainFx"
+		NumFrames = 45
+		OffsetY = -120
+	}
+	
+	{
+		Name = "HealthFountainG_Full"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_HealthFountain_01"
+		ChildAnimation = "OceanusHealthFountainWater"
+		VisualFx = "HealthFountainSparkleOceanus"
+		Sound = "/Leftovers/Object Ambiences/WaterRushing"
+		StopSoundOnFinishFade = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+		SoundAllowedAfterFrame = -1
+	}
+	{
+		Name = "HealthFountainG_Empty"
+		InheritFrom = "HealthFountainG_Full"
+		ChildAnimation = "OceanusHealthFountainWaterDisabled"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_HealthFountain_01a"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "OceanusHealthFountainWater"
+		FilePath = "Fx\OceanusHealthFountainWater\OceanusHealthFountainWater"
+		NumFrames = 30
+		Loop = true
+		PlaySpeed = 30
+		LoopFramesOnly = true
+		Duration = 2
+		Scale = 4
+		OffsetY = -310
+		OffsetX = 0
+		Ambient = 0.5
+		Light = "OceanusHealthFountainWaterLight"
+	}
+
+	{
+		Name = "OceanusHealthFountainWaterDisabled"
+		InheritFrom = "OceanusHealthFountainWater"
+		Light = null
+		Ambient = 1
+		Alpha = 0.5
+	}
+
+	{
+		Name = "OceanusHealthFountainWaterLight"
+		Duration = 2
+		PingPongColor = true
+		StartAlpha = 0
+		EndAlpha = 1
+		Scale = 2
+		EaseIn = 0
+		EaseOut = 1
+		Material = "Unlit"
+		FilePath = "Lights\DiffuseSpotlight"
+		Loop = true
+	}
+
+	{
+		Name = "HealthFountainSparkleOceanus"
+		InheritFrom = "HealthFountainSparkle"
+		AddColor = true
+		OriginX = -30.0
+		OriginY = 30.0
+		OffsetZ = 100
+		RandomOffsetX = 20.0
+		RandomOffsetY = 10.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -40.0
+		VelocityMax = 180.0
+		VelocityMin = 60.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 45.0
+		RandomRotationSpeedMin = -45.0
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.33
+		ScaleMin = 0.02
+		StartScale = 0.0
+		Ambient = 0.0
+		StartBlue = 0.5
+		StartGreen = 1
+		StartRed = 0.01
+		EndBlue = 1
+		EndGreen = 0.5
+		EndRed = 0
+	}
+
+	{
+		Name = "NarcissusReflection01"
+		FilePath = "Animations\NPCNarcissus\Narcissus_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		AlphaMax = 0.75
+		Scale = 0.5
+		FlipVertical = true
+		FlipHorizontal = true
+		Color = { Red = 0.3 Green = 0.3 Blue = 1.0 }
+	}
+
 
 ]}

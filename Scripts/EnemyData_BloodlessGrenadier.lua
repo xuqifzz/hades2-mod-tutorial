@@ -77,6 +77,7 @@ UnitSetData.BloodlessGrenadier =
 			DeepInheritance = true,
 		},
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		GeneratorData =
 		{
 			DifficultyRating = 80,
@@ -135,6 +136,7 @@ UnitSetData.BloodlessGrenadier =
 			DeepInheritance = true,
 		},
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		GeneratorData =
 		{
 			DifficultyRating = 55,
@@ -190,6 +192,7 @@ UnitSetData.BloodlessGrenadier =
 			PreAttackDurationMax = 1.0,
 		},
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		GeneratorData =
 		{
 			DifficultyRating = 95,

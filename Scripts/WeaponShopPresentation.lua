@@ -4,7 +4,6 @@ function WeaponShopScreenOpenedPresentation( screen, args )
 	end
 	PlaySound({ Name = "/SFX/Menu Sounds/WellShopOpenNew" })
 	-- SetAnimation({ Name = "MelinoeGatherStart", DestinationId = CurrentRun.Hero.ObjectId })
-	thread( PlayVoiceLines, GlobalVoiceLines.WeaponShopOpenedVoiceLines, true )
 end
 
 function WeaponShopScreenOpenFinishedPresentation( screen )
@@ -14,6 +13,8 @@ function WeaponShopScreenOpenFinishedPresentation( screen )
 			return
 		end
 	end
+
+	thread( PlayVoiceLines, GlobalVoiceLines.WeaponShopOpenedVoiceLines, true )
 
 	if screen.NumItemsPurchaseable == 0 then
 		thread( PlayVoiceLines, GlobalVoiceLines.GhostAdminSoldOutVoiceLines, true )
@@ -157,7 +158,7 @@ function WeaponShopPurchasePostActivatePresentation( button, saleData, weaponKit
 	thread( DisplayInfoBanner, nil, {
 		TitleText = saleData.UnlockTextId or "WeaponShopUnlock",
 		SubtitleText = saleData.Name,
-		Icon = saleData.Icon,
+		-- No icon, the identical WeaponKit animation is directly below centered on camera
 		FontScale = 0.76,
 		IconScale = 0.7,
 		IconMoveSpeed = 0.00001,
@@ -371,17 +372,19 @@ end
 function WeaponShopRevealCategoryPresentation( screen, category, categoryButton )
 	AddInputBlock({ Name = "WeaponShopRevealCategory" })
 	SetAlpha({ Id  = categoryButton.Id, Fraction = 0.0 })
-	thread( PlayVoiceLines, GlobalVoiceLines.WeaponShopOpenedVoiceLines, true )
-	PlaySound({ Name = "/Leftovers/Menu Sounds/RobesInteract", Id = CurrentRun.Hero.ObjectId })
-	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteThoughtful" })
+	thread( PlayVoiceLines, GlobalVoiceLines.WeaponShopExpandedVoiceLines, true )
+	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonSlotHighlightShimmerSFX", Id = CurrentRun.Hero.ObjectId })
 	wait( 0.5 )
-	SetAlpha({ Id  = categoryButton.Id, Fraction = 1.0 })
+	SetAlpha({ Id  = categoryButton.Id, Fraction = 1.0, Duration = 0.4 })
 	local categoryButtonRevealAnimation = "ShopCategoryButtonReveal"
 	if categoryButton.Animations ~= nil then
 		categoryButtonRevealAnimation = categoryButton.Animations.Reveal
 	end
+	if categoryButton.IconId ~= nil then
+		SetAlpha({ Id = categoryButton.IconId, Fraction = 1.0, Duration = 0.4 })
+	end
 	SetAnimation({ Name = categoryButtonRevealAnimation, DestinationId = categoryButton.Id })
-	wait( 1.0 )
+	wait( 0.75 )
 	RemoveInputBlock({ Name = "WeaponShopRevealCategory" })
 end
 

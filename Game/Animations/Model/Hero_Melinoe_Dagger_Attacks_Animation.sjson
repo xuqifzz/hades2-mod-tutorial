@@ -415,17 +415,100 @@
 	}
 
 	{
-		Name = "DaggerL_Special_Fire"
-		InheritFrom = "WeaponDaggerLBase"
-		GrannyAnimation = "Dagger_Weapon_Base_Throw_C_00"
+		Name = "DaggerR_Special_Fire"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_RightThrow_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1
+			}
+		]
 	}
 	{
 		Name = "Melinoe_Dagger_Special_Fire"
 		InheritFrom = "MelinoeBaseDaggerAnimations"
-		GrannyAnimation = "Melinoe_Dagger_Base_Throw_C_00"
+		GrannyAnimation = "Melinoe_Dagger_Base_RightThrow_C_00"
 		CancelOnOwnerMove = true
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Dagger_Special_End"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Special_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 17
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_Start"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_Special_StartLoop"
+				Duration = 2
+			}
+		]
+	}
+
+	{
+		Name = "DaggerR_Special_End"
+		InheritFrom = "WeaponDaggerRBase"
+		GrannyAnimation = "Dagger_Weapon_Base_RightThrowReturnIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_Special_End"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_RightThrowReturnIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Dagger_Idle"
+		Attachments =
+		[
+			{
+				Name = "DaggerR_Special_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+			{
+				Name = "DaggerL_Idle"
+				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "DaggerL_SpecialEx_Fire"
+		InheritFrom = "WeaponDaggerLBase"
+		GrannyAnimation = "Dagger_Weapon_Base_Throw_C_00"
+	}
+	{
+		Name = "Melinoe_Dagger_SpecialEx_Fire"
+		InheritFrom = "MelinoeBaseDaggerAnimations"
+		GrannyAnimation = "Melinoe_Dagger_Base_Throw_C_00"
+		CancelOnOwnerMove = true
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Dagger_SpecialEx_End"
 		Attachments =
 		[
 			{
@@ -433,7 +516,7 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 			{
-				Name = "DaggerL_Special_Fire"
+				Name = "DaggerL_SpecialEx_Fire"
 				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
 			}
 		]
@@ -448,12 +531,12 @@
 	}
 
 	{
-		Name = "DaggerL_Special_End"
+		Name = "DaggerL_SpecialEx_End"
 		InheritFrom = "WeaponDaggerLBase"
 		GrannyAnimation = "Dagger_Weapon_Base_ThrowReturnIdle_C_00"
 	}
 	{
-		Name = "Melinoe_Dagger_Special_End"
+		Name = "Melinoe_Dagger_SpecialEx_End"
 		InheritFrom = "MelinoeBaseDaggerAnimations"
 		GrannyAnimation = "Melinoe_Dagger_Base_ThrowReturnIdle_C_00"
 		CancelOnOwnerMove = true
@@ -465,7 +548,7 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 			{
-				Name = "DaggerL_Special_End"
+				Name = "DaggerL_SpecialEx_End"
 				ToBone = "Melinoe_Rig:weaponHand_00_L_JNT"
 			}
 		]

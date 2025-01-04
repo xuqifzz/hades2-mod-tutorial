@@ -1,0 +1,387 @@
+{ Animations = [
+
+	/* Cast */
+
+	{
+		Name = "SuitR_Cast_Start"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_CastCharge_C_00"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "SuitL_Cast_Start"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_CastCharge_C_00"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "SuitB_Cast_Start"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_CastCharge_C_00"
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Suit_Cast_Start"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_CastCharge_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Suit_Cast_StartLoop"
+
+		Frames = 
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.5
+				Sound = "/VO/MelinoeEmotes/EmoteEvading"
+			}
+		]
+
+		Attachments =
+		[
+			{
+				Name = "SuitR_Cast_Start"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT" 
+			}
+			{
+				Name = "SuitL_Cast_Start"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_Cast_Start"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "SuitR_Cast_StartLoop"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_CastIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "SuitL_Cast_StartLoop"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_CastIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "SuitB_Cast_StartLoop"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_CastIdle_C_00"
+		Loop = true
+	}
+	{
+		Name = "Melinoe_Suit_Cast_StartLoop"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_CastIdle_C_00"
+		ModelCosmeticRotationSpeed = 800
+		DisableOwnerManualInteract = true
+		Loop = true
+
+		Attachments =
+		[
+			{
+				Name = "SuitR_Cast_StartLoop"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT" 
+			}
+			{
+				Name = "SuitL_Cast_StartLoop"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_Cast_StartLoop"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "SuitR_Cast_Fire"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_Cast_C_00"
+	}
+	{
+		Name = "SuitL_Cast_Fire"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_Cast_C_00"
+	}
+	{
+		Name = "SuitB_Cast_Fire"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_Cast_C_00"
+	}
+	{
+		Name = "Melinoe_Suit_Cast_Fire"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_Cast_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Suit_Cast_End"
+		RequireCurrentAnimationNotContains =
+		[
+			//{ Name = "Melinoe_Suit_Special_Fire" }
+		]
+
+		Attachments =
+		[
+			{
+				Name = "SuitR_Cast_Fire"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT" 
+			}
+			{
+				Name = "SuitL_Cast_Fire"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_Cast_Fire"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+		Blends =
+		[ 
+			{
+				BlendTransitionFrom = "Melinoe_Suit_Cast_StartLoop"
+				Duration = 5
+			}
+		]
+	}
+
+	{
+		Name = "Melinoe_Suit_Cast_Fire_Quick"
+		InheritFrom = "Melinoe_Suit_Cast_Fire"
+	}
+
+	{
+		Name = "SuitR_Cast_End"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_CastToIdle_C_00"
+	}
+	{
+		Name = "SuitL_Cast_End"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_CastToIdle_C_00"
+	}
+	{
+		Name = "SuitB_Cast_End"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_CastToIdle_C_00"
+	}
+	{
+		Name = "Melinoe_Suit_Cast_End"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_CastToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Melinoe_Suit_Idle"
+		Attachments =
+		[
+			{
+				Name = "SuitR_Cast_End"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT" 
+			}
+			{
+				Name = "SuitL_Cast_End"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_Cast_End"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+	}
+
+	{
+		Name = "SuitR_CrossCast_Start"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "SuitL_CrossCast_Start"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "SuitB_CrossCast_Start"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Suit_CrossCast_Start"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_UnEquip_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "MelinoeCrossCastAntic"
+		CreateAnimations =
+		[
+			//{ Name = "MelUnequipSparkleSuitL" }
+			//{ Name = "MelUnequipSparkleSuitR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "SuitR_CrossCast_Start"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT"
+			}
+			{
+				Name = "SuitL_CrossCast_Start"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_CrossCast_Start"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "SuitR_ForwardCast_Unequip"
+		InheritFrom = "WeaponSuitRBase"
+		GrannyAnimation = "Suit_GloveRight_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "SuitL_ForwardCast_Unequip"
+		InheritFrom = "WeaponSuitLBase"
+		GrannyAnimation = "Suit_GloveLeft_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "SuitB_ForwardCast_Unequip"
+		InheritFrom = "WeaponSuitBBase"
+		GrannyAnimation = "Suit_Backpack_Base_UnEquip_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Suit_ForwardCast_Unequip"
+		InheritFrom = "MelinoeBaseSuitAnimations"
+		GrannyAnimation = "Melinoe_Suit_Base_UnEquip_C_00"
+		ChainTo = "Melinoe_ForwardCast_Start"
+		CreateAnimations =
+		[
+			//{ Name = "MelUnequipSparkleSuitL" }
+			//{ Name = "MelUnequipSparkleSuitR" }
+		]
+		Attachments =
+		[
+			{
+				Name = "SuitR_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:lowerArm_00_R_JNT"
+			}
+			{
+				Name = "SuitL_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:lowerArm_00_L_JNT"
+			}
+			{
+				Name = "SuitB_ForwardCast_Unequip"
+				ToBone = "Melinoe_Rig:spine_02_M_JNT"
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.2
+			}
+			{
+				Frame = 42
+				FrameSpeed = 0
+			}
+		]
+	}
+
+] }

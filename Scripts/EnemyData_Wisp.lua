@@ -70,7 +70,11 @@ UnitSetData.Wisp =
 			{
 				PathTrue = { "GameState", "RoomCountCache", "I_PostBoss01" },
 			},
-			RequiredMinBiomeDepth = 3,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 3,
+			},
 		},
 
 		WeaponOptions =

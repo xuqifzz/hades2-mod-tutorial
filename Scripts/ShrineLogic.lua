@@ -53,7 +53,9 @@ function OpenShrineScreen( args )
 		backing.Screen = screen
 		backing.Data = upgradeData
 
-		local button = CreateScreenComponent({ Name = "ButtonShrineItem", Group = screen.ComponentData.DefaultGroup, X = itemLocationX, Y = itemLocationY, Animation = upgradeData.Icon, Scale = screen.IconScale })
+		local button = CreateScreenComponent({ Name = "ButtonShrineItem", Group = screen.ComponentData.DefaultGroup,
+			X = itemLocationX + screen.IconOffsetX, Y = itemLocationY + screen.IconOffsetY,
+			Animation = upgradeData.Icon, Scale = screen.IconScale })
 		components["ItemButton"..index] = button
 		AttachLua({ Id = button.Id, Table = button })
 		button.Screen = screen
@@ -76,13 +78,32 @@ function OpenShrineScreen( args )
 		nextRankBacking.Screen = screen
 		button.NextRankBacking = nextRankBacking
 
+		local maxRank = TableLength( upgradeData.Ranks )
+		button.RankPips = {}
+		local offsetX = screen.RankPipStartOffsetX
+		local offsetY = screen.RankPipStartOffsetY
+		for rank = 1, maxRank do
+			local rankPip = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Scale = screen.RankPipScale, X = itemLocationX + offsetX, Y = itemLocationY + offsetY })
+			components["RankPips"..rank..index] = rankPip
+			AttachLua({ Id = rankPip.Id, Table = rankPip })
+			rankPip.Screen = screen
+			button.RankPips[rank] = rankPip
+
+			offsetX = offsetX + screen.RankPipSpacingX
+			offsetY = offsetY + screen.RankPipSpacingY
+		end
+
 		ShrineUpgradeExtractValues( upgradeName )
 
 		local nextRankFormat = ShallowCopyTable( screen.NextRankFormat )
 		nextRankFormat.Id = button.Id
-		nextRankFormat.Text = "ShrineScreen_NextRankPoints"
 		CreateTextBox( nextRankFormat )
 		ShrineScreenUpdateNextRankText( button )
+
+		local shortNameFormat = ShallowCopyTable( screen.ShortNameFormat )
+		shortNameFormat.Id = button.Id
+		shortNameFormat.Text = upgradeData.Name.."_Short"
+		CreateTextBox( shortNameFormat )
 
 		-- Hidden description for tooltips
 		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
@@ -143,7 +164,7 @@ function OpenShrineScreen( args )
 			if GameState.BountiesCompleted[bountyName] then
 				completeBountyNum = completeBountyNum + 1
 			else
-				if bountyData.UnlockGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, bountyData, bountyData.UnlockGameStateRequirements ) then		
+				if bountyData.UnlockGameStateRequirements ~= nil and IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then		
 					availableBountyNum = availableBountyNum + 1
 					local key = "BountyAvailable"..availableBountyNum
 					if availableBountyNum <= screen.MaxBountiesAvailable then
@@ -163,6 +184,7 @@ function OpenShrineScreen( args )
 							X = itemLocationX + screen.BountyShrinePointsOffsetX, Y = itemLocationY + screen.BountyShrinePointsOffsetY })
 						shrinePointItem.BountyData = bountyData
 						shrinePointItem.MatchedWeapon = matchedWeapon
+						shrinePointItem.WeaponName = weaponName
 						shrinePointItem.RequiredShrinePoints = shrinePoints
 						components[key.."ShrinePoints"] = shrinePointItem
 						local bountyShrinePointsFormat = ShallowCopyTable( screen.BountyShrinePointsFormat )
@@ -172,25 +194,10 @@ function OpenShrineScreen( args )
 						bountyShrinePointsFormat.LuaValue = { RequiredShrinePoints = shrinePoints }
 						CreateTextBox( bountyShrinePointsFormat )
 
-						--[[
-						local weaponLink = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX + screen.BountyLinkLeftOffsetX, Y = itemLocationY,
-							Animation = "GUI\\Screens\\Shrine\\LinkLeft",
-							Alpha = 0.0,
-							})
-						components[key.."WeaponLink"] = weaponLink
-						]]
 						local weaponItem = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup,
 							X = itemLocationX + screen.BountyWeaponOffsetX, Y = itemLocationY + screen.BountyWeaponOffsetY,
 							Animation = screen.BountyWeaponIcons[weaponName], Scale = screen.BountyWeaponIconScale })
 						components[key.."Weapon"] = weaponItem
-
-						--[[
-						local targetLink = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX + screen.BountyRowWeaponOffsetX + screen.BountyLinkRightOffsetX, Y = itemLocationY,
-							Animation = "GUI\\Screens\\Shrine\\LinkRight",
-							Alpha = 0.0,
-							})
-						components[key.."TargetLink"] = targetLink
-						]]
 
 						if availableBountyNum % screen.BountyItemsPerRow == 0 then
 							itemLocationX = screen.BountyRowStartX
@@ -209,9 +216,9 @@ function OpenShrineScreen( args )
 	ModifyTextBox({ Id = components.BountyHeader.Id, LuaKey = "TempTextData", LuaValue = { WeaponName = currentWeaponName, Completed = completeBountyNum, Total = totalBountyNum, }, })
 
 	if components.SkellyQuestSurface ~= nil then
-		local surfaceShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N", IgnoreSameMode = true } )
+		local surfaceShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "N" } )
 		DebugPrint({ Text = "surfaceShrinePointRecord = "..surfaceShrinePointRecord })
-		local underworldShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F", IgnoreSameMode = true } )
+		local underworldShrinePointRecord = GetHighestShrinePointRunClear( CurrentRun, { RequiredBiome = "F" } )
 		DebugPrint({ Text = "underworldShrinePointRecord = "..underworldShrinePointRecord })
 		for i, shrinePointThreshold in ipairs( screen.ShrinePointThresholds ) do
 			if surfaceShrinePointRecord >= shrinePointThreshold and underworldShrinePointRecord >= shrinePointThreshold and i < #screen.ShrinePointThresholds then
@@ -266,16 +273,6 @@ function CloseShrineUpgradeScreen( screen, button )
 	OnScreenCloseFinished( screen )
 
 	thread( MarkObjectiveComplete, "UseShrinePrompt" )
-
-	if (screen.PrevShrineUpgrades.NoMetaUpgradesShrineUpgrade or 0) <= 0 and (GameState.ShrineUpgrades.NoMetaUpgradesShrineUpgrade or 0) >= 1 then
-		-- NoMetaUpgradesShrineUpgrade turned ON
-		UnequipMetaUpgrades()
-		GetCurrentMetaUpgradeCost()
-	elseif (screen.PrevShrineUpgrades.NoMetaUpgradesShrineUpgrade or 0) >= 1 and (GameState.ShrineUpgrades.NoMetaUpgradesShrineUpgrade or 0) <= 0 then
-		-- NoMetaUpgradesShrineUpgrade turned OFF
-		EquipPreRunMetaUpgrades()
-		GetCurrentMetaUpgradeCost()
-	end
 
 	ModifyFormatContainer({ Name = "ShrinePenaltyFormat", Color = screen.ActiveVariableColor })
 	UpdateShrineRunDoorArrow()
@@ -416,6 +413,9 @@ function CheckEggRespawn( victim, triggerArgs )
 	if encounterData.BlockRespawnShrineUpgrade then
 		return false
 	end
+	if MapState.BlockRespawns then
+		return false
+	end
 	local eggChance = GetShrineUpgradeChangeValue( "EnemyRespawnShrineUpgrade" )
 	if RandomChance( eggChance ) and not IsLocationBlocked({ Id = victim.ObjectId }) then
 		local egg = DeepCopyTable( ObstacleData.RespawnEgg )
@@ -423,8 +423,10 @@ function CheckEggRespawn( victim, triggerArgs )
 		egg.SpawnedFromName = victim.Name
 		egg.ObjectId = eggId
 		SetupObstacle( egg )
+		-- Would be better to instead iterate a copy of ActiveEnemies or RequiredKillEnemies but hard to track down all the places that can happen that can trigger this function
 		table.insert( SessionMapState.DeferredTableWrite, { TableName = "RequiredKillEnemies", Key = egg.ObjectId, Value = egg } )
 		table.insert( SessionMapState.DeferredTableWrite, { TableName = "ActiveEnemies", Key = egg.ObjectId, Value = egg } )
+		SessionMapState.DeferredRequiredKillEnemy = true
 		if victim.Encounter ~= nil then
 			victim.Encounter.ActiveSpawns[egg.ObjectId] = true
 			egg.Encounter = victim.Encounter
@@ -479,6 +481,8 @@ function RespawnEggPickedUp( usee, args, user )
 	
 	RequiredKillEnemies[egg.ObjectId] = nil
 	ActiveEnemies[egg.ObjectId] = nil
+	notifyExistingWaiters( "RequiredKillEnemyKilledOrSpawned" )
+	notifyExistingWaiters( "RequiredEnemyKilled" )
 	if egg.Encounter ~= nil then
 		egg.Encounter.ActiveSpawns[egg.ObjectId] = nil
 	end
@@ -494,17 +498,31 @@ function RespawnEggPickedUp( usee, args, user )
 end
 
 function ApplyEliteAttribute( enemy, attributeName )
+
+	local attributeData = enemy.EliteAttributeData[attributeName]
+	local enemyAIData = enemy.DefaultAIData or enemy
+
 	if enemy.EliteAttributeData == nil or enemy.EliteAttributeData[attributeName] == nil then
 		DebugPrint({ Text=enemy.Name.." does not have the attribute "..attributeName.." defined!" })
 		return
 	end
+
+	if attributeData.MaxPerRoom ~= nil then
+		CurrentRun.CurrentRoom.EliteAttributeCount = CurrentRun.CurrentRoom.EliteAttributeCount or {}
+		CurrentRun.CurrentRoom.EliteAttributeCount[attributeName] = CurrentRun.CurrentRoom.EliteAttributeCount[attributeName] or 0
+
+		if CurrentRun.CurrentRoom.EliteAttributeCount[attributeName] >= attributeData.MaxPerRoom then
+			return
+		else
+			CurrentRun.CurrentRoom.EliteAttributeCount[attributeName] = CurrentRun.CurrentRoom.EliteAttributeCount[attributeName] + 1
+		end
+	end
+
 	table.insert(enemy.EliteAttributes, attributeName)
+
 	if enemy.IsClone and enemy.EliteAttributeData[attributeName].SkipApplyOnClones then
 		return
 	end
-
-	local attributeData = enemy.EliteAttributeData[attributeName]
-	local enemyAIData = enemy.DefaultAIData or enemy
 
 	if attributeData.DataOverrides ~= nil then
 		OverwriteTableKeys(enemy, attributeData.DataOverrides)
@@ -520,14 +538,30 @@ function ApplyEliteAttribute( enemy, attributeName )
 		end
 	end
 
+	if attributeData.ScaleMultiplier ~= nil then
+		SetScale({ Id = enemy.ObjectId, Fraction = attributeData.ScaleMultiplier })
+		enemy.HealthBarOffsetY = ( enemy.HealthBarOffsetY or -155 ) * attributeData.ScaleMultiplier
+	end
+
+	if attributeData.UnitPropertyChanges then
+		ApplyUnitPropertyChanges(enemy, attributeData.UnitPropertyChanges)
+	end
+
 	if attributeData.AddDumbFireWeaponsOnSpawn ~= nil then
 		enemy.AddDumbFireWeaponsOnSpawn = enemy.AddDumbFireWeaponsOnSpawn or {}
 		enemy.AddDumbFireWeaponsOnSpawn = CombineTables(enemy.AddDumbFireWeaponsOnSpawn, attributeData.AddDumbFireWeaponsOnSpawn)
 	end
 
-	if attributeData.WeaponPropertyChanges ~= nil then
-		for k, weaponName in pairs( enemy.WeaponOptions ) do
-			ApplyWeaponPropertyChanges( enemy, weaponName, attributeData.WeaponPropertyChanges )
+	if attributeData.AddDeathWeapons ~= nil then
+		enemy.OnDeathFireWeapons = enemy.OnDeathFireWeapons or {}
+		for k, weaponName in pairs(attributeData.AddDeathWeapons) do
+			table.insert(enemy.OnDeathFireWeapons, weaponName)
+		end
+	end
+
+	if attributeData.AddOutgoingDamageModifiers ~= nil then
+		for s, damageModifierData in pairs( attributeData.AddOutgoingDamageModifiers ) do
+			AddOutgoingDamageModifier( enemy, damageModifierData )
 		end
 	end
 
@@ -536,35 +570,34 @@ function ApplyEliteAttribute( enemy, attributeName )
 	end
 end
 
-function PickEliteAttributes( currentRoom, enemy )
-
-	if currentRoom.Encounter ~= nil and EncounterData[currentRoom.Encounter.Name].BlockEliteAttributes then
+function PickEliteAttributes( encounter, enemyType )
+	
+	local enemyData = EnemyData[enemyType]
+	if enemyData.EliteAttributeOptions == nil or IsEmpty(enemyData.EliteAttributeOptions) then
 		return
 	end
 
-	if enemy.EliteAttributeOptions == nil or IsEmpty(enemy.EliteAttributeOptions) then
-		return
-	end
-
-	enemy.EliteAttributeCount = GetNumShrineUpgrades( "EnemyEliteShrineUpgrade" )
+	encounter.EliteAttributes = encounter.EliteAttributes or {}
+	local bannedAttributes = encounter.BannedEliteAttributes or {}
+	
 	local attributeOptions = {}
-	for k, attributeName in pairs(enemy.EliteAttributeOptions) do
-		if IsEliteAttributeEligible(enemy, attributeName) then
+	for k, attributeName in pairs(enemyData.EliteAttributeOptions) do
+		if not Contains(bannedAttributes, attributeName) and IsEliteAttributeEligible(enemyData, attributeName) then
 			table.insert(attributeOptions, attributeName)
 		end
 	end
 
-	for i=1, enemy.EliteAttributeCount do
+	for i=1, encounter.ForceEliteAttrubuteCount or GetNumShrineUpgrades( "EnemyEliteShrineUpgrade" ) do
 		if IsEmpty(attributeOptions) then
 			DebugPrint({ Text="RunLogic.lua:795 ".."Ran out of legal Elite Attribute options!" })
 			break
 		end
 		local attributeName = RemoveRandomValue(attributeOptions)
-		currentRoom.EliteAttributes[enemy.Name] = currentRoom.EliteAttributes[enemy.Name] or {}
-		table.insert(currentRoom.EliteAttributes[enemy.Name], attributeName)
+		encounter.EliteAttributes[enemyData.Name] = encounter.EliteAttributes[enemyData.Name] or {}
+		table.insert(encounter.EliteAttributes[enemyData.Name], attributeName)
 		RemoveAllValues(attributeOptions, attributeName)
-		if enemy.EliteAttributeData[attributeName].BlockAttributes ~= nil then
-			for k, blockedAttributeName in pairs(enemy.EliteAttributeData[attributeName].BlockAttributes) do
+		if enemyData.EliteAttributeData[attributeName].BlockAttributes ~= nil then
+			for k, blockedAttributeName in pairs(enemyData.EliteAttributeData[attributeName].BlockAttributes) do
 				RemoveAllValues(attributeOptions, blockedAttributeName)
 			end
 		end
@@ -572,10 +605,10 @@ function PickEliteAttributes( currentRoom, enemy )
 
 end
 
-function IsEliteAttributeEligible( enemy, attributeName )
-	local attributeRequirements = enemy.EliteAttributeData[attributeName].Requirements or enemy.EliteAttributeData[attributeName]
+function IsEliteAttributeEligible( enemyData, attributeName )
+	local eliteAttributeData = enemyData.EliteAttributeData[attributeName]
 
-	if attributeRequirements.RequiresFalseSuperElite and enemy.IsSuperElite then
+	if eliteAttributeData.RequiresFalseSuperElite and enemyData.IsSuperElite then
 		return false
 	end
 
@@ -583,24 +616,20 @@ function IsEliteAttributeEligible( enemy, attributeName )
 		return false
 	end
 
-	if Contains( enemy.BlockAttributes, attributeName ) then
+	if Contains( enemyData.BlockAttributes, attributeName ) then
 		return false
 	end
 
-	if not IsGameStateEligible( CurrentRun, enemy.EliteAttributeData[attributeName], attributeRequirements ) then
+	if eliteAttributeData.GameStateRequirements ~= nil and not IsGameStateEligible( eliteAttributeData, eliteAttributeData.GameStateRequirements ) then
 		return false
 	end
 
 	return true
 end
 
-function ShrineEliteAttributeManaDrain( enemy, args )
-	wait( RandomFloat( args.StartDelayMin, args.StartDelayMax ) )
-	while not enemy.IsDead do
-		wait( args.TickInterval )
-		ManaDelta( args.Amount, { IgnoreSpend = true } )
-		thread( ShrineEliteAttributeManaDrainTickPresentation, enemy, args )
-	end
+function ShrineEliteAttributeManaDrain( triggerArgs, args )
+	ManaDelta( args.Amount, { IgnoreSpend = true, ManaDrain = true } )
+	thread( ShrineEliteAttributeManaDrainTickPresentation, args )
 end
 
 function ShrineEliteAttributeHitStun( victim, attacker, triggerArgs, args )
@@ -620,6 +649,23 @@ function SpawnErisForCurse( source, args )
 	if args.GoalAngle ~= nil then
 		SetGoalAngle({ Id = newUnit.ObjectId, Angle = args.GoalAngle, CompleteAngle = true })
 	end
+end
+
+function EliteSpreadHitShields( triggerArgs )
+	local victim = triggerArgs.Victim
+	if not victim or victim == CurrentRun.Hero then
+		return
+	end
+	if victim.Groups ~= nil and Contains(victim.Groups, "HeroTeam") then
+		return
+	end
+	local count = 1
+	victim.HitShields = victim.HitShields  or 0
+	victim.HitShields = math.min(victim.HitShields + count, victim.MaxHitShields )
+	if not victim.HasHealthBar then
+		CreateHealthBar( victim )
+	end
+	UpdateHealthBar( victim, 0, { Force = true } )
 end
 
 function ApplyErisCurse( source, args )
@@ -704,9 +750,9 @@ function CheckNewTraitManaReserveShrineUpgrade( newTrait, args )
 	end
 end
 
-function CheckPrevTraitsManaReserveShrineUpgrade( hero, args )
+function CheckPrevTraitsManaReserveShrineUpgrade( hero )
 	local totalManaReserve = 0
-	for traitIndex, trait in ipairs( CurrentRun.Hero.Traits ) do
+	for traitIndex, trait in ipairs( hero.Traits ) do
 		totalManaReserve = totalManaReserve + (trait.ShrineManaReserve or 0)
 	end
 	if totalManaReserve > 0 then

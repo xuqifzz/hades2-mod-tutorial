@@ -1,0 +1,106 @@
+{ Animations = [
+	
+	{
+		Name = "GuestSatyrTowelWaist"
+		GrannyModel = "GuestSatyrTowelWaist_Mesh"
+	}
+	{
+		Name = "GuestSatyrTowelAll"
+		GrannyModel = "GuestSatyrTowelAll_Mesh"
+	}
+	{
+		Name = "NPCSatyrBaseAnimation"
+		GrannyModel = "GuestSatyrTowelShoulder_Mesh"
+		ExtraGrannyAnimations =
+		[
+			{ Name = "GuestSatyrTowelWaist" }
+			{ Name = "GuestSatyrTowelAll" }
+		]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "NPCSatyr_Idle1"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Idle_C_00"
+	}
+	{
+		Name = "NPCSatyr_Idle2"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Idle_C_01"
+	}
+	{
+		Name = "NPCSatyr_Idle3"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Idle_C_02"
+	}
+	{
+		Name = "NPCSatyr_Idle4"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Idle_C_03"
+	}
+	{
+		Name = "NPCSatyr_Idle5"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Idle_C_04"
+	}
+
+	{
+		Name = "NPCSatyr_IdleSitting"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_IdleSitting_C_00"
+	}
+
+	{
+		Name = "NPCSatyr_Dance1"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Dance_C_00"
+	}
+	{
+		Name = "NPCSatyr_Dance2"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_Dance_C_01"
+	}
+
+	{
+		Name = "NPCSatyr_HoldingDrink"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_HoldingDrink_C_00"
+		Loop = true
+		GrannyRandomLoopCountMin = 3
+		GrannyRandomLoopCountMax = 7
+		ChainTo = "NPCSatyr_HoldingDrink_Loop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "NPCSatyr_StirringDrink"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "NPCSatyr_StirringDrink"
+		InheritFrom = "NPCSatyrBaseAnimation"
+		GrannyAnimation = "OlympusGuests_Base_StirringDrink_C_00"
+		ChainTo = "NPCSatyr_HoldingDrink_Loop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "NPCSatyr_HoldingDrink"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "NPCSatyr_HoldingDrink_Loop"
+		Random =
+		[
+			{ Name = "NPCSatyr_HoldingDrink" }
+			{ Name = "NPCSatyr_StirringDrink" }
+		]
+	}
+]}

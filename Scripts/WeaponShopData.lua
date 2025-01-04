@@ -1,4 +1,4 @@
-﻿WeaponShopItemData =
+WeaponShopItemData =
 {
 	-- Base Weapons
 
@@ -31,7 +31,7 @@
 				{ Cue = "/VO/Melinoe_0239", Text = "Join with me.", PreLineWait = 0.3 },
 				{ Cue = "/VO/Melinoe_0729", Text = "Lim and Oros, Sister Blades. We're fellow sisters now.", PreLineWait = 0.8 },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 		FlavorText = "WeaponDagger_FlavorText",
 		-- PostActivationHoldDuration = 3.0,
@@ -54,7 +54,7 @@
 				{ Cue = "/VO/Melinoe_3034", Text = "Ygnium, the Umbral Flames. Incinerate my foes and light my path.", PreLineWait = 0.8 },
 				-- { Cue = "/VO/Melinoe_0735", Text = "Ygnium, Flames of Hecate! Burn my enemies, and light my way.", PreLineWait = 0.8 },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 		FlavorText = "WeaponTorch_FlavorText",
 	},
@@ -74,7 +74,7 @@
 				{ Cue = "/VO/Melinoe_0118", Text = "All right.", PreLineWait = 0.3 },
 				{ Cue = "/VO/Melinoe_3031", Text = "Zorephet, the Moonstone Axe. You can split anything apart.", PreLineWait = 0.8 },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 		FlavorText = "WeaponAxe_FlavorText",
 	},
@@ -92,9 +92,34 @@
 			{
 				Path = { "GameState", "WeaponsUnlocked" },
 				HasAll = { "WeaponDagger", "WeaponTorch", "WeaponAxe" },
-			}
+			},
+			{
+				Path = { "CurrentRun", "WeaponsUnlocked" },
+				HasNone = { "WeaponDagger", "WeaponTorch", "WeaponAxe" },
+			},
 		},
 		OnActivateFunctionName = "ActivateWeaponKit",
+
+		OfferedVoiceLines =
+		{
+			PlayOnce = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			GameStateRequirements = 
+			{
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll = { "WeaponDagger", "WeaponTorch", "WeaponAxe" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasNone = { "WeaponLob" },
+				},
+			},
+			{ Cue = "/VO/Melinoe_3394", Text = "Another artifact of Night within the Pool..." },
+		},
+
 		PreRevealVoiceLines =
 		{
 			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
@@ -103,17 +128,71 @@
 				{ Cue = "/VO/Melinoe_3033", Text = "Revaal, the Argent Skull. I know the fury in your hollowed eyes.", PreLineWait = 0.8 },
 				-- { Cue = "/VO/Melinoe_0733", Text = "Revaal, the Skull of the Adjudicator. No mercy to my foes.", PreLineWait = 0.8 },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 		FlavorText = "WeaponLob_FlavorText",
+	},
+	
+	WeaponSuit =
+	{
+		Icon = "Hammer_Suit_01",
+		Cost =
+		{
+			MixerFBoss = 2,
+			OrePAdamant = 2,
+		},
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "WeaponsUnlocked" },
+				HasAll = { "WeaponDagger", "WeaponTorch", "WeaponAxe", "WeaponLob" },
+			},
+			{
+				Path = { "CurrentRun", "WeaponsUnlocked" },
+				HasNone = { "WeaponDagger", "WeaponTorch", "WeaponAxe", "WeaponLob" },
+			},
+		},
+		OnActivateFunctionName = "ActivateWeaponKit",
+
+		OfferedVoiceLines =
+		{
+			PlayOnce = true,
+			BreakIfPlayed = true,
+			PreLineWait = 0.65,
+			UsePlayerSource = true,
+			GameStateRequirements = 
+			{
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasAll = { "WeaponLob" },
+				},
+				{
+					Path = { "GameState", "WeaponsUnlocked" },
+					HasNone = { "WeaponSuit" },
+				},
+			},
+			{ Cue = "/VO/Melinoe_3615", Text = "The last of the Nocturnal Arms..." },
+		},
+
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				{ Cue = "/VO/Melinoe_3749", Text = "At last...", PreLineWait = 0.3 },
+				{ Cue = "/VO/Melinoe_3616", Text = "Xinth, the Black Coat. Envelop me in darkness that our foes cannot escape.", PreLineWait = 0.7 },
+			},
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
+		},
+		FlavorText = "WeaponSuit_FlavorText",
+		-- PostActivationHoldDuration = 3.0,
 	},
 	
 	-- Base Aspects
 	StaffClearCastAspect =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
@@ -140,7 +219,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0350", Text = "A witch most-powerful!" },
 			},
@@ -151,13 +230,13 @@
 	StaffSelfHitAspect =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
 			MixerGBoss = 1,
-			OreGLime = 2,
+			OreGLime = 3,
 		},
 		GameStateRequirements =
 		{
@@ -178,7 +257,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0194", Text = "I bet it's pretty good!" },
 			},
@@ -189,8 +268,8 @@
 	DaggerBlockAspect =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -216,7 +295,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0196", Text = "She knows her blades!" },
 			},
@@ -227,13 +306,13 @@
 	DaggerHomingThrowAspect =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
 			PlantIShaderot = 2,
-			MixerNBoss = 1,
+			MixerNBoss = 2,
 		},
 		GameStateRequirements =
 		{
@@ -254,7 +333,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0197", Text = "Never met him but I heard good things!" },
 			},
@@ -265,8 +344,8 @@
 	TorchDetonateAspect =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -292,7 +371,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0348", Text = "I shoulda known!" },
 			},
@@ -302,8 +381,8 @@
 	TorchSprintRecallAspect =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -330,7 +409,7 @@
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
 				PreLineAnim = "Skelly_Explaining",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0349", Text = "{#Emph}Ah{#Prev}, rosy-fingered Dawn!" },
 			},
@@ -340,8 +419,8 @@
 	AxeArmCastAspect =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -368,7 +447,7 @@
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
 				PreLineAnim = "Skelly_Babbling",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0346", Text = "Wait, {#Emph}who?!" },
 			},
@@ -378,13 +457,13 @@
 	AxePerfectCriticalAspect =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
-			OreHGlassrock = 3,
-			Mixer6Common = 1,
+			OreHGlassrock = 4,
+			PlantFNightshade = 4,
 		},
 		GameStateRequirements =
 		{
@@ -405,7 +484,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0347", Text = "Oh {#Emph}that {#Prev}guy huh?" },
 			},
@@ -415,8 +494,8 @@
 	LobCloseAttackAspect =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -442,7 +521,7 @@
 				BreakIfPlayed = true,
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0193", Text = "Oh she's a scary one!" },
 			},
@@ -452,8 +531,8 @@
 	LobImpulseAspect =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		HideAfterPurchased = true,
+		IconScale = 0.8,
 		UnlockTextId = "WeaponShopAspectUnlock",
 		Cost =
 		{
@@ -480,9 +559,83 @@
 				PreLineWait = 0.65,
 				ObjectType = "NPC_Skelly_01",
 				PreLineAnim = "Skelly_Salute",
-				TriggerCooldowns = { "SkellyQuipAnySpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
 
 				{ Cue = "/VO/Skelly_0351", Text = "Save the Queen!" },
+			},
+		},
+		--OnActivateFunctionName = "ActivateWeaponKit",
+	},
+	SuitMarkCritAspect =
+	{
+		WeaponName = "WeaponSuit",
+		HideAfterPurchased = true,
+		IconScale = 0.8,
+		UnlockTextId = "WeaponShopAspectUnlock",
+		Cost =
+		{
+			OreChaosProtoplasm = 4,
+			Mixer6Common = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+			},
+		},
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				PreLineWait = 0.35,
+				UsePlayerSource = true,
+
+				{ Cue = "/VO/Melinoe_3733", Text = "Grant me the Aspect of Nyx!" },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 0.65,
+				ObjectType = "NPC_Skelly_01",
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
+
+				{ Cue = "/VO/Skelly_0414", Text = "Glory be to Mother Night, and stuff!" },
+			},
+		},
+		--OnActivateFunctionName = "ActivateWeaponKit",
+	},
+	SuitHexAspect =
+	{
+		WeaponName = "WeaponSuit",
+		HideAfterPurchased = true,
+		IconScale = 0.8,
+		UnlockTextId = "WeaponShopAspectUnlock",
+		Cost =
+		{
+			CardUpgradePoints = 4,
+			OreFSilver = 4,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+			},
+		},
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				PreLineWait = 0.35,
+				UsePlayerSource = true,
+
+				{ Cue = "/VO/Melinoe_3732", Text = "Grant me the Aspect of Selene!" },
+			},
+			{
+				BreakIfPlayed = true,
+				PreLineWait = 0.65,
+				ObjectType = "NPC_Skelly_01",
+				TriggerCooldowns = { "SkellyAnyQuipSpeech" },
+
+				{ Cue = "/VO/Skelly_0413", Text = "Shine like the Moon, kiddo!" },
 			},
 		},
 		--OnActivateFunctionName = "ActivateWeaponKit",
@@ -500,13 +653,12 @@
 	BaseStaffAspect2 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		TraitUpgrade = "BaseStaffAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			MemPointsCommon = 20,
+			MemPointsCommon = 10,
 			OreFSilver = 2,
 		},
 		GameStateRequirements =
@@ -520,14 +672,13 @@
 	BaseStaffAspect3 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "BaseStaffAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			MemPointsCommon = 30,
+			MemPointsCommon = 20,
 			OreFSilver = 3,
 		},
 		GameStateRequirements =
@@ -541,14 +692,13 @@
 	BaseStaffAspect4 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "BaseStaffAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			MemPointsCommon = 40,
+			MemPointsCommon = 30,
 			OreFSilver = 4,
 		},
 		GameStateRequirements =
@@ -563,14 +713,13 @@
 	{
 		WeaponName = "WeaponStaffSwing",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "BaseStaffAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			MemPointsCommon = 100,
+			MemPointsCommon = 50,
 			OreFSilver = 10,
 		},
 		GameStateRequirements =
@@ -585,7 +734,7 @@
 			{
 				{ Cue = "/VO/Melinoe_2613", Text = "Descura, we are as one." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUpgradeReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
 		},
 	},	
 
@@ -593,8 +742,7 @@
 	StaffClearCastAspect2 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffClearCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -613,8 +761,7 @@
 	StaffClearCastAspect3 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffClearCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -633,8 +780,7 @@
 	StaffClearCastAspect4 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffClearCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -654,8 +800,7 @@
 	{
 		WeaponName = "WeaponStaffSwing",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffClearCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -675,7 +820,7 @@
 			{
 				{ Cue = "/VO/Melinoe_2614", Text = "The true power of the great enchantress..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},
 
@@ -683,8 +828,7 @@
 	StaffSelfHitAspect2 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffSelfHitAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -703,8 +847,7 @@
 	StaffSelfHitAspect3 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffSelfHitAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -723,8 +866,7 @@
 	StaffSelfHitAspect4 =
 	{
 		WeaponName = "WeaponStaffSwing",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffSelfHitAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -744,8 +886,7 @@
 	{
 		WeaponName = "WeaponStaffSwing",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Staff01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "StaffSelfHitAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -765,7 +906,7 @@
 			{
 				{ Cue = "/VO/Melinoe_3580", Text = "I'll make a mockery of all my foes with this." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUpgradeReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
 		},
 	},
 
@@ -773,15 +914,14 @@
 	DaggerBackstabAspect2 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBackstabAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
 			MetaFabric = 1,
-			OreFSilver = 5,
+			OreFSilver = 2,
 		},
 		GameStateRequirements =
 		{
@@ -794,15 +934,14 @@
 	DaggerBackstabAspect3 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBackstabAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
 			MetaFabric = 1,
-			OreFSilver = 10,
+			OreFSilver = 4,
 		},
 		GameStateRequirements =
 		{
@@ -815,15 +954,14 @@
 	DaggerBackstabAspect4 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBackstabAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
 			MetaFabric = 1,
-			OreFSilver = 15,
+			OreFSilver = 6,
 		},
 		GameStateRequirements =
 		{
@@ -837,15 +975,14 @@
 	{
 		WeaponName = "WeaponDagger",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBackstabAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
 			MetaFabric = 5,
-			OreFSilver = 30,
+			OreFSilver = 15,
 		},
 		GameStateRequirements =
 		{
@@ -862,7 +999,7 @@
 				{ Cue = "/VO/Melinoe_2616", Text = "Lim and Oros, we are one." },
 				{ Cue = "/VO/Melinoe_3581", Text = "Lim and Oros, forever we are bound." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},
 
@@ -870,8 +1007,7 @@
 	DaggerBlockAspect2 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBlockAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -890,8 +1026,7 @@
 	DaggerBlockAspect3 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBlockAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -910,8 +1045,7 @@
 	DaggerBlockAspect4 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBlockAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -931,8 +1065,7 @@
 	{
 		WeaponName = "WeaponDagger",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerBlockAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -953,7 +1086,7 @@
 			{
 				{ Cue = "/VO/Melinoe_2617", Text = "The Huntress unleashed..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},
 
@@ -961,8 +1094,7 @@
 	DaggerHomingThrowAspect2 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerHomingThrowAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -981,8 +1113,7 @@
 	DaggerHomingThrowAspect3 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerHomingThrowAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1001,8 +1132,7 @@
 	DaggerHomingThrowAspect4 =
 	{
 		WeaponName = "WeaponDagger",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerHomingThrowAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1022,8 +1152,7 @@
 	{
 		WeaponName = "WeaponDagger",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Dagger01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "DaggerHomingThrowAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1044,15 +1173,14 @@
 			{
 				{ Cue = "/VO/Melinoe_2618", Text = "The full might of nature's wrath..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},	
 	-- Lob, Base
 	LobAmmoBoostAspect2 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobAmmoBoostAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1068,13 +1196,12 @@
 				HasAll = { "WeaponLob", },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobAmmoBoostAspect3 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobAmmoBoostAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1089,13 +1216,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobAmmoBoostAspect2" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobAmmoBoostAspect4 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobAmmoBoostAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1110,14 +1236,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobAmmoBoostAspect3" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobAmmoBoostAspect5 =
 	{
 		WeaponName = "WeaponLob",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobAmmoBoostAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1139,22 +1264,21 @@
 			{
 				{ Cue = "/VO/Melinoe_3588", Text = "Revaal, I see what you see now." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},	
 	-- Axe, Base
 	AxeRecoveryAspect2 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeRecoveryAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			OreNBronze = 1,
-			OreFSilver = 3,
+			OreNBronze = 2,
+			OreFSilver = 2,
 		},
 		GameStateRequirements =
 		{
@@ -1163,20 +1287,19 @@
 				HasAll = { "WeaponAxe", },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeRecoveryAspect3 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeRecoveryAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			OreNBronze = 1,
-			OreFSilver = 6,
+			OreNBronze = 3,
+			OreFSilver = 3,
 		},
 		GameStateRequirements =
 		{
@@ -1184,20 +1307,19 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxeRecoveryAspect2" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeRecoveryAspect4 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeRecoveryAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			OreNBronze = 1,
-			OreFSilver = 12,
+			OreNBronze = 4,
+			OreFSilver = 4,
 		},
 		GameStateRequirements =
 		{
@@ -1205,21 +1327,20 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxeRecoveryAspect3" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeRecoveryAspect5 =
 	{
 		WeaponName = "WeaponAxe",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeRecoveryAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
-			OreNBronze = 15,
-			OreFSilver = 15,
+			OreNBronze = 12,
+			OreFSilver = 12,
 		},
 		GameStateRequirements =
 		{
@@ -1234,15 +1355,14 @@
 			{
 				{ Cue = "/VO/Melinoe_3582", Text = "Zorephet, our connection is complete." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},	
 	-- Torch, Base
 	TorchSpecialDurationAspect2 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchSpecialDurationAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1258,13 +1378,12 @@
 				HasAll = { "WeaponTorch", },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchSpecialDurationAspect3 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchSpecialDurationAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1279,13 +1398,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "TorchSpecialDurationAspect2" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchSpecialDurationAspect4 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchSpecialDurationAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1300,21 +1418,20 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "TorchSpecialDurationAspect3" },
 			}
 		},
-		--PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchSpecialDurationAspect5 =
 	{
 		WeaponName = "WeaponTorch",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchSpecialDurationAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
 		Cost =
 		{
 			MixerFBoss = 5,
-			OreFSilver = 10,
+			OreFSilver = 5,
 		},
 		GameStateRequirements =
 		{
@@ -1329,16 +1446,14 @@
 			{
 				{ Cue = "/VO/Melinoe_3585", Text = "Ygnium, we're forged together in flame." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},	
 	-- Axe, Arm Cast
-
 	AxeArmCastAspect2 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeArmCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1352,13 +1467,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxeArmCastAspect" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeArmCastAspect3 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeArmCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1372,13 +1486,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxeArmCastAspect2" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeArmCastAspect4 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeArmCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1392,14 +1505,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxeArmCastAspect3" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxeArmCastAspect5 =
 	{
 		WeaponName = "WeaponAxe",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxeArmCastAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1420,7 +1532,7 @@
 			{
 				{ Cue = "/VO/Melinoe_3583", Text = "The sheer might of Lord Charon..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},
 
@@ -1429,8 +1541,7 @@
 	AxePerfectCriticalAspect2 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxePerfectCriticalAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1444,13 +1555,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxePerfectCriticalAspect" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxePerfectCriticalAspect3 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxePerfectCriticalAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1464,13 +1574,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxePerfectCriticalAspect2" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxePerfectCriticalAspect4 =
 	{
 		WeaponName = "WeaponAxe",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxePerfectCriticalAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1484,14 +1593,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "AxePerfectCriticalAspect3" }
 			}
 		},
-		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "AxeAspectUpgradedVoiceLines",
 	},
 	AxePerfectCriticalAspect5 =
 	{
 		WeaponName = "WeaponAxe",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Axe01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "AxePerfectCriticalAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1512,7 +1620,7 @@
 			{
 				{ Cue = "/VO/Melinoe_3584", Text = "I am not Death, but know his way..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},	
 
@@ -1521,8 +1629,7 @@
 	TorchDetonateAspect2 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchDetonateAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1536,13 +1643,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "TorchDetonateAspect" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchDetonateAspect3 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchDetonateAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1556,13 +1662,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "TorchDetonateAspect2" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchDetonateAspect4 =
 	{
 		WeaponName = "WeaponTorch",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchDetonateAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1576,14 +1681,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "TorchDetonateAspect3" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
 	},
 	TorchDetonateAspect5 =
 	{
 		WeaponName = "WeaponTorch",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "TorchDetonateAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1610,15 +1714,14 @@
 			{
 				{ Cue = "/VO/Melinoe_3586", Text = "Much to look forward to, Lord Moros." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},
 	-- Torch recall aspect
     TorchSprintRecallAspect2 =
     {
         WeaponName = "WeaponTorch",
-        Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-        IconScale = 0.18,
+        IconScale = 0.8,
         Graphic = "WeaponArt05",
         TraitUpgrade = "TorchSprintRecallAspect",
         InheritFrom = { "BaseWeaponUpgrade", },
@@ -1632,13 +1735,12 @@
                 PathTrue = { "GameState", "WeaponsUnlocked", "TorchSprintRecallAspect" }
             }
         },
-        --PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
     },
     TorchSprintRecallAspect3 =
     {
         WeaponName = "WeaponTorch",
-        Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-        IconScale = 0.18,
+        IconScale = 0.8,
         Graphic = "WeaponArt05",
         TraitUpgrade = "TorchSprintRecallAspect",
         InheritFrom = { "BaseWeaponUpgrade", },
@@ -1652,13 +1754,12 @@
                 PathTrue = { "GameState", "WeaponsUnlocked", "TorchSprintRecallAspect2" }
             }
         },
-        --PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
     },
     TorchSprintRecallAspect4 =
     {
         WeaponName = "WeaponTorch",
-        Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-        IconScale = 0.18,
+        IconScale = 0.8,
         Graphic = "WeaponArt05",
         TraitUpgrade = "TorchSprintRecallAspect",
         InheritFrom = { "BaseWeaponUpgrade", },
@@ -1672,14 +1773,13 @@
                 PathTrue = { "GameState", "WeaponsUnlocked", "TorchSprintRecallAspect3" }
             }
         },
-        --PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
     },
     TorchSprintRecallAspect5 =
     {
         WeaponName = "WeaponTorch",
         HideAfterPurchased = false,
-        Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Torch01",
-        IconScale = 0.18,
+        IconScale = 0.8,
         Graphic = "WeaponArt05",
         TraitUpgrade = "TorchSprintRecallAspect",
         InheritFrom = { "BaseWeaponUpgrade", },
@@ -1700,15 +1800,14 @@
 			{
 				{ Cue = "/VO/Melinoe_3587", Text = "Such power in the break of Dawn..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
     },
 	-- Lob close attack
 	LobCloseAttackAspect2 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobCloseAttackAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1722,13 +1821,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobCloseAttackAspect" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobCloseAttackAspect3 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobCloseAttackAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1742,13 +1840,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobCloseAttackAspect2" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobCloseAttackAspect4 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobCloseAttackAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1762,14 +1859,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobCloseAttackAspect3" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobCloseAttackAspect5 =
 	{
 		WeaponName = "WeaponLob",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobCloseAttackAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1790,14 +1886,13 @@
 			{
 				{ Cue = "/VO/Melinoe_3589", Text = "A curse on all who oppose us..." },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
 		},
 	},		
 	LobImpulseAspect2 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobImpulseAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1811,13 +1906,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobImpulseAspect" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobImpulseAspect3 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobImpulseAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1831,13 +1925,12 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobImpulseAspect2" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobImpulseAspect4 =
 	{
 		WeaponName = "WeaponLob",
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobImpulseAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1851,14 +1944,13 @@
 				PathTrue = { "GameState", "WeaponsUnlocked", "LobImpulseAspect3" }
 			}
 		},
-		--PreRevealGlobalVoiceLines = "TorchAspectUpgradedVoiceLines",
+		PreRevealGlobalVoiceLines = "LobAspectUpgradedVoiceLines",
 	},
 	LobImpulseAspect5 =
 	{
 		WeaponName = "WeaponLob",
 		HideAfterPurchased = false,
-		Icon = "GUI\\Screens\\WeaponShop\\Icons\\Weapon_Skull01",
-		IconScale = 0.18,
+		IconScale = 0.8,
 		Graphic = "WeaponArt05",
 		TraitUpgrade = "LobImpulseAspect",
 		InheritFrom = { "BaseWeaponUpgrade", },
@@ -1879,7 +1971,254 @@
 			{
 				{ Cue = "/VO/Melinoe_3590", Text = "What would Mother have done...?" },
 			},
-			[2] = GlobalVoiceLines.SkellyWeaponUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyWeaponUnlockReactionVoiceLines" },
+		},
+	},
+	-- Suit, Base
+	BaseSuitAspect2 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "BaseSuitAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			MixerFBoss = 1,
+			OrePAdamant = 4,
+		},
+		GameStateRequirements =
+		{
+			{
+				-- None, PathTrue = { "GameState", "WeaponsUnlocked", "BaseStaffAspect" },
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	BaseSuitAspect3 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "BaseSuitAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			MixerFBoss = 1,
+			OrePAdamant = 6,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "BaseSuitAspect2" },
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	BaseSuitAspect4 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "BaseSuitAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			MixerFBoss = 1,
+			OrePAdamant = 8,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "BaseSuitAspect3" },
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	BaseSuitAspect5 =
+	{
+		WeaponName = "WeaponSuit",
+		HideAfterPurchased = false,
+		IconScale = 0.8,
+		TraitUpgrade = "BaseSuitAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			MixerFBoss = 1,
+			OrePAdamant = 15,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "BaseSuitAspect4" },
+			}
+		},
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				{ Cue = "/VO/Melinoe_3740", Text = "Xinth, our bond is finally true." },
+			},
+			[2] = { GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+		},
+	},
+	-- Suit, Mark
+	SuitMarkCritAspect2 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitMarkCritAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitMarkCritAspect" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitMarkCritAspect3 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitMarkCritAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitMarkCritAspect2" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitMarkCritAspect4 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitMarkCritAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 2,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitMarkCritAspect3" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitMarkCritAspect5 =
+	{
+		WeaponName = "WeaponSuit",
+		HideAfterPurchased = false,
+		IconScale = 0.8,
+		TraitUpgrade = "SuitMarkCritAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 3,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitMarkCritAspect4" }
+			}
+		},
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				{ Cue = "/VO/Melinoe_3748", Text = "The dark power of Nyx, now in my hands." },
+			},
+			[2] = { GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
+		},
+	},
+	-- Suit, Hex
+	SuitHexAspect2 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitHexAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitHexAspect" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitHexAspect3 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitHexAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 1,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitHexAspect2" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitHexAspect4 =
+	{
+		WeaponName = "WeaponSuit",
+		IconScale = 0.8,
+		TraitUpgrade = "SuitHexAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 2,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitHexAspect3" }
+			}
+		},
+		PreRevealGlobalVoiceLines = "SuitAspectUpgradedVoiceLines",
+	},
+	SuitHexAspect5 =
+	{
+		WeaponName = "WeaponSuit",
+		HideAfterPurchased = false,
+		IconScale = 0.8,
+		TraitUpgrade = "SuitHexAspect",
+		InheritFrom = { "BaseWeaponUpgrade", },
+		Cost =
+		{
+			WeaponPointsRare = 3,
+		},
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "SuitHexAspect4" }
+			}
+		},
+		PreRevealVoiceLines =
+		{
+			TriggerCooldowns = { "MelinoeMiscWeaponEquipSpeech" },
+			{
+				{ Cue = "/VO/Melinoe_3747", Text = "Sister Selene's brilliance at my command." },
+			},
+			[2] = { GlobalVoiceLines = "SkellyWeaponUpgradeReactionVoiceLines" },
 		},
 	},
 	-- Tools
@@ -1893,6 +2232,7 @@
 			MetaCardPointsCommon = 1,
 		},
 		OnActivateFunctionName = "ActivateToolKit",
+		HideIfItemAvailable = "ToolPickaxe2",
 		SkipSpawnSkelly = true,
 		PreRevealVoiceLines =
 		{
@@ -1901,7 +2241,7 @@
 				{ Cue = "/VO/Melinoe_1616", Text = "The Crescent Pick...", PreLineWait = 0.35 },
 				{ Cue = "/VO/Melinoe_1911", Text = "Reveal to me the bounties of the earth.", PreLineWait = 1.0 },
 			},
-			[2] = GlobalVoiceLines.SkellyToolUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 		},
 		FlavorText = "ToolPickaxe_FlavorText",
 	},
@@ -1917,6 +2257,7 @@
 			MemPointsCommon = 5,
 		},
 		OnActivateFunctionName = "ActivateToolKit",
+		HideIfItemAvailable = "ToolExorcismBook2",
 		SkipSpawnSkelly = true,
 		PreRevealVoiceLines =
 		{
@@ -1925,7 +2266,7 @@
 				{ Cue = "/VO/Melinoe_1615", Text = "The Tablet of Peace...", PreLineWait = 0.35 },
 				{ Cue = "/VO/Melinoe_0240", Text = "You are mine now.", PreLineWait = 1.0 },
 			},
-			[2] = GlobalVoiceLines.SkellyToolUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 		},
 		FlavorText = "ToolExorcismBook_FlavorText",
 	},
@@ -1941,6 +2282,7 @@
 			--MetaFabric = 1,
 		},
 		OnActivateFunctionName = "ActivateToolKit",
+		HideIfItemAvailable = "ToolShovel2",
 		SkipSpawnSkelly = true,
 		PreRevealVoiceLines =
 		{
@@ -1949,7 +2291,7 @@
 				{ Cue = "/VO/Melinoe_1910", Text = "The Silver Spade.", PreLineWait = 0.35 },
 				{ Cue = "/VO/Melinoe_0237", Text = "You're mine.", PreLineWait = 1.0 },
 			},
-			[2] = GlobalVoiceLines.SkellyToolUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 		},
 		FlavorText = "ToolShovel_FlavorText",
 	},
@@ -1965,6 +2307,7 @@
 			MetaFabric = 2,
 		},
 		OnActivateFunctionName = "ActivateToolKit",
+		HideIfItemAvailable = "ToolFishingRod2",
 		SkipSpawnSkelly = true,
 		PreRevealVoiceLines =
 		{
@@ -1973,7 +2316,7 @@
 				{ Cue = "/VO/Melinoe_1908", Text = "The Rod of Fishing.", PreLineWait = 0.35 },
 				{ Cue = "/VO/Melinoe_1909", Text = "What shall the rivers yield to us?", PreLineWait = 1.0 },
 			},
-			[2] = GlobalVoiceLines.SkellyToolUnlockReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "SkellyToolUnlockReactionVoiceLines" },
 		},
 		FlavorText = "ToolFishingRod_FlavorText",
 	},
@@ -2000,13 +2343,16 @@
 		},
 		Cost =
 		{
-			OreHGlassrock = 6,
+			OreHGlassrock = 4,
 			OreOIron = 4,
 		},
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "GameState", "WeaponsUnlocked", "ToolPickaxe", }
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolUpgradeSystem" }
+			},
+			{
+				PathTrue = { "GameState", "WeaponsUnlocked", "ToolPickaxe" },
 			}
 		},
 		TextureData =
@@ -2041,11 +2387,14 @@
 		},
 		Cost =
 		{
-			MetaCardPointsCommon = 50,
+			MetaCardPointsCommon = 30,
 			OreIMarble = 3,
 		},
 		GameStateRequirements =
 		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolUpgradeSystem" }
+			},
 			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "ToolExorcismBook" },
 			}
@@ -2082,11 +2431,14 @@
 		},
 		Cost =
 		{
-			PlantOMandrake = 2,
+			PlantPOlive = 4,
 			OreNBronze = 2,
 		},
 		GameStateRequirements =
 		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolUpgradeSystem" }
+			},
 			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "ToolShovel" },
 			}
@@ -2123,6 +2475,9 @@
 		GameStateRequirements =
 		{
 			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolUpgradeSystem" }
+			},
+			{
 				PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod" }
 			}
 		},
@@ -2140,7 +2495,7 @@ ScreenData.WeaponShop =
 	CategoryStartY = 126,
 	CategorySpacingX = 94,
 
-	CategoryIconScale = 0.40,
+	CategoryIconScale = 0.45,
 	CategoryIconOffsetX = 0,
 	CategoryIconOffsetY = 1,
 
@@ -2230,113 +2585,201 @@ ScreenData.WeaponShop =
 				-- None
 			},
 			"WeaponStaffSwing",
-			"StaffClearCastAspect",
-			"StaffSelfHitAspect",
-
 			"WeaponDagger",
-			"DaggerBlockAspect",
-			"DaggerHomingThrowAspect",
-
 			"WeaponTorch",
-			"TorchDetonateAspect",
-			"TorchSprintRecallAspect",
-
 			"WeaponAxe",
-			"AxeArmCastAspect",
-			"AxePerfectCriticalAspect",
-
 			"WeaponLob",
-			"LobCloseAttackAspect",
-			"LobImpulseAspect",
+			"WeaponSuit",
 		},
 		{
-			Name = "WeaponShop_WeaponUpgrades",
-			Icon = "GUI\\Screens\\WeaponShop\\Icon-Bonds",
+			Name = "WeaponShop_StaffUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Staff",
+			WeaponName = "WeaponStaffSwing",
 			GameStateRequirements =
 			{
 				{
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
 				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponStaffSwing" },
+				},
 			},
-			-- Staff
+
 			"BaseStaffAspect2",
 			"BaseStaffAspect3",
 			"BaseStaffAspect4",
 			"BaseStaffAspect5",
 
+			"StaffClearCastAspect",
 			"StaffClearCastAspect2",
 			"StaffClearCastAspect3",
 			"StaffClearCastAspect4",
 			"StaffClearCastAspect5",
 
+			"StaffSelfHitAspect",
 			"StaffSelfHitAspect2",
 			"StaffSelfHitAspect3",
 			"StaffSelfHitAspect4",
 			"StaffSelfHitAspect5",
+		},
+		{
+			Name = "WeaponShop_DaggerUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Dagger",
+			WeaponName = "WeaponDagger",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponDagger" },
+				},
+			},
 
-			-- Dagger
 			"DaggerBackstabAspect2",
 			"DaggerBackstabAspect3",
 			"DaggerBackstabAspect4",
 			"DaggerBackstabAspect5",
 
+			"DaggerBlockAspect",
 			"DaggerBlockAspect2",
 			"DaggerBlockAspect3",
 			"DaggerBlockAspect4",
 			"DaggerBlockAspect5",
 
+			"DaggerHomingThrowAspect",
 			"DaggerHomingThrowAspect2",
 			"DaggerHomingThrowAspect3",
 			"DaggerHomingThrowAspect4",
 			"DaggerHomingThrowAspect5",
+		},
+		{
+			Name = "WeaponShop_TorchUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Torch",
+			WeaponName = "WeaponTorch",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponTorch" },
+				},
+			},
 
-			-- Torch
 			"TorchSpecialDurationAspect2",
 			"TorchSpecialDurationAspect3",
 			"TorchSpecialDurationAspect4",
 			"TorchSpecialDurationAspect5",
 
+			"TorchDetonateAspect",
 			"TorchDetonateAspect2",
 			"TorchDetonateAspect3",
 			"TorchDetonateAspect4",
 			"TorchDetonateAspect5",
 
+			"TorchSprintRecallAspect",
 			"TorchSprintRecallAspect2",
 			"TorchSprintRecallAspect3",
 			"TorchSprintRecallAspect4",
 			"TorchSprintRecallAspect5",
+		},
+		{
+			Name = "WeaponShop_AxeUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Axe",
+			WeaponName = "WeaponAxe",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponAxe" },
+				},
+			},
 
-			-- Axe
 			"AxeRecoveryAspect2",
 			"AxeRecoveryAspect3",
 			"AxeRecoveryAspect4",
 			"AxeRecoveryAspect5",
 
+			"AxeArmCastAspect",
 			"AxeArmCastAspect2",
 			"AxeArmCastAspect3",
 			"AxeArmCastAspect4",
 			"AxeArmCastAspect5",
 
+			"AxePerfectCriticalAspect",
 			"AxePerfectCriticalAspect2",
 			"AxePerfectCriticalAspect3",
 			"AxePerfectCriticalAspect4",
 			"AxePerfectCriticalAspect5",
+		},
+		{
+			Name = "WeaponShop_LobUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Lob",
+			WeaponName = "WeaponLob",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponLob" },
+				},
+			},
 
-			--  Lob
 			"LobAmmoBoostAspect2",
 			"LobAmmoBoostAspect3",
 			"LobAmmoBoostAspect4",
 			"LobAmmoBoostAspect5",
 
+			"LobCloseAttackAspect",
 			"LobCloseAttackAspect2",
 			"LobCloseAttackAspect3",
 			"LobCloseAttackAspect4",
 			"LobCloseAttackAspect5",
 
+			"LobImpulseAspect",
 			"LobImpulseAspect2",
 			"LobImpulseAspect3",
 			"LobImpulseAspect4",
 			"LobImpulseAspect5",
+		},
+		{
+			Name = "WeaponShop_SuitUpgrades",
+			Icon = "GUI\\Screens\\WeaponShop\\Icon-Suit",
+			WeaponName = "WeaponSuit",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWeaponUpgradeSystem" },
+				},
+				{
+					PathTrue = { "GameState", "WeaponsUnlocked", "WeaponSuit" },
+				},
+				{
+					PathFalse = { "CurrentRun", "WeaponsUnlocked", "WeaponSuit" }
+				},
+			},
+
+			-- Add aspects here!
+			"BaseSuitAspect2",
+			"BaseSuitAspect3",
+			"BaseSuitAspect4",
+			"BaseSuitAspect5",
+
+			"SuitHexAspect",
+			"SuitHexAspect2",
+			"SuitHexAspect3",
+			"SuitHexAspect4",
+			"SuitHexAspect5",
+
+			"SuitMarkCritAspect",
+			"SuitMarkCritAspect2",
+			"SuitMarkCritAspect3",
+			"SuitMarkCritAspect4",
+			"SuitMarkCritAspect5",
 		},
 		{
 			Name = "WeaponShop_Tools",
@@ -2347,20 +2790,12 @@ ScreenData.WeaponShop =
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolsShop" },
 				},
 			},
+
 			"ToolPickaxe",
 			"ToolExorcismBook",
 			"ToolShovel",
 			"ToolFishingRod",
-		},
-		{
-			Name = "WeaponShop_ToolUpgrades",
-			Icon = "GUI\\Screens\\WeaponShop\\Icon-Favors",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeToolUpgradeSystem" },
-				},
-			},
+
 			"ToolPickaxe2",
 			"ToolExorcismBook2",
 			"ToolShovel2",
@@ -2421,6 +2856,9 @@ ScreenData.WeaponShop =
 			AnimationName = "GUI\\Screens\\WeaponShop\\Backing_Header",
 			X = 820,
 			Y = 100,
+			Alpha = 0.0,
+			AlphaTarget = 1.0,
+			AlphaTargetDuration = 0.2,
 		},
 
 		CategoryTitleText = 
@@ -2560,6 +2998,7 @@ ScreenData.WeaponShop =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 

@@ -26,10 +26,6 @@
 		{
 			PathTrue = { "GameState", "TextLinesRecord", "ZeusFirstPickUp" },
 		},
-		{
-			Path = { "CurrentRun" },
-			HasNone = { "ActiveBounty" }
-		}
 	},
 	BiomeStates = 
 	{

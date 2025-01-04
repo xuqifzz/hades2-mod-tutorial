@@ -130,7 +130,7 @@ function CheckPartnerConversations( unit, textLines )
 		return false
 	end
 
-	for partnerId, partnerUnit in pairs( ActiveEnemies ) do
+	for partnerId, partnerUnit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if partnerUnit.Name == unit.NextInteractLines.Partner then
 			local allTextLineSets = partnerUnit.InteractTextLineSets
 			for partnerTextLinesName, partnerTextLines in pairs( allTextLineSets  ) do
@@ -269,7 +269,7 @@ function PlayTextLines( source, textLines, args )
 	OverwriteTableKeys( screen, args.ScreenArgs )
 	OnScreenOpened( screen )
 	
-	if PlayTextLine( screen, textLines, nil, nil, source ) then
+	if PlayTextLine( screen, textLines, nil, nil, source, args ) then
 		playedSomething = true
 	end
 	CallFunctionName( textLines.PrePortraitExitFunctionName, source, textLines.PrePortraitExitFunctionArgs, screen )
@@ -500,7 +500,7 @@ function PlayTextLine( screen, textLines, prevLine, parentLine, source, args )
 
 				waitUnmodified( playLine.PreLineWait )
 
-				local played = DisplayTextLine( screen, source, playLine, textLines, textLines[lineIndex + 1] )
+				local played = DisplayTextLine( screen, source, playLine, textLines, textLines[lineIndex + 1], args )
 				if played then
 					playedSomething = true
 					-- Intentionally leaving this on raw data for now to be wiped out on load
@@ -581,6 +581,9 @@ function IsTextLineEligible( currentRun, source, line, prevLine, parentLine, arg
 				args.FirstFailedRequirement = "Partner is already busy with a non-repeatable conversation"
 				return false
 			end
+			if NeedsUseableOff( partner ) then
+				return false
+			end
 		end
 	end
 
@@ -617,8 +620,8 @@ function IsTextLineEligible( currentRun, source, line, prevLine, parentLine, arg
 		end
 	end
 
-	--if line.GameStateRequirements ~= nil and not IsGameStateEligible( currentRun, line, line.GameStateRequirements, args ) then -- Decide on preferred source
-	if line.GameStateRequirements ~= nil and not IsGameStateEligible( currentRun, source, line.GameStateRequirements, args ) then
+	--if line.GameStateRequirements ~= nil and not IsGameStateEligible( line, line.GameStateRequirements, args ) then -- Decide on preferred source
+	if line.GameStateRequirements ~= nil and not IsGameStateEligible( source, line.GameStateRequirements, args ) then
 		return false
 	end
 
@@ -626,8 +629,9 @@ function IsTextLineEligible( currentRun, source, line, prevLine, parentLine, arg
 
 end
 
-function DisplayTextLine( screen, source, line, parentLine, nextLine )
+function DisplayTextLine( screen, source, line, parentLine, nextLine, args )
 
+	args = args or {}
 	local rawText = line.Text
 	local text = nil
 
@@ -656,9 +660,10 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 	end
 
 	local speakerName = line.SpeakerNameplateId or line.Speaker or source.Speaker or source.Name
-	table.insert( CurrentRun.LineHistory, { SpeakerName = source.LineHistoryName or speakerName, SourceName = source.Name, Text = text, RawText = rawText, SubtitleColor = source.NarrativeFadeInColor or source.SubtitleColor } )
+	table.insert( CurrentRun.LineHistory, { SpeakerName = source.LineHistoryName or line.LineHistoryName or speakerName, SourceName = source.Name, Text = text, RawText = rawText,
+		SubtitleColor = line.SubtitleColor or source.NarrativeFadeInColor or source.SubtitleColor } )
 
-	local portrait = line.Portrait or source.Portrait	
+	local portrait = line.Portrait or source.Portrait
 	local speakerLabelOffsetY = line.SpeakerLabelOffsetY or source.SpeakerLabelOffsetY or 5
 
 	for id, v in pairs( AudioState.ActiveSpeechIds ) do
@@ -680,10 +685,10 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 	if portrait ~= nil and not line.SkipPortrait then
 		-- Dialogue with portrait
 		if screen.ContextArtId == nil then
-			screen.ContextArtId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = "Combat_Menu" })
+			screen.ContextArtId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX, Y = ScreenCenterY, Group = args.Group or screen.DefaultGroup })
 		end
 		if screen.PortraitId == nil then
-			screen.PortraitId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 490, Y = ScreenCenterY + 105, Group = "Combat_Menu" })
+			screen.PortraitId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 490, Y = ScreenCenterY + 105, Group = args.Group or screen.DefaultGroup })
 		end
 		AltAspectRatioFramesShow()
 		if screen.CurrentPortrait ~= nil and screen.CurrentPortrait ~= portrait then
@@ -716,7 +721,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 		speechSource = { Name = source.Name, ObjectId = screen.PortraitId }
 		narrationBoxOffsetX = 198
 		if screen.DialogueGlowBackgroundId == nil then
-			screen.DialogueGlowBackgroundId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 200, Y = ScreenCenterY + 300, Group = "Combat_Menu" })
+			screen.DialogueGlowBackgroundId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 200, Y = ScreenCenterY + 300, Group = args.Group or screen.DefaultGroup })
 			SetAnimation({ DestinationId = screen.DialogueGlowBackgroundId, Name = "DialogueSpeechBubbleBackgroundGlow" })
 			SetAlpha({ Id = screen.DialogueGlowBackgroundId, Fraction = 0 })
 			SetAlpha({ Id = screen.DialogueGlowBackgroundId, Fraction = 1, Duration = 0.25  })
@@ -744,7 +749,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 		-- Speech bubble
 		if screen.BackgroundId == nil then
 			local boxAnimation = line.BoxAnimation or source.BoxAnimation or "DialogueSpeechBubble"
-			screen.BackgroundId = CreateScreenObstacle({ Name = boxAnimation, X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX), Y = ScreenCenterY + (line.BoxOffsetY or 264), Group = "Combat_Menu" })
+			screen.BackgroundId = CreateScreenObstacle({ Name = boxAnimation, X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX), Y = ScreenCenterY + (line.BoxOffsetY or 264), Group = args.Group or screen.DefaultGroup })
 		end
 		exitAnimation = line.BoxExitAnimation or source.BoxExitAnimation or "DialogueSpeechBubbleOut"
 		textColor = line.TextColor or source.NarrativeTextColor or Color.DialogueText
@@ -756,10 +761,10 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 		end
 
 		if screen.NameplateId == nil then
-			screen.NameplateId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 12, Y = ScreenCenterY + 103, Group = "Combat_Menu" })
+			screen.NameplateId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 12, Y = ScreenCenterY + 103, Group = args.Group or screen.DefaultGroup })
 		end
 		if screen.NameplateDescriptionId == nil then
-			screen.NameplateDescriptionId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 8, Y = ScreenCenterY + 146, Group = "Combat_Menu" })
+			screen.NameplateDescriptionId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX - 8, Y = ScreenCenterY + 146, Group = args.Group or screen.DefaultGroup })
 		end
 
 		CreateTextBox(MergeTables({
@@ -786,7 +791,7 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 	else
 		-- Narration
 		if screen.BackgroundId == nil then
-			screen.BackgroundId = CreateScreenObstacle({ Name = "NarrationBubble", X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX), Y = ScreenCenterY + (line.BoxOffsetY or 304), Group = "Combat_Menu" })
+			screen.BackgroundId = CreateScreenObstacle({ Name = "NarrationBubble", X = ScreenCenterX + (line.BoxOffsetX or narrationBoxOffsetX), Y = ScreenCenterY + (line.BoxOffsetY or 304), Group = args.Group or screen.DefaultGroup })
 		end
 		if line.BoxAnimation ~= nil then
 			SetAnimation({ Name = line.BoxAnimation, DestinationId = screen.BackgroundId })
@@ -834,30 +839,25 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 				CharacterFadeInterval = 0.001,
 			}
 		end
-		CreateTextBox(MergeTables({
-			Id = screen.BackgroundId,
-			Text = text,
-			RawText = rawText,
-			Width = line.TextWidth or 833,
-			OffsetX = line.TextOffsetX or (-397 + narrationTextOffsetX),
-			OffsetY = line.TextOffsetY or (45 + narrationTextOffsetY),
-			Font = "LatoSemibold",
-			FontSize = line.FontSize or 24,
-			Justification = "LEFT",
-			VerticalJustification = line.VerticalJustification or "CENTER",
-			Color = line.TextColor or textColor,
-			LineSpacingBottom = 4,
-			ShadowColor = textShadowColor,
-			ShadowBlur = 0,
-			ShadowOffsetX = 0,
-			ShadowOffsetY = 4,
-			DataProperties = fadeInProperties,
-		}, LocalizationData.Narrative.DialogueText ))
+		local data = ShallowCopyTable( ScreenData.Dialog.ComponentData.DialogueText.TextArgs )
+		data.LineSpacingBottom = GetLocalizedValue( data.LineSpacingBottom, data.LangLineSpacingBottom )
+		data.Id = screen.BackgroundId
+		data.Text = text
+		data.RawText = rawText
+		data.Width = line.TextWidth or 833
+		data.OffsetX = line.TextOffsetX or (-397 + narrationTextOffsetX)
+		data.OffsetY = GetLocalizedValue( line.TextOffsetY or (45 + narrationTextOffsetY), line.LangTextOffsetY )
+		data.FontSize = line.FontSize or 24
+		data.VerticalJustification = line.VerticalJustification or "CENTER"
+		data.Color = line.TextColor or textColor
+		data.ShadowColor = textShadowColor
+		data.DataProperties = fadeInProperties
+		CreateTextBox( data )
 	end
 
 	local anchorIds = { screen.BackgroundId, screen.NameplateId, screen.NameplateDescriptionId }
 	Destroy({ Id = screen.PromptId })
-	screen.PromptId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 390 + narrationBoxOffsetX, Y = ScreenCenterY + promptOffsetY, Group = "Combat_Menu" })
+	screen.PromptId = CreateScreenObstacle({ Name = "BlankObstacle", X = ScreenCenterX + 390 + narrationBoxOffsetX, Y = ScreenCenterY + promptOffsetY, Group = args.Group or screen.DefaultGroup })
 	table.insert( anchorIds, screen.PromptId )
 
 	ModifySubtitles({ SuppressLyrics = true })
@@ -871,123 +871,11 @@ function DisplayTextLine( screen, source, line, parentLine, nextLine )
 		thread( ShowContinueArrow, screen, source, cue )
 	end
 
-	waitUnmodified(0.01)
-
-	local selectedChoice = nil
-	local choiceMap = {}
-	local choiceBackground = nil
-
-	if line.Choices ~= nil then
-
-		DestroyTextBox({ Ids = { screen.BackgroundId, screen.NameplateId, screen.NameplateDescriptionId } })
-
-		choiceBackground = CreateScreenObstacle({ Name = "DialogueChoiceBubble", X = ScreenCenterX + narrationBoxOffsetX + 8, Y = ScreenCenterY + 280, Group = "Combat_Menu" })
-
-		CreateTextBox(MergeTables({
-			Id = choiceBackground,
-			Text = rawText,
-			Width = localizedWidthOverride,
-			OffsetX = -425,
-			OffsetY = -120,
-			Font = "LatoBold",
-			FontSize = 22,
-			Justification = "LEFT",
-			VerticalJustification = "CENTER",
-			Color = Color.White,
-		}, LocalizationData.Narrative.ChoiceBackground ))
-
-		SetAlpha({ Id = screen.BackgroundId, Fraction = 0 })
-		local choiceLocationX = ScreenCenterX - 200
-		local choiceLocationY = 820
-		local firstChoice = false
-
-		local choices = nil
-		if line.Choices.RandomSelections ~= nil then
-			choices = {}
-			local availableChoices = {}
-			for k, choice in ipairs( line.Choices ) do
-				--DebugPrint({ Text = "Choice: "..k })
-				if choice.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, source, choice.GameStateRequirements ) then
-					table.insert( availableChoices, choice )
-				else
-					--DebugPrint({ Text = "Failed choice: "..k })
-				end
-			end
-			RandomSynchronize( 17 )
-			for i = 1, line.Choices.RandomSelections do
-				local randomChoice = RemoveRandomValue( availableChoices )
-				table.insert( choices, randomChoice )
-			end
-		else
-			choices = line.Choices
-		end
-
-		for k, choice in ipairs( choices ) do
-			if IsTextLineEligible( CurrentRun, source, choice, line, line ) then
-				local choiceButtonId = CreateScreenObstacle({ Name = "ButtonDialogueChoice", X = choiceLocationX, Y = choiceLocationY, Group = "Combat_Menu" })
-				local data = {}
-				for i, value in ipairs( choice ) do
-					if value.PostLineFunctionArgs and value.PostLineFunctionArgs.TraitName then
-						data = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = value.PostLineFunctionArgs.TraitName })
-						ExtractValues( CurrentRun.Hero, data, data )
-					else
-						data = value
-					end
-				end
-				local color = Color.Green
-				if choice.Disabled then
-					UseableOff({ Id = choiceButtonId })
-					color = Color.Red
-				end
-				--DebugPrintTable( data, true )
-				choiceMap[choiceButtonId] = choice
-				table.insert( anchorIds, choiceButtonId )
-				CreateTextBox( MergeTables({
-					Id = choiceButtonId,
-					Text = choice.ChoiceText,
-					Color = color,
-					Width = 1920,
-					OffsetX = -10,
-					OffsetY = -4,
-					Font = "P22UndergroundSCHeavy",
-					FontSize = 26,
-					VariableAutoFormat = "ItalicFormatDark",
-					TextSymbolScale = choice.TextSymbolScale,
-					Justification = "LEFT",
-					VerticalJustification = "CENTER",
-					LuaKey = "TooltipData",
-					LuaValue = data,
-				}, LocalizationData.Narrative.ChoiceText ))
-				--[[
-				CreateTextBox({
-					Id = choiceButtonId,
-					Text = choice.ChoiceDescription,
-					Color = Color.Black,
-					Width = 755,
-					OffsetX = -140,
-					OffsetY = -4,
-					Font = "P22UndergroundSCHeavy",
-					FontSize = 28,
-					Justification = "LEFT",
-					VerticalJustification = "CENTER",
-				})
-				]]
-				SetInteractProperty({ DestinationId = choiceButtonId, Property = "TooltipOffsetX", Value = 800})
-				if not firstChoice then
-					TeleportCursor({ OffsetX = choiceLocationX, OffsetY = choiceLocationY })
-					firstChoice = true
-				end
-				choiceLocationY = choiceLocationY + 60
-			end
-		end
-
-	end
-
-	waitUnmodified(0.03)
+	waitUnmodified(0.04)
 	-- Workaround for FMOD bug, after a long play-session VO played in 2D can become inaudible.  Pausing and unpausing the sound fixes it.
 	PauseSound({ Id = speechId, Duration = 0 })
 	ResumeSound({ Id = speechId, Duration = 0 })
-	waitUnmodified( line.InputDelay or 0.17) -- Minimum input advance delay
+	waitUnmodified( line.InputDelay or 0.17 ) -- Minimum input advance delay
 
 	local advanceControls = { "Confirm", "Select", "ContinueText", }
 	
@@ -1148,7 +1036,7 @@ function GetLastRunTextLinesOccured( textLinesName )
 	end
 	for runNum = TableLength( GameState.RunHistory ), 1, -1 do
 		local run = GameState.RunHistory[runNum]
-		if run.TextLinesRecord[textLinesName] then
+		if run.TextLinesRecord ~= nil and run.TextLinesRecord[textLinesName] then
 			return runNum
 		end
 	end

@@ -1,7 +1,12 @@
 { Animations = [
 	{
+		Name = "CritterFrog"
+		GrannyModel = "CritterFrog_Mesh"
+	}
+	{
 		Name = "FamailiarFrogBaseAnimation"
 		GrannyModel = "Frog_Mesh"
+		ExtraGrannyAnimations = [{ Name = "CritterFrog" }]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -72,6 +77,20 @@
 		InheritFrom = "FamailiarFrogBaseAnimation"
 		GrannyAnimation = "Frog_Base_HopTouchdown_N_00"
 		ChainTo = "Familiar_Frog_Idle"
+	}
+
+	{
+		Name = "Familiar_Frog_HopStart_AutoLand"
+		InheritFrom = "Familiar_Frog_HopStart"
+		GrannyAnimationSpeed = 2
+		ChainTo = "Familiar_Frog_Hop_AutoLand"
+	}
+	{
+		Name = "Familiar_Frog_Hop_AutoLand"
+		InheritFrom = "Familiar_Frog_Hop"
+		HoldLastFrame = false
+		GrannyAnimationSpeed = 2
+		ChainTo = "Familiar_Frog_HopTouchdown"
 	}
 
 	{

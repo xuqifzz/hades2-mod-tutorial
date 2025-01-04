@@ -1241,6 +1241,7 @@
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
 		VisualFxCap = 8
+		Sound = "/SFX/Player Sounds/PoseidonWaterImpactDetonate"
 		AddColor = true
 		StartRed = 0.5
 		StartGreen = 0.7
@@ -1288,6 +1289,7 @@
 	{
 		Name = "PoseidonCastBoonFx_Dark"
 		InheritFrom = "PoseidonCastBoonFx"
+		Sound = null
 		GroupName = "FX_Dark"
 		Red = 0
 		Green = 0
@@ -1300,6 +1302,7 @@
 	{
 		Name = "PoseidonCastBoonFx_Displace"
 		InheritFrom = "PoseidonCastBoonFx"
+		Sound = null
 		GroupName = "FX_Displacement"
 		StartAlpha = 0.02
 		EndAlpha = 0.1
@@ -1700,6 +1703,7 @@
 		AngleFromOwner = "Ignore"
 		Hue = -0.05
 		TransferFrameFromThis = true
+		TransferCopyBody = false
 		ChainTo = "PoseidonSlipStatusFxFade"
 		VisualFx = "PoseidonSlipStatusFxDroplets"
 		VisualFxIntervalMin = 0.2
@@ -1741,6 +1745,377 @@
 		ChainTo = null
 		Loop = false
 		VisualFx = null
+	}
+
+
+	{
+		Name = "PoseidonEncounterStartBuff"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "PoseidonEncounterStartBuffFront"
+		Sound = "/SFX/PoseidonEncounterStartBuffSFX"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.71
+		VisualFxIntervalMin = 0.7
+	}
+	
+	{
+		Name = "PoseidonEncounterStartBuffFront"
+		FilePath = "Fx\PowerUpFront\PowerUpFront"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 45.0
+		StartFrame = 1
+		Scale = 0.66
+		ScaleFromOwner = "Ignore"
+		CreateAnimations =
+		[
+			{ Name = "PoseidonEncounterStartBuffBack" }
+			{ Name = "PoseidonEncounterStartBuffGlow" }
+			{ Name = "PoseidonEncounterStartBuffFx" }
+		]
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.70 }
+	}
+	
+	{
+		Name = "PoseidonEncounterStartBuffBack"
+		InheritFrom = "PoseidonEncounterStartBuffFront"
+		FilePath = "Fx\PowerUpBack\PowerUpBack"
+		GroupName = "FX_Terrain_Add"
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "PoseidonEncounterStartBuffFx"
+		FilePath = "Fx\AresKillDamageBuff\AresKillDamageBuff"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 1.0
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 80.0
+		DieWithOwner = true
+		SortMode = "FromParent"
+		EndScale = 1.2
+		Scale = 2.0
+		StartScale = 0.8
+		Hue = 0.42
+	}
+	
+	{
+		Name = "PoseidonEncounterStartBuffGlow"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Standing_Add"
+		
+		StartAlpha = 0.5
+		Duration = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 60.0
+		DieWithOwner = true
+		EndScale = 1.75
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.50 }
+	}
+	
+	{
+		Name = "PoseidonEncounterStartBuffFloor"
+		FilePath = "Fx\BloodstoneHelixTrail\BloodstoneHelixTrail"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		EndBlue = 0.8
+		EndGreen = 1.0
+		EndRed = 0.001
+		StartAlpha = 1.0
+		StartBlue = 0.4
+		StartGreen = 1.0
+		EndFrame = 50
+		Loop = true
+		NumFrames = 50
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = -10.0
+		DieWithOwner = true
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "PoseidonCollisionBlastFx"
+		CreateAnimation = "QuickFlashBlue"
+		FilePath = "Fx\PoseidonWallSplash\PoseidonWallSplash"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 35
+		NumFrames = 35
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		IsometricSkew = "Y"
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "PoseidonCollisionSpike" }
+			{ Name = "PoseidonProjectileSplash" }
+			{ Name = "PoseidonProjectileImpactPiece" }
+		]
+	}
+	{
+		Name = "PoseidonProjectileImpactPiece"
+		FilePath = "Fx\PoseidonProjectileImpactPiece\PoseidonProjectileImpactPiece"
+		GroupName = "Standing"
+
+		AngleChangeSpeedMax = 1.0
+		AngleMax = 360.0
+		ColorFromOwner = "Ignore"
+		EndBlue = 0.999
+		EndGreen = 0.7
+		EndRed = 0.5
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseOut = 0.5
+		EndFrame = 54
+		NumFrames = 54
+		RandomPlaySpeedMax = 90.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 36.0
+		OriginY = 120.0
+		RadialOffsetMax = 120.0
+		RadialOffsetMin = 119.0
+		RadialOffsetScaleRadius = 200.0
+		RadialOffsetScaleY = 0.5
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -1500.0
+		VelocityMax = 500.0
+		VelocityMin = 400.0
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "PoseidonCollisionSpike"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		DurationFrames = 6
+		EaseIn = 0.98
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 800.0
+		EndScaleX = 0.0
+		EndScaleY = 1.35
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+		StartScaleX = 0.6
+		StartScaleY = 0.8
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.8 }
+	}
+	{
+		Name = "PoseidonProjectileSplash"
+		FilePath = "Fx\PoseidonProjectileSplash\PoseidonProjectileSplash"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 41
+		NumFrames = 41
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		IsometricSkew = "Y"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.75
+		CreateAnimations =
+		[
+			{ Name = "PoseidonProjectileSplash2" }
+			{ Name = "PoseidonProjectileSplash3" }
+			{ Name = "QuickFlashBlueGreen" }
+		]
+	}
+	
+	{
+		Name = "PoseidonProjectileSplash2"
+		FilePath = "Fx\PoseidonWallSplash\PoseidonWallSplash"
+		GroupName = "Standing"
+		
+		Angle = -90.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 35
+		NumFrames = 35
+		StartFrame = 1
+		OriginX = 11.0
+		OriginY = 158.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		IsometricSkew = "Y"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		TimeModifierFraction = 0.75
+	}
+	
+	{
+		Name = "PoseidonProjectileSplash3"
+		InheritFrom = "PoseidonProjectileSplash2"
+		Angle = 180.0
+		IsometricSkew = "None"
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "PoseidonWaveCurl"
+		FilePath = "Fx\PoseidonWaveCurl\PoseidonWaveCurl"
+		GroupName = "Standing"
+
+		EndFrame = 30
+		NumAngles = 16
+		NumFrames = 30
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomOffsetX = 10.0
+		RandomOffsetY = 5.0
+		Scale = 1.33
+		Ambient = 0.0
+	}
+	{
+		Name = "PoseidonWaveCurlImpact"
+		InheritFrom = "PoseidonProjectileSplash"
+		ChildAnimation = "PoseidonWaveCurlImpact2"
+		AngleMax = 90.0
+		AngleMin = -90.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndOffsetY = -50.0
+		EndScale = 1.5
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		StartScale = 0.0
+		CreateAnimations = []
+	}
+
+	{
+		Name = "PoseidonWaveCurlImpact2"
+		InheritFrom = "PoseidonProjectileSplash2"
+		AngleFromOwner = "Take"
+		AngleMin = 1.0
+		EndAlpha = 1.0
+		FlipHorizontal = true
+		OriginX = 20.0
+		OriginY = 160.0
+		LocationZFromOwner = "Ignore"
+		IsometricSkew = "None"
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		StartScaleY = 0.5
+	}
+
+	{
+		Name = "PoseidonWaveCurlImpact3"
+		InheritFrom = "PoseidonProjectileSplash3"
+		AngleMax = 60.0
+		AngleMin = -60.0
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+	}
+	{
+		Name = "PoseidonConeFxEmitterLarge"
+		FilePath = "Dev\blank_invisible"
+		Material = "Unlit"
+		Duration = 0.25
+		Red = 0
+		Green = 0.2
+		Blue = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		VisualFxCap = 6
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "PoseidonConeFxLarge" }
+			{ Name = "PoseidonConeFxDarkLarge" }
+		]
+	}
+
+
+	{
+		Name = "PoseidonConeFxLarge"
+		FilePath = "Fx\Poseidon\PoseidonConeSplashLarge\PoseidonConeSplashLarge"
+		GroupName = "FX_Standing_Add"		
+		EndFrame = 33
+		NumFrames = 33
+		RandomFlipVertical = true
+		StartFrame = 1
+		ScaleX = 1.1
+		ScaleY = 1.2
+		PostRotateScaleY = 0.6
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		UseAttachedFlasher = false
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+		Sound = "/SFX/Player Sounds/PoseidonWaterDashImpact"
+		OriginX = 60
+		OriginY = 360
+		Scale = 0.6
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartScaleX = 1.1
+		EndScaleX = 0.9
+		PlaySpeed = 70
+	}
+
+
+	{
+		Name = "PoseidonConeFxDarkLarge"
+		InheritFrom = "PoseidonConeFxLarge"
+		ClearCreateAnimations = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		PlaySpeed = 60
+		Sound = null
 	}
 
 ]}

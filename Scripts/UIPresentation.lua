@@ -3,6 +3,10 @@ function DisplayInfoBanner( source, args )
 	if not ConfigOptionCache.ShowUIAnimations then
 		return
 	end
+	if SessionMapState.ShowingInfoBanner then
+		return
+	end
+	SessionMapState.ShowingInfoBanner = true
 
 	args = ShallowCopyTable( args )
 
@@ -70,7 +74,7 @@ function DisplayInfoBanner( source, args )
 	titleText.Id = locationTextBG
 	titleText.Text = args.TitleText or args.Text
 	titleText.Font = args.TitleFont or titleText.Font
-	titleText.Width = titleText.Width
+	titleText.Width = GetLocalizedValue( titleText.Width, UIData.DisplayInfoBanner.TitleTextArgs.LangWidth )
 	titleText.FontSize = titleText.FontSize * fontScale
 	titleText.Color = args.SuperTitleTextColor or textColor
 	titleText.OffsetY = textYOffset
@@ -140,6 +144,9 @@ function DisplayInfoBanner( source, args )
 	PlaySound({ Name = args.AppearSound or "/SFX/Menu Sounds/HadesLocationTextDisappear", Id = promptId })
 	-- to make Duration work properly, the UnlockTextBG anim needs to be split up
 	wait( (args.Duration or 3.0) - (args.SupertitleTextDelay or 0) - (args.SubtitleData.UpdateDelay or 0), args.ThreadName or RoomThreadName )
+
+	SessionMapState.ShowingInfoBanner = false -- Ready for another one
+
 	SetAnimation({ Name = animationOutName, DestinationId = locationTextBG })
 	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFadeLOCATION" })
 
@@ -171,7 +178,6 @@ function RunInterstitialPresentation( data, args )
 		GameState.RunInterstitialRecord[data.Header] = true	
 	end
 
-	LoadVoiceBanks( data.SpeakerName or "Hecate" )
 	AddInputBlock({ Name = "ShowingInterstitial" })
 	ToggleCombatControl({"AdvancedTooltip"}, false, "Interstitial" )
 
@@ -564,6 +570,15 @@ function GenericScreenOpenStartPresentation( screen )
 			return
 		end
 	end
+
+	if screen.AngleHeroTowardTarget ~= nil then
+		AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = screen.OpenedFrom.ObjectId })
+	end
+
+	if screen.OpenPlayerAnimation ~= nil then
+		SetAnimation({ Name = screen.OpenPlayerAnimation, DestinationId = CurrentRun.Hero.ObjectId })
+	end
+
 end
 
 function GenericScreenOpenEndPresentation( screen )
@@ -622,6 +637,9 @@ function UpgradeChoiceScreenOpenStartPresentation( screen, lootData )
 	PlaySound({ Name = lootData.UpgradeScreenOpenSound or "/Leftovers/Menu Sounds/InfoPanelOutURSA" })
 	if lootData.PortraitEnterSound ~= nil then
 		PlaySound({ Name = lootData.PortraitEnterSound })
+	end
+	if lootData.UpgradeScreenOpenFunctionName ~= nil then
+		CallFunctionName( lootData.UpgradeScreenOpenFunctionName, screen )
 	end
 	if lootData.HasExchange and GetNumMetaUpgrades( "ReducedLootChoicesShrineUpgrade" ) == 0 then
 		thread( PlayVoiceLines, HeroVoiceLines.UpgradeMenuOpenVoiceLines, true )

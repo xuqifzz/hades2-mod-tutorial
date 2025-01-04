@@ -15,6 +15,7 @@ LootSetData.Selene =
 		BlockedLootInteractionText = "UseLootLocked",
 		ManualRecordUse = true,
 		CanReceiveGift = true,
+		RequireUseToGift = true,
 		AlwaysShowDefaultUseText = true,
 		BlockExitText = "ExitBlockedByMoney",
 		PlayInteract = true,
@@ -154,7 +155,7 @@ LootSetData.Selene =
 		PickupFunctionName = "SpellDropInteractPresentation",
 		PickupVoiceLines =
 		{
-			Queue = "Interrupt",
+			-- Queue = "Interrupt",
 			BreakIfPlayed = true,
 			RandomRemaining = true,
 			UsePlayerSource = true,
@@ -483,7 +484,10 @@ LootSetData.Selene =
 					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "TorchSprintRecallAspect" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "SeleneAboutEosAspect01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "SeleneAboutEosAspect01" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0104",
@@ -624,6 +628,20 @@ LootSetData.Selene =
 				{ Cue = "/VO/Selene_0229",
 					Text = "You now possess the Argent Skull Revaal... an everlasting reminder that Death and Fear ought always to be allies in our cause. Woe unto whomever meets her gaze." },
 			},
+			SeleneAboutSuit01 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+					},
+				},
+				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Selene_0318",
+					Text = "The Black Coat...! Night's veil and final defense, now yours. You bear a grave responsibility to wield it properly... or unleash such destruction as can blot out the Sun." },
+			},
 
 			SeleneAboutSteeds01 =
 			{
@@ -695,7 +713,7 @@ LootSetData.Selene =
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0102",
-					Text = "You have gone far since last we met, especially for someone with no steeds. Thus I commend you, and may all of your future attempts in turn succeed." },
+					Text = "You have gone far since last we met... especially for someone with no steeds! Thus I commend you, and may all of your future attempts in turn succeed." },
 			},
 			SeleneRunCleared02 =
 			{
@@ -776,7 +794,7 @@ LootSetData.Selene =
 				{ Cue = "/VO/Selene_0224",
 					Text = "I felt a weight drawing me toward the Crossroads recently, and realized it was the Pitch-Black Stone. So then it has awakened; almost like an Eye itself, but far older than mine, and peering from the infinite abyss." },
 			},
-			SeleneAboutPackageBounty01 =
+			SelenePackageBountyIntro01 =
 			{
 				PlayOnce = true,
 				SkipContextArt = true,
@@ -790,8 +808,8 @@ LootSetData.Selene =
 					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
-				{ Cue = "/VO/Selene_0224",
-					Text = "I felt a weight drawing me toward the Crossroads recently, and realized it was the Pitch-Black Stone. So then it has awakened; almost like an Eye itself, but far older than mine, and peering from the infinite abyss." },
+				{ Cue = "/VO/Selene_0225",
+					Text = "This strange sensation... I remember what it is: the whims of Chaos, affecting our surroundings even if in subtle ways. I have faith that this is due to your actions, not chance." },
 			},
 
 			SeleneAboutPackageBounty02 =
@@ -902,7 +920,8 @@ LootSetData.Selene =
 						IsAny = { "N", },
 					},
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "SeleneAboutSurface01_B" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "SeleneAboutSurfaceCurse01", "SeleneAboutSurface01_B" },
 					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -967,6 +986,9 @@ LootSetData.Selene =
 				SkipContextArt = true,
 				GameStateRequirements =
 				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HermesFirstPickUp" },
+					},
 					{
 						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
 					},
@@ -1085,7 +1107,8 @@ LootSetData.Selene =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HeraclesFirstMeeting", },
+						Path = { "PrevRun", "EncountersOccurredCache" },
+						HasAny = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatP", "HeraclesCombatP2" },
 					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1120,6 +1143,23 @@ LootSetData.Selene =
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0176",
 					Text = "Black-winged Eris has become an obstacle; she sometimes flies across my path, thus startling my steeds. I am the Eye of Night yet cannot see much worth in her at all..." },
+			},
+			SeleneAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				SkipContextArt = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
+				{ Cue = "/VO/Selene_0321",
+					Text = "The Titans never stood together even when the gods and Chronos first fought long ago. Prometheus... he stood with Zeus back then, but now? His purposes are crossed with ours. Another enemy of my own kind..." },
 			},
 
 			--[[
@@ -1170,7 +1210,10 @@ LootSetData.Selene =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ArtemisFirstMeeting" },
 					},
-					MaxRunsSinceAnyTextLines = { TextLines = { "ArtemisFirstMeeting" }, Count = 4 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ArtemisFirstMeeting" }, Max = 4 },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0162",
@@ -1396,7 +1439,10 @@ LootSetData.Selene =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0070",
@@ -1414,7 +1460,10 @@ LootSetData.Selene =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0071",
@@ -1432,7 +1481,10 @@ LootSetData.Selene =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0072",					
@@ -1531,7 +1583,7 @@ LootSetData.Selene =
 						PathFalse = { "CurrentRun", "BiomesReached", "P" },
 					},
 					{
-						PathTrue = { "Prev", "RoomsEntered", "I_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
 						PathFalse = { "PrevRun", "Cleared" }
@@ -1726,7 +1778,10 @@ LootSetData.Selene =
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HermesFirstPickUp" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HermesFirstPickUp" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0163",
@@ -1756,7 +1811,10 @@ LootSetData.Selene =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsAny = { "F_Shop01", "F_PreBoss01", "G_Shop01", "G_PreBoss01", "H_PreBoss01", "I_PreBoss01", "N_Shop01", "N_PreBoss01", "O_Shop01", "O_PreBoss01", "P_Shop01", "P_PreBoss01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0177",
@@ -1771,7 +1829,10 @@ LootSetData.Selene =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsAny = { "F_Shop01", "F_PreBoss01", "G_Shop01", "G_PreBoss01", "H_PreBoss01", "I_PreBoss01", "N_Shop01", "N_PreBoss01", "O_Shop01", "O_PreBoss01", "P_Shop01", "P_PreBoss01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0217",
@@ -2150,7 +2211,7 @@ LootSetData.Selene =
 				},
 				PreEventFunctionName = "SpellDropInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Selene_0028",
-					Text = "Ours is a neverending cycle, Sister, is it not?" },
+					Text = "Ours is a never-ending cycle, Sister, is it not?" },
 			},
 			SeleneChat27 =
 			{
@@ -2370,6 +2431,10 @@ LootSetData.Selene =
 					{
 						PathTrue = { "GameState", "UseRecord", "SpellDrop" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0484", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2394,6 +2459,10 @@ LootSetData.Selene =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "SpellDrop" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0485", UsePlayerSource = true,
@@ -2420,6 +2489,10 @@ LootSetData.Selene =
 					{
 						PathTrue = { "GameState", "UseRecord", "SpellDrop" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0486", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2444,6 +2517,10 @@ LootSetData.Selene =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "SpellDrop" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0487", UsePlayerSource = true,

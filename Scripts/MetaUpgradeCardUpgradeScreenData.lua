@@ -17,6 +17,8 @@
 	CostStartX = ScreenData.MetaUpgradeCardLayout.CostStartX,
 	CostStartY = ScreenData.MetaUpgradeCardLayout.CostStartY,
 	DefaultArtScale = ScreenData.MetaUpgradeCardLayout.DefaultArtScale,
+	TooltipX = ScreenData.MetaUpgradeCardLayout.TooltipX,
+	TooltipY = ScreenData.MetaUpgradeCardLayout.TooltipY,
 
 	DefaultCardTitleTextArgs =
 	{
@@ -194,6 +196,7 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 				Graphic = "MetaUpgradeMemCostBacking",
 				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY - 105, 
 				OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX,
+				TooltipOffsetY = 340,
 				Children = 
 				{			
 					CostTextRingTarget= 
@@ -358,10 +361,17 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 						Text = "TESTEXT 3",
 						TextArgs =
 						{
-							FontSize = 20,
-							OffsetY = 50, 
-							OffsetX = -25,
-							Width = 500,
+							FontSize = 22,
+							TextSymbolScale = 0.75,
+							OffsetY = 65, 
+							OffsetX = -35,
+							Width = 550,
+							LangOffsetY = 
+							{
+								{ Code = "ko", Value = 50 },
+								{ Code = "zh-CN", Value = 50 },
+								{ Code = "zh-TW", Value = 50 },
+							},
 							LineSpacingBottom = 6,
 							Color = {0.8, 0.8, 0.8, 1.0},
 							Font = "LatoMedium",
@@ -382,6 +392,12 @@ ScreenData.MetaUpgradeCardUpgradeLayout.ComponentData =
 							TextSymbolScale = 0.75,
 							OffsetY = 180,
 							OffsetX = -35,
+							LangOffsetY = 
+							{
+								{ Code = "ko", Value = 156 },
+								{ Code = "zh-CN", Value = 156 },
+								{ Code = "zh-TW", Value = 156 },
+							},
 							Width = 550,
 							LineSpacingBottom = 6,
 							Color = {0.8, 0.8, 0.8, 1.0},

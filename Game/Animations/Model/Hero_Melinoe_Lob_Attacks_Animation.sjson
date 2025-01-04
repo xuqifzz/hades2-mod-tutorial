@@ -49,6 +49,33 @@
 	}
 
 	{
+		Name = "Melinoe_Lob_Attack1_Start_Aspect"
+		InheritFrom = "Melinoe_Lob_Attack1_Start"
+		AllowRestart = true
+		GrannyAnimationSpeed = 2.0
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1.0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
+	}
+
+	{
 		Name = "Lob_Attack1_Fire"
 		InheritFrom = "WeaponLobBase"
 		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundFire_C_01"
@@ -78,6 +105,23 @@
 	}
 
 	{
+		Name = "Melinoe_Lob_Attack1_Fire_Aspect"
+		InheritFrom = "Melinoe_Lob_Attack1_Fire"
+		AllowRestart = true
+		GrannyAnimationSpeed = 2.0
+		ChainTo = "Melinoe_Lob_Attack1_End_Aspect"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
+	}
+
+
+	{
 		Name = "Lob_Attack1_End"
 		InheritFrom = "WeaponLobBase"
 		GrannyAnimation = "Lob_Weapon_Base_Attack1GroundReturnToIdle_C_01"
@@ -96,6 +140,13 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 		]
+	}
+
+	{
+		Name = "Melinoe_Lob_Attack1_End_Aspect"
+		InheritFrom = "Melinoe_Lob_Attack1_End"
+		AllowRestart = true
+		GrannyAnimationSpeed = 2.0
 	}	
 
 	// Lob Attack EX
@@ -111,6 +162,15 @@
 		GrannyAnimation = "Melinoe_Lob_Base_Attack1GroundAntic_C_01"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Lob_AttackEx1_Start2"
+
+		
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
 
 		Attachments =
 		[
@@ -337,6 +397,22 @@
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
 			}
 		]
+
+		Frames =
+		[
+			{
+				Frame = 16
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 17
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+		]
 	}
 
 	// Lob Special EX
@@ -408,9 +484,9 @@
 		Sound = "/SFX/Player Sounds/MelSkullsOmegaSpecialLoop"
 		StopSoundOnFinishFade = 0.2
 		HoldLastFrame = true
-		VisualFx = "LobChargeFxGroundGlow"
-		VisualFxIntervalMin = 0.2
-		VisualFxIntervalMax = 0.2
+		VisualFx = "PersephoneSkullCarTrail"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 50
 
 		Attachments =
 		[
@@ -507,6 +583,19 @@
 				Frame = 5
 				Sound = "/SFX/Player Sounds/MelinoeSkullsTransformChunk2"
 			}
+			{
+				Frame = 10
+				FootstepFxR = ""
+				FootstepFxL = "FireFootstepL-Spawner"
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+			{
+				Frame = 11
+				FootstepFxR = "FireFootstepR-Spawner"
+				FootstepFxL = ""
+				FootstepSound = "/Leftovers/SFX/FootstepsWheat2Small"
+			}
+
 		]
 	}
 	

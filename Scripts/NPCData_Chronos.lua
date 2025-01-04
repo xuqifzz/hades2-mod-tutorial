@@ -11,6 +11,8 @@ UnitSetData.NPC_Chronos =
 		Groups = { "NPCs" },
 		SpeakerName = "Chronos",
 		SubtitleColor = Color.ChronosVoice,
+		EmoteOffsetY = -320,
+		EmoteOffsetX = 85,
 		RequiredRoomInteraction = true,
 
 		ActivateRequirements =
@@ -67,6 +69,7 @@ UnitSetData.NPC_Chronos =
 
 		DeathPresentationTextLineSets =
 		{
+			-- alt below
 			ChronosAnomalyIntro01 =
 			{
 				PlayOnce = true,
@@ -166,7 +169,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I'm not your girl, old man. My name and business are not your concern." },
 				{ Cue = "/VO/Chronos_0143", Speaker = "NPC_Unnamed_01", SpeakerLabelOffsetY = 18,
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "So it seems. You appear to be quite pressed for time. Forgive this {#Emph}old man {#Prev}his transgressions..." },
 				EndVoiceLines =
 				{
@@ -208,7 +211,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I know where I'm going. Whom do I address? And what are you doing here yourself, in such a place?" },
 				{ Cue = "/VO/Chronos_0145", Speaker = "NPC_Unnamed_01", SpeakerLabelOffsetY = 18,
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "{#Emph}My name and business are not your concern{#Prev}, is that not what you said? {#Emph}Ahh{#Prev}, the impertinence of the youth of this age..." },
 				EndVoiceLines =
 				{
@@ -309,11 +312,10 @@ UnitSetData.NPC_Chronos =
 				{ Cue = "/VO/Melinoe_0163", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "{#Emph}Ruinous?! You {#Prev}brought ruin to the Underworld and the surface! I'll never accept what you've done. Now, enough talk!" },
 				{ Cue = "/VO/Chronos_0032",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 2.0 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 2.0 },
 					Text = "How {#Emph}very {#Prev}spirited! You truly think you can stop Time. Well, then... I would like to see you try." },
 				EndVoiceLines =
 				{
@@ -350,7 +352,10 @@ UnitSetData.NPC_Chronos =
 						Comparison = ">=",
 						Value = 7,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosMeeting03" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosMeeting03" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
@@ -365,7 +370,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I live in your nightmares, Titan. I thrive on them! I'll see you dead, and then destroyed. However long it takes." },
 				{ Cue = "/VO/Chronos_0035",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "{#Emph}However long it takes? {#Prev}You speak of inevitability, little one. A subject on which I happen to be the expert. As to whomever sent you after me... I shall find them." },
 				EndVoiceLines =
 				{
@@ -391,14 +396,17 @@ UnitSetData.NPC_Chronos =
 						Comparison = ">=",
 						Value = 9,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosMeeting04" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosMeeting04" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0077",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "You yet persist, despite my generous attempts to dissuade you. Then, very well! You carry on as the distraction which you are, whilst I turn my attention to matters of greater import..." },
 				EndVoiceLines =
 				{
@@ -431,6 +439,9 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "PrevRun", "RoomCountCache", "N_Opening01" },
 					},
+					{
+						PathFalse = { "PrevRun", "RoomsEntered", "P_Intro" }
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
@@ -445,7 +456,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I've seen your work up there firsthand. To have unsealed the very gates of hell! And brought disaster to mortals who've nothing to do with your petty vendetta." },
 				{ Cue = "/VO/Chronos_0158",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "You speak of the bedraggled city of Ephyra, which once stood in sycophantic tribute to your upstart father. Perhaps what mortals yet remain there shall think twice next time before they put their faith in {#Emph}gods." },
 				EndVoiceLines =
 				{
@@ -472,7 +483,10 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "PrevRun", "RoomCountCache", "N_Opening01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosPostSurfaceMeeting01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosPostSurfaceMeeting01", "ChronosPostSurfaceMeeting03" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
@@ -487,7 +501,7 @@ UnitSetData.NPC_Chronos =
 					Text = "Your surface legions fight and die for you, yet you hide behind them here. If you're so certain of your victory, you'd be leading them." },
 				{ Cue = "/VO/Chronos_0160",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "Leadership, my girl, is not about having to do everything oneself. It is about ensuring others share your same ideals and methodology. Wherever you may go, you shall encounter many who embrace my point of view, I think." },
 				EndVoiceLines =
 				{
@@ -498,6 +512,7 @@ UnitSetData.NPC_Chronos =
 					},
 				},
 			},
+			-- intentionally plays before 2
 			ChronosPostSurfaceMeeting03 =
 			{
 				PlayOnce = true,
@@ -517,7 +532,15 @@ UnitSetData.NPC_Chronos =
 					{
 						PathFalse = { "PrevRun", "Cleared" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosPostSurfaceMeeting02" }, Count = 2 },
+					{
+						Path = { "GameState", "ClearedSurfaceRunsCache" },
+						Comparison = "<",
+						Value = 1,
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosPostSurfaceMeeting01", "ChronosPostSurfaceMeeting02" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
@@ -532,7 +555,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I've only one, and hope has nothing to do with it. I may not be able to stop you yet, but neither can you stop me. You've tried." },
 				{ Cue = "/VO/Chronos_0162",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "You {#Emph}have {#Prev}been more resistant than {#Emph}some {#Prev}members of your family, I admit. Well then, see where your scattered ventures to the surface, or these depths, shall ultimately lead!" },
 				EndVoiceLines =
 				{
@@ -557,19 +580,20 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
-					--[[
 					{
 						SumPrevRuns = 3,
 						Path = { "BiomesReached", "N" },
 						CountPathTrue = true,
 						Comparison = ">=",
-						Value = 2,
+						Value = 3,
 					},
-					]]--
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "N_Boss01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosPostSurfaceMeeting03" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosPostSurfaceMeeting02", "ChronosPostSurfaceMeeting03" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
@@ -584,7 +608,7 @@ UnitSetData.NPC_Chronos =
 					Text = "I suppose I'll be more welcome in my father's home later this eve? As you can see I'm willing to fight there as well." },
 				{ Cue = "/VO/Chronos_0612",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "{#Emph}Ah{#Prev}, but you have such a long way to go! Confined to making the journey by foot, like a pathetic mortal. Do be sure to conserve some of your strength for the {#Emph}final stretch." },
 				EndVoiceLines =
 				{
@@ -624,7 +648,7 @@ UnitSetData.NPC_Chronos =
 					Text = "Oh, I learned plenty, and I'm eager to learn more. So why don't you get out of my way, since there's nothing you can do within these woods but try to slow me down?" },
 				{ Cue = "/VO/Chronos_0211",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "Past the point of reason, and so very self-assured. Then, very well! Come find me if you must, and learn some more. You know where I reside. I do not hide from {#Emph}gods!" },
 				EndVoiceLines =
 				{
@@ -659,7 +683,7 @@ UnitSetData.NPC_Chronos =
 
 				{ Cue = "/VO/Chronos_0004",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "Little one, do not presume to think your movements are invisible to me! I see you plainly where you stand. A trespass for which you shall suffer, although, regrettably, not by my hand right now. Not yet." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -683,7 +707,7 @@ UnitSetData.NPC_Chronos =
 
 				{ Cue = "/VO/Chronos_0005",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "I am Time itself. What are you? A thrall of those calling themselves gods, mindlessly serving at their whim. My children are crafty... to them, you are nothing but a common tool! And not an especially sharp one, it appears to me." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -699,21 +723,26 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosNightmare01" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosPostBattleMeeting02",
 								"ChronosPostBattleMeeting03",
 								-- "ChronosPostBattleMeeting04",
 							},
-						Count = 3 },
+							Min = 3
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0006",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "If there is one thing on which the accursed Fates and I agree, it is that all eventually shall decay. All sprang from nothingness, and back into that Chaos we shall all return. You merely hurry it along." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -743,7 +772,7 @@ UnitSetData.NPC_Chronos =
 					Text = "We'll soon find out, won't we? I promise not to keep you waiting long. I'm well on my way already, as you can see." },
 				{ Cue = "/VO/Chronos_0614",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "Oh, that I {#Emph}can. {#Prev}Then, I had best return and make ready! We have to tidy up for your arrival, after all. Until later tonight." },
 				EndVoiceLines =
 				{
@@ -767,8 +796,11 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting05" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeeting05",
 								-- "ChronosMeetingAboutZeus01",
@@ -777,14 +809,16 @@ UnitSetData.NPC_Chronos =
 								"ChronosMeetingAboutDemeter01",
 								"ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0615",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "My dear son Zeus is already abetting you this night? I fear not his famous thunderbolt, young fool that he is." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -800,8 +834,11 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting05" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeeting05",
 								"ChronosMeetingAboutZeus01",
@@ -810,15 +847,17 @@ UnitSetData.NPC_Chronos =
 								"ChronosMeetingAboutDemeter01",
 								"ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0616",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
-					Text = "{#Emph}Ah{#Prev}, so Poseidon gave to you his blessing, has he now? What are you going to do... pour water on me?" },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
+					Text = "{#Emph}Ah{#Prev}, so Poseidon gave you his blessing, has he now? What are you going to do... pour water on me?" },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
 			ChronosMeetingAboutHestia01 =
@@ -833,8 +872,11 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting05" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeeting05",
 								"ChronosMeetingAboutZeus01",
@@ -843,14 +885,16 @@ UnitSetData.NPC_Chronos =
 								"ChronosMeetingAboutDemeter01",
 								"ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0619",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "The goddess of the hearth has blessed you now? There is no flame which {#Emph}Time {#Prev}cannot extinguish soon enough." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -866,8 +910,11 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting05" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeeting05",
 								"ChronosMeetingAboutZeus01",
@@ -876,14 +923,16 @@ UnitSetData.NPC_Chronos =
 								-- "ChronosMeetingAboutDemeter01",
 								"ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0617",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "The frosty goddess Demeter is urging you along this eve? Alas, there are no {#Emph}seasons {#Prev}in the Underworld." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -899,8 +948,11 @@ UnitSetData.NPC_Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting05" },
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeeting05",
 								"ChronosMeetingAboutZeus01",
@@ -909,14 +961,16 @@ UnitSetData.NPC_Chronos =
 								"ChronosMeetingAboutDemeter01",
 								-- "ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0618",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "The self-made Queen of the Gods, bestowing you her Boon? Is there not some mortal wedding she ought to officiate?" },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -946,8 +1000,11 @@ UnitSetData.NPC_Chronos =
 							"ChronosMeetingAboutHera01",
 						},
 					},
-					MinRunsSinceAnyTextLines = {
-						TextLines = 
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
 							{
 								"ChronosMeetingAboutZeus01",
 								"ChronosMeetingAboutPoseidon01",
@@ -955,14 +1012,16 @@ UnitSetData.NPC_Chronos =
 								"ChronosMeetingAboutDemeter01",
 								"ChronosMeetingAboutHera01",
 							},
-						Count = 4 },
+							Min = 4
+						},
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ChronosGreeting,
 
 				{ Cue = "/VO/Chronos_0620",
 					Portrait = "Portrait_Chronos_Averted_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.35 },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.35 },
 					Text = "Try all you like, my girl; but the outcome of this night shall be no different from the last." },
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Chronos",
 			},
@@ -1060,7 +1119,7 @@ UnitSetData.NPC_Chronos =
 					PreLineThreadedFunctionName = "StopSecretMusic",
 					PreLineThreadedFunctionArgs = { true },
 					Portrait = "Portrait_Chronos_Pained_01",
-					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { AnimationState = "NPCChronosExited", WaitTime = 0.3, },
+					PostLineThreadedFunctionName = "ChronosExit", PostLineFunctionArgs = { WaitTime = 0.3, },
 					Text = "{#Emph}Our {#Prev}family! Make not their same mistakes, and in time, we surely shall grow past this halted start to our relationship. I shall see you later." },
 				EndVoiceLines =
 				{
@@ -1134,7 +1193,11 @@ UnitSetData.NPC_Chronos =
 				ObjectType = "NPC_Chronos_01",
 				GameStateRequirements =
 				{
-					RequiredAnyQueuedTextLines =
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs =
+						{
+							IsAny =
 					{
 						"ChronosMeetingAboutZeus01",
 						"ChronosMeetingAboutPoseidon01",
@@ -1147,6 +1210,8 @@ UnitSetData.NPC_Chronos =
 						"ChronosMeetingAboutOlympians01",
 					},
 				},
+					},
+				},
 				Cooldowns =
 				{
 					{ Name = "ChronosSpokeRecently", Time = 12 },
@@ -1156,7 +1221,7 @@ UnitSetData.NPC_Chronos =
 				{
 					UseableOff = true
 				},
-				PostLineFunctionName = "ChronosExit",
+					PostLineFunctionName = "ChronosExit",
 				PostLineFunctionArgs =
 				{
 					AnimationState = "NPCChronosExited"
@@ -1202,13 +1267,19 @@ UnitSetData.NPC_Chronos =
 				{ Cue = "/VO/Chronos_0153", Text = "{#Emph}Temper!",
 					GameStateRequirements =
 					{
-						MinRunsSinceAnyTextLines = { TextLines = { "ChronosRevealFollowUp" }, Count = 5 },
+						{
+							FunctionName = "RequireRunsSinceTextLines",
+							FunctionArgs = { TextLines = { "ChronosRevealFollowUp" }, Min = 5 },
+						},
 					},
 				},
 				{ Cue = "/VO/Chronos_0154", Text = "The {#Emph}nerve!",
 					GameStateRequirements =
 					{
-						MinRunsSinceAnyTextLines = { TextLines = { "ChronosRevealFollowUp" }, Count = 5 },
+						{
+							FunctionName = "RequireRunsSinceTextLines",
+							FunctionArgs = { TextLines = { "ChronosRevealFollowUp" }, Min = 5 },
+						},
 					},
 				},
 			},
@@ -1321,7 +1392,640 @@ UnitSetData.NPC_Chronos =
 		},
 
 	},
+}
+
+-- Global Chronos Lines / Chronos Global Lines
+GlobalVoiceLines.MiscEndVoiceLines_Chronos =
+{
+	RandomRemaining = true,
+	UsePlayerSource = true,
+	PreLineWait = 1.0,
+	SuccessiveChanceToPlay = 0.5,
+	GameStateRequirements =
+	{
+		--
+	},
+	Cooldowns =
+	{
+		{ Name = "MelinoeAnyQuipSpeech" },
+	},
+
+	{ Cue = "/VO/Melinoe_1947", Text = "{#Emph}Khh." },
+	{ Cue = "/VO/Melinoe_1949", Text = "{#Emph}<Sigh>" },
+	{ Cue = "/VO/Melinoe_0580", Text = "{#Emph}Ugh..." },
+	{ Cue = "/VO/Melinoe_0322", Text = "{#Emph}Grr!" },
+	{ Cue = "/VO/MelinoeField_0495", Text = "Coward..." },
+	{ Cue = "/VO/MelinoeField_2023", Text = "{#Emph}Ungh..." },
+}
+
+GlobalVoiceLines.ChronosDeathTauntVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlay = 0.25,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "SpentShrinePointsCache" },
+				Comparison = ">=",
+				Value = 16,
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0884", Text = "That Fear in the air... it is none other than your own." },
+		{ Cue = "/VO/Intercom_0885", Text = "You, who invoke the Night: Suffer the consequence." },
+		{ Cue = "/VO/Intercom_0886", Text = "The Fear is growing in you, is it not?" },
+		{ Cue = "/VO/Intercom_0887", Text = "You pledge yourself to a forgotten cause." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "F_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0083", Text = "Weakling! You shall never be her equal.", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0084", Text = "Your master cannot best me; how could you?" },
+		{ Cue = "/VO/Intercom_0890", Text = "You cannot even find your way out of those woods?" },
+		{ Cue = "/VO/Intercom_0891", Text = "So many lost souls in Erebus! You are but one." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "G_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0088", Text = "Distracted by the Sirens' song, were you?" },
+		{ Cue = "/VO/Intercom_0089", Text = "Like so many sailors sent to a watery grave..." },
+		{ Cue = "/VO/Intercom_0713", Text = "May the Sirens' song torment you even beyond their vicinity." },
+		{ Cue = "/VO/Intercom_0714", Text = "Drowned out once more by the din of the Sirens' song!" },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "H_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0715", Text = "It seems that wretched cur is good for something after all!" },
+		{ Cue = "/VO/Intercom_0716", Text = "That three-headed beast has no kinship for you, or anyone." },
+		{ Cue = "/VO/Intercom_0717", Text = "Only a hollow fool would deign to tame such a monstrosity.", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0718", Text = "Your poor old family dog just wanted to be left alone." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "N_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0719", Text = "Best not to come between a shepherd and his flock." },
+		{ Cue = "/VO/Intercom_0720", Text = "Even a sightless Cyclops saw through your pathetic plan." },
+		{ Cue = "/VO/Intercom_0721", Text = "You are nothing but a morsel to a peckish Cyclops, girl." },
+		{ Cue = "/VO/Intercom_0722", Text = "Merely another sheep that decided to step out of line." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "O_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0723", Text = "Wherever you may voyage, Strife shall follow in your wake." },
+		{ Cue = "/VO/Intercom_0724", Text = "This could have ended quickly, but you had to invite Strife." },
+		{ Cue = "/VO/Intercom_0725", Text = "Perhaps {#Emph}you {#Prev}are the cause of all this strife, not Strife herself?", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0726", Text = "The sting of that infernal Rail of Adamant is {#Emph}painful{#Prev}, is it not?" },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "P_Boss01" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0727", Text = "A Titan's vengeance is a flame that cannot be quenched." },
+		{ Cue = "/VO/Intercom_0728", Text = "Why bother when Prometheus has seen that you shall fail?", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0729", Text = "The Titan of Foresight chose the winning side; my own." },
+		{ Cue = "/VO/Intercom_0730", Text = "It seems you made our poor Prometheus very upset again." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "BiomesReached", "P" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0888", Text = "The fall of Mount Olympus is inevitable, as you plainly see." },
+		{ Cue = "/VO/Intercom_0889", Text = "The gods are not so proud as they once were." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.1,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "BiomesReached", "N" },
+			},
+		},
+
+		{ Cue = "/VO/Intercom_0090", Text = "The surface is no place for you, my girl.", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0091", Text = "Should you have reached Olympus, what then?",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "BiomesReached", "P" },
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0092", Text = "The age of gods is drawing to a close." },
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		SuccessiveChanceToPlayAll = 0.05,
+		SubtitleColor = Color.ChronosVoice,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChronosNightmare01" },
+			},
+		},
+		{ Cue = "/VO/Intercom_0067", Text = "You gods are too unfit to rule this world. That is apparent from a single glance." },
+		{ Cue = "/VO/Intercom_0065", Text = "You took everything from me, Hades. It's only fitting I should do the same.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "I_Story01" }
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0066", Text = "What happened to your daughter, Hades, {#Emph}hm? {#Prev}I'll ask nicely only one last time.", PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "I_Story01" }
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0068", Text = "You and my children stopped me once, Hades. But now, I've had plenty of time to prepare.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "I_Story01" }
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0069", Text = "You speak of justice, Hades? How many mortal souls have you cruelly tortured, for how long?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "RoomsEntered", "I_Story01" }
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0070", Text = "Fear not, the Fates are very safe. All three take my suggestions on their weavings well.",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "ChronosNightmare01" },
+				},
+			},
+		},
+	},
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 1.25,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+		{ Cue = "/VO/Intercom_0085", Text = "Shall you remain forever lost in Erebus?",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "F" },
+				},
+			},
+		 },
+		{ Cue = "/VO/Intercom_0093", Text = "I foresee every one of your useless attempts." },
+		{ Cue = "/VO/Intercom_0086", Text = "So fiercely fought, yet so far from your goal." },
+		{ Cue = "/VO/Intercom_0087", Text = "I have naught to fear from witches such as you.",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0021", Text = "{#Emph}<Laughter>" },
+		{ Cue = "/VO/Intercom_0022", Text = "{#Emph}<Laughter>" },
+		{ Cue = "/VO/Intercom_0023", Text = "{#Emph}<Laughter>" },
+		{ Cue = "/VO/Intercom_0036", Text = "You cannot stop Time." },
+		{ Cue = "/VO/Intercom_0037", Text = "Give up already, girl." },
+		{ Cue = "/VO/Intercom_0038", Text = "You appear to be a slow learner." },
+		{ Cue = "/VO/Intercom_0039", Text = "Another unsuccessful try." },
+		{ Cue = "/VO/Intercom_0040", Text = "Are you becoming used to this result?" },
+		{ Cue = "/VO/Intercom_0041", Text = "You struggle ceaselessly, but to what end?" },
+		{ Cue = "/VO/Intercom_0042", Text = "I almost pity you your wasted efforts." },
+		{ Cue = "/VO/Intercom_0043", Text = "All of your efforts, once again in vain." },
+		{ Cue = "/VO/Intercom_0044", Text = "You are beginning to annoy me, girl." },
+		{ Cue = "/VO/Intercom_0045", Text = "Never trifle with a Titan, girl." },
+		{ Cue = "/VO/Intercom_0046", Text = "I ought to have you chained in Tartarus." },
+		{ Cue = "/VO/Intercom_0047", Text = "Cease with these pointless attempts of yours." },
+		{ Cue = "/VO/Intercom_0048", Text = "Your failure was inevitable." },
+		{ Cue = "/VO/Intercom_0049", Text = "You are spirited, but not invincible." },
+		{ Cue = "/VO/Intercom_0050", Text = "The Fates shall be no kinder to you next time." },
+		{ Cue = "/VO/Intercom_0051", Text = "Was that the limit of your power, hm?" },
+		{ Cue = "/VO/Intercom_0052", Text = "You could have done better than that." },
+		-- { Cue = "/VO/Intercom_0053", Text = "How many further chambers can you stand?" },
+		-- { Cue = "/VO/Intercom_0054", Text = "You were quite fortunate back there I think." },
+	},
+}
+
+GlobalVoiceLines.AnomalyLocatedVoiceLines =
+{
+	[1] = { GlobalVoiceLines = "AnomalyReactionVoiceLines" },
+	[2] =
+	{
+		PlayOnce = true,
+		PlayOnceContext = "ChronosAnomalyReveal",
+		BreakIfPlayed = true,
+		PreLineWait = 0.5,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+		{ Cue = "/VO/Intercom_0037", Text = "Give up already, girl." },
+
+		-- { Cue = "/VO/Intercom_0147", Text = "I know who you are. I know where you go. You shall not get there.", PlayFirst = true, PlayOnce = true },
+	},
+	[3] =
+	{
+		ThreadName = "RoomThread",
+		RandomRemaining = true,
+		PreLineWait = 0.8,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+		{ Cue = "/VO/Intercom_0100", Text = "Where do you think you are going?" },
+		{ Cue = "/VO/Intercom_0101", Text = "Such mindless, flailing persistence on your part." },
+		{ Cue = "/VO/Intercom_0102", Text = "You venture into {#Emph}my {#Prev}domain." },
+		{ Cue = "/VO/Intercom_0103", Text = "I know what you are attempting to achieve." },
+		{ Cue = "/VO/Intercom_0104", Text = "My tolerance for you grows very thin." },
+		{ Cue = "/VO/Intercom_0105", Text = "You wish to see your father's domain, do you?" },
+		{ Cue = "/VO/Intercom_0106", Text = "Your efforts have not gone unnoticed, Granddaughter." },
+		{ Cue = "/VO/Intercom_0107", Text = "Perhaps you should return some other {#Emph}time." },
+		{ Cue = "/VO/Intercom_0108", Text = "This never was your father's realm." },
+		{ Cue = "/VO/Intercom_0109", Text = "You speak to me of nightmares; here is one.",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "ChronosMeeting03" },
+				},
+			},
+		},
+	},
+}
+GlobalVoiceLines.AnomalyEnteredVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 1.15,
+		SuccessiveChanceToPlay = 0.75,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+		Cooldowns =
+		{
+			{ Name = "AnomalyVOPlayed", Time = 5 },
+		},
+
+		{ Cue = "/VO/Intercom_0148", Text = "You wish to traipse through this realm, then here! Bask in it.", PlayFirst = true, PlayOnce = true },
+		{ Cue = "/VO/Intercom_0110", Text = "Behold the splendor of your father's Underworld." },
+		{ Cue = "/VO/Intercom_0111", Text = "This is your father's realm as once it was." },
+		{ Cue = "/VO/Intercom_0112", Text = "The Underworld you never knew! But, you did not miss much..." },
+		{ Cue = "/VO/Intercom_0113", Text = "A glimpse of the past, or one of your nightmares?" },
+		-- { Cue = "/VO/Intercom_0114", Text = "Here then is glorious Elysium, before it fell on harder times." },
+		-- { Cue = "/VO/Intercom_0115", Text = "The champions within Elysium were always eager for a fight." },
+		-- { Cue = "/VO/Intercom_0116", Text = "So many glory-seekers such as you wound up within Elysium." },
+		{ Cue = "/VO/Intercom_0117", Text = "Your father's wretches within Asphodel so hated trespassers." },
+		{ Cue = "/VO/Intercom_0118", Text = "Welcome to the verdant meadows of Asphodel." },
+		{ Cue = "/VO/Intercom_0119", Text = "Bask now in the intolerable heat of Asphodel." },
+	},
+	{
+		PreLineWait = 0.35,
+		UsePlayerSource = true,
+		PlayOnce = true,
+		GameStateRequirements = 
+		{
+			{
+				Path = { "LastLinePlayed" },
+				IsAny = { "/VO/Intercom_0148" },
+			},
+			{
+				Path = { "CurrentRun", "SpeechRecord" },
+				HasNone = { "/VO/MelinoeField_0206", "/VO/Intercom_0149" },
+			},
+		},
+		{ Cue = "/VO/MelinoeField_0248", Text = "That old man... it was {#Emph}him..." },
+	},
+	{
+		RandomRemaining = true,
+		SuccessiveChanceToPlay = 0.75,
+		UsePlayerSource = true,
+		PreLineWait = 0.85,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "SpeechRecord" },
+				HasNone = { "/VO/MelinoeField_0206", "/VO/Intercom_0149" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "AnomalyVOPlayed", Time = 10 },
+		},
+
+		{ Cue = "/VO/MelinoeField_0190", Text = "Where am I... or {#Emph}when...", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_0191", Text = "This isn't real..." },
+		{ Cue = "/VO/MelinoeField_0192", Text = "Trapped..." },
+		{ Cue = "/VO/MelinoeField_0193", Text = "This again..." },
+		{ Cue = "/VO/MelinoeField_0194", Text = "He's trying to slow me down..." },
+		{ Cue = "/VO/MelinoeField_0195", Text = "Is this really Asphodel...?" },
+		-- { Cue = "/VO/MelinoeField_0196", Text = "This is Elysium..." },
+	},
+}
+GlobalVoiceLines.AnomalyCombatBeginsVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.35,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+		SuccessiveChanceToPlayAll = 0.5,
+
+		{ Cue = "/VO/Intercom_0149", Text = "What witchery is this...?", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0130", Text = "So, you can see a pathway out..." },
+		{ Cue = "/VO/Intercom_0131", Text = "But you just got here..." },
+		{ Cue = "/VO/Intercom_0132", Text = "Do you really have to go so soon?" },
+		{ Cue = "/VO/Intercom_0133", Text = "Why do you so wish to wake from such a beautiful dream?" },
+		{ Cue = "/VO/Intercom_0134", Text = "Who taught you to perform such trickery?" },
+		{ Cue = "/VO/Intercom_0135", Text = "You know something of Time and Dream, do you?" },
+	},
+}
+GlobalVoiceLines.AnomalySurvivedVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.95,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+
+		{ Cue = "/VO/Intercom_0150", Text = "You knew how to resist my little spell...", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0120", Text = "So what if you withstood all that..." },
+		{ Cue = "/VO/Intercom_0121", Text = "Is this truly that which you are fighting for?" },
+		{ Cue = "/VO/Intercom_0122", Text = "You survive, but you do not learn." },
+		{ Cue = "/VO/Intercom_0123", Text = "That was, of course, a very different time." },
+		{ Cue = "/VO/Intercom_0124", Text = "The times can change, but often stay the same." },
+		{ Cue = "/VO/Intercom_0125", Text = "You wish your nightmares to become reality?" },
+		{ Cue = "/VO/Intercom_0126", Text = "Continue at your peril, Granddaughter." },
+		{ Cue = "/VO/Intercom_0127", Text = "Such nightmares shall consume you, in the end." },
+		{ Cue = "/VO/Intercom_0128", Text = "Cease this whilst you have the opportunity." },
+		{ Cue = "/VO/Intercom_0129", Text = "Even still you rush headlong toward oblivion." },
+	},
+}
+GlobalVoiceLines.AnomalyConcludedVoiceLines =
+{
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "CurrentRoom", "Name" },
+			IsNone = { "G_Story01" },
+		},
+	},
+	--[[
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.95,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+		SuccessiveChanceToPlayAll = 0.5,
+
+		{ Cue = "/VO/Intercom_0151", Text = "Be very careful where you tread, my girl...", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0136", Text = "How interesting that you were able to resist..." },
+		{ Cue = "/VO/Intercom_0137", Text = "Again you broke my little spell, I see..." },
+		{ Cue = "/VO/Intercom_0138", Text = "Welcome back to harsh reality..." },
+		{ Cue = "/VO/Intercom_0139", Text = "Bygone times, Granddaughter..." },
+		{ Cue = "/VO/Intercom_0140", Text = "Mere witchcraft, nothing more..." },
+		{ Cue = "/VO/Intercom_0141", Text = "You dispelled my wonderful illusion..." },
+	},
+	]]--
+	{
+		PlayOnce = true,
+		PlayOnceContext = "MelReturnFromAnomalyVO",
+		RandomRemaining = true,
+		PreLineWait = 0.7,
+		UsePlayerSource = true,
+		--SuccessiveChanceToPlay = 0.5,
+
+		{ Cue = "/VO/MelinoeField_0216", Text = "Made it back..." },
+		{ Cue = "/VO/MelinoeField_0217", Text = "Like waking from a dream..." },
+		{ Cue = "/VO/MelinoeField_0218", Text = "It'll take more than that, Chronos...", PlayFirst = true },
+		{ Cue = "/VO/MelinoeField_0219", Text = "Merely a vision..." },
+		{ Cue = "/VO/MelinoeField_0220", Text = "Back to reality..." },
+		{ Cue = "/VO/MelinoeField_1410", Text = "Just an illusion...!" },
+	},
+}
+
+GlobalVoiceLines.ChronosAlertVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.95,
+		NoTarget = true,
+		Source = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice },
+		SuccessiveChanceToPlayAll = 0.5,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Intercom_0473", Text = "You are trespassing on private property...", PlayFirst = true },
+		{ Cue = "/VO/Intercom_0151", Text = "Be very careful where you tread, my girl..." },
+		{ Cue = "/VO/Intercom_0136", Text = "How interesting that you are able to resist..." },
+		{ Cue = "/VO/Intercom_0475", Text = "An infiltrator breached through our defenses...!" },
+		{ Cue = "/VO/Intercom_0476", Text = "We seem to have a bit of an infestation here..." },
+		{ Cue = "/VO/Intercom_0477", Text = "It seems we have an unscheduled visitor..." },
+		{ Cue = "/VO/Intercom_0478", Text = "My worshipers shall soften you up, if not stop you outright!" },
+		{ Cue = "/VO/Intercom_0481", Text = "Perhaps we cannot find you in the Fields, but {#Emph}here?" },
+		{ Cue = "/VO/Intercom_0483", Text = "{#Emph}Ah{#Prev}, Granddaughter! How kind of you to visit us again!" },
+		{ Cue = "/VO/Intercom_0484", Text = "We bid you a warm welcome to the depths of Tartarus." },
+		{ Cue = "/VO/Intercom_0485", Text = "Whatever brings you to my doorstep once again, my girl?" },
+		{ Cue = "/VO/Intercom_0487", Text = "As predictable as the turning of the gears throughout this place..." },
+		{ Cue = "/VO/Intercom_0488", Text = "Did you perhaps forget something when last you interfered?" },
+		{ Cue = "/VO/Intercom_0490", Text = "Anybody sensible would {#Emph}flee {#Prev}from Tartarus, not {#Emph}barge {#Prev}right in!" },
+		{ Cue = "/VO/Intercom_0491", Text = "This place was once my tomb; shall it be yours?" },
+		{ Cue = "/VO/Intercom_0479", Text = "She has returned. Muster our defenses!",
+			PlayFirst = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+				},
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 8,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0492", Text = "I shall be anticipating your arrival, Granddaughter.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "PrevRun", "EnemyKills", "Chronos" }
+				},
+				{
+					Path = { "GameState", "RoomsEntered", "I_Boss01" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0474", Text = "Why must everybody in our family be such an irritant?",
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" }
+				},
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0480", Text = "Confound it, but you are a difficult one to pin down...",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "RoomsEntered", "I_Boss01" },
+					Comparison = ">=",
+					Value = 5,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0482", Text = "Do tell Hades I said greetings if you happen to run into him!",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "RoomsEntered", "I_Story01" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0486", Text = "We have not seen you in a little while, my girl.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "PrevRun", "RoomsEntered", "I_Intro" },
+				},
+			},
+		},
+		{ Cue = "/VO/Intercom_0489", Text = "She is heading for the House again. Stop her!",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "EnemyKills", "Chronos" },
+					Comparison = ">=",
+					Value = 3,
+				},
+			},
+		},
+
+	},
+	{
+		UsePlayerSource = true,
+		RandomRemaining = true,
+		SuccessiveChanceToPlay = 0.25,
+		PreLineWait = 0.45,
+
+		{ Cue = "/VO/MelinoeField_1538", Text = "No more hiding in shadows...!" },
+		{ Cue = "/VO/MelinoeField_1539", Text = "Try and stop me...!" },
+		{ Cue = "/VO/MelinoeField_1540", Text = "Out of my way!" },
+		{ Cue = "/VO/MelinoeField_1541", Text = "I'm not finished with you!" },
+		{ Cue = "/VO/MelinoeField_1542", Text = "I'll see you soon, Titan!" },
+		{ Cue = "/VO/MelinoeField_1543", Text = "He hides behind these wretches!", PlayFirst = true },
+	},
 
 }
+-- more in EnemyData_Chronos
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Chronos )

@@ -123,6 +123,7 @@ UnitSetData.BloodlessNaked =
 			DeepInheritance = true,
 		},
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		GeneratorData =
 		{
 			DifficultyRating = 80,
@@ -176,6 +177,7 @@ UnitSetData.BloodlessNaked =
 			DeepInheritance = true,
 		},
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		WeaponOptions =
 		{
 			"BloodlessWaveFistWeaponElite",

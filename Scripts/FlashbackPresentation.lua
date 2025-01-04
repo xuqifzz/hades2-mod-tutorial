@@ -252,6 +252,18 @@ function Flashback02Objective( source, args )
 	NotifyOnControlPressed({ Names = { "Up", "Down", "Left", "Right", "Move", }, Notify = notifyName, Timeout = args.Delay })
 	waitUntil( notifyName )
 	if _eventTimeoutRecord[notifyName] then
+
+		local voiceLines =
+		{
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				-- None
+			},
+			{ Cue = "/VO/Hades_0170", Text = "What am I waiting for..." },
+		}
+		thread( PlayVoiceLines, voiceLines )
+
 		CheckObjectiveSet( "Flashback02Prompt" )
 	end
 end
@@ -312,6 +324,9 @@ end
 
 function SetupFlashbackPlayerUnitHades( source, args )
 	CurrentRun.Hero.SubtitleColor = { 242, 79, 66, 255 }
+	CurrentRun.Hero.EmoteOffsetY = -350
+	CurrentRun.Hero.EmoteOffsetX = 80
+
 	DisableWeapons()
 	LoadVoiceBanks({ "Hades" })
 	ToggleCombatControl( {"Rush"} , true )
@@ -365,6 +380,8 @@ function ConcludeFlashback()
 
 	SessionState.InFlashback = false
 
+	AddInputBlock({ Name = "ConcludingNightmare" })
+
 	StopSound({ Id = AudioState.SecretMusicId, Duration = 5 })
 	AudioState.SecretMusicId = nil
 	AudioState.SecretMusicName = nil
@@ -379,7 +396,6 @@ function ConcludeFlashback()
 	PlaySound({ Name = "/Leftovers/Menu Sounds/TextReveal5FilterSweep" })
 
 	wait(1.5)
-	AddInputBlock({ Name = "ConcludingNightmare" })
 
 	FullScreenFadeOutAnimation()
 	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFade" })

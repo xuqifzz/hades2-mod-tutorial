@@ -1,19 +1,3 @@
-function ApplyWeaponPropertyChanges( unit, weaponName, propertyChanges, reverse )
-
-	if propertyChanges == nil then
-		return
-	end
-	for k, propertyChange in ipairs( propertyChanges ) do
-
-		local weaponPropertyName = weaponName
-		if propertyChange.WeaponName ~= nil then
-			weaponPropertyName = propertyChange.WeaponName
-		end
-		ApplyWeaponPropertyChange( unit, weaponPropertyName, propertyChange, reverse )
-
-	end
-end
-
 function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 
 	if propertyChange.LegalWeapons ~= nil then
@@ -49,14 +33,6 @@ function ApplyWeaponPropertyChange( unit, weaponName, propertyChange, reverse )
 			if HeroHasTrait(traitName) then
 				return
 			end
-		end
-	end
-
-	if propertyChange.RecordExState and MapState.WeaponCharge[weaponName] and MapState.WeaponCharge[weaponName] > 0 then
-		if reverse then
-			SessionMapState.SpeedExPropertyChangeRecord[weaponName] = nil
-		else
-			SessionMapState.SpeedExPropertyChangeRecord[weaponName] = ShallowCopyTable( propertyChange )
 		end
 	end
 
@@ -264,6 +240,42 @@ function ApplyAllTraitWeapons( hero )
 	end
 end
 
+function ClampSprintSpeed( hero )
+	if not hero or not hero.ObjectId then
+		return
+	end
+	local weaponName = "WeaponSprint"
+	local baseSprintVelocity = GetBaseDataValue({ Type = "Weapon", Name = weaponName, Property = "SelfVelocity" })
+	local currentSprintVelocity = GetWeaponDataValue({ Id = hero.ObjectId, WeaponName = weaponName, Property = "SelfVelocity" })
+	if currentSprintVelocity and currentSprintVelocity > baseSprintVelocity * HeroData.SpeedMultiplierCap then
+		SetWeaponProperty({ 
+			WeaponName = weaponName,
+			DestinationId = hero.ObjectId,
+			Property = "SelfVelocity",
+			Value = baseSprintVelocity * HeroData.SpeedMultiplierCap,
+		})	
+	end
+	-- For feel changes sometimes the cap is intentionally lower than the speed cap, so it has to be checked separately
+	local baseSprintCap = GetBaseDataValue({ Type = "Weapon", Name = weaponName, Property = "SelfVelocityCap" })
+	local currentSprintVelocityCap = GetWeaponDataValue({ Id = hero.ObjectId, WeaponName = weaponName, Property = "SelfVelocityCap" })
+	if currentSprintVelocityCap and currentSprintVelocityCap > baseSprintCap * HeroData.SpeedMultiplierCap then
+		SetWeaponProperty({ 
+			WeaponName = weaponName,
+			DestinationId = hero.ObjectId,
+			Property = "SelfVelocityCap",
+			Value = baseSprintCap * HeroData.SpeedMultiplierCap,
+		})
+	end
+	local baseSpeed = GetBaseDataValue({ Type = "Unit", Name = "_PlayerUnit", Property = "Speed" })
+	local currentSpeed = GetUnitDataValue({ Id = hero.ObjectId, Property = "Speed" })
+	if currentSpeed and currentSpeed > baseSpeed * HeroData.SpeedMultiplierCap then
+		SetUnitProperty({
+			DestinationId = hero.ObjectId,
+			Property = "Speed",
+			Value = baseSpeed * HeroData.SpeedMultiplierCap,
+		})
+	end
+end
 
 function AddOnDamageWeapons( hero, weaponName, upgradeData )
 	if upgradeData.AddOnDamageWeapons == nil then
@@ -578,6 +590,9 @@ function GetTraitOrderingValue( trait )
 		if trait.IsLastPriorityHammerTrait then
 			return 31
 		end
+		if trait.IsPriorityHammerModifierTrait then
+			return 31
+		end
 		return 30
 	elseif trait.RelativeSprintModifier then
 		return 21
@@ -667,22 +682,6 @@ function OrderAndApplyPropertyChanges(weaponNames)
 	end
 end
 
-function ApplyWeaponPropertyChanges( weaponNames, propertyName )
-	local weaponPropertyChanges = SessionState.PropertyChangeList.WeaponChanges
-
-	for weaponName, weaponNamePropertyChanges in pairs( weaponPropertyChanges ) do
-		if weaponNames[ weaponName ] then
-			local propertyChanges = weaponNamePropertyChanges[propertyName]
-			if not IsEmpty(propertyChanges) then
-				ReorderPropertyChanges( propertyChanges )
-				for _, propertyChange in ipairs( propertyChanges ) do
-					ApplyWeaponPropertyChange( CurrentRun.Hero, weaponName, propertyChange )
-				end
-			end
-		end
-	end
-end
-
 function ApplyProjectilePropertyChanges( weaponNames, projectilePropertyChanges )
 	for weaponName, weaponNamePropertyChanges in pairs( projectilePropertyChanges ) do
 		local orderedPropertyChanges = KeysToList(weaponNamePropertyChanges)
@@ -715,18 +714,21 @@ function GetDerivedPropertyChangeValues( args )
 	for i, propertyName in ipairs( orderedPropertyChanges ) do
 		ReorderPropertyChanges( weaponNamePropertyChanges[propertyName] )
 		for _, propertyChange in ipairs( weaponNamePropertyChanges[propertyName] ) do
-			local propertyName = propertyChange.ProjectileProperty
-			local referencesProjectileName = ( propertyChange.ProjectileName == projectileName ) or Contains(propertyChange.ProjectileNames, projectileName )
-			if referencesProjectileName or ( not args.MatchProjectileName and not propertyChange.ProjectileName and not propertyChange.ProjectileNames) then
-				if not allValues[propertyName] then
-					allValues[propertyName] = GetBaseDataValue({ Type = valueType, Name = projectileName, Property = propertyName })
-				end
-				if propertyChange.ChangeType == "Add" then
-					allValues[propertyName] = allValues[propertyName] + propertyChange.ChangeValue
-				elseif propertyChange.ChangeType == "Multiply" then
-					allValues[propertyName] = allValues[propertyName] * propertyChange.ChangeValue
-				else
-					allValues[propertyName] = propertyChange.ChangeValue
+			if (not propertyChange.FalseTraitName or not HeroHasTrait(propertyChange.FalseTraitName) ) 
+				and (not propertyChange.TraitName or (HeroHasTrait(propertyChange.TraitName))) then
+				local propertyName = propertyChange.ProjectileProperty
+				local referencesProjectileName = ( propertyChange.ProjectileName == projectileName ) or Contains(propertyChange.ProjectileNames, projectileName )
+				if referencesProjectileName or ( not args.MatchProjectileName and not propertyChange.ProjectileName and not propertyChange.ProjectileNames) then
+					if not allValues[propertyName] then
+						allValues[propertyName] = GetBaseDataValue({ Type = valueType, Name = projectileName, Property = propertyName })
+					end
+					if propertyChange.ChangeType == "Add" then
+						allValues[propertyName] = allValues[propertyName] + propertyChange.ChangeValue
+					elseif propertyChange.ChangeType == "Multiply" then
+						allValues[propertyName] = allValues[propertyName] * propertyChange.ChangeValue
+					else
+						allValues[propertyName] = propertyChange.ChangeValue
+					end
 				end
 			end
 		end
@@ -746,8 +748,13 @@ function ApplyTraitUpgrade( unit, applyLuaUpgrades )
 	local traitList = DeepCopyTable( unit.Traits )
 	for k, trait in pairs( traitList ) do
 		EquipReferencedWeapons( trait )
-
 		AddOnHitWeapons( unit, trait )
+		if trait.SpeakerNames ~= nil then
+			LoadVoiceBank({ Names = trait.SpeakerNames })
+		end
+		if trait.PackageNames ~= nil then
+			LoadPackages({ Names = trait.PackageNames })
+		end
 	end
 	SessionState.PropertyChangeList = { WeaponChanges = {}, ProjectileChanges = {}, EffectChanges = {}}
 	
@@ -764,7 +771,7 @@ function ApplyTraitUpgrade( unit, applyLuaUpgrades )
 		end
 		if trait.ActivatedPropertyChanges then
 			local traitData = TraitData[trait.Name]
-			if traitData.ActivationRequirements == nil or IsGameStateEligible( CurrentRun, trait, traitData.ActivationRequirements ) then
+			if traitData.ActivationRequirements == nil or IsGameStateEligible( trait, traitData.ActivationRequirements ) then
 				trait.Activated = true
 				table.insert( appliedPropertyChanges, trait.ActivatedPropertyChanges )
 			end
@@ -861,7 +868,7 @@ function ProcessHeroTraitChanges( trait, reverse )
 	if trait.ActivatedPropertyChanges then
 		local traitData = TraitData[trait.Name]
 		if traitData ~= nil then
-			local isEligible = traitData.ActivationRequirements == nil or IsGameStateEligible( CurrentRun, trait, traitData.ActivationRequirements )
+			local isEligible = traitData.ActivationRequirements == nil or IsGameStateEligible( trait, traitData.ActivationRequirements )
 			if isEligible and not trait.Activated then
 				trait.Activated = true
 				table.insert( appliedPropertyChanges, trait.ActivatedPropertyChanges )
@@ -937,12 +944,12 @@ function ProcessHeroTraitChanges( trait, reverse )
 		referencedWeapons[trait.ForceWeaponRefreshOnRemove] = true
 	end
 	
-	if CurrentRun.Hero.ObjectId ~= nil then
+	if CurrentRun.Hero.ObjectId then
 		for weaponName in pairs( referencedWeapons ) do
 			local enabledStatus = GetWeaponDataValue({ WeaponName = weaponName, Id = CurrentRun.Hero.ObjectId, Property = "Enabled" })
 			ResetWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName })
-			local weaponData = GetWeaponData( CurrentRun.Hero, weaponName) 
-			if weaponData ~= nil then
+			local weaponData = GetWeaponData( CurrentRun.Hero, weaponName)
+			if weaponData then
 				SetWeaponProperty({ WeaponName = weaponData.Name, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = enabledStatus })
 			end
 		end
@@ -996,14 +1003,6 @@ function HasMeleeWeapon( currentRun )
 end
 
 function GatherAndEquipWeapons( currentRun )
-
-	if not currentRun.CurrentRoom.NoAutoEquip and not HasMeleeWeapon( currentRun ) then
-		local defaultWeaponName = currentRun.Hero.DefaultWeapon
-		currentRun.Hero.Weapons[defaultWeaponName] = true
-		currentRun.Hero.Weapons[WeaponData[defaultWeaponName].SecondaryWeapon] = true
-		GameState.WeaponsUnlocked[defaultWeaponName] = true
-		GameState.WeaponsTouched[defaultWeaponName] = true
-	end
 
 	local weaponNames = ShallowCopyTable( GameData.WeaponEquipOrder )
 	local remainingWeaponNames = GetAllKeys( currentRun.Hero.Weapons )

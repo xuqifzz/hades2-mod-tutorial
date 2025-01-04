@@ -63,11 +63,6 @@ UnitSetData.Crawler =
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		GeneratorData =
 		{
 			DifficultyRating = 10,
@@ -85,8 +80,9 @@ UnitSetData.Crawler =
 		BlockCharm = true,
 		IgnoreSpeedShrine = true,
 		EffectVfxScale= 0.5,
+		PolymorphScaleOverride = 0.5,
 		OnDeathFunctionName = "CrawlerMiniBossKillPresentation",
-		OnDeathFunctionArgs = { Message = "CrawlerDefeatedMessage", StartPanTime = 1.0, EndPanTime = 2.0, EndAngle = 270, FlashRed = true, MessageDelay = 0.5, IgnoreEndMusic = true, },
+		OnDeathFunctionArgs = { Message = "CrawlerDefeatedMessage", AltMessage = "CrawlerDefeatedMessageAlt", StartPanTime = 1.0, EndPanTime = 2.0, EndAngle = 270, FlashRed = true, MessageDelay = 0.5, IgnoreEndMusic = true, },
 		DeathAnimation = "Enemy_Crawler_Death",
 
 		DamagedFxStyles =
@@ -98,12 +94,24 @@ UnitSetData.Crawler =
 		
 		AltHealthBarTextIds =
 		{
-			{ TextId = "CrawlerMiniboss_NickName", Requirements =
+			{ TextId = "CrawlerMiniboss_NickName",
+				GameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
 					}
-				}
+				},
+			},
+		},
+		AltDeathMessageTextIds =
+		{
+			{ TextId = "CrawlerDefeatedMessageAlt",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutVerminMiniboss01" },
+					}
+				},
 			},
 		},
 
@@ -154,7 +162,7 @@ UnitSetData.Crawler =
 			{
 				{ Name = "BossVanquishedSpeech", Time = 60 },
 			},
-			[1] = GlobalVoiceLines.BarelySurvivedBossFightVoiceLines,
+			[1] = { GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			[2] =
 			{
 				BreakIfPlayed = true,

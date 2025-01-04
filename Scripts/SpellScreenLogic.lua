@@ -20,6 +20,16 @@
 		PlaySound({ Name = "/Leftovers/Menu Sounds/StoreBuyingItem" })
 		thread( PlayVoiceLines, GlobalVoiceLines.PurchasedConsumableVoiceLines, true )
 	end
+
+	if HeroHasTrait("SuitHexAspect") then
+		spellItem.DoSpellInteractEndOnClose = true
+		spellItem.DestroySourceOnClose = true
+		if spellItem.ManualRecordUse then
+			RecordUse( spellItem.ObjectId, spellItem.Name )
+		end
+		OpenTalentScreen( args, spellItem )
+		return
+	end
 	local screenName = "SpellScreen"
 
 	CurrentRun.Hero.UntargetableFlags[screenName] = true
@@ -120,7 +130,7 @@ function ChooseSpell( room, args )
 		if args.SpellName == spellName or room.ForceLootName == spellName then
 			return spellData
 		end
-		if IsGameStateEligible( CurrentRun, spellData, spellData.GameStateRequirements ) then
+		if spellData.GameStateRequirements == nil or IsGameStateEligible( spellData, spellData.GameStateRequirements ) then
 			table.insert( eligibleSpells, spellData )
 		end
 	end
@@ -131,7 +141,7 @@ function GetEligibleSpells( screen, args )
 	args = args or {}
 	local eligibleSpells = {}
 	for spellName, spellData in pairs( SpellData ) do
-		if IsGameStateEligible( CurrentRun, spellData, spellData.GameStateRequirements ) or ( screen.StripRequirements and not spellData.Skip) then
+		if screen.StripRequirements or spellData.GameStateRequirements == nil or IsGameStateEligible( spellData, spellData.GameStateRequirements ) then
 			table.insert( eligibleSpells, spellData.Name )
 		end
 	end
@@ -338,27 +348,23 @@ function AcceptAndCloseSpellScreen( screen, button )
 		CurrentRun.NumTalentPoints = CurrentRun.NumTalentPoints + button.BonusTalentPoints
 	end
 
-	local showedObjective = CheckObjectiveSet(CurrentRun.Hero.SlottedSpell.Objective)
-	if showedObjective then
-		RefillMana()
+	if screen.Source and not screen.Source.BoughtFromShop then
+		local showedObjective = CheckObjectiveSet(CurrentRun.Hero.SlottedSpell.Objective)
+		if showedObjective then
+			RefillMana()
+		end
 	end
 	
+	if CurrentRun.Hero.SlottedSpell.CheckSpellReadyOnAcquire then
+		thread( CallFunctionName, traitData.CheckChargeFunctionName, CurrentRun.Hero )
+	end
 	wait( 0.2, RoomThreadName )
-	thread( SpellReadyPresentation, traitData, 1.5 )
+
+	if not CurrentRun.Hero.SlottedSpell.CheckSpellReadyOnAcquire then
+		thread( SpellReadyPresentation, traitData, 1.5 )
+	end
 	if CheckRoomExitsReady( CurrentRun.CurrentRoom ) then
 		UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
 	end
 
-end
-
-function SpellScreenOpenTraitTray( screen, button )
-	SetAlpha({ Id = screen.Components.TraitTrayButton.Id, Fraction = 0.0, Duration = 0.2 })
-	ShowCombatUI( screen.Name )
-	ShowTraitTrayScreen( { CloseFunctionName = "SpellScreenCloseTraitTray", CloseFunctionArgs = { Screen = screen } } )
-end
-
-function SpellScreenCloseTraitTray( screen, args )
-	HideCombatUI( args.Screen.Name )
-	local upgradeChoiceScreenComponents = args.Screen.Components
-	SetAlpha({ Id = upgradeChoiceScreenComponents.TraitTrayButton.Id, Fraction = 1.0, Duration = 0.2 })
 end

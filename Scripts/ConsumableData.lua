@@ -75,6 +75,7 @@ ConsumableData =
 	{
 		InheritFrom = { "HealDrop" },
 		HealFixed = 10,
+		CanDuplicate = false,
 		BlockPurchasedVoiceLines = true,
 	},
 	HealDropSuperMinor =
@@ -98,14 +99,20 @@ ConsumableData =
 		{
 			Money = 50,
 		},
+		SurfaceShopText = "RoomRewardHealDrop_Store",
+		SurfaceShopIcon = "RoomRewardHealShop",
 		HealFraction = 0.4,
 		UseText = "UseHealDrop",
 		ConsumeFx = "HealConsumableFx",
 		OnUsedFunctionName = "UseConsumableItem",
 		PurchaseText = "Shop_UseHealDrop",
+		NeverForceRequired = true,
 		PurchaseRequirements =
 		{
-			RequiredMaxHealthFraction = 1,
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = "<", Value = 1.0, },
+			},
 		},
 		ExtractValues =
 		{
@@ -129,6 +136,8 @@ ConsumableData =
 	HealBigDrop =
 	{
 		InheritFrom = { "RoomRewardHealDrop", },
+		SurfaceShopText = "RoomRewardBigHealDrop_Store",
+		SurfaceShopIcon = "HealBigShop",
 		HealFraction = 0.8,
 		ResourceCosts =
 		{
@@ -208,17 +217,43 @@ ConsumableData =
 		UseFunctionName = "ManaDropUsePresentation",
 		AddMana = 20,
 	},
+	ManaDropMinorHound =
+	{
+		InheritFrom = { "ManaDropMinor" },
+		UseFunctionName = "ManaDropUsePresentation",
+		AddMana = 100,
+	},
 	ManaDropZeus =
 	{
 		InheritFrom = { "ManaDropMinor" },
 		OnUsedFunctionName = "ZeusManaPickup",
+		SpawnSound = "/SFX/Menu Sounds/KeepsakeZeusRing",
 
 		UseText = "UseManaFountain",
-		UseSound = "/Leftovers/SFX/StaminaRefilled",
+		UseSound = "/SFX/Player Sounds/ZeusLightningShieldRush",
 		OnUsedFunctionArgs = 
 		{
 			InputLockDuration = 0.3,
 		}
+	},
+	PowerDrinkDrop =
+	{
+		InheritFrom = { "BaseConsumable" },
+		CanDuplicate = false,
+		ConsumeSound = "/SFX/PoisonCureFountainDrink",
+		HideWorldText = true,
+		BlockPurchasedVoiceLines = true,
+		OnUsedFunctionName = "DrinkPickup",
+		SpawnSound = "/SFX/Menu Sounds/KeepsakeDionysusCup",
+
+		UseText = "UsePowerDrop",
+		UseSound = "/Leftovers/SFX/StaminaRefilled",
+		OnUsedFunctionArgs = 
+		{
+			InputLockDuration = 0.3,
+		},
+
+		OnUsedGlobalVoiceLines = "UsedPowerDrinkVoiceLines",
 	},
 	RoomMoneyDrop =
 	{
@@ -306,7 +341,10 @@ ConsumableData =
 			Money = 20,
 		},
 		DropMoney = 20,
+		SpawnSound = "/SFX/GoldCoinRewardDrop",
+		ConsumeSound = "/Leftovers/Menu Sounds/MakingMoneyChaChing",
 		OnSpawnVoiceLines =	{},
+		OnUsedGlobalVoiceLines = {},
 	},
 	LobAmmoPack =
 	{
@@ -370,7 +408,7 @@ ConsumableData =
 
 		ConsumedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.UsedHealDropVoiceLines,
+			[1] = { GlobalVoiceLines = "UsedHealDropVoiceLines" },
 		},
 		ExtractValues =
 		{
@@ -446,6 +484,7 @@ ConsumableData =
 			NoHealing = true,
 		},
 	},
+
 	MaxManaDrop =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -502,11 +541,13 @@ ConsumableData =
 			},
 		}
 	},
+
 	MaxManaDropSmall = 
 	{
 		InheritFrom = { "MaxManaDrop", },
 		AddMaxMana = 10,
 	},
+
 	MaxManaDropBig = 
 	{
 		InheritFrom = { "MaxManaDrop", },
@@ -517,6 +558,7 @@ ConsumableData =
 			Money = 200,
 		},
 	},
+
 	TalentDrop =
 	{
 		InheritFrom = { "BaseConsumable", "Tier1Consumable" },
@@ -532,6 +574,7 @@ ConsumableData =
 		HideWorldText = true,
 		LastRewardEligible = true,
 		ExitUnlockDelay = 1.1,
+		SpeakerName = "Selene",
 		UseFunctionName = "OpenTalentScreen",
 		RerollColor = Color.White,
 		AddTalentPoints = 3,
@@ -547,18 +590,10 @@ ConsumableData =
 		},
 		GameStateRequirements =
 		{
-			RequiredConsumablesThisRun =
-			{ 
-				Count = 1,
-				Names =
-				{
-					"SpellDrop",
-				},
-			},
-			{
-				PathFalse = { "CurrentRun", "AllSpellInvestedCache", },
-			},
+			NamedRequirements = { "TalentLegal" },
 		},
+
+		SpeakerName = "Selene",
 
 		OnSpawnVoiceLines =
 		{
@@ -585,6 +620,7 @@ ConsumableData =
 		InheritFrom = { "TalentDrop" },
 		AddTalentPoints = 1,
 	},
+
 	StoreRewardRandomStack = 
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -605,6 +641,7 @@ ConsumableData =
 
 		OnPurchaseGlobalVoiceLines = "PurchasedRandomPomVoiceLines",
 	},
+
 	RerollDrop =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -628,27 +665,36 @@ ConsumableData =
 		},
 		AddRerolls = 1,
 	},
+
 	LastStandDrop =
 	{
 		InheritFrom = { "BaseConsumable", },
 		UseText = "UseLastStandDrop",
 		UsePromptOffsetY = 30,
+		
+		SurfaceShopText = "LastStandDrop_Store",
+		SurfaceShopIcon = "Shop_Jug",
 		PurchaseText = "Shop_UseLastStandDrop",
 		SpawnSound = "/SFX/HealthIncreaseDrop",
-		ConsumeSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
+		ConsumeSound = "/SFX/Player Sounds/DeathDefianceActivateFINAL",
 		ConsumeFx = "MaxHealthDropPickupFx",
+		OnPurchasedGlobalVoiceLines = "PurchasedLastStandVoiceLines",
+		OnConsumedGlobalVoiceLines = "UsedHealDropVoiceLines",
 		PlayInteract = true,
 		HideWorldText = true,
+		NeverForceRequired = true,
 
-		Cost = 200,
+		ResourceCosts =
+		{
+			Money = 200,
+		},
 		GameStateRequirements =
 		{
-			RequiredMinMaximumLastStands = 1,
-			NotMaxLastStands = true,
+			NamedRequirements = { "MissingLastStand", },
 		},
 		PurchaseRequirements =
 		{
-			NotMaxLastStands = true,
+			NamedRequirements = { "MissingLastStand", },
 		},
 		UseFunctionNames =  { "AddLastStand", "GainLastStandPresentation"} ,
 		UseFunctionArgs =
@@ -660,96 +706,29 @@ ConsumableData =
 			},
 			{}
 		},
-	},
-	MinorDodgeDrop =
-	{
-		InheritFrom = { "BaseConsumable", },
-		UseText = "UseEssence",
-		UsePromptOffsetY = 30,
-		PurchaseText = "Shop_UseEssence",
-		SpawnSound = "/SFX/HealthIncreaseDrop",
-		ConsumeSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
-		ConsumeFx = "MaxHealthDropPickupFx",
-		PlayInteract = true,
-		ShowWorldText = true,
-
-		Cost = 200,
-		RequiredMinMaximumLastStands = 1,
-		NotMaxLastStands = true,
-		PurchaseRequirements =
-		{
-			NotMaxLastStands = true,
-		},
-		UseFunctionNames =  { "AddOrIncreaseTrait" } ,
-		UseFunctionArgs =
-		{
-			{
-				TraitName = "MinorDodgeEssence",
-				ReportValues = { ReportedTraitName = "TraitName" }
-			},
-		},
-	},
-	MinorDamageBoost =
-	{
-		InheritFrom = { "BaseConsumable", },
-		UseText = "UseEssence",
-		UsePromptOffsetY = 30,
-		PurchaseText = "Shop_UseEssence",
-		SpawnSound = "/SFX/HealthIncreaseDrop",
-		ConsumeSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
-		ConsumeFx = "MaxHealthDropPickupFx",
-		PlayInteract = true,
-		ShowWorldText = true,
-
-		Cost = 50,
-		UseFunctionNames =  { "AddOrIncreaseTrait" } ,
-		UseFunctionArgs =
-		{
-			{
-				TraitName = "DamageEssence",
-				ReportValues = { ReportedTraitName = "TraitName" }
-			},
-		},
-	},
-	HitShieldDrop =
-	{
-		InheritFrom = { "BaseConsumable", },
-		UseText = "UseHitShieldDrop",
-		PurchaseText = "Shop_UseHitShieldDrop",
-		DoorIcon = "HitShieldDropPreview",
-		SpawnSound = "/SFX/HealthIncreaseDrop",
-		ConsumeSound = "/SFX/Menu Sounds/KeepsakeEurydiceAcorn",
-		ConsumeFx = "ItemConsumeFx",
-		OnConsumedGlobalVoiceLines = "UsedShieldDropVoiceLines",
-		PlayInteract = true,
-		ResourceCosts =
-		{
-			Money = 60,
-		},
-		AddHitShield = 3,
 		ExtractValues =
 		{
 			{
-				Key = "AddHitShield",
-				ExtractAs = "TooltipHitShield",
+				External = true,
+				BaseType = "HeroData",
+				BaseName = "LastStandData",
+				BaseProperty = "Heal",
+				Format = "Percent",
+				ExtractAs = "LastStandHeal",
+				SkipAutoExtract = true,
 			},
 		}
 	},
-	HitShieldBigDrop =
-	{
-		InheritFrom = { "HitShieldDrop", },
-		ResourceCosts =
-		{
-			Money = 120,
-		},
-		AddHitShield = 6,
-	},
+
 	ArmorBoost =
 	{
 		InheritFrom = { "BaseConsumable", },
 		UseText = "UseArmorDrop",
 		UsePromptOffsetY = 30,
+		SurfaceShopText = "ArmorBoost_Store",
+		SurfaceShopIcon = "ArmorBoostShop",
 		PurchaseText = "Shop_UseArmorDrop",
+		
 		SpawnSound = "/SFX/HealthIncreaseDrop",
 		ConsumeSound = "/Leftovers/SFX/ShieldAlliesSFX",
 		ConsumeFx = "ItemConsumeFx",
@@ -780,15 +759,32 @@ ConsumableData =
 			},
 		},
 	},
+
+	ArmorBoostStore = 
+	{
+		InheritFrom = { "ArmorBoost", "BaseWellShopConsumable" },
+		Icon = "Shop_ArmorBoost",
+		BoonInfoIgnoreRequirements = true,
+		AddArmorArgs =
+		{
+			Thread = true,
+			Delay = 0.5,
+			Silent = true,
+		},
+	},
+
 	ArmorBigBoost =
 	{
 		InheritFrom = { "ArmorBoost", },
+		SurfaceShopText = "ArmorBigBoost_Store",
+		SurfaceShopIcon = "ArmorBigBoostShop",
 		ResourceCosts =
 		{
 			Money = 80,
 		},
 		AddArmor = 40,
 	},
+
 	FireBoost =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -811,6 +807,8 @@ ConsumableData =
 		{
 			Money = 20,
 		},
+
+		ExtractValues = {},
 		UseFunctionNames =  { "AddTraitToHero" } ,
 		UseFunctionArgs =
 		{
@@ -820,6 +818,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	AirBoost =
 	{
 		InheritFrom = { "FireBoost", },
@@ -831,6 +830,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	EarthBoost =
 	{
 		InheritFrom = { "FireBoost", },
@@ -842,6 +842,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	WaterBoost =
 	{
 		InheritFrom = { "FireBoost", },
@@ -853,6 +854,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	ElementalBoost =
 	{
 		InheritFrom = { "FireBoost", },
@@ -867,35 +869,7 @@ ConsumableData =
 				ReportValues = { ReportedTraitName = "TraitName" }
 			},
 		},
-	},	
-	MinorExDamageBoost =
-	{
-		InheritFrom = { "BaseConsumable", },
-		UseText = "UseEssence",
-		UsePromptOffsetY = 30,
-		PurchaseText = "Shop_UseEssence",
-		SpawnSound = "/SFX/HealthIncreaseDrop",
-		ConsumeSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
-		ConsumeFx = "MaxHealthDropPickupFx",
-		PlayInteract = true,
-		ShowWorldText = true,
-
-		Cost = 200,
-		RequiredMinMaximumLastStands = 1,
-		NotMaxLastStands = true,
-		PurchaseRequirements =
-		{
-			NotMaxLastStands = true,
-		},
-		UseFunctionNames =  { "AddOrIncreaseTrait" } ,
-		UseFunctionArgs =
-		{
-			{
-				TraitName = "ExDamageEssence",
-				ReportValues = { ReportedTraitName = "TraitName" }
-			},
-		},
-	},	
+	},
 
 	-- Loot substitutes
 	ChaosWeaponUpgrade = 
@@ -904,20 +878,30 @@ ConsumableData =
 		HideWorldText = true,
 		GameStateRequirements =
 		{
-			RequiredMinWeaponUpgrades = 1,
+			{
+				Path = { "CurrentRun", "LootTypeHistory", "WeaponUpgrade" },
+				Comparison = ">=",
+				Value = 1,
+			},
 		},		
 		PurchaseRequirements =
 		{
-			RequiredMinWeaponUpgrades = 1,
+			{
+				Path = { "CurrentRun", "LootTypeHistory", "WeaponUpgrade" },
+				Comparison = ">=",
+				Value = 1,
+			},
 		},
 		CannotPurchaseCombatText = "ChaosAnvil_NeedsMore",
-		CannotPurchaseVoiceLines = GlobalVoiceLines.InvalidResourceInteractionVoiceLines,
+		CannotPurchaseVoiceLines = { GlobalVoiceLines = "InvalidResourceInteractionVoiceLines" },
 		Cost =
 		{
 			BaseValue = 275,
 			DepthMult = 0,
 			AsInt = true,
 		},
+
+		ExtractValues = {},
 		UseFunctionName =  "ChaosHammerUpgrade",
 		UseFunctionArgs = { NumTraits = 2, ReportValues = { ReportedNumTraits = "NumTraits" } },
 		UseText = "UseChaosWeaponUpgrade",
@@ -933,6 +917,7 @@ ConsumableData =
 			},
 		}
 	},
+
 	RandomLoot =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -944,6 +929,7 @@ ConsumableData =
 		UseFunctionName = "GiveLoot",
 		CanDuplicate = false,
 	},
+
 	BoostedRandomLoot =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -953,6 +939,7 @@ ConsumableData =
 		},
 		CanDuplicate = false,
 	},
+
 	BlindBoxLoot = 
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -973,9 +960,14 @@ ConsumableData =
 		BlockPurchasedVoiceLines = true,
 		CanDuplicate = false,
 	},
+
 	WeaponUpgradeDrop =
 	{
 		InheritFrom = { "BaseConsumable", },
+		GameStateRequirements = 
+		{
+			NamedRequirements = { "HammerLootRequirements" },
+		},
 		ResourceCosts =
 		{
 			Money = 200,
@@ -984,12 +976,8 @@ ConsumableData =
 		UseFunctionName = "CreateWeaponLoot",
 		SurfaceShopText = "WeaponUpgradeDrop_Store",
 		SurfaceShopIcon = "WeaponUpgradeShop",
-		GameStateRequirements = 
-		{
-			RequiredMaxWeaponUpgrades = 0,
-			RequiredMinCompletedRuns = 3,
-		}
 	},
+
 	ShopHermesUpgrade =
 	{
 		InheritFrom = { "BaseConsumable", },
@@ -1003,7 +991,9 @@ ConsumableData =
 		SurfaceShopIcon = "HermesUpgradeShop",
 		GameStateRequirements = 
 		{
-			RequiredTextLines = {  "HermesFirstPickUp" },
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "HermesFirstPickUp" },
+			},
 			{
 				Path = { "CurrentRun", "BiomeUseRecord", },
 				HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
@@ -1032,7 +1022,10 @@ ConsumableData =
 		PurchaseText = "Shop_UseHealDrop",
 		PurchaseRequirements =
 		{
-			RequiredMaxHealthFraction = 1,
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = "<", Value = 1.0, },
+			},
 		},
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanPaperEquipLEGENDARY",
 		OnConsumedGlobalVoiceLines = "UsedHealDropVoiceLines",
@@ -1055,13 +1048,14 @@ ConsumableData =
 			}
 		},
 	},
+
 	LastStandShopItem =
 	{
 		InheritFrom = { "BaseWellShopConsumable" },
 		ConsumeSound = "/EmptyCue",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
 		OnPurchasedGlobalVoiceLines = "PurchasedLastStandVoiceLines",
-		CannotPurchaseVoiceLines = GlobalVoiceLines.FrustratedVoiceLines,
+		CannotPurchaseVoiceLines = { GlobalVoiceLines = "FrustratedVoiceLines" },
 		Icon = "Shop_Jug",
 		ResourceCosts =
 		{
@@ -1071,12 +1065,11 @@ ConsumableData =
 		BoonInfoIgnoreRequirements = true,
 		GameStateRequirements =
 		{
-			RequiredMinMaximumLastStands = 1,
-			NotMaxLastStands = true,
+			NamedRequirements = { "MissingLastStand", },
 		},
 		PurchaseRequirements =
 		{
-			NotMaxLastStands = true,
+			NamedRequirements = { "MissingLastStand", },
 		},
 		UseFunctionNames =  { "AddLastStand", "GainLastStandPresentation"} ,
 		UseFunctionArgs =
@@ -1101,6 +1094,55 @@ ConsumableData =
 			},
 		}
 	},
+
+	LimitedManaRegenDrop = 
+	{
+		InheritFrom = { "BaseWellShopConsumable", },
+		Icon = "Shop_LimitedManaRegenDrop",
+		ResourceCosts =
+		{
+			Money = 10,
+		},
+		UseFunctionName = "AddLimitedManaRegen",
+		UseFunctionArgs =
+		{
+			Amount = 500,
+			Duration = 3,
+			ReportValues = 
+			{
+				ReportedAmount = "Amount",
+				ReportedDuration = "Duration",
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedAmount",
+				ExtractAs = "TooltipManaRecovery",
+			},
+			{
+				Key = "ReportedDuration",
+				ExtractAs = "TooltipDuration",
+				DecimalPlaces = 1,
+			},
+		}
+	},
+
+	LimitedSwapTraitDrop = 
+	{
+		InheritFrom = { "BaseWellShopConsumable", },
+		Icon = "Shop_LimitedSwapTraitDrop",
+		ResourceCosts =
+		{
+			Money = 25,
+		},
+		UseFunctionName = "AddLimitedSwapTrait",
+		UseFunctionArgs =
+		{
+			Amount = 1
+		},
+	},
+
 	DamageSelfDrop = 
 	{
 		InheritFrom = { "BaseWellShopConsumable", },
@@ -1171,6 +1213,7 @@ ConsumableData =
 		},
 		UseText = "UseTakeItem",
 	},
+
 	MetaCardPointsCommonRange =
 	{
 		InheritFrom = { "BaseWellShopConsumable" },
@@ -1333,6 +1376,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	MetaCardPointsCommonBigDrop =
 	{
 		InheritFrom = { "MetaCardPointsCommonDrop" },
@@ -1346,6 +1390,7 @@ ConsumableData =
 			MetaCardPointsCommon = 10,
 		},
 	},
+
 	MemPointsCommonDrop =
 	{
 		InheritFrom = { "BaseResource", "BaseMetaRoomReward" },
@@ -1391,6 +1436,7 @@ ConsumableData =
 			},
 		},
 	},
+
 	MemPointsCommonBigDrop =
 	{
 		InheritFrom = { "MemPointsCommonDrop", },
@@ -1404,6 +1450,7 @@ ConsumableData =
 			MemPointsCommon = 20,
 		},
 	},
+
 	MetaCurrencyDrop =
 	{
 		InheritFrom = { "BaseResource", "BaseMetaRoomReward" },
@@ -1422,6 +1469,7 @@ ConsumableData =
 			Money = 90,
 		},
 		IconPath = ResourceData.MetaCurrency.IconPath,
+		TextIconPath = ResourceData.MetaCurrency.TextIconPath,
 		AddResources =
 		{
 			MetaCurrency = 50,
@@ -1473,8 +1521,10 @@ ConsumableData =
 				PreLineWait = 0.55,
 				GameStateRequirements =
 				{
+					-- for Chaos Trials
 					{
-						--
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "F_Boss01", "G_Boss01", "H_Boss01", "I_Boss01", "N_Boss01", "O_Boss01", "P_Boss01", "Q_Boss01" }
 					},
 				},
 				Cooldowns =
@@ -1504,9 +1554,25 @@ ConsumableData =
 					},
 				},
 			},
-			[2] = GlobalVoiceLines.ResourceFoundVoiceLines,
+			[2] = { GlobalVoiceLines = "ResourceFoundVoiceLines" },
 		},
 	},
+
+	MetaCurrencyBigDrop =
+	{
+		InheritFrom = { "MetaCurrencyDrop", },
+		ResourceCosts =
+		{
+			Money = 180,
+		},
+		DoorIcon = "MetaCurrencyBigDrop",
+		Icon = "MetaCurrencyBigDrop",
+		AddResources =
+		{
+			MetaCurrency = 100,
+		},
+	},
+
 	OreFSilverDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1518,6 +1584,7 @@ ConsumableData =
 			OreFSilver = 3,
 		},
 	},
+
 	OreNBronzeDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1529,6 +1596,7 @@ ConsumableData =
 			OreNBronze = 1,
 		},
 	},
+
 	OreOIronDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1540,6 +1608,19 @@ ConsumableData =
 			OreOIron = 1,
 		},
 	},
+
+	OrePAdamantDrop =
+	{
+		InheritFrom = { "BaseResource", },
+		UseText = "UseResourcePickup",
+		SpawnSound = "/SFX/SuperGemDropSFX",
+		ConsumeSound = "/SFX/SuperGemPickup",
+		AddResources =
+		{
+			OrePAdamant = 1,
+		},
+	},
+
 	PlantFMolyDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1552,6 +1633,7 @@ ConsumableData =
 		SpawnSound = "/SFX/PomegranatePowerUpDrop",
 		ConsumeSound = "/SFX/CrappyRewardPickup",
 	},
+
 	PlantFNightshadeDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1563,6 +1645,7 @@ ConsumableData =
 			PlantFNightshade = 1,
 		},
 	},
+
 	PlantMoneyDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1574,6 +1657,7 @@ ConsumableData =
 			PlantMoney = 1,
 		},
 	},
+
 	MetaFabricDrop =
 	{
 		InheritFrom = { "BaseResource", },
@@ -1586,6 +1670,7 @@ ConsumableData =
 		SpawnSound = "/SFX/AshRewardPickup",
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 	},
+
 	GiftDrop =
 	{
 		InheritFrom = { "BaseResource", "BaseMetaRoomReward" },
@@ -1632,7 +1717,6 @@ ConsumableData =
 		ConsumeFx = "GiftDropPickup",
 		PlayInteract = true,
 		HideWorldText = true,
-		RequiredMinCompletedRuns = 2,
 		LastRewardEligible = true,
 		OnSpawnVoiceLines =
 		{
@@ -1681,9 +1765,9 @@ ConsumableData =
 	{
 		InheritFrom = { "BaseResource", },
 		SpawnSound = "/SFX/CrappyRewardDrop",
-		PickUpSound = "/SFX/CrappyRewardPickup", -- for HarvestPresentation
+		PickUpSound = "/SFX/TrashPickup", -- for HarvestPresentation
 		ConsumeFx = "ItemConsumeFxSmall",
-		ConsumeSound = "/SFX/CrappyRewardPickup",
+		ConsumeSound = "/SFX/TrashPickup",
 		EmptyAnimation = "Blank",
 		UseText = "UseTrashPoint",
 		OnUsedFunctionName = "UseTrashPoint",
@@ -1698,12 +1782,14 @@ ConsumableData =
 	{
 		InheritFrom = { "BaseSuperResource", },
 		PurchaseText = "Shop_UseWeaponPointsRareDrop",
-		SpawnSound = "/SFX/KeyDrop",
-		ConsumeSound = "/SFX/KeyPickup",
 		AddResources =
 		{
 			WeaponPointsRare = 1,
 		},
+
+		UseText = "UseResourcePickup",
+		SpawnSound = "/SFX/TitanBloodPickupSFX",
+		ConsumeSound = "/SFX/TitanBloodPickupSFX",
 	},
 	MixerFBossDrop =
 	{
@@ -1714,8 +1800,8 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/SFX/SuperKeyDrop",
-		ConsumeSound = "/SFX/SuperKeyPickup",
+		SpawnSound = "/SFX/HeatRewardDrop",
+		ConsumeSound = "/SFX/HeatCollectionPickupReverse",
 	},
 	MixerGBossDrop =
 	{
@@ -1726,9 +1812,10 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/SFX/HeatRewardDrop",
-		ConsumeSound = "/SFX/HeatCollectionPickupReverse",
+		SpawnSound = "/SFX/GemDropSFX",
+		ConsumeSound = "/SFX/GemPickup",
 	},
+
 	MixerHBossDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1738,9 +1825,10 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/SFX/HeatRewardDrop",
-		ConsumeSound = "/SFX/HeatCollectionPickupReverse",
+		SpawnSound = "/SFX/SuperGemDropSFX",
+		ConsumeSound = "/SFX/SuperGemPickup",
 	},
+
 	MixerIBossDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1750,9 +1838,10 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/SFX/HeatRewardDrop",
-		ConsumeSound = "/SFX/HeatCollectionPickupReverse",
+		SpawnSound = "/SFX/SuperGemDropSFX",
+		ConsumeSound = "/SFX/SuperGemPickup",
 	},
+
 	MixerNBossDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1765,6 +1854,7 @@ ConsumableData =
 		SpawnSound = "/Leftovers/Menu Sounds/TalismanPowderDownLEGENDARY",
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanPowderUpLEGENDARY",
 	},
+
 	MixerOBossDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1774,9 +1864,23 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/Leftovers/Menu Sounds/TalismanPowderDownLEGENDARY",
-		ConsumeSound = "/Leftovers/Menu Sounds/TalismanPowderUpLEGENDARY",
+		SpawnSound = "/SFX/PomegranatePowerUpDrop",
+		ConsumeSound = "/SFX/PomegranateLevelUpSFX",
 	},
+
+	MixerPBossDrop =
+	{
+		InheritFrom = { "BaseSuperResource", },
+		AddResources =
+		{
+			MixerPBoss = 1,
+		},
+
+		UseText = "UseResourcePickup",
+		SpawnSound = "/SFX/AshRewardDrop",
+		ConsumeSound = "/SFX/AshRewardPickup",
+	},
+
 	Mixer5CommonDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1786,9 +1890,10 @@ ConsumableData =
 		},
 
 		UseText = "UseResourcePickup",
-		SpawnSound = "/SFX/GiftAmbrosiaBottleDrop",
+		SpawnSound = "/SFX/Menu Sounds/KeepsakeChaosEgg",
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 	},
+
 	Mixer6CommonDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1800,7 +1905,9 @@ ConsumableData =
 		SpawnSound = "/SFX/Player Sounds/DarknessRewardDrop",
 		ConsumeSound = "/SFX/Player Sounds/DarknessCollectionPickup",
 		ExitsUnlockedFunctionName = "HarvestPointAvailablePresentation",
+		SpeakerName = "Selene",		
 	},
+
 	CardUpgradePointsDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1810,10 +1917,12 @@ ConsumableData =
 		},
 
 		IconPath = ResourceData.CardUpgradePoints.IconPath,
+		TextIconPath = ResourceData.CardUpgradePoints.TextIconPath,
 		UseText = "UseResourcePickup",
 		SpawnSound = "/SFX/GiftAmbrosiaBottleDrop",
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 	},
+
 	FamiliarPointsDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },
@@ -1826,6 +1935,7 @@ ConsumableData =
 		SpawnSound = "/SFX/GiftAmbrosiaBottleDrop",
 		ConsumeSound = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY",
 	},
+
 	CharonPointsDrop =
 	{
 		InheritFrom = { "BaseSuperResource", },

@@ -9,6 +9,8 @@ UnitSetData.NPC_Odysseus =
 		AnimOffsetZ = 10,
 		Groups = { "NPCs" },
 		SubtitleColor = Color.OdysseusVoice,
+		EmoteOffsetY = -230,
+		EmoteOffsetX = 80,
 		SpeakerName = "Odysseus",
 		TurnInPlaceAnimation = "Odysseus_Turn",
 		
@@ -87,7 +89,7 @@ UnitSetData.NPC_Odysseus =
 
 				{ Cue = "/VO/Melinoe_1707", Text = "Death to Chronos, sir." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				PreLineWait = 0.3,
@@ -227,7 +229,10 @@ UnitSetData.NPC_Odysseus =
 						Comparison = ">=",
 						Value = 1,
 					},
-					RequiredFalseQueuedTextLines = GameData.OdysseusTavernaEvents,
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsNone = GameData.OdysseusTavernaEvents, },
+					},
 				},
 				Args =
 				{
@@ -326,6 +331,13 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0002",
+					PreLineAnim = "Odysseus_KnifeToss",
+					-- PreLineAnim = "Odysseus_Pensive_Start",
+					-- PostLineAnim = "Odysseus_Pensive_End",
+					-- PreLineAnim = "Odysseus_Explaining",
+					-- PreLineAnim = "Odysseus_Greet",
+					-- PreLineAnim = "Odysseus_Salute",
+
 					Text = "Tell me you killed the bastard? Drove your staff into his wretched skull, slid a dagger in his gut? {#Emph}Ungh{#Prev}, not that he'd die from that; works on mortals, though!" },
 				{ Cue = "/VO/Melinoe_1166", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
@@ -350,18 +362,23 @@ UnitSetData.NPC_Odysseus =
 					{
 						PathFalse = { "GameState", "RoomCountCache", "N_Opening01" },
 					},
-					AreIdsAlive = { 556921 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 556921 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0033",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Our good witch there knows you've a mountain of a journey ahead of you, Goddess. You hear about our mountains on the surface? Big tall rocks?" },
 				{ Cue = "/VO/Melinoe_0448", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "What, you mean like Mount Olympus, or Mount Othrys? Of course I've heard of them! They reach up to the sky. I can only imagine." },
 				{ Cue = "/VO/Odysseus_0034",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You look up from the base to the peak, you'll swear they can't be climbed, {#Emph}but! {#Prev}If you only concern yourself with making that next step... you'll make it to the top." },
 				EndVoiceLines =
 				{
@@ -396,6 +413,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I'll share my thoughts when necessary, Odysseus. For the moment, I'm sorting through them still." },
 				{ Cue = "/VO/Odysseus_0029",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Aye, best not to speak without prepared remarks. I understand the feeling only too well. You'll keep me posted, though?" },
 
 				EndVoiceLines =
@@ -426,6 +444,7 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0035",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "You run into anything bad whilst you're out there, you come talk to me about it. Chances are I've seen it, fought it, otherwise gotten past it, and can offer some advice." },
 
 				EndVoiceLines =
@@ -484,13 +503,15 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You've known Headmistress quite a while, haven't you? Where did you meet, I always wanted to ask?" },
 				{ Cue = "/VO/Odysseus_0040",
+					PreLineAnim = "Odysseus_Pensive_Start",
 					Text = "{#Emph}Heh{#Prev}, well. All I can say is that I was... alone. At the end of one life, and the start of another. Lost. She appeared before me then, in all her splendor, and... she revealed to me a path I hadn't seen." },
 				{ Cue = "/VO/Melinoe_0457", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That all sounds very figurative. Were you already dead?" },
 				{ Cue = "/VO/Odysseus_0041",
-					Text = "I was. She told me she could grant me a new life. She needed a tactician knowledgable of the surface. I thought, who am I to turn a goddess down? I followed her. It's been a while now." },
+					PreLineAnim = "Odysseus_Pensive_End",
+					Text = "I was. She told me she could grant me a new life. She needed a tactician knowledgeable of the surface. I thought, who am I to turn a goddess down? I followed her. It's been a while now." },
 				EndVoiceLines =
 				{
 					{
@@ -508,15 +529,21 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name", },
-						IsAny = { "F_Boss01", },
+						PathTrue = { "CurrentRun", "RoomsEntered", "F_Boss01" },
 					},
 					{
 						PathFalse = { "CurrentRun", "EnemyKills", "Hecate" },
 					},
 					{
-						PathFalse = { "GameState", "RoomCountCache", "G_Intro" },
+						PathFalse = { "CurrentRun", "RoomsEntered", "G_Intro" },
 					},
+					--[[
+					{
+						Path = { "GameState", "RoomsEntered", "F_PostBoss01" },
+						Comparison = "<=",
+						Value = 3,
+					},
+					]]--
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -527,6 +554,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Then she must be disappointed with my results, although she's careful not to show it. Same as you, Odysseus." },
 				{ Cue = "/VO/Odysseus_0144",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Come, I know how dispiriting it is to chart one's course, only to lose one's way. We rarely get where we must go the fastest way we can." },
 				EndVoiceLines =
 				{
@@ -597,13 +625,16 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0235",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Word has it Eris has been spotted in the depths along your path... intelligence you likely could have used {#Emph}before {#Prev}she made your journey worse for you. Apologies, Goddess..." },
 				{ Cue = "/VO/Melinoe_3096", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "She's trying to stop me, or at least slow me down. And... she knows too much about our intentions. What do we do? Children of Nyx are supposed to be on {#Emph}our {#Prev}side." },
 				{ Cue = "/VO/Odysseus_0236",
-					Text = "She doesn't know the {#Emph}half {#Prev}of what we've planned. Besides, her {#Emph}boredom {#Prev}drives her more than anything. Run into her a few more times, she'll soon grow sick of it and go away." },
+					PreLineAnim = "Odysseus_KnifeToss",
+					Text = "She doesn't know the {#Emph}half {#Prev}of what we've planned. Besides, her boredom drives her more than anything. Run into her a few more times, she'll soon grow sick of it and go away." },
 				EndVoiceLines =
 				{
 					{
@@ -630,7 +661,10 @@ UnitSetData.NPC_Odysseus =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "ErisAboutTask01", "ErisAboutPurpose01" },
 					},
-					AreIdsAlive = { 585573 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 585573 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -640,6 +674,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Have you caught Eris snooping through our plans or anything? Have to be even more discreet with her about..." },
 				{ Cue = "/VO/Odysseus_0270",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "She stays over in her little corner mostly, Goddess, but I've been keeping my eye on her in case of anything. As long as she undermines our efforts well out of earshot..." },
 				EndVoiceLines =
 				{
@@ -665,18 +701,24 @@ UnitSetData.NPC_Odysseus =
 					{
 						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" },
 					},
-					MaxRunsSinceAnyTextLines = { TextLines = { "ErisBossFirstMeeting" }, Count = 4 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ErisBossFirstMeeting" }, Max = 4 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0272",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Good, you're back. According to reports, Eris flew off toward the Rift of Thessaly on an intercept course with the fleet. Except I don't think that she's headed there to help. Not {#Emph}you{#Prev}, at least." },
 				{ Cue = "/VO/Melinoe_3311", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "These reports aren't of much benefit to me after the fact. But at least I can confirm they're accurate. How preposterous that we cannot rid ourselves of her." },
 				{ Cue = "/VO/Odysseus_0273",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "All we can do is work with what we've got. I apologize that we could not forewarn you on this one. We'll continue investigating her motives and accomplices." },
 				EndVoiceLines =
 				{
@@ -745,6 +787,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "So you know already? And Headmistress must, too. Nemesis is being Nemesis! Discovering firsthand our task is not as simple as it seems." },
 				{ Cue = "/VO/Odysseus_0160",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Say no more, then! Though, if she becomes too intent on impeding your results over achieving her own, we'll step in." },
 				EndVoiceLines =
 				{
@@ -775,6 +818,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You and Commander Schelemeus both were great and famous sailors, weren't you, Od? Did the two of you ever meet in your mortal days?" },
 				{ Cue = "/VO/Odysseus_0163",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Oh, {#Emph}great sailor {#Prev}is an understatement, Goddess! They say his exploits rivaled even mine! Alas that I never once had an opportunity to witness his prowess. {#Emph}Ah{#Prev}, it must have been something!" },
 				EndVoiceLines =
 				{
@@ -810,6 +854,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You ever seen Hypnos so much as shift in his sleep, Od? I know he's been through a lot, but... still." },
 				{ Cue = "/VO/Odysseus_0151",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Can't say I have. Been just that way from the night the good witch got him. The snoring I became accustomed to eventually..." },
 				{ Cue = "/VO/Melinoe_2210", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -836,12 +882,17 @@ UnitSetData.NPC_Odysseus =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMorosUnlock" },
 					},
 					-- NamedRequirements = { "NotSpokenToOdysseusRecently" },
-					AreIdsAlive = { 560612 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 560612 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0153",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "So {#Emph}Doom {#Prev}has come to stay with us a bit? My last and only other brush with him did not resolve {#Emph}particularly {#Prev}well, so... I'll just keep my distance, if that's quite all right." },
 				{ Cue = "/VO/Melinoe_2211", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -928,6 +979,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Your voyage home. You stopped for an entire year, then voyaged on and never saw her again..." },
 				{ Cue = "/VO/Odysseus_0264",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Well, aye, until I saw her again here. It's just... it's in the past, and for the both of us, I think. Not every such relationship need last eternally." },
 				EndVoiceLines =
 				{
@@ -960,6 +1013,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "My route through the Underworld is fraught in its own right, but yes, it's comforting to know that army of traitors remains ignorant of me." },
 				{ Cue = "/VO/Odysseus_0136",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "There's not a downward route that's more discreet. Those thorny chaps in the woods, {#Emph}they've {#Prev}no love for Chronos either, at least." },
 				EndVoiceLines =
 				{
@@ -995,12 +1049,14 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Yes and no; I saw Chronos out there. I thought he had me, but I broke free from his spell. This was in Oceanus, though I also caught him snooping near the pathways out of Erebus." },
 				{ Cue = "/VO/Odysseus_0243",
+					PreLineAnim = "Odysseus_Pensive_Start",
 					Text = "Damn it... our reports said nothing of the sort, but then... some of our Shade informants haven't yet returned. We had expected Chronos to stay put in the lowest reaches. You must have caused enough of a stir to catch his notice." },
 				{ Cue = "/VO/Melinoe_3305", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I've hardly been discreet in my approach. Is there truly no other way?" },
 				{ Cue = "/VO/Odysseus_0244",
+					PreLineAnim = "Odysseus_Pensive_End",
 					Text = "We reckon not. We're counting on him thinking you're inconsequential to his plans. As for our own, I shall go over this with the good witch. Be safe, and cheers for the report." },
 				EndVoiceLines =
 				{
@@ -1022,6 +1078,9 @@ UnitSetData.NPC_Odysseus =
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ChronosReveal01B", "ChronosRevealFollowUp", },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "OdysseusAboutChronosAnomaly01" },
 					},
 					{
 						PathFalse = { "GameState", "RoomsEntered", "I_Boss01" },
@@ -1070,12 +1129,20 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0228",
+					-- PreLineAnim = "Odysseus_KnifeToss",
+					-- PreLineAnim = "Odysseus_Pensive_Start",
+					-- PostLineAnim = "Odysseus_Pensive_End",
+					PreLineAnim = "Odysseus_Explaining",
+					-- PreLineAnim = "Odysseus_Greet",
+					-- PreLineAnim = "Odysseus_Salute",
+
 					Text = "You got him, didn't you? Killed the bastard, for... one night, at least. The first report I heard, I scarce believed, but by the third or fourth, I'd come around. {#Emph}Well done{#Prev}, Goddess!" },
 				{ Cue = "/VO/Melinoe_2967", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Thanks, Od. Though I'd not be surprised if our reports already say he's returned. But I got what I needed for now. And a little bit of payback, I suppose." },
 				{ Cue = "/VO/Odysseus_0229",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Aye, and he'll be sore about it, I expect, but... even though we're not there yet... we needed this, I think. {#Emph}You {#Prev}needed this. On to the next phase then?" },
 				EndVoiceLines =
 				{
@@ -1118,6 +1185,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Chronos was exactly where we expected... but I could not foresee his every technique. And my ability to withstand his magick went only so far." },
 				{ Cue = "/VO/Odysseus_0231",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Well, fortunately for you, the old are often rather slow to learn. You run into him a few more times like that, you'll soon know every trick he's got. Though... do be very careful out there, aye?" },
 				EndVoiceLines =
 				{
@@ -1138,7 +1206,7 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "G_Boss01" },
+						PathTrue = { "CurrentRun", "RoomsEntered", "G_Boss01" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1178,7 +1246,7 @@ UnitSetData.NPC_Odysseus =
 						PathTrue = { "GameState", "TextLinesRecord", "OdysseusAboutScylla01" },
 					},
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "G_Boss01" },
+						PathTrue = { "CurrentRun", "RoomsEntered", "G_Boss01" },
 					},
 					{
 						Path = { "GameState", "EnemyKills", "Scylla" },
@@ -1190,12 +1258,14 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0175",
+					PreLineAnim = "Odysseus_Pensive_Start",
 					Text = "I once was desperate to hear the Sirens' song... I barely resisted their temptations; of course I was... merely mortal. Perhaps you're less susceptible to their allure." },
 				{ Cue = "/VO/Melinoe_2183", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Perhaps. At any rate, I fail to see the appeal. Although it's possible the Sirens were better off without Scylla. She seems rather bossy..." },
+					Text = "Perhaps. At any rate I fail to see the appeal. Although, it's possible the Sirens were better off without Scylla. She seems rather bossy..." },
 				{ Cue = "/VO/Odysseus_0176",
+					PreLineAnim = "Odysseus_Pensive_End",
 					Text = "Oh she's a menace. Caught half a dozen of my crew like she'd a separate set of teeth for each of the poor lads. We'd little choice but to pray to the gods, and sail on. Tell her hello for me!" },
 				{ Cue = "/VO/Melinoe_2184", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1226,7 +1296,10 @@ UnitSetData.NPC_Odysseus =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "OdysseusBackstory01", "OdysseusAboutScylla02", "OdysseusAboutMood01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusBackstory02", "OdysseusAboutMood01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "OdysseusBackstory02", "OdysseusAboutMood01" }, Min = 2 },
+					},
 				},
 				OnQueuedFunctionName = "OdysseusAtTaverna",
 
@@ -1328,6 +1401,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "We knew there was a secure entrance into Tartarus around that point... this beast must be how come the tunnel stays secure. Have we any details?" },
 				{ Cue = "/VO/Odysseus_0255",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Well it has several fire-spitting maws, allegedly, which troublingly fits the profile of your father's household pet. Though, if this really is the case... may it simply let you pass!" },
 				{ Cue = "/VO/Melinoe_3325", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -1367,6 +1441,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I can corroborate our Shades' reports. And add that this infernal beast is none other than Cerberus, my father's household pet... acting on instinct and pure rage." },
 				{ Cue = "/VO/Odysseus_0257",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "{#Emph}Ahh{#Prev}, I feared as much. For they said the beast had several fire-spitting maws. I don't suppose he recognized you after all this time, and... let you pass...?" },
 				EndVoiceLines =
 				{
@@ -1403,9 +1479,9 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_0478", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "{#Emph}What? {#Prev}But you're the Great Tactician, Odysseus! Even the gods were impressed with your machinations in your glory days." },
 				{ Cue = "/VO/Odysseus_0130",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "{#Emph}Erm{#Prev}, Lady Athena and others favored me, it's true, but your uncle Poseidon, well... I got on his bad side, I believe. Maybe he's let it go after all this time, but that's a risk I'm not prepared to take, so... keep quiet about me, would you?" },
 				EndVoiceLines =
 				{
@@ -1429,6 +1505,9 @@ UnitSetData.NPC_Odysseus =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "HecateAboutHermes01", "HecateBossAboutHermes02" },
 					},
+					{
+						PathFalse = { "PathFalse", "RoomsEntered", "N_Opening01" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -1439,9 +1518,10 @@ UnitSetData.NPC_Odysseus =
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					Text = "Please tell me what you may; and if you think it wise for me to deviate from my objective to address whatever's going on up there." },
 				{ Cue = "/VO/Odysseus_0205",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "The forces of Chronos gather to sail on Olympus through a channel cut across the land. You're poised to disrupt the enemy ranks from within. Aid Olympus, and your chances against Chronos may improve." },
 				{ Cue = "/VO/Melinoe_2224", UsePlayerSource = true,
-					PreLineAnim = "MelinoeIdleWeaponless", PreLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
 					Text = "The warded pathway leading up should drop me right into the heart of our foe's forward garrison. It seems so reckless..." },
 				EndVoiceLines =
 				{
@@ -1472,6 +1552,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Inquiry for you, Od. When was the last reported sighting of a Root-Stalker out in the woods?" },
 				{ Cue = "/VO/Odysseus_0190",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "See, that's the sort of inquiry I'd expect from somebody who sighted a Root-Stalker out in the woods very, very recently. So there's still something rotten in Erebus, then?" },
 				EndVoiceLines =
 				{
@@ -1504,6 +1585,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Yes, a Shadow-Spiller. I lost my way against one. Can hardly see a thing when they're about! I should be stronger than this..." },
 				{ Cue = "/VO/Odysseus_0189",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You've strength enough. They merely test your nerve. Foes such as that are to be faced head-on, no hesitation. Set for another go?" },
 				EndVoiceLines =
 				{
@@ -1536,6 +1618,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "A Sea-Serpent, if you must know. A particularly substantial one caught me out. You ever face them in your mortal voyages?" },
 				{ Cue = "/VO/Odysseus_0192",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "I did, aye. But not alone! Even with my shipmates, seasoned veterans all, we scarce could track the slippery bastards darting out of the waters. {#Emph}Erm{#Prev}, not reassuring, is this?" },
 				EndVoiceLines =
 				{
@@ -1554,20 +1637,21 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name", },
-						IsAny = { "G_MiniBoss02" },
+						PathTrue = { "CurrentRun", "RoomsEntered", "G_MiniBoss02", },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0193",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Goddess, latest reports said you encountered the King Vermin! Don't care if you're immortal, I'm relieved you made it back in one piece..." },
 				{ Cue = "/VO/Melinoe_2193", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It can't be. I did confront a rodent of extraordinary savagery, but it was so little! I assumed the King Vermin was huge." },
 				{ Cue = "/VO/Odysseus_0194",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Tall tales. The King Vermin's wrath is inversely proportional to its stature. And its stature, as I understand, is very small indeed..." },
 				EndVoiceLines =
 				{
@@ -1604,6 +1688,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Don't such creatures usually stalk the surface in their search of {#Emph}living {#Prev}prey? They must go rather hungry in the Underworld." },
 				{ Cue = "/VO/Odysseus_0289",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Better {#Emph}that {#Prev}than burn under the break of day, or so they figure, probably. Well, you know what they're after next you meet again." },
 				EndVoiceLines =
 				{
@@ -1638,6 +1723,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Don't such creatures usually stalk the surface in their search of {#Emph}living {#Prev}prey? They must go rather hungry in the Underworld." },
 				{ Cue = "/VO/Odysseus_0289",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Better {#Emph}that {#Prev}than burn under the break of day, or so they figure, probably. Well, you know what they're after next you meet again." },
 				EndVoiceLines =
 				{
@@ -1700,6 +1786,8 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_3349", UsePlayerSource = true,
 					Text = "Then the Titan Lord shall soon have one {#Emph}fewer {#Prev}high priest." },
 				{ Cue = "/VO/Odysseus_0291",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Even if you take him, our reports say that he cannot {#Emph}truly {#Prev}die. A gift from Chronos, in exchange for performing the ritual that brought him back..." },
 				EndVoiceLines =
 				{
@@ -1728,6 +1816,7 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_3351", UsePlayerSource = true,
 					Text = "Not the report I wished to deliver, though I've some idea of what Chronos has been doing with all of his excess gold... I was trounced last night by a gigantic bag of coins." },
 				{ Cue = "/VO/Odysseus_0292",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "A {#Emph}Goldwrath{#Prev}, then! I reckon if you're Chronos, and you've got a limitless supply of shiny metal... might as well use some of them for your profane research. {#Emph}Ah{#Prev}, but you were close..." },
 				EndVoiceLines =
 				{
@@ -1761,6 +1850,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I just had an unfortunate run-in with one of those Satyrs. Well-armed, well-trained... and Chronos has entire legions." },
 				{ Cue = "/VO/Odysseus_0248",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "{#Emph}Hrm{#Prev}, this is the war they've sought ever since the gods put Chronos in the ground. The promise of the Titan's return; immortality and untold riches..." },
 				EndVoiceLines =
 				{
@@ -1799,6 +1890,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I must admit, on some occasion all the tales you told about the sea-monster Charybdis felt almost beyond belief. Now having faced the blasted thing, I feel you sold it short." },
 				{ Cue = "/VO/Odysseus_0249",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "What, faced {#Emph}Charybdis? Hah{#Prev}, Goddess. I'd seen reports about some sort of whirlpool in Poseidon's Rift, and now my fear's confirmed. {#Emph}Eh{#Prev}, at least it didn't swallow you outright." },
 				EndVoiceLines =
 				{
@@ -1810,6 +1902,43 @@ UnitSetData.NPC_Odysseus =
 					{
 						PreLineWait = 0.4,
 						{ Cue = "/VO/Odysseus_0250", Text = "Avoid it at all costs?" },
+					},
+				},
+			},
+
+			OdysseusAboutTalos01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_MiniBoss01", },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
+
+				{ Cue = "/VO/Melinoe_3610", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "You know the great Olympian defender, Talos? One of the most ingenious inventions of Hephaestus, and a walking work of art... yet utterly unable to distinguish friend from foe." },
+				{ Cue = "/VO/Odysseus_0297",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
+					Text = "That disappointing lack of judgment allegedly is not an oversight. Olympus deploys Talos where they want {#Emph}no one {#Prev}to tread, and lately, their own mountain is that place." },
+				{ Cue = "/VO/Melinoe_3611", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Sometimes I think Olympus doesn't have the most cohesive plan for their defense. Isn't Lady Athena herself supposed to be in charge?" },
+				{ Cue = "/VO/Odysseus_0298",
+					Text = "Supposed to be, aye. You know your family, Goddess! In matters of importance, they all want to get involved." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3612", Text = "For their sake, I hope Talos isn't costly to repair." },
 					},
 				},
 			},
@@ -1832,14 +1961,13 @@ UnitSetData.NPC_Odysseus =
 
 				{ Cue = "/VO/Odysseus_0044",
 					Text = "You're really using that labrys, Goddess? Double-bladed axe thing. I mean you no offense, but isn't it a little much? Not even Ajax could have wielded that." },
-
 				{ Cue = "/VO/Melinoe_0059", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Weren't you the one who taught me to improvise, Odysseus? I'll use whatever means at my disposal. Who is Ajax?" },
-
 				{ Cue = "/VO/Odysseus_0045",
 					Emote = "PortraitEmoteSurprise",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Who is {#Emph}Ajax? {#Prev}Only the biggest lad I've ever met, {#Emph}who's Ajax{#Prev}. But I forget myself, for {#Emph}he {#Prev}didn't have the strength of Hades flowing through him. Or maybe it's your own. Good hunting." },
 				EndVoiceLines =
 				{
@@ -1876,13 +2004,12 @@ UnitSetData.NPC_Odysseus =
 					},
 				},
 				{ Cue = "/VO/Odysseus_0131",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "If I may be so bold, Goddess? You witches are reliant on your magick when it comes to fighting from afar. You ever think of taking up the bow again? I could give you some pointers..." },
-
 				{ Cue = "/VO/Melinoe_0480", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "We don't discuss the bow, Odysseus. I'm still recovering from the last time you gave me some of those pointers about it." },
-
 				{ Cue = "/VO/Odysseus_0132",
 					Text = "Ah, well. We all have our strengths and weaknesses. A single weakness in your case, perhaps." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1915,6 +2042,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I did. Down to the chambers near the bottom of the sea. Strange music echoing all through the place. I wasn't prepared." },
 				{ Cue = "/VO/Odysseus_0134",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Strange music, huh? Reminds me of when... {#Emph}erm{#Prev}. Oh, I'll spare the tales for another time, you've enough on your mind, I can tell." },
 				EndVoiceLines =
 				{
@@ -1925,7 +2054,10 @@ UnitSetData.NPC_Odysseus =
 						-- Doesn't count.
 						-- { Cue = "/VO/Melinoe_0481", Text = "Doesn't count." },
 					},
-					AreIdsAlive = { 556921 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 556921 }, },
+					},
 				},
 			},
 
@@ -1955,9 +2087,10 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_3318", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "A bit of a walk, fraught with soul-devouring daemons and other life-hating fiends. Too powerful to be imprisoned so they're free to wander there, something like that?" },
+					Text = "A bit of a walk, fraught with soul-devouring Daemons and other life-hating fiends. Too powerful to be imprisoned so they're free to wander there, something like that?" },
 				{ Cue = "/VO/Odysseus_0246",
-					Text = "We mortals just love the Fields, Goddess! A place to rid oneself of misery — or drown in it. A perfect spot for daemons, only {#Emph}some {#Prev}of which shall leave you be." },
+					PreLineAnim = "Odysseus_Explaining",
+					Text = "We mortals just love the Fields, Goddess! A place to rid oneself of misery — or drown in it. A perfect spot for Daemons, only {#Emph}some {#Prev}of which shall leave you be." },
 				EndVoiceLines =
 				{
 					{
@@ -1989,6 +2122,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That's what I gathered, yes. In Tartarus, he seeks his master... my father. Whom I happened upon, bound in chains! Chronos is torturing them... mocking them." },
 				{ Cue = "/VO/Odysseus_0259",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Chronos is using {#Emph}them {#Prev}to get at {#Emph}you. {#Prev}Instill in you emotions that compel you to throw caution to the wind. Remember, wars are won and lost in hearts and minds." },
 				{ Cue = "/VO/Melinoe_3329", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2064,6 +2198,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "She warded the pathway there, until such time as I had the means to pass through. But the climate on the surface is another matter..." },
 				{ Cue = "/VO/Odysseus_0209",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Your Underworld birthright stuff getting in the way? A curse not just a blessing, it would seem. Well, if your witchery got you this far, surely it can aid with this... predicament." },
 				EndVoiceLines =
 				{
@@ -2100,7 +2236,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I feel I could remind you at this point. Chronos has this vast fleet of ships drawn from the very depths, drowned crews and all. I had to commandeer whichever craft I could." },
 				{ Cue = "/VO/Odysseus_0240",
-
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "A proper nautical experience, then! Fraught with {#Emph}danger, mystery...! Ah{#Prev}, I feel a little envious of those drowned crews! After I died, I thought my sailing days were done." },
 				{ Cue = "/VO/Melinoe_3308", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2112,6 +2248,42 @@ UnitSetData.NPC_Odysseus =
 						PreLineWait = 0.4,
 						ObjectType = "NPC_Odysseus_01",
 						{ Cue = "/VO/Odysseus_0241", PreLineAnim = "Odysseus_Greet", Text = "Put in a good word for me would you?" },
+					},
+				},
+			},
+
+			OdysseusAboutOlympus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Intro" },
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Intro" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
+
+				{ Cue = "/VO/Odysseus_0295",
+					Text = "This may not be the best occasion to inform you but we've reason to believe the trouble brewing on Olympus is significantly worse than it appears. Not even the gods are fully aware. Unfortunately, neither are we..." },
+				{ Cue = "/VO/Melinoe_3608", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "The forces of Chronos attack nonstop, while the gods and their defenses hold them back... then it's a ruse for some especially dramatic gesture that the Titan has in store?" },
+				{ Cue = "/VO/Odysseus_0296",
+					PreLineAnim = "Odysseus_Greet",
+					Text = "My thoughts exactly. But have no fear, Goddess! I once fought alongside a great warrior who said {#Emph}fear is for the weak{#Prev}. I happen to think fear is for the living, but like most good things, it isn't healthy in abundance." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3609", Text = "Fear is for our enemies." },
 					},
 				},
 			},
@@ -2136,6 +2308,8 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "It was dreadful. The city of Ephyra is completely overrun. And, there's a blind Cyclops making sure no one gets out." },
 				{ Cue = "/VO/Odysseus_0031",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "Well, that all sounds entirely unfortunate. Blind Cyclops, {#Emph}eh? {#Prev}That must be Polyphemus. Gave him that scrape myself, way back. He still going on about eating people?" },
 				EndVoiceLines =
 				{
@@ -2168,6 +2342,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "Your old adversary Polyphemus wanted me to give you a message on his behalf. Though, come to think, I'm uncertain what he wanted me to say. Perhaps just... kick you savagely?" },
 				{ Cue = "/VO/Odysseus_0274",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "{#Emph}Eh{#Prev}, sounds like the Cyclops that I used to know all right. My crew and I, we were his captives for a while... and his food supply. I found a way to get us out of there, but it was ugly..." },
 				{ Cue = "/VO/Melinoe_3338", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2217,6 +2392,7 @@ UnitSetData.NPC_Odysseus =
 					Text = "He's territorial, though seems much more concerned with sleep and appetite than any other cause. So, you really blinded him, then...?" },
 				{ Cue = "/VO/Odysseus_0278",
 					PreLineWait = 0.35,
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "I did... and only wish he had {#Emph}another {#Prev}eye so that I could have done it {#Emph}twice{#Prev}. For evidently {#Emph}he {#Prev}is not remorseful in the least for what he did, and... as you {#Emph}plainly {#Prev}see, neither am I." },
 				EndVoiceLines =
 				{
@@ -2250,12 +2426,15 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "I encountered mighty Heracles on the surface. No mistaking him! Though I thought he was dead. He seemed very much alive, on the outside, anyway. And still in service to the gods..." },
 				{ Cue = "/VO/Odysseus_0211",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "The great {#Emph}Heracles... {#Prev}that's a complicated one. Part {#Emph}man{#Prev}, part {#Emph}god... {#Prev}part monster too, perhaps. The rules of death don't quite apply to him. What did he want? He give you any trouble?" },
 				{ Cue = "/VO/Melinoe_2221", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "He was quite brusque. Told me to stay out of his way. Sounds like he has a task of his own. Maybe Olympus isn't counting on me to succeed..." },
 				{ Cue = "/VO/Odysseus_0212",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "{#Emph}Eh, {#Prev}don't take it personally. You have wise relatives, and ruthless ones. They may not like their odds hinging on any one individual. And... do watch yourself with Heracles, aye?" },
 				EndVoiceLines =
 				{
@@ -2264,6 +2443,40 @@ UnitSetData.NPC_Odysseus =
 						UsePlayerSource = true,
 						RequiredMinElapsedTime = 2,
 						{ Cue = "/VO/Melinoe_2222", Text = "Aye..." },
+					},
+				},
+			},
+
+			OdysseusAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Boss01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
+
+				{ Cue = "/VO/Odysseus_0293",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					Text = "Prometheus opposes us... now {#Emph}that {#Prev}one hurts, Goddess. Amongst us mortals, he was quite popular. Beloved, even! Gave us the gift of fire. Practically made us who we are." },
+				{ Cue = "/VO/Melinoe_3606", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "And in so doing, he violated the will of Olympus. Supposedly he has the gift of foresight... he ought to have anticipated the consequences of his disobedience." },
+				{ Cue = "/VO/Odysseus_0294",
+					PreLineAnim = "Odysseus_Pensive_End",
+					Text = "What makes you think he didn't? All the more reason we admired him. He knew the cost of what he did for us, and paid it willingly, or... so I choose to think. But all that's in the past. If he's thrown in with Chronos now, he's lost his way." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_3607", Text = "He's done both." },
 					},
 				},
 			},
@@ -2292,12 +2505,14 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0147",
+					PreLineAnim = "Odysseus_Pensive_Start",
 					Text = "Goddess, I was just thinking of your travels, taking you beneath the surface and above, I reckon to the ends of the earth! No mere {#Emph}journey... {#Prev}got to be a better word for it..." },
 				{ Cue = "/VO/Melinoe_2195", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "What, is {#Emph}task {#Prev}not sufficiently extravagant? Perhaps {#Emph}assignment? {#Prev}Or {#Emph}voyage? Quest {#Prev}doesn't feel right at all..." },
 				{ Cue = "/VO/Odysseus_0148",
+					PreLineAnim = "Odysseus_Pensive_End",
 					Text = "No, too upbeat, and {#Emph}voyage {#Prev}is more of a nautical term.... {#Emph}Erm{#Prev}, we'll think of something." },
 				EndVoiceLines =
 				{
@@ -2330,12 +2545,14 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "How did you manage it, Odysseus? Back when you had the outcome of a full-scale war riding on you, then a treacherous sea-journey, all with only one life to live... or so then you thought?" },
 				{ Cue = "/VO/Odysseus_0137",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "For certain the one-life-to-live bit instilled in me the will to survive. Most mortals cling to life, but I was better than most at rejecting my doubts. And when my plans all fell apart, I improvised...!" },
 				{ Cue = "/VO/Melinoe_2175", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "{#Emph}Your {#Prev}plans fell apart? How did you avoid becoming distraught? Keep all your doubts at bay in the face of failure?" },
 				{ Cue = "/VO/Odysseus_0138",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "It's that I always relished finding a way out. No matter what I'd gotten myself into. Treating my predicaments as mazes to be navigated, puzzles to be solved..." },
 				{ Cue = "/VO/Melinoe_2176", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -2371,6 +2588,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You said you always believed there was a solution, a positive outcome that could be discovered and achieved... I've been thinking about that." },
 				{ Cue = "/VO/Odysseus_0141",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Good. But, it occurred to me there's something else. 'Twas love that drove me on. The great war that earned me my place in Elysium... I wanted {#Emph}desperately {#Prev}not to go. To stay with my wife and then-newborn son." },
 				{ Cue = "/VO/Melinoe_2178", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
@@ -2414,12 +2632,14 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "Sidetracked? Headmistress says that you spent many years at sea. Some of them in the company of goddesses, at that." },
 				{ Cue = "/VO/Odysseus_0038",
+					PreLineAnim = "Odysseus_Pensive_Start",
 					Text = "Yes, well. By the time I finally returned, I hardly recognized my son, and my wife... we lived out our mortal days together, and that was enough. I reckon they're comfortable somewhere below." },
 				{ Cue = "/VO/Melinoe_0454", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
 					Text = "You haven't seen them? What happened?" },
 				{ Cue = "/VO/Odysseus_0039",
+					PreLineAnim = "Odysseus_Pensive_End",
 					Text = "Penelope and I drifted apart. Happens with mortals, sometimes. And it happens with Shades too. As for my son Telemachus, he's his own man. Such is life. Or death, as it turns out." },
 				EndVoiceLines =
 				{
@@ -2447,6 +2667,7 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0155",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "{#Emph}Ah{#Prev}, I miss the feeling of the rain, sometimes. Then I remember years at sea, soaked to the bone, and thank the gods the blasted stuff can't get to me as once it did." },
 				{ Cue = "/VO/Melinoe_2179", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -2482,6 +2703,7 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0145",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "See Charon's latest haul, Goddess? Shipment by the riverside, all yours. And we're watching the rivers, making certain this won't be the last." },
 				{ Cue = "/VO/Melinoe_2335", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -2522,6 +2744,7 @@ UnitSetData.NPC_Odysseus =
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
 
 				{ Cue = "/VO/Odysseus_0265",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Your little garden there has cheered this old place up a bit, Goddess! In trying times, such simple pleasures oft are first to fade. Precisely when they're needed most." },
 				{ Cue = "/VO/Melinoe_3309", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -2544,6 +2767,91 @@ UnitSetData.NPC_Odysseus =
 				},
 			},
 
+			OdysseusAboutCosmetics01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "DoraGift01", "OdysseusGift01", "DoraListless03" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "OdysseusAboutCosmetics02" },
+					},
+					{
+						Path = { "GameState", "WorldUpgradesAdded" },
+						CountOf = GameData.AllPurchaseableCosmetics,
+						Comparison = "<=",
+						Value = 7,
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
+
+				{ Cue = "/VO/Odysseus_0183",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
+					Text = "That renewal project that we used to talk about? I still think of it all the time, these Crossroads flourishing with worldly delights...!" },
+				{ Cue = "/VO/Melinoe_3800", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I still think about it, too, and made some preliminary steps of late. The well-being of every last Shade in this place is important to our goal." },
+				{ Cue = "/VO/Odysseus_0184",
+					PreLineAnim = "Odysseus_Explaining",
+					Text = "But, we've more pressing matters now, it seems. What, you intend to stop fighting Chronos just to spruce up the surroundings here?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3801", Text = "Not exactly. I have a delegate in mind." },
+					},
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Odysseus_01",
+						{ Cue = "/VO/Odysseus_0185", Text = "Interesting..." },
+					},
+				},
+			},
+			OdysseusAboutCosmetics02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DoraGrantsCosmeticsShop01" },
+					},
+					{
+						Path = { "GameState", "WorldUpgradesAdded" },
+						CountOf = GameData.AllPurchaseableCosmetics,
+						Comparison = ">=",
+						Value = 10,
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
+
+				{ Cue = "/VO/Odysseus_0186",
+					PreLineAnim = "Odysseus_Explaining",
+					Text = "You've recruited that one shifty-looking Shade for the renewal project! A scrappy start is still a start, I'm... pleased to see it underway!" },
+				{ Cue = "/VO/Melinoe_3802", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I thought you might say that! It gives Dora something practical to do. And means the project needn't be a hopeless dream." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Odysseus_01",
+						PreLineAnim = "Odysseus_KnifeToss",
+						{ Cue = "/VO/Odysseus_0187", Text = "A sound plan, Goddess." },
+					},
+				},
+			},
+
 			OdysseusBackstory02 =
 			{
 				PlayOnce = true,
@@ -2555,7 +2863,10 @@ UnitSetData.NPC_Odysseus =
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusAboutMood01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "OdysseusAboutMood01" }, Min = 2 },
+					},
 					-- @ update with more requirements later
 				},
 				OnQueuedFunctionName = "OdysseusAtTaverna",
@@ -2567,7 +2878,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Come on, Odysseus, there was no escape from here when my father ruled. Are these Shades truly so impressionable?" },
 				{ Cue = "/VO/Odysseus_0179",
-					Text = "Oh I'm {#Emph}dead {#Prev}serious! My tales aren't... quite as tall as they may seem. But now, the gates of hell are flung wide open, aren't they...?" },
+					Text = "Oh I'm {#Emph}dead serious! {#Prev}My tales aren't... quite as tall as they may seem! But now, the gates of hell are flung wide open, aren't they...?" },
 				EndVoiceLines =
 				{
 					{
@@ -2599,7 +2910,10 @@ UnitSetData.NPC_Odysseus =
 						Comparison = ">=",
 						Value = 6,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusBackstory02" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "OdysseusBackstory02" }, Min = 2 },
+					},
 					-- @ update with more requirements later
 				},
 				OnQueuedFunctionName = "OdysseusAtTaverna",
@@ -2708,11 +3022,13 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Hecate_0201", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
 					Text = "The Tactician brings ill tidings with an optimistic bent. Fine. And what news from the men of the isles, if any yet survive?" },
 				{ Cue = "/VO/Odysseus_0042",
-					PreLineAnim = "Odysseus_Greet",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "According to my confidants, they've all sworn in with Chronos, I'm afraid. Mortals... they often want whatever they don't have. Another Golden Age, in this case. The {#Emph}promise {#Prev}of one." },
 				{ Cue = "/VO/Hecate_0202", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
 					Text = "'Tis a {#Emph}lie {#Prev}that spurs their betrayal, rather than a promise. They shall perish, then... by the wrath of the gods." },
 				{ Cue = "/VO/Odysseus_0043",
+					PreLineAnim = "Odysseus_Pensive_Start",
+					PostLineAnim = "Odysseus_Pensive_End",
 					Text = "And then their wretched souls shall hound us with renewed vengefulness. I've witnessed endless wars before, Madam. So have you gods. How can we stop this?" },
 				{ Cue = "/VO/Hecate_0203", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
 					Text = "{#Emph}We {#Prev}cannot. {#Emph}Melinoë{#Prev}, however? Certainly {#Emph}you {#Prev}can, correct?" },
@@ -2739,7 +3055,10 @@ UnitSetData.NPC_Odysseus =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "HecateGift01", "OdysseusGift01" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "OdysseusWithHecate01" }, Count = 4 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "OdysseusWithHecate01" }, Min = 4 },
+					},
 				},
 
 				PlayOnce = true,
@@ -2796,6 +3115,7 @@ UnitSetData.NPC_Odysseus =
 				InteractDistance = 450,
 
 				{ Cue = "/VO/Odysseus_0164",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "...I'm saying that the possibility exists, yes. Eternal vigilance is near impossible. Enemies have always exploited the lack thereof. I ever tell you of the old wooden horse trick?" },
 				{ Cue = "/VO/Nemesis_0135", Portrait = "Portrait_Nemesis_Default_01", Speaker = "NPC_Nemesis_01",
 					Text = "The old wooden horse trick, yeah. Surely your reputation as the Great Tactician hinges on more than this one tale?" },
@@ -2845,6 +3165,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0004",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You watch your back out there, all right?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2854,6 +3175,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0005",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Ready to take another stab at this, Goddess?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2872,6 +3194,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0007",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Got everything here well under control." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2881,6 +3204,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0008",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Courage, Goddess. And no quarter to your enemies, all right?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2926,6 +3250,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0013",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Be sure to hit them where it hurts for me, will you?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2944,6 +3269,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0015",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Death to Chronos and all that, aye?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2957,9 +3283,18 @@ UnitSetData.NPC_Odysseus =
 			},
 			OdysseusChat14 =
 			{
+				PlayFirst = true,
 				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "AnyMailboxReady" },
+					},
+				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
+
 				{ Cue = "/VO/Odysseus_0017",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Fresh shipment of supplies came in while you were out." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -2983,6 +3318,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0020",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Go forth and slaughter me some wretched traitors, will you, Goddess?" },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -3010,6 +3346,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0023",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "The Nightmare Goddess stands before me in all her glory..." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -3028,6 +3365,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0025",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You come back safely, else I'll have to venture out there and haul you in myself." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -3037,6 +3375,7 @@ UnitSetData.NPC_Odysseus =
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0026",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "You'll have your vengeance, Goddess. I am sure of it." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -3105,13 +3444,6 @@ UnitSetData.NPC_Odysseus =
 			OdysseusChat30 =
 			{
 				UseableOffSource = true,
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "OdysseusGift06" }
-					},
-				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0325",
 					Text = "Our Shades shall keep us well apprised of your progress." },
@@ -3148,6 +3480,7 @@ UnitSetData.NPC_Odysseus =
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Odysseus",
 				{ Cue = "/VO/Odysseus_0327",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "We'll back you on this every step of the way, as many nights as it requires, Goddess." },
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.OdysseusGreeting,
@@ -3178,6 +3511,7 @@ UnitSetData.NPC_Odysseus =
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Hey Odysseus, got you something here I wanted you to have. For always keeping an eye out!" },
 				{ Cue = "/VO/Odysseus_0087",
+					PreLineAnim = "Odysseus_Explaining",
 					Text = "Goddess, your presence alone is all I could ask. Though, if you're in a giving mood, then perhaps you'll accept a small gift from me, in turn?" },
 			},
 			OdysseusGift02 =
@@ -3191,7 +3525,7 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift01" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift01" },
 					},
 				},
 				{ Cue = "/VO/Odysseus_0088",
@@ -3212,7 +3546,7 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift02" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift02" },
 					},
 				},
 				{ Cue = "/VO/Odysseus_0089",
@@ -3233,7 +3567,7 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift03" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift03" },
 					},
 				},
 				{ Cue = "/VO/Odysseus_0090",
@@ -3254,10 +3588,11 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift04" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift04" },
 					},
 				},
 				{ Cue = "/VO/Odysseus_0091",
+					PreLineAnim = "Odysseus_KnifeToss",
 					Text = "Oh I see what you're up to, here, Goddess. If you continue to exploit my weakness to this stuff, I may yet learn to turn it to a strength. Good plan!" },
 				{ Cue = "/VO/Melinoe_0476", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -3275,7 +3610,7 @@ UnitSetData.NPC_Odysseus =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift05" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift05" },
 					},
 				},
 				{ Cue = "/VO/Odysseus_0092",
@@ -3307,6 +3642,11 @@ UnitSetData.NPC_Odysseus =
 					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
+					},
+					{
+						Path = { "CurrentRun", "GiftResourceRecord" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3342", UsePlayerSource = true,
@@ -3399,7 +3739,8 @@ UnitSetData.NPC_Odysseus =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0470", UsePlayerSource = true,
@@ -3421,7 +3762,7 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Odysseus_0252",
 					SkipContextArt = true,
 					PreLineAnim = "Odysseus_Greet",
-					Text = "{#Emph}Heh{#Prev}, well! You already know a couple of the points if for some reason we were tasked to make a list, but... the biggest difference, if I had to choose, is that... I finally am free." },
+					Text = "{#Emph}Heh{#Prev}, well! You already know a couple of those points if for some reason we were tasked to make a list, but... the biggest difference, if I had to choose, is that... I finally am free." },
 				{ Cue = "/VO/Melinoe_3323", UsePlayerSource = true,
 					SkipContextArt = true,
 					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
@@ -3466,11 +3807,12 @@ UnitSetData.NPC_Odysseus =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift01" },
+						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift04" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0462", UsePlayerSource = true,
@@ -3547,11 +3889,12 @@ UnitSetData.NPC_Odysseus =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift04" },
+						PathTrue = { "GameState", "TextLinesRecord", "OdysseusGift05" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0463", UsePlayerSource = true,
@@ -3578,7 +3921,7 @@ UnitSetData.NPC_Odysseus =
 				{ Cue = "/VO/Melinoe_3217", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Bath_01",
 					PortraitExitAnimation = "Portrait_Mel_Bath_01_Exit",
-					Text = "Circe used to study under Headmistress, always with her crystals. And Calypso... she's a nymph, correct? A lesser goddess I suppose." },
+					Text = "Circe used to study under Headmistress, always with her crystals. And Calypso... she's a Nymph, correct? A lesser goddess I suppose." },
 				{ Cue = "/VO/Odysseus_0061", Portrait = "Portrait_Odysseus_Bath_01",
 					PortraitExitAnimation = "Portrait_Odysseus_Bath_01_Exit",
 					Emote = "PortraitEmoteSurprise",
@@ -3638,25 +3981,29 @@ UnitSetData.NPC_Odysseus =
 						PathTrue = { "GameState", "UseRecord", "NPC_Odysseus_01" },
 					},
 					{
-						PathFalse = { "CurrentRun", "GiftResourceRecord", "GiftPointsEpic" },
+						Path = { "CurrentRun", "GiftResourceRecord" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
-					RequiredFalseQueuedTextLines = GameData.OdysseusTavernaEvents,
-				},
-				EndVoiceLines =
-				{
 					{
-						PreLineWait = 0.45,
-						UsePlayerSource = true,
-						-- Maybe some other time.
-						{ Cue = "/VO/Melinoe_0461", Text = "Maybe some other time." },
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsNone = GameData.OdysseusTavernaEvents, },
 					},
-				},				
+				},
 				{ Cue = "/VO/Melinoe_0460", UsePlayerSource = true,
 					Text = "Odysseus, how about alleviating the rigors of all this tactical planning with a visit to the springs?" },
 				{ Cue = "/VO/Odysseus_0046",
 					PreLineWait = 0.35,
 					PostLineThreadedFunctionName = "GiftPointRareRefundPresentation",
 					Text = "{#Emph}Erm, {#Prev}I really do appreciate the offer, Goddess, just... I think your Headmistress would rather I stay here. You understand, don't you?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.45,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_0461", Text = "Maybe some other time." },
+					},
+				},
 			},
 
 		},
@@ -3677,7 +4024,10 @@ UnitSetData.NPC_Odysseus =
 						Path = { "PreviousDeathAreaRoom", "Name" },
 						IsNone = { "Hub_PreRun" },
 					},
-					AreIdsNotAlive = { 557112 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 557112 }, Alive = false },
+					},
 				},
 
 				{ Cue = "/VO/Melinoe_1156", Text = "Odysseus on leave..." },

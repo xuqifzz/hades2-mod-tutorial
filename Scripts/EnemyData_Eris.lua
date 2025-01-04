@@ -6,7 +6,9 @@ UnitSetData.Eris =
 		Portrait = "Portrait_Eris_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.ErisVoice,
+		EmoteOffsetY = -205,
 		SpeakerName = "Eris",
+		FieldSpeakerName = "ErisField",
 		SpeechParams =
 		{
 			Radius = 1,
@@ -17,6 +19,8 @@ UnitSetData.Eris =
 		EmoteOffsetY = -220,
 
 		InvulnerableFx = "nil",
+		SkipDamagedFx = true,
+		SkipUnitHitFlash = true,
 
 		SpeechCooldownTime = 9,
 		SelfBuffDamage = 100, -- used for text
@@ -43,6 +47,7 @@ UnitSetData.Eris =
 		InvulnerableFx = "Invincibubble",
 		TextLinesUseWeaponIdle = true,
 
+		BurningHitReactionWeapon = "ErisRelocate_Up",
 		DefaultAIData =
 		{
 			--DashIfOverDistance = 600,
@@ -51,7 +56,7 @@ UnitSetData.Eris =
 			MoveWithinRangeTimeoutMin = 2.0,
 			MoveWithinRangeTimeoutMax = 3.0,
 		},
-		WeaponOptions = { "ErisSpray", "ErisGrenade", "ErisDash", "ErisFlyUp", "ErisSummonSelector" },
+		WeaponOptions = { "ErisSpray", "ErisGrenadeCluster01", "ErisDash", "ErisFlyUp", "ErisSummonSelector" },
 		--WeaponOptions = { "ErisSummonSelector3", "ErisSpray" },
 
 		PreBossAISetupFunctionName = "GenericPresentation",
@@ -63,7 +68,7 @@ UnitSetData.Eris =
 				RandomAIFunctionNames = { "AttackerAI" },
 				AIData =
 				{
-					AIEndHealthThreshold = 0.75,
+					AIEndHealthThreshold = 0.68,
 				},
 			},
 			{
@@ -84,10 +89,10 @@ UnitSetData.Eris =
 				},
 				AIData =
 				{
-					AIEndHealthThreshold = 0.5,
+					AIEndHealthThreshold = 0.36,
 				},
 				UnequipAllWeapons = true,
-				EquipWeapons = { "ErisSpreadFire", "ErisGrenadeCluster01", "ErisDash", "ErisFlyUp", "ErisSummonSelector" },
+				EquipWeapons = { "ErisSpreadFire", "ErisGrenadeCluster02", "ErisDash", "ErisFlyUp", "ErisSummonSelector" },
 			},
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
@@ -107,15 +112,15 @@ UnitSetData.Eris =
 				},
 				AIData =
 				{
-					AIEndHealthThreshold = 0.25,
+					AIEndHealthThreshold = 0.05,
 				},
 				UnequipAllWeapons = true,
-				EquipWeapons = { "ErisSpreadFire", "ErisGrenadeCluster02", "ErisDash", "ErisFlyUp", "ErisSummonSelector" },
+				EquipWeapons = { "ErisRelocateStrike", "ErisGrenadeCluster03", "ErisDash", "ErisFlyUp", "ErisSummonSelector2" },
 			},
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
-				FireWeapon = "ErisGrenadeSelfBuff",
+				FireWeapon = "ErisGrenadeSelfBuffFinal",
 				ClearEffects = true,
 				ThreadedEvents =
 				{
@@ -128,18 +133,6 @@ UnitSetData.Eris =
 						},
 					},
 				},
-				AIData =
-				{
-					AIEndHealthThreshold = 0.05,
-				},
-				UnequipAllWeapons = true,
-				EquipWeapons = { "ErisRelocateStrike", "ErisGrenadeCluster03", "ErisDash", "ErisFlyUp", "ErisSummonSelector2" },
-			},
-			{
-				RandomAIFunctionNames = { "AttackerAI" },
-				TransitionFunction = "BossStageTransition",
-				FireWeapon = "ErisGrenadeSelfBuffFinal",
-				ClearEffects = true,
 				AIData =
 				{
 					AIEndHealthThreshold = 0.0,
@@ -186,7 +179,7 @@ UnitSetData.Eris =
 				},
 				Cooldowns =
 				{
-					{ Name = "ErisSpokeRecently", Time = 8 },
+					{ Name = "ErisSpokeRecently", Time = 4 },
 					{ Name = "ErisLastStandReactionSpeech", Time = 20 },
 				},
 
@@ -201,7 +194,7 @@ UnitSetData.Eris =
 
 		InvulnerableVoiceLines =
 		{
-			[1] = GlobalVoiceLines.ErisInvulnerableVoiceLines,
+			{ GlobalVoiceLines = "ErisInvulnerableVoiceLines" },
 		},
 		ResistedVoiceLines =
 		{
@@ -289,19 +282,19 @@ UnitSetData.Eris =
 			},
 		},
 
-		OnKillVoiceLines =
+		BossKillVoiceLines =
 		{
 			Cooldowns =
 			{
 				{ Name = "BossVanquishedSpeech", Time = 60 },
 			},
-			[1] = GlobalVoiceLines.BarelySurvivedBossFightVoiceLines,
-			[2] =
+			{ GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 7.2,
-				SuccessiveChanceToPlayAll = 0.66,
+				SuccessiveChanceToPlay = 0.85,
+				SuccessiveChanceToPlayAll = 0.5,
 				UsePlayerSource = true,
 
 				{ Cue = "/VO/MelinoeField_1907", Text = "You started it.", PlayFirst = true },
@@ -360,7 +353,7 @@ UnitSetData.Eris =
 				{ Cue = "/VO/ErisField_0012",
 					PreLineThreadedFunctionName = "PlayErisTauntAnim", PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
-					Text = "Hate to break it to you, Trouble: Obstacles are things you're supposed to {#Emph}avoid. {#Prev}But in {#Emph}this {#Prev}channel, you're going to run into me {#Emph}every time." },
+					Text = "Hate to break it to you, Trouble: Obstacles are things you're supposed to {#Emph}avoid! {#Prev}But in {#Emph}this {#Prev}channel, you're going to run into me {#Emph}every time." },
 			},
 
 			ErisBossAboutMistakes01 =
@@ -571,6 +564,12 @@ UnitSetData.Eris =
 			},
 			ErisBossMiscStart16 =
 			{
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+					},
+				},
 				{ Cue = "/VO/ErisField_0139",
 					PreLineFunctionName = "StartBossRoomMusic",
 					PreLineThreadedFunctionName = "PlayErisTauntAnim", PreLineWait = 0.35,
@@ -629,7 +628,10 @@ UnitSetData.Eris =
 						Comparison = ">=",
 						Value = 0,
 					},
-					ConsecutiveDeathsInRoom = { Name = "O_Boss01", Count = 2 },
+					{
+						FunctionName = "RequiredConsecutiveDeathsInRoom",
+						FunctionArgs = { Name = "O_Boss01", Count = 2 },
+					},
 				},
 				{ Cue = "/VO/ErisField_0143",
 					PreLineFunctionName = "StartBossRoomMusic",

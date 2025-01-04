@@ -30,7 +30,7 @@ NamedRequirementsData =
 		},
 		{
 			Path = { "CurrentRun", "CurrentRoom", "Name", },
-			IsNone = { "F_PreBoss01", "F_Reprieve01", "G_PreBoss01", "G_Reprieve01", "H_PreBoss01", "I_Reprieve01", "O_PreBoss01", "O_Reprieve01" },
+			IsNone = { "F_PreBoss01", "F_Reprieve01", "G_PreBoss01", "G_Reprieve01", "I_Reprieve01", "O_PreBoss01", "O_Reprieve01", "P_PreBoss01" },
 		},
 		{
 			Path = { "CurrentRun", "CurrentRoom", "RoomSetName", },
@@ -56,16 +56,23 @@ NamedRequirementsData =
 			PathTrue = { "GameState", "EncountersOccurredCache", "GeneratedAnomalyB" },
 		},
 		{
+			Path = { "GameState", "TextLinesRecord" },
+			HasAny =
+			{
+				"ChronosReveal01B",
+				"ChronosRevealFollowUp",
+				"ChronosBossFirstMeeting",
+				"ChronosBossFirstMeeting_B",
+				"ChronosBossFirstMeeting_C",
+			},
+		},
+		{
 			Path = { "CurrentRun", "WorldUpgradesAdded" },
 			HasNone = { "WorldUpgradeQuestLog", "WorldUpgradeMorosUnlock" },
 		},
 		{
 			Path = { "CurrentRun", "SpeechRecord" },
 			HasNone = { "/VO/Melinoe_0564" },
-		},
-		{
-			Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-			IsNone = { "GeneratedAnomalyB" },
 		},
 		{
 			Path = { "PrevRun", "WorldUpgradesAdded" },
@@ -154,7 +161,10 @@ NamedRequirementsData =
 			Comparison = "<=",
 			Value = 0,
 		},
-		RequiredMaxHealthFraction = 0.5,
+		{
+			FunctionName = "RequiredHealthFraction",
+			FunctionArgs = { Comparison = "<=", Value = 0.5, },
+		},
 	},
 	HecateFamiliarsInHub =
 	{
@@ -172,6 +182,16 @@ NamedRequirementsData =
 		},
 		{
 			PathFalse = { "GameState", "WorldUpgradesAdded", "ScyllaAboutChlams02" },
+		},
+	},
+
+	ArachneBrooding =
+	{
+		{
+			PathTrue = { "GameState", "TextLinesRecord", "ArachneAboutGods01" },
+		},
+		{
+			PathFalse = { "GameState", "TextLinesRecord", " ArachneAboutGods05" },
 		},
 	},
 
@@ -210,6 +230,7 @@ NamedRequirementsData =
 		{
 			PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 		},
+		-- RequiredMinAnyTextLines counterpart example
 		{
 			Path = { "GameState", "TextLinesRecord" },
 			CountOf = { "ZeusAboutSurface01", "ZeusAboutSurface02", "HermesAboutSurface02", "AphroditeAboutSurface02", "AphroditeAboutSurface03", "PoseidonAboutSurface03" },
@@ -269,7 +290,10 @@ NamedRequirementsData =
 			Path = { "CurrentRun", "TextLinesRecord" },
 			HasNone = { "ChronosBossFirstMeeting" },
 		},
-		MinRunsSinceAnyTextLines = { TextLines = { "ChronosNightmare01" }, Count = 3 },
+		{
+			FunctionName = "RequireRunsSinceTextLines",
+			FunctionArgs = { TextLines = { "ChronosNightmare01" }, Min = 3 },
+		},
 	},
 	-- Flashback02 / Hades Flashback
 	Flashback02Unlocked =
@@ -290,7 +314,10 @@ NamedRequirementsData =
 			Path = { "CurrentRun", "TextLinesRecord" },
 			HasNone = { "MorosGrantsQuestLog", "MorosSecondAppearance", "ChronosBossFirstMeeting", "ChronosBossFirstMeeting_B", "ChronosBossFirstMeeting_C", "ChronosBossOutro01", "HadesFirstMeeting", "HadesFirstMeeting_B", "HadesFirstMeeting_C" },
 		},
-		MinRunsSinceAnyTextLines = { TextLines = { "HecateHideAndSeekIntro01" }, Count = 3 },
+		{
+			FunctionName = "RequireRunsSinceTextLines",
+			FunctionArgs = { TextLines = { "HecateHideAndSeekIntro01" }, Min = 3 },
+		},
 	},
 
 	MailboxUnlocked =
@@ -353,7 +380,10 @@ NamedRequirementsData =
 		{
 			PathTrue = { "GameState", "UseRecord", "NPC_Moros_01" },
 		},
-		MinRunsSinceAnyTextLines = { TextLines = { "MorosFirstMeeting" }, Count = 2 },
+		{
+			FunctionName = "RequireRunsSinceTextLines",
+			FunctionArgs = { TextLines = { "MorosFirstMeeting" }, Min = 2 },
+		},
 	},
 
 	UsedTimeSlowAgainstChronos =
@@ -366,15 +396,17 @@ NamedRequirementsData =
 	NarcissusInFields =
 	{
 		{
+			PathFalse = { "CurrentRun", "RoomsEntered", "G_Story01" }
+		},
+		{
 			PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutWaters03" },
 		},
 		{
 			Path = { "CurrentRun", "TextLinesRecord" },
 			HasNone = { "NarcissusAboutWaters03" },
 		},
-
 		{
-			PathFalse = { "GameState", "TextLinesRecord", "NarcissusWithEcho01" },
+			PathFalse = { "GameState", "TextLinesRecord", "NarcissusWithEcho02" },
 		},
 	},
 
@@ -442,15 +474,15 @@ NamedRequirementsData =
 			Value = 1
 		},
 	},
-	--[[
 	PackageBountyBiomeP =
 	{
 		{
-			Path = { "GameState", "EncountersOccurredCache", "Boss" },
+			Path = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
 			Comparison = ">=",
 			Value = 1
 		},
 	},
+	--[[
 	PackageBountyBiomeQ =
 	{
 		{
@@ -498,6 +530,11 @@ NamedRequirementsData =
 			Path = { "GameState", "ClearedUnderworldRunsCache" },
 			Comparison = ">=",
 			Value = 5,
+		},
+		{
+			Path = { "GameState", "ClearedSurfaceRunsCache" },
+			Comparison = ">=",
+			Value = 1,
 		},
 		NamedRequirements =  { "ShrineUnlocked" },
 	},
@@ -653,11 +690,11 @@ NamedRequirementsData =
 	{
 		{
 			Path = { "GameState", "TextLinesRecord" },
-			HasAll = { "DoraAboutChronos01", "DoraAboutTask01", "DoraListless03", "DoraGift01" },
+			HasAll = { "DoraListless03", "DoraGift01" },
 		},
 		{
-			Path = { "GameState", "WorldUpgradesAdded" },
-			HasAll = { "WorldUpgradeAltRunDoor" },
+			Path = { "GameState", "TextLinesRecord" },
+			HasAny = { "DoraAboutChronos01", "DoraAboutChronosBossW01" }
 		},
 		{
 			Path = { "PrevRun", "WorldUpgradesAdded" },
@@ -665,39 +702,40 @@ NamedRequirementsData =
 		},
 		{
 			Path = { "CurrentRun", "TextLinesRecord" },
-			HasNone = { "MorosGrantsQuestLog", "MorosSecondAppearance", "MorosGrantsSurfacePenaltyCure01", "ChronosNightmare01", "ChronosRevealFollowUp" },
+			HasNone = { "MorosGrantsSurfacePenaltyCure01", "ChronosNightmare01" },
 		},
-		-- @ currently impossible; Dora shall haunt you forever if you tamper with this
 		{
-			Path = { "GameState", "LifetimeResourcesGained", "MysteryResource" },
+			Path = { "GameState", "WorldUpgrades", },
+			CountOf = ScreenData.GhostAdmin.ItemCategories[1],
 			Comparison = ">=",
-			Value = 999,
+			Value = 40,
 		},
 	},
 	CosmeticsShopUnlocked =
 	{
 		{
-			-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeCosmeticsShops", },
-		},
-		{
 			PathTrue = { "GameState", "TextLinesRecord", "DoraGrantsCosmeticsShop01" },
-		},
-		-- @ currently impossible; Dora shall haunt you forever if you tamper with this
-		{
-			Path = { "GameState", "LifetimeResourcesGained", "MysteryResource" },
-			Comparison = ">=",
-			Value = 999,
 		},
 	},
 	CosmeticsShopNotUnlocked =
 	{
 		{
-			-- PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeCosmeticsShops", },
-		},
-		{
 			PathFalse = { "GameState", "TextLinesRecord", "DoraGrantsCosmeticsShop01" },
 		},
 	},
+	CosmeticsShopHasNewItems =
+	{
+		{
+			FunctionName = "HasNewCosmeticsAvailable",
+		}
+	},
+	CosmeticsShopHasUnpurchasedItems =
+	{
+		{
+			FunctionName = "HasUnpurchasedCosmetics",
+		},
+	},
+
 	GiftDropLootRequirements = 
 	{
 		{
@@ -724,10 +762,25 @@ NamedRequirementsData =
 	HammerLootRequirements = 
 	{
 		-- unlock requirements
-		RequiredMinAnyTextLines = { TextLines = { "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp", "ZeusFirstPickUp" }, Count = 4 },
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			CountOf =
+			{
+				"PoseidonFirstPickUp",
+				"DemeterFirstPickUp",
+				"HestiaFirstPickUp", 
+				"AphroditeFirstPickUp",
+				"ZeusFirstPickUp",
+			},
+			Comparison = ">=",
+			Value = 4,
+		},
 
 		-- run requirements
-		RequiredNotInStore = "WeaponUpgradeDrop",
+		{
+			FunctionName = "RequiredNotInStore",
+			FunctionArgs = { Name = "WeaponUpgradeDrop", },
+		},
 		{
 			PathFalse = { "CurrentRun", "LootTypeHistory", "WeaponUpgrade" },
 		},
@@ -736,10 +789,25 @@ NamedRequirementsData =
 	LateHammerLootRequirements = 
 	{
 		-- unlock requirements
-		RequiredMinAnyTextLines = { TextLines = { "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp", "ZeusFirstPickUp" }, Count = 3 },
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			CountOf =
+			{
+				"PoseidonFirstPickUp",
+				"DemeterFirstPickUp",
+				"HestiaFirstPickUp", 
+				"AphroditeFirstPickUp",
+				"ZeusFirstPickUp",
+			},
+			Comparison = ">=",
+			Value = 4,
+		},
 
 		-- run requirements
-		RequiredNotInStore = "WeaponUpgradeDrop",
+		{
+			FunctionName = "RequiredNotInStore",
+			FunctionArgs = { Name = "WeaponUpgradeDrop", },
+		},
 		{
 			Path = { "CurrentRun", "ClearedBiomes" },
 			Comparison = ">",
@@ -760,6 +828,58 @@ NamedRequirementsData =
 		},
 	},
 
+	HermesUpgradeRequirements =
+	{
+		-- unlock requirements
+		{
+			PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
+		},
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
+		},
+
+		-- run requirements
+		{
+			FunctionName = "RequiredNotInStore",
+			FunctionArgs = { Name = "ShopHermesUpgrade", },
+		},
+		{
+			Path = { "CurrentRun", "BiomeUseRecord", },
+			HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
+		},
+		{
+			Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
+			Comparison = "<=",
+			Value = 1,
+		},
+	},
+
+	SpellDropRequirements =
+	{
+		-- unlock requirements
+		{
+			Path = { "GameState", "TextLinesRecord" },
+			HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
+		},
+
+		-- run requirements
+		{
+			FunctionName = "RequiredNotInStore",
+			FunctionArgs = { Name = "SpellDrop", },
+		},
+		{
+			Path = { "CurrentRun", "CurrentRoom", "ChosenRewardType", },
+			IsNone = { "SpellDrop", },
+		},
+		{
+			PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
+		},
+		{
+			PathFalse = { "CurrentRun", "PendingSpellDrop" },
+		},
+	},
+
 	TalentLegal =
 	{
 		-- unlock requirements
@@ -770,7 +890,10 @@ NamedRequirementsData =
 		},
 
 		-- run requirements
-		RequiredNotInStore = "TalentDrop",
+		{
+			FunctionName = "RequiredNotInStore",
+			FunctionArgs = { Name = "TalentDrop", },
+		},
 		{
 			PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" },
 		},
@@ -788,12 +911,21 @@ NamedRequirementsData =
 			Value = 0,
 		},
 	},
+	MissingLastStand =
+	{
+		{
+			Path = { "CurrentRun", "Hero", "LastStands", },
+			UseLength = true,
+			Comparison = "<",
+			ValuePath = { "CurrentRun", "Hero", "MaxLastStands" },
+		},
+	},
 
 	NoHitShieldAvailable = 
 	{
 		{
 			Path = { "CurrentRun", "Hero", "TraitDictionary", },
-			HasNone = { "ReserveManaHitShieldBoon", "MinorHitShieldBoon" },
+			HasNone = { "ReserveManaHitShieldBoon" },
 		},
 	},
 
@@ -892,8 +1024,11 @@ NamedRequirementsData =
 			{
 				"ArtemisCombatIntro",
 				"ArtemisCombatF",
+				"ArtemisCombatF2",
 				"ArtemisCombatG",
+				"ArtemisCombatG2",
 				"ArtemisCombatN",
+				"ArtemisCombatN2",
 
 				"NemesisCombatIntro",
 				"NemesisCombatF",
@@ -904,9 +1039,20 @@ NamedRequirementsData =
 
 				"HeraclesCombatIntro",
 				"HeraclesCombatN",
+				"HeraclesCombatN2",
+				"HeraclesCombatO",
+				"HeraclesCombatO2",
+				"HeraclesCombatP",
+				"HeraclesCombatP2",
 				
 				"IcarusCombatIntro",
 				"IcarusCombatO",
+				"IcarusCombatO2",
+				"IcarusCombatP",
+				"IcarusCombatP2",
+
+				"AthenaCombatIntro",
+				"AthenaCombatP",
 			},
 			Comparison = "<=",
 			Value = 0,
@@ -940,8 +1086,10 @@ NamedRequirementsData =
 
 	AnyGhostAdminItemAffordable =
 	{
-		AnyAffordableItemInScreen = "GhostAdmin",
-		AnyAffordableItemDataStore = "WorldUpgradeData",
+		{
+			FunctionName = "RequireAffordableItemInScreen",
+			FunctionArgs = { Screen = "GhostAdmin", DataStore = "WorldUpgradeData", },
+		},
 	},
 
 	CatFamiliarReadyToRecruit =
@@ -955,10 +1103,117 @@ NamedRequirementsData =
 			PathTrue = { "GameState", "SpecialInteractRecord", "CatFamiliar" },
 		},
 		{
-			PathFalse = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked" },
+			PathFalse = { "GameState", "FamiliarsUnlocked", "CatFamiliar" },
 		},
 	},
 
+	RavenFamiliarReadyToRecruit =
+	{
+		{
+			Path = { "GameState", "Resources", "FamiliarPoints" },
+			Comparison = ">=",
+			Value = 1,
+		},
+		{
+			PathTrue = { "GameState", "SpecialInteractRecord", "RavenFamiliar" },
+		},
+		{
+			PathFalse = { "GameState", "FamiliarsUnlocked", "RavenFamiliar" },
+		},
+	},
+
+	HoundFamiliarReadyToRecruit =
+	{
+		{
+			Path = { "GameState", "Resources", "FamiliarPoints" },
+			Comparison = ">=",
+			Value = 1,
+		},
+		{
+			PathTrue = { "GameState", "SpecialInteractRecord", "HoundFamiliar" },
+		},
+		{
+			PathTrue = { "GameState", "TextLinesRecord", "HecateGrantsFamiliars01" },
+		},
+		{
+			PathFalse = { "GameState", "FamiliarsUnlocked", "HoundFamiliar" },
+		},
+	},
+
+	OlympusMusic1PlayedLast =
+	{
+		{
+			Path = { "GameState", "BiomeMusicLastFirstPlayed", "P", },
+			IsAny = { "/Music/IrisMusicOlympus1_MC" },
+		},
+		{
+			Path = { "CurrentRun", "BiomeMusicPlayCounts", "P" },
+			Comparison = "<=",
+			Value = 0,
+		},
+	},
+
+	T2Cosmetic =
+	{
+		{
+			Path = { "GameState", "WorldUpgradesAdded" },
+			CountOf = GameData.AllPurchaseableCosmetics,
+			Comparison = ">=",
+			Value = 5,
+		}
+	},
+	T3Cosmetic =
+	{
+		{
+			Path = { "GameState", "WorldUpgradesAdded" },
+			CountOf = GameData.AllPurchaseableCosmetics,
+			Comparison = ">=",
+			Value = 12,
+		}
+	},
+	T4Cosmetic =
+	{
+		{
+			Path = { "GameState", "WorldUpgradesAdded" },
+			CountOf = GameData.AllPurchaseableCosmetics,
+			Comparison = ">=",
+			Value = 25,
+		}
+	},
+	T5Cosmetic =
+	{
+		{
+			Path = { "GameState", "WorldUpgradesAdded" },
+			CountOf = GameData.AllPurchaseableCosmetics,
+			Comparison = ">=",
+			Value = 40,
+		}
+	},
+
+	OlympusMusic2PlayedLast =
+	{
+		{
+			Path = { "GameState", "BiomeMusicLastFirstPlayed", "P", },
+			IsAny = { "/Music/IrisMusicOlympus2_MC" },
+		},
+		{
+			Path = { "CurrentRun", "BiomeMusicPlayCounts", "P" },
+			Comparison = "<=",
+			Value = 0,
+		},
+	},
+
+	MinibossCountShrineUpgradeActive =
+	{
+		{
+			Path = { "GameState", "ShrineUpgrades", "MinibossCountShrineUpgrade" },
+			Comparison = ">=",
+			Value = 1,
+		},
+		{
+			PathFalse = { "CurrentRun", "ShrineUpgradesDisabled", "MinibossCountShrineUpgrade" },
+		},
+	},
 }
 
 DebugData = DebugData or {}
@@ -993,4 +1248,16 @@ DebugData.LegalGenericRequirementKeys = ToLookup(
 	"IsAny",
 	"FunctionName",
 	"FunctionArgs",
+	"HintId",
+})
+
+DebugData.LegalNonGenericRequirementKeys = ToLookup(
+{
+	"Skip",
+	"Force",
+	"ChanceToPlay",
+	"NamedRequirements",
+	"NamedRequirementsFalse",
+	"DeepInheritance",
+	"Append",
 })

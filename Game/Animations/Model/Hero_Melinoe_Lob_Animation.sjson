@@ -16,10 +16,6 @@
 		CreateAnimation = "LobSkullGlow"
 	}
 	{
-		Name = "WeaponLob_Hel"
-		GrannyModel = "WeaponLob_Hel_Mesh"
-	}
-	{
 		Name = "WeaponLob_Medea"
 		GrannyModel = "WeaponLob_Medea_Mesh"
 	}
@@ -33,7 +29,6 @@
 		GrannyModel = "WeaponLob_Mesh"
 		ExtraGrannyAnimations = 
 		[
-			{ Name = "WeaponLob_Hel" }
 			{ Name = "WeaponLob_Medea" }
 			{ Name = "WeaponLob_Persephone" }
 		]
@@ -114,6 +109,15 @@
 			{ Name = "Melinoe_Lob_Cast_Fire2" }
 			{ Name = "Melinoe_Lob_Cast_StartLoop" }
 			{ Name = "Melinoe_Lob_Cast_Fire" }
+			{ Name = "MelinoeCrossCastAntic" }
+			{ Name = "Melinoe_CrossCast_Start_Fast" }
+			{ Name = "MelinoeCrossCastCharge" }
+			{ Name = "MelinoeCrossCast" }
+			{ Name = "MelinoeCrossCastHold" }
+			{ Name = "Melinoe_ForwardCast_Start" }
+			{ Name = "Melinoe_ForwardCast_Fire" }
+			{ Name = "Melinoe_ForwardCast_FireLoop" }
+			{ Name = "Melinoe_ForwardCast_FireLoop2" }
 		]
 
 		Attachments =
@@ -157,9 +161,31 @@
 	}
 
 	{
+		Name = "LobSkullGlow_Medea"
+		InheritFrom = "LobSkullGlow"
+		Red = 1
+		Green = 0
+		Blue = 0
+		VisualFx = "LobSkullAmbientFx_Medea"
+	}
+
+	{
 		Name = "LobSkullGlowMovement"
 		InheritFrom = "LobSkullGlow"
 		VisualFx = "LobSkullMovementFx"
+		VisualFxIntervalMin = 0
+		VisualFxIntervalMax = 0
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 20
+	}
+
+	{
+		Name = "LobSkullGlowMovement_Medea"
+		InheritFrom = "LobSkullGlowMovement"
+		Red = 1
+		Green = 0
+		Blue = 0
+		VisualFx = "LobSkullMovementFx_Medea"
 	}
 
 	{
@@ -281,6 +307,75 @@
 		InheritFrom = "LobSkullMovementFxA"
 		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
 	}
+
+	{
+		Name = "LobSkullAmbientFx_Medea"
+		Random = [
+			{ Name = "LobSkullAmbientFxMedeaA" }
+			{ Name = "LobSkullAmbientFxMedeaB" }
+			{ Name = "LobSkullAmbientFxMedeaC" }
+			{ Name = "LobSkullAmbientFxMedeaD" }
+		]
+	}
+
+	{
+		Name = "LobSkullMovementFx_Medea"
+		Random = [
+			{ Name = "LobSkullMovementFxMedeaA" }
+			{ Name = "LobSkullMovementFxMedeaB" }
+			{ Name = "LobSkullMovementFxMedeaC" }
+			{ Name = "LobSkullMovementFxMedeaD" }
+		]
+	}
+
+	{
+		Name = "LobSkullAmbientFxMedeaA"
+		InheritFrom = "LobSkullAmbientFxA"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 0.01
+		OffsetZ = 15
+	}
+	{
+		Name = "LobSkullAmbientFxMedeaB"
+		InheritFrom = "LobSkullAmbientFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobSkullAmbientFxMedeaC"
+		InheritFrom = "LobSkullAmbientFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobSkullAmbientFxMedeaD"
+		InheritFrom = "LobSkullAmbientFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+	{
+		Name = "LobSkullMovementFxMedeaA"
+		InheritFrom = "LobSkullMovementFxA"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 0.01
+		OffsetZ = 15
+	}
+	{
+		Name = "LobSkullMovementFxMedeaB"
+		InheritFrom = "LobSkullMovementFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobSkullMovementFxMedeaC"
+		InheritFrom = "LobSkullMovementFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobSkullMovementFxMedeaD"
+		InheritFrom = "LobSkullMovementFxMedeaA"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+	
 
 		/* Lob Interact */
 	{

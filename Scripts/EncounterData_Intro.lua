@@ -73,15 +73,6 @@ OverwriteTableKeys( EncounterData,
 		},
 
 		ManualWaveTemplates = {},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "FishmanMeleeSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.FishmanMelee.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	FishSwarmerIntro =
@@ -132,15 +123,6 @@ OverwriteTableKeys( EncounterData,
 			},
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "FishSwarmerSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.FishSwarmer.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	TurtleIntro =
@@ -183,15 +165,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "TurtleSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Turtle.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	WaterUnitIntro =
@@ -233,15 +206,6 @@ OverwriteTableKeys( EncounterData,
 			StartDelay = 1,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "WaterUnitSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.WaterUnit.EnemyFirstEncounterVoiceLines,
-			}
 		},
 	},
 
@@ -320,17 +284,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		--[[
-		DistanceTriggers =
-		{
-			{
-				Name = "GuardSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Guard.EnemyFirstEncounterVoiceLines,
-			}
-		},
-		]]
 	},
 
 	LycanthropeIntro =
@@ -414,15 +367,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "LycanthropeSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 800,
-				VoiceLines = EnemyData.Lycanthrope.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	MournerIntro =
@@ -498,15 +442,6 @@ OverwriteTableKeys( EncounterData,
 			StartDelay = 0,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "MournerSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 800,
-				VoiceLines = EnemyData.Mourner.EnemyFirstEncounterVoiceLines,
-			}
 		},
 	},
 
@@ -594,15 +529,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "LamiaSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 800,
-				VoiceLines = EnemyData.Lamia.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	LovesickIntro =
@@ -679,15 +605,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "LovesickSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 800,
-				VoiceLines = EnemyData.Lovesick.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	MudmanIntro =
@@ -726,15 +643,6 @@ OverwriteTableKeys( EncounterData,
 			StartDelay = 1,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "MudmanSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Mudman.EnemyFirstEncounterVoiceLines,
-			}
 		},		
 	},
 
@@ -775,15 +683,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "ZombieSpawnerSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.ZombieSpawner.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	ZombieHeavyRangedIntro =
@@ -822,15 +721,6 @@ OverwriteTableKeys( EncounterData,
 			StartDelay = 1,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "ZombieHeavyRangedSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.ZombieHeavyRanged.EnemyFirstEncounterVoiceLines,
-			}
 		},
 	},
 
@@ -872,15 +762,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "ZombieAssassinSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.ZombieAssassin.EnemyFirstEncounterVoiceLines,
-			}
-		},		
 	},
 
 	ScimiterrorIntro =
@@ -924,17 +805,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		--[[
-		DistanceTriggers =
-		{
-			{
-				Name = "ScimiterrorSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Scimiterror.EnemyFirstEncounterVoiceLines,
-			}
-		},
-		]]--
 	},
 
 	HarpyCutterIntro =
@@ -978,17 +848,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		--[[
-		DistanceTriggers =
-		{
-			{
-				Name = "HarpyCutterSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.HarpyCutter.EnemyFirstEncounterVoiceLines,
-			}
-		},
-		]]--
 	},
 
 	WaterElementalIntro =
@@ -1032,17 +891,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		--[[
-		DistanceTriggers =
-		{
-			{
-				Name = "WaterEleSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.WaterElemental.EnemyFirstEncounterVoiceLines,
-			}
-		},
-		]]--
 	},
 
 	DrunkIntro =
@@ -1087,17 +935,6 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		--[[
-		DistanceTriggers =
-		{
-			{
-				Name = "DrunkSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Drunk.EnemyFirstEncounterVoiceLines,
-			}
-		},
-		]]--
 	},
 
 	Mage2Intro =
@@ -1141,16 +978,310 @@ OverwriteTableKeys( EncounterData,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
+	},
 
-		--[[
+	DragonIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedP" },
+		DifficultyModifier = 80,
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = false,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "Dragon",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+
+		ManualWaveTemplates = {},
+		WaveTemplate =
+		{
+			Spawns =
+			{
+				{
+					Name = "Dragon",
+					Generated = true
+				}
+			},
+			StartDelay = 1,
+			OverrideValues = IntroWaveOverrideValues,
+			RequireCompletedIntro = true,
+		},
+	},
+
+	SapperIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedP" },
+		DifficultyModifier = 80,
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = false,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrSapper",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+
+		ManualWaveTemplates = {},
+		WaveTemplate =
+		{
+			Spawns =
+			{
+				{
+					Name = "SatyrSapper",
+					Generated = true
+				}
+			},
+			StartDelay = 1,
+			OverrideValues = IntroWaveOverrideValues,
+			RequireCompletedIntro = true,
+		},
+	},
+
+	AutomatonBeamerIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedP" },
+		DifficultyModifier = 80,
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = false,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonBeamer",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+
+		ManualWaveTemplates = {},
+		WaveTemplate =
+		{
+			Spawns =
+			{
+				{
+					Name = "AutomatonBeamer",
+					Generated = true
+				}
+			},
+			StartDelay = 1,
+			OverrideValues = IntroWaveOverrideValues,
+			RequireCompletedIntro = true,
+		},
+
 		DistanceTriggers =
 		{
 			{
-				Name = "Mage2SightedVoiceLines",
+				Name = "OlympusAutomatonSightedVoiceLines",
 				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Mage2.EnemyFirstEncounterVoiceLines,
+				VoiceLines = { GlobalVoiceLines = "AutomatonReactionLines" },
 			}
 		},
-		]]--
+	},
+
+	AutomatonEnforcerIntro =
+	{
+		InheritFrom = { "BaseIntroEncounter", "GeneratedP" },
+		DifficultyModifier = 80,
+		MinWaves = 2,
+		MaxWaves = 2,
+		ActiveEnemyCapBase = 4,
+		ActiveEnemyCapMax = 8.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		WaveStartUnthreadedEvents = {},
+
+		PreSpawnEnemies = false,
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer",
+						CountMin = 2,
+						CountMax = 2,
+					},
+				},
+				StartDelay = 0
+			},
+		},
+
+		ManualWaveTemplates = {},
+		WaveTemplate =
+		{
+			Spawns =
+			{
+				{
+					Name = "AutomatonEnforcer",
+					Generated = true
+				}
+			},
+			StartDelay = 1,
+			OverrideValues = IntroWaveOverrideValues,
+			RequireCompletedIntro = true,
+		},
+
+		DistanceTriggers =
+		{
+			{
+				Name = "OlympusAutomatonSightedVoiceLines",
+				TriggerGroup = "EnemyTeam", WithinDistance = 600,
+				VoiceLines = { GlobalVoiceLines = "AutomatonReactionLines" },
+			}
+		},
+	},
+
+	OlympusIntro =
+	{
+		InheritFrom = { "GeneratedP_PreCombat" },
+		AlwaysForce = true,
+
+		EncounterRoomRewardOverride = "nil",
+		
+		ActiveEnemyCapBase = 10.0,
+		ActiveEnemyCapMax = 10.0,
+		ActiveEnemyCapDepthRamp = 1.0,
+
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "GameState", "EncountersCompletedCache", "OlympusIntro" },
+			},
+		},
+
+		SpawnIntervalMin = 0.175,
+		SpawnIntervalMax = 0.225,
+
+		RandomizeAmbientBattleDamagePerGroup =
+		{
+			GroupNames = { "ChronosForces" },
+			BattleDamageDataOptions =
+			{
+				{ Min = 0.05, Max = 0.5 },
+			},
+		},
+		SpawnOverrides = {},
+
+		SpawnWaves =
+		{
+			{
+				Spawns =
+				{
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 1,
+						SpawnOnIds = { 763025, },
+						SpawnOverrides = { AIOptions = { "AmbientBattleAggroAI" }, },
+						ForceFirst = true,
+					},
+					{
+						Name = "SentryBot",
+						TotalCount = 3,
+						SpawnOnIds = { 763068, 763069, 763070, },
+						SpawnOverrides = { AIOptions = { "AmbientBattleAggroAI" }, },
+						ForceFirst = true,
+					},
+					{
+						Name = "AutomatonBeamer",
+						TotalCount = 1,
+						SpawnOnIds = { 763079, },
+						SpawnOverrides = { AIOptions = { "AmbientBattleAggroAI" }, },
+						ForceFirst = true,
+					},
+					{
+						Name = "ZombieOlympus",
+						TotalCount = 25,
+						SpawnDefaultAIDataOverrides = { TeleportToBattleFoeChance = 0.0 },
+						SpawnOnIds = { 763053, 763054, 763056, 763065, 763044, 763041, 763042, 763039, 763082, 763084, 763086, 763064, 763046, 763033, 763031, },
+						SpawnOverrides = { AIOptions = { "AmbientBattleAggroAI" }, PreferredSpawnPoint = "EnemyPointRanged", },
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "SatyrSapper",
+						TotalCount = 1,
+						SpawnOverrides = { SpawnAggroed = true },
+					},
+					{
+						Name = "ZombieOlympus",
+						TotalCount = 6,
+						SpawnOverrides = { SpawnAggroed = true },
+					},
+				},
+				StartDelay = 0
+			},
+			{
+				Spawns =
+				{
+					{
+						Name = "SentryBot",
+						TotalCount = 5,
+						SpawnOverrides = { SpawnAggroed = true },
+					},
+					{
+						Name = "AutomatonEnforcer",
+						TotalCount = 2,
+						SpawnOverrides = { SpawnAggroed = true },
+					},
+
+				},
+				StartDelay = 0,
+				EnableRoomTraps = true,
+				StartGlobalVoiceLines = "AutomatonAttackReactionLines",
+			},
+		},
+
+		ManualWaveTemplates = {},
 	},
 })

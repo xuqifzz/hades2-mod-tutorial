@@ -110,7 +110,9 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 
 		local doorBIconId = SpawnObstacle({ Name = "RoomRewardPreview", Group = "Combat_UI", DestinationId = exitDoor.ObjectId,
 			OffsetX = doorIconOffsetX + doorIconIsometricShiftX - 18, OffsetY = doorIconOffsetY,  OffsetZ = doorIconOffsetZ + doorIconIsometricShiftZ - 20 })
-		animName = LootData[room.Encounter.LootBName].DoorIcon
+		if room.Encounter.LootBName ~= nil then
+			animName = LootData[room.Encounter.LootBName].DoorIcon
+		end
 		SetAnimation({ DestinationId = doorBIconId, Name = animName })
 		SetScale({ Id = doorBIconId, Fraction = 0.85 })
 		exitDoor.AdditionalIcons[animName] = doorBIconId
@@ -141,21 +143,46 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 	local subIcons = {}
 
 	if not rewardHidden then
+		local hasForgetMeNot = false
 		local itemData = ConsumableData[chosenRewardType]
 		if itemData ~= nil and itemData.AddResources ~= nil then
+			local hasEnoughForPins = true
 			for resourceName, amount in pairs( itemData.AddResources ) do
-				if HasPinWithResource( resourceName ) then
-					table.insert( subIcons, "RoomRewardSubIcon_ForgetMeNot" )
+				local amountNeededByPins = GetResourceAmountNeededByPins( resourceName )
+				if amountNeededByPins > 0 then
+					hasForgetMeNot = true
+					if not HasResource( resourceName, amountNeededByPins ) then
+						hasEnoughForPins = false
+						break
+					end
 				end
+			end
+			if hasForgetMeNot then
+				local forgetMeNotIconData = { Name = "RoomRewardSubIcon_ForgetMeNot" }
+				if hasEnoughForPins then
+					forgetMeNotIconData.Animation = "RoomRewardSubIcon_ForgetMeNot_Complete"
+				end
+				table.insert( subIcons, forgetMeNotIconData )
 			end
 		end
 
 		local existingIconId = exitDoor.AdditionalIcons.RoomRewardSubIcon_ForgetMeNot
 		if existingIconId ~= nil then
-			if Contains( subIcons, "RoomRewardSubIcon_ForgetMeNot" ) then
+			if hasForgetMeNot then
 				SetAlpha({ Id = existingIconId, Fraction = 1.0, Duration = 0.2 })
 			else
 				SetAlpha({ Id = existingIconId, Fraction = 0.0, Duration = 0.2 })
+			end
+		end
+
+		if chosenRewardType == "Boon" or chosenRewardType == "HermesUpgrade" then
+			local boonSkipRank = GetNumShrineUpgrades( "BoonSkipShrineUpgrade" )
+			local roomSetName = room.RoomSetName
+			if room.UsePreviousRoomSet then
+				roomSetName = CurrentRun.CurrentRoom.RoomSetName
+			end
+			if boonSkipRank > (CurrentRun.BiomeBoonSkips[roomSetName] or 0) then
+				table.insert( subIcons, { Name = "RoomRewardSubIcon_Onion" } )
 			end
 		end
 	end
@@ -164,26 +191,26 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 	local iconGroup = "Combat_UI_World"
 	if HasHeroTraitValue( "AddDoorDetail" ) then
 		if Contains( room.LegalEncounters, "HealthRestore" ) then
-			table.insert( subIcons, "ExtraLifeHeart" )
+			table.insert( subIcons, { Name = "ExtraLifeHeart" } )
 		end
 		if room.HarvestPointsAllowed > 0 then
-			table.insert( subIcons, "GatherIcon" )
+			table.insert( subIcons, { Name = "GatherIcon" } )
 		end
 		if room.ShovelPointSuccess and HasAccessToTool( "ToolShovel" ) then
-			table.insert( subIcons, "ShovelIcon" )
+			table.insert( subIcons, { Name = "ShovelIcon" } )
 		end
 		if room.FishingPointSuccess and HasAccessToTool( "ToolFishingRod" ) then
-			table.insert( subIcons, "FishingIcon" )
+			table.insert( subIcons, { Name = "FishingIcon" } )
 		end
 		if room.PickaxePointSuccess and HasAccessToTool( "ToolPickaxe" ) then
-			table.insert( subIcons, "PickaxeIcon" )
+			table.insert( subIcons, { Name = "PickaxeIcon" } )
 		end
 		if room.ExorcismPointSuccess and HasAccessToTool( "ToolExorcismBook" ) then
-			table.insert( subIcons, "ExorcismIcon" )
+			table.insert( subIcons, { Name = "ExorcismIcon" } )
 		end
 	end
 	if room.RewardPreviewIcon ~= nil and not HasHeroTraitValue( "HiddenRoomReward" ) then
-		table.insert( subIcons, room.RewardPreviewIcon )
+		table.insert( subIcons, { Name = room.RewardPreviewIcon } )
 	end
 	local hasQuestIcon = false
 	local encountersChecked = {}
@@ -206,7 +233,7 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 		end
 	end
 	if hasQuestIcon then
-		table.insert( subIcons, "RoomRewardSubIcon_FatedList" )
+		table.insert( subIcons, { Name = "RoomRewardSubIcon_FatedList" } )
 	end
 
 	local iconSpacing = 60
@@ -215,8 +242,8 @@ function CreateDoorRewardPreview( exitDoor, chosenRewardType, chosenLootName, in
 	if numSubIcons % 2 == 0 then
 		isoOffset = isoOffset - (iconSpacing / 2)
 	end
-	for i, iconName in ipairs( subIcons ) do
-		AddDoorInfoIcon({ Door = exitDoor, DoorIconId = doorIconId, Group = iconGroup, IsoOffset = isoOffset, Name = iconName, ReUseIds = args.ReUseIds })
+	for i, iconData in ipairs( subIcons ) do
+		AddDoorInfoIcon({ Door = exitDoor, DoorIconId = doorIconId, Group = iconGroup, IsoOffset = isoOffset, Name = iconData.Name, Animation = iconData.Animation or iconData.Name, ReUseIds = args.ReUseIds })
 		isoOffset = isoOffset + iconSpacing
 	end
 
@@ -245,7 +272,7 @@ function AddDoorInfoIcon( args )
 		local offset = CalcOffset( math.rad( offsetAngle ), args.IsoOffset )
 		Attach({ Id = iconId, DestinationId = args.DoorIconId, OffsetZ = -100, OffsetX = offset.X, OffsetY = offset.Y })
 	end
-	SetAnimation({ DestinationId = iconId, Name = args.Name })
+	SetAnimation({ DestinationId = iconId, Name = args.Animation })
 	exitDoor.AdditionalIcons[args.Name] = iconId
 end
 

@@ -24,6 +24,7 @@ OverwriteTableKeys( ObstacleData, {
 
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 500,
 			VoiceLines =
 			{
@@ -111,10 +112,15 @@ OverwriteTableKeys( ObstacleData, {
 					RandomRemaining = true,
 					PreLineWait = 0.35,
 					SuccessiveChanceToPlay = 0.5,
+					SuccessiveChanceToPlayAll = 0.1,
 					GameStateRequirements =
 					{
 						{
 							PathEmpty = { "RequiredKillEnemies" },
+						},
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name" },
+							IsNone = { "H_Bridge01" },
 						},
 					},
 					Cooldowns =
@@ -189,12 +195,34 @@ OverwriteTableKeys( ObstacleData, {
 		UnlockedAnimation = "FieldsBossDoorOpen",
 		--ExitDoorOpenAnimation = "FieldsExitDoorUsed",
 		--ExitDoorCloseAnimation = "Blank",
+
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 800,
+			GameStateRequirements =
+			{
+				{
+					PathEmpty = { "RequiredKillEnemies" },
+				},
+				-- backwards compatibility
+				{
+					PathFalse = { "GameState", "RoomsEntered", "H_PostBoss01" },
+				},
+			},
+			VoiceLines =
+			{
+				PlayOnce = true,
+				{ Cue = "/VO/MelinoeField_0945", Text = "He was guarding the gates..." },
+			},
+		},
 	},
 
 	FieldsTerrainGoldenLeaves01a =
 	{
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 300,
 			VoiceLines =
 			{
@@ -204,6 +232,8 @@ OverwriteTableKeys( ObstacleData, {
 					UsePlayerSource = true,
 					BreakIfPlayed = true,
 					RandomRemaining = true,
+					SuccessiveChanceToPlay = 0.5,
+					SuccessiveChanceToPlayAll = 0.1,
 					GameStateRequirements =
 					{
 						{
@@ -219,6 +249,7 @@ OverwriteTableKeys( ObstacleData, {
 									"H_Intro",
 									"H_Combat02",
 									"H_Combat09",
+									"H_Combat12",
 									"H_Combat13",
 									"H_Combat14",
 									"H_Combat15",
@@ -241,7 +272,7 @@ OverwriteTableKeys( ObstacleData, {
 						{
 							Path = { "GameState", "FieldsRewardFindersActivated" },
 							Comparison = "<=",
-							Value = 12,
+							Value = 10,
 						},
 					},
 					Cooldowns =
@@ -357,6 +388,7 @@ OverwriteTableKeys( ObstacleData, {
 
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 650,
 			VoiceLines =
 			{
@@ -459,6 +491,7 @@ OverwriteTableKeys( ObstacleData, {
 				FireAsPlayerProjectile = true,
 				FireProjectileAtSelf = true,
 				FireFromTarget = true,
+				SkipCanAttack = true,
 			},
 		},
 	},
@@ -484,6 +517,7 @@ OverwriteTableKeys( ObstacleData, {
 	{
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 500,
 			VoiceLines =
 			{

@@ -1,0 +1,388 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Icarus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Icarus_Idle"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleGround_C_00"
+		Loop = true
+	}
+
+	// Turn
+
+	{
+		Name = "Icarus_Turn"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleGroundToIdleInAir_C_00"
+		ChainTo = "Icarus_Turn2"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 3
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 11
+				FrameSpeed = 1
+			}
+			{
+				Frame = 28
+				Sound = "/Leftovers/SFX/WingFlapMedium"
+			}
+			{
+				Frame = 36
+				FrameSpeed = 0
+			}
+			{
+				Frame = 38
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+		]
+	}
+
+	{
+		Name = "Icarus_Turn2"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleInAirToIdleGround_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Turn"
+				Duration = 10
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 28
+				FrameSpeed = 1
+			}
+		]
+	}
+
+
+	// FlyExit
+	{
+		Name = "Icarus_FlyExit_Landing"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_EnterExitLanding_C_00"
+		ChainTo = "Icarus_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/World Sounds/CaravanFallWhoosh"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+			}
+			{
+				Frame = 16
+				Sound = "/Leftovers/SFX/FootstepsWheat2"
+			}
+		]
+	}
+	{
+		Name = "Icarus_FlyExit_TakeOff"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_EnterExitTakeOff_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/Leftovers/World Sounds/PickUpFlyAwayRIGHT"
+			}
+			{
+				Frame = 20
+				CreateAnimation = "IcarusExitStreak"
+			}
+		]
+	}
+
+	// Salute
+	{
+		Name = "Icarus_Salute"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_Salute_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Icarus_Explaining_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_ExplainingStart_C_00"
+		ChainTo = "Icarus_Explaining_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Explaining_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_ExplainingLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Explaining_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_ExplainingReturnToIdle_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Explaining_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Flustered
+	{
+		Name = "Icarus_Flustered_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlusteredStart_C_00"
+		ChainTo = "Icarus_Flustered_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Flustered_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlusteredLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Flustered_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlusteredReturnToIdle_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Flustered_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Pensive
+	{
+		Name = "Icarus_Pensive_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_PensiveStart_C_00"
+		ChainTo = "Icarus_Pensive_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Pensive_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_PensiveLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Pensive_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_PensiveReturnToIdle_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Pensive_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Offer
+	{
+		Name = "Icarus_Offer_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_OfferStart_C_00"
+		ChainTo = "Icarus_Offer_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Offer_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_OfferLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Offer_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_OfferReturnToIdle_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Offer_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Hovers
+	{
+		Name = "Icarus_Hover_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleGroundToIdleInAir_C_00"
+		ChainTo = "Icarus_Hover_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Hover_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleInAir_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Hover_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_IdleInAirToIdleGround_C_00"
+		ChainTo = "Icarus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Hover_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Flying
+	{
+		Name = "Icarus_Fly_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlyForwardStart_C_00"
+		ChainTo = "Icarus_Fly_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Hover_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Fly_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlyForwardLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Fly_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_FlyForwardStop_C_00"
+		ChainTo = "Icarus_Hover_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Fly_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Bombing
+	{
+		Name = "Icarus_Bomb_Start"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_AttackBombsStart_C_00"
+		ChainTo = "Icarus_Bomb_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Fly_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Icarus_Bomb_FireLoop"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_AttackBombsFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Icarus_Bomb_End"
+		InheritFrom = "NPCIcarusBaseAnimation"
+		GrannyAnimation = "Icarus_Base_AttackBombsReturnToFlyForward_C_00"
+		ChainTo = "Icarus_Fly_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Icarus_Bomb_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+]}

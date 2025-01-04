@@ -1,42 +1,4 @@
-﻿function OpenMetaUpgradeCardPromptScreen( parentScreen, args )
-	args = args or {}
-	local screen = DeepCopyTable( ScreenData.MetaUpgradeCardPromptLayout )
-	local components = screen.Components
-	screen.ParentScreen = parentScreen
-	OnScreenOpened( screen )
-	CreateScreenFromData( screen, screen.ComponentData )
-	if args.CustomText then
-		GameState.PromptCustomTextViewed[args.CustomText] = true
-		ModifyTextBox({ Id = components.Background.Id, Text = args.CustomText })
-	end
-	if args.CustomConfirmText then
-		ModifyTextBox({ Id = components.ConfirmButton.Id, Text = args.CustomConfirmText })
-	end
-	if args.CustomCancelText then
-		ModifyTextBox({ Id = components.CloseButton.Id, Text = args.CustomCancelText })
-	end
-	if args.CenterText then
-		Destroy({ Id = components.ConfirmButton.Id })
-		Destroy({ Id = components.CloseButton.Id })
-		ModifyTextBox({ Id = components.CenteredButton.Id, Text = args.CustomCancelText or args.CustomConfirmText })
-		TeleportCursor({ DestinationId = components.CenteredButton.Id, ForceUseCheck = true })
-	else
-		Destroy({ Id = components.CenteredButton.Id })
-		TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
-	end
-	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
-	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.3 })
-	wait(0.3)
-
-
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
-	screen.KeepOpen = true
-	HandleScreenInput( screen )
-	end
-
-
-function CancelExitMetaUpgradeCardPrompt( screen )
+﻿function CancelExitMetaUpgradeCardPrompt( screen )
 	CloseMetaUpgradeCardPromptScreen( screen )
 end
 
@@ -54,25 +16,27 @@ function CloseMetaUpgradeCardPromptScreen( screen )
 	notifyExistingWaiters("CardPromptScreenClosed")
 end
 
-function OpenGraspLimitScreen( parentScreen, useAltText )
+function OpenGraspLimitScreen( parentScreen, args )
 	args = args or {}
 	local screen = DeepCopyTable( ScreenData.GraspLimitLayout )
 	local components = screen.Components
 	screen.ParentScreen = parentScreen
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
-	if useAltText then
+	if args.UnlockedCards then
 		ModifyTextBox({ Id = components.TitleText.Id, Text = "MetaUpgradeTable_UnableToEquip_Alt"})
 		ModifyTextBox({ Id = components.DescriptionText.Id, UseDescription = true, Text = "MetaUpgradeTable_UnableToEquip_Alt"})
+	elseif args.CanAfford then
+		ModifyTextBox({ Id = components.TitleText.Id, Text = "MetaUpgradeTable_UnableToEquip_Alt2"})
+		ModifyTextBox({ Id = components.DescriptionText.Id, UseDescription = true, Text = "MetaUpgradeTable_UnableToEquip_Alt2"})
 	end
 	TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.3 })
 	wait(0.3)
 
-
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 end
@@ -91,13 +55,12 @@ function OpenBelowLimitScreen( parentScreen )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.3 })
 	wait(0.3)
 
-
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 end
@@ -124,13 +87,12 @@ function OpenNoUpgradeInfoScreen( parentScreen )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.3 })
 	wait(0.3)
 
-
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 end
@@ -157,13 +119,12 @@ function OpenCardUpgradeInfoScreen( parentScreen )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	TeleportCursor({ DestinationId = components.CloseButton.Id, ForceUseCheck = true })
+	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	SetColor({ Id = components.BackgroundTint.Id, Color = Color.Black })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.0, Duration = 0 })
 	SetAlpha({ Id = components.BackgroundTint.Id, Fraction = 0.9, Duration = 0.3 })
 	wait(0.3)
 
-
-	SetConfigOption({ Name = "ExclusiveInteractGroup", Value = "Combat_Menu_TraitTray" })
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 end

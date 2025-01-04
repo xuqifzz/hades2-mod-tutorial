@@ -39,7 +39,6 @@ LootSetData.Demeter =
 		SpeakerName = "Demeter",
 		Speaker = "NPC_Demeter_01",
 		Portrait = "Portrait_Demeter_Default_01",
-		WrathPortrait = "Portrait_Demeter_Wrath_01",
 		OverlayAnim = "DemeterOverlay",
 		Gender = "Female",
 		FlavorTextIds =
@@ -68,11 +67,11 @@ LootSetData.Demeter =
 			"CastAttachBoon",
 			"RootDurationBoon",
 
-			-- Legendary
-			"InstantRootKill",
-
 			-- Elemental
 			"ElementalDamageCapBoon",
+
+			-- Legendary
+			"InstantRootKill",
 
 			-- Duos
 			"RootStrikeBoon",
@@ -134,8 +133,8 @@ LootSetData.Demeter =
 				
 				{ Cue = "/VO/Melinoe_0649", Text = "Grandmother..." }
 			},
-			[2] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
-			[3] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[2] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			[3] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -145,7 +144,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "RootStrikeBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "RootStrikeBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0099",
@@ -162,7 +164,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "KeepsakeLevelBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "KeepsakeLevelBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0101",
@@ -179,7 +184,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "GoodStuffBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "GoodStuffBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0071",
@@ -197,7 +205,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "StormSpawnBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "StormSpawnBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0103",
@@ -215,7 +226,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MaxHealthDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MaxHealthDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0105",
@@ -232,7 +246,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ClearRootBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ClearRootBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0107",
@@ -249,11 +266,14 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnConsumeBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BurnConsumeBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0109",
-					Text = "Your Great Aunt Hestia is not exactly as she {#Emph}seems. {#Prev}In olden times, she was content merely to let her flames keep sputtering within the hearths of mortal homes. Admit to it, Sister: You've changed." },
+					Text = "Your Great-Aunt Hestia is not exactly as she {#Emph}seems. {#Prev}In olden times, she was content merely to let her flames keep sputtering within the hearths of mortal homes. Admit to it, Sister: You've changed." },
 				{ Cue = "/VO/Hestia_0154",
 					PortraitExitWait = 0.35,
 					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
@@ -309,7 +329,10 @@ LootSetData.Demeter =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -331,12 +354,15 @@ LootSetData.Demeter =
 						Path = { "CurrentRun", "Hero", "LastStands", },
 						UseLength = true,
 						Comparison = "<=",
-						Value = 0,
+						Value = 1,
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "DemeterLowHealth01", },
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -363,7 +389,10 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "DemeterLowHealth01", },
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -390,7 +419,10 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "DemeterLowHealth01", },
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -620,6 +652,26 @@ LootSetData.Demeter =
 					Text = "I take it Chronos still goes everywhere with that old gaudy-looking golden scythe of his? He fancies himself a reaper, speaks of harvest and decay; but he merely speaks in riddles, whilst {#Emph}I {#Prev}work directly in the trade." },
 			},
 
+			DemeterAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Demeter_0167",
+					Text = "Prometheus stole fire from us not for mortalkind, but because he desired it for his own gain. What good is that power to him now, upon a mountain cold as ice?" },
+			},
+
 			DemeterAboutCirce01 =
 			{
 				PlayOnce = true,
@@ -715,6 +767,9 @@ LootSetData.Demeter =
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathFalse = { "CurrentRun", "BiomesReached", "P" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -984,10 +1039,10 @@ LootSetData.Demeter =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0050",
@@ -1002,10 +1057,10 @@ LootSetData.Demeter =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "DemeterUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0051",
@@ -1894,7 +1949,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0075",
@@ -1906,7 +1964,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0076",
@@ -1918,7 +1979,7 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					-- IsObjectTypeAlive = "NPC_Charon_01",
+					-- { 	FunctionName = "RequiredAlive", 	FunctionArgs = { Units = { "NPC_Charon_01" }, }, },
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0082",
@@ -1930,7 +1991,10 @@ LootSetData.Demeter =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Demeter_0083",
@@ -1982,7 +2046,7 @@ LootSetData.Demeter =
 				PreLineFunctionName = "BoonInteractPresentation",
 				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
 				PreLineWait = 1.0,
-					Text = "Had you grown up within your father's house, you would have learned {#Emph}respect." },
+					Text = "Had you grown up within your father's House, you would have learned {#Emph}respect." },
 			},
 			DemeterRejection06 =
 			{
@@ -2064,7 +2128,7 @@ LootSetData.Demeter =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2185,6 +2249,10 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0961", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2212,6 +2280,10 @@ LootSetData.Demeter =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0962", UsePlayerSource = true,
@@ -2241,6 +2313,10 @@ LootSetData.Demeter =
 					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_1769", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2268,6 +2344,10 @@ LootSetData.Demeter =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "DemeterUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1770", UsePlayerSource = true,
@@ -2314,8 +2394,13 @@ LootSetData.Demeter =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

@@ -71,6 +71,10 @@
 				{ X = -16 Y = 24 }
 			]
 			Size = { X = 104 Y = 64 }
+			Using = [
+				{ Name = "WeaponMorphedBlink" }
+				{ Name = "WeaponMorphedAttack" }
+			]
 		}
 	}
 

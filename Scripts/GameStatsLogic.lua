@@ -104,40 +104,35 @@ function ShowWeaponStats( screen )
 	screen.IconIds = {}
 	screen.NumItems = 0
 
-	local weaponStats = {}
+	local locationY = screen.RowStartY
+	local columnHeaders = screen.WeaponColumnHeaders
+
+	local weaponStats = GameState.LifetimeWeaponStats
+
 	local highestUseCount = 0
 	local highestClearCount = 0
-	local lowestClearTime = 999999
-	local highestShrinePoints = 0
-	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-		weaponStats[weaponName] = {}
-
-		weaponStats[weaponName].UseCount = GetNumRunsWithWeapon( weaponName )
-		highestUseCount = math.max( highestUseCount, weaponStats[weaponName].UseCount )
-
-		weaponStats[weaponName].ClearCount = GetNumRunsClearedWithWeapon( weaponName )
-		highestClearCount = math.max( highestClearCount, weaponStats[weaponName].ClearCount )
-
-		weaponStats[weaponName].ClearRecordTime = GetFastestRunClearTimeWithWeapon( CurrentRun, weaponName )
-		lowestClearTime = math.min( lowestClearTime, weaponStats[weaponName].ClearRecordTime or 999999 )
-
-		weaponStats[weaponName].ClearRecordShrinePoints = GetHighestShrinePointRunClearWithWeapon( CurrentRun, weaponName )
-		highestShrinePoints = math.max( highestShrinePoints, weaponStats[weaponName].ClearRecordShrinePoints or 0 )
+	local fastestTimeUnderworld = 999999
+	local fastestTimeSurface = 999999
+	local highestShrinePointsUnderworld = 0
+	local highestShrinePointsSurface = 0
+	for weaponName, weaponStat in pairs( weaponStats ) do
+		highestUseCount = math.max( highestUseCount, weaponStat.UseCount or 0 )
+		highestClearCount = math.max( highestClearCount, weaponStat.ClearCount or 0 )
+		fastestTimeUnderworld = math.min( fastestTimeUnderworld, weaponStat.FastestTimeUnderworld or 999999 )
+		highestShrinePointsUnderworld = math.max( highestShrinePointsUnderworld, weaponStat.HighestShrinePointsUnderworld or 0 )
+		fastestTimeSurface = math.min( fastestTimeSurface, weaponStat.FastestTimeSurface or 999999 )
+		highestShrinePointsSurface = math.max( highestShrinePointsSurface, weaponStat.HighestShrinePointsSurface or 0 )
 	end
 
 	local sortedWeapons = {}
 	for weaponName, weaponStat in pairs( weaponStats ) do
-		local sortableWeapon = { Name = weaponName, DisplayName = GetDisplayName({ Text = weaponName }), Value = weaponStat[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]], }
-		if sortableWeapon.Value ~= nil and screen.SortKeys[GameState.RunHistoryGameStatsSortMode] == "ClearRecordTime" then
+		local sortableWeapon = { Name = weaponName, DisplayName = GetDisplayName({ Text = weaponName }), Value = weaponStat[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]] }
+		if sortableWeapon.Value ~= nil and screen.SortInReverse[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]] then
 			sortableWeapon.Value = sortableWeapon.Value * -1 -- negate this so smaller time == better
 		end
 		table.insert( sortedWeapons, sortableWeapon )
 	end
 	table.sort( sortedWeapons, RunHistoryStatsSort )
-
-	local locationY = screen.RowStartY
-
-	local columnHeaders = screen.WeaponColumnHeaders
 
 	for i, sortedWeapon in ipairs( sortedWeapons ) do
 
@@ -195,10 +190,10 @@ function ShowWeaponStats( screen )
 			SetScaleX({ Id = component.Id, Fraction = usageRate, Duration = 0.0 })
 			table.insert( screen.IconIds, component.Id )
 
-			-- ClearCount
+			-- ClearCount (Underworld + Surface)
 			columnNum = columnNum + 1
 			columnData = columnHeaders[columnNum]
-			if weaponStat.ClearCount > 0 then
+			if weaponStat.ClearCount ~= nil then
 				local componentName = columnData.ColumnName..i
 				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
 				components[componentName] = component
@@ -214,40 +209,78 @@ function ShowWeaponStats( screen )
 				CreateTextBox( clearCountFormat )
 			end
 
-			-- ClearRecordTime
+			-- ClearRecordTime (Underworld)
 			columnNum = columnNum + 1
 			columnData = columnHeaders[columnNum]
-			if weaponStat.ClearRecordTime ~= nil then
+			if weaponStat.FastestTimeUnderworld ~= nil then
 				local componentName = columnData.ColumnName..i
 				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
 				components[componentName] = component
 				table.insert( screen.IconIds, component.Id )
 				local clearRecordTimeFormat = screen.StatFormat
-				if lowestClearTime == weaponStat.ClearRecordTime then
+				if fastestTimeUnderworld == weaponStat.FastestTimeUnderworld then
 					clearRecordTimeFormat = screen.RecordStatFormat
 				end
 				clearRecordTimeFormat = ShallowCopyTable( clearRecordTimeFormat )
 				clearRecordTimeFormat.Id = component.Id
-				clearRecordTimeFormat.Text = GetTimerString( weaponStat.ClearRecordTime, 2 )
+				clearRecordTimeFormat.Text = GetTimerString( weaponStat.FastestTimeUnderworld, 2 )
 				clearRecordTimeFormat.Justification = columnData.Justification
 				CreateTextBox( clearRecordTimeFormat )
 			end
-		
-			-- ClearRecordShrinePoints
+
+			-- ClearRecordShrinePoints (Underworld)
 			columnNum = columnNum + 1
 			columnData = columnHeaders[columnNum]
-			if weaponStat.ClearRecordShrinePoints > 0 then
+			if weaponStat.HighestShrinePointsUnderworld ~= nil then
 				local componentName = columnData.ColumnName..i
 				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
 				components[componentName] = component
 				table.insert( screen.IconIds, component.Id )
 				local clearRecordShrinePointsFormat = screen.StatFormat
-				if highestShrinePoints == weaponStat.ClearRecordShrinePoints then
+				if highestShrinePointsUnderworld == weaponStat.HighestShrinePointsUnderworld then
 					clearRecordShrinePointsFormat = screen.RecordStatFormat
 				end
 				clearRecordShrinePointsFormat = ShallowCopyTable( clearRecordShrinePointsFormat )
 				clearRecordShrinePointsFormat.Id = component.Id
-				clearRecordShrinePointsFormat.Text = weaponStat.ClearRecordShrinePoints
+				clearRecordShrinePointsFormat.Text = weaponStat.HighestShrinePointsUnderworld
+				clearRecordShrinePointsFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordShrinePointsFormat )
+			end
+
+			-- ClearRecordTime (Surface)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if weaponStat.FastestTimeSurface ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordTimeFormat = screen.StatFormat
+				if fastestTimeSurface == weaponStat.FastestTimeSurface then
+					clearRecordTimeFormat = screen.RecordStatFormat
+				end
+				clearRecordTimeFormat = ShallowCopyTable( clearRecordTimeFormat )
+				clearRecordTimeFormat.Id = component.Id
+				clearRecordTimeFormat.Text = GetTimerString( weaponStat.FastestTimeSurface, 2 )
+				clearRecordTimeFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordTimeFormat )
+			end
+
+			-- ClearRecordShrinePoints (Surface)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if weaponStat.HighestShrinePointsSurface ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordShrinePointsFormat = screen.StatFormat
+				if highestShrinePointsSurface == weaponStat.HighestShrinePointsSurface then
+					clearRecordShrinePointsFormat = screen.RecordStatFormat
+				end
+				clearRecordShrinePointsFormat = ShallowCopyTable( clearRecordShrinePointsFormat )
+				clearRecordShrinePointsFormat.Id = component.Id
+				clearRecordShrinePointsFormat.Text = weaponStat.HighestShrinePointsSurface
 				clearRecordShrinePointsFormat.Justification = columnData.Justification
 				CreateTextBox( clearRecordShrinePointsFormat )
 			end
@@ -276,182 +309,204 @@ function ShowTraitStats( screen )
 		screen.PrevCategoryName = screen.CurrentFilter
 	end
 
-	local columnHeaders = screen.WeaponColumnHeaders
-
-	local traitStats = {}
-	GameStatsProcessTraitsForRun( CurrentRun, traitStats )
-	for runIndex, run in ipairs( GameState.RunHistory ) do
-		GameStatsProcessTraitsForRun( run, traitStats )
-	end
-
-	local sortedTraits = {}
-	local highestUseCount = 0
-	local highestClearCount = 0
-	local lowestClearTime = 999999
-	local highestShrinePoints = 0
-	for traitName, traitStat in pairs( traitStats ) do
-		if PassesTraitFilter( screen.CurrentFilter, traitName ) then
-			local sortableTrait = { Name = traitName, DisplayName = GetDisplayName({ Text = traitName }), Value = traitStat[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]], }
-			if sortableTrait.Value ~= nil and screen.SortKeys[GameState.RunHistoryGameStatsSortMode] == "ClearRecordTime" then
-				sortableTrait.Value = sortableTrait.Value * -1 -- negate this so smaller time == better
-			end
-			table.insert( sortedTraits, sortableTrait )
-
-			highestUseCount = math.max( highestUseCount, traitStat.UseCount )
-			highestClearCount = math.max( highestClearCount, traitStat.ClearCount or 0 )
-			lowestClearTime = math.min( lowestClearTime, traitStat.ClearRecordTime or 999999 )
-			highestShrinePoints = math.max ( highestShrinePoints, traitStat.ClearRecordShrinePoints or 0 )
-		end
-	end
-	table.sort( sortedTraits, RunHistoryStatsSort )
-
 	screen.IconIds = {}
-
-	local startOffsetY = offsetY
-	local columnCount = 0
 	screen.NumItems = 0
 
 	local locationY = screen.RowStartY
+	local columnHeaders = screen.WeaponColumnHeaders
+
+	local traitStats = GameState.LifetimeTraitStats
+
+	-- Compile the set of all eligible traits for the active filter
+	local eligibleTraitStats = {}
+	for traitName, traitStat in pairs( traitStats ) do
+		if PassesTraitFilter( screen.CurrentFilter, traitName ) then
+			eligibleTraitStats[traitName] = traitStat
+		end
+	end
+
+	local highestUseCount = 0
+	local highestClearCount = 0
+	local fastestTimeUnderworld = 999999
+	local fastestTimeSurface = 999999
+	local highestShrinePointsUnderworld = 0
+	local highestShrinePointsSurface = 0
+	for traitName, traitStat in pairs( eligibleTraitStats ) do
+		highestUseCount = math.max( highestUseCount, traitStat.UseCount or 0 )
+		highestClearCount = math.max( highestClearCount, traitStat.ClearCount or 0 )
+		fastestTimeUnderworld = math.min( fastestTimeUnderworld, traitStat.FastestTimeUnderworld or 999999 )
+		highestShrinePointsUnderworld = math.max( highestShrinePointsUnderworld, traitStat.HighestShrinePointsUnderworld or 0 )
+		fastestTimeSurface = math.min( fastestTimeSurface, traitStat.FastestTimeSurface or 999999 )
+		highestShrinePointsSurface = math.max( highestShrinePointsSurface, traitStat.HighestShrinePointsSurface or 0 )
+	end
+
+	local sortedTraits = {}
+	for traitName, traitStat in pairs( eligibleTraitStats ) do
+		local sortableTrait = { Name = traitName, DisplayName = GetDisplayName({ Text = traitName }), Value = traitStat[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]] }
+		if sortableTrait.Value ~= nil and screen.SortInReverse[screen.SortKeys[GameState.RunHistoryGameStatsSortMode]] then
+			sortableTrait.Value = sortableTrait.Value * -1 -- negate this so smaller time == better
+		end
+		table.insert( sortedTraits, sortableTrait )
+	end
+	table.sort( sortedTraits, RunHistoryStatsSort )
 
 	for i, sortedTrait in ipairs( sortedTraits ) do
-		if PassesTraitFilter( screen.CurrentFilter, sortedTrait.Name ) then
-			screen.NumItems = screen.NumItems + 1
+		screen.NumItems = screen.NumItems + 1
+		local columnNum = 1
+		if screen.NumItems > screen.ScrollOffset and screen.NumItems <= screen.ScrollOffset + screen.ItemsPerPage then
+
+			local traitName = sortedTrait.Name
+			local traitStat = eligibleTraitStats[traitName]
+
+			-- Name
 			local columnNum = 1
-			if screen.NumItems > screen.ScrollOffset and screen.NumItems <= screen.ScrollOffset + screen.ItemsPerPage then
+			local columnData = columnHeaders[columnNum]
+			local componentName = columnData.ColumnName..i
+			local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+			components[componentName] = component
+			table.insert( screen.IconIds, component.Id )
+			local nameFormat = ShallowCopyTable( screen.StatFormat )
+			nameFormat.Id = component.Id
+			nameFormat.Text = traitName
+			nameFormat.Justification = columnData.Justification
+			CreateTextBox( nameFormat )
 
-				local traitName = sortedTrait.Name
-				local traitStat = traitStats[traitName]
+			-- Icon
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			local componentName = columnData.ColumnName..i
+			local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY, Scale = screen.IconScaleTraits })
+			components[componentName] = component
+			SetAnimation({ DestinationId = component.Id, Name = TraitData[traitName].Icon })
+			table.insert( screen.IconIds, component.Id )
 
-				-- Name
-				local columnNum = 1
-				local columnData = columnHeaders[columnNum]
-				local componentName = columnData.ColumnName..i
-				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-				components[componentName] = component
-				table.insert( screen.IconIds, component.Id )
-				local nameFormat = ShallowCopyTable( screen.StatFormat )
-				nameFormat.Id = component.Id
-				nameFormat.Text = traitName
-				nameFormat.Justification = columnData.Justification
-				CreateTextBox( nameFormat )
-
-				-- Icon
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				local componentName = columnData.ColumnName..i
-				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY, Scale = screen.IconScaleTraits })
-				components[componentName] = component
-				SetAnimation({ DestinationId = component.Id, Name = TraitData[traitName].Icon })
-				table.insert( screen.IconIds, component.Id )
-
-				-- UseCount
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				local componentName = columnData.ColumnName..i
-				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-				components[componentName] = component
-				table.insert( screen.IconIds, component.Id )
-				local useCountFormat = screen.StatFormat
-				if highestUseCount == traitStat.UseCount then
-					useCountFormat = screen.RecordStatFormat
-				end
-				useCountFormat = ShallowCopyTable( useCountFormat )
-				useCountFormat.Id = component.Id
-				useCountFormat.Text = traitStat.UseCount
-				useCountFormat.Justification = columnData.Justification
-				CreateTextBox( useCountFormat )
-
-				-- BarGraph
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				local componentName = columnData.ColumnName..i
-				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-				components[componentName] = component
-				SetAnimation({ DestinationId = component.Id, Name = "BarGraphBar" })
-				local usageRate = traitStat.UseCount / highestUseCount
-				SetScaleX({ Id = component.Id, Fraction = usageRate, Duration = 0.0 })
-				table.insert( screen.IconIds, component.Id )
-
-				-- ClearCount
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				if traitStat.ClearCount ~= nil then
-					local componentName = columnData.ColumnName..i
-					local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-					components[componentName] = component
-					table.insert( screen.IconIds, component.Id )
-					local clearCountFormat = screen.StatFormat
-					if highestClearCount == traitStat.ClearCount then
-						clearCountFormat = screen.RecordStatFormat
-					end
-					clearCountFormat = ShallowCopyTable( clearCountFormat )
-					clearCountFormat.Id = component.Id
-					clearCountFormat.Text = traitStat.ClearCount
-					clearCountFormat.Justification = columnData.Justification
-					CreateTextBox( clearCountFormat )
-				end
-
-				-- ClearRecordTime
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				if traitStat.ClearRecordTime ~= nil then
-					local componentName = columnData.ColumnName..i
-					local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-					components[componentName] = component
-					table.insert( screen.IconIds, component.Id )
-					local clearRecordTimeFormat = screen.StatFormat
-					if lowestClearTime == traitStat.ClearRecordTime then
-						clearRecordTimeFormat = screen.RecordStatFormat
-					end
-					clearRecordTimeFormat = ShallowCopyTable( clearRecordTimeFormat )
-					clearRecordTimeFormat.Id = component.Id
-					clearRecordTimeFormat.Text = GetTimerString( traitStat.ClearRecordTime, 2 )
-					clearRecordTimeFormat.Justification = columnData.Justification
-					CreateTextBox( clearRecordTimeFormat )
-				end
-		
-				-- ClearRecordShrinePoints
-				columnNum = columnNum + 1
-				columnData = columnHeaders[columnNum]
-				if traitStat.ClearRecordShrinePoints ~= nil then
-					local componentName = columnData.ColumnName..i
-					local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
-					components[componentName] = component
-					table.insert( screen.IconIds, component.Id )
-					local clearRecordShrinePointsFormat = screen.StatFormat
-					if highestShrinePoints == traitStat.ClearRecordShrinePoints then
-						clearRecordShrinePointsFormat = screen.RecordStatFormat
-					end
-					clearRecordShrinePointsFormat = ShallowCopyTable( clearRecordShrinePointsFormat )
-					clearRecordShrinePointsFormat.Id = component.Id
-					clearRecordShrinePointsFormat.Text = traitStat.ClearRecordShrinePoints
-					clearRecordShrinePointsFormat.Justification = columnData.Justification
-					CreateTextBox( clearRecordShrinePointsFormat )
-				end
-
-				locationY = locationY + screen.RowSpacingTraits
+			-- UseCount
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			local componentName = columnData.ColumnName..i
+			local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+			components[componentName] = component
+			table.insert( screen.IconIds, component.Id )
+			local useCountFormat = screen.StatFormat
+			if highestUseCount == traitStat.UseCount then
+				useCountFormat = screen.RecordStatFormat
 			end
+			useCountFormat = ShallowCopyTable( useCountFormat )
+			useCountFormat.Id = component.Id
+			useCountFormat.Text = traitStat.UseCount
+			useCountFormat.Justification = columnData.Justification
+			CreateTextBox( useCountFormat )
+
+			-- BarGraph
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			local componentName = columnData.ColumnName..i
+			local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+			components[componentName] = component
+			SetAnimation({ DestinationId = component.Id, Name = "BarGraphBar" })
+			local usageRate = traitStat.UseCount / highestUseCount
+			SetScaleX({ Id = component.Id, Fraction = usageRate, Duration = 0.0 })
+			table.insert( screen.IconIds, component.Id )
+
+			-- ClearCount (Underworld + Surface)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if traitStat.ClearCount ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearCountFormat = screen.StatFormat
+				if highestClearCount == traitStat.ClearCount then
+					clearCountFormat = screen.RecordStatFormat
+				end
+				local clearCountFormat = ShallowCopyTable( clearCountFormat )
+				clearCountFormat.Id = component.Id
+				clearCountFormat.Text = traitStat.ClearCount
+				clearCountFormat.Justification = columnData.Justification
+				CreateTextBox( clearCountFormat )
+			end
+
+			-- ClearRecordTime (Underworld)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if traitStat.FastestTimeUnderworld ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordTimeFormat = screen.StatFormat
+				if fastestTimeUnderworld == traitStat.FastestTimeUnderworld then
+					clearRecordTimeFormat = screen.RecordStatFormat
+				end
+				clearRecordTimeFormat = ShallowCopyTable( clearRecordTimeFormat )
+				clearRecordTimeFormat.Id = component.Id
+				clearRecordTimeFormat.Text = GetTimerString( traitStat.FastestTimeUnderworld, 2 )
+				clearRecordTimeFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordTimeFormat )
+			end
+
+			-- ClearRecordShrinePoints (Underworld)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if traitStat.HighestShrinePointsUnderworld ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordShrinePointsFormat = screen.StatFormat
+				if highestShrinePointsUnderworld == traitStat.HighestShrinePointsUnderworld then
+					clearRecordShrinePointsFormat = screen.RecordStatFormat
+				end
+				clearRecordShrinePointsFormat = ShallowCopyTable( clearRecordShrinePointsFormat )
+				clearRecordShrinePointsFormat.Id = component.Id
+				clearRecordShrinePointsFormat.Text = traitStat.HighestShrinePointsUnderworld
+				clearRecordShrinePointsFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordShrinePointsFormat )
+			end
+
+			-- ClearRecordTime (Surface)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if traitStat.FastestTimeSurface ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordTimeFormat = screen.StatFormat
+				if fastestTimeSurface == traitStat.FastestTimeSurface then
+					clearRecordTimeFormat = screen.RecordStatFormat
+				end
+				clearRecordTimeFormat = ShallowCopyTable( clearRecordTimeFormat )
+				clearRecordTimeFormat.Id = component.Id
+				clearRecordTimeFormat.Text = GetTimerString( traitStat.FastestTimeSurface, 2 )
+				clearRecordTimeFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordTimeFormat )
+			end
+
+			-- ClearRecordShrinePoints (Surface)
+			columnNum = columnNum + 1
+			columnData = columnHeaders[columnNum]
+			if traitStat.HighestShrinePointsSurface ~= nil then
+				local componentName = columnData.ColumnName..i
+				local component = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, X = columnData.X, Y = locationY })
+				components[componentName] = component
+				table.insert( screen.IconIds, component.Id )
+				local clearRecordShrinePointsFormat = screen.StatFormat
+				if highestShrinePointsSurface == traitStat.HighestShrinePointsSurface then
+					clearRecordShrinePointsFormat = screen.RecordStatFormat
+				end
+				clearRecordShrinePointsFormat = ShallowCopyTable( clearRecordShrinePointsFormat )
+				clearRecordShrinePointsFormat.Id = component.Id
+				clearRecordShrinePointsFormat.Text = traitStat.HighestShrinePointsSurface
+				clearRecordShrinePointsFormat.Justification = columnData.Justification
+				CreateTextBox( clearRecordShrinePointsFormat )
+			end
+
+			locationY = locationY + screen.RowSpacingTraits
 		end
 	end
 
-end
-
-function GameStatsProcessTraitsForRun( run, traitStats )
-	if IsSameMode( run ) and run.TraitCache ~= nil then
-		for traitName, count in pairs( run.TraitCache ) do
-			traitStats[traitName] = traitStats[traitName] or {}
-			traitStats[traitName].UseCount = (traitStats[traitName].UseCount or 0) + 1
-			if run.Cleared then
-				traitStats[traitName].ClearCount = (traitStats[traitName].ClearCount or 0) + 1
-				if run.GameplayTime ~= nil and run.GameplayTime < (traitStats[traitName].ClearRecordTime or 999999) then
-					traitStats[traitName].ClearRecordTime = run.GameplayTime
-				end
-				if run.ShrinePointsCache ~= nil and run.ShrinePointsCache > (traitStats[traitName].ClearRecordShrinePoints or 0) then
-					traitStats[traitName].ClearRecordShrinePoints = run.ShrinePointsCache
-				end
-			end
-		end
-	end
 end
 
 function PassesTraitFilter( filterName, traitName )
@@ -630,36 +685,6 @@ function GameStatsScrollDown( screen, button )
 	GameStatsScreenScrollPresentation( screen )
 end
 
-function GetNumRunsWithWeapon( weaponName )
-	local runCount = 0
-	if CurrentRun.WeaponsCache ~= nil and CurrentRun.WeaponsCache[weaponName] then
-		runCount = runCount + 1
-	end
-	for k, prevRun in pairs( GameState.RunHistory ) do
-		if prevRun.WeaponsCache ~= nil and prevRun.WeaponsCache[weaponName] then
-			if IsSameMode( prevRun ) then
-				runCount = runCount + 1
-			end
-		end
-	end
-	return runCount
-end
-
-function GetNumRunsClearedWithWeapon( weaponName )
-	local runsCleared = 0
-	if CurrentRun.Cleared and CurrentRun.WeaponsCache[weaponName] then
-		runsCleared = runsCleared + 1
-	end
-	for k, prevRun in pairs( GameState.RunHistory ) do
-		if prevRun.WeaponsCache ~= nil and prevRun.WeaponsCache[weaponName] then
-			if prevRun.Cleared and IsSameMode( prevRun ) then
-				runsCleared = runsCleared + 1
-			end
-		end
-	end
-	return runsCleared
-end
-
 function IsRecordRunDepth( currentRun )
 	local highestRunDepth = GetHighestPrevRunRepth( currentRun )
 	if currentRun.RunDepthCache >= highestRunDepth then
@@ -684,23 +709,8 @@ function GetFastestRunClearTime( currentRun )
 		fastestTime = currentRun.GameplayTime
 	end
 	for k, prevRun in pairs( GameState.RunHistory ) do
-		if IsSameMode( prevRun ) and prevRun.Cleared and prevRun.GameplayTime ~= nil and prevRun.GameplayTime < fastestTime then
+		if prevRun.Cleared and prevRun.GameplayTime ~= nil and prevRun.GameplayTime < fastestTime then
 			fastestTime = prevRun.GameplayTime
-		end
-	end
-	return fastestTime
-end
-
-function GetFastestRunClearTimeWithWeapon( currentRun, weapon )
-	local fastestTime = nil
-	if currentRun.Cleared and currentRun.WeaponsCache[weapon] then
-		fastestTime = currentRun.GameplayTime
-	end
-	for k, prevRun in pairs( GameState.RunHistory ) do
-		if prevRun.WeaponsCache ~= nil and prevRun.WeaponsCache[weapon] then
-			if IsSameMode( prevRun ) and prevRun.Cleared and prevRun.GameplayTime ~= nil and (fastestTime == nil or prevRun.GameplayTime < fastestTime) then
-				fastestTime = prevRun.GameplayTime
-			end
 		end
 	end
 	return fastestTime
@@ -716,31 +726,13 @@ function GetHighestShrinePointRunClear( currentRun, args )
 	end
 	for runIndex, prevRun in ipairs( GameState.RunHistory ) do
 		if args.RequiredBiome == nil or (prevRun.BiomesReached ~= nil and prevRun.BiomesReached[args.RequiredBiome]) then
-			if (args.IgnoreSameMode or IsSameMode( prevRun )) and prevRun.Cleared and prevRun.ShrinePointsCache ~= nil and prevRun.ShrinePointsCache > highestPoints then
-				highestPoints = prevRun.ShrinePointsCache
-				--DebugPrint({ Text = "runIndex = "..runIndex })
-				--DebugPrint({ Text = "highestPoints = "..highestPoints })
-			end
-		end
-	end
-	return highestPoints
-end
-
-function GetHighestShrinePointRunClearWithWeapon( currentRun, weapon )
-	local highestPoints = 0
-	if currentRun ~= nil and currentRun.Cleared and currentRun.ShrinePointsCache ~= nil and currentRun.WeaponsCache[weapon] then
-		highestPoints = currentRun.ShrinePointsCache
-	end
-	for k, prevRun in pairs( GameState.RunHistory ) do
-		if prevRun.WeaponsCache ~= nil and prevRun.WeaponsCache[weapon] then
-			if IsSameMode( prevRun ) and prevRun.Cleared and prevRun.ShrinePointsCache ~= nil and prevRun.ShrinePointsCache > highestPoints then
+			if prevRun.Cleared and prevRun.ShrinePointsCache ~= nil and prevRun.ShrinePointsCache > highestPoints then
 				highestPoints = prevRun.ShrinePointsCache
 			end
 		end
 	end
 	return highestPoints
 end
-
 
 function RunHasOneOfTraits( run, traits )
 	if run.TraitCache == nil then

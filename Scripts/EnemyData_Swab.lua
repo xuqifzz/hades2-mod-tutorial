@@ -3,7 +3,7 @@ UnitSetData.Swab =
 
 	Swab =
 	{
-		InheritFrom = { "BaseVulnerableEnemy" },
+		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy" },
 
 		ActivateAnimation = "Enemy_Swab_CannonFly",
 		PostActivateAnimation = "Enemy_Swab_Spawn",
@@ -21,9 +21,11 @@ UnitSetData.Swab =
 		PostActivateStop = true,
 		--ActivateGravity = 9000,
 		--ActivateFallForce = 2500,
+		DeathAnimation = "Enemy_Swab_Death",
+		DeathFx = "EnemyDeathFxUndead",
 		DeathSound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteDying",
 
-		MaxHealth = 730,
+		MaxHealth = 1030,
 		HealthBarOffsetY = -220,
 
 		Groups = { "GroundEnemies" },
@@ -68,11 +70,9 @@ UnitSetData.Swab =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -90,8 +90,10 @@ UnitSetData.Swab =
 	Swab_Elite =
 	{
 		InheritFrom = { "Elite", "Swab" },
-		HealthBuffer = 660,
+		HealthBuffer = 730,
 		IsAggroedSound = "/SFX/Enemy Sounds/DeadSeaSwab/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
 
 		DefaultAIData =
 		{
@@ -103,17 +105,22 @@ UnitSetData.Swab =
 			"SwabSwing_Elite",
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		HeraclesCombatMoneyValue = 8,
 		GeneratorData =
 		{
 			DifficultyRating = 155,
 			BlockEnemyTypes = {"Swab"}
 		},
+	},
+
+	Swab_Shadow =
+	{
+
+		InheritFrom = { "Shadow", "Swab" },
+		GenusName = "Swab",
+
+		HealthBuffer = 730,
+		StartAggroed = true,
 	},
 
 }

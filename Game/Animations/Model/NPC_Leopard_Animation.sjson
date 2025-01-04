@@ -1,0 +1,41 @@
+{ Animations = [
+
+	{
+		Name = "LeopardGuestBaseAnimation"
+		GrannyModel = "LeopardGuest_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 2.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "LeopardGuest_Idle"
+		InheritFrom = "LeopardGuestBaseAnimation"
+		GrannyAnimation = "LeopardGuest_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		
+	}
+
+	{
+		Name = "LeopardGuest_Sleep_Loop"
+		InheritFrom = "LeopardGuestBaseAnimation"
+		GrannyAnimation = "LeopardGuest_Base_Sleep_Loop_C_00"
+		Loop = true
+	}
+	
+	{
+		Name = "LeopardGuest_Sleep_Loop_Alt1"
+		InheritFrom = "LeopardGuest_Sleep_Loop"
+		GrannyAnimation = "LeopardGuest_Base_Sleep_Loop_Extra_Cat_04_C_00"
+	}
+	{
+		Name = "LeopardGuest_Sleep_Loop_Alt2"
+		InheritFrom = "LeopardGuest_Sleep_Loop"
+		GrannyAnimation = "LeopardGuest_Base_Sleep_Loop_Extra_Cat_06_C_00"
+	}
+
+
+]}

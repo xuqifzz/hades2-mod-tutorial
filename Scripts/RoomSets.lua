@@ -39,6 +39,7 @@ RoomSets =
 		"F_Combat16",
 		"F_Combat17",
 		"F_Combat18",
+		"F_Combat19",
 	},
 
 	G =
@@ -52,6 +53,7 @@ RoomSets =
 
 		"G_MiniBoss01",
 		"G_MiniBoss02",
+		"G_MiniBoss03",
 
 		"G_Reprieve01",
 
@@ -119,6 +121,7 @@ RoomSets =
 
 		"I_MiniBoss01",
 		"I_MiniBoss02",
+		"I_MiniBoss03",
 
 		"I_Combat01",
 		"I_Combat01",
@@ -141,7 +144,7 @@ RoomSets =
 		"I_Combat12",
 		"I_Combat13",
 		"I_Combat14",
-		--"I_Combat15",
+		"I_Combat15",
 		"I_Combat16",
 		"I_Combat17",
 		"I_Combat18",
@@ -152,6 +155,7 @@ RoomSets =
 		"I_Combat21",
 		"I_Combat22",
 		"I_Combat22",
+		"I_Combat23",
 	},
 	
 	N =
@@ -208,6 +212,7 @@ RoomSets =
 		"N_Sub09",
 		"N_Sub10",
 		"N_Sub11",
+		"N_Sub12",
 		"N_Sub14",
 	},
 	
@@ -240,6 +245,40 @@ RoomSets =
 		"O_Combat11",
 		"O_Combat12",
 		"O_Combat13", -- Backup if there is nothing eligible before PreBoss
+
+		"O_Devotion01",
+	},
+
+	P =
+	{
+		"P_Intro",
+		"P_PreBoss01",
+		"P_Boss01",
+		"P_PostBoss01",
+
+		"P_Shop01",
+		"P_Reprieve01",
+		"P_Story01",
+
+		"P_MiniBoss01",
+		"P_MiniBoss02",
+
+		"P_Combat01",
+		"P_Combat02",
+		"P_Combat03",
+		"P_Combat04",
+		"P_Combat05",
+		"P_Combat06",
+		"P_Combat07",
+		"P_Combat08",
+		"P_Combat09",
+		"P_Combat10",
+		"P_Combat11",
+		"P_Combat12",
+		"P_Combat13",
+		"P_Combat14",
+		"P_Combat15",
+		"P_Combat16",
 	},
 
 	Chaos = 
@@ -255,6 +294,22 @@ RoomSets =
 	Anomaly = 
 	{
 		"B_Combat01",
+		"B_Combat05",
 		"B_Combat06",
+		"B_Combat07",
+		"B_Combat08",
+		"B_Combat10",
+		"B_Combat21",
 	},
+}
+
+NextRoomSets =
+{
+	F = "G",
+	G = "H",
+	H = "I",
+	N = "O",
+	N_SubRooms = "O",
+	O = "P",
+	P = "Q",
 }

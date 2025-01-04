@@ -10,6 +10,8 @@ UnitSetData.NPC_Moros =
 		AnimOffsetZ = 25,
 		Groups = { "NPCs" },
 		SubtitleColor = Color.MorosVoice,
+		EmoteOffsetY = -300,
+		EmoteOffsetX = 70,
 		SpeakerName = "Moros",
 
 		ActivateRequirements =
@@ -49,7 +51,7 @@ UnitSetData.NPC_Moros =
 				},
 				{ Cue = "/VO/Melinoe_1879", Text = "Peace, Lord Moros." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -138,9 +140,23 @@ UnitSetData.NPC_Moros =
 						},
 					},
 				},
+				{ Cue = "/VO/Moros_0090", Text = "To your success.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Moros_0090_B" }
+						},
+					},
+				},
+				{ Cue = "/VO/Moros_0091", Text = "To victory.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Moros_0091_B" }
+						},
+					},
+				},
 				{ Cue = "/VO/Moros_0207", Text = "Proceed with care." },
-				{ Cue = "/VO/Moros_0090", Text = "To your success." },
-				{ Cue = "/VO/Moros_0091", Text = "To victory." },
 				{ Cue = "/VO/Moros_0087", Text = "Fates protect you." },
 			},
 		},
@@ -506,8 +522,10 @@ UnitSetData.NPC_Moros =
 					{
 						-- PathFalse = { "GameState", "ScreensViewed", "QuestLog" },
 					},
-					RequiredMinQuestsComplete = 1,
-					RequiredMaxQuestsComplete = 12,
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Min = 1, Max = 12 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -541,9 +559,14 @@ UnitSetData.NPC_Moros =
 						-- PathFalse = { "GameState", "ScreensViewed", "QuestLog" },
 						PathFalse = { "GameState", "TextLinesRecord", "MorosAboutQuestLog03" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosAboutQuestLog01" }, Count = 3 },
-					RequiredMinQuestsComplete = 5,
-					RequiredMaxQuestsComplete = 25,
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosAboutQuestLog01" }, Min = 3 },
+					},
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Min = 5, Max = 25 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -577,7 +600,10 @@ UnitSetData.NPC_Moros =
 					{
 						-- PathFalse = { "GameState", "ScreensViewed", "QuestLog" },
 					},
-					RequiredMinQuestsComplete = 10,
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Min = 10 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -614,7 +640,10 @@ UnitSetData.NPC_Moros =
 					{
 						-- PathFalse = { "GameState", "ScreensViewed", "QuestLog" },
 					},
-					RequiredMinQuestsComplete = 12,
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Min = 12 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -656,7 +685,10 @@ UnitSetData.NPC_Moros =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "MorosAboutFates02" },
 					},
-					RequiredMinQuestsComplete = 10,
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Min = 10 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -745,7 +777,7 @@ UnitSetData.NPC_Moros =
 				{ Cue = "/VO/Melinoe_3121", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "It's in my own care now. The will of Night shall be done, no matter what, isn't that so? You're here among the Unseen; you know our charge." },
+					Text = "It's in my own care now. The will of Night shall be done no matter what, isn't that so? You're here among the Unseen; you know our charge." },
 				EndVoiceLines =
 				{
 					{
@@ -1111,7 +1143,7 @@ UnitSetData.NPC_Moros =
 				{ Cue = "/VO/Melinoe_3156", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "I... yes, I think it is. The Nocturnal Arms bond with their bearers in such a way that their connections to other bearers become almost like shared memories. Although..." },
+					Text = "I... yes, I think it is! The Nocturnal Arms bond with their bearers in such a way that their connections to other bearers become almost like shared memories. Although..." },
 				{ Cue = "/VO/Moros_0316",
 					PostLineAnim = "Moros_Perplexed_End",
 					Text = "...Although, these glimpses can be both of bearers past, and still to come, true? So it may be that I shall bear those Flames in some other age in which the realm's in need. I... trust the Fates must have wanted me to know in advance." },
@@ -1207,7 +1239,10 @@ UnitSetData.NPC_Moros =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "MorosAboutRelationship01", "DoraWithMoros02" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosAboutRelationship01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosAboutRelationship01" }, Min = 3 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -1610,7 +1645,10 @@ UnitSetData.NPC_Moros =
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "TrialUpgrade" },
 					},
-					-- @ update with add't'l requirements (timeout)
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasNone = { "ChaosAboutNyx01", "MorosAboutChaos02" },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -1776,7 +1814,10 @@ UnitSetData.NPC_Moros =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ErisFoughtAgainstHer01", "ErisFirstMeeting_B", "ErisFirstMeeting" },
 					},
-					AreIdsAlive = { 585573 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 585573 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -1815,13 +1856,14 @@ UnitSetData.NPC_Moros =
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
 
 				{ Cue = "/VO/Melinoe_3160", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Eris outright attacked me, just as I was approaching Mount Olympus. Who gave her the Adamant Rail, anyway? A weapon once used to slay Titans, turned against the gods..." },
 				{ Cue = "/VO/Moros_0319",
 					PreLineAnim = "Moros_Pensive_Start",
 					PostLineAnim = "Moros_Pensive_End",
-					Text = "The Rail {#Emph}has {#Prev}turned against the gods before. Only the Fates know its true and final purpose... but Eris has it by their own decree. Perhaps as a plaything to keep her occupied." },
+					Text = "The Rail {#Emph}has {#Prev}turned against the gods before. Only the Fates know its true and final purpose... but Eris has it by {#Emph}their {#Prev}own decree. Perhaps as a plaything to keep her occupied." },
 				{ Cue = "/VO/Melinoe_3161", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1851,7 +1893,10 @@ UnitSetData.NPC_Moros =
 						Comparison = ">=",
 						Value = 3,
 					},
-					AreIdsAlive = { 557112 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 557112 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
@@ -1881,7 +1926,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "DoraWithMoros01", },
+						PathTrue = { "GameState", "TextLinesRecord", "DoraWithMoros01" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1978,6 +2023,82 @@ UnitSetData.NPC_Moros =
 				},
 			},
 
+			MorosAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Boss01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
+
+				{ Cue = "/VO/Melinoe_3599", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "You must know the Titan Prometheus. I faced him on Olympus. Little wonder he now fights against the gods, having met his doom and lived... unlike the mortals he supposedly cares for so much. " },
+				{ Cue = "/VO/Moros_0337_B",
+					PreLineAnim = "Moros_Pensive_Start",
+					PostLineAnim = "Moros_Pensive_End",
+					Text = "Prometheus... I took no pleasure in his plight. The gods certainly know how to make an example of someone. Now he seeks vengeance? A favored pattern in the weavings of the Fates." },
+				{ Cue = "/VO/Melinoe_3600", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Now that you mention it, his knowledge of the future seems similar to that of your sisters. Do you suppose he's sided with Chronos because he knows Chronos will ultimately win?" },
+				{ Cue = "/VO/Moros_0338",
+					PreLineAnim = "Moros_Perplexed_Start",
+					PostLineAnim = "Moros_Perplexed_End",
+					Text = "I do not wish to speculate, Princess. All I know is the Titan of Foresight never was the violent sort. His experience in captivity... must have changed him." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_3601", Text = "I'll have to change him some more." },
+					},
+				},
+			},
+			MorosAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "MorosAboutPrometheus01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Boss01" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.MorosGreeting,
+
+				{ Cue = "/VO/Moros_0339",
+					PreLineAnim = "Moros_Perplexed_Start",
+					Text = "In my weakest moments... I used to envy Prometheus, even knowing his plight. For he was loved by mortals, having given them the gift of fire from Olympus. {#Emph}I{#Prev}, on the other hand, was {#Emph}hated. {#Prev}It should not have mattered to me... but it did." },
+				{ Cue = "/VO/Melinoe_3602", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Come on, Lord Moros. What mortals think of us is of no consequence. Even if it were, better to be hated than a traitor. Prometheus thinks only of mortals and himself. I'm surprised Chronos would entrust anything to him." },
+				{ Cue = "/VO/Moros_0340",
+					PreLineAnim = "Moros_Perplexed_End",
+					Text = "Although I said I didn't wish to speculate, I... cannot shake the sense that Chronos values him {#Emph}because {#Prev}so many mortals do. The new Golden Age he seeks to bring about... an age for mortals, not for gods..." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 2,
+						{ Cue = "/VO/Melinoe_3603", Text = "Doubtless all the mortals' problems would be solved..." },
+					},
+				},
+			},
+
 			-- partner conversations
 			MorosWithOdysseus01 =
 			{
@@ -2035,7 +2156,10 @@ UnitSetData.NPC_Moros =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "MorosAboutOdysseus01", "OdysseusBackstory01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithOdysseus01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithOdysseus01" }, Min = 3 },
+					},
 				},
 
 				PlayOnce = true,
@@ -2087,7 +2211,10 @@ UnitSetData.NPC_Moros =
 					{
 						PathTrue = { "CurrentRun", "RoomsEntered", "N_Boss01" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithOdysseus02" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithOdysseus02" }, Min = 3 },
+					},
 				},
 
 				PlayOnce = true,
@@ -2130,7 +2257,10 @@ UnitSetData.NPC_Moros =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "CharonAboutFates01" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithCharon02" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithCharon02" }, Min = 3 },
+					},
 				},
 
 				PlayOnce = true,
@@ -2166,8 +2296,14 @@ UnitSetData.NPC_Moros =
 				{
 					{
 					},
-					AreIdsNotAlive = { 585573 },
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithCharon01" }, Count = 3 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 585573 }, Alive = false },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithCharon01" }, Min = 3 },
+					},
 				},
 
 				PlayOnce = true,
@@ -2270,7 +2406,10 @@ UnitSetData.NPC_Moros =
 					{
 						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithEris02" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithEris02" }, Min = 5 },
+					},
 				},
 				BlockDistanceTriggers = true,
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
@@ -2323,7 +2462,10 @@ UnitSetData.NPC_Moros =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ErisGift01", "ErisGift01_B" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosWithEris01" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosWithEris01" }, Min = 5 },
+					},
 				},
 				BlockDistanceTriggers = true,
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
@@ -2727,7 +2869,7 @@ UnitSetData.NPC_Moros =
 					},
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Moros",
-				{ Cue = "/VO/Moros_0032", PreLineWait = 0.35,
+				{ Cue = "/VO/Moros_0032", PreLineWait = 0.25,
 					Text = "...Forgive me, Princess. I... I need some time to think." },
 			},
 			MorosChat30 =
@@ -2782,7 +2924,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "MorosGift01" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "MorosGift01" },
 					},
 				},
 				{ Cue = "/VO/Moros_0070",
@@ -2804,7 +2946,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "MorosGift02" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "MorosGift02" },
 					},
 				},
 				{ Cue = "/VO/Moros_0071",
@@ -2826,7 +2968,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "MorosGift03" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "MorosGift03" },
 					},
 				},
 				{ Cue = "/VO/Moros_0072",
@@ -2834,7 +2976,6 @@ UnitSetData.NPC_Moros =
 				{ Cue = "/VO/Melinoe_0912", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Emote = "PortraitEmoteSurprise",
 					Text = "{#Emph}No! {#Prev}No, of course not, Lord Moros. Although, even if it was, I would be duty-bound not to inform you, wouldn't I?" },
 				EndVoiceLines =
@@ -2857,7 +2998,7 @@ UnitSetData.NPC_Moros =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "MorosGift04" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "MorosGift04" },
 					},
 				},
 				{ Cue = "/VO/Moros_0074",
@@ -2902,6 +3043,11 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
+					},
+					{
+						Path = { "CurrentRun", "GiftResourceRecord" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0915", UsePlayerSource = true,
@@ -3009,7 +3155,8 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3050,11 +3197,12 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0921", UsePlayerSource = true,
-					Text = "Have you experienced our hotsprings yet, Lord Moros? The waters cleanse the body and the mind. I'm headed over if you'd care to join me?" },
+					Text = "Have you experienced our hot springs yet, Lord Moros? The waters cleanse the body and the mind. I'm headed over if you'd care to join me?" },
 				{ Cue = "/VO/Moros_0101",
 					Emote = "PortraitEmoteSurprise",
 					PortraitExitAnimation = "Portrait_Moros_Default_01_Exit",
@@ -3131,7 +3279,8 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_0922", UsePlayerSource = true,
@@ -3210,7 +3359,8 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3250,7 +3400,8 @@ UnitSetData.NPC_Moros =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						Path = { "CurrentHubRoom", "Name" },
@@ -3271,7 +3422,7 @@ UnitSetData.NPC_Moros =
 					Text = "Forgive me, though I never have quite understood the compulsion to extract water-creatures from their natural environs. I know for mortals it is sometimes necessary sustenance, though others do it for the sake of sport. Why?" },
 				{ Cue = "/VO/Melinoe_3239", UsePlayerSource = true,
 					SkipContextArt = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					Text = "For mortals, it seems to be an opportunity to assert themselves over the natural world. Though I would take no pride in outsmarting such creatures if I were them. In our case... we safeguard habitats for all the species that we find." },
 				{ Cue = "/VO/Moros_0322",
 					SkipContextArt = true,
@@ -3279,8 +3430,8 @@ UnitSetData.NPC_Moros =
 					Text = "That seems like a burdensome responsibility for creatures that ought to take better care of themselves." },
 				{ Cue = "/VO/Melinoe_3240", UsePlayerSource = true,
 					SkipContextArt = true,
-					PreLineAnim = "MelTalkBrooding01ReturnToIdle", PreLineAnimTarget = "Hero",
-					Text = "Well there's more to it, I suppose. For one thing... it sets a contemplative mood, right? Means we can talk a little about matters unrelated to our {#Emph}own {#Prev}burdensome responsibilities." },
+					PreLineAnim = "MelTalkPensive01ReturnToIdle", PreLineAnimTarget = "Hero",
+					Text = "Well, there's more to it, I suppose. For one thing it sets a contemplative mood, right? Means we can talk a little about matters unrelated to our {#Emph}own {#Prev}burdensome responsibilities." },
 				{ Cue = "/VO/Moros_0323",
 					SkipContextArt = true,
 					Text = "I can certainly appreciate that part. And now we wait...",
@@ -3316,7 +3467,10 @@ UnitSetData.NPC_Moros =
 					PlayOnceFromTableThisRun = true,
 					GameStateRequirements =
 					{
-						AreIdsNotAlive = { 560612 },
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 560612 }, Alive = false },
+						},
 					},
 
 					{ Cue = "/VO/Melinoe_1150", Text = "Lord Moros is away..." },

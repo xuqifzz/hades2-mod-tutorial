@@ -8,11 +8,13 @@ OverwriteTableKeys( WeaponData,
 		EquippedKitAnimation = "WeaponLobFloatingIdleOff",
 		UnequippedKitAnimation = "WeaponLobFloatingIdle",
 		UpgradeScreenKitAnimation = "WeaponLobFloatingIdleVertical",
+		BountyScreenKitAnimation = "WeaponLobIdle",
 		--FirstTimeWeaponFire = "WeaponDaggerDouble",
 		FirstTimeEquipAnimation = "Melinoe_Lob_Equip",
 		--FirstTimeEquipSound = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing",
 		UseText = "UseWeaponKit",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
+		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Lob",
 		UnlockName = "WeaponLob_Unlock",
 		--DashWeapon = "WeaponDaggerDash",
 		--ExpireDashWeaponOnDash = true,
@@ -100,6 +102,7 @@ OverwriteTableKeys( WeaponData,
 				Args = {}
 			},
 		},
+		PostWeaponUpgradeScreenFunctionName = "ResetAmmo",
 		FireRumbleParameters =
 		{
 			{ ScreenPreWait = 0.02, RightFraction = 0.3, Duration = 0.06 },
@@ -180,13 +183,14 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/ArrowWallHitClankSmall",
 				MetalObstacle = "/SFX/ArrowWallHitClankSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiscWeaponEquipVoiceLines,
-			[2] = GlobalVoiceLines.SkellyWeaponEquipReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 	},
 
@@ -287,14 +291,15 @@ OverwriteTableKeys( WeaponData,
 			{
 				Invulnerable = "/SFX/SwordWallHitClank",
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/ArrowMetalStoneClang",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-				StoneObstacle = "/SFX/SwordWallHitClankSmall",
-				BrickObstacle = "/SFX/SwordWallHitClankSmall",
-				MetalObstacle = "/SFX/SwordWallHitClankSmall",
+				Bone = "/SFX/MetalBoneSmash",
+				Brick = "/SFX/MetalStoneClang",
+				Stone = "/SFX/MetalStoneClang",
+				Organic = "/SFX/FistImpactBig",
+				StoneObstacle = "/SFX/SwordWallHitClank",
+				BrickObstacle = "/SFX/SwordWallHitClank",
+				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 		
@@ -312,6 +317,121 @@ OverwriteTableKeys( WeaponData,
 			},
 		},
 		Upgrades = { },
+	},
+	WeaponLobGun =
+	{
+		StartingWeapon = false,
+		SkipAttackNotReadySounds = true,		
+		CompleteObjectivesOnStagedFire = { "WeaponLobSpecialCharged" },
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.17 },
+		},
+
+		DefaultKnockbackForce = 560,
+		DefaultKnockbackScale = 0.7,
+
+		CauseImpactReaction = true,
+		ImpactReactionHitsOverride = 1,
+		MinSimSpeedAdjustValue = 0.25,
+		ShowManaIndicator = true,
+		IgnoreOOMAimlineAlpha = true,
+		HideChargeDuration = 0.35,
+		OnChargeFunctionName = "DoWeaponCharge",
+		CustomChannelSlowEvent = "StaffBallSlow",
+		CheckPostFireFail = true,
+		ChargeWeaponData =
+		{
+			EmptyChargeFunctionName = "EmptyThrowAspectCharge",
+			OnStageReachedFunctionName = "ThrowAspectChargeStage"
+		},
+		ChargeWeaponStages = 
+		{
+			{ 
+				ManaCost = 20,
+				Wait = 0.9,
+				WeaponProperties = 
+				{ 
+					Projectile = "ProjectileThrowCharged",
+					ProjectileScaleMultiplier = 1,
+					AimLineWidthOverride = 300,
+				},
+				ProjectileProperties = 
+				{
+					Fuse = 0.8,
+					CollisionLayer = "Lyre",
+					DetonatesProjectilesOnLayer = true,
+					DetonateOnImpact = false,
+				},
+				ChannelSlowEventOnStart = true,
+			},
+		},
+
+		HitSimSlowCooldown = 0.05,
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.03, Fraction = 0.15, LerpTime = 0 },			
+			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.07 },
+		},
+		Sounds =
+		{
+			ChargeSounds =
+			{
+				{
+					Name = "/SFX/Enemy Sounds/Hades/HadesSkullPreAttack",
+					StoppedBy = { "TriggerRelease" }
+				},
+				{
+					Name = "/SFX/Enemy Sounds/Hades/HadesLaserBlastChargeUp" ,
+					StoppedBy = { "TriggerRelease" }
+				},
+			},
+			FireSounds =
+			{
+				PerfectChargeSounds =
+				{
+					{ Name = "/Leftovers/SFX/AuraPerfectThrow" },
+				},
+				{ Name = "/SFX/Player Sounds/MelSkullsDash" },
+				{
+					Name = "/VO/MelinoeEmotes/EmoteAttackingDaggerThrow",
+					Cooldown = 0.5
+				},
+			},
+			FireStageSounds = 
+			{
+				{ Name = "/SFX/Player Sounds/MelSkullsOmegaSpecialFire" },
+				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+			},
+			ImpactSounds =
+			{
+				Invulnerable = "/SFX/SwordWallHitClank",
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/ArrowMetalBoneSmash",
+				Brick = "/SFX/ArrowMetalStoneClang",
+				Stone = "/SFX/ArrowMetalStoneClang",
+				Organic = "/SFX/ArrowImpactSplatter",
+				StoneObstacle = "/SFX/SwordWallHitClankSmall",
+				BrickObstacle = "/SFX/SwordWallHitClankSmall",
+				MetalObstacle = "/SFX/SwordWallHitClankSmall",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
+			},
+		},
+		
+		SpeedPropertyChanges = 
+		{
+			{
+				ProjectileProperty = "Speed",
+				InvertSource = true
+			},
+			{
+				WeaponProperty = "ChargeTime",
+			},
+		},
+		Upgrades = { },
+		IsModifiedByTraits = true,
 	},
 	WeaponSkullImpulse = 
 	{
@@ -379,6 +499,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},

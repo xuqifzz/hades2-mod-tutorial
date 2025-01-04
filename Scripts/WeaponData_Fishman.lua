@@ -7,6 +7,10 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ChainedWeapon = "FishmanDrag",
+			DoNotRepeatOnAttackFail = false,
+
+			--CancelChainedWeaponOnHitStun = true,
+			--AttackFailWeapon = "FishmanMeleeSlam",
 
 			ProjectileName = "FishmanImpale",
 			BarrelLength = 50,
@@ -83,6 +87,9 @@ WeaponSetData =
 
 			FireAnimation = "Enemy_FishmanMelee_PullSwingFire",
 			PostAttackAnimation = "Enemy_FishmanMelee_PullSwingReturnToIdle",
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
@@ -136,20 +143,59 @@ WeaponSetData =
 
 	FishmanMeleeSlam =
 	{
+
+		-- don't use when unit has armor
+		GameStateRequirements =
+		{
+		  {
+		    PathFromSource = true,
+		    Path = { "HealthBuffer" },
+		    Comparison = "<=",
+		    Value = 0,
+		  },
+		},
+
+		Requirements = 
+		{
+			MaxConsecutiveUses = 1,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
 
 			ProjectileName = "FishmanMeleeSlam",
-			FireProjectileStartDelay = 0.3,
+			FireProjectileStartDelay = 0.29,
 
-			PreAttackAngleTowardTarget = false,
-			PreAttackStop = true,
+			ApplyEffectsOnPreAttackStart =
+			{
+				{
+					EffectName = "FishmanMeleeSlamRotationBonus",
+					DataProperties = 
+					{
+						Duration = 0.3,
+						RotationMultiplier = 4.0,
+					},
+				}
+			},
+
+			PreAttackAngleTowardTarget = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.2,
+			StopBeforeFire = true,
+			--PreAttackEndStop = true,
+			--PreAttackStop = true,
 			MoveWithinRange = false,
 			DoNotRepeatOnAttackFail = true,
-			PreAttackDuration = 0.2,
+			PreAttackDuration = 0.3,
 			FireDuration = 0.3,
-			PostAttackDuration = 1.2,
+			PostAttackDuration = 0.6,
+
+			ChargeSelfVelocity = 1450,
+			ChargeSelfVelocityAngleOffset = 180,
+
+			PreAttackFunctionName = "WeaponSetImmuneToStun",
+			PostAttackFunctionName = "WeaponRevertStunImmunity",
 
 			AttackDistance = 9999,
 			

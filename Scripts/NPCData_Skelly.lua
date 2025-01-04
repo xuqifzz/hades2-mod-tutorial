@@ -5,10 +5,9 @@
 	{
 		InheritFrom = { "BaseVulnerableEnemy", "NPC_Neutral", "NPC_Giftable" },
 		SubtitleColor = Color.SkellyVoice,
+		EmoteOffsetY = -260,
+		EmoteOffsetX = 80,
 		DisableCharacterFadeColorLag = true,
-
-		EmoteOffsetX = -80,
-		EmoteOffsetY = -150,
 		RequiredKill = false,
 		UseShrineUpgrades = false,
 		SkipDamagePresentation = false,
@@ -29,7 +28,7 @@
 		{
 			Default = "Skelly_OnHit",
 		},
-		MaxHealth = 920,
+		MaxHealth = 1320,
 		HealthBarOffsetY = -235,
 		HealthBarType = "MediumLarge",
 		SkipDamageText = false,
@@ -37,7 +36,7 @@
 		UnuseableWhenDead = true,
 		SpeechCooldownTime = 9,
 		IgnoreAutoLock = false,
-		BondAlwaysApplies = true,
+		TrainingTarget = true,
 		FamiliarTarget = true,
 
 		Groups = { "GroundEnemies", "TrainingEnemies" },
@@ -75,7 +74,7 @@
 
 				{ Cue = "/VO/Melinoe_1708", Text = "Death to Chronos, Commander." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -299,6 +298,9 @@
 				},
 				{ Cue = "/VO/Skelly_0229",
 					PreLineAnim = "Skelly_Explaining",
+					-- PreLineAnim = "Skelly_Babbling",
+					-- PreLineAnim = "Skelly_Salute",
+					-- PreLineAnim = "Skelly_Greeting",
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 9.65 },
 					Text = "A battle lost. But this is {#Emph}war{#Prev}, young one, and you have many battles yet to come! The only question is, are you prepared to {#Emph}win? {#Prev}I'm not so sure here, so let's see you {#DialogLegendaryFormat}give me {#Prev}{#EmphLegendary}twenty!",
 					PostLineThreadedFunctionName = "StartSkellyHitQuest" },
@@ -412,6 +414,38 @@
 				},
 			},
 
+			SkellyAboutChatting01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					-- @ update with additional requirements?
+				},
+				{ Cue = "/VO/Skelly_0393",
+					Text = "You're eager to get out there and start dishing out some good old fashioned punishment, young one! Well then you need not stop for me. {#DialogLegendaryFormat}Just go!" },
+				{ Cue = "/VO/Melinoe_3803", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I would, Commander, but... it doesn't feel right to rush through these Crossroads without so much as a word. Besides, you surely have some vital wisdom to impart!" },
+				{ Cue = "/VO/Skelly_0394",
+					PreLineAnim = "Skelly_Explaining",
+					Text = "That I do, and it is this: Even if you see a sign over my head or anybody's that's like {#Emph}c'mere talk to me{#Prev}, remember... no need to chat if you're not in a conversating mood, OK?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3804", Text = "Just ignore anybody I don't want to talk to, then." },
+					},
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Skelly_01",
+						{ Cue = "/VO/Skelly_0395", Text = "Yeah, who needs 'em!" },
+					},
+				},
+			},
+
 			SkellyAboutCardUpgradeSystem01 =
 			{
 				PlayOnce = true,
@@ -445,7 +479,7 @@
 					Text = "I've consecrated the Ashes and gained insight into the potential of the Arcana, Commander. Requires a little Moon Dust, and a lot of focus... perhaps the other way around." },
 				{ Cue = "/VO/Skelly_0362",
 					PreLineAnim = "Skelly_Babbling",
-					Text = "{#DialogLegendaryFormat}Moon Dust! {#Prev}Think the old {#DialogLegendaryFormat}Broker {#Prev}started pawning off that stuff, though I have {#Emph}heard {#Prev}it's possible a witch like you could brew it up herself. Sounds like you better stock up!" },
+					Text = "{#DialogLegendaryFormat}Moon Dust? {#Prev}Think the old {#DialogLegendaryFormat}Broker {#Prev}started pawning off that stuff, though I {#Emph}have {#Prev}heard it's possible a witch like you could brew it up herself. Sounds like you better stock up!" },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.4,
@@ -597,7 +631,10 @@
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "SkellyGift02", "CharonGift02" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "SkellyAboutCharon01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "SkellyAboutCharon01" }, Min = 3 },
+					},
 				},
 				{ Cue = "/VO/Skelly_0246",
 					PreLineAnim = "Skelly_Explaining",
@@ -770,6 +807,46 @@
 				},
 			},
 
+			SkellyAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "P_Boss01" },
+						Comparison = ">=",
+						Value = 2,
+					},
+				},
+
+				{ Cue = "/VO/Melinoe_3807", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Commander, what is the consensus here about Prometheus? If some mortals venerated him, perhaps you and your disciples feel conflicted that he now opposes us." },
+				{ Cue = "/VO/Skelly_0399",
+					PreLineAnim = "Skelly_Explaining",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", WaitTime = 8.4 },
+					Text = "The Titan who brought fire, reason, good eats, and the arts and stuff to mortalkind! Then faced the vengeance of the gods for all of that. Can't stand the guy, let him have it!" },
+				{ Cue = "/VO/Melinoe_3808", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Wait, you can't stand him even though he did so much for you? Though mortals can be difficult to please..." },
+				{ Cue = "/VO/Skelly_0400",
+					PreLineAnim = "Skelly_Salute",
+					Text = "Well let's see, has he been nice to you, or has he tried to kill you? So what if he buttered us up way back when! Not like he's done much for us lately." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Melinoe_3809", Text = "He {#Emph}has {#Prev}tried to kill me..." },
+				},
+			},
+
 			SkellyAboutRouteChoice01 =
 			{
 				PlayOnce = true,
@@ -864,7 +941,7 @@
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "War rages above. The Olympians sent Heracles himself to contain the damage. Shades of the Dead linger everywhere. So... {#Emph}not {#Prev}good, all in all." },
 				{ Cue = "/VO/Skelly_0143",
-					Text = "Shades of the Dead! Sure sounds like more disciples we can use. {#Emph}Eh{#Prev}, {#DialogLegendaryFormat}sprint into 'em{#Prev}, will ya?" },
+					Text = "Shades of the Dead! Sure sounds like more disciples we can use. {#Emph}Eh{#Prev}, {#DialogLegendaryFormat}sprint into 'em{#Prev}, will you?" },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.4,
@@ -894,7 +971,7 @@
 				{ Cue = "/VO/Melinoe_1044", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Of course...! You were a famous mariner in your mortal days. But, then you finally met your end beneath the waters upon which you sailed?" },
+					Text = "Of course...! You were a famous mariner in your mortal days! But, then you finally met your end beneath the waters upon which you sailed?" },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.4,
@@ -961,6 +1038,48 @@
 					ObjectType = "NPC_Skelly_01",
 					{ Cue = "/VO/Skelly_0080", Text = "They were tranquil, damn it..." },
 				},
+			},
+
+			SkellyAboutOlympus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Intro" },
+					},
+					{
+						Path = { "CurrentRun", "EnemyKills" },
+						HasAny = { "SentryBot", "SentryBot_Elite", "AutomatonBeamer", "AutomatonBeamer_Elite", "AutomatonEnforcer", "AutomatonEnforcer_Elite" },
+					},
+				},
+				{ Cue = "/VO/Skelly_0396",
+					PreLineAnim = "Skelly_Explaining",
+					Text = "My disciples and I all salute you on account of having made it up to the big mountain, young one! Back when we drew breath, we could only dream of those hallowed heights..." },
+				{ Cue = "/VO/Melinoe_3805", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					PreLineWait = 0.35,
+					Text = "I appreciate the encouragement, Commander, but I've got a bit of a climb still. The legions of Chronos are there in droves... and the mountain's defenses can't tell us apart." },
+				{ Cue = "/VO/Skelly_0397",
+					Emote = "PortraitEmoteFiredUp",
+					PreLineAnim = "Skelly_Babbling",
+					Text = "Surely you jest! The mechanical marvels wrought by the gods themselves turned their deadly appendages on {#Emph}you? {#Prev}When you went all that way to help 'em out?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.35,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3806", Text = "Basically yes." },
+					},
+					{
+						PreLineWait = 0.35,
+						ObjectType = "NPC_Skelly_01",
+						PreLineAnim = "Skelly_Salute",
+						{ Cue = "/VO/Skelly_0398", Text = "Aw that's too bad." },					},
+				},
+
 			},
 
 			SkellyAboutGiftRack01 =
@@ -1163,7 +1282,7 @@
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "All mortalkind condemned to neverending torment and despair...?" },
+					Text = "All mortalkind condemned to never-ending torment and despair...?" },
 				EndVoiceLines =
 				{
 					PreLineWait = 0.35,
@@ -1196,7 +1315,7 @@
 				},
 				{ Cue = "/VO/Skelly_0234",
 					PreLineAnim = "Skelly_Explaining",
-					Text = "How goes it with the neverending torment stuff, now that you've got that {#DialogLegendaryFormat}Oath {#Prev}thing over there? Those Nocturnal Arms of yours, they must be having a great time!" },
+					Text = "How goes it with the never-ending torment stuff, now that you've got that {#DialogLegendaryFormat}Oath {#Prev}thing over there? Those Nocturnal Arms of yours, they must be having a great time!" },
 				{ Cue = "/VO/Melinoe_2815", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1287,6 +1406,7 @@
 				{
 					PreLineWait = 0.35,
 					ObjectType = "NPC_Skelly_01",
+					RequiredMinElapsedTime = 2,
 					{ Cue = "/VO/Skelly_0192", Text = "Keep doing what you're doing over there!" },
 				},
 			},
@@ -1311,7 +1431,7 @@
 						PathFalse = { "GameState", "RoomsEntered", "F_PostBoss01" },
 					},
 					{
-						PathFalse = { "ConfigOptionsCache", "EasyMode" },
+						PathFalse = { "ConfigOptionCache", "EasyMode" },
 					},
 					{
 						PathFalse = { "GameState", "TraitsTaken", "GodModeTrait" },
@@ -1333,6 +1453,7 @@
 				{
 					PreLineWait = 0.4,
 					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
 					{ Cue = "/VO/Melinoe_2923", Text = "Just an option..." },
 				},
 			},
@@ -1343,16 +1464,11 @@
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					-- @ update with real requirements
-					{
-						PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked" },
-					},
-					--[[
+					-- @ update with additional requirements
 					{
 						Path = { "GameState", "EquippedFamiliar" },
-						IsAny = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar" },
+						IsAny = { "FrogFamiliar", "CatFamiliar", "RavenFamiliar", "HoundFamiliar" },
 					},
-					]]--
 				},
 				{ Cue = "/VO/Skelly_0081",
 					Text = "You have an {#DialogLegendaryFormat}Animal Familiar {#Prev}now! Well, your disciples are my disciples, young one. They shall be trained and cared for here while you're away, and they can fight me also if they like?" },
@@ -1360,7 +1476,57 @@
 				{
 					PreLineWait = 0.4,
 					UsePlayerSource = true,
-					{ Cue = "/VO/Melinoe_0765", Text = "Thank you." },
+					RequiredMinElapsedTime = 2,
+
+					{ Cue = "/VO/Melinoe_3552_B", Text = "Yes, sir." },
+				},
+			},
+
+			SkellyAboutCosmetics01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "DoraAboutCosmetics01" },
+					},
+					{
+						-- @ update with additional requirements
+						Path = { "GameState", "WorldUpgradesAdded" },
+						CountOf =
+						{
+							-- PreRun
+							-- "Cosmetic_SkellyFloor01",
+							"Cosmetic_SkellyFloor01a",
+							"Cosmetic_SkellyFloor01b",
+							-- "Cosmetic_TrainingDummy01",
+							"Cosmetic_TrainingDummy01a",
+							"Cosmetic_TrainingDummy01b",
+							"Cosmetic_CatScratcher",
+							"Cosmetic_BirdHouse",
+							"Cosmetic_ExitCharm",
+						},
+						Comparison = ">=",
+						Value = 3,
+					},
+				},
+				{ Cue = "/VO/Skelly_0401",
+					PreLineAnim = "Skelly_Explaining",
+					Text = "My disciples are appreciative for all of the improvements to these training grounds, young one! Soon we shall have a proper war camp here!" },
+				{ Cue = "/VO/Melinoe_3810", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Anything we can do to raise morale is worth our while. Are there other improvements that you'd like to see?" },
+				{ Cue = "/VO/Skelly_0402",
+					PreLineAnim = "Skelly_Salute",
+					Text = "Ah well, as you know I have but modest needs! A good smack in the head now and again is all that I require." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Melinoe_3811", Text = "Just let me know if there's anything else." },
 				},
 			},
 
@@ -1381,8 +1547,8 @@
 				EndVoiceLines =
 				{
 					PreLineWait = 0.4,
-					RequiredMinElapsedTime = 2,
 					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
 					{ Cue = "/VO/Melinoe_2492", Text = "I'm honored to bear them." },
 				},
 			},
@@ -1426,6 +1592,51 @@
 					RequiredMinElapsedTime = 2,
 					UsePlayerSource = true,
 					{ Cue = "/VO/Melinoe_2494", Text = "I'll fight like Headmistress herself." },
+				},
+			},
+			SkellyAboutLob01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "Weapons" },
+						HasAny = { "WeaponLob" },
+					},
+				},
+				{ Cue = "/VO/Skelly_0403",
+					PreLineAnim = "Skelly_Explaining",
+					Text = "I must salute the bearer of the {#DialogLegendaryFormat}Argent Skull{#Prev}! Would that my own cranium were thusly reinforced with silver and could explode with such spectacular results!" },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Melinoe_3812", Text = "One good skull deserves another." },
+				},
+			},
+			SkellyAboutSuit01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "Weapons" },
+						HasAny = { "WeaponSuit" },
+					},
+				},
+				{ Cue = "/VO/Skelly_0404",
+					PreLineAnim = "Skelly_Babbling",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 6.1 },
+					Text = "So {#Emph}this {#Prev}is the {#DialogLegendaryFormat}Black Coat{#Prev}! An armament such as the world has never before seen! Probably because that thing can punch or blow up anybody fool enough to cross your path!" },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					UsePlayerSource = true,
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Melinoe_3813", Text = "It fits like it was made for me..." },
 				},
 			},
 
@@ -1513,9 +1724,10 @@
 					NamedRequirements = { "TrophyQuestStage1CheckA" },
 					NamedRequirementsFalse = { "TrophyQuestStage1CheckB" },
 				},
-				{ Cue = "/VO/Skelly_0358",
+				{ Cue = "/VO/Skelly_0358_B",
+					Emote = "PortraitEmoteFiredUp",
 					PreLineAnim = "Skelly_Explaining",
-					Text = "Halfway to victory, young one! But to earn the Gifts of the Veil, one must conquer the Underworld {#Emph}and {#Prev}the surface realms upon a {#DialogLegendaryFormat}Fear{#Prev}-ful night each in turn. You up for it?" },
+					Text = "Halfway to victory, kiddo! But to earn the Gifts of the Veil, one must conquer the Underworld {#Emph}and {#Prev}the surface realms upon a {#DialogLegendaryFormat}Fear{#Prev}-ful night, each in turn. You up for it?" },
 				{ Cue = "/VO/Melinoe_3362", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1654,7 +1866,7 @@
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "SkellyAboutTrophyQuestProgress03_B", "TrophyQuestComplete01" },
+						HasNone = { "SkellyAboutTrophyQuestProgress03_B", "TrophyQuestComplete03" },
 					},
 					NamedRequirements = { "TrophyQuestStage3CheckA" },
 					NamedRequirementsFalse = { "TrophyQuestStage3CheckB" },
@@ -1686,7 +1898,7 @@
 					},
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "SkellyAboutTrophyQuestProgress03_A", "TrophyQuestComplete01" },
+						HasNone = { "SkellyAboutTrophyQuestProgress03_A", "TrophyQuestComplete03" },
 					},
 					NamedRequirements = { "TrophyQuestStage3CheckB" },
 					NamedRequirementsFalse = { "TrophyQuestStage3CheckA" },
@@ -1738,10 +1950,10 @@
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "These Shades are inspired because I went out of my way to use the Oath of the Unseen purely for personal gain?" },
-				{ Cue = "/VO/Skelly_0324",
+				{ Cue = "/VO/Skelly_0324_B",
 					Emote = "PortraitEmoteFiredUp",
 					PreLineAnim = "Skelly_Explaining",
-					Text = "{#Emph}Yeah! {#Prev}They're easy to please. But not you, apparently! Geez, I didn't know {#DialogLegendaryFormat}Night's Champion {#Prev}was gonna have so many questions all the time! You want the statues or don't you?" },
+					Text = "{#Emph}Yeah! {#Prev}They're easy to please! But not you, apparently. I didn't know Night's Champion was gonna have so many questions all the time! You want the statues, or don't you?" },
 				EndVoiceLines =
 				{
 					{
@@ -1963,7 +2175,7 @@
 					},
 				},
 				{ Cue = "/VO/Skelly_0146",
-					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 6.9 },					
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 6.9 },
 					Text = "All your training's gonna be for naught if you don't use it in a fight. Say I'm chasing after you with a club and you want to get me to stay put. Let's see you cast a {#DialogLegendaryFormat}Circle of Binding {#Prev}over here!",
 					PostLineThreadedFunctionName = "StartSkellyCastQuest", },
 				EndVoiceLines =
@@ -2019,7 +2231,7 @@
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = "<=",
-						Value = 12,
+						Value = 14,
 					},
 				},
 				{ Cue = "/VO/Skelly_0341",
@@ -2078,7 +2290,7 @@
 					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = "<=",
-						Value = 8,
+						Value = 10,
 					},
 					{
 						Path = { "GameState", "ClearedRunsCache" },
@@ -2086,7 +2298,7 @@
 						Value = 0,
 					},
 					{
-						Path = { "GameState", "RoomCountCache", "G_Intro" },
+						Path = { "GameState", "RoomsEntered", "G_Intro" },
 						Comparison = "<=",
 						Value = 3,
 					},
@@ -2214,12 +2426,12 @@
 					{
 						Path = { "GameState", "Resources", "MetaCurrency" },
 						Comparison = ">=",
-						Value = 800,
+						Value = 600,
 					},
 					{
 						Path = { "GameState", "LifetimeResourcesSpent", "MetaCurrency" },
 						Comparison = "<=",
-						Value = 600,
+						Value = 200,
 					},
 				},
 				{ Cue = "/VO/Skelly_0376",
@@ -2241,7 +2453,6 @@
 					{ Cue = "/VO/Melinoe_3481", Text = "But I like hoarding them..." },
 				},
 			},
-
 
 			SkellyHintChoices01 =
 			{
@@ -2329,7 +2540,7 @@
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "ScreensViewed", "MetaUpgradeCardPromptLayout" },
+						PathTrue = { "GameState", "ScreensViewed", "GraspLimitLayout" },
 					},
 					{
 						Path = { "GameState", "MaxMetaUpgradeCostCache" },
@@ -2356,6 +2567,17 @@
 				},
 			},
 
+			-- Partner Conversations
+			DoraWithSkelly01 =
+			{
+				Partner = "NPC_Dora_01",
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = false,
+				PreBlockSpecialInteract = true,
+				UseText = "UseListenNPC",
+				InteractDistance = 450,
+			},
 
 			-- Repeatable
 			SkellyChat01 =
@@ -2534,7 +2756,7 @@
 					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteSparkly", WaitTime = 10 },
 					Text = "{#Emph}Ah{#Prev}, the memories, young one... your brother thusly used to favor me. And for his sake and yours, I shall accept this. Now, please accept {#Emph}my {#Prev}gratitude: {#Emph}Hey, thanks!" },
 				{ Cue = "/VO/Melinoe_1051", UsePlayerSource = true,
-					Text = "You are most welcome, Commander, and hey thanks to you in turn for your peerless insight and steadfast presence." },
+					Text = "You are most welcome, Commander! And {#Emph}hey thanks {#Prev}to you in turn, for your peerless insight and steadfast presence." },
 			},
 			SkellyGift03 =
 			{
@@ -2578,11 +2800,76 @@
 					Text = "I must not partake in such extravagances! For my disciples are counting on my clear-eyed counsel and undivided attention. But tell you what I'm gonna save this one for later when I'm off, OK?" },
 				{ Cue = "/VO/Melinoe_3484", UsePlayerSource = true,
 					Text = "What you call an extravagance... it must be nothing compared to the luxuries of my father's House. Yet you never want for anything. Besides the occasional hit or two." },
-				--[[
-				-- { Cue = "/VO/Melinoe_3372", UsePlayerSource = true,
+			},
+			SkellyGift05 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "UseRecord", "NPC_Skelly_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				{ Cue = "/VO/Skelly_0389",
+					PreLineAnim = "Skelly_Explaining",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteFiredUp", DoShake = true, WaitTime = 10 },
+					Text = "Many a time have I been regaled with the most exquisite beverages and snacks, but never before from such a disciplined and honorable disciple such as yourself! Rest of you slackers hear {#Emph}that? {#Prev}More offerings, come on!" },
+				{ Cue = "/VO/Melinoe_3372", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "The Nectar's yours to do with as you please, sir! May it lighten the burden of responsibility you bear to all the Shades and others counting on your skill and knowledge." },
-					]]--
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						ObjectType = "NPC_Skelly_01",
+						{ Cue = "/VO/Skelly_0390", Text = "Oh I'll give 'em skill and knowledge." },
+					},
+				},
+			},
+			SkellyGift06 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = true,
+				Cost =
+				{
+					GiftPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "UseRecord", "NPC_Skelly_01" },
+						Comparison = ">=",
+						Value = 1,
+					},
+				},
+				{ Cue = "/VO/Skelly_0391",
+					PreLineAnim = "Skelly_Salute",
+					Text = "Look kiddo... I got to level with you. Got kind of a drinking problem over here. Stuff goes right through me! I just don't want you wasting this when you could give it to one of those other guys out there." },
+				{ Cue = "/VO/Melinoe_3551", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Commander, thank you for your honesty with me... I hate to think all that Nectar only served to make you ill-at-ease. You do know you don't need to drink it, right? It can be a collector's item... a reminder of your friends, and the affection that they have for you." },
+				{ Cue = "/VO/Skelly_0392",
+					PreLineAnim = "Skelly_Babbling",
+					Text = "Affection, shmuffection, look I'm gonna keep it just this {#Emph}sixth {#Prev}time... but don't go giving any more to me, OK?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_3552", Text = "Yes, sir." },
+					},
+				},
 			},
 
 			-- placeholder
@@ -2617,7 +2904,8 @@
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 
 				},
@@ -2648,7 +2936,8 @@
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3360", UsePlayerSource = true,
@@ -2773,23 +3062,42 @@
 		OnHitVoiceLinesQueueDelay = 0.6,
 		OnHitVoiceLines =
 		{
+			Cooldowns =
 			{
-				Cooldowns =
-				{
-					{ Name = "SkellyOnHitSpeech", Time = 8 },
-				},
+				{ Name = "SkellyOnHitSpeech", Time = 8 },
+			},
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlayAll = 0.5,
 				GameStateRequirements =
 				{
 					{
 						PathFromArgs = true,
 						Path = { "SourceProjectile", },
-						IsNone = { "FrogFamiliarLand", "RavenFamiliarMelee", "ShadeMercSpiritball" },
+						IsAny = { "ShadeMercSpiritball" },
+					},
+				},
+				{ Cue = "/VO/Skelly_0407", Text = "Hey c'mon guys!" },
+				{ Cue = "/VO/Skelly_0408", Text = "That all you got, you Shades?", PlayFirst = true },
+				{ Cue = "/VO/Skelly_0409", Text = "Not impressed." },
+				{ Cue = "/VO/Skelly_0410", Text = "Weak!" },
+			},
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsNone = { "FrogFamiliarLand", "ShadeMercSpiritball" },
 					},
 				},
 				{
 					RandomRemaining = true,
 					BreakIfPlayed = true,
-					SuccessiveChanceToPlayAll = 0.5,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.75,
+					SuccessiveChanceToPlayAll = 0.25,
 					GameStateRequirements =
 					{
 						{
@@ -2806,6 +3114,44 @@
 				{
 					RandomRemaining = true,
 					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.75,
+					SuccessiveChanceToPlayAll = 0.25,
+					GameStateRequirements =
+					{
+						{
+							PathFromArgs = true,
+							Path = { "SourceProjectile", },
+							IsAny = { "RavenFamiliarMelee" },
+						},
+					},
+					{ Cue = "/VO/Skelly_0433", Text = "That the best you got, {#Emph}bird?", PlayFirst = true },
+					{ Cue = "/VO/Skelly_0434", Text = "Tried to pluck my eyes out!" },
+					{ Cue = "/VO/Skelly_0435", Text = "Flap away, pal!" },
+					{ Cue = "/VO/Skelly_0436", Text = "I fear no raven!" },
+				},
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.75,
+					SuccessiveChanceToPlayAll = 0.25,
+					GameStateRequirements =
+					{
+						{
+							PathFromArgs = true,
+							Path = { "SourceProjectile", },
+							IsAny = { "HoundFamiliarBark" },
+						},
+					},
+					{ Cue = "/VO/Skelly_0437", Text = "Go fetch some other bone!" },
+					{ Cue = "/VO/Skelly_0438", Text = "Want some of this, doggo?" },
+					{ Cue = "/VO/Skelly_0439", Text = "{#Emph}Heel{#Prev}, you {#Emph}cur!", PlayFirst = true },
+					{ Cue = "/VO/Skelly_0440", Text = "I fear no hound!" },
+				},
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
 					ChanceToPlay = 0.2,
 					PlayOnceFromTableThisRun = true,
 					GameStateRequirements =
@@ -2814,6 +3160,11 @@
 							Path = { "GameState", "CompletedRunsCache" },
 							Comparison = ">=",
 							Value = 1,
+						},
+						{
+							PathFromArgs = true,
+							Path = { "SourceProjectile", },
+							IsNone = { "CatFamiliarPounce", "RavenFamiliarSwoop" },
 						},
 					},
 					{ Cue = "/VO/Skelly_0217", Text = "That stick has got some heft!",
@@ -2918,11 +3269,90 @@
 							},
 						},
 					},
+
+					{ Cue = "/VO/Skelly_0424", Text = "{#Emph}Aw {#Prev}my {#Emph}jaw!",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuit", "ProjectileSuit2", "ProjectileSuit3", "ProjectileSuitCharged" },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0425", Text = "What a {#Emph}punch!",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuitCharged" },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0426", Text = "Smacked me good!",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuit", "ProjectileSuit2", "ProjectileSuit3", "ProjectileSuitCharged" },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0427", Text = "What {#Emph}are {#Prev}those things?",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuitRanged", "UnguidedProjectileSuitRanged", "GuidedProjectileSuitRangedCharged", "UnguidedProjectileSuitRangedCharged", "ProjectileSuitRangedChargedSplit", "ProjectileSuitRangedGuidedSplit", },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0428", Text = "{#Emph}Boom{#Prev}, yeah!",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuitCharged", "ProjectileSuitRanged", "UnguidedProjectileSuitRanged", "GuidedProjectileSuitRangedCharged", "UnguidedProjectileSuitRangedCharged", "ProjectileSuitRangedChargedSplit", "ProjectileSuitRangedGuidedSplit", },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0429", Text = "Y-you hear that ringing sound...?",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileSuitCharged", "ProjectileSuitRanged", "UnguidedProjectileSuitRanged", "GuidedProjectileSuitRangedCharged", "UnguidedProjectileSuitRangedCharged", "ProjectileSuitRangedChargedSplit", "ProjectileSuitRangedGuidedSplit", },
+							},
+						},
+					},
+					{ Cue = "/VO/Skelly_0430", Text = "That's some {#Emph}heat!",
+						GameStateRequirements =
+						{
+							{
+								PathFromArgs = true,
+								Path = { "SourceProjectile", },
+								IsAny = { "ProjectileTorchBall", "ProjectileTorchExplosion", "ProjectileTorchBallLarge", "ProjectileTorchBallSplit", "ProjectileTorchBallLargeSplit", "ProjectileTorchExplosionLarge", "ProjectileTorchSpiral", "ProjectileTorchOrbit", "ProjectileSuitRanged", "UnguidedProjectileSuitRanged", "GuidedProjectileSuitRangedCharged", "UnguidedProjectileSuitRangedCharged", "ProjectileSuitRangedChargedSplit", "ProjectileSuitRangedGuidedSplit", },
+							},
+						},
+					},
 				},
 				{
 					BreakIfPlayed = true,
 					SuccessiveChanceToPlay = 0.15,
 					RandomRemaining = true,
+					GameStateRequirements =
+					{
+						{
+							PathFromArgs = true,
+							Path = { "SourceProjectile", },
+							IsAny = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee", "ShadeMercSpiritball" },
+						},
+					},
 
 					{ Cue = "/VO/Skelly_0166", Text = "Disciples, watch and learn!", PlayFirst = true,
 						GameStateRequirements =
@@ -3008,9 +3438,11 @@
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
+				Queue = "Interrupt",
 				Cooldowns =
 				{
 					{ Name = "SkellyOnRespawnSpeech", Time = 20 },
+					{ Name = "SkellyAnyQuipSpeech", Time = 9 }
 				},
 
 				{ Cue = "/VO/Skelly_0023", Text = "I have returned." },
@@ -3029,11 +3461,12 @@
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				SuccessiveChanceToPlayAll = 0.85,
+				Queue = "Interrupt",
 				Cooldowns =
 				{
 					{ Name = "SkellyOnRespawnSpeech", Time = 20 },
 				},
-				TriggerCooldowns = { "SkellyQuipAnySpeech", "SkellyOnHitSpeech" },
+				TriggerCooldowns = { "SkellyAnyQuipSpeech", "SkellyOnHitSpeech" },
 
 				{ Cue = "/VO/Skelly_0022", Text = "You see?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "SkellyIntro",
 					GameStateRequirements =
@@ -3047,13 +3480,13 @@
 				{ Cue = "/VO/Skelly_0066", Text = "Let us continue." },
 				{ Cue = "/VO/Skelly_0067", Text = "We always get back up." },
 				{ Cue = "/VO/Skelly_0068", Text = "I rise again." },
-				{ Cue = "/VO/Skelly_0069", Text = "But can you vanquish me again?" },
+				{ Cue = "/VO/Skelly_0069", Text = "But can you vanquish me {#Emph}again?" },
 				{ Cue = "/VO/Skelly_0286", Text = "Never accept defeat!" },
 				{ Cue = "/VO/Skelly_0287", Text = "My vigil thus resumes." },
 				{ Cue = "/VO/Skelly_0288", Text = "What news?" },
 				{ Cue = "/VO/Skelly_0289", Text = "You may continue." },
 				{ Cue = "/VO/Skelly_0290", Text = "A different tactic now?" },
-				{ Cue = "/VO/Skelly_0291", Text = "The things that I have seen..." },				
+				{ Cue = "/VO/Skelly_0291", Text = "The things that I have seen..." },
 			},
 		},
 
@@ -3069,7 +3502,10 @@
 				PlayOnceFromTableThisRun = true,
 				GameStateRequirements =
 				{
-					AreIdsNotAlive = { 420928 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 420928 }, Alive = false },
+					},
 				},
 
 				{ Cue = "/VO/Melinoe_2956", Text = "Where's the Commander?", PlayFirst = true },

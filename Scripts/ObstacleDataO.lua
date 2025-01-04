@@ -192,7 +192,7 @@ OverwriteTableKeys( ObstacleData, {
 		InheritFrom = { "BaseBreakable" },
 
 		DeathSound = "/SFX/CeramicPotSmash",
-		DeathFx = "EphyraBreakableVase01Shatter",
+		DeathFx = "ShipsBreakable01Shatter",
 
 		SetupEvents =
 		{
@@ -204,12 +204,24 @@ OverwriteTableKeys( ObstacleData, {
 					{
 						{
 							Animation = { "Breakable_O01" },
+							OverwriteData =
+							{
+								DeathFx = "ShipsBreakable01Shatter",
+							},
 						},
 						{
 							Animation = { "Breakable_O02" },
+							OverwriteData =
+							{
+								DeathFx = "ShipsBreakable02Shatter",
+							},
 						},
 						{
 							Animation = { "Breakable_O03" },
+							OverwriteData =
+							{
+								DeathFx = "ShipsBreakable03Shatter",
+							},
 						},
 					},
 				},

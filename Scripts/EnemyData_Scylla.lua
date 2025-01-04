@@ -45,7 +45,8 @@ UnitSetData.Scylla =
 
 		InvulnerableFx = "Invincibubble_Scylla",
 		ProjectileBlockPresentationFunctionName = "UnitInvulnerableHitPresentation",
-		--InvulnerableHitFx = "TurtleInvincibubbleHit",
+		InvulnerableHitFlash = true,
+		InvulnerableBlockHint = true,
 		OnHitFunctionName = "CheckUnitInvulnerableHit",
 
 		DeathAnimation = "Enemy_Scylla_Death",
@@ -69,7 +70,7 @@ UnitSetData.Scylla =
 		GroupHealthBarOwner = true,
 
 		OnDeathFunctionName = "ScyllaKillPresentation",
-		OnDeathFunctionArgs = { Message = "SirensDefeatedMessage", CameraPanTime = 1.5, StartSound = "/Leftovers/Menu Sounds/EmoteShocked", BatsAfterDeath = false, FlashRed = true, FlashDuration = 0.45, AddInterBiomeTimerBlock = true },
+		OnDeathFunctionArgs = { Message = "SirensDefeatedMessage", CameraPanTime = 1.5, StartSound = "/Leftovers/Menu Sounds/EmoteShocked", EndMusicEarly = true, BatsAfterDeath = false, FlashRed = true, FlashDuration = 0.45, AddInterBiomeTimerBlock = true },
 
 		PreBossAISetupFunctionName = "ScyllaActivatePresentation",
 
@@ -205,8 +206,14 @@ UnitSetData.Scylla =
 											{ Cue = "/VO/Scylla_0083", Text = "Everybody now!" },
 											{ Cue = "/VO/Scylla_0098", Text = "{#Emph}Huahaha!" },
 											{ Cue = "/VO/Scylla_0100", Text = "{#Emph}Huh!" },
+											{ Cue = "/VO/Scylla_0236", Text = "I... am... {#Emph}Scylla!!", PlayFirst = true },
+											{ Cue = "/VO/Scylla_0237", Text = "{#Emph}Come on{#Prev}, everybody!" },
+											{ Cue = "/VO/Scylla_0238", Text = "She's all mine..." },
+											{ Cue = "/VO/Scylla_0239", Text = "Who, me?" },
+											{ Cue = "/VO/Scylla_0240", Text = "Oh, {#Emph}wow!" },
+											{ Cue = "/VO/Scylla_0241", Text = "My big break...!" },
 										},
-										[2] = GlobalVoiceLines.ScyllaSirenRallyVoiceLines,
+										[2] = { GlobalVoiceLines = "ScyllaSirenRallyVoiceLines" },
 									},
 
 								},
@@ -231,8 +238,12 @@ UnitSetData.Scylla =
 											{ Cue = "/VO/Scylla_0151", Text = "Here comes {#Emph}Roxy!" },
 											{ Cue = "/VO/Scylla_0152", Text = "Give it up for {#Emph}Roxy!" },
 											{ Cue = "/VO/Scylla_0153", Text = "This is {#Emph}Roxy!", PlayFirst = true },
+											{ Cue = "/VO/Scylla_0232", Text = "Let's hear it for Roxy!" },
+											{ Cue = "/VO/Scylla_0233", Text = "Roxy, {#Emph}light it up!" },
+											{ Cue = "/VO/Scylla_0234", Text = "Make waves, Roxy!" },
+											{ Cue = "/VO/Scylla_0235", Text = "Roxy, {#Emph}go all out!" },
 										},
-										[2] = GlobalVoiceLines.ScyllaSirenRallyVoiceLines,
+										[2] = { GlobalVoiceLines = "ScyllaSirenRallyVoiceLines" },
 									},
 								},
 								{ FlagName = "KeytaristBoost", Id = 569244, SoloMusicFunction = "SoloSirenKeytarist",
@@ -255,8 +266,12 @@ UnitSetData.Scylla =
 											{ Cue = "/VO/Scylla_0145", Text = "Jetty, {#Emph}go!", PlayFirst = true },
 											{ Cue = "/VO/Scylla_0146", Text = "Slay 'em, Jetty!" },
 											{ Cue = "/VO/Scylla_0147", Text = "Give it up for {#Emph}Jetty!" },
+											{ Cue = "/VO/Scylla_0228", Text = "Let's hear it for {#Emph}Jetty!" },
+											{ Cue = "/VO/Scylla_0229", Text = "Jetty, she's {#Emph}all yours!" },
+											{ Cue = "/VO/Scylla_0230", Text = "Jetty, {#Emph}go for it!" },
+											{ Cue = "/VO/Scylla_0231", Text = "{#Emph}Shredding time!" },
 										},
-										[2] = GlobalVoiceLines.ScyllaSirenRallyVoiceLines,
+										[2] = { GlobalVoiceLines = "ScyllaSirenRallyVoiceLines" },
 									},
 
 								},
@@ -509,22 +524,55 @@ UnitSetData.Scylla =
 				{ Cue = "/VO/Scylla_0127", Text = "{#Emph}Urgh{#Prev}, don't... go...!" },
 				{ Cue = "/VO/Scylla_0128", Text = "Show... must... {#Emph}gaaahh..." },
 				{ Cue = "/VO/Scylla_0129", Text = "No, why {#Emph}me?!" },
+				{ Cue = "/VO/Scylla_0254", Text = "You're... no... fan..." },
+				{ Cue = "/VO/Scylla_0255", Text = "But did... you like... the... song...?" },
+				{ Cue = "/VO/Scylla_0258", Text = "Thanks... everybody... {#Emph}guhh..." },
+				{ Cue = "/VO/Scylla_0260", Text = "That's... our... show..." },
+				{ Cue = "/VO/Scylla_0261", Text = "{#Emph}Tsch{#Prev}... why... you..." },
+				{ Cue = "/VO/Scylla_0262", Text = "We'll have... other... shows..." },
+				{ Cue = "/VO/Scylla_0263", Text = "Did you... enjoy... the show...?" },
+				{ Cue = "/VO/Scylla_0259", Text = "Thank you... Oceanus...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0136" }
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0256", Text = "{!Icons.Music} {#Emph}I'm... gonna... claw... {!Icons.Music}",
+					GameStateRequirements = 
+					{
+						{
+							Path = { "AudioState", "MusicName" },
+							IsAny = { "/Music/IrisMusicScylla2_MC" },
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0257", Text = "{!Icons.Music} {#Emph}Tonight you're gonna... drown... {!Icons.Music}",
+					GameStateRequirements = 
+					{
+						{
+							Path = { "AudioState", "MusicName" },
+							IsAny = { "/Music/IrisMusicScylla1_MC" },
+						},
+					},
+				},
 			},
 		},
 
-		OnKillVoiceLines =
+		BossKillVoiceLines =
 		{
 			Cooldowns =
 			{
 				{ Name = "BossVanquishedSpeech", Time = 60 },
 			},
-			[1] = GlobalVoiceLines.BarelySurvivedBossFightVoiceLines,
-			[2] =
+			{ GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
-				PreLineWait = 7.8,
-				SuccessiveChanceToPlayAll = 0.66,
+				PreLineWait = 7.2,
+				SuccessiveChanceToPlay = 0.85,
+				SuccessiveChanceToPlayAll = 0.5,
 				UsePlayerSource = true,
 
 				{ Cue = "/VO/Melinoe_1098", Text = "That's quite enough of {#Emph}them.", PlayFirst = true },
@@ -534,18 +582,18 @@ UnitSetData.Scylla =
 				{ Cue = "/VO/Melinoe_1102", Text = "Finally..." },
 				{ Cue = "/VO/Melinoe_1103", Text = "They just won't shut up..." },
 				{ Cue = "/VO/MelinoeField_0098", Text = "Peace and quiet." },
-				{ Cue = "/VO/MelinoeField_0099", Text = "...I hate her." },
+				{ Cue = "/VO/MelinoeField_0099", Text = "...I hate her.", PreLineWait = 7.5 },
 				{ Cue = "/VO/MelinoeField_0100", Text = "Keep practicing!" },
-				{ Cue = "/VO/MelinoeField_0101", Text = "Sing about that..." },
+				{ Cue = "/VO/MelinoeField_0101", Text = "Sing about {#Emph}that..." },
 				{ Cue = "/VO/MelinoeField_0102", Text = "That's for last night.",
 					PlayFirst = true,
 					GameStateRequirements =
 					{
 						{
-							PathTrue = { "PrevRun", "RoomCountCache", "G_Boss01" },
+							PathTrue = { "PrevRun", "RoomsEntered", "G_Boss01" },
 						},
 						{
-							PathFalse = { "PrevRun", "RoomCountCache", "G_PostBoss01", },
+							PathFalse = { "PrevRun", "RoomsEntered", "G_PostBoss01", },
 						},
 					},
 				},
@@ -628,7 +676,40 @@ UnitSetData.Scylla =
 					Emote = "PortraitEmoteFiredUp",
 					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
 					PostLineFunctionName = "StartBossRoomMusic",
-					Text = "{#Emph}Don't {#Prev}listen to her, gals! Your backup vocals are the backbone of this act! I've got the voice, {#Emph}you've {#Prev}got the music, we've got {#Emph}the magick! {#Prev}Let's give her a little taste, huh?" },
+					Text = "{#Emph}Don't {#Prev}listen to her, gals! Your backup vocals are the backbone of this act! I've got the voice, {#Emph}you've {#Prev}got the music, we've got {#Emph}the magick! {#Prev}Let's give her a little taste, {#Emph}huh?" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutSirens02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "TraitCache", "SpellSummonTrait" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Scylla" },
+					},
+					{
+						Path = { "GameState", "SpeechRecord" },
+						HasAny = {
+							"/VO/Scylla_0242", "/VO/Scylla_0243", "/VO/Scylla_0244", "/VO/Scylla_0245", "/VO/Scylla_0246", "/VO/Scylla_0247", "/VO/Scylla_0248", "/VO/Scylla_0249",
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0213", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					Text = "We have our ups and downs, Jetty and Roxy and me. Our little squabbles! But thanks to {#Emph}you{#Prev}, we started fighting with each other in {#Emph}public! {#Prev}And we can't have {#Emph}that." },
+				{ Cue = "/VO/MelinoeField_2720", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "If it makes you feel any better, the hex I put on them was only temporary. Quite frankly I'm surprised it worked on them at all! Night Bloom normally works only on the dead." },
+				{ Cue = "/VO/Scylla_0214", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "This is my band. And if anybody's gonna turn Jetty and Roxy red with rage against each other, it's {#Emph}not {#Prev}going to be {#Emph}you! {#Prev}Right, gals?" },
 				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
 			},
 
@@ -696,7 +777,7 @@ UnitSetData.Scylla =
 				},
 				{ Cue = "/VO/Scylla_0014", Speaker = "NPC_Scylla_01",
 					Emote = "PortraitEmoteSparkly",
-					Text = "{#Emph}Ooh good! {#Prev}You're just in time for our set! Been working on a song called {#Emph}I'm Gonna Claw (Out Your Eyes then Drown You to Death), heh! {#Prev}Comes from a real personal place." },
+					Text = "{#Emph}Ooh good! {#Prev}You're just in time for our set! Been working on a song called {#Emph}I Am Gonna Claw (Out Your Eyes then Drown You to Death), heh! {#Prev}Comes from a real personal place." },
 				{ Cue = "/VO/Melinoe_1829", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -729,6 +810,120 @@ UnitSetData.Scylla =
 					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
 					PostLineFunctionName = "StartBossRoomMusic",
 					Text = "Disturbing? Distracting?! {#Emph}Compelling! That's {#Prev}what good music {#Emph}is{#Prev}. That's what Scylla and the Sirens {#Emph}are! {#Prev}As for our song, {#Emph}hee! {#Prev}You'll understand it better if you give it {#Emph}another {#Prev}listen..." },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutSongs03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "AudioState", "MusicName" },
+						IsAny = { "/Music/IrisMusicScylla2_MC" },
+					},
+					{
+						Path = { "GameState", "LastBossHealthBarRecord", "BossScylla01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
+						Comparison = ">=",
+						Value = 5,
+					},
+					{
+						PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0220" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutSongs02" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ScyllaAboutSongs02" }, Min = 3 },
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2564", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Scylla, I've noticed your song {#Emph}I Am Gonna Claw {#Prev}may be inspired by true events. Is trying to drown me not sufficiently entertaining that I must also be the subject of your ridicule?" },
+				{ Cue = "/VO/Scylla_0207", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					Text = "{#Emph}Oh, hoho {#Prev}how can you be so egotistical even? I had that song worked out since way before {#Emph}you {#Prev}showed up. Any and all similarity is entirely coincidence!" },
+				{ Cue = "/VO/MelinoeField_2565", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Come on. Insulting my hair and attire? Making claims that I'm obsessed with you? But if I'm not the subject of the song, who was, pray tell?" },
+				{ Cue = "/VO/Scylla_0208", Speaker = "NPC_Scylla_01",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "No need to get personal, lady! If I go sharing {#Emph}every {#Prev}detail of my private life with every deranged fan who barges in here, then it wouldn't be a {#Emph}private {#Prev}life, {#Emph}would it?" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutSongs04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutSongs03" }
+					},
+					{
+						Path = { "GameState", "LastBossHealthBarRecord", "BossScylla01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
+						Comparison = ">=",
+						Value = 10,
+					},
+					-- @ update with additional requirements
+				},
+				{ Cue = "/VO/MelinoeField_2562", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Don't you have any new material yet, Scylla? You'd likely garner a much bigger audience if you had a few more songs." },
+				{ Cue = "/VO/Scylla_0205", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteAnger",
+					Text = "Shut {#Emph}up! {#Prev}We have more songs than you can {#Emph}count! {#Prev}You're just not ready for them yet. {#Emph}Nobody {#Prev}is! {#Emph}Perfection {#Prev}takes time, {#Emph}lady." },
+				{ Cue = "/VO/MelinoeField_2563", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "But, perfection is always out of reach... if you keep pursuing it, you'll never get there. You must have a work-in-progress you could play instead of the same old stuff." },
+				{ Cue = "/VO/Scylla_0206", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteCheerful",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}The same old stuff...? {#Prev}Did you just hear that, gals? I think she meant to say your {#Emph}greatest hits{#Prev}, or your {#Emph}all-time classics{#Prev}, didn't she? {#Emph}Heh! {#Prev}You just don't get it, lady. We're here to {#Emph}please!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutSongVolume01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "ConfigOptionCache", "MusicVolume" },
+						Comparison = "<",
+						Value = 0.05,
+					},
+					-- @ update with additional requirements
+				},
+				{ Cue = "/VO/Scylla_0211", Speaker = "NPC_Scylla_01",
+					PreLineThreadedFunctionName = "PlayEmoteAnimFromSource", PreLineThreadedFunctionArgs = { Emote = "PortraitEmoteAnger", WaitTime = 6.7 },
+					Text = "I don't know what you did, lady, but lately, I can barely hear myself think... much less {#Emph}sing! {#Prev}I hate you, you {#Emph}witch! {#Prev}You {#Emph}better {#Prev}make it right!" },
+				{ Cue = "/VO/MelinoeField_2719", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Or else what? I'll use what tactics I see fit. Not having to listen to you spout your nonsense makes it easier to send you back to the depths for the night." },
+				{ Cue = "/VO/Scylla_0212", Speaker = "NPC_Scylla_01",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "You know you like our song. Can't live without it! And I will {#Emph}not {#Prev}be {#Emph}silenced! {#Prev}No matter what you do, I'll always be singing in {#Emph}my {#Prev}head, and {#Emph}yours!" },
 				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
 			},
 
@@ -776,7 +971,7 @@ UnitSetData.Scylla =
 				GameStateRequirements = 
 				{
 					{
-						PathTrue = { "PrevRun", "EncountersCompletedCache", "BossScylla01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "G_PostBoss01" },
 					},
 				},
 				{ Cue = "/VO/Scylla_0026", Speaker = "NPC_Scylla_01",
@@ -818,6 +1013,30 @@ UnitSetData.Scylla =
 				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
 			},
 
+			ScyllaAboutPackagedBounties01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+				},
+				{ Cue = "/VO/Scylla_0209",
+					Emote = "PortraitEmoteSparkly",
+					Text = "Look who got here way too early for tonight's show! Doors weren't meant to open yet, lady! Not that {#Emph}you {#Prev}care about this venue's very reasonable code of conduct." },
+				{ Cue = "/VO/MelinoeField_2718", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Oh I'm familiar with the venue at this point. And if you aren't ready to perform yet, great! I don't really want to hear it from you anyway." },
+				{ Cue = "/VO/Scylla_0210",
+					Emote = "PortraitEmoteAnger",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "Well, {#Emph}too bad! {#Prev}Because even though you're way too early, you are {#Emph}just {#Prev}in time for the private {#Emph}pre{#Prev}-show concert that was {#Emph}just about to start!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
 			ScyllaAboutOdysseus01 =
 			{
 				PlayOnce = true,
@@ -842,6 +1061,230 @@ UnitSetData.Scylla =
 				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
 			},
 
+			ScyllaAboutChronos01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutAgents02" },
+					},
+				},
+				{ Cue = "/VO/Scylla_0197", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					Text = "Well, if it isn't the little name-dropper! Off to see your good friend Mister Chronos again, {#Emph}hm? {#Prev}He {#Emph}loves {#Prev}our act! You'll {#Emph}drown {#Prev}before you take his sponsorship away from us!" },
+				{ Cue = "/VO/MelinoeField_2558", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Oh I'm not after any sponsorships from him. And we're {#Emph}not {#Prev}friends. We merely have some business to resolve... which {#Emph}you {#Prev}continue to impede night after night." },
+				{ Cue = "/VO/Scylla_0198", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSurprise",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Business? {#Prev}With {#Emph}him? {#Prev}Then you must be somebody's kid, no {#Emph}way {#Prev}you'd have connections like that on your own! You know, some of us had to {#Emph}earn {#Prev}our spotlight, lady!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+			ScyllaAboutChronos02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutChronos01" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ChronosBossAboutScylla01" }
+					},
+				},
+				{ Cue = "/VO/Scylla_0199", Speaker = "NPC_Scylla_01",
+					Text = "Gonna level with you, lady. We can't have you bugging Mister Chronos {#Emph}every night! {#Prev}He doesn't pay much attention to our venue here, and we want to {#Emph}keep {#Prev}it that way." },
+				{ Cue = "/VO/MelinoeField_2559", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I don't think Chronos is concerned with you at all. So maybe back off, focus on your songwriting, instead of trying to asphyxiate me constantly?" },
+				{ Cue = "/VO/Scylla_0200", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteAnger",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "Oh she just doesn't get it, gals! But don't worry. They're {#Emph}never {#Prev}gonna shut us down, not while we keep on drawing crowds like {#Emph}this! {#Prev}It's {#Emph}good publicity!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutCharybdis01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "O_MiniBoss01" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ScyllaAboutThessaly01" }, Min = 2 },
+					},
+				},
+				{ Cue = "/VO/Scylla_0203", Speaker = "NPC_Scylla_01",
+					Text = "We used to play the {#Emph}surface{#Prev}, you know! That's when we {#Emph}really {#Prev}started to hit it big! Even had {#Emph}Charybdis {#Prev}open for us a few times, can you imagine?" },
+				{ Cue = "/VO/MelinoeField_2561", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "So what? Charybdis opened for me just the other night. I practically couldn't get it to shut up!" },
+				{ Cue = "/VO/Scylla_0204", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteFiredUp",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "Like I believe {#Emph}that! {#Prev}Though I bet you {#Emph}are {#Prev}from up there, aren't you? You think you're underground, like us, but you'll {#Emph}always {#Prev}be {#Emph}mainstream!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutGreenRoom01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
+						Comparison = ">=",
+						Value = 4,
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "Inspect_G_PostBoss_02" }
+					},
+				},
+				{ Cue = "/VO/Scylla_0189", Speaker = "NPC_Scylla_01",
+					Text = "See anything you like in our greenroom down there, {#Emph}hm? {#Prev}Maybe you didn't notice the sign but that's our {#Emph}private {#Prev}little area where fans are {#Emph}not supposed to go!" },
+				{ Cue = "/VO/MelinoeField_2554", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Your so-called {#Emph}greenroom {#Prev}happens to be built atop a drain that spills into the Mourning Fields below. You could always flush your sorry work down {#Emph}there{#Prev}, where it'll fit right in." },
+				{ Cue = "/VO/Scylla_0190", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Ohh{#Prev}, you went looking through our {#Emph}work! {#Prev}So what if a few ideas go unused here and there? If you don't {#Emph}cut... {#Prev}you never get to the {#Emph}good stuff." },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutThessaly01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "O_Intro" }
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "O_Boss01" },
+						Comparison = ">=",
+						Value = 2,
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ScyllaAboutCharybdis01" }, Min = 2 },
+					},
+				},
+				{ Cue = "/VO/Scylla_0201", Speaker = "NPC_Scylla_01",
+					Text = "{#Emph}Ohh{#Prev}, it's only {#Emph}you! {#Prev}Not just another one of those sailors we've been seeing more and more of lately here. Look at this {#Emph}crowd! {#Prev}We've been causing a {#Emph}real {#Prev}stir!" },
+				{ Cue = "/VO/MelinoeField_2560", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Perhaps those sailors are just remnants of the sunken fleet that Chronos sends against the gods. I've had my scuffles with them recently." },
+				{ Cue = "/VO/Scylla_0202", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSparkly",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "Oh no, I don't think so, lady. Our fame is due to good old fashioned word-of-mouth! And there is {#Emph}nothing {#Prev}you can do to {#Emph}stop {#Prev}it now!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutSlump01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
+						Comparison = ">=",
+						Value = 6,
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutSirens01" }
+					},
+					{
+						FunctionName = "RequiredConsecutiveClearsOfRoom",
+						FunctionArgs = { Name = "G_Boss01", Count = 3 },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ScyllaAboutSirens01" }, Min = 2 },
+					},
+				},
+				{ Cue = "/VO/Scylla_0191", Speaker = "NPC_Scylla_01",
+					Text = "Roxy, and Jetty, and I... we've been through bigger slumps than this, lady. It's gonna take more than your heckling to tear {#Emph}us {#Prev}apart!" },
+				{ Cue = "/VO/MelinoeField_2555", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I don't know why I bother with you, Scylla. Or why Roxy and Jetty do! You've yet to let either one of them speak." },
+				{ Cue = "/VO/Scylla_0192", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteAnger",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "They {#Emph}speak {#Prev}through their {#Emph}work! {#Prev}Besides I'm not just lead singer, I'm in charge of the talent! And the gals aren't taking interviews right now, especially from the likes of {#Emph}you!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
+			ScyllaAboutAgents01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						Path = { "GameState", "LastBossHealthBarRecord", "BossScylla01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+				{ Cue = "/VO/Scylla_0193", Speaker = "NPC_Scylla_01",
+					Text = "In my meeting with the gals the other night, we got to talking, {#Emph}I was talking mostly{#Prev}, but we started wondering what is your {#Emph}deal? {#Prev}Jetty thinks maybe you're an {#Emph}agent?" },
+				{ Cue = "/VO/MelinoeField_2556", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Jetty is rather perceptive, then... for I am indeed an agent of Night. This realm has fallen to the Titan; we shall see it restored to its rightful rule. No matter who gets in our way." },
+				{ Cue = "/VO/Scylla_0194", Speaker = "NPC_Scylla_01",
+					Emote = "PortraitEmoteSurprise",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "I can't believe it, Jetty, you were {#Emph}right? {#Prev}An agent on the hunt! Well your search is over, Agent Lady, because {#Emph}you {#Prev}won't find a bigger talent in the sea or out! Just {#Emph}watch!" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+			ScyllaAboutAgents02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements = 
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutAgents01" },
+					},
+				},
+				{ Cue = "/VO/Scylla_0195",
+					Emote = "PortraitEmoteSparkly", Speaker = "NPC_Scylla_01",
+					Text = "You're not really an agent, are you, lady? Just pulling our fins, trying to get our hopes up, only to {#Emph}dash {#Prev}them against the rocks! How low can you {#Emph}sink?" },
+				{ Cue = "/VO/MelinoeField_2557", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Get your hopes up? Listen to me: I seek {#Emph}Chronos{#Prev}, not you. Perhaps you shall be hunted by some other agent, though." },
+				{ Cue = "/VO/Scylla_0196", Speaker = "NPC_Scylla_01",
+					PreLineThreadedFunctionName = "PlayScyllaTauntAnim",
+					PostLineFunctionName = "StartBossRoomMusic",
+					Text = "You better believe it, gals! Even {#Emph}this {#Prev}lady knows a rising star when she sees one. When she {#Emph}hears {#Prev}one! And she's gonna put in a good word for us, {#Emph}won't she?" },
+				EndGlobalVoiceLines = "ScyllaShowStartVoiceLines",
+			},
+
 			ScyllaLowHealth01 =
 			{
 				PlayOnce = true,
@@ -849,7 +1292,10 @@ UnitSetData.Scylla =
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Scylla_0028", Speaker = "NPC_Scylla_01",
 					Text = "Oh no, you're bleeding. Trouble finding the place? Don't worry, gals. One day? They'll put us up on the biggest stage, for {#Emph}all the world to see!" },
@@ -871,7 +1317,10 @@ UnitSetData.Scylla =
 					{
 
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Scylla_0030", Speaker = "NPC_Scylla_01",
 					Text = "Oh you know, this is a reputable venue, lady, and we {#Emph}do {#Prev}impose a dress code at the door, {#Emph}hm-hm! {#Prev}Oh, but you come barging in, looking like hell." },
@@ -892,7 +1341,10 @@ UnitSetData.Scylla =
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Scylla_0032", Speaker = "NPC_Scylla_01",
 					Text = "The sea can be a dangerous place if you don't know your way around, lady! {#Emph}Ohoho! {#Prev}Though it looks like you figured that out all on your own!" },
@@ -920,7 +1372,10 @@ UnitSetData.Scylla =
 						Value = 0,
 					},
 					]]--
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Scylla_0034", Speaker = "NPC_Scylla_01",
 					Text = "Aw lookit, gals, she's hurt! She's already hurt {#Emph}real bad{#Prev}. Maybe we could ease her passing with a little {#Emph}music{#Prev}, huh?" },
@@ -1143,7 +1598,160 @@ UnitSetData.Scylla =
 			"/SFX/ScyllaCrowdCrappyWoo3"
 		}
 	},
+}
 
+-- Global Scylla Lines
+GlobalVoiceLines.ScyllaShowStartVoiceLines =
+{
+	RandomRemaining = true,
+	PreLineWait = 0.85,
+	ObjectType = "Scylla",
+	-- SuccessiveChanceToPlayAll = 0.2,
+	Cooldowns =
+	{
+		{ Name = "ScyllaSpokeRecently", Time = 20 },
+	},
+
+	{ Cue = "/VO/Scylla_0005", Text = "We're {#Emph}Scylla and the Sirens!", PlayFirst = true, },
+	{ Cue = "/VO/Scylla_0071", Text = "One, two, three, {#Emph}four!" },
+	{ Cue = "/VO/Scylla_0072", Text = "And, here we {#Emph}go!" },
+	{ Cue = "/VO/Scylla_0073", Text = "And, go!" },
+	{ Cue = "/VO/Scylla_0074", Text = "...Go!", PreLineWait = 1.2 },	
+
+	{ Cue = "/VO/Scylla_0218", Text = "...Hit it, gals!", PreLineWait = 1.0 },
+	{ Cue = "/VO/Scylla_0219", Text = "Let's {#Emph}kill {#Prev}it!", PreLineWait = 1.0 },
+	{ Cue = "/VO/Scylla_0222", Text = "Sing along, everybody!" },
+	{ Cue = "/VO/Scylla_0223", Text = "Showtime, gals!" },
+	{ Cue = "/VO/Scylla_0224", Text = "It... is... {#Emph}showtime!" },
+	{ Cue = "/VO/Scylla_0225", Text = "All right gals, from the {#Emph}top!" },
+	{ Cue = "/VO/Scylla_0226", Text = "{#Emph}Hellooo Oceanus!!" },
+	{ Cue = "/VO/Scylla_0227", Text = "How's everybody doing tonight??" },
+	{ Cue = "/VO/Scylla_0006", Text = "We are {#Emph}Scylla and the Sirens!", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "SpeechRecord" },
+				HasAll = { "/VO/Scylla_0005" },
+			},
+		},
+	},
+	{ Cue = "/VO/Scylla_0007", Text = "This song's called {#Emph}Coral Crown!", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "AudioState", "MusicName" },
+				IsAny = { "/Music/IrisMusicScylla1_MC" },
+			},
+			{
+				Path = { "GameState", "SpeechRecord" },
+				HasAll = { "/VO/Scylla_0005" },
+			},
+		},
+	},
+	{ Cue = "/VO/Scylla_0220", Text = "This song's called {#Emph}I am Gonna Claw!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "AudioState", "MusicName" },
+				IsAny = { "/Music/IrisMusicScylla2_MC" },
+			},
+			{
+				PathFalse = { "CurrentRun", "TextLinesRecord", "ScyllaAboutSongs01" }
+			},
+		},
+	},
+	{ Cue = "/VO/Scylla_0221", Text = "This song's called {#Emph}I am Gonna Claw (Out Your Eyes then Drown You to Death)!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "AudioState", "MusicName" },
+				IsAny = { "/Music/IrisMusicScylla2_MC" },
+			},
+			{
+				PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0220" }
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.ScyllaSirenKOReactionVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.85,
+	SuccessiveChanceToPlayAll = 0.5,
+	ObjectType = "Scylla",
+	Cooldowns =
+	{
+		{ Name = "ScyllaSpokeRecently", Time = 10 },
+	},
+
+	{ Cue = "/VO/Scylla_0158", Text = "{#Emph}Hey!" },
+	{ Cue = "/VO/Scylla_0160", Text = "Our {#Emph}sound!" },
+}
+
+GlobalVoiceLines.ScyllaSirenRallyVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.75,
+	Source = { LineHistoryName = "NPC_Scylla_01", SubtitleColor = Color.ScyllaVoice },
+	-- SuccessiveChanceToPlayAll = 0.75,
+	TriggerCooldowns = { "ScyllaSpokeRecently" },
+
+	{ Cue = "/VO/Scylla_0173", Text = "Free admission!" },
+	{ Cue = "/VO/Scylla_0174", Text = "Here {#Emph}fishy-fishy!" },
+	{ Cue = "/VO/Scylla_0175", Text = "This is it!", PlayFirst = true },
+	{ Cue = "/VO/Scylla_0176", Text = "One last {#Emph}verse!" },
+	{ Cue = "/VO/Scylla_0177", Text = "Feel the beat!" },
+	{ Cue = "/VO/Scylla_0178", Text = "{#Emph}Encore!!" },
+
+	{ Cue = "/VO/Scylla_0163", Text = "Get back in it, you two!" },
+	{ Cue = "/VO/Scylla_0164", Text = "Back on your fins!" },
+	{ Cue = "/VO/Scylla_0165", Text = "Roxy, Jetty, {#Emph}now!" },
+	{ Cue = "/VO/Scylla_0166", Text = "Get it {#Emph}together{#Prev}, gals!" },
+	{ Cue = "/VO/Scylla_0167", Text = "Get off your {#Emph}tails{#Prev}, gals!" },
+	{ Cue = "/VO/Scylla_0168", Text = "Both of you get {#Emph}up!", PlayFirst = true },
+	{ Cue = "/VO/Scylla_0169", Text = "{#Emph}Hah{#Prev}, show's not over {#Emph}yet!" },
+	{ Cue = "/VO/Scylla_0170", Text = "{#Emph}Now{#Prev}, you two!" },
+	{ Cue = "/VO/Scylla_0171", Text = "{#Emph}Come on{#Prev}, Sirens!" },
+	{ Cue = "/VO/Scylla_0172", Text = "Come on, you {#Emph}Pinheads!",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0171" }
+			},
+		}
+	},
+}
+
+GlobalVoiceLines.ScyllaSirenDeathReactionVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.85,
+	SuccessiveChanceToPlayAll = 0.5,
+	ObjectType = "Scylla",
+	Cooldowns =
+	{
+		{ Name = "ScyllaSpokeRecently", Time = 16 },
+	},
+
+	{ Cue = "/VO/Scylla_0183", Text = "{#Emph}Oh{#Prev}, come {#Emph}on!" },
+	{ Cue = "/VO/Scylla_0184", Text = "That's {#Emph}not {#Prev}part of the {#Emph}act!" },
+	{ Cue = "/VO/Scylla_0185", Text = "What did you {#Emph}do {#Prev}to her?" },
+	{ Cue = "/VO/Scylla_0186", Text = "No {#Emph}fair!!" },
+	{ Cue = "/VO/Scylla_0187", Text = "{#Emph}Damn it{#Prev}, Sirens!" },
+	{ Cue = "/VO/Scylla_0188", Text = "Guess it's all up to me!",
+		PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "EnemyKills" },
+				HasAll = { "SirenKeytarist", "SirenDrummer" },
+			},
+		},
+	},
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Scylla )

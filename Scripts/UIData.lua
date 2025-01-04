@@ -17,6 +17,10 @@ AutomaticExtractProperties =
 	{
 		AddHeroValue = "EchoDurationIncrease",
 	},
+	LastStandHeal = 
+	{
+		AddHeroValue = "LastStandHealFraction",
+	},
 	DamageShareDuration = 
 	{
 		AddHeroValue = "DamageShareDurationIncrease",
@@ -25,9 +29,21 @@ AutomaticExtractProperties =
 	{
 		AddHeroValue = "DamageShareAmountIncrease",
 	},
+	MoonBeamVulnerability = 
+	{
+		AddHeroValue = "MoonBeamVulnerabilityBonus",
+	},
 	BurnRate = 
 	{
 		MultiplyHeroValue = "BurnDamageMultiplier",
+	},
+	MoonBeamDamage = 
+	{
+		AddHeroValue = "ReportedMoonBeamDamageBoost",
+	},
+	MoonBeamCount = 
+	{
+		AddHeroValue = "MoonBeamCountBonus",
 	},
 	ExDamageMultiplier =
 	{
@@ -363,7 +379,6 @@ TextFormats =
 		ShadowOffset = { 0, 6 },
 	},
 
-	-- AutoToolTip
 	TooltipUpgradeFormat =
 	{
 		Font = "LatoBold",
@@ -740,11 +755,11 @@ IconData =
 	{
 		TexturePath = "Items\\Loot\\MaxManaDrop_Text",
 	},
-
-	PlantMoney =
+	TalentDrop =
 	{
-		TexturePath = "Items\\Resources\\Plant\\PlantMoney_Text",
+		TexturePath = "Items\\Loot\\TalentDrop\\TalentDrop_Text",
 	},
+
 	PlantMoneyIcon =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantMoney_Text",
@@ -788,16 +803,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Map\\Sub_Icon_Quest",
 	},
 
-	TallyDotPlus =
-	{
-		TexturePath = "GUI\\Screens\\XP_Tally_Dot_Plus",
-	},
-
-	TallyDotX =
-	{
-		TexturePath = "GUI\\Screens\\XP_Tally_Dot_X",
-	},
-
 	RightArrow =
 	{
 		TexturePath = "GUI\\HUD\\tooltip_arrow",
@@ -816,11 +821,6 @@ IconData =
 	DivLong =
 	{
 		TexturePath = "GUI\\HorizontalDividerLong",
-	},
-
-	StandingsRankInfinite =
-	{
-		TexturePath = "GUI\\Screens\\StandingsRankInfinite",
 	},
 
 	Health =
@@ -852,7 +852,7 @@ IconData =
 	},
 	HealthRestoreHome =
 	{
-		TexturePath = "GUI\\Icons\\LifeRestore",
+		TexturePath = "GUI\\Icons\\Life",
 	},
 	HealthAlly =
 	{
@@ -919,9 +919,85 @@ IconData =
 		TexturePath = "GUI\\Icons\\Elite_Badge_02",
 	},
 
-	ElitePerk =
+	PerkBlink =
 	{
-		TexturePath = "GUI\\Icons\\Attributes\\Brawny",
+		TexturePath = "GUI\\Icons\\Attributes\\Blink",
+	},
+	PerkFrenzy =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Frenzy",
+	},
+	PerkArmor =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\HeavyArmor",
+	},
+	PerkDamage =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\ExtraDamage",
+	},
+	PerkHitShields =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\SpreadHitShields",
+	},
+	PerkVacuum =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Vacuuming",
+	},
+	PerkManaDrain =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\ManaDrain",
+	},
+	PerkUnflinching =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Unflinching",
+	},
+	PerkOrbit =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Orbit",
+	},
+	PerkMassive =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Massive",
+	},
+	PerkRooting =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Rooting",
+	},
+	PerkStasisDeath =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\StasisDeath",
+	},
+	PerkMiasma =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Miasma",
+	},
+	PerkFog =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Fog",
+	},
+	PerkHex =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Hex",
+	},
+	PerkMetallic =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Metallic",
+	},
+	PerkMolten =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Molten",
+	},
+	PerkRifts =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Rifts",
+	},
+	PerkHoming =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Homing",
+	},
+	PerkRadial =
+	{
+		TexturePath = "GUI\\Icons\\Attributes\\Radial",
 	},
 
 	LobAmmo =
@@ -989,6 +1065,10 @@ IconData =
 	{
 		TexturePath = "GUI\\HUD\\HealthBar_1upEcho",
 	},
+	ExtraChanceNoTooltip =
+	{
+		TexturePath = "GUI\\HUD\\HealthBar_1up",
+	},
 
 	Alert =
 	{
@@ -1015,26 +1095,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Currency",
 	},
 	
-	MetaPoint =
-	{
-		TexturePath = "GUI\\Icons\\Darkness",
-	},
-
-	Gems =
-	{
-		TexturePath = "GUI\\Icons\\Gems",
-	},
-
-	SuperGems =
-	{
-		TexturePath = "GUI\\Icons\\SuperGems",
-	},
-
-	SuperLockKeys =
-	{
-		TexturePath = "GUI\\Icons\\Blood",
-	},
-
 	RandomPom =
 	{
 		TexturePath = "GUI\\Icons\\RandomPom",
@@ -1090,6 +1150,11 @@ IconData =
 		TexturePath = "GUI\\Icons\\Reminder",
 	},
 
+	StoreItemPinCompleteNoTooltip =
+	{
+		TexturePath = "GUI\\Icons\\Reminder_Complete",
+	},
+
 	ShrinePoint =
 	{
 		TexturePath = "GUI\\Icons\\ShrinePoint",
@@ -1103,15 +1168,7 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\PoisonIcon",
 	},
-	MythPoint =
-	{
-		TexturePath = "GUI\\Icons\\Contract",
-	},
 
-	GiftPoints =
-	{
-		TexturePath = "GUI\\Icons\\Gift",
-	},
 	GiftPointsIcon =
 	{
 		TexturePath = "GUI\\Icons\\Gift",
@@ -1124,18 +1181,14 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Other\\GiftPointsEpic_Text",
 	},
-	SuperGiftPoints =
-	{
-		TexturePath = "GUI\\Icons\\SuperGift",
-	},
 	SuperGiftPointsIcon =
 	{
 		TexturePath = "GUI\\Icons\\SuperGift",
 	},
 
-	LockKeys =
+	HypnosPointsIcon =
 	{
-		TexturePath = "GUI\\Icons\\LockKey",
+		TexturePath = "Items\\Resources\\Other\\HypnosPoints_Text",
 	},
 
 	ManaLock =
@@ -1464,11 +1517,6 @@ IconData =
 		TexturePath = "GUI\\Icons\\Music",
 	},
 
-	RunClearStar =
-	{
-		TexturePath = "GUI\\Icons\\RunClearStar",
-	},	
-
 	RunClearDotsLeft =
 	{
 		TexturePath = "GUI\\Icons\\DotsLeft",
@@ -1486,29 +1534,28 @@ IconData =
 	BountySkullEmpty =
 	{
 		TexturePath = "GUI\\Icons\\BountySkullEmpty",
-	},	
-	BountyUnknown =
-	{
-		TexturePath = "GUI\\Icons\\BountyUnknown",
 	},
 
 	PerfectDashIcon =
 	{
 		TexturePath = "GUI\\Screens\\MirrorBIcons\\Greater_Celerity",
-		TextSymbolScale = 0.5,
 	},
 
-	FrogIcon =
+	FrogHarvest =
 	{
 		TexturePath = "GUI\\Icons\\Tool_Book_Frog"
 	},
-	CatIcon =
+	CatHarvest =
 	{
 		TexturePath = "GUI\\Icons\\Tool_FishingRod_Cat"
 	},
-	RavenIcon =
+	RavenHarvest =
 	{
 		TexturePath = "GUI\\Icons\\Tool_Pickaxe_Raven"
+	},
+	HoundHarvest =
+	{
+		TexturePath = "GUI\\Icons\\Tool_Shovel_Hound"
 	},
 
 	Pause =
@@ -1636,6 +1683,14 @@ IconData =
 	{
 		TexturePath = "GUI\\Icons\\ManaCrystal",
 	},
+	DeathIcon =
+	{
+		TexturePath = "GUI\\Icons\\Critical",
+	},
+	VulnerabilityIcon =
+	{
+		TexturePath = "GUI\\Icons\\Vulnerability",
+	},
 
 	MetaCardPointsCommonIcon =
 	{
@@ -1652,6 +1707,10 @@ IconData =
 	MemPointsCommon_NoTooltip =
 	{
 		TexturePath = "Items\\Resources\\Common\\MemPointsCommon_Text",
+	},
+	CosmeticsPointsIcon =
+	{
+		TexturePath = "Items\\Resources\\Alchemy\\CosmeticsPointsPrestige_Text",
 	},
 	PlantFMolyIcon =
 	{
@@ -1729,9 +1788,25 @@ IconData =
 	{
 		TexturePath = "Items\\Resources\\Plant\\PlantOMandrake_Text",
 	},
+	PlantPOliveSeedIcon =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantPOliveSeed_Text",
+	},
+	PlantPOliveIcon =
+	{
+		TexturePath = "Items\\Resources\\Plant\\PlantPOlive_Text",
+	},
 	BountyEyeIcon =
 	{
 		TexturePath = "GUI\\Icons\\BountyBoardEye"
+	},
+	UnderworldIcon =
+	{
+		TexturePath = "GUI\\Screens\\WeaponUpgrade\\Icon-Underworld",
+	},
+	SurfaceIcon =
+	{
+		TexturePath = "GUI\\Screens\\WeaponUpgrade\\Icon-Surface",
 	},
 }
 
@@ -1835,13 +1910,6 @@ UIData =
 		"RoomTransition",
 		"RoomTransitionOut",
 		"DeathSequenceMelBG",
-		"DialogueBackgroundWoodsIn",
-		"DialogueBackgroundWoods",
-		"DialogueBackgroundWoodsOut",
-		"DialogueBackgroundOlympusIn",
-		"DialogueBackgroundOlympus",
-		"DialogueBackgroundOlympusOut",
-		"DialogueSpeechBubbleFx",
 	},
 
 	ActionBarY = 984,
@@ -1875,6 +1943,7 @@ UIData =
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 		Justification = "LEFT",
 		VerticalJustification = "CENTER",
+		TextSymbolScale = 0.8,
 	},
 
 	ContextualButtonFormatRight =
@@ -1887,6 +1956,7 @@ UIData =
 		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 		Justification = "RIGHT",
 		VerticalJustification = "CENTER",
+		TextSymbolScale = 0.8,
 	},
 
 	BoonMenuId = "BoonMenu",
@@ -1920,7 +1990,7 @@ UIData =
 			FontSize = 22,
 			LineSpacingTop = 0,
 			LineSpacingBottom = 0,
-			TextSymbolScale = 1.0,
+			TextSymbolScale = 0.8,
 		}
 	},
 
@@ -1949,6 +2019,10 @@ UIData =
 			NonEnglishFont = "SpectralSCLight",
 			FontSize = 42,
 			Width = 1600,
+			LangWidth = 
+			{
+				{ Code = "fr", Value = 1550 },
+			},
 			ShadowColor = {0, 0, 0, 240}, ShadowOffset = {0, 3}, ShadowBlur = 0,
 			OutlineThickness = 0, OutlineColor = {1, 1, 1, 1},
 			CharacterFadeTime = 0, 

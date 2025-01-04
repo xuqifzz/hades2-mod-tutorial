@@ -82,7 +82,6 @@
 		InheritFrom = "EnemyCorruptedShadeMBaseAnimation"
 		GrannyAnimation = "CorruptedShadeM_Base_RamPreFire_C_01"
 		HoldLastFrame = true
-		Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/Charge"
 		StopSoundOnFinishFade = 0.2
 		Blends = 
 		[
@@ -101,6 +100,13 @@
 			{
 				BlendTransitionFrom = "Enemy_CorruptedShadeM_MoveStop"
 				Duration = 4
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 32
+				Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/ChargeShort"
 			}
 		]
 	}

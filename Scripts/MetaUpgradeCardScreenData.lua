@@ -12,6 +12,9 @@
 	CostStartY = -160,
 	DefaultArtScale = 0.2775,
 
+	TooltipX = 1675,
+	TooltipY = 700,
+
 	DefaultCardTitleTextArgs =
 	{
 		FontSize = 18, 
@@ -31,7 +34,7 @@
 		FontSize = 22, 
 		Color = Color.White,
 		OffsetX = 40,
-		OffsetY = -77,
+		OffsetY = -74,
 		Width = 485,
 		Justification = "Center",
 		VerticalJustification = "Center",
@@ -47,7 +50,7 @@
 		FontSize = 22, 
 		Color = Color.CodexLocked,
 		OffsetX = 40,
-		OffsetY = -77,
+		OffsetY = -74,
 		Width = 485,
 		Justification = "Center",
 		VerticalJustification = "Center",
@@ -151,6 +154,28 @@
 		InventoryIconOffsetX = -25,
 		InventoryIconScale = 0.45,
 	},
+
+	LayoutSetSpacingX = 76,
+	LayoutSetTemplate =
+	{
+		Requirements = MetaUpgradeSaveLayoutData.GameStateRequirements,
+		Graphic = "BlankInteractableObstacle",
+		X = 1480,
+		Y = 574,
+		Scale = 0.1,
+		MouseOverScale = 0.12,
+		Data =
+		{
+			OnPressedFunctionName = "MetaUpgradeCardScreenSelectLayout",
+			OnMouseOverFunctionName = "MetaUpgradeCardScreenMouseOverLayout",
+			OnMouseOffFunctionName = "MetaUpgradeCardScreenMouseOffLayout",
+			MouseOverSound = "/SFX/Menu Sounds/VictoryScreenBoonToggle",
+		},
+		InteractProperties =
+		{
+			FreeFormSelectable = false,
+		},
+	},
 }
 
 -- Several components below reference variables defined above
@@ -171,7 +196,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 	CardHoverFrame = 
 	{
 		AnimationName = "DevCard_Hover",
-		GroupName = "Combat_Menu_Overlay",
 		X = -200,
 		Y = -200,
 	},
@@ -179,10 +203,46 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 	CardSwapFrame = 
 	{
 		AnimationName = "DevCard_SwapHover",
-		GroupName = "Combat_Menu_Overlay",
 		X = -200,
 		Y = -200,
 	},
+
+	LayoutSet1 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_01",
+		MetaUpgradeLayoutNum = 1,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 0),
+	}),
+	LayoutSet2 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_02",
+		MetaUpgradeLayoutNum = 2,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 1),
+	}),
+	LayoutSet3 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_03",
+		MetaUpgradeLayoutNum = 3,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 2),
+	}),
+	LayoutSet4 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_04",
+		MetaUpgradeLayoutNum = 4,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 3),
+	}),
+	LayoutSet5 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_05",
+		MetaUpgradeLayoutNum = 5,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 4),
+	}),
+	LayoutSet6 = MergeTables( ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate,
+	{
+		Animation = "CardArt_06",
+		MetaUpgradeLayoutNum = 6,
+		X = ScreenData.MetaUpgradeCardLayout.LayoutSetTemplate.X + (ScreenData.MetaUpgradeCardLayout.LayoutSetSpacingX * 5),
+	}),
 
 	Background = 
 	{
@@ -192,15 +252,16 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 		Y = ScreenCenterY,
 		Children = 
 		{
-			MemCostModule = 
+			MemCostModule =
 			{
 				GroupName = "Combat_Menu_Overlay_Backing",
 				Graphic = "MetaUpgradeMemCostBacking",
 				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY - 105, 
 				OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX,
+				TooltipOffsetY = 340,
 				Children = 
-				{			
-					CostTextRingTarget= 
+				{
+					CostTextRingTarget =
 					{
 						GroupName = "Combat_Menu_Overlay_Backing",
 						OffsetY = -5,
@@ -218,7 +279,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 								GroupName = "Combat_Menu_Overlay_Backing",
 								AnimationName = "MetaUpgradeMemHighlightFrame",
 								Alpha = 0,
-
 							}
 						}
 					}
@@ -232,11 +292,12 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					MouseOverSound = "/SFX/Menu Sounds/VictoryScreenBoonToggle",
 				},
 			},
+
 			CostTextPrefix = 
 			{
-				GroupName = "Combat_Menu_Overlay",
 				Text = "MetaUpgrade_CostPrefix",
-				TextArgs = {
+				TextArgs =
+				{
 					FontSize = 26,
 					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY, 
 					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX,
@@ -247,11 +308,12 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					Justification = "RIGHT" 
 				}
 			},
+
 			CurrentCostText = 
 			{
-				GroupName = "Combat_Menu_Overlay",
 				Text = "MEM_COST",
-				TextArgs = {
+				TextArgs =
+				{
 					FontSize = 26,
 					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY,
 					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 38,
@@ -262,11 +324,12 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					Justification = "CENTER" 
 				}
 			},
+
 			SlashText = 
 			{
-				GroupName = "Combat_Menu_Overlay",
 				Text = "MetaUpgrade_Slash",
-				TextArgs = {
+				TextArgs =
+				{
 					FontSize = 24,
 					OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY,
 					OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 14,
@@ -277,13 +340,14 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					Justification = "CENTER" 
 				}
 			},
+
 			MaxCostText = 
 			{
-				GroupName = "Combat_Menu_Overlay",
 				Text = "MEM_COST",
 				OffsetY = ScreenData.MetaUpgradeCardLayout.CostStartY, 
 				OffsetX = ScreenData.MetaUpgradeCardLayout.CostStartX - 4,
-				TextArgs = {
+				TextArgs =
+				{
 					FontSize = 26,
 					Width = 1040,
 					Color = Color.LightGreen,
@@ -292,6 +356,7 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					Justification = "LEFT",
 				}
 			},
+
 			InfoPane = 
 			{
 				Graphic = null,
@@ -304,9 +369,9 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 				{
 					MetaUpgradeCardTitle = 
 					{
-						GroupName = "Combat_Menu_Overlay",
 						Text = "TESTEXT 2",
-						TextArgs = {
+						TextArgs =
+						{
 							FontSize = 32,
 							OffsetY = 20, 
 							OffsetX = -25,
@@ -320,15 +385,15 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 							VerticalJustification = "CENTER",
 						}
 					},
+
 					MetaUpgradeCardType = 
 					{
-						GroupName = "Combat_Menu_Overlay",
 						OffsetY = -370, 
 						OffsetX = 0,
 					},
+
 					MetaUpgradeCardArt = 
 					{
-						GroupName = "Combat_Menu_Overlay",
 						AnimationName = "Blank",
 						OffsetX = 57,
 						OffsetY = -107,
@@ -350,7 +415,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 					
 					MetaUpgradeCardText = 
 					{
-						GroupName = "Combat_Menu_Overlay",
 						Text = "TESTEXT 3",
 						TextArgs =
 						{
@@ -359,6 +423,12 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 							OffsetY = 65, 
 							OffsetX = -35,
 							Width = 550,
+							LangOffsetY = 
+							{
+								{ Code = "ko", Value = 50 },
+								{ Code = "zh-CN", Value = 50 },
+								{ Code = "zh-TW", Value = 50 },
+							},
 							LineSpacingBottom = 6,
 							Color = {0.8, 0.8, 0.8, 1.0},
 							Font = "LatoMedium",
@@ -371,13 +441,18 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 
 					MetaUpgradeCardAutoEquipText =
 					{
-						GroupName = "Combat_Menu_Overlay",
 						Text = "AutoEquip Text Placeholder!",
 						TextArgs =
 						{
 							FontSize = 22,
 							TextSymbolScale = 0.75,
 							OffsetY = 180,
+							LangOffsetY = 
+							{
+								{ Code = "ko", Value = 156 },
+								{ Code = "zh-CN", Value = 156 },
+								{ Code = "zh-TW", Value = 156 },
+							},
 							OffsetX = -35,
 							Width = 550,
 							LineSpacingBottom = 6,
@@ -414,6 +489,53 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 		}
 	},
 
+	ActionBarLeft =
+	{
+		X = UIData.ContextualButtonXLeft,
+		Y = UIData.ContextualButtonY,
+		AutoAlignContextualButtons = true,
+		AutoAlignJustification = "Left",
+
+		ChildrenOrder =
+		{
+			"PrevMetaUpgradeSetButton",
+			"NextMetaUpgradeSetButton",				
+		},
+
+		Children = 
+		{
+			PrevMetaUpgradeSetButton = 
+			{
+				Graphic = "ContextualActionButton",
+				Requirements = MetaUpgradeSaveLayoutData.GameStateRequirements,
+				Data =
+				{
+					OnMouseOverFunctionName = "MouseOverContextualAction",
+					OnMouseOffFunctionName = "MouseOffContextualAction",
+					OnPressedFunctionName = "MetaUpgradeCardScreenPrevLayout",
+					ControlHotkeys = { "PrevLayout", },
+				},
+				Text = "MetaUpgrade_PrevLayout",
+				TextArgs = UIData.ContextualButtonFormatLeft,
+			},
+
+			NextMetaUpgradeSetButton = 
+			{
+				Graphic = "ContextualActionButton",
+				Requirements = MetaUpgradeSaveLayoutData.GameStateRequirements,
+				Data =
+				{
+					OnMouseOverFunctionName = "MouseOverContextualAction",
+					OnMouseOffFunctionName = "MouseOffContextualAction",
+					OnPressedFunctionName = "MetaUpgradeCardScreenNextLayout",
+					ControlHotkeys = { "NextLayout", },
+				},
+				Text = "MetaUpgrade_NextLayout",
+				TextArgs = UIData.ContextualButtonFormatLeft,
+			},
+		},
+	},
+
 	ActionBar =
 	{
 		X = UIData.ContextualButtonXRight,
@@ -434,7 +556,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 			PinButton = 
 			{
 				Graphic = "ContextualActionButton",
-				GroupName = "Combat_Menu_Overlay",
 				Alpha = 0.0,
 				Data =
 				{
@@ -449,7 +570,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 			UpgradeModeButton = 
 			{
 				Graphic = "ContextualActionButton",
-				GroupName = "Combat_Menu_Overlay",
 				Data =
 				{
 					OnMouseOverFunctionName = "MouseOverContextualAction",
@@ -464,7 +584,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 			SelectButton =
 			{
 				Graphic = "ContextualActionButton",
-				GroupName = "Combat_Menu_Overlay",
 				Alpha = 0.0,
 				Data =
 				{
@@ -478,7 +597,6 @@ ScreenData.MetaUpgradeCardLayout.ComponentData =
 			CloseButton = 
 			{
 				Graphic = "ContextualActionButton",
-				GroupName = "Combat_Menu_Overlay",
 				Data =
 				{
 					OnMouseOverFunctionName = "MouseOverContextualAction",

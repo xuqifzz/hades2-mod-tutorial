@@ -73,6 +73,23 @@ WeaponSetData =
 		},
 	},
 
+	LovesickLauncher_Elite =
+	{
+		InheritFrom = { "LovesickLauncher" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			AttackSlots =
+			{
+				{ ProjectileName = "LovesickHeartLob_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, },
+				{ ProjectileName = "LovesickHeartLob2_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
+				{ ProjectileName = "LovesickHeartLob3_Elite", AIDataOverrides = { SpawnFromMarker = "Lovesick_Rig:frontHole_00_R_JNT" }, PauseDuration = 0.1 },
+			},
+			ProjectileName = "LovesickHeartLob_Elite",
+		},
+	},
+
 	LovesickGround =
 	{
 		Requirements =
@@ -110,6 +127,8 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_Lovesick_GroundPreFire",
 			FireAnimation = "Enemy_Lovesick_GroundFire",
 			PostAttackAnimation = "Enemy_Lovesick_GroundPostFire",
+
+			SkipSurroundAICount = true,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
@@ -128,8 +147,24 @@ WeaponSetData =
 		},
 	},
 
+	LovesickGround_Elite =
+	{
+		InheritFrom = { "LovesickGround" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			ProjectileName = "LovesickHeartGround_Elite",
+		},
+	},
+
 	LovesickOverhand =
 	{
+		Requirements =
+		{
+			MaxAttackers = 3,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,

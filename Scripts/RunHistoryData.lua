@@ -7,33 +7,65 @@ ScreenData.RunHistory =
 
 	AllowInputRepeat = true,
 
-	ItemStartX = 200,
+	ItemStartX = 150,
 	ItemStartY = 250,
 	ItemSpacingY = 48,
 	ItemsPerPage = 15,
 	ScrollOffset = 0,
 	FreeFormSelectOffsetX = 50,
 
-	TraitStartX = 650,
-	TraitStartY = 340,
-	TraitSpacingX = 90,
-	TraitSpacingY = 90,	
-	TraitsPerColumn = 8,
-	MaxColumns = 4,	
+	TraitStartX = 675,
+	TraitStartY = 355,
+	TraitSpacingX = 95,
+	TraitSpacingY = 90,
+	TraitsPerColumn = 7,
+	TraitIconScale = 0.5,
+	TraitMaxColumns = 5,
+
+	MetaUpgradeStartY = 370,
+	MetaUpgradeSpacingX = 88,
+	MetaUpgradeSpacingY = 125,
+	MetaUpgradesPerColumn = 5,
+	MetaUpgradeIconScale = 0.15,
+
+	ShrineUpgradeStartX = 685,
+	ShrineUpgradeSpacingX = 120,
+	ShrineUpgradeSpacingY = 80,
+	ShrineUpgradesPerRow = 4,
+	ShrineUpgradesMaxRows = 5,
+	ShrineUpgradeIconScale = 0.4,
+	ShrineUpgradeBackingScale = 0.67,
 
 	Components = {},
 
-	CategoryStartX = 740,
-	CategoryStartY = 250,
+	CategoryStartX = 750,
+	CategoryStartY = 220,
 	CategorySpacingX = 110,
 
-	CategoryIconScale = 0.40,
+	CategoryIconScale = 0.4,
 	CategoryIconOffsetX = 0,
 	CategoryIconOffsetY = 1,
+
+	RunDataTitleX = 1420,
+	RunDataValueX = 1460,
+	RunDataStartY = 300,
+	RunDataSpacingY = 50,
+	MaxVisibleRunDataEntries = 10,
 
 	ActiveCategoryIndex = 1,
 
 	ButtonName = "RunButton",
+
+	GamepadNavigation =
+	{
+		FreeFormSelectWrapY = false,
+		FreeFormSelectGridLock = true,
+		FreeFormSelectStepDistance = 8,
+		FreeFormSelectSuccessDistanceStep = 4,
+		FreeFormSelectRepeatDelay = 0.6,
+		FreeFormSelectRepeatInterval = 0.1,
+		FreeFormSelecSearchFromId = 0,
+	},
 
 	RunNameClearedFormat =
 	{
@@ -42,7 +74,8 @@ ScreenData.RunHistory =
 		Font = "P22UndergroundSCMedium",
 		VariableAutoFormat = "BoldFormatGraft",
 		FontSize = 22,
-		OffsetX = 0, OffsetY = 0,	
+		FadeOpacity = 1.0,
+		OffsetX = 0, OffsetY = 0,
 		OutlineThickness = 0,
 		OutlineColor = {255, 205, 52, 255},
 		ShadowBlur = 0, ShadowColor = {0,0,0,0.7}, ShadowOffset={0, 2},
@@ -60,7 +93,8 @@ ScreenData.RunHistory =
 		Font = "P22UndergroundSCMedium",
 		VariableAutoFormat = "BoldFormatGraft",
 		FontSize = 22,
-		OffsetX = 0, OffsetY = 0,	
+		FadeOpacity = 1.0,
+		OffsetX = 0, OffsetY = 0,
 		OutlineThickness = 0,
 		OutlineColor = {255, 205, 52, 255},
 		ShadowBlur = 0, ShadowColor = {0,0,0,0.7}, ShadowOffset={0, 2},
@@ -69,6 +103,26 @@ ScreenData.RunHistory =
 		{
 			OpacityWithOwner = true,
 		},
+	},
+
+	RunDataTitleFormat =
+	{
+		FontSize = 24,
+		OffsetX = 0, OffsetY = 0,
+		Color = Color.White,
+		Font = "P22UndergroundSCMedium",
+		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+		Justification = "Right",
+	},
+
+	RunDataValueFormat =
+	{
+		FontSize = 24,
+		OffsetX = 0, OffsetY = 0,
+		Color = Color.Yellow,
+		Font = "P22UndergroundSCMedium",
+		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+		Justification = "Left",
 	},
 	
 	TraitFilters =
@@ -95,31 +149,13 @@ ScreenData.RunHistory =
 		},
 	},
 
-	HeaderY = 320,
-	RowStartY = 380,
-	RowSpacingTraits = 40,
-	IconScaleTraits = 0.5,
-	IconScaleMetaUpgrades = 0.13,
-	IconScaleShrineUpgrades = 0.5,
-
 	MouseOverScaleTarget = 1.05,
 	MouseOverScaleDuration = 0.2,
-
-	TraitNameFormat =
-	{
-		FontSize = 22,
-		OffsetX = 40, OffsetY = 0,
-		Color = Color.White,
-		Font = "P22UndergroundSCMedium",
-		ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-		Justification = "Left",
-	},
 
 	ItemCategories =
 	{
 		{
 			Name = "TraitTray_Category_Traits",
-			--Icon = "GUI\\Icons\\Boon",
 			IconComponent = "TraitCount",
 			GameStateRequirements =
 			{
@@ -129,7 +165,6 @@ ScreenData.RunHistory =
 		},
 		{
 			Name = "TraitTray_Category_MetaUpgrades",
-			--Icon = "GUI\\Icons\\ManaCrystal",
 			IconComponent = "MetaUpgradeCount",
 			GameStateRequirements =
 			{
@@ -144,7 +179,6 @@ ScreenData.RunHistory =
 		},
 		{
 			Name = "TraitTray_Category_ShrineUpgrades",
-			--Icon = "GUI\\Icons\\ShrinePoint",
 			IconComponent = "ShrinePointCount",
 			GameStateRequirements =
 			{
@@ -167,6 +201,7 @@ ScreenData.RunHistory =
 		{
 			"BackgroundDim",
 			"Background",
+			"TabSetup",
 		},
 
 		BackgroundDim = 
@@ -180,9 +215,13 @@ ScreenData.RunHistory =
 
 		Background = 
 		{
-			--AnimationName = "Box_FullScreen",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
+		},
+
+		TabSetup =
+		{
+			FunctionName = "RunHistoryScreenSetupTabs",
 		},
 
 		TitleText = 
@@ -202,6 +241,23 @@ ScreenData.RunHistory =
 			},
 		},
 
+		RunErasedText =
+		{
+			X = 865,
+			Y = 550,
+			Alpha = 0.0,
+			TextArgs =
+			{
+				Text = "RunHistoryScreen_RunErased",
+				FontSize = 24,
+				OffsetX = 0, OffsetY = 0,
+				Color = Color.White,
+				Font = "P22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
+				Justification = "Center",
+			},
+		},
+
 		SelectionMarker =
 		{
 			AnimationName = "BountySelect",
@@ -211,12 +267,17 @@ ScreenData.RunHistory =
 			ButtonOffsetY = 0,
 		},
 
-		--[[
-		RunIndexLabel =
+		HoverFrame =
 		{
-			Text = "RunHistoryScreen_Num",
-			X = 1380,
-			Y = 200,
+			AnimationName = "TraitTray_Highlight",
+			GroupName = "Combat_Menu_TraitTray_Additive",
+			Alpha = 0.0,
+		},
+
+		TraitName =
+		{
+			X = 865,
+			Y = 275,
 			TextArgs =
 			{
 				FontSize = 24,
@@ -224,83 +285,16 @@ ScreenData.RunHistory =
 				Color = Color.White,
 				Font = "P22UndergroundSCMedium",
 				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		RunIndexValue =
-		{
-			X = 1420,
-			Y = 200,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
+				Justification = "Center",
 			},
 		},
 
-		RunRouteLabel =
+		TraitListBacking =
 		{
-			Text = "RunHistoryScreen_Route",
-			X = 1380,
-			Y = 250,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		RunRouteValue =
-		{
-			X = 1420,
-			Y = 250,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-		]]
-
-		RunResultLabel =
-		{
-			Text = "RunHistoryScreen_Result",
-			X = 1380,
-			Y = 300,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		RunResultValue =
-		{
-			X = 1420,
-			Y = 300,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
+			AnimationName = "GUI\\HUD\\TraitTrayBacking",
+			X = 865,
+			Y = 610,
+			Scale = 0.5,
 		},
 
 		EasyModeLabel =
@@ -311,211 +305,12 @@ ScreenData.RunHistory =
 			Alpha = 0.0,
 			TextArgs =
 			{
-				FontSize = 26,
+				FontSize = 24,
 				OffsetX = 0, OffsetY = 0,
 				Color = Color.Yellow,
 				Font = "P22UndergroundSCMedium",
 				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 				Justification = "Center",
-				DataProperties =
-				{
-					OpacityWithOwner = true,
-				},
-			},
-		},
-
-		RunClearTimeLabel =
-		{
-			Text = "RunHistoryScreen_Time",
-			X = 1380,
-			Y = 350,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		RunClearTimeValue =
-		{
-			X = 1420,
-			Y = 350,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		WeaponLabel =
-		{
-			Text = "RunHistoryScreen_Weapon",
-			X = 1380,
-			Y = 400,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		WeaponValue =
-		{
-			X = 1420,
-			Y = 400,
-			TextArgs =
-			{
-				FontSize = 26,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		AspectLabel =
-		{
-			Text = "RunHistoryScreen_Aspect",
-			X = 1380,
-			Y = 450,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		AspectValue =
-		{
-			X = 1420,
-			Y = 450,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		KeepsakeLabel =
-		{
-			Text = "RunHistoryScreen_Keepsake",
-			X = 1380,
-			Y = 500,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		KeepsakeValue =
-		{
-			X = 1420,
-			Y = 500,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		FamiliarLabel =
-		{
-			Text = "RunHistoryScreen_Assist",
-			X = 1380,
-			Y = 550,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		FamiliarValue =
-		{
-			X = 1420,
-			Y = 550,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		PackagedBountyLabel =
-		{
-			Text = "RunHistoryScreen_PackagedBounty",
-			X = 1380,
-			Y = 600,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Right",
-			},
-		},
-		PackagedBountyValue =
-		{
-			X = 1420,
-			Y = 600,
-			TextArgs =
-			{
-				FontSize = 24,
-				OffsetX = 0, OffsetY = 0,
-				Color = Color.Yellow,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
-			},
-		},
-
-		CategoryTitleText = 
-		{
-			X = 680,
-			Y = 200,
-			Text = "TraitTray_Category_Traits",
-			TextArgs =
-			{
-				FontSize = 26,
-				Color = Color.White,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Left",
 				DataProperties =
 				{
 					OpacityWithOwner = true,
@@ -525,18 +320,18 @@ ScreenData.RunHistory =
 
 		TraitCount =
 		{
-			X = 740,
-			Y = 250,
+			X = 730,
+			Y = 216,
 			GroupName = "Combat_Menu_Overlay",
 			Animation = "GUI\\Icons\\Boon",
-			Scale = 0.8,
+			Scale = 0.6,
 			TextArgs =
 			{
 				Font = "NumericP22UndergroundSCMedium",
 				FontSize = 24,
-				Justification = "Center",
-				OffsetX = 0,
-				OffsetY = 12,
+				Justification = "Left",
+				OffsetX = 18,
+				OffsetY = 0,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -549,17 +344,18 @@ ScreenData.RunHistory =
 
 		MetaUpgradeCount =
 		{
-			X = 850,
-			Y = 250,
+			X = 840,
+			Y = 216,
 			GroupName = "Combat_Menu_Overlay",
 			Animation = "GUI\\Icons\\ManaCrystal",
+			Scale = 0.6,
 			TextArgs =
 			{
 				Font = "NumericP22UndergroundSCMedium",
 				FontSize = 24,
-				Justification = "Center",
-				OffsetX = 0,
-				OffsetY = 12,
+				Justification = "Left",
+				OffsetX = 18,
+				OffsetY = 0,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -572,17 +368,18 @@ ScreenData.RunHistory =
 		
 		ShrinePointCount =
 		{
-			X = 960,
-			Y = 250,
+			X = 950,
+			Y = 216,
 			GroupName = "Combat_Menu_Overlay",
 			Animation = "GUI\\Icons\\ShrinePoint",
+			Scale = 0.6,
 			TextArgs =
 			{
 				Font = "NumericP22UndergroundSCMedium",
 				FontSize = 24,
-				Justification = "Center",
-				OffsetX = 0,
-				OffsetY = 12,
+				Justification = "Left",
+				OffsetX = 18,
+				OffsetY = 0,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
 				OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
 				ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
@@ -596,7 +393,7 @@ ScreenData.RunHistory =
 		ScrollUp =
 		{
 			Graphic = "ButtonCodexUp",
-			X = 260,
+			X = 200,
 			Y = 190,
 			Alpha = 0,
 			InteractProperties =
@@ -613,7 +410,7 @@ ScreenData.RunHistory =
 		ScrollDown = 
 		{
 			Graphic = "ButtonCodexDown",
-			X = 250,
+			X = 200,
 			Y = 980,
 			Alpha = 0,
 			InteractProperties =

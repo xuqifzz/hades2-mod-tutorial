@@ -35,7 +35,7 @@ function RunEventsGeneric( events, eventSource, contextArgs )
 		if event.FunctionName == nil then
 			DebugAssert({ Condition = false, Text = "No event FunctionName defined on "..GetTableString( eventSource ) })
 		end
-		if event.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, event, event.GameStateRequirements, contextArgs ) then
+		if event.GameStateRequirements == nil or IsGameStateEligible( event, event.GameStateRequirements, contextArgs ) then
 			if event.Threaded then
 				thread( CallFunctionName, event.FunctionName, eventSource, event.Args, contextArgs )
 			else
@@ -205,7 +205,7 @@ function CheckPriorityConversations( eventSource, args )
 				conversationData = enemyData.BossIntroTextLineSets[conversationName]
 			end
 
-			if conversationData ~= nil and conversationData[1] ~= nil and not NeedsUseableOff( enemyData ) then -- Looking for the real conversation, not partner placeholder
+			if conversationData ~= nil and conversationData[1] ~= nil and not NeedsUseableOff( enemyData ) then -- Looking for the real conversation, not partner stub
 				local partnerName = conversationData.Partner
 				if not priorityRecord[enemyName] and (partnerName == nil or not priorityRecord[partnerName] ) then -- Not already involved in a previous priority conversation
 					if IsTextLineEligible( CurrentRun, eventSource, conversationData, nil, nil, args ) then					
@@ -221,7 +221,16 @@ function CheckPriorityConversations( eventSource, args )
 						unit.NextInteractLines = unit.InteractTextLineSets[conversationName]
 						SetNextInteractLines( unit, unit.NextInteractLines )
 						if partner ~= nil then
-							partner.NextInteractLines = partner.InteractTextLineSets[conversationName]
+							local partnerConversation = partner.InteractTextLineSets[conversationName]
+							-- Fill in the stub except for the lines themselves
+							if partnerConversation.CopyDataFromPartner then
+								for i, key in ipairs( PartnerConversationDataShare ) do
+									if partnerConversation[key] == nil then
+										partnerConversation[key] = unit.NextInteractLines[key]
+									end
+								end
+							end
+							partner.NextInteractLines = partnerConversation
 							SetNextInteractLines( partner, partner.NextInteractLines )
 							OnPartnerConversationSet( unit, partner )
 						end
@@ -254,6 +263,7 @@ function ActivateForPriorityConversation( enemyName, enemyData, conversationName
 		end
 	end
 	CurrentRun.ActivationRecord[id] = true
+	DebugPrint({ Text = "ActivateForPriorityConversation newUnit.Name = "..newUnit.Name })
 	return newUnit
 end
 
@@ -326,6 +336,7 @@ function ActivateRotatingNPCs( eventSource, args )
 			numActivations = numActivations + 1
 		else
 			DebugPrint({ Text = "ActivateRotatingNPCs leaveOut = "..unitData.Name })
+			CurrentRun.NPCLeaveOutRecord[id] = true
 			if unitData.MissingDistanceTrigger ~= nil then
 				local missingUnit = {}
 				missingUnit.Name = unitData.Name
@@ -340,6 +351,10 @@ function ActivateRotatingNPCs( eventSource, args )
 end
 
 function ShouldRotatorActivate( id, unitData, numActivations, activationCap )
+
+	if CurrentRun.NPCLeaveOutRecord[id] then
+		return false
+	end
 
 	if activationCap == nil then
 		return true
@@ -374,7 +389,7 @@ function IsActivationEligible( id, sourceData )
 		return false
 	end
 
-	if sourceData.ActivateRequirements ~= nil and not IsGameStateEligible( CurrentRun, sourceData.ActivateRequirements ) then
+	if sourceData.ActivateRequirements ~= nil and not IsGameStateEligible( sourceData, sourceData.ActivateRequirements ) then
 		return false
 	end
 
@@ -468,7 +483,7 @@ function HandleChallengeLoot( challengeSwitch, challengeEncounter )
 	end
 
 	Destroy({ Id = challengeSwitch.ValueTextAnchor })
-	SetAnimation({ DestinationId = challengeSwitch.ObjectId, Name = "ChallengeSwitchOpen" })
+	SetAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.OpenAnimationName })
 
 	-- presentation
 	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/ChestOpen", Id = challengeSwitch.ObjectId })
@@ -642,7 +657,7 @@ end
 
 function StripInteractTextRequirements( eventSource, args )
 
-	for enemyId, enemy in pairs( ActiveEnemies ) do
+	for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if enemy.InteractTextLineSets ~= nil then
 			for lineSetName, lineSet in pairs( enemy.InteractTextLineSets ) do
 				lineSet.UseableOffSource = false
@@ -710,6 +725,7 @@ function StartNemesisDamageContest( source, args )
 	source.MaxHealth = 99999
 	source.Health = source.MaxHealth
 	source.TriggersOnDamageEffects = true
+	source.TrainingTarget = true
 	SetVulnerable({ Id = source.ObjectId })
 	table.insert( source.Groups, "EnemyTeam" )
 	AddToGroup({ Id = source.ObjectId, Names = {"EnemyTeam"} })
@@ -756,7 +772,8 @@ function NemesisDamageContestTimer( source, args )
 	RemoveValueAndCollapse( source.Group, "EnemyTeam" )
 	RemoveFromGroup({ Id = source.ObjectId, Names = {"EnemyTeam"} })
 	ActiveEnemies[source.ObjectId] = nil
-	
+	ClearAllEffects( source ) 
+	source.TrainingTarget = false
 	SetLifeProperty({ DestinationId = source.ObjectId, Property = "HomingEligible", Value = false })
 	SetInvulnerable({ Id = source.ObjectId })
 	RemoveAutoLockTarget({ Id = source.ObjectId })
@@ -791,12 +808,14 @@ function EchoChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
+	RandomSynchronize( 9 )
+
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	for i, option in pairs(options) do
-		if TraitData[option.ItemName] and IsTraitEligible( CurrentRun, TraitData[option.ItemName] ) then
+		if TraitData[option.ItemName] and IsTraitEligible( TraitData[option.ItemName] ) then
 			table.insert(eligibleOptions, option)
 		end
 	end
@@ -826,12 +845,14 @@ function ArachneCostumeChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
+	RandomSynchronize( 9 )
+
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
-	for _, data in pairs(options) do
-		if IsGameStateEligible( CurrentRun, data, data.GameStateRequirements ) then
+	for _, data in pairs( options ) do
+		if data.GameStateRequirements == nil or IsGameStateEligible( data, data.GameStateRequirements ) then
 			table.insert( eligibleOptions, data )
 		end
 	end
@@ -858,14 +879,16 @@ function NarcissusBenefitChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
+	RandomSynchronize( 9 )
+
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	local priorityOptions = {}
 	for i, option in pairs( options ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, source, option.GameStateRequirements ) then
-			if option.PriorityRequirements ~= nil and IsGameStateEligible( CurrentRun, source, option.PriorityRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( source, option.GameStateRequirements ) then
+			if option.PriorityRequirements ~= nil and IsGameStateEligible( source, option.PriorityRequirements ) then
 				table.insert( priorityOptions, option )
 			else
 				table.insert( eligibleOptions, option )
@@ -898,6 +921,8 @@ function MedeaCurseChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
+	RandomSynchronize( 9 )
+
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
@@ -922,12 +947,14 @@ function CirceBlessingChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
+	RandomSynchronize( 9 )
+
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	for i, option in pairs( options ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, source, option.GameStateRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( source, option.GameStateRequirements ) then
 			table.insert( eligibleOptions, option )
 		end
 	end
@@ -952,16 +979,14 @@ function IcarusBenefitChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 
-	if source.PackageName ~= nil then
-		LoadPackages({ Name = source.PackageName })
-	end
+	RandomSynchronize( 9 )
 
 	source.UpgradeOptions = {}
 	source.BlockReroll = true
 	local options = ShallowCopyTable( args.UpgradeOptions )
 	local eligibleOptions = {}
 	for i, option in pairs( options ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, source, option.GameStateRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( source, option.GameStateRequirements ) then
 			table.insert( eligibleOptions, option )
 		end
 	end
@@ -973,7 +998,7 @@ function IcarusBenefitChoice( source, args, screen )
 		args.PortraitShift.Id = screen.PortraitId
 		Move( args.PortraitShift )
 	end
-	--MedeaCursePreChoicePresentation( source, args )
+	IcarusPreChoicePresentation( source, args )
 	OpenUpgradeChoiceMenu( source, args )
 	screen.OnCloseFinishedFunctionName = "IcarusPostChoicePresentation"
 
@@ -987,10 +1012,12 @@ function NemesisTradeChoice( source, args, screen )
 
 	RemoveInputBlock({ Name = "PlayTextLines" })
 	screen.AllowAdvancedTooltip = true
+
+	RandomSynchronize( 9 )
 	
 	local eligibleGiveOptions = {}
 	for i, giveOption in ipairs( args.GiveOptions ) do
-		if giveOption.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, giveOption, giveOption.GameStateRequirements ) then
+		if giveOption.GameStateRequirements == nil or IsGameStateEligible( giveOption, giveOption.GameStateRequirements ) then
 			table.insert( eligibleGiveOptions, giveOption )
 		end
 	end
@@ -998,7 +1025,7 @@ function NemesisTradeChoice( source, args, screen )
 
 	local eligibleGetOptions = {}
 	for i, getOption in ipairs( args.GetOptions ) do
-		if getOption.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, getOption, getOption.GameStateRequirements ) then
+		if getOption.GameStateRequirements == nil or IsGameStateEligible( getOption, getOption.GameStateRequirements ) then
 			table.insert( eligibleGetOptions, getOption )
 		end
 	end
@@ -1071,7 +1098,13 @@ function PauseMenuTakeoverClosed()
 end
 
 function ClearPauseMenuTakeover()
-	SessionMapState.PauseMenuTakeoverCue = nil
+	if SessionMapState.PauseMenuTakeoverCue ~= nil then
+		if not GameState.SpeechRecord[SessionMapState.PauseMenuTakeoverCue] then
+			-- Line was queued but never actually played, remove it from the RandomRemaining record
+			GameState.PlayedRandomLines[SessionMapState.PauseMenuTakeoverCue] = nil
+		end
+		SessionMapState.PauseMenuTakeoverCue = nil
+	end	
 	SessionMapState.PauseMenuTakeoverSource = nil
 	SessionMapState.PauseMenuTakeoverArgs = nil
 end
@@ -1225,6 +1258,7 @@ function EchoLastReward( args )
 		consumable.MetaConversionEligible = false
 		MapState.RoomRequiredObjects[consumableId] = consumable
 	else
+		LoadVoiceBanks(CurrentRun.LastReward.Name, nil, true )
 		CreateLoot({ Name = CurrentRun.LastReward.Name, SpawnPoint = spawnPoint })
 	end
 end
@@ -1247,26 +1281,101 @@ function GetEchoLastRewardDescription( args )
 	end
 end
 
-function EchoLastRunBoon()
+function EchoLastRunBoon( args, sourceTraitData )
+
+	AddInputBlock({ Name = "EchoLastRunBoon"})
+	waitUntil( UIData.BoonMenuId )
+	wait(1)
+	RemoveInputBlock({ Name = "EchoLastRunBoon" })
+	SessionMapState.ActiveSacrificeBoonMenu = true
+	RemoveInputBlock({ Name = "PlayTextLines" })
+	local source = ShallowCopyTable(EnemyData.NPC_Echo_01)
+	RandomSynchronize( 9 )
+
+	source.UpgradeOptions = {}
+	source.BlockReroll = true
+
+	RandomSynchronize( 11 )
+
 	local prevRun = GameState.RunHistory[#GameState.RunHistory]
 	local eligibleTraits = {}
 	for traitName, rarity in pairs( prevRun.TraitRarityCache or {} ) do
 		local traitData = TraitData[traitName] 
-		if not HeroHasTrait(traitName) and IsGodTrait( traitName, {ForShop = true, ForLastRunBoon = true } ) and IsTraitEligible( CurrentRun, traitData ) and ( not traitData.Slot or not HeroSlotFilled( traitData.Slot )) and not traitData.ExcludeTraitFromLastRunBoonPool then
-			table.insert(eligibleTraits, {Name = traitName, Rarity = rarity })
+		if not HeroHasTrait(traitName) and IsGodTrait( traitName, {ForShop = true, ForLastRunBoon = true } ) and IsTraitEligible( traitData ) and ( not traitData.Slot or not HeroSlotFilled( traitData.Slot )) and not traitData.ExcludeTraitFromLastRunBoonPool then
+			table.insert( eligibleTraits, {Name = traitName, Rarity = rarity } )
 		end
 	end
-	if not IsEmpty(eligibleTraits) then
-		local randomTraitData = GetRandomValue( eligibleTraits )
-		local lootSource = GetLootSourceName(randomTraitData.Name)
-		if lootSource then
-			LoadPackages( { Name = lootSource } )
+
+	for i = 1, 3 do
+		if not IsEmpty(eligibleTraits) then
+			local option = RemoveRandomValue( eligibleTraits )
+			table.insert( source.UpgradeOptions, { Type = "Trait", ItemName = option.Name, Rarity = option.Rarity or "Common" })
+		end
+	end
+	source.MenuTitle = "EchoChoiceMenu_LastRun"
+	source.FlavorTextIds = {"EchoChoiceMenu_LastRun_FlavorText"}
+	source.OnPressedFunctionNameOverride = "SelectEchoBoon"
+	OpenUpgradeChoiceMenu( source, args )
+end
+
+
+function SelectEchoBoon( screen, button, args )
+	local buttonId = button.Id
+	local upgradeData = button.Data
+	local currentRun = CurrentRun
+	args = args or {}
+
+	screen.ChoiceMade = true
+	
+	if upgradeData and upgradeData.Name then
+
+		local lootSource = GetLootSourceName( upgradeData.Name, { CheckEnemyData = true } )
+		if lootSource ~= nil then
+			LoadPackages({ Name = lootSource, IgnoreAssert = true })
 			IncrementTableValue( CurrentRun.LootTypeHistory, lootSource )
 		end
-		AddTraitToHero( { FromLoot = true, TraitData = GetProcessedTraitData( { Unit = CurrentRun.Hero, TraitName = randomTraitData.Name, Rarity = randomTraitData.Rarity } ) } )
+		local traitData = GetProcessedTraitData( { Unit = CurrentRun.Hero, TraitName = upgradeData.Name, Rarity = upgradeData.Rarity } ) 
+		traitData.SacrificedTraitName = upgradeData.SacrificedTraitName
+		
+		AddTraitToHero( { FromLoot = true, TraitData = traitData } )
 
-		thread( EchoLastRunBoonPresentation, randomTraitData.Name )
+		thread( EchoLastRunBoonPresentation, upgradeData.Name )
 	end
+
+	PlaySound({ Name = button.LootData.UpgradeSelectedSound or "/SFX/HeatRewardDrop", Id = buttonId })
+	CreateAnimation({ Name = "BoonGetBlack", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu" })
+	CreateAnimation({ Name = "BoonGet", DestinationId = buttonId, Scale = 1.0, GroupName = "Combat_Menu_Additive", Color = button.BoonGetColor or button.LootColor })
+
+	CloseUpgradeChoiceScreen( screen, button )
+	SetLightBarColor({ PlayerIndex = 1, Color = CurrentRun.Hero.LightBarColor or { 0.0, 0.0, 0.0, 0.0 } })
+	notifyExistingWaiters( "EchoMenuClosed" )
+end
+
+function EchoDoubleLevelBoon()
+	local eligibleTraits = GetAllUpgradeableGodTraits()
+	if not IsEmpty(eligibleTraits) then
+		local highestLevel = 0
+		local highestEligible = {}
+		for traitName in pairs(eligibleTraits) do
+			local traitLevel = GetTraitCount( CurrentRun.Hero, { Name = traitName } )
+			if traitLevel > highestLevel then
+				highestEligible = {}
+				highestLevel = traitLevel
+			end
+			if traitLevel >= highestLevel then
+				highestEligible[traitName] = true
+			end
+		end
+		local selectedTraitName = GetRandomKey(highestEligible)
+		IncreaseTraitLevel( GetHeroTrait(selectedTraitName), highestLevel )
+		thread( EchoDoubleBoonLevelPresentation, selectedTraitName )
+	end
+end
+function EchoRepeatKeepsake( args, traitData )
+	if not GameState.LastAwardTrait or not HeroHasTrait( GameState.LastAwardTrait ) then
+		return
+	end
+	traitData.RepeatedKeepsake = GameState.LastAwardTrait
 end
 
 function EchoRefillLastStands( args )
@@ -1319,4 +1428,69 @@ function EchoIncreaseStats( args, traitData )
 		}
 	}
 	ApplyUnitPropertyChanges( CurrentRun.Hero, traitData.PropertyChanges, true )
+end
+
+function AddLimitedManaRegen( args )
+	local traitName = "ManaOverTimeRefundTrait"
+	if not HeroHasTrait(traitName) then
+		local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
+		traitData.TotalManaRecovered = args.Amount
+		AddTraitToHero({ TraitData = traitData })
+	else
+		local traitData = GetHeroTrait(traitName)
+		traitData.TotalManaRecovered = traitData.TotalManaRecovered + args.Amount
+		UpdateTraitNumber(traitData)
+	end
+end
+function AddLimitedSwapTrait( args )
+	local traitName = "LimitedSwapBonusTrait"
+	if not HeroHasTrait(traitName) then
+		local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
+		traitData.Uses = args.Amount
+		AddTraitToHero({ TraitData = traitData })
+	else
+		local traitData = GetHeroTrait(traitName)
+		traitData.Uses = traitData.Uses + args.Amount
+		UpdateTraitNumber(traitData)
+	end
+end
+
+function OlympusEagleSpawn( encounter, args )
+	args = args or {}
+
+	if not Contains(CurrentRun.CurrentRoom.Tags, "Outdoor") then
+		return
+	end
+
+	if encounter.CurrentWaveNum == 1 then
+		return
+	end
+
+	encounter.ActiveEnemyCapMaxModifier = encounter.ActiveEnemyCapMaxModifier or 0
+	encounter.ActiveEnemyCapMaxModifier = encounter.ActiveEnemyCapMaxModifier - 2
+	DebugPrint({ Text="Lowering Encounter ActiveEnemyCap by 2 to make space for Eagle." })
+
+	CurrentRun.CurrentRoom.OlympusEagleSpawn = true
+
+	thread( OlympusEaglePreSpawnPresentation )
+
+	wait(2)
+
+	local eagle = DeepCopyTable(EnemyData.Eagle)
+	eagle.BlocksLootInteraction = false
+	eagle.UseActivatePresentation = false
+	eagle.AIOptions = { "EagleAttackAndFlee" }
+	local spawnPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, eagle, { SpawnNearId = CurrentRun.Hero.ObjectId, SpawnRadius = args.PlayerSpawnRadius or 900, SpawnRadiusMin = args.PlayerSpawnRadiusMin or 300  })
+	eagle.ObjectId = SpawnUnit({ Name = "Eagle", DestinationId = spawnPointId, Group = "Standing" })
+
+	SetupUnit( eagle )
+
+	eagle.Encounter = encounter
+	eagle.RaiseEncounterActiveEnemyCapBonusOnExit = 2
+
+	OlympusEagleSpawnPresentation(eagle)
+
+	waitUntil("EagleEntranceAttackEnded")
+
+	wait(1)
 end

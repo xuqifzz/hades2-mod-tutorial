@@ -39,6 +39,22 @@ OverwriteTableKeys( EncounterData,
 			},
 			{
 				UsePlayerSource = true,
+				PreLineWait = 1.0,
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "RoomsEntered", "H_PostBoss01" },
+						Comparison = "==",
+						Value = 1,
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_2566", Text = "Is he gone...?" },
+				{ Cue = "/VO/MelinoeField_2567", Text = "No, he is not. Calm yourself, Cerberus! We're going to fix this...", PreLineWait = 3, BreakIfPlayed = true },
+			},
+			{
+				UsePlayerSource = true,
 				RandomRemaining = true,
 				PreLineWait = 3.0,
 				SuccessiveChanceToPlayAll = 0.66,
@@ -49,6 +65,7 @@ OverwriteTableKeys( EncounterData,
 						{
 							PathFalse = { "GameState", "EnemyKills", "InfestedCerberus" }
 						},
+						-- intentional in case the above version doesn't play
 						{
 							PathFalse = { "GameState", "SpeechRecord", "/VO/MelinoeField_1109" }
 						},
@@ -86,14 +103,6 @@ OverwriteTableKeys( EncounterData,
 				{ Cue = "/VO/MelinoeField_0925", Text = "Don't take your sorrow out on me!" },
 				{ Cue = "/VO/MelinoeField_0926", Text = "You're very vigilant, I'll grant you that." },
 				{ Cue = "/VO/MelinoeField_0927", Text = "The guardian at the gates of hell..." },
-				{ Cue = "/VO/MelinoeField_1110", Text = "I'm going to help you, boy! No matter what!",
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "EnemyKills", "InfestedCerberus" }
-						},
-					},
-				},
 				{ Cue = "/VO/MelinoeField_0928", Text = "You'll soon feel better again, Cerberus.",
 					GameStateRequirements =
 					{
@@ -151,8 +160,14 @@ OverwriteTableKeys( EncounterData,
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1112", Text = "Due for another cleaning, then?",
+					PlayFirst = true,
 					GameStateRequirements =
 					{
+						{
+							Path = { "GameState", "LastBossHealthBarRecord", "InfestedCerberus" },
+							Comparison = "<=",
+							Value = 0,
+						},
 						{
 							PathTrue = { "GameState", "EnemyKills", "InfestedCerberus" }
 						}
@@ -201,6 +216,8 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapBase = 6,
 		ActiveEnemyCapMax = 6,
 		BlockSpawnMultipliers = true,
+
+		SkipCleanupRaiseDead = true,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsBossSpawnedEncounter,
 
@@ -401,5 +418,19 @@ OverwriteTableKeys( EncounterData,
 		WipeEnemiesOnKill = "Polyphemus",
 		CancelSpawnsOnKill = { "Polyphemus" },
 		SpawnThreadName = "PolyphemusSpawnThread",
+	},
+
+	BossPrometheus01 =
+	{
+		InheritFrom = { "BossEncounter" },
+		DelayedStart = true,
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Prometheus", "Eagle" }, IgnoreAI = true, SkipPresentation = true, } },
+		},
+
+		WipeEnemiesOnKill = "Prometheus",
+		CancelSpawnsOnKill = { "Prometheus" },
+		SpawnThreadName = "PrometheusSpawnThread",
 	},
 })

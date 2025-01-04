@@ -11,6 +11,7 @@ UnitSetData.SirenKeytarist =
 		EmoteOffsetX = 0,
 		EmoteOffsetY = -220,
 		ForceAllowRaiseDead = true,
+		UniqueRaise = true,
 		
 		SpeechCooldownTime = 11,
 
@@ -41,11 +42,6 @@ UnitSetData.SirenKeytarist =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-						
-			--[[MaxAttackers = 2,
-			SurroundDistance = 600,
-			SurroundRefreshInterval = 1.0,
-			SurroundAIKey = "ScyllaAndSirens",]]
 
 			RetreatAfterAttack = true,
 			RetreatGameStateRequirements =
@@ -118,7 +114,7 @@ UnitSetData.SirenKeytarist =
 						{ Cue = "/VO/Scylla_0155", Text = "What, {#Emph}Jetty!" },
 						{ Cue = "/VO/Scylla_0159", Text = "Our {#Emph}strings!" },
 					},
-					[2] = GlobalVoiceLines.ScyllaSirenKOReactionVoiceLines,
+					[2] = { GlobalVoiceLines = "ScyllaSirenKOReactionVoiceLines" },
 				},
 			},
 			{
@@ -144,16 +140,16 @@ UnitSetData.SirenKeytarist =
 				ObjectType = "Scylla",
 				Cooldowns =
 				{
-					{ Name = "ScyllaSpokeRecently", Time = 10 },
+					{ Name = "ScyllaSpokeRecently", Time = 16 },
 				},
 
 				{ Cue = "/VO/Scylla_0089", Text = "Jetty?!" },
-				{ Cue = "/VO/Scylla_0132", Text = "What happened to Jetty?!" },
+				{ Cue = "/VO/Scylla_0132", Text = "What happened to Jetty?!", PlayFirst = true },
 				{ Cue = "/VO/Scylla_0133", Text = "Come on, Jetty, {#Emph}get up!" },
 				{ Cue = "/VO/Scylla_0179", Text = "Jetty, not {#Emph}again!" },
 				{ Cue = "/VO/Scylla_0182", Text = "Jetty, you {#Emph}slacker!" },
 			},
-			[2] = GlobalVoiceLines.ScyllaSirenDeathReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "ScyllaSirenDeathReactionVoiceLines" },
 		},
 
 		Using = { GrannyModel = "SirensInstrumentKeytar_Mesh"},

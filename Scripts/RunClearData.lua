@@ -193,7 +193,10 @@ GameData.RunClearMessageData =
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			RequiredMaxHealthFraction = 0.05,
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = "<=", Value = 0.05, },
+			},
 			{
 				Path = { "CurrentRun", "Hero", "LastStands" },
 				UseLength = true,
@@ -208,7 +211,10 @@ GameData.RunClearMessageData =
 		InheritFrom = { "DefaultMessage" },
 		GameStateRequirements =
 		{
-			RequiredMinHealthFraction = 1.0,
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 1.0, },
+			},
 			{
 				PathFalse = { "CurrentRun", "Hero", "LastStandsUsed", }
 			},
@@ -330,15 +336,19 @@ GameData.RunClearMessageData =
 		{
 			{
 				Path = { "CurrentRun", "EncountersCompletedCache", },
-				HasAll = { "Story_Medea_01", "Story_Circe_01", },
+				HasAll = { "Story_Medea_01", "Story_Circe_01", "Story_Dionysus_01" },
 			},
 			{
 				Path = { "CurrentRun", "EncountersCompletedCache", },
-				HasAny = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "ArtemisCombatN", "ArtemisCombatN2" },
+				HasAny = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2", "ArtemisCombatN", "ArtemisCombatN2" },
 			},
 			{
 				Path = { "CurrentRun", "EncountersCompletedCache", },
-				HasAny = { "IcarusCombatIntro", "IcarusCombatO", "IcarusCombatO2" },
+				HasAny = { "IcarusCombatIntro", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+			},
+			{
+				Path = { "CurrentRun", "EncountersCompletedCache", },
+				HasAny = { "AthenaCombatIntro", "AthenaCombatP", "AthenaCombatP02", },
 			},
 		},
 	},
@@ -414,7 +424,6 @@ GameData.RunClearMessageData =
 					"PoseidonWeaponBoon",
 					"PoseidonSpecialBoon",
 					"PoseidonCastBoon",
-					"PoseidonExCastBoon",
 					"PoseidonSprintBoon",
 					"PoseidonManaBoon",
 					"EncounterStartOffenseBuffBoon",
@@ -422,6 +431,8 @@ GameData.RunClearMessageData =
 					"FocusDamageShaveBoon",
 					"DoubleRewardBoon",
 					"PoseidonStatusBoon",
+					"PoseidonExCastBoon",
+					"OmegaPoseidonProjectileBoon",
 				},
 				Comparison = ">=",
 				Value = 6,
@@ -494,7 +505,7 @@ GameData.RunClearMessageData =
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "HeraManaShieldBoon" },
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "AllElementalBoon" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
@@ -584,7 +595,7 @@ GameData.RunClearMessageData =
 		GameStateRequirements =
 		{
 			{
-				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "BurnStackBoon" },
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "BurnSprintBoon" },
 			},
 			{
 				Path = { "CurrentRun", "Hero", "TraitDictionary", },
@@ -601,6 +612,7 @@ GameData.RunClearMessageData =
 					"FireballManaSpecialBoon",
 					"BurnExplodeBoon",
 					"BurnArmorBoon",
+					"BurnStackBoon",
 				},
 				Comparison = ">=",
 				Value = 6,
@@ -615,27 +627,6 @@ GameData.RunClearMessageData =
 			{
 				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "TimeStopLastStandBoon" },
 			},
-			--[[
-			{
-				Path = { "CurrentRun", "Hero", "TraitDictionary", },
-				CountOf =
-				{
-					"HermesWeaponBoon",
-					"HermesSpecialBoon",
-					"DodgeChanceBoon",
-					"SorcerySpeedBoon",
-					"HermesCastDiscountBoon",
-					"ElementalUnifiedBoon",
-					"SlowProjectileBoon",
-					"HexCooldownBuffBoon",
-					"MoneyMultiplierBoon",
-					"TimedKillBuffBoon",
-					"SprintShieldBoon",
-				},
-				Comparison = ">=",
-				Value = 1,
-			},
-			]]
 		},
 	},
 	ClearRequiredTraitsChaos =
@@ -681,7 +672,7 @@ GameData.RunClearMessageData =
 				-- CountOf = GameData.AllDuoBoons, -- simpler check
 				CountOf =
 				{
-					"EmptySlotDamageBoon",
+					"ManaShieldBoon",
 					"RaiseDeadBoon",
 					"MoneyDamageBoon",
 					"RootStrikeBoon",
@@ -695,7 +686,7 @@ GameData.RunClearMessageData =
 					"MaxHealthDamageBoon",
 					"ManaBurstCountBoon",
 					"EchoBurnBoon",
-					"AllElementalBoon",
+					"ManaRestoreDamageBoon",
 					"SteamBoon",
 					"BurnConsumeBoon",
 					"CoverRegenerationBoon",
@@ -729,7 +720,7 @@ GameData.RunClearMessageData =
 					"DoubleExManaBoon",
 					"InstantRootKill",
 					"WeaponUpgradeBoon",
-					"HeraManaShieldBoon",
+					"AllElementalBoon",
 					"BurnStackBoon",
 					"AmplifyConeBoon",
 					"SpawnKillBoon",
@@ -989,21 +980,29 @@ ScreenData.RunClear =
 
 		WeaponAxe2 = "WeaponAxe",
 		WeaponAxe3 = "WeaponAxe",
-		ProjectileAxeBlockSpin = "WeaponAxeBlock2",
+		ProjectileAxeSpecial = "WeaponAxeSpecial",
 		ProjectileAxeBlock2 = "WeaponAxeSpecialSwing",
 
 		ProjectileTorchBall = "WeaponTorch",
 		ProjectileTorchSpiral = "WeaponTorchSpecial",
 		ProjectileTorchExplosion = "WeaponTorch",
-		ProjectileTorchRepeatStrike = "ProjectileTorchBallLarge",
+		ProjectileTorchExplosionLarge = "ProjectileTorchBallLarge",
+		ProjectileTorchRepeatStrike = "WeaponTorch",
 		ProjectileTorchRepeatStrikeLarge = "ProjectileTorchBallLarge",
 
 		ProjectileLob = "WeaponLob",
-		ProjectileThrowCharged = "WeaponLobSpecial",
 		WeaponLobPulse = "WeaponLob",
 		WeaponLobChargedPulse = "WeaponLob",
-		ProjectileSkullImpulseWave = "WeaponLobSpecial",
-		WeaponSkullImpulse = "WeaponLobSpecial", -- LobImpulseAspect
+		WeaponSkullImpulse = "ProjectileThrowCharged", -- LobImpulseAspect
+		ProjectileSkullImpulseWave = "ProjectileThrowCharged",
+
+		WeaponSuit2 = "WeaponSuit",
+		ProjectileSuit = "WeaponSuit",
+		ProjectileSuit2 = "WeaponSuit",
+		ProjectileSuitDash = "WeaponSuitDash",
+		ProjectileSuitRangedCharged = "WeaponSuitRanged",
+		ProjectileSuitRangedGuided = "WeaponSuitRanged",
+		NyxSprintBlast = "NyxSprint",
 
 		WeaponTransformAttack = "WeaponSpellTransform",
 		WeaponTransformSpecial = "WeaponSpellTransform",
@@ -1011,6 +1010,10 @@ ScreenData.RunClear =
 
 		SpellSummonMelee = "WeaponSpellSummon",
 		SpellSummonRanged = "WeaponSpellSummon",
+		SummonDeathWeapon = "WeaponSpellSummon",
+
+		-- WeaponMorphedAttack = "", Mel attacks when poly'd as a sheep
+		-- HeroSkyTouchdown = "", Mel Olympus jump pad attack
 		
 		-- Boons / Traits
 		ZeusCastStrike = "WeaponCast",
@@ -1018,21 +1021,22 @@ ScreenData.RunClear =
 		PoseidonCast = "WeaponCast",
 		WeaponAnywhereCast = "WeaponCast",
 		ApolloCast = "WeaponCast",
+		IcarusHazardExplosion = "WeaponCast",
 
 		AphroditeRushProjectile = "WeaponBlink",
 		HestiaSprintPuddle = "Sprint",
 		HephSprintBlast = "Sprint",
 		ZeusSprintStrike = "Sprint",
 		PoseidonSprintBlast = "Sprint",
-		DemeterSprintStorm = "Sprint",
 
 		BurnEffect = "Burn",
+		DemeterSprintStorm = "SlowField",
 		MassiveSlamBlast = "MassiveSlam_Name",
 		PoseidonSplashSplinter = "PoseidonSplash_Name",
 		PoseidonCastSplashSplinter = "PoseidonSplash_Name",
+		ProjectileZeusSpark = "ChainLightning_Name",
 
 		ProjectileFireball = "FireballManaSpecialBoon",
-		ProjectileZeusSpark = "FocusLightningBoon",
 		ArtemisSupportingFire = "SupportingFireBoon",
 		ArtemisCastVolley = "OmegaCastVolleyBoon",
 		ZeusZeroManaStrike = "ZeusManaBoltBoon",
@@ -1060,11 +1064,32 @@ ScreenData.RunClear =
 		SteamCubeExplosion = "Traps",
 		SteamCubeFused = "Traps",
 		FireBarrelExplosion = "Traps",
+		FireBarrel = "Traps",
+		FireBarrelShips = "Traps",
 		BlastCubeExplosion = "Traps",
 		SpikeTrapClockwork = "Traps",
 		BeamTrap = "Traps",
 		RubbleFall = "Traps",
 		FieldsDestructiblePillarDestruction = "Traps",
+		OilPuddle = "Traps",
+		OilPuddle02 = "Traps",
+		OilPuddle03 = "Traps",
+		OilPuddle04 = "Traps",
+		OilPuddleFire = "Traps",
+		OilPuddleFire02 = "Traps",
+		OilPuddleFire03 = "Traps",
+		OilPuddleFire04 = "Traps",
+		LavaTile = "Traps",
+		LavaTileTriangle01 = "Traps",
+		LavaTileTriangle02 = "Traps",
+		LavaTileWeapon = "Traps",
+		LavaTileTriangle01Weapon = "Traps",
+		LavaTileTriangle02Weapon = "Traps",
+		RubbleFallOlympus = "Traps",
+		PolyphemusBoulderSky = "Traps",
+		BrambleTrap = "Traps",
+		BrambleTrapBush = "Traps",
+		BloodMinePreFused = "Traps",
 
 		-- Allies
 		ArtemisSniperBolt = "NPC_Artemis_Field_01",
@@ -1078,6 +1103,7 @@ ScreenData.RunClear =
 		-- Familiars
 		CatFamiliarPounce = "CatFamiliar",
 		FrogFamiliarLand = "FrogFamiliar",
+		RavenFamiliarMelee = "RavenFamiliar",
 
 		-- Devotions
 		ZeusUpgradeRoomWeapon = "NPC_Zeus_01",
@@ -1088,9 +1114,6 @@ ScreenData.RunClear =
 		DemeterUpgradeRoomWeapon = "NPC_Demeter_01",
 		AphroditeUpgradeRoomWeapon = "NPC_Aphrodite_01",
 		HephaestusUpgradeRoomWeapon = "NPC_Hephaestus_01",
-
-		-- Bosses
-		HecateCopy = "Hecate",
 	},
 
 	DamageSourceTextOverrides =
@@ -1112,7 +1135,7 @@ ScreenData.RunClear =
 		WeaponAxe = "Attack",
 		WeaponAxeDash = "DashStrike",
 		WeaponAxeSpin = "AttackEX",
-		WeaponAxeBlock2 = "Special",
+		WeaponAxeSpecial = "Special",
 		WeaponAxeSpecialSwing = "SpecialEX",
 
 		WeaponTorch = "Attack",
@@ -1122,7 +1145,13 @@ ScreenData.RunClear =
 
 		WeaponLob =  "Attack",
 		ProjectileLobCharged = "AttackEX",
-		WeaponLobSpecial = "SpecialSet",
+		WeaponLobSpecial = "Special",
+		ProjectileThrowCharged = "SpecialEX",
+
+		WeaponSuit = "Attack",
+		WeaponSuitDash = "DashStrike",
+		WeaponSuitCharged = "AttackEX",
+		WeaponSuitRanged = "SpecialSet",
 
 		WeaponSpellTransform = "SpellTransformTrait",
 		WeaponSpellMeteor = "SpellMeteorTrait",
@@ -1130,6 +1159,7 @@ ScreenData.RunClear =
 		WeaponSpellSummon = "SpellSummonTrait",
 		WeaponSpellLeap = "SpellLeapTrait",
 		WeaponSpellPolymorph = "SpellPolymorphTrait",
+		WeaponSpellMoonBeam = "SpellMoonBeamTrait",
 	},
 	
 	ComponentData =
@@ -1252,7 +1282,6 @@ ScreenData.RunClear =
 			RightOffset = 428,
 			Y = 233,
 			Alpha = 0.0,
-			AlphaTarget = 1.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Graphic = "VictoryScreenNewRecordMedal",
 			TextArgs =
@@ -1272,7 +1301,6 @@ ScreenData.RunClear =
 			Y = 275,
 			Text = "RunClearScreen_ShrinePoints",
 			Alpha = 0.0,
-			AlphaTarget = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
 			{
@@ -1282,6 +1310,7 @@ ScreenData.RunClear =
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 				OutlineThickness = 2, OutlineColor = {0,0,0,1},
 				Justification = "Left",
+				TextSymbolScale = 0.8,
 			},
 		},
 		ShrinePointsValue =
@@ -1289,7 +1318,6 @@ ScreenData.RunClear =
 			RightOffset = 30,
 			Y = 275,
 			Alpha = 0.0,
-			AlphaTarget = 0.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			TextArgs =
 			{
@@ -1306,7 +1334,6 @@ ScreenData.RunClear =
 			RightOffset = 428,
 			Y = 276,
 			Alpha = 0.0,
-			AlphaTarget = 1.0,
 			GroupName = "Combat_Menu_TraitTray_Overlay_Text",
 			Graphic = "VictoryScreenNewRecordMedal",
 			TextArgs =

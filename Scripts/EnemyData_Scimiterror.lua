@@ -3,7 +3,7 @@ UnitSetData.Scimiterror =
 
 	Scimiterror =
 	{
-		InheritFrom = { "BaseVulnerableEnemy","LowPolyEnemy" },
+		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy", "LowPolyEnemy" },
 		IntroEncounterName = "ScimiterrorIntro",
 
 		ActivateAnimation = "Enemy_Scimiterror_Spawn",
@@ -17,14 +17,17 @@ UnitSetData.Scimiterror =
 		ActivateFadeIn = false,
 		ActivateTint = false,
 		ActivateTintDelay = 0,
+		DeathAnimation = "ScimiterrorDeath",
+		DeathFx = "ScimiterrorDeathFx",
 		DeathSound = "/SFX/Enemy Sounds/Scimiterror/EmoteDying",
+		DestroyDelay = 0.43333,
 
 		MaxHealth = 260,
 		HealthBarOffsetY = -200,
 		HealthBarType = "Small",
 
 		Groups = { "GroundEnemies" },
-		Material = "Metal",
+		Material = "Stone",
 		IsAggroedSound = "/SFX/Enemy Sounds/Scimiterror/EmoteAlerted",
 
 		StunAnimations = 
@@ -38,10 +41,14 @@ UnitSetData.Scimiterror =
 			"AggroAI",
 		},
 		AIAggroRange = 1150,
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			MaxAttackers = 2,
+			SurroundRetaliateDistance = 300,
 		},
 
 		WeaponOptions =
@@ -50,6 +57,17 @@ UnitSetData.Scimiterror =
 		},
 
 		HeraclesCombatMoneyValue = 2,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.4,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.05,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
+
 		ActiveCapWeight = 0.5,
 		GeneratorData =
 		{
@@ -57,34 +75,23 @@ UnitSetData.Scimiterror =
 			BlockEnemyTypes = {"Scimiterror_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_2164", Text = "Seeswords!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_2163", Text = "Seeswords...", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_2164", Text = "Seeswords...!" },
+			{ Cue = "/VO/MelinoeField_2163", Text = "Seeswords..." },
+			{ Cue = "/VO/MelinoeField_2164", Text = "Seeswords...!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_2165", Text = "More Seeswords." },
 			{ Cue = "/VO/MelinoeField_2166", Text = "More Seeswords?" },
 		},
@@ -100,11 +107,6 @@ UnitSetData.Scimiterror =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =

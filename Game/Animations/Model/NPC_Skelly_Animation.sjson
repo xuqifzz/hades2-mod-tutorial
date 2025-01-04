@@ -17,6 +17,25 @@
 		GrannyAnimation = "Skelly_Base_Idle_C_01"
 		Loop = true
 		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Skelly_OnHit_1"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Skelly_OnHit_2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Skelly_OnHit_3"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Skelly_OnHit_4"
+				Duration = 12
+			}
+		]
 	}
 
 
@@ -224,10 +243,6 @@
 				FootstepFxR = "SkellyDeathDust"
 			}
 			{
-				Frame = 190
-				Sound = "/SFX/Enemy Sounds/EnemyDeathCloudFwoosh"
-			}
-			{
 				Frame = 200
 				FrameSpeed = 0
 			}
@@ -251,6 +266,7 @@
 		OwnerImmobile = true
 		TimeModifierFraction = 0.0
 		ChainTo = null
+		Sound = "/SFX/Enemy Sounds/EnemyDeathCloudFwoosh"
 		VisualFx = "SkellyDeathSmoke"
 		VisualFxIntervalMin = 0.05
 		VisualFxIntervalMax = 0.1

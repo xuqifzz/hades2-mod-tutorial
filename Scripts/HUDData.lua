@@ -177,6 +177,7 @@ ScreenData.HUD =
 		Order =
 		{
 			"HealthBack",
+			"HealthRally",
 			"HealthFalloff",
 			"HealthFill",
 			"HealthBuffer",
@@ -211,7 +212,7 @@ ScreenData.HUD =
 			Y = 40,
 			Animation = "GUI\\Icons\\Boon",
 			GroupName = "HUD_Overlay",
-			Scale = 0.7,
+			Scale = 0.6,
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			TextArgs =
@@ -233,7 +234,7 @@ ScreenData.HUD =
 			X = 120,
 			Y = 40,
 			Animation = "GUI\\Icons\\ManaCrystal",
-			Scale = 0.7,
+			Scale = 0.6,
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
@@ -256,7 +257,7 @@ ScreenData.HUD =
 			X = 200,
 			Y = 40,
 			Animation = "GUI\\Icons\\ShrinePoint",
-			Scale = 0.7,
+			Scale = 0.6,
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
@@ -279,7 +280,7 @@ ScreenData.HUD =
 			X = 280,
 			Y = 40,
 			Animation = "GUI\\Icons\\BountyBoardEye",
-			Scale = 0.7,
+			Scale = 0.6,
 			GroupName = "HUD_Overlay",
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
@@ -445,6 +446,20 @@ ScreenData.HUD =
 			UpdateEaseOut = 0.88,
 		},
 
+		HealthRally = 
+		{
+			Animation = "HPBarFalloff",
+			X = 325,
+			BottomOffset = 39,
+			Alpha = 0.0,
+			AlphaTarget = 0.0,
+			Scale = 0.5,
+			UpdateDelay = 0.4,
+			UpdateDuration = 0.4,
+			UpdateEaseIn = 0.66,
+			UpdateEaseOut = 0.88,
+		},
+
 		HealthFill = 
 		{
 			Animation = "HPBarFill",
@@ -595,18 +610,19 @@ ScreenData.HUD =
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 		},
+
 		MoneyIcon =
 		{
 			RightOffset = 40,
 			BottomOffset = 24,
 			Animation = "CurrencyIcon",
-			Scale = 0.8,
+			Scale = 0.6,
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			TextArgs =
 			{
 				OffsetX = -30,
-				OffsetY = 0,
+				OffsetY = -4,
 				Font = "NumericP22UndergroundSCMedium",
 				FontSize = 28,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
@@ -623,15 +639,15 @@ ScreenData.HUD =
 		RerollIcon =
 		{
 			RightOffset = 40,
-			BottomOffset = 70,
+			BottomOffset = 66,
 			Animation = "RerollIcon",
-			Scale = 0.9,
+			Scale = 0.6,
 			Alpha = 0.0,
 			AlphaTarget = 0.0,
 			TextArgs =
 			{
 				OffsetX = -30,
-				OffsetY = 0,
+				OffsetY = -4,
 				Font = "NumericP22UndergroundSCMedium",
 				FontSize = 28,
 				ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
@@ -656,27 +672,9 @@ ScreenData.HUD =
 
 		ToolIcon =
 		{
-			RightOffset = 60,
-			BottomOffset = 200,
-		},
-
-		FamiliarIcon =
-		{
-			RightOffset = 60,
-			BottomOffset = 280,
-			TextArgs =
-			{
-				Font = "NumericP22UndergroundSCMedium", 
-				FontSize = 22,
-				Color = Color.White,
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
-				OffsetX = 5, OffsetY = 40,
-				Justification = "Center",
-				DataProperties =
-				{
-					OpacityWithOwner = true,
-				}
-			},
+			RightOffset = 50,
+			BottomOffset = 183,
+			Scale = 0.7,
 		},
 
 		Letterbox =

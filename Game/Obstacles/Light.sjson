@@ -939,5 +939,33 @@
         Light = "ElysiumLightPrism"
       }
     }
+
+    {
+      Name = "LightDiscoA"
+      InheritFrom = "1_BaseFlyingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TorchMarker"
+        Invisible = true
+        Light = "DiscoLightA"
+      }
+    }
+
+    {
+      Name = "LightDiscoB"
+      InheritFrom = "1_BaseFlyingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "TorchMarker"
+        Invisible = true
+        Light = "DiscoLightB"
+      }
+    }
+
+
   ]
 }

@@ -39,7 +39,7 @@ function ShowTraitTrayScreen( args )
 	args = args or {}
 
 	thread( HideObjectivesUI, args )
-	ShowCombatUI( "TraitTray", { SkipObjectives = true } )
+	ShowCombatUI( "TraitTray", { SkipObjectives = true, SkipTraitActivateCheck = true } )
 	ShowResourceUIs()
 	OpenTraitTrayScreen( args )
 
@@ -84,6 +84,7 @@ function OpenTraitTrayScreen( args )
 		activeTraitComponent.OnMouseOverFunctionName = "TraitTrayIconButtonMouseOver"
 		activeTraitComponent.OnMouseOffFunctionName = "TraitTrayIconButtonMouseOff"
 		activeTraitComponent.OnPressedFunctionName = "PinTraitDetails"
+		UseableOn({ Id = activeTraitComponent.Id })
 		--ModifyTextBox({ Id = activeTraitComponent.Id, BlockTooltip = false })
 		screen.Components["ActiveTrait"..TraitTrayGetUniqueName( activeTraitComponent )] = activeTraitComponent
 		if activeTraitComponent.TraitData.HideInHUD then
@@ -146,8 +147,8 @@ function TraitTrayScreenSetupTabs( screen, data )
 
 	local eligibleCategories = {}
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
-			table.insert( eligibleCategories, category )
+		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
+			table.insert( eligibleCategories, { Index = categoryIndex, Category = category } )
 			screen.NumCategories = screen.NumCategories + 1
 		else
 			category.Locked = true
@@ -157,7 +158,8 @@ function TraitTrayScreenSetupTabs( screen, data )
 	local categoryWidth = screen.CategorySpacingX * ( screen.NumCategories - 1 )
 	local categoryX = screen.CategoryCenterX - ( categoryWidth * 0.5 )
 
-	for categoryIndex, category in ipairs( eligibleCategories ) do
+	for _, indexedCategory in ipairs( eligibleCategories ) do
+		local category = indexedCategory.Category
 		local slotName = category.Name
 		local categoryButton = CreateScreenComponent({ Name = "ButtonTraitTrayTab", X = categoryX, Y = ScreenHeight - screen.CategoryStartBottomOffset, Scale = 1.0, Group = "HUD_Backing", })
 		AttachLua({ Id = categoryButton.Id, Table = categoryButton })
@@ -166,13 +168,28 @@ function TraitTrayScreenSetupTabs( screen, data )
 		categoryButton.OnMouseOverFunctionName = "TraitTrayScreenCategoryMouseOver"
 		categoryButton.OnMouseOffFunctionName = "TraitTrayScreenCategoryMouseOff"
 		categoryButton.Category = slotName
-		categoryButton.CategoryIndex = categoryIndex
+		categoryButton.CategoryIndex = indexedCategory.Index
 		screen.Components["Category"..slotName] = categoryButton
 
-		local iconComponent = HUDScreen.Components[category.IconComponent]
-		if iconComponent ~= nil then
-			Move({ Id = iconComponent.Id, DestinationId = categoryButton.Id, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0, OffsetX = -18, OffsetY = -4 })
-		end	
+		local hudIconComponent = HUDScreen.Components[category.HUDIconComponent]
+		if hudIconComponent ~= nil then
+			Move({ Id = hudIconComponent.Id, DestinationId = categoryButton.Id, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0, OffsetX = -18, OffsetY = -4 })
+		end
+
+		if category.Icon ~= nil then
+			local icon = CreateScreenComponent({ Name = "BlankObstacle", X = categoryX - 18, Y = ScreenHeight - screen.CategoryStartBottomOffset - 4, Scale = 0.7, Alpha = 0.0, Group = "HUD_Overlay" })
+			SetAnimation({ Name = category.Icon, DestinationId = icon.Id })
+			SetAlpha({ Id = icon.Id, Fraction = 1.0, Duration = 0.2 })
+			categoryButton.Icon = icon
+			screen.Components["CategoryIcon"..slotName] = icon
+		end
+
+		if category.DisplayName ~= nil then
+			local displayName = ShallowCopyTable( screen.TabLabelFormat )
+			displayName.Id = categoryButton.Id
+			displayName.Text = category.DisplayName
+			CreateTextBoxWithFormat( displayName )
+		end
 		
 		categoryX = categoryX + screen.CategorySpacingX
 	end
@@ -184,16 +201,15 @@ end
 
 function TraitTrayScreenShowCategory( screen, categoryIndex, args )
 	if screen.Closing then
-		return
+		return screen
 	end
+
 	args = args or {}
 	AddInputBlock({ Name = "TraitTrayScreenSelectCategory" })
 	local prevCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
-	if screen.ActiveCategoryIndex == 1 then
+	if (screen.ActiveCategoryIndex == 1 or screen.ActiveCategoryIndex == 2) and categoryIndex ~= 1 and categoryIndex ~= 2 then
 		SetAlpha({ Id = screen.Components.ElementPanel.Id, Fraction = 0.0, Duration = 0.1 })
-	elseif screen.ActiveCategoryIndex == 2 then
-		SetAlpha({ Id = screen.Components.NoMetaUpgradesHint.Id, Fraction = 0.0, Duration = 0.1 })
-	elseif screen.ActiveCategoryIndex == 3 then
+	elseif screen.ActiveCategoryIndex == 4 then
 		SetAlpha({ Id = screen.Components.ActiveShrineBountyBacking.Id, Fraction = 0.0, Duration = 0.1 })
 		SetAlpha({ Id = screen.Components.ActiveShrineBountyTarget.Id, Fraction = 0.0, Duration = 0.1 })
 		SetAlpha({ Id = screen.Components.ActiveShrineBountyFrame.Id, Fraction = 0.0, Duration = 0.1 })
@@ -201,7 +217,7 @@ function TraitTrayScreenShowCategory( screen, categoryIndex, args )
 		SetAlpha({ Id = screen.Components.ActiveShrineBountyWeapon.Id, Fraction = 0.0, Duration = 0.1 })
 	end
 	SetAnimation({ DestinationId = screen.Components["Category"..prevCategory.Name].Id, Name = "TraitTrayTab" })
-	if categoryIndex ~= 1 then
+	if categoryIndex ~= 1 and categoryIndex ~= 2 then
 		HideTraitUI( { FadeOutDuration = 0.1 } )
 	end
 	TraitTrayScreenRemoveItems( screen )	
@@ -210,20 +226,19 @@ function TraitTrayScreenShowCategory( screen, categoryIndex, args )
 		RemoveInputBlock({ Name = "TraitTrayScreenSelectCategory" })
 		return
 	end
-
+	
 	screen.ActiveCategoryIndex = categoryIndex
 	local activeCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
 	-- Highlight new category
 	SetAnimation({ DestinationId = screen.Components["Category"..activeCategory.Name].Id, Name = "TraitTrayTabHighlightActiveCategory" })
+	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
 	SetAnimation({ DestinationId = screen.Components.Background.Id, Name = activeCategory.BackgroundAnimation })
 	ModifyTextBox({ Id = screen.Components.CategoryTitleText.Id, Text = activeCategory.Name })
 	CallFunctionName( activeCategory.DisplayFunctionName, screen, activeCategory, args )
 
 	if not IsEmpty( activeCategory.SavedPins ) then
 		for index, traitName in ipairs( activeCategory.SavedPins ) do
-			--DebugPrint({ Text = "traitName = "..traitName })
 			local traitComponent = screen.TraitComponentDictionary[traitName]
-			--DebugPrint({ Text = "traitComponent = "..tostring(traitComponent) })
 			PinTraitDetails( screen, traitComponent, { PinCollapseSpeed = 99999 } )
 		end
 	end
@@ -247,6 +262,7 @@ function TraitTrayScreenCategoryMouseOver( button )
 		SetAnimation({ DestinationId = button.Id, Name = "TraitTrayTabHighlightActiveCategory" })
 	else
 		SetAnimation({ DestinationId = button.Id, Name = "TraitTrayTabHighlight" })
+		PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOutMenu" })
 	end
 end
 
@@ -293,7 +309,7 @@ function TraitTrayScreenPrevCategory( screen, button )
 	TraitTrayScreenShowCategory( screen, nextCategoryIndex )
 end
 
-function TraitTrayShowTraits( screen, activeCategory, args )
+function TraitTrayShowTraits( screen, activeCategory, args, contextArgs )
 	local components = screen.Components
 	local firstTrait = nil
 	local highlightedTrait = nil
@@ -302,31 +318,24 @@ function TraitTrayShowTraits( screen, activeCategory, args )
 	local xOffset = screen.TraitStartX
 	local yOffset = ScreenHeight - screen.TraitStartBottomOffset
 
-	ShowTraitUI( { FadeDuration = 0.2, ForceShow = true } )
+	ShowTraitUI( { FadeDuration = 0.2, ForceShow = true, ForceUseableOn = true, SkipTraitActivateCheck = true } )
 	
 	local currentTraits = ShallowCopyTable( CurrentRun.Hero.Traits )
-	--currentTraits = CollapseTableOrdered( currentTraits )
 	local orderedTraits = {}
 	for i, slotName in ipairs( HUDScreen.SlottedTraitOrder ) do
-		local slottedTrait = nil
-		for i, trait in ipairs( currentTraits ) do
-			if trait.Slot == slotName and not trait.Hidden and not IsShownInHUD( trait ) then
-				slottedTrait = trait
-				slottedTrait.Ordered = true
-				break
-			end
-		end
-		if slottedTrait ~= nil then
-			table.insert( orderedTraits, slottedTrait )
-		else
-			local missingTrait = { EmptySlot = slotName }
-			--DebugPrint({ Text = "slotName = "..slotName })
-			table.insert( orderedTraits, missingTrait )
-		end
-	end	
+		local missingTrait = { EmptySlot = slotName }
+		table.insert( orderedTraits, missingTrait )
+	end
+
+	local showOverflowTraits = contextArgs ~= nil and contextArgs.ShowOverflow
+	local nonHUDTraitNum = 0
+	local maxNonHUDTraitsPerPage = screen.ItemCategories[2].GameStateRequirements[1].Value
 	for i, trait in ipairs( currentTraits ) do
-		if not trait.Ordered and not trait.Hidden and not IsShownInHUD( trait ) then
-			table.insert( orderedTraits, trait )
+		if not trait.Hidden and not IsShownInHUD( trait ) then
+			nonHUDTraitNum = nonHUDTraitNum + 1
+			if (not showOverflowTraits and nonHUDTraitNum <= maxNonHUDTraitsPerPage) or (showOverflowTraits and nonHUDTraitNum > maxNonHUDTraitsPerPage) then
+				table.insert( orderedTraits, trait )
+			end
 		end
 	end
 
@@ -447,7 +456,7 @@ function TraitTrayShowTraits( screen, activeCategory, args )
 		end
 	end
 
-	if IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) then
+	if IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) then
 		SetAlpha({ Id = screen.Components.ElementPanel.Id, Fraction = 1.0, Duration = 0.1 })
 	end
 
@@ -459,12 +468,11 @@ function TraitTrayShowTraits( screen, activeCategory, args )
 
 end
 
-function TraitTrayShowMetaUpgrades( screen, activeCategory, args )
+function TraitTrayShowOverflowTraits( screen, activeCategory, args )
+	TraitTrayShowTraits( screen, activeCategory, args, { ShowOverflow = true } )
+end
 
-	if GetNumShrineUpgrades( "NoMetaUpgradesShrineUpgrade" ) >= 1 then
-		SetAlpha({ Id = screen.Components.NoMetaUpgradesHint.Id, Fraction = 1.0, Duration = 0.1 })
-		return
-	end
+function TraitTrayShowMetaUpgrades( screen, activeCategory, args )
 
 	local equippedMetaUpgradesNum = 0
 	for k, upgrade in pairs(GameState.MetaUpgradeState) do
@@ -588,11 +596,7 @@ function TraitTrayShowShrineUpgrades( screen, activeCategory, args )
 
 			local traitFrameId = CreateScreenObstacle({ Name = "BlankObstacle", X = xOffset, Y = yOffset,  Group = screen.ComponentData.DefaultGroup, Scale = screen.ShrineBackingScale, Alpha = 0.0 })
 			local rank = GetNumShrineUpgrades( shrineUpgradeName )
-			if rank >= TableLength( metaUpgradeData.Ranks ) then
-				SetAnimation({ Name = "GUI\\Screens\\Shrine\\PactActiveMax", DestinationId = traitFrameId })
-			else
-				SetAnimation({ Name = "GUI\\Screens\\Shrine\\PactActive", DestinationId = traitFrameId })
-			end			
+			SetAnimation({ Name = "GUI\\Screens\\Shrine\\PactActiveMax", DestinationId = traitFrameId })
 			SetAlpha({ Id = traitFrameId, Fraction = 1.0, Duration = 0.1 })
 			table.insert( screen.Frames, traitFrameId )
 
@@ -609,7 +613,8 @@ function TraitTrayShowShrineUpgrades( screen, activeCategory, args )
 			traitIcon.PinIconScale = 0.28
 			traitIcon.PinIconFrameScale = 0.0
 			traitIcon.HighlightAnimScale = 0.27
-			traitIcon.TrayHighlightAnimScale = 1.0
+			traitIcon.HighlightAnim = "GUI\\Screens\\Shrine\\PactHover"
+			traitIcon.TrayHighlightAnimScale = 1.4
 			SetAlpha({ Id = traitIcon.Id, Fraction = 1.0, Duration = 0.1 })
 			if CurrentRun.ShrineUpgradesDisabled[shrineUpgradeName] then
 				SetColor({ Id = traitIcon.Id, Color = screen.DisabledShrineIconColor })
@@ -765,15 +770,16 @@ function TraitTrayScreenRemoveItems( screen )
 	for i, id in pairs( screen.Frames ) do
 		table.insert( componentIds, id )
 	end
-	if IsEmpty( componentIds ) then
-		return
-	end
 	local fadeOutTime = 0.1
-	SetAlpha({ Ids = componentIds, Fraction = 0, Duration = fadeOutTime, EaseIn = 0, EaseOut = 1 })
+	if not IsEmpty( componentIds ) then
+		SetAlpha({ Ids = componentIds, Fraction = 0, Duration = fadeOutTime, EaseIn = 0, EaseOut = 1 })
+	end
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = screen.Components.HoverFrame.Id, Fraction = 0.0, Duration = 0.2 })
 
 	screen.TraitComponentDictionary = {}
+	screen.Icons = {}
+	screen.Frames = {}
 
 	-- Save current pins
 	local activeCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
@@ -793,11 +799,17 @@ function TraitTrayScreenRemoveItems( screen )
 		thread( PinTraitDetails, screen, pin.Button, { RemoveCompletely = true } )
 	end
 	waitUnmodified( fadeOutTime )
-	Destroy({ Ids = componentIds })
+
+	if not IsEmpty( componentIds ) then
+		Destroy({ Ids = componentIds })
+	end
 end
 
 function TraitTrayScreenInfo( screen, button )
 	if screen.MouseOverButton == nil then
+		return
+	end
+	if not TraitTrayShouldShowInfoButton( screen, screen.MouseOverButton ) then
 		return
 	end
 	local traitData = screen.MouseOverButton.TraitData
@@ -805,7 +817,7 @@ function TraitTrayScreenInfo( screen, button )
 		TraitTrayScreenClose( screen, button )	
 		local spellData = CurrentRun.Hero.SlottedSpell
 		OpenTalentScreen( { ReadOnly = true, }, nil )
-	elseif traitData.Slot == "Familiar" then
+	elseif traitData.Slot == "Familiar" and GetFamiliarUpgradeCount( GameState.EquippedFamiliar ) > 0 then
 		TraitTrayScreenClose( screen, button )	
 		local spellData = CurrentRun.Hero.SlottedSpell
 		OpenFamiliarShopScreen( MapState.FamiliarUnit, { ReadOnly = true } )
@@ -817,6 +829,7 @@ function TraitTrayScreenClose( screen, button )
 		return
 	end
 	screen.Closing = true
+	killTaggedThreads("QuestLogPulse")
 
 	local allTraitComponents = MergeTables( HUDScreen.SlottedTraitComponents, HUDScreen.ActiveTraitComponents )
 	for id, activeTraitComponent in pairs( allTraitComponents ) do
@@ -824,6 +837,7 @@ function TraitTrayScreenClose( screen, button )
 		activeTraitComponent.OnMouseOverFunctionName = nil
 		activeTraitComponent.OnMouseOffFunctionName = nil
 		activeTraitComponent.OnPressedFunctionName = nil
+		UseableOff({ Id = activeTraitComponent.Id })
 		ModifyTextBox({ Id = activeTraitComponent.Id, BlockTooltip = true })
 		activeTraitComponent.PinIndex = nil
 		screen.Components["ActiveTrait"..TraitTrayGetUniqueName( activeTraitComponent )] = nil
@@ -833,9 +847,9 @@ function TraitTrayScreenClose( screen, button )
 	end
 
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
-		local iconComponent = HUDScreen.Components[category.IconComponent]
-		if iconComponent ~= nil then
-			Move({ Id = iconComponent.Id, OffsetX = iconComponent.Data.X, OffsetY = iconComponent.Data.Y, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
+		local hudIconComponent = HUDScreen.Components[category.HUDIconComponent]
+		if hudIconComponent ~= nil then
+			Move({ Id = hudIconComponent.Id, OffsetX = hudIconComponent.Data.X, OffsetY = hudIconComponent.Data.Y, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
 		end
 	end
 	Move({ Id = HUDScreen.Components.BountyActive.Id, Distance = screen.BountyIconShiftX, Angle = 180, Duration = 0.2, EaseIn = 0.0, EaseOut = 1.0 })
@@ -855,12 +869,13 @@ function TraitTrayScreenClose( screen, button )
 	SetAlpha({ Ids = { HUDScreen.Components.WeaponSlotIcon.Id, HUDScreen.Components.FamiliarSlotIcon.Id }, Duration = HUDScreen.FadeOutDuration, Fraction = 0 })
 	if CurrentHubRoom ~= nil then 
 		HideTraitUI( { KeepActiveComponents = true } )
-	end
-	if CurrentRun.ActiveBounty then
-		SetAlpha({ Id = HUDScreen.Components.BountyActive.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
+	else
+		if CurrentRun.ActiveBounty then
+			SetAlpha({ Id = HUDScreen.Components.BountyActive.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
+		end
 	end
 	if TableLength( ActiveScreens ) <= 1 then
-		ShowTraitUI()
+		ShowTraitUI({ SkipTraitActivateCheck = true })
 	end
 	CloseScreen( ids, 0.05 )
 
@@ -904,22 +919,6 @@ function TraitTrayScreenClose( screen, button )
 			TeleportCursor({ DestinationId = screenIds[1], ForceUseCheck = true })
 		end
 	end
-	--[[
-	local choiceIds = GetIdsByType({ Name = "ButtonDialogueChoice"})	
-	if not IsEmpty( choiceIds ) then
-		local minId = choiceIds[1]
-		local minY = GetLocation({ Id = minId }).Y
-		for i, id in pairs(choiceIds) do
-			if GetLocation({ Id = id }).Y < minY then
-				minY = GetLocation({ Id = id }).Y 
-				minId = id
-			end
-		end
-		if minId then
-			TeleportCursor({ DestinationId = minId, ForceUseCheck = true })
-		end
-	end
-	]]
 
 end
 
@@ -1075,6 +1074,7 @@ function PinTraitDetails( screen, button, args )
 	SetInteractProperty({ DestinationId = components.DetailsBacking.Id, Property = "FreeFormSelectable", Value = false })
 	local detailsData = DeepCopyTable( ScreenData.UpgradeChoice.DescriptionText )
 	detailsData.Id = components.DetailsBacking.Id
+	detailsData.TextSymbolScale = button.TraitData.DescriptionTextSymbolScale or detailsData.TextSymbolScale
 	detailsData.BlockTooltip = true
 	CreateTextBoxWithFormat( detailsData )
 
@@ -1122,18 +1122,23 @@ function PinTraitDetails( screen, button, args )
 
 	components.RarityBox = CreateScreenComponent({ Name = "BlankObstacle", Group = groupName, X = offset.X, Y = offset.Y + 200 })
 	local rarityTextBox = ShallowCopyTable( ScreenData.UpgradeChoice.RarityText )
+	if button.TraitData.MetaUpgrade then
+		rarityTextBox = MergeTables( rarityTextBox, ScreenData.TraitTrayScreen.MetaUpgradePinFormat )
+	end
 	rarityTextBox.Id = components.RarityBox.Id
 	CreateTextBox( rarityTextBox )
 	
 	components.FlavorText = CreateScreenComponent({ Name = "BlankObstacle", Group = groupName, X = offset.X, Y = offset.Y})
 	
-	CreateTextBox( 
-		MergeTables(
+	local flavorTextData = MergeTables(
 		{ 
 			Id = components.FlavorText.Id,
-			LineSpacingBottom = GetLocalizedValue(0, { { Code = "zh-TW", Value = -7 } } ),
 		},
-		ScreenData.UpgradeChoice.FlavorText ))
+		ScreenData.UpgradeChoice.FlavorText )
+	flavorTextData.LineSpacingBottom = GetLocalizedValue(0, ScreenData.UpgradeChoice.FlavorText.LangLineSpacingBottom )
+	flavorTextData.OffsetY = GetLocalizedValue( ScreenData.UpgradeChoice.FlavorText.OffsetY, ScreenData.UpgradeChoice.FlavorText.LangOffsetY )
+
+	CreateTextBox( flavorTextData )
 	Attach({ Id = components.FlavorText.Id, DestinationId = components.DetailsBacking.Id })
 
 	local iconOffsetX = ScreenData.UpgradeChoice.IconoffsetX
@@ -1160,7 +1165,7 @@ function PinTraitDetails( screen, button, args )
 
 	local screenData = ScreenData.UpgradeChoice
 
-	if not IsEmpty( button.TraitData.Elements ) and IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) then
+	if not IsEmpty( button.TraitData.Elements ) and IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) then
 		local elementName = GetFirstValue( button.TraitData.Elements )
 		components.ElementalIcon = CreateScreenComponent({ Name = TraitElementData[elementName].Icon, Group = groupName, Scale = 0.5 })
 		Attach({ Id = components.ElementalIcon.Id, DestinationId = components.DetailsBacking.Id, OffsetX = screenData.ElementIcon.XShift - 320, OffsetY = screenData.ElementIcon.YShift + 14 })
@@ -1173,11 +1178,7 @@ function PinTraitDetails( screen, button, args )
 			components.PinIndicatorDetails = CreateScreenComponent({ Name = "BlankObstacle", Group = groupName, Scale = 0.8 })
 		end
 		Attach({ Id = components.PinIndicator.Id, DestinationId = button.Id })
-		if button.TraitData.Slot == "Assist" or button.TraitData.Slot == "Keepsake" then
-			SetAnimation({ DestinationId = components.PinIndicator.Id, Name = "TraitPinIn_NoHighlight" })
-		else
 			SetAnimation({ DestinationId = components.PinIndicator.Id, Name = "TraitPinIn" })
-		end
 		Attach({ Id = components.PinIndicatorDetails.Id, DestinationId = components.Icon.Id })
 		SetAnimation({ DestinationId = components.PinIndicatorDetails.Id, Name = "Blank" })
 		TraitTrayPinOnPresentation( screen, button )
@@ -1220,6 +1221,24 @@ function PinTraitDetails( screen, button, args )
 
 end
 
+function TraitTrayShouldShowInfoButton( screen, button )
+
+	if screen.Components.InfoButton.OnPressedFunctionName == nil then
+		return false
+	end
+
+	if button.TraitData.Slot == "Spell" and CurrentHubRoom == nil then
+		return true
+	end
+	
+	if button.TraitData.Slot == "Familiar" and GetFamiliarUpgradeCount( GameState.EquippedFamiliar ) > 0 then
+		return true
+	end
+
+	return false
+
+end
+
 function TraitTrayIconButtonMouseOver( button )
 	local screen = button.Screen
 	if screen.Closing then
@@ -1227,8 +1246,17 @@ function TraitTrayIconButtonMouseOver( button )
 	end
 	screen.MouseOverButton = button
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
-	if ( button.TraitData.Slot == "Spell" or button.TraitData.Slot == "Familiar" ) and screen.Components.InfoButton.OnPressedFunctionName ~= nil then
+	if TraitTrayShouldShowInfoButton( screen, button ) then
 		SetAlpha({ Id = screen.Components.InfoButton.Id, Fraction = 1.0, Duration = 0.2 })
+		if not screen.Components.InfoButton.Visible then
+			screen.Components.InfoButton.Visible = true
+			if button.TraitData.Slot == "Familiar" then
+				thread( MarkObjectiveComplete, "CheckFamiliarUpgradeInfoPrompt" )
+				if not GameState.WorldUpgradesViewed.FamiliarUpgradeScreen then
+					thread( QuestLogPulsePageButton, screen.Components.InfoButton )
+				end
+			end
+		end
 	end
 	Teleport({ Id = screen.Components.HoverFrame.Id, DestinationId = button.Id })
 	SetAnimation({ DestinationId = screen.Components.HoverFrame.Id, Name = button.HighlightAnim or screen.Components.HoverFrame.Data.Graphic })
@@ -1252,8 +1280,12 @@ function TraitTrayIconButtonMouseOff( button )
 	local screen = button.Screen
 	screen.MouseOverButton = nil
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Id = screen.Components.InfoButton.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = screen.Components.HoverFrame.Id, Fraction = 0.0, Duration = 0.2 })
+
+	SetAlpha({ Id = screen.Components.InfoButton.Id, Fraction = 0.0, Duration = 0.2 })
+	screen.Components.InfoButton.Visible = false
+	killTaggedThreads("QuestLogPulse")
+	
 	PinTraitDetails( screen, nil, { RemoveHovers = true } )
 	if screen.Pins ~= nil then
 		local pin = screen.Pins[button.PinIndex]
@@ -1265,8 +1297,6 @@ function TraitTrayIconButtonMouseOff( button )
 end
 
 function SetHighlightedTraitFrame( screen, button )
-	screen.CursorStartX = button.OffsetX
-	screen.CursorStartY = button.OffsetY
 	TeleportCursor({ OffsetX = button.OffsetX, OffsetY = button.OffsetY, ForceUseCheck = true })
 end
 
@@ -1385,6 +1415,8 @@ function SetTraitTrayDetails( args )
 	elseif traitData.CustomRarityLevels ~= nil then
 		local rarityLevel = GetRarityValue( button.OverrideRarity or traitData.Rarity )
 		rarityText = traitData.CustomRarityLevels[rarityLevel]
+	elseif traitData.MetaUpgrade then
+		rarityText = MetaUpgradeCardRarityIcons[traitData.Rarity]
 	elseif traitData.IsTalent then
 		local rarityLevel = GetRarityValue( traitData.Rarity )
 		rarityText = TraitRarityData.TalentRarity[rarityLevel]
@@ -1408,17 +1440,9 @@ function SetTraitTrayDetails( args )
 	end
 	SetAnimation({ Name = button.Icon or GetTraitIcon( traitData ), DestinationId = icon.Id })
 
-	local flavorTextStr = nil
-	if traitData.SourceName ~= nil then
-		local sourceData = MetaUpgradeCardData[traitData.SourceName]
-		if sourceData ~= nil then
-			flavorTextStr = sourceData.FlavorTextData[1].Name
-		end
-	end
-
 	if flavorText ~= nil then
 		ModifyTextBox({ Id = flavorText.Id,
-			Text = flavorTextStr or traitData.FlavorText or traitData.SignoffText or " ",
+			Text = traitData.FlavorText or traitData.SignoffText or " ",
 		})
 	end
 end

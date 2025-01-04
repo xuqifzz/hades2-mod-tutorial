@@ -6,6 +6,8 @@ UnitSetData.Chronos =
 		Portrait = "Portrait_Chronos_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.ChronosVoice,
+		EmoteOffsetY = -320,
+		EmoteOffsetX = 85,
 		SpeakerName = "Chronos",
 
 		MaxHealth = 20000,
@@ -32,8 +34,6 @@ UnitSetData.Chronos =
 		Material = "Organic",
 		HealthBarTextId = "Chronos_Full",
 
-		--ProjectileBlockPresentationFunctionName = "UnitInvulnerableHitPresentation",
-		--OnHitFunctionName = "CheckUnitInvulnerableHit",
 		InvulnerableHitFx = "Chronos360BlockFront",
 		
 		HealthBarOffsetY = -275,
@@ -93,6 +93,7 @@ UnitSetData.Chronos =
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "ChronosMinorStageTransition",
 				FireWeapon = "ChronosDefense",
+				WaitDuration = 1.4,
 				AIData =
 				{
 					AIEndHealthThreshold = 0.5,
@@ -104,6 +105,7 @@ UnitSetData.Chronos =
 				TransitionFunction = "ChronosMinorStageTransition",
 				FireWeapon = "ChronosDash",
 				UnequipAllWeapons = true,
+				WaitDuration = 0.2,
 				EquipWeapons = {
 					"ChronosDash", "ChronosBannerSummon", "ChronosGrind",
 					"ChronosMeleeComboSelector", "ChronosMeleeComboSelector", "ChronosMeleeComboSelector",
@@ -119,6 +121,7 @@ UnitSetData.Chronos =
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "ChronosMinorStageTransition",
 				FireWeapon = "ChronosDefense3",
+				WaitDuration = 1.4,
 				AIData =
 				{
 					AIEndHealthThreshold = 0.0,
@@ -149,6 +152,7 @@ UnitSetData.Chronos =
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "ChronosMinorStageTransition",
 				FireWeapon = "ChronosDefense2",
+				WaitDuration = 1.4,
 				SetMapFlags = { 
 					{ FlagName = "ChronosRoomWeapons2" },
 				},
@@ -252,6 +256,14 @@ UnitSetData.Chronos =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 1.2,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+						Comparison = ">=",
+						Value = 0.25,
+					},
+				},
 				Cooldowns =
 				{
 					{ Name = "ChronosSpokeRecently", Time = 8 },
@@ -322,7 +334,11 @@ UnitSetData.Chronos =
 			Cooldowns =
 			{
 				{ Name = "ChronosSpokeRecently", Time = 3 },
+				{ Name = "ChronosResistReactionSpeech", Time = 40 },
 			},
+
+			{ Cue = "/VO/Chronos_0659", Text = "This is my chosen form.", PlayFirst = true },
+			{ Cue = "/VO/Chronos_0660", Text = "Useless." },
 			{ Cue = "/VO/Chronos_0342", Text = "Oh no...!" },
 			{ Cue = "/VO/Chronos_0343", Text = "Shall that be all?" },
 			{ Cue = "/VO/Chronos_0344", Text = "Tut-tut...!" },
@@ -339,6 +355,64 @@ UnitSetData.Chronos =
 			{ Cue = "/VO/Chronos_0097", Text = "Such youthful arrogance." },
 		},
 
+		OnHitVoiceLinesQueueDelay = 0.6,
+		OnHitVoiceLines =
+		{
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				SuccessiveChanceToPlayAll = 0.05,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+						Comparison = ">=",
+						Value = 0.5,
+					},
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsAny = { "CatFamiliarPounce" },
+					},
+				},
+				TriggerCooldowns = { "ChronosSpokeRecently" },
+
+				{ Cue = "/VO/Chronos_0679", Text = "Accursed feline!" },
+				{ Cue = "/VO/Chronos_0680", Text = "Damnable creature." },
+				{ Cue = "/VO/Chronos_0681", Text = "Back off, {#Emph}cat.", PlayFirst = true },
+				{ Cue = "/VO/Chronos_0682", Text = "It {#Emph}scratched {#Prev}me!" },
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				SuccessiveChanceToPlayAll = 0.05,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+						Comparison = ">=",
+						Value = 0.5,
+					},
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsAny = { "RavenFamiliarMelee" },
+					},
+				},
+				TriggerCooldowns = { "ChronosSpokeRecently" },
+
+				{ Cue = "/VO/Chronos_0683", Text = "Foul bird!" },
+				{ Cue = "/VO/Chronos_0684", Text = "A {#Emph}bird{#Prev}, in {#Emph}here?", PlayFirst = true, PlayOnce = true },
+				{ Cue = "/VO/Chronos_0685", Text = "{#Emph}Pff! {#Prev}Feathers!" },
+				{ Cue = "/VO/Chronos_0686", Text = "Begone, {#Emph}bird!" },
+			},
+			
+		},
+
 		LowHealthVoiceLineThreshold = 0.6,
 		LowHealthVoiceLines =
 		{
@@ -353,7 +427,6 @@ UnitSetData.Chronos =
 			},				
 			GameStateRequirements =
 			{
-				-- RequiredFalseTextLines = { "MegaeraGift10" },
 			},
 
 			{ Cue = "/VO/Chronos_0351", Text = "What is this?" },
@@ -405,7 +478,6 @@ UnitSetData.Chronos =
 			PreLineWait = 0.35,
 			GameStateRequirements =
 			{
-				-- RequiredFalseTextLines = { "MegaeraGift10" },
 			},
 
 			{ Cue = "/VO/Chronos_0385", Text = "{#Emph}Bah..." },
@@ -441,6 +513,37 @@ UnitSetData.Chronos =
 			},
 		},
 
+		OnInvisStartVoiceLines =
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PreLineWait = 0.65,
+			ObjectType = "Chronos",
+			Queue = "Interrupt",
+			SuccessiveChanceToPlay = 0.85,
+			SuccessiveChanceToPlayAll = 0.5,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+					Comparison = ">=",
+					Value = 0.25,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ChronosInvisReactionSpeech", Time = 40 },
+			},
+			TriggerCooldowns = { "ChronosSpokeRecently" },
+
+			{ Cue = "/VO/Chronos_0691", Text = "Show yourself!", PlayFirst = true },
+			{ Cue = "/VO/Chronos_0692", Text = "Where did you go..." },
+			{ Cue = "/VO/Chronos_0693", Text = "A trick of the eye." },
+			{ Cue = "/VO/Chronos_0694", Text = "You cannot hide." },
+			{ Cue = "/VO/Chronos_0695", Text = "You little sneak!" },
+			{ Cue = "/VO/Chronos_0696", Text = "Your father's tricks?" },
+		},
+
 		PhaseEndedVoiceLines =
 		{
 			{
@@ -450,7 +553,10 @@ UnitSetData.Chronos =
 				SuccessiveChanceToPlay = 0.15,
 				GameStateRequirements =
 				{
-					RequiredBossPhase = 1,
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 1 },
+					},
 				},
 
 				{ Cue = "/VO/MelinoeField_1408", Text = "Fall!" },
@@ -462,7 +568,10 @@ UnitSetData.Chronos =
 				SuccessiveChanceToPlayAll = 0.33,
 				GameStateRequirements =
 				{
-					RequiredBossPhase = 2,
+					{
+						FunctionName = "RequiredBossPhase",
+						FunctionArgs = { Phase = 2 },
+					},
 				},
 
 				{ Cue = "/VO/Chronos_0265", Text = "What... I..." },
@@ -474,13 +583,35 @@ UnitSetData.Chronos =
 				{ Cue = "/VO/Chronos_0271", Text = "{#Emph}Augh... ngh..." },
 				{ Cue = "/VO/Chronos_0272", Text = "Blast... you..." },
 				{ Cue = "/VO/Chronos_0273", Text = "Why... you..." },
-				{ Cue = "/VO/Chronos_0274", Text = "Time... out...",
+				{ Cue = "/VO/Chronos_0878", Text = "Accursed... child..." },
+				{ Cue = "/VO/Chronos_0880", Text = "{#Emph}Ungh... hrnn..." },
+				{ Cue = "/VO/Chronos_0881", Text = "You... damnable..." },
+				{ Cue = "/VO/Chronos_0882", Text = "{#Emph}Guh... {#Prev}absurd..." },
+				{ Cue = "/VO/Chronos_0879", Text = "{#Emph}Gah... {#Prev}again...?",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+						}
+					}
+				},
+				{ Cue = "/VO/Chronos_0883", Text = "Even... now...",
 					GameStateRequirements =
 					{
 						{
 							Path = { "GameState", "EnemyKills", "Chronos" },
 							Comparison = ">=",
 							Value = 8,
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_0274", Text = "Time... out...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "EnemyKills", "Chronos" },
+							Comparison = ">=",
+							Value = 20,
 						},
 					},
 				},
@@ -496,7 +627,10 @@ UnitSetData.Chronos =
 					-- SuccessiveChanceToPlay = 0.66,
 					GameStateRequirements =
 					{
-						RequiredBossPhase = 2,
+						{
+							FunctionName = "RequiredBossPhase",
+							FunctionArgs = { Phase = 2 },
+						},
 					},
 					TriggerCooldowns = { "ChronosSpokeRecently" },
 
@@ -512,6 +646,24 @@ UnitSetData.Chronos =
 					{ Cue = "/VO/Chronos_0253", Text = "Now...", PreLineWait = 2.0 },
 					{ Cue = "/VO/Chronos_0254", Text = "Now...!", PreLineWait = 2.0 },
 					{ Cue = "/VO/Chronos_0255", Text = "Now!", PreLineWait = 2.0 },
+					{ Cue = "/VO/Chronos_0872", Text = "One... more... {#Emph}time." },
+					{ Cue = "/VO/Chronos_0873", Text = "I... think... {#Emph}not." },
+					{ Cue = "/VO/Chronos_0874", Text = "I... felt... that.",
+						GameStateRequirements =
+						{
+							{
+								PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+							},
+							{
+								Path = { "GameState", "EnemyKills", "Chronos" },
+								Comparison = ">=",
+								Value = 5,
+							},
+						},
+					},
+					{ Cue = "/VO/Chronos_0875", Text = "You... shall... {#Emph}not." },
+					{ Cue = "/VO/Chronos_0876", Text = "Come... with... {#Emph}me." },
+					{ Cue = "/VO/Chronos_0877", Text = "You... are... {#Emph}done." },
 				},
 			},
 		},
@@ -705,7 +857,7 @@ UnitSetData.Chronos =
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Chronos" },
 						Comparison = ">",
-						Value = 0.1,
+						Value = 0,
 					},
 				},
 				{ Cue = "/VO/Chronos_0167",
@@ -756,7 +908,10 @@ UnitSetData.Chronos =
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.49,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.49, },
+					},
 				},
 				{ Cue = "/VO/Chronos_0171",
 					Text = "You should have seen the hideous appearance of this place when I arrived! Or, I suppose you {#Emph}did{#Prev}, but were too little to recall. I daresay now it is a little more presentable. Yet you barge in, tracking blood and filth across the floor." },
@@ -779,7 +934,10 @@ UnitSetData.Chronos =
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.49,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.49, },
+					},
 				},
 				{ Cue = "/VO/Chronos_0609",
 					Text = "Did you enjoy your swim? The River Styx once flowed through here like blood. Foul traces of it yet remain in the Fields above, but now in my vicinity, it is all grains of gold." },
@@ -971,7 +1129,7 @@ UnitSetData.Chronos =
 					},
 					{
 						Path = { "GameState", "WeaponsUnlocked" },
-						HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob" },
+						HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
 					},
 				},
 				{ Cue = "/VO/Chronos_0503",
@@ -1031,6 +1189,7 @@ UnitSetData.Chronos =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutGoldenAge02" },
 					},
+					-- @ review requirements
 				},
 				{ Cue = "/VO/MelinoeField_1508", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
@@ -1144,10 +1303,8 @@ UnitSetData.Chronos =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePauseChronosFight" }
-					},
-					{
-						PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_0594_B" }
+						Path = { "GameState", "WorldUpgradesAdded" },
+						HasAny = { "WorldUpgradePauseChronosFight", "WorldUpgradeTimeSlowChronosFight" }
 					},
 				},
 				{ Cue = "/VO/Chronos_0601",
@@ -1198,7 +1355,15 @@ UnitSetData.Chronos =
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "HadesLifestealBoon", "HadesCastProjectileBoon", "HadesPreDamageBoon", "HadesChronosDebuffBoon", "HadesInvisibilityRetaliateBoon", "HadesDeathDefianceDamageBoon" },
+						HasAny = {
+							"HadesLifestealBoon",
+							"HadesCastProjectileBoon",
+							"HadesPreDamageBoon",
+							"HadesChronosDebuffBoon",
+							"HadesInvisibilityRetaliateBoon",
+							"HadesDeathDefianceDamageBoon",
+							"HadesManaUrnBoon"
+						},
 					},
 				},
 				{ Cue = "/VO/Chronos_0495",
@@ -1287,6 +1452,32 @@ UnitSetData.Chronos =
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
 					Text = "{#Emph}Oh{#Prev}, that it {#Emph}can. Loyalty {#Prev}is either earned or bought, and it makes very little difference either way. Polyphemus has his limitations, to be sure. But he is not a {#Emph}lost cause." },
 			},
+			ChronosBossAboutPolyphemus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutPolyphemus01" }
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Polyphemus" },
+						Comparison = ">=",
+						Value = 6,
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Polyphemus" }
+					},
+				},
+				{ Cue = "/VO/Chronos_0711",
+					Text = "Why do you ceaselessly attack my humble shepherd Polyphemus, who seeks merely to attend his flock in peace? At least you have given him a bit of reprieve by being {#Emph}here." },
+				{ Cue = "/VO/MelinoeField_2552", UsePlayerSource = true,
+					Text = "Your humble shepherd doesn't let me leave the city of Ephyra willingly, so I've been showing myself out. You should know, he often is asleep on the job..." },
+				{ Cue = "/VO/Chronos_0712",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					Text = "Punishable behavior, if true! Of course, I pay that Cyclops next to nothing. And you always get what you pay for, girl..." },
+			},
 
 			ChronosBossAboutChaos01 =
 			{
@@ -1365,6 +1556,56 @@ UnitSetData.Chronos =
 					Text = "...That trinket-peddler, crudely hawking his ill-gotten wares to his very limited base of customers! And hoarding so much Gold I generously wrought. A noble ally that you have!" },
 			},
 
+			ChronosBossAboutScylla01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "G_Boss01" },
+					},
+				},
+				{ Cue = "/VO/Chronos_0707",
+					Text = "My understanding is that you attended quite the musical performance in the pit of Oceanus! To have navigated all of the infernal pipework just for that." },
+				{ Cue = "/VO/MelinoeField_2550", UsePlayerSource = true,
+					Text = "Oh, it's no trouble at all. Such a vibrant interest there in the performing arts! You should visit more often." },
+				{ Cue = "/VO/Chronos_0708",
+					-- PostLineAnim = "HadesBattleIntro", Portrait = "Portrait_Hades_HelmCape_01", AngleTowardTargetId = 40000,
+					-- PreLineFunctionName = "StartFinalBossRoomIntroMusic",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					-- PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					-- PreLineFunctionName = "StartBossRoomMusic",
+					Text = "I truly ought. And wrest control over the blasted place as my rightful domain! For now, I merely sponsor some of the delightful programming you enjoy each night!" },
+			},
+			ChronosBossAboutScylla02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutScylla01" }
+					},
+					{
+						Path = { "CurrentRun", "RoomsEntered" },
+						HasAny = { "G_Boss01" },
+					},
+				},
+				{ Cue = "/VO/Chronos_0709",
+					Text = "Whilst I have yet to attend one myself, it is my understanding that performances by Scylla and her Siren cohort oft leave much to be desired. Perhaps I ought rescind my patronage..." },
+				{ Cue = "/VO/MelinoeField_2551", UsePlayerSource = true,
+					Text = "I do worry they're a bit of a sunk cost. I see the same handful of devoted listeners in their audience night after night, but no real signs of growth." },
+				{ Cue = "/VO/Chronos_0710",
+					-- PostLineAnim = "HadesBattleIntro", Portrait = "Portrait_Hades_HelmCape_01", AngleTowardTargetId = 40000,
+					-- PreLineFunctionName = "StartFinalBossRoomIntroMusic",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					-- PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					-- PreLineFunctionName = "StartBossRoomMusic",
+					Text = "Well my girl, a small devoted audience is naught at which to scoff! I myself started with but a few Satyr devotees, and look how far I have come!" },
+			},
+
 			ChronosBossAboutEris01 =
 			{
 				PlayOnce = true,
@@ -1389,6 +1630,56 @@ UnitSetData.Chronos =
 					-- PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
 					-- PreLineFunctionName = "StartBossRoomMusic",
 					Text = "I am owed credit for a great many things, my girl; but not for any such alliances with Strife! What use have I for Nyx's youngest whelp? Although perhaps she is no fool, if she has rallied to my banners as you say." },
+			},
+
+			ChronosBossAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01" },
+					},
+					-- @ update with additional requirements
+				},
+				{ Cue = "/VO/Chronos_0703",
+					Text = "You somehow reached the mountain of the gods. Clashed with Prometheus himself, he claims! Whichever path you choose... we Titans shall be there." },
+				{ Cue = "/VO/MelinoeField_2548", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "Good. Then I have every opportunity to slay you all. So, you liberated the prisoner of Olympus in exchange for his servitude? I heard Prometheus once had integrity." },
+				{ Cue = "/VO/Chronos_0704",
+					-- PostLineAnim = "HadesBattleIntro", Portrait = "Portrait_Hades_HelmCape_01", AngleTowardTargetId = 40000,
+					-- PreLineFunctionName = "StartFinalBossRoomIntroMusic",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					-- PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					-- PreLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Oh {#Prev}but he has it still! Which is the reason he has joined my cause. Besides... who better to lead my strike forces against Olympus than one who was so unjustly wronged by the gods? For I cannot do {#Emph}everything {#Prev}myself!" },
+			},
+			ChronosBossAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ChronosBossAboutPrometheus01" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Prometheus" },
+					},
+				},
+				{ Cue = "/VO/Chronos_0705",
+					Text = "The Titan of Foresight confessed that you were able to withstand his fury. To which I said, {#Emph}Prometheus, my good fellow! If you knew this would transpire, why did you not forewarn me? And why did you not prevent it?" },
+				{ Cue = "/VO/MelinoeField_2549", UsePlayerSource = true,
+					Text = "Perhaps you overestimate the Titan of Foresight's power to clearly see into the future. Along with his strength." },
+				{ Cue = "/VO/Chronos_0706",
+					-- PostLineAnim = "HadesBattleIntro", Portrait = "Portrait_Hades_HelmCape_01", AngleTowardTargetId = 40000,
+					-- PreLineFunctionName = "StartFinalBossRoomIntroMusic",
+					PostLineFunctionName = "StartFinalBossChronos",
+					PreContentSound = "/Leftovers/Menu Sounds/TextReveal3",
+					-- PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					-- PreLineFunctionName = "StartBossRoomMusic",
+					Text = "He claims to keep the details of the future to himself... so as not to alter the desired outcome. How convenient! It does not take a genius such as he to know I shall eventually prevail!" },
 			},
 
 			-- repeatable / other general cases
@@ -1888,6 +2179,469 @@ UnitSetData.Chronos =
 
 		Using = { Spawn = "ChronosRemains"},
 	},
+}
+
+-- Global Chronos Lines
+GlobalVoiceLines.ChronosPreAttackVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.35,
+	ChanceToPlay = 0.2,
+	ObjectType = "Chronos",
+	Cooldowns =
+	{
+		{ Name = "ChronosSpokeRecently", Time = 20 },
+	},
+
+	{ Cue = "/VO/Chronos_0453", Text = "Now...!" },
+	{ Cue = "/VO/Chronos_0454", Text = "Now then..." },
+	{ Cue = "/VO/Chronos_0455", Text = "Perish!" },
+	{ Cue = "/VO/Chronos_0457", Text = "Begone!" },
+	{ Cue = "/VO/Chronos_0459", Text = "Prepare!" },
+	{ Cue = "/VO/Chronos_0460", Text = "Observe!" },
+	{ Cue = "/VO/Chronos_0461", Text = "Crumble!" },
+	{ Cue = "/VO/Chronos_0462", Text = "Decay!" },
+	{ Cue = "/VO/Chronos_0463", Text = "Watch this." },
+	{ Cue = "/VO/Chronos_0464", Text = "Watch {#Emph}this!" },
+	{ Cue = "/VO/Chronos_0465", Text = "Here!" },
+	{ Cue = "/VO/Chronos_0466", Text = "Beware!" },
+	{ Cue = "/VO/Chronos_0532", Text = "You..." },
+	{ Cue = "/VO/Chronos_0533", Text = "Watch..." },
+	{ Cue = "/VO/Chronos_0534", Text = "And now..." },
+	{ Cue = "/VO/Chronos_0535", Text = "Now this!" },
+	{ Cue = "/VO/Chronos_0536", Text = "Learn your place!" },
+	{ Cue = "/VO/Chronos_0537", Text = "Expire!" },
+	{ Cue = "/VO/Chronos_0538", Text = "More, then?" },
+	{ Cue = "/VO/Chronos_0539", Text = "What now?" },
+	{ Cue = "/VO/Chronos_0540", Text = "Here, then!" },
+	{ Cue = "/VO/Chronos_0541", Text = "Poor girl..." },
+	{ Cue = "/VO/Chronos_0542", Text = "Wretched girl..." },
+	{ Cue = "/VO/Chronos_0543", Text = "You gods..." },
+	{ Cue = "/VO/Chronos_0544", Text = "Have at you!" },
+	{ Cue = "/VO/Chronos_0810", Text = "Run..." },
+	-- { Cue = "/VO/Chronos_0811", Text = "Hrn...!" },
+	{ Cue = "/VO/Chronos_0812", Text = "Now..." },
+	-- { Cue = "/VO/Chronos_0813", Text = "{#Emph}Hyah!" },
+	{ Cue = "/VO/Chronos_0814", Text = "Ready...?" },
+	{ Cue = "/VO/Chronos_0815", Text = "You..." },
+	{ Cue = "/VO/Chronos_0816", Text = "For you!" },
+	{ Cue = "/VO/Chronos_0817", Text = "Come on!" },
+	{ Cue = "/VO/Chronos_0818", Text = "Perish." },
+	{ Cue = "/VO/Chronos_0819", Text = "Perish!" },
+	{ Cue = "/VO/Chronos_0820", Text = "Out!" },
+	{ Cue = "/VO/Chronos_0821", Text = "Get {#Emph}out!" },
+	{ Cue = "/VO/Chronos_0822", Text = "Get out!" },
+	{ Cue = "/VO/Chronos_0823", Text = "You dare?" },
+	{ Cue = "/VO/Chronos_0824", Text = "Here, {#Emph}witch!" },
+	{ Cue = "/VO/Chronos_0825", Text = "Another!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+				Comparison = "<=",
+				Value = 0.5,
+			},
+		}
+	},
+	{ Cue = "/VO/Chronos_0826", Text = "See here!" },
+	{ Cue = "/VO/Chronos_0827", Text = "Stand still!" },
+	{ Cue = "/VO/Chronos_0458", Text = "Begone, I say!",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_0457" },
+			},
+		},
+	},
+	{ Cue = "/VO/Chronos_0456", Text = "Behold!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "TextLinesRecord" },
+				HasNone = { "ChronosBossFirstMeeting", "ChronosBossFirstMeeting_B", "ChronosBossFirstMeeting_C", },
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.ChronosSummonVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.35,
+	ObjectType = "Chronos",
+	SuccessiveChanceToPlay = 0.75,
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+			Comparison = ">=",
+			Value = 0.25,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChronosSummonSpeech", Time = 75 },
+	},
+	TriggerCooldowns = { "ChronosSpokeRecently" },
+
+	{ Cue = "/VO/Chronos_0423", Text = "Come, my subjects, spill your blood for me!", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0424", Text = "{#Emph}Hellooo{#Prev}, reinforcements?" },
+	{ Cue = "/VO/Chronos_0425", Text = "Reinforcements, {#Emph}now?" },
+	{ Cue = "/VO/Chronos_0426", Text = "I call upon my subjects, {#Emph}now!" },
+	{ Cue = "/VO/Chronos_0427", Text = "Let us invite some guests!" },
+	{ Cue = "/VO/Chronos_0428", Text = "Oh, look! Company!" },
+	{ Cue = "/VO/Chronos_0429", Text = "Come one, come all!" },
+	{ Cue = "/VO/Chronos_0509", Text = "Legions of the Golden Age, come forth!" },
+	{ Cue = "/VO/Chronos_0510", Text = "Legions of the Golden Age, answer my call!" },
+	{ Cue = "/VO/Chronos_0511", Text = "Come, Legions of the Golden Age!" },
+	{ Cue = "/VO/Chronos_0512", Text = "Come, my subjects, prove yourselves to me!" },
+	{ Cue = "/VO/Chronos_0513", Text = "Come forth, my subjects!" },
+	{ Cue = "/VO/Chronos_0514", Text = "I have strength in numbers, lest you forget!" },
+	{ Cue = "/VO/Chronos_0515", Text = "My subjects have been waiting for this!" },
+	{ Cue = "/VO/Chronos_0516", Text = "My forces are as numerous as grains of sand!" },
+	{ Cue = "/VO/Chronos_0517", Text = "You cannot best my legions single-handedly!" },
+	{ Cue = "/VO/Chronos_0518", Text = "Vast are the armies at my beck and call!" },
+	{ Cue = "/VO/Chronos_0519", Text = "I have more guests I wish for you to meet!" },
+	{ Cue = "/VO/Chronos_0860", Text = "My legions shall be witness to your fall!" },
+	{ Cue = "/VO/Chronos_0861", Text = "Do you not wish to meet more of my {#Emph}guests?" },
+	{ Cue = "/VO/Chronos_0862", Text = "This chamber can accommodate more {#Emph}guests{#Prev}, I think!" },
+	{ Cue = "/VO/Chronos_0863", Text = "It feels so empty here without my legions by my side!" },
+	{ Cue = "/VO/Chronos_0864", Text = "I have more subjects here for you to fight!" },
+	{ Cue = "/VO/Chronos_0865", Text = "How empty it is here without some guests!" },
+	{ Cue = "/VO/Chronos_0866", Text = "Come join us, honored guests, and beg pardon all the dust!" },
+	{ Cue = "/VO/Chronos_0867", Text = "Whichever forces are available, to me, right now!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EnemyKills", "Chronos" },
+				Comparison = ">=",
+				Value = 10,
+			},
+			{
+				PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+			},
+		},
+	},
+	{ Cue = "/VO/Chronos_0868", Text = "You make an enemy of all my legions, not just {#Emph}me!" },
+	{ Cue = "/VO/Chronos_0869", Text = "So many of my subjects long to face you one to one!" },
+	{ Cue = "/VO/Chronos_0870", Text = "Oh {#Emph}look{#Prev}, here come more of my subjects now!" },
+	{ Cue = "/VO/Chronos_0871", Text = "My legions tend to be more punctual than this!" },
+}
+
+GlobalVoiceLines.ChronosChronomancyVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.35,
+	SuccessiveChanceToPlay = 0.75,
+	ObjectType = "Chronos",
+	Cooldowns =
+	{
+		{ Name = "ChronosSpokeRecently", Time = 6 },
+		{ Name = "ChronosChronomancySpeech", Time = 45 },
+	},
+
+	{ Cue = "/VO/Chronos_0430", Text = "Hold it right there..." },
+	{ Cue = "/VO/Chronos_0431", Text = "Hold it." },
+	{ Cue = "/VO/Chronos_0432", Text = "Hold it...!" },
+	{ Cue = "/VO/Chronos_0433", Text = "Why the rush?" },
+	{ Cue = "/VO/Chronos_0434", Text = "Be still." },
+	{ Cue = "/VO/Chronos_0435", Text = "Stop." },
+	{ Cue = "/VO/Chronos_0436", Text = "Stop, now." },
+	{ Cue = "/VO/Chronos_0437", Text = "Stop right there...", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0438", Text = "Freeze." },
+	{ Cue = "/VO/Chronos_0439", Text = "Freeze!" },
+	{ Cue = "/VO/Chronos_0440", Text = "A moment, please?" },
+	{ Cue = "/VO/Chronos_0441", Text = "Pardon a moment." },
+	{ Cue = "/VO/Chronos_0520", Text = "Halt." },
+	{ Cue = "/VO/Chronos_0521", Text = "Got you." },
+	{ Cue = "/VO/Chronos_0522", Text = "Trapped." },
+	{ Cue = "/VO/Chronos_0523", Text = "Caught." },
+	{ Cue = "/VO/Chronos_0524", Text = "Caught out." },
+	{ Cue = "/VO/Chronos_0525", Text = "Caught you." },
+	{ Cue = "/VO/Chronos_0526", Text = "I have you." },
+	{ Cue = "/VO/Chronos_0527", Text = "{#Emph}Heh." },
+	{ Cue = "/VO/Chronos_0528", Text = "{#Emph}Hah!" },
+	{ Cue = "/VO/Chronos_0529", Text = "Slow down." },
+	{ Cue = "/VO/Chronos_0530", Text = "Time out." },
+	{ Cue = "/VO/Chronos_0531", Text = "Time out...!" },
+	{ Cue = "/VO/Chronos_0828", Text = "Alas." },
+	{ Cue = "/VO/Chronos_0829", Text = "Stuck." },
+	{ Cue = "/VO/Chronos_0830", Text = "Stuck!" },
+	{ Cue = "/VO/Chronos_0831", Text = "Pardon." },
+	{ Cue = "/VO/Chronos_0832", Text = "Hold." },
+	{ Cue = "/VO/Chronos_0833", Text = "Hold still!" },
+	{ Cue = "/VO/Chronos_0834", Text = "Stop, I say." },
+	{ Cue = "/VO/Chronos_0835", Text = "Infuriating, no?" },
+	{ Cue = "/VO/Chronos_0836", Text = "Careful now." },
+	{ Cue = "/VO/Chronos_0837", Text = "Nice pose." },
+}
+
+GlobalVoiceLines.ChronosUltimateVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.35,
+	SuccessiveChanceToPlay = 0.75,
+	ObjectType = "Chronos",
+	Cooldowns =
+	{
+		{ Name = "ChronosSpokeUltimateRecently", Time = 120 },
+	},
+	TriggerCooldowns = { "ChronosSpokeRecently" },
+
+	{ Cue = "/VO/Chronos_0442", Text = "Your time is {#Emph}up!" },
+	{ Cue = "/VO/Chronos_0443", Text = "The end is at hand!" },
+	{ Cue = "/VO/Chronos_0444", Text = "I have {#Emph}had {#Prev}it with you!" },
+	{ Cue = "/VO/Chronos_0445", Text = "This audience is {#Emph}over!" },
+	{ Cue = "/VO/Chronos_0446", Text = "That {#Emph}does {#Prev}it!" },
+	{ Cue = "/VO/Chronos_0447", Text = "Damnable girl!" },
+	{ Cue = "/VO/Chronos_0448", Text = "{#Emph}All {#Prev}comes to an {#Emph}end!" },
+	{ Cue = "/VO/Chronos_0449", Text = "Your final moments!" },
+	{ Cue = "/VO/Chronos_0450", Text = "Enough is {#Emph}enough!" },
+	{ Cue = "/VO/Chronos_0451", Text = "{#Emph}Granddaughter!!", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0452", Text = "Begone now from my {#Emph}sight!" },
+	{ Cue = "/VO/Chronos_0838", Text = "I grow weary of your antics, girl!" },
+	{ Cue = "/VO/Chronos_0839", Text = "I shall abide no disrespect from you!" },
+	{ Cue = "/VO/Chronos_0840", Text = "You have {#Emph}everything {#Prev}to fear from {#Emph}me!" },
+	{ Cue = "/VO/Chronos_0841", Text = "Why do you not stop?",
+		PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "EnemyKills", "Chronos" },
+				Comparison = ">=",
+				Value = 10,
+			},
+			{
+				PathTrue = { "PrevRun", "EnemyKills", "Chronos" }
+			},
+		}
+	},
+	{ Cue = "/VO/Chronos_0842", Text = "My patience has its limits!" },
+	{ Cue = "/VO/Chronos_0843", Text = "Do you expect a show of mercy, {#Emph}here?" },
+}
+
+GlobalVoiceLines.ChronosSpellResistVoiceLines =
+{
+	-- while immune to TimeSlow
+	{
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = { "SpellTimeSlowTrait" },
+			},
+			{
+				PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeSlowChronosFight" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "I_Boss01" },
+			},
+		},
+		-- only the first time
+		{
+			PlayOnce = true,
+			PlayOnceContext = "TimeSlowFailedVoiceLines",
+			PreLineWait = 0.15,
+			UsePlayerSource = true,
+
+			{ Cue = "/VO/Melinoe_0714", Text = "What the?" },
+		},
+		-- immunity to TimeSlow
+		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			SuccessiveChanceToPlayAll = 0.35,
+			PreLineWait = 0.2,
+			ObjectType = "Chronos",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+					Comparison = ">=",
+					Value = 0.15,
+				},
+			},
+			Cooldowns =
+			{
+				{ Name = "ChronosSpellReactionSpeech", Time = 50 },
+			},	
+			TriggerCooldowns = { "ChronosSpokeRecently" },
+
+			{ Cue = "/VO/Chronos_0631", Text = "You have no power over Time whilst here!" },
+			{ Cue = "/VO/Chronos_0632", Text = "{#Emph}I {#Prev}control the flow of Time, not {#Emph}you!" },
+			{ Cue = "/VO/Chronos_0633", Text = "No you shall not." },
+			{ Cue = "/VO/Chronos_0634", Text = "How quaint!" },
+			{ Cue = "/VO/Chronos_0635", Text = "Infantile!" },
+			{ Cue = "/VO/Chronos_0636", Text = "You have no power over Time!" },
+			{ Cue = "/VO/Chronos_0637", Text = "Time shall not stop for {#Emph}you." },
+			{ Cue = "/VO/Chronos_0638", Text = "Again with these attempts?" },
+		},
+	},
+	-- no longer immune to TimeSlow
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		SuccessiveChanceToPlayAll = 0.5,
+		PreLineWait = 0.75,
+		ObjectType = "Chronos",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasAny = { "SpellTimeSlowTrait" },
+			},
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTimeSlowChronosFight" },
+			},
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsAny = { "I_Boss01" },
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "ChronosSpellReactionSpeech", Time = 50 },
+		},	
+		TriggerCooldowns = { "ChronosSpokeRecently" },
+
+		{ Cue = "/VO/Chronos_0639", Text = "What just... {#Emph}how?!", PlayFirst = true, PlayOnce = true, PlayOnceContext = "ChronosTimeSlowFirstReactionVO" },
+		{ Cue = "/VO/Chronos_0640", Text = "Impossible...!" },
+		{ Cue = "/VO/Chronos_0641", Text = "You witch!" },
+		{ Cue = "/VO/Chronos_0642", Text = "Manipulative witch..." },
+		{ Cue = "/VO/Chronos_0643", Text = "Stop doing that!" },
+		{ Cue = "/VO/Chronos_0644", Text = "How {#Emph}dare {#Prev}you..." },
+		{ Cue = "/VO/Chronos_0645", Text = "An interesting trick..." },
+		{ Cue = "/VO/Chronos_0646", Text = "Why, you..." },
+
+		{ Cue = "/VO/Chronos_0597", Text = "{#Emph}Rnngghh..." },
+		{ Cue = "/VO/Chronos_0598", Text = "{#Emph}How...?" },
+		{ Cue = "/VO/Chronos_0599", Text = "Such power..." },
+		{ Cue = "/VO/Chronos_0374", Text = "Mannerless child..." },
+		{ Cue = "/VO/Chronos_0375", Text = "Contemptuous child..." },
+		{ Cue = "/VO/Chronos_0376", Text = "Meddlesome brat!" },
+		{ Cue = "/VO/Chronos_0377", Text = "Scurrilous brat..." },
+		{ Cue = "/VO/Chronos_0378", Text = "Unrepentant scamp..." },
+		{ Cue = "/VO/Chronos_0379", Text = "You little scamp..." },
+		{ Cue = "/VO/Chronos_0380", Text = "You rascal..." },
+		{ Cue = "/VO/Chronos_0381", Text = "Incorrigible..." },
+		{ Cue = "/VO/Chronos_0384", Text = "Bothersome little..." },
+		{ Cue = "/VO/Chronos_0388", Text = "{#Emph}Hrn..." },
+		{ Cue = "/VO/Chronos_0391", Text = "How...?" },
+		{ Cue = "/VO/Chronos_0392", Text = "But..." },
+		{ Cue = "/VO/Chronos_0395", Text = "You would dare?" },
+		{ Cue = "/VO/Chronos_0397", Text = "Absurd..." },
+		{ Cue = "/VO/Chronos_0398", Text = "Preposterous..." },
+		{ Cue = "/VO/Chronos_0400", Text = "Ridiculous..." },
+	},
+}
+GlobalVoiceLines.ChronosGatherReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.5,
+	ObjectType = "Chronos",
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+			Comparison = ">=",
+			Value = 0.2,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChronosSpokeRecently", Time = 16 },
+	},
+
+	{ Cue = "/VO/Chronos_0687", Text = "Oh you {#Emph}found {#Prev}something!" },
+	{ Cue = "/VO/Chronos_0688", Text = "A common thief!" },
+	{ Cue = "/VO/Chronos_0689", Text = "You put that {#Emph}back." },
+	{ Cue = "/VO/Chronos_0690", Text = "That is {#Emph}not {#Prev}yours." },
+}
+
+GlobalVoiceLines.ChronosSurpriseReactionVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.5,
+	ObjectType = "Chronos",
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+			Comparison = ">=",
+			Value = 0.25,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChronosSurpriseReactionSpeech", Time = 20 },
+	},
+	TriggerCooldowns = { "ChronosSpokeRecently" },
+
+	{ Cue = "/VO/Chronos_0558", Text = "Surely you jest." },
+	{ Cue = "/VO/Chronos_0559", Text = "Now why would you do {#Emph}that?", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0560", Text = "Am I supposed to be impressed?" },
+	{ Cue = "/VO/Chronos_0561", Text = "Time slips away from you." },
+}
+
+GlobalVoiceLines.ChronosTimerOnReactionVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.45,
+	SuccessiveChanceToPlayAll = 0.1,
+	ObjectType = "Chronos",
+	Queue = "Interrupt",
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+			Comparison = ">=",
+			Value = 0.25,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChronosTimerOnReactionSpeech", Time = 30 },
+	},
+	TriggerCooldowns = { "ChronosSpokeRecently" },
+
+	{ Cue = "/VO/Chronos_0647", Text = "Decided to keep {#Emph}Time?", PlayFirst = true },
+	{ Cue = "/VO/Chronos_0648", Text = "Count your remaining moments." },
+	{ Cue = "/VO/Chronos_0649", Text = "How quickly this shall end." },
+	{ Cue = "/VO/Chronos_0650", Text = "I take {#Emph}your {#Prev}measure, not you mine!" },
+}
+GlobalVoiceLines.ChronosTimerOffReactionVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.45,
+	SuccessiveChanceToPlayAll = 0.1,
+	ObjectType = "Chronos",
+	Queue = "Interrupt",
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
+			Comparison = ">=",
+			Value = 0.25,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ChronosTimerOffReactionSpeech", Time = 30 },
+	},
+	TriggerCooldowns = { "ChronosSpokeRecently" },
+
+	{ Cue = "/VO/Chronos_0651", Text = "Yet Time still slips away." },
+	{ Cue = "/VO/Chronos_0652", Text = "Afraid of the inevitable?", PlayFirst = true },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Chronos )

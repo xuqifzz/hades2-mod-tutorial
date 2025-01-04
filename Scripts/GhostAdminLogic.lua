@@ -36,77 +36,115 @@ function OpenGhostAdminScreen( openedFrom, defaultCategoryIndex )
 	screen.CostDisplay.StartY = screen.CostDisplay.StartY + ScreenCenterNativeOffsetY
 
 	local components = screen.Components
+	local tabsToReveal = nil
+	local tabsWithNewItems = nil
 
 	screen.NumCategories = 0
 
 	local categoryTitleX = screen.CategoryStartX
 	for slotIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
+		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 
 			local slotName = category.Name
 
-			local categoryButton = CreateScreenComponent({ Name = "BlankInteractableObstacle",
-					X = categoryTitleX,
-					Y = screen.CategoryStartY,
-					Animation = category.Animations.Default,
-					Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.1,
-					Group = screen.ComponentData.DefaultGroup, })
+			local categoryButton = CreateScreenComponent({
+				Name = "CriticalItemShopTab",
+				Group = screen.ComponentData.DefaultGroup,
+				X = categoryTitleX,
+				Y = screen.CategoryStartY,
+				Animation = category.Animations.Default,
+				Alpha = 0.0,
+			})
 			categoryButton.DefaultAnimation = category.DefaultAnimation
 			categoryButton.Animations = category.Animations
 			categoryButton.OnPressedFunctionName = "GhostAdminSelectCategory"
 			categoryButton.OnMouseOverFunctionName = "MouseOverGhostAdminCategory"
 			categoryButton.OnMouseOffFunctionName = "MouseOffGhostAdminCategory"
 			categoryButton.Screen = screen
+			categoryButton.Category = slotName
 			categoryButton.CategoryIndex = slotIndex
 			components["Category"..slotIndex] = categoryButton
 			AttachLua({ Id = categoryButton.Id, Table = categoryButton })
 			SetInteractProperty({ DestinationId = categoryButton.Id, Property = "FreeFormSelectable", Value = false })
 			
-			local activeOverlay = CreateScreenComponent({ Name = "BlankObstacle",
-					X = categoryTitleX,
-					Y = screen.CategoryStartY,
-					Animation = category.Animations.Active,
-					Alpha = 0.0,
-					Group = screen.ComponentData.DefaultGroup, })
+			local activeOverlay = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = categoryTitleX,
+				Y = screen.CategoryStartY,
+				Animation = category.Animations.Active,
+				Alpha = 0.0,
+			})
 			categoryButton.ActiveOverlayId = activeOverlay.Id
 			screen.Components["CategoryActiveOverlay"..slotIndex] = activeOverlay
 
-			local categoryButtonIcon = CreateScreenComponent({ Name = "BlankObstacle", Scale = screen.CategoryIconScale,
-					X = categoryTitleX + screen.CategoryIconOffsetX,
-					Y = screen.CategoryStartY + screen.CategoryIconOffsetY,
-					Animation = category.Icon,
-					Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.1,
-					Group = screen.ComponentData.DefaultGroup,
-					})
+			local categoryButtonIcon = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = categoryTitleX + screen.CategoryIconOffsetX,
+				Y = screen.CategoryStartY + screen.CategoryIconOffsetY,
+				Animation = category.Icon,
+				Scale = screen.CategoryIconScale,
+				Alpha = 0.0,
+			})
 			categoryButton.IconId = categoryButtonIcon.Id
 			categoryButton.IconShiftRequests = {}
 			screen.Components["CategoryIcon"..slotIndex] = categoryButtonIcon
 
+			local shouldFadeIn = true
 			if slotIndex ~= screen.ActiveCategoryIndex then
-				if not GameState.WorldUpgradesViewed[slotName]  then
-					WeaponShopRevealCategoryPresentation( screen, category, categoryButton )
+				if not GameState.WorldUpgradesRevealed[slotName] then
+					tabsToReveal = tabsToReveal or {}
+					table.insert( tabsToReveal, categoryButton )
+					shouldFadeIn = false
 				end
 				if HasUnviewedWorldUpgrade( category ) then
-					-- New icon
-					local newButtonKey = "NewIcon"..slotName
-					components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Animation = "NewTabStar", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.1, })
-					Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = 0, OffsetY = -30 })
-				elseif not HasUnpurchasedCosmetic( slotName ) then
-					-- Complete icon
-					--[[
-					local completeButtonKey = "CompleteIcon"..slotName
-					components[completeButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay" })
-					SetAnimation({ DestinationId = components[completeButtonKey].Id , Name = "ContractorPurchasedCheckmark" })
-					Attach({ Id = components[completeButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = 0, OffsetY = -30 })
-					]]
+					tabsWithNewItems = tabsWithNewItems or {}
+					table.insert( tabsWithNewItems, categoryButton )
 				end
 			end
 
-			GameState.WorldUpgradesViewed[slotName] = true
+			if shouldFadeIn then
+				SetAlpha({ Id = categoryButton.Id, Fraction = 1.0, Duration = 0.1 })
+				SetAlpha({ Id = categoryButtonIcon.Id, Fraction = 1.0, Duration = 0.1 })
+			end
 
 			screen.NumCategories = screen.NumCategories + 1
+			GameState.WorldUpgradesRevealed[slotName] = true
 			categoryTitleX = categoryTitleX + screen.CategorySpacingX
 
+		end
+	end
+
+	if tabsToReveal ~= nil then
+		-- Tab reveals take a while, so display the active category title + "active tab" animation early
+		local activeTab = components.Category1
+		SetAlpha({ Id = activeTab.ActiveOverlayId, Fraction = 1.0, Duration = 0.1 })
+		ModifyTextBox({ Id = components.CategoryTitleText.Id, Text = screen.ItemCategories[screen.ActiveCategoryIndex].Name })
+		local previousShift = not IsEmpty( activeTab.IconShiftRequests )
+		activeTab.IconShiftRequests.Open = true
+		if not previousShift then
+			Move({ Id = activeTab.IconId, Angle = 90, Distance = screen.CategoryIconMouseOverShiftDistance, Speed = screen.CategoryIconMouseOverShiftSpeed, SmoothStep = true, Additive = true })
+		end
+
+		for i, categoryButton in ipairs( tabsToReveal ) do
+			WeaponShopRevealCategoryPresentation( screen, screen.ItemCategories[categoryButton.Category], categoryButton )
+		end
+	end
+
+	if tabsWithNewItems ~= nil then
+		for i, categoryButton in ipairs( tabsWithNewItems ) do
+			local newButtonKey = "NewIcon"..categoryButton.Category
+			components[newButtonKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = "Combat_Menu_Overlay",
+				Animation = "NewTabStar",
+				Scale = 0.8,
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.1,
+			})
+			Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetY = -30 })
 		end
 	end
 
@@ -138,7 +176,7 @@ function GhostAdminAllowViewItem( screen, category, cosmeticData )
 		return false
 	end
 
-	 if cosmeticData.GameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, cosmeticData, cosmeticData.GameStateRequirements ) then
+	 if cosmeticData.GameStateRequirements ~= nil and not IsGameStateEligible( cosmeticData, cosmeticData.GameStateRequirements ) then
 		return false
 	end
 
@@ -235,10 +273,14 @@ function GhostAdminDisplayCategory( screen, button )
 		end
 
 		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle", X = itemLocationX, Y = itemLocationY, Group = screen.ComponentData.DefaultGroup,
+		components[purchaseButtonKey] = CreateScreenComponent({
+			Name = "BlankInteractableObstacle",
 			Animation = screen.ItemAvailableAnimation,
+			Group = screen.ComponentData.DefaultGroup,
+			X = itemLocationX,
+			Y = itemLocationY,
 			Alpha = 0.0,
-			})
+		})
 		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
 		local button = components[purchaseButtonKey]
 		button.Animation = screen.ItemAvailableAnimation
@@ -248,12 +290,17 @@ function GhostAdminDisplayCategory( screen, button )
 		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipX", Value = screen.TooltipX + ScreenCenterNativeOffsetX })
 		SetInteractProperty({ DestinationId = button.Id, Property = "TooltipY", Value = screen.TooltipY })
 
-		local iconKey = "Icon"..screen.NumItems
 		if cosmetic.Icon ~= nil then
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX + screen.IconOffsetX, Y = itemLocationY, Scale = screen.IconScale, Group = screen.ComponentData.DefaultGroup,
+			local iconKey = "Icon"..screen.NumItems
+			components[iconKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
 				Animation = cosmetic.Icon,
+				X = itemLocationX + screen.IconOffsetX,
+				Y = itemLocationY,
+				Scale = screen.IconScale,
 				Alpha = 0.0,
-				})
+			})
 		end
 
 		local name = cosmetic.Name
@@ -309,7 +356,12 @@ function GhostAdminDisplayCategory( screen, button )
 		-- New icon
 		if not GameState.WorldUpgradesViewed[cosmetic.Name] then
 			local newIconKey = "NewIcon"..screen.NumItems
-			components[newIconKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, Animation = "MusicPlayerNewTrack" })
+			components[newIconKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				Animation = "MusicPlayerNewTrack",
+				Alpha = 0.0,
+			})
 			Attach({ Id = components[newIconKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 300, OffsetY = 0 })
 			components[purchaseButtonKey].NewButtonId = components[newIconKey].Id
 		end
@@ -331,7 +383,14 @@ function GhostAdminDisplayCategory( screen, button )
 		end
 
 		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = screen.ComponentData.DefaultGroup, X = itemLocationX, Y = itemLocationY, Animation = animName, Alpha = 0.0, })
+		components[purchaseButtonKey] = CreateScreenComponent({
+			Name = "BlankInteractableObstacle",
+			Animation = animName,
+			Group = screen.ComponentData.DefaultGroup,
+			X = itemLocationX,
+			Y = itemLocationY,
+			Alpha = 0.0,
+		})
 		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
 		local button = components[purchaseButtonKey]
 		button.Animation = animName
@@ -343,35 +402,25 @@ function GhostAdminDisplayCategory( screen, button )
 
 		if cosmetic.Icon ~= nil then
 			local iconKey = "Icon"..screen.NumItems
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX + screen.IconOffsetX, Y = itemLocationY, Scale = screen.IconScale, Group = screen.ComponentData.DefaultGroup,
-				Animation = cosmetic.Icon, Alpha = 0.0,
-				})
-		end
-
-		local name = cosmetic.Name
-		local displayName = cosmetic.RePurchaseName or name
-		local costText = "Shop_Purchased"
-		if cosmetic.Removable then
-			if GameState.WorldUpgrades[name] then
-				if not cosmetic.RotateOnly then
-					components[purchaseButtonKey].OnPressedFunctionName = "HandleGhostAdminRemoval"
-					costText = "Shop_Removable"
-				end
-			else
-				components[purchaseButtonKey].Free = true
-				components[purchaseButtonKey].OnPressedFunctionName = "HandleGhostAdminPurchase"
-				costText = "Shop_ReAdd"
-			end
+			components[iconKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Animation = cosmetic.Icon,
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX + screen.IconOffsetX,
+				Y = itemLocationY,
+				Scale = screen.IconScale,
+				Alpha = 0.0,
+			})
 		end
 
 		local itemNameFormat = ShallowCopyTable( screen.ItemPurchasedNameFormat )
 		itemNameFormat.Id = button.Id
-		itemNameFormat.Text = displayName
+		itemNameFormat.Text = cosmetic.Name
 		CreateTextBox( itemNameFormat )
 
 		-- Hidden description for tooltip
 		CreateTextBox({ Id = button.Id,
-			Text = displayName,
+			Text = cosmetic.Name,
 			UseDescription = true,
 			Color = Color.Transparent,
 			LuaKey = "TooltipData",
@@ -398,59 +447,21 @@ function GhostAdminDisplayCategory( screen, button )
 
 	end
 
-	SetAlpha({ Ids = { components.Scrollbar.Id, components.ScrollbarSlider.Id }, Fraction = 1.0, Duration = 0.1 })
+	GameState.WorldUpgradesViewed[slotName] = true
+
+	if screen.NumItems > screen.ItemsPerPage then
+		SetAlpha({ Ids = { components.Scrollbar.Id, components.ScrollbarSlider.Id }, Fraction = 1.0, Duration = 0.1 })
+	end
 
 	GhostAdminPostDisplayCategoryPresentation( screen )
 
 end
 
-function HasUnviewedCosmetic( slotName )
-	if slotName == "Music" then
-		for trackName, trackData in pairs( MusicPlayerTrackData ) do
-			if not trackData.DebugOnly and trackData.ResourceCost ~= nil and not GameState.WorldUpgradesAdded[trackData.Name] then
-				if trackData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, trackData, trackData.GameStateRequirements ) then
-					if not GameState.WorldUpgradesViewed[trackData.Name] then
-						return true
-					end
-				end
-			end
-		end
-	else
-		for cosmeticName, cosmeticData in pairs( WorldUpgradeData ) do
-			if not cosmeticData.DebugOnly and cosmeticData.ResourceCost ~= nil and not cosmeticData.Disabled and cosmeticData.Slot == slotName and not GameState.WorldUpgradesAdded[cosmeticData.Name] then
-				if cosmeticData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, cosmeticData, cosmeticData.GameStateRequirements ) then
-					if not GameState.WorldUpgradesViewed[cosmeticData.Name] then
-						return true
-					end
-				end
-			end
-		end
-	end
-	return false
-end
-
 function HasUnviewedWorldUpgrade( category )
 	for k, itemName in ipairs( category ) do
 		local itemData = WorldUpgradeData[itemName] or WeaponShopItemData[itemName]
-		if itemData ~= nil and not GameState.WorldUpgradesViewed[itemName] and ( itemData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, itemData, itemData.GameStateRequirements ) ) then
+		if itemData ~= nil and not GameState.WorldUpgradesViewed[itemName] and ( itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) ) then
 			return true
-		end
-	end
-	return false
-end
-
-function HasUnpurchasedCosmetic( slotName )
-	if slotName == "Music" then
-		for trackName, trackData in pairs( MusicPlayerTrackData ) do
-			if not trackData.DebugOnly and trackData.ResourceCost ~= nil and not GameState.WorldUpgradesAdded[trackData.Name] then
-				return true
-			end
-		end
-	else
-		for cosmeticName, cosmeticData in pairs( WorldUpgradeData ) do
-			if not cosmeticData.DebugOnly and cosmeticData.ResourceCost ~= nil and not cosmeticData.Disabled and cosmeticData.Slot == slotName and not GameState.WorldUpgradesAdded[cosmeticData.Name] then
-				return true
-			end
 		end
 	end
 	return false
@@ -490,7 +501,7 @@ function HandleGhostAdminPurchase( screen, button )
 		return
 	end
 
-	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( CurrentRun, upgradeData.PurchaseRequirements ) then
+	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData.PurchaseRequirements ) then
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
@@ -570,36 +581,6 @@ function GhostAdminPurchaseSequenceFinished( source, args )
 	UpdateAffordabilityStatus()
 end
 
-function HandleGhostAdminRemoval( screen, button )
-	local itemData = button.Data
-
-	GameState.WorldUpgrades[itemData.Name] = nil
-
-	Destroy({ Id = screen.Components["PurchaseButtonTitle".. button.Index].Id })
-	screen.Components["PurchaseButtonTitle".. button.Index] = nil
-
-	CreateAnimation({ Name = "ContractorSlotPurchase", DestinationId = screen.Components["PurchaseButton".. button.Index].Id, OffsetX = 0 })
-
-	Destroy({ Id = screen.Components["PurchaseButton".. button.Index].Id })
-	screen.Components["PurchaseButton".. button.Index] = nil
-
-	if screen.Components["Icon".. button.Index] ~= nil then
-		Destroy({ Id = screen.Components["Icon".. button.Index].Id })
-		screen.Components["Icon".. button.Index] = nil
-	end
-
-	-- close screen
-	CloseGhostAdminScreen( screen, button )
-
-	thread( DoGhostAdminRemoval, screen, button )
-end
-
-function DoGhostAdminRemoval( screen, button )
-	PreActivateCriticalItemPresentation( button, button.Data, { Removal = true } )
-	DeactivateConditionalItem( button.Data )
-	PostActivateCriticalItemPresentation( button, button.Data, { Removal = true } )
-end
-
 function AddWorldUpgrade( name, args )
 
 	args = args or {}
@@ -607,6 +588,8 @@ function AddWorldUpgrade( name, args )
 	if not args.SkipQuestCheck and not GameState.WorldUpgrades[name] then
 		thread( CheckQuestStatus )
 	end
+
+	DebugAssert({ Condition = GameState.WorldUpgradesViewed[name], Text = "Adding an unviewed world upgrade: "..name, Owner = "Caleb" })
 
 	-- Current ownership
 	GameState.WorldUpgrades[name] = true
@@ -620,6 +603,8 @@ function UnlockWorldUpgrade( name )
 		GameState.WorldUpgrades[name] = true
 	end
 	GameState.WorldUpgradesAdded[name] = true
+	GameState.WorldUpgradesViewed[name] = true
+	GameState.WorldUpgradesRevealed[name] = true
 end
 
 function GhostAdminHideItems( screen )
@@ -627,7 +612,7 @@ function GhostAdminHideItems( screen )
 	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
 	DestroyTextBox({ Ids = screen.CostIds })
 
-	SetAlpha({ Ids = { screen.Components.Scrollbar.Id, screen.Components.ScrollbarSlider.Id }, Fraction = 0, Duration = 0.1 })
+	SetAlpha({ Ids = { screen.Components.Scrollbar.Id, screen.Components.ScrollbarSlider.Id, screen.Components.ScrollDown.Id, screen.Components.ScrollUp.Id }, Fraction = 0, Duration = 0.1 })
 
 	local componentIds =  {}
 	for i = 1, screen.NumItems do
@@ -664,6 +649,7 @@ function GhostAdminNextCategory( screen, button )
 	if nextCategoryIndex == screen.ActiveCategoryIndex then
 		return
 	end
+	AddInputBlock({ Name = "GhostAdminSelectCategory" })
 	GhostAdminHideItems( screen )
 	wait( 0.1 )
 	screen.ScrollOffset = 0
@@ -672,6 +658,7 @@ function GhostAdminNextCategory( screen, button )
 	GhostAdminUpdateVisibility( screen )
 	wait( 0.02 )
 	ScreenResetCursorToStartLocation( screen )
+	RemoveInputBlock({ Name = "GhostAdminSelectCategory" })
 end
 
 function GhostAdminPrevCategory( screen, button )
@@ -686,6 +673,7 @@ function GhostAdminPrevCategory( screen, button )
 	if nextCategoryIndex == screen.ActiveCategoryIndex then
 		return
 	end
+	AddInputBlock({ Name = "GhostAdminSelectCategory" })
 	GhostAdminHideItems( screen )
 	wait( 0.1 )
 	screen.ScrollOffset = 0
@@ -694,6 +682,7 @@ function GhostAdminPrevCategory( screen, button )
 	GhostAdminUpdateVisibility( screen )
 	wait( 0.02 )
 	ScreenResetCursorToStartLocation( screen )
+	RemoveInputBlock({ Name = "GhostAdminSelectCategory" })
 end
 
 function GhostAdminSelectCategory( screen, button )
@@ -742,7 +731,7 @@ function GhostAdminUpdateVisibility( screen, args )
 	local onIds = {}
 	for index = 1, screen.NumItems do
 		local questButtonKey = "PurchaseButton"..index
-		local purchaseButtonTitleKey = "PurchaseButtonTitle"..index
+		local purchaseButtonStateKey = "PurchaseButtonState"..index
 		local newButtonKey = "NewIcon"..index
 		local iconKey = "Icon"..index
 		local pinButtonKey = "PinIcon"..index
@@ -755,6 +744,10 @@ function GhostAdminUpdateVisibility( screen, args )
 			table.insert( onIds, components[questButtonKey].Id )
 			Teleport({ Id = components[iconKey].Id, OffsetX = screen.ItemStartX + screen.IconOffsetX, OffsetY = screen.ItemStartY + screen.IconOffsetY + ((visibleIndex - 1) * screen.ItemSpacingY) })
 			table.insert( onIds, components[iconKey].Id )
+			if components[purchaseButtonStateKey] ~= nil then
+				Teleport({ Id = components[purchaseButtonStateKey].Id, OffsetX = screen.ItemStartX, OffsetY = screen.ItemStartY + ((visibleIndex - 1) * screen.ItemSpacingY) })
+				table.insert( onIds, components[purchaseButtonStateKey].Id )
+			end
 			if components[newButtonKey] ~= nil and not GameState.WorldUpgradesViewed[components[questButtonKey].Data.Name] then
 				Teleport({ Id = components[newButtonKey].Id, OffsetX = screen.ItemStartX + screen.IconOffsetX, OffsetY = screen.ItemStartY + screen.IconOffsetY + ((visibleIndex - 1) * screen.ItemSpacingY) })
 				table.insert( onIds, components[newButtonKey].Id )
@@ -776,6 +769,9 @@ function GhostAdminUpdateVisibility( screen, args )
 			-- Page out of view
 			table.insert( offIds, components[questButtonKey].Id )
 			table.insert( offIds, components[iconKey].Id )
+			if components[purchaseButtonStateKey] ~= nil then
+				table.insert( offIds, components[purchaseButtonStateKey].Id )
+			end
 			if components[newButtonKey] ~= nil then
 				table.insert( offIds, components[newButtonKey].Id )
 			end
@@ -792,7 +788,7 @@ function GhostAdminUpdateVisibility( screen, args )
 	SetAlpha({ Ids = offIds, Fraction = 0, Duration = 0.1 })
 	UseableOff({ Ids = offIds, ForceHighlightOff = true })
 
-	local maxScrollOffset = math.max( 1, math.floor( screen.NumItems / screen.ItemsPerPage ) * screen.ItemsPerPage )
+	local maxScrollOffset = math.max( 1, math.floor( (screen.NumItems - 1) / screen.ItemsPerPage ) * screen.ItemsPerPage )
 	local sliderTargetY = Lerp( screen.ScrollbarSliderTopY + ScreenCenterNativeOffsetY, screen.ScrollbarSliderBottomY + ScreenCenterNativeOffsetY, screen.ScrollOffset / maxScrollOffset )
 	local slideDuration = 0.0
 	if args.AnimateSlider then
@@ -893,9 +889,12 @@ function ValidateItemCategories()
 			allItems[itemName] = true
 		end
 	end
+	for i, itemName in pairs( ScreenData.MusicPlayer.Songs ) do
+		allItems[itemName] = true
+	end
 	for itemName, item in pairs( WorldUpgradeData ) do
 		if not item.DebugOnly and item.Cost ~= nil and not allItems[itemName] then
-			DebugAssert({ Condition = false, Text = item.Name.." is not listed in either GhostAdmin.ItemCategories or CosmeticsData.ItemCategories" })
+			DebugAssert({ Condition = false, Text = item.Name.." is not listed in GhostAdmin.ItemCategories, CosmeticsData.ItemCategories, or MusicPlayer.Songs" })
 		end
 	end
 end

@@ -31,8 +31,7 @@ UnitSetData.GoldElemental =
 			TakeCoverDuration = 1.0,
 			CoverHugDistance = 250,
 
-			--DashIfOverDistance = 100,
-			--DashWeapon = "GoldElementalSky"
+			MaxAttackers = 4,
 		},
 		AIAggroRange = 900,
 		
@@ -70,9 +69,9 @@ UnitSetData.GoldElemental =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -96,11 +95,6 @@ UnitSetData.GoldElemental =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =
@@ -138,11 +132,6 @@ UnitSetData.GoldElemental =
 		},
 		PostAggroAI = "AttackerAI",
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		WeaponOptions =
 		{
 			"GoldElementalBeam_MiniBoss", "GoldElementalSky", "GoldElementalGround"
@@ -151,6 +140,30 @@ UnitSetData.GoldElemental =
 		GeneratorData =
 		{
 			DifficultyRating = 200,
+			BlockEnemyTypes = {"GoldElemental"}
+		},
+	},
+
+	GoldElemental_Shadow =
+	{
+		InheritFrom = { "Shadow", "GoldElemental" },
+		GenusName = "GoldElemental",
+		MaxHealth = 1000,
+		HealthBuffer = 1000,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		WeaponOptions =
+		{
+			"GoldElementalBeam_Elite",
+		},
+
+		GeneratorData =
+		{
+			DifficultyRating = 75,
 			BlockEnemyTypes = {"GoldElemental"}
 		},
 	},

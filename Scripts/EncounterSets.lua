@@ -309,6 +309,65 @@ EncounterSets =
 	PEncountersDefault =
 	{
 		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP",
+		"GeneratedP_Large", -- Mutually exclusive with GeneratedP
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+		"GeneratedP_Large",
+
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		"AthenaCombatIntro",
+		
+		"AthenaCombatP",
+		"AthenaCombatP",
+		"AthenaCombatP",
+		
+		"AthenaCombatP02",
+		"AthenaCombatP02",
+		"AthenaCombatP02",
+		"AthenaCombatP02",
+		"AthenaCombatP02",
+		
+		"IcarusCombatP",
+		
+		--"IcarusCombatP2",
+		--"IcarusCombatP2",
+	},
+
+	PEncountersIntros =
+	{
+		"GeneratedP_PreCombat",
+		"GeneratedP_PreCombatChronosForces",
+		
+		"HeraclesCombatP",
+		
+		--"HeraclesCombatP2",
+		--"HeraclesCombatP2",
+	},
+
+	QEncountersDefault =
+	{
+		"GeneratedQ",
 	},
 
 	AnomalyEncountersB =
@@ -396,7 +455,14 @@ EncounterSets =
 		{ FunctionName = "HandleEnemySpawns" },
 		{ FunctionName = "CheckForAllEnemiesDead" },
 		{ FunctionName = "PostCombatAudio" },
-		{ FunctionName = "SpawnRoomReward" },
+		{
+			FunctionName = "SpawnRoomReward",
+			Args =
+			{
+				AutoLoadPackages = true,
+				IgnoreAssert = true,
+			},
+		},
 		{ FunctionName = "WaitForNextEncounterReady" },
 	},
 
@@ -450,8 +516,25 @@ EncounterSets =
 		{ FunctionName = "SpawnRoomReward" },
 	},
 
+	EncounterEventsAthenaCombat =
+	{
+		{ FunctionName = "BeginAthenaEncounter" },
+		{ FunctionName = "HandleEnemySpawns" },
+		{ FunctionName = "CheckForAllEnemiesDead" },
+		{ FunctionName = "PostCombatAudio" },
+		{ FunctionName = "SpawnRoomReward" },
+	},
+
 	EncounterEventsIcarusCombat =
 	{
+		{
+			FunctionName = "GenericPresentation",
+			Args =
+			{
+				LoadVoiceBanks = { "Icarus" },
+				IgnoreAssert = true,
+			},
+		},
 		{ FunctionName = "BeginIcarusEncounter" },
 		{ FunctionName = "HandleEnemySpawns" },
 		{ FunctionName = "CheckForAllEnemiesDead" },
@@ -461,6 +544,14 @@ EncounterSets =
 
 	EncounterEventsIcarusShipsCombat =
 	{
+		{
+			FunctionName = "GenericPresentation",
+			Args =
+			{
+				LoadVoiceBanks = { "Icarus" },
+				IgnoreAssert = true,
+			},
+		},
 		{ FunctionName = "ShipsEncounterSetup" },
 		{ FunctionName = "MultipleEncounterStartPresentation" },
 		{ FunctionName = "BeginIcarusEncounter" },
@@ -521,19 +612,6 @@ EncounterSets =
 		{ FunctionName = "PostCombatAudio" },
 		{ FunctionName = "HandleNemesisEncounterReward" },
 	},
-	
-	EncounterEventsWrapping =
-	{
-		{ FunctionName = "WrappingEncounterStartPresentation" },
-		{ FunctionName = "EncounterAudio" },
-		{ FunctionName = "BeginWrappingEncounter" },
-		{ FunctionName = "HandleEnemySpawns" },
-		{ FunctionName = "CheckForAllEnemiesDead" },
-		{ FunctionName = "DisableRoomTraps" },
-		{ FunctionName = "PostCombatAudio" },
-		{ FunctionName = "WrappingEncounterEndPresentation" },
-		{ FunctionName = "SpawnRoomReward" },
-	},
 
 	EncounterEventsTraversal =
 	{
@@ -556,6 +634,7 @@ EncounterSets =
 	{
 		{ FunctionName = "EncounterAudio" },
 		{ FunctionName = "HandleEnemySpawns" },
+		{ FunctionName = "BeginCrawlerEncounter" },
 		{ FunctionName = "CheckForAllEnemiesDead" },
 		{ FunctionName = "StopMiniBossMusic" },
 		{ FunctionName = "PostCombatAudio" },
@@ -621,7 +700,19 @@ EncounterSets =
 		{ FunctionName = "BeginPerfectClearEncounter" },
 		{ FunctionName = "HandleEnemySpawns" },
 		{ FunctionName = "CheckForAllEnemiesDead" },
-		{ FunctionName = "PostCombatAudio" },
+		-- { FunctionName = "PostCombatAudio" },
+		{ FunctionName = "CheckActiveObjectivesStatus" },
+		{ FunctionName = "EndChallengeEncounter" },
+	},
+
+	EncounterEventsEliteChallenge =
+	{
+		{ FunctionName = "EliteEncounterStartPresentation" },
+		{ FunctionName = "EncounterAudio" },
+		{ FunctionName = "BeginEliteChallenge" },
+		{ FunctionName = "HandleEnemySpawns" },
+		{ FunctionName = "CheckForAllEnemiesDead" },
+		-- { FunctionName = "PostCombatAudio" },
 		{ FunctionName = "CheckActiveObjectivesStatus" },
 		{ FunctionName = "EndChallengeEncounter" },
 	},
@@ -647,37 +738,26 @@ EncounterSets =
 
 	TimeChallengeOptions =
 	{
-		"MoneyTimeChallengeSwitch",
-		--"MoneyTimeChallengeSwitch2",
-		--"MoneyTimeChallengeSwitch3",
+		"TimeChallengeSwitch_Money",
+		"TimeChallengeSwitch_Money",
+		"TimeChallengeSwitch_Money",
 
-		"MoneyTimeChallengeSwitch",
-		--"MoneyTimeChallengeSwitch2",
-		--"MoneyTimeChallengeSwitch3",
-
-		"MoneyTimeChallengeSwitch",
-		--"MoneyTimeChallengeSwitch2",
-		--"MoneyTimeChallengeSwitch3",
-
-		"HealthTimeChallengeSwitch",
-		--"HealthTimeChallengeSwitch2",
-		--"HealthTimeChallengeSwitch3",
-
-		"MetaCurrencyTimeChallengeSwitch",
-		--"MetaCurrencyTimeChallengeSwitch2",
-		--"MetaCurrencyTimeChallengeSwitch3",
-	},
-
-	CapturePointOptions =
-	{
-		"CapturePointChallengeSwitch_MetaCardPoints",
-		"CapturePointChallengeSwitch_MemPoints",
-		"CapturePointChallengeSwitch_MaxMana",
+		"TimeChallengeSwitch_Money",
+		"TimeChallengeSwitch_Money",
+		"TimeChallengeSwitch_Money",
 	},
 
 	PerfectClearOptions =
 	{
 		"PerfectClearChallengeSwitch_Pom",
+		"PerfectClearChallengeSwitch_Pom",
 		"PerfectClearChallengeSwitch_MaxHealth",
+	},
+
+	EliteChallengeOptions =
+	{
+		"EliteChallengeSwitch_Talent",
+		"EliteChallengeSwitch_Talent",
+		"EliteChallengeSwitch_MaxMana",
 	},
 }

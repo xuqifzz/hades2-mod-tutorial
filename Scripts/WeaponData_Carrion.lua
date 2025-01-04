@@ -79,6 +79,9 @@ WeaponSetData =
 
 			PostAttackAI = "nil",
 			ChainedWeapon = "CarrionSweep3_Elite",
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 	},
 	CarrionSweep3_Elite =
@@ -90,6 +93,9 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			PostAttackAI = "OrbitAI",
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 	},
 }

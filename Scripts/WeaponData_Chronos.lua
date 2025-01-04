@@ -29,9 +29,9 @@ WeaponSetData =
 
 			ChainedWeaponOptions = { "ChronosRadialChained","ChronosRadial2", },
 
-			AttackVoiceLines =
+			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosUltimateVoiceLines,
+				{ GlobalVoiceLines = "ChronosUltimateVoiceLines" },
 			},
 
 		},
@@ -61,16 +61,16 @@ WeaponSetData =
 			NumProjectiles = 6,
 			ProjectileAngleInterval = 60,
 			FireTicks = 5,
-			FireInterval = 0.3,
-			FireProjectileStartDelay = 1.3,
+			FireInterval = 0.25,
+			FireProjectileStartDelay = 0.57,
 
 			PreAttackDumbFireWeapons = { "ChronosCultistSpawn" },
 
-			PreAttackDurationMin = 3.3,
-			PreAttackDurationMax = 3.3,
+			PreAttackDurationMin = 1.32/1.3,
+			PreAttackDurationMax = 1.32/1.3,
 			FireDuration = 0.72,
-			PostAttackDurationMin = 1.5,
-			PostAttackDurationMax = 2.5,
+			PostAttackDurationMin = 1.25,
+			PostAttackDurationMax = 1.25,
 
 			TeleportToId = 626310,
 			TargetId = 626385,
@@ -80,15 +80,15 @@ WeaponSetData =
 			TeleportStartFx = "HecateTeleportFxFront",
 			TeleportEndFx = "HecateTeleportFxFront",
 
-			WaitForAngleTowardTarget = true,
+			--WaitForAngleTowardTarget = true,
 			TrackTargetDuringCharge = true,
 			TrackTargetDuringFire = true,
 			PostAttackStop = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Chronos/EmoteChargingRanged",
 			PreAttackAnimation = "Enemy_Chronos_DefenseIntro",
-			FireAnimation = "Enemy_Chronos_DefenseExplodePreFire",
-			PostAttackAnimation = "Enemy_Chronos_DefenseExplodePostFire",
+			--FireAnimation = "Enemy_Chronos_DefenseExplodePreFire",
+			--PostAttackAnimation = "Enemy_Chronos_DefenseExplodePostFire",
 			ForceUseIfReady = true,
 
 			DoNotRepeatOnAttackFail = true,
@@ -97,7 +97,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosSummonVoiceLines,
+				[1] = { GlobalVoiceLines = "ChronosSummonVoiceLines" },
 			},
 
 		},
@@ -199,13 +199,13 @@ WeaponSetData =
 
 			NoProjectile = true,
 
-			SpawnOnIdsOrdered = { 704860, 704859, },
+			SpawnOnIdsOrdered = { 645917, 645920, },
 
 			SpawnBurstOnFire = true,
 			SpawnerOptions = { "SatyrLancer_Elite" },
 			SpawnsPerBurstMin = 2,
 			SpawnsPerBurstMax = 2,
-			MaxActiveSpawns = 4,
+			MaxActiveSpawns = 6,
 			SpawnRate = 0.02,
 
 			AttackDistance = 9999,
@@ -221,13 +221,13 @@ WeaponSetData =
 
 			NoProjectile = true,
 
-			SpawnOnIdsOrdered = { 704860, 704859, },
+			SpawnOnIdsOrdered = { 645917, 645920, },
 
 			SpawnBurstOnFire = true,
 			SpawnerOptions = { "GoldElemental_Elite" },
 			SpawnsPerBurstMin = 2,
 			SpawnsPerBurstMax = 2,
-			MaxActiveSpawns = 4,
+			MaxActiveSpawns = 6,
 			SpawnRate = 0.6,
 
 			AttackDistance = 9999,
@@ -243,13 +243,13 @@ WeaponSetData =
 
 			NoProjectile = true,
 
-			SpawnOnIdsOrdered = { 704860, 704859, },
+			SpawnOnIdsOrdered = { 645917, 645920, },
 
 			SpawnBurstOnFire = true,
 			SpawnerOptions = { "SatyrRatCatcher_Elite" },
 			SpawnsPerBurstMin = 2,
 			SpawnsPerBurstMax = 2,
-			MaxActiveSpawns = 4,
+			MaxActiveSpawns = 6,
 			SpawnRate = 0.02,
 
 			AttackDistance = 9999,
@@ -310,7 +310,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ChronosPreAttackVoiceLines" },
 			},
 
 		},
@@ -468,7 +468,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ChronosPreAttackVoiceLines" },
 			},
 		},
 
@@ -891,7 +891,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ChronosPreAttackVoiceLines" },
 			},
 		},
 
@@ -951,6 +951,7 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
+			ForceUseIfReady = true,
 
 			AttackSlots =
 			{
@@ -985,7 +986,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ChronosPreAttackVoiceLines" },
 			},
 
 		},
@@ -1128,7 +1129,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				{ GlobalVoiceLines = "ChronosUltimateVoiceLines" },
 			},
 
 			ExpireProjectilesOnPreAttackStart = { "ChronosRadialIn", "ChronosRadialIn2" },
@@ -1165,7 +1166,7 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.45,
 
 			PreAttackFxAtTarget = "ChronosRadial3InvertedCircleIn",
-			StopAnimationsOnHitStun = { "ChronosRadial3InvertedCircle", },
+			StopAnimationsOnHitStun = { "ChronosRadial3InvertedCircle", "ChronosRadial3InvertedCircleIn" },
 			EndPreAttackFx = true,
 
 			TargetFromGroup = "ClockFacePoints",
@@ -1186,7 +1187,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ChronosPreAttackVoiceLines,
+				{ GlobalVoiceLines = "ChronosUltimateVoiceLines" },
 			},
 
 			ExpireProjectilesOnPreAttackStart = { "ChronosRadialIn", "ChronosRadialIn2", "ChronosClockArm", "ChronosClockArm30", "ChronosClockArmShort", "ChronosClockArm30Short", "ChronosRift" },

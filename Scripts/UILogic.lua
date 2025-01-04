@@ -16,6 +16,7 @@ OnPreThingCreation
 		ScreenPresentationData.ResourceRunningThreads = {}
 		ScreenPresentationData.ResourceFloating = {}
 		ActiveScreens = {}
+		ActiveScreenOrder = {}
 
 		EnemyHealthDisplayAnchors = {}
 		GamepadCursorRequests = {}
@@ -78,7 +79,9 @@ OnMenuOpened{ "PauseScreen",
 
 OnMenuCloseFinished{ "PauseScreen",
 	function( triggerArgs )
-		PauseMenuTakeoverClosed()
+		
+		thread( PauseMenuTakeoverClosed )
+
 		ResumeSpeech({ })
 		if CurrentRun ~= nil and CurrentRun.CurrentRoom ~= nil and CurrentRun.CurrentRoom.PauseMusicOnPauseScreen then
 			ResumeMusic()
@@ -86,10 +89,14 @@ OnMenuCloseFinished{ "PauseScreen",
 		if AudioState.TraversalSoundId ~= nil then
 			ResumeSound({ Id = AudioState.TraversalSoundId })
 		end
+
 		if SessionState.PrevEasyMode ~= ConfigOptionCache.EasyMode then
 			if ConfigOptionCache.EasyMode then
 				if not HeroHasTrait( "GodModeTrait") and ScreenAnchors.TraitBacking then
 					AddTraitToHero({ TraitName = "GodModeTrait" })
+				end
+				if CurrentHubRoom == nil then
+					CurrentRun.EasyModeLevel = GameState.EasyModeLevel
 				end
 				EasyModeEnabledPresentation()
 			else
@@ -102,6 +109,7 @@ OnMenuCloseFinished{ "PauseScreen",
 			end
 		end
 		thread( MarkObjectiveComplete, "EasyModePrompt" )
+
 		if SessionState.PrevShowGameplayTimer ~= ConfigOptionCache.ShowGameplayTimer then
 			if ConfigOptionCache.ShowGameplayTimer then
 				GameplayTimerEnabledPresentation()
@@ -160,7 +168,7 @@ function ShowRunIntro()
 	local eligibleRunIntroData = {}
 	local eligibleUnplayedRunIntroData = {}
 	for index, entryData in pairs( RunIntroData ) do
-		if IsGameStateEligible( currentRun, entryData.GameStateRequirements ) then
+		if entryData.GameStateRequirements == nil or IsGameStateEligible( entryData, entryData.GameStateRequirements ) then
 			table.insert( eligibleRunIntroData, entryData )
 			if not GameState.PlayedRandomRunIntroData[entryData.Header] then
 				table.insert( eligibleUnplayedRunIntroData, entryData )
@@ -283,7 +291,7 @@ function GetUseText( useTarget )
 	end
 
 	if useTarget.BlockedLootInteractionText ~= nil and not CurrentRun.CurrentRoom.AlwaysAllowLootInteraction then
-		for enemyId, enemy in pairs( ActiveEnemies ) do
+		for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 			if enemy.BlocksLootInteraction then
 				return useTarget.BlockedLootInteractionText
 			end
@@ -291,13 +299,9 @@ function GetUseText( useTarget )
 	end
 
 	if useTarget.FamiliarUseText ~= nil then
-		if useTarget.LinkedToolName ~= nil and HasFamiliarTool( useTarget.LinkedToolName) then
+		if useTarget.LinkedToolName ~= nil and HasFamiliarTool( useTarget.LinkedToolName ) and CurrentRun.CurrentRoom.ExitsUnlocked then
 			customUseText = useTarget.FamiliarUseText
 		end
-	end
-
-	if useTarget.ExitsLockedUseText ~= nil and not CurrentRun.CurrentRoom.ExitsUnlocked then
-		customUseText = useTarget.ExitsLockedUseText
 	end
 	
 	if useTarget.EncounterCost ~= nil then
@@ -314,7 +318,7 @@ function GetUseText( useTarget )
 		end
 	end
 
-	if useTarget.UseIneligibleText ~= nil and useTarget.OnUsedGameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, useTarget, useTarget.OnUsedGameStateRequirements ) then
+	if useTarget.UseIneligibleText ~= nil and useTarget.OnUsedGameStateRequirements ~= nil and not IsGameStateEligible( useTarget, useTarget.OnUsedGameStateRequirements ) then
 		return useTarget.UseIneligibleText
 	end
 
@@ -323,7 +327,7 @@ function GetUseText( useTarget )
 		if useTarget.AlwaysShowDefaultUseText or useTarget.NextInteractLines ~= nil then
 			canTalk = true
 		end
-	elseif useTarget.OnUsedFunctionName ~= nil and ( useTarget.OnUsedGameStateRequirements == nil or IsGameStateEligible( CurrentRun, useTarget, useTarget.OnUsedGameStateRequirements ) ) then
+	elseif useTarget.OnUsedFunctionName ~= nil and ( useTarget.OnUsedGameStateRequirements == nil or IsGameStateEligible( useTarget, useTarget.OnUsedGameStateRequirements ) ) then
 		canTalk = true
 	elseif not IsEmpty( useTarget.OnUseEvents ) then
 		canTalk = true
@@ -390,7 +394,7 @@ function ShowUseButton( objectId, useTarget )
 		return
 	end
 
-	if useTarget.RefreshExtractValuesOnApproach then
+	if useTarget.RefreshExtractValuesOnApproach and useTarget.ExtractValues ~= nil then
 		ExtractValues( CurrentRun.Hero, useTarget, useTarget )
 	end
 	if GetTotalHeroTraitValue( "MetaConversionUses" ) > 0 and useTarget.MetaConversionEligible then
@@ -416,13 +420,13 @@ function ShowUseButton( objectId, useTarget )
 	end
 
 	local textBox = ShallowCopyTable( UIData.UsePrompt.TextFormat )
-
 	textBox.Id = ScreenAnchors.UsePrompts[objectId]
 	textBox.Text = useText
 	textBox.LuaKey = "TempTextData"
 	textBox.LuaValue = useTarget
 	textBox.AutoSetDataProperties = false
 	textBox.OffsetY = -80
+	textBox.TextSymbolScale = useTarget.UseTextSymbolScale or textBox.TextSymbolScale
 	CreateTextBox( textBox )
 
 end
@@ -591,6 +595,7 @@ function OnScreenOpened( screen, args )
 	CurrentRun.ScreenViewRecord[screen.Name] = (CurrentRun.ScreenViewRecord[screen.Name] or 0) + 1
 
 	ActiveScreens[screen.Name] = screen
+	table.insert( ActiveScreenOrder, screen.Name )
 	SetConfigOption({ Name = "ScreenEdgeIndicatorOpacity", Value = 0.0 })
 	HideAllUseButtons()
 	ZeroMouseTether( screen.Name )
@@ -598,13 +603,18 @@ function OnScreenOpened( screen, args )
 	EnableGamepadCursor( screen.Name )
 	SetConfigOption({ Name = "UseOcclusion", Value = false })
 	if not args.SkipBlockTimer then
-		AddTimerBlock( CurrentRun, screen.Name )
+		AddTimerBlock( CurrentRun, screen.Name, { MapState = true } )
 	end
 	thread( GenericScreenOpenStartPresentation, screen )
 end
 
 function IsScreenOpen( screenName )
 	return ActiveScreens[screenName] ~= nil
+end
+
+function GetTopScreen()
+	local topScreenName = ActiveScreenOrder[#ActiveScreenOrder]
+	return ActiveScreens[topScreenName]
 end
 
 function OnScreenCloseStarted( screen, args )
@@ -618,25 +628,30 @@ function OnScreenCloseFinished( screen, args )
 
 	args = args or {}
 	ActiveScreens[screen.Name] = nil
-
-	CombatUI.AutoHideEnabled = true
-	StartHideAfterDelayThread()
-
-	if not screen.SkipCheckQuestStatus and IsEmpty( ActiveScreens ) then
-		thread( CheckQuestStatus )
-	end
+	RemoveValueAndCollapse( ActiveScreenOrder, screen.Name )
 
 	UnfreezePlayerUnit( screen.Name )
 	UnzeroMouseTether( screen.Name )
 	RemoveTimerBlock( CurrentRun, screen.Name )
 
+	CombatUI.AutoHideEnabled = true
+	thread( StartHideAfterDelayThread )
+
+	if not screen.SkipCheckQuestStatus and IsEmpty( ActiveScreens ) then
+		thread( CheckQuestStatus )
+	end
+
 	if IsEmpty( ActiveScreens ) then
 		ShowAllUseButtons()
 		SetConfigOption({ Name = "UseOcclusion", Value = true })
-	end
-
-	for i, defaultOption in pairs( GamepadNavigationDefaults ) do
-		SetConfigOption({ Name = defaultOption, Value = "Default" })
+		for i, defaultOption in pairs( GamepadNavigationDefaults ) do
+			SetConfigOption({ Name = defaultOption, Value = "Default" })
+		end
+	else
+		local topScreen = GetTopScreen()
+		if topScreen ~= nil then
+			SetGamepadNavigation( topScreen )
+		end
 	end
 
 	if screen.OnCloseFinishedThreadedFunctionName ~= nil then
@@ -804,8 +819,7 @@ function HandleScreenInput( screen )
 				end
 			end
 		end
-		NotifyOnInteract({ Ids = buttonIds, Notify = notifyName })
-		NotifyOnControlPressed({ Names = hotkeyControls, Notify = notifyName, AllowHold = screen.AllowHold })
+		NotifyOnInteractOrControlPressed({ Ids = buttonIds, Names = hotkeyControls, Notify = notifyName, AllowHold = screen.AllowHold })
 		waitUntil( notifyName )
 		local acceptInput = true
 		for screenName, otherScreen in pairs( ActiveScreens ) do
@@ -822,7 +836,7 @@ function HandleScreenInput( screen )
 			else
 				button = GetComponentById( screen.Components, inputResult )
 			end
-			if button ~= nil and button.OnPressedFunctionName ~= nil and not button.Disabled then
+			if button ~= nil and button.OnPressedFunctionName ~= nil and IsUseable({ Id = button.Id }) then
 				if button.Sound ~= nil then
 					PlaySound({ Name = button.Sound })
 				end
@@ -952,6 +966,10 @@ function CreateComponentFromData( screenData, data )
 		SetInteractProperty({ DestinationId = component.Id, Property = "TooltipOffsetX", Value = data.TooltipOffsetX })
 	end
 
+	if data.TooltipOffsetY then
+		SetInteractProperty({ DestinationId = component.Id, Property = "TooltipOffsetY", Value = data.TooltipOffsetY })
+	end
+
 	if data.InteractProperties ~= nil then
 		for propertyName, propertyValue in pairs( data.InteractProperties ) do
 			SetInteractProperty({ DestinationId = component.Id, Property = propertyName, Value = propertyValue })
@@ -963,9 +981,11 @@ function CreateComponentFromData( screenData, data )
 
 	if data.Text or data.TextArgs then
 		if data.TextArgs ~= nil and data.TextArgs.Format ~= nil then
-			CreateTextBoxWithFormat( MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs ) )	
+			local textArgs = MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs )
+			CreateTextBoxWithFormat( ApplyLocalizedProperties( textArgs ) )	
 		else
-			CreateTextBox( MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs ) )	
+			local textArgs = MergeTables( { Id = component.Id, Text = data.Text, }, data.TextArgs )
+			CreateTextBox( ApplyLocalizedProperties( textArgs ) )	
 		end
 	end
 
@@ -1001,7 +1021,7 @@ function CreateScreenFromData( screen, componentData, args )
 		if componentData.Order ~= nil then
 			for i, componentName in ipairs( componentData.Order ) do
 				local data = componentData[componentName]
-				if data ~= nil and not skipComponents[componentName] and (data.Requirements == nil or IsGameStateEligible( CurrentRun, screen, data.Requirements ) ) then
+				if data ~= nil and not skipComponents[componentName] and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
 					--DebugPrint({ Text = "componentName = "..componentName })
 					if data.FunctionName ~= nil then
 						CallFunctionName( data.FunctionName, screen, data )
@@ -1020,7 +1040,7 @@ function CreateScreenFromData( screen, componentData, args )
 
 		for name, data in pairs( componentData ) do
 			--DebugPrint({ Text = "componentName = "..name })
-			if type(data) == "table" and not data.Skip and not data.Ordered and name ~= "Ordered" and not skipComponents[name] and (data.Requirements == nil or IsGameStateEligible( CurrentRun, screen, data.Requirements ) ) then
+			if type(data) == "table" and not data.Skip and not data.Ordered and name ~= "Ordered" and not skipComponents[name] and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
 				local component = CreateComponentFromData( componentData, data )
 				component.Screen = screen
 				screen.Components[name] = component				
@@ -1051,6 +1071,22 @@ function SetGamepadNavigation( screen )
 	end
 end
 
+function ApproximateStringWidth( text )
+	local len = 0
+	local curr = 1
+	local delim = "\\n"
+	local from = string.find( text, delim, curr )
+	if from == nil then
+		return utf8strlen( text )
+	end
+	while from do
+		len = math.max(len, utf8strlen( string.sub( text, curr, from - 1 ) ))
+		curr = curr + 1
+		from = string.find( text, delim, curr )
+	end
+	return len
+end
+
 function AttachChildrenFromData( screen, parentComponent, childData, screenData )
 	if childData.Children ~= nil then
 
@@ -1058,7 +1094,7 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 			local accumOffsetX = 0
 			for i, componentName in ipairs( childData.ChildrenOrder ) do
 				local data = childData.Children[componentName]
-				if data ~= nil and (data.Requirements == nil or IsGameStateEligible( CurrentRun, screen, data.Requirements ) ) then
+				if data ~= nil and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
 					local component = CreateComponentFromData( screenData, data )
 					component.Screen = screen
 					screen.Components[componentName] = component
@@ -1068,11 +1104,11 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 						local label = GetDisplayName({ Text = data.Text })
 						local labelAlt = GetDisplayName({ Text = data.AltText })
 						local fontSize = data.TextArgs.FontSize or 20
-						local len = math.max(utf8strlen( label ), utf8strlen( labelAlt ))
+						local len = math.max(ApproximateStringWidth( label ), ApproximateStringWidth( labelAlt ))
 
 						if data.AltTexts ~= nil then
 							for index, text in ipairs( data.AltTexts ) do
-								len = math.max(len, utf8strlen( GetDisplayName({ Text = text }) )) 
+								len = math.max(len, ApproximateStringWidth( GetDisplayName({ Text = text }) )) 
 							end
 						end
 						local approxTextSize = fontSize * len - UIData.AutoAlignContextualButtonGlyphWidth
@@ -1097,7 +1133,7 @@ function AttachChildrenFromData( screen, parentComponent, childData, screenData 
 		end
 
 		for name, data in pairs( childData.Children ) do
-			if not data.Ordered and (data.Requirements == nil or IsGameStateEligible( CurrentRun, screen, data.Requirements ) ) then
+			if not data.Ordered and (data.Requirements == nil or IsGameStateEligible( screen, data.Requirements ) ) then
 				local component = CreateComponentFromData( screenData, data )	
 				component.Screen = screen
 				screen.Components[name] = component
@@ -1292,9 +1328,9 @@ function CreateBossHealthBar( boss )
 
 	if boss.AltHealthBarTextIds ~= nil then
 		local eligibleTextIds = {}
-		for k, altTextIdData in pairs(boss.AltHealthBarTextIds) do
-			if IsGameStateEligible( CurrentRun, altTextIdData.Requirements) then
-				table.insert(eligibleTextIds, altTextIdData.TextId)
+		for k, altTextIdData in pairs( boss.AltHealthBarTextIds ) do
+			if altTextIdData.GameStateRequirements == nil or IsGameStateEligible( altTextIdData, altTextIdData.GameStateRequirements ) then
+				table.insert( eligibleTextIds, altTextIdData.TextId )
 			end
 		end
 		if not IsEmpty(eligibleTextIds) then
@@ -1408,7 +1444,7 @@ function AddResourceCostText( destinationId, resourceCostData, args )
 					Id = destinationId, 
 					Text = text, 
 					LuaKey = "TempTextData",
-					LuaValue = { Current = GameState.Resources[resourceName] or 0, Amount = resourceCostData[resourceName], IconPath = ResourceData[resourceName].IconPath },
+					LuaValue = { Current = GameState.Resources[resourceName] or 0, Amount = resourceCostData[resourceName], IconPath = ResourceData[resourceName].TextIconPath },
 					OffsetY  = costOffsetY,
 					OffsetX = costOffsetX,
 					Color = costFontColor,

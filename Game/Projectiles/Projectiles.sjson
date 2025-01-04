@@ -34,7 +34,7 @@
       Name = "1_BaseEnemyProjectile"
       InheritFrom = "1_BaseProjectile"
       CanBeProjectileDefenseDestroyed = false
-      CanBeProjectileDefenseDestroyedByName2 = "ProjectileAxeBlockSpin"
+      CanBeProjectileDefenseDestroyedByName2 = "ExAttackSuitDefense"
       Thing = {
         Graphic = "null"
         RotateGeometry = false

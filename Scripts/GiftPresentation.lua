@@ -120,8 +120,11 @@ function ReceivedGiftPresentation( npc, giftAnimation )
 	if GetGiftLevel(npc.Name) == 0 then
 		thread( PlayVoiceLines, HeroVoiceLines.GiftGivenVoiceLines, true )
 	end
+	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines, true, nil, { FamiliarName = npc.Name } )
+
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = npc.ObjectId })
 	SetAnimation({ Name = "MelTalkGifting01", DestinationId = CurrentRun.Hero.ObjectId })
+
 	wait(0.30)
 	thread( ReceivedGiftPresentationHearts, npc, giftAnimation )
 	wait(0.20)

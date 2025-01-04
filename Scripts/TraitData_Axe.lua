@@ -1,10 +1,20 @@
 OverwriteTableKeys( TraitData, {
 	-- Axe
+	AxeHammerTrait = 
+	{
+		CodexWeapon = "WeaponAxe"
+	},
 	AxeSturdyTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_38",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		OnWeaponChargeFunctions = 
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -54,11 +64,42 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+	AxeComboSwingTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
+		Icon = "Hammer_Axe_32",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = { "WeaponAxe2" },
+			ExcludeLinked = true,
+			FunctionName = "SpeedUpSpecial",
+			FunctionArgs = 
+			{
+				ChargeMultiplier = 0.1,
+				Window = 0.8,
+			}
+
+		},
+
+	},
 	AxeDashAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_32",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		--[[
 		AddOutgoingDamageModifiers =
 		{
@@ -144,9 +185,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeSecondStageTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_36",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		ManaCostModifiers = 
 		{
 			WeaponNames = { "WeaponAxeSpecialSwing" },
@@ -209,13 +256,14 @@ OverwriteTableKeys( TraitData, {
 				},
 			}
 			]]
+			NumWaves = 2, -- used only for text
 			PropertyChanges =
 			{
 				{
 					WeaponName = "WeaponAxeSpecialSwing",
 					WeaponProperty = "NumProjectileWaves",
-					ChangeValue = 2,
-					ChangeType = "Absolute",
+					ChangeValue = 1,
+					ChangeType = "Add",
 					ReportValues = { ReportedChange = "ChangeValue" }
 				},
 				{
@@ -233,11 +281,6 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true,
 			},
 			{
-				Key = "ReportedBaseManaCost",
-				ExtractAs = "BaseManaCost",
-				SkipAutoExtract = true,
-			},
-			{
 				Key = "ReportedCost",
 				ExtractAs = "ManaCost",
 				--Subtractor = "BaseManaCost",
@@ -247,48 +290,68 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeBlockEmpowerTrait =
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_29",
-		RequiredWeapon = "WeaponAxe",
-		OnBlockDamageFunction = 
+		GameStateRequirements =
 		{
-			Name = "AddBlockEmpower",
-			Args =
 			{
-				WeaponName = "WeaponAxeBlock2",
-				EffectName = "BlockEmpower",
-				EffectData = 
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeaponMultiplier =
+			{
+				BaseValue = 2.5,
+				SourceIsMultiplier = true,
+			},
+			ValidWeapons = { "WeaponAxeSpecial"},
+			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperties = 
 				{
-					Duration = 15,
-					Modifier = 1.50,
-					
-					ReportValues = 
-					{ 
-						ReportedMultiplier = "Modifier", 
-						ReportedDuration = "Duration" 
-					},
-				}
-			}
+					FireFx = "null",
+				},
+				ProjectileProperties = 
+				{
+					StartFx = "AxeSpinDouble",
+					Speed = 3000,
+					Acceleration = 0,
+					Range = 1500,
+					AttachToOwner = false,
+				},
+				ExcludeLinked = true
+			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedMultiplier",
-				ExtractAs = "DamageIncrease",
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "Damage",
 				Format = "PercentDelta",
-			},
-			{
-				Key = "ReportedDuration",
-				ExtractAs = "Duration",
-				SkipAutoExtract = true,
 			},
 		}
 	},
 	AxeConsecutiveStrikeTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_31",	
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "AxeAttackRecoveryTrait" },
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -312,13 +375,19 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeArmorTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_27",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			NonExHealthBufferRemoval = 0.35,
-			ValidWeapons = { "WeaponAxeBlock2" },
+			ValidWeapons = { "WeaponAxeSpecial" },
 			ReportValues = { ReportedWeaponMultiplier = "NonExHealthBufferRemoval"},
 		},
 		ExtractValues =
@@ -332,9 +401,19 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeFreeSpinTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_33",	
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "AxeAttackRecoveryTrait" },
+			},
+		},
 		WeaponDataOverride = 
 		{
 			WeaponBlink = 
@@ -449,60 +528,62 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeRangedWhirlwindTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_35",
-		RequiredWeapon = "WeaponAxe",
-		AddOutgoingDamageModifiers =
-		{
-			ValidWeaponMultiplier =
-			{
-				BaseValue = 1.80,
-				SourceIsMultiplier = true,
-			},
-			ValidWeapons = { "WeaponAxeSpin"},
-			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
-		},
-		AddRush = 
-		{
-			FunctionName = "BlockWhirlwindDisable",
-		},
-		ChargeStageModifiers = 
-		{
-			WeaponNames = { "WeaponAxeSpin"},
-			ChangeNumProjectilesToFuse = true,
-		},
-		PropertyChanges =
+		GameStateRequirements =
 		{
 			{
-				WeaponName = "WeaponAxeSpin",
-				ProjectileProperties = 
-				{
-					ExpandBlastDuringDetonation = true,
-					MultiDetonate = true,
-					Speed = 500,
-					Acceleration = -200,
-					Range = 900,
-					AttachToOwner = false,
-					FuseStart = 0,
-					TotalFuse = 20,
-					Fuse = 0.22,
-				},
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
 			},
+		},
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = { "WeaponAxe", "WeaponAxe2", "WeaponAxe3" },
+			ExcludeLinked = true,
+			FunctionName = "CheckAxeNova",
+			FunctionArgs = 
+			{
+				ProjectileName = "HammerAxeNova",
+			}
+		},
+		OnProjectileCreationFunction = 
+		{
+			ValidProjectiles = { "ProjectileAxeSpin" },
+			Name = "CheckAxeNova",
+			Args = 
+			{
+				ProjectileName = "HammerAxeNova",
+			}
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "Damage",
-				Format = "PercentDelta",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "HammerAxeNova",
+				BaseProperty = "Damage",
 			},
 		}
 	},
+
 	AxeSpinSpeedTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_37",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "AxeAttackRecoveryTrait" },
+			},
+		},
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponAxeSpin" },
@@ -521,7 +602,7 @@ OverwriteTableKeys( TraitData, {
 				EffectProperty = "Modifier",
 				ChangeValue = 1.5,
 				ChangeType = "Multiply",
-				ReportValues = { ReportedSpeedIncrease = "ChangeValue"},
+				ReportValues = { ReportedSpeedIncrease = "ChangeValue" },
 			},
 			{
 				WeaponName = "WeaponAxeSpin",
@@ -546,11 +627,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	AxeChargedSpecialTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_30",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		--[[
 		WeaponSpeedMultiplier =
 		{
@@ -602,9 +690,19 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeAttackRecoveryTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_28",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "AxeConsecutiveStrikeTrait", "AxeFreeSpinTrait", "AxeSpinSpeedTrait", "AxeRangedWhirlwindTrait", "SlowExAttackBoon" },
+			},
+		},
 		IsLastPriorityHammerTrait = true,
 		PropertyChanges =
 		{
@@ -667,9 +765,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeThirdStrikeTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_39",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		SetupFunction =
 		{
 			Name = "PermanentSwitchWeapon",
@@ -677,6 +781,7 @@ OverwriteTableKeys( TraitData, {
 			RunOnce = true
 		},
 		ReplaceMeleeWeapon = "WeaponAxe3",
+		PrevNumStrikes = 3, -- used only for text
 		PropertyChanges =
 		{
 			{
@@ -710,9 +815,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	AxeMassiveThirdStrikeTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "AxeHammerTrait" },
 		Icon = "Hammer_Axe_34",
-		RequiredWeapon = "WeaponAxe",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponAxe", },
+			},
+		},
 		WeaponDataOverride = 
 		{
 			WeaponAxe3 = 

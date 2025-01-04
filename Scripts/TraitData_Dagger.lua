@@ -1,10 +1,25 @@
 OverwriteTableKeys( TraitData, {
 	-- Dagger
+	DaggerHammerTrait = 
+	{
+		CodexWeapon = "WeaponDagger"
+	},
+
 	DaggerBlinkAoETrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_29",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "DaggerRapidAttackTrait", },
+			},
+		},
 		ManaCostModifiers = 
 		{
 			ExcludeLinked = true,
@@ -49,11 +64,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	DaggerDashAttackTripleTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_41",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		
 		OnWeaponFiredFunctions = 
 		{
@@ -88,11 +110,22 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	DaggerRapidAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_32",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "DaggerBlockAspect", "DaggerBlinkAoETrait", "DaggerFinalHitTrait", "SlowExAttackBoon" },
+			},
+		},
 		PropertyChanges =
 		{	
 			{
@@ -113,12 +146,22 @@ OverwriteTableKeys( TraitData, {
 			},
 		},	
 	},
+
 	DaggerSpecialLineTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_36",
-		RequiredWeapon = "WeaponDagger",
-		RequiredFalseTraits = { "DaggerSpecialFanTrait", },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "DaggerSpecialFanTrait", },
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -143,6 +186,13 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1.3,
 				ChangeType = "Multiply",
 			},
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperty = "ReturnToOwnerAfterInactiveSeconds",
+				ChangeValue = 1.3,
+				ChangeType = "Multiply",
+			},
 		},	
 		ExtractValues =
 		{
@@ -154,12 +204,22 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	DaggerSpecialFanTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_34",
-		RequiredWeapon = "WeaponDagger",
-		RequiredFalseTraits = { "DaggerSpecialLineTrait", },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "DaggerSpecialLineTrait", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
@@ -177,7 +237,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				ChargeWeaponStages = 
 				{
-						{ ManaCost = 6, WeaponProperties = { NumProjectiles = 4}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, ChannelSlowEventOnEnter = true },
+						{ ManaCost = 6, WeaponProperties = { Projectile = "ProjectileDaggerThrowCharged", FireGraphic = "Melinoe_Dagger_SpecialEx_Fire", NumProjectiles = 4}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, ChannelSlowEventOnEnter = true },
 						{ ManaCost = 8, WeaponProperties = { NumProjectiles = 6 }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
 						{ ManaCost = 10, WeaponProperties = { NumProjectiles = 8}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
 						{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 10}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.1, },
@@ -217,11 +277,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	DaggerSpecialConsecutiveTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_33",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		AddOutgoingDamageModifiers = 
 		{	
 			--[[
@@ -257,21 +324,24 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedDamage",
-				ExtractAs = "DamageBonus",
-			},
-			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "ArmorDamageIncrease",
 				Format = "Percent",
 			},
 		}
 	},
+
 	DaggerSpecialJumpTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_35",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		WeaponDataOverride =
 		{	
 			--[[
@@ -303,7 +373,6 @@ OverwriteTableKeys( TraitData, {
 					--MinChargeToFire = 1.0,
 					--SwapOnFire = "null"
 				},
-				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperties = 
 				{
 					NumJumps = 2,
@@ -330,11 +399,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	DaggerAttackFinisherTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_27",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = { "WeaponDaggerDouble" },
@@ -397,11 +473,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	DaggerChargeStageSkipTrait = 
 	{
-		InheritFrom = {"WeaponTrait"},
+		InheritFrom = {"WeaponTrait", "DaggerHammerTrait"},
 		Icon = "Hammer_Daggers_30",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		--[[
 		ChargeStageModifiers = 
 		{
@@ -437,12 +520,19 @@ OverwriteTableKeys( TraitData, {
 			]]
 		}
 	},
+
 	DaggerFinalHitTrait = 
 	{
-		InheritFrom = {"WeaponTrait" },
+		InheritFrom = {"WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_31",
-		RequiredWeapon = "WeaponDagger",
-		--[[
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
+        --[[
 		AddOutgoingDamageModifiers = 
 		{
 			ValidWeapons = {"WeaponDagger5"},
@@ -496,102 +586,63 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	DaggerSpecialReturnTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+	
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_37",
-		RequiredWeapon = "WeaponDagger",
-		WeaponDataOverride =
+		GameStateRequirements =
 		{
-			WeaponDaggerThrow =
 			{
-				Sounds =
-				{
-					ChargeSounds =
-					{
-						{
-							Name = "/SFX/Player Sounds/MelMagicalCharge",
-							StoppedBy = { "ChargeCancel", "Fired" }
-						},
-					},
-					FireSounds =
-					{
-						{ Name = "/SFX/Player Sounds/ZagreusBowRapidFire" },
-						{ Name = "/VO/MelinoeEmotes/EmoteAttackingDaggerThrow" },
-					},
-					FireStageSounds = 
-					{
-						PerfectChargeSounds =
-						{
-							{ Name = "/SFX/Player Sounds/ZagreusCriticalFire" },
-						},
-						{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
-						{ Name = "/SFX/Player Sounds/MelDaggerKnifeThrowSwishGROUP" },
-					},
-					ImpactSounds =
-					{
-						Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-						Bone = "/SFX/ArrowMetalBoneSmash",
-						Brick = "/SFX/ArrowMetalStoneClang",
-						Stone = "/SFX/ArrowMetalStoneClang",
-						Organic = "/SFX/DaggerThrowImpact",
-						StoneObstacle = "/SFX/ArrowWallHitClankSmall",
-						BrickObstacle = "/SFX/ArrowWallHitClankSmall",
-						MetalObstacle = "/SFX/ArrowWallHitClankSmall",
-						BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-						Shell = "/SFX/ShellImpact",
-					},
-				},
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
 			},
 		},
-
-		PropertyChanges =
+	
+		AddOutgoingDamageModifiers = 
+		{	
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ValidBaseDamageAddition = 15,
+			ReportValues = 
+			{ 
+				ReportedDamage = "ValidBaseDamageAddition"
+			},
+		},
+		PropertyChanges = 
 		{
 			{
 				WeaponName = "WeaponDaggerThrow",
-				ProjectileName = "ProjectileDaggerThrow",
-				ProjectileProperties = 
-				{
-					NumPenetrations = 9999,
-					UnlimitedUnitPenetration = true,
-					Fuse = 1,
-					UseVulnerability = true,
-					RepeatHitOnReturn = true,
-					Speed = 3000,
-				},
+				WeaponProperty = "ProjectileScaleMultiplier",
+				ChangeValue = 2,
+				ChangeType = "Multiply",
 			},
 			{
 				WeaponName = "WeaponDaggerThrow",
-				ProjectileName = "ProjectileDaggerThrow",
-				ProjectileProperty = "ReturnToOwnerAfterInactiveSeconds",
-				ChangeValue = 0.276,
-				ChangeType = "Absolute",
-				ReportValues = 
-				{
-					ReportedReturnTime = "ChangeValue",
-				}
+				WeaponProperty = "AimLineWidthOverride",
+				ChangeValue = 100,
 			},
-		},	
+		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
+				Key = "ReportedDamage",
 				ExtractAs = "DamageIncrease",
-				Format = "PercentDelta",
-			},
-			{
-				Key = "ReportedReturnTime",
-				ExtractAs = "ReturnTime",
-				DecimalPlaces = 2,
 			},
 		}
 	},
+
 	DaggerBackstabTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
 		Icon = "Hammer_Daggers_28",
-		RequiredWeapon = "WeaponDagger",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -606,5 +657,79 @@ OverwriteTableKeys( TraitData, {
 				Format = "PercentDelta",
 			},
 		}
+	},
+
+	DaggerSpecialRangeTrait = 
+	{
+	
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
+		Icon = "Hammer_Daggers_37",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeapons = { "WeaponDaggerThrow" },
+			ExcludeLinked = true,
+			DistanceThreshold = 650,
+			DistanceMultiplier =
+			{
+				BaseValue = 2,
+				SourceIsMultiplier = true,
+			},
+			ReportValues = { ReportedWeaponMultiplier = "DistanceMultiplier"},
+		},
+		ChargeStageModifiers = 
+		{
+			ValidWeapons = { "WeaponDaggerThrow", },
+			RevertProjectileProperties = 
+			{
+				Range = true,
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrow",
+				ProjectileProperties = 
+				{
+					Range = 1400,
+				},
+			},
+		},
+	},
+	DaggerRepeatStrikeTrait = 
+	{
+	
+		InheritFrom = { "WeaponTrait", "DaggerHammerTrait" },
+		Icon = "Hammer_Daggers_37",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponDagger", },
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponDaggerMultiStab",
+				ExcludeLinked = true,
+				WeaponProperties = 
+				{
+					FullyAutomatic = true,
+					ControlWindow = 0.6,
+					SwapOnFire = "WeaponDaggerMultiStab",
+					AddOnFire = "null",
+					LoseControlIfNotCharging = true,
+					ForceReleaseOnSwap = false,
+				}
+			},
+		},
 	},
 })

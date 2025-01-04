@@ -20,12 +20,12 @@ function GenerateMailboxItems( args )
 		CurrentRun.MailboxItems[categoryIndex] = CurrentRun.MailboxItems[categoryIndex] or {}
 		local nonPriorityItems = {}
 		for j, buyData in ipairs( category ) do
-			if buyData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, buyData, buyData.GameStateRequirements ) then
+			if buyData.GameStateRequirements == nil or IsGameStateEligible( buyData, buyData.GameStateRequirements ) then
 				if buyData.Priority then
 					local buyItem = DeepCopyTable( buyData )
 					buyItem.DeliveryTime = RandomInt( buyData.DeliveryTimeMin, buyData.DeliveryTimeMax )
 					table.insert( CurrentRun.MailboxItems[categoryIndex], buyItem )
-					DebugPrint({ Text = "added priority item" })
+					--DebugPrint({ Text = "added priority item" })
 				else
 					table.insert( nonPriorityItems, buyData )
 				end
@@ -37,7 +37,7 @@ function GenerateMailboxItems( args )
 				local buyItem = DeepCopyTable( chosenOption )
 				buyItem.DeliveryTime = RandomInt( buyData.DeliveryTimeMin, buyData.DeliveryTimeMax )
 				table.insert( CurrentRun.MailboxItems[categoryIndex], buyItem )
-				DebugPrint({ Text = "added non-priority item" })
+				--DebugPrint({ Text = "added non-priority item" })
 			end
 		end
 	end
@@ -68,7 +68,7 @@ function OpenMailboxScreen( args, openedFrom )
 
 	local categoryTitleX = screen.CategoryStartX
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
+		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 			local slotName = category.Name
 			--[[
 			screen.Components["Category"..slotName] = CreateScreenComponent({ Name = "ResourceShopTab", X = categoryTitleX, Y = screen.CategoryStartY, Scale = 1.0, Group = "Combat_Menu_Overlay" })
@@ -99,7 +99,7 @@ function OpenMailboxScreen( args, openedFrom )
 	end
 
 	local resourceData = ResourceData[components.BasicResourceButton.ResourceName]
-	SetAnimation({ DestinationId = components.BasicResourceButton.Id, Name = resourceData.IconPath or resourceData.Icon })
+	SetAnimation({ DestinationId = components.BasicResourceButton.Id, Name = resourceData.TextIconPath or resourceData.IconPath or resourceData.Icon })
 	ModifyTextBox({ Id = components.BasicResourceButton.Id, Text = GameState.Resources[components.BasicResourceButton.ResourceName] or 0, })
 
 	MailboxScreenDisplayCategory( screen, screen.ActiveCategoryIndex )
@@ -248,13 +248,21 @@ function MailboxScreenDisplayCategory( screen, categoryIndex )
 				itemAmountFormat.LuaValue = { InventoryAmount = GameState.Resources[buyResourceData.Name] or 0 }
 				CreateTextBox( itemAmountFormat )
 
-				if HasPinWithResource( item.BuyName ) then
+				local amountNeededByPins = GetResourceAmountNeededByPins( item.BuyName )
+				if amountNeededByPins > 0 then
 					local pinButtonKey = "PinIcon"..screen.NumItems
-					components[pinButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Animation = "StoreItemPin" })
+					local pinAnimation = "StoreItemPin"
+					local pinTooltip = "NeededPinResourceTooltip"
+					if HasResource( item.BuyName, amountNeededByPins ) then
+						pinAnimation = "StoreItemPin_Complete"
+						pinTooltip = "CompletedPinResourceTooltip"
+					end
+					components[pinButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Animation = pinAnimation })
 					Attach({ Id = components[pinButtonKey].Id, DestinationId = components[purchaseButtonTitleKey].Id, OffsetX = screen.PinOffsetX, OffsetY = UIData.PinIconListOffsetY })
 					components[purchaseButtonTitleKey].PinButtonId = components[pinButtonKey].Id
+					components[purchaseButtonTitleKey].PinTooltip = pinTooltip
 					-- Silent toolip
-					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "NeededPinResourceTooltip", Color = Color.Transparent })
+					CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = pinTooltip, Color = Color.Transparent })
 				end
 
 				if not item.Priority then
@@ -380,7 +388,6 @@ function MailboxScreenUpdateResourceStatus( screen, button )
 				end
 			
 				ModifyTextBox({ Id = screen.Components["PurchaseButton"..itemIndex].Id, ColorTarget = itemNameColor, ColorDuration = 0.1 })
-				ModifyTextBox({ Id = screen.Components["PurchaseButton"..itemIndex].Id, AffectText = "NeededPinResourceTooltip", ColorTarget = Color.Transparent })
 				ModifyTextBox({ Id = screen.Components["PurchaseButtonTitle"..itemIndex.."SellText"].Id, ColorTarget = costColor, ColorDuration = 0.1 })
 				ModifyTextBox({ Id = screen.Components["CurrentAmount"..itemIndex].Id, Text = GameState.Resources[buyResourceData.Name] or 0 })
 			end
@@ -425,7 +432,7 @@ function HandleCharonPurchase( sourceName, spent )
 	local prevMoneySpent = GameState.MoneySpentTowardCharonPoints
 	GameState.MoneySpentTowardCharonPoints = prevMoneySpent + spent
 
-	if not IsGameStateEligible( CurrentRun, ScreenData.MailboxScreen.CharonPointsRequirements ) then
+	if not IsGameStateEligible( nil, ScreenData.MailboxScreen.CharonPointsRequirements ) then
 		return
 	end
 

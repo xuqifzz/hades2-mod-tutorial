@@ -50,7 +50,7 @@
 		PlaySpeed = 30
 		StartFrame = 1
 		Scale = 1.5
-		Sound = "/SFX/AdminDoorOpenSFX"
+		Sound = "/SFX/ChallengeChestUnlocked"
 		SoundAllowedAfterFrame = 4
 		CreateAnimation = "EphyraSubRoomDoorOpenGlow"
 	}
@@ -1199,4 +1199,316 @@
 		Scale = 0.55
 		Color = { Red = 0.0, Green = 0.6, Blue = 0.0 }
 	}
+
+	{
+		Name = "EphyraBossExitDoorLocked"
+		InheritFrom = "DoorExitLightAnimation"
+		AddColor = true
+		Alpha = 0.33
+		EndAlpha = 1.0
+		StartAlpha = 0.8
+		Color = { Red = 0.8 Green = 0.6 Blue = 1.0 }
+		OffsetZ = 300.0
+		OffsetX = 50
+	}
+
+	{
+		Name = "EphyraBossExitDoorLinesUnlocked"
+		InheritFrom = "EphyraBossExitDoorLocked"
+		VisualFx = "EphyraBossExitDoorParticles"
+		Alpha = 0.8
+		VisualFxIntervalMax = 0.15
+		VisualFxIntervalMin = 0.1
+	}
+
+	{
+		Name = "EphyraBossExitDoorParticles"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		GroupName = "FX_Add_Top"
+
+		Angle = 35.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndAlpha = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		OffsetX = 30.0
+		OffsetZ = -30.0
+		RadialOffsetMax = -200.0
+		RadialOffsetMin = -200.0
+		RandomOffsetX = 60.0
+		RandomOffsetY = 100.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 150.0
+		VelocityMin = 100.0
+		RandomRotation = true
+		EndScale = 0.0
+		EndScaleY = 1.1
+		ScaleMax = 0.8
+		ScaleMin = 0.3
+		Ambient = 0.0
+		RandomAccelerationMax = -50.0
+		RandomAccelerationMin = -60.0
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.30 }
+	}
+
+	{
+		Name = "Breakable_N01"
+		FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -55.0
+		Scale = 0.4
+	}
+	{
+		Name = "Breakable_N02"
+		InheritFrom = "Breakable_N01"
+		FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01a"
+		Scale = 0.3
+		OffsetY = -65.0
+	}
+	{
+		Name = "Breakable_N03"
+		InheritFrom = "Breakable_N01"
+		FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_01b"
+		Scale = 0.35
+		OffsetY = -45.0
+	}
+	
+	{
+		Name = "Breakable_N_HighValue"
+		InheritFrom = "Breakable_N01"
+		FilePath = "Tilesets\Ephyra\Ephyra_BreakableVase_Gold"
+		CreateAnimation = "Breakable_N_HighValue_Shine"
+		VisualFx = "Breakable_N_HighValue_Sparkles"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.6
+	}
+
+	{
+		Name = "Breakable_N_HighValue_Sparkles"
+		FilePath = "Particles\particle_kira"
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		RandomOffsetX = 20
+		RandomOffsetY = 40
+		Angle = 90
+		VelocityMin = 30
+		VelocityMax = 60
+		OffsetZ = 30
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Acceleration = -100
+		SortFromOwner = "Maintain"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "Breakable_N_HighValue_Shine"
+		FilePath = "Fx\EphyraDestructibles\Ephyra_BreakableVase_Gold_Shine\Ephyra_BreakableVase_Gold_Shine"
+		NumFrames = 18
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 1
+		ScaleFromOwner = "Maintain"
+		OffsetY = -50
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Loop = true
+		DieWithOwner = true
+		Slides =
+		[
+			{ RandomDurationFramesMin = 15 RandomDurationFramesMax = 60 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "EphyraBarrelShelf01_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_BarrelShelf_01_Destruct"
+	}
+	
+	{
+		Name = "EphyraVase02_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_Vase_02_Destruct"
+	}
+	
+	{
+		Name = "HouseVase01_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_HouseVase_01_Destruct"
+	}
+	
+	{
+		Name = "HouseVase02_Destroyed"
+		FilePath = "Tilesets\House\House_Vase_02"
+		Color = { Red = 0.2 Green = 0.2 Blue = 0.2 }
+	}		
+
+	{
+		Name = "HouseVase04_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_HouseVase_04_Destruct"
+	}
+
+	{
+		Name = "HouseVase05_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_HouseVase_05_Destruct"
+	}
+
+	{
+		Name = "HouseVase06_Destroyed"
+		FilePath = "Tilesets\Ephyra\Ephyra_HouseVase_06_Destruct"
+	}
+
+	{
+		Name = "HealthFountainN_Full"
+		FilePath = "Tilesets\Ephyra\Ephyra_Fountain_01"
+		Sound = "/Leftovers/Object Ambiences/WaterRushing"
+		StopSoundOnFinishFade = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+		ChildAnimation = "EphyraFountainWater"
+		VisualFx = "HealthFountainSparkleEphyra"
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "HealthFountainN_FullStart"
+		InheritFrom = "HealthFountainN_Full"
+		ChainTo = "HealthFountainN_Full"
+		Duration = 0.1
+		Loop = false
+	}
+
+	{
+		Name = "EphyraFountainWater"
+		FilePath = "Fx\EphyraFountainWater\EphyraFountainWater"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		Scale = 2.66
+		OffsetY = 20
+	}
+
+	{
+		Name = "EphyraFountainWaterDisabled"
+		FilePath = "Fx\EphyraFountainWater\EphyraFountainWater"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		Scale = 2.66
+		OffsetY = 20
+		Red = 0.5
+		Green = 0.6
+		Blue = 0.7
+	}
+
+	{
+		Name = "HealthFountainN_Empty"
+		InheritFrom = "HealthFountainN_Full"
+		ChildAnimation = "EphyraFountainWaterDisabled"
+		FilePath = "Tilesets\Ephyra\Ephyra_Fountain_01a"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "HealthFountainSparkleEphyra"
+		InheritFrom = "HealthFountainSparkle"
+		FilePath = "Particles\particle_kira"
+		AddColor = true
+		OriginX = 50
+		OriginY = 50
+		OffsetZ = 0
+		RandomOffsetX = 20.0
+		RandomOffsetY = 10.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -40.0
+		VelocityMin = 0
+		VelocityMax = 0
+		RandomRotation = false
+		RandomRotationSpeedMax = 0.01
+		RandomRotationSpeedMin = 0
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.5
+		ScaleMin = 0.1
+		StartScale = 0.0
+		Ambient = 0.0
+		StartBlue = 0.5
+		StartGreen = 1
+		StartRed = 0.01
+		EndBlue = 1
+		EndGreen = 0.5
+		EndRed = 0
+		Hue = 0.5
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 1
+		RadialOffsetMin = 100
+		RadialOffsetMax = 160
+		AngleMin = 0
+		AngleMax = 360
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		EaseIn = 0.9
+		EaseOut = 1
+		StartOffsetX = 0
+		EndOffsetX = 1
+	}
+
+	{
+		Name = "EphyraZoomOutObject01"
+		FilePath = "Tilesets\House\House_Cage_02"
+		
+		ChildAnimation = "ZoomOutSparkleEmitter"
+	}
+
+	{
+		Name = "EphyraTerrainPylonGate02"
+		FilePath = "Tilesets\Ephyra\Ephyra_Terrain_PylonGate_01"
+		Material = "Emissive"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		ColorFromOwner = "Ignore"
+	}
+
 ]}

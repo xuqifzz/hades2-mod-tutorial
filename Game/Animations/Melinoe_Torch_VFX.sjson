@@ -1061,6 +1061,7 @@
 		VisualFxIntervalMax = 0.01
 		VisualFxCap = 1
 		Sound = "/Leftovers/World Sounds/Caravan Interior/SteamAcidForage"
+		SoundManagerCap = 38
 	}
 
 	{
@@ -1290,6 +1291,7 @@
 		OriginY = 60
 		OverlayVfx = true
 		CreateAnimation = "ApolloDotsDirectional"
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -1757,6 +1759,7 @@
 		OffsetZ = 0
 		RandomOffsetX = 30
 		RandomOffsetY = 15
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -1858,6 +1861,7 @@
 		Name = "TorchSpecialParticleEmitter_Demeter"
 		InheritFrom = "TorchSpecialParticleEmitter"
 		FilePath = "Fx\Demeter\DemeterStaffBall\DemeterStaffBall"
+		Material = "Unlit"
 		NumFrames = 50
 		Scale = 0.75
 		Loop = true
@@ -2036,9 +2040,9 @@
 		LocationFromOwner = "Ignore"
 		ScaleMin = 0.9
 		ScaleMax = 1.0
-		EaseIn = 0.9
+		EaseIn = 0.99
 		EaseOut = 1.0
-		OffsetZ = 30
+		OffsetZ = 0
 		GroupName = "FX_Standing_Add"
 		OriginX = 230
 		OriginY = 80
@@ -2058,6 +2062,8 @@
 		CreateAnimation = "DemeterIceCloudRadial"
 		StartScaleY = 0.25
 		EndScaleY = 1.0
+		StartScale = 0
+		EndScale = 1
 	}
 
 	{
@@ -2825,6 +2831,7 @@
 		OffsetZ = 0
 		ScaleMin = 0.8
 		ScaleMax = 1.0
+		ScaleFromOwner = "Ignore"
 		RandomFlipVertical = true
 		RandomFlipHorizontal = true
 	}
@@ -3308,6 +3315,7 @@
 		RandomOffsetY = 15
 		ScaleMin = 0.4
 		ScaleMax = 0.8
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -4721,6 +4729,509 @@
 	}
 
 
+	// Hephaestus x Torch Weapon
+
+	{
+		Name = "TorchProjectileLarge_Hephaestus"
+		InheritFrom = "TorchProjectileLarge"
+		ChildAnimation = "TorchProjectileGhostParticleEmitter_Hephaestus"
+		VisualFx = "TorchProjectileLargeTrail_Hephaestus"
+		Hue = 0.15
+		Saturation = -0.4
+		Value = -0.1
+		CreateAnimation = "TorchProjectileHephaestusGlow"
+		Sound = "/SFX/Player Sounds/HephaestusLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchProjectileSmall_Hephaestus"
+		InheritFrom = "TorchProjectileLarge_Hephaestus"
+		FilePath = "Fx\TorchProjectileSmall\TorchProjectileSmall"
+		VisualFx = "TorchProjectileSmallTrail_Hephaestus"
+	}
+
+	{
+		Name = "TorchProjectileHephaestusGlow"
+		FilePath = "Particles\particle_glow"
+        Red = 1
+        Green = 0
+        Blue = 0
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		StartScale = 0.7
+		EndScale = 1.0
+		StartScaleX = 0.99
+		EndScaleX = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Alpha = 0.2
+		PingPongColor = true
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		Scale = 0.6
+		OffsetZ = 40
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "TorchProjectileSmallIn_Hephaestus"
+		InheritFrom = "TorchProjectileSmall_Hephaestus"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileSmall_Hephaestus"
+	}
+
+	{
+		Name = "TorchProjectileLargeIn_Hephaestus"
+		InheritFrom = "TorchProjectileLarge_Hephaestus"
+		StartAlpha = 0
+		EndAlpha = 1
+		Loop = false
+		RandomDurationMin = 0.20
+		RandomDurationMax = 0.25
+		EndOffsetZ = 1
+		ChainTo = "TorchProjectileLarge_Hephaestus"
+	}
+
+	{
+		Name = "TorchProjectileSmallTrail_Hephaestus"
+		InheritFrom = "TorchProjectileSmallTrail"
+		Hue = 0
+		Saturation = 0
+		Red = 0.5
+		Green = 0.7
+		Blue = 1
+		Value = 0
+	}
+
+	{
+		Name = "TorchProjectileLargeTrail_Hephaestus"
+		InheritFrom = "TorchProjectileSmallTrail_Hephaestus"
+		FilePath = "Fx\TorchProjectileLargeBlur\TorchProjectileLargeBlur"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleEmitter_Hephaestus"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "TorchProjectileGhostParticles_Hephaestus"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		// CreateAnimation = "TorchProjectileGhostParticles_Hephaestus"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticles_Hephaestus"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Hephaestus" }
+			{ Name = "TorchProjectileGhostParticleB_Hephaestus" }
+			{ Name = "TorchProjectileGhostParticleC_Hephaestus" }
+		]
+	}	
+	{
+		Name = "TorchProjectileGhostParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		GroupName = "FX_Dark"
+		NumFrames = 38
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		RandomStartFrame = true
+		RandomFlipHorizontal = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		EaseIn = 0.99
+		EaseOut = 1
+		AngleMin = -10
+		AngleMax = 10
+		AngleFromOwner = "Take"
+		VelocityMin = 150
+		VelocityMax = 200
+		Acceleration = -400
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 30
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		IsometricSkew = "X"
+		Scale = 1.3
+		ScaleFromOwner = "Ignore"
+		// CreateAnimation = "TorchProjectileGhostParticlesFlat_Hephaestus"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Hephaestus"
+		InheritFrom = "TorchProjectileGhostParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleC_Hephaestus"
+		InheritFrom = "TorchProjectileGhostParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticlesFlat_Hephaestus"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleFlatA_Hephaestus" }
+			{ Name = "TorchProjectileGhostParticleFlatB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleFlatA_Hephaestus"
+		InheritFrom = "TorchProjectileGhostParticleA_Hephaestus"
+		IsometricSkew = "None"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileA\HephDirectionalProjectileA"
+		NumFrames = 37
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		CreateAnimation = null
+		Gravity = 0
+		RandomOffsetX = 5
+		RandomOffsetY = 5
+		OffsetZ = 30
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleX = 0.9
+		AngleMin = -2
+		AngleMax = 2
+	}	
+	{
+		Name = "TorchProjectileGhostParticleFlatB_Hephaestus"
+		InheritFrom = "TorchProjectileGhostParticleFlatA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileB\HephDirectionalProjectileB"
+	}
+
+	{ 
+		Name = "TorchProjectileShadow_Hephaestus"
+		InheritFrom = "TorchProjectileShadow"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileShadowLarge_Hephaestus"
+		InheritFrom = "TorchProjectileShadowLarge"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+	}
+
+	{
+		Name = "TorchProjectileDissipate_Hephaestus"
+		InheritFrom = "TorchProjectileDissipate"
+		VisualFx = "TorchProjectileDissipateSmokeA_Hephaestus"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0	
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeA_Hephaestus"
+		InheritFrom = "TorchProjectileDissipateSmokeA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "TorchProjectileDissipateSmokeB_Hephaestus" }
+			{ Name = "TorchProjectileDissipateSmokeC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileDissipateSmokeB_Hephaestus"
+		InheritFrom = "TorchProjectileDissipateSmokeB"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}		
+
+	{
+		Name = "TorchProjectileDissipateSmokeC_Hephaestus"
+		InheritFrom = "TorchProjectileDissipateSmokeC"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	// Hephaestus x Torch Special
+
+	{
+		Name = "TorchSpecialProjectile_Hephaestus"
+		InheritFrom = "TorchSpecialProjectile"
+		Hue = 0.0
+		Value = 0
+		Saturation = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		VisualFx = "TorchSpecialProjectileTrail_Hephaestus"
+		ChildAnimation = "TorchSpecialParticleEmitter_Hephaestus"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleEmitter_Hephaestus"
+		InheritFrom = "TorchSpecialParticleEmitter"
+		FilePath = "Fx\Hephaestus\HephStaffBall\HephStaffBall"
+		NumFrames = 50
+		PlaySpeed = 60
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.0
+		VisualFx = "TorchSpecialParticles_Hephaestus"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 150
+		Material = "Default"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "TorchSpecialProjectileIn_Hephaestus"
+		InheritFrom = "TorchSpecialProjectile_Hephaestus"
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		TransferFrameFromThis = true
+		Duration = 0.25
+		Loop = false
+		LoopFramesOnly = true
+		Sound = null
+		AddColor = true
+		ClearCreateAnimations = true
+		ChainTo = "TorchSpecialProjectile_Hephaestus"
+		CreateAnimations =
+		[
+			{ Name = "TorchSpecialProjectileInFlare_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileInFlare_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileInFlare"
+		Hue = 0.5
+		Saturation = -0.5
+	}
+
+	{
+		Name = "TorchSpecialProjectileGlow_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileGlow"
+		Scale = 1.1
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+        SortMode = "FromParent"
+        SortFromOwner = "Maintain"
+		Alpha = 0.2
+		StartAlpha = 0
+		EndAlpha = 1
+		HoldLastFrame = true
+	}		
+
+	{
+		Name = "TorchSpecialProjectileGroundGlow_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileGroundGlow"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+		VisualFx = "TorchSpecialProjectileTrailDark_Hephaestus"
+		Sound = "/SFX/Player Sounds/HephaestusLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "TorchSpecialProjectileDissipate_Hephaestus"
+		InheritFrom = "TorchSpecialParticleEmitter_Hephaestus"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrail_Hephaestus"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailA_Hephaestus" }
+			{ Name = "TorchSpecialProjectileTrailB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailA_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileTrailA"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileA\HephDirectionalProjectileA"
+		NumFrames = 37
+		AddColor = false
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Material = "Unlit"
+		FlipHorizontal = true
+		Acceleration = -2400
+		Gravity = 0
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		RandomFlipVertical = true
+		CreateAnimation = null
+        StartRed = 1
+        StartGreen = 1
+        StartBlue = 1
+        EndRed = 0.999
+        EndGreen = 0.99
+        EndBlue = 0.999
+        AngleMin = -1
+        AngleMax = 1
+        OriginX = 200
+        OriginY = 96
+        StartScaleY = 2
+        EndScaleY = 0
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailB_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileTrailA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileB\HephDirectionalProjectileB"
+	}
+
+
+	{
+		Name = "TorchSpecialProjectileTrailDark_Hephaestus"
+		Random =
+		[
+			{ Name = "TorchSpecialProjectileTrailDarkA_Hephaestus" }
+			{ Name = "TorchSpecialProjectileTrailDarkB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkA_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA"
+		AddColor = false
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "TorchSpecialProjectileTrailDarkB_Hephaestus"
+		InheritFrom = "TorchSpecialProjectileTrailDarkA_Hephaestus"
+		FilePath = "Fx\TorchSpecialTrailB\TorchSpecialTrailB"
+	}
+
+
+	{
+		Name = "TorchSpecialParticles_Hephaestus"
+		Random =
+		[
+			{ Name = "TorchSpecialParticleA_Hephaestus" }
+			{ Name = "TorchSpecialParticleB_Hephaestus" }
+			{ Name = "TorchSpecialParticleC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "TorchSpecialParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		IsometricSkew = "Y"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 0.9
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 0
+		OverlayVfx = true
+		VelocityMin = 200
+		VelocityMax = 300
+		Acceleration = -300
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		AngleMin = -30
+		AngleMax = 30
+		NumFrames = 38
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "TorchSpecialParticleB_Hephaestus"
+		InheritFrom = "TorchSpecialParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "TorchSpecialParticleC_Hephaestus"
+		InheritFrom = "TorchSpecialParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+
 	// Aspects
 
 	{
@@ -5009,152 +5520,1110 @@
 		FilePath = "Fx\WeaponAspects\Eos\EosFlameTrailB\EosFlameTrailB"
 	}
 
+	// Aspect of Eos
 
 	{
-		Name = "SupayTorchFlameLeft"
-		FilePath = "Fx\WeaponAspects\Supay\SupayTorchFlame\SupayTorchFlame"
-		NumFrames = 60
-		Material = "Unlit"
-		PlaySpeed = 30
-		RandomStartFrame = true
-		ReRandomizeOnLoop = false
-		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
-		GrannyDrawBehindMarkerLocation = "Melinoe_Rig:root_00_M_JNT"
-		ChildAnimation = null
-		UseAttachedFlasher = true
+		Name = "EosProjectile_Base"
+		FilePath = "Fx\WeaponAspects\Eos\EosProjectileBacking\EosProjectileBacking"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
-		Scale = 0.66
-		SortMode = "FromParent"
+		Duration = 1
 		Loop = true
-		DieWithOwner = true
-		CreateAnimation = "SupayFlameGlowL"
-		VisualFx = "SupayFlameTrail"
-		VisualFxIntervalMin = 0.20
-		VisualFxIntervalMax = 0.21
-		OffsetZ = 23
-	}
-
-	{
-		Name = "SupayTorchFlameRight"
-		InheritFrom = "SupayTorchFlameLeft"
-		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
-		ChildAnimation = null
-		CreateAnimation = "SupayFlameGlowR"
-		Sound = "/SFX/Player Sounds/MelTorchAmbience"
-		StopSoundOnFinishFade = 0.2
-		FlipHorizontal = true
-	}
-
-	{
-		Name = "SupayFlameGlowL"
-		FilePath = "Particles\particle_glow"
+		ChildAnimation = "EosProjectileCoreTint_Base"
 		Material = "Unlit"
+		DieWithOwner = true
+		VisualFx = "EosProjectileShineStreaks"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		Scale = 1.0
+	}
+
+	{
+		Name = "EosProjectileShineStreaks"
+		FilePath = "Particles\particle_keytarShine"
+		AngleMin = 0
+		AngleMax = 180
+		AngleFromOwner = "Ignore"
 		GroupName = "FX_Standing_Add"
-		StartAlpha = 0.125
-		EndAlpha = 0.25
 		PingPongColor = true
+		RandomDurationMin = 1
+		RandomDurationMax = 3
+		StartAlpha = 0
+		EndAlpha = 1
 		EaseIn = 0
 		EaseOut = 1
-		Scale = 0.66
-		ScaleY = 0.66
-		RandomDurationMin = 1
-		RandomDurationMax = 2
-		Loop = true
+		AlphaMin = 0.2
+		AlphaMax = 0.6
+		StartScaleX = 2
+		EndScaleX = 3
+		ScaleMin = 0.1
+		ScaleMax = 0.7
+		OriginX = -20
+		OriginY = 90
+		Saturation = -1
+		ScaleY = 0.2
+		LocationZFromOwner = "Take"
 		DieWithOwner = true
-		GrannyAttachedMarkerLocation = "WeaponHecateL_Rig:flame01_C_joint"
-		SortMode = "FromParent"
-		UseAttachedFlasher = false
-		OffsetY = -5
-		OffsetZ = 27
-		Red = 1
-		Green = 0.7
-		Blue = 0.1
+		PostRotateScaleY = 0.5
 	}
 
 	{
-		Name = "SupayFlameGlowR"
-		InheritFrom = "SupayFlameGlowL"
-		GrannyAttachedMarkerLocation = "WeaponHecateR_Rig:flame01_C_joint"
-	}
-
-
-	{
-		Name = "SupayFlameTrail"
-		Random =
-		[
-			{ Name = "SupayFlameTrailA" }
-			{ Name = "SupayFlameTrailB" }
-			{ Name = "SupayFlameTrailC" }
-			{ Name = "SupayFlameTrailA" }
-			{ Name = "SupayFlameTrailB" }
-			{ Name = "SupayFlameTrailC" }
-			{ Name = "SupayFlameTrailA_Dark" }
-			{ Name = "SupayFlameTrailB_Dark" }
-			{ Name = "SupayFlameTrailC_Dark" }
-		]
-	}
-
-	{
-		Name = "SupayFlameTrailA"			
-		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailA\SupayFlameTrailA"
-		Material = "Unlit"
-		StartFrame = 10
-		NumFrames = 50
-		RandomFlipVertical = true
-		RandomFlipHorizontal = true
-		RandomPlaySpeedMin = 30
-		RandomPlaySpeedMax = 60
-		UseAttachedFlasher = false
-		ScaleMin = 0.9
-		ScaleMax = 1.0
-		LocationFromOwner = "Ignore"
-		GroupName = "Standing"
-		VelocityMin = 50
-		VelocityMax = 100
-		SortMode = "FromParent"
-		DrawBehindOwner = true
-		RandomOffsetX = 10
-		EaseIn = 0.5
-		EaseOut = 1.0
+		Name = "EosProjectileCoreTint_Base"
+		FilePath = "Fx\WeaponAspects\Eos\EosProjectileCoreTintable\EosProjectileCoreTintable"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
-		StartScale = 1.5
-		EndScale = 2.2
-		AngleFromOwner = "Take"
-		StartOffsetZ = 0
-		EndOffsetZ = 66
-		Acceleration = -400
-		OwnerVelocityFraction = 0.6
+		AddColor = true
+		ChildAnimation = "EosProjectileCore_Base"
+		Material = "Unlit"
+		Red=1.000 Green=0.906 Blue=0.690
+		DieWithOwner = true
+		Scale = 1.0
 	}
 
 	{
-		Name = "SupayFlameTrailB"
-		InheritFrom = "SupayFlameTrailA"
-		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailB\SupayFlameTrailB"
+		Name = "EosProjectileCore_Base"
+		FilePath = "Fx\WeaponAspects\Eos\EosProjectileCore\EosProjectileCore"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		Material = "Unlit"
+		ChildAnimation = "EosProjectileClouds_Base"
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.0
 	}
+
 	{
-		Name = "SupayFlameTrailC"
-		InheritFrom = "SupayFlameTrailA"
-		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailC\SupayFlameTrailC"
+		Name = "EosProjectileClouds_Base"
+		FilePath = "Fx\WeaponAspects\Eos\EosProjectileClouds\EosProjectileClouds"
+		NumFrames = 60
+		PlaySpeed = 30
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		Material = "Unlit"
+		ChildAnimation = null
+		Red=1.000 Green=0.671 Blue=0.494
+		DieWithOwner = true
 	}
+
 	{
-		Name = "SupayFlameTrailA_Dark"
-		InheritFrom = "SupayFlameTrailA"
+		Name = "EosProjectileCloudsDark"
+		InheritFrom = "EosProjectileClouds_Base"
 		Red = 0
 		Green = 0
 		Blue = 0
 		GroupName = "FX_Dark"
+		Scale = 1.05
+		DieWithOwner = true
+		CreateAnimation = null
+		OffsetZ = -2
 	}
+
 	{
-		Name = "SupayFlameTrailB_Dark"
-		InheritFrom = "SupayFlameTrailA_Dark"
-		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailB\SupayFlameTrailB"
+		Name = "EosProjectileShadow"
+		InheritFrom = "EosProjectileClouds_Base"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		AddColor = false
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		ChildAnimation = "EosProjectileShadowCore"
+	}
+
+	{
+		Name = "EosProjectileShadowCore"
+		InheritFrom = "EosProjectileShadow"
+		FilePath = "Fx\WeaponAspects\Eos\EosProjectileCore\EosProjectileCore"
+		Scale = 1.5
+		ChildAnimation = null
+	}
+
+	{
+		Name = "EosProjectileInDisplacement"
+		FilePath = "Fx\Blink\BlinkDisplacement"
+		Duration = 0.25
+		StartAlpha = 0.5
+		Scale = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		FlipVertical = true
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "EosProjectileInFlare"
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.4
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "EosProjectile_Base_In"
+		InheritFrom = "EosProjectile_Base"
+		ChainTo = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Base_In"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Loop = false
+		CreateAnimation = "EosProjectileInDisplacement"
+	}
+
+	{
+		Name = "EosProjectileCoreTint_Base_In"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Loop = false
+		LoopFramesOnly = true
+		ChildAnimation = "EosProjectileCore_Base_In"
+		ChainTo = "EosProjectileCoreTint_Base"
+		CreateAnimation = "EosProjectileCoreGlow_Base"
+	}
+
+	{
+		Name = "EosProjectileCore_Base_In"
+		InheritFrom = "EosProjectileCore_Base"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Loop = false
+		LoopFramesOnly = true
+		ChildAnimation = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileCore_Base"
+		CreateAnimation = "EosProjectileInFlare"
+	}	
+
+	{
+		Name = "EosProjectileClouds_Base_In"
+		InheritFrom = "EosProjectileClouds_Base"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = "EosProjectileClouds_Base"
+		CreateAnimation = "EosProjectileCloudsDark_In"
+	}
+
+	{
+		Name = "EosProjectileCloudsDark_In"
+		InheritFrom = "EosProjectileCloudsDark"
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		Duration = 0.33
+		Loop = false
+		LoopFramesOnly = true
+		ChainTo = "EosProjectileCloudsDark"
+	}
+
+	{
+		Name = "EosProjectileCoreGlow_Base"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.33
+		EaseIn = 0
+		EaseOut = 1
+		HoldLastFrame = true
+		Red = 1
+		Green = 0.6
+		Blue = 0.7
+		Scale = 3
+		Alpha = 0.2
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		DieWithOwner = true
+	}
+
+
+	// Eos x Aphrodite
+
+	{
+		Name = "EosProjectile_Aphrodite"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Aphrodite"
+		VisualFx = "EosProjectileShineStreaks_Aphrodite"
 	}	
 	{
-		Name = "SupayFlameTrailC_Dark"
-		InheritFrom = "SupayFlameTrailA_Dark"
-		FilePath = "Fx\WeaponAspects\Supay\SupayFlameTrailC\SupayFlameTrailC"
+		Name = "EosProjectileShineStreaks_Aphrodite"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=0.902 Green=0.506 Blue=0.733
 	}
+	{
+		Name = "EosProjectileCoreTint_Aphrodite"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Aphrodite"
+		Red=0.714 Green=0.251 Blue=0.635
+	}
+	{
+		Name = "EosProjectileCore_Aphrodite"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Aphrodite"
+	}
+	{
+		Name = "EosProjectileClouds_Aphrodite"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.902 Green=0.506 Blue=0.733
+	}
+	{
+		Name = "EosProjectileCoreGlow_Aphrodite"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=0.714 Green=0.251 Blue=0.635
+		VisualFx = "TorchProjectileGhostParticles_Aphrodite_Eos"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.21
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticles_Aphrodite_Eos"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Aphrodite_Eos" }
+			{ Name = "TorchProjectileGhostParticleA_Aphrodite_Eos" }
+			{ Name = "TorchProjectileGhostParticleB_Aphrodite_Eos" }
+			{ Name = "TorchProjectileGhostParticleC_Aphrodite_Eos" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Aphrodite_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Aphrodite"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		VelocityMin = 1
+		VelocityMax = 2
+		RandomOffsetX = 90
+		RandomOffsetY = 45
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Aphrodite_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Aphrodite_Eos"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleA\AphroditeFlowerParticleA"
+		NumFrames = 39
+		CreateAnimation = "TorchProjectileGhostAphroditeSparkle_Eos"
+		RandomRotation = true
+		RandomRotationSpeedMin = -120
+		RandomRotationSpeedMax = 120
+		Acceleration = -1200
+		RandomPlaySpeedMax = 40
+	}		
+	{
+		Name = "TorchProjectileGhostParticleC_Aphrodite_Eos"
+		InheritFrom = "TorchProjectileGhostParticleB_Aphrodite_Eos"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleB\AphroditeFlowerParticleB"
+	}
+
+
+	{
+		Name = "TorchProjectileGhostAphroditeSparkle_Eos"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		RandomDurationMin = 0.9
+		RandomDurationMax = 1.2
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 1.5
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		AngleMin = -10
+		AngleMax = 10
+		OffsetZ = 30
+		OverlayVfx = true
+		GroupName = "FX_Standing_Add"
+		VelocityMin = 2
+		VelocityMax = 3
+		Acceleration = -100
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}		
+	{
+		Name = "EosProjectile_Aphrodite_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Aphrodite"
+		ChildAnimation = "EosProjectileCoreTint_Aphrodite_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Aphrodite_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Aphrodite_In"
+		ChainTo = "EosProjectileCoreTint_Aphrodite"
+		CreateAnimation = "EosProjectileCoreGlow_Aphrodite"
+		Red=0.714 Green=0.251 Blue=0.635
+	}
+	{
+		Name = "EosProjectileCore_Aphrodite_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Aphrodite_In"
+		ChainTo = "EosProjectileCore_Aphrodite"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Aphrodite_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Aphrodite"
+		Red=0.902 Green=0.506 Blue=0.733
+	}
+
+
+	// Eos x Apollo
+
+	{
+		Name = "EosProjectile_Apollo"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Apollo"
+		VisualFx = "EosProjectileShineStreaks_Apollo"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Apollo"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=1.000 Green=0.882 Blue=0.616
+	}
+	{
+		Name = "EosProjectileCoreTint_Apollo"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Apollo"
+		Red=1.000 Green=0.714 Blue=0.102
+	}
+	{
+		Name = "EosProjectileCore_Apollo"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Apollo"
+	}
+	{
+		Name = "EosProjectileClouds_Apollo"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=1.000 Green=0.882 Blue=0.616
+	}
+	{
+		Name = "EosProjectileCoreGlow_Apollo"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=1.000 Green=0.714 Blue=0.102
+		VisualFx = "TorchProjectileGhostParticles_Apollo_Eos"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.21
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticles_Apollo_Eos"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Apollo_Eos" }
+			{ Name = "TorchProjectileGhostParticleB_Apollo_Eos" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Apollo_Eos"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalA\ApolloSwirlDirectionalA"
+		NumFrames = 24
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 1.1
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OffsetZ = 30
+		GroupName = "FX_Standing_Add"
+		OriginX = 200
+		OriginY = 60
+		OverlayVfx = true
+		CreateAnimation = "ApolloDotsDirectional"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Apollo_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Apollo_Eos"
+		FilePath = "Fx\Apollo\ApolloSwirlDirectionalB\ApolloSwirlDirectionalB"
+	}
+
+	{
+		Name = "EosProjectile_Apollo_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Apollo"
+		ChildAnimation = "EosProjectileCoreTint_Apollo_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Apollo_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Apollo_In"
+		ChainTo = "EosProjectileCoreTint_Apollo"
+		CreateAnimation = "EosProjectileCoreGlow_Apollo"
+		Red=1.000 Green=0.714 Blue=0.102
+	}
+	{
+		Name = "EosProjectileCore_Apollo_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Apollo_In"
+		ChainTo = "EosProjectileCore_Apollo"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Apollo_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Apollo"
+		Red=1.000 Green=0.882 Blue=0.616
+	}
+
+
+	// Eos x Demeter
+
+	{
+		Name = "EosProjectile_Demeter"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Demeter"
+		VisualFx = "EosProjectileShineStreaks_Demeter"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Demeter"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=0.408 Green=0.404 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCoreTint_Demeter"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Demeter"
+		Red=0.408 Green=0.404 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCore_Demeter"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Demeter"
+	}
+	{
+		Name = "EosProjectileClouds_Demeter"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.533 Green=0.561 Blue=0.800
+	}
+	{
+		Name = "EosProjectileCoreGlow_Demeter"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=0.408 Green=0.404 Blue=1.000
+		VisualFx = "TorchProjectileGhostParticles_Demeter"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+	{
+		Name = "EosProjectile_Demeter_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Demeter"
+		ChildAnimation = "EosProjectileCoreTint_Demeter_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Demeter_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Demeter_In"
+		ChainTo = "EosProjectileCoreTint_Demeter"
+		CreateAnimation = "EosProjectileCoreGlow_Demeter"
+		Red=0.408 Green=0.404 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCore_Demeter_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Demeter_In"
+		ChainTo = "EosProjectileCore_Demeter"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Demeter_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Demeter"
+		Red=0.533 Green=0.561 Blue=0.800
+	}
+
+	// Eos x Hephaestus
+
+	{
+		Name = "EosProjectile_Hephaestus"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Hephaestus"
+		VisualFx = "EosProjectileShineStreaks_Hephaestus"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Hephaestus"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=0.106 Green=0.114 Blue=0.141
+	}
+	{
+		Name = "EosProjectileCoreTint_Hephaestus"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Hephaestus"
+		Red=0.106 Green=0.114 Blue=0.141
+	}
+	{
+		Name = "EosProjectileCore_Hephaestus"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Hephaestus"
+	}
+	{
+		Name = "EosProjectileClouds_Hephaestus"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.522 Green=0.545 Blue=0.643
+	}
+	{
+		Name = "EosProjectileCoreGlow_Hephaestus"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=0.106 Green=0.114 Blue=0.141
+		VisualFx = "TorchProjectileGhostParticles_Hephaestus"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+	{
+		Name = "EosProjectile_Hephaestus_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Hephaestus"
+		ChildAnimation = "EosProjectileCoreTint_Hephaestus_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Hephaestus_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Hephaestus_In"
+		ChainTo = "EosProjectileCoreTint_Hephaestus"
+		CreateAnimation = "EosProjectileCoreGlow_Hephaestus"
+		Red=0.106 Green=0.114 Blue=0.141
+	}
+	{
+		Name = "EosProjectileCore_Hephaestus_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Hephaestus_In"
+		ChainTo = "EosProjectileCore_Hephaestus"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Hephaestus_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Hephaestus"
+		Red=0.522 Green=0.545 Blue=0.643
+	}
+
+
+	// Eos x Hera
+
+	{
+		Name = "EosProjectile_Hera"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Hera"
+		VisualFx = "EosProjectileShineStreaks_Hera"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Hera"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=0.059 Green=0.376 Blue=0.729
+	}
+	{
+		Name = "EosProjectileCoreTint_Hera"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Hera"
+		Red=0.059 Green=0.376 Blue=0.729
+	}
+	{
+		Name = "EosProjectileCore_Hera"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Hera"
+	}
+	{
+		Name = "EosProjectileClouds_Hera"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.067 Green=0.655 Blue=0.471
+	}
+	{
+		Name = "EosProjectileCoreGlow_Hera"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=0.059 Green=0.376 Blue=0.729
+		VisualFx = "TorchProjectileGhostParticles_Hera"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+	{
+		Name = "EosProjectile_Hera_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Hera"
+		ChildAnimation = "EosProjectileCoreTint_Hera_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Hera_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Hera_In"
+		ChainTo = "EosProjectileCoreTint_Hera"
+		CreateAnimation = "EosProjectileCoreGlow_Hera"
+		Red=0.059 Green=0.376 Blue=0.729
+	}
+	{
+		Name = "EosProjectileCore_Hera_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Hera_In"
+		ChainTo = "EosProjectileCore_Hera"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Hera_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Hera"
+		Red=0.067 Green=0.655 Blue=0.471
+	}
+
+
+	// Eos x Hestia
+
+	{
+		Name = "EosProjectile_Hestia"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Hestia"
+		VisualFx = "EosProjectileShineStreaks_Hestia"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Hestia"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=1.000 Green=0.259 Blue=0.000
+	}
+	{
+		Name = "EosProjectileCoreTint_Hestia"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Hestia"
+		Red=0.950 Green=0.259 Blue=0.000
+		Value = -0.15
+	}
+	{
+		Name = "EosProjectileCore_Hestia"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Hestia"
+		Red=1 Green=0.85 Blue=0.2
+	}
+	{
+		Name = "EosProjectileClouds_Hestia"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=1.000 Green=0.396 Blue=0.05
+		Value = -0.2
+	}
+	{
+		Name = "EosProjectileCoreGlow_Hestia"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=1.000 Green=0.259 Blue=0.000
+		Alpha = 0.25
+		VisualFx = "TorchProjectileGhostParticles_Hestia_Eos"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticles_Hestia_Eos"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Hestia_Eos" }
+			{ Name = "TorchProjectileGhostParticleB_Hestia_Eos" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleA_Hestia_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Hestia"
+		FilePath = "Fx\Hestia\HestiaCoalDebris\HestiaCoalDebris"
+		VelocityMin = 3
+		VelocityMax = 6
+		Acceleration = -8
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Hestia_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Hestia_Eos"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 10
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		EaseIn = 0.99
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		StartScaleX = 1
+		EndScaleX = 0.33
+		VelocityMin = 600
+		VelocityMax = 1200
+		Acceleration = -4800
+		AngleMin = 0
+		AngleMax = 360
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0.1
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.4
+		EndBlue = 0
+		AngleChangeSpeedMin = -720
+		AngleChangeSpeedMax = 720
+		//CreateAnimation = "TorchProjectileGhostHestiaFlame_Eos"
+	}
+
+	{
+		Name = "TorchProjectileGhostHestiaFlame_Eos"
+		Random =
+		[	
+			{ Name = "TorchProjectileGhostHestiaFlameA_Eos" }
+			{ Name = "TorchProjectileGhostHestiaFlameB_Eos" }
+			{ Name = "TorchProjectileGhostHestiaFlameC_Eos" }
+		]
+	}
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameA_Eos"
+		InheritFrom = "TorchProjectileGhostHestiaFlameA"
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		VelocityMin = 20
+		VelocityMax = 30
+		Acceleration = -100
+	}		
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameB_Eos"
+		InheritFrom = "TorchProjectileGhostHestiaFlameA_Eos"
+		FilePath = "Fx\Hestia\HestiaFlameB\HestiaFlameB"
+	}		
+
+	{
+		Name = "TorchProjectileGhostHestiaFlameC_Eos"
+		InheritFrom = "TorchProjectileGhostHestiaFlameA_Eos"
+		FilePath = "Fx\Hestia\HestiaFlameC\HestiaFlameC"
+	}
+	{
+		Name = "EosProjectile_Hestia_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Hestia"
+		ChildAnimation = "EosProjectileCoreTint_Hestia_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Hestia_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Hestia_In"
+		ChainTo = "EosProjectileCoreTint_Hestia"
+		CreateAnimation = "EosProjectileCoreGlow_Hestia"
+		Red=0.950 Green=0.259 Blue=0.000
+		Value = -0.15
+	}
+	{
+		Name = "EosProjectileCore_Hestia_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Hestia_In"
+		ChainTo = "EosProjectileCore_Hestia"
+		CreateAnimation = "EosProjectileInFlare"
+		Red=1 Green=0.85 Blue=0.2
+	}
+	{
+		Name = "EosProjectileClouds_Hestia_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Hestia"
+		Red=1.000 Green=0.396 Blue=0.05
+		Value = -0.2		
+	}
+
+	// Eos x Poseidon
+
+	{
+		Name = "EosProjectile_Poseidon"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Poseidon"
+		VisualFx = "EosProjectileShineStreaks_Poseidon"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Poseidon"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=0.000 Green=0.588 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCoreTint_Poseidon"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Poseidon"
+		Red=0.000 Green=0.588 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCore_Poseidon"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Poseidon"
+	}
+	{
+		Name = "EosProjectileClouds_Poseidon"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.361 Green=0.878 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCoreGlow_Poseidon"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=0.000 Green=0.588 Blue=1.000
+		VisualFx = "TorchProjectileGhostParticles_Poseidon_Eos"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.21
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticles_Poseidon_Eos"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Poseidon_Eos" }
+			{ Name = "TorchProjectileGhostParticleB_Poseidon_Eos" }
+		]
+	}	
+	{
+		Name = "TorchProjectileGhostParticleA_Poseidon_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Poseidon"
+		IsometricSkew = "None"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		Gravity = 30
+		RandomStartFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		PingPongScale = false
+		EaseIn = 0.0
+		EaseOut = 1
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Take"
+		VelocityMin = 10
+		VelocityMax = 20
+		Acceleration = -40
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 0
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		ScaleMin = 0.5
+		ScaleMax = 0.7
+		StartScale = 0
+		EndScale = 1.0
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Poseidon_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Poseidon_Eos"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}		
+	{
+		Name = "EosProjectile_Poseidon_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Poseidon"
+		ChildAnimation = "EosProjectileCoreTint_Poseidon_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Poseidon_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Poseidon_In"
+		ChainTo = "EosProjectileCoreTint_Poseidon"
+		CreateAnimation = "EosProjectileCoreGlow_Poseidon"
+		Red=0.000 Green=0.588 Blue=1.000
+	}
+	{
+		Name = "EosProjectileCore_Poseidon_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Poseidon_In"
+		ChainTo = "EosProjectileCore_Poseidon"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Poseidon_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Poseidon"
+		Red=0.361 Green=0.878 Blue=1.000
+	}
+
+
+	// Eos x Zeus
+
+	{
+		Name = "EosProjectile_Zeus"
+		InheritFrom = "EosProjectile_Base"
+		ChildAnimation = "EosProjectileCoreTint_Zeus"
+		VisualFx = "EosProjectileShineStreaks_Zeus"
+	}	
+	{
+		Name = "EosProjectileShineStreaks_Zeus"
+		InheritFrom = "EosProjectileShineStreaks"
+		Red=1.000 Green=0.804 Blue=0.118
+	}
+	{
+		Name = "EosProjectileCoreTint_Zeus"
+		InheritFrom = "EosProjectileCoreTint_Base"
+		ChildAnimation = "EosProjectileCore_Zeus"
+		Red=1.000 Green=0.804 Blue=0.118
+	}
+	{
+		Name = "EosProjectileCore_Zeus"
+		InheritFrom = "EosProjectileCore_Base"
+		ChildAnimation = "EosProjectileClouds_Zeus"
+	}
+	{
+		Name = "EosProjectileClouds_Zeus"
+		InheritFrom = "EosProjectileClouds_Base"
+		Red=0.878 Green=0.855 Blue=0.388
+	}
+	{
+		Name = "EosProjectileCoreGlow_Zeus"
+		InheritFrom = "EosProjectileCoreGlow_Base"
+		Red=1.000 Green=0.804 Blue=0.118
+		VisualFx = "TorchProjectileGhostParticles_Zeus_Eos"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.11
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+
+	{
+		Name = "TorchProjectileGhostParticles_Zeus_Eos"
+		Random =
+		[
+			{ Name = "TorchProjectileGhostParticleA_Zeus_Eos" }
+			{ Name = "TorchProjectileGhostParticleB_Zeus_Eos" }
+			{ Name = "TorchProjectileGhostParticleC_Zeus_Eos" }
+			{ Name = "TorchProjectileGhostParticleD_Zeus_Eos" }
+		]
+	}	
+	{
+		Name = "TorchProjectileGhostParticleA_Zeus_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus"
+		AngleMin = 0
+		AngleMax = 360
+		AngleFromOwner = "Ignore"
+		VelocityMin = 30
+		VelocityMax = 40
+		Acceleration = -40
+		Material = "Unlit"
+		OverlayVfx = true
+		OffsetZ = 30
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		IsometricSkew = "None"
+		Scale = 1.3
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "TorchProjectileGhostParticleB_Zeus_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus_Eos"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleC_Zeus_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus_Eos"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}		
+
+	{
+		Name = "TorchProjectileGhostParticleD_Zeus_Eos"
+		InheritFrom = "TorchProjectileGhostParticleA_Zeus_Eos"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		AngleMin = 0
+		AngleMax = 360
+		Scale = 0.7
+		Acceleration = -1000
+		ScaleX = 1
+	}		
+
+	{
+		Name = "EosProjectile_Zeus_In"
+		InheritFrom = "EosProjectile_Base_In"
+		ChainTo = "EosProjectile_Zeus"
+		ChildAnimation = "EosProjectileCoreTint_Zeus_In"
+	}
+	{
+		Name = "EosProjectileCoreTint_Zeus_In"
+		InheritFrom = "EosProjectileCoreTint_Base_In"
+		ChildAnimation = "EosProjectileCore_Zeus_In"
+		ChainTo = "EosProjectileCoreTint_Zeus"
+		CreateAnimation = "EosProjectileCoreGlow_Zeus"
+		Red=1.000 Green=0.804 Blue=0.118
+	}
+	{
+		Name = "EosProjectileCore_Zeus_In"
+		InheritFrom = "EosProjectileCore_Base_In"
+		ChildAnimation = "EosProjectileClouds_Zeus_In"
+		ChainTo = "EosProjectileCore_Zeus"
+		CreateAnimation = "EosProjectileInFlare"
+	}
+	{
+		Name = "EosProjectileClouds_Zeus_In"
+		InheritFrom = "EosProjectileClouds_Base_In"
+		ChainTo = "EosProjectileClouds_Zeus"
+		Red=0.878 Green=0.855 Blue=0.388
+	}
+
 
 
 

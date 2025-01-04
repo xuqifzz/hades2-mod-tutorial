@@ -1,0 +1,316 @@
+{ Animations = [
+	{
+		Name = "CritterRaven"
+		GrannyModel = "CritterRaven_Mesh"
+	}
+	{
+		Name = "FamiliarRavenBaseAnimation"
+		GrannyModel = "RavenFamiliar_Mesh"
+		ExtraGrannyAnimations = [{ Name = "CritterRaven" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Idle"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Idle_C_00"
+		CancelOnOwnerMove = true
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 50
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Move_Start"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Move_Start_C_00"
+		ChainTo = "Familiar_Raven_Move"
+	}
+
+	{
+		Name = "Familiar_Raven_Move"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Move_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 15
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 48
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Move_Stop"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Move_Stop_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+	}
+
+	{
+		Name = "Familiar_Raven_Perch_Start"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Perch_Start_C_00"
+		ChainTo = "Familiar_Raven_Perched"
+		Frames =
+		[
+			{
+				Frame = 3
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 18
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Perched"
+		Random = [
+			{ Name = "Familiar_Raven_Perched_Idle" }
+			{ Name = "Familiar_Raven_Perched_Fidget1" }
+			{ Name = "Familiar_Raven_Perched_Fidget2" }
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Perched_Idle"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Perched_Idle_C_00"
+		ChainTo = "Familiar_Raven_Perched"
+	}
+
+	{
+		Name = "Familiar_Raven_Perched_Fidget1"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Perched_Fidget_C_00"
+		ChainTo = "Familiar_Raven_Perched"
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/SFX/Pecks"
+			}
+			{
+				Frame = 24
+				Sound = "/SFX/Pecks"
+			}
+			{
+				Frame = 48
+				Sound = "/SFX/Pecks"
+			}
+			{
+				Frame = 62
+				Sound = "/SFX/Pecks"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Raven_Perched_Fidget2"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Perched_Fidget_C_01"
+		ChainTo = "Familiar_Raven_Perched"
+	}
+
+	{
+		Name = "Familiar_Raven_Perch_End"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Perch_End_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_DropIn_Enter"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Spawn_Enter_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/Leftovers/World Sounds/TrainingMontageWhoosh"
+			}
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_DropIn_Exit"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Spawn_Exit_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 2
+				Sound = "/Leftovers/SFX/GeneralWhooshReverse"
+			}
+			{
+				Frame = 4
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 10
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_Victory"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Victory_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+		Frames =
+		[
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 52
+				Sound = "/Leftovers/SFX/GeneralWhooshReverse"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Raven_Victory_Perch"
+		InheritFrom = "Familiar_Raven_Victory"
+		ChainTo = "Familiar_Raven_Perch_Start"
+	}
+
+	{
+		Name = "Familiar_Raven_Mine"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Mine_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+		GrannyAnimationSpeed = 1.5
+	}
+
+	{
+		Name = "Familiar_Raven_Harass"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Harass_C_00"
+		ChainTo = "Familiar_Raven_Idle"
+		GrannyAnimationSpeed = 2.5
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Raven_DropIn_Enter_And_Perch"
+		InheritFrom = "Familiar_Raven_DropIn_Enter"
+		ChainTo = "Familiar_Raven_Perch_Start"
+	}
+
+	{
+		Name = "Familiar_Raven_Greet"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Greet_C_00"
+		ChainTo = "Familiar_Raven_Perched_Idle"
+	}
+	{
+		Name = "Familiar_Raven_Pet"
+		InheritFrom = "FamiliarRavenBaseAnimation"
+		GrannyAnimation = "Raven_Base_Pet_C_00"
+		ChainTo = "Familiar_Raven_Perched_Idle"
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Familiars/RavenSquawkNotThrilled"
+			}
+			{
+				Frame = 200
+				Sound = "/Leftovers/SFX/WingFlapSmallQUICKpitched"
+			}
+			{
+				Frame = 295
+				Sound = "/SFX/Familiars/RavenGentleSquawk"
+			}
+		]
+	}
+
+	// Shadow-less variants for critters
+	{
+		Name = "Familiar_Raven_Perched_NoShadows"
+		Random = [
+			{ Name = "Familiar_Raven_Perched_Idle_NoShadows" }
+			{ Name = "Familiar_Raven_Perched_Fidget1_NoShadows" }
+			{ Name = "Familiar_Raven_Perched_Fidget2_NoShadows" }
+		]
+	}
+	{
+		Name = "Familiar_Raven_Perched_Idle_NoShadows"
+		InheritFrom = "Familiar_Raven_Perched_Idle"
+		Enable3DShadow = false
+		ChainTo = "Familiar_Raven_Perched_NoShadows"
+	}
+	{
+		Name = "Familiar_Raven_Perched_Fidget1_NoShadows"
+		InheritFrom = "Familiar_Raven_Perched_Fidget1"
+		Enable3DShadow = false
+		ChainTo = "Familiar_Raven_Perched_NoShadows"
+	}
+	{
+		Name = "Familiar_Raven_Perched_Fidget2_NoShadows"
+		InheritFrom = "Familiar_Raven_Perched_Fidget2"
+		Enable3DShadow = false
+		ChainTo = "Familiar_Raven_Perched_NoShadows"
+	}
+
+]}

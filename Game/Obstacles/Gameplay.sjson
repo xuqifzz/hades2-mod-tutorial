@@ -188,6 +188,31 @@
 	}
 	
 	{
+		Name = "HealthFountainP"
+		InheritFrom = "HealthFountain"
+		DisplayInEditor = true
+		Thing = 
+		{
+      Graphic = "HealthFountainP_Full"
+      Tallness = 973
+        Offset = { X = 0 Y = -350 }
+        Points = [
+          { X = -401 Y = 34 }
+          { X = -327 Y = 101 }
+          { X = -165 Y = 171 }
+          { X = 41 Y = 182 }
+          { X = 224 Y = 137 }
+          { X = 356 Y = 59 }
+          { X = 361 Y = -70 }
+          { X = 287 Y = -175 }
+          { X = 10 Y = -213 }
+          { X = -206 Y = -191 }
+          { X = -363 Y = -101 }
+        ]
+      }
+	}
+	
+	{
 		Name = "HealthFountainAsphodel"
 		InheritFrom = "HealthFountain"
 		DisplayInEditor = true
@@ -348,17 +373,16 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "CostumeShopGraphic"
-			Tallness = 379
-			Scale = 0.2
-			Offset = { X = 0 Y = -184 }
-			Points =
-			[
-				{ X = -349 Y = 34 }
-				{ X = -108 Y = 149 }
-				{ X = 340 Y = -68 }
-				{ X = 112 Y = -179 }
-			]
-		}
+			Scale = 0.21
+			Tallness = 910
+        Offset = { X = 0 Y = -337 }
+        Points = [
+          { X = -339 Y = -14 }
+          { X = 135 Y = 209 }
+          { X = 324 Y = 121 }
+          { X = -132 Y = -112 }
+        ]
+      }
 	}
 			
 	{
@@ -857,60 +881,6 @@
 		}
 	}
 	{
-		Name = "MinorDodgeDrop"
-		InheritFrom = "BaseLoot"
-		DisplayInEditor = false
-		Thing = 
-		{
-			AttachedAnim = "LootShadowCerberusKey"
-			EditorOutlineDrawBounds = false
-			Graphic = "SackPickup"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	{
-		Name = "MinorDamageBoost"
-		InheritFrom = "BaseLoot"
-		DisplayInEditor = false
-		Thing = 
-		{
-			AttachedAnim = "LootShadowCerberusKey"
-			EditorOutlineDrawBounds = false
-			Graphic = "SackPickup"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	{
-		Name = "MinorEXDamageBoost"
-		InheritFrom = "BaseLoot"
-		DisplayInEditor = false
-		Thing = 
-		{
-			AttachedAnim = "MedusaShadow"
-			EditorOutlineDrawBounds = false
-			Graphic = "SackPickup"
-			Points =
-			[
-				{ X = 0 Y = 24 }
-				{ X = 48 Y = 0 }
-				{ X = 0 Y = -24 }
-				{ X = -48 Y = 0 }
-			]
-		}
-	}
-	{
 		Name = "ArmorBoost"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = false
@@ -931,6 +901,17 @@
 	{
 		Name = "ArmorBigBoost"
 		InheritFrom = "ArmorBoost"
+	}
+	{
+		Name = "ArmorBoostStore"
+		InheritFrom = "ArmorBoost"
+		Thing = 
+		{
+			Interact = 
+			{
+				AutoActivate = true
+			}
+		}
 	}
 	{
 		Name = "HitShieldDrop"
@@ -1095,6 +1076,7 @@
 	{
 		Name = "HealDropMajor"
 		InheritFrom = "HealDrop"
+		Magnetism = 0.0
 		Thing =
 		{
 			Interact =
@@ -1190,6 +1172,36 @@
 		}
 	}
 	{
+		Name = "ManaDropMinorHound"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Magnetism = 1.0
+		MagnetismWhileBlockedDistance = 9999.0
+		RequiresUsable = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "PoseidonManaDropletIn"
+			AttachedAnim = "PoseidonManaDropletShadow"
+			Scale = 1.5
+			StopsProjectiles = false
+			StopsUnits = false
+			Interact = 
+			{
+				AutoActivate = true
+				AutoUseFailedAnimation = "ConsumableCannotUse"
+				OffsetY = -60.0
+			}
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
 		Name = "ManaDropZeus"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
@@ -1206,6 +1218,35 @@
 			Interact = 
 			{
 				OffsetY = -60.0
+			}
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "PowerDrinkDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		MagnetismWhileBlockedDistance = 9999.0
+		RequiresUsable = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "PowerDrinkDrop"
+			AmbientSound = "/SFX/Player Sounds/DionysusHazeCloudSitarSteam"
+			AttachedAnim = "LootShadowBoon"
+			Scale = 1.0
+			StopsProjectiles = false
+			StopsUnits = false
+			Interact = 
+			{
+				OffsetY = -60.0
+				AutoActivate = true
 			}
 			Points =
 			[
@@ -1241,6 +1282,40 @@
 	
 	{
 		Name = "LastStandShopItem"
+		InheritFrom = "BaseBoonDrop"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "LimitedManaRegenDrop"
+		InheritFrom = "BaseBoonDrop"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	
+	{
+		Name = "LimitedSwapTraitDrop"
 		InheritFrom = "BaseBoonDrop"
 		DisplayInEditor = true
 		Thing = 
@@ -1341,6 +1416,15 @@
 				{ X = 0 Y = -24 }
 				{ X = -48 Y = 0 }
 			]
+		}
+	}
+
+	{
+		Name = "MetaCurrencyBigDrop"
+		InheritFrom = "MetaCurrencyDrop"
+		Thing =
+		{
+			Graphic = "MetaCurrencyBigDrop"
 		}
 	}
 	
@@ -1483,7 +1567,7 @@
 		InheritFrom = "MemPointsCommonDrop"
 		Thing =
 		{
-			Graphic = "MemPointsCommonBigDrop"			
+			Graphic = "MemPointsCommonBigDrop"
 		}
 	}
 	
@@ -1566,6 +1650,7 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "TrashPointsDrop"
+			CanBeOccluded = false
 			StopsLight = false
 			StopsUnits = false
 			OffsetZ = 0
@@ -1740,6 +1825,23 @@
 		{
 			EditorOutlineDrawBounds = false
 			Graphic = "MixerOBossDrop"
+			Points =
+			[
+				{ X = 0 Y = 24 }
+				{ X = 48 Y = 0 }
+				{ X = 0 Y = -24 }
+				{ X = -48 Y = 0 }
+			]
+		}
+	}
+	{
+		Name = "MixerPBossDrop"
+		InheritFrom = "BaseLoot"
+		DisplayInEditor = true
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "MixerPBossDrop"
 			Points =
 			[
 				{ X = 0 Y = 24 }
@@ -2177,6 +2279,7 @@
 		InheritFrom = "StackUpgrade"
 		Thing = 
 		{
+			UseBoundsForSortDrawArea = true
 			Graphic = "StackUpgradeTriple"
 		}
 	}
@@ -2238,7 +2341,7 @@
 	}
 	
 	{
-		Name = "HephaestusWeaponUpgrade"
+		Name = "SeleneWeaponUpgrade"
 		InheritFrom = "BaseLoot"
 		DisplayInEditor = true
 		Thing = 
@@ -2324,7 +2427,7 @@
 		Magnetism = 250.0
 		MagnetismSpeedMax = 2000.0
 		MagnetismSpeedMin = 1500.0
-		MagnetismWhileBlocked = 0.0
+		MagnetismWhileBlocked = 9999.0 
 		RequiresUsable = true
 		Thing = 
 		{
@@ -2651,28 +2754,15 @@
 	
 	{
 		Name = "FamiliarKit"
-		InheritFrom = "1_BaseGameplayLow"
+		InheritFrom = "InvisibleTarget"
 		DisplayInEditor = true
-		Thing = 
+		Thing =
 		{
-			Graphic = "Dev\InvisibleTarget"
-			Invisible = true
 			EditorOutlineDrawBounds = false
-			StopsProjectiles = false
-			StopsUnits = false
-			Tallness = 5
 			Interact =
 			{
 				Distance = 170
 			}
-			Offset = { X = 0 Y = 0 }
-			Points =
-			[
-				{ X = 0 Y = 16 }
-				{ X = 32 Y = 0 }
-				{ X = 0 Y = -16 }
-				{ X = -32 Y = 0 }
-			]
 		}
 	}
 

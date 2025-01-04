@@ -1,4 +1,6 @@
 function UseWeaponShop( usee, args )
+	Halt({ Id = CurrentRun.Hero.ObjectId })
+	EndRamWeapons({ Id = CurrentRun.Hero.ObjectId })
 	PlayInteractAnimation( usee.ObjectId )
 	UseableOff({ Id = usee.ObjectId })
 	StopStatusAnimation( usee )
@@ -10,6 +12,7 @@ end
 function OpenWeaponShopScreen( openedFrom, args )
 
 	args = args or {}
+	AddInputBlock({ Name = "OpenWeaponShopScreen" })
 	local screen = DeepCopyTable( ScreenData.WeaponShop )
 	screen.OpenedFrom = openedFrom
 
@@ -20,57 +23,99 @@ function OpenWeaponShopScreen( openedFrom, args )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 
-	screen.ActiveCategoryIndex = args.DefaultCategoryIndex or 1
+	screen.ActiveCategoryIndex = args.DefaultCategoryIndex or GetWeaponShopCategoryToOpen( screen )
 
 	local components = screen.Components
+	local tabsToReveal = nil
+	local tabsWithNewItems = nil
 
 	screen.NumCategories = 0
 
 	local categoryTitleX = screen.CategoryStartX
 	for categoryIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
+		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 			local slotName = category.Name
-			local categoryButton = CreateScreenComponent({ Name = "ButtonInventoryTab", X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay" })			
+			local categoryButton = CreateScreenComponent({
+				Name = "ButtonInventoryTab",
+				X = categoryTitleX,
+				Y = screen.CategoryStartY,
+				Group = "Combat_Menu_Overlay",
+				Alpha = 0.0
+			})
 			categoryButton.OnPressedFunctionName = "WeaponShopScreenSelectCategory"
 			categoryButton.Category = slotName
 			categoryButton.CategoryIndex = categoryIndex
 			screen.Components["Category"..slotName] = categoryButton
 
-			local categoryButtonIcon = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", Scale = screen.CategoryIconScale,
-					X = categoryTitleX + screen.CategoryIconOffsetX, Y = screen.CategoryStartY + screen.CategoryIconOffsetY })
+			local categoryButtonIcon = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = "Combat_Menu_Overlay",
+				Scale = screen.CategoryIconScale,
+				Alpha = 0.0,
+				X = categoryTitleX + screen.CategoryIconOffsetX,
+				Y = screen.CategoryStartY + screen.CategoryIconOffsetY
+			})
 			SetAnimation({ DestinationId = categoryButtonIcon.Id, Name = category.Icon })
+			categoryButton.IconId = categoryButtonIcon.Id
 			screen.Components["CategoryIcon"..slotName] = categoryButtonIcon
 
+			local shouldFadeIn = true
 			if categoryIndex ~= screen.ActiveCategoryIndex then
-				if not GameState.WorldUpgradesViewed[slotName]  then
-					WeaponShopRevealCategoryPresentation( screen, category, categoryButton )
+				if not GameState.WorldUpgradesRevealed[slotName] then
+					tabsToReveal = tabsToReveal or {}
+					table.insert( tabsToReveal, categoryButton )
+					shouldFadeIn = false
 				end
 				if HasUnviewedWorldUpgrade( category ) then
-					-- New icon
-					local newButtonKey = "NewIcon"..slotName
-					components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay" })
-					SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "NewTabStar" })
-					Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = screen.NewIconOffsetX, OffsetY = screen.NewIconOffsetY })
-				end				
+					tabsWithNewItems = tabsWithNewItems or {}
+					table.insert( tabsWithNewItems, categoryButton )
+				end
+			end
+
+			if shouldFadeIn then
+				SetAlpha({ Id = categoryButton.Id, Fraction = 1.0, Duration = 0.1 })
+				SetAlpha({ Id = categoryButtonIcon.Id, Fraction = 1.0, Duration = 0.1 })
 			end
 
 			screen.NumCategories = screen.NumCategories + 1
-			GameState.WorldUpgradesViewed[slotName] = true
+			GameState.WorldUpgradesRevealed[slotName] = true
 			categoryTitleX = categoryTitleX + screen.CategorySpacingX
 		else
 			category.Locked = true
 		end
 	end
 
+	if tabsToReveal ~= nil then
+		-- Tab reveals take a while, so display the active category title early
+		ModifyTextBox({ Id = components.CategoryTitleText.Id, Text = screen.ItemCategories[screen.ActiveCategoryIndex].Name })
+		for i, categoryButton in ipairs( tabsToReveal ) do
+			WeaponShopRevealCategoryPresentation( screen, screen.ItemCategories[categoryButton.Category], categoryButton )
+		end
+	end
+
+	if tabsWithNewItems ~= nil then
+		for i, categoryButton in ipairs( tabsWithNewItems ) do
+			local newButtonKey = "NewIcon"..categoryButton.Category
+			components[newButtonKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = "Combat_Menu_Overlay",
+				Animation = "NewTabStar",
+				Alpha = 0.0,
+				AlphaTarget = 1.0,
+				AlphaTargetDuration = 0.1,
+			})
+			Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = screen.NewIconOffsetX, OffsetY = screen.NewIconOffsetY })
+		end
+	end
+
 	WeaponShopScreenOpenedPresentation( screen, args )
-
-	local components = screen.Components
-
-	wait( 0.3 )
 
 	WeaponShopScreenDisplayCategory( screen, screen.ActiveCategoryIndex )
 	WeaponShopUpdateVisibility( screen )
 	UpdateWeaponShopInteractionText( screen )
+	wait( 0.02 )
+	ScreenResetCursorToStartLocation( screen )
+	RemoveInputBlock({ Name = "OpenWeaponShopScreen" })
 
 	thread( WeaponShopScreenOpenFinishedPresentation, screen )
 
@@ -104,7 +149,6 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 
 	-- Highlight new category
 	CreateAnimation({ DestinationId = screen.Components["Category"..slotName].Id, Name = "InventoryTabHighlightActiveCategory", Group = "Combat_Menu_TraitTray" })
-	--ModifyTextBox({ Id = components["Category"..slotName].Id, Color = Color.White })
 	ModifyTextBox({ Id = screen.Components.CategoryTitleText.Id, Text = category.Name })
 
 	screen.ActiveCategoryIndex = categoryIndex
@@ -119,9 +163,9 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 	for i, itemName in ipairs( screen.ItemCategories[screen.ActiveCategoryIndex] ) do
 		local itemData = WeaponShopItemData[itemName]
 		if not itemData.DebugOnly then
-			if itemData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, itemData, itemData.GameStateRequirements ) then
+			if itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) then
 				if GameState.WorldUpgradesAdded[itemName] then
-					if not itemData.HideAfterPurchased then
+					if not itemData.HideAfterPurchased and ( not itemData.HideIfItemAvailable or not IsGameStateEligible( WeaponShopItemData[itemData.HideIfItemAvailable], WeaponShopItemData[itemData.HideIfItemAvailable].GameStateRequirements ) ) then
 						table.insert( purchasedItems, itemData )
 					end
 				else
@@ -151,20 +195,34 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		screen.OfferedVoiceLines = screen.OfferedVoiceLines or item.OfferedVoiceLines
 
 		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = "Combat_Menu", X = itemLocationX, Y = itemLocationY, Animation = screen.ItemAvailableAnimation })
-		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+		components[purchaseButtonKey] = CreateScreenComponent({
+			Name = "BlankInteractableObstacle",
+			Group = "Combat_Menu",
+			X = itemLocationX,
+			Y = itemLocationY,
+			Animation = screen.ItemAvailableAnimation,
+			Alpha = 0.0,
+		})
 		local button = components[purchaseButtonKey]
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
 		button.Animation = screen.ItemAvailableAnimation
 		button.HighlightAnimation = screen.ItemAvailableHighlightAnimation
+		button.Screen = screen
 		screen.ItemButtons[button.Id] = button
 		AttachLua({ Id = button.Id, Table = button })
-		button.Screen = screen
 
-		if item.Icon ~= nil then
-			local iconKey = "Icon"..screen.NumItems
-			local iconData = TraitData[item.TraitUpgrade or item.Name] or item
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = iconData.IconScale or screen.IconScale, Group = screen.ComponentData.DefaultGroup })
-			SetAnimation({ DestinationId = components[iconKey].Id , Name = iconData.Icon })
+		local iconData = TraitData[item.TraitUpgrade or item.Name] or item
+		if iconData.Icon ~= nil then
+			local iconKey = "Icon"..screen.NumItems			
+			components[iconKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX,
+				Y = itemLocationY,
+				Scale = iconData.IconScale or screen.IconScale,
+				Animation = iconData.Icon,
+				Alpha = 0.0,
+			})
 		end
 
 		local format = screen.ItemAvailableAffordableNameFormat
@@ -229,7 +287,8 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		button.OnMouseOffFunctionName = "MouseOffWeaponShopItem"
 		button.OnPressedFunctionName = "HandleWeaponShopPurchase"
 		if not firstUseable then
-			TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
+			screen.CursorStartX = itemLocationX
+			screen.CursorStartY = itemLocationY
 			firstUseable = true
 		end
 
@@ -251,8 +310,12 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		-- New icon
 		if not GameState.WorldUpgradesViewed[item.Name] then
 			local newButtonKey = "NewIcon"..screen.NumItems
-			components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
-			SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "MusicPlayerNewTrack" })
+			components[newButtonKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = "Combat_Menu",
+				Animation = "MusicPlayerNewTrack",
+				Alpha = 0.0,
+			})
 			Attach({ Id = components[newButtonKey].Id, DestinationId = components[purchaseButtonKey].Id, OffsetX = 300, OffsetY = 0 })
 			components[purchaseButtonKey].NewButtonId = components[newButtonKey].Id
 		end
@@ -274,20 +337,34 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		end
 
 		local purchaseButtonKey = "PurchaseButton"..screen.NumItems
-		components[purchaseButtonKey] = CreateScreenComponent({ Name = "BlankInteractableObstacle", Group = "Combat_Menu", X = itemLocationX, Y = itemLocationY, Animation = animName })
-		SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
+		components[purchaseButtonKey] = CreateScreenComponent({
+			Name = "BlankInteractableObstacle",
+			Group = "Combat_Menu",
+			X = itemLocationX,
+			Y = itemLocationY,
+			Animation = animName,
+			Alpha = 0.0,
+		})
 		local button = components[purchaseButtonKey]
+		SetInteractProperty({ DestinationId = button.Id, Property = "FreeFormSelectOffsetX", Value = screen.FreeFormSelectOffsetX })
 		button.Animation = animName
 		button.HighlightAnimation = highlightAnimName
+		button.Screen = screen
 		screen.ItemButtons[button.Id] = button
 		AttachLua({ Id = button.Id, Table = button })
-		button.Screen = screen
 		
-		if item.Icon ~= nil then
+		local iconData = TraitData[item.TraitUpgrade or item.Name] or item
+		if iconData.Icon ~= nil then
 			local iconKey = "Icon"..screen.NumItems
-			local iconData = TraitData[item.TraitUpgrade or item.Name] or item
-			components[iconKey] = CreateScreenComponent({ Name = "BlankObstacle", X = itemLocationX, Y = itemLocationY, Scale = iconData.IconScale or screen.IconScale, Group = screen.ComponentData.DefaultGroup })
-			SetAnimation({ DestinationId = components[iconKey].Id , Name = iconData.Icon })
+			components[iconKey] = CreateScreenComponent({
+				Name = "BlankObstacle",
+				Group = screen.ComponentData.DefaultGroup,
+				X = itemLocationX,
+				Y = itemLocationY,
+				Scale = iconData.IconScale or screen.IconScale,
+				Animation = iconData.Icon,
+				Alpha = 0.0,
+			})
 		end
 
 		local displayName = item.RePurchaseName or item.HelpTextId or item.Name
@@ -343,7 +420,8 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		button.OnMouseOffFunctionName = "MouseOffWeaponShopItem"
 
 		if not firstUseable then
-			TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
+			screen.CursorStartX = itemLocationX
+			screen.CursorStartY = itemLocationY
 			firstUseable = true
 		end
 
@@ -355,6 +433,8 @@ function WeaponShopScreenDisplayCategory( screen, categoryIndex )
 		itemLocationY = itemLocationY + screen.ItemSpacingY
 
 	end
+
+	GameState.WorldUpgradesViewed[slotName] = true
 
 end
 
@@ -398,7 +478,7 @@ function HandleWeaponShopPurchase( screen, button )
 		return
 	end
 
-	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( CurrentRun, upgradeData.PurchaseRequirements ) then
+	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData.PurchaseRequirements ) then
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
@@ -448,9 +528,8 @@ function DoWeaponShopPurchase( screen, button )
 	end
 	SpendResources( itemData.Cost, button.Data.Name, { Silent = true } )
 
-	RequestPreRunLoadoutChangeSave()
-
 	if itemData.SkipAutoEquip then
+		RequestPreRunLoadoutChangeSave()
 		if traitData ~= nil and ( HeroHasTrait( traitData.Name ) or CurrentRun.Hero.Weapons[itemData.WeaponName] ) then
 			UnequipWeaponUpgrade()
 			EquipWeaponUpgrade( CurrentRun.Hero )
@@ -467,13 +546,16 @@ function DoWeaponShopPurchase( screen, button )
 	if weaponData ~= nil then
 		UnequipWeaponUpgrade()
 		EquipPlayerWeapon( weaponData, { SkipSound = true } )
-		EquipWeaponUpgrade( CurrentRun.Hero )
+		EquipWeaponUpgrade( CurrentRun.Hero, { SkipUIUpdate = true} )
 	end
 
 	local toolData = ToolData[itemData.ToolName or itemData.Name]
 	if toolData ~= nil then
 		UseToolKit( toolData, {}, CurrentRun.Hero )
 	end
+
+	RequestPreRunLoadoutChangeSave()
+
 	local weaponKit = CallFunctionName( itemData.OnActivateFunctionName, itemData, itemData.OnActivateFunctionArgs )
 	ActivateConditionalItem( itemData )
 	if weaponData ~= nil then
@@ -496,9 +578,10 @@ function WeaponShopScreenSelectCategory( screen, button )
 	WeaponShopScreenHideItems( screen )
 	wait( 0.1 )
 	screen.ScrollOffset = 0
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY) })
 	WeaponShopScreenDisplayCategory( screen, button.CategoryIndex )
 	WeaponShopUpdateVisibility( screen )
+	wait( 0.02 )
+	ScreenResetCursorToStartLocation( screen )
 	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
 end
 
@@ -521,9 +604,10 @@ function WeaponShopScreenNextCategory( screen, button )
 	WeaponShopScreenHideItems( screen )
 	wait( 0.1 )
 	screen.ScrollOffset = 0
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY) })
 	WeaponShopScreenDisplayCategory( screen, nextCategoryIndex )
 	WeaponShopUpdateVisibility( screen )
+	wait( 0.02 )
+	ScreenResetCursorToStartLocation( screen )
 	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
 end
 
@@ -546,9 +630,10 @@ function WeaponShopScreenPrevCategory( screen, button )
 	WeaponShopScreenHideItems( screen )
 	wait( 0.1 )
 	screen.ScrollOffset = 0
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY) })
 	WeaponShopScreenDisplayCategory( screen, nextCategoryIndex )
 	WeaponShopUpdateVisibility( screen )
+	wait( 0.02 )
+	ScreenResetCursorToStartLocation( screen )
 	RemoveInputBlock({ Name = "WeaponShopScreenSelectCategory" })
 end
 
@@ -611,9 +696,13 @@ function WeaponShopScrollUp( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
+	while not WeaponShopPageHasItems( screen, screen.ScrollOffset ) do
+		screen.ScrollOffset = screen.ScrollOffset - screen.ItemsPerPage
+	end
 	WeaponShopUpdateVisibility( screen )
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
 	WeaponShopScreenScrollPresentation( screen, button )
+	wait( 0.02 )
+	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY + ((screen.ItemsPerPage - 1) * screen.ItemSpacingY), ForceUseCheck = true })
 end
 
 function WeaponShopScrollDown( screen, button )
@@ -621,9 +710,13 @@ function WeaponShopScrollDown( screen, button )
 		return
 	end
 	screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
+	while not WeaponShopPageHasItems( screen, screen.ScrollOffset ) do
+		screen.ScrollOffset = screen.ScrollOffset + screen.ItemsPerPage
+	end
 	WeaponShopUpdateVisibility( screen )
-	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 	WeaponShopScreenScrollPresentation( screen, button )
+	wait( 0.02 )
+	TeleportCursor({ OffsetX = screen.ItemStartX - 30, OffsetY = screen.ItemStartY, ForceUseCheck = true })
 end
 
 function WeaponShopUpdateVisibility( screen )
@@ -664,7 +757,7 @@ function WeaponShopUpdateVisibility( screen )
 				table.insert( onIds, components[sellTextKey].Id )
 			end
 			if components[pinIconKey] ~= nil then
-				if HasStoreItemPin( button.Data.Name ) then
+				if components[pinIconKey].AlwaysVisible or HasStoreItemPin( button.Data.Name ) then
 					table.insert( onIds, components[pinIconKey].Id )
 				end
 			end
@@ -718,32 +811,104 @@ function WeaponShopUpdateVisibility( screen )
 
 	end
 
-	SetAlpha({ Ids = onIds, Fraction = 1 })
+	SetAlpha({ Ids = onIds, Fraction = 1, Duration = 0.1 })
 	UseableOn({ Ids = onIds })
 
-	SetAlpha({ Ids = offIds, Fraction = 0 })
+	SetAlpha({ Ids = offIds, Fraction = 0, Duration = 0.1 })
 	UseableOff({ Ids = offIds, ForceHighlightOff = true })
 
 	if components.ScrollUp ~= nil then
-		if screen.ScrollOffset <= 0 then
-			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
-			UseableOff({ Id = components.ScrollUp.Id, ForceHighlightOff = true })
-		else
+		if WeaponShopCanScrollUp( screen ) then
 			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 1, Duration = 0.1 })
 			UseableOn({ Id = components.ScrollUp.Id })
+		else
+			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
+			UseableOff({ Id = components.ScrollUp.Id, ForceHighlightOff = true })
 		end
 	end
 
 	if components.ScrollDown ~= nil then
-		if screen.ScrollOffset + screen.ItemsPerPage >= screen.NumItems then
-			SetAlpha({ Id = components.ScrollDown.Id, Fraction = 0, Duration = 0.1 })
-			UseableOff({ Id = components.ScrollDown.Id, ForceHighlightOff = true })
-		else
+		if WeaponShopCanScrollDown( screen ) then
 			SetAlpha({ Id = components.ScrollDown.Id, Fraction = 1, Duration = 0.1 })
 			UseableOn({ Id = components.ScrollDown.Id })
+		else
+			SetAlpha({ Id = components.ScrollDown.Id, Fraction = 0, Duration = 0.1 })
+			UseableOff({ Id = components.ScrollDown.Id, ForceHighlightOff = true })
 		end
 	end
 
+end
+
+function WeaponShopPageHasItems( screen, scrollOffset )
+	for itemIndex = scrollOffset + 1, scrollOffset + screen.ItemsPerPage do
+		if itemIndex <= screen.NumItems then
+			local activeCategory = screen.ItemCategories[screen.ActiveCategoryIndex]
+			local item = screen.Components[(screen.ButtonName or "PurchaseButton")..itemIndex].Data
+			if not item.SoldOut and ( not activeCategory.HideUnaffordable or HasResources( item.Cost ) ) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function WeaponShopCanScrollUp( screen )
+	if screen.ScrollOffset > 0 then
+		for offset = screen.ScrollOffset - screen.ItemsPerPage, 0, -screen.ItemsPerPage do
+			if WeaponShopPageHasItems( screen, offset ) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function WeaponShopCanScrollDown( screen )
+	if screen.ScrollOffset + screen.ItemsPerPage < screen.NumItems then
+		for offset = screen.ScrollOffset + screen.ItemsPerPage, screen.NumItems, screen.ItemsPerPage do
+			if WeaponShopPageHasItems( screen, offset ) then
+				return true
+			end
+		end
+	end
+	return false
+end
+
+function GetWeaponShopCategoryToOpen( screen )
+	-- If aspects haven't been unlocked, then default to the first tab with an affordable item
+	if not GameState.WorldUpgrades.WorldUpgradeWeaponUpgradeSystem then
+		for categoryIndex, category in ipairs( screen.ItemCategories ) do
+			if GameState.WorldUpgradesRevealed[category.Name] and (category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements )) then
+				for i, itemName in ipairs( category ) do
+					local itemData = WeaponShopItemData[itemName]
+					if not itemData.DebugOnly and not GameState.WorldUpgrades[itemName] and HasResources( itemData.Cost ) and (itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements )) then
+						return categoryIndex
+					end
+				end
+			end
+		end
+	end
+	-- Open to the first category with an unviewed item
+	for categoryIndex, category in ipairs( screen.ItemCategories ) do
+		if GameState.WorldUpgradesRevealed[category.Name] and (category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements )) then
+			for i, itemName in ipairs( category ) do
+				local itemData = WeaponShopItemData[itemName]
+				if not itemData.DebugOnly and not GameState.WorldUpgradesViewed[itemName] and (itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements )) then
+					return categoryIndex
+				end
+			end
+		end
+	end
+	-- Open to the equipped weapon's upgrade tab
+	if GameState.WorldUpgradesAdded.WorldUpgradeWeaponUpgradeSystem then
+		local equippedWeapon = GetEquippedWeapon()
+		for categoryIndex, category in ipairs( screen.ItemCategories ) do
+			if category.WeaponName == equippedWeapon and GameState.WorldUpgradesRevealed[category.Name] and (category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements )) then
+				return categoryIndex
+			end
+		end
+	end
+	return 1
 end
 
 function UpdateWeaponKitUpgrade( weaponName, traitName )
@@ -784,39 +949,44 @@ function AssignWeaponKits( eventSource, args )
 	LoadPackages({ Names = packages })
 
 	for index, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
-
-		local weaponKit = DeepCopyTable( WeaponData[weaponName] )
+	
 		local kitId = MapState.WeaponKitIds[index]
-		AttachLua({ Id = kitId, Table = weaponKit })
-		weaponKit.ObjectId = kitId
-		MapState.WeaponKits[kitId] = weaponKit
+		local weaponKit = DeepCopyTable( WeaponData[weaponName] )
+		if not weaponKit.DebugOnly then
+			
+			AttachLua({ Id = kitId, Table = weaponKit })
+			weaponKit.ObjectId = kitId
+			MapState.WeaponKits[kitId] = weaponKit
 
-		local kitModel = weaponKit.GrannyModel
+			local kitModel = weaponKit.GrannyModel
 		
-		-- Change kit model if aspect trait is active
-		local activeTraitName = GameState.LastWeaponUpgradeName[weaponName]
-		local activeTraitData = TraitData[activeTraitName]
-		if activeTraitData ~= nil then
-			kitModel = activeTraitData.WeaponKitGrannyModel
-		end		
-		SetThingProperty({ Property = "GrannyModel", Value = kitModel, DestinationId = weaponKit.ObjectId })
-		SetAnimation({ Name = weaponKit.UnequippedKitAnimation, DestinationId = weaponKit.ObjectId })
-		CreateAnimation({ Name = "WeaponKitBaseFx", DestinationId = weaponKit.ObjectId, Group = "FX_Dark" })
-		weaponKit.TextAnchorId = SpawnObstacle({ Name = "BlankObstacle", Group = "Standing", DestinationId = kitId, OffsetZ = 81 })
+			-- Change kit model if aspect trait is active
+			local activeTraitName = GameState.LastWeaponUpgradeName[weaponName]
+			local activeTraitData = TraitData[activeTraitName]
+			if activeTraitData ~= nil then
+				kitModel = activeTraitData.WeaponKitGrannyModel
+			end		
+			SetThingProperty({ Property = "GrannyModel", Value = kitModel, DestinationId = weaponKit.ObjectId })
+			SetAnimation({ Name = weaponKit.UnequippedKitAnimation, DestinationId = weaponKit.ObjectId })
+			CreateAnimation({ Name = "WeaponKitBaseFx", DestinationId = weaponKit.ObjectId, Group = "FX_Dark" })
+			weaponKit.TextAnchorId = SpawnObstacle({ Name = "BlankObstacle", Group = "Standing", DestinationId = kitId, OffsetZ = 81 })
 
-		if kitId and ( args.IgnoreRequirements or IsWeaponUnlocked( weaponName )) then
-			-- Unlocked			
-			weaponKit.OnUsedFunctionName = "UseWeaponKit"
+			if kitId and ( args.IgnoreRequirements or IsWeaponUnlocked( weaponName )) then
+				-- Unlocked			
+				weaponKit.OnUsedFunctionName = "UseWeaponKit"
+			else
+				-- Locked
+				UseableOff({ Id = kitId })
+				SetAlpha({ Id = kitId, Fraction = 0.0 })
+			end
+
+			if IsBonusUnusedWeapon( weaponKit.Name ) then
+				CreateAnimation({ Name = "WeaponKitDarkThirst", DestinationId = kitId })			
+			end
 		else
-			-- Locked
 			UseableOff({ Id = kitId })
 			SetAlpha({ Id = kitId, Fraction = 0.0 })
 		end
-
-		if IsBonusUnusedWeapon( weaponKit.Name ) then
-			CreateAnimation({ Name = "WeaponKitDarkThirst", DestinationId = kitId })			
-		end
-
 	end
 	for remainingIndex = #WeaponSets.HeroPrimaryWeapons + 1, #MapState.WeaponKitIds do
 		local remainingKitId = MapState.WeaponKitIds[remainingIndex]
@@ -1038,17 +1208,26 @@ function UpdateToolKitPins()
 	for kitId, toolKit in pairs( MapState.ToolKits ) do
 		if GameState.WorldUpgrades[toolKit.Name] and toolKit.PinHintResources ~= nil then
 			local hasAnyPin = false
+			local hasEnoughForPins = true
 			for k, resourceName in pairs( toolKit.PinHintResources ) do
-				if HasPinWithResource( resourceName ) then
+				local amount = GetResourceAmountNeededByPins( resourceName )
+				if amount > 0 then
 					hasAnyPin = true
-					break
+					if not HasResource( resourceName, amount ) then
+						hasEnoughForPins = false
+						break
+					end
 				end
 			end
 			toolKit.PinIconId = toolKit.PinIconId or SpawnObstacle({ Name = "BlankGeoObstacle", Group = "Combat_UI_World_Backing" })
 			Attach({ Id = toolKit.PinIconId, DestinationId = toolKit.ObjectId, OffsetZ = -20 })
 			if hasAnyPin then
 				SetAlpha({ Id = toolKit.PinIconId, Fraction = 1.0, Duration = 0.2 })
-				SetAnimation({ DestinationId = toolKit.PinIconId, Name = "StoreItemPin" })
+				local pinAnimation = "StoreItemPin"
+				if hasEnoughForPins then
+					pinAnimation = "StoreItemPin_Complete"
+				end
+				SetAnimation({ DestinationId = toolKit.PinIconId, Name = pinAnimation })
 			else
 				SetAlpha({ Id = toolKit.PinIconId, Fraction = 0.0, Duration = 0.2 })
 			end

@@ -13,12 +13,70 @@ WeaponSetData =
 				{ ProjectileName = "HarpySlice" },
 			},
 
-      		ChargeSelfVelocity = 3000.0,
+			ChargeSelfVelocity = 3000.0,
 
-      		PreAttackEndShake = true,
+			PreAttackEndShake = true,
 			PreAttackDuration = 1.0,
 			FireDuration = 0.6,
 			PostAttackDuration = 0.85, -- animation is 0.73
+
+			PreAttackEndShake = true,
+			PreAttackEndDuration = 0.35,
+
+			PreAttackStop = true,
+			WaitForAngleTowardTarget = true,
+			StopBeforeFire = true,
+
+			AttackDistance = 450,
+			RequireUnitLoS = true,
+			LoSBuffer = 80,
+			LoSEndBuffer = 32,
+
+			SkipSurroundAICount = true,
+
+      		PreAttackSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteCharging",
+			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
+			PreAttackAnimation = "Enemy_HarpyCutter_SlicePreFire",
+			FireAnimation = "Enemy_HarpyCutter_SliceFire",
+			PostAttackAnimation = "Enemy_HarpyCutter_SlicePostFire",
+		},
+	},
+
+	HarpySlice2 =
+	{
+		InheritFrom = { "HarpySlice" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "HarpySlice2", PauseDuration = 0.1 },
+				{ ProjectileName = "HarpySlice2" },
+			},
+		},
+	},
+
+	HarpyWind =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireProjectileStartDelay = 0.07,
+			ProjectileName = "HarpyCone",
+			BarrelLength = 0,
+			EndScale = 5.0,
+			ScaleDuration = 2.7,
+
+			ExpireProjectilesOnHitStun = true,
+			ExpireProjectilesOnFreeze = true,
+
+      		PreAttackEndShake = true,
+			PreAttackDuration = 1.0,
+			FireDuration = 2.7,
+			PostAttackDuration = 1.5, -- animation is 1.48
 
 			WaitForAngleTowardTarget = true,
 			StopBeforeFire = true,
@@ -30,9 +88,12 @@ WeaponSetData =
 
       		PreAttackSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteCharging",
 			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
-			PreAttackAnimation = "Enemy_HarpyCutter_SlicePreFire",
-			FireAnimation = "Enemy_HarpyCutter_SliceFire",
-			PostAttackAnimation = "Enemy_HarpyCutter_SlicePostFire",
+			PreAttackAnimation = "Enemy_HarpyCutter_WindPreFire",
+			FireAnimation = "Enemy_HarpyCutter_WindFire",
+			PostAttackAnimation = "Enemy_HarpyCutter_WindPostFire",
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Sounds =
@@ -44,8 +105,26 @@ WeaponSetData =
 		},
 	},
 
+	HarpyWind_Elite =
+	{
+		InheritFrom = { "HarpyWind" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NumProjectiles = 3,
+			ProjectileAngleInterval = 50,
+		},
+	},
+
 	HarpyFlap =
 	{
+		Requirements =
+		{
+			MaxAttackers = 3,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -72,6 +151,9 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_HarpyCutter_FlapPreFire_Alt",
 			FireAnimation = "Enemy_HarpyCutter_FlapFire_Alt",
 			PostAttackAnimation = "Enemy_HarpyCutter_FlapPostFire_Alt",
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		HitSimSlowParameters =
@@ -85,7 +167,7 @@ WeaponSetData =
 			FireSounds =
 			{
 				{ Name = "/SFX/Enemy Sounds/HarpyCutter/EmoteAttacking" },
-				{ Name = "/SFX/Player Sounds/ZagreusSwordLunge" },
+				{ Name = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh" },
 			},
 		},
 
@@ -106,6 +188,89 @@ WeaponSetData =
 			FireTicks = 3,
 			FireInterval = 0.5,
 			Spread = 45,
+		},
+	},
+
+	HarpyFlapFast =
+	{
+		Requirements =
+		{
+			MinPlayerDistance = 700,
+			MaxAttackers = 3,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathFromSource = true,
+				PathFalse = { "InAmbientBattle" },
+			},
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HarpyFlapFast",
+			FireProjectileStartDelay = 0.1,
+			BarrelLength = 150,
+			EndScale = 3,
+			ScaleDuration = 1,
+			FireSelfVelocity = 1100.0,
+			FireSelfVelocityAngleOffset = 180,
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.07,
+			TrackTargetDuringFire = true,
+			FireRotationDampening = 0.04,
+			PostAttackStop = true,
+
+			PreAttackDuration = 0.8,
+			FireDuration = 0.3,
+			PostAttackDuration = 1.2, -- animation is 1.05
+
+			AttackDistance = 700,
+			RequireProjectileLoS = true,
+			LoSBuffer = 80,
+			LoSEndBuffer = 32,
+
+			PreAttackSound = "/SFX/Enemy Sounds/HarpyCutter/EmoteCharging",
+			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
+			PreAttackAnimation = "Enemy_HarpyCutter_FlapPreFire_Alt",
+			FireAnimation = "Enemy_HarpyCutter_FlapFire_Alt",
+			PostAttackAnimation = "Enemy_HarpyCutter_FlapPostFire_Alt",
+
+			-- Rifts ban
+			DumbFireWeapons = {},
+		},
+
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0.1 },
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/HarpyCutter/EmoteAttacking" },
+				{ Name = "/SFX/Enemy Sounds/Carrion/CarrionAttackWhoosh" },
+			},
+		},
+	},
+
+	HarpyFlapFast_Elite =
+	{
+		InheritFrom = { "HarpyFlapFast" },
+		AIData =
+		{
+			DeepInheritance = true,
+
+			FireTicks = 3,
+			FireInterval = 0.5,
+			Spread = 20,
 		},
 	},
 
@@ -136,12 +301,22 @@ WeaponSetData =
 			AngleTowardsTargetWhileFiring = true,
 			PostAttackStop = true,
 
+			SkipSurroundAICount = true,
+
 			PreAttackAnimation = "Enemy_HarpyCutter_DashRight",
 		},
 
 		Requirements =
 		{
 			MaxConsecutiveUses = 3,
+		},
+
+		GameStateRequirements =
+		{
+			{
+				PathFromSource = true,
+				PathFalse = { "InAmbientBattle" },
+			},
 		},
 	},
 

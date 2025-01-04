@@ -18,11 +18,6 @@ OverwriteTableKeys( WeaponData,
 		ImpactReactionHitsOverride = 5,
 	},
 
-	BlastCubeExplosionElysium =
-	{
-		ImpactReactionHitsOverride = 5,
-	},
-
 	DartTrapWeapon =
 	{
 		Sounds =
@@ -37,31 +32,6 @@ OverwriteTableKeys( WeaponData,
 				Organic = "/SFX/ArrowImpactSplatter",
 			},
 		},
-	},
-
-	ArcherTrapWeapon =
-	{
-		PresentationOnlyOnPlayerHit = true,
-		HitScreenshake = { Distance = 6, Speed = 1000, Duration = 0.15, FalloffSpeed = 3000 },
-		HitSimSlowCooldown = 1.0,
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.1, Fraction = 1.0, LerpTime = 0 },
-		},
-
-		Sounds =
-		{
-			ImpactSounds =
-			{
-				Invulnerable = "/SFX/ArrowWallHitClankSmall",
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/SwordWallHitClankSmall",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-			},
-		},		
 	},
 	
 	RubbleFall =
@@ -94,10 +64,6 @@ OverwriteTableKeys( WeaponData,
 			BrickObstacle = "/SFX/ArrowWallHitClankSmall",
 			MetalObstacle = "/SFX/ArrowWallHitClankSmall",
 			BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-		},
-		OnDestroyVoiceLines =
-		{
-			-- [1] = GlobalVoiceLines.RubbleKillVoiceLines,
 		},
 	},
 

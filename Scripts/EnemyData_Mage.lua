@@ -31,8 +31,6 @@
 
 		AggroAnimation = "Enemy_Mage_Alert",
 		AggroDuration = 0.7,
-
-		BlockAttributes = { "Tracking" },
 		
 		StunAnimations = 
 		{
@@ -77,11 +75,9 @@
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -101,6 +97,8 @@
 		HealthBuffer = 155,
 		IsAggroedSound = "/SFX/Enemy Sounds/Mage/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Homing" }),
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -119,11 +117,6 @@
 			"MageRanged_Elite",
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		GeneratorData =
 		{
 			DifficultyRating = 24,
@@ -133,9 +126,9 @@
 
 	Mage2 =
 	{
-		InheritFrom = { "Mage" },
+		InheritFrom = { "BaseOEnemy", "Mage" },
 		IntroEncounterName = "Mage2Intro",
-		MaxHealth = 390,
+		MaxHealth = 415,
 
 		ActivateAnimation = "Enemy_Mage_Idle",
 		ActivateFx = "WaterUnitSurfaceLargeWithSound",
@@ -170,34 +163,23 @@
 			BlockEnemyTypes = {"Mage2_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_2184", Text = "Blaskets!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_2183", Text = "Blaskets.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_2184", Text = "Blaskets!" },
+			{ Cue = "/VO/MelinoeField_2183", Text = "Blaskets." },
+			{ Cue = "/VO/MelinoeField_2184", Text = "Blaskets!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_2185", Text = "More Blaskets." },
 			{ Cue = "/VO/MelinoeField_2194", Text = "More Blaskets!" },
 		},
@@ -207,8 +189,10 @@
 	Mage2_Elite =
 	{
 		InheritFrom = { "Elite", "Mage2" },
-		HealthBuffer = 390,
+		HealthBuffer = 415,
 		IsAggroedSound = "/SFX/Enemy Sounds/Mage/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Homing" }),
 
 		DefaultAIData =
 		{
@@ -225,39 +209,11 @@
 			"Mage2Ranged_Elite",
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		HeraclesCombatMoneyValue = 4,
 		GeneratorData =
 		{
 			DifficultyRating = 90,
 			BlockEnemyTypes = {"Mage2"}
-		},
-	},
-
-	MageSquad =
-	{
-		IsUnitGroup = true,
-
-		SpawnOffset = 50,
-
-		UnitGroup =
-		{
-			"Mage",
-			"Mage",
-			"Mage",
-		},
-
-		GroupAI = "GroupAI",
-		LeaderFx = "SquadLeaderFx",
-
-		GeneratorData =
-		{
-			DifficultyRating = 21,
-			BlockEnemyTypes = {"Mage", "Mage_Elite"}
 		},
 	},
 }

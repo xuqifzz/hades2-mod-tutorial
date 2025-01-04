@@ -48,12 +48,18 @@ UnitSetData.Mudman =
 			"AggroAI",
 		},
 		AIAggroRange = 900,
+		PostAggroAI = "SurroundAI",
 
 		SpawnUnitOnDeath = "MudmanEye",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			MaintainSurroundDistance = true,
+			SurroundDistance = 650,
+			SurroundRefreshInterval = 0.5,
+			MaxAttackers = 2,
 		},
 
 		WeaponOptions =
@@ -62,6 +68,16 @@ UnitSetData.Mudman =
 		},
 
 		HeraclesCombatMoneyValue = 5,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.125,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
 
 		ActiveCapWeight = 1.25,
 		GeneratorData =
@@ -71,23 +87,6 @@ UnitSetData.Mudman =
 			ActiveEnemyCapBonus = 1,
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
-				},
-			},
-
-			TriggerCooldowns =
-			{
-				"MelinoeAnyQuipSpeech",
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0448", Text = "Eidolon!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
@@ -95,13 +94,10 @@ UnitSetData.Mudman =
 			GameStateRequirements = 
 			{
 				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
-				{
 					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
 				},
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "MelinoeAnyQuipSpeech" },
@@ -109,8 +105,8 @@ UnitSetData.Mudman =
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0447", Text = "An Eidolon.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0448", Text = "Eidolon!" },
+			{ Cue = "/VO/MelinoeField_0447", Text = "An Eidolon." },
+			{ Cue = "/VO/MelinoeField_0448", Text = "Eidolon!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0449", Text = "Eidolon huh?" },
 			{ Cue = "/VO/MelinoeField_0450", Text = "Eidolon there." },
 		},
@@ -118,10 +114,12 @@ UnitSetData.Mudman =
 
 	Mudman_Elite =
 	{
-		InheritFrom = { "Mudman" },
+		InheritFrom = { "Elite", "Mudman" },
 		HealthBuffer = 340,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Mudman/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
 
 		SpawnUnitOnDeath = "MudmanEye_Elite",
 
@@ -206,15 +204,10 @@ UnitSetData.Mudman =
 	},
 	MudmanEye_Elite =
 	{
-		InheritFrom = { "MudmanEye" },
+		InheritFrom = { "Elite", "MudmanEye" },
 		HealthBuffer = 20,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/MudmanEye/EmoteTaunting",
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 
 		HeraclesCombatMoneyValue = 1,
 

@@ -19,39 +19,11 @@
 
 		SecretSpawnChance = 0.10,
 		WellShopSpawnChance = 0.25,
-		--[[ @ handled in BaseRoom =
-		SecretDoorRequirements =
-		{
-			NamedRequirements = { "ChaosUnlocked", "NoRecentChaosEncounter" },
-		},
-		]]--
 
-		TimeChallengeSwitchSpawnChance = 0.20,
-		TimeChallengeSwitchRequirements =
-		{
-			{
-				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitches1" },
-			},
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 5,
-		},
+		ChallengeSpawnChance = 0.25,
 		TimeChallengeEncounterOptions = { "TimeChallengeF" },
-		
-		CapturePointSwitchSpawnChance = 0.0,
-		CapturePointSwitchRequirements =
-		{
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
-		},
-		CapturePointEncounterOptions = { "CapturePointF" },
-
-		PerfectClearSwitchSpawnChance = 0.0,
-		PerfectClearSwitchRequirements =
-		{
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
-		},
 		PerfectClearEncounterOptions = { "PerfectClearChallengeF" },
+		EliteChallengeEncounterOptions = { "EliteChallengeF" },
 
 		Ambience = "/Ambience/ErebusAmbientLoop",
 		ShopSecretMusic = "/Music/CharonShopTheme",
@@ -73,6 +45,13 @@
 			["/SFX/Player Sounds/FootstepsHardSurfaceRun"] = "/Leftovers/SFX/FootstepsWheat",
 		},
 		]]--
+
+
+		SwapAnimations =
+		{
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_Erebus",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
+		},
 
 		StartThreadedEvents =
 		{
@@ -394,8 +373,14 @@
 				FunctionName = "ShowRunIntro",
 				GameStateRequirements =
 				{
-					RequiredTrueConfigOptions = { "ShowUIAnimations", },
-					RequiredFalseConfigOptions = { "EditingMode", },
+					{
+						FunctionName = "RequiredConfigOptions",
+						FunctionArgs = { ConfigOptions = { "ShowUIAnimations", }, },
+					},
+					{
+						FunctionName = "RequiredConfigOptions",
+						FunctionArgs = { ConfigOptions = { "EditingMode", }, HasOptions = false },
+					},
 				},
 			},
 			{
@@ -476,16 +461,16 @@
 		RewardSpawnVoiceLines =
 		{
 			-- packaged bounties
-			[1] = GlobalVoiceLines.StartPackagedBountyRunVoiceLines,
+			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
 			-- biome state changes
-			[2] = GlobalVoiceLines.BiomeStateChangeStartVoiceLines,
+			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			-- other general cases
-			[3] = GlobalVoiceLines.TaskBegunVoiceLines,
+			[3] = { GlobalVoiceLines = "TaskBegunVoiceLines" },
 		},
 
 		ExitVoiceLines =
 		{
-			[1] = GlobalVoiceLines.StorytellerRunStartVoiceLines,
+			[1] = { GlobalVoiceLines = "StorytellerRunStartVoiceLines" },
 		},
 
 		ExitsUnlockedDistanceTriggers =
@@ -506,12 +491,15 @@
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = ">=",
 						Value = 1,
 					},
 					{
-						-- PathTrue = { "PrevRun", "RoomCountCache", "F_Boss01" },
+						PathFalse = { "PrevRun", "TextLinesRecord", "InspectPreRun01" },
 					},
 				},
 				InteractTextLineSets =
@@ -532,6 +520,7 @@
 			},
 		},
 
+		Using = { UnitName = "NPC_Hermes_01" }
 	},
 
 	F_Opening02 =
@@ -574,9 +563,15 @@
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						Path = { "GameState", "CompletedRunsCache" },
 						Comparison = ">=",
 						Value = 1,
+					},
+					{
+						PathFalse = { "PrevRun", "TextLinesRecord", "InspectPreRun01" },
 					},
 				},				
 				InteractTextLineSets =
@@ -644,9 +639,15 @@
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						Path = { "GameState", "RoomCountCache", "F_Opening03", },
 						Comparison = ">=",
 						Value = 1,
+					},
+					{
+						PathFalse = { "PrevRun", "TextLinesRecord", "InspectPreRun01" },
 					},
 				},				
 				InteractTextLineSets =
@@ -679,10 +680,12 @@
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "F_MiniBoss02" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "F_MiniBoss02" },
+			},
 		},
 
-		LegalEncounters = { "MiniBossTreant" },
+		LegalEncounters = { "MiniBossTreant", "MiniBossTreant_Shrine" },
 		FlipHorizontalChance = 0.0,
 		ZoomFraction = 0.86,
 
@@ -704,7 +707,7 @@
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -752,10 +755,12 @@
 				Comparison = ">=",
 				Value = 2,
 			},
-			RequiredFalseSeenRoomsThisRun = { "F_MiniBoss01" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "F_MiniBoss01" },
+			},
 		},
 
-		LegalEncounters = { "MiniBossFogEmitter" },
+		LegalEncounters = { "MiniBossFogEmitter", "MiniBossFogEmitter_Shrine" },
 		FlipHorizontalChance = 0.0,
 		ZoomFraction = 0.82,
 
@@ -776,7 +781,7 @@
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -1103,6 +1108,8 @@
 		InheritFrom = { "BaseF_Combat" },
 		EntranceDirection = "Left",
 		ZoomFraction = 0.9,
+
+		RushMaxRangeOverride = 525,
 	},
 
 	F_Combat11 =
@@ -1140,9 +1147,8 @@
 				SetupGameStateRequirements =
 				{
 					{
-						PathFalse = { "CurrentRun", "CurrentRoom", "ChallengeSwitch" },
+						PathFalse = { "CurrentRun", "UseRecord", "InspectPoint" },
 					},
-					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{
@@ -1371,8 +1377,7 @@
 	F_Combat19 =
 	{
 		InheritFrom = { "BaseF_Combat" },
-		EntranceDirection = "Right",
-		DebugOnly = true,
+		EntranceDirection = "LeftRight",
 	},
 
 	F_PreBoss01 =
@@ -1483,6 +1488,17 @@
 		ZoomFraction = 0.8,
 		FlipHorizontalChance = 0.0,
 
+		StartUnthreadedEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args =
+				{
+					LoadVoiceBanks = { "Selene" },
+				},
+			},
+		},
+
 		UnthreadedEvents =
 		{
 			{
@@ -1553,7 +1569,14 @@
 					}, 
 				},
 
-				{ Cue = "/VO/Melinoe_0036", Text = "Headmistress..." },
+				{ Cue = "/VO/Melinoe_0036", Text = "Headmistress...",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "CurrentRun", "SpeechRecord", "/VO/Melinoe_0036" },
+						},
+					},
+				},
 			},
 			{
 				BreakIfPlayed = true,
@@ -1623,18 +1646,26 @@
 					PlayFirst = true,
 					GameStateRequirements =
 					{
-						RequiredMinHealthFraction = 1.0,
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = ">=", Value = 1.0, },
+						},
 					},
 				},
-				--[[
 				{ Cue = "/VO/HecateField_0182", Text = "Fresh as rain.",
 					PlayFirst = true,
 					GameStateRequirements =
 					{
-						RequiredMinHealthFraction = 0.9,
+						{
+							Path = { "CurrentRun", "BiomeStateName" },
+							IsAny = { "Rain" },
+						},
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = ">=", Value = 0.9, },
+						},
 					},
 				},
-				]]--
 				{ Cue = "/VO/HecateField_0184", Text = "Descura...",
 					GameStateRequirements =
 					{
@@ -1674,6 +1705,151 @@
 							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponLob" },
 						},
 					},
+				},
+				{ Cue = "/VO/HecateField_0267", Text = "Xinth...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+				{ Cue = "/VO/HecateField_0268", Text = "Come, bearer of the Black Coat.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/HecateField_0267" }
+						},
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+				{ Cue = "/VO/HecateField_0257", Text = "Found something new to wear?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0258", Text = "Dressed all in spider's silk!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0259", Text = "Clad in Arachne's weavings once again.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0260", Text = "That azure color suits you well.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"ManaCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0261", Text = "Wearing the black of Night...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"HighArmorCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0262", Text = "As pale as the Moon...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0263", Text = "Vengeance in a blood-red dress...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"CastDamageCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0264", Text = "Lavender-colored silk...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0265", Text = "Silk, green as verdant fields...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"VitalityCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/HecateField_0266", Text = "Silk, blue as surface seas.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"ManaCostume",
+							},
+						},
+					}
 				},
 
 			},
@@ -1749,18 +1925,27 @@
 		FrogFamiliarMaxLeapDistance = 800,
 
 		SkipLastKillPresentation = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 1.0,
 		 
 		SecretSpawnChance = 0.0,
 		ForceWellShop = true,
+		WellShopChallengeBaseId = 480768,
 		SellTraitShrineUpgrade = true,
 		SpeakerName = "Intercom",
 
 		WellShopRequirements =
 		{
 			{
-				-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossWellShops" },
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossWellShops" },
+			},
+		},
+
+		SellShopSpawnChance = 1.0,
+		SellShopRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossSellTraitShops" },
 			},
 		},
 
@@ -1779,14 +1964,11 @@
 		{
 			[557482] =
 			{
-				Template = "HealthFountain",
+				Template = "HealthFountainF",
 				Activate = true,
-				ActivateIds = { 557482, },
 				SetupGameStateRequirements =
 				{
-					{
-						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossFountains", },
-					},
+					-- None
 				},
 			},
 			[486504] =
@@ -1812,6 +1994,17 @@
 					},
 				},
 			},
+			[755023] =
+			{
+				Template = "ChallengeSwitchBase",
+				Activate = true,
+				SetupGameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePostBossSellTraitShops" },
+					},
+				},
+			},
 		},
 
 		StartUnthreadedEvents =
@@ -1822,7 +2015,7 @@
 		},
 		ThreadedEvents =
 		{
-			-- { FunctionName = "HadesSpeakingPresentation", Args = { VoiceLines = GlobalVoiceLines.HadesPostBossVoiceLines, StartDelay = 2 } },
+			-- { FunctionName = "HadesSpeakingPresentation", Args = { VoiceLines = { GlobalVoiceLines = "HadesPostBossVoiceLines" }, StartDelay = 2 } },
 			{ FunctionName = "ProcessInterest", Args = { StartDelay = 1 } },
 		},
 
@@ -1839,7 +2032,10 @@
 				SuccessiveChanceToPlay = 0.5,
 				GameStateRequirements =
 				{
-					AreIdsNotAlive = { 561902 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 561902 }, Alive = false },
+					},
 				},
 
 				{ Cue = "/VO/MelinoeField_0109", Text = "The pathways down...", PlayFirst = true },
@@ -1861,6 +2057,10 @@
 					PathFalse = { "CurrentRun", "UseRecord", "NPC_Chronos_01" },
 				},
 			},
+			Cooldowns =
+			{
+				{ Name = "LeftBiomeSpeech", Time = 6 },
+			},
 
 			{ Cue = "/VO/MelinoeField_0119", Text = "Farewell, Erebus." },
 			{ Cue = "/VO/MelinoeField_0120", Text = "Down I go." },
@@ -1874,22 +2074,36 @@
 
 		LeavePostPresentationEvents =
 		{
-			--[[
 			{
 				FunctionName = "BiomeMapPresentation",
 				Args =
 				{
-					StartOffsetX = -600,
-					StartOffsetY = 500,
+					HeroStartOffsetX = -680,
+					HeroStartOffsetY = 580,
 
-					HeroStartOffsetX = 100,
-					HeroStartOffsetY = -200,
+					FamiliarStartOffsetX = -800,
+					FamiliarStartOffsetY = 580,
 
-					MoveOffsetX = 600,
-					MoveOffsetY = 300,
-					MoveDuration = 2.0,
+					HeroMoveOffsetX = 745,
+					HeroMoveOffsetY = 285,
+					HeroMoveDuration = 1.4,
+
+					FamiliarMoveOffsetX = 745,
+					FamiliarMoveOffsetY = 285,
+					FamiliarMoveDuration = 1.4,
+
 					MoveEaseIn = 0.5,
 					MoveEaseOut = 1.0,
+
+					BiomeStart = "BiomeF",
+					BiomeEnd = "BiomeG",
+					PreviousBiomes = { },
+
+					AdditionalFirstTimeWait = 1.15,
+
+					ShrineBounty = "BossScylla01",
+
+					--CrossroadsStart = true,
 					
 				},
 				GameStateRequirements =
@@ -1897,7 +2111,6 @@
 					-- None
 				}
 			},
-			]]
 		},
 
 		InspectPoints =
@@ -1911,7 +2124,10 @@
 					{
 						PathTrue = { "GameState", "RoomCountCache", "G_Intro", },
 					},
-					AreIdsNotAlive = { 561902 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 561902 }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -1948,7 +2164,10 @@
 
 		GameStateRequirements =
 		{
-			RequiredMinExits = 2,
+			{
+				FunctionName = "RequiredMinExits",
+				FunctionArgs = { Count = 2 },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = "<=",
@@ -2032,50 +2251,58 @@
 		HarvestPointRequirements = { },
 		ShovelPointRequirements = { },
 		--PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
 
 		StartThreadedEvents =
 		{
 			{ FunctionName = "ShadeMercManager", Args = { StartingCountMin = 3, StartingCountMax = 12, ObjectNames = { "ShadeMerc" }, MaxActive = 12 } },
 			{ FunctionName = "RespawningCoverManager", Args = { RespawnInterval = 8.0, ObjectsPerIntervalMin = 4, ObjectsPerIntervalMax = 8, MaxActive = 50, StartingCountMin = 15, StartingCountMax = 30, CoverObjectNames = { "RespawningCover" } } },
-			{
-				FunctionName = "ActivateFamiliar",
+			{ FunctionName = "ActivateFamiliar",
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "RoomsEntered", "O_Intro" },
+						PathFalse = { "GameState", "FamiliarsUnlocked", "RavenFamiliar" },
 					},
 					{
-						PathFalse = { "GameState", "LifetimeResourcesGained", "FamiliarPoints" },
+						Path = { "GameState", "RoomsEntered", "F_Reprieve01" },
+						Comparison = ">",
+						Value = 1,
 					},
 				},
 				Args =
 				{
-					Id = 561081,
-					Name = "CatFamiliar",
+					Id = 699334,
+					Name = "RavenFamiliar",
 					SkipAISetup = true,
 					OverwriteSelf =
 					{
 						OnUsedFunctionName = "nil",
-						SpecialInteractFunctionName = "CatFamiliarSpecialInteractLockedInRun",
+						SpecialInteractFunctionName = "RavenFamiliarSpecialInteractLockedInRun",
+						PreRecruit = true,
 						DistanceTriggers =
 						{
 							{
 								WithinDistance = 550,
+								PreTriggerFunctionName = "GenericPresentation",
+								PreTriggerFunctionArgs =
+								{
+									SetAnimation = "Familiar_Raven_Perched",
+									AngleTowardTarget = 586381,
+								},
 								FunctionName = "GenericPresentation",
 								Args =
 								{
 									PreWait = 0.0,
 									AngleTowardHero = true,
-									SetAnimation = "Familiar_Cat_Sleep_Awaken",
-									Sound = "/SFX/Familiars/CatMeow1",
-									VoiceLines = GlobalVoiceLines.CatReactionVoiceLines,
+									SetAnimation = "Familiar_Raven_Victory_Perch",
+									Sound = "/SFX/Familiars/RavenSquawk3",
+									VoiceLines = { GlobalVoiceLines = "RavenReactionVoiceLines" },
 								},
 							},
 						}
 					},
 				},
 			},
+
 		},
 
 		GameStateRequirements =
@@ -2092,40 +2319,6 @@
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = "<=",
 				Value = 9,
-			},
-		},
-
-		ObstacleData =
-		{
-			[699330] =
-			{
-				Name = "CatFamiliarMIA",
-				DistanceTriggers =
-				{
-					{
-						WithinDistance = 350,
-						VoiceLines =
-						{
-							PlayOnce = true,
-							UsePlayerSource = true,
-							GameStateRequirements =
-							{
-								{
-									PathTrue = { "GameState", "UseRecord", "CatFamiliar" }
-								},
-								{
-									PathFalse = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked" },
-								},
-								AreIdsNotAlive = { 561081 },
-							},
-							Cooldowns =
-							{
-								{ Name = "MelinoeAnyQuipSpeech", Time = 3 },
-							},
-							{ Cue = "/VO/MelinoeField_2055", Text = "That cat must have moved on..." },
-						},
-					},
-				},
 			},
 		},
 
@@ -2202,6 +2395,7 @@
 		RichPresence = "#RichPresence_FStory01",
 		HarvestBlockedText = "ExitBlockedByNPC",
 		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
 
 		GameStateRequirements =
 		{
@@ -2222,7 +2416,7 @@
 				PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisFirstMeeting" },
 			},
 			{
-				PathFalse = { "CurrentRun", "ActiveBounty", },
+				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
 		},
 
@@ -2238,7 +2432,6 @@
 		HarvestPointRequirements = { },
 		ShovelPointRequirements = { },
 		--PickaxePointRequirements = { },
-		ExorcismPointRequirements = { },
 
 		SecretMusic = "/Music/IrisArachneTheme_MC",
 		ZoomFraction = 0.9,

@@ -67,31 +67,78 @@
 		StopSoundOnFinishFade = 0.2
 	}
 
-	{
-		Name = "ScimiterrorSlashLeft"
-		FilePath = "Fx\Chronos\ChronosScytheSwipeArcColor\ChronosScytheSwipeArcColor"
-		ColorFromOwner = "Ignore"
-		Material = "Unlit"
-		GroupName = "FX_Standing_Add"
-		EndFrame = 46
-		NumFrames = 46
-		PlaySpeed = 60.0
-		StartFrame = 1
-		Scale = 0.6
-		OriginX = 640
-		OriginY = 640
-		PostRotateScaleY = 0.5
-		DieWithOwner = false
-		AngleFromOwner = "Maintain"
-		LocationZFromOwner = "Take"
-		LocationFromOwner = "Take"
-		FlipVertical = true
-	}
-	
+
 	{
 		Name = "ScimiterrorSlashRight"
-		InheritFrom = "ScimiterrorSlashLeft"
-		FlipVertical = false
+		FilePath = "Fx\ShipsEnemySwordSwipe\ShipsEnemySwordSwipe"
+		NumFrames = 30
+		PlaySpeed = 75
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Scale = 1.33
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		OffsetZ = 100
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.2
+		StartBlue = 0.2
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		CreateAnimations = [
+			{ Name = "ScimiterrorSlashRightDisplacement" }
+			{ Name = "ScimiterrorSlashRightDark" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorSlashRightDark"
+		InheritFrom = "ScimiterrorSlashRight"
+		ClearCreateAnimations = true
+		StartRed = 0.001
+		StartGreen = 0.001
+		StartBlue = 0.001
+		AddColor = false
+		PlaySpeed = 60
+	}
+
+	{
+		Name = "ScimiterrorSlashLeft"
+		InheritFrom = "ScimiterrorSlashRight"
+		FlipVertical = true
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "ScimiterrorSlashLeftDisplacement" }
+			{ Name = "ScimiterrorSlashLeftDark" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorSlashLeftDark"
+		InheritFrom = "ScimiterrorSlashRightDark"
+		FlipVertical = true
+	}
+
+
+
+	{
+		Name = "ScimiterrorSlashRightDisplacement"
+		InheritFrom = "ScimiterrorSlashRight"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.15
+		PlaySpeed = 50
+	}	
+
+	{
+		Name = "ScimiterrorSlashLeftDisplacement"
+		InheritFrom = "ScimiterrorSlashRightDisplacement"
+		FlipVertical = true
 	}
 	
 	{
@@ -101,30 +148,116 @@
 	}
 
 	{
-		Name = "ScimiterrorTeleportFx"
-		FilePath = "Fx\Tartarus_Ghost_01_Dissipate\Tartarus_Ghost_01_Dissipate"
+		Name = "ScimiterrorTeleportFxFlare"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartScale = 0.6
+		EndScale = 0
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
 
-		AngleFromOwner = "Ignore"
-		EndFrame = 45
-		NumFrames = 45
-		StartFrame = 1
-		OffsetY = -80.0
-		SortMode = "FromParent"
-		Scale = 1.3
-		ScaleFromOwner = "Take"
-		Color = { Red = 0.9 Green = 0.3 Blue = 0.7 }
-		CreateAnimations =
-		[
-			{ Name = "ScimiterrorTeleportFxDark" }
+	{
+		Name = "ScimiterrorTeleportParticles"
+		Random = [
+			{ Name = "ScimiterrorTeleportParticleA" }
+			{ Name = "ScimiterrorTeleportParticleB" }
 		]
 	}
-	{
-		Name = "ScimiterrorTeleportFxDark"
-		InheritFrom = "ScimiterrorTeleportFx"
 
-		GroupName = "Standing"
-		Scale = 1.4
-		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	{
+		Name = "ScimiterrorTeleportParticleA"
+		FilePath = "Particles\particle_addFlake2"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 0.7
+		RandomRotation = true
+		RandomOffsetY = 100
+		Angle = 90
+		VelocityMin = 100
+		VelocityMax = 600
+		Acceleration = -600
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		RandomDurationMin = 0.33
+		RandomDurationMax = 0.66
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomOffsetX = 20
+		StartScaleX = 3
+		EndScaleX = 1
+		Red = 0.5
+		Green = 0.75
+		Blue = 1
+		OffsetZ = 120
+	}
+
+	{
+		Name = "ScimiterrorTeleportParticleB"
+		InheritFrom = "ScimiterrorTeleportParticleA"
+		Angle = 270
+	}
+
+	{
+		Name = "ScimiterrorTeleportFx"
+		FilePath = "Fx\ScimiterrorTeleportFront\ScimiterrorTeleportFront"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 48
+		NumFrames = 48
+		PlaySpeed = 45
+		StartFrame = 1
+		OffsetZ = 80.0
+		SortMode = "FromParent"
+		Scale = 1.0
+		ScaleFromOwner = "Take"
+		Material = "Unlit"
+		AddColor = false
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		VisualFx = "ScimiterrorTeleportParticles"
+		VisualFxCap = 6
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "ScimiterrorTeleportFxBack" }
+			{ Name = "ScimiterrorTeleportFxFlare" }
+			{ Name = "ScimiterrorTeleportFxDisplacement" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorTeleportFxDisplacement"
+		FilePath = "Fx\Blink\BlinkDisplacement"
+		GroupName = "FX_Displacement"
+		FlipVertical = true
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Material = "Unlit"
+		ScaleY = 1
+		Scale = 0.5
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 0.33
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "ScimiterrorTeleportFxBack"
+		InheritFrom = "ScimiterrorTeleportFx"
+		FilePath = "Fx\ScimiterrorTeleportBack\ScimiterrorTeleportBack"
+		GroupName = "FX_Dark"
 		CreateAnimations = []
 	}
 
@@ -247,9 +380,9 @@
 		EndAlpha = 0.9
 
 		VisualFx = "SwabShockWaveVerticalParticles"
-      	AddColor = true
-      	VisualFxIntervalMax = 0.02
-      	VisualFxIntervalMin = 0.01
+				AddColor = true
+				VisualFxIntervalMax = 0.02
+				VisualFxIntervalMin = 0.01
 	}
 	{
 		Name = "SwabShockwaveRingWarning"
@@ -272,9 +405,9 @@
 		EndAlpha = 0.9
 
 		VisualFx = "SwabShockWaveVerticalParticles"
-      	AddColor = true
-      	VisualFxIntervalMax = 0.02
-      	VisualFxIntervalMin = 0.01
+				AddColor = true
+				VisualFxIntervalMax = 0.02
+				VisualFxIntervalMin = 0.01
 	}
 	{
 		Name = "SwabShockwaveRingWarning_Elite"
@@ -284,43 +417,43 @@
 	}
 
 	 {
-      Name = "SwabShockWaveVerticalParticles"
-      FilePath = "Particles\particle_ember_01_glow_add"
-      GroupName = "FX_Standing_Add"
-      AngleFromOwner = "Ignore"
-      AddColor = true
-      StartRed = 1.0
-      StartGreen = 1.0
-      StartBlue = 0.4
-      EndRed = 0.999
-      EndGreen = 0.5
-      EndBlue = 0
-      EndAlpha = 1.0
-      EndFrame = 1
-      NumFrames = 1
-      RandomDurationMax = 0.4
-      RandomDurationMin = 0.3
-      StartFrame = 1
-      OffsetZ = 0.0
-      RandomOffsetX = 430.0
-      RandomOffsetY = 220.0
-      LocationFromOwner = "Ignore"
-      VelocityMax = 700.0
-      VelocityMin = 600.0
-      EndScale = 0.0
-      EndScaleY = 2.0
-      ScaleMax = 1.9
-      ScaleMin = 0.7
-      StartScaleX = 3.0
-      StartScaleY = 0.0
-      Ambient = 0.0
-      Scale = 1.5
-      RandomAccelerationMax = -50.0
-      RandomAccelerationMin = -70.0
-      AngleMin = 90
-      AngleMax = 90
-      Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
-    }
+			Name = "SwabShockWaveVerticalParticles"
+			FilePath = "Particles\particle_ember_01_glow_add"
+			GroupName = "FX_Standing_Add"
+			AngleFromOwner = "Ignore"
+			AddColor = true
+			StartRed = 1.0
+			StartGreen = 1.0
+			StartBlue = 0.4
+			EndRed = 0.999
+			EndGreen = 0.5
+			EndBlue = 0
+			EndAlpha = 1.0
+			EndFrame = 1
+			NumFrames = 1
+			RandomDurationMax = 0.4
+			RandomDurationMin = 0.3
+			StartFrame = 1
+			OffsetZ = 0.0
+			RandomOffsetX = 430.0
+			RandomOffsetY = 220.0
+			LocationFromOwner = "Ignore"
+			VelocityMax = 700.0
+			VelocityMin = 600.0
+			EndScale = 0.0
+			EndScaleY = 2.0
+			ScaleMax = 1.9
+			ScaleMin = 0.7
+			StartScaleX = 3.0
+			StartScaleY = 0.0
+			Ambient = 0.0
+			Scale = 1.5
+			RandomAccelerationMax = -50.0
+			RandomAccelerationMin = -70.0
+			AngleMin = 90
+			AngleMax = 90
+			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+		}
 
 	{
 		Name = "SwabShockwaveFxRing"
@@ -1054,4 +1187,3564 @@
 		StartFrame = 1
 		HoldLastFrame = true
 	}
+	{
+		Name = "MinotaurBullRushHornStrike"
+		FilePath = "Dev\blank_invisible"
+
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "MinotaurBullRushHornStrikeA" }
+			{ Name = "MinotaurBullRushHornStrikeB" }
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "MinotaurWaveFistHalfA" }
+			{ Name = "MinotaurWaveFistHalfB" }
+		]
+	}
+
+	{
+		Name = "MinotaurBullRushHornStrikeA"
+		FilePath = "Fx\ShadeSwordSwipe\ShadeSwordSwipe"
+
+		Angle = 85.0
+		PingPongColor = true
+		EndFrame = 19
+		NumFrames = 16
+		PlaySpeed = 80.0
+		StartFrame = 4
+		FlipVertical = true
+		OriginX = 180.0
+		OriginY = 220.0
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		IsometricSkew = "Y"
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		OverlayVfx = true
+		TimeModifierFraction = 0.75
+	}
+
+	{
+		Name = "MinotaurBullRushHornStrikeB"
+		InheritFrom = "MinotaurBullRushHornStrikeA"
+		Angle = 95.0
+	}
+
+	{
+		Name = "MinotaurWaveFistHalfA"
+		InheritFrom = "MinotaurBullRushHornStrikeA"
+		FilePath = "Fx\EnemyWaveFistHalf\EnemyWaveFistHalf"
+		GroupName = "Standing"
+		EndFrame = 15
+		NumFrames = 15
+		RandomPlaySpeedMax = 90.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		FlipVertical = false
+		OriginX = -40.0
+		OriginY = 160.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Acceleration = -200.0
+		Velocity = 200.0
+		ScaleMax = 1.0
+		ScaleMin = 0.9
+	}
+
+	{
+		Name = "MinotaurWaveFistHalfB"
+		InheritFrom = "MinotaurWaveFistHalfA"
+		Angle = 95.0
+	}
+
+
+	{
+		Name = "EnemyHeavySlashWretchAssassin"
+		InheritFrom = "EnemyLightSlash"
+
+		AngleFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		FlipHorizontal = true
+		OffsetZ = 80.0
+		OriginX = 240.0
+		OriginY = 120.0
+		Scale = 2.0
+		StartScaleY = 1.2
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	// Eris
+	{
+		Name = "GunGrenade"
+		FilePath = "Fx\Grenade\Grenade"
+		VisualFx = "GunGrenadeTrailContainer"
+		Sound = "/SFX/Player Sounds/ZagreusGunGrenadeGasReleaseFly"
+		StopSoundOnFinishFade = 0.25
+		Duration = 1.0
+		EndFrame = 32
+		NumAngles = 8
+		NumFrames = 32
+		StartFrame = 1
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		Slides = [
+
+			{ DurationFrames = 2 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 200 }
+		]
+	}
+
+	{
+		Name = "GunGrenadeWarningDecal"
+		FilePath = "GUI\LobDecalGrenade"
+		GroupName = "FX_Terrain"
+		Angle = 45.00
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "Isometric"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 217.0
+		Ambient = 0.0
+		Loop = true
+		ReRandomizeOnLoop = false
+		RotationSpeed = 5.00
+	}
+
+	{
+		Name = "GunGrenadeWarningDecalEnemy"
+		InheritFrom = "GunGrenadeWarningDecal"
+		ColorFromOwner = "Ignore"
+
+		AddColor = true
+		Color = { Red = 1.0 Green = 0.1 Blue = 0.1 }
+	}
+	
+	{
+		Name = "GunGrenadeTrailContainer"
+		CreateAnimation = "GunGrenadeTrail"
+		FilePath = "Dev\blank_invisible"
+		
+		EndAngle = 45.0
+		StartAngle = -45.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OverlayVfx = true
+	}
+	
+	{
+		Name = "GunGrenadeTrail"
+		FilePath = "Fx\GrenadeTrail\GrenadeTrail"
+		GroupName = "Standing"
+		
+		AngleChangeSpeedMax = 30.0
+		AngleChangeSpeedMin = -30.0
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		AddColor = true
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.6
+		EaseOut = 1.0
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 0.0001
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.3
+		RandomStartFrame = true
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Acceleration = -30.0
+		VelocityMax = 100.0
+		VelocityMin = 50.0
+		RandomRotationSpeedMax = 45.0
+		RandomRotationSpeedMin = -45.0
+		EndScale = 0.7
+		PingPongScale = true
+		ScaleMax = 0.9
+		ScaleMin = 0.8
+		StartScale = 0.0
+		OverlayVfx = true
+	}
+
+	{
+		Name = "GunWeaponProjectile"
+		FilePath = "Fx\PointedProjectile\PointedProjectile"
+		VisualFx = "GunTrail"
+		AddColor = true
+		EndGreen = 0.5
+		EndRed = 0.999
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.15
+		EndFrame = 60
+		HoldLastFrame = true
+		LoopFramesOnly = true
+		NumFrames = 60
+		StartFrame = 1
+		OriginX = 192.0
+		OriginY = 128.0
+		UseAttachedMarkerLocation = "null"
+		LocationZFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxDistanceMax = 91.0
+		VisualFxDistanceMin = 90.0
+		VisualFxManagerCap = 500
+		VisualFxManagerFrameCap = 20
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "GunAmmoShell" }
+			{ Name = "GunWeaponMuzzleFlash" }
+		]
+	}
+	{
+		Name = "GunWeaponMuzzleFlash"
+		CreateAnimation = "QuickFlashRed"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Standing_Add"
+		EndGreen = 0.3
+		EndRed = 0.999
+		StartAlpha = 1.0
+		StartBlue = 0.2
+		StartGreen = 0.5
+		StartRed = 1.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		UseAttachedMarkerLocation = "weapon_2_TRACKING"
+		RandomRotation = true
+		EndScale = 0.6
+		PostRotateScaleY = 0.5
+		Scale = 0.7
+		Ambient = 0.0
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "GunAmmoShell"
+		FilePath = "Animations\GunAmmoShell\GunAmmoShell"
+		Random =
+		[
+			{ Name = "GunAmmoShellA" }
+			{ Name = "GunAmmoShellB" }
+		]
+	}
+	{
+		Name = "GunAmmoShellA"
+		ChainTo = "GunAmmoShellDecal"
+		FilePath = "Fx\GunAmmoShellA\GunAmmoShellA"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		AngleMax = 110.00
+		AngleMin = 90.00
+		AddColor = true
+		EndBlue = 0.001
+		EndRed = 0.001
+		StartGreen = 0.5
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 30
+		LoopFramesOnly = true
+		NumFrames = 30
+		RandomDurationMax = 0.7
+		RandomDurationMin = 0.6
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		Scale = 0.7
+		OffsetZ = 60.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Acceleration = -200.0
+		Gravity = 1200.0
+		UpwardVelocityMax = 300.0
+		UpwardVelocityMin = 200.0
+		VelocityMax = 320.0
+		VelocityMin = 300.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 180.00
+		RandomRotationSpeedMin = -180.00
+		Ambient = 0.0
+	}
+
+	{
+		Name = "GunAmmoShellB"
+		InheritFrom = "GunAmmoShellA"
+		FilePath = "Fx\GunAmmoShellB\GunAmmoShellB"
+	}
+
+	{
+		Name = "GunAmmoShellDecal"
+		FilePath = "Fx\GunAmmoShellA\GunAmmoShellA"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		Sound = "/SFX/Player Sounds/ZagreusGunShellDrop"
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 0.0001
+		RandomStartFrame = true
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		CancelOverCap = true
+	}
+
+	{
+		Name = "ErisSprayPreview"
+		FilePath = "Fx\EnemyLaser\EnemyLaser"
+		GrannyAttachedMarkerLocation = "Eris_Rig:magazinePipe_00_M_JNT"
+		UseAttachedFlasher = false
+		StartFrame = 1
+		EndFrame = 40
+		NumFrames = 40
+		AngleFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Maintain"
+		OriginX = 5
+		OriginY = 128
+		ScaleX = 2
+		StartScaleY = 0.5
+		EndScaleY = 1.0
+		PingPongScale = true
+		StartAlpha = 0.5
+		EndAlpha = 1
+		Duration = 0.83
+		Color = { Red = 1.0 Green = 0.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "GunTrail"
+		FilePath = "Animations\GunTrail\GunTrail"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "GunTrailA" }
+			{ Name = "GunTrailB" }
+		]
+	}
+
+	{
+		Name = "GunTrailA"
+		FilePath = "Fx\GunTrailA\GunTrailA"
+		GroupName = "FX_Standing_Add"
+		EndRed = 0.999
+		StartBlue = 0.1
+		StartGreen = 0.35
+		StartRed = 1.0
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 90.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		UseAttachedMarkerLocation = "weapon_2_TRACKING"
+		EndScaleY = 1.1
+		ScaleFromOwner = "Ignore"
+		ScaleY = 0.3
+		Ambient = 0.0
+		OverlayVfx = true
+		UseAttachedFlasher = false
+		AngleFromOwner = "Take"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			{ Name = "GunTrailA-Dark" }
+			{ Name = "GunTrailDisplacement" }
+			{ Name = "GunTrailFloorGlow" }
+		]
+	}
+	{
+		Name = "GunTrailB"
+		InheritFrom = "GunTrailA"
+		ClearCreateAnimations = true
+		FilePath = "Fx\GunTrailB\GunTrailB"
+		EndFrame = 42
+		NumFrames = 42
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "GunTrailB-Dark" }
+			{ Name = "GunTrailDisplacement" }
+			{ Name = "GunTrailFloorGlow" }
+		]
+	}
+
+	{
+		Name = "GunTrailDisplacement"
+		FilePath = "Fx\KnockbackLines\KnockbackLines"
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.03
+		EndFrame = 21
+		NumFrames = 21
+		PlaySpeed = 120.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleX = 5.0
+		ScaleY = 0.25
+	}
+
+	{
+		Name = "GunTrailA-Dark"
+		InheritFrom = "GunTrailA"
+		ClearCreateAnimations = true
+		GroupName = "Standing"
+		ScaleY = 0.4
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "GunTrailB-Dark"
+		InheritFrom = "GunTrailB"
+		ClearCreateAnimations = true
+		GroupName = "Standing"
+		ScaleY = 0.4
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	{
+		Name = "GunTrailFloorGlow"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Terrain_Add"
+		EndRed = 0.999
+		StartAlpha = 0.3
+		StartBlue = 0.1
+		StartGreen = 0.5
+		StartRed = 1.0
+		Duration = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		EndScale = 0.6
+		Scale = 0.25
+		ScaleX = 4.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "GunProjectileLight"
+		FilePath = "Fx\LootShadow\LootShadow"
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		Alpha = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		Color = { Red = 1.0 Green = 0.35 Blue = 0.0 }
+		Sound = "/SFX/Player Sounds/GunHomingProjectileLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "GunWeaponProjectile_Sniper"
+		InheritFrom = "GunWeaponProjectile"
+		CreateAnimation = "GunWeaponMuzzleFlash_Sniper"
+		VisualFx = "GunTrail_Sniper"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndGreen = 0
+		EndRed = 0.4
+		EndBlue = 0.999
+	}
+	{
+		Name = "GunWeaponMuzzleFlash_Sniper"
+		InheritFrom = "GunWeaponMuzzleFlash"
+		CreateAnimation = "QuickFlashPurple"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0
+		EndBlue = 0.999
+	}
+	{
+		Name = "GunTrail_Sniper"
+		FilePath = "Animations\GunTrail\GunTrail"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "GunTrailA_Sniper" }
+			{ Name = "GunTrailB_Sniper" }
+		]
+	}
+	{
+		Name = "GunTrailA_Sniper"
+		InheritFrom = "GunTrailA"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 0
+		EndBlue = 0.999
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "GunTrailA-Dark_Sniper" }
+			{ Name = "GunTrailDisplacement" }
+			{ Name = "GunTrailFloorGlow-Dionysus" }
+		]
+	}
+	{
+		Name = "GunTrailB_Sniper"
+		InheritFrom = "GunTrailA_Sniper"
+		ClearCreateAnimations = true
+		FilePath = "Fx\GunTrailB\GunTrailB"
+		EndFrame = 42
+		NumFrames = 42
+		StartFrame = 1
+		CreateAnimations =
+		[
+			{ Name = "GunTrailB-Dark_Sniper" }
+			{ Name = "GunTrailDisplacement" }
+			{ Name = "GunTrailFloorGlow-Dionysus" }
+		]
+	}
+
+	{
+		Name = "GunTrailA-Dark_Sniper"
+		InheritFrom = "GunTrailA"
+		ClearCreateAnimations = true
+		GroupName = "Standing"
+		ScaleY = 0.4
+		RandomPlaySpeedMax = 30
+		RandomPlaySpeedMin = 24
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "GunTrailB-Dark_Sniper"
+		InheritFrom = "GunTrailB"
+		ClearCreateAnimations = true
+		GroupName = "Standing"
+		ScaleY = 0.4
+		RandomPlaySpeedMax = 30
+		RandomPlaySpeedMin = 24
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "GunTrailFloorGlow-Dionysus"
+		InheritFrom = "GunTrailFloorGlow"
+		EndBlue = 1.0
+		EndGreen = 0.001
+		EndRed = 0.4
+		StartBlue = 1.0
+		StartGreen = 0.0
+		StartRed = 0.7
+	}
+
+	{
+		Name = "SniperPowerShot"
+		FilePath = "Fx\PointedProjectile\PointedProjectile"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "SniperPowerShotHelixSide"
+		ColorFromOwner = "Ignore"
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 120.0
+		StartFrame = 1
+		OriginX = 192.0
+		OriginY = 128.0
+		DieWithOwner = true
+		Scale = 1.2
+		ScaleFromOwner = "Ignore"
+		ScaleX = 3.0
+		Ambient = 0.0
+		VisualFxDistanceMax = 50.0
+		VisualFxDistanceMin = 50.0
+		LocationZFromOwner = "Take"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 1
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "SniperPowerShotHelixSide"
+		FilePath = "Fx\BloodstoneHelixSide\BloodstoneHelixSide"
+		GroupName = "Standing"
+		EaseIn = 0.3
+		EaseOut = 1.0
+		EndFrame = 44
+		NumFrames = 44
+		RandomPlaySpeedMax = 140.0
+		RandomPlaySpeedMin = 110.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Isometric"
+		EndScaleX = 2.0
+		EndScaleY = 1.2
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.8
+		ScaleMin = 0.3
+		StartScaleY = 0.2
+		Ambient = 0.0
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 0.999
+		CreateAnimations =
+		[
+			{ Name = "SniperPowerShotLine" }
+			{ Name = "SniperPowerShotHelixLinger" }
+		]
+	}
+
+	{
+		Name = "SniperPowerShotLine"
+		FilePath = "Fx\RailgunLine\RailgunLine"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndFrame = 59
+		NumFrames = 59
+		RandomPlaySpeedMax = 120.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 0.3
+		ScaleX = 0.4
+		ScaleMax = 1.0
+		ScaleMin = 0.6
+		ScaleY = 2.0
+		Ambient = 0.0
+		AngleFromOwner = "Take"
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 0.999
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+
+	{
+		Name = "SniperPowerShotHelixLinger"
+		FilePath = "Fx\BloodstoneHelixTrail\BloodstoneHelixTrail"
+		GroupName = "FX_Standing_Add"
+		AngleMax = 90.00
+		AngleMin = -90.00
+		AlphaMax = 1.0
+		AlphaMin = 0.4
+		StartAlpha = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 50
+		NumFrames = 25
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		SortMode = "Isometric"
+		IsometricSkew = "Y"
+		EndScale = 0.7
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		StartScale = 0.35
+		Ambient = 0.0
+		StartRed = 1.0
+		StartGreen = 0.01
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0
+		EndBlue = 0.999
+	}
+	{
+		Name = "ZagGrenadeExplosionBase"
+		FilePath = "Fx\GrenadeExplosionA\GrenadeExplosionA"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "GrenadeExplosionSparks"
+		VisualFxManagerCap = 400
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndGreen = 0.6
+		EndRed = 0.999
+		StartBlue = 0.001
+		StartGreen = 0.7
+		StartRed = 1.0
+		EndFrame = 26
+		NumFrames = 26
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleRadius = 300.0
+		Ambient = 0.0
+		VisualFxCap = 24
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashYellow" }
+			{ Name = "GrenadeExplosionLightingBase" }
+			{ Name = "DisplaceShockwaveHemiGrenade" }
+			{ Name = "ExplosionScorchDecalFade" }
+			{ Name = "ZagGrenadeExplosionBaseB" }
+		]
+	}
+	{
+		Name = "ZagGrenadeExplosionHuge"
+		InheritFrom = "ZagGrenadeExplosionBase"
+		Scale = 4.0
+		Sound = "/SFX/Explosion1"
+	}
+	{
+		Name = "DisplaceShockwaveHemiGrenade"
+		InheritFrom = "DisplaceShockwave"
+		FilePath = "Fx\DisplaceShockwaveHemi\DisplaceShockwaveHemi"
+		PlaySpeed = 60.0
+		Scale = 2.0
+	}
+	{
+		Name = "ZagGrenadeExplosionBaseB"
+		FilePath = "Fx\GrenadeExplosionB\GrenadeExplosionB"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndRed = 0.999
+		StartBlue = 0.001
+		StartGreen = 0.001
+		StartRed = 1.0
+		EndFrame = 45
+		NumFrames = 45
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "Isometric"
+		ScaleRadius = 300.0
+		Ambient = 0.0
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.1
+		EaseOut = 0.2
+		DrawBehindOwner = true
+		GroupName = "Standing"
+	}
+	{
+		Name = "GrenadeExplosionSparks"
+		FilePath = "Animations\MineExplosionSparks\MineExplosionSparks"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "GrenadeExplosionSparkA" }
+			{ Name = "GrenadeExplosionSparkB" }
+			{ Name = "GrenadeExplosionSparkC" }
+		]
+	}
+	{
+		Name = "GrenadeExplosionSparkA"
+		FilePath = "Particles\particle_ember_01"
+		GroupName = "FX_Standing_Add"
+		
+		AngleMax = 120.0
+		AngleMin = 60.0
+		EndGreen = 0.2
+		EndRed = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.6
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.2
+		RandomDurationMin = 0.75
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Acceleration = -1200.0
+		Gravity = 10.0
+		VelocityMax = 900.0
+		VelocityMin = 600.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 180.0
+		RandomRotationSpeedMin = -180.0
+		EndScale = 0.0
+		ScaleMax = 0.5
+		ScaleMin = 0.13
+		Ambient = 0.0
+		UseBoundsForSortDrawArea = true
+	}
+	
+	{
+		Name = "GrenadeExplosionSparkB"
+		InheritFrom = "GrenadeExplosionSparkA"
+		FilePath = "Particles\particle_ember_02"
+	}
+	
+	{
+		Name = "GrenadeExplosionSparkC"
+		InheritFrom = "GrenadeExplosionSparkA"
+		FilePath = "Particles\particle_ember_03"
+	}
+
+	{
+		Name = "GrenadeExplosionLightingBase"
+		FilePath = "Fx\BasicGlow\BasicGlow"
+		GroupName = "FX_Add_Top"
+		
+		EndGreen = 0.25
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.95
+		StartRed = 1.0
+		Duration = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+	}
+
+	{
+		Name = "DestructibleMastFullA"
+		FilePath = "Tilesets\Ships\Ships_DestructibleMast_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.33
+		OffsetY = -310
+		OffsetX = -5
+	}
+	{
+		Name = "DestructibleMastDamagedA"
+		InheritFrom = "DestructibleMastFullA"
+		FilePath = "Tilesets\Ships\Ships_DestructibleMast_01a"
+		CreateAnimation = "ShipsDestructibleMastTransitionA"
+	}
+	{
+		Name = "ShipsDestructibleMastTransitionA"
+		FilePath = "Fx\ShipsDestructibleMastTransitionA\ShipsDestructibleMastTransitionA"
+		NumFrames = 60
+		PlaySpeed = 30
+		Scale = 0.66
+		OffsetY = -310
+		OffsetX = -5
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+	}
+	{
+		Name = "DestructibleMastDestroyedA"
+		InheritFrom = "DestructibleMastFullA"
+		FilePath = "Tilesets\Ships\Ships_DestructibleMast_01b"
+		CreateAnimation = "ShipsDestructibleMastTransitionB"
+	}
+	{
+		Name = "ShipsDestructibleMastTransitionB"
+		InheritFrom = "ShipsDestructibleMastTransitionA"
+		FilePath = "Fx\ShipsDestructibleMastTransitionB\ShipsDestructibleMastTransitionB"
+	}
+	{
+		Name = "OilPuddleIdle"
+		FilePath = "Tilesets\Ships\Ships_OilPuddle_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -310
+	}
+	{
+		Name = "OilPuddle02Idle"
+		InheritFrom = "OilPuddleIdle"
+		FilePath = "Tilesets\Ships\Ships_OilPuddle_01a"
+	}
+	{
+		Name = "OilPuddle03Idle"
+		InheritFrom = "OilPuddleIdle"
+		FilePath = "Tilesets\Ships\Ships_OilPuddle_01b"
+	}
+	{
+		Name = "OilPuddle04Idle"
+		InheritFrom = "OilPuddleIdle"
+		FilePath = "Tilesets\Ships\Ships_OilPuddle_01c"
+	}
+
+	{
+		Name = "OilPuddleLit"
+		InheritFrom = "OilPuddleIdle"
+		CreateAnimation = "OilPuddle01Burn"
+	}
+	{
+		Name = "OilPuddle02Lit"
+		InheritFrom = "OilPuddle02Idle"
+		CreateAnimation = "OilPuddle02Burn"
+	}
+	{
+		Name = "OilPuddle03Lit"
+		InheritFrom = "OilPuddle03Idle"
+		CreateAnimation = "OilPuddle03Burn"
+	}
+	{
+		Name = "OilPuddle04Lit"
+		InheritFrom = "OilPuddle03Idle"
+		CreateAnimation = "OilPuddle04Burn"
+	}
+
+	{
+		Name = "OilPuddle01Burn"
+		FilePath = "Fx\Ships_OilPuddle_01_Burn\Ships_OilPuddle_01_Burn"
+		DieWithOwner = true
+		NumFrames = 60
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		RandomPlaySpeedMin = 26
+		RandomPlaySpeedMax = 34
+		Scale = 1.3333
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Top"
+		Loop = true
+		Sound = "/Leftovers/Object Ambiences/FireAmbientLoopTORCHES"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "OilPuddleSparks"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.1
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		ChainTo = "OilPuddle01Extinguish"
+		CreateAnimations =
+		[
+			{ Name = "OilPuddleIgniteGlow" }
+			{ Name = "OilPuddleIgniteGlowAmbient" }
+		]
+	}
+	{
+		Name = "OilPuddle01Extinguish"
+		InheritFrom = "OilPuddle01Burn"
+		Loop = false
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		CreateAnimations = []
+		VisualFx = null
+		Duration = 0.35
+		ChainTo = null
+	}
+	{
+		Name = "OilPuddle02Burn"
+		InheritFrom = "OilPuddle01Burn"
+		FilePath = "Fx\Ships_OilPuddle_01a_Burn\Ships_OilPuddle_01a_Burn"
+		Scale = 1.3333
+		ChainTo = "OilPuddle02Extinguish"
+	}
+	{
+		Name = "OilPuddle02Extinguish"
+		InheritFrom = "OilPuddle02Burn"
+		Loop = false
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		CreateAnimations = []
+		VisualFx = null
+		Duration = 0.35
+		ChainTo = null
+	}
+	{
+		Name = "OilPuddle03Burn"
+		InheritFrom = "OilPuddle01Burn"
+		FilePath = "Fx\Ships_OilPuddle_01b_Burn\Ships_OilPuddle_01b_Burn"
+		Scale = 2
+		ChainTo = "OilPuddle03Extinguish"
+	}
+	{
+		Name = "OilPuddle03Extinguish"
+		InheritFrom = "OilPuddle03Burn"
+		Loop = false
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		CreateAnimations = []
+		VisualFx = null
+		Duration = 0.35
+		ChainTo = null
+	}
+	{
+		Name = "OilPuddle04Burn"
+		InheritFrom = "OilPuddle01Burn"
+		FilePath = "Fx\Ships_OilPuddle_01c_Burn\Ships_OilPuddle_01c_Burn"
+		Scale = 2
+		ChainTo = "OilPuddle04Extinguish"
+	}
+	{
+		Name = "OilPuddle04Extinguish"
+		InheritFrom = "OilPuddle04Burn"
+		Loop = false
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		CreateAnimations = []
+		VisualFx = null
+		Duration = 0.35
+		ChainTo = null
+	}
+
+	{
+		Name = "OilPuddleIgniteGlow"
+		FilePath = "Particles\particle_glow_egg"
+		ScaleFromOwner = "Ignore"
+		Scale = 3
+		ScaleX = 3
+		ScaleY = 2
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		EaseIn = 0.9
+		EaseOut= 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "OilPuddleIgniteGlowAmbient"
+		InheritFrom = "OilPuddleIgniteGlow"
+		Loop = true
+		StartAlpha = 0.05
+		EndAlpha = 0.1
+		PingPongColor = true
+		EaseIn = 0
+		RandomDurationMin = 1.2
+		RandomDurationMax = 2.5
+		ScaleY = 1
+		DieWithOwner = true
+	}
+
+	{
+		Name = "OilPuddleSparks"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		ScaleX = 2
+		AngleMin = 160
+		AngleMax = 270
+		Material = "Unlit"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		GroupName = "FX_Standing_Add"
+		AddColor = false
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.05
+		EndRed = 0.999
+		EndGreen = 0.1
+		EndBlue = 0
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		VelocityMin = 400
+		VelocityMax = 800
+		RandomAccelerationMin = -600
+		RandomAccelerationMax = -300
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomOffsetX = 200
+		RandomOffsetY = 75
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleChangeSpeedMin = 0
+		AngleChangeSpeedMax = -90
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		DieWithOwner = true
+	}
+    
+	{
+		Name = "FireBarrelShipsIdle"
+		FilePath = "Fx\Ships_TNTBarrel_01_Glint\Ships_TNTBarrel_01_Glint"
+		NumFrames = 28
+		StartFrame = 1
+		OffsetY = -50.0
+		Scale = 0.75
+		Loop = true
+		Slides = [
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ RandomDurationFramesMin = 30 RandomDurationFramesMax = 45 }
+
+		]
+
+	}
+
+	{
+		Name = "FireBarrelShipsLit"
+		InheritFrom = "FireBarrelShipsIdle"
+		Sound = "/SFX/BombFusePreExplode"
+		StopSoundOnFinishFade = 0.2
+		Duration = 3.0
+		ShakeDistance = 1.0
+		ShakeSpeed = 150.0
+	}
+
+
+
+	{
+		Name = "EnemySticklerLeapTrail"
+		FilePath = "Fx\SticklerDashStreak\SticklerDashStreak"
+		OriginX = 180
+		OriginY = 60
+		NumFrames = 14
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		ScaleX = 1.0
+		StartScaleX = 1.0
+		EndScaleX = 1.01
+		ScaleY = 1.2
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		StartFrame = 9
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		IsometricSkew = "X"
+	}
+
+
+	{
+		Name = "EnemySticklerDecal"
+		Random = [
+			{ Name = "EnemySticklerDecalA" }
+			{ Name = "EnemySticklerDecalB" }
+			{ Name = "EnemySticklerDecalC" }
+		]
+	}
+
+	{
+		Name = "EnemySticklerDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalA"
+		GroupName = "FX_Terrain"
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.01
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "EnemySticklerDecalB"
+		InheritFrom = "EnemySticklerDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalB"
+	}
+
+	{
+		Name = "EnemySticklerDecalC"
+		InheritFrom = "EnemySticklerDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalC"
+	}
+
+	{
+		Name = "SticklerSpear"
+		FilePath = "Fx\SticklerSpear\SticklerSpear"
+		NumFrames = 24
+		Loop = true
+		Material = "Unlit"
+		FlipHorizontal = true
+		Scale = 1.6
+		TransferFrameFromThis = true
+		VisualFx = "SticklerSpearTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 50
+	}
+
+	{
+		Name = "SticklerSpearTrail"
+		FilePath = "Fx\FadeTrailHard\FadeTrailHard"
+		NumFrames = 28
+		GroupName = "FX_Dark"
+		ScaleX = 4
+		Scale = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0
+		ScaleMin = 0.75
+		ScaleMax = 1.25
+		StartScaleY = 0
+		EndScaleY = 1
+		EaseIn = 0.75
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 90
+	}
+
+	{
+		Name = "SticklerSpearDissipate"
+		InheritFrom = "SticklerSpear"
+		TransferFrameToThis = true
+		StartAlpha = 1
+		EndAlpha = 0
+		LoopFramesOnly = true
+		Duration = 0.25
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Loop = false
+		StartScale = 1
+		EndScale = 0.5
+	}
+
+	{
+		Name = "SticklerSpearShadow"
+		InheritFrom = "SticklerSpear"
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SticklerSpawnTrail"
+		FilePath = "Fx\SticklerSpawnStreaks\SticklerSpawnStreaks"
+		NumFrames = 7
+		Material = "Unlit"
+		ScaleY = 2
+		OriginX = 128
+		OriginY = 256
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Slides = [
+			{ DurationFrames = 28 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "SticklerDeathBits"
+		Random = [
+			{ Name = "SticklerDeathBitsA" }
+			{ Name = "SticklerDeathBitsB" }
+			{ Name = "SticklerDeathBitsC" }
+			{ Name = "SticklerDeathBitsD" }
+			{ Name = "SticklerDeathBitsE" }
+		]
+	}
+
+	{
+		Name = "SticklerDeathBitsA"
+		FilePath = "Particles\particle_sticklerBits_01"
+		Material = "Unlit"
+		AngleMin = 140
+		AngleMax = 220
+		AngleFromOwner = "Take"
+		VelocityMin = 300
+		VelocityMax = 900
+		RandomAccelerationMin = -2400
+		RandomAccelerationMax = -400
+		Gravity = 600
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.6
+		ScaleMax = 1.2
+		Scale = 1.5
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomOffsetX = 20
+		RandomOffsetY = 80
+		OffsetZ = 40
+		UpwardVelocityMin = 100
+		UpwardVelocityMax = 300
+		RandomRotation = true
+		RandomRotationSpeedMin = -640
+		RandomRotationSpeedMax = 640
+	}
+
+	{
+		Name = "SticklerDeathBitsB"
+		InheritFrom = "SticklerDeathBitsA"
+		FilePath = "Particles\particle_sticklerBits_02"
+	}
+	{
+		Name = "SticklerDeathBitsC"
+		InheritFrom = "SticklerDeathBitsA"
+		FilePath = "Particles\particle_sticklerBits_03"
+	}
+	{
+		Name = "SticklerDeathBitsD"
+		InheritFrom = "SticklerDeathBitsA"
+		FilePath = "Particles\particle_sticklerBits_04"
+	}
+	{
+		Name = "SticklerDeathBitsE"
+		InheritFrom = "SticklerDeathBitsA"
+		FilePath = "Particles\particle_sticklerBits_05"
+	}
+
+	{
+		Name = "ShipsDust"
+		Random = [
+			{ Name = "ShipsDustFront" }
+			{ Name = "ShipsDustFrontFlip" }
+		]
+	}
+
+	{
+		Name = "ShipsDustFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "ShipsDustBack"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "ShipsDustBack"
+		InheritFrom = "ShipsDustFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "ShipsDustFrontFlip"
+		InheritFrom = "ShipsDustFront"
+		FlipHorizontal = true
+		CreateAnimation = "ShipsDustBackFlip"
+	}
+
+	{
+		Name = "ShipsDustBackFlip"
+		InheritFrom = "ShipsDustBack"
+		FlipHorizontal = true
+	}	
+
+
+	{
+		Name = "ShipsDustFast"
+		Random = [
+			{ Name = "ShipsDustFastFront" }
+			{ Name = "ShipsDustFastFrontFlip" }
+		]
+	}
+
+	{
+		Name = "ShipsDustFastFront"
+		InheritFrom = "ShipsDustFront"
+		RandomPlaySpeedMin = 90
+		RandomPlaySpeedMax = 120
+		Scale = 1.5
+		CreateAnimation = "ShipsDustFastBack"
+	}
+
+	{
+		Name = "ShipsDustFastBack"
+		InheritFrom = "ShipsDustFastFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "ShipsDustFastFrontFlip"
+		InheritFrom = "ShipsDustFastFront"
+		FlipHorizontal = true
+		CreateAnimation = "ShipsDustFastBackFlip"
+	}
+
+	{
+		Name = "ShipsDustFastBackFlip"
+		InheritFrom = "ShipsDustFastBack"
+		FlipHorizontal = true
+	}
+
+
+	{
+		Name = "SticklerLeapNova"
+		FilePath = "Fx\EnemyNova\EnemyNova"
+		NumFrames = 60
+		PlaySpeed = 60
+		GroupName = "FX_Terrain_Add"
+		Material = "Unlit"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 100
+		VisualFx = "ShipsSplinterParticles"
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "SticklerLeapNovaDark" }
+			{ Name = "SticklerLeapNovaDust" }
+			//{ Name = "SticklerLeapNovaDisplace" }
+			{ Name = "ShipsDustFast" }
+			{ Name = "SticklerLeapNovaGlow" }
+			{ Name = "SticklerLeapNovaFlare" }
+		]
+	}
+
+	{
+		Name = "SticklerLeapNovaDust"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		PlaySpeed = 60
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		OffsetZ = 0
+		StartAlpha = 0.5
+		EndAlpha = 0.25
+		Scale = 2
+	}
+
+	{
+		Name = "SticklerLeapNovaFlare"
+		FilePath = "Particles\particle_flareSpike"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 212
+		OriginY = 128
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		Duration = 0.25
+		Scale = 1.33
+		ScaleX = 0.66
+
+	}
+
+	{
+		Name = "SticklerLeapNovaGlow"
+		FilePath = "Particles\particle_quickflashIris"
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "FX_Standing_Add"
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.5
+		Scale = 1
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SticklerLeapNovaDark"
+		InheritFrom = "SticklerLeapNova"
+		PlaySpeed = 80
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "SticklerLeapNovaDisplace"
+		InheritFrom = "SticklerLeapNova"
+		PlaySpeed = 70
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0.0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "HarpySpawnTrail"
+		FilePath = "Fx\HarpySpawnStreaks\HarpySpawnStreaks"
+		NumFrames = 7
+		Material = "Unlit"
+		ScaleY = 2
+		OriginX = 128
+		OriginY = 360
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Slides = [
+			{ DurationFrames = 37 }
+			{ DurationFrames = 1 VisualFx = "ShipsDust"}
+			{ DurationFrames = 1 VisualFx = "HarpyFeathers" }
+			{ DurationFrames = 1 VisualFx = "HarpyFeathers" }
+			{ DurationFrames = 1 VisualFx = "HarpyFeathers" }
+			{ DurationFrames = 1 VisualFx = "HarpyFeathers" }
+			{ DurationFrames = 1 VisualFx = "HarpyFeathers" }
+		]
+	}
+
+	{
+		Name = "HarpyFeathers"
+		Random = [
+			{ Name = "HarpyFeatherA" }
+			{ Name = "HarpyFeatherB" }
+			{ Name = "HarpyFeatherC" }
+		]
+	}
+
+	{
+		Name = "HarpyFeatherA"
+		FilePath = "Fx\HarpyFeatherA\HarpyFeatherA"
+		NumFrames = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 450
+		AngleChangeSpeedMin = -240
+		AngleChangeSpeedMax = 240
+		Acceleration = -400
+		RandomOffsetX = 80
+		RandomOffsetY = 120
+		OffsetZ = 90
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Gravity = 250
+	}
+
+	{
+		Name = "HarpyFeatherB"
+		InheritFrom = "HarpyFeatherA"
+		FilePath = "Fx\HarpyFeatherB\HarpyFeatherB"
+	}
+
+	{
+		Name = "HarpyFeatherC"
+		InheritFrom = "HarpyFeatherA"
+		FilePath = "Fx\HarpyFeatherC\HarpyFeatherC"
+	}
+
+	{
+		Name = "HarpySliceFx"
+		FilePath = "Fx\HarpyClaw\HarpyClaw"
+		NumFrames = 40
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 85
+		RandomOffsetY = 20
+		Material = "Unlit"
+		StartOffsetZ = 90
+		EndOffsetZ = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		LocationZFromOwner = "Take"
+		ScaleY = 0.8
+		ScaleX = 1.3
+		Scale = 1.1
+		SortMode = "FromParent"
+		CreateAnimations = [
+			{ Name = "HarpySliceFxGlow" }
+		]
+	}
+
+	{
+		Name = "HarpySliceFxGlow"
+		FilePath = "Particles\particle_glow"
+		Duration = 1
+		Red = 1
+		Green = 0
+		Blue = 0.1
+		StartAlpha = 0.2
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		Scale = 3
+		ScaleX = 2
+		Material = "Unlit"
+		SortMode = "FromParent"
+	}
+
+	{
+		Name = "HarpyDashStreak"
+		FilePath = "Fx\HarpyDashStreak\HarpyDashStreak"
+		NumFrames = 24
+		ScaleX = 2
+		OffsetZ = 120
+		OriginX = 250
+		OriginY = 120
+		VisualFx = "HarpyFeathers"
+		VisualFxDistanceMin = 60
+		VisualFxDistanceMax = 120
+	}
+
+	{
+		Name = "HarpyDashStreakLeft"
+		InheritFrom = "HarpyDashStreak"
+		AngleFromOwner = "Take"
+		ScaleX = 1.25
+		ScaleY = 1.5
+		PlaySpeed = 60
+		OffsetZ = 200
+		OriginX = 260
+		OriginY = 160
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Angle = 45
+		FlipVertical = true
+	}	
+
+	{
+		Name = "HarpyDashStreakRight"
+		InheritFrom = "HarpyDashStreakLeft"
+		Angle = -45
+		FlipVertical = false
+		OriginY = 120
+		OriginX = 220
+		OffsetZ = 180
+	}
+	{
+		Name = "HarpyTornado"
+		FilePath = "Fx\HarpyTornado\HarpyTornado"
+		NumFrames = 90
+		PlaySpeed = 60
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Loop = true
+		TransferFrameFromThis = true
+		ColorFromOwner = "Ignore"
+		Scale = 0.5
+		OriginX = 320
+		OriginY = 256
+		Sound = "/Leftovers/Ambience/WhippingWindLoopLoud"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "HarpyTornadoFade"
+		VisualFx = "ShipsDustTornado"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.4
+		AddColor = true
+		StartRed = 0.3
+		StartGreen = 0.01
+		StartBlue = 0.05
+		EndRed = 0.2
+		EndGreen = 0.03
+		EndBlue = 0.04
+		PingPongColor = true
+	}
+	{
+		Name = "HarpyTornadoFade"
+		InheritFrom = "HarpyTornado"
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 1
+		ChainTo = null
+		StartScale = 3 // needs to match EndScale in HarpyFlap AIData
+		EndScale = 3.01
+		PingPongColor = false
+	}
+	{
+		Name = "HarpyTornadoShadow"
+		InheritFrom = "HarpyTornado"
+		PostRotateScaleY = 0.66
+		GroupName = "Shadows"
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		OffsetZ = -30
+	}
+
+	{
+		Name = "ShipsDustTornado"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		Scale = 0.5
+		OffsetZ = 40
+		StartAlpha = 0.5
+		EndAlpha = 0.2
+		AlphaMax = 1
+		AlphaMin = 0.5
+		VisualFx = "ShipsSplinterParticlesTorando"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.6
+		VisualFxCap = 5
+	}
+
+	{
+		Name = "WaterElementalDropsIdle"
+		Random = [
+			{ Name = "WaterElementalDropsIdleA" }
+			{ Name = "WaterElementalDropsIdleB" }
+			{ Name = "WaterElementalDropsIdleC" }
+		]
+	}
+
+	{
+		Name = "WaterElementalDropsIdleA"
+		FilePath = "Fx\WaterElementalDropsIdleA\WaterElementalDropsIdleA"
+		NumFrames = 34
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 30
+		RandomOffsetX = 10
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		OwnerVelocityFraction = 0.1
+		Acceleration = -300
+		VisualFx = "WaterElementalDropletsTerrainIdle"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 1
+	}
+
+	{
+		Name = "WaterElementalDropsIdleB"
+		InheritFrom = "WaterElementalDropsIdleA"
+		FilePath = "Fx\WaterElementalDropsIdleB\WaterElementalDropsIdleB"
+	}
+
+	{
+		Name = "WaterElementalDropsIdleC"
+		InheritFrom = "WaterElementalDropsIdleA"
+		FilePath = "Fx\WaterElementalDropsIdleC\WaterElementalDropsIdleC"
+	}
+
+	{
+		Name = "WaterElementalDropsMovement"
+		Random = [
+			{ Name = "WaterElementalDropsMovementA" }
+			{ Name = "WaterElementalDropsMovementB" }
+			{ Name = "WaterElementalDropsMovementC" }
+		]
+	}
+
+	{
+		Name = "WaterElementalDropsMovementA"
+		FilePath = "Fx\WaterElementalDropsMovementA\WaterElementalDropsMovementA"
+		NumFrames = 30
+		StartFrame = 10
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 50
+		ScaleMin = 0.8
+		ScaleMax = 1.4
+		ScaleX = 1.1
+		AngleFromOwner = "Take"
+		UseOwnAngle = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Gravity = 200
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		IsometricSkew = "X"
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		OffsetZ = 30
+		OwnerVelocityFraction = 0.04
+		Acceleration = -300
+		VisualFx = "WaterElementalDropletsTerrainMovement"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 1
+		FlipHorizontal = true
+		StartAlpha = 1
+		EndAlpha = 0.25
+	}
+
+	{
+		Name = "WaterElementalDropsMovementB"
+		InheritFrom = "WaterElementalDropsMovementA"
+		FilePath = "Fx\WaterElementalDropsMovementB\WaterElementalDropsMovementB"
+	}
+
+	{
+		Name = "WaterElementalDropsMovementC"
+		InheritFrom = "WaterElementalDropsMovementA"
+		FilePath = "Fx\WaterElementalDropsMovementC\WaterElementalDropsMovementC"
+	}
+
+	{
+		Name = "WaterElementalDashStreak"
+		FilePath = "Fx\WaterElementalDashStreak\WaterElementalDashStreak"
+		OffsetZ = 30
+		OriginX = 240
+		OriginY = 40
+		NumFrames = 13
+		Material = "Unlit"
+		LocationZFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		Scale = 1.0
+		ScaleX = 1.2
+		ScaleY = 1.2
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		DrawBehindOwner = true
+		AngleFromOwner = "Take"
+		IsometricSkew = "X"
+	}
+
+
+	{
+		Name = "WaterElementalDropletsTerrainIdle"
+		Random = [
+			{ Name = "WaterElementalDropletsTerrainIdleA" }
+			{ Name = "WaterElementalDropletsTerrainIdleB" }
+			{ Name = "WaterElementalDropletsTerrainIdleC" }
+		]
+	}
+
+	{
+		Name = "WaterElementalDropletsTerrainMovement"
+		Random = [
+			{ Name = "WaterElementalDropletsTerrainMovementA" }
+			{ Name = "WaterElementalDropletsTerrainMovementB" }
+			{ Name = "WaterElementalDropletsTerrainMovementC" }
+		]
+	}
+
+	{
+		Name = "WaterElementalDropletsTerrainIdleA"
+		FilePath = "Fx\WaterElementalDropletsTerrainIdleA\WaterElementalDropletsTerrainIdleA"
+		NumFrames = 31
+		GroupName = "FX_Terrain"
+		PostRotateScaleY = 0.5
+		RandomRotation = true
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Alpha = 0.5
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		UseAttachedFlasher = false
+		// CreateAnimation = "WaterElementalDropletsImpact"
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ RandomDurationFramesMin = 60 RandomDurationFramesMax = 120 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "WaterElementalDropletsTerrainIdleB"
+		InheritFrom = "WaterElementalDropletsTerrainIdleA"
+		FilePath = "Fx\WaterElementalDropletsTerrainIdleB\WaterElementalDropletsTerrainIdleB"
+	}
+	{
+		Name = "WaterElementalDropletsTerrainIdleC"
+		InheritFrom = "WaterElementalDropletsTerrainIdleA"
+		FilePath = "Fx\WaterElementalDropletsTerrainIdleC\WaterElementalDropletsTerrainIdleC"
+	}
+
+
+	{
+		Name = "WaterElementalDropletsTerrainMovementA"
+		InheritFrom = "WaterElementalDropletsTerrainIdleA"
+		RandomRotation = false
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		FilePath = "Fx\WaterElementalDropletsTerrainMovementA\WaterElementalDropletsTerrainMovementA"
+	}
+	{
+		Name = "WaterElementalDropletsTerrainMovementB"
+		InheritFrom = "WaterElementalDropletsTerrainMovementA"
+		FilePath = "Fx\WaterElementalDropletsTerrainMovementB\WaterElementalDropletsTerrainMovementB"
+	}
+	{
+		Name = "WaterElementalDropletsTerrainMovementC"
+		InheritFrom = "WaterElementalDropletsTerrainMovementA"
+		FilePath = "Fx\WaterElementalDropletsTerrainMovementC\WaterElementalDropletsTerrainMovementC"
+	}
+
+
+	{
+		Name = "WaterElementalDropletsImpact"
+		Random =
+		[
+			{ Name = "WaterElementalDropletsImpactA" }
+			{ Name = "WaterElementalDropletsImpactB" }
+			{ Name = "WaterElementalDropletsImpactC" }
+		]
+	}
+	
+	{
+		Name = "WaterElementalDropletsImpactA"
+		FilePath = "Fx\WaterSplashDropletsA\WaterSplashDropletsA"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		EndFrame = 25
+		NumFrames = 25
+		RandomPlaySpeedMin = 30.0
+		RandomPlaySpeedMax = 36.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		AngleMin = -20
+		AngleMax = 20
+		StartRed = 0.000 
+		StartGreen = 0.596 
+		StartBlue = 0.882
+		EndRed = 0.004 
+		EndGreen = 0.467 
+		EndBlue = 0.808
+		UseOwnAngle = false
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+	
+	{
+		Name = "WaterElementalDropletsImpactB"
+		InheritFrom = "WaterElementalDropletsImpactA"
+		FilePath = "Fx\WaterSplashDropletsB\WaterSplashDropletsB"
+	}
+	
+	{
+		Name = "WaterElementalDropletsImpactC"
+		InheritFrom = "WaterElementalDropletsImpactA"
+		FilePath = "Fx\WaterSplashDropletsC\WaterSplashDropletsC"
+	}
+
+	{
+		Name = "WaterElementalDeathFx"
+		FilePath = "Fx\WaterElementalDeath\WaterElementalDeath"
+		NumFrames = 48
+		RandomFlipHorizontal = true
+		ScaleMin = 0.9
+		ScaleMax = 1.1
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "WaterElementalDropletsTerrainIdle"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		VisualFxCap = 3
+		OffsetZ = 60
+		HoldLastFrame = true
+		DieWithOwner = true
+		EaseIn = 0.99
+		EaseOut = 1.0
+		CreateAnimations = [
+			{ Name = "WaterElementalDeathFlare" }
+		]
+	}
+
+	{
+		Name = "WaterElementalDeathFlare"
+		FilePath = "Particles\particle_quickFlashIris"
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		StartRed = 0.000 
+		StartGreen = 0.596 
+		StartBlue = 1
+		EndRed = 0.004 
+		EndGreen = 0.467 
+		EndBlue = 0.808
+		OffsetZ = 60
+	}
+
+	{
+		Name = "WaterElementalSpawnFxB"
+		InheritFrom = "WaterElementalDeathFx"
+		ClearCreateAnimations = true
+		PlayBackwards = true
+		HoldLastFrame = false
+		PlaySpeed = 90
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Alpha = 0
+	}
+
+	{
+		Name = "WaterElementalSpawnFx"
+		FilePath = "Fx\OceanusSurfaceRipple\OceanusSurfaceRipple"
+		NumFrames = 41
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Terrain"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		DieWithOwner = false
+		Ambient = 0.0
+		AddColor = true
+		StartRed = 0
+		StartGreen = 0.4
+		StartBlue = 0.8
+		EndRed = 0.001
+		EndGreen = 0.0
+		EndBlue = 0.0
+		Hue = 0.2
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0.2
+		CreateAnimations =
+		[
+			{ Name = "WaterElementalSpawnFxDisplacement" }
+			//{ Name = "WaterElementalSpawnFxSplash" }
+			{ Name = "WaterElementalSpawnFxB" }
+			{ Name = "WaterElementalSpawnFxC" }
+		]
+	}
+
+	{
+		Name = "WaterElementalSpawnFxC"
+		FilePath = "Fx\WaterElementalSpawnFx\WaterElementalSpawnFx"
+		NumFrames = 28
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ColorFromOwner = "Ignore"
+		Scale = 1.25
+	}
+
+	{
+		Name = "WaterElementalSpawnFxDisplacement"
+		InheritFrom = "WaterElementalSpawnFx"
+		GroupName = "FX_Displacement"
+		ClearCreateAnimations = true
+		StartAlpha = 0.1
+		EndAlpha = 0.05
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+	}
+
+	{
+		Name = "WaterElementalSpawnFxSplash"
+		FilePath = "Fx\OceanusEnemySplash\OceanusEnemySplash"
+		Material = "Unlit"
+		NumFrames = 21
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.0
+		OriginX = 150
+		OriginY = 210
+		ScaleY = 1.2
+		Hue = 0.1
+		ColorFromOwner = "Ignore"
+		VisualFx = null
+		VisualFxCap = 7
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Sound = "/SFX/Enemy Sounds/WaterUnit/WaterUnitSpawnSplash"
+	}
+
+	{
+		Name = "ShipsSplinterParticles"
+		Random = [
+			{ Name = "ShipsSplinterParticleA" }
+			{ Name = "ShipsSplinterParticleB" }
+			{ Name = "ShipsSplinterParticleC" }
+			{ Name = "ShipsSplinterParticleD" }
+		]
+	}
+
+	{
+		Name = "ShipsSplinterParticleA"
+		FilePath = "Particles\particle_shipsSplinter_01"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 500
+		Gravity = 1200
+		AngleMin = 20
+		AngleMax = 160
+		VelocityMin = 100
+		VelocityMax = 500
+		RandomAccelerationMin = -400
+		RandomAccelerationMax = -200
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 0.5
+		AddColor = false
+		Value = 0.2
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShipsSplinterParticleB"
+		InheritFrom = "ShipsSplinterParticleA"
+		FilePath = "Particles\particle_shipsSplinter_02"
+	}
+	{
+		Name = "ShipsSplinterParticleC"
+		InheritFrom = "ShipsSplinterParticleA"
+		FilePath = "Particles\particle_shipsSplinter_03"
+	}
+	{
+		Name = "ShipsSplinterParticleD"
+		InheritFrom = "ShipsSplinterParticleA"
+		FilePath = "Particles\particle_shipsSplinter_04"
+	}
+
+	{
+		Name = "ShipsSplinterParticlesVertical"
+		Random = [
+			{ Name = "ShipsSplinterParticleVerticalA" }
+			{ Name = "ShipsSplinterParticleVerticalB" }
+			{ Name = "ShipsSplinterParticleVerticalC" }
+			{ Name = "ShipsSplinterParticleVerticalD" }
+		]
+	}
+
+	{
+		Name = "ShipsSplinterParticleVerticalA"
+		FilePath = "Particles\particle_shipsSplinter_01"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1.4
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 1200
+		Gravity = 1200
+		AngleMin = 80
+		AngleMax = 100
+		VelocityMin = 100
+		VelocityMax = 500
+		RandomAccelerationMin = -400
+		RandomAccelerationMax = -200
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 0.5
+		AddColor = false
+		Value = 0.2
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShipsSplinterParticleVerticalB"
+		InheritFrom = "ShipsSplinterParticleVerticalA"
+		FilePath = "Particles\particle_shipsSplinter_02"
+	}
+	{
+		Name = "ShipsSplinterParticleVerticalC"
+		InheritFrom = "ShipsSplinterParticleVerticalA"
+		FilePath = "Particles\particle_shipsSplinter_03"
+	}
+	{
+		Name = "ShipsSplinterParticleVerticalD"
+		InheritFrom = "ShipsSplinterParticleVerticalA"
+		FilePath = "Particles\particle_shipsSplinter_04"
+	}
+
+	{
+		Name = "ShipsSplinterParticlesDrunk"
+		Random = [
+			{ Name = "ShipsSplinterParticleA" }
+			{ Name = "ShipsSplinterParticleB" }
+			{ Name = "ShipsSplinterParticleC" }
+			{ Name = "ShipsSplinterParticleD" }
+		]
+	}
+
+	{
+		Name = "ShipsSplinterParticleDrunkA"
+		FilePath = "Particles\particle_shipsSplinter_01"
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+		RandomRotationSpeedMin = -480
+		RandomRotationSpeedMax = 480
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 500
+		Gravity = 1200
+		AngleMin = 20
+		AngleMax = 160
+		VelocityMin = 100
+		VelocityMax = 500
+		RandomAccelerationMin = -400
+		RandomAccelerationMax = -200
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 0.25
+		AddColor = false
+		Value = 0.1
+		GroupName = "FX_Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "ShipsSplinterParticleDrunkB"
+		InheritFrom = "ShipsSplinterParticleDrunkA"
+		FilePath = "Particles\particle_shipsSplinter_02"
+	}
+	{
+		Name = "ShipsSplinterParticleDrunkC"
+		InheritFrom = "ShipsSplinterParticleDrunkA"
+		FilePath = "Particles\particle_shipsSplinter_03"
+	}
+	{
+		Name = "ShipsSplinterParticleDrunkD"
+		InheritFrom = "ShipsSplinterParticleDrunkA"
+		FilePath = "Particles\particle_shipsSplinter_04"
+	}
+
+	{
+		Name = "ShipsSplinterParticlesTorando"
+		Random = [
+			{ Name = "ShipsSplinterParticleTornadoA" }
+			{ Name = "ShipsSplinterParticleTornadoB" }
+			{ Name = "ShipsSplinterParticleTornadoC" }
+			{ Name = "ShipsSplinterParticleTornadoD" }
+		]
+	}
+
+	{
+		Name = "ShipsSplinterParticleTornadoA"
+		InheritFrom = "ShipsSplinterParticleA"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 500
+		Gravity = 1200
+		AngleMin = 20
+		AngleMax = 160
+		VelocityMin = 100
+		VelocityMax = 500
+		RandomAccelerationMin = -400
+		RandomAccelerationMax = -200
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 0.5
+		AddColor = false
+		Value = 0.2
+		GroupName = "FX_Terrain"
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+	}
+
+	{
+		Name = "ShipsSplinterParticleTornadoB"
+		InheritFrom = "ShipsSplinterParticleTornadoA"
+		FilePath = "Particles\particle_shipsSplinter_02"
+	}
+	{
+		Name = "ShipsSplinterParticleTornadoC"
+		InheritFrom = "ShipsSplinterParticleTornadoA"
+		FilePath = "Particles\particle_shipsSplinter_03"
+	}
+	{
+		Name = "ShipsSplinterParticleTornadoD"
+		InheritFrom = "ShipsSplinterParticleTornadoA"
+		FilePath = "Particles\particle_shipsSplinter_04"
+	}
+
+	{
+		Name = "DrunkSpawnTrail"
+		FilePath = "Fx\DrunkSpawnStreaks\DrunkSpawnStreaks"
+		NumFrames = 7
+		Material = "Unlit"
+		ScaleY = 2
+		OriginX = 128
+		OriginY = 240
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Slides = [
+			{ DurationFrames = 28 }
+			{ DurationFrames = 1 VisualFx = "ShipsDust"}
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "ShipsDustTerrainDrunkMove"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		RandomFlipHorizontal = true
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		OffsetZ = 0
+		StartAlpha = 0.8
+		EndAlpha = 0.5
+		Scale = 1
+		ScaleMin = 0.4
+		ScaleMax = 0.8
+		Value = -0.05
+		VisualFx = "ShipsSplinterParticlesDrunk"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 3
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "ShipsDustTerrainDrunkMove_NoParticles"
+		InheritFrom = "ShipsDustTerrainDrunkMove"
+		VisualFx = null
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 55
+	}
+
+	{
+		Name = "ShipsSwordSwipeRight"
+		FilePath = "Fx\ShipsEnemySwordSwipe\ShipsEnemySwordSwipe"
+		NumFrames = 30
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		Scale = 1.5
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		CreateAnimations = [
+			{ Name = "ShipsSwordSwipeRightDisplacement" }
+		]
+	}
+
+	{
+		Name = "ShipsSwordSwipeLeft"
+		InheritFrom = "ShipsSwordSwipeRight"
+		FlipVertical = true
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "ShipsSwordSwipeLeftDisplacement" }
+		]
+	}
+
+	{
+		Name = "ShipsSwordSwipeRightDisplacement"
+		InheritFrom = "ShipsSwordSwipeRight"
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.2
+		PlaySpeed = 45
+	}	
+
+	{
+		Name = "ShipsSwordSwipeLeftDisplacement"
+		InheritFrom = "ShipsSwordSwipeRightDisplacement"
+		FlipVertical = true
+	}
+
+
+
+	{
+		Name = "ScimiterrorDeathParticles"
+		
+		Random =
+		[
+			{ Name = "ScimiterrorDeathParticleA" }
+			{ Name = "ScimiterrorDeathParticleB" }
+			{ Name = "ScimiterrorDeathParticleC" }
+			{ Name = "ScimiterrorDeathParticleD" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorDeathParticleA"
+		FilePath = "Particles\particle_crystalFragment_01"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 0.0
+		AngleMin = 180.0
+		UseOwnAngle = false
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -1200.0
+		Gravity = 600.0
+		UpwardVelocityMax = 300.0
+		UpwardVelocityMin = 100.0
+		VelocityMax = 800.0
+		VelocityMin = 200.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 760.0
+		RandomRotationSpeedMin = -760.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.5
+		ScaleMin = 0.2
+		Scale = 2
+		OffsetZ = 60
+		Ambient = 0.0
+		Material = "Unlit"
+		UseAttachedFlasher = false
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Take"
+	}
+	
+	{
+		Name = "ScimiterrorDeathParticleB"
+		InheritFrom = "ScimiterrorDeathParticleA"
+		FilePath = "Particles\particle_crystalFragment_02"
+	}
+	
+	{
+		Name = "ScimiterrorDeathParticleC"
+		InheritFrom = "ScimiterrorDeathParticleA"
+		FilePath = "Particles\particle_crystalFragment_03"
+	}
+	
+	{
+		Name = "ScimiterrorDeathParticleD"
+		InheritFrom = "ScimiterrorDeathParticleA"
+		FilePath = "Particles\particle_crystalFragment_04"
+	}
+	{
+		Name = "ScimiterrorDeathFx"
+		FilePath = "Particles\particle_quickFlashIris"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartScale = 0.6
+		EndScale = 0
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		VisualFx = "ScimiterrorDeathParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+	}
+
+	{
+		Name = "ScimiterrorDeath"
+		Random = [
+			{ Name = "ScimiterrorDeathA_Standing" }
+			{ Name = "ScimiterrorDeathA_Standing_Flip" }
+			{ Name = "ScimiterrorDeathB_Standing" }
+			{ Name = "ScimiterrorDeathB_Standing_Flip" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorDeathA_Standing"
+		FilePath = "Fx\ScimiterrorDeathA\ScimiterrorDeathA"
+		PlaySpeed = 30
+		NumFrames = 13
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Scale = 0.85
+		CreateAnimationOnEnd = "ScimiterrorDeathA_Terrain"
+		LocationFromOwner = "Take"
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		LocationZFromOwner = "Take"
+		OffsetZ = 80
+		Sound = "/SFX/ScimiterrorDrop"
+	}
+
+	{
+		Name = "ScimiterrorDeathA_Terrain"
+		InheritFrom = "ScimiterrorDeathA_Standing"
+		NumFrames = 54
+		StartFrame = 14
+		HoldLastFrame = true
+		GroupName = "FX_Terrain"
+		CreateAnimationOnEnd = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.4
+		EndGreen = 0.4
+		EndBlue = 0.4
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		CancelOverCap = true
+	}
+
+	{
+		Name = "ScimiterrorDeathA_Standing_Flip"
+		InheritFrom = "ScimiterrorDeathA_Standing"
+		FlipHorizontal = true
+		CreateAnimationOnEnd = "ScimiterrorDeathA_Terrain_Flip"
+	}
+
+	{
+		Name = "ScimiterrorDeathA_Terrain_Flip"
+		InheritFrom = "ScimiterrorDeathA_Terrain"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "ScimiterrorDeathB_Standing"
+		InheritFrom = "ScimiterrorDeathA_Standing"
+		FilePath = "Fx\ScimiterrorDeathB\ScimiterrorDeathB"
+		CreateAnimationOnEnd = "ScimiterrorDeathB_Terrain"
+	}
+
+	{
+		Name = "ScimiterrorDeathB_Terrain"
+		InheritFrom = "ScimiterrorDeathA_Terrain"
+		FilePath = "Fx\ScimiterrorDeathB\ScimiterrorDeathB"
+	}
+
+	{
+		Name = "ScimiterrorDeathB_Standing_Flip"
+		InheritFrom = "ScimiterrorDeathB_Standing"
+		FlipHorizontal = true
+		CreateAnimationOnEnd = "ScimiterrorDeathB_Terrain_Flip"
+	}
+
+	{
+		Name = "ScimiterrorDeathB_Terrain_Flip"
+		InheritFrom = "ScimiterrorDeathB_Terrain"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "ScimiterrorSparkles"
+		Random = [
+			{ Name = "ScimiterrorSparkleA" }
+			{ Name = "ScimiterrorSparkleB" }
+			{ Name = "ScimiterrorSparkleC" }
+			{ Name = "ScimiterrorSparkleD" }
+		]
+	}
+
+	{
+		Name = "ScimiterrorSparkleA"
+		FilePath = "Particles\particle_enemyFlare"
+		Saturation = -1
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.5
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.05
+		ScaleMax = 0.3
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:lower_02_M_JNT"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+
+	{
+		Name = "ScimiterrorSparkleB"
+		InheritFrom = "ScimiterrorSparkleA"
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:lower_03_M_JNT"
+	}
+
+	{
+		Name = "ScimiterrorSparkleC"
+		InheritFrom = "ScimiterrorSparkleA"
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:upEye_00_M_JNT"
+	}
+
+	{
+		Name = "ScimiterrorSparkleD"
+		InheritFrom = "ScimiterrorSparkleA"
+		GrannyAttachedMarkerLocation = "Scimiterror_Rig:dnEye_00_M_JNT"
+	}
+
+	{
+		Name = "EnemyDrunkBarrelSplinter"
+		FilePath = "Fx\DrunkBarrelSplinter\DrunkBarrelSplinter"
+		NumFrames = 52
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		OffsetZ = 30
+		Scale = 1.2
+		RandomFlipHorizontal = true
+		GroupName = "FX_Terrain"
+		CreateAnimations = [
+			{ Name = "ShipsDust" }
+		]
+	}
+
+	{
+		Name = "ShipsDustTerrain"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		PlaySpeed = 50
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ShipsDustTerrain_SwabAnchor"
+		InheritFrom = "ShipsDustTerrain"
+		StartAlpha = 0.5
+		EndAlpha = 0.4
+		OffsetY = -20
+	}
+
+	{
+		Name = "SwabDeathAnchor"
+		Random = [
+			{ Name = "SwabDeathAnchorA" }
+			{ Name = "SwabDeathAnchorB" }
+			{ Name = "SwabDeathAnchorA_Flip" }
+			{ Name = "SwabDeathAnchorB_Flip" }
+		]
+	}
+
+	{
+		Name = "SwabDeathAnchorA"
+		FilePath = "Fx\SwabDeathAnchorA\SwabDeathAnchorA"
+		NumFrames = 34
+		PlaySpeed = 30
+		CreateAnimation = "SwabDeathAnchorA_Shadow"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		HoldLastFrame = true
+		LocationZFromOwner = "Ignore"
+		VisualFx = "ShipsDustTerrain_SwabAnchor"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+		GroupName = "FX_Terrain"
+
+		Slides = [
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 Sound = "/SFX/ArrowMetalStoneClang" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+
+	}
+
+	{
+		Name = "SwabDeathAnchorA_Shadow"
+		InheritFrom = "SwabDeathAnchorA"
+		FilePath = "Fx\SwabDeathAnchorShadowA\SwabDeathAnchorShadowA"
+		GroupName = "Shadows"
+		Alpha = 0.5
+		VisualFx = null
+		CreateAnimation = null
+		OffsetY = -12
+	}
+
+	{
+		Name = "SwabDeathAnchorB"
+		InheritFrom = "SwabDeathAnchorA"
+		FilePath = "Fx\SwabDeathAnchorB\SwabDeathAnchorB"
+		CreateAnimation = "SwabDeathAnchorB_Shadow"
+	}
+
+	{
+		Name = "SwabDeathAnchorB_Shadow"
+		InheritFrom = "SwabDeathAnchorA_Shadow"
+		FilePath = "Fx\SwabDeathAnchorShadowB\SwabDeathAnchorShadowB"
+	}
+
+	{
+		Name = "SwabDeathAnchorA_Flip"
+		InheritFrom = "SwabDeathAnchorA"
+		FlipHorizontal = true
+		CreateAnimation = "SwabDeathAnchorA_Shadow_Flip"
+	}
+
+	{
+		Name = "SwabDeathAnchorA_Shadow_Flip"
+		InheritFrom = "SwabDeathAnchorA_Shadow"
+		FlipHorizontal = true
+	}	
+
+	{
+		Name = "SwabDeathAnchorB_Flip"
+		InheritFrom = "SwabDeathAnchorB"
+		FlipHorizontal = true
+		CreateAnimation = "SwabDeathAnchorB_Shadow_Flip"
+	}
+
+	{
+		Name = "SwabDeathAnchorB_Shadow_Flip"
+		InheritFrom = "SwabDeathAnchorB_Shadow"
+		FlipHorizontal = true
+	}
+
+	{
+		Name = "SwabSpawnTrail"
+		FilePath = "Fx\SwabSpawnStreaks\SwabSpawnStreaks"
+		NumFrames = 7
+		Material = "Unlit"
+		ScaleY = 2
+		OriginX = 128
+		OriginY = 240
+		DrawBehindOwner = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 VisualFx = "ShipsDust"}
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+
+	{
+		Name = "SwabAnchorDecal"
+		Random = [
+			{ Name = "SwabAnchorDecalA" }
+			{ Name = "SwabAnchorDecalB" }
+			{ Name = "SwabAnchorDecalC" }
+		]
+	}
+
+	{
+		Name = "SwabAnchorDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalA"
+		GroupName = "FX_Terrain"
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.01
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		OffsetY = -10
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SwabAnchorDecalB"
+		InheritFrom = "SwabAnchorDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalB"
+	}
+
+	{
+		Name = "SwabAnchorDecalC"
+		InheritFrom = "SwabAnchorDecalA"
+		FilePath = "Fx\SticklerDecals\SticklerDecalC"
+	}
+
+	{
+		Name = "SwabAnchorNova"
+		FilePath = "Particles\particle_flareSpike"
+		Material = "Unlit"
+		AddColor = true
+		Red = 1
+		Green = 0.0
+		Blue = 0.2
+		StartScale = 1.5
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		GroupName = "FX_Standing_Add"
+		Duration = 0.33
+		OriginX = 200
+		OriginY = 128
+		Angle = 90
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "ShipsDust" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "SwabAnchorDecal" }
+			{ Name = "SwabNovaArc01" }
+			{ Name = "SwabNovaArc02" }
+			{ Name = "SwabNovaArc03" }
+			{ Name = "SwabNovaArc04" }
+			{ Name = "SwabNovaArc05" }
+			{ Name = "SwabNovaArc06" }
+			{ Name = "SwabNovaArc07" }
+			{ Name = "SwabNovaArc08" }
+		]
+	}
+
+	{
+		Name = "SwabAnchorNova_Elite"
+		InheritFrom = "SwabAnchorNova"
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "ShipsDust" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "ShipsSplinterParticles" }
+			{ Name = "SwabAnchorDecal" }
+			{ Name = "SwabNovaArcElite01" }
+			{ Name = "SwabNovaArcElite02" }
+			{ Name = "SwabNovaArcElite03" }
+			{ Name = "SwabNovaArcElite04" }
+			{ Name = "SwabNovaArcElite05" }
+			{ Name = "SwabNovaArcElite06" }
+			{ Name = "SwabNovaArcElite07" }
+			{ Name = "SwabNovaArcElite08" }
+		]
+	}
+
+	{
+		Name = "SwabAnchorNovaQuick"
+		InheritFrom = "SwabAnchorNova"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "ShipsDust" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }			
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "ShipsSplinterParticlesVertical" }
+			{ Name = "SwabAnchorDecal" }
+			{ Name = "SwabNovaArcQuick01" }
+			{ Name = "SwabNovaArcQuick02" }
+			{ Name = "SwabNovaArcQuick03" }
+			{ Name = "SwabNovaArcQuick04" }
+			{ Name = "SwabNovaArcQuick05" }
+			{ Name = "SwabNovaArcQuick06" }
+			{ Name = "SwabNovaArcQuick07" }
+			{ Name = "SwabNovaArcQuick08" }
+		]
+	}
+
+
+
+	{
+		Name = "SwabShockwaveWarning"
+		FilePath = "Fx\SwabNovaArc\SwabNovaCircle"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 540
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		VisualFx = "SwabAnchorCircleFx"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+		RotationSpeed = 25
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		HoldLastFrame = true
+		CreateAnimations = [
+			{ Name = "SwabAnchorCircleFx" }
+		]
+	}
+
+	{
+		Name = "SwabAnchorCircleFx"
+		FilePath = "Fx\SwabNovaArc\SwabNovaCircle"
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		StartScale = 0.8
+		EndScale = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 1
+		RandomDurationMax = 1.3
+	}
+
+	{
+		Name = "SwabNovaArc01"
+		FilePath = "Fx\SwabNovaArc\SwabNovaArc"
+		NumFrames = 120
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		Angle = 0
+		GroupName = "FX_Terrain"
+		OriginX = 36
+		OriginY = 160
+		Scale = 1.5
+	}
+
+	{
+		Name = "SwabNovaArc02"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 45
+	}
+	{
+		Name = "SwabNovaArc03"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 90
+	}
+	{
+		Name = "SwabNovaArc04"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 135
+	}
+	{
+		Name = "SwabNovaArc05"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 180
+	}
+	{
+		Name = "SwabNovaArc06"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 225
+	}
+	{
+		Name = "SwabNovaArc07"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 270
+	}
+	{
+		Name = "SwabNovaArc08"
+		InheritFrom = "SwabNovaArc01"
+		Angle = 315
+	}	
+
+
+	{
+		Name = "SwabNovaArcElite01"
+		FilePath = "Fx\SwabNovaArc\SwabNovaArc"
+		NumFrames = 120
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 75
+		Material = "Unlit"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		Angle = 0
+		GroupName = "FX_Terrain"
+		OriginX = 36
+		OriginY = 160
+		Scale = 1.5
+	}
+
+	{
+		Name = "SwabNovaArcElite02"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 45
+	}
+	{
+		Name = "SwabNovaArcElite03"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 90
+	}
+	{
+		Name = "SwabNovaArcElite04"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 135
+	}
+	{
+		Name = "SwabNovaArcElite05"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 180
+	}
+	{
+		Name = "SwabNovaArcElite06"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 225
+	}
+	{
+		Name = "SwabNovaArcElite07"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 270
+	}
+	{
+		Name = "SwabNovaArcElite08"
+		InheritFrom = "SwabNovaArcElite01"
+		Angle = 315
+	}	
+
+
+	{
+		Name = "SwabNovaArcQuick01"
+		InheritFrom = "SwabNovaArc01"
+		StartAlpha = 1
+		EndAlpha = 0.0
+		EaseIn = 0
+		EaseOut = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		DurationFrames = 46
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			
+		]
+	}
+
+	{
+		Name = "SwabNovaArcQuick02"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 45
+	}
+	{
+		Name = "SwabNovaArcQuick03"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 90
+	}
+	{
+		Name = "SwabNovaArcQuick04"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 135
+	}
+	{
+		Name = "SwabNovaArcQuick05"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 180
+	}
+	{
+		Name = "SwabNovaArcQuick06"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 225
+	}
+	{
+		Name = "SwabNovaArcQuick07"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 270
+	}
+	{
+		Name = "SwabNovaArcQuick08"
+		InheritFrom = "SwabNovaArcQuick01"
+		Angle = 315
+	}
+
+	{
+		Name = "HarpyFlapDust"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		PlaySpeed = 50
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		StartAlpha = 0.0
+		EndAlpha = 0.5
+		StartScale = 0.6
+		EndScale = 0.8
+		EaseIn = 0.5
+		EaseOut = 1.0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+	}
+
 ]}

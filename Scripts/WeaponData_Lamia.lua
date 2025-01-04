@@ -32,6 +32,8 @@ WeaponSetData =
 			--PostAttackAnimation = "Enemy_Lamia_DownCastPostFire",
 
 			AttackDistance = 500,
+
+			SkipSurroundAICount = true,
 		},
 
 		Sounds =
@@ -105,7 +107,8 @@ WeaponSetData =
 	{
 		Requirements = 
 		{
-			MinPlayerDistance = 300,
+			MinPlayerDistance = 400,
+			MaxAttackers = 4,
 		},
 		
 		AIData =

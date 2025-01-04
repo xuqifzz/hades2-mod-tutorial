@@ -46,6 +46,58 @@
 	}
 
 	{
+		Name = "WalkDust"
+		FilePath = "Fx\DustPuffA\DustPuffA"
+
+		ColorFromOwner = "Ignore"
+		EndFrame = 40
+		NumFrames = 40
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+	}
+	{
+		Name = "DashCrack"
+		ChainTo = "DashCrackDissipate"
+		FilePath = "Fx\DashCrack\DashCrack"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Take"
+		Sound = null
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.5
+		Duration = 0.2
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumAngles = 64
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		Scale = 1.5
+		StartScale = 0.0
+		CancelOverCap = true
+		OnlyWhenVisible = true
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "DashCrackDissipate"
+		InheritFrom = "DashCrack"
+		ChainTo = "null"
+		Sound = "/EmptyCue"
+		EndAlpha = 0.0
+		StartAlpha = 0.5
+		HoldLastFrame = false
+		CancelOverCap = false
+		RandomDurationMax = 1.1
+		RandomDurationMin = 0.9
+		TransferAngle = true
+		StartScale = 0.999
+	}
+
+	{
 		Name = "ParticleFlake"
 		FilePath = "Fx\ParticleFlake\ParticleFlake"
 		GroupName = "FX_Standing_Add"
@@ -267,21 +319,21 @@
 		TimeModifierFraction = 0.9
 	}
 
-    {
-      Name = "DisplaceShockwave"
-      FilePath = "Fx\DisplaceShockwave\DisplaceShockwave"
-      GroupName = "FX_Displacement"
-      
-      AngleFromOwner = "Ignore"
-      UseOwnAngle = false
-      ColorFromOwner = "Ignore"
-      EndFrame = 16
-      NumFrames = 16
-      PlaySpeed = 30.0
-      StartFrame = 1
-      ScaleFromOwner = "Ignore"
-      Ambient = 0.0
-    }
+		{
+			Name = "DisplaceShockwave"
+			FilePath = "Fx\DisplaceShockwave\DisplaceShockwave"
+			GroupName = "FX_Displacement"
+			
+			AngleFromOwner = "Ignore"
+			UseOwnAngle = false
+			ColorFromOwner = "Ignore"
+			EndFrame = 16
+			NumFrames = 16
+			PlaySpeed = 30.0
+			StartFrame = 1
+			ScaleFromOwner = "Ignore"
+			Ambient = 0.0
+		}
 
 
 	// Inheritance for now, need to be sorted
@@ -582,4 +634,1560 @@
 		]
 	}
 
+	{
+		Name = "ProjectileTempFlare"
+		FilePath = "Fx\AttentionFlare\AttentionFlare"
+		GroupName = "Combat_Menu_Additive"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.9
+		EndGreen = 0.9
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "FromParent"
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 2.0
+		OverlayVfx = true
+	}
+	
+	{
+		Name = "ArmorBreak"
+		ChildAnimation = "ArmorBreakFlare"
+		FilePath = "Fx\SafeZoneBubbleOut\SafeZoneBubbleOut"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 15
+		NumFrames = 15
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 120.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Hue = 0.608
+		Saturation = 1
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "ArmorBreakParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		Slides =
+		[
+			
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+		]
+	}
+
+	{
+		Name = "ArmorBreakParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		PlaySpeed = 60
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		StartScale = 1
+		EndScale = 0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 150
+		RadialOffsetScaleY = 0.25
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		VelocityMin = 500
+		VelocityMax = 600
+		AngleFromOwner = "Ignore"
+		Acceleration = -2000
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.6
+		EndRed = 0.999
+		EndGreen = 0.3
+		EndBlue = 0.0
+		StartScaleX = 3
+		EndScaleX = 1
+		ScaleY = 0.8
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+	}
+	
+	{
+		Name = "ArmorBreakFlare"
+		FilePath = "Particles\particle_quickflashIris"
+		ScaleFromOwner = "Ignore"
+		Duration = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomRotation = true
+		Scale = 1
+		EndScale = 0.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0
+		OffsetZ = 120
+		UseAttachedFlasher = false
+	}
+	{
+		Name = "HitSparkA"
+		FilePath = "Fx\HitSparkA\HitSparkA"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndFrame = 11
+		NumFrames = 11
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.4
+		ScaleMin = 1.2
+		TimeModifierFraction = 0.05
+	}
+	{
+		Name = "HitSparkB"
+		InheritFrom = "HitSparkA"
+		FilePath = "Fx\HitSparkB\HitSparkB"
+		AngleFromOwner = "Take"
+		EndFrame = 25
+		NumFrames = 25
+		StartFrame = 1
+		TimeModifierFraction = 0.05
+	}
+	{
+		Name = "InvincibleHitSpark"
+		InheritFrom = "HitSparkA"
+		ChildAnimation = "null"
+		VisualFx = "InvincibleHitSparkDynamic"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		EndBlue = 0.8
+		StartBlue = 1.0
+		StartGreen = 0.8
+		StartRed = 0.5
+		RandomPlaySpeedMax = 80.0
+		RandomPlaySpeedMin = 40.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		ScaleMax = 0.75
+		ScaleMin = 0.5
+		VisualFxCap = 4
+		VisualFxIntervalMax = 0.01
+		VisualFxIntervalMin = 0.001
+		Scale = 0.5
+	}
+	{
+		Name = "GrenadeBounceSpark"
+		InheritFrom = "InvincibleHitSpark"
+		ChildAnimation = "null"
+		VisualFx = "null"
+		Sound = "/SFX/Player Sounds/ZagreusGunGrenadeBounce"
+		LocationZFromOwner = "Take"
+	}
+	{
+		Name = "InvincibleHitSparkDynamic"
+		FilePath = "Particles\particle_spark_glow"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		AngleMax = 0.0
+		AngleMin = 360.0
+		ColorFromOwner = "Ignore"
+		EndBlue = 0.999
+		EndGreen = 0.3
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.75
+		RandomDurationMin = 0.1
+		StartFrame = 1
+		RandomOffsetX = 8.0
+		RandomOffsetY = 4.0
+		LocationFromOwner = "Ignore"
+		Acceleration = -1000.0
+		Gravity = 1250.0
+		UpwardVelocityMax = 500.0
+		VelocityMax = 900.0
+		VelocityMin = 200.0
+		RotateWithGravity = false
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.3
+		ScaleMin = 0.02
+		StartScaleX = 2
+		EndScaleX = 0.25
+		ScaleY = 2
+		TimeModifierFraction = 0.75
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+	{
+		Name = "InvincibleHitSparkSnow"
+		InheritFrom = "InvincibleHitSpark"
+		VisualFx = "InvincibleHitSparkDynamicSnow"
+	}
+	{
+		Name = "InvincibleHitSparkDynamicSnow"
+		InheritFrom = "InvincibleHitSparkDynamic"
+		CreateAnimation = "InvincibleHitSnow"
+	}
+	{
+		Name = "InvincibleHitSnow"
+		
+		Random =
+		[
+			{ Name = "InvincibleHitSnowA" }
+			{ Name = "InvincibleHitSnowB" }
+			{ Name = "InvincibleHitSnowC" }
+			{ Name = "InvincibleHitSnowD" }
+		]
+	}
+	
+	{
+		Name = "InvincibleHitSnowA"
+		FilePath = "Particles\particle_snowDust_01"
+		GroupName = "Standing"
+		StartAlpha = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.9
+		RandomDurationMin = 0.6
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		EndScale = 0.75
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.4
+		Ambient = 0.0
+		AngleMax = 360.0
+		UseOwnAngle = true
+		Acceleration = -300.0
+		Gravity = 350.0
+		UpwardVelocityMax = 30.0
+		UpwardVelocityMin = 0.0
+		VelocityMax = 200.0
+		VelocityMin = 50.0
+		ScaleMax = 0.7
+		ScaleMin = 0.6
+	}
+	
+	{
+		Name = "InvincibleHitSnowB"
+		InheritFrom = "InvincibleHitSnowA"
+		FilePath = "Particles\particle_snowDust_02"
+	}
+	
+	{
+		Name = "InvincibleHitSnowC"
+		InheritFrom = "InvincibleHitSnowA"
+		FilePath = "Particles\particle_snowDust_03"
+	}
+	
+	{
+		Name = "InvincibleHitSnowD"
+		InheritFrom = "InvincibleHitSnowA"
+		FilePath = "Particles\particle_snowDust_04"
+	}
+
+	{
+		Name = "CriticalHitWallSlam"
+		ChildAnimation = "WallSlamSpike"
+		FilePath = "Fx\WallSlamPuff\WallSlamPuff"
+		
+		VisualFx = "DustPuffRotate"
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 90
+		NumFrames = 90
+		PlaySpeed = 120.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		IsometricSkew = "Y"
+		Ambient = 0.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		TimeModifierFraction = 1.0
+	}
+
+		{
+			Name = "Backstab"
+			FilePath = "Fx\Backstab\Backstab"
+			GroupName = "FX_Standing_Add"
+			
+			VisualFx = "QuickFlashRed"
+			AngleFromOwner = "Take"
+			AddColor = true
+			ColorFromOwner = "Ignore"
+			EndFrame = 32
+			NumFrames = 30
+			PlaySpeed = 120.0
+			StartFrame = 2
+			OffsetY = -80.0
+			EndScaleY = 0.3
+			Scale = 1.25
+			Ambient = 0.0
+			VisualFxCap = 1
+			VisualFxIntervalMax = 0.002
+			VisualFxIntervalMin = 0.001
+			TimeModifierFraction = 1.0
+			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+		}
+	{
+		Name = "WallSlamSpike"
+		InheritFrom = "Backstab"
+		VisualFx = "null"
+		EndFrame = 31
+		NumFrames = 29
+		StartFrame = 3
+		FlipHorizontal = true
+		Scale = 1.5
+		ScaleX = 0.5
+		Color = { Red = 1.0 Green = 0.95 Blue = 0.90 }
+	}
+	{
+		Name = "ExplosionScorchDecal"
+		FilePath = "Fx\MineExplosion\ExplosionScorchDecal"
+		GroupName = "FX_Terrain"
+		RequiresUnblocked = true
+		
+		Alpha = 0.85
+		ColorFromOwner = "Ignore"
+		Duration = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	{
+		Name = "ExplosionScorchDecalFade"
+		FilePath = "Fx\MineExplosion\ExplosionScorchDecal"
+		GroupName = "FX_Terrain"
+		RequiresUnblocked = true
+		
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0.85
+		Duration = 3.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		ScaleRadius = 290.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "QuickFlashSmall"
+		InheritFrom = "QuickFlash"
+		EndScale = 0.5
+		StartScale = 2.0
+	}
+	
+	{
+		Name = "QuickFlashSmallLocation"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_quickflash"
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		RandomRotation = true
+		EndScale = 0.1
+		StartScale = 0.3
+	}
+	{
+		Name = "QuickFlashRed"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_quickflashIris"
+		AddColor = false
+		EndBlue = 0.0
+		EndGreen = 0.0
+		EndRed = 0.999
+		StartBlue = 0.01
+		StartGreen = 0.05
+		SortMode = "FromParent"
+		EndScale = 1.0
+		StartScale = 1.2
+		TimeModifierFraction = 1.0
+		RandomRotation = true
+	}
+	
+	{
+		Name = "QuickFlashRedSmall"
+		InheritFrom = "QuickFlashRed"
+		OffsetZ = 90.0
+		Scale = 0.5
+	}
+	
+	{
+		Name = "QuickFlashRedSpawner"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "QuickFlashRed"
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+	}
+	
+	{
+		Name = "QuickFlashYellowSpawner"
+		InheritFrom = "QuickFlashRedSpawner"
+		VisualFx = "QuickFlashYellow"
+	}
+
+	{
+		Name = "QuickFlashRedLarge"
+		InheritFrom = "QuickFlashRed"
+		EndScale = 4.0
+		StartScale = 5.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+	}
+
+	{
+		Name = "QuickFlashYellow"
+		InheritFrom = "QuickFlashRed"
+		FilePath = "Particles\particle_quickFlashIris"
+		EndGreen = 0.2
+		EndRed = 0.99
+		StartGreen = 0.7
+	}
+		
+	{
+		Name = "QuickFlashGold"
+		InheritFrom = "QuickFlashRed"
+		FilePath = "Particles\particle_quickFlashIris"
+		StartRed = 1
+		StartGreen = 0.95
+		StartBlue = 0.9
+		EndRed = 0.999
+		EndGreen = 0.9
+		EndBlue = 0.8
+		Duration = 0.2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndScale = 0
+		EndAlpha = 0.99
+	}
+	
+	{
+		Name = "QuickFlashYellowSmall"
+		InheritFrom = "QuickFlashYellow"
+		OffsetZ = 90.0
+		Scale = 0.5
+	}
+	
+	{
+		Name = "QuickFlashInvincible"
+		InheritFrom = "QuickFlashRed"
+		Alpha = 0.6
+		EndBlue = 1.0
+		EndGreen = 0.9
+		EndRed = 0.1
+		StartBlue = 1.0
+		StartGreen = 1.0
+		Scale = 2.5
+	}
+	
+	{
+		Name = "QuickFlashArmorHit"
+		InheritFrom = "QuickFlashRed"
+		Alpha = 0.1
+		EndGreen = 0.6
+		StartAlpha = 1.0
+		StartBlue = 0.4
+		StartGreen = 1.0
+		Scale = 0.75
+	}
+	
+	{
+		Name = "QuickFlashGreen"
+		InheritFrom = "QuickFlashRed"
+		EndGreen = 1.0
+		EndRed = 0.05
+		StartGreen = 1.0
+		StartRed = 0.4
+	}
+
+	{
+		Name = "QuickFlashGreenSmall"
+		InheritFrom = "QuickFlashGreen"
+		EndBlue = 0.3
+		StartBlue = 0.5
+		StartRed = 0.1
+		SortMode = "Id"
+		EndScale = 0.5
+		StartScale = 1.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+	}
+
+	{
+		Name = "QuickFlashCyan"
+		InheritFrom = "QuickFlashRed"
+		EndBlue = 0.6
+		EndGreen = 0.4
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 0.1
+		Duration = 0.3
+	}
+
+	{
+		Name = "QuickFlashBlue"
+		InheritFrom = "QuickFlashRed"
+		EndBlue = 0.6
+		EndGreen = 0.4
+		EndRed = 0.0
+		StartBlue = 1.0
+		StartGreen = 0.3
+		StartRed = 0.01
+		Duration = 0.3
+	}
+	
+	{
+		Name = "QuickFlashIce"
+		InheritFrom = "QuickFlashRed"
+		EndBlue = 1.0
+		EndGreen = 0.7
+		EndRed = 0.6
+		StartAlpha = 0.3
+		StartBlue = 1.0
+		StartGreen = 0.9
+		StartRed = 0.8
+	}
+	
+	{
+		Name = "QuickFlashIceSmall"
+		InheritFrom = "QuickFlashIce"
+		OffsetZ = 90.0
+		Scale = 0.5
+	}
+	
+	{
+		Name = "QuickFlashBlueGreen"
+		InheritFrom = "QuickFlashRed"
+		EndBlue = 0.2
+		EndGreen = 0.999
+		EndRed = 0.0
+		StartBlue = 0.7
+		StartGreen = 1.0
+		StartRed = 0.01
+		Duration = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Scale = 0.7
+	}		
+
+	{
+		Name = "QuickFlashHephaestus"
+		InheritFrom = "QuickFlashRed"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Duration = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Scale = 0.7
+	}
+	
+	{
+		Name = "QuickFlashEnemy"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_glow"
+		AddColor = false
+		EndBlue = 0.3
+		EndGreen = 0.01
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.05
+		EndScale = 2.0
+		StartScale = 3.0
+		TimeModifierFraction = 1.0
+	}
+
+	{
+		Name = "SlowFlashEnemy"
+		InheritFrom = "QuickFlashEnemy"
+		FilePath = "Particles\particle_quickFlashIris"
+		Duration = 0.75
+		Scale = 0.5
+		EndBlue = 0.1
+	}
+	
+	{
+		Name = "QuickFlashEnemySmall"
+		InheritFrom = "QuickFlashEnemy"
+		EndScale = 0.6
+		StartScale = 2.0
+	}
+
+	{
+		Name = "QuickFlashEnemyLarge"
+		InheritFrom = "QuickFlashEnemy"
+		FilePath = "Particles\particle_quickFlashIris"
+		Scale = 1
+	}
+
+	{
+		Name = "QuickFlashEnemySpawnerSmall"
+		InheritFrom = "QuickFlashRedSpawner"
+		VisualFx = "QuickFlashEnemySmall"
+	}
+	
+	{
+		Name = "QuickFlashPink"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_quickflash"
+		AddColor = false
+		EndBlue = 0.0
+		EndGreen = 0.0
+		StartBlue = 0.5
+		StartGreen = 0.02
+		EndScale = 0.5
+		StartScale = 1.5
+		TimeModifierFraction = 1.0
+	}
+
+	{
+		Name = "QuickFlashPurple"
+		InheritFrom = "QuickFlash"
+		FilePath = "Particles\particle_quickflash"
+		AddColor = false
+		EndBlue = 0.0
+		EndGreen = 0.0
+		StartGreen = 0.02
+		StartRed = 0.8
+		EndScale = 0.6
+		StartScale = 1.0
+		TimeModifierFraction = 1.0
+	}
+
+	{
+		Name = "BlinkTrailFlash"
+		InheritFrom = "QuickFlashRed"
+		AngleFromOwner = "Take"
+		Duration = 0.4
+		Scale = 0.5
+	}
+	{
+		Name = "SlingShotShadow"
+		FilePath = "Particles\AuraBasicFillCircle"
+		GroupName = "Shadows"			
+		Alpha = 0.5
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		Scale = 0.2
+	}
+	
+	{
+		Name = "MedusaShadow"
+		FilePath = "Fx\LootShadow\LootShadow"
+		GroupName = "Shadows"
+		
+		AngleFromOwner = "Ignore"
+		Alpha = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "Invincibubble"
+		ChainTo = "InvincibubbleOut"
+		ChildAnimation = "InvincibubbleLoop"
+		CreateAnimation = "QuickFlashInvincible"
+		FilePath = "Fx\InvincibubbleDark\InvincibubbleDark"
+		GroupName = "FX_Standing_Add"			
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/SprintChargeUp"
+		ColorFromOwner = "Ignore"
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -50.0
+		SortMode = "Id"
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "InvincibubbleDark" }
+		]
+	}
+	
+	{
+		Name = "InvincibubbleDark"
+		FilePath = "Fx\InvincibubbleDark\InvincibubbleDark"
+		GroupName = "FX_Dark"
+		UseAttachedAddColor = false
+		UseAttachedFlasher = false
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -50.0
+		DieWithOwner = true
+		SortMode = "Isometric"
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	
+	{
+		Name = "InvincibubbleIn"
+		FilePath = "Fx\InvincibubbleIn\InvincibubbleIn"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/PerfectTiming"
+		ColorFromOwner = "Ignore"
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetY = -50.0
+		SortMode = "FromParent"
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "InvincibubbleOut"
+		InheritFrom = "InvincibubbleIn"
+		FilePath = "Fx\InvincibubbleOut\InvincibubbleOut"
+		Sound = "/SFX/GhostEvaporate"
+		EndFrame = 17
+		NumFrames = 17
+		StartFrame = 1
+	}
+	
+	
+	{
+		Name = "InvincibubbleLoop"
+		FilePath = "Fx\InvincibubbleLoop\InvincibubbleLoop"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/EmptyCue"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 60.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OffsetY = -60.0
+		DieWithOwner = true
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	{
+		Name = "InvincibubbleShieldPop"
+		CreateAnimation = "QuickFlashBlue"
+		FilePath = "Fx\ArmorBreak\ArmorBreak"
+		GroupName = "FX_Standing_Add"
+		
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 80.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		SortMode = "FromParent"
+	}
+	
+	{
+		Name = "StunnedFront"
+		FilePath = "Fx\StunnedFrontLoop\StunnedFrontLoop"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "StunnedBack"
+		InheritFrom = "StunnedFront"
+	}
+
+	{
+		Name = "ProjectileFire"
+		FilePath = "Fx\ProjectileFire\ProjectileFire"
+		GroupName = "FX_Standing_Add"
+		Light = "ProjectileLight"
+		VisualFx = "ProjectileGlow"
+		AddColor = true
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 60.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomRotation = true
+		VisualFxUse3DAngle = true
+		VisualFxUseLocationSincePrevSpawn = true
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ProjectileLight"
+		FilePath = "Lights\DiffuseSpotlight"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+
+
+	{
+		Name = "ProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0.5
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		Scale = 0.1
+		ScaleY = 0.2
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "ShoutFlare"
+		FilePath = "Fx\ItemGet\ItemGet"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 125.0
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Hue = -0.1
+		OverlayVfx = true
+	}
+	{
+		Name = "BlastWarningDecal"
+		FilePath = "GUI\LobDecal"
+		GroupName = "FX_Terrain"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		LocationZFromOwner = "Ignore"
+		RotationSpeed = 60.0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 430.0
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "BlastWarningDecalWithSound"
+		InheritFrom = "BlastWarningDecal"
+		Sound = "/SFX/BombFusePreExplode"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "LobWarningDecalIris"
+		FilePath = "GUI\LobWarningDecalIris\LobWarningDecalIris"
+		NumFrames = 21
+		PlaySpeed = 36
+		Material = "Unlit"
+		Loop = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Terrain"
+		SortMode = "Isometric"
+		ScaleRadius = 300
+	}
+
+	{
+		Name = "LobWarningDecalIcarus"
+		InheritFrom = "LobWarningDecalIris"
+		Sound = "/SFX/BombFusePreExplode"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "LobWarningDecal"
+		ChainTo = "LobWarningDecalLoop"
+		ChildAnimation = "LobWarningDecalFill"
+		FilePath = "GUI\LobDecalEnemy"
+		GroupName = "FX_Terrain"
+		
+		Angle = 45.0
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "Isometric"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 430.0
+		StartScale = 0.8
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "LobWarningDecalLoop"
+		ChainTo = "LobWarningDecalLoopOut"
+		ChildAnimation = "LobWarningDecalDark"
+		FilePath = "GUI\LobDecalEnemy"
+		GroupName = "FX_Terrain"
+		
+		VisualFx = "LobWarningDecalFill"
+		StartAngle = 45.0
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartRed = 0.999
+		Duration = 1.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "Isometric"
+		PostRotateScaleY = 0.5
+		ScaleRadius = 430.0
+		Ambient = 0.0
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+	}
+
+	{
+		Name = "LobWarningDecalLoopOut"
+		InheritFrom = "LobWarningDecal"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		EndBlue = 0.9
+		EndGreen = 0.9
+		EndRed = 0.9
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndScale = 1.01
+		StartScale = 1.0
+	}
+	
+	{
+		Name = "LobWarningDecalFill"
+		FilePath = "GUI\LobDecalEnemyFill"
+		GroupName = "FX_Terrain_Add"
+		
+		EndAlpha = 1.0
+		StartAlpha = 0.5
+		Duration = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		SortMode = "Isometric"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 0.9
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Color = { Red = 0.4 Green = 0.0 Blue = 0.4 }
+	}
+	
+	{
+		Name = "LobWarningDecalDark"
+		FilePath = "GUI\LobDecalEnemyFill"
+		GroupName = "FX_Terrain"
+		
+		EndAlpha = 0.6
+		StartAlpha = 0.1
+		Duration = 1.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 0.45
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	{
+		Name = "RadialNovaSwordParry"
+		InheritFrom = "RadialNova"
+		GroupName = "FX_Terrain_Add"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		VisualFx = "SwordParryParticles"
+		EndRed = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.35
+		StartRed = 1.0
+		PlaySpeed = 75.0
+		ScaleRadius = 350.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaSwordParryDark" }
+			{ Name = "DoorCloseDust" }
+			{ Name = "SwordParryGroundCrack" }
+			{ Name = "DisplaceShockwaveSwordParry" }
+			{ Name = "SwordParrySpike" }
+			{ Name = "QuickFlashRed" }
+		]
+	}
+	{
+		Name = "RadialNovaDark"
+		InheritFrom = "RadialNovaSwordParry"
+		GroupName = "FX_Terrain"
+		VisualFx = "null"
+		AddColor = false
+		EndGreen = 0.1
+		StartGreen = 0.5
+		PlaySpeed = 70.0
+		LocationZFromOwner = "Take"
+		Scale = 1.1
+		UseAttachedFlasher = false
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "RadialNovaDarkNoOffset"
+		InheritFrom = "RadialNovaDark"
+		LocationZFromOwner = "Ignore"
+		Scale = 1.05
+	}
+
+	{
+		Name = "Cone90"
+		ChildAnimation = "WeaponFxLightB"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		Light = "WeaponFxLightA"
+
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 60.0
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+	}
+
+	{
+		Name = "Cone90Large"
+		InheritFrom = "Cone90"
+		PostRotateScaleY = 1.0
+		ScaleX = 3.0
+	}
+	
+	{
+		Name = "WeaponFxLightA"
+		FilePath = "Lights\Light_RadialSpot"
+
+		StartAlpha = 1.0
+		Duration = 0.125
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		StartScale = 2.0
+	}
+
+	{
+		Name = "WeaponFxLightB"
+		FilePath = "Dev\blank_invisible"
+		Light = "WeaponFxLightA"
+
+		Duration = 0.5
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "GenericSparkleEmitter"
+		FilePath = "Backgrounds\rectangle_01"
+		
+		VisualFx = "GenericSparkles"
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "GenericSparkles"
+		FilePath = "Particles\particle_kira"
+		GroupName = "FX_Standing_Add"
+		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.5
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		Acceleration = -50.0
+		VelocityMax = 100.0
+		VelocityMin = 50.0
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.1
+		StartScale = 0.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "GenericSparkleEmitterOverlay"
+		InheritFrom = "GenericSparkleEmitter"
+		VisualFx = "GenericSparklesOverlay"
+	}
+	
+	{
+		Name = "GenericSparklesOverlay"
+		InheritFrom = "GenericSparkles"
+		GroupName = "Combat_Menu_Additive"
+		ColorFromOwner = "Take"
+	}
+	
+	{
+		Name = "FireFootstepL"
+		ChildAnimation = "FireFootstepRays"
+		FilePath = "Fx\FireFootstep\FireFootstep"
+		GroupName = "FX_Terrain_Add"
+		Light = "null"		
+		AngleFromOwner = "Take"
+		Sound = "/SFX/Player Sounds/BurningFootsteps"
+		SoundManagerCap = 26
+		ColorFromOwner = "Ignore"
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		PostRotateScaleY = 0.5
+		Scale = 0.66
+		Ambient = 0.0
+		Slides =
+		[
+
+			{ DurationFrames = 2 VisualFx = "FireFootstepParticles" }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 VisualFx = "FireFootstepParticles" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 VisualFx = "FireFootstepParticles" }
+			{ DurationFrames = 30 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	
+
+	{
+		Name = "FireFootstepL-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "FireFootstepL"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_L_JNT"
+	}
+	
+	{
+		Name = "FireFootstepR-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "FireFootstepR"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:toe_00_R_JNT"
+	}
+
+	{
+		Name = "FireFootstepParticles"
+		FilePath = "Particles\particle_spark"
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		AngleChangeSpeedMax = 40.0
+		AngleChangeSpeedMin = -40.0
+		AngleMax = 95.0
+		AngleMin = 85.0
+		ColorFromOwner = "Ignore"
+		StartGreen = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		RandomOffsetX = 20.0
+		LocationFromOwner = "Ignore"
+		Acceleration = -100.0
+		VelocityMax = 160.0
+		VelocityMin = 40.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.2
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "FireFootstepR"
+		InheritFrom = "FireFootstepL"
+		FlipVertical = true
+		Slides =
+		[
+
+			{ DurationFrames = 2 VisualFx = "FireFootstepParticles" }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 VisualFx = "FireFootstepParticles" }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	
+
+
+	{
+		Name = "FireFootstepRays"
+		FilePath = "Fx\FireFootstepVerticalRays\FireFootstepVerticalRays"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 13
+		NumFrames = 13
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 24.0
+		OriginY = 113.0
+		LocationFromOwner = "Ignore"
+		ScaleMax = 0.8
+		ScaleMin = 0.6
+	}
+		
+	{
+		Name = "ActionRocksGroundSlam"
+		FilePath = "Animations\ActionRocksGroundSlam\ActionRocksGroundSlam"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "ActionRock01GroundSlam" }
+			{ Name = "ActionRock02GroundSlam" }
+			{ Name = "ActionRock03GroundSlam" }
+			{ Name = "ActionRock04GroundSlam" }
+			{ Name = "ActionRock05GroundSlam" }
+		]
+	}
+	
+	{
+		Name = "ActionRocksGroundBounce"
+		FilePath = "Animations\ActionRocksGroundBounce\ActionRocksGroundBounce"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "ActionRock01GroundBounce" }
+			{ Name = "ActionRock02GroundBounce" }
+			{ Name = "ActionRock03GroundBounce" }
+			{ Name = "ActionRock04GroundBounce" }
+			{ Name = "ActionRock05GroundBounce" }
+		]
+	}
+	
+	{
+		Name = "ActionRock01GroundSlam"
+		ChainTo = "ActionRocksGroundBounce"
+		FilePath = "Particles\particle_actionRock_01"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 135.0
+		AngleMin = 45.0
+		UseOwnAngle = false
+		AddColor = true
+		StartBlue = 0.1
+		StartGreen = 0.6
+		StartRed = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Acceleration = -1500.0
+		Gravity = 2000.0
+		UpwardVelocityMax = 300.0
+		UpwardVelocityMin = 30.0
+		VelocityMax = 800.0
+		VelocityMin = 300.0
+		RandomRotationSpeedMax = 1000.0
+		RandomRotationSpeedMin = -1000.0
+		EndScale = 0.2
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		StartScale = 0.4
+	}
+	
+	{
+		Name = "ActionRock02GroundSlam"
+		InheritFrom = "ActionRock01GroundSlam"
+		FilePath = "Particles\particle_actionRock_02"
+	}
+	
+	{
+		Name = "ActionRock03GroundSlam"
+		InheritFrom = "ActionRock01GroundSlam"
+		FilePath = "Particles\particle_actionRock_03"
+	}
+	
+	{
+		Name = "ActionRock04GroundSlam"
+		InheritFrom = "ActionRock01GroundSlam"
+		FilePath = "Particles\particle_actionRock_04"
+	}
+	
+	{
+		Name = "ActionRock05GroundSlam"
+		InheritFrom = "ActionRock01GroundSlam"
+		FilePath = "Particles\particle_actionRock_05"
+	}
+	
+	{
+		Name = "ActionRock01GroundBounce"
+		InheritFrom = "ActionRock01GroundSlam"
+		ChainTo = "null"
+		AngleMax = 180.0
+		AngleMin = 0.0
+		EndBlue = 0.001
+		EndGreen = 0.001
+		EndRed = 0.001
+		StartBlue = 0.0
+		StartGreen = 0.0
+		StartRed = 0.0
+		Acceleration = -100.0
+		Gravity = 500.0
+		UpwardVelocityMax = 100.0
+		UpwardVelocityMin = 50.0
+		VelocityMax = 40.0
+		VelocityMin = 20.0
+		Scale = 0.5
+	}
+	
+	{
+		Name = "ActionRock02GroundBounce"
+		InheritFrom = "ActionRock01GroundBounce"
+		FilePath = "Particles\particle_actionRock_02"
+	}
+	
+	{
+		Name = "ActionRock03GroundBounce"
+		InheritFrom = "ActionRock01GroundBounce"
+		FilePath = "Particles\particle_actionRock_03"
+	}
+	
+	{
+		Name = "ActionRock04GroundBounce"
+		InheritFrom = "ActionRock01GroundBounce"
+		FilePath = "Particles\particle_actionRock_04"
+	}
+	
+	{
+		Name = "ActionRock05GroundBounce"
+		InheritFrom = "ActionRock01GroundBounce"
+		FilePath = "Particles\particle_actionRock_05"
+	}
+	{
+		Name = "DustRingFront"
+		FilePath = "Fx\DustRingFront\DustRingFront"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		EndFrame = 56
+		NumFrames = 56
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.3
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "DustRingBack"
+		InheritFrom = "DustRingFront"
+		FilePath = "Fx\DustRingBack\DustRingBack"
+		EndFrame = 54
+		NumFrames = 54
+		StartFrame = 1
+		OffsetY = -400.0
+		OffsetZ = -50.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Isometric"
+	}
 ]}

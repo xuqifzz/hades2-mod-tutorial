@@ -35,17 +35,18 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 	local maxBountiesShown = screen.MaxBountiesAvailable
 	for i = 1, maxBountiesShown do
 		local key = "BountyAvailable"..i
-		--local button = screen.Components[key]
 		local shrinePointItem = screen.Components[key.."ShrinePoints"]
 		if shrinePointItem ~= nil then
 			local backing = screen.Components[key.."Backing"]
 			local weaponItem = screen.Components[key.."Weapon"]
-			--local weaponLink = screen.Components[key.."WeaponLink"]
 			local targetItem = screen.Components[key.."Target"]
-			--local targetLink = screen.Components[key.."TargetLink"]
 			local bountyData = shrinePointItem.BountyData
 			if shrinePointItem.MatchedWeapon then
 				screen.HasBountyForWeapon = true
+			else
+				if screen.FirstBountyWeapon == nil then
+					screen.FirstBountyWeapon = shrinePointItem.WeaponName
+				end
 			end
 			if activeShrinePoints >= shrinePointItem.RequiredShrinePoints then
 				ModifyTextBox({ Id = shrinePointItem.Id, ColorTarget = screen.BountyActiveColor })
@@ -54,17 +55,11 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 			end
 			if shrinePointItem.MatchedWeapon then
 				SetColor({ Id = weaponItem.Id, Color = screen.BountyActiveColor, Duration = args.Duration or 0.3 })
-				--SetColor({ Id = weaponLink.Id, Color = screen.BountyActiveColor, Duration = args.Duration or 0.3 })
-				--SetAlpha({ Id = weaponLink.Id, Fraction = 1.0, Duration = args.Duration or 0.3 })
 			else
 				SetColor({ Id = weaponItem.Id, Color = screen.BountyInactiveColor, Duration = args.Duration or 0.3 })
-				--SetColor({ Id = weaponLink.Id, Color = screen.BountyInactiveColor, Duration = args.Duration or 0.3 })
-				--SetAlpha({ Id = weaponLink.Id, Fraction = 0.0, Duration = args.Duration or 0.3 })
 			end
 			if activeShrinePoints >= shrinePointItem.RequiredShrinePoints and shrinePointItem.MatchedWeapon then
 				SetColor({ Id = targetItem.Id, Color = screen.BountyActiveColor, Duration = args.Duration or 0.3 })
-				--SetColor({ Id = targetLink.Id, Color = screen.BountyActiveColor, Duration = args.Duration or 0.3 })
-				--SetAlpha({ Id = targetLink.Id, Fraction = 1.0, Duration = args.Duration or 0.3 })
 				screen.ActiveBounty = bountyData.Name
 				local excessShrinePoints = activeShrinePoints - shrinePointItem.RequiredShrinePoints
 				if excessShrinePoints > highestExcessShrinePoints then
@@ -76,8 +71,6 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 				end
 			else
 				SetColor({ Id = targetItem.Id, Color = screen.BountyInactiveColor, Duration = args.Duration or 0.3 })
-				--SetColor({ Id = targetLink.Id, Color = screen.BountyInactiveColor, Duration = args.Duration or 0.3 })
-				--SetAlpha({ Id = targetLink.Id, Fraction = 0.0, Duration = args.Duration or 0.3 })
 				SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\Testament" })
 			end
 		end
@@ -85,6 +78,8 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 	--DebugPrint({ Text = "highestExcessShrinePoints = "..highestExcessShrinePoints })
 
 	local text = nil
+	local luaKey = nil
+	local luaValue = nil
 	if activeShrinePoints == GetMaxShrinePoints() then
 		text = screen.MaxShrinePointsText
 	elseif screen.HasBountyForWeapon then
@@ -104,12 +99,20 @@ function ShrineScreenUpdateActivePoints( screen, button, args )
 			text = screen.BelowShrinePointsText
 		end
 	else
-		text = screen.NoBountyAvailableText
+		if screen.FirstBountyWeapon ~= nil then
+			text = screen.NoBountyAvailableForWeaponText
+			local weaponData = WeaponData[screen.FirstBountyWeapon]
+			text = weaponData.NoBountyAvailableText or text
+			luaKey = "TempTextData"
+			luaValue = { WeaponName = screen.FirstBountyWeapon }
+		else
+			text = screen.NoBountyAvailableText
+		end
 	end
-	if GameState.SpentShrinePointsCache == 0 then
+	if GameState.SpentShrinePointsCache == 0 and text ~= screen.NoBountyAvailableForWeaponText then
 		text = screen.ZeroShrinePointsText
 	end
-	ModifyTextBox({ Id = screen.Components.ThermometerText.Id, Text = text })
+	ModifyTextBox({ Id = screen.Components.ThermometerText.Id, Text = text, LuaKey = luaKey, LuaValue = luaValue })
 
 end
 
@@ -123,6 +126,10 @@ function ShrineScreenMouseOverItem( button )
 
 	SetScale({ Id = button.Id, Fraction = screen.IconMouseOverScale, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0, SkipGeometryUpdate = true })
 	SetAlpha({ Id = button.Highlight.Id, Fraction = 1.0, Duration = 0.1 })
+	local selectedFormat = ShallowCopyTable( screen.ShortNameSelectedFormat )
+	selectedFormat.Id = button.Id
+	selectedFormat.AffectText = button.Data.Name.."_Short"
+	ModifyTextBox( selectedFormat )
 
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 1.0, Duration = 0.2 })
 	SetAnimation({ DestinationId = components.InfoBoxBacking.Id, Name = "ShrineSlotBase" })
@@ -199,6 +206,10 @@ function ShrineScreenMouseOffItem( button )
 
 	SetScale({ Id = button.Id, Fraction = screen.IconScale, Duration = 0.1, EaseIn = 0.9, EaseOut = 1.0, SkipGeometryUpdate = true })
 	SetAlpha({ Id = button.Highlight.Id, Fraction = 0.0, Duration = 0.1 })
+	local selectedFormat = ShallowCopyTable( screen.ShortNameFormat )
+	selectedFormat.Id = button.Id
+	selectedFormat.AffectText = button.Data.Name.."_Short"
+	ModifyTextBox( selectedFormat )
 
 	ModifyTextBox({ Id = components.InfoBoxName.Id, FadeTarget = 0.0, })
 	ModifyTextBox({ Id = components.InfoBoxRarity.Id, FadeTarget = 0.0, })
@@ -280,15 +291,23 @@ end
 
 function ShrineScreenUpdateNextRankText( button )
 	local screen = button.Screen
-	--local color = button.Screen.NextRankMaxColor
 	local upgradeData = button.Data
-	local rank = GetNumShrineUpgrades( upgradeData.Name )
-	if rank < TableLength( upgradeData.Ranks ) then
-		upgradeData.NextRankPoints = upgradeData.Ranks[rank + 1].Points
-		--color = Color.White
-		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 1.0 })
+	local currentRank = GetNumShrineUpgrades( upgradeData.Name )
+	local maxRank = TableLength( upgradeData.Ranks )
+	if currentRank < maxRank then
+		upgradeData.NextRankPoints = upgradeData.Ranks[currentRank + 1].Points
+		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 1.0, AffectText = screen.NextRankFormat.Text })
 	else
-		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 0.0 })
+		ModifyTextBox({ Id = button.Id, LuaKey = "TempTextData", LuaValue = upgradeData, FadeTarget = 0.0, AffectText = screen.NextRankFormat.Text })
+	end
+	
+	for rank = 1, maxRank do
+		local rankPip = button.RankPips[rank]
+		if rank <= currentRank then
+			SetAnimation({ DestinationId = rankPip.Id, Name = screen.RankPipFull })
+		else
+			SetAnimation({ DestinationId = rankPip.Id, Name = screen.RankPipEmpty })
+		end
 	end
 	
 end
@@ -311,7 +330,7 @@ function ShrineScreenUpdateItems( screen )
 			SetAlpha({ Id = nextRankBacking.Id, Fraction = 0.0, Duration = 0.1 })
 			SetColor({ Id = item.Id, Color = screen.IconActiveColor })
 		else
-			SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\PactActive" })
+			SetAnimation({ DestinationId = backing.Id, Name = "GUI\\Screens\\Shrine\\PactActiveMax" })
 			SetAnimation({ DestinationId = nextRankBacking.Id, Name = "GUI\\Screens\\Shrine\\PactBadgeActive" })
 			SetAlpha({ Id = nextRankBacking.Id, Fraction = 1.0, Duration = 0.1 })
 			SetColor({ Id = item.Id, Color = screen.IconActiveColor })
@@ -328,13 +347,6 @@ function BoonSkipShrineUpgradePresentation( reward )
 	CreateAnimation({ DestinationId = reward.ObjectId, Name = "CauldronSmokeSmall", OffsetZ = -230 })
 	wait( 0.5 )
 	-- thread( InCombatText, reward.ObjectId, "BoonSkipShrineUpgrade_CombatText", 1.0 )
-end
-
-function FirstDamageShrineUpgradePresentation( victim, attacker )
-	PlaySound({ Name = "/SFX/Player Sounds/ZagreusCriticalFire", Id = victim.ObjectId })
-	wait( 0.5 )
-	PlaySound({ Name = "/Leftovers/Menu Sounds/TitanToggleLong", Id = victim.ObjectId })
-	--thread( InCombatText, victim.ObjectId, "FirstDamageShrineUpgrade_CombatText", 1.0 )
 end
 
 function RespawnEggCountdownTickPresentation( egg, args )
@@ -356,9 +368,9 @@ function RespawnEggPickedUpPresentation( usee, args, user )
 	CreateAnimation({ Name = "ExorcismGhostDissipate", DestinationId = usee.ObjectId, })
 end
 
-function ShrineEliteAttributeManaDrainTickPresentation( enemy, args )
-	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ShrineEliteManaDrain_Tick", Duration = 1.5, ShadowScale = 0.6, PreDelay = 0.1, Duration = 1.5, OffsetY = 80, LuaKey = "TempTextData", LuaValue = args } )
-	DirectionHintPresentation( enemy, { Cooldown = 0.0, Delay = 0.0 } )
+function ShrineEliteAttributeManaDrainTickPresentation( args )
+	thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "ShrineEliteManaDrain_Tick", Duration = 0.65, PreDelay = 0.1, SkipFlash = true, LuaKey = "TempTextData", LuaValue = args } )
+	PlaySound({ Name = "/Leftovers/Menu Sounds/WaxUp", Id = CurrentRun.Hero.ObjectId })
 end
 
 function ErisCurseAppliedPresentation( source, args )
@@ -491,11 +503,12 @@ function UpdateShrineRunDoorArrow( source, args )
 				end
 			end
 			if matchedWeapon and activeShrinePoints >= shrinePoints and not GameState.BountiesCompleted[bountyName] then
-				if bountyData.UnlockGameStateRequirements == nil or IsGameStateEligible( CurrentRun, bountyData, bountyData.UnlockGameStateRequirements ) then		
+				if bountyData.UnlockGameStateRequirements == nil or IsGameStateEligible( bountyData, bountyData.UnlockGameStateRequirements ) then		
 					GameState.ActiveShrineBounty = bountyData.Name
 					-- Eligible bounty	
 					--DebugPrint({ Text = "bountyName = "..bountyName })
 					-- Determine which door
+					DebugAssert({ Condition = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounter] ~= nil, Text = "Encounter is missing from BountyEncounterDoorFlipMap: "..bountyData.Encounter, Owner = "James" })
 					local shouldFlip = ScreenData.Shrine.BountyEncounterDoorFlipMap[bountyData.Encounter]
 					local prevShouldFlip = SessionMapState.ShrineRunDoorFlipped or false
 					if shouldFlip ~= prevShouldFlip then

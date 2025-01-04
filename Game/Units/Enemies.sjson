@@ -171,7 +171,7 @@
 		Name = "Guard2_Elite"
 		InheritFrom = "Guard2"
 		DisplayInEditor = true
-		Speed = 360.0
+		Speed = 300.0
 	}
 
 	{
@@ -375,14 +375,14 @@
 			]
 		}
 	}
-	
+
 	{
 		Name = "Screamer_Elite"
 		InheritFrom = "Screamer"
 		DisplayInEditor = true
 		Speed = 390.0
 	}
-	
+
 	{
 		Name = "Screamer2"
 		InheritFrom = "Screamer"
@@ -395,6 +395,17 @@
 			GrannyModel = "Screamer2_Mesh"
 			EditorOutlineDrawBounds = false
 			Scale = 1.45
+		}
+	}
+
+	{
+		Name = "Screamer_Shadow"
+		InheritFrom = "Screamer"
+		DisplayInEditor = true
+		Speed = 390.0
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
 		}
 	}
 
@@ -448,6 +459,11 @@
 	}
 
 	{
+		Name = "Treant_Shadow"
+		InheritFrom = "Treant"
+	}
+
+	{
 		Name = "TreantTail"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
@@ -476,6 +492,16 @@
 			]
 		}
 	}
+
+	{
+		Name = "TreantTail_Shadow"
+		InheritFrom = "TreantTail"
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
+
 	{
 		Name = "TreantTail2"
 		InheritFrom = "TreantTail"
@@ -562,6 +588,12 @@
 		Name = "FogEmitter_Elite"
 		InheritFrom = "FogEmitter"
 		DisplayInEditor = true
+	}
+	{
+		Name = "FogEmitter_Shadow"
+		InheritFrom = "FogEmitter"
+		DisplayInEditor = true
+		Speed = 420
 	}
 	
 	{
@@ -777,6 +809,15 @@
 			AmbientSound = "/SFX/Enemy Sounds/DespairElementalRegular/BreathingLoop"
 		}
 	}
+	{
+		Name = "WaterUnitMiniboss_Shadow"
+		InheritFrom = "WaterUnitMiniboss"
+		DisplayInEditor = true
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
 	
 	{
 		Name = "Mudman"
@@ -884,8 +925,6 @@
 		InheritFrom = "Zombie"
 		DisplayInEditor = true
 		Speed = 150
-		MoveGraphic = "Enemy_Zombie_MoveFast"
-		StartGraphic = "Enemy_Zombie_MoveStartFast"
 		Thing = 
 		{
 			Scale = 0.915
@@ -909,6 +948,23 @@
 	{
 		Name = "ZombieCrewman_Elite"
 		InheritFrom = "ZombieCrewman"
+	}
+
+	{
+		Name = "ZombieOlympus"
+		InheritFrom = "Zombie"
+		DisplayInEditor = true
+		Speed = 250
+		Thing = 
+		{
+			GrannyModel = "ZombieCrewman_Mesh"
+		}
+	}
+
+	{
+		Name = "ZombieOlympus_Elite"
+		InheritFrom = "ZombieOlympus"
+		Speed = 350
 	}
 
 	{
@@ -1134,6 +1190,15 @@
 	}
 
 	{
+		Name = "GoldElemental_Shadow"
+		InheritFrom = "GoldElemental"
+		Thing = 
+		{
+			Scale = 1.3
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
+	{
 		Name = "TimeElemental"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
@@ -1302,6 +1367,26 @@
 	}
 
 	{
+		Name = "SatyrLancer_Shadow"
+		InheritFrom = "SatyrLancer"
+		Speed = 500.0
+		Thing = 
+		{
+			Scale = 1.4
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
+	{
+		Name = "SatyrLancer2"
+		InheritFrom = "SatyrLancer"
+	}
+	{
+		Name = "SatyrLancer2_Elite"
+		InheritFrom = "SatyrLancer2"
+		Speed = 500.0
+	}
+
+	{
 		Name = "SatyrCrossbow"
 		InheritFrom = "1_BaseEnemy"
 		MoveGraphic = "Enemy_SatyrCB_Move"
@@ -1330,6 +1415,63 @@
 				{ X = -96 Y = 0 }
 			]
 		}
+	}
+
+	{
+		Name = "SatyrCrossbow_Shadow"
+		InheritFrom = "SatyrCrossbow"
+		Thing = 
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
+	{
+		Name = "SatyrCrossbow2"
+		InheritFrom = "SatyrCrossbow"
+	}
+	{
+		Name = "SatyrCrossbow2_Elite"
+		InheritFrom = "SatyrCrossbow2"
+	}
+	
+	{
+		Name = "SatyrSapper"
+		InheritFrom = "1_BaseEnemy"
+		MoveGraphic = "Enemy_SatyrSapper_Move"
+		StartGraphic = "Enemy_SatyrSapper_MoveStart"
+		StopGraphic = "Enemy_SatyrSapper_MoveStop"
+		Speed = 325.0
+		MoveAI = 
+		{
+			AvoidLocationDistance = 120.0
+		}
+		Life = 
+		{
+			InvulnerableCoverage = 140.0
+		}
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_SatyrSapper_Idle"
+			GrannyModel = "SatyrSapper_Mesh"
+			Tallness = 280.0
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	{
+		Name = "SatyrSapper_Elite"
+		InheritFrom = "SatyrSapper"
 	}
 	
 	{
@@ -1401,7 +1543,7 @@
 			UseBoundsForSortDrawArea = true
 			OffsetZ = 20.0
 			Tallness = 200.0
-			Scale = 1.3
+      Scale = 1.3
 			SelectionHeight = 300.0
 			SelectionWidth = 200.0
 			SelectionShiftY = 70.0
@@ -1533,6 +1675,16 @@
 		Thing =
 		{
 			Scale = 1.4
+		}
+	}
+
+	{
+		Name = "Swab_Shadow"
+		InheritFrom = "Swab"
+		DisplayInEditor = true
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
 		}
 	}
 
@@ -1934,7 +2086,16 @@
 			Scale = 1.35
 		}
 	}
-	
+
+	{
+		Name = "Lovesick_Shadow"
+		InheritFrom = "Lovesick"
+		Thing = 
+		{
+			Scale = 1.6
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
 	{
 		Name = "Lamia"
 		InheritFrom = "1_BaseEnemy"
@@ -2029,12 +2190,13 @@
 	}
 
 	{
-		Name = "Mourner_Support"
+		Name = "Mourner_Shadow"
 		InheritFrom = "Mourner"
 		Speed = 350
 		Thing = 
 		{
 			Scale = 1.35
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
 		}
 	}
 	
@@ -2054,7 +2216,7 @@
 			Graphic = "Enemy_HarpyCutter_Idle"
 			GrannyModel = "HarpyTalonCutter_Mesh"
 			Grip = 6000.0
-			ImpulsedFx = "KnockbackLinesSmall"
+			ImpulsedFx = null
 			OffsetZ = 50.0
 			SelectionHeight = 400.0
 			SelectionWidth = 260.0
@@ -2078,6 +2240,31 @@
 		Thing =
 		{
 			Scale = 1.2
+		}
+	}
+	
+	{
+		Name = "HarpyDropper"
+		InheritFrom = "HarpyCutter"
+		Speed = 500
+		Thing =
+		{
+			GrannyModel = "HarpyDropper_Mesh"
+			Scale = 1.1
+		}
+	}
+	{
+		Name = "HarpyDropper_Elite"
+		InheritFrom = "HarpyDropper"
+		Speed = 525
+	}
+	{
+		Name = "HarpyDropper_MiniBoss"
+		InheritFrom = "HarpyDropper"
+		Speed = 525
+		Thing =
+		{
+			Scale = 1.5
 		}
 	}
 	
@@ -2119,20 +2306,25 @@
 	}
 	
 	{
-		Name = "Mati"
+		Name = "SentryBot"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
-		Speed = 400.0
-		MoveGraphic = null
-		StartGraphic = null
-		StopGraphic = null
+		Speed = 325.0
+		MoveGraphic = "Enemy_SentryBot_Move"
+		StartGraphic = "Enemy_SentryBot_MoveStart"
+		StopGraphic = "Enemy_SentryBot_MoveStop"
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			OffsetZ = 50.0
-			GrannyModel = "Mati_Mesh"
-			Graphic = "Enemy_Mati_Idle"
-			Tallness = 40
+			Graphic = "Enemy_SentryBot_Idle"
+			GrannyModel = "SentryBot_Mesh"
+			AmbientSound = "/Leftovers/Object Ambiences/SteamLoop4"
+			Tallness = 140
+			Scale = 1.0
+			OffsetZ = 40
+			SelectionHeight = 260.0
+			SelectionWidth = 260.0
+			SelectionShiftY = 50.0
 			Points =
 			[
 				{ X = 0 Y = 32 }
@@ -2142,29 +2334,43 @@
 			]
 		}
 	}
+
 	{
-		Name = "Mati_Elite"
-		InheritFrom = "Mati"
-		DisplayInEditor = true
+		Name = "SentryBot_Elite"
+		InheritFrom = "SentryBot"
 	}
 	
 	{
 		Name = "AutomatonEnforcer"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
-		Speed = 300.0
+		Speed = 350.0
+		MoveGraphic = "Enemy_Enforcer_Move"
+		StartGraphic = "Enemy_Enforcer_MoveStart"
+		StopGraphic = "Enemy_Enforcer_MoveStop"
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "Enemy_MaleGrey_SwordIdle"
-			Scale = 1.4
-			Color = { Red = 0.0 Green = 0.0 Blue = 1.0 }
+			Graphic = "Enemy_Enforcer_Idle"
+			GrannyModel = "AutomatonEnforcer_Mesh"
+			AmbientSound = "/Leftovers/World Sounds/AirshipIdleLoop"
+			ExtentScale = 1.1
+			Tallness = 200
+			SelectionHeight = 360.0
+			SelectionWidth = 360.0
+			SelectionShiftY = 80.0
+			Scale = 0.9
+			OffsetZ = 10
 			Points =
 			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
 			]
 		}
 	}
@@ -2172,24 +2378,52 @@
 	{
 		Name = "AutomatonEnforcer_Elite"
 		InheritFrom = "AutomatonEnforcer"
+		Thing = 
+		{
+			Scale = 1.0
+		}
+	}
+
+	{
+		Name = "AutomatonEnforcer_Shadow"
+		InheritFrom = "AutomatonEnforcer"
+		DisplayInEditor = true
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
 	}
 	
 	{
 		Name = "AutomatonBeamer"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
-		Speed = 250.0
+		Speed = 275.0
+		MoveGraphic = "Enemy_Beamer_Move"
+		StartGraphic = "Enemy_Beamer_MoveStart"
+		StopGraphic = "Enemy_Beamer_MoveStop"
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Scale = 1.4
-			Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+			Graphic = "Enemy_Beamer_Idle"
+			GrannyModel = "AutomatonBeamer_Mesh"
+			AmbientSound = "/Leftovers/Object Ambiences/SteamLoop2"
+			ExtentScale = 1.1
+			Tallness = 180
+			SelectionHeight = 350.0
+			SelectionWidth = 350.0
+			SelectionShiftY = 100.0
+			OffsetZ = 40
 			Points =
 			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
 			]
 		}
 	}
@@ -2197,32 +2431,95 @@
 	{
 		Name = "AutomatonBeamer_Elite"
 		InheritFrom = "AutomatonBeamer"
+		Speed = 300.0
+	}
+
+	{
+		Name = "AutomatonBeamer_Shadow"
+		InheritFrom = "AutomatonBeamer"
+		DisplayInEditor = true
+		Thing =
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
 	}
 	
 	{
-		Name = "AutomatonSupport"
+		Name = "Dragon"
 		InheritFrom = "1_BaseEnemy"
 		DisplayInEditor = true
-		Speed = 450.0
+		Speed = 400.0
+		RotationSpeed = 1200.0
+		MoveGraphic = "Enemy_Dragon_Move"
+		StartGraphic = "Enemy_Dragon_MoveStart"
+		StopGraphic = "Enemy_Dragon_MoveStop"
+		CanOnlyMoveForward = true
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/Dragon/EmoteHurt"
+		}
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Color = { Red = 0.0 Green = 1.0 Blue = 0.0 }
+			Graphic = "Enemy_Dragon_Idle"
+			GrannyModel = "Dragon_Mesh"
+			UseDepthBased3DShadow = true
+			Tallness = 450
+			ExtentScale = 1.5
+			OffsetZ = 50
+			Scale = 0.8
+			SelectionHeight = 700.0
+			SelectionWidth = 450.0
+			SelectionShiftY = 110.0
 			Points =
 			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
 			]
+		}
+		MoveAI =
+		{
+			SlowToRotate = false
+			MoveWithoutPath = true
+			SuccessDistance = 1
+			CanOnlyMoveForward = true
+			LookBehindDistance = 0
 		}
 	}
 
 	{
-		Name = "AutomatonSupport_Elite"
-		InheritFrom = "AutomatonSupport"
+		Name = "Dragon_Elite"
+		InheritFrom = "Dragon"
 	}
-	
+
+	{
+		Name = "Dragon_MiniBoss"
+		InheritFrom = "Dragon"
+		SlowEffectModifier = 0.5
+		Life =
+		{
+			HitSound = "/SFX/Enemy Sounds/DragonMiniboss/EmoteHurt"
+		}
+		Thing = 
+		{
+			Scale = 1.15
+		}
+	}
+
+	{
+		Name = "Dragon_Shadow"
+		InheritFrom = "Dragon_MiniBoss"
+		Thing = 
+		{
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
 	{
 		Name = "SatyrCommando"
 		InheritFrom = "1_BaseEnemy"
@@ -2452,45 +2749,64 @@
 	{
 		Name = "RavenFamiliar"
 		InheritFrom = "BaseFamiliar"
-		CollideWithObstacles = false
 		DisplayInEditor = true
+		Speed = 650
+		RotationSpeed = 2200
+		CollideWithUnits = false
+		StartGraphic = "Familiar_Raven_Move_Start"
+		MoveGraphic = "Familiar_Raven_Move"
+		StopGraphic = "Familiar_Raven_Move_Stop"
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
-			Graphic = "RavenIdle"
+			GrannyModel = "RavenFamiliar_Mesh"
+			Graphic = "Familiar_Raven_Perched_Idle"
+			Grip = 6000
+			OffsetZ = 0
 			StopsProjectiles = false
 			Points =
 			[
-				{ X = 0 Y = 54 }
-				{ X = 108 Y = 0 }
-				{ X = 0 Y = -54 }
-				{ X = -108 Y = 0 }
+				{ X = 0 Y = 20 }
+				{ X = 40 Y = 0 }
+				{ X = 0 Y = -20 }
+				{ X = -40 Y = 0 }
+			]
+		}
+	}
+
+	{
+		Name = "HoundFamiliar"
+		InheritFrom = "BaseFamiliar"
+		DisplayInEditor = true
+		RotationSpeed = 800
+		Speed = 600
+		StartGraphic = "Familiar_Hound_Move_Start"
+		MoveGraphic = "Familiar_Hound_Move"
+		StopGraphic = "Familiar_Hound_Move_Stop"
+		MoveAI =
+		{
+			AvoidUnits = true
+			SlowToRotate = false
+		}
+		Thing =
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "HoundFamiliar_Mesh"
+			Graphic = "Familiar_Hound_Sit_Idle"
+			Grip = 6000
+			OffsetZ = 0
+			StopsProjectiles = false
+			Tallness = 100
+			Points =
+			[
+				{ X = 0 Y = 30 }
+				{ X = 80 Y = 0 }
+				{ X = 0 Y = -30 }
+				{ X = -80 Y = 0 }
 			]
 		}
 	}
 	
-	{
-		Name = "Turret"
-		InheritFrom = "1_BaseEnemy"
-		DisplayInEditor = true
-		Speed = 0.0
-		Thing = 
-		{
-			AttachedAnim = "CrusherCrater"
-			EditorOutlineDrawBounds = false
-			Graphic = "Enemy_Mage_Idle"
-			GrannyModel = "Mage_Mesh"
-			Grip = 99999.0
-			Scale = 0.9
-			Points =
-			[
-				{ X = 0 Y = 32 }
-				{ X = 64 Y = 0 }
-				{ X = 0 Y = -32 }
-				{ X = -64 Y = 0 }
-			]
-		}
-	}
 	
 	{
 		Name = "1_BaseTrap"
@@ -2543,6 +2859,11 @@
 				{ X = -100 Y = 0 }
 			]
 		}
+	}
+
+	{
+		Name = "LovesickHeart_Elite"
+		InheritFrom = "LovesickHeart"
 	}
 
 	{
@@ -2655,6 +2976,7 @@
 		{
 			AttachedAnim = null
 			EditorOutlineDrawBounds = false
+			Grip = 99999.0
 			Graphic = "ShadeHubMIdle"
 			CanBeOccluded = false
 			StopsProjectiles = true
@@ -2754,46 +3076,6 @@
 	}
 	
 	{
-		Name = "Ballista"
-		InheritFrom = "1_BaseTrap"
-		DisplayInEditor = true
-		RotationSpeed = 9999.0
-		Life = 
-		{
-			Invulnerable = true
-		}
-		Thing = 
-		{
-			CanBeOccluded = true
-			EditorOutlineDrawBounds = false
-			Graphic = "BallistaIdle"
-			Grip = 99999.0
-			ImmuneToForce = true
-			Tallness = 400.0
-			Interact = 
-			{
-				Distance = 250.0
-			}
-			Offset = { X = 0 Y = -175 }
-			Points =
-			[
-				{ X = 32 Y = 48 }
-				{ X = 96 Y = 16 }
-				{ X = 96 Y = -16 }
-				{ X = 32 Y = -48 }
-				{ X = -32 Y = -48 }
-				{ X = -96 Y = -16 }
-				{ X = -96 Y = 16 }
-				{ X = -32 Y = 48 }
-			]
-			Using =
-			[
-				{ Name = "ArcherTrapDeactivated" }
-			]
-		}
-	}
-	
-	{
 		Name = "FloodTrap"
 		InheritFrom = "1_BaseTrap"
 		DisplayInEditor = true
@@ -2811,17 +3093,15 @@
 			ImmuneToForce = true
 			StopsUnits = false
 			StopsProjectiles = false
-			Tallness = 400
-			Offset = { X = 0 Y = 0 }
 			MirrorGeometry = true
-			Points =
-			[
-				{ X = -83 Y = 34 }
-				{ X = 75 Y = -40 }
-				{ X = 126 Y = -15 }
-				{ X = -27 Y = 62 }
-			]
-		}
+			Tallness = 574
+	        Points = [
+	          { X = -101 Y = 40 }
+	          { X = 86 Y = -54 }
+	          { X = 126 Y = -15 }
+	          { X = -27 Y = 62 }
+	        ]
+      }
 	}
 	
 	{
@@ -2848,30 +3128,6 @@
 				{ X = 26 Y = -77 }
 				{ X = -150 Y = 11 }
 				{ X = -20 Y = 74 }
-			]
-		}
-	}
-	
-	{
-		Name = "UnstableCauldron"
-		InheritFrom = "1_BaseTrap"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "UnstableCauldronIdle"
-			Tallness = 100.0
-			Offset = { X = 0 Y = -62 }
-			Points =
-			[
-				{ X = 32 Y = 44 }
-				{ X = 96 Y = 12 }
-				{ X = 96 Y = -20 }
-				{ X = 32 Y = -52 }
-				{ X = -32 Y = -52 }
-				{ X = -96 Y = -20 }
-				{ X = -96 Y = 12 }
-				{ X = -32 Y = 44 }
 			]
 		}
 	}
@@ -3007,34 +3263,32 @@
 	}
 	
 	{
-		Name = "AutomatonSentryTrap"
+		Name = "DummyOlympusTarget"
 		InheritFrom = "1_BaseTrap"
 		DisplayInEditor = true
-		StartGraphic = null
 		Life = 
 		{
 			Invulnerable = true
 		}
 		Thing = 
 		{
-			CanBeOccluded = true
 			EditorOutlineDrawBounds = false
-			Graphic = "AutomatonSentryTrapIdle"
-			Grip = 2500.0
+			Graphic = "Dev\InvisibleTarget"
+			Invisible = true
+			Material = "Unlit"
+			StopsProjectiles = false
+			StopsUnits = false
+			Tallness = 0.0
+			TriggerOnSpawn = false
 			ImmuneToForce = true
-			Tallness = 400.0
 			Points =
 			[
-				{ X = 32 Y = 48 }
-				{ X = 96 Y = 16 }
-				{ X = 96 Y = -16 }
-				{ X = 32 Y = -48 }
-				{ X = -32 Y = -48 }
-				{ X = -96 Y = -16 }
-				{ X = -96 Y = 16 }
-				{ X = -32 Y = 48 }
+				{ X = 0 Y = 16 }
+				{ X = 32 Y = 0 }
+				{ X = 0 Y = -16 }
+				{ X = -32 Y = 0 }
 			]
-		}
+      	}
 	}
 	
 	{
@@ -3050,6 +3304,7 @@
 			HomingEligible = false
 			JumpTargetEligible = false
 			RequiresDamageToAffect = true
+			RequiresDamageToCollide = true
 			TriggerOnHit = true
 		}
 		Thing = 
@@ -3765,7 +4020,6 @@
 			]
 			Using =
 			[
-				{ Name = "TrapActivationPuff" }
 				{ Name = "/SFX/Enemy Sounds/Hecate/HecatePolymorph" }
 			]
 		}
@@ -3920,6 +4174,107 @@
 	}
 
 	{
+		Name = "Prometheus"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		CosmeticRotationSpeed = 360.0
+		DefaultAngle = 205.0
+		RotationSpeed = 900.0
+		Speed = 1200.0
+		MoveGraphic = "Enemy_Prometheus_Move"
+		StartGraphic = "Enemy_Prometheus_MoveStart"
+		StopGraphic = "Enemy_Prometheus_MoveStop"
+		Life = 
+		{
+			HitSound = "/SFX/Enemy Sounds/Prometheus/EmoteHurt"
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Prometheus_Idle"
+			GrannyModel = "Prometheus_Mesh"
+			SelectionHeight = 350.0
+			SelectionShiftY = 40.0
+			SortBoundsScale = 2.0
+			SpeechCapable = true
+			OffsetZ = 5.0
+			Tallness = 180.0
+			ExtentScale = 1.2
+			Scale = 1.50
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+		}
+	}
+	{
+		Name = "Eagle"
+		InheritFrom = "1_BaseEnemy"
+		DisplayInEditor = true
+		MoveGraphic = "null"
+		StopGraphic = "null"
+		StartGraphic = "null"
+		RotationSpeed = 250.0
+		Speed = 600.0
+		AutoLockable = false
+		BlockAllEffects = true
+		ImmuneToCharm = true
+		ImmuneToStun = true
+		DefaultAngle = null
+		CollideWithObstacles = false
+		CollideWithUnits = false
+		Life =
+		{
+			Invulnerable = true
+			HomingEligible = false
+			JumpTargetEligible = false
+			ProjectilesAlwaysPenetrate = true
+		}
+		MoveAI = 
+		{
+			Name = "Pathfind"
+			LookAheadDistance = 512.0
+			SuccessDistance = 100.0
+			SlowToRotate = false
+			CanOnlyMoveForward = false
+			RepathDelayMin = 0.3
+			RepathDelayMax = 0.5
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			Graphic = "Enemy_Eagle_Idle"
+			GrannyModel = "PrometheusEagle_Mesh"
+			OffsetZ = 80.0
+			SelectionHeight = 350.0
+			SelectionShiftY = 60
+			SelectionWidth = 200.0
+			Tallness = 100.0
+			UseBoundsForSortDrawArea = true
+			StopsProjectiles = false
+			StopsUnits = false
+			Points =
+			[
+				{ X = 18 Y = 27 }
+				{ X = 54 Y = 9 }
+				{ X = 54 Y = -9 }
+				{ X = 18 Y = -27 }
+				{ X = -18 Y = -27 }
+				{ X = -54 Y = -9 }
+				{ X = -54 Y = 9 }
+				{ X = -18 Y = 27 }
+			]
+		}
+	}
+
+	{
 		Name = "Crawler"
 		InheritFrom = "1_BaseEnemy"
 		CanOnlyMoveForward = true
@@ -3997,7 +4352,58 @@
 			]
 		}
 	}
-
+	
+	{
+		Name = "Talos"
+		InheritFrom = "1_BaseBoss"
+		DisplayInEditor = true
+		Speed = 325.0
+		StartGraphic = "Enemy_Talos_MoveStart"
+		MoveGraphic = "Enemy_Talos_Move"
+		StopGraphic = "Enemy_Talos_MoveStop"
+		ImmuneToStun = true
+		SlowEffectModifier = 0.4
+		MoveAI =
+		{
+			SlowToRotate = false
+			CanOnlyMoveForward = true
+		}
+		Thing = 
+		{
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Talos_Mesh"
+			Graphic = "Enemy_Talos_Idle"
+			AmbientSound = "/Leftovers/World Sounds/TalosStatusLoop"
+			Tallness = 400
+			SelectionHeight = 550.0
+			SelectionWidth = 400.0
+			SelectionShiftY = 80.0
+			OffsetZ = 10
+			Points =
+			[
+				{ X = 32 Y = 44 }
+				{ X = 96 Y = 12 }
+				{ X = 96 Y = -20 }
+				{ X = 32 Y = -52 }
+				{ X = -32 Y = -52 }
+				{ X = -96 Y = -20 }
+				{ X = -96 Y = 12 }
+				{ X = -32 Y = 44 }
+			]
+		}
+	}
+	/*
+	{
+		Name = "Talos_Shadow"
+		InheritFrom = "Talos"
+		DisplayInEditor = true
+		Thing = 
+		{
+			Scale = 0.6
+			Color = { Red = 0.3 Green = 0.3 Blue = 0.3 Alpha = 0.7 }
+		}
+	}
+	*/
 	{
 		Name = "Charybdis"
 		InheritFrom = "1_BaseBoss"
@@ -4471,54 +4877,6 @@
         ]
       }
 	}
-	
-	{
-		Name = "AxeTrap"
-		InheritFrom = "TrapPadDisabled"
-		CollideWithUnits = true
-		DisplayInEditor = true
-		PathfindersPreferAvoid = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "AxeTrapIdle"
-			Scale = 1.5
-			StopsUnits = true
-			Points =
-			[
-				{ X = 105 Y = -28 }
-				{ X = 60 Y = -51 }
-				{ X = -85 Y = 23 }
-				{ X = -41 Y = 45 }
-			]
-			Using =
-			[
-				{ Name = "AxeTrapBlur" }
-			]
-		}
-	}
-	
-	{
-		Name = "AxeTrapTrigger"
-		InheritFrom = "TrapPadDisabled"
-		DisplayInEditor = true
-		PathfindersPreferAvoid = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "AxeTrapTriggerIdle"
-			Scale = 1.0
-			Points =
-			[
-				{ X = 151 Y = -11 }
-				{ X = 6 Y = -82 }
-				{ X = -151 Y = -6 }
-				{ X = 0 Y = 68 }
-				{ X = 151 Y = -11 }
-			]
-		}
-	}
-	
 	{
 		Name = "TrapFissureDisabled"
 		InheritFrom = "TrapPadDisabled"
@@ -4562,33 +4920,6 @@
 	}
 	
 	{
-		Name = "SpikeCube"
-		InheritFrom = "1_BaseTrap"
-		DisplayInEditor = true
-		Life = 
-		{
-			Invulnerable = true
-		}
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "SpikeCubeIdle"
-			Grip = 99999.0
-			Points =
-			[
-				{ X = 32 Y = 48 }
-				{ X = 96 Y = 16 }
-				{ X = 96 Y = -16 }
-				{ X = 32 Y = -48 }
-				{ X = -32 Y = -48 }
-				{ X = -96 Y = -16 }
-				{ X = -96 Y = 16 }
-				{ X = -32 Y = 48 }
-			]
-		}
-	}
-	
-	{
 		Name = "BlastCubeFused"
 		InheritFrom = "1_BaseTrap"
 		DisplayInEditor = true
@@ -4620,90 +4951,6 @@
 	}
 
 	{
-		Name = "BlastCubeFusedRegenerating"
-		InheritFrom = "BlastCubeFused"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "BlastCubeFusedRegeneratingIdle"
-			Offset = { X = 0 Y = -26 }
-			Points =
-			[
-				{ X = 65 Y = -22 }
-				{ X = -3 Y = -60 }
-				{ X = -72 Y = -20 }
-				{ X = 0 Y = 9 }
-			]
-		}
-	}
-
-	{
-		Name = "DartTrap"
-		InheritFrom = "SpikeTrap"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "DartTrapIdle"
-			Points =
-			[
-				{ X = 151 Y = -11 }
-				{ X = 6 Y = -82 }
-				{ X = -151 Y = -6 }
-				{ X = 0 Y = 68 }
-				{ X = 151 Y = -11 }
-			]
-		}
-	}
-	
-	{
-		Name = "DartTrapEmitter"
-		InheritFrom = "SpikeCube"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "DartTrapEmitterIdle"
-			Tallness = 200.0
-			Points =
-			[
-				{ X = 32 Y = 48 }
-				{ X = 96 Y = 16 }
-				{ X = 96 Y = -16 }
-				{ X = 32 Y = -48 }
-				{ X = -32 Y = -48 }
-				{ X = -96 Y = -16 }
-				{ X = -96 Y = 16 }
-				{ X = -32 Y = 48 }
-			]
-		}
-	}
-	
-	{
-		Name = "DartTrapEmitterClockwork"
-		InheritFrom = "1_BaseTrap"
-		DisplayInEditor = true
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			Graphic = "DartTrapEmitterIdle"
-			Tallness = 200.0
-			Points =
-			[
-				{ X = 32 Y = 48 }
-				{ X = 96 Y = 16 }
-				{ X = 96 Y = -16 }
-				{ X = 32 Y = -48 }
-				{ X = -32 Y = -48 }
-				{ X = -96 Y = -16 }
-				{ X = -96 Y = 16 }
-				{ X = -32 Y = 48 }
-			]
-		}
-	}
-	
-	{
 		Name = "BeamTrap"
 		InheritFrom = "1_BaseDestructible"
 		DisplayInEditor = true
@@ -4723,37 +4970,6 @@
 		}
 	}
 
-	{
-		Name = "BannerSupport"
-		InheritFrom = "1_BaseTrap"
-		DisplayInEditor = true
-		Life = 
-		{
-			Invulnerable = true
-		}
-		Thing = 
-		{
-			CanBeOccluded = true
-			EditorOutlineDrawBounds = false
-			Graphic = "BannerSupportIdle"
-			Grip = 99999.0
-			ImmuneToForce = true
-			Tallness = 400.0
-			Offset = { X = 0 Y = -235 }
-			Points =
-			[
-				{ X = 16 Y = 24 }
-				{ X = 48 Y = 8 }
-				{ X = 48 Y = -8 }
-				{ X = 16 Y = -24 }
-				{ X = -16 Y = -24 }
-				{ X = -48 Y = -8 }
-				{ X = -48 Y = 8 }
-				{ X = -16 Y = 24 }
-			]
-		}
-	}
-	
 	{
 		Name = "HazardPoint"
 		InheritFrom = "1_BaseTrap"
@@ -4776,8 +4992,12 @@
 	
 	{
 		Name = "LavaSplash"
-		InheritFrom = "SpikeCube"
+		InheritFrom = "1_BaseTrap"
 		DisplayInEditor = true
+		Life = 
+		{
+			Invulnerable = true
+		}
 		Thing = 
 		{
 			EditorOutlineDrawBounds = false
@@ -5020,38 +5240,30 @@
 			]
 		}
 	}
-
-	/*{
-		Name = "BreakableAsphodel"
-		InheritFrom = "1_BaseEnemy"
+    {
+		Name = "HadesTombstone"
+		InheritFrom = "1_BaseTrap"
 		DisplayInEditor = true
+		ImmuneToDoTs = true
 		Life = 
 		{
-			HitSound = "/EmptyCue"
-			HomingEligible = false
-			JumpTargetEligible = false
-			ProjectilesAlwaysPenetrate = true
-			RequiresDamageToAffect = true
 			TriggerOnHit = true
 		}
-		Thing = 
-		{
-			EditorOutlineDrawBounds = false
-			StopsProjectiles = true
-			StopsUnits = true
-			Graphic = "BreakableAsphodelIdle"
-			Offset = { X = 0 Y = -140 }
-			ExtentScale = 0.25
-			Tallness = 100
-			Points =
-			[
-				{ X = 108 Y = -6 }
-				{ X = 37 Y = -44 }
-				{ X = -66 Y = -43 }
-				{ X = -117 Y = 0 }
-				{ X = -49 Y = 41 }
-				{ X = 64 Y = 36 }
-			]
-		}
-	}*/
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "HadesTombstoneSpawn"
+        Scale = 0.35
+        Tallness = 550.0
+		StopsProjectiles = true
+        Offset = { X = 0 Y = -290 }
+        Points = [
+          { X = 0 Y = 42 }
+          { X = 88 Y = 0 }
+          { X = 48 Y = -54 }
+          { X = -47 Y = -56 }
+          { X = -85 Y = 2 }
+        ]
+      }
+	}
 ]}

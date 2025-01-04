@@ -27,7 +27,7 @@ UnitSetData.ClockworkHeavyMelee =
 
 			MoveSuccessDistance = 125,
 		},
-		
+
 		StunAnimations = 
 		{
 			Default = "Enemy_CWHeavyMelee_OnHit",
@@ -57,9 +57,9 @@ UnitSetData.ClockworkHeavyMelee =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -79,17 +79,14 @@ UnitSetData.ClockworkHeavyMelee =
 		HealthBuffer = 1050,
 		IsAggroedSound = "/SFX/Enemy Sounds/Brawler/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 			
 			--MoveWithinRangeTimeoutMin = 4.0, -- good with ThugSlam attack
 			--MoveWithinRangeTimeoutMax = 5.0,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =

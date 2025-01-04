@@ -66,16 +66,13 @@ UnitSetData.CorruptedShadeSmall =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/CorruptedShadeSmall/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Homing" }),
+
 		DefaultAIData = {
 			DeepInheritance = true,
 		},
 		
 		WeaponOptions = { "CorruptedShadeSCast_Elite" },
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 
 		GeneratorData =
 		{

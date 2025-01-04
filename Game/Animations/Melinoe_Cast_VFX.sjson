@@ -798,7 +798,7 @@
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
-			{ DurationFrames = 230 }
+			{ DurationFrames = 290 }
 
 			{ DurationFrames = 2 }
 			{ DurationFrames = 2 }
@@ -1866,7 +1866,6 @@
 		VisualFx = null
 		CreateAnimations =
 		[
-
 			{ Name = "CastCircleAmbientFxDark" }
 			{ Name = "CastCircleAmbientFxDark" }
 			{ Name = "CastCircleAmbientFxDark" }
@@ -1874,11 +1873,8 @@
 			{ Name = "CastCircleInOverlayAphrodite" }
 			{ Name = "CastCircleInOverlayAphrodite" }
 			{ Name = "CastCircleInOverlayAphrodite" }
-
 			{ Name = "CastCircleAphroditeA" }
-
 			{ Name = "CastCircleInAphroditeFlare" }
-
 		]
 	}
 
@@ -2132,6 +2128,94 @@
 	}
 
 	{
+		Name = "CastCircleInHephaestus"
+		FilePath = "Fx\CastCircleIn\CastCircleIn"
+		GroupName = "FX_Terrain"
+		VisualFx = "CastCircleAmbientFx"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Sound = "/SFX/Player Sounds/MelCastCircleLoop"
+		StopSoundOnFinishFade = 0.5
+		Duration = 3.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 15
+		HoldLastFrame = true
+		NumFrames = 15
+		PlaySpeed = 30.0
+		StartFrame = 1
+		EndScale = 1.05
+		TransferChildren = true
+		ScaleRadius = 310.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.15
+		CreateAnimations =
+		[
+			{ Name = "CastCircleEdgeGlow" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleAmbientFxDark" }
+			{ Name = "CastCircleLine" }
+			{ Name = "CastCircleLine2" }
+			{ Name = "CastCircleLine3" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleInOverlay" }
+			{ Name = "CastCircleHephaestusFxA" }
+		]
+	}
+
+	{
+		Name = "CastCircleHephaestusFxA"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		NumFrames = 30
+		Material = "Unlit"
+		PlaySpeed = 30
+		PostRotateScaleY = 0.5
+		ChainTo = "CastCircleHephaestusFxA_Hold"
+		ScaleRadius = 150
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		RotationSpeed = 5
+	}
+
+	{
+		Name = "CastCircleHephaestusFxA_Out"
+		InheritFrom = "CastCircleHephaestusFxA"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		NumFrames = 24
+		StartFrame = 32
+		ChainTo = null
+	}
+
+	{
+		Name = "CastCircleHephaestusFxA_Hold"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircleStatic"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		ScaleRadius = 300
+		AngleFromOwner = "Ignore"
+		RotationSpeed = 5
+	}
+
+	{
+		Name = "CastCircleOutHephaestus"
+		InheritFrom = "CastCircleOut"
+		CreateAnimations =
+		[
+			{ Name = "CastCircleHephaestusFxA_Out" }
+			{ Name = "CastCircleOutFade" }
+			{ Name = "CastCircleOutDisplacement" }
+		]
+	}
+
+
+	{
 		Name = "CastCircleInApollo"
 		FilePath = "Fx\CastCircleIn\CastCircleIn"
 		Hue = 0.5
@@ -2361,6 +2445,9 @@
 		OffsetZ = 300
 		DieWithOwner = true
 	}
+	
+
+
 	{
 		Name = "CastCircleArmedApollo"
 		InheritFrom = "CastCircleArmed"
@@ -2442,4 +2529,6 @@
 		EndGreen = 0.9
 		EndBlue = 0.85
 	}
+
+
 ]}

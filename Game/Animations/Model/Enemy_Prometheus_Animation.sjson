@@ -1,0 +1,1351 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyPrometheusBaseAnimation"
+		
+		GrannyModel = "Prometheus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		CreateAnimation = "PrometheusFistFire"
+	}
+
+	// IDLE
+	{
+		Name = "Enemy_Prometheus_Idle"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_IdleCombat_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Prometheus_Invisible"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_IdleCombat_C_00"
+		CreateAnimation = null
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+		OwnerUntargetable = true
+		CancelOnOwnerMove = false
+		OwnerImmobile = true
+		Loop = true
+		Alpha = 0.0
+	}
+
+	// MOVE
+	{
+		Name = "Enemy_Prometheus_MoveStart"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_RunStart_C_00"
+		NativeMoveSpeed = 900
+		ChainTo = "Enemy_Prometheus_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Move"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_Run_C_00"
+		NativeMoveSpeed = 900
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+			{
+				Frame = 30
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_MoveStop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_RunStop_C_00"
+		NativeMoveSpeed = 900
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	// DASH
+	{
+		Name = "Enemy_Prometheus_DashForward_Start"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_RunStart_C_00"
+		HoldLastFrame = true
+		VisualFx = "PrometheusDashStreakFast"
+		VisualFxDistanceMin = 5
+		VisualFxDistanceMax = 5
+		VisualFxCap = 1
+		
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_DashForward_Fire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_Run_C_00"
+		VisualFx = "PrometheusDashStreakFast"
+		VisualFxDistanceMin = 5
+		VisualFxDistanceMax = 5
+		VisualFxCap = 1
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.7
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmoteDodging"
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Prometheus_DashForward_End"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_Run_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+		Sound = "/Leftovers/SFX/DemonLand"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 1.5
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	// BACK DASH
+	{
+		Name = "Enemy_Prometheus_DashBack_Start"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpAntic_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.65
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_DashBack_Fire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpInAir_C_00"
+		HoldLastFrame = true
+		VisualFx = "PrometheusDashStreakBackFast"
+		VisualFxDistanceMin = 5
+		VisualFxDistanceMax = 5
+		VisualFxCap = 1
+		PlayBackwards = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 5.46
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmoteDodging"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashBack_Start"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_DashBack_End"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpLand_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+		Sound = "/Leftovers/SFX/DemonLand"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 7
+				FrameSpeed = 1
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashBack_Fire"
+				Duration = 6
+			}
+		]
+	}
+
+	// FIRE WALL
+	{
+		Name = "Enemy_Prometheus_FireWallPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallBuild_C_00"
+		ChainTo = "Enemy_Prometheus_FireWallSweep"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteCharging"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FireWallSweep"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallSweep_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteAttacking"
+	}
+	{
+		Name = "Enemy_Prometheus_FireWallPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallReturnToIdle_C_00"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FireWallPreFire"
+				Duration = 15
+			}
+		]
+	}
+
+	// FLURRY
+	{
+		Name = "Enemy_Prometheus_FlurryPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFlurryPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerCharging"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 27
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryPreFire_Charged"
+		InheritFrom = "Enemy_Prometheus_FlurryPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 27
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryPreFire_Fast"
+		InheritFrom = "Enemy_Prometheus_FlurryPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+			{
+				Frame = 27
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFlurryFireAntic_C_00"
+		ChainTo = "Enemy_Prometheus_FlurryFireLoop"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerAttackingAlt"
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Enemy_Prometheus_FlurryFireLoop" }
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryFireLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFlurryFireLoop_C_00"
+		Loop = true
+		Sound = "/SFX/Player Sounds/ZagreusBowRapidFire"
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFlurryReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryFireLoop"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_FlurryPostFire_Fast"
+		InheritFrom = "Enemy_Prometheus_FlurryPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+
+	// GROUND POUND
+	{
+		Name = "Enemy_Prometheus_GroundPoundPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackGroundPoundAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteLeaping"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_GroundPoundPreFire_Charged"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackGroundPoundAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteLeaping"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_GroundPoundPreFire_Fast"
+		InheritFrom = "Enemy_Prometheus_GroundPoundPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_GroundPoundFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackGroundPoundFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteAttacking"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_GroundPoundPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackGroundPoundReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+	}
+	{
+		Name = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+		InheritFrom = "Enemy_Prometheus_GroundPoundPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+		]
+	}
+
+	// KICK
+	{
+		Name = "Enemy_Prometheus_KickPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackKickAntic_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerCharging"
+		HoldLastFrame = true
+		//CreateAnimation = "PrometheusSpinKickFootGlow"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_KickPreFire_Charged"
+		InheritFrom = "Enemy_Prometheus_KickPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_KickPreFire_Fast"
+		InheritFrom = "Enemy_Prometheus_KickPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_KickFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackKickFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerAttackingALT"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 14
+				FrameSpeed = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_KickPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackKickReturnToIdle_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Prometheus_Idle"
+	}
+	{
+		Name = "Enemy_Prometheus_KickPostFire_Fast"
+		InheritFrom = "Enemy_Prometheus_KickPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	// UPPERCUT
+	{
+		Name = "Enemy_Prometheus_UppercutPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackUppercutAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerCharging"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_FlurryPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_GroundPoundPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_KickPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_UppercutPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_UppercutPreFire_Charged"
+		InheritFrom = "Enemy_Prometheus_UppercutPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_UppercutPreFire_Fast"
+		InheritFrom = "Enemy_Prometheus_UppercutPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 4
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_UppercutFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackUppercutFire_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteUppercut"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_UppercutPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackUppercutReturnToIdle_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+			{
+				Frame = 8
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_UppercutPostFire_Fast"
+		InheritFrom = "Enemy_Prometheus_UppercutPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+			{
+				Frame = 1
+				FrameSpeed = 3
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+			{
+				Frame = 8
+				FrameSpeed = 3
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			}
+		]
+	}
+
+	// CAST
+	{
+		Name = "Enemy_Prometheus_Cast_Start"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallBuild_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteCharging"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Cast_Fire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallSweep_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmotePowerAttacking"
+		ChainTo = "Enemy_Prometheus_Cast_End"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Cast_End"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackFireWallReturnToIdle_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	// DODGE
+	{
+		Name = "Enemy_Prometheus_Dodge"
+		Random =
+		[
+			{ Name = "Enemy_Prometheus_DodgeA" }
+			{ Name = "Enemy_Prometheus_DodgeB" }
+			{ Name = "Enemy_Prometheus_DodgeC" }
+		]
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteDodging"
+	}
+	{
+		Name = "Enemy_Prometheus_DodgeA"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_DodgeA_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		OwnerInvulnerable = true
+		OwnerImmobile = true
+	}
+	{
+		Name = "Enemy_Prometheus_DodgeB"
+		InheritFrom = "Enemy_Prometheus_DodgeA"
+		GrannyAnimation = "Prometheus_Base_DodgeB_C_00"
+	}
+	{
+		Name = "Enemy_Prometheus_DodgeC"
+		InheritFrom = "Enemy_Prometheus_DodgeA"
+		GrannyAnimation = "Prometheus_Base_DodgeC_C_00"
+	}
+
+	// JUMP
+	{
+		Name = "Enemy_Prometheus_JumpPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpAntic_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteLeaping"
+	}
+	{
+		Name = "Enemy_Prometheus_JumpInAir"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpInAir_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"		 
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_Prometheus_JumpLand"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_JumpLand_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_JumpInAir"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/Leftovers/SFX/DemonLand"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmoteLanding"
+			}
+		]
+	}
+
+	// POINT
+	{
+		Name = "Enemy_Prometheus_Point"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_Point_C_00"
+		ChainTo = "Enemy_Prometheus_PointLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_PointLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_PointLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Prometheus_PointPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_PointReturn_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_PointLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Point_Fast"
+		InheritFrom = "Enemy_Prometheus_Point"
+		ChainTo = "Enemy_Prometheus_PointPostFire_Fast"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_PointPostFire_Fast"
+		InheritFrom = "Enemy_Prometheus_PointPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	// TAUNT //
+	{
+		Name = "Enemy_Prometheus_Point_Alt"
+		InheritFrom = "Enemy_Prometheus_Point"
+		ChainTo = "Enemy_Prometheus_PointPostFire"
+		Frames =
+		[
+			{
+				Frame = 38
+				Sound = "/SFX/Player Sounds/ZagreusFistWhoosh"
+			}
+		]
+	}
+
+	// MEMORY //
+	{
+		Name = "Enemy_Prometheus_Memory_Start"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_MemoryGameChargeStart_C_01"
+		ChainTo = "Enemy_Prometheus_Memory_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmotePoweringUp"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Memory_FireLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_MemoryGameChargeLoop_C_01"
+		VisualFx = "PrometheusMemoryChargingFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.05
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Memory_End"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_MemoryGameChargeReturn_C_01"
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Memory_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+
+	// COMBOS //
+
+	// STREAK
+	{
+		Name = "Enemy_Prometheus_StreakPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboStreakPreFire_C_00"
+		HoldLastFrame = true
+		GrannyAnimationSpeed = 0.5
+		VisualFx = "PrometheusMemoryChargingFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.15
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmotePoweringUp"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_StreakFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboStreakFire_C_00"
+		ChainTo = "Enemy_Prometheus_StreakFireLoop"
+		Sound = "/SFX/HellFireShoot"
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Prometheus_StreakFireLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboStreakFireLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Prometheus_StreakPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboStreakReturnToIdle_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_StreakFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// SPIRAL
+	{
+		Name = "Enemy_Prometheus_CallIntro"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralCallEagleIntro_C_00"
+		ChainTo = "Enemy_Prometheus_CallLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_DashForward_End"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_CallLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralCallEagleLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Prometheus_Catch"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralCatchEagle_C_00"
+		ChainTo = "Enemy_Prometheus_LaunchReadyLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_CallLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_LaunchReadyLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralReadyLaunchLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Prometheus_LaunchPreFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralLaunchEagleAntic_C_00"
+		ChainTo = "Enemy_Prometheus_LaunchFire"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteCharging"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_LaunchReadyLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_LaunchFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralLaunchEagle_C_00"
+		Sound = "/SFX/Enemy Sounds/Prometheus/EmoteAttacking"
+		ChainTo = "Enemy_Prometheus_LaunchPostFire"
+	}
+	{
+		Name = "Enemy_Prometheus_LaunchPostFire"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_AttackComboSpiralReturnToIdle_C_00"
+		ChainTo = "Enemy_Prometheus_Idle"
+		CancelOnOwnerMove = true
+	}
+
+	// DEATH
+	{
+		Name = "Enemy_Prometheus_Death_Start"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_DeathKnockdown_C_00"
+		ChainTo = "Enemy_Prometheus_Death_FireLoop"
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/SFX/Enemy Sounds/Prometheus/EmoteStaggered"
+			}
+			{
+				Frame = 30
+				Sound = "/Leftovers/SFX/DemonLand"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/FistImpactBig"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Prometheus_Death_FireLoop"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_DeathIdle_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Prometheus_Death_End"
+		InheritFrom = "EnemyPrometheusBaseAnimation"
+		GrannyAnimation = "Prometheus_Base_DeathEnd_C_00"
+		CreateAnimation = "PrometheusDeathFlameFxBehindA"
+		ChainTo = "Enemy_Prometheus_Death_End_DeathFx"
+		VisualFx = "PrometheusDeathFlameFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.12
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+			{
+				Frame = 122
+				FrameSpeed = 0.5
+				Sound = "/SFX/Enemy Sounds/Chronos/ChronosClockHand"
+			}
+			{
+				Frame = 128
+				FrameSpeed = 0.5
+				Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Large"
+			}
+			{
+				Frame = 135
+				FrameSpeed = 0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Prometheus_Death_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Prometheus_Death_End_DeathFx"
+		InheritFrom = "Enemy_Prometheus_Death_End"
+		CreateAnimation = null
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 1.0 Green = 0.4 Blue = 0.1 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		EaseIn = 0.0
+		EaseOut = 1
+		ChainTo = "Enemy_Prometheus_Invisible"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 135
+				FrameSpeed = 0.1
+			}
+			{
+				Frame = 145
+				FrameSpeed = 0
+			}
+		]
+	}
+]}

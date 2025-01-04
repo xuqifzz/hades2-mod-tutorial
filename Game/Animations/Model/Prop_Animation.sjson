@@ -1,39 +1,223 @@
 { Animations = [
 	 {
-		Name = "BasePropKit"
+		Name = "BaseMarkerKit"
 		GrannyModel = "MelMarker_Mesh"
 		Enable3DShadow = true
 		GrannyAnimationSpeed = 1.0
 		Loop = true
 		Scale = 1.0
+		GrannyRotationX= 25
+		VisualFx = "BiomeMapMarkerMoveDust"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 60
 
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 7
+			}
+		]
 	}
 
+ /* _______________________________________________Mel Marker_______________________________________________ */
 	{
 		Name = "MelMarkerMove"
-		InheritFrom = "BasePropKit"
+		InheritFrom = "BaseMarkerKit"
 		GrannyModel = "MelMarker_Mesh"
 		GrannyAnimation = "MelMarker_Base_Move_C_00"
+		ChainTo = "MelMarkerIdle"
+
+		GrannyAnimationSpeed = 0.1
+
+		Frames =
+		[
+			{
+				Frame = 15
+				FrameSpeed = 0
+			}
+		]
 
 	}
 
 	{
 		Name = "MelMarkerJump"
-		InheritFrom = "BasePropKit"
+		InheritFrom = "BaseMarkerKit"
 		GrannyModel = "MelMarker_Mesh"
 		GrannyAnimation = "MelMarker_Base_Jump_C_00"
-		Loop = false
 		ChainTo = "MelMarkerIdle"
+		GrannyAnimationSpeed = 0.2
+
+		Frames =
+		[
+			{
+				Frame = 15
+				FrameSpeed = 0
+			}
+		]
 
 	}
 
 	{
 		Name = "MelMarkerIdle"
-		InheritFrom = "BasePropKit"
+		InheritFrom = "BaseMarkerKit"
 		GrannyModel = "MelMarker_Mesh"
 		GrannyAnimation = "MelMarker_Base_Idle_C_00"
 
 
 	}
 
+ /* _______________________________________________RavenMarker_______________________________________________ */
+	{
+		Name = "RavenMarkerMove"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "RavenMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "RavenMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "RavenMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "RavenMarkerIdle"
+		Frames =
+		[
+			{
+				Frame = 8
+				Sound = "/SFX/Familiars/RavenFlap"
+			}
+			{
+				Frame = 34
+				Sound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract"
+			}
+		]
+	}
+
+	{
+		Name = "RavenMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "RavenMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
+
+ /* _______________________________________________CatMarker_______________________________________________ */
+	{
+		Name = "CatMarkerMove"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "CatMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "CatMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "CatMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "CatMarkerIdle"
+		Frames =
+		[
+			{
+				Frame = 34
+				Sound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract"
+			}
+		]
+	}
+
+	{
+		Name = "CatMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "CatMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
+
+ /* _______________________________________________FrogMarker_______________________________________________ */
+	{
+		Name = "FrogMarkerMove"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "FrogMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "FrogMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "FrogMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "FrogMarkerIdle"
+		Frames =
+		[
+			{
+				Frame = 34
+				Sound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract"
+			}
+		]
+	}
+
+	{
+		Name = "FrogMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "FrogMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
+
+ /* _______________________________________________BannerMarker_______________________________________________ */
+	{
+		Name = "BannerMarkerMove"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "BannerMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "BannerMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "BannerMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "BannerMarkerIdle"
+		GrannyAnimationSpeed = 0.38
+
+	}
+
+	{
+		Name = "BannerMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "BannerMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
+
+ /* _______________________________________________HoundMarker_______________________________________________ */
+	{
+		Name = "HoundMarkerMove"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "HoundMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Move_C_00"
+
+	}
+
+	{
+		Name = "HoundMarkerJump"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "HoundMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Jump_C_00"
+		ChainTo = "HoundMarkerIdle"
+		Frames =
+		[
+			{
+				Frame = 34
+				Sound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract"
+			}
+		]
+	}
+
+	{
+		Name = "HoundMarkerIdle"
+		InheritFrom = "BaseMarkerKit"
+		GrannyModel = "HoundMarker_Mesh"
+		GrannyAnimation = "MelMarker_Base_Idle_C_00"
+	}
 ]}

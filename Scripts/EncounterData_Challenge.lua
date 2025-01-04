@@ -120,7 +120,7 @@ OverwriteTableKeys( EncounterData,
 				{
 					OverlayAnim = "ChronosOverlay",
 					BlockScreenshake = true,
-					VoiceLines = GlobalVoiceLines.ChronosDeathTauntVoiceLines,
+					VoiceLines = { GlobalVoiceLines = "ChronosDeathTauntVoiceLines" },
 				},
 				GameStateRequirements =
 				{
@@ -221,6 +221,10 @@ OverwriteTableKeys( EncounterData,
 		GroupReinforcements = false,
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
+
+		CanEncounterSkip = false,
+
+		StartSound = "/Leftovers/Menu Sounds/EmoteAscendedLuciferChoir",
 		
 		ExitsDontRequireCompleted = true,
 
@@ -228,7 +232,6 @@ OverwriteTableKeys( EncounterData,
 		RequireCompletedIntro = true,
 
 		PlayerTookDamage = false,
-		AddTraitOnFirstPlayerTookDamage = "OnionCurse",
 		UnthreadedEvents = EncounterSets.EncounterEventsPerfectClear,
 
 		Spawns = {},
@@ -255,6 +258,7 @@ OverwriteTableKeys( EncounterData,
 			},
 		},
 		StartingValue = 100,
+		ValueDepthRamp = 0.0,
 	},
 
 	PerfectClearChallenge =
@@ -266,7 +270,7 @@ OverwriteTableKeys( EncounterData,
 	PerfectClearChallengeF =
 	{
 		InheritFrom = { "PerfectClearChallenge", "GeneratedF" },
-		EnemySet = EnemySets.BiomeF;
+		EnemySet = EnemySets.BiomeF,
 		
 		ActiveEnemyCapBase = 2.3,
 		ActiveEnemyCapMax = 8,
@@ -278,5 +282,226 @@ OverwriteTableKeys( EncounterData,
 		},
 
 		BaseDifficulty = 60,
+	},
+
+	PerfectClearChallengeG =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedG" },
+		EnemySet = EnemySets.BiomeG,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	PerfectClearChallengeH =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedH" },
+		EnemySet = EnemySets.BiomeH,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	PerfectClearChallengeI =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedI" },
+		EnemySet = EnemySets.BiomeI,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	PerfectClearChallengeN =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedN" },
+		EnemySet = EnemySets.BiomeN,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	PerfectClearChallengeO =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedO" },
+		EnemySet = EnemySets.BiomeO,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	PerfectClearChallengeP =
+	{
+		InheritFrom = { "PerfectClearChallenge", "GeneratedP" },
+		EnemySet = EnemySets.BiomeP,
+		
+		ActiveEnemyCapBase = 2.3,
+		ActiveEnemyCapMax = 8,
+		ActiveEnemyCapDepthRamp = 0.35,
+
+		HardEncounterOverrideValues =
+		{
+		},
+	},
+
+	EliteChallenge =
+	{
+		EncounterType = "EliteChallenge",
+		GroupReinforcements = false,
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+		
+		CanEncounterSkip = false,
+
+		StartSound = "/Leftovers/Menu Sounds/EmoteAscendedGilgameshFlute",
+
+		ExitsDontRequireCompleted = true,
+		UnthreadedEvents = EncounterSets.EncounterEventsEliteChallenge,
+
+		ForceEliteAttrubuteCount = 2,
+		BannedEliteAttributes = { "Metallic", "SpreadHitShields" },
+
+		SpawnIntervalMin = 0.175,
+		SpawnIntervalMax = 0.225,
+
+		MinTypes = 1,
+		MaxTypes = 1,
+		MaxTypesCap = 3,
+		TypeCountDepthRamp = 0,
+		MinWaves = 1,
+		MaxWaves = 1,
+
+		ActiveEnemyCapBase = 8,
+		ActiveEnemyCapMin = 8,
+		ActiveEnemyCapMax = 8,
+
+		LootDrops =
+		{
+			GiftDrop =
+			{
+				DropChance = 0.05,
+				DropCount = 1,
+			},
+		},
+		StartingValue = 100,
+		MinValue = 10,
+		ValueDepthRamp = 0.0,
+		ValueDecayAmount = 1,
+		LootDecayInterval = 1.0,
+		DecayStartDelay = 8.0,
+
+		SpawnRadius = 1000,
+		DifficultyModifier = 0,
+		DepthDifficultyRamp = 0,
+
+		RequireCompletedIntro = true,
+		IgnoreSpawnPreferences = true,
+		PreSpawnMinPlayerDistance = 0,
+
+		BlockNextBiomeEnemyShrineUpgrade = true,
+
+		SpawnOverrides =
+		{
+			HealthBufferMultiplier = 3.5,
+			HealthBarType = "ExtraLarge",
+
+			SpawnEvents =
+			{
+				{
+					FunctionName = "EliteChallengeSpawnPresentation",
+					Threaded = true,
+				},
+			},
+		},
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						TotalCount = 1,
+						Generated = true
+					},
+				},
+			},
+		},
+
+		TimedSpawnsVictoryText = "TimedChallenge_Victory",
+		TimedSpawnsFailureText = "TimedChallenge_Failure",
+	},
+
+	EliteChallengeF =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedF" },
+		EnemySet = EnemySets.BiomeF_EliteChallenge,
+		BaseDifficulty = 130,
+	},
+
+	EliteChallengeG =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedG" },
+		EnemySet = EnemySets.BiomeG_EliteChallenge,
+		BaseDifficulty = 240,
+	},
+
+	EliteChallengeH =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedH" },
+		EnemySet = EnemySets.BiomeH_EliteChallenge,
+	},
+
+	EliteChallengeI =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedI" },
+		EnemySet = EnemySets.BiomeI_EliteChallenge,
+		BaseDifficulty = 380,
+	},
+
+	EliteChallengeN =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedN" },
+		EnemySet = EnemySets.BiomeN_EliteChallenge,
+		BaseDifficulty = 150,
+	},
+
+	EliteChallengeO =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedO" },
+		EnemySet = EnemySets.BiomeO_EliteChallenge,
+		BaseDifficulty = 300,
+	},
+
+	EliteChallengeP =
+	{
+		InheritFrom = { "EliteChallenge", "GeneratedP" },
+		EnemySet = EnemySets.BiomeP_EliteChallenge,
+		BaseDifficulty = 400,
 	},
 })

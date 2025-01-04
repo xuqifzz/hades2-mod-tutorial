@@ -1,20 +1,18 @@
 ﻿function GiftFamiliarUpgradePresentation( usee, args )
 
 	StopStatusAnimation( usee )
-	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarUpgradedGlobalVoiceLines )
 
-	wait(0.5)
+	AngleNPCToHero( usee )
+	wait(0.3)
 
 	PlaySound({ Name = usee.HappySound or "/EmptyCue", Id = usee.ObjectId })
-	SetAnimation({ Name = usee.IdleAnimation, DestinationId = usee.ObjectId })
 	
-	wait(0.5)
+	wait(0.3)
 
 end
 
 function FamiliarShopScreenOpenedPresentation( screen, args )
 	LockCamera({ Id = screen.OpenedFrom.ObjectId, Duration = 1.0, OffsetX = -20 })
-	PlaySound({ Name = "/SFX/Menu Sounds/WellShopOpenNew" })
 	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarShopOpenedVoiceLines, true )
 end
 
@@ -106,7 +104,7 @@ function FamiliarShopPurchasePreActivatePresentation( screen, button, saleData, 
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAffection" })
 	CreateAnimation({ Name = "FamiliarUpgradeSparkles", DestinationId = familiar.ObjectId })
 
-	thread( PlayVoiceLines, GlobalVoiceLines.PositiveReactionVoiceLines, true )
+	thread( PlayVoiceLines, GlobalVoiceLines.FamiliarPostTreatVoiceLines, true )
 
 	wait( saleData.PanDuration or 1.0 )
 
@@ -139,6 +137,8 @@ function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponK
 		end
 	end
 
+	SetAnimation({ Name = "MelinoeSaluteToEquip", DestinationId = CurrentRun.Hero.ObjectId })
+
 	thread( DisplayInfoBanner, nil, {
 		TitleText = saleData.UnlockTextId or "FamiliarShopUnlock",
 		SubtitleText = saleData.Name,
@@ -147,10 +147,10 @@ function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponK
 		IconScale = 0.7,
 		IconMoveSpeed = 0.00001,
 		IconOffsetY = 6,
-		Duration = 3.0,
+		Duration = 2.5,
 	} )
 
-	wait( 3.25 )
+	wait( 2.75 )
 
 	PlaySound({ Name = saleData.ItemActivationSound or "/Leftovers/Menu Sounds/EmoteExcitement" })
 
@@ -160,7 +160,7 @@ function FamiliarShopPurchasePostActivatePresentation( button, saleData, weaponK
 	LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = 0.75 })
 	--AdjustZoom({ Fraction = 1.0, LerpTime = 0.75 })
 
-	wait( 0.76 )
+	wait( 0.5 )
 
 	if weaponKit ~= nil then
 		if weaponKit.FirstTimeWeaponFire then
@@ -201,8 +201,8 @@ function MouseOverFamiliarShopItem( button )
 
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 1.0, Duration = 0.2 })
 
-	if button.TraitData ~= nil then
-		SetAnimation({ Name = button.TraitData.Icon, DestinationId = components.InfoBoxIcon.Id })
+	if button.Data.Icon ~= nil then
+		SetAnimation({ Name = button.Data.Icon, DestinationId = components.InfoBoxIcon.Id })
 		SetAlpha({ Id = components.InfoBoxIcon.Id, Fraction = 1.0, Duration = 0.2 })
 		SetAlpha({ Id = components.InfoBoxFrame.Id, Fraction = 1.0, Duration = 0.2 })
 	end
@@ -230,17 +230,6 @@ function MouseOverFamiliarShopItem( button )
 		LuaKey = "TooltipData",
 		LuaValue = button.TraitData or {},
 	})
-
-	if button.TraitData then
-		local traitData = button.TraitData
-		if not IsEmpty( traitData.StatLines ) then
-			local statLine = traitData.StatLines[1]
-			SetAlpha({ Id = components.InfoBoxStatLineLeft.Id, Fraction = 1.0, Duration = 0.2 })
-			SetAlpha({ Id = components.InfoBoxStatLineRight.Id, Fraction = 1.0, Duration = 0.2 })
-			ModifyTextBox({ Id = components.InfoBoxStatLineLeft.Id, Text = statLine, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0 })
-			ModifyTextBox({ Id = components.InfoBoxStatLineRight.Id, Text = statLine, UseDescription = true, LuaKey = "TooltipData", LuaValue = traitData, FadeTarget = 1.0})
-		end
-	end
 
 	if button.Data.RarityLevel ~= nil then		
 		SetAlpha({ Id = components.InfoBoxRarity.Id, Fraction = 1.0, Duration = 0.2 })
@@ -272,8 +261,6 @@ function MouseOffFamiliarShopItem( button )
 	SetAlpha({ Id = components.InfoBoxName.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxRarity.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxDescription.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Id = components.InfoBoxStatLineLeft.Id, Fraction = 0.0, Duration = 0.2 })
-	SetAlpha({ Id = components.InfoBoxStatLineRight.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxFlavor.Id, Fraction = 0.0, Duration = 0.2 })
 
 	SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })

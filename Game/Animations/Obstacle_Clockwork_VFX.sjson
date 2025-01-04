@@ -138,6 +138,8 @@
 		VisualFx = "TimeElementalSandBubbleSandRain"
 		VisualFxIntervalMin = 0.10
 		VisualFxIntervalMax = 0.12
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		CreateAnimations =
 		[
 			{ Name = "TimeTrapSandBubbleIn" }
@@ -509,6 +511,8 @@
 		VisualFx = "CWSandCloud"
 		VisualFxIntervalMin = 2
 		VisualFxIntervalMax = 3
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
 		CreateAnimation = "CWSandCloud"
 	}
 
@@ -1251,6 +1255,573 @@
 		Name = "MelBossEntranceSandParticleF"
 		InheritFrom = "MelBossEntranceSandParticleA"
 		FilePath = "Particles\particle_snowDust_03"
+	}
+	
+	{
+		Name = "HouseMirror02"
+		ChildAnimation = "HouseMirror02Shine"
+		FilePath = "Tilesets\House\House_Mirror_02"
+		VisualFx = "HouseMirrorParticles"
+		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop"
+		StopSoundOnFinishFade = 0.1
+		SoundAllowedAfterFrame = -1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "HouseMirror02Start"
+		InheritFrom = "HouseMirror02"
+		ChainTo = "HouseMirror02"
+		Duration = 0.1
+	}
+	
+	{
+		Name = "HouseMirror02Shine"
+		ChainTo = "HouseMirror02Wait"
+		FilePath = "Fx\Mirrorshine\Mirrorshine"
+		
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetY = -438.0
+		Scale = 3.3333
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Slides = [
+
+			{ DurationFrames = 80 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	
+	{
+		Name = "HouseMirror02Wait"
+		ChainTo = "HouseMirror02Shine"
+		FilePath = "Dev\blank_invisible"
+		
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+	}
+	
+	{
+		Name = "HouseMirrorParticles"
+		FilePath = "Animations\HouseMirrorParticles\HouseMirrorParticles"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random = [
+			{ Name = "HouseMirrorParticleBase" }
+			{ Name = "HouseMirrorParticleA" }
+			{ Name = "HouseMirrorParticleB" }
+		]
+	}
+	
+	{
+		Name = "HouseMirrorParticleBase"
+		FilePath = "Particles\particle_addFlake"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 161.0
+		AngleMin = 160.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.03
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 3.0
+		RandomDurationMin = 1.5
+		StartFrame = 1
+		OffsetY = -400.0
+		RandomOffsetX = 150.0
+		RandomOffsetY = 75.0
+		LocationFromOwner = "Take"
+		SortMode = "Id"
+		VelocityMax = 40.0
+		VelocityMin = 10.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 480.0
+		RandomRotationSpeedMin = -480.0
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.3
+		ScaleMin = 0.05
+		StartScale = 0.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		RandomAccelerationMin = -10.0
+		Color = { Red = 1.0 Green = 0.2 Blue = 1.0 }
+	}
+	
+	{
+		Name = "HouseMirrorParticleA"
+		InheritFrom = "HouseMirrorParticleBase"
+		Color = { Red = 0.10 Green = 0.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "HouseMirrorParticleB"
+		InheritFrom = "HouseMirrorParticleBase"
+		AlphaMax = 0.05
+		EndAlpha = 1.0
+		PingPongColor = true
+		RandomRotationSpeedMax = 0.0
+		RandomRotationSpeedMin = 0.01
+		ScaleMax = 6.0
+		ScaleMin = 5.0
+		StartScale = 0.9
+		Color = { Red = 0.30 Green = 0.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "Breakable_I"
+		FilePath = "Tilesets\DrownedChambers\DrownedChambers_Vase_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100
+		Random =
+		[
+			{ Name = "Breakable_I01" }
+			{ Name = "Breakable_I02" }
+		]
+	}
+	{
+		Name = "Breakable_I01"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Vase_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.22
+		OffsetY = 70
+	}
+	{
+		Name = "Breakable_I02"
+		InheritFrom = "Breakable_I01"
+		FilePath = "Tilesets\ClockworkTartarus\CW_Vase_02"
+		OffsetY = 45
+	}
+
+
+	
+	{
+		Name = "CWTartarusRubble01"
+		CreateAnimation = "RubbleFallStreak"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Rubble"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "CWTartarusRubble02"
+		CreateAnimation = "RubbleFallStreak"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Rubble2"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "BreakableHighValueChronosPot"
+		FilePath = "Tilesets\Gameplay\Gameplay_Breakable_HighValue"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.28
+		Material = "Unlit"
+		OffsetZ = -53
+	}
+
+	{
+		Name = "BreakableHighValueChronosPotShatter"
+		FilePath = "Fx\BreakableHighValueShatter\BreakableHighValueShatter"
+		NumFrames = 28
+		PlaySpeed = 30
+		Material = "Unlit"
+		Scale = 1.12
+		OffsetZ = 50
+		VisualFx = "Breakable_HighValue_Fireflies"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Sound = "/SFX/GoldCoinJackpotUrnDeath"
+		CreateAnimations =
+		[
+			{ Name = "Breakable_HighValue_Death_Flare"}
+			{ Name = "Breakable_HighValue_Death_Glow"}
+		]
+	}
+	
+	{
+		Name = "CWDestructiblePillarA"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Idle"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -110
+	}
+	
+	{
+		Name = "CWDestructiblePillarB"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Damaged1"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -110
+		Duration = 1
+		Loop = true
+		CreateAnimation = "CWDestructiblePillarBTransitionFx"
+	}
+
+	{
+		Name = "CWDestructiblePillarBTransitionFx"
+		FilePath = "Fx\CWPillarTransitionA\CWPillarTransitionA"
+		NumFrames = 50
+		PlaySpeed = 45
+		Scale = 4
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -640
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		VisualFx = "CWPillarGlassParticles"
+		VisualFxCap = 7
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations =
+		[
+			{ Name = "CWPillarDestructionDustFront" }
+			{ Name = "CWPillarDestructionDustBack" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+			{ Name = "CWPillarGlassParticles" }
+		]
+	}
+
+	{
+		Name = "CWPillarGlassParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		LoopFramesOnly = true
+		Material = "Unlit"
+		AddColor = true
+		Red = 0.95
+		Green = 0.97
+		Blue = 0.3
+		StartScale = 1
+		EndScale = 0
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.0
+		RandomOffsetX = 50
+		RandomOffsetY = 150
+		Gravity = 1600
+		AngleMin = 0
+		AngleMax = 360
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 200
+		VelocityMin = 600
+		VelocityMax = 1000
+		RandomAccelerationMin = -1000
+		RandomAccelerationMax = -500
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "CWPillarDestructionDustFront"
+		FilePath = "Fx\FieldsDustPuffFront\FieldsDustPuffFront"
+		NumFrames = 40
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 2
+		Saturation = 0.25
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "CWPillarDestructionDustBack"
+		InheritFrom = "CWPillarDestructionDustFront"
+		FilePath = "Fx\FieldsDustPuffBack\FieldsDustPuffBack"
+		GroupName = "FX_Dark"
+	}
+	
+	{
+		Name = "CWDestructiblePillarC"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Damaged2"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -110
+		Duration = 1
+		Loop = true
+		CreateAnimation = "CWDestructiblePillarCTransitionFx"
+	}
+
+	{
+		Name = "CWDestructiblePillarCTransitionFx"
+		InheritFrom = "CWDestructiblePillarBTransitionFx"
+		FilePath = "Fx\CWPillarTransitionB\CWPillarTransitionB"
+	}
+	
+	{
+		Name = "CWDestructiblePillarD"
+		FilePath = "Tilesets\ClockworkTartarus\CW_PillarClockwork_01_Destroyed"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -110
+		Duration = 1
+		Loop = true
+		CreateAnimation = "CWDestructiblePillarDTransitionFx"
+	}
+
+	{
+		Name = "CWDestructiblePillarDTransitionFx"
+		InheritFrom = "CWDestructiblePillarBTransitionFx"
+		FilePath = "Fx\CWPillarTransitionC\CWPillarTransitionC"
+	}
+
+	
+	{
+		Name = "TimeTrapIdle"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TimeTrap_01_Idle"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100
+	}
+	
+	{
+		Name = "TimeTrapDamaged"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TimeTrap_01_AboutToExplode"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100
+		Sound = "/SFX/GlassBreak"
+		CreateAnimations =
+		[
+			{ Name = "HitSparkEnemyDamagedGlass" }
+			{ Name = "HitSparkEnemyDamagedGlass" }
+			{ Name = "HitSparkEnemyDamagedGlass" }
+
+		]
+	}
+	
+	{
+		Name = "TimeTrapDestroyed"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TimeTrap_01_Destroyed"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 100
+		CreateAnimation = "TimeTrapDestroyedFx"
+		Sound = "/SFX/TimeTrapDeathSFX"
+	}
+
+	{
+		Name = "TimeTrapDestroyedFx"
+		FilePath = "Fx\CWTimeTrapTransition\CWTimeTrapTransition"
+		NumFrames = 50
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 45
+		Scale = 4
+		OffsetZ = 190
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		CreateAnimations =
+		[
+			{ Name = "CWPillarDestructionDustFront" }
+			{ Name = "CWPillarDestructionDustBack" }
+			{ Name = "HitSparkEnemyDamagedGlass" }
+			{ Name = "HitSparkEnemyDamagedGlass" }
+			{ Name = "HitSparkEnemyDamagedGlass" }
+		]
+	}
+	
+	{
+		Name = "ClockworkToggleDust"
+		FilePath = "Fx\CWToggleCoverDust\CWToggleCoverDust"
+		NumFrames = 25
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		AlphaMin = 0.2
+		AlphaMax = 0.6
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2.5
+		ScaleMin = 1
+		ScaleMax = 1.5
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "ClockworkToggleCoverOn"
+		FilePath = "Fx\CWToggleCoverOn\CWToggleCoverOn"
+		NumFrames = 17
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		ChainTo = "ClockworkToggleCoverStatic"
+		Scale = 1
+		VisualFx = "ClockworkToggleDust"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		VisualFxCap = 1
+		Sound = "/SFX/TartarusGearsChunk"
+	}
+
+	{
+		Name = "ClockworkToggleCoverStatic"
+		FilePath = "Tilesets\ClockworkTartarus\CW_ToggleCover_01"
+	}
+	
+	{
+		Name = "ClockworkToggleCoverOff"
+		InheritFrom = "ClockworkToggleCoverOn"
+		FilePath = "Fx\CWToggleCoverOff\CWToggleCoverOff"
+		ChainTo = "ClockworkToggleCoverOffStatic"
+		Sound = "/SFX/TartarusGearsChunk"
+		OffsetY = -5
+		CreateAnimation = "ClockworkToggleOffTerrainClose"
+	}
+
+	{
+		Name = "ClockworkToggleOffTerrainClose"
+		FilePath = "Fx\CWTerrainToggle03Transition\CWTerrainToggle03Transition"
+		NumFrames = 14
+		Scale = 1.18
+		GroupName = "FX_Terrain"
+		OffsetX = 4
+		OffsetY = -2
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.01
+
+		Slides =
+		[
+			{ RandomDurationFramesMin = 20 RandomDurationFramesMax = 24 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 20 }
+		]
+	}
+
+	{
+		Name = "ClockworkToggleCoverOffStatic"
+		FilePath = "Dev\blank_invisible"
+	}
+	
+	{
+		Name = "CWTerrainToggle01Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		HoldLastFrame = true
+		Duration = 0.3
+	}
+	{
+		Name = "CWTerrainToggle01Close"
+		InheritFrom = "CWTerrainToggle01Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_01a"
+	}
+	{
+		Name = "CWTerrainToggle02Open"
+		InheritFrom = "CWTerrainToggle01Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_02"
+	}
+	{
+		Name = "CWTerrainToggle02Close"
+		InheritFrom = "CWTerrainToggle02Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_02a"
+	}
+	{
+		Name = "CWTerrainToggle03Open"
+		InheritFrom = "CWTerrainToggle01Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_03"
+	}
+	{
+		Name = "CWTerrainToggle03Close"
+		InheritFrom = "CWTerrainToggle03Open"
+		FilePath = "Tilesets\ClockworkTartarus\CW_TerrainToggle_03a"
 	}
 
 ]}

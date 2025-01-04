@@ -59,4 +59,14 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.20, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
+
+	PolyphemusStompSmall =
+	{
+		HitScreenshake = { Distance = 16, Speed = 600, Duration = 0.23, FalloffSpeed = 3000, Angle = 90 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.12, LerpTime = 0 },
+			{ ScreenPreWait = 0.19, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
 })

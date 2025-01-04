@@ -103,6 +103,7 @@ OverwriteTableKeys( ObstacleData, {
 
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 600,
 			VoiceLines =
 			{
@@ -199,19 +200,6 @@ OverwriteTableKeys( ObstacleData, {
 					},
 				},
 			},
-		},
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
 		},
 	},
 

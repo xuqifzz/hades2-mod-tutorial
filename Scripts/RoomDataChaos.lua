@@ -4,7 +4,7 @@ RoomSetData.Chaos =
 	{
 		DebugOnly = true,
 
-		ValidateSecretData = false,
+		ValidateSecretData = true,
 		HasHarvestPoint = true,
 		HasShovelPoint = true,
 		HasPickaxePoint = true,
@@ -63,15 +63,31 @@ RoomSetData.Chaos =
 		BreakableValueOptions = { MaxHighValueBreakables = 3 },
 		SoftClamp = 0.75,
 		FishingPointChance = 0.30,
-		FishingPointRequirements =
+		PickaxePointChance = 0.35,
+		PickaxePointRequirements = 
 		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
+			},
 		},
-
 		ShovelPointChance = 1.0,
 		ShovelPointRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface01" },
+			},
+		},
+
+		HarvestPointChances =
+		{
+			0.30,
+			0.05,
+			0.01,
+		},
+		HarvestPointRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosGrantsDarkness01" },
 			},
 		},
 

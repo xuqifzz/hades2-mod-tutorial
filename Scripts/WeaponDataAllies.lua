@@ -114,44 +114,6 @@ WeaponDataAllies =
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
 	},
 
-	RavenFamiliarMelee =
-	{
-		AIData =
-		{
-			DeepInheritance = true,
-
-			ProjectileName = "RavenFamiliarMelee",
-
-			ApplyEffectsOnWeaponFire =
-			{
-				WeaponEffectData.MeleeAttackGrip,
-			},
-
-			PreAttackDuration = 0.15,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.1,
-
-			AttackDistance = 525,
-		},
-		
-		Sounds =
-		{
-			FireSounds =
-			{
-				{ Name = "/SFX/Familiars/RavenSquawk2" },
-				{ Name = "/SFX/Familiars/RavenFlap" },
-				{ Name = "/SFX/Player Sounds/WeaponSwing" },
-			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
-	},
-
 	SoulPylonDeath =
 	{
 
@@ -363,7 +325,7 @@ WeaponDataAllies =
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 1,
+			MinAttacksBetweenUse = 6,
 		},
 
 		Sounds =
@@ -523,13 +485,13 @@ WeaponDataAllies =
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
-			PostAttackCooldownMin = 0.0,
-			PostAttackCooldownMax = 5.5,
+			PostAttackCooldownMin = 2.15,
+			PostAttackCooldownMax = 3.65,
 		},
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 1,
+			-- MinAttacksBetweenUse = 1,
 		},
 
 		Sounds =
@@ -617,7 +579,6 @@ WeaponDataAllies =
 			HealthTickDamage = 999,
 
 			PreAttackEndShake = true,
-			--AIChargeTargetMarker = "ArtemisTargetMarker",
 			PreAttackFx = "ArtemisAimLine",
 			EndPreAttackFx = true,
 
@@ -686,14 +647,15 @@ WeaponDataAllies =
 					RandomRemaining = true,
 					PreLineWait = 0.25,
 					UsePlayerSource = true,
-					SuccessiveChanceToPlay = 0.5,
+					SuccessiveChanceToPlay = 0.25,
+					SuccessiveChanceToPlayAll = 0.05,
 					Cooldowns =
 					{
 						{ Name = "MelinoeHuntersMarkSpeech", Time = 35 },
+						{ Name = "MelinoeAnyQuipSpeech" },
 					},
-					TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-					{ Cue = "/VO/Melinoe_1943", Text = "Marked one for me did you?", PlayFirst = true },
+					{ Cue = "/VO/Melinoe_1943", Text = "Marked one for me, did you?", PlayFirst = true },
 					{ Cue = "/VO/Melinoe_1944", Text = "She marked that one for me." },
 					{ Cue = "/VO/Melinoe_1945", Text = "The Hunter's Mark again." },
 					{ Cue = "/VO/Melinoe_1946", Text = "There's her Mark." },

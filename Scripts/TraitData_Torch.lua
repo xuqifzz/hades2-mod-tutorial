@@ -1,11 +1,21 @@
 OverwriteTableKeys( TraitData, {
 	-- Torch
+	TorchHammerTrait = 
+	{
+		CodexWeapon = "WeaponTorch"
+	},
+
 	TorchSpecialImpactTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_34",
-		RequiredWeapon = "WeaponTorch",
-		
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -29,13 +39,19 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Count",
 			},
 		},
-
 	},
+
 	TorchExSpecialCountTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_30",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		ChargeStageModifiers = 
 		{
 			ValidWeapons = { "WeaponTorchSpecial" },
@@ -57,11 +73,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	TorchSpecialSpeedTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_36",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		WeaponSpeedMultiplier =
 		{
 			WeaponNames = { "WeaponTorchSpecial" },
@@ -91,11 +114,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	TorchEnhancedAttackTrait =  
+
+	TorchEnhancedAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_29",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		OnWeaponFiredFunctions = 
 		{
 			
@@ -156,11 +186,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	TorchDiscountExAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_28",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		
 		WeaponSpeedMultiplier =
 		{
@@ -193,9 +230,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	TorchLongevityTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_31",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		PropertyChanges = 
 		{
 			{
@@ -230,10 +273,23 @@ OverwriteTableKeys( TraitData, {
 	},
 	TorchSplitAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_38",
-		RequiredWeapon = "WeaponTorch",
-		RequiredFalseTraits = {"TorchDetonateAspect"},
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "TorchDetonateAspect", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "TorchSprintRecallAspect", },
+			},
+		},
 		PropertyChanges =
 		{	
 			{
@@ -254,6 +310,7 @@ OverwriteTableKeys( TraitData, {
 				UseOriginalProjectileForPropertyChanges = true,
 				IgnoreImpactId = true,
 				MatchProjectileName = false,
+				IgnoreAdvancedSplitValidity = true,
 				SpawnCount = 2,
 				SpawnArc = 60,
 				ProjectileNameMapIgnores = 
@@ -279,9 +336,15 @@ OverwriteTableKeys( TraitData, {
 
 	TorchSpinAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_37",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		
 		AddOutgoingDamageModifiers = 
 		{
@@ -312,11 +375,84 @@ OverwriteTableKeys( TraitData, {
 		},
 	},
 
+	TorchSpinAttackAltTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
+		Icon = "Hammer_Torch_37",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
+
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = { "WeaponTorch" },
+			ValidBaseDamageAddition = 10,
+			ReportValues = 
+			{ 
+				ReportedDamageBonus = "ValidBaseDamageAddition" 
+			},
+			ExcludeLinked = true,
+		},
+		PropertyChanges =
+		{	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileProperties = 
+				{
+					Speed = 1800,
+					SpinRate = math.rad(360),
+					SpinFromOwnerVelocityMultiplier = 0,
+					InheritOwnerVelocityMultiplier = 0,
+					TotalFuse = 2,
+				}
+			},
+
+			{
+				FalseTraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 2,
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "TorchSprintRecallAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 4, --Match extended fuse of the aspect
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "TorchDetonateAspect",
+				WeaponName = "WeaponTorch",
+				ProjectileProperty = "Fuse",
+				ChangeValue = 6, --Match extended fuse of the aspect
+				ChangeType = "Absolute",
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamageBonus",
+				ExtractAs = "DamageAddition",
+			},
+		},
+	}, 
+
 	TorchOrbitPointTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_33",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		PropertyChanges =
 		{	
 			{
@@ -345,12 +481,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
-	--ForceRelease = true,
+
 	TorchSpecialLineTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_35",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			HealthBufferRemoval = 0.20,
@@ -420,6 +562,20 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "ProjectileAngleOffset",
+				ChangeValue = 0,
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponName = "WeaponTorchSpecial",
+				WeaponProperty = "SetSpinFromMovement",
+				ChangeValue = false,
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 			]]
 		},
 		ExtractValues =
@@ -432,11 +588,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	TorchMoveSpeedTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_32",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeaponMultiplier =
@@ -485,11 +648,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	TorchAttackSpeedTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
 		Icon = "Hammer_Torch_27",
-		RequiredWeapon = "WeaponTorch",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
 		PropertyChanges =
 		{
 			{
@@ -532,10 +702,114 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipSpeedBonus",
 				Format = "NegativePercentDelta"
 			},
+		},
+	},
+
+	TorchHomingAttackTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
+		Icon = "Hammer_Torch_01",
+		GameStateRequirements =
+		{
 			{
-				Key = "ReportedSpeedPenalty",
-				ExtractAs = "TooltipSpeedPenalty",
-				Format = "NegativePercentDelta"
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponNames = { "WeaponTorch", },
+				ProjectileProperties = 
+				{
+					MaxAdjustRate = math.rad(560),
+					AdjustRateAcceleration = math.rad(-60),
+					ImpactVelocity = 0,
+				},
+				ExcludeLinked = true,
+			},
+			{
+				WeaponNames = {"WeaponTorch"},
+				ProjectileProperty = "Speed",
+				ChangeValue = 1.5,
+				ChangeType = "Multiply",
+			}
+		}
+	},
+
+	TorchConsecutiveStrikeTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
+		Icon = "Hammer_Torch_35",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
+		PropertyChanges =
+		{
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperties = 
+				{
+					ConsecutiveHitWindow = 1,
+					DamagePerConsecutiveHit = 4,
+					ReportValues = { ReportedDamage = "DamagePerConsecutiveHit"},
+				},
+			}
+		},
+		
+		ExtractValues =
+		{
+			{
+				Key = "ReportedDamage",
+				ExtractAs = "Damage",
+			},
+		}
+	},
+
+	TorchOrbitDistanceTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "TorchHammerTrait" },
+		Icon = "Hammer_Torch_33",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponTorch", },
+			},
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ExBaseDamageAddition = { BaseValue = 5 },
+			ReportValues = 
+			{ 
+				ReportedDamage = "ExBaseDamageAddition"
+			},
+		},
+		PropertyChanges =
+		{	
+			
+			{
+				WeaponName = "WeaponTorchSpecial",
+				ProjectileName = "ProjectileTorchOrbit",
+				ProjectileProperty = "Range",
+				ChangeValue = 2,
+				ChangeType = "Multiply",
+				ExcludeLinked = true,
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMoveSpeedBonus",
+				ExtractAs = "MoveSpeed",
+				Format = "PercentDelta",
+				IncludeSigns = true,
 			},
 		},
 	},

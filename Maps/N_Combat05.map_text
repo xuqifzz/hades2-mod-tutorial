@@ -197,7 +197,7 @@
     {
       "BlendMode": 2,
       "ChildGroups": [],
-      "Id": "Additive",
+      "Id": "Additive_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -280,7 +280,7 @@
         "Shading_01",
         "Overlay_01",
         "Lighting_01",
-        "Additive",
+        "Additive_01",
         "FX_Standing",
         "Standing",
         "Terrain_Overlay_01",

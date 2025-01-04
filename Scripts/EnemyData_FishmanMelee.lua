@@ -29,6 +29,7 @@ UnitSetData.FishmanMelee =
 		{
 			DeepInheritance = true,
 		},
+		CancelChainedWeaponOnHitStun = true,
 
 		StunAnimations = 
 		{
@@ -38,7 +39,7 @@ UnitSetData.FishmanMelee =
 
 		WeaponOptions =
 		{
-			"FishmanImpale"
+			"FishmanImpale",
 		},
 
 		GeneratorData =
@@ -47,35 +48,23 @@ UnitSetData.FishmanMelee =
 			BlockEnemyTypes = {"FishmanMelee_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			PreLineWait = 0.65,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0079", Text = "Lurkers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatG" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0078", Text = "Lurkers.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0079", Text = "Lurkers!" },
+			{ Cue = "/VO/MelinoeField_0078", Text = "Lurkers." },
+			{ Cue = "/VO/MelinoeField_0079", Text = "Lurkers!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0080", Text = "More Lurkers." },
 			{ Cue = "/VO/MelinoeField_0081", Text = "Come, Lurkers." },
 		},
@@ -88,6 +77,8 @@ UnitSetData.FishmanMelee =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/FishmanMelee/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -99,11 +90,6 @@ UnitSetData.FishmanMelee =
 			"FishmanImpale_Elite",
 		},
 		]]
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 
 		GeneratorData =
 		{

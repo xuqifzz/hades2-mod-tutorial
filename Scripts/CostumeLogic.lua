@@ -59,6 +59,17 @@ function AddHealthBuffer( amount, source, args )
 	thread(OnPlayerArmorGain, {Amount = amount, Silent = args.Silent, Delay = args.Delay} )
 end
 
+function RemoveHealthBufferSource( source )
+	MapState.HealthBufferSources = MapState.HealthBufferSources or {}
+	MapState.HealthBufferSources[ source ] = nil
+	local totalHealthBuffer = 0
+	for armorSource, value in pairs( MapState.HealthBufferSources ) do
+		totalHealthBuffer = totalHealthBuffer + value 
+	end
+	CurrentRun.Hero.HealthBuffer = totalHealthBuffer
+	thread( UpdateHealthUI )
+end
+
 function HealthBufferTraitSort( itemA, itemB )
 	local slotA = nil
 	local slotB = nil
@@ -115,8 +126,9 @@ function OnHealthBufferDamage( hero, damageTaken )
 	end
 	table.sort( sourceTraits, HealthBufferTraitSort )
 	local armorBroken = false
+	local topSourceTrait = sourceTraits[1]
 	while not IsEmpty(sourceTraits) and damageTaken > 0 do
-		local topSourceTrait = sourceTraits[1]
+		topSourceTrait = sourceTraits[1]
 		topSourceTrait.CurrentArmor = topSourceTrait.CurrentArmor - damageTaken
 		if MapState.HealthBufferSources[ topSourceTrait.Name ] then
 			MapState.HealthBufferSources[ topSourceTrait.Name ] = topSourceTrait.CurrentArmor
@@ -141,6 +153,9 @@ function OnHealthBufferDamage( hero, damageTaken )
 	if armorBroken and CurrentRun.Hero.HealthBuffer == 0 then
 		for i, functionData in pairs( GetHeroTraitValues("OnArmorBreakFunction") ) do
 			CallFunctionName( functionData.Name, functionData.Args)
+		end
+		if topSourceTrait then
+			CurrentRun.Hero.LastBrokenArmorTraitName = topSourceTrait.Name
 		end
 		thread( PlayerArmorBreakPresentation )
 	end
@@ -170,6 +185,6 @@ function CostumeArmor( hero, args, roomArgs )
 	if not sourceTrait.CurrentArmor then
 		sourceTrait.CurrentArmor = args.BaseAmount
 	end
-	AddHealthBuffer( sourceTrait.CurrentArmor, sourceTrait.Name, { Silent = roomArgs.Grouped, Delay = args.Delay  })
+	AddHealthBuffer( sourceTrait.CurrentArmor, sourceTrait.Name, { Silent = roomArgs.Grouped or args.Silent, Delay = args.Delay  })
 	thread( UpdateHealthUI )
 end

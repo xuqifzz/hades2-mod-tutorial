@@ -28,7 +28,8 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_Stickler_ThrowPostFire",
 			PreAttackDuration = 1.0,
 			FireDuration = 0.32,
-			PostAttackDuration = 2.0, -- animation is 0.65
+			PostAttackDurationMin = 0.65, -- animation is 0.65
+			PostAttackDurationMax = 1.3,
 			PreAttackCancelSound = "/Leftovers/SFX/ImpRef02_GoDown",
 			PreAttackEndShakeSound = "/Leftovers/SFX/SprintChargeUp",
 
@@ -39,6 +40,7 @@ WeaponSetData =
 		Requirements =
 		{
 			RequireProjectileLoS = true,
+			MaxAttackers = 3,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
@@ -96,29 +98,23 @@ WeaponSetData =
 			FireProjectileStartDelay = 0.05,
 
 			FireProjectileAtSelf = true,
-			--SpawnFromMarker = "DeadSeaStickler_Rig:hipSpear_01_M_JNT",
 
 			MoveWithinRange = false,
 
 			PreAttackDuration = 0.0,
 			PreFireDuration = 0.0,
 			FireDuration = 0,
-			PostAttackDuration = 1.1,
+			PostAttackDuration = 0.35,
 
 			TrackTargetDuringCharge = true,
 			StopBeforeFire = true,
 			PostAttackStop = true,
 
-			-- PreAttackSound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteLeaping",
-			--PreAttackAnimation = "Enemy_Stickler_LeapPreFire",
-			--FireAnimation = "Enemy_Stickler_LeapAirLoop",
-			--PostAttackAnimation = "Enemy_Stickler_LeapLand",
+			SkipSurroundAICount = true,
 		},
 
 		Requirements =
 		{
-			--MaxConsecutiveUses = 1,
-			--MinAttacksBetweenUse = 5,
 		},
 
 		Sounds =

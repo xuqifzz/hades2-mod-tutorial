@@ -24,7 +24,8 @@ OverwriteTableKeys( EncounterData,
 
 		RequireNotRoomReward = { "Devotion" },
 
-		BlockFishingBeforeStart = true,
+		BlockAthenaEncounterKeepsake = true,
+
 		BlockCodexBeforeStart = true,
 		DelayedStart = true,
 		SkipCombatBeginsVoiceLines = true,
@@ -33,6 +34,8 @@ OverwriteTableKeys( EncounterData,
 		FastClearThreshold = 65,
 		TimerBlock = "ThanatosEncounter",
 		BlockHighlightEliteTypes = true,
+
+		CanEncounterSkip = false,
 
 		MuteSecretMusicDrumsOnCombatOver = true,
 		NextRoomResumeMusic = true,
@@ -51,6 +54,7 @@ OverwriteTableKeys( EncounterData,
 		MinWaves = 3,
 		MaxWaves = 3,
 		Using = { "NPC_Heracles_01" },
+		SpeakerNames = { "Heracles", "HeraclesField", },
 	},
 
 	HeraclesCombatN =
@@ -130,6 +134,11 @@ OverwriteTableKeys( EncounterData,
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "DeadSeaIntro" },
 			},
+			{
+				Path = { "GameState", "UseRecord", "NPC_Heracles_01" },
+				Comparison = ">=",
+				Value = 4,
+			},
 		},
 	},
 
@@ -148,4 +157,62 @@ OverwriteTableKeys( EncounterData,
 			},
 		},
 	},	
+
+	HeraclesCombatP =
+	{
+		InheritFrom = { "BaseHeraclesCombat", "GeneratedP" },
+
+		BlockMultipleEncounters = true,
+
+		RequireRoomTag = "Indoor",
+
+		MoneyDropCapMin = 100,
+		MoneyDropCapMax = 145,
+
+		MinTypes = 4,
+		MaxTypes = 4,
+		MaxTypesCap = 4,
+		MinWaves = 3,
+		MaxWaves = 3,
+		TypeCountDepthRamp = 0,
+		BaseDifficulty = 600,
+		DepthDifficultyRamp = 50,
+		MaxEliteTypes = 3,
+
+		HeraclesDummyUnitSet = EnemySets.BiomeP,
+
+		GameStateRequirements =
+		{
+			Append = true,
+			{
+				Path = { "GameState", "UseRecord", "NPC_Heracles_01" },
+				Comparison = ">=",
+				Value = 5,
+			},
+			{
+				Path = { "GameState", "EncountersOccurredCache" },
+				HasAny = { "HeraclesCombatO", "HeraclesCombatO2" }
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "AthenaFirstMeeting" }
+			},
+		},	
+	},
+
+	HeraclesCombatP2 =
+	{
+		InheritFrom = { "HeraclesCombatP" },
+
+		GameStateRequirements =
+		{
+			Append = true,
+			{
+				SumPrevRuns = 4,
+				Path = { "SpawnRecord", "NPC_Heracles_01" },
+				Comparison = "<=",
+				Value = 0,
+			},
+		},
+	},
 })

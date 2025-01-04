@@ -65,12 +65,43 @@ function CreateBoonInfoButtons( screen )
 
 end
 
+function GetBoonRarityFromData( traitData )
+	local rarity = "Common"
+	if traitData ~= nil then
+		if traitData.TalentCategory then
+			if traitData.TalentCategory == "Unique" then
+				rarity = "Rare"
+			elseif traitData.TalentCategory == "Legendary" then
+				rarity = "Epic"
+			end
+		elseif traitData.IsDuoBoon then
+			rarity = "Duo"
+		elseif traitData.RarityLevels ~= nil and traitData.RarityLevels.Legendary then
+			rarity = "Legendary"
+		end
+	end
+	return rarity
+end
+
+function GetBoonOverrideRarityNameFromData( traitData )
+	local overrideRarityName = nil
+	if traitData ~= nil then
+		if traitData.TalentCategory then
+			if traitData.TalentCategory == "Unique" then
+				overrideRarityName = "TraitLevel_TalentLvl2"
+			elseif traitData.TalentCategory == "Legendary" then
+				overrideRarityName = "TraitLevel_TalentLvl3"
+			end
+		end
+	end
+	return overrideRarityName
+end
+
 function CreateBoonInfoButton( screen, traitName, index )
 		
 	local screenData = ScreenData.UpgradeChoice
 
 	local traitInfo = {}
-	local overrideRarityName = nil
 	traitInfo.Components = {}
 	table.insert( screen.TraitContainers, traitInfo )
 	local offset = { X = screen.ButtonStartX, Y = screen.ButtonStartY + index * screenData.ButtonSpacingY }
@@ -79,26 +110,12 @@ function CreateBoonInfoButton( screen, traitName, index )
 
 	screen.Components["BooninfoButton"..index] = traitInfo
 
-	local rarity = "Common"
 	local traitData = TraitData[traitName]
-	if traitData ~= nil then
-		if traitData.TalentCategory then
-			if traitData.TalentCategory == "Unique" then
-				rarity = "Rare"
-				overrideRarityName = "TraitLevel_TalentLvl2"
-			elseif traitData.TalentCategory == "Legendary" then
-				rarity = "Epic"
-				overrideRarityName = "TraitLevel_TalentLvl3"
-			end
-		elseif traitData.IsDuoBoon then
-			rarity = "Duo"
-		elseif traitData.RarityLevels ~= nil and traitData.RarityLevels.Legendary then
-			rarity = "Legendary"
-		end
-	end
+	local rarity = GetBoonRarityFromData( traitData )
+	local overrideRarityName = GetBoonOverrideRarityNameFromData( traitData )
 
 	local consumable = GetRampedConsumableData( ConsumableData[traitName], nil, { ForceMin = true } )
-	local newTraitData = consumable or GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = rarity, ForBoonInfo = true })
+	local newTraitData = consumable or GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName, Rarity = rarity, ForBoonInfo = true, ForceMin = true })
 	newTraitData.ForBoonInfo = true
 	SetTraitTextData( newTraitData )
 
@@ -142,6 +159,7 @@ function CreateBoonInfoButton( screen, traitName, index )
 	local descriptionText = ShallowCopyTable( screenData.DescriptionText )
 	descriptionText.Text = newTraitData.CodexName or newTraitData.Name
 	descriptionText.LuaValue = newTraitData
+	descriptionText.TextSymbolScale = newTraitData.DescriptionTextSymbolScale or descriptionText.TextSymbolScale
 	descriptionText.Id = traitInfo.PurchaseButton.Id
 	CreateTextBoxWithFormat( descriptionText )
 
@@ -213,7 +231,7 @@ function CreateBoonInfoButton( screen, traitName, index )
 	traitInfo.TraitName = traitName
 	traitInfo.Index = index
 	
-	if IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) and not IsEmpty( newTraitData.Elements ) then
+	if IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and not IsEmpty( newTraitData.Elements ) then
 		local elementName = GetFirstValue( newTraitData.Elements )
 		local elementIcon = ShallowCopyTable( screenData.ElementIcon )
 		elementIcon.Group = "Combat_Menu_TraitTray_Overlay"
@@ -245,6 +263,11 @@ function CreateBoonInfoButton( screen, traitName, index )
 	end
 
 	BoonInfoScreenUpdateTooltipToggle( screen, button )
+
+	if CurrentRun.BannedTraits[traitName] and CurrentHubRoom == nil then
+		local bannedOverlay = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay", Animation = "BoonInfoSlotLocked", X = purchaseButton.X, Y = purchaseButton.Y })
+		table.insert( traitInfo.Components, bannedOverlay )
+	end
 
 end
 
@@ -566,22 +589,62 @@ function BoonInfoPopulateTraits( screen )
 	local allTraitsList = nil
 	if screen.TraitDictionary[screen.LootName] ~= nil then
 		allTraitsList = GetAllKeys( screen.TraitDictionary[screen.LootName] )
-		table.sort( allTraitsList, BoonInfoSort )
+		if screen.CustomSortFunction[screen.LootName] then
+			table.sort( allTraitsList, _G[screen.CustomSortFunction[screen.LootName]] )
+		else
+			table.sort( allTraitsList,  
+				function ( itemA, itemB )
+
+					local traitA = TraitData[itemA] or ConsumableData[itemA]
+					local traitB = TraitData[itemB] or ConsumableData[itemB]
+					if traitA == nil then
+						return true
+					end
+					if traitB == nil then
+						return false
+					end
+					local aValue = GetKey(ScreenData.BoonInfo.TraitSortOrder[screen.LootName], traitA.Name )
+					local bValue = GetKey(ScreenData.BoonInfo.TraitSortOrder[screen.LootName], traitB.Name )
+					if ScreenData.BoonInfo.TraitSortOrder[screen.LootName] then
+						if not aValue then
+							aValue = 0
+						end
+						if not bValue then
+							bValue = 0
+						end
+					end
+					if aValue ~= bValue then
+						return aValue < bValue
+					elseif traitA.Name ~= traitB.Name then
+						return traitA.Name < traitB.Name
+					end
+					return false
+				end
+			)
+		end
 	else
 		allTraitsList = (EnemyData[screen.LootName] or LootData[screen.LootName]).Traits
 	end
-
 	--[[
 	for traitName, requirements in pairs( screen.HiddenTraitData ) do
-		if not IsGameStateEligible( CurrentRun, requirements ) then
+		if not IsGameStateEligible( requirements ) then
 			screen.HiddenTraits[traitName] = true
 		end
 	end
 	]]
 
+	local codexWeaponName = nil
+	if screen.LootName == "WeaponUpgrade" then
+		if screen.CodexScreen ~= nil then
+			codexWeaponName = screen.CodexScreen.OpenEntryName
+		else
+			codexWeaponName = GetEquippedWeapon()
+		end
+	end
+
 	for i, traitName in ipairs( allTraitsList ) do
 		local traitData = TraitData[traitName]
-		if traitData ~= nil and ( traitData.RequiredWeapon == nil or traitData.RequiredWeapon == screen.CodexEntryName ) then
+		if traitData ~= nil and ( not traitData.CodexWeapon or traitData.CodexWeapon == codexWeaponName ) and ( traitData.CodexGameStateRequirements == nil or IsGameStateEligible( traitData, traitData.CodexGameStateRequirements ) ) then
 			table.insert( screen.TraitList, traitName )
 		elseif ConsumableData[traitName] ~= nil then
 			table.insert( screen.TraitList, traitName )
@@ -589,8 +652,8 @@ function BoonInfoPopulateTraits( screen )
 	end
 
 end
+function BoonInfoSpellSort( itemA, itemB )
 
-function BoonInfoSort( itemA, itemB )
 	local traitA = TraitData[itemA] or ConsumableData[itemA]
 	local traitB = TraitData[itemB] or ConsumableData[itemB]
 	if traitA == nil then
@@ -599,93 +662,14 @@ function BoonInfoSort( itemA, itemB )
 	if traitB == nil then
 		return false
 	end
-	local slotToInt = 
-		function( trait )
-			if trait ~= nil then
-				local slotType = trait.Slot
-
-				if slotType == "Melee" then
-					return 0
-				elseif slotType == "Secondary" then
-					return 1
-				elseif slotType == "Ranged" then
-					return 2
-				elseif slotType == "Rush" then
-					return 3
-				elseif slotType == "Mana" then
-					return 4
-				elseif slotType == "Spell" then
-					return 5 + GetKey(SpellDisplayData.SpellTraitOrdering, trait.Name )
-				end
-
-				if ScreenData.BoonInfo.TraitRequirementsDictionary[trait.Name] then
-					return 99
-				end
-			end
-			
-			return 5
-		end
-	local rarityToInt = 
-		function ( trait )
-			if trait ~= nil then
-				if trait.IsDuoBoon then
-					return 4
-				elseif trait.RarityLevels and trait.RarityLevels.Legendary and not Contains( trait.InheritFrom, "ChaosBlessingTrait" ) then
-					return 3
-				end
-				return 1
-			else
-				return 2
-			end
-		end
-		
-	local weaponToInt = 
-		function ( trait )
-			if trait ~= nil then
-				local value = 99
-				if trait.RequiredWeapon == "SwordWeapon" or Contains(trait.RequiredWeapons, "SwordWeapon") then
-					value = 0
-				elseif trait.RequiredWeapon == "BowWeapon" or Contains(trait.RequiredWeapons, "BowWeapon") then
-					value = 10
-				elseif trait.RequiredWeapon == "BowSplitShot" or Contains(trait.RequiredWeapons, "BowSplitShot") then
-					value = 11
-				elseif trait.RequiredWeapon == "ShieldWeapon" or Contains(trait.RequiredWeapons, "ShieldWeapon") then
-					value = 20
-				elseif trait.RequiredWeapon == "SpearWeapon" or Contains(trait.RequiredWeapons, "SpearWeapon") then
-					value = 30
-				elseif trait.RequiredWeapon == "SpearWeaponThrow" or Contains(trait.RequiredWeapons, "SpearWeaponThrow") then
-					value = 31
-				elseif trait.RequiredWeapon == "GunWeapon" or Contains(trait.RequiredWeapons, "GunWeapon") then
-					value = 40
-				elseif trait.RequiredWeapon == "FistWeapon" or Contains(trait.RequiredWeapons, "FistWeapon") then
-					value = 50
-				end
-				return value
-			end
-			return 99
-		end
-		
-	local chaosToInt = 
-		function ( trait )
-			if trait ~= nil then
-				if trait.RarityLevels and trait.RarityLevels.Legendary then
-					return 4
-				end
-				if trait.IsElementalTrait  then
-					return 3
-				end
-				if Contains( trait.InheritFrom, "ChaosBlessing" ) then
-					return 2
-				elseif Contains( trait.InheritFrom, "ChaosCurse" ) then
-					return 1
-				end
-			end
-			return 99
-		end
 
 	local talentToInt = 
 		function ( trait )
-			if trait ~= nil and trait.TalentCategory then
+			if trait ~= nil then
+				if trait.Slot == "Spell" then
+					return -100 + GetKey(SpellDisplayData.SpellTraitOrdering, trait.Name )
+				end
+				if trait.TalentCategory then
 				if trait.TalentCategory == "Repeatable" then
 					if TraitRequirements[trait.Name] and not IsEmpty(TraitRequirements[trait.Name].OneOf) then
 						if TableLength(TraitRequirements[trait.Name].OneOf) > 1 then 
@@ -706,22 +690,11 @@ function BoonInfoSort( itemA, itemB )
 					return 90
 				end
 			end
+			end
 			return 99
 		end
-	if slotToInt(traitA) ~= slotToInt(traitB) then
-		return slotToInt(traitA) < slotToInt(traitB)
-	end
 	if talentToInt(traitA) ~= talentToInt(traitB) then
 		return talentToInt(traitA) < talentToInt(traitB)
-	end
-	if rarityToInt(traitA) ~= rarityToInt(traitB) then
-		return rarityToInt(traitA) < rarityToInt(traitB)
-	end
-	if weaponToInt(traitA) ~= weaponToInt(traitB) then
-		return weaponToInt(traitA) < weaponToInt(traitB)
-	end
-	if chaosToInt(traitA) ~= chaosToInt(traitB) then
-		return chaosToInt(traitA) < chaosToInt(traitB)
 	end
 	
 	if traitA.Name ~= traitB.Name then

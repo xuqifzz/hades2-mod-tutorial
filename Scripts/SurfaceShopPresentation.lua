@@ -4,7 +4,6 @@ end
 
 function SurfaceShopItemSameRoomPresentation( targetId )
 	local newTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = targetId })
-	LoadVoiceBanks({ Name = "Hermes" })
 	CreateAnimation({ Name = "ThanatosTeleport", DestinationId = newTargetId, Scale = 0.5 })
 	thread( PlayVoiceLines, GlobalVoiceLines.SpecialDeliverVoiceLines, true )
 	HermesWipePresentation()
@@ -13,7 +12,6 @@ end
 
 function SurfaceShopItemPresentation( targetId )
 	local newTargetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = targetId })
-	LoadVoiceBanks({ Name = "Hermes" })
 	CreateAnimation({ Name = "ThanatosTeleport", DestinationId = newTargetId, Scale = 0.5 })
 	thread( PlayVoiceLines, GlobalVoiceLines.SpecialDeliverVoiceLines, true )
 	HermesWipePresentation()

@@ -178,8 +178,12 @@
 				Sound = "/Leftovers/SFX/PlayerJump"
 			}
 			{
-				Frame = 40
+				Frame = 42
 				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistWindmillWhoosh"
+			}
+			{
+				Frame = 54
+				CreateAnimation = "NemesisExitStreak"
 			}
 		]
 	}

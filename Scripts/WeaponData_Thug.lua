@@ -102,6 +102,9 @@ WeaponSetData =
 			LoSEndBuffer = 32,
 
 			ChainedWeapon = "ThugSlamReverse",
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Requirements =
@@ -160,6 +163,11 @@ WeaponSetData =
 			PostAttackDuration = 0.0,
 
 			ChainedWeapon = "ThugSlamReverse",
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
+			-- Rifts ban
+			DumbFireWeapons = {},
 		}
 	},
 
@@ -189,6 +197,11 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_CWHeavyMelee_SlamPostFire",
 
 			DoNotRepeatOnAttackFail = true,
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 	},
 
@@ -224,6 +237,9 @@ WeaponSetData =
 			RequireProjectileLoS = true,
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Sounds =

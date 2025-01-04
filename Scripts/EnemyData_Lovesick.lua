@@ -44,10 +44,15 @@ UnitSetData.Lovesick =
 		{
 			"AggroAI",
 		},
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			SurroundRetaliateDistance = 500,
+			SurroundRefreshInterval = 0.4,
+			MaxAttackers = 3,
 		},
 
 		WeaponOptions =
@@ -63,14 +68,22 @@ UnitSetData.Lovesick =
 			BlockEnemyTypes = {"Lovesick_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
+		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
-			TriggerCooldowns =
+			RandomRemaining = true,
+			GameStateRequirements = 
 			{
-				"CombatBeginsLinesPlayedRecently",
+				-- None
 			},
-			{ Cue = "/VO/MelinoeField_1032", Text = "Holehearts...!" },
+			SkipCooldownCheckIfNonePlayed = true,
+			Cooldowns =
+			{
+				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+			},
+			SuccessiveChanceToPlay = 0.1,
+
+			{ Cue = "/VO/MelinoeField_1032", Text = "Holehearts...!", PlayFirst = true },
 		},
 	},
 
@@ -87,8 +100,8 @@ UnitSetData.Lovesick =
 		
 		WeaponOptions =
 		{
-			"LovesickGround",
-			"LovesickLauncher",
+			"LovesickGround_Elite",
+			"LovesickLauncher_Elite",
 		},
 
 		GeneratorData =
@@ -105,8 +118,76 @@ UnitSetData.Lovesick =
 				Value = 1
 			},
 		},
-	}
+	},
 
+	Lovesick_Shadow =
+	{
+		InheritFrom = { "Shadow", "Lovesick" },
+		GenusName = "Lovesick",
+		MaxHealth = 800,
+		HealthBuffer = 1200,
+		
+		WeaponOptions =
+		{
+			"LovesickGround",
+			"LovesickLauncher",
+		},
+	},
+
+	LovesickHeart =
+	{
+		InheritFrom = { "BaseTrap" },
+		GenusName = "Lovesick",
+
+		ActivateFuseIfNoSpawner = true,
+		FuseWarningAnimation = "LovesickHeartMineDecalIn",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+		},
+
+		TriggerGroups = { "HeroTeam" },
+		StartCharmedDataOverrides =
+		{
+			TriggerGroups = { "EnemyTeam" },
+		},
+
+		OnDamagedFunctionNames = { "ActivateFuse" },
+		OnDeathFireWeapons = { "LovesickHeartMineBlast" },
+
+		DissipateAnimation = "LovesickHeartMineDissipate",
+		FuseAnimation = "LovesickHeartMineActivated",
+		FuseWarningProjectileName = "LovesickHeartMineBlast",
+		FlashOnFuse = true,
+		FuseDuration = 0.6,
+		--TriggerDistance = 225,
+		--WakeUpDelay = 1.5,
+		TriggerDistance = 310,
+		WakeUpDelay = 0.15,
+		ExpirationDuration = 12.0,
+
+		AIOptions =
+		{
+			"MineAI",
+		},
+		AttackDistance = 100,
+
+		CleanupAnimation = "Blank",
+		OutgoingDamageModifiers =
+		{
+			{
+				Name = "FriendImmunity",
+				FriendMultiplier = 0,
+			},
+		},
+	},
+
+	LovesickHeart_Elite =
+	{
+		InheritFrom = { "LovesickHeart", },
+		GenusName = "Lovesick_Elite",
+	},
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Lovesick )

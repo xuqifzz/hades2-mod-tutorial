@@ -1,0 +1,160 @@
+{ Animations = [
+		
+		{
+			Name = "HermesWings"
+			FilePath = "Fx\HermesWings\HermesWings"
+			GroupName = "FX_Standing_Add"
+			
+			VisualFx = "HermesFeather"
+			AngleFromOwner = "Take"
+			Sound = "/SFX/Player Sounds/HermesWhooshUpgradeSFX"
+			EndGreen = 0.5
+			EndRed = 0.9999
+			StartAlpha = 1.0
+			StartBlue = 1.0
+			StartGreen = 1.0
+			StartRed = 1.0
+			Duration = 0.25
+			EaseIn = 0.01
+			EaseOut = 0.1
+			EndFrame = 1
+			NumAngles = 32
+			NumFrames = 1
+			StartFrame = 1
+			OffsetZ = 120.0
+			RadialOffsetMax = 101.0
+			RadialOffsetMin = 100.0
+			EndScale = 2.5
+			StartScale = 2.0
+			Ambient = 0.0
+			VisualFxCap = 3
+			VisualFxIntervalMax = 0.06
+			VisualFxIntervalMin = 0.03
+			OverlayVfx = true
+		}
+		{
+			Name = "HermesWingsBuff"
+			FilePath = "Fx\HermesWings\HermesWings"
+			GroupName = "FX_Standing_Add"
+
+			VisualFx = "HermesFeather"
+			AngleFromOwner = "Maintain"
+			UseOwnAngle = false
+			Sound = "/SFX/Player Sounds/HermesWhooshUpgradeSFX"
+			OffsetZ = 150
+			EndGreen = 0.5
+			EndRed = 0.9999
+			StartAlpha = 1.0
+			EndAlpha = 0.0
+			StartBlue = 1.0
+			StartGreen = 1.0
+			StartRed = 1.0
+			Duration = 0.8
+			EaseIn = 0.01
+			EaseOut = 0.1
+			EndFrame = 1
+			NumAngles = 32
+			NumFrames = 1
+			StartFrame = 1
+			EndScale = 0.7
+			StartScale = 0.6
+			PingPongScale = true
+			PingPongColor = true
+			Ambient = 0.0
+			VisualFxCap = 3
+			VisualFxIntervalMax = 0.06
+			VisualFxIntervalMin = 0.03
+			OverlayVfx = true
+			Loop = true
+		}
+
+		{
+			Name = "HermesFeather"
+			FilePath = "Animations\HermesFeather\HermesFeather"
+			
+			EndFrame = 1
+			NumFrames = 1
+			StartFrame = 1
+			Random = [
+				{ Name = "HermesFeatherA" }
+				{ Name = "HermesFeatherB" }
+			]
+		}
+		
+		{
+			Name = "HermesFeatherA"
+			FilePath = "Fx\HermesFeatherA\HermesFeatherA"
+			GroupName = "FX_Standing_Add"
+			
+			AngleFromOwner = "Take"
+			AngleMax = 200.0
+			AngleMin = 160.0
+			EndGreen = 0.5
+			StartBlue = 1.0
+			StartGreen = 1.0
+			EndFrame = 49
+			NumFrames = 49
+			RandomPlaySpeedMax = 50.0
+			RandomPlaySpeedMin = 30.0
+			StartFrame = 1
+			OffsetZ = 60.0
+			RandomOffsetY = 40.0
+			LocationFromOwner = "Ignore"
+			LocationZFromOwner = "Ignore"
+			Acceleration = -400.0
+			Gravity = 50.0
+			VelocityMax = 500.0
+			VelocityMin = 100.0
+			RandomRotation = true
+			RandomRotationSpeedMax = 360.0
+			RandomRotationSpeedMin = -360.0
+			ScaleFromOwner = "Ignore"
+			ScaleMax = 0.6
+			ScaleMin = 0.2
+			Ambient = 0.0
+			OnlyWhenVisible = true
+		}
+		
+		{
+			Name = "HermesFeatherB"
+			InheritFrom = "HermesFeatherA"
+			FilePath = "Fx\HermesFeatherB\HermesFeatherB"
+		}
+	{
+		Name = "HermesSwipeLineC"
+		FilePath = "Fx\HermesSwipeLineC\HermesSwipeLineC"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Take"
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 90.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OffsetZ = 60.0
+		OriginX = 200.0
+		OriginY = 60.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Ambient = 0.0
+		TimeModifierFraction = 0.8
+	}
+
+	{
+		Name = "HermesSwipeLineC_Sword3"
+		InheritFrom = "HermesSwipeLineC"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.999
+		StartAlpha = 1.0
+		SortFromOwner = "Take"
+		OverlayVfx = true
+		UseBoundsForSortDrawArea = true
+	}
+
+	{
+		Name = "HermesShiftFx"
+		InheritFrom = "HermesWings"
+		Sound = "/SFX/HermesBoonWhoosh"
+	}
+
+]}

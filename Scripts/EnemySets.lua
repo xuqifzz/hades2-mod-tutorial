@@ -35,6 +35,13 @@ EnemySets =
 		"Wisp_Elite",
 	},
 
+	BiomeF_EliteChallenge =
+	{
+		"SiegeVine_Elite",
+		"Screamer_Elite",
+		"Brawler_Elite",
+	},
+
 	CocoonSpawnsEasy =
 	{
 		"Guard",
@@ -86,6 +93,13 @@ EnemySets =
 
 		"Radiator2",
 		"Radiator2_Elite",
+	},
+
+	BiomeG_EliteChallenge =
+	{
+		"FishmanRanged_Elite",
+		"FishmanMelee_Elite",
+		"Turtle_Elite",
 	},
 
 	BiomeGLockedDoor =
@@ -168,6 +182,15 @@ EnemySets =
 		"FogEmitter2",
 	--	"Screamer2",		
 	},
+
+	BiomeH_EliteChallenge =
+	{
+		"Lovesick_Elite",
+		"Lycanthrope_Elite",
+		"Mourner_Elite",
+		"Lamia_Elite",
+	},
+
 	BiomeHPassive =
 	{
 		--"DespairElemental",
@@ -255,6 +278,16 @@ EnemySets =
 		"SatyrRatCatcher_Elite",
 	},
 
+	BiomeI_EliteChallenge =
+	{
+		"GoldElemental_Elite",
+		"TimeElemental_Elite",
+		"SwarmerClockwork_Elite",
+		"SatyrLancer_Elite",
+		"SatyrRatCatcher_Elite",
+		"ClockworkHeavyMelee_Elite",
+	},
+
 	BiomeIOptional =
 	{
 		"GoldElemental",
@@ -293,6 +326,14 @@ EnemySets =
 		"ZombieHeavyRanged_Elite",
 		"ZombieAssassin",
 		"ZombieAssassin_Elite",
+	},
+
+	BiomeN_EliteChallenge =
+	{
+		"Mudman_Elite",
+		"ZombieHeavyRanged_Elite",
+		"ZombieAssassin_Elite",
+		"ZombieSpawner_Elite",
 	},
 
 	CocoonSpawnsEasy_N =
@@ -367,6 +408,13 @@ EnemySets =
 		"Mage2_Elite",
 	},
 
+	BiomeO_EliteChallenge =
+	{
+		"Stickler_Elite",
+		"Drunk_Elite",
+		"Swab_Elite",
+	},
+
 	BiomeOIntro =
 	{
 		"Stickler",
@@ -385,26 +433,142 @@ EnemySets =
 	-- Olympus (P)
 	BiomeP =
 	{
-		"AutomatonEnforcer",
-		"AutomatonBeamer",
-		"AutomatonSupport",
+		"SentryBot",
+		"SentryBot_Elite",
+		"SentryBot",
+		"SentryBot_Elite",
 
+		"AutomatonBeamer",
+		"AutomatonBeamer_Elite",
+		"AutomatonBeamer",
+		"AutomatonBeamer_Elite",
+		
+		"AutomatonEnforcer",
+		"AutomatonEnforcer_Elite",
+		"AutomatonEnforcer",
+		"AutomatonEnforcer_Elite",
+
+		"Dragon",
+		"Dragon_Elite",
+		"Dragon",
+		"Dragon_Elite",
+
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+		
+		"SatyrLancer2",
+		"SatyrLancer2_Elite",
+		
+		"SatyrCrossbow2",
+		"SatyrCrossbow2_Elite",
+
+		"ZombieOlympus",
+		"ZombieOlympus_Elite",
+		"ZombieOlympus",
+		"ZombieOlympus_Elite",
+	},
+
+	BiomeP_EliteChallenge =
+	{
+		"SatyrSapper_Elite",
+		"SatyrSapper_Elite",
+		"SatyrLancer2_Elite",
+		"SatyrCrossbow2_Elite",
+		"HarpyDropper_Elite",
+		"HarpyDropper_Elite",
+		"Dragon_Elite",
+		"Dragon_Elite",
+		"AutomatonEnforcer_Elite",
 		"AutomatonEnforcer_Elite",
 		"AutomatonBeamer_Elite",
-		"AutomatonSupport_Elite",
+		"AutomatonBeamer_Elite",
+	},
 
-		"SatyrCommando",
-		"SatyrCommando_Elite",
-		"SatyrCommando",
-		"SatyrCommando_Elite",
-		"SatyrCommando",
-		"SatyrCommando_Elite",
-		--"SatyrCrossbow",
+	BiomePIntro =
+	{
+		"SentryBot",
+		"SentryBot_Elite",
+		"SentryBot",
+		"SentryBot_Elite",
 
-		"Mati",
-		"Mati",
-		"Mati_Elite",
-		"Mati_Elite",
+		"AutomatonBeamer",
+		"AutomatonBeamer_Elite",
+		"AutomatonBeamer",
+		"AutomatonBeamer_Elite",
+		
+		"AutomatonEnforcer",
+		"AutomatonEnforcer_Elite",
+		"AutomatonEnforcer",
+		"AutomatonEnforcer_Elite",
+
+		"Dragon",
+		"Dragon_Elite",
+		"Dragon",
+		"Dragon_Elite",
+
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+
+		"SatyrLancer2",
+		"SatyrLancer2_Elite",
+		
+		"SatyrCrossbow2",
+		"SatyrCrossbow2_Elite",
+	},
+
+	Automatons =
+	{
+		"SentryBot",
+		"SentryBot_Elite",
+
+		"AutomatonBeamer",
+		"AutomatonBeamer_Elite",
+		
+		"AutomatonEnforcer",
+		"AutomatonEnforcer_Elite",
+	},
+
+	ChronosForces =
+	{
+		"Dragon",
+		"Dragon_Elite",
+		"Dragon",
+		"Dragon_Elite",
+
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+		"HarpyDropper",
+		"HarpyDropper_Elite",
+
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+		"SatyrSapper",
+		"SatyrSapper_Elite",
+		
+		"SatyrLancer2",
+		"SatyrLancer2_Elite",
+		
+		"SatyrCrossbow2",
+		"SatyrCrossbow2_Elite",
+
+		"ZombieOlympus",
+		"ZombieOlympus_Elite",
+		"ZombieOlympus",
+		"ZombieOlympus_Elite",
 	},
 
 	BiomeB =
@@ -446,76 +610,44 @@ EnemySets =
 		"Sheep_Zombie",
 		"Sheep_Explosive",
 		"Sheep_Sick",
+		
+		"Talos",
 	},
 
 	-- EnemyElite / Benefits Package
 
-	AllEliteAttributes =
+	GenericEliteAttributes =
 	{
 		"Blink",
-		"Blink",
-		"HeavyArmor",
-		"HeavyArmor",
 		"ExtraDamage",
-		"ExtraDamage",
-		--"DeathSpreadHitShields",
-		--"DeathSpreadHitShields",
+		"Fog",
 		"Frenzy",
-		"Frenzy",
-		--"Vacuuming",
-		--"Vacuuming",
-		--"Beams",
-		--"Beams",
+		"HeavyArmor",
 		"ManaDrain",
-		"ManaDrain",
-		"Tracking",
-		"Tracking",
-		"HitStun",
-		"HitStun",
-
-		-- Tartarus Only
-		--"Disguise",
-		--"Disguise",
-		--"Disguise",
-
-		-- Asphodel Only
-		--"Molten",
-		--"Molten",
-
-		-- Elysium Only
-		--"MultiEgg",
+		"Massive",
+		"Metallic",
+		"Miasma",
+		"Molten",
+		"Orbit",
+		"Rooting",
+		"SpreadHitShields",
+		"StasisDeath",
+		"Unflinching",
+		"Vacuuming",
+		-- Special Cases
+		--"Hex",
+		--"Rifts",
+		--"Homing",
+		--"Radial",
 	},
-	--[[
-	RangedOnlyEliteAttributes =
-	{
-		"Homing",
-		"Homing",
-		"Homing",
-		"Homing",
-		"Homing",
-	},
-	ShadeOnlyEliteAttributes =
-	{
-		"MultiEgg",
-		"MultiEgg",
-		"MultiEgg",
-		"MultiEgg",
-	},
-	]]
 
 	EliteAttributesRunBanOptions =
 	{
 		"Blink",
-		"HeavyArmor",
 		"ExtraDamage",
-		--"DeathSpreadHitShields",
+		"FogEmitter",
 		"Frenzy",
-		--"Vacuuming",
-		--"Beams",
-
-		--"Homing",
-		--"Disguise",
-		--"Molten",
-		--"MultiEgg",
+		"HeavyArmor",
+		"SpreadHitShields",
 	},
 }

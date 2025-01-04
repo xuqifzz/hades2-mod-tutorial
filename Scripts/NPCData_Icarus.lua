@@ -7,14 +7,17 @@ UnitSetData.NPC_Icarus =
 		Portrait = "Portrait_Icarus_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.IcarusVoice,
+		EmoteOffsetY = -280,
+		EmoteOffsetX = 30,
+		AnimOffsetZ = 50,
 		SpeakerName = "Icarus",
-		AnimOffsetZ = 250,
 		InvincibubbleScale = 1.2,
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
 		ThemeMusic = "/Music/ArtemisTheme_MC", -- for now
 		DoorTakenText = "CannotUseObject",
 		ExitSpeed = 500,
 		HideHealthBar = true,
+		TurnInPlaceAnimation = "Icarus_Turn",
 
 		UpgradeScreenOpenSound = "/SFX/WeaponUpgradeHammerDrop2",
 		UpgradeSelectedSound = "/SFX/HammerBoonChoice",
@@ -35,6 +38,22 @@ UnitSetData.NPC_Icarus =
 			"BreakExplosiveArmorBoon",
 			"SupplyDropBoon",
 		},
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args = { CreateAnimation = "OlympusColdBreathEmitter", },
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "P" },
+					},
+				},
+			},
+		},
+
 		GiftGameStateRequirements = 
 		{
 			--
@@ -54,8 +73,8 @@ UnitSetData.NPC_Icarus =
 			{
 				PreLineWait = 0.3,
 				UsePlayerSource = true,
-				PlayOnceThisRun = true,
-				-- RandomRemaining = true,
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
 				SuccessiveChanceToPlay = 0.33,
 				Cooldowns =
 				{
@@ -65,9 +84,14 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/Melinoe_3509", Text = "Be safe, Icarus.", PlayFirst = true },
 				{ Cue = "/VO/Melinoe_3510", Text = "Go unseen, all right?" },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
+				PreLineWait = 0.35,
+				RandomRemaining = true,
+				ObjectType = "NPC_Icarus_01",
+				PreLineAnim = "Icarus_Salute",
+
 				{ Cue = "/VO/Icarus_0061", Text = "You too, Meli.",
 					GameStateRequirements =
 					{
@@ -195,10 +219,21 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
+				InitialGiftableOffSource = true,
 				GiftableOffSource = true,
 
 				{ Cue = "/VO/Icarus_0062",
+					-- PreLineAnim = "Icarus_Salute",
+					-- PreLineAnim = "Icarus_Flustered_Start",
+					-- PostLineAnim = "Icarus_Flustered_End",
+					-- PreLineAnim = "Icarus_Pensive_Start",
+					-- PostLineAnim = "Icarus_Pensive_End",
+					-- PreLineAnim = "Icarus_Offer_Start",
+					-- PostLineAnim = "Icarus_Offer_End",
+
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "It's really you. Before you say anything, I know I'm not supposed to be here, but I spotted this ship and had to drop in for a closer look. And now I'm going to take off! So let's pretend this never happened, hey?" },
 				{ Cue = "/VO/MelinoeField_1930", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -206,6 +241,8 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Hold it right there, Icarus! I'm not about to let you just fly out on me again without a chat at least. To start with, what are you doing in the middle of this blasted war?" },
 				{ Cue = "/VO/Icarus_0003",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "The same thing I've {#Emph}been {#Prev}doing: slowing these bastards down. If everyone like me pitched in a little bit, this war would have been well over by now." },
 				{ Cue = "/VO/MelinoeField_1931", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -222,7 +259,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -231,12 +268,14 @@ UnitSetData.NPC_Icarus =
 				},
 
 				{ Cue = "/VO/Icarus_0025_D",
+					PreLineAnim = "Icarus_Pensive_Start",
 					Text = "Your arm...! Never got better, did it? I'm really sorry, I should never have put you on the spot." },
 				{ Cue = "/VO/MelinoeField_2010", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Not your fault. I had... grown very confident in my abilities. Headmistress always said there was no way to make Shades whole again, but I thought otherwise. Overextended, learned a lesson I'm not going to forget." },
 				{ Cue = "/VO/Icarus_0026",
+					PreLineAnim = "Icarus_Pensive_End",
 					Text = "I felt so bad... couldn't look at anybody in the Crossroads anymore. Thought I'd never see you again. That it'd be for the best. I... had a lot I needed to sort out." },
 				{ Cue = "/VO/MelinoeField_2011", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
@@ -244,6 +283,8 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "And how did it go? You learned to fly, at least! Top of your list of fears, conquered. With your father's wings, no less!" },
 				{ Cue = "/VO/Icarus_0027",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "These wings are mine, Meli. That was all part of it. Had to learn to do things for myself, like you did. And for what it's worth, I still think your arm looks amazing. Now, here." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -253,21 +294,32 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					-- @ update with additional requirements
+					{
+					}
+				},
 
 				{ Cue = "/VO/Icarus_0028",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Been flying for a while now! At first, it brought me back to the terror I felt as a kid. Those final moments... I wanted to put myself through them, again and again. Don't know why." },
 				{ Cue = "/VO/MelinoeField_2012", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Icarus, you were young and you made a mistake. What's the use torturing yourself for it for all eternity? I thought you wanted to learn to fly to prove yourself to your father." },
 				{ Cue = "/VO/Icarus_0029",
+					PreLineAnim = "Icarus_Pensive_Start",
 					Text = "Come on, Meli. I'm never going to prove myself to him. But something happened as I kept trying to use my wings... I, I started to like it! Seeing from a different point of view." },
 				{ Cue = "/VO/MelinoeField_2013", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You look so in your element up there! I always believed, if I could make you whole again, perhaps some night we'd learn to fly together. I still want to feel what it's like." },
 				{ Cue = "/VO/Icarus_0030",
+					PreLineAnim = "Icarus_Pensive_End",
 					Text = "You've no idea know how much I wanted that too. But, it was something I had to do on my own. I'd offer to take you up with me now, but... yeah, Shades and goddesses don't mix." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -276,7 +328,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -291,12 +343,16 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You know, you've changed. You seem... more full of life. I catch these glimpses of your face while you're in flight, and... it's like there's a joy in you I never saw before." },
 				{ Cue = "/VO/Icarus_0032",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "{#Emph}Heh{#Prev}, well... there's the flying, which admittedly doesn't get old... and then there's seeing you, taking on the legions of Chronos single-handedly. Using all your training. {#Emph}Wow..." },
 				{ Cue = "/VO/MelinoeField_2016", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I didn't take them on single-handedly, Icarus, but... it's good to know about the flying! It must be exhilarating." },
 				{ Cue = "/VO/Icarus_0033",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "It is, Meli. You could always see right through me so no point in trying to sell it short. I hope some night you'll get a shot at it and tell me what you think." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -305,7 +361,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 
 				{ Cue = "/VO/MelinoeField_2150", UsePlayerSource = true,
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
@@ -313,6 +369,8 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "If you love flying so much, why do you keep helping me? Once my father's throne is restored, the gates of the Underworld will shut, and you'll be forced to return." },
 				{ Cue = "/VO/Icarus_0063",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "I know. I would miss flying, sure. But, I think I could live without it if I had to — {#Emph}exist {#Prev}without it, you know what I mean. My plan is just to make the most of it, for now. We mortals are taught to believe nothing lasts forever anyway." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -322,7 +380,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -332,6 +390,8 @@ UnitSetData.NPC_Icarus =
 				},
 
 				{ Cue = "/VO/Icarus_0076",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "You brought along the little Hammer from me, hey? First one I ever made! First that was any good, at least. Sort of a funny process, making things for making things..." },
 				{ Cue = "/VO/MelinoeField_2158", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -348,7 +408,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 
 				{ Cue = "/VO/MelinoeField_2014", UsePlayerSource = true,
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
@@ -357,6 +417,8 @@ UnitSetData.NPC_Icarus =
 					Text = "You said yourself you're not supposed to be here, Icarus. Chronos may have flung open the Underworld gates, but your place is still below with us. Come back." },
 				{ Cue = "/VO/Icarus_0031",
 					PreLineWait = 0.35,
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "...I always messed everything up, you know. I just want to be useful to someone, for once! So please... let me stay here. Let me have this!" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -365,15 +427,23 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
-
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+				},
 				{ Cue = "/VO/Icarus_0072",
+					PreLineAnim = "Icarus_Pensive_Start",
 					Text = "The wretches on these ships don't have their wits, but they hit hard. I, I know you're good and everything, {#Emph}better {#Prev}than good, it's just... if things go bad... what happens to you then?" },
 				{ Cue = "/VO/MelinoeField_2156", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "The first thing Headmistress taught me was how not to give in. If my strength is failing me, I use it to return to shadow whence I came. Almost a reflex at this point." },
 				{ Cue = "/VO/Icarus_0073",
+					PreLineAnim = "Icarus_Pensive_End",
 					Text = "And then at the Crossroads, you're up and about by the following night, raring to go? Too bad you can't return-to-shadow back to where you left off..." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -383,15 +453,21 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "IcarusGift01" },
 					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
 				},
 
 				{ Cue = "/VO/Icarus_0066",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Wait, what are you even {#Emph}doing {#Prev}here? I thought you were supposed to be bound to the Underworld, but here you are, commandeering warships and whatnot!" },
 				{ Cue = "/VO/MelinoeField_2152", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -399,7 +475,9 @@ UnitSetData.NPC_Icarus =
 					Text = "I am still bound there, I just loosened the bindings a bit. Though I feel absolutely wretched now, so if the legions of Chronos don't stop me soon, my blood-curse surely will." },
 				{ Cue = "/VO/Icarus_0067",
 					Emote = "PortraitEmoteSurprise",
-					Text = "Really? Because you look great! {#Emph}Erm{#Prev}, you look... you look {#Emph}well{#Prev}, I mean. Unafflicted by a curse of any sort. Maybe a little seasick is all! Just, take one of these hey?" },
+					PreLineAnim = "Icarus_Flustered_Start",
+					PostLineAnim = "Icarus_Flustered_End",
+					Text = "Really? Because you look great! {#Emph}Erm{#Prev}, you look... you look {#Emph}well{#Prev}, I mean. Unafflicted by a curse of any sort. Maybe a little seasick is all! Just... take one of these, hey?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -408,7 +486,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -431,7 +509,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -442,6 +520,8 @@ UnitSetData.NPC_Icarus =
 					},
 				},
 				{ Cue = "/VO/Icarus_0035",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "You asked about my father the other night... and truth is, though you probably already know, I never see him around either. I think he might have retired!" },
 				{ Cue = "/VO/MelinoeField_2148", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -449,6 +529,8 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Daedalus, {#Emph}retired? {#Prev}I just found one of his Hammers earlier! He's been of constant help to me since all this started, he... wait... {#Emph}what...?" },
 				{ Cue = "/VO/Icarus_0036",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Meli, I'm his apprentice! He'd been building for a long time and needed a break. I'm nowhere near him but it's not like there was anybody else.... The Hammers come in handy though?" },
 				{ Cue = "/VO/MelinoeField_2149", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -457,7 +539,7 @@ UnitSetData.NPC_Icarus =
 					Text = "Stop, you're hurting my head. The {#Emph}Daedalus Hammers {#Prev}I've been finding are from {#Emph}you? {#Prev}Shouldn't they be {#Emph}Icarus {#Prev}Hammers then?" },
 				{ Cue = "/VO/Icarus_0037",
 					Emote = "PortraitEmoteSurprise",
-					Text = "{#Emph}Erm{#Prev}, we have a certain reputation to uphold. Not sure slapping my name on my father's designs would do us any good. Please... don't go telling anyone about this hey?" },
+					Text = "{#Emph}Erm{#Prev}, we have a certain reputation to uphold. Not sure slapping my name on my father's designs would do us any good. Please... don't go telling anyone about this, hey?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -465,7 +547,7 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -479,6 +561,7 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You made your own wings, munitions, apparently the latest Daedalus Hammers... you've become quite the craftsman!" },
 				{ Cue = "/VO/Icarus_0070",
+					PreLineAnim = "Icarus_Pensive_Start",
 					Text = "Come on, Meli. My father was a master by the time he was my age, even before I died. I'll never surpass him." },
 				{ Cue = "/VO/MelinoeField_2155", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -486,6 +569,7 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That's not what I've said. Your work is your own, and it's good! Better than good. When are you finally going to step out from your father's shadow?" },
 				{ Cue = "/VO/Icarus_0071",
+					PreLineAnim = "Icarus_Pensive_End",
 					Text = "Funny question coming from you! My father may not be a god... but he's probably the greatest artist and inventor that ever lived. He'd be the first to say I'll never reach his level. Anyway, I'm through trying to prove myself to him." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -495,11 +579,11 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "O_Boss01" },
 					},
 				},
 
@@ -508,9 +592,11 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/MelinoeField_2153", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "Well I'm not at the Crossroads either, but... unfortunately Strife Incarnate has been getting in my way. So she showed up around the time I did?" },
+					Text = "Well, I'm not at the Crossroads either, but... unfortunately Strife Incarnate has been getting in my way. So she showed up around the time I did?" },
 				{ Cue = "/VO/Icarus_0069",
-					Text = "Come to think of it, yes! {#Emph}Whew...! {#Prev}I was beginning to worry she was here because of something {#Emph}I {#Prev}did. Never occurred to me she was just following you around, same as ever." },
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
+					Text = "Come to think of it, yes! {#Emph}Whew...! {#Prev}I was beginning to worry she was here because of something {#Emph}I {#Prev}did! Never occurred to me she was just following {#Emph}you {#Prev}around, same as ever." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -519,21 +605,26 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" },
 					},
+					{
+						PathFalse = { "CurrentRun", "BiomesReached", "P" },
+					},
 				},
 
 				{ Cue = "/VO/Icarus_0074",
-					Text = "How's everybody back at the Crossroads lately hey? Master Odysseus putting all his plans to action at long last?" },
+					Text = "How's everybody back at the Crossroads lately, hey? Master Odysseus putting all his plans to action at long last?" },
 				{ Cue = "/VO/MelinoeField_2157", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Oh, yes. My route through here is thanks only to him. Say, he didn't put you up to this, did he? Deploying Shades with makeshift wings and explosives seems like something the Great Tactician would do..." },
 				{ Cue = "/VO/Icarus_0075",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "I'm acting on my own. Although maybe we're all part of the Great Tactician's plan and just don't realize it yet. He always said we'll have to improvise... might be I finally took it to heart." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -543,10 +634,9 @@ UnitSetData.NPC_Icarus =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- PreEventFunctionName = "AngleNPCToHero",
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
-					-- @ update with improved reqs; clears since last meeting
 					{
 						PathTrue = { "PrevRun", "Cleared" },
 					},
@@ -556,10 +646,11 @@ UnitSetData.NPC_Icarus =
 					{
 						PathFalse = { "PrevRun", "ActiveBounty" },
 					},
-
 					{
-						PathTrue = { "CurrentRun", "UseRecord", "WeaponUpgrade" },
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
 					},
+					-- @ update with additional requirements
 				},
 				{ Cue = "/VO/Icarus_0064",
 					Text = "Something happened since the last time you were here... these ships, one after another they all {#Emph}sank! {#Prev}Never seen these waters so calm. {#Emph}Did you...?" },
@@ -568,7 +659,7 @@ UnitSetData.NPC_Icarus =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Did I reach Chronos in my father's House and slay him? Yes. And, did he then reconstitute himself, perhaps entirely negating whatever I achieved? Also, yes." },
 				{ Cue = "/VO/Icarus_0065",
-					Text = "I always knew you'd get him, Meli. Well as you can see his risen fleet has risen once again! Though sounds to me like you've found one of its weaknesses." },
+					Text = "I always knew you'd get him, Meli. Well as you can see, his risen fleet has risen once again! Though, sounds to me like you've found one of its weaknesses!" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -578,6 +669,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0005",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Was just out for a little jaunt is all and figured I'd stop in. Was good seeing you, Meli." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -585,6 +678,13 @@ UnitSetData.NPC_Icarus =
 			IcarusChat02 =
 			{
 				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+				},
 				{ Cue = "/VO/Icarus_0006",
 					Text = "Rough waters this evening, though the skies above aren't bad. You take care of yourself, hey?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
@@ -593,6 +693,13 @@ UnitSetData.NPC_Icarus =
 			IcarusChat03 =
 			{
 				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+				},
 				{ Cue = "/VO/Icarus_0007",
 					Text = "Think I saw Eris further up the coast. How about you bring her a little surprise?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
@@ -602,6 +709,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0008",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "What I wouldn't give to stay here longer and catch up, but I know it's not the time or place." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -610,7 +719,9 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0009",
-					Text = "You were amazing, Meli. I saw everything up there! Keep going hey?" },
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
+					Text = "You were amazing, Meli. I saw everything up there! Keep going, hey?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -634,6 +745,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0012",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "Don't know how you handle this night after night, though I am glad you do." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -651,6 +764,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0014",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "The coast is clear for now! Though, past this point, no guarantees." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -659,7 +774,9 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0015",
-					Text = "Think I took care of one or two of them back there. Better than nothing hey?" },
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
+					Text = "Think I took care of one or two of them back there. Better than nothing, hey?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
 			},
@@ -682,6 +799,13 @@ UnitSetData.NPC_Icarus =
 			IcarusChat14 =
 			{
 				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+				},
 				{ Cue = "/VO/Icarus_0018",
 					Text = "The mountain isn't far from here. Maybe these will help you make the climb." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
@@ -697,13 +821,15 @@ UnitSetData.NPC_Icarus =
 			},
 			IcarusChat16 =
 			{
+				PlayFirst = true,
+				UseableOffSource = true,
 				GameStateRequirements =
 				{
 					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.66, },
 					},
-					RequiredMinHealthFraction = 0.75,
 				},
-				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0020",
 					Text = "Still perfectly all right...! Had me a little worried for a moment there." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
@@ -713,6 +839,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0021",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "I'd fly you right up to the palace of the gods right now, if only I could..." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -729,6 +857,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0023",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "Even the gods themselves need somebody to fight for them, don't they...?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -753,6 +883,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0082",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Only so much I can do to help! But then it's something, hey? So here." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -768,6 +900,8 @@ UnitSetData.NPC_Icarus =
 					},
 				},
 				{ Cue = "/VO/Icarus_0083",
+					PreLineAnim = "Icarus_Flustered_Start",
+					PostLineAnim = "Icarus_Flustered_End",
 					Text = "This ship feels like it's going to sink at any moment, so let's not stick around..." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -784,6 +918,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0085",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "These aren't up to my father's standard, but they're not too bad I think..." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -805,6 +941,13 @@ UnitSetData.NPC_Icarus =
 			IcarusChat27 =
 			{
 				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "O" },
+					},
+				},
 				{ Cue = "/VO/Icarus_0087",
 					Text = "Olympus isn't too much farther. I'll fly on ahead and draw some of the heat." },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
@@ -822,6 +965,8 @@ UnitSetData.NPC_Icarus =
 			{
 				UseableOffSource = true,
 				{ Cue = "/VO/Icarus_0089",
+					PreLineAnim = "Icarus_Explaining_Start",
+					PostLineAnim = "Icarus_Explaining_End",
 					Text = "Can I just say, these wings hold up {#Emph}much {#Prev}better than the ones my father made?" },
 				PrePortraitExitFunctionName = "IcarusBenefitChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.IcarusBenefitChoices,
@@ -878,11 +1023,14 @@ UnitSetData.NPC_Icarus =
 					},
 				},
 				{ Cue = "/VO/Melinoe_3264", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "You can fly wherever you want now! But, I'm glad you didn't go so far I couldn't catch up. Here! In light of your godlike wings, a little gift." },
 				{ Cue = "/VO/Icarus_0038",
 					Emote = "PortraitEmoteSurprise",
+					PreLineAnim = "Icarus_Flustered_Start",
+					PostLineAnim = "Icarus_Flustered_End",
 					Text = "Oh come on, just because I've been flying around near Olympus, doesn't mean I get to feast like I'm from there! Maybe with your permission, hey? Know what, I got something for you, too." },
 			},
 			IcarusGift02 =
@@ -902,6 +1050,7 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/Icarus_0039",
 					Text = "The last Nectar you got me was {#Emph}so {#Prev}good, can't even imagine what it would have been like while I was still alive. Wasn't going to ask for another, but... since you're offering!" },
 				{ Cue = "/VO/Melinoe_3266", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I'm offering, so here! Maybe it's even better now that you're a Shade. You mortals had to eat and drink out of necessity. But Nectar helps fulfill a different kind of need." },
@@ -922,6 +1071,8 @@ UnitSetData.NPC_Icarus =
 					},
 				},
 				{ Cue = "/VO/Icarus_0078",
+					PreLineAnim = "Icarus_Pensive_Start",
+					PostLineAnim = "Icarus_Pensive_End",
 					Text = "As a mortal kid confined to a tower, I was relatively well provided for, but {#Emph}this? {#Prev}I know better than to envy the gods, especially with what they're going through lately... but they definitely know their drink." },
 				{ Cue = "/VO/Melinoe_3499", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -975,15 +1126,15 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/Icarus_0048", Text = "Fight on, I'll back you up!" },
 				{ Cue = "/VO/Icarus_0093", Text = "You have this, Meli!" },
 				{ Cue = "/VO/Icarus_0094", Text = "How's your evening going?" },
-				{ Cue = "/VO/Icarus_0095", Text = "Bunch 'em up for me hey?" },
-				{ Cue = "/VO/Icarus_0096", Text = "Beginning attack run...!", PlayFirst = true },
+				{ Cue = "/VO/Icarus_0095", Text = "Bunch 'em up for me, hey?" },
+				{ Cue = "/VO/Icarus_0096", Text = "Beginning attack run.", PlayFirst = true },
 				{ Cue = "/VO/Icarus_0097", Text = "Engaging!" },
 			},
 			{
 				PlayOnce = true,
 				PlayOnceContext = "IcarusIntroReactionVO",
 				UsePlayerSource = true,
-				PreLineWait = 1.5,
+				PreLineWait = 1.3,
 
 				{ Cue = "/VO/MelinoeField_1932", Text = "What? {#Emph}Icarus...?" },
 				{ Cue = "/VO/MelinoeField_1933", Text = "What are you doing here?!", PreLineWait = 0.7, BreakIfPlayed = true },
@@ -1120,10 +1271,18 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/Icarus_0130", Text = "Not too bad..." },
 			},
 			{
-				PreLineWait = 0.2,
+				PreLineWait = 0.1,
 				RandomRemaining = true,
 				SuccessiveChanceToPlay = 0.75,
 				UsePlayerSource = true,
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.2, },
+					},
+				},
+
 				Cooldowns =
 				{
 					-- { Name = "MelinoeAnyQuipSpeech", Time = 60 },
@@ -1173,6 +1332,7 @@ UnitSetData.NPC_Icarus =
 				{ Cue = "/VO/MelinoeField_2238", Text = "Careful out there..." },
 				{ Cue = "/VO/MelinoeField_2239", Text = "See you..." },
 				{ Cue = "/VO/MelinoeField_2240", Text = "{#Emph}<Sigh>" },
+				{ Cue = "/VO/MelinoeField_2590", Text = "Keep up the good work...!" },
 				{ Cue = "/VO/MelinoeField_2236", Text = "Yes...",
 					PlayFirst = true,
 					GameStateRequirements =
@@ -1190,7 +1350,6 @@ UnitSetData.NPC_Icarus =
 		{
 		},
 	},
-
 }
 
 VariantSetData.NPC_Icarus_01 =
@@ -1198,9 +1357,9 @@ VariantSetData.NPC_Icarus_01 =
 	IcarusCombat =
 	{
 		NonHeroKillCombatText = "PartnerKill",
-		TreatAsGodLootByShops = true,
 		RequiredRoomInteraction = true,
 		SkipAISetupOnActivate = true,
+		ExcludeFromDamageDealtRecord = true,
 		CanReceiveGift = true,
 		Consumables = { },
 		RarityChances =
@@ -1224,7 +1383,7 @@ VariantSetData.NPC_Icarus_01 =
 		WeaponOptions =
 		{
 			--"IcarusBombardmentLine", "IcarusBombardmentLine2", "IcarusBombardmentLine3",
-			"IcarusBombardmentLine", "IcarusBombardmentLine",
+			"IcarusBombardmentLine", "IcarusBombardmentLine", "IcarusBombardmentLine", -- try to open with line early
 			"IcarusBombardmentSingle", "IcarusBombardmentSingle", "IcarusBombardmentSingle",
 		},
 		--WeaponOptions = { "IcarusBombardmentLine" },
@@ -1245,6 +1404,40 @@ VariantSetData.NPC_Icarus_01 =
 
 		SkipNextTextLinesCheck = true,
 	},
+}
+
+-- Global Icarus Lines
+GlobalVoiceLines.MiscEndVoiceLines_Icarus =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.45,
+		ObjectType = "NPC_Icarus_01",
+		AllowTalkOverTextLines = true,
+
+		{ Cue = "/VO/Icarus_0053", Text = "Let me know how it goes!" },
+		{ Cue = "/VO/Icarus_0054", Text = "You won't be disappointed.", PlayFirst = true },
+		{ Cue = "/VO/Icarus_0055", Text = "Good choice." },
+		{ Cue = "/VO/Icarus_0056", Text = "Here you go." },
+		{ Cue = "/VO/Icarus_0059", Text = "Careful, OK?" },
+		{ Cue = "/VO/Icarus_0060", Text = "How did I know...?" },
+		{ Cue = "/VO/Icarus_0109", Text = "All yours." },
+		{ Cue = "/VO/Icarus_0110", Text = "Hope it helps." },
+		{ Cue = "/VO/Icarus_0111", Text = "{#Emph}Ah{#Prev}, yes." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		UsePlayerSource = true,
+		SuccessiveChanceToPlay = 0.15,
+		AllowTalkOverTextLines = true,
+
+		-- { Cue = "/VO/MelinoeField_0255", Text = "I'm grateful, milady." },
+		-- { Cue = "/VO/MelinoeField_0256", Text = "Night protect us...", PlayFirst = true },
+	},
+	[3] = { GlobalVoiceLines = "ThankingCharacterVoiceLines" },
+	-- [4] = { GlobalVoiceLines = "MedeaIncantationLines" },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Icarus )

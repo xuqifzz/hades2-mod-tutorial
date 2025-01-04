@@ -221,6 +221,12 @@
 			}
 		]
 	}
+	{
+		Name = "Melinoe_Torch_Attack4_FireSingle"
+		InheritFrom = "Melinoe_Torch_Attack4_Fire"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Torch_Attack_EndSequence"
+	}
 
 	{
 		Name = "Melinoe_Torch_Attack5_Start"
@@ -254,7 +260,7 @@
 		GrannyAnimation = "Melinoe_Torch_Base_AttackSwipe5Fire_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Torch_Attack1_Start"
-		Sound = "/VO/MelinoeEmotes/EmoteAttackingDaggerThrow"
+		Sound = "/VO/MelinoeEmotes/EmoteAttackingDagger"
 		Attachments =
 		[
 			{

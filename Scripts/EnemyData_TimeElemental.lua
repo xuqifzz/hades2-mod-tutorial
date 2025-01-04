@@ -10,7 +10,7 @@ UnitSetData.TimeElemental =
 
 		Groups = { "GroundEnemies" },
 		IsAggroedSound = "/SFX/Enemy Sounds/HeavyRangedForked/CrystalAggro",
-		Material = "Metal",
+		Material = "Stone",
 
 		ActivateAnimation = "Enemy_TimeElemental_Spawn",
 		ActivateFx = "EnemyPreSpawnTerrainChronos_Small",
@@ -46,6 +46,8 @@ UnitSetData.TimeElemental =
 			"TimeElementalOrbit"
 		},
 
+		BlockAttributes = { "StasisDeath", },
+
 		ActiveCapWeight = 0.5,
 		GeneratorData =
 		{
@@ -60,9 +62,9 @@ UnitSetData.TimeElemental =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -84,11 +86,6 @@ UnitSetData.TimeElemental =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =

@@ -29,7 +29,8 @@ OverwriteTableKeys( EncounterData,
 
 		SkipExitReadyCheckpoint = true,
 
-		BlockFishingBeforeStart = true,
+		BlockAthenaEncounterKeepsake = true,
+
 		BlockCodexBeforeStart = true,
 		DelayedStart = true,
 		-- SkipCombatBeginsVoiceLines = true,
@@ -74,12 +75,45 @@ OverwriteTableKeys( EncounterData,
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 1.0,
-					RandomWaitMax = 3.0,
+					RandomWaitMin = 0.5,
+					RandomWaitMax = 0.6,
 				},
 				GameStateRequirements =
 				{
 					ChanceToPlay = 1.0,
+					{
+						PathEmpty = { "GameState", "NemesisTakeExitRecord" },
+					},
+				},
+			},
+			{
+				FunctionName = "NemesisTakeRoomExit",
+				Args =
+				{
+					RandomWaitMin = 1.0,
+					RandomWaitMax = 5.0,
+				},
+				GameStateRequirements =
+				{
+					ChanceToPlay = 1.0,
+					{
+						PathNotEmpty = { "GameState", "NemesisTakeExitRecord" },
+					},
+				},
+			},
+		},
+	},
+
+	SetupEvents =
+	{
+		{
+			FunctionName = "EraseRoomKeys",
+			Args =
+			{
+				EraseKeys =
+				{
+					"FishingPointSuccess",
+					"ExorcismPointSuccess",
 				},
 			},
 		},
@@ -88,11 +122,13 @@ OverwriteTableKeys( EncounterData,
 	NemesisCombatF =
 	{
 		InheritFrom = { "BaseNemesisCombat", "GeneratedF" },
+		CanEncounterSkip = false,
 	},
 
 	NemesisCombatG =
 	{
 		InheritFrom = { "BaseNemesisCombat", "GeneratedG" },
+		CanEncounterSkip = false,
 		GameStateRequirements =
 		{
 			{
@@ -119,6 +155,8 @@ OverwriteTableKeys( EncounterData,
 	NemesisCombatH =
 	{
 		InheritFrom = { "BaseNemesisCombat", "GeneratedH" },
+		CanEncounterSkip = false,
+		ForceEncounterStart = false,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNemesisCombatFields,
 		SpawnRadius = 500,

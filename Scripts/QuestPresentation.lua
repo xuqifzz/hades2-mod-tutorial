@@ -52,7 +52,7 @@ function QuestScreenShowDescription( button )
 	if GameState.QuestStatus[button.Data.Name] == "CashedOut" then
 		rewardColor = screen.RewardCashedOutColor
 	else
-		if IsGameStateEligible( CurrentRun, button.Data, button.Data.CompleteGameStateRequirements ) then
+		if IsGameStateEligible( button.Data, button.Data.CompleteGameStateRequirements ) then
 			-- Hint
 			--[[
 			CreateTextBox({ Id = button.Screen.Components.DescriptionBox.Id,
@@ -81,7 +81,7 @@ function QuestScreenShowDescription( button )
 		SetAlpha({ Id = button.Screen.Components[newButtonKey].Id, Fraction = 0, Duration = 0.2 })
 	end
 	if button.Data.OnViewedVoiceLines ~= nil then
-		thread( PlayVoiceLines, button.Data.OnViewedVoiceLines, true )
+		thread( PlayVoiceLines, button.Data.OnViewedVoiceLines, true, CurrentRun.Hero, { RecheckRequirementsPostWait = true } )
 	end
 	local functionPlayed = false
 	if GameState.QuestsViewed[button.Data.Name] then
@@ -267,6 +267,8 @@ function QuestCashedOutPresentation( screen, button )
 		SetAlpha({ Id = screen.Components[newButtonKey].Id, Fraction = 0, Duration = 0.1 })
 	end
 
+	SetAlpha({ Id = screen.Components["Strikethrough"..button.Index].Id, Fraction = 1.0, Duration = 0.1 })
+
 	PlaySound({ Name = "/SFX/Menu Sounds/QuestCashIn" })
 
 	local morosId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Moros_01" })
@@ -274,8 +276,8 @@ function QuestCashedOutPresentation( screen, button )
 
 	-- play Moros' lines if he is available, otherwise Mel lines
 	if moros ~= nil and not moros.InPartnerConversation then
-		thread( PlayVoiceLines, button.Data.CashedOutVoiceLines or HeroVoiceLines.CashedOutQuestVoiceLines )
+		thread( PlayVoiceLines, button.Data.CashedOutVoiceLines or HeroVoiceLines.CashedOutQuestVoiceLines, true )
 	else
-		thread( PlayVoiceLines, HeroVoiceLines.CashedOutQuestVoiceLines )
+		thread( PlayVoiceLines, HeroVoiceLines.CashedOutQuestVoiceLines, true )
 	end
 end

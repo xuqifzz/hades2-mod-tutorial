@@ -21,5 +21,6 @@ ManaIndicatorPresentation = {
 		Loop = "ManaChargeIndicatorHoldLoop",
 		Cancel = "ManaChargeIndicatorHoldCancel",
 		Dissipate = "ManaChargeIndicatorHoldDissipate",
-	}
+	},
+	DifferentMoveBadge = "ManaChargeIndicatorDifferentMove",
 }

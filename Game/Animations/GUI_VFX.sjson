@@ -1,0 +1,3488 @@
+{ Animations = [
+
+	{
+		Name = "TempIcon"
+		FilePath = "GUI\Icons\TempIcon"
+	}
+	{
+		Name = "TempIcon_Text"
+		FilePath = "GUI\Icons\TempIcon_Text"
+	}
+	{
+		Name = "TempIcon_Left"
+		FilePath = "GUI\Icons\TempIcon_Text"
+		OffsetX = -40
+	}
+
+	{
+		Name = "LockedIconNoKey"
+		FilePath = "GUI\LockIcon\LockIcon"
+		
+		EndFrame = 10
+		Loop = true
+		NumFrames = 10
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Material = "Unlit"
+	}
+	{
+		Name = "LockedIconHasKey"
+		InheritFrom = "LockedIconNoKey"
+		EndFrame = 10
+		StartFrame = 1
+		FlashMax = 0.6
+		FlashMin = 0.2
+		FlashSpeed = 4.0
+	}
+
+	{
+		Name = "LockedIconRelease"
+		FilePath = "GUI\LockIconRelease\LockIconRelease"
+		
+		Sound = "/SFX/WeaponUnlock"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Material = "Unlit"
+	}
+	{
+		Name = "Vignette"
+		FilePath = "Fx\Vignette\VignetteBlack"			
+		Alpha = 0.7
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+	}
+
+	{
+		Name = "VignetteOverlay"
+		FilePath = "Fx\Vignette\VignetteOverlay"			
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+	}
+
+	{
+		Name = "WeaponShopVignette"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+		EndAlpha = 1.0
+		Duration = 0.4
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "AuraAimLineSirenKeytarist"
+		FilePath = "GUI\Widgets\Target_Line"			
+		UseOwnAngle = false
+		Duration = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 16.0
+		OriginY = 107.0
+		ScaleX = 1.0
+		ScaleY = 1.0
+		Material = "Emissive"
+		Color = { Red = 0.8 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Line"			
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 16.0
+		OriginY = 107.0
+		ScaleLength = 967.0
+		ScaleWidth = 120.0
+		Material = "Emissive"
+	}
+
+	{
+		Name = "AuraAimLineSuit"
+		FilePath = "GUI\Widgets\Target_Line"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 400
+		OriginY = 600
+		Angle = 90
+		Material = "Emissive"
+	}
+
+	{
+		Name = "TorchAimLine"
+		FilePath = "GUI\Widgets\Target_Line"			
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 16.0
+		OriginY = 107.0
+		ScaleLength = 967.0
+		ScaleWidth = 400.0
+		Material = "Emissive"
+	}
+
+	{
+		Name = "AuraAimLine_HermesPlannedRushTrait"
+		FilePath = "GUI\Widgets\Target_Line"			
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 16.0
+		OriginY = 107.0
+		PostRotateScaleY = 0.5
+		ScaleLength = 1200.0
+		ScaleWidth = 120.0
+		ScaleX = 2.0
+		Material = "Emissive"
+	}
+
+	{
+		Name = "AuraAimLineShield"
+		InheritFrom = "AuraAimLine"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "AuraAimLineNoMovement"
+		InheritFrom = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Line2"
+		EndFrame = 1
+		StartFrame = 1
+	}
+	{
+		Name = "StaffAuraAimLineNoMovement"
+		InheritFrom = "AuraAimLineNoMovement"
+		OriginX = 400
+	}
+
+	{
+		Name = "AimLineRangeThreshold"			
+		FilePath = "GUI\Widgets\Target_Line_ExtraDamage"
+		Material = "Emissive"
+		ColorFromOwner = "Maintain"
+		EndFrame = 1
+		StartFrame = 1
+		Scale = 0.5
+		ScaleX = 1.2
+	}
+
+	{
+		Name = "AimLineRangeThresholdInward"
+		InheritFrom = "AimLineRangeThreshold"
+		FlipHorizontal = true
+	}
+	{
+		Name = "AimLineRangeThresholdInwardWide"
+		InheritFrom = "AimLineRangeThreshold"
+		FlipHorizontal = true
+		Scale = 1.2
+	}
+
+	{
+		Name = "AimLineExtraDamageCap"
+		InheritFrom = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Line_Extra_Cap"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "AimLineExtraDamageArea"
+		InheritFrom = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Line_Extra_Area"
+		EndFrame = 1
+		StartFrame = 1
+		OriginX = 887
+		OriginY = 120
+	}
+
+	{
+		Name = "EnemyAimLine"
+		ChainTo = "EnemyAimLineFire"
+		FilePath = "GUI\Widgets\Target_Line"			
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 20.0
+		OriginY = 53.5
+		LocationZFromOwner = "Ignore"
+		TransferAngle = true
+		ScaleFromOwner = "Ignore"
+		ScaleLength = 430.0
+		ScaleWidth = 56.0
+		Material = "Emissive"
+		Color = { Red = 0.53 Green = 0.22 Blue = 1.0 }
+	}
+
+	{
+		Name = "EnemyAimLineFire"
+		InheritFrom = "EnemyAimLine"
+		ChainTo = "null"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.3
+		EndFrame = 1
+		StartFrame = 1
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "AuraAimLineCenter"
+		InheritFrom = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Line_Center"
+		EndFrame = 1
+		StartFrame = 1
+		OriginX = 5.0
+		OriginY = 5.0
+		ScaleWidth = 5.65
+	}
+
+	{
+		Name = "AuraAimLineLeft"
+		InheritFrom = "AuraAimLineCenter"
+		FilePath = "GUI\Widgets\Target_Line_Left"
+		EndFrame = 1
+		StartFrame = 1
+		OriginY = 15.0
+		ScaleWidth = 24.5
+	}
+
+	{
+		Name = "AuraAimLineRight"
+		InheritFrom = "AuraAimLineLeft"
+		FilePath = "GUI\Widgets\Target_Line_Right"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "AuraAimWedgeCenter"
+		InheritFrom = "AuraAimLine"
+		FilePath = "GUI\Widgets\Target_Wedge_Center"
+		EndFrame = 1
+		StartFrame = 1
+		OriginX = 7.0
+		OriginY = 100.0
+		ScaleLength = 720.0
+		ScaleUniform = true
+	}
+
+	{
+		Name = "AuraAimWedgeLeft"
+		InheritFrom = "AuraAimWedgeCenter"
+		FilePath = "GUI\Widgets\Target_Wedge_Left"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "AuraAimWedgeRight"
+		InheritFrom = "AuraAimWedgeCenter"
+		FilePath = "GUI\Widgets\Target_Wedge_Right"
+		EndFrame = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "AuraAimRadial"
+		FilePath = "GUI\Widgets\Target_Radial"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RotationSpeed = 2.00
+		PostRotateScaleY = 0.5
+		ScaleRadius = 435.0
+		Material = "Emissive"
+	}
+
+	{
+		Name = "FullscreenChaosDisplace"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "FullscreenChaosDisplaceRings"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxCap = 4
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+	}
+	
+	{
+		Name = "FullscreenChaosDisplaceRings"
+		FilePath = "Fx\DisplaceShockwave\DisplaceShockwave0005"
+		GroupName = "FX_Displacement"
+		
+		AlphaMax = 1.0
+		AlphaMin = 0.3
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 6.0
+		RandomDurationMin = 3.0
+		StartFrame = 1
+		EndScale = 15.0
+		PostRotateScaleY = 0.5
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "FullscreenWeaponKitInteractDisplace"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "FullscreenWeaponKitInteractDisplaceRings"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxCap = 4
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+	}
+	
+	{
+		Name = "FullscreenWeaponKitInteractDisplaceRings"
+		FilePath = "Fx\DisplaceShockwave\DisplaceShockwave0005"
+		GroupName = "FX_Displacement"
+		
+		AlphaMax = 1.0
+		AlphaMin = 0.3
+		StartAlpha = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.5
+		RandomDurationMin = 0.75
+		StartFrame = 1
+		EndScale = 15.0
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "FullscreenAlertDisplace"
+		FilePath = "Fx\FullscreenAlert\FullscreenAlertDisplace"
+		
+		EndAlpha = 0.3
+		PingPongColor = true
+		StartAlpha = 0.0
+		Duration = 1.5
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		EndScale = 1.1
+		PingPongScale = true
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "FullscreenAlertColor"
+		InheritFrom = "FullscreenAlertDisplace"
+		ChildAnimation = "FullscreenAlertColor2"
+		FilePath = "Fx\FullscreenAlert\FullscreenAlertColor"
+		AngleFromOwner = "Ignore"
+		EndAlpha = 1.0
+		StartAlpha = 0.0
+		EndScale = 1.0
+		PingPongScale = false
+		StartScale = 2.0
+	}
+	
+	{
+		Name = "FullscreenAlertColor2"
+		InheritFrom = "FullscreenAlertColor"
+		ChildAnimation = "FullscreenAlertColor3"
+		Duration = 0.75
+	}
+	
+	{
+		Name = "FullscreenAlertColor3"
+		InheritFrom = "FullscreenAlertColor"
+		ChildAnimation = "null"
+		Duration = 3.0
+	}
+	
+	{
+		Name = "FullscreenAlertColorInvert"
+		InheritFrom = "FullscreenAlertDisplace"
+		ChildAnimation = "FullscreenAlertColorInvert2"
+		FilePath = "Particles\particle_flare_boon"
+		GroupName = "FX_Add_Top"
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndAlpha = 0.5
+		StartAlpha = 0.0
+		OffsetZ = 60.0
+		EndScale = 3.0
+		PingPongScale = false
+		Color = { Red = 0.50 Green = 0.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "FullscreenAlertColorInvert2"
+		InheritFrom = "FullscreenAlertColorInvert"
+		ChildAnimation = "FullscreenAlertColorInvert3"
+		Duration = 0.75
+		StartScale = 0.8
+	}
+	
+	{
+		Name = "FullscreenAlertColorInvert3"
+		InheritFrom = "FullscreenAlertColorInvert"
+		ChildAnimation = "null"
+		Duration = 3.0
+		StartScale = 0.6
+	}
+	
+	{
+		Name = "FullscreenAlertColorDark"
+		InheritFrom = "FullscreenAlertDisplace"
+		ChildAnimation = "FullscreenAlertColorDark2"
+		FilePath = "Fx\FullscreenAlert\FullscreenAlertColor"
+		AngleFromOwner = "Ignore"
+		EndAlpha = 1.0
+		StartAlpha = 0.0
+		EaseIn = 0.6
+		EndScale = 1.0
+		PingPongScale = false
+		StartScale = 2.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "FullscreenAlertColorDark2"
+		InheritFrom = "FullscreenAlertColorDark"
+		ChildAnimation = "FullscreenAlertColorDark3"
+		Duration = 0.75
+	}
+	
+	{
+		Name = "FullscreenAlertColorDark3"
+		InheritFrom = "FullscreenAlertColorDark"
+		ChildAnimation = "null"
+		Duration = 3.0
+	}
+	
+	{
+		Name = "FullscreenAlertColorDarkOutward"
+		InheritFrom = "FullscreenAlertColorDark"
+		ChildAnimation = "FullscreenAlertColorDarkOutward2"
+		AddColor = true
+		EndAlpha = 0.3
+		Duration = 2.0
+		EaseIn = 0.0
+		Loop = false
+		EndScale = 2.0
+		StartScale = 0.5
+		TimeModifierFraction = 0.0
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "FullscreenAlertColorDarkOutward2"
+		InheritFrom = "FullscreenAlertColorDarkOutward"
+		ChildAnimation = "FullscreenAlertColorDarkOutward3"
+		Duration = 1.0
+	}
+	
+	{
+		Name = "FullscreenAlertColorDarkOutward3"
+		InheritFrom = "FullscreenAlertColorDarkOutward"
+		ChildAnimation = "null"
+		Duration = 0.5
+		Loop = true
+	}
+	{
+		Name = "WeaponKitInteractVignetteOverlay"
+		FilePath = "Fx\DeathDefianceOverlay\DeathDefianceOverlay"
+		GroupName = "Vignette"
+
+		VisualFx = "WeaponKitInteractParticles"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.25
+		PingPongColor = true
+		EaseOut = 0.5
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.4
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		RandomRotation = true
+		RandomRotationSpeedMax = 100.0
+		RandomRotationSpeedMin = 50.0
+		EndScale = 20.0
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.9
+		StartScale = 10.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+		TimeModifierFraction = 0.0
+	}
+
+	{
+		Name = "WeaponKitInteractVignetteOverlay_Prophecy"
+		InheritFrom = "WeaponKitInteractVignetteOverlay"
+		VisualFx = "WeaponKitInteractParticles_Prophecy"
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.04
+	}
+
+	{
+		Name = "CauldronCastVignetteOverlay"
+		InheritFrom = "WeaponKitInteractVignetteOverlay"
+		FilePath = "Fx\CauldronVignette\CauldronVignette"
+		GroupName = "FX_Terrain"
+		VisualFx = "null"
+		AlphaMax = 1.0
+		AlphaMin = 0.99
+		EndAlpha = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomDurationMax = 5.0
+		RandomDurationMin = 4.0
+		RandomRotationSpeedMax = 20.0
+		RandomRotationSpeedMin = 3.0
+		EndScale = 3.0
+		PostRotateScaleY = 0.4
+		ScaleMax = 1.5
+		ScaleMin = 1.0
+		StartScale = 2.0
+		VisualFxIntervalMax = 0.05
+		VisualFxIntervalMin = 0.04
+	}
+
+	{
+		Name = "NightmareVignetteOverlayFx"
+		InheritFrom = "WeaponKitInteractVignetteOverlay"
+		FilePath = "Fx\CauldronVignette\CauldronVignette"
+		GroupName = "FX_Standing_Top"
+		VisualFx = "null"
+		AlphaMax = 0.6
+		AlphaMin = 0.4
+		EndAlpha = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomDurationMax = 5.0
+		RandomDurationMin = 4.0
+		OffsetZ = 100.0
+		RandomRotationSpeedMax = 20.0
+		RandomRotationSpeedMin = 3.0
+		EndScale = 4.0
+		PostRotateScaleY = 0.4
+		Scale = 1.5
+		ScaleMax = 1.5
+		ScaleMin = 1.0
+		StartScale = 3.0
+	}
+
+	{
+		Name = "WrathVignette"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+
+		AddColor = true
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 15.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "LastStandVignette"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+
+		StartAlpha = 0.4
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 100.0
+		StartScale = 20.0
+		Ambient = 0.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.24
+		VisualFxIntervalMin = 0.2
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "DarkPhoenixExplosion" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceOverlay" }
+			{ Name = "DeathDefianceOverlay" }
+			{ Name = "DeathDefianceOverlay" }
+			{ Name = "HadesSymbolShatter" }
+		]
+	}
+
+	{
+		Name = "WeaponKitInteractVignette"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+
+		VisualFx = "WeaponKitInteractVignetteOverlay"
+		StartAlpha = 0.1
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 100.0
+		StartScale = 15.0
+		Ambient = 0.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.24
+		VisualFxIntervalMin = 0.2
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "FullscreenWeaponKitInteractDisplace" }
+			{ Name = "WeaponKitInteractGlow" }
+			{ Name = "WeaponKitInteractNova" }
+			{ Name = "WeaponKitInteractNovaDark" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+		]
+	}
+
+	{
+		Name = "CauldronCastVignette"
+		FilePath = "Fx\CauldronVignette\CauldronVignette"
+
+		VisualFx = "CauldronCastVignetteOverlay"
+		EndAlpha = 1.0
+		StartAlpha = 0.1
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 60.0
+		PostRotateScaleY = 0.5
+		StartScale = 15.0
+		Ambient = 0.0
+		VisualFxCap = 16
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+		TimeModifierFraction = 0.0
+	}
+
+	{
+		Name = "CauldronCastVignetteLoop"
+		InheritFrom = "CauldronCastVignette"
+		ChildAnimation = "NightmareVignetteStatic"
+		VisualFx = "NightmareVignetteOverlayFx"
+		Loop = true
+		VisualFxCap = 0
+	}
+
+	{
+		Name = "BiomeMapVignetteLoop"
+		FilePath = "GUI\BiomeMap\Vignette_01"
+		TimeModifierFraction = 0.0
+		Duration = 1
+		Loop = true
+		Scale = 1.5
+		ChildAnimation = "BiomeMapVignetteLoopFxA"
+	}
+
+	{
+		Name = "BiomeHilightSummoningCircleAnim"
+		FilePath = "GUI\BiomeMap\BiomeHilightSummoningCircle\BiomeHilightSummoningCircle"
+		NumFrames = 23
+		HoldLastFrame = true
+		RotationSpeed = 4
+		PlaySpeed = 30
+		Scale = 2.0
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		LoopFramesOnly = true
+		Duration = 2
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.5
+		EndBlue = 1
+		EaseIn = 0
+		EaseOut = 0.1
+		StartAlpha = 1
+		EndAlpha = 0.5
+		RandomRotation = true
+	}
+
+	{
+		Name = "BiomeMapVignetteLoopFxA"
+		InheritFrom = "BiomeMapVignetteLoop"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		Duration = 1.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		EaseIn = 0
+		EaseOut = 1
+		VisualFx = null
+		Scale = 1.05
+		StartScale = 1
+		EndScale = 1.1
+		Loop = true
+		ChildAnimation = "BiomeMapVignetteLoopFxB"
+	}
+
+	{
+		Name = "BiomeMapVignetteLoopFxB"
+		InheritFrom = "BiomeMapVignetteLoopFxA"
+		Duration = 1.7
+		ChildAnimation = "BiomeMapVignetteLoopFxC"
+	}
+
+	{
+		Name = "BiomeMapVignetteLoopFxC"
+		InheritFrom = "BiomeMapVignetteLoopFxA"
+		Duration = 1.9
+		ChildAnimation = null
+	}
+
+	{
+		Name = "BiomeMapSelectedLoop"
+		FilePath = "GUI\BiomeMap\BiomeHilightSummoningCircle_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		TimeModifierFraction = 0.0
+		Material = "Unlit"
+		RotationSpeed = 200
+		Duration = 0.31
+		ChainTo = "BiomeMapSelectedLoopSlow"
+		Loop = false
+		EaseIn = 0.5
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "BiomeMapSelectedLoopSlow"
+		FilePath = "GUI\BiomeMap\BiomeHilightSummoningCircle_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		TimeModifierFraction = 0.0
+		Material = "Unlit"
+		RotationSpeed = 3
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "BiomeMapAnimations"
+		FilePath = "Dev\blank_invisible"
+		Material = "Unlit"
+		CreateAnimations = [
+
+			{ Name = "BiomeMapStarsStatic" }
+
+			{ Name = "BiomeMapMoon" }
+
+			{ Name = "BiomeMapCloudR01" }
+			{ Name = "BiomeMapCloudR02" }
+			{ Name = "BiomeMapCloudR03" }
+			{ Name = "BiomeMapCloudR04" }
+			{ Name = "BiomeMapCloudR05" }
+			{ Name = "BiomeMapCloudL01" }
+			{ Name = "BiomeMapCloudL02" }
+			{ Name = "BiomeMapCloudL03" }
+			{ Name = "BiomeMapCloudL04" }
+
+			{ Name = "BiomeMapStar01" }
+			{ Name = "BiomeMapStar02" }
+			{ Name = "BiomeMapStar03" }
+			{ Name = "BiomeMapStar04" }
+			{ Name = "BiomeMapStar05" }
+			{ Name = "BiomeMapStar06" }
+			{ Name = "BiomeMapStar07" }
+			{ Name = "BiomeMapStar08" }
+			{ Name = "BiomeMapStar09" }
+			{ Name = "BiomeMapStar10" }
+			{ Name = "BiomeMapStar11" }
+			{ Name = "BiomeMapStar12" }
+			{ Name = "BiomeMapStar13" }
+			{ Name = "BiomeMapStar14" }
+			{ Name = "BiomeMapStar15" }
+			{ Name = "BiomeMapStar16" }
+			{ Name = "BiomeMapStar17" }
+			{ Name = "BiomeMapStar18" }
+			{ Name = "BiomeMapStar19" }
+			{ Name = "BiomeMapStar20" }
+			{ Name = "BiomeMapStar21" }
+			{ Name = "BiomeMapStar22" }
+			{ Name = "BiomeMapStar23" }
+			{ Name = "BiomeMapStar24" }
+			{ Name = "BiomeMapStar25" }
+			{ Name = "BiomeMapStar26" }
+			{ Name = "BiomeMapStar27" }
+			{ Name = "BiomeMapStar28" }
+			{ Name = "BiomeMapStar29" }
+			{ Name = "BiomeMapStar30" }
+			{ Name = "BiomeMapStar31" }
+			{ Name = "BiomeMapStar32" }
+			{ Name = "BiomeMapStar33" }
+			{ Name = "BiomeMapStar34" }
+
+		]
+	}
+
+	{
+		Name = "BiomeMapMoon"
+		FilePath = "GUI\BiomeMap\BiomeMap_Moon_01"
+		Material = "Unlit"
+		RotationSpeed = 2
+		OffsetX = 1036
+		OffsetY = 155
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudR01"
+		Material = "Unlit"
+		Duration = 1
+		Loop = true
+		GroupName = "Combat_UI"
+		OffsetX = 881
+		OffsetY = -1567
+		LocationFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Angle = 0
+		VelocityMin = 5
+		VelocityMax = 30
+	}
+
+	{
+		Name = "BiomeMapCloudR02"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudR02"
+		OffsetX = 393
+		OffsetY = -1728
+	}		
+	{
+		Name = "BiomeMapCloudR03"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudR03"
+		OffsetX = 477
+		OffsetY = -1457
+	}		
+	{
+		Name = "BiomeMapCloudR04"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudR04"
+		OffsetX = 1143
+		OffsetY = -1104
+	}		
+	{
+		Name = "BiomeMapCloudR05"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudR05"
+		OffsetX = 958
+		OffsetY = -930
+	}	
+
+	{
+		Name = "BiomeMapCloudL01"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudL01"
+		OffsetX = -230
+		OffsetY = -1740
+		Angle = 180
+	}
+	{
+		Name = "BiomeMapCloudL02"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudL02"
+		OffsetX = -398
+		OffsetY = -1369
+		Angle = 180
+	}
+	{
+		Name = "BiomeMapCloudL03"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudL03"
+		OffsetX = -963
+		OffsetY = -1250
+		Angle = 180
+	}
+	{
+		Name = "BiomeMapCloudL04"
+		InheritFrom = "BiomeMapCloudR01"
+		FilePath = "GUI\BiomeMap\BiomeMap_CloudL04"
+		OffsetX = -883
+		OffsetY = -931
+		Angle = 180
+	}
+
+	{
+		Name = "BiomeMapStarsStatic"
+		FilePath = "GUI\BiomeMap\BiomeMap_Stars_01"
+		Material = "Unlit"
+		OffsetX = -35
+		OffsetY = 790
+		Scale = 1.0
+		Duration = 5
+		Loop = true
+		StartScale = 1
+		EndScale = 1.02
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star01"
+		OffsetX = -516
+		OffsetY = 1088
+		RandomDurationMin = 0.6
+		RandomDurationMax = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		Material = "Unlit"
+		Loop = true
+		StartScale = 0.9
+		EndScale = 1.1
+		PingPongScale = true
+		RandomRotationSpeedMin = -15
+		RandomRotationSpeedMax = 15
+
+	}
+	{
+		Name = "BiomeMapStar02"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star02"
+		OffsetX = -864.0
+		OffsetY = 90.0
+	}
+	{
+		Name = "BiomeMapStar03"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star03"
+		OffsetX = 1166.0
+		OffsetY = 968.0
+	}
+	{
+		Name = "BiomeMapStar04"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star04"
+		OffsetX = 1138.0
+		OffsetY = 908.0
+	}
+	{
+		Name = "BiomeMapStar05"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star05"
+		OffsetX = 1456.0
+		OffsetY = 928.0
+	}
+	{
+		Name = "BiomeMapStar06"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star06"
+		OffsetX = 1205.0
+		OffsetY = 1684.0
+	}
+	{
+		Name = "BiomeMapStar07"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star07"
+		OffsetX = -849.0
+		OffsetY = 1471.0
+	}
+	{
+		Name = "BiomeMapStar08"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star08"
+		OffsetX = -553.0
+		OffsetY = 1526.0
+	}
+	{
+		Name = "BiomeMapStar09"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star09"
+		OffsetX = -451.0
+		OffsetY = 1185.0
+	}
+	{
+		Name = "BiomeMapStar10"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star10"
+		OffsetX = -566.0
+		OffsetY = 1232.0
+	}
+	{
+		Name = "BiomeMapStar11"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star11"
+		OffsetX = -842.0
+		OffsetY = 1236.0
+	}
+	{
+		Name = "BiomeMapStar12"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star12"
+		OffsetX = -780.0
+		OffsetY = 1235.0
+	}
+	{
+		Name = "BiomeMapStar13"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star13"
+		OffsetX = -1083.0
+		OffsetY = 128.0
+	}
+	{
+		Name = "BiomeMapStar14"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star14"
+		OffsetX = -961.0
+		OffsetY = 1075.0
+	}
+	{
+		Name = "BiomeMapStar15"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star15"
+		OffsetX = 699.0
+		OffsetY = 565.0
+	}
+	{
+		Name = "BiomeMapStar16"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star16"
+		OffsetX = -758.0
+		OffsetY = 1314.0
+	}
+	{
+		Name = "BiomeMapStar17"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star17"
+		OffsetX = 885.0
+		OffsetY = 1487.0
+	}
+	{
+		Name = "BiomeMapStar18"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star18"
+		OffsetX = 1070.0
+		OffsetY = 1390.0
+	}
+	{
+		Name = "BiomeMapStar19"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star19"
+		OffsetX = 920.0
+		OffsetY = 706.0
+	}
+	{
+		Name = "BiomeMapStar20"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star20"
+		OffsetX = -1265.0
+		OffsetY = 863.0
+	}
+	{
+		Name = "BiomeMapStar21"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star21"
+		OffsetX = -1235.0
+		OffsetY = 410.0
+	}
+	{
+		Name = "BiomeMapStar22"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star22"
+		OffsetX = 659.0
+		OffsetY = 1563.0
+	}
+	{
+		Name = "BiomeMapStar23"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star23"
+		OffsetX = -498.0
+		OffsetY = 1275.0
+	}
+	{
+		Name = "BiomeMapStar24"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star24"
+		OffsetX = 1150.0
+		OffsetY = 397.0
+	}
+	{
+		Name = "BiomeMapStar25"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star25"
+		OffsetX = 942.0
+		OffsetY = -15.0
+	}
+	{
+		Name = "BiomeMapStar26"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star26"
+		OffsetX = 888.0
+		OffsetY = 453.0
+	}
+	{
+		Name = "BiomeMapStar27"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star27"
+		OffsetX = -1432.0
+		OffsetY = 564.0
+	}
+	{
+		Name = "BiomeMapStar28"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star28"
+		OffsetX = -1365.0
+		OffsetY = 656.0
+	}
+	{
+		Name = "BiomeMapStar29"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star29"
+		OffsetX = -956.0
+		OffsetY = 154.0
+	}
+	{
+		Name = "BiomeMapStar30"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star30"
+		OffsetX = 1076.0
+		OffsetY = 597.0
+	}
+	{
+		Name = "BiomeMapStar31"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star31"
+		OffsetX = -1309.0
+		OffsetY = 1158.0
+	}
+	{
+		Name = "BiomeMapStar32"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star32"
+		OffsetX = -901.0
+		OffsetY = 1098.0
+	}
+	{
+		Name = "BiomeMapStar33"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star33"
+		OffsetX = -934.0
+		OffsetY = 1134.0
+	}
+	{
+		Name = "BiomeMapStar34"
+		InheritFrom = "BiomeMapStar01"
+		FilePath = "GUI\BiomeMap\BiomeMap_Star34"
+		OffsetX = 627.0
+		OffsetY = 1670.0
+	}
+
+
+
+	{
+		Name = "BiomeMapDustEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "BiomeMapDust"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+		CreateAnimations = [
+			{ Name = "BiomeMapDust" }
+			{ Name = "BiomeMapDust" }
+			{ Name = "BiomeMapDust" }
+			{ Name = "BiomeMapDust" }
+			{ Name = "BiomeMapDust_Seed" }
+			{ Name = "BiomeMapDust_Seed" }
+			{ Name = "BiomeMapDust_Seed" }
+			{ Name = "BiomeMapDust_Seed" }
+			{ Name = "BiomeMapDust_Seed" }
+			{ Name = "BiomeMapDust_Seed" }
+
+		]
+	}
+
+	{
+		Name = "BiomeMapDust"
+		Random = [
+			{ Name = "BiomeMapDustA" }
+			{ Name = "BiomeMapDustB" }
+			{ Name = "BiomeMapDustC" }
+			{ Name = "BiomeMapDustD" }
+			{ Name = "BiomeMapDustE" }
+		]
+	}	
+
+	{
+		Name = "BiomeMapDust_Seed"
+		Random = [
+			{ Name = "BiomeMapDustA_Seed" }
+			{ Name = "BiomeMapDustB_Seed" }
+			{ Name = "BiomeMapDustC_Seed" }
+			{ Name = "BiomeMapDustD_Seed" }
+			{ Name = "BiomeMapDustE_Seed" }
+		]
+	}
+
+	{
+		Name = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_01"
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		RandomRotationSpeedMin = -15
+		RandomRotationSpeedMax = 15
+		AngleFromOwner = "Ignore"
+		AngleMin = 260
+		AngleMax = 280
+		VelocityMin = 10
+		VelocityMax = 40
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomDurationMin = 4
+		RandomDurationMax = 5
+		LocationFromOwner = "Ignore"
+		RandomOffsetX = 960
+		RandomOffsetY = 540
+		GroupName = "Combat_Menu_Overlay"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "BiomeMapDustB"
+		InheritFrom = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_02"
+	}
+	{
+		Name = "BiomeMapDustC"
+		InheritFrom = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_03"
+	}
+	{
+		Name = "BiomeMapDustD"
+		InheritFrom = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_04"
+	}
+	{
+		Name = "BiomeMapDustE"
+		InheritFrom = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_05"
+	}
+
+	{
+		Name = "BiomeMapDustA_Seed"
+		InheritFrom = "BiomeMapDustA"
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+	}
+	{
+		Name = "BiomeMapDustB_Seed"
+		InheritFrom = "BiomeMapDustA_Seed"
+		FilePath = "Particles\particle_dustMotes_02"
+	}
+	{
+		Name = "BiomeMapDustC_Seed"
+		InheritFrom = "BiomeMapDustA_Seed"
+		FilePath = "Particles\particle_dustMotes_03"
+	}
+	{
+		Name = "BiomeMapDustD_Seed"
+		InheritFrom = "BiomeMapDustA_Seed"
+		FilePath = "Particles\particle_dustMotes_04"
+	}
+	{
+		Name = "BiomeMapDustE_Seed"
+		InheritFrom = "BiomeMapDustA"
+		FilePath = "Particles\particle_dustMotes_05"
+	}
+
+
+	{
+		Name = "NightmareVignetteStatic"
+		FilePath = "Fx\Vignette\VignetteBlack"
+
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+	}
+
+	{
+		Name = "WeaponKitInteractVignette_Prophecy"
+		FilePath = "Fx\WrathPresentationStreak\WrathVignette"
+
+		VisualFx = "WeaponKitInteractVignetteOverlay_Prophecy"
+		EndAlpha = 1.0
+		StartAlpha = 0.1
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 60.0
+		StartScale = 15.0
+		Ambient = 0.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.24
+		VisualFxIntervalMin = 0.2
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "FullscreenWeaponKitInteractDisplace" }
+			{ Name = "WeaponKitInteractGlow_Prophecy" }
+			{ Name = "WeaponKitInteractNova" }
+			{ Name = "WeaponKitInteractNovaDark" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+			{ Name = "DeathDefianceVerticalGlow" }
+		]
+	}
+
+	{
+		Name = "NewObjectiveFlare"
+		FilePath = "Fx\AttentionFlare\AttentionFlare"
+		GroupName = "Combat_Menu_Additive"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
+		EndAlpha = 0.9
+		EndGreen = 0.9
+		EndRed = 1.0
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		SortMode = "FromParent"
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.7
+	}
+	{
+		Name = "ProjectileLightningMirror"
+		InheritFrom = "ProjectileFire"
+		GroupName = "Fx_Standing_Add"
+		VisualFx = "null"
+		VisualFxUse3DAngle = false
+		VisualFxIntervalMax = 0.111
+		VisualFxIntervalMin = 0.11
+		Alpha = 0.0
+		OffsetY = -60.0
+		Scale = 3.5
+		Color = { Red = 0.25 Green = 0.0 Blue = 1.0 }
+	}
+
+
+	{
+		Name = "RespawnVignette"
+		FilePath = "Fx\CauldronVignette\CauldronVignette"
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		RotationSpeed = 10
+		RandomRotation = true
+		StartScale = 1
+		EndScale = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 4
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+	
+	{
+		Name = "CosmeticUnlockFx"
+		FilePath = "Particles\particle_glow_egg"
+		GroupName = "FX_Add_Top"
+		
+		VisualFx = "CosmeticUnlockFxStreaks"
+		Angle = 110.0
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		EndBlue = 0.6
+		EndGreen = 0.8
+		EndRed = 1.0
+		PingPongColor = true
+		StartBlue = 1.0
+		StartGreen = 0.6
+		StartRed = 0.8
+		Duration = 1.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 1.5
+		Scale = 3.5
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxCap = 15
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.02
+		Sound = "/Leftovers/SFX/AuraOff"
+	}
+	
+	{
+		Name = "CosmeticUnlockFxStreaks"
+		FilePath = "Particles\particle_streak_boosted"
+		GroupName = "FX_Add_Top"
+		
+		AngleFromOwner = "Ignore"
+		AngleMin = -180.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		EndAlpha = 1.0
+		PingPongColor = true
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.3
+		RandomDurationMin = 0.7
+		StartFrame = 1
+		OriginX = 500.0
+		OriginY = 32.0
+		EndScaleX = 2.0
+		EndScaleY = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.5
+		ScaleMin = 0.5
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "CosmeticUnlockFxSparklesLarge" }
+			{ Name = "CosmeticUnlockFxSparklesSmall" }
+			{ Name = "CosmeticUnlockFxSparklesSmall" }
+		]
+		Color = { Red = 0.50 Green = 0.2 Blue = 1.0 }
+	}
+	
+	{
+		Name = "CosmeticUnlockFxSparklesLarge"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		GroupName = "FX_Add_Top"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 180.0
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.2
+		RandomDurationMin = 0.4
+		StartFrame = 1
+		RadialOffsetMax = 400.0
+		RadialOffsetMin = 40.0
+		LocationFromOwner = "Take"
+		VelocityMax = 150.0
+		VelocityMin = 50.0
+		PingPongScale = true
+		ScaleMax = 1.0
+		ScaleMin = 0.7
+		StartScale = 0.0
+		Ambient = 0.0
+		Hue = -0.2
+	}
+	
+	{
+		Name = "CosmeticUnlockFxSparklesSmall"
+		InheritFrom = "CosmeticUnlockFxSparklesLarge"
+		ScaleMax = 0.4
+		ScaleMin = 0.1
+	}
+
+	{
+		Name = "InteractBacking"
+		ChainTo = "InteractBackingFade"
+		FilePath = "GUI\TextBacking"
+		
+		EndAlpha = 0.8
+		Duration = 0.1
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -80.0
+		AttachedTextScalarX = 1120.0
+		AttachedTextScalarY = 105.0
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "InteractBackingFade"
+		InheritFrom = "InteractBacking"
+		ChainTo = "null"
+		EndAlpha = 0.0
+		StartAlpha = 0.8
+		Duration = 0.25
+	}
+	
+	{
+		Name = "AffinityGaugeBacking"
+		ChainTo = "AffinityGaugeBackingFade"
+		CreateAnimation = "CosmeticUnlockFx"
+		FilePath = "GUI\Screens\AffinityGaugeBacking"		
+		AddColor = true
+		StartBlue = 0.6
+		StartGreen = 0.8
+		StartRed = 1.0
+		Duration = 0.33
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -78.0
+		Scale = 0.5
+		StartScale = 1.05
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "AffinityGaugeBackingFade"
+		InheritFrom = "AffinityGaugeBacking"
+		ChainTo = "null"
+		CreateAnimation = "null"
+		AddColor = false
+		EndBlue = 0.6
+		EndGreen = 0.6
+		EndRed = 0.6
+		StartBlue = 1.0
+		StartGreen = 1.0
+		HoldLastFrame = false
+		EndScale = 0.95
+		StartScale = 1.0
+	}
+	
+	{
+		Name = "SubtitleBacking"
+		InheritFrom = "InteractBacking"
+		ChainTo = "SubtitleBackingFade"
+		OffsetY = 0.0
+		AttachedTextScalarX = 1280.0
+		AttachedTextScalarY = 90.0
+	}
+	
+	{
+		Name = "SubtitleBackingFade"
+		InheritFrom = "InteractBackingFade"
+		OffsetY = 0.0
+	}
+
+	{
+		Name = "BiomeTimerBacking"
+		FilePath = "GUI\HUD\BiomeTimerBacking"
+	}
+	
+	{
+		Name = "LavaVignetteSpawner"
+		FilePath = "Particles\particle_glow"
+		
+		VisualFx = "LavaVignetteRandom"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetX = 960.0
+		OffsetY = 1080.0
+		ScaleX = 5.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.15
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.2 }
+	}
+	
+	{
+		Name = "LavaVignetteEnd"
+		InheritFrom = "LavaVignetteSpawner"
+		VisualFx = "null"
+		StartAlpha = 1.0
+		Duration = 0.3
+	}
+	
+	{
+		Name = "LavaVignetteRandom"
+		
+		Random =
+		[
+			{ Name = "LavaVignetteA" }
+			{ Name = "LavaVignetteB" }
+		]
+	}
+	
+	{
+		Name = "LavaVignetteA"
+		FilePath = "Fx\Vignette\VignetteLavaA"
+		GroupName = "Combat_UI_World_Add"
+		
+		EndAlpha = 1.0
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 0.999
+		PingPongColor = true
+		StartBlue = 0.3
+		StartGreen = 0.6
+		StartRed = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetY = 540.0
+		OriginX = 960.0
+		OriginY = 1080.0
+		EndScaleY = 0.7
+		StartScaleY = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "LavaVignetteB"
+		InheritFrom = "LavaVignetteA"
+		FilePath = "Fx\Vignette\VignetteLavaB"
+	}
+	{
+		Name = "DeathSequenceMelBG"
+		FilePath = "Screens\DeathSequenceMelBG\DeathSequenceMelBG"
+		GroupName = "Overlay"
+		VideoTexture = "DeathSequenceMelBG"
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/PlayerJump"
+		EndFrame = 150
+		HoldLastFrame = true
+		NumFrames = 150
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Material = "Unlit"
+		DisableOwnerInteract = true
+		TimeModifierFraction = 0.1
+	}
+
+	{
+		Name = "DirectionHintArrow"			
+		FilePath = "Fx\ProjectileFire\ProjectileFire"
+		NumFrames = 60
+		AddColor = true
+		Material = "Unlit"
+		VisualFx = "DirectionHintArrowTrail"
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 50
+		VisualFxManagerCap = 400
+		CreateAnimation = "DirectionHintArrowShadow"
+		ChildAnimation = "DirectionalHintGlow"
+		Scale = 0.25
+	}
+
+	{
+		Name = "ResourceFinderArrow"
+		InheritFrom = "DirectionHintArrow"
+		FilePath = "Fx\ResourceFinderHeader\ResourceFinderHeader"
+		NumFrames = 60
+		PlaySpeed = 60
+		Loop = true
+		Material = "Unlit"
+		Scale = 1.0
+		ScaleX = 1.3
+		VisualFx = "ResourceFinderTrail"
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 50
+	}
+
+	{
+		Name = "ResourceFinderArrowOut"
+		InheritFrom = "ResourceFinderArrow"
+		StartScale = 1
+		EndScale = 0
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0.5
+		EndBlue = 0.99
+		LocationZFromOwner = "Take"
+	}
+
+
+	{
+		Name = "DirectionalHintGlow"			
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 0.1
+		Duration = 0.2
+		HoldLastFrame = true
+		Red = 0.7
+		Green = 0.9
+		Blue = 1
+		DieWithOwner = true
+	}
+
+	{
+		Name = "DirectionHintArrowShadow"
+		InheritFrom = "DirectionHintArrow"
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		CreateAnimation = null
+		VisualFx = null
+		Alpha = 0.25
+	}
+
+	{
+		Name = "DirectionHintArrowTrail"
+		
+		FilePath = "Fx\ArtemisRangedTrail\ArtemisRangedTrail"
+		LocationZFromOwner = "Take"
+		NumFrames = 53
+		PlaySpeed = 30
+		GroupName = "FX_Standing_Add"
+		Saturation = -1
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Scale = 0.25
+		StartAlpha = 0.25
+		ScaleY = 0.5
+		ScaleX = 2
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		EndAlpha = 0
+		VisualFxManagerCap = 150
+		CreateAnimations = [
+			{ Name = "DirectionHintArrowTrailShadow" }
+			{ Name = "DirectionHintParticle" }
+		]
+	}
+
+	{
+		Name = "ResourceFinderTrail"
+		InheritFrom = "DirectionHintArrowTrail"
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartRed = 0
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 1
+		EndGreen = 0.5
+		EndBlue = 0.25
+		CreateAnimations = [
+			{ Name = "ResourceFinderTrail2" }
+			{ Name = "DirectionHintArrowTrailShadow" }
+			{ Name = "ResourceFinderParticle" }
+		]
+	}
+
+	{
+		Name = "ResourceFinderTrail2"
+		InheritFrom = "ResourceFinderArrow"
+		TransferFrameToThis = true
+		Loop = false
+		LoopFramesOnly = true
+		Duration = 1
+		StartAlpha = 0.15
+		EndAlpha = 0
+		PlaySpeed = 0.0001
+		VisualFx = null
+		LocationFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		CreateAnimation = null
+		StartScaleY = 0.2
+		EndScaleY = 1.5
+		DieWithOwner = false
+		LocationZFromOwner = "Take"
+		Red = 0.3
+		Green = 0.6
+		Blue = 1.0
+	}
+
+	{
+		Name = "DirectionHintArrowTrailShadow"
+		InheritFrom = "DirectionHintArrowTrail"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		GroupName = "Shadows"
+		Alpha = 0.2
+	}
+
+	{
+		Name = "DirectionHintParticle"			
+		FilePath = "Particles\particle_addFlake2"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0
+		EndRed = 0
+		EndGreen = 0.75
+		EndBlue = 1
+		AngleMin = -20
+		AngleMax = 20
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -30
+		ScaleMin = 0.1
+		ScaleMax = 0.3
+		AlphaMin = 0.2
+		AlphaMax = 1.0
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.5
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		StartScale = 1
+		EndScale = 0
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ResourceFinderParticle"
+		InheritFrom = "DirectionHintParticle"
+		FilePath = "Particles\particle_aphrodite_sparkle_noglow"
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 0.001
+		UseOwnAngle = false
+		RandomRotation = false
+		Hue = -0.2
+		Scale = 1
+		ScaleMin = 0.3
+		ScaleMax = 0.9
+		StartRed = 0.999
+		StartGreen = 0.999
+		StartBlue = 0.999
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "BaseMiniRoomPreviewIcon"
+	
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Scale = 0.5
+	}
+	{
+		Name = "GatherIcon"
+		InheritFrom = "BaseMiniRoomPreviewIcon"
+		FilePath = "GUI\Icons\Gather"
+	}
+	{
+		Name = "ShovelIcon"
+		FilePath = "GUI\Icons\Shovel"
+		InheritFrom = "BaseMiniRoomPreviewIcon"
+	}
+	{
+		Name = "ExorcismIcon"
+		FilePath = "GUI\Icons\ExorcismBook"
+		InheritFrom = "BaseMiniRoomPreviewIcon"
+	}
+	{
+		Name = "PickaxeIcon"
+		FilePath = "GUI\Icons\Pickaxe"
+		InheritFrom = "BaseMiniRoomPreviewIcon"
+	}
+	{
+		Name = "FishingIcon"
+		FilePath = "GUI\Icons\FishingRod"
+		InheritFrom = "BaseMiniRoomPreviewIcon"
+	}
+
+	{
+		Name = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_Boss"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.5
+	}	
+	{
+		Name = "RoomRewardSubIcon_ForgetMeNot"
+		InheritFrom = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_ForgetMeNot"
+	}
+	{
+		Name = "RoomRewardSubIcon_ForgetMeNot_Complete"
+		InheritFrom = "RoomRewardSubIcon_ForgetMeNot"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_ForgetMeNot_Complete"
+	}	
+	{
+		Name = "RoomRewardSubIcon_Miniboss"
+		InheritFrom = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_Miniboss"
+	}
+	{
+		Name = "RoomRewardSubIcon_FatedList"
+		InheritFrom = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_FatedList"
+	}
+	{
+		Name = "RoomRewardSubIcon_Onion"
+		InheritFrom = "RoomRewardSubIcon_Boss"
+		FilePath = "GUI\Icons\RoomReward\SubIcon_Onion"
+	}
+	{
+		Name = "GodMode"
+		InheritFrom = "BoonIcon"
+		FilePath = "GUI\Screens\BoonIcons\godmode"
+	}
+	{
+		Name = "DaggerThrowAimLine"
+		FilePath = "GUI\Widgets\Target_Line_Dagger"
+		
+		UseOwnAngle = false
+		OriginX = 16.0
+		OriginY = 107.0
+		ScaleLength = 967.0
+		ScaleWidth = 120.0
+		Material = "Emissive"
+	}
+
+	{
+		Name = "SuitCenterAimline"
+		FilePath = "Fx\Suit\SuitTargetingArcIn\SuitTargetingArcIn"
+		NumFrames = 20
+		UseOwnAngle = true
+		HoldLastFrame = true
+		Duration = 0.2
+		OriginX = 7.0
+		OriginY = 200.0
+		ScaleLength = 575.0
+		ScaleWidth = 11.0 //Overloaded in THIS INSTANCE ONLY to represent the arc
+		PostRotateScaleY = 0.6
+		Material = "Emissive"
+		AngleFromOwner = "Maintain"
+		UseAttachedFlasher = false
+		GroupName = "FX_Terrain_Add"
+		ChildAnimation = "SuitCenterAimlineLoop"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.001
+		Sound = "/SFX/Player Sounds/MelinoeSuitOmegaStartAndLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "SuitCenterAimlineLoop"
+		InheritFrom = "SuitCenterAimline"
+		ChildAnimation = "SuitCenterAimlineHires"
+		FilePath = "Fx\Suit\SuitTargetingArcLoop\SuitTargetingArcLoop"
+		Loop = true
+		HoldLastFrame = false
+		ChainTo = "SuitCenterAimlineOut"
+		PlaySpeed = 30
+		Duration = 2
+		OffsetZ = 5
+		Alpha = 0.4
+	}
+
+	{
+		Name = "SuitCenterAimlineHires"
+		FilePath = "GUI\Widgets\SuitTargetingArc"
+		Material = "Unlit"
+		Duration = 0.4
+		Loop = true
+		OriginX = 14
+		OriginY = 350
+		Scale = 0.5
+		PostRotateScaleY = 0.6
+		UseAttachedFlasher = false
+		StartAlpha = 0
+		EndAlpha = 0.5
+		HoldLastFrame = true
+
+	}
+
+	{
+		Name = "SuitCenterAimlineOut"
+		InheritFrom = "SuitCenterAimline"
+		FilePath = "Fx\Suit\SuitTargetingArcOut\SuitTargetingArcOut"
+		ChainTo = "null"
+		AngleFromOwner = "Take"
+		NumFrames = 9
+		Duration = 0.15
+	}
+	{
+		Name = "SuitLeftAimline"
+		FilePath = "GUI\Widgets\Target_Wedge_Left_Trimmed"
+		UseOwnAngle = true
+		OriginX = 7.0
+		OriginY = 100.0
+		ScaleLength = 500.0
+		ScaleWidth = 120.0
+		Material = "Emissive"
+		AngleFromOwner = "Maintain"
+	}
+	{
+		Name = "SuitRightAimline"
+		FilePath = "GUI\Widgets\Target_Wedge_Right_Trimmed"
+		UseOwnAngle = true
+		OriginX = 7.0
+		OriginY = 101.0
+		ScaleLength = 500.0
+		ScaleWidth = 120.0
+		Material = "Emissive"
+		AngleFromOwner = "Maintain"
+	}
+
+	/* Fishing */
+
+	{
+		Name = "BaseFishIcon"
+		SortMode = "Id"
+		Material = "Unlit"
+		FilePath = "Items\Resources\Fish\FishFCommon"
+	}
+
+	{
+		Name = "FishFCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishFCommon"
+	}
+	{
+		Name = "FishFRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishFRare"
+	}
+	{
+		Name = "FishFLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishFLegendary"
+	}
+
+	{
+		Name = "FishGCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishGCommon"
+	}
+	{
+		Name = "FishGRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishGRare"
+	}
+	{
+		Name = "FishGLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishGLegendary"
+	}
+
+	{
+		Name = "FishHCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishHCommon"
+	}
+	{
+		Name = "FishHRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishHRare"
+	}
+	{
+		Name = "FishHLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishHLegendary"
+	}
+
+	{
+		Name = "FishICommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishICommon"
+	}
+	{
+		Name = "FishIRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishIRare"
+	}
+	{
+		Name = "FishILegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishILegendary"
+	}
+
+	{
+		Name = "FishNCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishNCommon"
+	}
+	{
+		Name = "FishNRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishNRare"
+	}
+	{
+		Name = "FishNLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishNLegendary"
+	}
+
+	{
+		Name = "FishOCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishOCommon"
+	}
+	{
+		Name = "FishORare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishORare"
+	}
+	{
+		Name = "FishOLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishOLegendary"
+	}
+
+	{
+		Name = "FishPCommon"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishPCommon"
+	}
+	{
+		Name = "FishPRare"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishPRare"
+	}
+	{
+		Name = "FishPLegendary"
+		InheritFrom = "BaseFishIcon"
+		FilePath = "Items\Resources\Fish\FishPLegendary"
+	}
+
+	{
+		Name = "FishBCommon"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishBCommon"
+	}
+	{
+		Name = "FishBRare"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishBRare"
+	}
+	{
+		Name = "FishBLegendary"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishBLegendary"
+	}
+
+	{
+		Name = "FishChaosCommon"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishChaosCommon"
+	}
+	{
+		Name = "FishChaosRare"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishChaosRare"
+	}
+	{
+		Name = "FishChaosLegendary"
+		InheritFrom = "BaseFishIcon"
+		Scale = 1
+		FilePath = "Items\Resources\Fish\FishChaosLegendary"
+	}
+
+
+	{
+		Name = "FishingReelTimerSuccess"
+		FilePath = "GUI\HUD\Harvest\FishingTimerBacking"
+		ChildAnimation = "PortraitRespawnFill10FishingSuccess"
+		Material = "Unlit"
+		Duration = 1
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartRed = 0.1
+		StartGreen = 0.4
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Scale = 0.75
+		StartScale = 1.05
+		EndScale = 1.0
+		ChainTo = "FishingReelTimerOut"
+	}
+
+	{
+		Name = "FishingReelTimerOut"
+		FilePath = "GUI\HUD\Harvest\FishingTimerBacking"
+		Material = "Unlit"
+		Duration = 0.125
+		AngleFromOwner = "Ignore"
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		Scale = 0.75
+		StartScale = 1
+		EndScale = 0
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "FishingReelTimerFail"
+		InheritFrom = "FishingReelTimerSuccess"
+		ChildAnimation = "PortraitRespawnFill10Red"
+		StartRed = 0.7
+		StartGreen = 0.1
+		StartBlue = 0.05
+
+	}
+
+	{
+		Name = "ExorcismPip"
+		FilePath = "GUI\HUD\Harvest\ExorcismPipUnfilled"
+		AddColor = true
+		StartRed = 0.01
+		StartGreen = 0.5
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		HoldLastFrame = true
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 0.75
+	}
+
+	{
+		Name = "ExorcismPip_Full"
+		InheritFrom = "ExorcismPip"
+		FilePath = "GUI\HUD\Harvest\ExorcismPipFilled"
+	}
+
+	{
+		Name = "ExorcismPipBackingLeft"
+		FilePath = "GUI\HUD\Harvest\ExorcismBackingLeft"
+		Material = "Unlit"
+		Scale = 0.75
+		OffsetX = -10
+	}
+	{
+		Name = "ExorcismPipBackingRight"
+		FilePath = "GUI\HUD\Harvest\ExorcismBackingRight"
+		Material = "Unlit"
+		Scale = 0.75
+		OffsetX = 10
+	}
+	{
+		Name = "ExorcismPipBackingMid"
+		FilePath = "GUI\HUD\Harvest\ExorcismBackingMid"
+		Material = "Unlit"
+		Scale = 0.75
+		ScaleX = 1.25
+	}
+
+	{
+		Name = "BloodFrame"
+		FilePath = "Screens\BloodFrame\BloodFrame"
+		Alpha = 0.8
+		StartAlpha = 1.0
+		Duration = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Material = "Unlit"
+	}		
+
+	{
+		Name = "ArmorHitFrame"
+		FilePath = "Fx\ArmorShroud\ArmorShroud"
+		Alpha = 1.0
+		StartScale = 1
+		EndScale = 1.02
+		StartAlpha = 1.0
+		Duration = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Material = "Unlit"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.5
+		EndGreen = 0.82
+		EndBlue = 0.999
+		CreateAnimation = "ArmorHitFrameDisplacement"
+	}
+
+	{
+		Name = "ArmorHitFrameDisplacement"
+		InheritFrom = "ArmorHitFrame"
+		CreateAnimation = null
+		GroupName = "FX_Displacement"
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Red = 0.75
+		Green = 0.5
+		Blue = 0
+		StartAlpha = 0.2
+	}
+
+	{
+		Name = "PerfectShotShroud"
+		FilePath = "GUI\CritShroud"
+		
+		StartAlpha = 1.0
+		Duration = 0.2
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		Material = "Unlit"
+		GroupName = "Combat_UI_World_Add"
+		StartScale = 1
+		EndScale = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "PerfectShotShroud_Dark"
+		InheritFrom = "PerfectShotShroud"
+		FilePath = "GUI\CritShroud_Dark"
+		Duration = 0.4
+		EndAlpha = 0.0
+		EndScale = 1.1
+		GroupName = "Combat_UI_World"
+		CreateAnimation = null
+	}
+	/* Room Transitions */
+
+	{
+		Name = "RoomTransitionIn"
+		FilePath = "Screens\RoomTransition\RoomTransition"
+		VideoTexture = "RoomTransition"
+		EndFrame = 20
+		HoldLastFrame = true
+		NumFrames = 20
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Material = "Unlit"
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "RoomTransitionOut"
+		InheritFrom = "RoomTransitionIn"
+		FilePath = "Screens\RoomTransitionOut\RoomTransitionOut"
+		VideoTexture = "RoomTransitionOut"
+		HoldLastFrame = false
+	}
+
+	{
+		Name = "RoomTransitionOutSlow"
+		InheritFrom = "RoomTransitionOut"
+		PlaySpeed = 10
+	}
+
+	{
+		Name = "RoomTransitionInBlack"			
+		FilePath = "Screens\RoomTransition\RoomTransition0020"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		Duration = 0.45
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "RoomTransitionOutBlack"			
+		FilePath = "Screens\RoomTransition\RoomTransition0020"
+		StartAlpha = 1.0
+		EndAlpha = 0.0
+		Duration = 0.45
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "RerollTransitionIn"
+		InheritFrom = "RoomTransitionIn"
+		AddColor = true
+		PlaySpeed = 29
+	}
+
+	{
+		Name = "RerollTransitionOut"
+		InheritFrom = "RoomTransitionOut"
+		AddColor = true
+		HoldLastFrame = false
+		CreateAnimation = "RerollFxSpawner"
+	}
+
+	{
+		Name = "RerollFxSpawner"			
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "RerollFx"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		Duration = 0.75
+		DieWithOwner = false
+		GroupName = "Combat_Menu_TraitTray_Additive"
+	}
+
+	{
+		Name = "RerollFx"			
+		Random = [
+			{ Name= "RerollFxRight" }
+			{ Name= "RerollFxLeft" }
+		]
+	}
+
+	{
+		Name = "RerollFxRight"			
+		FilePath = "Particles\particle_ember_01_glow_add"
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue= 0
+		EndRed = 0
+		EndGreen = 0.2
+		EndBlue = 1.0
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+		RandomRotation = true
+		RadialOffsetMin = 400
+		RadialOffsetMax = 960
+		RadialOffsetScaleY = 0.66
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -200
+		ScaleMin = 0.1
+		ScaleMax = 0.5
+		AddColor = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 1.0
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		AngleMin = -22
+		AngleMax = 22
+		RandomOffsetY = 380
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		DieWithOwner = false
+		AngleChangeSpeedMin = -45
+		AngleChangeSpeedMax = 45
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+	}
+
+	{
+		Name = "RerollFxLeft"
+		InheritFrom = "RerollFxRight"
+		CreateAnimation = null
+		AngleMin = 158
+		AngleMax = 202
+	}
+
+
+	{
+		Name = "LowHealthShroud"
+		FilePath = "GUI\combat_shroud"			
+		EndAlpha = 0.25
+		StartAlpha = 0.5
+		Duration = 2.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+	}
+
+	{
+		Name = "LocationTextBGShine_Top"			
+		FilePath = "GUI\LocationTextBGShine\LocationTextBGShine"
+		NumFrames = 30
+		ScaleX = 4
+		ScaleY = 2
+		OffsetY = -70
+		Loop = false
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Overlay_Additive"
+		PlaySpeed = 30
+		DieWithOwner = true
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartRed = 0.9999
+		StartGreen = 0.5
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+	}
+
+	{
+		Name = "LocationTextBGShine_Bottom"
+		InheritFrom = "LocationTextBGShine_Top"
+		CreateAnimation = null
+		PlaySpeed = 24
+		OffsetY = 30
+	}
+
+
+	{ 
+		Name = "LocationBackingIrisGenericIn"
+		FilePath = "GUI\LocationBackings\LocationBacking\LocationBacking"
+		NumFrames = 44
+		OffsetY = 60
+		Slides = [
+
+			{ DurationFrames = 2 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 999 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "LocationBackingIrisGenericOut"
+		InheritFrom = "LocationBackingIrisGenericIn"
+		Slides = [
+
+			{ DurationFrames = 0 }
+			/*Frame 1*/
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			/*Frame 10*/
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			/*Frame 20*/
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{ 
+		Name = "LocationBackingGradient"
+		FilePath = "GUI\LocationBackings\LocationBackingGradient_01"
+		Duration = 0.2
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		HoldLastFrame = true
+		Material = "Unlit"
+		SortMode = "Id"
+		OffsetY = 380
+		Alpha = 1
+	}
+
+	{
+		Name = "LocationBackingIrisDeathIn"
+		InheritFrom = "LocationBackingIrisGenericIn"
+		FilePath = "GUI\LocationBackings\DeathBacking\DeathBacking"
+	}
+
+	{
+		Name = "LocationBackingIrisDeathOut"
+		InheritFrom = "LocationBackingIrisGenericOut"
+		FilePath = "GUI\LocationBackings\DeathBacking\DeathBacking"
+	}
+
+	{
+		Name = "LocationBackingIrisChaosIn"
+		InheritFrom = "LocationBackingIrisGenericIn"
+		FilePath = "GUI\LocationBackings\DeathBacking\DeathBacking"
+		Red = 1.0
+		Green = 0.4
+		Blue = 1.0
+	}
+
+	{
+		Name = "LocationBackingIrisChaosOut"
+		InheritFrom = "LocationBackingIrisGenericOut"
+		FilePath = "GUI\LocationBackings\DeathBacking\DeathBacking"
+		Red = 1.0
+		Green = 0.4
+		Blue = 1.0
+	}
+
+	{
+		Name = "LocationTextBG"
+		FilePath = "GUI\UnlockTextBG\LocationTextBG"
+		EndFrame = 44
+		NumFrames = 44
+		PlaySpeed = 30.0
+		StartFrame = 1
+		VisualFx = "LocationTextBGShine_Top"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.51
+		VisualFxCap = 1
+		SortMode = "Id"
+		Sound = "/SFX/Menu Sounds/GenericPanelIn"
+		Material = "Unlit"
+		Slides = [
+
+			{ DurationFrames = 2 }
+			/*Frame 1*/
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 999 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "LocationTextBGFish"
+		InheritFrom = "LocationTextBG"
+		FilePath = "GUI\FishCaughtBG\FishCaughtBG"
+		VisualFx = null
+		Sound = "/SFX/Menu Sounds/FishPanelIn"
+	}
+
+	{
+		Name = "LocationTextBGRelationship"
+		InheritFrom = "LocationTextBG"
+		FilePath = "GUI\RelationshipBG\RelationshipBG"
+		VisualFx = null
+		Sound = "/SFX/Menu Sounds/RelationshipPanelIn"
+	}
+
+	{
+		Name = "LocationTextBGGeneric"
+		InheritFrom = "LocationTextBG"
+		FilePath = "GUI\GenericBG\GenericBG"
+		ChildAnimation = "LocationTextGenericColorIn"			
+		VisualFx = null
+		ClearSlides = true
+		StartFrame = 1
+		NumFrames = 26
+		EndFrame = 26
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "LocationTextGenericColorIn"			
+		FilePath = "GUI\GenericBG\GenericBG_Color0002"
+		HoldLastFrame = true
+		Material = "Unlit"
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+	}
+
+	{
+		Name = "LocationTextGenericColorOut"			
+		FilePath = "GUI\GenericBG\GenericBG_Color0002"
+		HoldLastFrame = true
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.2
+	}
+
+	{
+		Name = "BountySparkles"			
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		OffsetX = -160
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Duration = 6
+		Scale = 0
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		VisualFx = "BountySparkleRandom"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.12
+	}
+
+	{
+		Name = "BountySparkleRandom"
+		
+		Random = [
+			{ Name = "BountySparkleLeft" }
+			{ Name = "BountySparkleRight" }
+		]
+	}
+
+	{
+		Name = "BountySparkleLeft"
+		
+		FilePath = "Particles\particle_gold_sparkle"
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		LocationFromOwner = "Take"
+		OffsetX = -640
+		RandomOffsetX = 200
+		RandomOffsetY = 120
+		StartScale = 0
+		EndScale = 2
+		PingPongScale = true
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		AngleMin = 170
+		AngleMax = 190
+		VelocityMin = 10
+		VelocityMax = 100
+		Acceleration = -50
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Gravity = 40
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+	}
+
+	{
+		Name = "BountySparkleRight"
+		InheritFrom = "BountySparkleLeft"
+		AngleMin = -10
+		AngleMax = 10
+		OffsetX = 640
+	}
+
+
+	{
+		Name = "FishCatchPresentationSparkles"
+		InheritFrom = "BountySparkles"
+		VisualFx = "FishCatchPresentationSparkle"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		Duration = 1.5
+		OffsetY = 540
+	}
+
+
+
+	{
+		Name = "FishCatchPresentationSparkle"
+		
+		FilePath = "Particles\particle_gold_sparkle"
+		Material = "Unlit"
+		GroupName = "Combat_Menu_TraitTray_Additive"
+		LocationFromOwner = "Take"
+
+		AngleFromOwner = "Ignore"
+		StartScale = 0
+		EndScale = 2
+		PingPongScale = true
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Gravity = 40
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+		OffsetX = 0
+		RadialOffsetMin = 100
+		RadialOffsetMax = 200
+		AngleMin = 0
+		AngleMax = 359
+		OffsetY = 140
+		VelocityMin = 30
+		VelocityMax = 60
+		Acceleration = -20
+		RandomOffsetX = 0
+		RandomOffsetY = 0
+	}
+
+
+
+	{
+		Name = "GodHoodRays"
+		
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		GroupName = "Overlay"
+		ChildAnimation = "BountySparkles"
+		OffsetX = 0
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 6
+		Scale = 4
+		StartScale = 1
+		EndScale = 2
+		StartAlpha = 0
+		EndAlpha = 0.1
+		PingPongColor = true
+		LocationFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		VisualFx = "GodHoodRaysRandom"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.12
+		VisualFxCap = 16
+		StartRed = 0
+		StartGreen = 0.2
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 1.0
+		EndBlue = 0.8
+	}
+
+	{
+		Name = "GodHoodRaysRandom"
+		
+		Random = [
+			{ Name = "GodHoodRayLeft" }
+			{ Name = "GodHoodRayRight" }
+		]
+	}
+
+	{
+		Name = "GodHoodRayLeft"
+		
+		FilePath = "Fx\DionysusRainbowShard\DionysusRainbowShard"
+		NumFrames = 40
+		Material = "Unlit"
+		GroupName = "Overlay"
+		LocationFromOwner = "Take"
+		OffsetX = 0
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		StartScaleX = 1
+		EndScaleX = 2
+		PingPongScale = false
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		ScaleY = 0.8
+		FlipHorizontal = true
+		AngleMin = 170
+		AngleMax = 180
+		VelocityMin = 10
+		VelocityMax = 100
+		Acceleration = -50
+		UseOwnAngle = true
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		AlphaMin = 0.1
+		AlphaMax = 0.5
+		OriginX = -420
+		OriginY = 32
+		EaseIn = 0.8
+		EaseOut = 1
+		SortMode = "Id"
+	}
+
+	{
+		Name = "GodHoodRayRight"
+		InheritFrom = "GodHoodRayLeft"
+		AngleMin = 0
+		AngleMax = 10
+		OffsetX = 0
+		FlipHorizontal = false
+	}
+
+	{
+		Name = "LocationTextBGOut"
+		FilePath = "GUI\UnlockTextBG\LocationTextBG"
+		EndFrame = 44
+		NumFrames = 44
+		PlaySpeed = 30.0
+		StartFrame = 1
+		SortMode = "Id"
+		Material = "Unlit"
+		Sound = "/SFX/Menu Sounds/RelationshipPanelOut"
+		Slides = [
+
+			{ DurationFrames = 0 }
+			/*Frame 1*/
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			/*Frame 10*/
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			/*Frame 20*/
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 30*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 40*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "LocationTextBGFishOut"
+		InheritFrom = "LocationTextBGOut"
+		FilePath = "GUI\FishCaughtBG\FishCaughtBG"
+	}
+
+	{
+		Name = "LocationTextBGRelationshipOut"
+		InheritFrom = "LocationTextBGOut"
+		FilePath = "GUI\RelationshipBG\RelationshipBG"
+		Sound = "/SFX/Menu Sounds/RelationshipPanelOut"
+	}
+
+	{
+		Name = "LocationTextBGGenericOut"
+		InheritFrom = "LocationTextBGOut"
+		FilePath = "GUI\GenericBG\GenericBG"
+	}
+
+	{
+		Name = "LocationTextGenericColorIn_WeaponUnlock"
+		InheritFrom = "LocationTextGenericColorIn"
+		Hue = 0.58
+	}
+	{
+		Name = "LocationTextBGGeneric_WeaponUnlock"
+		InheritFrom = "LocationTextBGGeneric"
+		ChildAnimation = "LocationTextGenericColorIn_WeaponUnlock"
+	}
+	{
+		Name = "LocationTextGenericColorOut_WeaponUnlock"
+		InheritFrom = "LocationTextGenericColorOut"
+		Hue = 0.58
+	}
+	{
+		Name = "LocationTextBGGenericOut_WeaponUnlock"
+		InheritFrom = "LocationTextBGGenericOut"
+		ChildAnimation = "LocationTextGenericColorOut_WeaponUnlock"
+	}
+
+	{
+		Name = "LocationTextGenericColorIn_GodHood"
+		InheritFrom = "LocationTextGenericColorIn"
+		Hue = -0.24
+	}
+	{
+		Name = "LocationTextBGGeneric_GodHood"
+		InheritFrom = "LocationTextBGGeneric"
+		ChildAnimation = "LocationTextGenericColorIn_GodHood"
+	}
+	{
+		Name = "LocationTextGenericColorOut_GodHood"
+		InheritFrom = "LocationTextGenericColorOut"
+		Hue = -0.24
+	}
+	{
+		Name = "LocationTextBGGenericOut_GodHood"
+		InheritFrom = "LocationTextBGGenericOut"
+		ChildAnimation = "LocationTextGenericColorOut_GodHood"
+	}
+
+	{
+		Name = "LocationTextBGGeneric_Mirror"
+		InheritFrom = "LocationTextBGGeneric"
+		ChildAnimation = "LocationTextGenericColorIn_Mirror"
+	}
+	{
+		Name = "LocationTextBGGenericOut_Mirror"
+		InheritFrom = "LocationTextBGGenericOut"
+		ChildAnimation = "LocationTextGenericColorOut_Mirror"
+	}
+	{
+		Name = "LocationTextGenericColorIn_Mirror"
+		InheritFrom = "LocationTextGenericColorIn"
+		Hue = 0.25
+	}
+	{
+		Name = "LocationTextGenericColorOut_Mirror"
+		InheritFrom = "LocationTextGenericColorOut"
+		Hue = 0.25
+	}
+
+	{
+		Name = "UnlockTextBG"
+		InheritFrom = "LocationTextBG"
+		EndFrame = 44
+		StartFrame = 1
+		ScaleX = 0.5
+	}
+
+	
+	{
+		Name = "Nightmare_ThroneRoom"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_ThroneRoom"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Chronos_01"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Chronos"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+	}
+	
+	{
+		Name = "Nightmare_Chronos_02"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Chronos"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+	}
+	
+	{
+		Name = "Nightmare_Chronos_03"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Chronos"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_01"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_01"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_02"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_02"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_03"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_03"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_04"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_04"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_05"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_05"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_06"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_06"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Crossroads_07"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Crossroads_07"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Fields"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Fields"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Ships"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Ships"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Isles_01"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Isles_01"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+	{
+		Name = "Nightmare_Isles_02"
+		InheritFrom = "EpilogueBaseAnim"
+		FilePath = "GUI\Epilogue\Nightmare_Isles_02"
+		EndBlue = 1.0
+		EndGreen = 1.0
+		EndRed = 1.0
+		StartBlue = 0.7
+		StartGreen = 0.75
+		StartRed = 0.86
+		EndOffsetX = 50.0
+		StartOffsetX = -125.0
+	}
+	
+
+]}

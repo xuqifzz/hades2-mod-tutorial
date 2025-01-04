@@ -34,10 +34,6 @@
 		GrannyModel = "WeaponDaggerA_Pan_Mesh"
 	}
 	{
-		Name = "WeaponDaggerA_Morrigan"
-		GrannyModel = "WeaponDaggerA_Morrigan_Mesh"
-	}
-	{
 		Name = "WeaponDaggerRBase"
 		GrannyModel = "WeaponDaggerA_Mesh"
 		Scale = 1.2
@@ -45,7 +41,6 @@
 		[
 			{ Name = "WeaponDaggerA_Artemis" }
 			{ Name = "WeaponDaggerA_Pan" }
-			{ Name = "WeaponDaggerA_Morrigan" }
 		]
 	}
 	{
@@ -57,10 +52,6 @@
 		GrannyModel = "WeaponDaggerB_Pan_Mesh"
 	}
 	{
-		Name = "WeaponDaggerB_Morrigan"
-		GrannyModel = "WeaponDaggerB_Morrigan_Mesh"
-	}
-	{
 		Name = "WeaponDaggerLBase"	
 		GrannyModel = "WeaponDaggerB_Mesh"
 		Scale = 1.2
@@ -68,7 +59,6 @@
 		[
 			{Name = "WeaponDaggerB_Artemis"}
 			{Name = "WeaponDaggerB_Pan"}
-			{Name = "WeaponDaggerB_Morrigan"}
 		]
 	}
 
@@ -163,11 +153,21 @@
 			{ Name = "Melinoe_Dagger_Special_Start" }
 			{ Name = "Melinoe_Dagger_Special_StartLoop" }
 			{ Name = "Melinoe_Dagger_Special_Fire" }
+			{ Name = "Melinoe_Dagger_SpecialEx_Fire" }
 			{ Name = "Melinoe_Dagger_Cast_Start" }
 			{ Name = "Melinoe_Dagger_Cast_QuickCompleteFire" }
 			{ Name = "Melinoe_Dagger_Cast_Fire2" }
 			{ Name = "Melinoe_Dagger_Cast_StartLoop" }
 			{ Name = "Melinoe_Dagger_Cast_Fire" }
+			{ Name = "MelinoeCrossCastAntic" }
+			{ Name = "Melinoe_CrossCast_Start_Fast" }
+			{ Name = "MelinoeCrossCastCharge" }
+			{ Name = "MelinoeCrossCast" }
+			{ Name = "MelinoeCrossCastHold" }
+			{ Name = "Melinoe_ForwardCast_Start" }
+			{ Name = "Melinoe_ForwardCast_Fire" }
+			{ Name = "Melinoe_ForwardCast_FireLoop" }
+			{ Name = "Melinoe_ForwardCast_FireLoop2" }
 		]
 	}
 

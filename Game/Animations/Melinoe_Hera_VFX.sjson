@@ -19,7 +19,7 @@
 		OffsetZ = 30.0
 		ScaleFromOwner = "Ignore"
 		VisualFxManagerCap = 400
-		VisualFxManagerFrameCap = 14
+		VisualFxManagerFrameCap = 12
 		VisualFxCap = 6
 		VisualFxIntervalMax = 0.03
 		VisualFxIntervalMin = 0.01
@@ -96,6 +96,32 @@
 		[
 			{ Name = "HeraProjectileAnimDark" }
 			{ Name = "HeraProjectileAnim2" }
+		]
+	}
+	{
+		Name = "HeraProjectileAnim_Devotion"
+		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLine"
+		GroupName = "FX_Terrain_Add"
+		
+		VisualFx = "HeraProjectileAnimGlow"
+		Sound = "/SFX/Player Sounds/HeraProjectileLoopQuake"
+		StopSoundOnFinishFade = 0.2
+		Alpha = 0.0
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		ScaleLength = 2048.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.11
+		VisualFxIntervalMin = 0.1
+		Color = { Red = 1, Green = 0.05, Blue = 0.2 }
+		CreateAnimations =
+		[
+			{ Name = "HeraProjectileAnimDark_Devotion" }
+			{ Name = "HeraProjectileAnim2_Devotion" }
 		]
 	}
 	
@@ -272,10 +298,38 @@
 		DieWithOwner = true
 		CreateAnimations = []
 	}
-	
+	{
+		Name = "HeraProjectileAnim2_Devotion"
+		InheritFrom = "HeraProjectileAnim_Devotion"
+		Sound = "/EmptyCue"
+		Alpha = 1.0
+		DieWithOwner = true
+		CreateAnimations = []
+	}
+
 	{
 		Name = "HeraProjectileAnimDark"
 		InheritFrom = "HeraProjectileAnim"
+		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLineDark"
+		GroupName = "FX_Terrain"
+		
+		Sound = "/EmptyCue"
+		Alpha = 1.0
+		EndBlue = 0.5
+		EndGreen = 0.01
+		EndRed = 0.25
+		PingPongColor = true
+		Duration = 1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		CreateAnimations = []
+	}
+	{
+		Name = "HeraProjectileAnimDark_Devotion"
+		InheritFrom = "HeraProjectileAnim_Devotion"
 		FilePath = "Fx\HeraCastGroundLine\HeraCastGroundLineDark"
 		GroupName = "FX_Terrain"
 		

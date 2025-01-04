@@ -17,7 +17,7 @@ RoomSetData.O =
 		HasExorcismPoint = true,
 		SecretSpawnChance = 0.0,
 		WellShopSpawnChance = 0.0,
-		SurfaceShopSpawnChance = 0.25,
+		SurfaceShopSpawnChance = 0.15,
 		TargetMetaRewardsRatio = 0.30,
 
 		HarvestPointChances =
@@ -27,9 +27,18 @@ RoomSetData.O =
 
 		BreakableValueOptions = { MaxHighValueBreakables = 0 },
 
+		TimeChallengeSwitchRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitchesSurface1" },
+			},
+		},
 		TimeChallengeEncounterOptions = { "TimeChallengeO" },
+		PerfectClearEncounterOptions = { "PerfectClearChallengeO" },
+		EliteChallengeEncounterOptions = { "EliteChallengeO" },
 
 		EntranceFunctionName = "ShipsRoomEntrancePresentation",
+		EntrancePresentationDelay = 3,
 
 		ZoomFraction = 0.80,
 		EntranceDirection = "Right",
@@ -43,11 +52,15 @@ RoomSetData.O =
 		StopSecretMusic = true,
 		ReverbValue = 0.1,
 
-		SpeakerName = "Ships",
 		SwapSounds =
 		{
 			["/Leftovers/SFX/FootstepsWheat2Small"] = "/Leftovers/SFX/FootstepsWoodSmall",
 			["/Leftovers/SFX/FootstepsWheat"] = "/Leftovers/SFX/FootstepsWoodRun",
+		},
+		SwapAnimations =
+		{
+			["SpellMeteorCrater"] = "Blank",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
 		},
 
 		StartThreadedEvents =
@@ -81,7 +94,7 @@ RoomSetData.O =
 				{
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsNone = { "O_MiniBoss01", "O_Story01", "O_Shop01", "O_PreBoss01" },
+						IsNone = { "O_MiniBoss01", "O_Story01", "O_Shop01", "O_PreBoss01", "O_PostBoss01" },
 					},
 				},
 
@@ -95,7 +108,8 @@ RoomSetData.O =
 	O_Intro =
 	{
 		InheritFrom = { "BaseO", "BiomeStartRoom"},
-		LegalEncounters = { "O_Empty" },
+		LegalEncounters = { "Empty" },
+
 		ZoomFraction = 0.75,
 		IntroSequenceDuration = 0.7,
 		Starting = true,
@@ -142,7 +156,12 @@ RoomSetData.O =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked" },
+						PathFalse = { "GameState", "FamiliarsUnlocked", "CatFamiliar" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "H_Bridge01" },
+						Comparison = ">",
+						Value = 1,
 					},
 					{
 						Path = { "GameState", "FishingSuccesses" },
@@ -159,6 +178,7 @@ RoomSetData.O =
 					{
 						OnUsedFunctionName = "nil",
 						SpecialInteractFunctionName = "CatFamiliarSpecialInteractLockedInRun",
+						PreRecruit = true,
 						DistanceTriggers =
 						{
 							{
@@ -170,7 +190,7 @@ RoomSetData.O =
 									AngleTowardHero = true,
 									SetAnimation = "Familiar_Cat_Sleep_Awaken",
 									Sound = "/SFX/Familiars/CatMeow1",
-									VoiceLines = GlobalVoiceLines.CatReactionVoiceLines,
+									VoiceLines = { GlobalVoiceLines = "CatReactionVoiceLines" },
 								},
 							},
 						}
@@ -242,7 +262,6 @@ RoomSetData.O =
 
 		},
 
-		
 		DistanceTriggers =
 		{
 			-- Overlook
@@ -285,7 +304,7 @@ RoomSetData.O =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
@@ -315,8 +334,12 @@ RoomSetData.O =
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "Inspect_O_Intro_01" },
 					},
+					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
 				{
@@ -346,8 +369,8 @@ RoomSetData.O =
 
 		EnterVoiceLines =
 		{
-			[1] = GlobalVoiceLines.StartPackagedBountyRunVoiceLines,
-			[2] = GlobalVoiceLines.BiomeStateChangeStartVoiceLines,
+			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -369,11 +392,10 @@ RoomSetData.O =
 		FishingPointChance = 0.9,
 		LegalEncounters = { "Shop" },
 		ForcedReward = "Shop",
-		StoreDataName = "SurfaceShop",
+		StoreDataName = "WorldShop",
 		StartUnthreadedEvents = EncounterSets.ShopRoomEvents,
 		NoReroll = true,
 		ZoomFraction = 0.855,
-		Ambience = "/Ambience/ShipAmbienceLoopQuieter",
 
 		IntroPanDuration = 2,
 		IntroSequenceDuration = 2,
@@ -463,7 +485,6 @@ RoomSetData.O =
 
 		IntroPanDuration = 2,
 		IntroSequenceDuration = 2.0,
-		Ambience = "/Ambience/ShipAmbienceLoopQuieter",
 
 		GameStateRequirements =
 		{
@@ -491,6 +512,7 @@ RoomSetData.O =
 
 		EntranceDirection = "LeftRight",
 		FlipHorizontalChance = 0.0,
+		RushMaxRangeOverride = 565,
 
 		EnterGlobalVoiceLines = "BoardedFlagshipVoiceLines",
 		MusicMutedStems = { "Drums" },
@@ -596,13 +618,11 @@ RoomSetData.O =
 
 		RequiresLinked = true,
 		LinkedRoom = "O_PostBoss01",
-		ExitPreviewAnim = "ExitUpPreview",
+		ExitPreviewAnim = "ExitAheadPreview",
 		RewardPreviewIcon = "RoomRewardSubIcon_Boss",
 
 		HasFishingPoint = true,
 
-		Milestone = true,
-		MilestoneIcon = "BossIcon",
 		ResetBinksOnEnter = true,
 		ResetBinksOnExit = true,
 		LegalEncounters = { "BossEris01", },
@@ -633,9 +653,6 @@ RoomSetData.O =
 				},
 			},
 		},
-		
-		ExitFunctionName = "EndEarlyAccessPresentation",
-		SkipLoadNextMap = true,
 
 		EnterVoiceLines =
 		{
@@ -671,6 +688,47 @@ RoomSetData.O =
 				{ Cue = "/VO/MelinoeField_1906", Text = "Every time..." },
 			},
 
+		},
+
+		LeavePostPresentationEvents =
+		{
+			{
+				FunctionName = "BiomeMapPresentation",
+				Args =
+				{
+					HeroStartOffsetX = 620 + -580,
+					HeroStartOffsetY = -585 + -300,
+
+					FamiliarStartOffsetX = 710 + -580,
+					FamiliarStartOffsetY = -535 + -300,
+
+					HeroMoveOffsetX = -15,
+					HeroMoveOffsetY = -630,
+					HeroMoveDuration = 1.4,
+
+					FamiliarMoveOffsetX = -15,
+					FamiliarMoveOffsetY = -630,
+					FamiliarMoveDuration = 1.4,
+
+					MoveEaseIn = 0.5,
+					MoveEaseOut = 1.0,
+
+					CameraEndOffsetY = 205,
+
+					BiomeStart = "BiomeO",
+					BiomeEnd = "BiomeP",
+					PreviousBiomes = { "BiomeN" },
+
+					ShrineBounty = "BossPrometheus01",
+
+					CrossroadsStart = false,
+					
+				},
+				GameStateRequirements =
+				{
+					-- None
+				}
+			},
 		},
 
 		InspectPoints =
@@ -746,6 +804,8 @@ RoomSetData.O =
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
 
+		EntranceFunctionName = "RoomEntranceStandard",
+
 		GameStateRequirements =
 		{
 			-- None
@@ -755,29 +815,56 @@ RoomSetData.O =
 		NextRoomSet = { "P", },
 		ExitPreviewAnim = "ExitUpPreview",
 		RichPresence = "#RichPresence_PostBoss",
-		IgnoreMusic = true,
 		BlockRunProgressUI = true,
-		Ambience = "/Leftovers/Ambience/CreepyHauntedWindLoop",
+		Ambience = "/Leftovers/SFX/WindAmbienceLocal",
 		EntranceDirection = "Right",
 		NoReward = true,
 		NoReroll = true,
 		ZoomFraction = 0.75,
+		ReverbValue = 1.0,
+		GlobalEcho = 0.0,
+
+		Music = "/Music/IrisMusicBiomeStartOlympus_MC",
+		DefaultMusicParams = { "Keys", "Drums", },
+		BlockRandomStems = true,
 
 		FlipHorizontalChance = 0.0,
-		IntroSequenceDuration = 2.1,
-		IntroPanDuration = 2.0,
+		IntroSequenceDuration = 0.7,
 
 		ExitPath = { 558947 },
 
 		SkipLastKillPresentation = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		SurfaceShopSpawnChance = 1.0,
 		ForceSurfaceShop = true,
-		 
+
+		HasHarvestPoint = false,
+		HasShovelPoint = false,
+		HasPickaxePoint = false,
+		HasFishingPoint = false,
+		HarvestPointChances =
+		{
+			0.0,
+		},
+		ShovelPointChance = 0.0,
+		PickaxePointChance = 0.0,
+		ExorcismPointChance = 0,
+		FishingPointChance = 0,
+
 		WellShopSpawnChance = 0.0,
 		ForceWellShop = false,
 		SecretSpawnChance = 0.0,
 		SellTraitShrineUpgrade = true,
+		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
+
+		StartUnthreadedEvents = {},
+
+		SwapSounds =
+		{
+			["/Leftovers/SFX/FootstepsWheat2Small"] = "/SFX/Player Sounds/FootstepsSnow",
+			["/Leftovers/SFX/FootstepsWheat"] = "/SFX/Player Sounds/FootstepsSnow",
+		},
 
 		SurfaceShopRequirements =
 		{
@@ -803,29 +890,90 @@ RoomSetData.O =
 
 		ObstacleData =
 		{
-			[557482] =
+			[723017] =
 			{
-				Template = "HealthFountain",
+				Template = "HealthFountainO",
 				Activate = true,
-				ActivateIds = { 557482, },
+				ActivateIds = { 723017, },
+				SetupGameStateRequirements =
+				{
+					-- None
+				},
+			},
+			[723007] =
+			{
+				Template = "GiftRack",
+				Activate = true,
+				ActivateIds = { 723007, 723011, 723009, 723008, 723014, },
 				SetupGameStateRequirements =
 				{
 					{
-						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossFountains", },
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossGiftRack", },
 					},
 				},
 			},
-			[487438] =
+			[723015] =
 			{
 				Template = "ChallengeSwitchBase",
 				Activate = true,
-				ActivateIds = { 486371 },
+				ActivateIds = { 723015 },
 				SetupGameStateRequirements =
 				{
 					{
 						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePostBossSurfaceShops" },
 					},
 				},
+			},
+		},
+
+		InspectPoints =
+		{
+			[557494] =
+			{
+				PlayOnce = true,
+				UseText = "UseExamineMisc",
+				SetupGameStateRequirements =
+				{
+					NamedRequirements = { "NoRecentInspectPointUsed" },
+				},
+				InteractTextLineSets =
+				{
+					Inspect_O_PostBoss01_01 =
+					{
+						{ Cue = "/VO/Storyteller_0294",
+							Text = "{#Emph}A passageway through the snow-covered rock leads to the foot of the most-sacred mountain of the gods: Olympus, which now looms impossibly into the sky above." },
+						EndVoiceLines =
+						{
+							{
+								PreLineWait = 0.4,
+								UsePlayerSource = true,
+								RequiredMinElapsedTime = 3,
+								{ Cue = "/VO/MelinoeField_2524", Text = "Bit of a climb..." },
+							},
+						},
+					},
+				},
+			},
+
+		},
+
+		EnterVoiceLines =
+		{
+			Cooldowns =
+			{
+				{ Name = "MelinoeAnyQuipSpeech" },
+			},
+			{
+				PreLineWait = 3.2,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.85,
+				SuccessiveChanceToPlayAll = 0.15,
+
+				{ Cue = "/VO/MelinoeField_2451", Text = "The path to Olympus...", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_2452", Text = "The base of the mountain..." },
+				{ Cue = "/VO/MelinoeField_2453", Text = "Growing colder..." },
+				{ Cue = "/VO/MelinoeField_2454", Text = "This is it..." },
 			},
 		},
 
@@ -841,7 +989,7 @@ RoomSetData.O =
 
 		GameStateRequirements =
 		{
-			--RequiredFalseSeenRoomsThisRun = { "O_MiniBoss02" },
+			-- None
 		},
 
 		LegalEncounters = { "MiniBossCharybdis" },
@@ -858,20 +1006,7 @@ RoomSetData.O =
 
 		StartUnthreadedEvents =
 		{
-			{
-				FunctionName = "DestroyObjectNames",
-				GameStateRequirements =
-				{
-					{
-						Path = { "ConfigOptionCache", "GraphicsQualityPreset" },
-						IsAny = { "GraphicsQualityPreset_Low", },
-					}
-				},
-				Args = 
-				{
-					NamesToDestroy = { "ShipsSeaSprayEmitterContinuous", "ShipsSeaSprayEmitter" },
-				},
-			},
+			
 		},
 
 		TentacleBurrowPoints =
@@ -904,7 +1039,7 @@ RoomSetData.O =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -1224,6 +1359,15 @@ RoomSetData.O =
 				},
 			},
 		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = "<=",
+				Value = 3,
+			},
+		},
 	},
 
 	O_Combat05 =
@@ -1327,6 +1471,15 @@ RoomSetData.O =
 
 					{ Id = 723387, GroupName = "Foreground_01", ObstacleGroupOverrides = { ShipsWreckGroup01 = "Standing_Debris", ShipsWreckGroup02 = "Standing_Debris" }, ObstacleColorOverrides = { ShipsShipwreck01 = { 35, 51, 62, 255 }, ShipsWreckGroup01 = { 141, 141, 141, 255 }, ShipsWreckGroup02 = { 141, 141, 141, 255 } }, ObstacleHSVOverrides = { ShipsWreckGroup01 = { -0.088, 0, 0 }, ShipsWreckGroup02 = { -0.088, 0, 0 } }, SkipPreSpawn = true,},
 				},
+			},
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = "<=",
+				Value = 3,
 			},
 		},
 	},
@@ -1552,15 +1705,69 @@ RoomSetData.O =
 		},
 	},
 
+	O_Devotion01 =
+	{
+		InheritFrom = { "BaseO" },
+
+		ForcedRewardStore = "RunProgress",
+		ForcedReward = "Devotion",
+		HasFishingPoint = true,
+		
+		MaxCreationsThisRun = 1,
+		EntranceFunctionArgs = { SkipGusts = true },
+
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "PoseidonDevotionIntro01" }
+			},
+			{
+				Path = { "GameState", "EncountersOccurredCache" },
+				HasAny = {
+					"DevotionTestF",
+					"DevotionTestG",
+					"DevotionTestH",
+					"DevotionTestI",
+					"DevotionTestN",
+					"DevotionTestP",
+				},
+			},
+			{
+				Path = { "CurrentRun", "LootTypeHistory" },
+				CountOf =
+				{
+					"AphroditeUpgrade",
+					"ApolloUpgrade",
+					"DemeterUpgrade", 
+					"HephaestusUpgrade",
+					"HestiaUpgrade",
+					"HeraUpgrade",
+					"PoseidonUpgrade",
+					"ZeusUpgrade",
+				},
+				Comparison = ">=",
+				Value = 2,
+			},
+			{
+				Path = { "CurrentRun", "BiomeEncounterDepth" },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+
 	O_Reprieve01 =
 	{
 		InheritFrom = { "BaseO" },
 		IneligibleRewards = { "Devotion", },
-		
 		MaxCreationsThisRun = 1,
 		LegalEncounters = { "HealthRestore" },
 		SecretMusic = "/Music/BlankMusicCue",
 		Ambience = "/Leftovers/Ambience/GentleWavesBeachAmbience2D",
+		ForceDoorAllowReroll = true,
+
+		EntranceFunctionArgs = { SkipGusts = true },
+
 		SwapSounds =
 		{
 		},
@@ -1572,7 +1779,7 @@ RoomSetData.O =
 		IntroPanDuration = 2.0,
 
 		ForceSurfaceShop = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 
 		HasFishingPoint = true,
 		FishingPointChance = 0.9,
@@ -1603,7 +1810,6 @@ RoomSetData.O =
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeThessalyReprieve" },
 			},
-			RequiredMinCompletedRuns = 0,
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
@@ -1650,7 +1856,7 @@ RoomSetData.O =
 
 	O_Story01 =
 	{
-		InheritFrom = { "BaseN" },
+		InheritFrom = { "BaseO" },
 		HasFishingPoint = true,
 		FishingPointChance = 0.9,
 		ForcedReward = "Story",
@@ -1658,6 +1864,12 @@ RoomSetData.O =
 		MaxCreationsThisRun = 1,
 		RichPresence = "#RichPresence_OStory01",
 		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
+
+		EntranceFunctionArgs = { SkipGusts = true },
+		
+		IntroPanDuration = 2.0,
+		IntroSequenceDuration = 2.0,
 
 		SwapSounds =
 		{
@@ -1688,7 +1900,7 @@ RoomSetData.O =
 				Value = 6,
 			},
 			{
-				PathFalse = { "CurrentRun", "ActiveBounty", },
+				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
 		},
 
@@ -1759,7 +1971,6 @@ RoomSetData.O =
 			},
 		},
 
-
 		InspectPoints =
 		{
 			[744051] =
@@ -1826,28 +2037,6 @@ RoomSetData.O =
 		ThreadedEvents =
 		{
 			{ FunctionName = "MedeaMusicManager" },
-		},
-
-		ExorcismPointRequirements =
-		{
-			{
-				Path = { "GameState", "EquippedFamiliar" },
-				IsNone = { "FrogFamiliar" },
-			},
-		},
-		FishingPointRequirements =
-		{
-			{
-				Path = { "GameState", "EquippedFamiliar" },
-				IsNone = { "CatFamiliar" },
-			},
-		},
-		PickaxePointRequirements =
-		{
-			{
-				Path = { "GameState", "EquippedFamiliar" },
-				IsNone = { "RavenFamiliar" },
-			},
 		},
 	},
 

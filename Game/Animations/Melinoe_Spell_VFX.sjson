@@ -1113,6 +1113,7 @@ Animations = [
 	    ScaleWidth = 24.0
 	    Sound = "/SFX/Enemy Sounds/Hades/LunarRayLaserBlastLoop"
 		StopSoundOnFinishFade = 0.2
+		SoundManagerCap = 54
 	    VisualFx = "MoonLaserEndParticles"
 	    VisualFxIntervalMin = 0.1
 	    VisualFxIntervalMax = 0.2
@@ -1248,6 +1249,23 @@ Animations = [
 		EndScaleY = 1
 		OriginX = 700
 		OriginY = 512
+	}
+	{
+		Name = "SpellLaserStartAoE"
+		FilePath = "Fx\Sorcery\SorceryMeteor\DecalLightA"
+		GroupName = "FX_Terrain"
+		ColorFromOwner = "Ignore"
+		DieWithOwner = false
+		RotationSpeed = 10.0
+		PostRotateScaleY = 0.5
+		ScaleRadius = 640.0
+		Ambient = 0.0
+		Duration = 1
+		Loop = true
+		ChildAnimation = "TempIcon_Left"
+		StartAlpha = 0
+		EndAlpha = 0.5
+		HoldLastFrame = true
 	}
 
 
@@ -1385,12 +1403,39 @@ Animations = [
 	}
 
 	{
+		Name = "NyxAspectImpactFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0
+		StartBlue = 0.5
+		TimeModifierFraction = 0.1
+		CreateAnimations = [
+
+
+			{ Name = "NyxMeteorGlow" }
+
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+			{ Name = "NyxSpellMeteorImpactRadialFxStreak" }
+
+		]
+	}
+
+	{
 		Name = "SpellMeteorVignette"
 		FilePath = "Fx\Sorcery\SorceryMeteor\SorceryMeteorVignette"
 		Material = "Unlit"
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
-		Scale = 6
+		Scale = 12
 		StartScale = 1
 		EndScale = 1.5
 		ScaleFromOwner = "Ignore"
@@ -1438,6 +1483,14 @@ Animations = [
 		RadialOffsetMax = 300
 		LocationZFromOwner = "Take"
 		LocationFromOwner = "Ignore"
+	}
+
+	{
+		Name = "NyxSpellMeteorImpactRadialFxStreak"
+		InheritFrom = "SpellMeteorImpactRadialFxStreak"
+		ColorFromOwner = "Take"
+		TimeModifierFraction = 0.1
+		ScaleMax = 0.6
 	}
 
 	{
@@ -1578,11 +1631,23 @@ Animations = [
 
 	{
 		Name = "SpellMeteorFlare"
-		InheritFrom = "BiomeStateMeteorFlare"
+		FilePath = "Fx\BiomeStateMeteor\Flare\Flare"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 4
+		PlaySpeed = 60
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		OriginX = 215
+		OriginY = 505
+		VisualFx = "BiomeStateMeteorFlareParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
 		Scale = 2.0
 		Hue = 0.40
 		Saturation = -0.2
-		PlaySpeed = 60
 	}
 
 
@@ -1607,6 +1672,17 @@ Animations = [
 		ColorFromOwner = "Ignore"
 		AngleFromOwner = "Ignore"
 		OffsetZ = 100
+	}
+
+	{
+		Name = "NyxMeteorGlow"
+		InheritFrom = "SpellMeteorGlow"
+		ColorFromOwner = "Take"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0
+		StartBlue = 0.5
+		TimeModifierFraction = 0.1
 	}
 
 	{
@@ -1898,6 +1974,301 @@ Animations = [
 		InheritFrom = "SorceryMoonPotionRadialFxA"
 		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
 		Hue = 0.07
+	}
+	
+	{
+		Name = "MoonBeamFx"
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 1.5
+		StartRed = 0.5
+		StartGreen = 0.8
+		StartBlue = 1
+		EndRed = 0.3
+		EndGreen = 0.1
+		EndBlue = 0.999
+		Duration = 1.2
+		EaseIn = 0.9
+		EaseOut = 1
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		ScaleFromOwner = "Ignore"
+		Scale = 2.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		OffsetZ = 160
+		StartScaleY = 1
+		EndScaleY = 1.3
+		ScaleX = 0.75
+		VisualFx = "SkyfallBeamA"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 4
+		CreateAnimations = [
+			{ Name = "MoonBeamCenterGlow" }
+			{ Name = "MoonBeamCenterBeam" }
+			{ Name = "MoonBeamRadialFx" }
+			{ Name = "MoonBeamCenterBeamThick" }
+			{ Name = "MoonBeamGroundGlow" }
+
+		]
+	}
+
+	{
+		Name = "MoonBeamGroundGlow"
+		FilePath = "Particles\particle_circle"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Duration = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		PostRotateScaleY = 0.5
+		Scale = 3
+		StartScale = 0.7
+		EndScale = 1.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "MoonBeamRadialFx"
+		Random = [
+			{ Name = "MoonBeamRadialFxA" }
+			{ Name = "MoonBeamRadialFxB" }
+			{ Name = "MoonBeamRadialFxC" }
+		]
+	}
+	{
+		Name = "MoonBeamRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC1"
+		Material = "Unlit"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 1.5
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleY = 0.25
+		EndScaleY = 0.33
+		ScaleX = 1.5
+		ScaleFromOwner = "Ignore"
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OffsetZ = 1200
+		GroupName = "FX_Standing_Add"
+	}
+	{
+		Name = "MoonBeamRadialFxB"
+		InheritFrom = "MoonBeamRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC2"
+	}
+	{
+		Name = "MoonBeamRadialFxC"
+		InheritFrom = "MoonBeamRadialFxA"
+		FilePath = "Fx\Sorcery\RadialFx\SorceryRadialFxC3"
+	}
+
+	{ 
+		Name = "MoonBeamCenterBeam" 
+		Random = [
+			{ Name = "MoonBeamCenterBeamA" }
+			{ Name = "MoonBeamCenterBeamB" }
+		]
+	}	
+
+	{ 
+		Name = "MoonBeamCenterBeamThick" 
+		Random = [
+			{ Name = "MoonBeamCenterBeamThickA" }
+			{ Name = "MoonBeamCenterBeamThickB" }
+		]
+	}
+
+	{
+		Name = "MoonBeamCenterBeamA"
+		FilePath = "Fx\AutomatonBeamerLaserA\AutomatonBeamerLaserA"
+		NumFrames = 30
+		AddColor = true
+		StartRed = 0.95
+		StartGreen = 0.9
+		StartBlue = 1.0
+		EndRed = 0.3
+		EndGreen = 0.6
+		EndBlue = 0.999
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		Scale = 2
+		ScaleX = 4
+		StartScaleY = 1
+		EndScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		OriginY = 64
+		OriginX = 150
+	}
+
+	{
+		Name = "MoonBeamCenterBeamB"
+		InheritFrom = "MoonBeamCenterBeamA"
+		FilePath = "Fx\AutomatonBeamerLaserB\AutomatonBeamerLaserB"
+	}
+
+	{
+		Name = "MoonBeamCenterBeamThickA"
+		InheritFrom = "MoonBeamCenterBeamA"
+		StartScaleY = 4
+		PlaySpeed = 240
+	}
+	{
+		Name = "MoonBeamCenterBeamThickB"
+		InheritFrom = "MoonBeamCenterBeamThickA"
+		FilePath = "Fx\AutomatonBeamerLaserB\AutomatonBeamerLaserB"
+	}
+
+	{
+		Name = "MoonBeamCenterGlow"
+		FilePath = "Particles\particle_apolloGlow2"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		Duration = 1.5
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleY = 10
+		OriginX = 60
+		OriginY = 110
+		Saturation = -0.25
+		StartScaleX = 0.4
+		EndScaleX = 1
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Red = 0.3
+		Green = 0.5
+		Blue = 1.0
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "SkyfallBeamA"
+		FilePath = "Fx\MoonbeamsColor\MoonbeamsColor"
+		ScaleFromOwner = "Ignore"
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		NumFrames = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		PingPongColor = false
+		Saturation = 0.1
+		Hue = 0
+		Angle = 90
+		Material = "Unlit"
+		GroupName = "FX_Add_Top"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PlaySpeed = 60
+		AngleFromOwner = "Ignore"
+		ScaleX = 3
+		ScaleY = 0.5
+		StartScaleX = 2
+		EndScaleX = 0.1
+		StartScaleY = 0.5
+		EndScaleY = 0.45
+		LoopFramesOnly = true
+		RandomDurationMin = 0.2
+		RandomDurationMax = 0.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomOffsetX = 20
+		RandomOffsetY = 40
+		FlipHorizontal = true
+		RandomFlipVertical = true
+		OriginX = 35
+		OriginY = 120
+		ScaleMin = 0.8
+		ScaleMax = 1.2
+		StartOffsetZ = 0
+		EndOffsetZ = -200
+		VisualFx = "SkyfallParticles"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		CreateAnimations = [
+			{ Name = "SkyfallBeamB" }
+		]
+	}
+
+	{
+		Name = "SkyfallBeamB"
+		InheritFrom = "SkyfallBeamA"
+		ScaleFromOwner = "Ignore"
+		ClearCreateAnimations = true
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.4
+		EndOffsetZ = -20
+		StartScaleY = 0.1
+		EndScaleY = 0.05
+		RandomOffsetX = 40
+	}
+
+	{
+		Name = "SkyfallParticles"
+		FilePath = "Particles\particle_addFlake"
+		Material = "Unlit"
+		AddColor = false
+		StartRed = 0.7
+		StartBlue = 0.8
+		StartGreen = 1.0
+		EndRed = 0.1
+		EndGreen = 0.7
+		EndBlue = 0.999
+		RandomDurationMin = 1.0
+		RandomDurationMax = 1.75
+		ScaleMin = 0.3
+		ScaleMax = 0.7
+		Scale = 1.0
+		AlphaMin = 0.6
+		AlphaMax = 1.0
+		RandomRotation = true
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomOffsetY = 400
+		RandomOffsetX = 10
+		AngleFromOwner = "Ignore"
+		Angle = 270
+		VelocityMin = 300
+		VelocityMax = 600
+		Acceleration = -1200
+		StartScale = 1
+		EndScale = 0
+		OffsetZ = 500
+		StartOffsetZ = 200
+		EndOffsetZ = 0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
 	}
 
 	{
@@ -2462,7 +2833,7 @@ Animations = [
 		SortMode = "FromParent"
 		SortFromOwner = "Maintain"
 		GroupName = "Standing"
-		ColorFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
 		UseAttachedFlasher = false
 	}
 	{
@@ -2486,6 +2857,53 @@ Animations = [
 		Duration = 0.3
 		Loop = false
 		ChainTo = null
+	}
+	{
+		Name = "SorceryDebuffMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		ChainTo = "SorceryDebuffMoonLoopOut"
+		NumFrames = 60
+		Loop = true
+		Material = "Unlit"
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 220
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "Standing"
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		Sound = "/SFX/AphroditeCharmedLoopSFX"
+		StopSoundOnFinishFade = 0.2
+		Red = 1
+		Blue = 0.1
+		Green = 0.1
+	}
+	{
+		Name = "SorceryDebuffMoonLoopIn"
+		InheritFrom = "SorceryDebuffMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		NumFrames = 60
+		StartAlpha = 0
+		EndAlpha = 1
+		Duration = 0.3
+		Loop = false
+		ChainTo = "SorceryDebuffMoonLoop"
+		ScaleFromOwner = "Ignore"
+	}
+	{
+		Name = "SorceryDebuffMoonLoopOut"
+		InheritFrom = "SorceryDebuffMoonLoop"
+		FilePath = "Fx\Sorcery\SorceryReadyMoonLoop\SorceryReadyMoonLoop"
+		NumFrames = 60
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.3
+		Loop = false
+		ChainTo = null
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -2612,6 +3030,22 @@ Animations = [
 		VisualFx = "SorceryDarksideRingFx"
 		VisualFxIntervalMin = 0.1
 		VisualFxIntervalMax = 0.2
+	}
+	{
+		Name = "SorceryLaserAoERing"
+		InheritFrom = "SorceryDarksideRing"
+		ChainTo = "SorceryLaserAoERingOut"
+	}
+	{
+		Name = "SorceryLaserAoERingOut"
+		InheritFrom = "SorceryLaserAoERing"
+		Loop = false
+		ChainTo = "null"
+		VisualFx = "null"
+		Alpha = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.2
 	}
 
 	{

@@ -1,14 +1,15 @@
 --[[ * DEBUG SCRIPTS ]]
 
-DebugData = DebugData or {}
-DebugState = DebugState or {}
-DebugState.TextLinesFilter = DebugState.TextLinesFilter or {}
-
 OnAnyLoad
 {
 	function( triggerArgs )
-		if verboseLogging and ( GetConfigOptionValue({ Name = "AutoSafeMode" }) or GetConfigOptionValue({ Name = "EditingMode" }) ) then
-			SafeModeOn()
+		if verboseLogging then
+			if GetConfigOptionValue({ Name = "AutoSafeMode" }) or GetConfigOptionValue({ Name = "EditingMode" }) then
+				SafeModeOn()
+			end
+			if GetConfigOptionValue({ Name = "UseAutoPlaySaveQueue" }) then
+				AutoPlayOn()
+			end
 		end
 	end
 }
@@ -159,10 +160,6 @@ function AutoPlayOff()
 	UpdateConfigOptionCache()
 end
 
-HotLoadInfo = HotLoadInfo or {}
-
--- Minos Keys
-
 function LiveFillInShopOptions()
 	CurrentRun.CurrentRoom.Store = FillInShopOptions( { StoreData = StoreData.RoomShop , RoomName = CurrentRun.CurrentRoom.Name } )
 end
@@ -193,15 +190,34 @@ function DebugSpawnEnemy( source, args )
 	
 	args = args or {}
 	args.Name = args.Name
+	local attributeNames =
+	{
+		"Blink",
+		--"ExtraDamage",
+		--"Fog",
+		--"Frenzy",
+		--"HeavyArmor",
+		--"Hex",
+		--"Homing",
+		--"Massive",
+		--"ManaDrain",
+		--"Metallic",
+		--"Miasma",
+		--"Molten",
+		--"Orbit",
+		--"Radial",
+		--"Rifts",
+		--"Rooting",
+		--"SpreadHitShields",
+		--"StasisDeath",
+		--"Unflinching",
+		--"Vacuuming",
+	}
 
 	SessionState.LastDebugSpawnEnemyArgs = args
 
 	local enemyData = EnemyData[args.Name]
 	local newEnemy = DeepCopyTable( enemyData )
-
-	if newEnemy.IsUnitGroup then
-		return SpawnUnitGroup( newEnemy, nil, nil)
-	end
 
 	if not args.Active then
 		newEnemy.DisableAIWhenReady = true
@@ -218,6 +234,10 @@ function DebugSpawnEnemy( source, args )
 	else
 		invaderSpawnPoint = args.SpawnPointId or SelectSpawnPoint( CurrentRun.CurrentRoom, newEnemy, {}, { CycleSpawnPoints = true } ) or CurrentRun.Hero.ObjectId
 	end
+
+	if newEnemy.IsUnitGroup then
+		return SpawnUnitGroup( newEnemy, nil, nil, invaderSpawnPoint)
+	end
 	
 	newEnemy.ObjectId = SpawnUnit({
 			Name = enemyData.Name,
@@ -226,6 +246,12 @@ function DebugSpawnEnemy( source, args )
 
 	if GetConfigOptionValue({ Name = "DebugEnemySpawnIdle" }) then
 		args.SkipAISetup = true
+	end
+
+	if GetConfigOptionValue({ Name = "DebugEnemySpawnWithAttribute" }) then
+		CurrentRun.CurrentRoom.EliteAttributes[newEnemy.Name] = attributeNames
+	else
+		CurrentRun.CurrentRoom.EliteAttributes[newEnemy.Name] = nil
 	end
 
 	newEnemy.OccupyingSpawnPointId = invaderSpawnPoint
@@ -307,9 +333,6 @@ OnKeyPressed{ "ControlAltShift C", Name = "Fully Unlock GhostAdmin",
 		for cosmeticName, cosmeticData in pairs( WorldUpgradeData ) do
 			cosmeticData.GameStateRequirements = nil
 		end
-		for trackName, trackData in pairs( MusicPlayerTrackData ) do
-			trackData.GameStateRequirements = nil
-		end
 	end
 }
 
@@ -334,254 +357,6 @@ OnKeyPressed{ "ControlAlt E", Name = "Spawn Test Enemy",
 	end
 }
 
-ScreenData.DebugEnemySpawn =
-{
-	Name = "DebugEnemySpawn",
-	BlockPause = true,
-	Components = {},
-	
-	ButtonsPerRow = 6,
-	SpacingX = 280,
-	SpacingY = 86,
-	
-	PagesPerRow = 5,
-	PageStartX = 600,
-	PageSpacingX = 240,
-	PageSpacingY = 100,
-	PageHighlightColor = { 0, 64, 64, 255 },
-	
-	FadeOutTime = 0.0,
-
-	Pages =
-	{
-		-- Undwerworld
-		{
-			Name = "BiomeF",
-			Biomes = { "BiomeF", },
-			ManualEnemies =
-			{
-				"Treant",
-				"FogEmitter",
-				"Hecate",
-			},
-		},
-		{
-			Name = "BiomeG",
-			Biomes = { "BiomeG", },
-			ManualEnemies =
-			{
-				"WaterUnitMiniboss",
-				"CrawlerMiniboss",
-				"Scylla",
-				"SirenKeytarist",
-				"SirenDrummer",
-			},
-		},
-		{
-			Name = "BiomeH",
-			RoomSetName = "H",
-			Biomes = { "BiomeHDebugSpawnScreen", },
-			ManualEnemies =
-			{
-				"InfestedCerberus",
-			},
-		},
-		{
-			Name = "BiomeI",
-			Biomes = { "BiomeI", },
-			ManualEnemies =
-			{
-				"GoldElemental_MiniBoss",
-				"Chronos",
-			},
-		},
-		{
-			Name = "BiomeB",
-			Biomes = { "BiomeB", },
-		},
-		
-		-- Surface
-		{
-			Name = "BiomeN",
-			Biomes = { "BiomeN", },
-			ManualEnemies =
-			{
-				"SatyrCrossbow",
-				"Polyphemus",
-			},
-		},
-		{
-			Name = "BiomeO",
-			Biomes = { "BiomeO", },
-			ManualEnemies =
-			{
-				"Charybdis",
-				"Eris",
-			},
-		},
-		{
-			Name = "BiomeP",
-			Biomes = { "BiomeP", },
-		},
-		{
-			Name = "NPCs",
-			Biomes = {},
-			ManualEnemies =
-			{
-				"NPC_Hecate_01",
-				"NPC_Odysseus_01",
-				"NPC_Dora_01",
-				"NPC_Nemesis_01",
-				"NPC_Eris_01",
-				"NPC_Moros_01",
-				"NPC_Hypnos_01",
-				"NPC_Charon_01",
-				"NPC_Selene_01",
-				"NPC_Skelly_01",
-
-				"NPC_Chronos_01",
-				"NPC_Chronos_Story_01",
-				"NPC_Arachne_01",
-				"NPC_Heracles_01",
-
-				"NPC_Artemis_Field_01",
-				"NPC_Artemis_01",
-				"NPC_Hermes_01",
-
-				"NPC_Narcissus_01",
-				"NPC_Narcissus_Field_01",
-				"NPC_Echo_01",
-				"NPC_Icarus_01",
-				"NPC_Medea_01",
-				"NPC_Circe_01",
-
-				"NPC_Hecate_Story_01",
-				"NPC_Nyx_01",
-
-				"NPC_Hades_Field_01",
-				"NPC_Cerberus_Field_01",
-				"NPC_Bouldy_01",
-			},
-		},
-		--[[
-		{
-			Name = "BiomeQ",
-			Biomes = { "BiomeQ", },
-		},
-		]]
-		{
-			Name = "TestEnemies",
-			Biomes = { "TestEnemies", },
-		},
-	},
-	PageIds = {},
-
-	GamepadNavigation =
-	{
-		FreeFormSelectWrapY = false,
-		FreeFormSelectStepDistance = 8,
-		FreeFormSelectSuccessDistanceStep = 1,
-		FreeFormSelectRepeatDelay = 0.6,
-		FreeFormSelectRepeatInterval = 0.1,
-		FreeFormSelecSearchFromId = 0,
-	},
-
-	ComponentData =
-	{
-		DefaultGroup = "Combat_Menu_Overlay",
-		BackgroundTint = 
-		{
-			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_Backing",
-			Scale = 10,
-			X = ScreenCenterX,
-			Y = ScreenCenterY,
-			Color = { 0.15, 0.15, 0.15, 0.85 },
-			Children = 
-			{
-				--[[
-				TitleText = 
-				{
-					Text = "DebugEnemySpawn",
-					TextArgs =
-					{
-						FontSize = 32,
-						OffsetX = 0, OffsetY = -480,
-						Color = Color.White,
-						Font = "SpectralSCLightTitling",
-						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 3},
-						Justification = "Center",
-						FadeOpacity = 1.0,
-					},
-				},
-				]]
-
-				ToggleSpawnIdle =
-				{
-					Graphic = "ToggleButton",
-					GroupName = "Combat_Menu_Overlay",
-					Scale = 0.8,
-					OffsetX = -900,
-					OffsetY = -400,
-					Text = "DebugEnemySpawnIdle",
-					TextArgs =
-					{
-						FontSize = 24,
-						OffsetX = 36, OffsetY = 0,
-						Color = Color.White,
-						Font = "LatoBold",
-						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-						Justification = "Left",
-						FadeOpacity = 1.0,
-					},
-					Data =
-					{
-						OnPressedFunctionName = "ToggleDebugEnemySpawnIdle",
-					},
-				},
-
-				ToggleSpawnAtHero =
-				{
-					Graphic = "ToggleButton",
-					GroupName = "Combat_Menu_Overlay",
-					Scale = 0.8,
-					OffsetX = -900,
-					OffsetY = -340,
-					Text = "DebugEnemySpawnAtHero",
-					TextArgs =
-					{
-						FontSize = 24,
-						OffsetX = 36, OffsetY = 0,
-						Color = Color.White,
-						Font = "LatoBold",
-						ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-						Justification = "Left",
-						FadeOpacity = 1.0,
-					},
-					Data =
-					{
-						OnPressedFunctionName = "ToggleDebugEnemySpawnAtHero",
-					},
-				},
-
-				CloseButton = 
-				{
-					Graphic = "ButtonClose",
-					GroupName = "Combat_Menu_Overlay",
-					Scale = 0.5,
-					OffsetX = 900,
-					OffsetY = 500,
-					Data =
-					{
-						OnPressedFunctionName = "CloseScreenButton",
-						ControlHotkeys = { "Cancel", },
-					},
-				},
-			},
-		},
-	},
-}
-
 function ToggleDebugEnemySpawnIdle( screen, button )
 	if ToggleConfigOption( "DebugEnemySpawnIdle" ) then
 		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_on" })
@@ -596,6 +371,19 @@ function ToggleDebugEnemySpawnAtHero( screen, button )
 	else
 		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_off" })
 	end
+end
+
+function ToggleDebugEnemySpawnWithAttribute( screen, button )
+	if ToggleConfigOption( "DebugEnemySpawnWithAttribute" ) then
+		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_on" })
+	else
+		SetAnimation({ DestinationId = button.Id, Name = "GUI\\Shell\\settings_toggle_off" })
+	end
+end
+
+function DebugEnemySpawnScreenClose( screen, button )
+	SaveProfile({ })
+	CloseScreenButton( screen, button )
 end
 
 function OpenDebugEnemySpawnScreen()
@@ -613,7 +401,18 @@ function OpenDebugEnemySpawnScreen()
 	local buttonLocationX = screen.PageStartX
 	local buttonLocationY = 150
 
-	SessionMapState.DebugEnemySpawnBiomeIndex = SessionMapState.DebugEnemySpawnBiomeIndex or 1
+	if SessionMapState.DebugEnemySpawnBiomeIndex == nil then
+		SessionMapState.DebugEnemySpawnBiomeIndex = 1
+		local currentBiome = false
+		for i, page in ipairs( screen.Pages ) do
+			for biomeIndex, biomeName in ipairs( page.Biomes ) do
+				if CurrentRun.CurrentRoom.RoomSetName == page.RoomSetName or stringends( biomeName, CurrentRun.CurrentRoom.RoomSetName ) then
+					SessionMapState.DebugEnemySpawnBiomeIndex = i
+					break
+				end
+			end
+		end
+	end
 
 	for i, page in ipairs( screen.Pages ) do
 		local pageButton = CreateScreenComponent({ Name = "DebugEnemySpawnButton",
@@ -627,17 +426,9 @@ function OpenDebugEnemySpawnScreen()
 		page.Index = i
 		screen.Components["PageButton"..page.Name] = pageButton
 		local pageTextColor = Color.White
-
-		local currentBiome = false
-		for biomeIndex, biomeName in ipairs( page.Biomes ) do
-			if CurrentRun.CurrentRoom.RoomSetName == page.RoomSetName or stringends( biomeName, CurrentRun.CurrentRoom.RoomSetName ) then
-				currentBiome = true
-				break
-			end
-		end
+		
 		SetThingProperty({ Property = "AddColor", Value = "true", DestinationId = pageButton.Id })
-		if currentBiome then
-			SessionMapState.DebugEnemySpawnBiomeIndex = i
+		if SessionMapState.DebugEnemySpawnBiomeIndex == i then
 			TeleportCursor({ DestinationId = pageButton.Id, ForceUseCheck = true })
 			SetColor({ Id = pageButton.Id, Color = screen.PageHighlightColor })
 		else
@@ -681,6 +472,11 @@ function OpenDebugEnemySpawnScreen()
 		SetAnimation({ DestinationId = components.ToggleSpawnAtHero.Id, Name = "GUI\\Shell\\settings_toggle_on" })
 	else
 		SetAnimation({ DestinationId = components.ToggleSpawnAtHero.Id, Name = "GUI\\Shell\\settings_toggle_off" })
+	end
+	if GetConfigOptionValue({ Name = "DebugEnemySpawnWithAttribute" }) then
+		SetAnimation({ DestinationId = components.ToggleSpawnWithAttribute.Id, Name = "GUI\\Shell\\settings_toggle_on" })
+	else
+		SetAnimation({ DestinationId = components.ToggleSpawnWithAttribute.Id, Name = "GUI\\Shell\\settings_toggle_off" })
 	end
 
 	screen.KeepOpen = true
@@ -799,51 +595,6 @@ OnKeyPressed{ "ControlAlt R", Name = "Reload All Traits",
 	end
 }
 
-UserDebugEquip =
-{
-	Amir =
-	{
-		Weapon = "WeaponAxe",
-		Traits =
-		{
-			"AxeSecondStageTrait",
-			-- "OmegaZeroBurnBoon",
-			-- "BlindChanceBoon",
-			-- "ZeusSprintBoon",
-
-			-- "SpellLaserTrait",
-			-- "SpellTimeSlowTrait",
-			-- "SpellPotionTrait",
-			-- "SpellMeteorTrait",
-			-- "SpellLeapTrait",
-			-- "SpellPolymorphTrait",
-			-- "SpellTransformTrait",
-			-- "SpellSummonTrait",
-		}
-	},
-	Alice = 
-	{
-		Traits =
-		{
-			"IcedEnemyBoon",
-		}		
-	},
-	Josh = 
-	{
-		Traits = 
-		{
-			"MassiveAttackBoon",
-		}
-	},
-	["Eduardo G"] = 
-	{
-		Traits = 
-		{
-			"SpellSummonTrait",
-		}
-	}
-}
-
 OnKeyPressed{ "Alt T", Name = "Add Traits",
 	function(triggerArgs)
 		-- If you want a different equip set than Amir's add it to the above data table
@@ -887,9 +638,12 @@ OnKeyPressed{ "Alt K", Name = "Clear Encounter",
 
 OnKeyPressed{ "Control M", Name = "Add Resources", Safe = true,
 	function( triggerArgs )
+		if HasThread( "ResourceCheat" ) then
+			return
+		end
 		for k, resourceName in ipairs( ResourceDisplayOrderData ) do
 			AddResource( resourceName, 999, "Debug" )
-			wait( 0.01 )
+			wait( 0.01, "ResourceCheat" )
 		end
 		PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
 	end
@@ -913,81 +667,6 @@ OnKeyPressed{ "ControlAlt T", Name = "DebugConversations", Safe = true,
 	function(triggerArgs)
 		OpenDebugConversationScreen()
 	end
-}
-
-ScreenData.DebugConversations =
-{
-	Name = "DebugConversations",
-	BlockPause = true,
-	Components = {},
-
-	ButtonStartX = 50,
-	ButtonStartY = 75,
-	ButtonScaleX = 0.5,
-	ButtonScaleY = 0.5,
-	SpacingX = 120,
-	SpacingY = 40,
-	ColumnsPerRow = 2,
-	
-	ListStartX = 290,
-	ListStartY = 100,
-	ListSpacingX = 340,
-	ListSpacingY = 50,
-	ListMaxY = 1050,
-	ListSpacingYBucket = 35,
-	OffsetXBucket = 0,
-
-	GamepadNavigation =
-	{
-		FreeFormSelectWrapY = false,
-		FreeFormSelectStepDistance = 8,
-		FreeFormSelectSuccessDistanceStep = 8,
-		FreeFormSelectRepeatDelay = 0.6,
-		FreeFormSelectRepeatInterval = 0.1,
-		FreeFormSelecSearchFromId = 0,
-	},
-
-	ComponentData =
-	{
-		DefaultGroup = "Combat_Menu_TraitTray",
-
-		Order =
-		{
-			"BackgroundDim",
-		},
-
-		BackgroundDim = 
-		{
-			Graphic = "rectangle01",
-			Scale = 10,
-			X = ScreenCenterX,
-			Y = ScreenCenterY,
-			Color = { 0.090, 0.055, 0.157, 0.9 },
-		},
-
-		TooltipBacking = 
-		{
-			Graphic = "rectangle01",
-			GroupName = "Combat_Menu_TraitTray_Overlay",
-			ScaleX = 1.5,
-			ScaleY = 0.1,
-			Color = Color.TransparentBlack,
-		},
-
-		CloseButton = 
-		{
-			Graphic = "ButtonClose",
-			Scale = 0.7,
-			Color = Color.TransparentBlack,
-			X = 1920 - 50,
-			Y = 1080 - 50,
-			Data =
-			{
-				OnPressedFunctionName = "CloseScreenButton",
-				ControlHotkey = "Cancel",
-			},
-		},
-	},
 }
 
 function OpenDebugConversationScreen()
@@ -1023,7 +702,7 @@ function OpenDebugConversationScreen()
 		for k, unitName in ipairs( NarrativeData.ConversationOrder ) do
 			local textColor = Color.White
 			local source = EnemyData[unitName]
-			for enemyId, enemy in pairs( ActiveEnemies ) do
+			for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 				if enemy.Name == unitName then
 					source = enemy
 					textColor = Color.Yellow
@@ -1070,7 +749,7 @@ function OpenDebugConversationScreen()
 				count = count + 1
 			end
 		end
-		for enemyId, enemy in pairs( ActiveEnemies ) do
+		for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 			if not IsEmpty( enemy.BossIntroTextLineSets ) then
 				local textColor = Color.Yellow
 				local button = CreateScreenComponent({ Name = "ButtonGhostAdminTab", Group = screen.ComponentData.DefaultGroup,
@@ -1114,6 +793,7 @@ function DebugConversationsEnemyButton( screen, button )
 	local textLineSet = enemyData.InteractTextLineSets or enemyData.BossIntroTextLineSets
 	local textLineSetPriorities = GetNarrativeDataValue( enemyData, enemyData.InteractTextLinePriorities or "InteractTextLinePriorities" ) or GetNarrativeDataValue( enemyData, "BossIntroTextLinePriorities" )
 
+	local allConversationKeys = {}
 	local priorities = {}
 
 	if textLineSetPriorities ~= nil then
@@ -1122,6 +802,7 @@ function DebugConversationsEnemyButton( screen, button )
 				for j, textLinesName in ipairs( priority ) do
 					priorities[textLinesName] = true
 					local textLinesData = textLineSet[textLinesName]
+					allConversationKeys[textLinesData.Name] = true
 					SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count, { OffsetX = screen.OffsetXBucket } )
 					screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
 					if screen.ButtonLocationY > screen.ListMaxY then
@@ -1134,6 +815,7 @@ function DebugConversationsEnemyButton( screen, button )
 			else
 				priorities[priority] = true
 				local textLinesData = textLineSet[priority]
+				allConversationKeys[textLinesData.Name] = true
 				SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
 				screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
 				if screen.ButtonLocationY > screen.ListMaxY then
@@ -1161,6 +843,7 @@ function DebugConversationsEnemyButton( screen, button )
 	table.sort( repeatableConversations )
 	for k, textLinesName in ipairs( repeatableConversations ) do
 		local textLinesData = textLineSet[textLinesName]
+		allConversationKeys[textLinesData.Name] = true
 		SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count, { OffsetX = screen.OffsetXBucket } )
 		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
 		if screen.ButtonLocationY > screen.ListMaxY then
@@ -1187,6 +870,7 @@ function DebugConversationsEnemyButton( screen, button )
 				for j, textLinesName in ipairs( priority ) do
 					priorities[textLinesName] = true
 					local textLinesData = textLineSet[textLinesName]
+					allConversationKeys[textLinesData.Name] = true
 					SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count, { OffsetX = screen.OffsetXBucket } )
 					screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingYBucket
 					count = count + 1
@@ -1194,6 +878,7 @@ function DebugConversationsEnemyButton( screen, button )
 			else
 				priorities[priority] = true
 				local textLinesData = textLineSet[priority]
+				allConversationKeys[textLinesData.Name] = true
 				SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
 				screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
 				count = count + 1
@@ -1223,6 +908,7 @@ function DebugConversationsEnemyButton( screen, button )
 	table.sort( oneTimeConversations )
 	for k, textLinesName in ipairs( oneTimeConversations ) do
 		local textLinesData = textLineSet[textLinesName]
+		allConversationKeys[textLinesData.Name] = true
 		SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
 		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
 		count = count + 1
@@ -1235,9 +921,23 @@ function DebugConversationsEnemyButton( screen, button )
 	table.sort( repeatableConversations )
 	for k, textLinesName in ipairs( repeatableConversations ) do
 		local textLinesData = textLineSet[textLinesName]
+		allConversationKeys[textLinesData.Name] = true
 		SetupDebugConversationsTextLinesButton( screen, button, textLinesData, count )
 		screen.ButtonLocationY = screen.ButtonLocationY + screen.ListSpacingY
 		count = count + 1
+	end
+
+	-- Print conversations in descending order from most recent run
+	for runIndex = #GameState.RunHistory + 1, 1, -1 do
+		local prevRun = GameState.RunHistory[runIndex] or CurrentRun
+		if prevRun.TextLinesRecord == nil then
+			break
+		end
+		for conversationName, v in pairs( prevRun.TextLinesRecord ) do
+			if allConversationKeys[conversationName] then
+				DebugPrint({ Text = "Run "..runIndex..": "..conversationName })
+			end
+		end
 	end
 	
 end
@@ -1322,7 +1022,15 @@ function DebugConversationsTextLinesButton( screen, button )
 	local source = button.Source
 	if source ~= nil then
 		-- Assign the conversation immediately
-		local textLinesData = source.InteractTextLineSets[button.TextLinesName] or source.GiftTextLineSets[button.TextLinesName]
+		local textLinesData = nil
+		if source.BossIntroTextLineSets ~= nil and source.BossIntroTextLineSets[button.TextLinesName] then
+			textLinesData = source.BossIntroTextLineSets[button.TextLinesName]
+			if NarrativeData[source.Name] ~= nil then
+				NarrativeData[source.Name].BossIntroTextLinePriorities = { button.TextLinesName }
+			end
+		else
+			textLinesData = source.InteractTextLineSets[button.TextLinesName] or source.GiftTextLineSets[button.TextLinesName]
+		end
 		textLinesData.Force = true
 		source.NextInteractLines = textLinesData
 		SetNextInteractLines( source, source.NextInteractLines )
@@ -1503,12 +1211,12 @@ OnKeyPressed{ "ControlShift C", Name = "UnlockEntireCodex",
 function UnlockEntireCodex()
 	CodexStatus.Enabled = true
 	SessionState.CodexDebugUnlocked = true
-	GameState.WorldUpgradesAdded.WorldUpgradeRelationshipBar = true
-	AddWorldUpgrade( "WorldUpgradeBoonList" )
+	UnlockWorldUpgrade( "WorldUpgradeRelationshipBar" )
+	UnlockWorldUpgrade( "WorldUpgradeBoonList" )
 end
 
 function UnlockElementalIcons()
-	GameState.WorldUpgradesAdded.WorldUpgradeElementalBoons = true
+	UnlockWorldUpgrade( "WorldUpgradeElementalBoons" )
 	GameState.Flags.SeenElementalIcons = true
 end
 
@@ -1592,13 +1300,10 @@ function DumpGameStateToFile()
 		CurrentRun = CurrentRun,
 		GameState =
 		{
-			MetaPoints = GameState.Resources.MetaPoints,
 			MetaUpgrades = GameState.MetaUpgrades,
-			LockKeys = GameState.Resources.LockKeys,
 			GiftPoints = GameState.Resources.GiftPoints,
 			ShrinePoints = GameState.Resources.ShrinePoints,
 			SpentShrinePointsCache = GameState.SpentShrinePointsCache,
-			TimesCleared = GameState.TimesCleared,
 			CompletedRunsCache = GameState.CompletedRunsCache,
 		}
 	}
@@ -1815,7 +1520,7 @@ function DumpRunStats( currentRun, runIndex, outFile )
 		end
 	end
 	local dpsRecord = {}
-	for sourceName, damageAmount in pairs( currentRun.DamageDealtRecord ) do
+	for sourceName, damageAmount in pairs( currentRun.DamageDealtByHeroRecord ) do
 		if totalUseTime[sourceName] ~= nil then
 			local dps = round( damageAmount / totalUseTime[sourceName], 2 )
 			local dpsEntry = { SourceName = sourceName, Dps = dps }
@@ -2006,26 +1711,43 @@ OnKeyPressed{ "Alt D5", Name = "ChangeWeaponLob",
 	  end
 }
 
-function DebugSetupHarvestPointAnims()
-	local harvestPoints = GetIdsByType({ Name = "HarvestPoint" })
-	for i, id in pairs( harvestPoints ) do
-		if CurrentRun.CurrentRoom.HarvestPointIds == nil or CurrentRun.CurrentRoom.HarvestPointIds[id] == nil then
-			for k, option in pairs( HarvestData.WeightedOptions ) do
-				if IsGameStateEligible( CurrentRun, option, option.GameStateRequirements ) then
-					SetAnimation({ DestinationId = id, Name = option.Animation })
-					AddToGroup({ Id = id, Name = option.DrawGroup or "Standing", DrawGroup = true })
-					break
-				end
-			end
-		end
-	end
+OnKeyPressed{ "Alt D6", Name = "ChangeWeaponSuit",
+      function(triggerArgs)
+            EquipPlayerWeapon( WeaponData.WeaponSuit, { PreLoadBinks = true, LoadPackages = true } )
+			local weaponData = GetWeaponData( CurrentRun.Hero, "WeaponSuit") 
+			RunEventsGeneric( weaponData.StartRoomEvents, weaponData )
+	  end
+}
+
+function EditorActivateAllHarvestPoints()
+	CurrentRun.CurrentRoom.HarvestPointsAllowed = 9
+	CurrentRun.CurrentRoom.PickaxePointSuccess = true
+	CurrentRun.CurrentRoom.PickaxePointsAllowed = 9
+	CurrentRun.CurrentRoom.ExorcismPointSuccess = true
+	CurrentRun.CurrentRoom.ExorcismPointsAllowed = 9
+	CurrentRun.CurrentRoom.ShovelPointSuccess = true
+	CurrentRun.CurrentRoom.ShovelPointsAllowed = 9
+	CurrentRun.CurrentRoom.FishingPointSuccess = true
+	CurrentRun.CurrentRoom.FishingPointsAllowed = 9
+end
+
+function PreEditingModeOn()
+	EditorActivateAllHarvestPoints()
+	SetupHarvestPoints( CurrentRun.CurrentRoom )
 end
 
 function EditingModeOn()	
-	DebugSetupHarvestPointAnims()
 	ConfigOptionCache.EditingMode = true
 	SessionState.BlockSpawns = true
 	GameState.IllegalConversationModification = true
+	if CurrentHubRoom ~= nil then
+		if CurrentHubRoom.Name == "Hub_Main" then
+			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 1, GhostAdminCategoryIndex = 1 } )
+			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 2 } )
+		else
+			ActivateConditionalItems( nil, { CosmeticsShopCategoryIndex = 3 } )
+		end
+	end
 	SafeModeOn()
 end
 
@@ -2152,7 +1874,7 @@ function UnlockAllWeapons( eventSource, args)
 	for upgradeName, upgradeData in pairs ( WeaponShopItemData ) do
 		if TraitData[upgradeName] then
 			GameState.WeaponsUnlocked[upgradeName] = true
-			GameState.WorldUpgradesAdded[upgradeName] = true
+			UnlockWorldUpgrade( upgradeName )
 		end
 	end
 end

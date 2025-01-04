@@ -24,13 +24,6 @@ OverwriteTableKeys( TraitData, {
 		{
 			DefaultId = "EchoLastReward",
 			DefaultBoonId = "EchoLastRewardBoon",
-		},
-		ExtractValues =
-		{
-			{
-				ExtractAs = "LastRewardName",
-				Format = "LastRewardTaken",
-			},
 		}
 	},
 
@@ -38,17 +31,40 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "BaseEcho" },
 		Icon = "Boon_Echo_05",
+		NumOfferings = 3, -- used only for text
 		GameStateRequirements =
 		{
-				{
-					Path = { "CurrentRun", "Hero", "EligiblePrevRunTraits" },
-					UseLength = true,
-					Comparison = ">",
-					Value = 0,
-				},
+			{
+				Path = { "CurrentRun", "Hero", "EligiblePrevRunTraits" },
+				UseLength = true,
+				Comparison = ">",
+				Value = 0,
+			},
 		},
 		Hidden = true,
 		AcquireFunctionName = "EchoLastRunBoon",
+	},
+
+	EchoDoubleLevelBoon = 
+	{
+		InheritFrom = { "BaseEcho" },
+		Icon = "Boon_Echo_06",
+		Hidden = true,
+		MultiplierValue = 2, -- used only for text
+		AcquireFunctionName = "EchoDoubleLevelBoon",
+	},
+
+	EchoRepeatKeepsakeBoon = 
+	{
+		InheritFrom = { "BaseEcho" },
+		Icon = "Boon_Echo_07",
+		TrayStatLines = 
+		{
+			"RepeatKeepsakeStatDisplay",
+		},
+		ActivatedTrayText = "EchoRepeatKeepsakeBoon_Inactive",
+		RepeatedKeepsake = "",
+		AcquireFunctionName = "EchoRepeatKeepsake",
 	},
 
 	EchoDeathDefianceRefill = 
@@ -57,7 +73,7 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Echo_03",
 		GameStateRequirements =
 		{
-			NotMaxLastStands = true,
+			NamedRequirements = { "MissingLastStand", },
 		},
 		Hidden = true,
 		AcquireFunctionName = "EchoRefillLastStands",
@@ -146,6 +162,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = { "BaseEcho" },
 		Icon = "Boon_Echo_02",
+		StatMultiplier = 0,
 		AcquireFunctionName = "EchoIncreaseStats",
 		AcquireFunctionArgs = 
 		{

@@ -48,7 +48,9 @@ ScreenData.BoonInfo =
 		
 	},
 
-	TraitDictionary = {}, -- Populated in RunData
+	TraitSortOrder = {},			  -- Populated in RunData
+	CustomSortFunction = {},			  -- Populated in RunData
+	TraitDictionary = {},			  -- Populated in RunData
 	TraitRequirementsDictionary = {}, -- Populated in RunData
 
 	RequirementsStartX = 0,

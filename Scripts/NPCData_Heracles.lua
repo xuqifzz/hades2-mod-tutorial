@@ -8,25 +8,45 @@ UnitSetData.NPC_Heracles =
 		Groups = { "NPCs" },
 		SpeakerName = "Heracles",
 		SubtitleColor = Color.HeraclesVoice,
+		EmoteOffsetY = -350,
+		EmoteOffsetX = 120,
 		AnimOffsetZ = -20,
 		ThemeMusic = "/Music/IrisMusicHeraclesTheme_MC",
 		TurnInPlaceAnimation = "Heracles_Hub_Turn",
+		ExcludeFromDamageDealtRecord = true,
 
 		RequiredRoomInteraction = true,
 		SkipAISetupOnActivate = true,
 
+		SetupEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Args = { CreateAnimation = "OlympusColdBreathEmitterLarge", },
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "P" },
+					},
+				},
+			},
+		},
+
 		ShopEventData = 
 		{
-			DelayMin = 8,
-			DelayMax = 16,
+			TimerStartDistance = 1000,
+			DelayMin = 10,
+			DelayMax = 18,
 			InstantChance = 0.1, -- Chance he will buy it without a chance for the player to interact
-			NeverChance = 0.1, -- Chance he will dither indefinitely
+			-- NeverChance = 0.1, -- Chance he will dither indefinitely
 			BrowsingVoiceLinesDelay = 4.0,
 			FidgetIntervalMin = 5,
 			FidgetIntervalMax = 11,
 			ExitDelayMin = 2,
-			ExitDelayMax = 5,
+			ExitDelayMax = 4,
 		},
+		StoreExitFunctionName = "HeraclesExit",
 
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
 		InvincibubbleScale = 1.33,
@@ -89,7 +109,7 @@ UnitSetData.NPC_Heracles =
 				{ Cue = "/VO/MelinoeField_0717", Text = "Stay strong, Son of Zeus.", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_0718", Text = "Gods watch over us." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -251,6 +271,38 @@ UnitSetData.NPC_Heracles =
 					PostLineFunctionName = "StartHeraclesEncounterMusic",
 					Text = "Why am I even talking to you, sister? You save your breath, I'll save mine." },
 			},
+
+			HeraclesMiscStart11 =
+			{
+				{ Cue = "/VO/Heracles_0034",
+					PostLineFunctionName = "StartHeraclesEncounterMusic",
+					Text = "We get to know each other, you'll live to regret it. Happens all the time." },
+			},
+			HeraclesMiscStart12 =
+			{
+				{ Cue = "/VO/Heracles_0035",
+					PostLineFunctionName = "StartHeraclesEncounterMusic",
+					Text = "You think you know me, sister. But you don't." },
+			},
+			HeraclesMiscStart13 =
+			{
+				{ Cue = "/VO/Heracles_0040",
+					PostLineFunctionName = "StartHeraclesEncounterMusic",
+					Text = "Suggest remaining far afield of me at all times, witch." },
+			},
+			HeraclesMiscStart14 =
+			{
+				{ Cue = "/VO/Heracles_0041",
+					PostLineFunctionName = "StartHeraclesEncounterMusic",
+					Text = "You blasted gods and goddesses are all alike..." },
+			},
+			HeraclesMiscStart16 =
+			{
+				{ Cue = "/VO/Heracles_0042",
+					PostLineFunctionName = "StartHeraclesEncounterMusic",
+					Text = "Go about your business, sister. I'm on the job." },
+			},
+
 		},
 
 		InteractTextLineSets =
@@ -276,12 +328,11 @@ UnitSetData.NPC_Heracles =
 				{ Cue = "/VO/Heracles_0007",
 					Text = "You live. By my good graces, granted, but... first I've seen somebody stand against the filth that's overtaken this accursed town." },
 				{ Cue = "/VO/MelinoeField_0231", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I aim to cleanse the filth down to the source. He resides deep in the Underworld, though I've business to attend to on Olympus first." },
 				{ Cue = "/VO/Heracles_0008",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "What a coincidence! I just returned from there not long ago. So the gods are putting all the pieces into place.... You watch yourself, sister." },
 				EndVoiceLines =
 				{
@@ -318,9 +369,9 @@ UnitSetData.NPC_Heracles =
 				{ Cue = "/VO/MelinoeField_0232", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "That won't be necessary. Though, I would know how came you to feel this way about us bloody witches? How many have you met?" },
+					Text = "That won't be necessary... though I would know how came you to feel this way about us {#Emph}bloody witches? {#Prev}How many have you met?" },
 				{ Cue = "/VO/Heracles_0010",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "Two questions too many. The more you know, the more you can manipulate. Now, off with you." },
 				EndVoiceLines =
 				{
@@ -360,7 +411,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "But {#Emph}you've {#Prev}had enough of {#Emph}them. {#Prev}Then... what are you doing here?" },
 				{ Cue = "/VO/Heracles_0012",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "Oh, my work history can demonstrate I never get enough of {#Emph}them{#Prev}, either. I take a job, I do it." },
 				EndVoiceLines =
 				{
@@ -400,7 +451,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You mean Hera? Of course she did; we're all on the same side. More than that, we're family." },
 				{ Cue = "/VO/Heracles_0014",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "{#Emph}Family. {#Prev}It figures that her grace the Queen presides over the entire concept. Marriage, birthing, and the like. Curses, in a charitable form." },
 				EndVoiceLines =
 				{
@@ -428,6 +479,10 @@ UnitSetData.NPC_Heracles =
 						IsNone = { "N_Hub" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "N" },
+					},
+					{
 						PathTrue = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
 					},
 					{
@@ -441,7 +496,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "That's a ringing endorsement, though you must be stronger still. Ever considered putting him to the test? Could save me a lot of trouble." },
 				{ Cue = "/VO/Heracles_0016",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "He's not my type. Besides, he's a spawn of the gods, just like you and me. Wouldn't be proper if we were all fighting all the time, now would it?" },
 				EndVoiceLines =
 				{
@@ -480,7 +535,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "It's Chronos that made a mess of things. If he'd have just stayed dead, we'd be at peace. And together with our fathers, no doubt." },
 				{ Cue = "/VO/Heracles_0018",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "Have you {#Emph}met {#Prev}our fathers? Sure, we're in the midst of an interminable war, but at least we're far away from {#Emph}them." },
 				EndVoiceLines =
 				{
@@ -563,7 +618,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You were born to a mortal mother, weren't you? My mother's half-mortal. Death itself is in our blood. But you're different..." },
 				{ Cue = "/VO/Heracles_0020",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "{#Emph}Different. {#Prev}Neither god, nor mortal, nor Shade. It's as you say; death itself is in my blood. All mortals are born to die. I was born also to kill." },
 				EndVoiceLines =
 				{
@@ -577,94 +632,7 @@ UnitSetData.NPC_Heracles =
 				},
 			},
 
-
-			HeraclesMiscChat02 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
-				{ Cue = "/VO/Heracles_0034",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "We get to know each other, you'll live to regret it. Happens all the time." },
-			},
-			HeraclesMiscChat03 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
-				{ Cue = "/VO/Heracles_0035",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "You think you know me, sister. But you don't." },
-			},
-			HeraclesMiscChat04 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
-				{ Cue = "/VO/Heracles_0036",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "You never saw me, I never saw you. Scoot." },
-			},
-			HeraclesMiscChat05 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
-				{ Cue = "/VO/Heracles_0037",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "Save it for somebody who cares, sister." },
-			},
-			HeraclesMiscChat06 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				{ Cue = "/VO/Heracles_0038",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "Whatever you're about to say to me, don't." },
-			},
-			HeraclesMiscChat07 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				{ Cue = "/VO/Heracles_0039",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "I look like I want to have ourselves a chat?" },
-			},
-			HeraclesMiscChat08 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				{ Cue = "/VO/Heracles_0040",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "Suggest remaining far afield of me at all times, witch." },
-			},
-			HeraclesMiscChat09 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				{ Cue = "/VO/Heracles_0041",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "You blasted gods and goddesses are all alike..." },
-			},
-			HeraclesMiscChat10 =
-			{
-				PlayOnce = true,
-				UseableOffSource = true,
-				PreEventFunctionName = "AngleNPCToHero",
-				{ Cue = "/VO/Heracles_0042",
-					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { AnimationState = "NPCHeraclesExit", WaitTime = 3.0 },
-					Text = "Go about your business, sister. I'm on the job." },
-			},
-
-			-- Repeatable
+			-- Repeatable Shop
 			HeraclesMiscChat01 =
 			{
 				PlayFirst = true,
@@ -678,11 +646,98 @@ UnitSetData.NPC_Heracles =
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
 						IsAny = { "Shop" },
 					},
-					RequiredUnitAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
 				{ Cue = "/VO/Heracles_0033",
 					Text = "If you're starved for conversation, you'll have better fortune with the Boatman there." },
+			},
+			HeraclesMiscChat04 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsAny = { "Shop" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
+				},
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
+				{ Cue = "/VO/Heracles_0036",
+					Text = "You never saw me, I never saw you. Scoot." },
+			},
+			HeraclesMiscChat05 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsAny = { "Shop" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
+				},
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
+				{ Cue = "/VO/Heracles_0037",
+					Text = "Save it for somebody who cares, sister." },
+			},
+			HeraclesMiscChat05 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsAny = { "Shop" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
+				},
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
+				{ Cue = "/VO/Heracles_0038",
+					Text = "Whatever you're about to say to me, don't." },
+			},
+			HeraclesMiscChat07 =
+			{
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsAny = { "Shop" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
+				},
+				EndGlobalVoiceLines = "MiscEndVoiceLines_Heracles",
+				{ Cue = "/VO/Heracles_0039",
+					Text = "I look like I want to have ourselves a chat?" },
 			},
 
 		},
@@ -707,6 +762,10 @@ UnitSetData.NPC_Heracles =
 						PathTrue = { "GameState", "UseRecord", "NPC_Heracles_01" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathFalse = { "CurrentRun", "EncountersOccurredCache", "HeraclesCombatIntro" },
 					},
 				},
@@ -715,6 +774,7 @@ UnitSetData.NPC_Heracles =
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "Great Son of Zeus, I offer you this gift of Nectar, that it may quench your thirst as you labor for the gods. They must be grateful for your might." },
 				{ Cue = "/VO/Heracles_0021",
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "{#Emph}Heh. {#Prev}Saves me having to find another bottle for when next I have to prove my fealty. Here, something for your trouble." },
 			},
 			HeraclesGift02 =
@@ -730,10 +790,14 @@ UnitSetData.NPC_Heracles =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HeraclesGift01" },
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
 					},
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Heracles_01" },
+					},
+					{
+						PathFalse = { "CurrentRun", "EncountersOccurredCache", "HeraclesCombatIntro" },
 					},
 				},
 				{ Cue = "/VO/Heracles_0022",
@@ -741,6 +805,7 @@ UnitSetData.NPC_Heracles =
 				{ Cue = "/VO/MelinoeField_0240", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					PostLineThreadedFunctionName = "HeraclesExit", PostLineFunctionArgs = { WaitTime = 3.0, SkipIfStillInteractable = true, },
 					Text = "Nothing's gained from luxury in excess, anyway. But there are times a little doesn't hurt! May this soothe your spirit when the occasion arises." },
 			},
 
@@ -780,8 +845,13 @@ UnitSetData.NPC_Heracles =
 					UsePlayerSource = true,
 					SuccessiveChanceToPlayAll = 0.1,
 					PlayOnceFromTableThisRun = true,
-					AreIdsNotAlive = { 370006 },
-
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 370006 }, Alive = false },
+						},
+					},
 				},
 			},
 		},
@@ -820,7 +890,9 @@ UnitSetData.NPC_Heracles =
 						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
 						IsAny = { "HeraclesCombatN", "HeraclesCombatO" },
 					},
-
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HeraclesCombat01" }
+					},
 				},
 				{ Cue = "/VO/Heracles_0043", Text = "You." },
 				{ Cue = "/VO/Heracles_0044", Text = "You again." },
@@ -1025,8 +1097,6 @@ UnitSetData.NPC_Heracles =
 			RandomRemaining = true,
 			PreLineWait = 0.5,
 
-			-- Let's call this one a draw.
-			-- { Cue = "/VO/Thanatos_0346", },
 		},
 		EncounterLostVoiceLines =
 		{
@@ -1049,6 +1119,11 @@ UnitSetData.NPC_Heracles =
 		RepulseOnMeleeInvulnerableHit = 150,
 		OnHitVoiceLines =
 		{
+			Cooldowns =
+			{
+				{ Name = "HeraclesAnyQuipSpeech", Time = 14 },
+				{ Name = "HeraclesHitRecentlySpeech", Time = 25 },
+			},
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
@@ -1065,10 +1140,6 @@ UnitSetData.NPC_Heracles =
 						Path = { "SourceProjectile", },
 						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
 					},
-				},
-				Cooldowns =
-				{
-					{ Name = "HeraclesAnyQuipSpeech", Time = 14 },
 				},
 
 				{ Cue = "/VO/Heracles_0098", Text = "Out of my way." },
@@ -1093,10 +1164,6 @@ UnitSetData.NPC_Heracles =
 						Path = { "SourceProjectile", },
 						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
 					},
-				},
-				Cooldowns =
-				{
-					{ Name = "HeraclesAnyQuipSpeech", Time = 14 },
 				},
 
 				{ Cue = "/VO/Heracles_0100", Text = "Ill-advised.", PlayFirst = true },
@@ -1198,7 +1265,45 @@ UnitSetData.NPC_Heracles =
 		},
 
 	},
+}
 
+-- Global Heracles Lines
+GlobalVoiceLines.HeraclesBoonReactionVoiceLines =
+{
+	RandomRemaining = true,
+	PreLineWait = 1.65,
+	ObjectType = "NPC_Heracles_01",
+	RecheckRequirementsForSubLines = true,
+	GameStateRequirements =
+	{
+		--
+	},
+
+	{ Cue = "/VO/Heracles_0152", Text = "Even the gods have their price." },
+	{ Cue = "/VO/Heracles_0153", Text = "Olympus..." },
+	{ Cue = "/VO/Heracles_0154", Text = "She's aiding {#Emph}you?", PlayFirst = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentLootData", "Name" },
+				IsAny = { "HeraUpgrade" },
+			},
+		},
+	},
+	{ Cue = "/VO/Heracles_0155", Text = "That's all it takes, huh." },
+}
+GlobalVoiceLines.HeraclesDeathReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 1.25,
+	NoTarget = true,
+	Source = { LineHistoryName = "NPC_Heracles_01", SubtitleColor = Color.HeraclesVoice },
+
+	{ Cue = "/VO/Heracles_0104", Text = "Blasted weaklings everywhere in sight..." },
+	{ Cue = "/VO/Heracles_0105", Text = "The gods are poor at choosing champions...", PlayFirst = true },
+	{ Cue = "/VO/Heracles_0106", Text = "I said to stay out of my blasted way..." },
+	{ Cue = "/VO/Heracles_0107", Text = "No mercy for the weak out here, sister." },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Heracles )

@@ -94,8 +94,6 @@
         Using = [
           { Name = "BreakableIdle2" }
           { Name = "BreakableIdle3" }
-          { Name = "BreakableHighValueIdle" }
-          { Name = "BreakableHighValueIdleSuper" }
         ]
       }
     }

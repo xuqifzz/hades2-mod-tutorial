@@ -1,6 +1,6 @@
 function UseFishingPoint( fishingPoint, args, user )
 
-	if ( HasFamiliarTool( "ToolFishingRod" ) and not MapState.FamiliarUnit ) then
+	if not CheckCooldown( "UsedFishingPoint", 0.75, true ) or MapState.HostilePolymorph or ( HasFamiliarTool( "ToolFishingRod" ) and not MapState.FamiliarUnit ) then
 		return
 	end
 	
@@ -9,46 +9,52 @@ function UseFishingPoint( fishingPoint, args, user )
 		return
 	end
 
+	if not IsEmpty( RequiredKillEnemies ) or IsAggoredUnitBlockingHarvest() then
+		HarvestBlockedPresentation( fishingPoint, { Text = "UseBlockedByEnemies" } )
+		return
+	end
+
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+	if not CurrentRun.CurrentRoom.ExitsUnlocked and not roomData.AllowFishingPreExitsUnlock then
+		HarvestBlockedPresentation( fishingPoint, { Text = roomData.HarvestBlockedText or RoomData.BaseRoom.HarvestBlockedText } )
+		return
+	end
+
+	if CurrentRun.Hero.OnLava then
+		HarvestBlockedPresentation( fishingPoint, { Text = "UseBlockedByLava" } )
+		return
+	end
+
 	CurrentRun.CurrentRoom.FishingPointUsed = true
 	CurrentRun.Hero.UntargetableFlags.Fishing = true
 	SetPlayerInvulnerable( "Fishing" )
 	AddPlayerImmuneToForce( "Fishing" )
 
-	if CheckCooldown( "UsedFishingPoint", 0.75, true ) then
-		local canFishInEncounter = true
-		if CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.BlockFishingBeforeStart and not CurrentRun.CurrentRoom.Encounter.Completed then
-			canFishInEncounter = false
-		end
-		if not CurrentRun.CurrentRoom.ExitsUnlocked or not canFishInEncounter or not IsEmpty( RequiredKillEnemies ) or IsAggoredUnitBlockingHarvest() then
-			FishingBlockedByEncounterPresentation( fishingPoint, args, user )
-		elseif CurrentRun.Hero.OnLava then
-			FishingBlockedByLavaPresentation( fishingPoint, args, user )
-		elseif HasFamiliarTool( "ToolFishingRod" ) then
-			FamiliarFishingPresentation( fishingPoint )
-			CurrentRun.Hero.FishingState = "Success"
+	if HasFamiliarTool( "ToolFishingRod" ) then
+		FamiliarFishingPresentation( fishingPoint )
+		CurrentRun.Hero.FishingState = "Success"
+		UseableOff({ Id = fishingPoint.ObjectId })
+		SetAlpha({ Id = fishingPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
+		BlockVfx({ DestinationId = fishingPoint.ObjectId })
+		local caughtFishName = GetCaughtFishName( GetCurrentFishingBiomeName() )
+		local caughtFishData = FishingData.FishValues[caughtFishName]
+		FishingEndPresentation( caughtFishData, fishingPoint.ObjectId, { Success = true, UsedFamiliar = true, } )
+	else
+		CurrentRun.Hero.FishingStarted = true
+		FreezePlayerUnit( "FishingStartUp", { DisableTray = true, DisableCodex = true } )
+		AddTimerBlock( CurrentRun, "Fishing" )
+		wait( 0.25, "FishingStartDelay" )
+		UnfreezePlayerUnit("FishingStartUp")
+		if CurrentRun.Hero.FishingStarted and not CurrentRun.Hero.OnLava then
 			UseableOff({ Id = fishingPoint.ObjectId })
 			SetAlpha({ Id = fishingPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
 			BlockVfx({ DestinationId = fishingPoint.ObjectId })
-			local caughtFishName = GetCaughtFishName( GetCurrentFishingBiomeName() )
-			DebugPrint({ Text = "caughtFishName = "..tostring(caughtFishName) })
-			local caughtFishData = FishingData.FishValues[caughtFishName]
-			FishingEndPresentation( caughtFishData, fishingPoint.ObjectId, { Success = true, UsedFamiliar = true, } )
+			FishingSequence( nil, { FishingPointId = fishingPoint.ObjectId } )
 		else
-			CurrentRun.Hero.FishingStarted = true
-			FreezePlayerUnit( "FishingStartUp", { DisableTray = true, DisableCodex = true } )
-			AddTimerBlock( CurrentRun, "Fishing" )
-			wait( 0.25, "FishingStartDelay" )
-			UnfreezePlayerUnit("FishingStartUp")
-			if CurrentRun.Hero.FishingStarted and not CurrentRun.Hero.OnLava then
-				UseableOff({ Id = fishingPoint.ObjectId })
-				SetAlpha({ Id = fishingPoint.ObjectId, Fraction = 0.0, Duration = 0.25 })
-				BlockVfx({ DestinationId = fishingPoint.ObjectId })
-				FishingSequence( nil, { FishingPointId = fishingPoint.ObjectId } )
-			else
-				RemoveTimerBlock( CurrentRun, "Fishing" )
-			end
- 		end
+			RemoveTimerBlock( CurrentRun, "Fishing" )
+		end
  	end
+
 	CurrentRun.Hero.UntargetableFlags.Fishing = nil
 	SetPlayerVulnerable( "Fishing" )
 	RemovePlayerImmuneToForce( "Fishing" )
@@ -227,7 +233,7 @@ function GetCaughtFishName( biome )
 	if biomeData then
 		local fishingTable = {}
 		for _, fishData in ipairs( biomeData ) do
-			if fishData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, fishData, fishData.GameStateRequirements ) then
+			if fishData.GameStateRequirements == nil or IsGameStateEligible( fishData, fishData.GameStateRequirements ) then
 				fishingTable[fishData.Name] = fishingTable.Weight or 1
 			end
 		end

@@ -62,7 +62,7 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				ProjectileName = "AphroditeBurst",
-				DamageMultiplier = 1,
+				DamageMultiplier = 1.5,
 				StartDelay = 0.15,
 				ReportValues = 
 				{ 
@@ -93,7 +93,9 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "AphroditeBurst",
 				BaseProperty = "Fuse",
 			},
-		}
+		},
+
+		PackageName = "AphroditeUpgrade"
 	},
 	
 	CharmCrowdBoon =  -- Aphrodite x Hera
@@ -122,7 +124,9 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedMinimum",
 				ExtractAs = "TooltipMinimum",
 			}
-		}
+		},
+
+		PackageName = "AphroditeUpgrade"
 	},
 
 	BurnRefreshBoon = -- Aphrodite x Hestia
@@ -165,7 +169,8 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "DamagePerSecond",
 				DecimalPlaces = 1,
 			},
-		}
+		},
+		PackageName = "HestiaUpgrade",
 	},
 	AllCloseBoon = -- Aphrodite x Poseidon
 	{
@@ -212,15 +217,9 @@ OverwriteTableKeys( TraitData, {
 		{
 			{
 				Key = "ReportedMultiplier",
-				Format = "Percent",
+				Format = "PercentDelta",
 				HideSigns = true,
 				ExtractAs = "BlitzMultiplier",
-			},
-			{
-				BaseType = "Projectile",
-				BaseName = "ZeusEchoStrike",
-				BaseProperty = "Damage",
-				SkipAutoExtract = true,
 			},
 			{
 				ExtractAs = "EchoDuration",
@@ -238,7 +237,9 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "DamageEchoEffect",
 				BaseProperty = "DamageThreshold",
 			},
-		}
+		},
+
+		PackageName = "ZeusUpgrade"
 	},
 	StormSpawnBoon =  -- Apollo x Demeter
 	{
@@ -326,7 +327,9 @@ OverwriteTableKeys( TraitData, {
 				DecimalPlaces = 2,
 				SkipAutoExtract = true,
 			},
-		}
+		},
+
+		PackageName = "DemeterUpgrade"
 	},
 	BlindClearBoon = -- Apollo x Hephaestus
 	{
@@ -400,7 +403,8 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "DamageBonus",
 				Format = "PercentDelta",
 			},
-		}
+		},
+		PackageName = "HeraUpgrade"
 	},
 	CoverRegenerationBoon = -- Apollo x Hestia
 	{
@@ -523,7 +527,8 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Time",
 				SkipAutoExtract = true,
 			}
-		}
+		},
+		PackageName = "PoseidonUpgrade",
 	},
 	ApolloSecondStageCastBoon = -- Apollo x Zeus
 	{
@@ -568,10 +573,10 @@ OverwriteTableKeys( TraitData, {
 		
 		ChargeStageModifiers = 
 		{
-			TraitName = "ApolloExCastBoon",
-			ValidWeapons = { "WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" },
+			ValidWeapons = { "WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile", "WeaponCastLob" },
 			AddChargeStage = 
 			{ 
+				TraitName = "ApolloExCastBoon",
 				ManaCost = 45,
 				ResetIndicator = true,
 				Wait = 1.5,
@@ -631,7 +636,8 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Fuse",
 				DecimalPlaces = 2,
 			},
-		}
+		},
+		PackageName = "ZeusUpgrade",
 	},
 	ClearRootBoon = -- Demeter x Hephaestus
 	{
@@ -669,13 +675,15 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "ChillEffect",
 				BaseProperty = "ActiveDuration",
 			},
-		}
+		},
+		PackageName = "DemeterUpgrade",
 	},
 	KeepsakeLevelBoon = -- Demeter x Hera
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Demeter_41",
 		KeepsakeLevelBonus =  1,
+		AcquireFunctionName = "AttemptAdvanceKeepsake",
 		StatLines =
 		{
 			"KeepsakeStatDisplay1",
@@ -689,7 +697,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	BurnConsumeBoon = 
+	BurnConsumeBoon = -- Demeter x Hestia
 	{
 		InheritFrom = {"SynergyTrait"},
 		Icon = "Boon_Hestia_43",
@@ -746,7 +754,9 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "ChillEffect",
 				BaseProperty = "ActiveDuration",
 			},
-		}
+		},
+
+		PackageName = "DemeterUpgrade"
 	},
 	GoodStuffBoon = -- Demeter x Poseidon
 	{
@@ -822,50 +832,40 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "ChillEffect",
 				BaseProperty = "ActiveDuration",
 			},
-		}
+		},
+
+		PackageName = "ZeusUpgrade"
 	},
-	EmptySlotDamageBoon = -- Hephaestus x Hera
+	ManaShieldBoon = -- Hephaestus x Hera
 	{
 		InheritFrom = { "SynergyTrait" },
 		Icon = "Boon_Hephaestus_41",
-		VisualActivationRequirements = 
+		ManaShieldData = 
 		{
-			{
-				{
-					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Melee" },
-				},
-			},
-			{
-				{
-					PathFalse = { "CurrentRun", "Hero", "SlottedTraits", "Secondary" },
-				},
-			},
-
+			DamageBlocked = 0.5,					 --Percent of damage that is redirected
+			ManaPerDamageBlocked =	5,			-- Amount of mana burned per damage blocked
+			ReportValues = 
+			{ 
+				ReportedDamageBlocked = "DamageBlocked",
+				ReportedManaConversion = "ManaPerDamageBlocked",
+			}
 		},
-		AddOutgoingDamageModifiers =
-		{
-			EmptySlotMultiplier = {
-				BaseValue = 3,
-				SourceIsMultiplier = true,
-			},
-			EmptySlotValidData =
-			{
-				--Ranged = WeaponSets.HeroNonPhysicalWeapons,
-				Melee = WeaponSets.HeroPrimaryWeapons,
-				Secondary = WeaponSets.HeroSecondaryWeapons,
-			},
-			ReportValues = { ReportedWeaponMultiplier = "EmptySlotMultiplier"},
-		},
+		
 		StatLines =
 		{
-			"BoonlessStatDisplay1",
+			"ManaShieldStatDisplay1",
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedWeaponMultiplier",
-				ExtractAs = "TooltipBonus",
-				Format = "PercentDelta",
+				Key = "ReportedManaConversion",
+				ExtractAs = "TooltipManaConversion",
+			},
+			{
+				Key = "ReportedDamageBlocked",
+				ExtractAs = "TooltipDamageBlocked",
+				Format = "Percent",
+				SkipAutoExtract = true,
 			},
 		}
 	},
@@ -893,6 +893,12 @@ OverwriteTableKeys( TraitData, {
 		Icon = "Boon_Poseidon_43",
 		InheritFrom = {"SynergyTrait"},
 		
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "PoseidonCastBoon" },
+			}
+		},
 		SetupFunction =
 		{
 			Name = "MassiveAttackSetup",
@@ -941,7 +947,8 @@ OverwriteTableKeys( TraitData, {
 				DecimalPlaces = 1,
 				SkipAutoExtract = true,
 			},
-		}
+		},
+		PackageName = "PoseidonUpgrade",
 	},
 	ReboundingSparkBoon = -- Hephaestus x Zeus
 	{
@@ -965,31 +972,6 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipDamageBonus",
 				Format = "Percent",
 			},
-		},
-	},
-	AllElementalBoon = -- Hera x Hestia
-	{
-		Icon = "Boon_Hestia_41",
-		InheritFrom = {"SynergyTrait"},
-		Elements = { "Aether", "Earth", "Air", "Fire", "Water" }, 
-		AcquireFunctionName = "GrantBoons",
-		AcquireFunctionArgs = 
-		{
-			BoonSets = 
-			{	
-				-- Earth
-				{ "ElementalDamageBoon", "ElementalRarityUpgradeBoon", },
-				-- Fire
-				{ "ElementalBaseDamageBoon", "ElementalRallyBoon" },
-				-- Air
-				{ "ElementalDamageFloorBoon", "ElementalDodgeBoon" },
-				-- Water
-				{ "ElementalHealthBoon", "ElementalDamageCapBoon" },
-			},
-		},
-		StatLines =
-		{
-			"AllElementStatDisplay",
 		},
 	},
 	MoneyDamageBoon = -- Hera x Poseidon
@@ -1042,7 +1024,9 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedLevelBonus",
 				ExtractAs = "Amount",
 			},
-		}
+		},
+
+		PackageName = "HeraUpgrade"
 	},
 	SuperSacrificeBoonZeus = -- Hera x Zeus
 	{
@@ -1071,7 +1055,9 @@ OverwriteTableKeys( TraitData, {
 				Key = "ReportedLevelBonus",
 				ExtractAs = "Amount",
 			},
-		}
+		},
+
+		PackageName = "ZeusUpgrade"
 	},
 	SteamBoon = -- Hestia x Poseidon
 	{
@@ -1135,7 +1121,8 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Duration",
 				DecimalPlaces = 1,
 			},
-		}
+		},
+		PackageName = "HestiaUpgrade",
 	},
 	EchoBurnBoon = -- Hestia x Zeus
 	{
@@ -1188,7 +1175,8 @@ OverwriteTableKeys( TraitData, {
 				BaseName = "DamageEchoEffect",
 				BaseProperty = "DamageThreshold",
 			},
-		}
+		},
+		PackageName = "HestiaUpgrade",
 	},
 	LightningVulnerabilityBoon = -- Poseidon x Zeus
 	{
@@ -1230,6 +1218,54 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Duration",
 				DecimalPlaces = 1,
 			},
-		}
+		},
+		PackageName = "ZeusUpgrade",
 	},
+	
+	ManaRestoreDamageBoon =  -- Hera x Hestia
+	{
+		InheritFrom = {"SynergyTrait"},
+		Icon = "Boon_Hestia_41",
+		SetupFunction =
+		{
+			Threaded = true,
+			RequiredContext = "StartRoom",
+			Name = "ManaRestoreDamage",
+			Args =
+			{
+				ProjectileName = "ManaRestoreBlast",
+				Interval = 0.2,			-- Highest rate of fire
+				ManaThreshold = 5,		-- How much mana regen to 'accumulate' before firing.
+				MinRadius = 0.6,		-- Base blast radius modifier
+				MaxRadius = 1,			-- Max blast radius modifier
+				MaxRadiusThreshold = 15,-- Amount of mana restored to hit the max blast radius
+				DamageMultiplier = 5,	-- Mana regenerated to damage conversion
+				ReportValues = 
+				{ 
+					ReportedInterval = "Interval",
+					ReportedMultiplier = "DamageMultiplier",
+				},
+			},
+		},
+		StatLines = 
+		{
+			"ManaRestoreStatDisplay",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "DamageMultiplier",
+				Format = "Percent",
+				HideSigns = true,
+			},
+			{
+				Key = "ReportedInterval",
+				ExtractAs = "Interval",
+				DecimalPlaces = 1,
+				SkipAutoExtract = true,
+			}
+		},
+
+	}
 })

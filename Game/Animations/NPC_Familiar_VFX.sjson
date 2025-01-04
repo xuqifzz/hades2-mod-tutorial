@@ -1,0 +1,50 @@
+{ Animations = [
+
+	{
+		Name = "CatFamiliarRecruitHighlight"
+		InheritFrom = "EliteUnitStatus"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		Scale = 1.0
+		PlaySpeed = 45.0
+		Hue = 0.17
+		GroupName = "FX_Terrain_Add"
+		Alpha = 0.5
+		Sound = "/SFX/Familiars/PurringLoop"
+		StopSoundOnFinishFade = 0.2
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "RavenFamiliarStabFx"
+		FilePath = "Fx\ZombieAssassinStrike\ZombieAssassinStrike"
+		NumFrames = 15
+		RandomFlipVertical = true
+		Material = "Unlit"
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		Velocity = 800
+		Acceleration = -300
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		SortMode = "FromParent"
+		Scale = 0.8
+		StartScaleY = 1
+		EndScaleY = 0.7
+		OriginX = 0
+		OriginY = 0
+		ScaleX = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		DieWithOwner = false
+		GroupName = "FX_Standing_Add"
+		VisualFx = "ZombieAssassinStabParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 3
+		PlaySpeed = 60
+		Sound = "/SFX/Player Sounds/MelDaggerKnifeThrowSwish"
+	}
+
+]}

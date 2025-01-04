@@ -27,6 +27,9 @@ WeaponSetData =
 
 			PreMoveFunctionName = "SelectTentacleBurrowPoints",
 
+			PreMoveTeleport = true,
+			TeleportToTarget = true,
+
 			SetTargetable = true,
 
 			AttackDistance = 75,
@@ -62,8 +65,8 @@ WeaponSetData =
 			PreAttackDuration = 0.0,
 			FireDuration = 0.98,
 			PostAttackAlpha = 0,
-			PostAttackDurationMin = 4.0,
-			PostAttackDurationMax = 6.0,
+			PostAttackDurationMin = 0.0,
+			PostAttackDurationMax = 0.0,
 			FireAnimation = "Enemy_CharybdisTentacle_Burrow",
 			PostAttackAnimation = "Enemy_CharybdisTentacle_Hidden",
 
@@ -124,10 +127,10 @@ WeaponSetData =
 
 			PreAttackDuration = 1.5,
 			FireDuration = 0.3,
-			PostAttackDurationMin = 1.55, -- animation is 1.5s
-			PostAttackDurationMax = 3.0,
+			PostAttackDurationMin = 2.05, -- animation is 1.5s
+			PostAttackDurationMax = 3.15,
 
-			PreAttackSound = "/SFX/Enemy Sounds/Charybdis/EmoteChargingMelee",
+			PreAttackSound = "/SFX/Enemy Sounds/Charybdis/EmoteChargingRanged",
 			PreAttackAnimation = "Enemy_CharybdisTentacle_SlapPreFire",
 			FireAnimation = "Enemy_CharybdisTentacle_SlapFire",
 			PostAttackAnimation = "Enemy_CharybdisTentacle_SlapPostFire",
@@ -174,8 +177,8 @@ WeaponSetData =
 
 			PreAttackDuration = 1.1,
 			FireDuration = 0.4,
-			PostAttackDurationMin = 1.35, -- animation is 1.3
-			PostAttackDurationMax = 1.97,
+			PostAttackDurationMin = 2.6, -- animation is 1.3
+			PostAttackDurationMax = 3.6,
 
 			PreAttackSound = "/SFX/Enemy Sounds/Charybdis/EmoteChargingRanged",
 			PreAttackAnimation = "Enemy_CharybdisTentacle_SpikePreFire",
@@ -190,7 +193,7 @@ WeaponSetData =
 			FireSounds =
 			{
 				{ Name = "/SFX/ArcherTrapProjectileFireShoot" },
-				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
+				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingRange" },
 			},
 		},
 
@@ -199,12 +202,6 @@ WeaponSetData =
 			--MinPlayerDistance = 400,
 		},
 
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	CharybdisTentacleWhip =
@@ -272,7 +269,7 @@ WeaponSetData =
 
 			Spread = 45,
 			
-			FireProjectileAtTarget = true,
+			FireProjectileTowardTarget = true,
 			
 			AttackDistance = 99999,
 
@@ -290,15 +287,9 @@ WeaponSetData =
 		{
 			FireSounds =
 			{
-				{ Name = "/SFX/Player Sounds/ZagreusGunGrenadeLaunchFire" },
+				{ Name = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee" },
+				{ Name = "/SFX/SawTrapFireSound" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -335,12 +326,13 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			FireTicks = 1,
-			FireInterval = 0.0,
+			FireTicksMin = 1,
+			FireTicksMax = 2,
+			FireInterval = 0.5,
 
 			FireDuration = 0.65,
-			PostAttackDurationMin = 5.0,
-			PostAttackDurationMax = 10.0,
+			PostAttackDurationMin = 11.0,
+			PostAttackDurationMax = 14.0,
 		},
 	},
 }

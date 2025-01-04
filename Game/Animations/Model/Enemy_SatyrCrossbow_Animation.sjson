@@ -19,6 +19,17 @@
 		GrannyAnimation = "SatyrCrossbow_Base_Idle_C_00"
 		Loop = true
 		CancelOnOwnerMove = true
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_SatyrCB_ShieldedBoltPreFire"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SatyrCB_ShieldedBoltPreFireLoop"
+				Duration = 6
+			}
+		]
 	}
 
 	// Move
@@ -215,6 +226,17 @@
 	}
 
 	{
+		Name = "Enemy_SatyrCB2_Death"
+		InheritFrom = "Enemy_SatyrCB_Death"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		CreateAnimations = [
+			{ Name = "EnemySandDeathFx" }
+			{ Name = "SatyrCrossbowDeathFx" }
+		]
+	}
+
+	{
 		Name = "Enemy_SatyrCB_Spawn"
 		InheritFrom = "Enemy_SatyrCB_Idle"
 		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
@@ -234,6 +256,30 @@
 		OwnerInvulnerable = true
 		OwnerUntargetable = true
 		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_SatyrCB_SpawnOlympus"
+		InheritFrom = "EnemySatyrCBBaseAnimation"
+		GrannyAnimation = "SatyrCrossbow_Base_Spawn_C_00"
+		ChainTo = "Enemy_SatyrCB_Idle"
+		CreateAnimation = "SatyrSpawnTrail"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.098
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}
+		]
 	}
 
 

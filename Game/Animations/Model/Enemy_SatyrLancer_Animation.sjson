@@ -597,6 +597,18 @@
 	}
 
 	{
+		Name = "Enemy_SatyrLancer2_Death"
+		InheritFrom = "Enemy_SatyrLancer_Death"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		VisualFx = null
+		CreateAnimations = [
+			//{ Name = "EnemySandDeathFx" }
+			{ Name = "SatyrLancerDeathFx" }
+		]
+	}
+
+	{
 		Name = "Enemy_SatyrLancer_Spawn"
 		InheritFrom = "Enemy_SatyrLancer_Idle"
 		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskSand"
@@ -616,6 +628,30 @@
 		OwnerInvulnerable = true
 		OwnerUntargetable = true
 		OwnerHasNoCollision = true
+	}
+
+	{
+		Name = "Enemy_SatyrLancer_SpawnOlympus"
+		InheritFrom = "EnemySatyrLancerBaseAnimation"
+		GrannyAnimation = "SatyrLancer_Base_Spawn_C_00"
+		ChainTo = "Enemy_SatyrLancer_Idle"
+		CreateAnimation = "SatyrSpawnTrail"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.098
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+			{
+				Frame = 3
+				FrameSpeed = 1
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
+			}
+		]
 	}
 
 ] }

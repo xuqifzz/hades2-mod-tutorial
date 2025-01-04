@@ -8,11 +8,13 @@ OverwriteTableKeys( WeaponData,
 		EquippedKitAnimation = "WeaponDaggerFloatingIdleOff",
 		UnequippedKitAnimation = "WeaponDaggerFloatingIdle",
 		UpgradeScreenKitAnimation = "WeaponDaggerFloatingIdleVertical",
+		BountyScreenKitAnimation = "WeaponDaggerIdle",
 		FirstTimeWeaponFire = "WeaponDaggerDouble",
 		FirstTimeEquipAnimation = "Melinoe_Dagger_Equip",
 		FirstTimeEquipSound = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing",
 		UseText = "UseWeaponKit",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
+		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Dagger",
 		UnlockName = "WeaponDagger_Unlock",
 		DashWeapon = "WeaponDaggerDash",
 		ExpireDashWeaponOnDash = true,
@@ -74,8 +76,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiscWeaponEquipVoiceLines,
-			[2] = GlobalVoiceLines.SkellyWeaponEquipReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 
 		Sounds =
@@ -306,15 +308,16 @@ OverwriteTableKeys( WeaponData,
 		CustomChannelSlowEvent = "DaggerThrowSlow",
 		CompleteObjectivesOnStagedFire = { "WeaponDaggerThrowCharged" },
 		ShowManaIndicator = true,
+		CheckPostFireFail = true,
 		OnChargeFunctionName = "DoWeaponCharge",
 		ChargeWeaponData =
 		{
 			EmptyChargeFunctionName = "EmptyDaggerCharge",
 			OnStageReachedFunctionName = "DaggerChargeStage"
 		},
-		ChargeWeaponStages = 
+		ChargeWeaponStages =
 		{
-				{ ManaCost = 6, WeaponProperties = { NumProjectiles = 2, AdditionalProjectileWaveChance = 0}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, HideStageReachedFx = true, ChannelSlowEventOnEnter = true },
+				{ ManaCost = 6, WeaponProperties = { Projectile = "ProjectileDaggerThrowCharged", FireGraphic = "Melinoe_Dagger_SpecialEx_Fire", NumProjectiles = 2, AdditionalProjectileWaveChance = 0, }, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.32, HideStageReachedFx = true, ChannelSlowEventOnEnter = true },
 				{ ManaCost = 9, WeaponProperties = { NumProjectiles = 3, AdditionalProjectileWaveChance = 0}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.14, HideStageReachedFx = true, },
 				{ ManaCost = 12, WeaponProperties = { NumProjectiles = 4, AdditionalProjectileWaveChance = 0}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.14, HideStageReachedFx = true, },
 				{ ManaCost = 15, WeaponProperties = { NumProjectiles = 5, AdditionalProjectileWaveChance = 0}, ApplyEffects = { "WeaponDaggerThrowEXDisable", "WeaponDaggerThrowEXDisableCancellable", "WeaponDaggerThrowEXDisableMoveHold" }, Wait = 0.14, },

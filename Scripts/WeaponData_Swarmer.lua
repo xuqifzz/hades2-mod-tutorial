@@ -94,7 +94,7 @@ WeaponSetData =
 
 			SkipCanAttack = true,
 
-			PreAttackTeleportToSpawnPoints = true,
+			PreAttackTeleport = true,
 			TeleportMinDistance = 400,
 			TeleportMaxDistance = 1000,
 			TeleportEndFx = "SwarmerTeleportFxFront",

@@ -74,7 +74,7 @@ UnitSetData.Carrion =
 			MaxParcels = 1,
 			MinValue = 1,
 			MaxValue = 1,
-			ValuePerDifficulty = 0.33,
+			ValuePerDifficulty = 0.2,
 			ValuePerDifficultyMaxValueVariance = 1.3,
 		},
 		HeraclesCombatMoneyValue = 1,
@@ -101,13 +101,10 @@ UnitSetData.Carrion =
 			GameStateRequirements = 
 			{
 				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
-				{
 					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
 				},
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -141,10 +138,12 @@ UnitSetData.Carrion =
 
 	Carrion_Elite =
 	{
-		InheritFrom = { "Carrion" },
+		InheritFrom = { "Elite", "Carrion" },
 		HealthBuffer = 60,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Carrion/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
 
 		WeaponOptions = { "CarrionSweep_Elite" },
 

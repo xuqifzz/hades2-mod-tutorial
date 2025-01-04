@@ -11,6 +11,7 @@ UnitSetData.Polyphemus =
 		AISetupDelay = 1.5,
 		EmoteOffsetX = -100,
 		SpeakerName = "Polyphemus",
+		TextLinesUseWeaponIdle = true,
 
 		InvulnerableFx = "Invincibubble_Scylla",
 		SpeechCooldownTime = 11,
@@ -72,6 +73,7 @@ UnitSetData.Polyphemus =
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
 				FireWeapon = "PolyphemusMegaLeap",
+				ExpireProjectiles = { "PolyphemusMarchRadial" },
 				WaitDuration = 0,
 				AIData =
 				{
@@ -86,6 +88,7 @@ UnitSetData.Polyphemus =
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
 				FireWeapon = "PolyphemusMegaLeapElite",
+				ExpireProjectiles = { "PolyphemusMarchRadial" },
 				WaitDuration = 0,
 				--EquipWeapons = {  },
 				AIData =
@@ -95,14 +98,14 @@ UnitSetData.Polyphemus =
 				MusicSection = 3,
 				UnequipAllWeapons = true,
 				EquipRandomWeapon = { "PolyphemusSearch", "PolyphemusSearch_Sick", "PolyphemusSearch_Zombie", "PolyphemusSearch_Explosive", },
-				EquipWeapons= { "PolyphemusStomp", "PolyphemusStomp", "PolyphemusLeap", "PolyphemusLeap", "PolyphemusKick", "PolyphemusSlam", "PolyphemusMarchElite" },
+				EquipWeapons= { "PolyphemusStomp", "PolyphemusStomp", "PolyphemusLeap", "PolyphemusLeap", "PolyphemusKick", "PolyphemusSlam", "PolyphemusMarch" },
 
 				StageTransitionVoiceLines =
 				{
 					RandomRemaining = true,
 					BreakIfPlayed = true,
 					PreLineWait = 0.65,
-					SuccessiveChanceToPlay = 0.75,
+					SuccessiveChanceToPlay = 0.5,
 					Cooldowns =
 					{
 						-- { Name = "CyclopsSearchedRecently", Time = 30 },
@@ -117,6 +120,14 @@ UnitSetData.Polyphemus =
 					{ Cue = "/VO/Polyphemus_0261", Text = "You're gonna pay real soon..." },
 					{ Cue = "/VO/Polyphemus_0262", Text = "I'm not appreciatin' this." },
 					{ Cue = "/VO/Polyphemus_0263", Text = "You lousy little..." },
+					{ Cue = "/VO/Polyphemus_0369", Text = "Getting a little tired of you, meat!" },
+					{ Cue = "/VO/Polyphemus_0370", Text = "You no good stinking {#Emph}urgh!" },
+					{ Cue = "/VO/Polyphemus_0371", Text = "Done being nice to you." },
+					{ Cue = "/VO/Polyphemus_0372", Text = "You're making me upset!" },
+					{ Cue = "/VO/Polyphemus_0373", Text = "How 'bout we wrap this up?" },
+					{ Cue = "/VO/Polyphemus_0374", Text = "Had just about enough of you..." },
+					{ Cue = "/VO/Polyphemus_0375", Text = "You gotta stay for seconds..." },
+					{ Cue = "/VO/Polyphemus_0376", Text = "Right {#Emph}that's {#Prev}it." },
 				},
 				
 			},
@@ -167,7 +178,7 @@ UnitSetData.Polyphemus =
 				},
 				Cooldowns =
 				{
-					{ Name = "CyclopsLastStandReactionSpeech", Time = 25 },
+					{ Name = "CyclopsLastStandReactionSpeech", Time = 30 },
 				},
 				TriggerCooldowns = { "CyclopsSpokeRecently" },
 
@@ -207,6 +218,10 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0213", Text = "{#Emph}Mmm, mm..." },
 				{ Cue = "/VO/Polyphemus_0214", Text = "{#Emph}Mm{#Prev}, my favorite." },
 				{ Cue = "/VO/Polyphemus_0215", Text = "Just a quick snack..." },
+				{ Cue = "/VO/Polyphemus_0389", Text = "{#Emph}<Chomp> {#Emph}Pretty good..." },
+				{ Cue = "/VO/Polyphemus_0390", Text = "{#Emph}<Chomping>" },
+				{ Cue = "/VO/Polyphemus_0391", Text = "{#Emph}Mm-mm{#Prev}, not bad..." },
+				{ Cue = "/VO/Polyphemus_0392", Text = "{#Emph}Huh{#Prev}, tastes great!" },
 			},
 		},
 		BadMealVoiceLines =
@@ -260,6 +275,12 @@ UnitSetData.Polyphemus =
 			{ Cue = "/VO/Polyphemus_0179", Text = "That almost tickles." },
 			{ Cue = "/VO/Polyphemus_0180", Text = "{#Emph}Aw{#Prev}, too bad." },
 			{ Cue = "/VO/Polyphemus_0182", Text = "{#Emph}Psh." },
+			{ Cue = "/VO/Polyphemus_0393", Text = "No way." },
+			{ Cue = "/VO/Polyphemus_0394", Text = "Nice try." },
+			{ Cue = "/VO/Polyphemus_0395", Text = "Won't cut it." },
+			{ Cue = "/VO/Polyphemus_0396", Text = "Nope!" },
+			{ Cue = "/VO/Polyphemus_0397", Text = "Sorry!" },
+			{ Cue = "/VO/Polyphemus_0398", Text = "{#Emph}Aw." },
 		},
 		ResistedVoiceLines =
 		{
@@ -283,6 +304,7 @@ UnitSetData.Polyphemus =
 		OnHitVoiceLinesQueueDelay = 0.6,
 		OnHitVoiceLines =
 		{
+			TriggerCooldowns = { "CyclopsSpokeRecently" },
 			{
 				PlayOnceFromTableThisRun = true,
 				RandomRemaining = true,
@@ -296,12 +318,44 @@ UnitSetData.Polyphemus =
 						IsAny = { "CatFamiliarPounce" },
 					},
 				},
-				TriggerCooldowns = { "CyclopsSpokeRecently" },
 
 				{ Cue = "/VO/Polyphemus_0341", Text = "That a {#Emph}cat?", PlayFirst = true },
 				{ Cue = "/VO/Polyphemus_0342", Text = "Cool it, cat." },
 			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				SuccessiveChanceToPlay = 0.2,
+				SuccessiveChanceToPlayAll = 0.05,
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsAny = { "RavenFamiliarMelee" },
+					},
+				},
 
+				{ Cue = "/VO/Polyphemus_0425", Text = "What's with the bird?", PlayFirst = true },
+				{ Cue = "/VO/Polyphemus_0426", Text = "Quit your flappin'!" },
+			},
+			{
+				PlayOnceFromTableThisRun = true,
+				RandomRemaining = true,
+				SuccessiveChanceToPlay = 0.2,
+				SuccessiveChanceToPlayAll = 0.05,
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsAny = { "HoundFamiliarBark" },
+					},
+				},
+
+				{ Cue = "/VO/Polyphemus_0427", Text = "Better not be a wolf.", PlayFirst = true },
+				{ Cue = "/VO/Polyphemus_0428", Text = "Stray dog got in..." },
+			},
 		},
 
 		LowHealthVoiceLineThreshold = 0.6,
@@ -314,11 +368,10 @@ UnitSetData.Polyphemus =
 			SuccessiveChanceToPlay = 0.05,
 			Cooldowns =
 			{
-				{ Name = "CyclopsSpokeRecently", Time = 25 },
+				{ Name = "CyclopsSpokeRecently", Time = 20 },
 			},				
 			GameStateRequirements =
 			{
-				-- RequiredFalseTextLines = { "MegaeraGift10" },
 			},
 
 			{ Cue = "/VO/Polyphemus_0062", Text = "Oof!" },
@@ -332,6 +385,10 @@ UnitSetData.Polyphemus =
 			{ Cue = "/VO/Polyphemus_0075", Text = "That was nothing." },
 			{ Cue = "/VO/Polyphemus_0077", Text = "{#Emph}Psh." },
 			{ Cue = "/VO/Polyphemus_0181", Text = "{#Emph}Augh." },
+			{ Cue = "/VO/Polyphemus_0429", Text = "{#Emph}Ehh..." },
+			{ Cue = "/VO/Polyphemus_0430", Text = "That's low..." },
+			{ Cue = "/VO/Polyphemus_0433", Text = "Get off of me!" },
+			{ Cue = "/VO/Polyphemus_0434", Text = "{#Emph}Nah..." },
 		},
 		CriticalHealthVoiceLineThreshold = 0.3,
 		CriticalHealthVoiceLines =
@@ -342,12 +399,11 @@ UnitSetData.Polyphemus =
 			SuccessiveChanceToPlay = 0.05,
 			Cooldowns =
 			{
-				{ Name = "CyclopsSpokeRecently", Time = 25 },
+				{ Name = "CyclopsSpokeRecently", Time = 20 },
 			},
 			PreLineWait = 0.35,
 			GameStateRequirements =
 			{
-				RequiredFalseTextLines = { "MegaeraGift10" },
 			},
 			{ Cue = "/VO/Polyphemus_0064", Text = "You little..." },
 			{ Cue = "/VO/Polyphemus_0065", Text = "{#Emph}Buh..." },
@@ -355,6 +411,26 @@ UnitSetData.Polyphemus =
 			{ Cue = "/VO/Polyphemus_0067", Text = "{#Emph}Grr..." },
 			{ Cue = "/VO/Polyphemus_0074", Text = "Oh come on." },
 			{ Cue = "/VO/Polyphemus_0076", Text = "{#Emph}Augh..." },
+			{ Cue = "/VO/Polyphemus_0431", Text = "Tiring out...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EnemyKills", "Polyphemus" },
+						Comparison = ">=",
+						Value = 5,
+					},
+				},
+			},
+			{ Cue = "/VO/Polyphemus_0432", Text = "{#Emph}<Yawn>",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EnemyKills", "Polyphemus" },
+						Comparison = ">=",
+						Value = 8,
+					},
+				},
+			},
 		},
 		DeathVoiceLines =
 		{
@@ -374,20 +450,51 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0183", Text = "{#Emph}Eugh... {#Prev}I'm... out..." },
 				{ Cue = "/VO/Polyphemus_0184", Text = "{#Emph}Augh... {#Prev}break... time..." },
 				{ Cue = "/VO/Polyphemus_0185", Text = "{#Emph}Nghh... auugghhh..." },
+				{ Cue = "/VO/Polyphemus_0437", Text = "{#Emph}Ungh... {#Prev}you... little..." },
+				{ Cue = "/VO/Polyphemus_0435", Text = "{#Emph}Guh... {#Prev}I'm... full...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "EnemyKills", "Polyphemus" },
+							Comparison = ">=",
+							Value = 10,
+						},
+					},
+				},
+				{ Cue = "/VO/Polyphemus_0436", Text = "{#Emph}Urgh... {#Prev}good... night...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "EnemyKills", "Polyphemus" },
+							Comparison = ">=",
+							Value = 6,
+						},
+					},
+				},
+				{ Cue = "/VO/Polyphemus_0438", Text = "{#Emph}Nghh... {#Prev}quick... nap...",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "EnemyKills", "Polyphemus" },
+							Comparison = ">=",
+							Value = 8,
+						},
+					},
+				},
 			},
 		},
-		OnKillVoiceLines =
+		BossKillVoiceLines =
 		{
 			Cooldowns =
 			{
 				{ Name = "BossVanquishedSpeech", Time = 60 },
 			},
-			[1] = GlobalVoiceLines.BarelySurvivedBossFightVoiceLines,
-			[2] =
+			{ GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			{
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 7.2,
+				SuccessiveChanceToPlay = 0.75,
 				SuccessiveChanceToPlayAll = 0.5,
 				UsePlayerSource = true,
 
@@ -450,15 +557,11 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0002", Speaker = "NPC_Cyclops_Unnamed_01",
 					Text = "You frightened my sheep. That's a real no-no in this town." },
 				{ Cue = "/VO/Melinoe_0490", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I apologize for my transgression, Cyclops. What do I owe you for the inconvenience? I can pay." },
 				{ Cue = "/VO/Polyphemus_0003", Speaker = "NPC_Cyclops_Unnamed_01",
 					Text = "Oh, you'll pay. The punishment's gettin' eaten alive. By {#Emph}me{#Prev}. Sorry, I don't make the rules." },
 				{ Cue = "/VO/Melinoe_0491", UsePlayerSource = true,
 					PreLineWait = 0.35,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "That seems unusually strict. There's no use following a senseless code of law." },
 				{ Cue = "/VO/Polyphemus_0004", Speaker = "NPC_Cyclops_Unnamed_01",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -471,7 +574,7 @@ UnitSetData.Polyphemus =
 					PreLineWait = 0.4,
 					UsePlayerSource = true,
 					TriggerCooldowns = { "CyclopsSpokeRecently" },
-					{ Cue = "/VO/Melinoe_0492", Text = "I know who you are. You'll eat dust!" },
+					{ Cue = "/VO/MelinoeField_2448", Text = "Then you'll eat dust!" },
 				},
 			},
 			PolyphemusAboutFlock01 =
@@ -481,8 +584,6 @@ UnitSetData.Polyphemus =
 					Text = "Can't you see I'm busy over here? Personally, I can't see a thing. Do I complain? No. I just tend my flock." },
 				{ Cue = "/VO/Melinoe_0493", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Your blasted sheep are some of the most high-strung animals I have ever encountered." },
 				{ Cue = "/VO/Polyphemus_0006",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -497,8 +598,6 @@ UnitSetData.Polyphemus =
 					Text = "You coulda had my friendship. A couple of my sheep. But instead? You spit in my eye." },
 				{ Cue = "/VO/Melinoe_0494", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I have done no such thing. I merely need access to the docks. Yet you insist on getting in my way." },
 				{ Cue = "/VO/Polyphemus_0008",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -512,8 +611,6 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0009",
 					Text = "I try to watch my diet. Three square meals, that's it. No snacks. You're making it real difficult for me." },
 				{ Cue = "/VO/Melinoe_0495", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Where I am from, we fast under the waxing moon. And we grow many nutritious plants and fungus. I could bring you some next time if you would like?" },
 				{ Cue = "/VO/Polyphemus_0010",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -528,14 +625,33 @@ UnitSetData.Polyphemus =
 				},
 			},
 
+			PolyphemusAboutName01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "SpeechRecord" },
+						HasAny = { "/VO/MelinoeField_0529", "/VO/MelinoeField_0530" }
+					},
+				},
+				{ Cue = "/VO/Polyphemus_0347",
+					Text = "Who told {#Emph}you {#Prev}you could call me by my name, {#Emph}eh? {#Prev}I never introduced myself to you. What, you gonna start calling me Poly next like I'm your pal?" },
+				{ Cue = "/VO/MelinoeField_2858", UsePlayerSource = true,
+					Text = "I can't imagine you have many {#Emph}pals {#Prev}with how you go on trying to eat anything that moves. Though, we could still be friends! Put all that trying-to-eat-me behind us?" },
+				{ Cue = "/VO/Polyphemus_0348",
+					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
+					PreLineWait = 0.35,
+					PreLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Nah! {#Prev}Got all the pals I need. The sheep back there, dead below the dirt down here. You know what I {#Emph}do {#Prev}need, though? {#Emph}Yeah {#Prev}I think you do." },
+			},
+
 			PolyphemusAboutPast01 =
 			{
 				PlayOnce = true,
 				{ Cue = "/VO/Polyphemus_0139",
 					Text = "Just wanted to be left alone. Move to the countryside, quiet life of the shepherd and all. Only for you to drag me out of retirement." },
 				{ Cue = "/VO/MelinoeField_0320", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I've done no such thing. I'm going to the docks. You're choosing to try and stop me, when you could be tending to your sheep instead." },
 				{ Cue = "/VO/Polyphemus_0140",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -551,8 +667,6 @@ UnitSetData.Polyphemus =
 					Text = "{#Emph}<Sigh> {#Prev}Look, I'm just a humble shepherd trying to live in peace. But I gotta protect my own, you understand. Plus, I gotta eat." },
 				{ Cue = "/VO/MelinoeField_0313", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You call this trying to live in peace?! Perhaps you shouldn't be interfering with my efforts to put an end to this war raging all around us!" },
 				{ Cue = "/VO/Polyphemus_0130",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -567,8 +681,6 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0133",
 					Text = "You know I can always hear you storming through town all the way from this calm relaxing pasture. Even before my sheep get spooked." },
 				{ Cue = "/VO/MelinoeField_0316", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Yes, I figured the boulders raining down back there weren't landing near me by coincidence. You have excellent hearing, and rather good aim." },
 				{ Cue = "/VO/Polyphemus_0134",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -582,14 +694,10 @@ UnitSetData.Polyphemus =
 				PlayOnce = true,
 				{ Cue = "/VO/MelinoeField_0352", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Each time you know I'm here, no matter the softness of my approach or anything I do to mask my scent. Your senses are very keen." },
 				{ Cue = "/VO/Polyphemus_0190",
 					Text = "Yeah, well, when you lose your eye... you got to learn to compensate. And I never saw too good to start with. Could never tell how far away things were." },
 				{ Cue = "/VO/MelinoeField_0353", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "It must have been extraordinarily difficult, nevertheless. And now you use these heightened abilities to tend your flock..." },
 				{ Cue = "/VO/Polyphemus_0191",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -603,8 +711,6 @@ UnitSetData.Polyphemus =
 				PlayOnce = true,
 				{ Cue = "/VO/MelinoeField_0321", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "If you care so much about your sheep, why keep putting them in harm's way? Not to mention eating them. Let them leave here, now." },
 				{ Cue = "/VO/Polyphemus_0141",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -619,10 +725,8 @@ UnitSetData.Polyphemus =
 				PlayOnce = true,
 				{ Cue = "/VO/Polyphemus_0011",
 					Text = "You know who's disrespected me like this? Nobody. Nobody took my sheep. Took my eye." },
-				{ Cue = "/VO/Melinoe_0497", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
-					Text = "Nobody took your eye? You must have lost it. I'll keep an eye out for it! I mean... {#Emph}augh..." },
+				{ Cue = "/VO/MelinoeField_2447", UsePlayerSource = true,
+					Text = "Yes, well, sometimes we've no one to blame but ourselves." },
 				{ Cue = "/VO/Polyphemus_0012",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
@@ -639,14 +743,10 @@ UnitSetData.Polyphemus =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0314", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You said nobody took your eye before, as well as your sheep. How did you lose them, then?" },
 				{ Cue = "/VO/Polyphemus_0131",
 					Text = "Nobody played a dirty trick on me, is how. Bunch of sailors thought they could get away with my sheep, so I ate a couple of 'em. The sailors, that is! But Nobody got me when I wasn't looking. Then he got away..." },
 				{ Cue = "/VO/MelinoeField_0315", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "And you've sought vengeance on this Nobody ever since?" },
 				{ Cue = "/VO/Polyphemus_0132",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -667,8 +767,6 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0289",
 					Text = "No wonder you and Nobody are pals. He and his rats are the only ones that ever got away from me, other than you. That worthless good-for-nothing put you up to this?" },
 				{ Cue = "/VO/MelinoeField_1949", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "His name is Odysseus! He's a great hero and tactician, though you needn't worry about slaying him, for he's long dead already. Not your problem anymore." },
 				{ Cue = "/VO/Polyphemus_0290",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -683,6 +781,9 @@ UnitSetData.Polyphemus =
 				GameStateRequirements =
 				{
 					{
+						PathTrue = { "GameState", "TextLinesRecord", "PolyphemusAboutNobody01" }
+					},
+					{
 						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "BossPreDamageKeepsake" },
 					},
 				},
@@ -690,8 +791,6 @@ UnitSetData.Polyphemus =
 					Text = "{#Emph}<Sniff, Sniff> {#Prev}I never forget a scent, you know. And you got something that's familiar to me from way back when. I know those Bones. {#Emph}Nobody {#Prev}had 'em before you." },
 				{ Cue = "/VO/MelinoeField_1948", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You must mean these Knuckle Bones... if they've ever been a source of ill fortune for you before, then perhaps you know what's coming." },
 				{ Cue = "/VO/Polyphemus_0288",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -710,8 +809,6 @@ UnitSetData.Polyphemus =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0310", UsePlayerSource = true,
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You're very obstinate for a peaceful shepherd. Did Poseidon do something to offend you at some point? Is {#Emph}that {#Prev}what this is about?" },
 				{ Cue = "/VO/Polyphemus_0125",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -729,8 +826,6 @@ UnitSetData.Polyphemus =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0311", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Last I'll say about Poseidon, I swear. He's my uncle, you know. For what it's worth... I'm sorry if he truly led you to believe you were his son." },
 				{ Cue = "/VO/Polyphemus_0126",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -753,14 +848,45 @@ UnitSetData.Polyphemus =
 					Text = "Hey what's your beef with Chronos, anyhow? He wants to change stuff up a bit, so what. Life's hard up here. It could be easier." },
 				{ Cue = "/VO/MelinoeField_0312", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "It won't be. That {#Emph}town {#Prev}back there, as you call it, would have been bustling with mortals. Now it's a festering necropolis. All thanks to the Titan." },
 				{ Cue = "/VO/Polyphemus_0128",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
 					Text = "My sheep, they're glad to be alive. No complaints. But individuals like you? You got too many ideals. Best I {#Emph}eat {#Prev}you, and be done." },
+			},
+
+			PolyphemusAboutChronos02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PolyphemusAboutChronos01" },
+					},
+					{
+						Path = { "GameState", "LastBossHealthBarRecord", "Polyphemus" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					{
+						Path = { "GameState", "EnemyKills", "Polyphemus" },
+						Comparison = ">=",
+						Value = 5,
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2829", UsePlayerSource = true,
+					Text = "So what does Chronos offer you exactly for these ineffectual attempts to bar my passage?" },
+				{ Cue = "/VO/Polyphemus_0343",
+					Text = "Don't see how that's any of your business, meat. {#Emph}You're {#Prev}the one barging into my turf, making a fuss in my town. Falls on me to keep things nice and orderly." },
+				{ Cue = "/VO/MelinoeField_2830", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "Ephyra is {#Emph}not {#Prev}your town. Unless that was your arrangement with the Titan, though the city wasn't his to give away. In any case, ready to earn your nightly keep?" },
+				{ Cue = "/VO/Polyphemus_0344",
+					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
+					PreLineWait = 0.35,
+					PreLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Ohh {#Prev}you don't know the next thing about my {#Emph}arrangement. {#Prev}For one, I always take my pay up front. But with you here... I get a little {#Emph}bonus." },
 			},
 
 			PolyphemusAboutMedea01 =
@@ -776,8 +902,6 @@ UnitSetData.Polyphemus =
 					Text = "Something {#Emph}nasty {#Prev}in the air tonight. And it's not just {#Emph}you {#Prev}or the stink from town. Must be that witch up to no good. You palling up with her?" },
 				{ Cue = "/VO/MelinoeField_0318", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "If you know of Lady Medea then you must know she's not somebody to be crossed. She would not hesitate to curse my foes; including you." },
 				{ Cue = "/VO/Polyphemus_0137",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -795,8 +919,6 @@ UnitSetData.Polyphemus =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0319", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "How is it you detain {#Emph}me {#Prev}every time, yet the mighty Heracles can rampage through the city all he likes and never has to deal with you? Or so he says." },
 				{ Cue = "/VO/Polyphemus_0138",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -809,8 +931,6 @@ UnitSetData.Polyphemus =
 			{
 				PlayOnce = true,
 				{ Cue = "/VO/MelinoeField_0317", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "What's become of the other Cyclopes? Your kind once aided the gods against the Titans, crafting weapons of war and such. Yet {#Emph}you {#Prev}turn your back..." },
 				{ Cue = "/VO/Polyphemus_0135",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -825,7 +945,7 @@ UnitSetData.Polyphemus =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "GameState", "TextLinesRecord", "PolyphemusLostAgainstHim02" },
+						PathTrue = { "GameState", "TextLinesRecord", "PolyphemusLostAgainstHim02" },
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "PolyphemusAboutUnderworld01B" },
@@ -835,8 +955,6 @@ UnitSetData.Polyphemus =
 					Text = "You some kind of {#Emph}deathless goddess of the Underworld{#Prev}, you said? Seems you'd be better off staying on {#Emph}your {#Prev}side of the fence." },
 				{ Cue = "/VO/MelinoeField_0307", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I'm here to pay my relatives a visit. You just keep getting in the way. Almost as though violence better suits you than the shepherd's life." },
 				{ Cue = "/VO/Polyphemus_0120",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -857,8 +975,6 @@ UnitSetData.Polyphemus =
 					Text = "{#Emph}<Sniff> {#Prev}You stink like the dead. But you're not from the town. You're from further below. You'd be better off staying on your side of the fence." },
 				{ Cue = "/VO/MelinoeField_0307", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I'm here to pay my relatives a visit. You just keep getting in the way. Almost as though violence better suits you than the shepherd's life." },
 				{ Cue = "/VO/Polyphemus_0120",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -872,14 +988,12 @@ UnitSetData.Polyphemus =
 				PlayOnce = true,
 				{ Cue = "/VO/MelinoeField_0308", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Are you the one responsible for that spectral barrier at the city gates? It has the markings of Chronos all over it, and you seem to be the extra backup in case it fails." },
 				{ Cue = "/VO/Polyphemus_0122",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
-					Text = "Oh that thing, yeah, I knew it'd never hold. But they keep fixing it anyway. Almost like somebody out there don't want you here..." },
+					Text = "Oh {#Emph}that {#Prev}thing, yeah, I knew it'd never hold. But they keep fixing it anyway. Almost like somebody out there don't want you here..." },
 			},
 
 			PolyphemusAboutDocks01 =
@@ -895,14 +1009,12 @@ UnitSetData.Polyphemus =
 					Text = "I made those docks back there with my bare hands. Know some guys, they tally every skiff and trireme in the drink. We know where you're going." },
 				{ Cue = "/VO/MelinoeField_0309", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "So what if you do? You're just another servant of Chronos. The gods shall punish you when all this is over." },
 				{ Cue = "/VO/Polyphemus_0124",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
-					Text = "{#Emph}Ehh{#Prev}, what do you know about it? They only care about their own. I'm just a joke to them. Am I a joke... to {#Emph}you?" },
+					Text = "{#Emph}Ehh{#Prev}, what do you know about it? They only care about their own! I'm just a joke to them. Am I a joke... to {#Emph}you?" },
 			},
 
 			PolyphemusAboutBarn01 =
@@ -918,8 +1030,6 @@ UnitSetData.Polyphemus =
 					Text = "You went through my old barn the other night while I was out. Coulda cased the joint but you didn't. Drank from my well and that was it." },
 				{ Cue = "/VO/MelinoeField_1929", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Default_01",
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I'm no thief. And besides, your residence is filthy! You could stand to clean it up instead of facing me. Let me know if you need assistance, as I'll soon be passing through again." },
 				{ Cue = "/VO/Polyphemus_0282",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -935,14 +1045,32 @@ UnitSetData.Polyphemus =
 					Text = "Where do you think you're goin', anyway? No ship that sails from the docks back there is gonna take the likes of {#Emph}you. {#Prev}Come to think of it... lately, we've had no ships at all." },
 				{ Cue = "/VO/MelinoeField_1947", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "The deathless fleet of Chronos is still out there in the waters of the Rift. Apparently when one ship sinks, another rises to replace it from the depths, drowned sailors for its crew..." },
 				{ Cue = "/VO/Polyphemus_0286",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
 					PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
 					Text = "You're pulling my leg. The dead can sail nowadays? I thought they were no good for anything but food. Might have to teach 'em to take on some of my household chores..." },
+			},
+			PolyphemusAboutOlympus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Intro" },
+					},					
+				},
+				{ Cue = "/VO/Polyphemus_0345",
+					Text = "So how is it over there, across the drink? Heard it's been snowing. Sounds like a real rotten place to live." },
+				{ Cue = "/VO/MelinoeField_2831", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Intense_01",
+					Text = "What, you mean Mount Olympus? The gods themselves quite like it, enough to want to fiercely defend it from the Titan you decided to support. But, yes... it's rather cold." },
+				{ Cue = "/VO/Polyphemus_0346",
+					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
+					PreLineWait = 0.35,
+					PreLineFunctionName = "StartBossRoomMusic",
+					Text = "{#Emph}Oh{#Prev}, I could never settle in a place like that. I like the temperature same way I like my meat, nice and hot. 'Course I can also eat it raw. Can't be too picky, and all that." },
 			},
 
 			PolyphemusAboutInsomnia01 =
@@ -965,8 +1093,6 @@ UnitSetData.Polyphemus =
 					Text = "Funny. Running into you again and again like this? It's made for some of the best sleep I got in years." },
 				{ Cue = "/VO/MelinoeField_0322", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Is that so? Well it would be even easier for me to knock you out cold if you didn't fight back." },
 				{ Cue = "/VO/Polyphemus_0143",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -989,8 +1115,6 @@ UnitSetData.Polyphemus =
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0323", UsePlayerSource = true,
-					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You know, if you've been having trouble sleeping, there's got to be a better solution than these repeated drubbings from me." },
 				{ Cue = "/VO/Polyphemus_0144",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1010,14 +1134,15 @@ UnitSetData.Polyphemus =
 						Comparison = "<=",
 						Value = 2,
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0145",
 					Text = "{#Emph}<Sniff> {#Prev}I smell {#Emph}blood. {#Prev}I was just getting ready to prepare my next meal... but the town welcoming committee must have prepped you already." },
 				{ Cue = "/VO/MelinoeField_0324", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "The {#Emph}welcoming committee{#Prev}, as you call it, are servants of Chronos... and shall suffer for their arrogance. You would cast your lot with {#Emph}them?" },
 				{ Cue = "/VO/Polyphemus_0146",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1036,14 +1161,15 @@ UnitSetData.Polyphemus =
 						Comparison = "<=",
 						Value = 2,
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0147",
 					Text = "{#Emph}Ooh, {#Prev}I can tell the town welcoming committee must have done a number on you already. Softened you up {#Emph}good. {#Prev}All the better for {#Emph}me." },
 				{ Cue = "/VO/MelinoeField_0325", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "The city's filled with the unburied dead. I can slay them but they merely rise again; they're very troublesome. The same as you." },
 				{ Cue = "/VO/Polyphemus_0148",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1060,15 +1186,13 @@ UnitSetData.Polyphemus =
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Polyphemus" },
 						Comparison = ">",
-						Value = 0.1,
+						Value = 0,
 					},
 				},
 				{ Cue = "/VO/Polyphemus_0115",
 					Text = "{#Emph}Ah! {#Prev}Just when I thought I had you last time, you gave me the slip. Didn't think I'd have another shot." },
 				{ Cue = "/VO/MelinoeField_0305", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You'll soon have many more such {#Emph}shots. {#Prev}But you're going to fail every time, I promise you." },
 				{ Cue = "/VO/Polyphemus_0116",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1084,7 +1208,7 @@ UnitSetData.Polyphemus =
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Polyphemus" },
 						Comparison = ">",
-						Value = 0.1,
+						Value = 0,
 					},
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "PolyphemusLostAgainstHim01" },
@@ -1094,8 +1218,6 @@ UnitSetData.Polyphemus =
 					Text = "Don't like playing with my food. Like it even less when my food plays with {#Emph}me. {#Prev}I'm on to that disappearing act of yours." },
 				{ Cue = "/VO/MelinoeField_0306", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "I am a deathless goddess of the Underworld; the shadows will always take me before you will. Yet you would fight me endlessly anyway?" },
 				{ Cue = "/VO/Polyphemus_0118",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1110,7 +1232,7 @@ UnitSetData.Polyphemus =
 				{
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "N_Boss01" },
-					},					
+					},
 					{
 						Path = { "GameState", "LastBossHealthBarRecord", "Polyphemus" },
 						Comparison = ">",
@@ -1126,8 +1248,6 @@ UnitSetData.Polyphemus =
 					Text = "Almost got me last time, but not quite. Come to finish the job? You wouldn't be the first to try. But I'm still here, and you don't see anybody else around, do ya?" },
 				{ Cue = "/VO/MelinoeField_1946", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "Finish {#Emph}what {#Prev}job? You're not my mark. I'd just as soon slip past you and be on my way, except your blasted sense of smell and hearing are too good." },
 				{ Cue = "/VO/Polyphemus_0284",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1149,8 +1269,6 @@ UnitSetData.Polyphemus =
 				{ Cue = "/VO/Polyphemus_0111",
 					Text = "Oh, {#Emph}hey! {#Prev}I wanted to say thanks. Gave me a real zinger there last time, you know that?" },
 				{ Cue = "/VO/Melinoe_0938", UsePlayerSource = true,
-					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "You're back. And you're grateful that I vanquished you earlier? You seem more the sort to hold a grudge." },
 				{ Cue = "/VO/Polyphemus_0112",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1173,8 +1291,6 @@ UnitSetData.Polyphemus =
 					Text = "{#Emph}Tsch! {#Prev}Don't even try and sneak by. What, you think you were gonna catch me napping here? Not gonna happen." },
 				{ Cue = "/VO/Melinoe_0939", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Default_01",
-					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
 					Text = "It might. If you keep blocking my path, you'll get another thrashing, and you'll be sound asleep again in no time. That what you want?" },
 				{ Cue = "/VO/Polyphemus_0114",
 					PreLineThreadedFunctionName = "PlayPolyphemusTauntAnim",
@@ -1296,7 +1412,10 @@ UnitSetData.Polyphemus =
 					{
 						--
 					},
-					ConsecutiveClearsOfRoom = { Name = "N_Boss01", Count = 1 },
+					{
+						FunctionName = "RequiredConsecutiveClearsOfRoom",
+						FunctionArgs = { Name = "N_Boss01", Count = 1 },
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0152",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -1391,7 +1510,10 @@ UnitSetData.Polyphemus =
 					{
 						--
 					},
-					ConsecutiveClearsOfRoom = { Name = "N_Boss01", Count = 2 },
+					{
+						FunctionName = "RequiredConsecutiveClearsOfRoom",
+						FunctionArgs = { Name = "N_Boss01", Count = 2 },
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0161",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -1406,7 +1528,10 @@ UnitSetData.Polyphemus =
 					{
 						--
 					},
-					ConsecutiveClearsOfRoom = { Name = "N_Boss01", Count = 2 },
+					{
+						FunctionName = "RequiredConsecutiveClearsOfRoom",
+						FunctionArgs = { Name = "N_Boss01", Count = 2 },
+					},
 				},
 				{ Cue = "/VO/Polyphemus_0162",
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -1528,9 +1653,179 @@ UnitSetData.Polyphemus =
 			{ Cue = "/VO/Polyphemus_0187", Text = "...still... sleeping... here..." },
 			{ Cue = "/VO/Polyphemus_0188", Text = "...not... now... Pop..." },
 			{ Cue = "/VO/Polyphemus_0189", Text = "...be... up... soon..." },
+			{ Cue = "/VO/Polyphemus_0439", Text = "...don't go anywhere... sheep..." },
+			{ Cue = "/VO/Polyphemus_0443", Text = "...be up... in a minute..." },
+			{ Cue = "/VO/Polyphemus_0444", Text = "...{#Emph}ah... {#Prev}that's... good..." },
+			{ Cue = "/VO/Polyphemus_0440", Text = "...three sheep... four sheep... five..." },
+			{ Cue = "/VO/Polyphemus_0441", Text = "...seven sheep... eight sheep... nine..." },
+			{ Cue = "/VO/Polyphemus_0442", Text = "...ten sheep... {#Emph}uhhh... {#Prev}one sheep... two...",
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "SpeechRecord" },
+						HasAll = { "/VO/Polyphemus_0440", "/VO/Polyphemus_0441" }
+					},
+				},
+			},
 		},
+	},	
+}
+
+-- Global Polyphemus Lines
+GlobalVoiceLines.PolyphemusSummonVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.95,
+	SuccessiveChanceToPlayAll = 0.5,
+	Source = { LineHistoryName = "NPC_Cyclops_01", SubtitleColor = Color.PolyphemusVoice },
+	TriggerCooldowns = { "CyclopsSpokeRecently" },
+	Cooldowns =
+	{
+		{ Name = "CyclopsSummonSpeech", Time = 45 },
 	},
-	
+
+	{ Cue = "/VO/Polyphemus_0264", Text = "I'll wake the dead!" },
+	{ Cue = "/VO/Polyphemus_0265", Text = "Wake up down there!" },
+	{ Cue = "/VO/Polyphemus_0266", Text = "Rise up you good-for-nothings!" },
+	{ Cue = "/VO/Polyphemus_0267", Text = "Here's some of my pals." },
+	{ Cue = "/VO/Polyphemus_0268", Text = "Having some {#Emph}friends {#Prev}over!" },
+	{ Cue = "/VO/Polyphemus_0269", Text = "Some friends over for dinner!" },
+	{ Cue = "/VO/Polyphemus_0270", Text = "This ought to keep you busy!", PlayFirst = true },
+	{ Cue = "/VO/Polyphemus_0271", Text = "Wake up, sleepyheads!" },
+	{ Cue = "/VO/Polyphemus_0361", Text = "Time to walk this off." },
+	{ Cue = "/VO/Polyphemus_0362", Text = "Let's shake things up." },
+	{ Cue = "/VO/Polyphemus_0363", Text = "Wake up down there!" },
+	{ Cue = "/VO/Polyphemus_0364", Text = "You gotta meet some of the guys." },
+	{ Cue = "/VO/Polyphemus_0365", Text = "This town's crawling." },
+	{ Cue = "/VO/Polyphemus_0366", Text = "Oh look the crop's come in." },
+	{ Cue = "/VO/Polyphemus_0367", Text = "If I'm not sleeping, no one is." },
+	{ Cue = "/VO/Polyphemus_0368", Text = "All right wake up, {#Emph}wake {#Prev}up." },
+}
+
+GlobalVoiceLines.PolyphemusGrabbedPlayerVoiceLines =
+{
+	{
+		Queue = "Interrupt",
+		RandomRemaining = true,
+		PreLineWait = 0.35,
+		SuccessiveChanceToPlay = 0.75,
+		Source = { LineHistoryName = "NPC_Cyclops_01", SubtitleColor = Color.PolyphemusVoice },
+		TriggerCooldowns = { "CyclopsSpokeRecently", "CyclopsLastStandReactionSpeech" },
+		Cooldowns =
+		{
+			-- { Name = "CyclopsSpokeRecently", Time = 20 },
+		},
+
+		{ Cue = "/VO/Polyphemus_0033", Text = "{#Emph}Ah{#Prev}, there you are!" },
+		{ Cue = "/VO/Polyphemus_0034", Text = "Got you." },
+		{ Cue = "/VO/Polyphemus_0035", Text = "Got you!" },
+		{ Cue = "/VO/Polyphemus_0036", Text = "Caught you." },
+		{ Cue = "/VO/Polyphemus_0037", Text = "Caught out!" },
+		{ Cue = "/VO/Polyphemus_0038", Text = "Found you!" },
+		{ Cue = "/VO/Polyphemus_0039", Text = "Ah-{#Emph}ha!" },
+		{ Cue = "/VO/Polyphemus_0042", Text = "There she is!" },
+		{ Cue = "/VO/Polyphemus_0248", Text = "You're mine." },
+		{ Cue = "/VO/Polyphemus_0249", Text = "What'd I tell you?" },
+		{ Cue = "/VO/Polyphemus_0377", Text = "Got ya!" },
+		{ Cue = "/VO/Polyphemus_0378", Text = "No you don't!" },
+		{ Cue = "/VO/Polyphemus_0379", Text = "{#Emph}Ohh..." },
+		{ Cue = "/VO/Polyphemus_0380", Text = "Hello!" },
+		{ Cue = "/VO/Polyphemus_0381", Text = "{#Emph}Heh!" },
+		{ Cue = "/VO/Polyphemus_0382", Text = "You're cooked." },
+		{ Cue = "/VO/Polyphemus_0383", Text = "Just a quick bite!" },
+		{ Cue = "/VO/Polyphemus_0384", Text = "Now..." },
+		{ Cue = "/VO/Polyphemus_0385", Text = "{#Emph}Mm, mm." },
+		{ Cue = "/VO/Polyphemus_0386", Text = "Snacktime." },
+		{ Cue = "/VO/Polyphemus_0387", Text = "Quit squirmin'!" },
+		{ Cue = "/VO/Polyphemus_0388", Text = "You're meat." },
+	},
+	{
+		UsePlayerSource = true,
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.35,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/MelinoeField_0531", Text = "You... {#Emph}stink!" },
+		{ Cue = "/VO/MelinoeField_0532", Text = "Get... {#Emph}off!" },
+		{ Cue = "/VO/MelinoeField_0533", Text = "Let... {#Emph}go!" },
+		{ Cue = "/VO/MelinoeField_0534", Text = "Not... {#Emph}this!" },
+	}
+}
+
+GlobalVoiceLines.PolyphemusMiscGatherReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.5,
+	ObjectType = "Polyphemus",
+	Cooldowns =
+	{
+		{ Name = "CyclopsSpokeRecently", Time = 10 },
+	},
+
+	{ Cue = "/VO/Polyphemus_0272", Text = "What are you up to?" },
+	{ Cue = "/VO/Polyphemus_0273", Text = "You disrespecting me?" },
+	{ Cue = "/VO/Polyphemus_0275", Text = "I heard that..." },
+	{ Cue = "/VO/Polyphemus_0278", Text = "Doing something sneaky huh..." },
+}
+GlobalVoiceLines.PolyphemusGatherReactionVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlayAll = 0.05,
+		ObjectType = "Polyphemus",
+		Cooldowns =
+		{
+			{ Name = "CyclopsSpokeRecently", Time = 10 },
+		},
+
+		{ Cue = "/VO/Polyphemus_0274", Text = "Picking my plants?" },
+	},
+	{ GlobalVoiceLines = "PolyphemusMiscGatherReactionVoiceLines" },
+}
+GlobalVoiceLines.PolyphemusPickaxeReactionVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlayAll = 0.1,
+		ObjectType = "Polyphemus",
+		Cooldowns =
+		{
+			{ Name = "CyclopsSpokeRecently", Time = 10 },
+		},
+
+		{ Cue = "/VO/Polyphemus_0279", Text = "I hear a pickaxe or something?",	PlayFirst = true },
+		{ Cue = "/VO/Polyphemus_0280", Text = "Clanking away again..." },
+	},
+	{ GlobalVoiceLines = "PolyphemusMiscGatherReactionVoiceLines" },
+}
+GlobalVoiceLines.PolyphemusShovelReactionVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		BreakIfPlayed = true,
+		PreLineWait = 0.65,
+		SuccessiveChanceToPlayAll = 0.1,
+		ObjectType = "Polyphemus",
+		Cooldowns =
+		{
+			{ Name = "CyclopsSpokeRecently", Time = 10 },
+		},
+
+		{ Cue = "/VO/Polyphemus_0276", Text = "Are you... shoveling?", PlayFirst = true },
+		{ Cue = "/VO/Polyphemus_0277", Text = "You're digging your own grave." },
+	},
+	{ GlobalVoiceLines = "PolyphemusMiscGatherReactionVoiceLines" },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Polyphemus )

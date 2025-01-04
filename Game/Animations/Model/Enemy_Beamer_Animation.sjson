@@ -1,0 +1,383 @@
+{ Animations = [
+	{
+		Name = "EnemyBeamerBaseAnimation"
+		
+		GrannyModel = "AutomatonBeamer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 0.75
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "Enemy_Beamer_Idle"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_MoveStart"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Move_Start_C_00"
+		NativeMoveSpeed = 275
+		ChainTo = "Enemy_Beamer_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Beamer_Move"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Move_C_00"
+		NativeMoveSpeed = 275
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Beamer_MoveStop"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 275
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Beamer_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_OnHit"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Beamer_Idle"
+		Sound = "/SFX/Enemy Sounds/AutomatonBeamer/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 10
+				FrameSpeed = 3.5
+			}
+			{
+				Frame = 30
+				FrameSpeed = 1.45
+			}
+		]
+	}
+	{
+		Name = "Enemy_Beamer_OnHit_Heavy"
+		InheritFrom = "Enemy_Beamer_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// DEFENCE
+
+	{
+		Name = "Enemy_Beamer_DefenseEnter"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_DefenseEnter_C_00"
+		ChainTo = "Enemy_Beamer_DefenseLoop"
+		Sound = "/SFX/SpikeTrapSetWithShake"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_DefenseLoop"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_DefenseLoop_C_00"
+		Loop = true
+		OwnerImmobile = true
+		CreateAnimation = "AutomatonBeamerDefenseShieldFxIn"
+	}
+
+	{
+		Name = "Enemy_Beamer_DefenseExit"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_DefenseExit_C_00"
+		ChainTo = "Enemy_Beamer_Idle"
+		Sound = "/SFX/SpikeTrapShake"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_DefenseLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// RAIL
+
+	{
+		Name = "Enemy_Beamer_RailPreFire"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_RailPreFire_C_00"
+		CreateAnimation = "AutomatonBeamerForwardCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/AutomatonBeamer/BeamerFireCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_RailFireLoop"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_RailFireLoop_C_00"
+		Loop = true
+		VisualFx = "AutomatonBeamBoltStartFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.1
+	}
+
+	{
+		Name = "Enemy_Beamer_RailPostFire"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_RailPostFire_C_00"
+		ChainTo = "Enemy_Beamer_Idle"
+		Sound = "/SFX/Enemy Sounds/AutomatonBeamer/BeamerRapidFireEnd"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_RailFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_Scan"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Scan_C_00"
+		CreateAnimation = "AutomatonBeamerScanCharge"
+		ChainTo = "Enemy_Beamer_Idle"
+		Sound = "/SFX/Enemy Sounds/AutomatonBeamer/BeamerSpinFULL"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Beamer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_Spawn"
+		InheritFrom = "EnemyBeamerBaseAnimation"
+		GrannyAnimation = "AutomatonBeamer_Base_Idle_C_00"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		StartRed = 0.68
+		StartGreen = 0.7
+		StartBlue = 0.72
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		Duration = 1.8
+		EaseIn = 0
+		EaseOut = 1
+		
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.2
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/AutomatonSpawnMask"
+		DeathFxReverse = true
+		VerticalMaskInModelSpace = true
+		ReverseVerticalMaskInModelSpace = false
+		StartOffsetZ = -175
+		EndOffsetZ = 0
+		Enable3DShadow = false
+
+		Sound = "/SFX/Enemy Sounds/AutomatonSpawn"
+		
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 90
+				VerticalMask = 0.9
+				Sound = "/SFX/Enemy Sounds/Exalted/NakedShadeRespawned"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Beamer_Death"
+		InheritFrom = "Enemy_Beamer_OnHit"
+		GrannyAnimationSpeed = 1
+		VerticalMaskInModelSpace = false
+		StartOffsetZ = 0
+		EndOffsetZ = -25
+		Duration = 0.4
+		DeathFxFrameDuration = 64
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskRadial"
+		DeathFxReverse = false
+		VisualFx = "EnemyBeamerDeathArcs"
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+		VisualFxCap = 20
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		HoldLastFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/HeavyRangedSplitterFragment/CrystalDestroyedSMALL"
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+
+]}

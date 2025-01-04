@@ -8,8 +8,10 @@ OverwriteTableKeys( WeaponData,
 		EquippedKitAnimation = "WeaponTorchFloatingIdleOff",
 		UnequippedKitAnimation = "WeaponTorchFloatingIdle",
 		UpgradeScreenKitAnimation = "WeaponTorchFloatingIdleVertical",
+		BountyScreenKitAnimation = "WeaponTorchIdle",
 		FirstTimeEquipAnimation = "Melinoe_Torch_Equip",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
+		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Torch",
 		UnlockName = "WeaponTorch_Unlock",
 		SkipAttackNotReadySounds = true,
 		DummyTraitName = "DummyWeaponTorch",
@@ -113,7 +115,10 @@ OverwriteTableKeys( WeaponData,
 				{
 					Projectile = "ProjectileTorchBallLarge",
 					AdditionalProjectileWaveChance = 0,
-					Cooldown = 0.25,
+				},
+				RelativeWeaponProperties = 
+				{
+					Cooldown = { Value = 0.25/0.35, ChangeType = "Multiply" },
 				},
 				CompleteObjective = "WeaponTorchCharged",
 			},
@@ -133,8 +138,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiscWeaponEquipVoiceLines,
-			[2] = GlobalVoiceLines.SkellyWeaponEquipReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 
 		Sounds =

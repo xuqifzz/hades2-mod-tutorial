@@ -8,6 +8,9 @@ function KillHero( victim, triggerArgs )
 	for k, spawnThreadName in pairs( CurrentRun.CurrentRoom.SpawnThreads ) do
 		killTaggedThreads( spawnThreadName )
 	end
+	for wakeThreadName in pairs(SessionMapState.EnemySpawnDelays) do
+		killTaggedThreads( wakeThreadName )
+	end
 	CurrentRun.CurrentRoom.SpawnThreads = {}
 	killWaitUntilThreads( "RequiredKillEnemyKilledOrSpawned" )
 	killWaitUntilThreads( "AllRequiredKillEnemiesDead" )
@@ -26,6 +29,7 @@ function KillHero( victim, triggerArgs )
 		killer.Name = triggerArgs.AttackerName
 		killer.ObjectId = triggerArgs.AttackerId
 	end
+	CurrentRun.CurrentRoom.SummonEnemyName = nil
 
 	local killedByName = killer.Name or triggerArgs.SourceWeapon
 	CurrentRun.KilledByName = killedByName
@@ -41,10 +45,14 @@ function KillHero( victim, triggerArgs )
 		TraitTrayScreenClose( ActiveScreens.TraitTrayScreen )
 	end
 	ClearHealthShroud()
+	if SessionMapState.SpellWorldReadyFxId then
+		Destroy({ Id = SessionMapState.SpellWorldReadyFxId })
+	end
 	SessionMapState.HandlingDeath = true
 	CurrentRun.Hero.IsDead = true
 	CurrentRun.ActiveBiomeTimer = false
 	CurrentRun.ActiveBiomeTimerKeepsake = false
+	CurrentRun.SaveFirstKeepsakeSwapped = false
 
 	if ShouldIncrementEasyMode() then
 		GameState.EasyModeLevel = GameState.EasyModeLevel + 1
@@ -59,7 +67,7 @@ function KillHero( victim, triggerArgs )
 
 	ResetObjectives()
 
-	if killer.Name ~= nil and killer.ObjectId ~= nil and not killer.SkipModifiers then
+	if killer.Name ~= nil and killer.ObjectId ~= nil and not killer.SkipModifiers and not killer.ExcludeCauseOfDeath then
 		GameState.CauseOfDeath = GetGenusName( killer )
 	end
 
@@ -76,7 +84,7 @@ function KillHero( victim, triggerArgs )
 			OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_MessageTechTest", SignatureId = "AnnouncementSignature" })
 		elseif CurrentRun.BiomesReached.F then
 			PlaySound({ Name = "/Music/IrisVictoryStingerMEDIUM" })
-			if not GameState.EnemyKills.Eris then
+			if not GameState.EnemyKills.Prometheus then
 				OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_Message01B", SignatureId = "AnnouncementSignature" })
 			else
 				OpenMenu({ Name = "AnnouncementScreen", MessageId = "RunCleared_Message01", SignatureId = "AnnouncementSignature" })
@@ -119,7 +127,7 @@ function KillHero( victim, triggerArgs )
 	for deathMapName, deathMapData in pairs( HubRoomData ) do
 		if deathMapData.OnDeathLoadRequirements ~= nil then
 			for k, gameStateRequirements in pairs( deathMapData.OnDeathLoadRequirements ) do
-				if IsGameStateEligible( CurrentRun, gameStateRequirements ) then
+				if IsGameStateEligible( deathMapData, gameStateRequirements ) then
 					deathMap = deathMapName
 					break
 				end
@@ -151,7 +159,7 @@ function StartDeathLoop( currentRun )
 	currentRun.BiomesReached[hubBiomeName] = true
 	
 	currentRun.BlockDeathAreaTransitions = true
-	DeathAreaRoomTransition( HubRoomData[GameData.HubMapName], { SkipShowUI = true, } )
+	DeathAreaRoomTransition( HubRoomData[GameData.HubMapName] )
 
 	if currentRun.ReturnedByBoat then
 		StartDeathLoopFromBoatPresentation( currentRun )
@@ -175,8 +183,11 @@ function DeathAreaSwitchRoom( source, args )
 	CurrentRun.NextHeroStartPoint = args.HeroStartPoint
 	CurrentRun.NextHeroEndPoint = args.HeroEndPoint
 	LeaveHubRoomPresentation( CurrentRun, source )
-	
-	for obstacleId, obstacle in pairs( MapState.ActiveObstacles ) do
+	if SessionMapState.SprintWeaponSoundId then
+		StopSound({ Id = SessionMapState.SprintWeaponSoundId, Duration = 0.2 })
+		SessionMapState.SprintWeaponSoundId = nil
+	end
+	for obstacleId, obstacle in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
 		if obstacle.AIThreadName ~= nil then
 			killTaggedThreads( obstacle.AIThreadName )
 		end
@@ -188,7 +199,8 @@ function DeathAreaSwitchRoom( source, args )
 	if not SessionState.InFlashback then
 		RequestSave({ StartNextMap = args.Name, DevSaveName = CreateDevSaveName( CurrentRun, { StartNextMap = args.Name } ) })
 	end
-	SetSoundSource({ Id = AmbientMusicId }) -- Remove until new source is created in the next room
+	SetVolume({ Id = AudioState.AmbientMusicId, Value = 0.2, Duration = 0.1 })
+	SetSoundSource({ Id = AudioState.AmbientMusicId }) -- Remove until new source is created in the next room
 
 	if args.PreLoadFunctionName ~= nil then
 		CallFunctionName( args.PreLoadFunctionName, source, args )
@@ -232,25 +244,10 @@ function DeathAreaRoomTransition( source, args )
 	SetupCamera( CurrentHubRoom )
 	SwitchActiveUnit({ Id = currentRun.Hero.ObjectId })
 
-	if CurrentHubRoom.AmbientMusicParams ~= nil then
-		for param, value in pairs( CurrentHubRoom.AmbientMusicParams ) do
-			SetSoundCueValue({ Id = AmbientMusicId, Name = param, Value = value, Duration = 0.5 })
-		end
-	end
-	SetVolume({ Id = AmbientMusicId, Value = CurrentHubRoom.AmbientMusicVolume, Duration = 0.5 })
 	LoadVoiceBanks( CurrentHubRoom.SpeakerName )
 
 	ResetObjectives()
 	RunEventsGeneric( CurrentHubRoom.StartUnthreadedEvents, CurrentHubRoom )
-
-	local musicTargetIds = GetIdsByType({ Name = "NPC_Orpheus_01" })
-	if IsEmpty( musicTargetIds ) then
-		musicTargetIds = GetIdsByType({ Name = "HeroStart" })
-	end
-	SetSoundSource({ Id = AmbientMusicId, DestinationIds = musicTargetIds })
-	if AmbientMusicSource ~= nil and not IsEmpty( musicTargetIds ) then
-		AmbientMusicSource.ObjectId = musicTargetIds[1]
-	end
 
 	StartRoomPreLoadBinks({
 		Run = currentRun,
@@ -281,10 +278,6 @@ function DeathAreaRoomTransition( source, args )
 		end
 	end
 
-	if not args.SkipShowUI then
-		ShowCombatUI()
-	end
-
 	CheckAutoObjectiveSets(currentRun, "RoomStart")
 end
 
@@ -304,6 +297,13 @@ function UnlockDeathAreaInteractables()
 end
 
 function UseEscapeDoor( usee, args )
+	if GetNumShrineUpgrades( "LimitGraspShrineUpgrade" ) >= 1 then
+		local graspPercent = (GameState.MetaUpgradeCostCache / GameState.MaxMetaUpgradeCostCache) * 100
+		if graspPercent > MetaUpgradeData.LimitGraspShrineUpgrade.ChangeValue then
+			thread( CannotExitDueToShrinePresentation, usee, args )
+			return
+		end
+	end
 	AddInputBlock({ Name = "UseEscapeDoor" })
 	if args.MarkObjectiveComplete ~= nil then
 		MarkObjectiveComplete( args.MarkObjectiveComplete )
@@ -330,10 +330,8 @@ function StartOver( args )
 	EndRun( currentRun )
 	CurrentHubRoom = nil
 	PreviousDeathAreaRoom = nil
-	currentRun = StartNewRun( currentRun, { StartingBiome = args.StartingBiome or "F", ForcedRewards = args.ForcedRewards, ActiveBounty = args.ActiveBounty, RunOverrides = args.RunOverrides } )
-	StopSound({ Id = AudioState.AmbientMusicId, Duration = 1.0 })
-	AudioState.AmbientMusicId = nil
-	AudioState.AmbientTrackName = nil
+	currentRun = StartNewRun( currentRun, { StartingBiome = args.StartingBiome or "F", ForcedRewards = args.ForcedRewards, ActiveBounty = args.ActiveBounty, RunOverrides = args.RunOverrides, StartingRoomOverrides = args.StartingRoomOverrides } )
+	StopMusicianMusic( { Duration = 1.0 } )
 	ResetObjectives()
 
 	SetConfigOption({ Name = "FlipMapThings", Value = false })
@@ -360,7 +358,7 @@ function SpawnSkelly( waitTime )
 	end
 	MapState.SkellySpawned = true
 	wait( waitTime or 3.0, RoomThreadName )
-	ActivatePrePlaced( nil, { LegalTypes = { "NPC_Skelly_01" } } )
+	ActivatePrePlaced( nil, { LegalTypes = { "NPC_Skelly_01" }, IgnorePackages = true } )
 	CurrentRun.SkellySpawned = true
 	wait( 2.5, RoomThreadName )
 	CheckConversations()
@@ -396,7 +394,9 @@ function NPCLittering( source, args )
 		CurrentRun.NewErisLitterCreated = true
 	end
 
-	thread( CheckDistanceTrigger, args.UnitDistanceTrigger, source )
+	if ( TableLength( GameState.ActiveLitter ) or 0 ) < args.MaxLitterForToss then
+		thread( CheckDistanceTrigger, args.UnitDistanceTrigger, source )
+	end
 
 end
 
@@ -443,7 +443,7 @@ function UseTrashPoint( source, args, user )
 end
 
 function UpdateAffordabilityStatus()
-	for objectId, obstacle in pairs( MapState.ActiveObstacles ) do
+	for objectId, obstacle in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
 		if HasSetupFunction( obstacle, "PlayStatusAnimation" ) then
 			StopStatusAnimation( obstacle )
 			CheckSetupFunction( obstacle, "PlayStatusAnimation" )

@@ -19,10 +19,10 @@ ScreenData.MarketScreen =
 
 	ItemStartX = 756,
 	ItemStartY = 335,
-	ItemSpacingY = 120,
+	ItemSpacingY = 118,
 	ItemTextBoxOffsetX = 480,
-	IconOffsetX = -387,
-	IconOffsetY = -3,
+	IconOffsetX = -375,
+	IconOffsetY = 0,
 	ItemsPerPage = 5,
 	ScrollOffset = 0,
 
@@ -54,6 +54,8 @@ ScreenData.MarketScreen =
 		{
 			Name = "MarketScreen_Resources",
 			Icon = "GUI\\Screens\\Inventory\\Icon-Resources",
+			CurrencyResourceName = "MetaCurrency",
+			RefreshOncePerRun = true,
 			GameStateRequirements =
 			{
 				-- None
@@ -170,6 +172,7 @@ ScreenData.MarketScreen =
 				BuyName = "Mixer5Common",
 				GameStateRequirements =
 				{
+					-- if this changes, also update it in ResourceData
 					{
 						Path = { "GameState", "LifetimeResourcesGained", "Mixer5Common" },
 						Comparison = ">=",
@@ -179,7 +182,7 @@ ScreenData.MarketScreen =
 				BuyAmount = 1,
 				Cost =
 				{
-					MetaCurrency = 800,
+					MetaCurrency = 600,
 				},
 				PurchaseSound = "/Leftovers/Menu Sounds/TalismanPowderUpLEGENDARY",
 			},
@@ -201,12 +204,13 @@ ScreenData.MarketScreen =
 				},
 				PurchaseSound = "/SFX/TitanBloodPickupSFX",
 			},
-
 		},
 
 		{
 			Name = "MarketScreen_Gifts",
 			Icon = "GUI\\Screens\\ResourceShop\\Icon-ExoticGoods",
+			CurrencyResourceName = "MetaCurrency",
+			RefreshOncePerRun = true,
 			GameStateRequirements =
 			{
 				{
@@ -268,12 +272,12 @@ ScreenData.MarketScreen =
 				},
 				PurchaseSound = "/SFX/GiftAmbrosiaBottlePickup",
 			},
-
 		},
 
 		{
 			Name = "MarketScreen_Sell",
 			Icon = "GUI\\Screens\\ResourceShop\\Icon-PawnShop",
+			CurrencyResourceName = "MetaCurrency",
 			FlipSides = true,
 			HideUnaffordable = true,
 			GameStateRequirements =
@@ -282,109 +286,7 @@ ScreenData.MarketScreen =
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeSellShop", },
 				},
 			},
-			--[[
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 1,
-				Cost =
-				{
-					PlantNMoss = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 2,
-				Cost =
-				{
-					PlantFMoly = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 4,
-				Cost =
-				{
-					PlantGLotus = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			]]
-			--[[
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 8,
-				Cost =
-				{
-					PlantHMyrtle = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 10,
-				Cost =
-				{
-					PlantIShaderot = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			]]
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 10,
-				Cost =
-				{
-					PlantFNightshade = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 12,
-				Cost =
-				{
-					PlantGCattail = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 14,
-				Cost =
-				{
-					PlantHWheat = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 16,
-				Cost =
-				{
-					PlantIPoppy = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 10,
-				Cost =
-				{
-					PlantNGarlic = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 12,
-				Cost =
-				{
-					PlantOMandrake = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
+
 			{ 
 				BuyName = "MetaCurrency", BuyAmount = 15,
 				Cost =
@@ -393,25 +295,9 @@ ScreenData.MarketScreen =
 				},
 				Priority = true,
 				PurchaseSound = "/SFX/KeyPickup",
-			},
-			{ 
-				BuyName = "MetaCurrency", BuyAmount = 19,
-				GameStateRequirements =
-				{
-					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" }
-					},
-				},
-				Cost =
-				{
-					PlantChaosThalamus = 1,
-				},
-				Priority = true,
-				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
-			},
-			
-			{ 	
-				BuyName = "MetaCurrency", BuyAmount = 21,
+			},			
+			{
+				BuyName = "MetaCurrency", BuyAmount = 20,
 				Cost =
 				{
 					FishFCommon = 1,
@@ -420,7 +306,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 32,
+				BuyName = "MetaCurrency", BuyAmount = 40,
 				Cost =
 				{
 					FishFRare = 1,
@@ -429,7 +315,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 55,
+				BuyName = "MetaCurrency", BuyAmount = 75,
 				Cost =
 				{
 					FishFLegendary = 1,
@@ -438,7 +324,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 23,
+				BuyName = "MetaCurrency", BuyAmount = 24,
 				Cost =
 				{
 					FishGCommon = 1,
@@ -447,7 +333,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 35,
+				BuyName = "MetaCurrency", BuyAmount = 48,
 				Cost =
 				{
 					FishGRare = 1,
@@ -456,7 +342,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 62,
+				BuyName = "MetaCurrency", BuyAmount = 84,
 				Cost =
 				{
 					FishGLegendary = 1,
@@ -465,7 +351,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 24,
+				BuyName = "MetaCurrency", BuyAmount = 28,
 				Cost =
 				{
 					FishHCommon = 1,
@@ -474,7 +360,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 37,
+				BuyName = "MetaCurrency", BuyAmount = 56,
 				Cost =
 				{
 					FishHRare = 1,
@@ -483,7 +369,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 68,
+				BuyName = "MetaCurrency", BuyAmount = 98,
 				Cost =
 				{
 					FishHLegendary = 1,
@@ -492,7 +378,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 29,
+				BuyName = "MetaCurrency", BuyAmount = 32,
 				Cost =
 				{
 					FishICommon = 1,
@@ -501,7 +387,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 39,
+				BuyName = "MetaCurrency", BuyAmount = 64,
 				Cost =
 				{
 					FishIRare = 1,
@@ -510,7 +396,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 78,
+				BuyName = "MetaCurrency", BuyAmount = 112,
 				Cost =
 				{
 					FishILegendary = 1,
@@ -519,7 +405,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 34,
+				BuyName = "MetaCurrency", BuyAmount = 20,
 				Cost =
 				{
 					FishNCommon = 1,
@@ -528,7 +414,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 67,
+				BuyName = "MetaCurrency", BuyAmount = 40,
 				Cost =
 				{
 					FishNRare = 1,
@@ -537,7 +423,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 93,
+				BuyName = "MetaCurrency", BuyAmount = 75,
 				Cost =
 				{
 					FishNLegendary = 1,
@@ -546,7 +432,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 36,
+				BuyName = "MetaCurrency", BuyAmount = 24,
 				Cost =
 				{
 					FishOCommon = 1,
@@ -555,7 +441,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 59,
+				BuyName = "MetaCurrency", BuyAmount = 48,
 				Cost =
 				{
 					FishORare = 1,
@@ -564,7 +450,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 87,
+				BuyName = "MetaCurrency", BuyAmount = 84,
 				Cost =
 				{
 					FishOLegendary = 1,
@@ -573,7 +459,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 3,
+				BuyName = "MetaCurrency", BuyAmount = 28,
 				Cost =
 				{
 					FishPCommon = 1,
@@ -582,7 +468,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 37,
+				BuyName = "MetaCurrency", BuyAmount = 56,
 				Cost =
 				{
 					FishPRare = 1,
@@ -591,7 +477,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 51,
+				BuyName = "MetaCurrency", BuyAmount = 98,
 				Cost =
 				{
 					FishPLegendary = 1,
@@ -600,7 +486,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 89,
+				BuyName = "MetaCurrency", BuyAmount = 24,
 				Cost =
 				{
 					FishBCommon = 1,
@@ -609,7 +495,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 60,
+				BuyName = "MetaCurrency", BuyAmount = 48,
 				Cost =
 				{
 					FishBRare = 1,
@@ -618,7 +504,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 100,
+				BuyName = "MetaCurrency", BuyAmount = 84,
 				Cost =
 				{
 					FishBLegendary = 1,
@@ -636,7 +522,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 111,
+				BuyName = "MetaCurrency", BuyAmount = 132,
 				Cost =
 				{
 					FishChaosRare = 1,
@@ -645,7 +531,7 @@ ScreenData.MarketScreen =
 				PurchaseSound = "/SFX/KeyPickup",
 			},
 			{ 
-				BuyName = "MetaCurrency", BuyAmount = 222,
+				BuyName = "MetaCurrency", BuyAmount = 231,
 				Cost =
 				{
 					FishChaosLegendary = 1,
@@ -653,7 +539,918 @@ ScreenData.MarketScreen =
 				Priority = true,
 				PurchaseSound = "/SFX/KeyPickup",
 			},
-		}
+		},
+
+		{
+			Name = "MarketScreen_Exchange",
+			Icon = "GUI\\Screens\\ResourceShop\\Icon-Recycling",
+			CurrencyResourceName = "CosmeticsPoints",
+			FlipSides = true,
+			HideUnaffordable = true,
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "WorldUpgrades", },
+					HasAll = { "WorldUpgradeExchangeShop", },
+				},
+			},
+
+			-- TrashPoints
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 1,
+				GameStateRequirements =
+				{
+					-- None
+				},
+				Cost =
+				{
+					TrashPoints = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/SFX/TrashPickup",
+				ExchangeVoiceLines =
+				{
+					BreakIfPlayed = true,
+					RandomRemaining = true,
+					PreLineWait = 0.45,
+					UsePlayerSource = true,
+					SkipAnim = true,
+					SuccessiveChanceToPlayAll = 0.25,
+					GameStateRequirements =
+					{
+						{
+							Path = { "ActiveScreens", "MarketScreen", "ActiveCategoryIndex" },
+							Comparison = "==",
+							Value = 4,
+						}
+					},
+					Cooldowns =
+					{
+						{ Name = "MelMarketInteraction", Time = 8 },
+					},
+
+					{ Cue = "/VO/Melinoe_3771", Text = "Rubbish for recycling." },
+					{ Cue = "/VO/Melinoe_3772", Text = "On behalf of Eris." },
+				},
+			},
+
+			-- Ash
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 2,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "ChanneledCast", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "HealthRegen", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "LowManaDamageBonus", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "CastCount", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "SorceryRegenUpgrade", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "CastBuff", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "BonusHealth", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "BonusDodge", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "ManaOverTime", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "MagicCrit", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "SprintShield", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "LastStand", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "MaxHealthPerRoom", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "StatusVulnerability", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "ChanneledBlock", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "DoorReroll", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "StartingGold", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "MetaToRunUpgrade", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "RarityBoost", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "BonusRarity", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "TradeOff", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "ScreenReroll", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "LowHealthBonus", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "EpicRarityBoost", "Unlocked" },
+					},
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "CardDraw", "Unlocked" },
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "LobAmmoBoostAspect5", "ToolPickaxe", "ToolExorcismBook2", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll = { "WorldUpgradeQuestLog", "WorldUpgradeSellShop", "WorldUpgradeCardUpgradeSystem", "WorldUpgradeMetaCardPointsCommonRunProgress", },
+					},
+				},
+				Cost =
+				{
+					MetaCardPointsCommon = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+
+			-- Psyche (Exorcism)
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 3,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeLimitLevel", },
+						Comparison = ">=",
+						Value = 15,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "BaseStaffAspect5", "ToolExorcismBook2" },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll = { "WorldUpgradeShadeMercs", "WorldUpgradeElementalBoons" },
+					},
+				},
+				Cost =
+				{
+					MemPointsCommon = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			-- Bones (Fish)
+			--[[
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 7,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll = { "WorldUpgradeGiftsShop", },
+					},
+				},
+				Cost =
+				{
+					MetaCurrency = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			]]
+
+			-- MetaFabric ?
+			-- CardUpgradePoints ?
+
+			-- Picked Plants
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 12,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "ChanneledCast", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeBountyBoard",
+							"WorldUpgradeHarvestUpgrade",
+							--"WorldUpgradeGardenTent",
+							--"WorldUpgradeGardenTaverna",
+							"WorldUpgradeAltRunDoor",
+							"WorldUpgradeNarcissusWaters",
+							"WorldUpgradePostBossWellShops",
+							--"WorldUpgradePauseChronosFight",
+							"WorldUpgradePostBossGiftRack",
+							"WorldUpgradeBathHouse",
+							"WorldUpgradeQuestLog",
+							"WorldUpgradePinning",
+							"WorldUpgradeResourceFinder",
+							"WorldUpgradeWellShops",
+							"WorldUpgradeErebusReprieve",
+							"WorldUpgradeFountainUpgrade1",
+							"WorldUpgradeToolsShop",
+							"WorldUpgradeGarden",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantFMoly = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 14,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "LowManaDamageBonus", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "StaffClearCastAspect", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeFountainUpgrade1",
+							"WorldUpgradeBathHouse",
+							"WorldUpgradeOceanusReprieve",
+							"WorldUpgradePostBossGiftRack",
+							"WorldUpgradeErebusSafeZones",
+							"WorldUpgradeSurfacePenaltyCure",
+							"WorldUpgradeHarvestUpgrade",
+							"WorldUpgradeGardenT2",
+							"WorldUpgradeFamiliarSystem",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantGLotus = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 16,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "SorceryRegenUpgrade", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeFieldsRewardFinder",
+							"WorldUpgradeRelationshipBar",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantHMyrtle = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 20,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "ScreenReroll", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "DaggerHomingThrowAspect", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeTartarusReprieve",
+							"WorldUpgradeGameStats",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantIShaderot = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 12,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "MagicCrit", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "LobImpulseAspect", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeEphyraZoomOut",
+							"WorldUpgradeSurfacePenaltyCure",
+							"WorldUpgradeHarvestUpgrade",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantNMoss = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 14,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "TorchSprintRecallAspect", "ToolFishingRod2", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeFishingPoint",
+							"WorldUpgradeSurfaceShops",
+							"WorldUpgradeThessalyReprieve",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantODriftwood = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 16,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeOlympusReprieve",
+							"WorldUpgradeErebusSafeZones",
+							"WorldUpgradeKeepsakeSaveFirst",
+						},
+					},
+					{
+						Path = { "GameState", "MetaUpgradeState", "BonusRarity", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+				},
+				Cost =
+				{
+					PlantPIris = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+
+			-- Grown Plants
+			{
+				BuyName = "CosmeticsPoints", BuyAmount = 48,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "CastBuff", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "LobCloseAttackAspect", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeMorosUnlock",
+							"WorldUpgradeSellShop",
+							"WorldUpgradeWellShops",
+							"WorldUpgradeBathHouse",
+							"WorldUpgradeFountainUpgrade2",
+							"WorldUpgradeShadeMercs",
+							"WorldUpgradeChallengeSwitches1",
+							"WorldUpgradeSurfacePenaltyCure",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantFNightshade = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{
+				BuyName = "CosmeticsPoints", BuyAmount = 56,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "BonusDodge", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeFishingPoint",
+							"WorldUpgradePostBossWellShops",
+							"WorldUpgradeFountainUpgrade2",
+							"WorldUpgradeMetaCardPointsCommonRunProgress",
+							"WorldUpgradeGardenT2",
+							"WorldUpgradeNarcissusWaters",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantGCattail = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 64,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeMetaCurrencyRunProgress",
+							"WorldUpgradeGardenT3",
+							"WorldUpgradeFamiliarRest",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantHWheat = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 80,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "LowHealthBonus", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "LobImpulseAspect", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeGameStats",
+							"WorldUpgradeBoonList",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantIPoppy = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 48,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "StatusVulnerability", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeTaverna",
+							"WorldUpgradePostBossSurfaceShops",
+							"WorldUpgradeGiftDropRunProgress",
+							"WorldUpgradeGardenT3",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantNGarlic = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 56,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "MetaToRunUpgrade", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll = { "ToolShovel2", },
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradePostBossSurfaceShops",
+							"WorldUpgradeErebusSafeZones",
+							"WorldUpgradeSafeZoneSpellCharge",
+							"WorldUpgradeMemPointsCommonRunProgress",
+							"WorldUpgradeNarcissusWaters",
+						},
+					},
+				},
+				Cost =
+				{
+					PlantOMandrake = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 64,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeMetaUpgradeSaveLayout",
+							"WorldUpgradeFamiliarRest",
+						},
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"ToolShovel",
+							"ToolShovel2",
+						},
+					},
+					{
+						Path = { "GameState", "MetaUpgradeState", "StatusVulnerability", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+				},
+				Cost =
+				{
+					PlantPOlive = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 88,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeSurfacePenaltyCure",
+						},
+					},
+				},
+
+				Cost =
+				{
+					PlantChaosThalamus = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+
+			-- Ores
+			{
+				BuyName = "CosmeticsPoints", BuyAmount = 27,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "HealthRegen", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"WeaponDagger",
+							"WeaponTorch",
+							"WeaponAxe",
+							"WeaponSuit",
+							"StaffClearCastAspect",
+							"DaggerBlockAspect",
+							"BaseStaffAspect5",
+							"DaggerBackstabAspect5",
+							"AxeRecoveryAspect5",
+							"TorchSpecialDurationAspect5",
+							"ToolExorcismBook",
+							"ToolShovel",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeQuestLog",
+							"WorldUpgradeErebusReprieve",
+						},
+					},
+				},
+				Cost =
+				{
+					OreFSilver = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 32,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "MagicCrit", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"StaffSelfHitAspect",
+							"LobAmmoBoostAspect5",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeOceanusReprieve",
+							"WorldUpgradeBreakableValue1",
+							"WorldUpgradeUnusedWeaponBonus",
+							"WorldUpgradePostBossGiftRack",
+							"WorldUpgradeChallengeSwitches1",
+						},
+					},
+				},
+				Cost =
+				{
+					OreGLime = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 36,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "MaxHealthPerRoom", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"WeaponLob",
+							"DaggerBlockAspect",
+							"AxePerfectCriticalAspect",
+							"ToolPickaxe2",
+						},
+					},
+				},
+				Cost =
+				{
+					OreHGlassrock = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 45,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "StartingGold", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"ToolExorcismBook2",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeTartarusReprieve",
+							"WorldUpgradeRunHistory",
+							"WorldUpgradeToolUpgradeSystem",
+						},
+					},
+				},
+				Cost =
+				{
+					OreIMarble = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 27,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "BonusHealth", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"WeaponLob",
+							"TorchDetonateAspect",
+							"AxeRecoveryAspect5",
+							"ToolFishingRod",
+							"ToolShovel2",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeWeaponUpgradeSystem",
+							"WorldUpgradeToolUpgradeSystem",
+						},
+					},
+				},
+				Cost =
+				{
+					OreNBronze = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 32,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "MetaUpgradeState", "ChanneledBlock", "Level" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"LobCloseAttackAspect",
+							"ToolPickaxe2",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeThessalyReprieve",
+							"WorldUpgradeToolUpgradeSystem",
+						},
+					},
+				},
+				Cost =
+				{
+					OreOIron = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 36,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "MetaUpgradeState", "StartingGold", "Unlocked" },
+					},
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"SuitBaseAspect5",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeOlympusReprieve",
+							"WorldUpgradeChallengeSwitchesExtra1",
+						},
+					},
+				},
+				Cost =
+				{
+					OrePAdamant = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+			{ 
+				BuyName = "CosmeticsPoints", BuyAmount = 177,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "WeaponsUnlocked", },
+						HasAll =
+						{
+							"SuitMarkCritAspect",
+						},
+					},
+					{
+						Path = { "GameState", "WorldUpgrades", },
+						HasAll =
+						{
+							"WorldUpgradeBountyBoardRepeat",
+						},
+					},
+				},
+				Cost =
+				{
+					OreChaosProtoplasm = 1,
+				},
+				Priority = true,
+				PurchaseSound = "/Leftovers/World Sounds/Caravan Interior/MushroomLogInteract",
+			},
+
+
+			-- GiftPoints, GiftPointsRare, GiftPointsEpic ?
+		},
 	},
 
 	--[[
@@ -670,7 +1467,7 @@ ScreenData.MarketScreen =
 	ItemNameFormat =
 	{
 		FontSize = 24,
-		OffsetX = -300, OffsetY = 0,
+		OffsetX = -285, OffsetY = 0,
 		Width = 720,
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
@@ -688,8 +1485,8 @@ ScreenData.MarketScreen =
 	ItemBuyAmountFormat =
 	{
 		Text = "MarketScreen_BuyAmount",
-		FontSize = 17,
-		OffsetX = -333, OffsetY = 33,
+		FontSize = 16,
+		OffsetX = -316, OffsetY = 33,
 		Width = 720,
 		Font = "LatoBold",
 		Color = Color.White,
@@ -708,8 +1505,8 @@ ScreenData.MarketScreen =
 	ItemSellAmountFormat =
 	{
 		Text = "MarketScreen_SellAmount",
-		FontSize = 17,
-		OffsetX = -333, OffsetY = 33,
+		FontSize = 16,
+		OffsetX = -316, OffsetY = 33,
 		Width = 720,
 		Font = "LatoBold",
 		Color = Color.White,
@@ -743,7 +1540,7 @@ ScreenData.MarketScreen =
 	},
 
 	PinOffsetX = 385,
-	CostTextOffsetX = 330,
+	CostTextOffsetX = 333,
 	CostTextOffsetY = -20,
 	CostUnaffordableColor = Color.CostUnffordableShop,
 
@@ -872,7 +1669,6 @@ ScreenData.MarketScreen =
 					OffsetY = -334,
 					Data =
 					{
-						ResourceName = "MetaCurrency",
 						--OnMouseOverFunctionName = "MouseOverResourceItem",
 						--OnMouseOffFunctionName = "MouseOffResourceItem",
 					},
@@ -948,10 +1744,27 @@ ScreenData.MarketScreen =
 				"ScrollRight",
 				"ScrollLeft",
 				"SelectButton",
+				"SellAllButton",
 			},
 
 			Children = 
 			{
+				SellAllButton =
+				{
+					Graphic = "ContextualActionButton",
+					GroupName = "Combat_Menu_Overlay",
+					Alpha = 0.0,
+					Data =
+					{
+						-- Hotkey only
+						OnPressedFunctionName = "MarketScreenShowSellAllPrompt",
+						ControlHotkeys = { "ItemPin", },
+					},
+					Text = "Menu_SellAll",
+					AltTexts = { "Menu_ExchangeAll" },
+					TextArgs = UIData.ContextualButtonFormatRight,
+				},
+
 				SelectButton =
 				{
 					Graphic = "ContextualActionButton",
@@ -962,7 +1775,7 @@ ScreenData.MarketScreen =
 						-- Dummy button
 					},
 					Text = "Menu_Buy",
-					AltText = "Menu_Sell",
+					AltTexts = { "Menu_Sell", "Menu_Exchange" },
 					TextArgs = UIData.ContextualButtonFormatRight,
 				},
 

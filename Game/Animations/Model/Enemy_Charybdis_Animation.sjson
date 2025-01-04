@@ -56,6 +56,7 @@
 		VisualFxIntervalMin = 0.03
 		VisualFxIntervalMax = 0.03
 		VerticalMaskInModelSpace = true
+		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteRetreating"
 		Frames =
 		[
 			{
@@ -142,13 +143,30 @@
 		InheritFrom = "Enemy_Charybdis_SpitPreFire"
 		ChainTo = "Enemy_Charybdis_SpitFullEnd"
 		HoldLastFrame = false
+		Frames =
+		[
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/DragonMiniboss/EmoteCharging"
+			}
+		]
 	}
 	{
 		Name = "Enemy_Charybdis_SpitFullEnd"
 		InheritFrom = "Enemy_Charybdis_SpitFireLoop"
 		Loop = false
 		ChainTo = "Enemy_Charybdis_SpitPostFire"
-		Sound = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee"
+		Frames =
+		[
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/DragonMiniboss/DragonRushRoar"
+			}
+			{
+				Frame = 8
+				Sound = "/SFX/Enemy Sounds/Charybdis/EmoteAttackingMelee"
+			},
+		]
 	}
 
 ] }

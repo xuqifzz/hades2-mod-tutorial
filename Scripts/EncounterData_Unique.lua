@@ -56,7 +56,7 @@ OverwriteTableKeys( EncounterData,
 							},
 							-- @ temporary so Frinos is always first
 							{
-								PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+								PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 							},
 						},
 
@@ -104,6 +104,9 @@ OverwriteTableKeys( EncounterData,
 				GameStateRequirements = 
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "HeraclesFirstMeeting" },
 					},
 					{
@@ -117,13 +120,16 @@ OverwriteTableKeys( EncounterData,
 						PathFalse = { "PrevRun", "HeraclesShopped" },
 					},
 					NamedRequirements = { "NoRecentFieldNPCEncounter", },
-					ChanceToPlay = 0.25, 
+					ChanceToPlay = 0.125, 
 				},
 			},
 			{
 				FunctionName = "CheckNemesisShoppingEvent",
 				GameStateRequirements = 
 				{
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 					{
 						PathTrue = { "GameState", "EncountersCompletedCache", "NemesisCombatIntro" },
 					},
@@ -138,7 +144,7 @@ OverwriteTableKeys( EncounterData,
 						PathFalse = { "PrevRun", "NemesisShopped" },
 					},
 					NamedRequirements = { "NoRecentNemesisEncounter", },
-					ChanceToPlay = 0.25, 
+					ChanceToPlay = 0.125, 
 				},
 				Args =
 				{
@@ -189,7 +195,10 @@ OverwriteTableKeys( EncounterData,
 				{ Cue = "/VO/MelinoeField_2356", Text = "{#Emph}<Sigh> {#Prev}Here goes...", PlayFirst = true,
 					GameStateRequirements =
 					{
-						RequiredMaxHealthFraction = 0.6,
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = "<=", Value = 0.6, },
+						},
 					},
 				},
 				{ Cue = "/VO/MelinoeField_2357", Text = "Headmistress awaits..." },
@@ -258,7 +267,14 @@ OverwriteTableKeys( EncounterData,
 					{
 						PathFalse = { "CurrentRun", "CurrentRoom", "DoAnomalies" },
 					},
-					RequiredUnitAlive = "NPC_Charon_01",
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "G_PreBoss01" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 
 				{ Cue = "/VO/Melinoe_1234", Text = "Farewell, Lord Charon." },

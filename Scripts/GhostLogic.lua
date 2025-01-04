@@ -6,10 +6,15 @@ end
 OnCollisionEnd{
 	function( triggerArgs )
 		local collidee = triggerArgs.CollideeTable
-		if collidee ~= nil and collidee.EmoteReactionOnCollide then
-			if RandomChance( 0.1 ) and ( CurrentHubRoom ~= nil and CurrentHubRoom.GhostCollisionEmote ~= nil ) then
-				PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/CandleBlow", Id = triggerArgs.triggeredById })
-				PlayEmote( { TargetId = collidee.ObjectId, EmoteName = CurrentHubRoom.GhostCollisionEmote, Shake = false } )
+		if collidee ~= nil then
+			if collidee.SpinOnCollide then
+				SetAnimation({ DestinationId = collidee.ObjectId, Name = "ShadeHubSIdle_Spin" })
+			end
+			if collidee.EmoteReactionOnCollide then
+				if RandomChance( 0.1 ) and ( CurrentHubRoom ~= nil and CurrentHubRoom.GhostCollisionEmote ~= nil ) then
+					PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/CandleBlow", Id = triggerArgs.triggeredById })
+					PlayEmote( { TargetId = collidee.ObjectId, EmoteName = CurrentHubRoom.GhostCollisionEmote, Shake = false } )
+				end
 			end
 		end
 	end
@@ -55,51 +60,6 @@ function GhostRecruitsMain( source, args )
 			end
 		end
 	end
-end
-
-function DisplayGhostQuote( ghost )	
-
-	local fadeInDuration = 0.5
-	local fadeOutDuration = 0.5
-	local holdDuration = 2.0
-
-	local ghostDataName = GetRandomKey( GhostData )
-	local ghostData = GhostData[ghostDataName]
-
-	local speechbubble = SpawnObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay", DestinationId = ghost.ObjectId, OffsetY = -150 })
-	SetAnimation({ Name = "GhostDialogue", DestinationId = speechbubble, Scale = 0.55 })
-	CreateTextBox({ Id = speechbubble,
-		Text = ghostDataName,
-		UseDescription = true,
-		FontSize = 21,
-		Width = 356,
-		OffsetX = -204,
-		OffsetY = -12,
-		Justification = "Left",
-		Font = "LatoSemiboldItalic",
-		Color = White,
-		OutlineColor = {0.113, 0.113, 0.113, 1},
-		OutlineThickness = 2,
-		LineSpacingBottom = 2,
-		})
-
-	Move({ Id = speechbubble, Angle = 90, Distance = 30, Duration = fadeInDuration, SmoothStep = true })
-	wait( fadeInDuration, RoomThreadName )
-
-	wait( holdDuration, RoomThreadName )
-
-	
-	if ghostData.Reactions ~= nil then
-		for i, reaction in pairs( ghostData.Reactions ) do
-			thread( PlayEmote, { TargetId = ghost.ObjectId, AnimationName = reaction } )
-		end
-	end
-
-	SetAlpha({ Id = speechbubble, Fraction = 0.0, Duration = fadeOutDuration })
-	Move({ Id = speechbubble, Angle = 90, Distance = 30, Duration = fadeOutDuration, EaseOut = 1 })
-	ModifyTextBox({ Id = speechbubble, FadeTarget = 0, FadeDuration = fadeOutDuration })
-	wait( fadeOutDuration, RoomThreadName )
-	Destroy({ Id = speechbubble })
 end
 
 function PatrolPath( source, args )
@@ -221,7 +181,7 @@ function FollowPath( mover, path, args )
 			if node.Branch ~= nil then
 				local eligibleBranchPaths = {}
 				for i, branchPath in ipairs( node.Branch ) do
-					if branchPath.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, mover, branchPath.GameStateRequirements ) then
+					if branchPath.GameStateRequirements == nil or IsGameStateEligible( mover, branchPath.GameStateRequirements ) then
 						table.insert( eligibleBranchPaths, branchPath )
 					end
 				end

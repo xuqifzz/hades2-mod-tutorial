@@ -12,7 +12,7 @@
         StopsLight = false
         Interact = 
         {
-          Distance = 170.0
+          Distance = 230.0
         }
         Tallness = 1163
         Offset = { X = 0 Y = -140 }

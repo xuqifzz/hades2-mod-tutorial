@@ -104,6 +104,23 @@ GardenData =
 					SproutedAnimation = "PlantOMandrakeSprouted",
 					ReadyToHarvestAnimation = "PlantOMandrakeReadyToHarvest",
 				},
+				{
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "LifetimeResourcesGained", "PlantPOliveSeed" },
+							Comparison = ">=",
+							Value = 1,
+						},
+					},
+					Weight = 1,
+					AddResources =
+					{
+						PlantPOlive = 1,
+					},
+					SproutedAnimation = "PlantPOliveSprouted",
+					ReadyToHarvestAnimation = "PlantPOliveReadyToHarvest",
+				},
 			}
 		},
 
@@ -210,6 +227,24 @@ GardenData =
 					},
 					SproutedAnimation = "PlantOMandrakeSprouted",
 					ReadyToHarvestAnimation = "PlantOMandrakeReadyToHarvest",
+				},
+			},
+		},
+
+		PlantPOliveSeed =
+		{
+			GrowTimeMin = 24,
+			GrowTimeMax = 24,
+			RandomOutcomes =
+			{
+				{
+					Weight = 1,
+					AddResources =
+					{
+						PlantPOlive = 1,
+					},
+					SproutedAnimation = "PlantPOliveSprouted",
+					ReadyToHarvestAnimation = "PlantPOliveReadyToHarvest",
 				},
 			},
 		},

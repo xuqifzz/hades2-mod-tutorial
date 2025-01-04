@@ -26,7 +26,8 @@ OverwriteTableKeys( EncounterData,
 
 		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
 
-		BlockFishingBeforeStart = true,
+		BlockAthenaEncounterKeepsake = true,
+
 		BlockCodexBeforeStart = false,
 		DelayedStart = true,
 		-- SkipCombatBeginsVoiceLines = true,
@@ -36,11 +37,14 @@ OverwriteTableKeys( EncounterData,
 		TimerBlock = "IcarusEncounter",
 		BlockHighlightEliteTypes = true,
 
+		CanEncounterSkip = false,
+
 		MuteSecretMusicDrumsOnCombatOver = true,
 		NextRoomResumeMusic = true,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsIcarusCombat,
 		Using = { "NPC_Icarus_01" },
+		LoadPackages = { "NPC_Icarus_01" },
 
 		DifficultyModifier = 300,
 		--DepthDifficultyRamp = 0,
@@ -131,12 +135,58 @@ OverwriteTableKeys( EncounterData,
 				Comparison = ">",
 				Value = 1,
 			},
-			RequiredMinHealthFraction = 0.33,
+			{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.33, },
+			},
 			{
 				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
-			RequiredMinHealthFraction = 0.33,
 			NamedRequirements = { "NoRecentFieldNPCEncounter" },
+		},
+	},
+
+	IcarusCombatP =
+	{
+		InheritFrom = { "BaseIcarusCombat", "GeneratedP" },
+
+		RequireRoomTag = "Outdoor",
+
+		GameStateRequirements =
+		{
+			Append = true,
+			{
+				PathTrue = { "GameState", "EncountersCompletedCache", "IcarusCombatIntro" },
+			},
+			{
+				Path = { "GameState", "UseRecord", "NPC_Icarus_01" },
+				Comparison = ">=",
+				Value = 4,
+			},
+			{
+				Path = { "CurrentRun", "EncountersOccurredCache" },
+				HasNone = { "IcarusCombatIntro", "IcarusCombatO", "IcarusCombatO2", "IcarusCombatP", "IcarusCombatP2" },
+			},
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasAll = { "AthenaFirstMeeting" }
+			},
+		},
+	},
+
+	IcarusCombatP2 =
+	{
+		InheritFrom = { "IcarusCombatP" },
+
+		GameStateRequirements =
+		{
+			Append = true,
+			{
+				SumPrevRuns = 4,
+				Path = { "SpawnRecord", "NPC_Icarus_01" },
+				Comparison = "<=",
+				Value = 0,
+			},
 		},
 	},
 })

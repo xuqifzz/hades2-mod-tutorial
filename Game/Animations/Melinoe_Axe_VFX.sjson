@@ -109,6 +109,8 @@
 		VisualFxRadialOffsetStartAngle = 70
 		VisualFxRadialOffsetIncrementAngle = -30
 		VisualFxCap = 8
+		VisualFxManagerCap = 560
+		VisualFxManagerFrameCap = 23
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe1Dark" }
@@ -138,6 +140,7 @@
 		EndRed = 0.4
 		EndGreen = 0.2
 		EndBlue = 1.0
+		DieWithOwner = false
 		// AngleChangeSpeed = -400
 		//AngleChangeAcceleration = 400
 	}
@@ -585,6 +588,18 @@
 		Name = "AxeNova_AxeDashAttack"
 		InheritFrom = "AxeNova"
 		Sound = "/SFX/Enemy Sounds/Charon/CharonGroundBlastFire"
+	}
+	{
+		Name = "AxeNova_Simple"
+		InheritFrom = "AxeNova"
+		VisualFx = null
+		ClearCreateAnimations = true
+		Sound = "/SFX/Enemy Sounds/Megaera/MegaeraFlameBurst"
+		CreateAnimations = [
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeNovaLight" }
+			{ Name = "AxeNovaDisplacement" }
+		]
 	}
 
 	{
@@ -2141,6 +2156,7 @@
 		EndGreen = 0.2
 		EndBlue = 0
 		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
+		UseAttachedTipLocation = false
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe2SpinDark" }
@@ -2750,7 +2766,7 @@
 		OriginX = 400
 		OriginY = 60
 		GroupName = "FX_Standing_Add"
-		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:moon_M_joint"
+		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:axeHead_M_joint"
 	}
 
 	{
@@ -2763,7 +2779,7 @@
 		Duration = 0.5
 		EaseIn = 0.9
 		EaseOut = 1.0
-		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:moon_M_joint"
+		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:axeHead_M_joint"
 		AngleFromOwner = "Ignore"
 		UseOwnAngle = false
 	}
@@ -2876,6 +2892,7 @@
 		EaseIn = 0
 		EaseOut = 1
 		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
+		UseAttachedTipLocation = false
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe2SpinDark" }
@@ -3939,7 +3956,7 @@
 		ScaleFromOwner = "Ignore"
 		StartScale = 1
 		EndScale = 0
-		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:moon_M_joint"
+		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:axeHead_M_joint"
 		VisualFx = "DemeterAxeSwipeUpperIceClouds"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
@@ -3988,7 +4005,8 @@
 		EndBlue = 0.999
 		EaseIn = 0
 		EaseOut = 1
-		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
+		Sound = "/SFX/Player Sounds/DemeterColdSwipe1" 
+		UseAttachedTipLocation = false
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe2SpinDark" }
@@ -4816,9 +4834,8 @@
 		VisualFxCap = 8
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
-		UseAttachedTipLocation = true
-		AttachedTipLocationScaleY = 0.6
 		VisualFxRadialOffsetLength = 350
+		UseAttachedTipLocation = false
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe2SpinDark" }
@@ -5049,7 +5066,7 @@
 	{
 		Name = "AxeSwipe1Spectral_Poseidon"
 		InheritFrom = "AxeSwipe1Spectral"
-		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFireLong"
 	}
 
 	{
@@ -5587,10 +5604,9 @@
 		VisualFxCap = 8
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
-		UseAttachedTipLocation = true
-		AttachedTipLocationScaleY = 0.6
 		VisualFxRadialOffsetLength = 350
-		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFire"
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFireLong"
+		UseAttachedTipLocation = false
 		CreateAnimations =
 		[
 			{ Name = "AxeSwipe2SpinDark" }
@@ -6574,6 +6590,2190 @@
         EndRed = 0.9999
         EndGreen = 0.7
         EndBlue = 0.5
+	}
+
+	// Hephaestus
+
+	{
+		Name = "AxeSwipe1_Hephaestus"
+		InheritFrom = "AxeSwipe1"
+		ClearCreateAnimations = true
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+        AddColor = false
+		VisualFx = "AxeSwipeHephaestusParticle"
+		VisualFxRadialOffsetScaleY = 0.66
+		VisualFxRadialOffsetStartAngle = 40
+		VisualFxRadialOffsetIncrementAngle = -25
+		CreateAnimations =
+		[
+			{ Name = "AxeSwipe1Dark" }
+			{ Name = "AxeSwipe1HephaestusFx" }
+			{ Name = "AxeSwipe1Spectral_Hephaestus" }
+			{ Name = "AxeSwipe1Displacement" }
+			{ Name = "AxeSwipeLight_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "AxeSwipe1HephaestusFx"
+		FilePath = "Fx\Hephaestus\HephSwipe\HephSwipe"
+		NumFrames = 40
+		PlaySpeed = 70
+		PostRotateScaleY = 0.6
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		AngleFromOwner = "Take"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "Standing"
+		Scale = 3.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScale = 1.0
+		EndScale = 1.05
+	}
+
+	{
+		Name = "AxeSwipe1HephaestusFxDisplace"
+		InheritFrom = "AxeSwipe1HephaestusFx"
+		GroupName = "FX_Displacement"
+		Scale = 3
+		PlaySpeed = 45
+		Alpha = 0.25
+	}		
+
+	{
+		Name = "AxeSwipe1HephaestusFxDisplaceFlip"
+		InheritFrom = "AxeSwipe1HephaestusFxDisplace"
+		FlipVertical = true
+	}
+
+	{
+		Name = "AxeSwipe1HephaestusFxFlip"
+		InheritFrom = "AxeSwipe1HephaestusFx"
+		FlipVertical = true
+	}
+
+	{
+		Name = "AxeSwipe1Spectral_Hephaestus"
+		InheritFrom = "AxeSwipe1Spectral"
+		Saturation = -0.5
+		Hue = 0.33
+		Sound = "/SFX/Player Sounds/HephaestusSwipeBig"
+	}
+
+	{
+		Name = "AxeSwipe2Spectral_Hephaestus"
+		InheritFrom = "AxeSwipe1Spectral_Hephaestus"
+		FlipVertical = true
+	}
+
+	{
+		Name = "AxeSwipe2_Hephaestus"
+		InheritFrom = "AxeSwipe2"
+		ClearCreateAnimations = true
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		FlipVertical = true
+		VisualFx = "AxeSwipeHephaestusParticleFlip"
+		VisualFxRadialOffsetScaleY = 0.66
+		VisualFxRadialOffsetStartAngle = -40
+		VisualFxRadialOffsetIncrementAngle = 25
+		CreateAnimations =
+		[
+			{ Name = "AxeSwipe2Dark" }
+			{ Name = "AxeSwipe2Spectral_Hephaestus" }
+			{ Name = "AxeSwipe1HephaestusFxDisplaceFlip" }
+			{ Name = "AxeSwipe2Displacement" }
+			{ Name = "AxeSwipeLight2_Hephaestus" }
+			{ Name = "AxeSwipe1HephaestusFxFlip" }
+		]
+	}
+
+
+	{
+		Name = "AxeSwipeLight_Hephaestus"
+		InheritFrom = "AxeSwipeLight"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Duration = 0.5
+		Alpha = 0.5
+		AngleChangeSpeed = -600
+		AngleChangeAcceleration = 2400
+	}
+
+	{
+		Name = "AxeSwipeLight2_Hephaestus"
+		InheritFrom = "AxeSwipeLight_Hephaestus"
+		AngleChangeSpeed = 600
+		AngleChangeAcceleration = -2400
+	}
+
+	{
+		Name = "AxeSwipeHephaestusParticle"
+		Random = [
+			{ Name = "AxeSwipeHephaestusParticleA" }
+			{ Name = "AxeSwipeHephaestusParticleB" }
+			{ Name = "AxeSwipeHephaestusParticleC" }
+		]
+	}
+
+
+	{
+		Name = "AxeSwipeHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		NumFrames = 38
+		Scale = 1
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		VelocityMin = 400
+		VelocityMax = 900
+		Acceleration = -1200
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.95
+		EaseOut = 1.0
+		RandomFlipVertical = false
+		RandomFlipHorizontal = true
+		AngleMin = -120
+		AngleMax = -60.1
+		PostRotateScaleY = 1
+		UseOwnAngle = false
+		TransferAngle = true
+		VisualFx = null
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		VisualFxUse3DAngle = true
+	}
+
+	{
+		Name = "AxeSwipeHephaestusParticleB"
+		InheritFrom = "AxeSwipeHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "AxeSwipeHephaestusParticleC"
+		InheritFrom = "AxeSwipeHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+	{
+		Name = "AxeSwipeHephaestusParticleFlip"
+		Random = [
+			{ Name = "AxeSwipeHephaestusParticleA_Flip" }
+			{ Name = "AxeSwipeHephaestusParticleB_Flip" }
+			{ Name = "AxeSwipeHephaestusParticleC_Flip" }
+		]
+	}
+
+	{
+		Name = "AxeSwipeHephaestusParticleA_Flip"
+		InheritFrom = "AxeSwipeHephaestusParticleA"
+		AngleMin = 60
+		AngleMax = 120
+	}
+	{
+		Name = "AxeSwipeHephaestusParticleB_Flip"
+		InheritFrom = "AxeSwipeHephaestusParticleB"
+		AngleMin = 60
+		AngleMax = 120
+	}
+	{
+		Name = "AxeSwipeHephaestusParticleC_Flip"
+		InheritFrom = "AxeSwipeHephaestusParticleC"
+		AngleMin = 60
+		AngleMax = 120
+	}
+
+
+	{
+		Name = "AxeNova_Hephaestus"
+		InheritFrom = "AxeNova"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "AxeNovaParticles_Hephaestus"
+		VisualFxCap = 24
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		TimeModifierFraction = 0.33
+		Sound = "/SFX/Player Sounds/HephaestusSwipeBig"
+		CreateAnimations =
+		[
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeNovaLight_Hephaestus" }
+			{ Name = "AxeNovaDisplacement" }
+			{ Name = "AxeNovaFlare_Hephaestus" }
+			{ Name = "AxeGroundCrack" }
+			{ Name = "AxeNovaHephaestusCircle" }
+		]
+	}
+
+	{
+		Name = "AxeNovaHephaestusCircle"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		Material = "Unlit"
+		Scale = 2
+		PostRotateScaleY = 0.5
+		Saturation = 0.25
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		NumFrames = 22
+		StartFrame = 30
+		StartScale = 1
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "AxeNovaParticles_Hephaestus"
+		Random = [
+			{ Name = "AxeNovaParticle_HephaestusA" }
+			{ Name = "AxeNovaParticle_HephaestusB" }
+			{ Name = "AxeNovaParticle_HephaestusC" }
+		]
+	}
+
+	{
+		Name = "AxeNovaParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		GroupName = "FX_Standing"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		RandomFlipVertical = false
+		UseOwnAngle = false
+		
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 1.2
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		OffsetZ = 90
+		RadialOffsetMin = 100
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+	}
+
+	{
+		Name = "AxeNovaParticle_HephaestusB"
+		InheritFrom = "AxeNovaParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+	{
+		Name = "AxeNovaParticle_HephaestusC"
+		InheritFrom = "AxeNovaParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+
+	{
+		Name = "AxeNovaEX_Hephaestus"
+		InheritFrom = "AxeNova_Hephaestus"
+		GroupName = "FX_Terrain_Add"
+		ScaleRadius = 230
+		AddColor = true
+		LocationZFromOwner = "Ignore"
+		VisualFx = "AxeNovaParticles_Hephaestus"
+		VisualFxCap = 24
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		TimeModifierFraction = 0.33
+		CreateAnimations =
+		[
+			{ Name = "AxeNovaDark" }
+			{ Name = "AxeNovaLightEX_Hephaestus" }
+			{ Name = "AxeNovaEXDissipate_Hephaestus" }
+			{ Name = "AxeNovaDisplacement" }
+			{ Name = "AxeNovaFlareEX_Hephaestus" }
+			{ Name = "AxeGroundCrack" }
+			{ Name = "AxeNovaSpectralEX1"}
+			{ Name = "AxeNovaSpectralEX2"}
+			{ Name = "AxeNovaHephaestusCircle" }
+		]
+	}
+
+	{
+		Name = "AxeNovaLight_Hephaestus"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Scale = 3
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "AxeNovaFlare_Hephaestus"
+		FilePath = "Fx\AxeNovaFlare\AxeNovaFlare"
+		NumFrames = 11
+		PlaySpeed = 60
+		GroupName = "FX_Standing_Add"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Scale = 3
+		AddColor = true
+	}
+
+
+	{
+		Name = "AxeNovaLightEX_Hephaestus"
+		InheritFrom = "AxeNovaLight_Hephaestus"
+		TimeModifierFraction = 0.33
+		Scale = 6
+		Duration = 0.5
+	}
+	{
+		Name = "AxeNovaFlareEX_Hephaestus"
+		InheritFrom = "AxeNovaFlare_Hephaestus"
+		TimeModifierFraction = 0.33
+		Scale = 4
+		StartRed = 0.999
+		StartGreen = 0.999
+		StartBlue = 0.999
+		Duration = 0.5
+	}
+
+	{
+		Name = "AxeNovaEXDissipate_Hephaestus"
+		InheritFrom = "AxeNovaEXDissipate"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+        EaseIn = 0.99
+        EaseOut = 1.0
+        Duration = 1.2
+	}
+
+	{
+		Name = "AxeSwipeUpper_Hephaestus"
+		InheritFrom = "AxeSwipeUpper"
+		ClearCreateAnimations = true
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = null
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Sound = "/SFX/Player Sounds/HephaestusSwipeBig"
+		VisualFxCap = 4
+		CreateAnimations =
+		[
+			{ Name = "AxeSwipeUpperDark" }
+			{ Name = "AxeSwipeUpperSpectral_Hephaestus" }
+			{ Name = "AxeSwipeUpperDisplacement" }
+			{ Name = "AxeSwipeUpperLight_Hephaestus" }
+			{ Name = "AxeSwipeUpper_HephaestusFx" }
+		]
+	}
+
+	{
+		Name = "AxeSwipeUpper_HephaestusFx"
+		FilePath = "Fx\Hephaestus\HephSwipe\HephSwipe"
+		NumFrames = 40
+		PlaySpeed = 90
+		LocationFromOwner = "Maintain"
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing"
+		FlipVertical = true
+		Material = "Unlit"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		Scale = 1.0
+		IsometricSkew = "X"
+		OffsetZ = 90
+	}	
+
+
+	{
+		Name = "AxeSwipeUpperSpectral_Hephaestus"
+		InheritFrom = "AxeSwipeUpperSpectral"
+        Red = 1
+        Green = 0.9
+        Blue = 0.3
+	}
+
+
+	{
+		Name = "AxeSwipeUpperLight_Hephaestus"
+		InheritFrom = "AxeSwipeLight_Hephaestus"
+		FilePath = "Particles\particle_glow"
+		RadialOffsetMin = 300
+		RadialOffsetMax = 300
+		RadialOffsetScaleY = 0.6
+	}
+
+	{
+		Name = "AxeSwipe2Spin_Hephaestus"
+		InheritFrom = "AxeSwipe1_Hephaestus"
+		LocationZFromOwner = "Take"
+		FlipVertical = true
+		ClearCreateAnimations = true
+		StartAngle = 0
+		EndAngle = 359
+		AngleMin = 0
+		AngleMax = 180
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+		ScaleRadius = 256
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "AxeSwipe2Spin_Hephaestus_Particles"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
+		VisualFxRadialOffsetScaleY = 0.66
+		VisualFxRadialOffsetStartAngle = 0
+		VisualFxRadialOffsetIncrementAngle = 40
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		UseAttachedTipLocation = false
+		AttachedTipLocationScaleY = 0.6
+		VisualFxRadialOffsetLength = 350
+		CreateAnimations =
+		[
+			{ Name = "AxeSwipe2SpinDark" }
+			{ Name = "AxeSwipeSpinHephaestusFx" }
+			{ Name = "AxeSwipeLightSpin_Hephaestus" }
+			{ Name = "AxeSwipe2SpinSpectral_Hephaestus" }
+			{ Name = "AxeSwipe2SpinDisplacement" }
+		]
+	}
+
+	{
+		Name = "AxeSwipe2Spin_Hephaestus_Particles"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		UseOwnAngle = false
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		GroupName = "FX_Standing"
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		RandomOffsetX = 120
+		RandomOffsetY = 60
+		OffsetZ = 30
+	}
+
+	{
+		Name = "AxeSpinHephaestusParticle"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		NumFrames = 1
+		UseOwnAngle = false
+		RandomStartFrame = true
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		Material = "Unlit"
+		VelocityMin = 50
+		VelocityMax = 400
+		Acceleration = -800 
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		Scale = 1
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		AngleFromOwner = "Take"
+		AngleMin = 270
+		AngleMax = 271
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "AxeSwipe2SpinSpectral_Hephaestus"
+		InheritFrom = "AxeSwipe2SpinSpectral"
+		Hue = 0.5
+	}
+
+	{
+		Name = "AxeSwipeLightSpin_Hephaestus"
+		InheritFrom = "AxeSwipeLight_Hephaestus"
+		Scale = 2
+		StartAlpha = 0.5
+		GroupName = "FX_Add_Top"
+		StartAngle = 0
+		EndAngle = 1
+		AngleChangeSpeed = 600
+		AngleChangeAcceleration = -2400
+	}
+
+
+	{
+		Name = "AxeSwipeSpinHephaestusFx"
+		FilePath = "Fx\Hephaestus\HephSwipe\HephSwipe"
+		NumFrames = 40
+		PostRotateScaleY = 0.6
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		AngleFromOwner = "Take"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing"
+		Scale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.00
+		StartScale = 1.0
+		EndScale = 1.05
+		FlipVertical = true
+		AngleMin = 0
+		AngleMax = 360
+		DieWithOwner = false
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+	}
+
+	{
+		Name = "AxeDeflect_Hephaestus"
+		InheritFrom = "AxeDeflectBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Scale = 1.2
+		ChainTo = "AxeDeflectFade_Hephaestus"
+		VisualFx = "AxeDeflectHephaestusParticles"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.06
+		StopSoundOnFinishFade = 0.1
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "AxeDeflectDisplacement" }
+			{ Name = "AxeDeflectGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "AxeDeflectHephaestusParticles"
+		Random = [
+			{ Name = "AxeDeflectHephaestusParticleA" }
+			{ Name = "AxeDeflectHephaestusParticleB" }
+			{ Name = "AxeDeflectHephaestusParticleC" }
+		]
+	}
+	{
+		Name = "AxeDeflectHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = false
+		ScaleMin = 0.5
+		ScaleMax = 0.85
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		OriginX = -40
+		OriginY = 80
+		AngleMin = -100
+		AngleMax = 100
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 75
+		Saturation = -0.5
+	}
+	{
+		Name = "AxeDeflectHephaestusParticleB"
+		InheritFrom = "AxeDeflectHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+	{
+		Name = "AxeDeflectHephaestusParticleC"
+		InheritFrom = "AxeDeflectHephaestusParticleA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+	{
+		Name = "AxeDeflectFade_Hephaestus"
+		InheritFrom = "AxeDeflectBaseFade"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+	{
+		Name = "AxeDeflectGlow_Hephaestus"
+		InheritFrom = "AxeDeflectBaseGlow"
+		EndAlpha = 0.5
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	// Aspect of Charon
+
+	{
+		Name = "CharonAspectDetonateFx"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Sound = "/SFX/Enemy Sounds/Charon/CharonPillarExplodeShort"
+		CreateAnimations = [
+			{ Name = "QuickFlashGold" }
+			{ Name = "CharonAspectDetonateGlow" }
+			{ Name = "CharonAxeFxA_01" }
+			{ Name = "CharonAxeFxA_02" }
+			{ Name = "CharonAxeFxA_03" }
+			{ Name = "CharonAxeFxA_04" }
+			{ Name = "CharonAxeFxA_05" }
+			{ Name = "CharonAxeFxA_06" }
+			{ Name = "CharonAxeFxA_07" }
+			{ Name = "CharonAxeFxA_08" }			
+			{ Name = "CharonAxeFxB_01" }
+			{ Name = "CharonAxeFxB_02" }
+			{ Name = "CharonAxeFxB_03" }
+			{ Name = "CharonAxeFxB_04" }
+			{ Name = "CharonAxeFxB_05" }
+			{ Name = "CharonAxeFxB_06" }
+			{ Name = "CharonAxeFxB_07" }
+			{ Name = "CharonAxeFxB_08" }
+		]
+	}
+
+	{
+		Name = "CharonAspectDetonateGlow"
+		FilePath = "Particles\particle_glow"
+		Scale = 8
+		GroupName = "FX_Add_Top"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 1
+		Alpha = 0.33
+		Duration = 0.5
+		PostRotateScaleY = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "CharonAxeFxA_01"
+		FilePath = "Fx\WeaponAspects\Charon\CharonAxeFxA\CharonAxeFxA"
+		NumFrames = 36
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		VelocityMin = 360
+		VelocityMax = 400
+		Acceleration = -1600
+		Scale = 1.5
+		OriginY = 120
+		OriginX = -100
+		Angle = 0
+		Material = "Unlit"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 60
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "CharonAxeFxA_02"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 45
+	}	
+	{
+		Name = "CharonAxeFxA_03"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 90
+	}	
+	{
+		Name = "CharonAxeFxA_04"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 135
+	}
+	{
+		Name = "CharonAxeFxA_05"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 180
+	}	
+	{
+		Name = "CharonAxeFxA_06"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 225
+	}	
+	{
+		Name = "CharonAxeFxA_07"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 270
+	}
+	{
+		Name = "CharonAxeFxA_08"
+		InheritFrom = "CharonAxeFxA_01"
+		Angle = 315
+	}
+
+	{
+		Name = "CharonAxeFxB_01"
+		FilePath = "Fx\WeaponAspects\Charon\CharonAxeFxB\CharonAxeFxB"
+		NumFrames = 30
+		NumAngles = 8
+		GroupName = "Standing"
+		VelocityMin = 370
+		VelocityMax = 420
+		Acceleration = -1600
+		Scale = 1.5
+		Angle = 0
+		Material = "Unlit"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		ScaleRadius = 400
+		RadialOffsetMin = 340
+		RadialOffsetMax = 340
+		RadialOffsetScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		OffsetZ = 60
+		VisualFx = "CharonAxeFxGoldCoin"
+		VisualFxCap = 4
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+	}
+	{
+		Name = "CharonAxeFxB_02"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 45
+	}	
+	{
+		Name = "CharonAxeFxB_03"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 90
+	}	
+	{
+		Name = "CharonAxeFxB_04"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 135
+	}
+	{
+		Name = "CharonAxeFxB_05"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 180
+	}	
+	{
+		Name = "CharonAxeFxB_06"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 225
+	}	
+	{
+		Name = "CharonAxeFxB_07"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 270
+	}
+	{
+		Name = "CharonAxeFxB_08"
+		InheritFrom = "CharonAxeFxB_01"
+		Angle = 315
+	}
+
+	{
+		Name = "CharonAxeFxGoldCoin"
+		FilePath = "Fx\GoldElementalCoin\GoldElementalCoin"
+		NumFrames = 60
+		RandomStartFrame = true
+		Loop = false
+		LoopFramesOnly = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomRotation = true
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -400
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.2
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.9
+		Gravity = 700
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 0.6
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		UpwardVelocityMin = 200
+		UpwardVelocityMax = 300
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		OffsetZ = -30
+		Material = "Unlit"
+	}
+
+	// Aspect of Thanatos
+
+	{
+		Name = "ThanatosCritFx"
+		FilePath = "Fx\WeaponAspects\Thanatos\ThanScytheCrit\ThanScytheCrit"
+		NumFrames = 35
+		StartFrame = 1
+		Material = "Unlit"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OffsetZ = 60
+		Scale = 1.5
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		Slides = [
+			{ DurationFrames = 5 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+		]
+		CreateAnimations = [
+			{ Name = "ThanatosCritFxGlow" }
+			{ Name = "ThanatosCritFxA" }
+			{ Name = "ThanatosCritFxB" }
+		]
+	}
+
+	{
+		Name = "ThanatosCritFxA"
+		FilePath = "Particles\particle_enemyFlare"
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartScale = 1.5
+		EndScale = 0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Hue = -0.2
+		ScaleFromOwner = "Ignore"
+		DrawBehindOwner = true
+		OffsetZ = 60
+	}
+
+	{
+		Name = "ThanatosCritFxB"
+		FilePath = "Fx\CritFlare\CritFlare"
+		NumFrames = 12
+		OffsetZ = 60
+		Hue = 0.75
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.75
+	}
+
+	{
+		Name = "ThanatosCritFxGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 0.6
+		Green = 0.3
+		Blue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		PostRotateScaleY = 0.5
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 4
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFx"
+		FilePath = "Particles\particle_enemyFlare"
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GrannyAttachedMarkerLocation = "eye_fxMarker_M_JNT"
+		StartScale = 0.6
+		EndScale = 1.0
+		Scale = 0.25
+		PingPongScale = true
+		Hue = -0.2
+		Duration = 0.6
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		VisualFx = "ThanatosMaxMortalityFxTrail"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.12
+		Sound = "/SFX/ThanatosCreepyBellLoop2"
+		StopSoundOnFinishFade = 0.2
+		GroupName = "FX_Standing_Add"
+		CreateAnimations = [
+			{ Name = "ThanatosMaxMortalityFxDark" }
+			{ Name = "ThanatosMaxMortalityFxFlare" }
+			{ Name = "ThanatosMaxMortalityFxFlareDark" }
+			{ Name = "ThanatosMaxMortalityFxRing" }
+		]
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFxFlare"
+		InheritFrom = "ThanatosMaxMortalityFx"
+		CreateAnimation = null
+		Sound = null
+		ClearCreateAnimations = true
+		PingPongScale = false
+		StartScale = 4
+		EndScale = 0
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Loop = false
+		ScaleFromOwner = "Ignore"
+		VisualFx = null
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFxFlareDark"
+		InheritFrom = "ThanatosMaxMortalityFxFlare"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		Duration = 0.2
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFxRing"
+		FilePath = "Fx\StaffFireFxRing\StaffFireFxRing"
+		NumFrames = 30
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GrannyAttachedMarkerLocation = "eye_fxMarker_M_JNT"
+		PlaySpeed = 90
+		Hue = 0.3
+		Value = -0.2
+		Saturation = 0.5
+		StartScale = 1.1
+		EndScale = 1.5
+		Scale = 1.2
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 0 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFxDark"
+		InheritFrom = "ThanatosMaxMortalityFx"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		Sound = null
+		VisualFx = "ThanatosMaxMortalityTrailB"
+		VisualFxIntervalMin = 0
+		VisualFxIntervalMax = 0
+		VisualFxDistanceMin = 7
+		VisualFxDistanceMax = 7
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		DieWithOwner = true
+	}
+
+	{
+		Name = "ThanatosMaxMortalityTrailB"
+		FilePath = "Fx\FadeTrail\FadeTrail"
+		StartRed = 0.4
+		StartGreen = 0.1
+		StartBlue = 1
+		EndRed = 0.2
+		EndGreen = 0
+		EndBlue = 0.8
+		PlaySpeed = 200
+		StartScale = 1
+		EndScale = 0
+		NumFrames = 19
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+	}
+
+	{
+		Name = "ThanatosMaxMortalityFxTrail"
+		FilePath = "Fx\StaffMagicDark\StaffMagicDark"
+		NumFrames = 19
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		EaseIn = 0.99
+		EaseOut = 1.0
+		ScaleMin = 1
+		ScaleMax = 1.5
+		AngleMin = -20
+		AngleMax = 20
+		GroupName = "FX_Dark"
+		RandomRotation = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		OwnerVelocityFraction = 0.33
+		Acceleration = -200
+		AddColor = true
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		StartRed = 0.2
+		StartGreen = 0.1
+		StartBlue = 0.4
+		Gravity = -250
+		StartScale = 1
+		EndScale = 1.25
+	}
+
+	// Axe Spin / Updated Special Attack
+
+	{
+		Name = "AxeSpinDouble"
+		FilePath = "Fx\AxeSpinDouble\AxeSpinDouble"
+		NumFrames = 24
+		IsometricSkew = "X"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:handleMain_M_joint"
+		StartScale = 0.5
+		EndScale = 1.6
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		VisualFx = "AxeSpinDoubleParticle"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.06
+		VisualFxCap = 8
+
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+		]
+		Slides = [
+			{ DurationFrames = 6 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleDisplacement"
+		InheritFrom = "AxeSpinDouble"
+		VisualFx = null
+		ClearCreateAnimations = true
+		GroupName = "FX_Displacement"
+		StartAlpha = 0
+		EndAlpha = 0.1
+		EndScale = 1.2
+		ClearSlides = true
+		Slides = [
+			{ DurationFrames = 8 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleDark"
+		InheritFrom = "AxeSpinDouble"
+		VisualFx = null
+		ClearCreateAnimations = true
+		FilePath = "Fx\AxeSpinDoubleDark\AxeSpinDoubleDark"
+		GroupName = "FX_Dark"
+		NumFrames = 28
+		ClearSlides = true
+		EndScale = 1.5
+		Slides = [
+			{ DurationFrames = 6 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+
+	{
+		Name = "AxeSpinDoubleLight"
+		GroupName = "FX_Terrain_Add"
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Scale = 1.5
+		Duration = 0.66
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.55
+		PingPongColor = true
+		ScaleY = 0.5
+		Material = "Unlit"
+		StartRed = 0.0
+		StartGreen = 0.4
+		StartBlue = 0.999
+		EndRed = 0.2
+		EndGreen = 0.5
+		EndBlue = 1.0
+		DieWithOwner = false
+		FilePath = "Particles\particle_glow"
+		RadialOffsetMin = 200
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.6
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+	}
+
+
+	{
+		Name = "AxeSpinDoubleParticle"
+		FilePath = "Particles\particle_sparkle_glow"
+		Material = "Unlit"
+		AddColor = true
+		GroupName = "FX_Standing_Add"
+		ScaleMin = 0.15
+		ScaleMax = 0.3
+		RadialOffsetMin = 100
+		RadialOffsetMax = 201
+		RadialOffsetScaleY = 0.5
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomDurationMin = 0.35
+		RandomDurationMax = 0.5
+		ScaleFromOwner = "Ignore"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.4
+		EndRed = 0.4
+		EndGreen = 0.0
+		EndBlue = 1.0
+		StartScale = 1
+		EndScale = 0
+		UseOwnAngle = false
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		EaseIn = 0.999
+		EaseOut = 1.0
+		RandomOffsetY = 100
+		UpwardVelocityMin = 0
+		UpwardVelocityMax = 900
+	}
+
+
+	// AxeSpinDouble x Aphrodite
+
+	{
+		Name = "AxeSpinDouble_Aphrodite"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticle_Aphrodite"
+		Hue = 0.28
+		Saturation = -0.4
+		StartRed = 1.0
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.8
+		EndGreen = 0.3
+		EndBlue = 0.99
+		Sound = "/SFX/Player Sounds/AphroditeLoveSwipe"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Aphrodite" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Aphrodite"
+		InheritFrom = "AxeSpinDoubleLight"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.2
+		EndBlue = 0.99
+		EndAlpha = 0.15
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_Aphrodite"
+		Random =
+		[
+			{ Name = "AxeSpinDoubleParticle_AphroditeA" }
+			{ Name = "AxeSpinDoubleParticle_AphroditeB" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_AphroditeA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		UseOwnAngle = false
+		NumFrames = 1
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.2
+		ScaleFromOwner = "Ignore"
+		Scale = 1.2
+		StartScale = 1
+		EndScale = 0
+		AngleFromOwner = "Take"
+		RadialOffsetMin = 80
+		RadialOffsetMax = 150
+		EaseIn = 0.999
+		EaseOut = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		StartOffsetZ = 0
+		EndOffsetZ = 160
+		StartRed = 1.0
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_AphroditeB"
+		InheritFrom = "AxeSpinDoubleParticle_AphroditeA"
+		FilePath = "Particles\particle_aphrodite_heart"
+		EndOffsetZ = 120
+	}
+
+
+	// AxeSpinDouble x Apollo
+
+	{
+		Name = "AxeSpinDouble_Apollo"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticle_Apollo"
+		Hue = -0.47
+		Saturation = -0.2
+		Value = 0.2
+		Sound = "/SFX/Player Sounds/ApolloSwipeSFX"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Apollo" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Apollo"
+		InheritFrom = "AxeSpinDoubleLight"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.7
+		EndRed = 0.999
+		EndGreen = 0.85
+		EndBlue = 0.05
+		EndAlpha = 0.15
+	}
+
+
+	{
+		Name = "AxeSpinDoubleApolloSpectralArc"
+		FilePath = "Particles\particle_spectral_shimmer_03"
+		Material = "Unlit"
+		IsometricSkew = "X"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 1
+		EndAlpha = 0
+		RandomDurationMin = 0.7
+		RandomDurationMax = 0.9
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		EaseIn = 0.98
+		EaseOut = 1.0
+		RadialOffsetMin = 200
+		RadialOffsetMax = 200
+		OffsetZ = 120
+		StartScale = 1.0
+		EndScale = 2.0
+		ScaleMin = 0.8
+		ScaleMax = 1.0
+		AlphaMin = 0.7
+		AlphaMax = 1.0
+		ScaleFromOwner = "Ignore"
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_Apollo"
+		InheritFrom = "AxeNovaApolloRainbows"
+		RadialOffsetMin = 25
+		RadialOffsetMax = 100
+		AngleFromOwner = "Take"
+		AngleMin = 0
+		AngleMax = 1
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		ScaleX = 0.6
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		RandomFlipHorizontal = true
+		AlphaMin = 0.05
+		AlphaMax = 0.33
+		RandomOffsetX = 5
+		RandomOffsetY = 5
+		RandomDurationMin = 0.25
+		RandomDurationMax = 0.7
+		EaseIn = 0
+		EaseOut = 1
+		ScaleY = 6
+		OriginX = 60
+		OriginY = 0
+		CreateAnimation = "ApolloDotsUpward"
+	}
+
+
+	// AxeSpinDouble x Demeter
+
+	{
+		Name = "AxeSpinDouble_Demeter"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticle_Demeter"
+		Hue = 0.15
+		Saturation = -0.5
+		Sound = "/SFX/Player Sounds/DemeterColdSwipe1"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Demeter" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+			{ Name = "AxeSpinDoubleDemeterIceCloud" }
+			{ Name = "AxeSpinDoubleDemeterIceCloud" }
+			{ Name = "AxeSpinDoubleDemeterIceCloud" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Demeter"
+		InheritFrom = "AxeSpinDoubleLight"
+		StartRed = 0.2
+		StartGreen = 0.7
+		StartBlue = 1.0
+		EndRed = 0.4
+		EndGreen = 0.5
+		EndBlue = 0.999
+		EndAlpha = 0.15
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_Demeter"
+		Random =
+		[
+			{ Name = "AxeSpinDoubleParticle_DemeterA" }
+			{ Name = "AxeSpinDoubleParticle_DemeterB" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_DemeterA"
+		FilePath = "Fx\Demeter\DemeterIceParticleA\DemeterIceParticleA"
+		NumFrames = 45
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		Angle = 0
+		VelocityMin = 1
+		VelocityMax = 2
+		Acceleration = -2400
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		RandomOffsetX = 10
+		RandomOffsetY = 120
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		RadialOffsetMin = 50
+		RadialOffsetMax = 150
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		EaseIn = 0.99
+		EaseOut = 1.0
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_DemeterB"
+		InheritFrom = "AxeSpinDoubleParticle_DemeterA"
+		FilePath = "Fx\Demeter\DemeterIceParticleB\DemeterIceParticleB"
+		NumFrames = 45
+	}
+
+
+	{
+		Name = "AxeSpinDoubleDemeterIceCloud"
+		FilePath = "Fx\Demeter\DemeterIceCloudB\DemeterIceCloudB"
+		NumFrames = 45
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		Scale = 1.5
+		ScaleMin = 0.8
+		ScaleMax = 1.1
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 50
+		Saturation = 0.25
+		AlphaMin = 0.3
+		AlphaMax = 1.0
+		RadialOffsetMin = 100
+		RadialOffsetMax = 200
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+	}
+
+
+	// AxeSpinDouble x Hephaestus
+
+	{
+		Name = "AxeSpinDouble_Hephaestus"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticles_Hephaestus"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeBig"
+		Hue = -0.6
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Hephaestus" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Hephaestus"
+		InheritFrom = "AxeSpinDoubleLight"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.2
+		EndBlue = 0.99
+		EndAlpha = 0.15
+	}
+
+	{
+		Name = "AxeSpinDoubleParticles_Hephaestus"
+		Random = [
+			{ Name = "AxeSpinDoubleParticles_HephaestusA" }
+			{ Name = "AxeSpinDoubleParticles_HephaestusB" }
+			{ Name = "AxeSpinDoubleParticles_HephaestusC" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticles_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		RadialOffsetMin = 50
+		RadialOffsetMax = 200
+		RandomOffsetX = 40
+		RandomOffsetY = 20
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+		EaseIn = 0.99
+		EaseOut = 1.00
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Gravity = 300
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+	}	
+
+	{
+		Name = "AxeSpinDoubleParticles_HephaestusB"
+		InheritFrom = "AxeSpinDoubleParticles_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "AxeSpinDoubleParticles_HephaestusC"
+		InheritFrom = "AxeSpinDoubleParticles_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+
+	// AxeSpinDouble x Hera
+
+	{
+		Name = "AxeSpinDouble_Hera"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticle_Hera"
+		Hue = -0.1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		Sound = "/SFX/Player Sounds/HeraSwipeSFXCombo"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Hera" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+			{ Name = "HeraAxeSwipeUpperSparkle" }
+			{ Name = "HeraAxeSwipeUpperFx" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Hera"
+		InheritFrom = "AxeSpinDoubleLight"
+		StartRed = 0.0
+		StartGreen = 1.0
+		StartBlue = 0.1
+		EndRed = 0.1
+		EndGreen = 0.3
+		EndBlue = 1.0
+		EndAlpha = 0.15
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_Hera"
+		Random =
+		[
+			{ Name = "AxeSpinDoubleParticle_HeraA" }
+			{ Name = "AxeSpinDoubleParticle_HeraB" }
+			{ Name = "AxeSpinDoubleParticle_HeraDarkA" }
+			{ Name = "AxeSpinDoubleParticle_HeraDarkB" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HeraA"
+		FilePath = "Fx\Hera\HeraSwipeParticleA\HeraSwipeParticleA"
+		NumFrames = 26
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 70
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		Angle = 0
+		VelocityMin = 1
+		VelocityMax = 2
+		Acceleration = -2400
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		RandomOffsetX = 0
+		RandomOffsetY = 20
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RadialOffsetMin = 30
+		RadialOffsetMax = 100
+		StartOffsetZ = 0
+		EndOffsetZ = 150
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Gravity = 300
+		RandomRotation = true
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		GroupName = "FX_Standing"
+		RandomRotationSpeedMin = -180
+		RandomRotationSpeedMax = 180
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HeraB"
+		InheritFrom = "AxeSpinDoubleParticle_HeraA"
+		FilePath = "Fx\Hera\HeraSwipeParticleB\HeraSwipeParticleB"
+		NumFrames = 25
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HeraDarkA"
+		InheritFrom = "AxeSpinDoubleParticle_HeraA"
+		Red = 0
+		Green = 0
+		Blue = 0
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HeraDarkB"
+		InheritFrom = "AxeSpinDoubleParticle_HeraB"
+		Red = 0
+		Green = 0
+		Blue = 0			
+	}
+
+	// AxeSpinDouble x Hestia
+
+	{
+		Name = "AxeSpinDouble_Hestia"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticle_Hestia"
+		Hue = 0.5
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.99
+		EndGreen = 0.2
+		EndBlue = 0.0
+		Sound = "/SFX/Player Sounds/HestiaSwipeSFX"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Hestia" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+			{ Name = "AxeSpinDoubleFlame_Hestia" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Hestia"
+		InheritFrom = "AxeSpinDoubleLight"
+		EndRed = 1.0
+		EndGreen = 0.4
+		EndBlue = 0.02
+		StartRed = 0.999
+		StartGreen = 0.0
+		StartBlue = 0.0
+		EndAlpha = 0.2
+	}
+
+	{
+		Name = "AxeSpinDoubleFlame_Hestia"
+		FilePath = "Fx\Hestia\HestiaGroundFlame\HestiaGroundFlame"
+		NumFrames = 27
+		PlaySpeed = 55
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RadialOffsetMin = 200
+		RadialOffsetMax = 200
+		RadialOffsetScaleY = 0.66
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 0.75
+		UseOwnAngle = false
+		StartOffsetZ = 60
+		EndOffsetZ = 120
+		EaseIn = 0.999
+		EaseOut = 1.0
+		RandomOffsetY = 1
+		UpwardVelocityMin = 0
+		UpwardVelocityMax = 1
+		OriginX = 240
+		OriginY = 120
+		DieWithOwner = false
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.6
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_Hestia"
+		Random = [
+			{ Name = "AxeSpinDoubleParticle_HestiaA" }
+			{ Name = "AxeSpinDoubleParticle_HestiaB" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HestiaA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameA\HestiaDirectionalFlameA"
+		NumFrames = 38
+		Material = "Unlit"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		RandomFlipVertical = true
+		ScaleMin = 0.2
+		ScaleMax = 1.2
+		AngleMin = -45
+		AngleMax = 45
+		GroupName = "FX_Standing_Add"
+		StartOffsetZ = 0
+		EndOffsetZ = 40
+		EaseIn = 0.99
+		EaseOut = 1.0
+		CreateAnimation = "AxeSpinDoubleParticleSpark_Hestia"
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_HestiaB"
+		InheritFrom = "AxeSpinDoubleParticle_HestiaA"
+		FilePath = "Fx\Hestia\HestiaDirectionalFlameB\HestiaDirectionalFlameB"
+	}
+
+	{
+		Name = "AxeSpinDoubleParticleSpark_Hestia"
+		InheritFrom = "AxeSpinDoubleParticle_HestiaA"
+		FilePath = "Fx\Hestia\HestiaSparks\HestiaSparks"
+		NumFrames = 10
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.3
+		RandomDurationMax = 0.7
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = null
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 500
+		Acceleration = -500
+		AngleMin = 135
+		AngleMax = 225
+	}
+
+	// AxeSpinDouble x Hestia
+
+	{
+		Name = "AxeSpinDouble_Poseidon"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticles_Poseidon"
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.03
+		VisualFxCap = 16
+		Hue = -0.05
+		Sound = "/SFX/Player Sounds/PoseidonWaterArrowFireLong"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Poseidon" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+			//{ Name = "AxeSwipeUpper_PoseidonFx" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Poseidon"
+		InheritFrom = "AxeSpinDoubleLight"
+		EndRed = 0.1
+		EndGreen = 1.0
+		EndBlue = 0.8
+		StartRed = 0
+		StartGreen = 0.6
+		StartBlue = 1.0
+		EndAlpha = 0.2
+	}
+
+
+	{
+		Name = "AxeSpinDoubleParticles_Poseidon"
+		Random =
+		[
+			{ Name = "AxeSpinDoubleParticle_PoseidonA" }
+			{ Name = "AxeSpinDoubleParticle_PoseidonB" }
+			{ Name = "AxeSpinDoubleParticle_PoseidonC" }
+			{ Name = "AxeSpinDoubleParticle_PoseidonD" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_PoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleA\PoseidonSplashParticleA"
+		AngleFromOwner = "Take"
+		NumFrames = 60
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomPlaySpeedMin = 70
+		RandomPlaySpeedMax = 120
+		ScaleFromOwner = "Ignore"
+		Scale = 0.6
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		RandomFlipVertical = true
+		Gravity = 400
+		VelocityMin = 100
+		VelocityMax = 300
+		Acceleration = -300
+		AngleMin = 160
+		AngleMax = 200
+		RadialOffsetMin = -100
+		RadialOffsetMax = -100
+		AddColor = false
+		ColorFromOwner = "Ignore"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.8
+		EndBlue = 0.999
+		IsometricSkew = "X"
+		StartOffsetZ = 0
+		EndOffsetZ = 100
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_PoseidonB"
+		InheritFrom = "AxeSpinDoubleParticle_PoseidonA"
+		FilePath = "Fx\Poseidon\PoseidonSplashParticleB\PoseidonSplashParticleB"
+	}	
+	{
+		Name = "AxeSpinDoubleParticle_PoseidonC"
+		InheritFrom = "AxeSpinDoubleParticle_PoseidonA"
+		IsometricSkew = "None"
+	}	
+	{
+		Name = "AxeSpinDoubleParticle_PoseidonD"
+		InheritFrom = "AxeSpinDoubleParticle_PoseidonB"
+		IsometricSkew = "None"
+	}
+
+
+	// AxeSpinDouble x Zeus
+
+	{
+		Name = "AxeSpinDouble_Zeus"
+		InheritFrom = "AxeSpinDouble"
+		ClearCreateAnimations = true
+		VisualFx = "AxeSpinDoubleParticles_Zeus"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.05
+		VisualFxCap = 16
+		Hue = -0.4
+		Saturation = -0.3
+		Sound = "/SFX/Player Sounds/ZeusLightningSlash"
+		CreateAnimations = [
+			{ Name = "AxeSpinDoubleDark" }
+			{ Name = "AxeSpinDoubleLight_Zeus" }
+			{ Name = "AxeSpinDoubleDisplacement" }
+			{ Name = "AxeSpinDoubleZeusGroundFx" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleLight_Zeus"
+		InheritFrom = "AxeSpinDoubleLight"
+        EndRed = 1.0
+        EndGreen = 0.95
+        EndBlue = 0.7
+        StartRed = 0.9999
+        StartGreen = 0.8
+        StartBlue = 0.5
+		EndAlpha = 0.2
+	}
+
+
+	{
+		Name = "AxeSpinDoubleParticles_Zeus"
+		Random =
+		[
+			{ Name = "AxeSpinDoubleParticle_ZeusA" }
+			{ Name = "AxeSpinDoubleParticle_ZeusB" }
+			{ Name = "AxeSpinDoubleParticle_ZeusC" }
+		]
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		AngleFromOwner = "Take"
+		NumFrames = 15
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomPlaySpeedMin = 45
+		RandomPlaySpeedMax = 60
+		ScaleFromOwner = "Ignore"
+		Scale = 1.1
+		ScaleMin = 0.33
+		ScaleMax = 1.0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		RandomFlipVertical = true
+		AddColor = false
+		ColorFromOwner = "Ignore"
+		RadialOffsetMin = 50
+		RadialOffsetMax = 150
+		RandomOffsetX = 40
+		RandomOffsetY = 20
+		RandomRotation = true
+	}
+
+	{
+		Name = "AxeSpinDoubleParticle_ZeusB"
+		InheritFrom = "AxeSpinDoubleParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}	
+	{
+		Name = "AxeSpinDoubleParticle_ZeusC"
+		InheritFrom = "AxeSpinDoubleParticle_ZeusA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}	
+
+	{
+		Name = "AxeSpinDoubleZeusGroundFx"
+		FilePath = "Fx\Zeus\ZeusGroundFx\ZeusGroundFx"
+		NumFrames = 41
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		RadialOffsetMin = 100
+		RadialOffsetMax = 100
+		RadialOffsetScaleY = 0.5
+		ScaleY = 1.1
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.99
+		EaseOut = 1.00
+		GrannyAttachedMarkerLocation = "WeaponAxe_Rig_01:blade_R_joint"
+
 	}
 
 ]}

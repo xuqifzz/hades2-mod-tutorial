@@ -82,7 +82,7 @@ OverwriteTableKeys( TraitData, {
 
 		ManaCostModifiers = 
 		{
-			WeaponNames = WeaponSets.HeroAllWeapons,
+			WeaponNames = ConcatTableValues( ShallowCopyTable( WeaponSets.HeroAllWeaponsAndSprint), { "WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile", "WeaponCastLob" }),
 			ExWeapons = true,
 			ManaCostAdd = 10,
 			ReportValues = 
@@ -92,7 +92,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroAllWeaponsAndSprint,
 			FunctionName = "CheckIcarusExplosion",
 			Args = 
 			{
@@ -239,7 +239,7 @@ OverwriteTableKeys( TraitData, {
 			Args = 
 			{
 				ProjectileName = "IcarusArmorExplosion",
-				DamageMultiplier = 8,
+				DamageMultiplier = 1,
 				ReportValues = 
 				{
 					ReportedMultiplier = "DamageMultiplier",
@@ -253,15 +253,11 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipAmount",
 			},
 			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
-			{
 				Key = "ReportedMultiplier",
 				ExtractAs = "Damage",
 				Format = "MultiplyByBase",
 				BaseType = "Projectile",
-				BaseName = "IcarusHazardExplosion",
+				BaseName = "IcarusArmorExplosion",
 				BaseProperty = "Damage",
 			},
 		}
@@ -307,10 +303,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedArmor",
 				ExtractAs = "TooltipAmount",
-			},
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
 			},
 			{
 				Key = "ReportedDuration",

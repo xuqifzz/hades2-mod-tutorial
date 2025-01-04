@@ -2,8 +2,6 @@ GlobalVoiceLines = GlobalVoiceLines or {}
 GlobalVoiceLines.FishCaughtVoiceLines =
 {
 	{
-		BreakIfPlayed = true,
-		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.35,
 		UsePlayerSource = true,
@@ -15,16 +13,27 @@ GlobalVoiceLines.FishCaughtVoiceLines =
 			},
 		},
 
-		{ Cue = "/VO/Melinoe_0757", Text = "Got you!" },
-		{ Cue = "/VO/Melinoe_0758", Text = "Caught out." },
-		{ Cue = "/VO/Melinoe_0759", Text = "That's a bite!" },
-		{ Cue = "/VO/Melinoe_0760", Text = "Mine!" },
 		{ Cue = "/VO/MelinoeField_1351", Text = "And, caught!" },
 		{ Cue = "/VO/MelinoeField_1352", Text = "Come on out!" },
 		{ Cue = "/VO/MelinoeField_1353", Text = "It's over!" },
 		{ Cue = "/VO/MelinoeField_1354", Text = "Victory!" },
-		{ Cue = "/VO/MelinoeField_1355", Text = "To me!" },
 		{ Cue = "/VO/MelinoeField_1356", Text = "No escape!" },
+		{ Cue = "/VO/Melinoe_0760", Text = "Mine!",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+				},
+			},
+		},
+		{ Cue = "/VO/MelinoeField_1355", Text = "To me!",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+				},
+			},
+		},
 	},
 	{
 		BreakIfPlayed = true,
@@ -136,60 +145,15 @@ GlobalVoiceLines.FishCaughtVoiceLines =
 		BreakIfPlayed = true,
 		RandomRemaining = true,
 		PreLineWait = 0.35,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Arachne_01",
-		AllowTalkOverTextLines = true,
-		Cooldowns =
-		{
-			{ Name = "ArachneSpokeRecently", Time = 10 },
-		},
-
-		{ Cue = "/VO/Arachne_0330", Text = "Nice catch!" },
-		{ Cue = "/VO/Arachne_0331", Text = "Well done." },
-		{ Cue = "/VO/Arachne_0332", Text = "Got one huh." },
-		{ Cue = "/VO/Arachne_0333", Text = "Did you get it?" },
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Narcissus_01",
-		AllowTalkOverTextLines = true,
-		Cooldowns =
-		{
-			{ Name = "NarcissusSpokeRecently", Time = 8 },
-		},
-
-		{ Cue = "/VO/Narcissus_0153", Text = "Could you, like, keep it down?" },
-		{ Cue = "/VO/Narcissus_0154", Text = "Better not throw it back..." },
-		{ Cue = "/VO/Narcissus_0155", Text = "What did you just do?" },
-		{ Cue = "/VO/Narcissus_0156", Text = "I'm trying to concentrate!" },
-		{ Cue = "/VO/Narcissus_0157", Text = "One less suitor.", PlayFirst = true },
-		{ Cue = "/VO/Narcissus_0158", Text = "Caught something, huh?" },
-		{ Cue = "/VO/Narcissus_0159", Text = "{#Emph}Eugh..." },
-		{ Cue = "/VO/Narcissus_0160", Text = "Did you just...?" },
-		{ Cue = "/VO/Narcissus_0161", Text = "Watch with the splashing." },
-		{ Cue = "/VO/Narcissus_0162", Text = "Get it out of here." },
-		{ Cue = "/VO/Narcissus_0163", Text = "I'm happy for you two.", PlayFirst = true },
-		{ Cue = "/VO/Narcissus_0164", Text = "Is it over...?" },
-		{ Cue = "/VO/Narcissus_0165", Text = "Whatever you're into." },
-		{ Cue = "/VO/Narcissus_0166", Text = "Nice one, Laurel.",
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "TextLinesRecord", "NarcissusAboutReflection01" },
-				},
-			},
-		},
-	},
-	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		PreLineWait = 0.35,
 		UsePlayerSource = true,
 		Queue = "Interrupt",
 		AllowTalkOverTextLines = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "IsDead" },
+			}
+		},
 
 		{ Cue = "/VO/Melinoe_0350", Text = "{#Emph}<Laugh>" },
 		{ Cue = "/VO/Melinoe_0351", Text = "{#Emph}<Laugh>" },
@@ -199,116 +163,13 @@ GlobalVoiceLines.FishIdentifiedVoiceLines =
 {
 	{
 		RandomRemaining = true,
-		PreLineWait = 0.85,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Hecate_01",
-		AllowTalkOverTextLines = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "HecateFishing01" },
-			},
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Hecate_0386", Text = "And caught." },
-		{ Cue = "/VO/Hecate_0387", Text = "Ensnared!" },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.85,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Dora_01",
-		AllowTalkOverTextLines = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "DoraFishing01" },
-			},
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Dora_0091", Text = "Well there you go!" },
-		{ Cue = "/VO/Dora_0092", Text = "Hah, you tricked a fish!", PlayFirst = true },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.85,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Odysseus_01",
-		AllowTalkOverTextLines = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "OdysseusFishing01" },
-			},
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Odysseus_0076", Text = "Hey, you got one!" },
-		{ Cue = "/VO/Odysseus_0077", Text = "Hoh, nice catch!" },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.85,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Nemesis_01",
-		AllowTalkOverTextLines = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "NemesisFishing01" },
-			},
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Nemesis_0182", Text = "Thank the Fates." },
-		{ Cue = "/VO/Nemesis_0183", Text = "Fair catch.", PlayFirst = true },
-		{ Cue = "/VO/Nemesis_0184", Text = "Had it coming." },
-		{ Cue = "/VO/Nemesis_0185", Text = "Tough break, fish." },
-		{ Cue = "/VO/Nemesis_0186", Text = "Lucky catch." },
-		{ Cue = "/VO/Nemesis_0187", Text = "Caught bigger ones than that." },
-		{ Cue = "/VO/Nemesis_0188", Text = "Lured it with magick didn't you." },
-		{ Cue = "/VO/Nemesis_0189", Text = "Can we get back to work?" },
-		{ Cue = "/VO/Nemesis_0190", Text = "Big deal." },
-	},
-	{
-		RandomRemaining = true,
-		PreLineWait = 0.85,
-		Queue = "Interrupt",
-		ObjectType = "NPC_Moros_01",
-		AllowTalkOverTextLines = true,
-		GameStateRequirements =
-		{
-			{
-				Path = { "CurrentRun", "TextLinesRecord", },
-				HasAny = { "MorosFishing01" },
-			},
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-
-		{ Cue = "/VO/Moros_0352", Text = "Impressive catch." },
-		{ Cue = "/VO/Moros_0353", Text = "Skillfully caught." },
-	},
-	{
-		RandomRemaining = true,
 		PreLineWait = 1.0,
 		UsePlayerSource = true,
 		AllowTalkOverTextLines = true,
+		Cooldowns =
+		{
+			{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+		},
 
 		{ Cue = "/VO/Melinoe_3542", Text = "I prevailed...!", PlayFirst = true },
 		{ Cue = "/VO/Melinoe_3543", Text = "It's something!" },
@@ -317,7 +178,14 @@ GlobalVoiceLines.FishIdentifiedVoiceLines =
 		{ Cue = "/VO/Melinoe_3546", Text = "Now come along." },
 		{ Cue = "/VO/Melinoe_3547", Text = "Victory is mine." },
 		{ Cue = "/VO/Melinoe_3548", Text = "Sweet victory..." },
-		{ Cue = "/VO/Melinoe_3549", Text = "Glad you could join me." },
+		{ Cue = "/VO/Melinoe_3549", Text = "Glad you could join me.",
+			GameStateRequirements =
+			{
+				{
+					PathFalse = { "CurrentRun", "Hero", "IsDead" },
+				},
+			},
+		},
 		{ Cue = "/VO/MelinoeField_1359", Text = "Hello.",
 			GameStateRequirements =
 			{
@@ -351,64 +219,37 @@ GlobalVoiceLines.FishIdentifiedVoiceLines =
 			},
 		},
 	},
+	[2] = { GlobalVoiceLines = "FishIdentifiedReactionLines" },
+}
+GlobalVoiceLines.FishCaughtByCatVoiceLines =
+{
+	GameStateRequirements =
 	{
-		BreakIfPlayed = true,
-		RandomRemaining = true,
-		SuccessiveChanceToPlay = 0.85,
-		PreLineWait = 0.5,
-		Queue = "Always",
-		Source = { LineHistoryName = "NPC_Selene_01", SubtitleColor = Color.SeleneVoice },
-		GameStateRequirements =
 		{
-			{
-				Path = { "CurrentRun", "CurrentRoom", "Reward", "Name" },
-				IsAny = { "SpellDrop" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsNone = { "G", "H", "I", },
-			},
+			PathTrue = { "CurrentRun", "FishingSuccessesFamiliar" },
 		},
-
-		{ Cue = "/VO/Selene_0298", Text = "Impressively retrieved." },
-		{ Cue = "/VO/Selene_0299", Text = "The shadow-huntress strikes." },
-		{ Cue = "/VO/Selene_0300", Text = "The huntress strikes again." },
-		{ Cue = "/VO/Selene_0301", Text = "The outcome you desired." },
-		{ Cue = "/VO/Selene_0302", Text = "Is that the one you sought?" },
-		{ Cue = "/VO/Selene_0303", Text = "Outsmarted easily." },
 	},
 	{
-		BreakIfPlayed = true,
 		RandomRemaining = true,
-		ChanceToPlay = 0.33,
-		PreLineWait = 0.41,
-		Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "TextLinesRecord", "ChaosGift02" },
-			},
-			{
-				Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-				IsAny = { "Chaos" },
-			},
-			{
-				PathFalse = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
+		PreLineWait = 1.0,
+		UsePlayerSource = true,
+		SuccessiveChanceToPlay = 0.5,
+		SuccessiveChanceToPlayAll = 0.25,
 		Cooldowns =
 		{
-			{ Name = "ChaosSpokeRecently", Time = 30 },
+			{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
 		},
 
-		{ Cue = "/VO/Chaos_0181", Text = "An interesting specimen." },
-		{ Cue = "/VO/Chaos_0182", Text = "Specimen procured.", PlayFirst = true },
-		{ Cue = "/VO/Chaos_0183", Text = "You found a specimen." },
-		{ Cue = "/VO/Chaos_0184", Text = "You have procured something." },
-		{ Cue = "/VO/Chaos_0185", Text = "That was amusing to behold." },
-		{ Cue = "/VO/Chaos_0186", Text = "A show of certain skill..." },
+		{ Cue = "/VO/MelinoeField_2671", Text = "Fine work, Toula." },
+		{ Cue = "/VO/MelinoeField_2672", Text = "Excellent catch, Toula." },
+		{ Cue = "/VO/MelinoeField_2673", Text = "Look what we got, Toula!" },
+		{ Cue = "/VO/MelinoeField_2674", Text = "Easy catch for Toula." },
+		{ Cue = "/VO/MelinoeField_2675", Text = "You did it, Toula!" },
+		{ Cue = "/VO/MelinoeField_2676", Text = "Toula never fails." },
+		{ Cue = "/VO/MelinoeField_2677", Text = "She makes it look easy." },
+		{ Cue = "/VO/MelinoeField_2678", Text = "Cheers for that, Toula." },
 	},
-
+	[2] = { GlobalVoiceLines = "FishIdentifiedReactionLines" },
 }
 
 FishingData =
@@ -466,11 +307,12 @@ FishingData =
 		F =
 		{
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishFCommon",
 			},
 			{
-				Weight = 3, Name = "FishFRare",
+				Weight = 2,
+				Name = "FishFRare",
 				GameStateRequirements =
 				{
 					{
@@ -481,7 +323,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishFLegendary",
+				Weight = 1,
+				Name = "FishFLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -497,11 +340,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishGCommon",
 			},
 			{
-				Weight = 3, Name = "FishGRare",
+				Weight = 2,
+				Name = "FishGRare",
 				GameStateRequirements =
 				{
 					{
@@ -512,7 +356,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishGLegendary",
+				Weight = 1,
+				Name = "FishGLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -529,11 +374,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishHCommon",
 			},
 			{
-				Weight = 3, Name = "FishHRare",
+				Weight = 2,
+				Name = "FishHRare",
 				GameStateRequirements =
 				{
 					{
@@ -544,7 +390,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishHLegendary",
+				Weight = 1,
+				Name = "FishHLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -561,11 +408,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishICommon",
 			},
 			{
-				Weight = 3, Name = "FishIRare",
+				Weight = 2,
+				Name = "FishIRare",
 				GameStateRequirements =
 				{
 					{
@@ -576,7 +424,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishILegendary",
+				Weight = 1,
+				Name = "FishILegendary",
 				GameStateRequirements =
 				{
 					{
@@ -593,11 +442,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishNCommon",
 			},
 			{
-				Weight = 3, Name = "FishNRare",
+				Weight = 2,
+				Name = "FishNRare",
 				GameStateRequirements =
 				{
 					{
@@ -608,7 +458,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishNLegendary",
+				Weight = 1,
+				Name = "FishNLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -625,11 +476,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishOCommon",
 			},
 			{
-				Weight = 3, Name = "FishORare",
+				Weight = 2,
+				Name = "FishORare",
 				GameStateRequirements =
 				{
 					{
@@ -640,7 +492,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishOLegendary",
+				Weight = 1,
+				Name = "FishOLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -657,11 +510,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishPCommon",
 			},
 			{
-				Weight = 3, Name = "FishPRare",
+				Weight = 2,
+				Name = "FishPRare",
 				GameStateRequirements =
 				{
 					{
@@ -672,7 +526,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishPLegendary",
+				Weight = 1,
+				Name = "FishPLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -688,11 +543,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishBCommon",
 			},
 			{
-				Weight = 3, Name = "FishBRare",
+				Weight = 2,
+				Name = "FishBRare",
 				GameStateRequirements =
 				{
 					{
@@ -703,7 +559,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishBLegendary",
+				Weight = 1,
+				Name = "FishBLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -720,11 +577,12 @@ FishingData =
 		{
 
 			{
-				Weight = 9,
+				Weight = 3,
 				Name = "FishChaosCommon",
 			},
 			{
-				Weight = 3, Name = "FishChaosRare",
+				Weight = 2,
+				Name = "FishChaosRare",
 				GameStateRequirements =
 				{
 					{
@@ -735,7 +593,8 @@ FishingData =
 				},
 			},
 			{
-				Weight = 1, Name = "FishChaosLegendary",
+				Weight = 1,
+				Name = "FishChaosLegendary",
 				GameStateRequirements =
 				{
 					{
@@ -754,11 +613,11 @@ FishingData =
 		{
 			FishCaughtVoiceLines =
 			{
-				[1] = GlobalVoiceLines.FishCaughtVoiceLines,
+				[1] = { GlobalVoiceLines = "FishCaughtVoiceLines" },
 			},
 			FishIdentifiedVoiceLines =
 			{
-				[1] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[1] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -820,19 +679,40 @@ FishingData =
 			InheritFrom = { "DefaultCommon" },
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/Melinoe_3527", Text = "I caught a Moper...!", PlayFirst = true },
-					{ Cue = "/VO/Melinoe_3528", Text = "Another Moper." },
+					{ Cue = "/VO/Melinoe_3527", Text = "I caught a Moper...!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/Melinoe_3528", Text = "Another Moper.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishFCommon" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_3529", Text = "That's a Moper." },
 					{ Cue = "/VO/Melinoe_3530", Text = "A Moper." },
 					{ Cue = "/VO/Melinoe_3531", Text = "Cheer up, Moper." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishFRare =
@@ -840,19 +720,40 @@ FishingData =
 			InheritFrom = { "DefaultRare" },
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/Melinoe_3532", Text = "I caught a Figment...!", PlayFirst = true },
+					{ Cue = "/VO/Melinoe_3532", Text = "I caught a Figment...!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_3533", Text = "It's a Figment!" },
 					{ Cue = "/VO/Melinoe_3534", Text = "That's a Figment." },
 					{ Cue = "/VO/Melinoe_3535", Text = "Looks like a Figment." },
-					{ Cue = "/VO/Melinoe_3536", Text = "Another Figment." },
+					{ Cue = "/VO/Melinoe_3536", Text = "Another Figment.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishFRare" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishFLegendary=
@@ -860,19 +761,31 @@ FishingData =
 			InheritFrom = { "DefaultLegendary" },
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/Melinoe_3537", Text = "I caught a Soulbelly?", PlayFirst = true },
+					{ Cue = "/VO/Melinoe_3537", Text = "I caught a Soulbelly?", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_3538", Text = "{#Emph}Ooh{#Prev}, a Soulbelly!" },
 					{ Cue = "/VO/Melinoe_3539", Text = "It's a Soulbelly...!" },
 					{ Cue = "/VO/Melinoe_3540", Text = "This is a Soulbelly!" },
 					{ Cue = "/VO/Melinoe_3541", Text = "Soulbelly, I'm honored!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -883,19 +796,40 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2266", Text = "I caught a Chiton!", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2266", Text = "I caught a Chiton!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2267", Text = "It's a Chiton." },
 					{ Cue = "/VO/MelinoeField_2268", Text = "Looks like a Chiton." },
-					{ Cue = "/VO/MelinoeField_2269", Text = "Another Chiton." },
+					{ Cue = "/VO/MelinoeField_2269", Text = "Another Chiton.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishGCommon" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2270", Text = "Hey, a Chiton!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishGRare =
@@ -904,19 +838,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2271", Text = "I caught a Gutternose!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2272", Text = "It's a Gutternose." },
-					{ Cue = "/VO/MelinoeField_2273", Text = "That's a Gutternose." },
-					{ Cue = "/VO/MelinoeField_2274", Text = "A Gutternose." },
-					{ Cue = "/VO/MelinoeField_2275", Text = "Hello, Gutternose." },
+					{ Cue = "/VO/MelinoeField_2641", Text = "I caught a Gutterpop...!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2642", Text = "It's a Gutterpop." },
+					{ Cue = "/VO/MelinoeField_2643", Text = "That's a Gutterpop." },
+					{ Cue = "/VO/MelinoeField_2644", Text = "A Gutterpop." },
+					{ Cue = "/VO/MelinoeField_2645", Text = "Hello, Gutterpop." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishGLegendary=
@@ -925,19 +871,40 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
 					{ Cue = "/VO/MelinoeField_2276", Text = "This is a Stalkfin...!", PlayFirst = true },
 					{ Cue = "/VO/MelinoeField_2277", Text = "{#Emph}Ooh{#Prev}, a Stalkfin..." },
-					{ Cue = "/VO/MelinoeField_2278", Text = "Another Stalkfin...?" },
+					{ Cue = "/VO/MelinoeField_2278", Text = "Another Stalkfin...?",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishGLegendary" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2279", Text = "It's a Stalkfin!" },
-					{ Cue = "/VO/MelinoeField_2280", Text = "Found you, Stalkfin!" },
+					{ Cue = "/VO/MelinoeField_2280", Text = "Found you, Stalkfin!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -948,19 +915,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2281", Text = "I caught a Soby.", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2282", Text = "It's a Soby..." },
+					{ Cue = "/VO/MelinoeField_2281", Text = "I caught a Soby.", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2282", Text = "It's a Soby...", PlayFirst = true, },
 					{ Cue = "/VO/MelinoeField_2283", Text = "It's a little Soby..." },
 					{ Cue = "/VO/MelinoeField_2284", Text = "Cheer up, Soby." },
 					{ Cue = "/VO/MelinoeField_2285", Text = "Poor Soby..." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishHRare =
@@ -969,19 +948,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2286", Text = "I caught an Anguish!", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2286", Text = "I caught an Anguish!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2287", Text = "This is an Anguish." },
 					{ Cue = "/VO/MelinoeField_2288", Text = "It's an Anguish." },
 					{ Cue = "/VO/MelinoeField_2289", Text = "It'll be OK, Anguish..." },
 					{ Cue = "/VO/MelinoeField_2290", Text = "Come on, Anguish..." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishHLegendary=
@@ -990,19 +981,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2291", Text = "I caught a Tearjerker!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2292", Text = "It's a Tearjerker...!" },
+					{ Cue = "/VO/MelinoeField_2291", Text = "I caught a Tearjerker!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2292", Text = "It's a Tearjerker...!", PlayFirst = true, },
 					{ Cue = "/VO/MelinoeField_2293", Text = "{#Emph}Ah{#Prev}, a Tearjerker!" },
 					{ Cue = "/VO/MelinoeField_2294", Text = "{#Emph}<Sniff> {#Prev}A Tearjerker...!" },
-					{ Cue = "/VO/MelinoeField_2295", Text = "{#Emph}<Sniff> {#Prev} Hi, Tearjerker...!" },
+					{ Cue = "/VO/MelinoeField_2295", Text = "{#Emph}<Sniff> {#Prev}Hi, Tearjerker...!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1013,19 +1016,40 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2296", Text = "I caught a Jiffy!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2297", Text = "It's a Jiffy." },
+					{ Cue = "/VO/MelinoeField_2296", Text = "I caught a Jiffy!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2297", Text = "It's a Jiffy.", PlayFirst = true, },
 					{ Cue = "/VO/MelinoeField_2298", Text = "That's a Jiffy." },
-					{ Cue = "/VO/MelinoeField_2299", Text = "Caught another Jiffy." },
+					{ Cue = "/VO/MelinoeField_2299", Text = "Caught another Jiffy.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishICommon" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2300", Text = "Count me in, Jiffy." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishIRare =
@@ -1034,19 +1058,38 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2301", Text = "I caught a Goldfish!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2302", Text = "It's a Goldfish." },
+					{ Cue = "/VO/MelinoeField_2301", Text = "I caught a Goldfish!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2302", Text = "It's a Goldfish.", PlayFirst = true, },
 					{ Cue = "/VO/MelinoeField_2303", Text = "Chronos must love these." },
-					{ Cue = "/VO/MelinoeField_2304", Text = "Caught me a Goldfish!" },
+					{ Cue = "/VO/MelinoeField_2304", Text = "Caught me a Goldfish!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2305", Text = "Come along, Goldfish!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishILegendary=
@@ -1055,19 +1098,47 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2306", Text = "I caught a Styxeon!", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2306", Text = "I caught a Styxeon!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2307", Text = "This is a Styxeon...!" },
-					{ Cue = "/VO/MelinoeField_2308", Text = "Another Styxeon...?" },
+					{ Cue = "/VO/MelinoeField_2308", Text = "Another Styxeon...?",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishILegendary" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2309", Text = "{#Emph}Ah{#Prev}, a Styxeon!" },
-					{ Cue = "/VO/MelinoeField_2310", Text = "Got you, Styxeon...!" },
+					{ Cue = "/VO/MelinoeField_2310", Text = "Got you, Styxeon...!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1078,19 +1149,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2311", Text = "I caught a Roach.", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2312", Text = "It's a Roach." },
-					{ Cue = "/VO/MelinoeField_2313", Text = "Another Roach." },
-					{ Cue = "/VO/MelinoeField_2314", Text = "One more Roach." },
-					{ Cue = "/VO/MelinoeField_2315", Text = "That's a Roach." },
+					{ Cue = "/VO/MelinoeField_2626", Text = "I caught a Ribeye.", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2627", Text = "It's a Ribeye...", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2628", Text = "Another Ribeye..." },
+					{ Cue = "/VO/MelinoeField_2629", Text = "One more Ribeye..." },
+					{ Cue = "/VO/MelinoeField_2630", Text = "That's a Ribeye." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishNRare =
@@ -1099,19 +1182,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2316", Text = "I caught a Spike...!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2317", Text = "It's a Spike." },
-					{ Cue = "/VO/MelinoeField_2318", Text = "Hey, a Spike!" },
-					{ Cue = "/VO/MelinoeField_2319", Text = "Got me a Spike." },
-					{ Cue = "/VO/MelinoeField_2320", Text = "Another Spike." },
+					{ Cue = "/VO/MelinoeField_2631", Text = "I caught a Zeel...!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2632", Text = "It's a Zeel.", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2633", Text = "Hey, a Zeel!" },
+					{ Cue = "/VO/MelinoeField_2634", Text = "Got me a Zeel." },
+					{ Cue = "/VO/MelinoeField_2635", Text = "Another Zeel." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishNLegendary=
@@ -1120,19 +1215,32 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2321", Text = "I caught a Zeel...!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2322", Text = "Another Zeel!" },
-					{ Cue = "/VO/MelinoeField_2323", Text = "{#Emph}Whoa{#Prev}, a Zeel...!" },
-					{ Cue = "/VO/MelinoeField_2324", Text = "This is a Zeel!" },
-					{ Cue = "/VO/MelinoeField_2325", Text = "It's a Zeel...!" },
+					{ Cue = "/VO/MelinoeField_2636", Text = "I caught a Neckbiter...!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2637", Text = "Another Neckbiter...?" },
+					{ Cue = "/VO/MelinoeField_2638", Text = "Whoa, a Neckbiter...!" },
+					{ Cue = "/VO/MelinoeField_2639", Text = "This is a Neckbiter...!", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2640", Text = "It's a Neckbiter...!" },
+
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1143,19 +1251,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2326", Text = "I caught a Squid!" },
-					{ Cue = "/VO/MelinoeField_2327", Text = "It's a Squid..." },
-					{ Cue = "/VO/MelinoeField_2328", Text = "Looks like a Squid." },
-					{ Cue = "/VO/MelinoeField_2329", Text = "Hello, Squid." },
-					{ Cue = "/VO/MelinoeField_2330", Text = "Another Squid." },
+					{ Cue = "/VO/MelinoeField_2646", Text = "I caught a Shrimp...!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2647", Text = "It's a Shrimp.", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2648", Text = "Looks like a Shrimp." },
+					{ Cue = "/VO/MelinoeField_2649", Text = "Hello, Shrimp." },
+					{ Cue = "/VO/MelinoeField_2650", Text = "Another Shrimp." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishORare =
@@ -1164,11 +1284,16 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
 					{ Cue = "/VO/MelinoeField_2331", Text = "Is this a Chrab?", PlayFirst = true },
 					{ Cue = "/VO/MelinoeField_2332", Text = "It's a Chrab...!" },
@@ -1176,7 +1301,7 @@ FishingData =
 					{ Cue = "/VO/MelinoeField_2334", Text = "Don't pinch me, you." },
 					{ Cue = "/VO/MelinoeField_2335", Text = "Come on, Chrab." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishOLegendary=
@@ -1185,19 +1310,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2336", Text = "I caught a Tuna...!", PlayFirst = true },
-					{ Cue = "/VO/MelinoeField_2337", Text = "It's a Tuna!" },
-					{ Cue = "/VO/MelinoeField_2338", Text = "Another Tuna?" },
-					{ Cue = "/VO/MelinoeField_2339", Text = "Wow, a Tuna...!" },
-					{ Cue = "/VO/MelinoeField_2340", Text = "Hey, a Tuna!" },
+					{ Cue = "/VO/MelinoeField_2651", Text = "I caught a Squid...!",
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2652", Text = "It's a Squid!", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2653", Text = "Another Squid?" },
+					{ Cue = "/VO/MelinoeField_2654", Text = "Wow, a Squid..." },
+					{ Cue = "/VO/MelinoeField_2655", Text = "Hey, a Squid!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1208,16 +1345,32 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					-- TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					-- TKTK
+					{ Cue = "/VO/MelinoeField_2656", Text = "I caught a Pillartop!",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2657", Text = "Hey, a Pillartop!", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2658", Text = "It's a Pillartop." },
+					{ Cue = "/VO/MelinoeField_2659", Text = "Another Pillartop." },
+					{ Cue = "/VO/MelinoeField_2660", Text = "Looks like a Pillartop." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishPRare =
@@ -1226,16 +1379,32 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					-- TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					-- TKTK
+					{ Cue = "/VO/MelinoeField_2661", Text = "I caught a Chrestle!",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2662", Text = "This is a Chrestle!", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2663", Text = "It's a Chrestle." },
+					{ Cue = "/VO/MelinoeField_2664", Text = "Another Chrestle." },
+					{ Cue = "/VO/MelinoeField_2665", Text = "With me, Chrestle." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishPLegendary=
@@ -1244,16 +1413,32 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					-- TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					-- TKTK
+					{ Cue = "/VO/MelinoeField_2666", Text = "I caught a Starsailor...!",
+						PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2667", Text = "Wow, a Starsailor!", PlayFirst = true, },
+					{ Cue = "/VO/MelinoeField_2668", Text = "This is a Starsailor!" },
+					{ Cue = "/VO/MelinoeField_2669", Text = "A Starsailor, what an honor!" },
+					{ Cue = "/VO/MelinoeField_2670", Text = "<Gasp> A Starsailor...!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1264,16 +1449,20 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					-- TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
 					-- TKTK
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishBRare =
@@ -1282,16 +1471,20 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					-- TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
 					-- TKTK
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishBLegendary =
@@ -1300,16 +1493,20 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
-					BreakIfPlayed = true,
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
-					TriggerCooldowns = { "MelGlobalFishCaughtVoiceLinesPlayed" },
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
 					-- TKTK
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 
@@ -1320,18 +1517,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2341", Text = "I caught a Mati...", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2341", Text = "I caught a Mati...", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2342", Text = "This is a Mati..." },
 					{ Cue = "/VO/MelinoeField_2343", Text = "Another Mati." },
 					{ Cue = "/VO/MelinoeField_2344", Text = "Looks like a Mati." },
 					{ Cue = "/VO/MelinoeField_2345", Text = "In you go, Mati." },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishChaosRare =
@@ -1340,18 +1550,31 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2346", Text = "I caught a Projelly!", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2346", Text = "I caught a Projelly!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2347", Text = "This is a Projelly...!" },
 					{ Cue = "/VO/MelinoeField_2348", Text = "It's a Projelly!" },
 					{ Cue = "/VO/MelinoeField_2349", Text = "Another Projelly!" },
 					{ Cue = "/VO/MelinoeField_2350", Text = "Hey, a Projelly!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 		FishChaosLegendary =
@@ -1360,18 +1583,40 @@ FishingData =
 
 			FishIdentifiedVoiceLines =
 			{
+				[1] = { GlobalVoiceLines = "FishCaughtByCatVoiceLines" },
+				[2] =
 				{
 					RandomRemaining = true,
 					PreLineWait = 1.0,
 					SuccessiveChanceToPlayAll = 0.66,
+					Cooldowns =
+					{
+						{ Name = "MelGlobalFishCaughtVoiceLinesPlayed", Time = 10 },
+					},
 
-					{ Cue = "/VO/MelinoeField_2351", Text = "I caught a Voidskate...!", PlayFirst = true },
+					{ Cue = "/VO/MelinoeField_2351", Text = "I caught a Voidskate...!", PlayFirst = true,
+						GameStateRequirements =
+						{
+							{
+								PathFalse = { "CurrentRun", "FishingSuccessesFamiliar" },
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2352", Text = "This is a Voidskate...!" },
-					{ Cue = "/VO/MelinoeField_2353", Text = "Another Voidskate!" },
+					{ Cue = "/VO/MelinoeField_2353", Text = "Another Voidskate!",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "FishCaught", "FishChaosLegendary" },
+								Comparison = ">=",
+								Value = 3,
+							},
+						},
+					},
 					{ Cue = "/VO/MelinoeField_2354", Text = "A Voidskate, of all things..." },
 					{ Cue = "/VO/MelinoeField_2355", Text = "Incredible, a Voidskate!" },
 				},
-				[2] = GlobalVoiceLines.FishIdentifiedVoiceLines,
+				[3] = { GlobalVoiceLines = "FishIdentifiedVoiceLines" },
 			},
 		},
 

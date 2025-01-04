@@ -1,45 +1,11 @@
-function BountyTurnInPresentation( source, args )
-	args = args or {}
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = source.ObjectId })
-
-	ScreenAnchors.FullscreenAlertFxAnchor = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Events", X = ScreenCenterX, Y = ScreenCenterY })
-	local vignetteA = CreateAnimation({ Name = "CauldronCastVignetteLoop", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor })
-	DrawScreenRelative({ Id = vignetteA })
-	local vignetteB = CreateAnimation({ Name = "NightmareEdgeFxSpawner", DestinationId = CurrentRun.Hero.ObjectId })
-	AdjustRadialBlurDistance({ Fraction = 0.25, Duration = 0.1 })
-	AdjustRadialBlurStrength({ Fraction = 1.0, Duration = 0.1 })
-
-	AddInputBlock({ Name = "MelBountyTurnIn" })
-
-	SetAnimation({ Name = "MelinoeBountyTurnInStart", DestinationId = CurrentRun.Hero.ObjectId })
-
-	PlaySound({ Name = "/SFX/Menu Sounds/MirrorCloseWithUpgrade" })
-
-	PlaySound({ Name = "/SFX/Menu Sounds/CharonMainMenuSFX" })
-
-	thread( PlayVoiceLines, HeroVoiceLines.BountyTurnedInVoiceLines )
-
-	wait(0.7)
-
-	AdjustRadialBlurDistance({ Fraction = 0, Duration = 1 })
-	AdjustRadialBlurStrength({ Fraction = 0, Duration = 1 })
-
-	StopAnimation({ Name = "CauldronCastVignetteLoop", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor })
-	StopAnimation({ Name = "NightmareEdgeFxSpawner", DestinationId = CurrentRun.Hero.ObjectId })
-
-	SetAnimation({ Name = source.TurnOffAnimation, DestinationId = source.ObjectId })
-	StopStatusAnimation( source )
-
-	wait(0.37)
-	RemoveInputBlock({ Name = "MelBountyTurnIn" })
-end
-
+-- used for both Chaos Trials and Night Missions
 function BountyEarnedPresentation( bountyData, args )
+
 	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedDark" })
 	PlaySound({ Name = "/SFX/Menu Sounds/BiomeMapRewardIcon" })
-	LoadVoiceBanks({ Name = "Chaos" })
 
 	thread( PlayVoiceLines, HeroVoiceLines.BountyEarnedVoiceLines, true )
+	thread( PlayVoiceLines, HeroVoiceLines.PackagedBountyClearedVoiceLines )
 
 	DisplayInfoBanner( nil, {
 		TitleText = bountyData.TitleText or "BountyCompleteMessage",
@@ -50,8 +16,8 @@ function BountyEarnedPresentation( bountyData, args )
 		TextRevealSound = "/Leftovers/Menu Sounds/TextReveal2",
 		SubtitleTextRevealSound = "/Leftovers/Menu Sounds/EmoteThoughtful",
 		FontScale = 0.9,
-		Delay = 0.6,
-		Duration = 2.5,
+		Delay = 0.4,
+		Duration = 3.25,
 		Color = {0, 255, 168, 255},
 		TextColor = Color.White,
 		SupertitleFont = "P22UndergroundSCMedium",
@@ -86,10 +52,10 @@ end
 
 function BountyPackagePreRunStartPresentation( bountyData, args )
 
-	LoadVoiceBanks({ Name = "Chaos" })
-	PlaySound({ Name = "/SFX/Menu Sounds/MirrorCloseWithUpgrade" })
+	PlaySound({ Name = "/SFX/Menu Sounds/ChaosBoonConfirm" })
 	AdjustColorGrading({ Name = "Team03", Duration = 2.4 })
 	AdjustFullscreenBloom({ Name = "GoldBloom", Duration = 2.4 })
+	-- LoadVoiceBanks({ Name = "Chaos" })
 	thread( PlayVoiceLines, GlobalVoiceLines.StartNewPackagedBountyVoiceLines, nil, nil, args )
 	PanCamera({ Id = CurrentRun.Hero.ObjectId, OffsetY = -180, Duration = 6.0, Retarget = true, EaseIn = 0, EaseOut = 0.1 })
 	FocusCamera({ Fraction = 0.775, Duration = 6 })
@@ -142,19 +108,31 @@ function BountyPackageRunEndPresentation( bountyName )
 
 end
 
+-- Chaos Trials
 function EndBountyRunPresentation( bountyData )
 
 	AddInputBlock({ Name = "EndBountyRunPresentation" })
 	SetPlayerInvulnerable( "EndBountyRunPresentation" )
+	
+	FocusCamera({ Fraction = 0.88, Duration = 3, ZoomType = "Ease" })
+	PlaySound({ Name = "/SFX/Menu Sounds/ChaosMiscSFX" })
 
-	wait( 1.0 )
+	AdjustFullscreenBloom({ Name = "Default", Duration = 1.0 })
+	AdjustColorGrading({ Name = "Team03", Duration = 1.0 })
+
+	wait( 0.6 )
 
 	CurrentRun.ActiveBiomeTimer = false
 	ToggleCombatControl( CombatControlsDefaults, false, "EndBountyRunPresentation" )
 		
 	wait( 0.35 )
-	CreateAnimation({ Name = "SacrificeHealthFx", DestinationId = CurrentRun.Hero.ObjectId })
-	wait( 0.35 )
+	
+	PlaySound({ Name = "/SFX/Menu Sounds/ChaosSelfDamage", Id = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "SacrificeHealthFx", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+
+	--CreateAnimation({ Name = "LamiaSkyCast", DestinationId = CurrentRun.Hero.ObjectId, Scale = 2.0 })
+	
+	wait( 0.08 )
 
 	-- destroy the player / back to DeathArea
 	SetPlayerVulnerable( "EndBountyRunPresentation" )
@@ -164,7 +142,7 @@ function EndBountyRunPresentation( bountyData )
 	CurrentRun.BountyCleared = true
 	
 	thread( Kill, CurrentRun.Hero )
-	wait( 0.15 )
+	wait( 0.08 )
 
 	FadeIn({ Duration = 0.5 })
 end

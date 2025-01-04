@@ -7,8 +7,8 @@ ScreenData.GameStats =
 
 	Components = {},
 
-	CategoryStartX = 340,
-	CategoryStartY = 250,
+	CategoryStartX = 140,
+	CategoryStartY = 240,
 	CategorySpacingX = 94,
 
 	CategoryIconScale = 0.40,
@@ -45,20 +45,22 @@ ScreenData.GameStats =
 
 	HeaderY = 320,
 	RowStartY = 380,
-	RowSpacingWeapons = 60,
+	RowSpacingWeapons = 70,
 	RowSpacingTraits = 40,
-	IconScaleWeapons = 0.12,
+	IconScaleWeapons = 0.3,
 	IconScaleTraits = 0.2,
 
 	WeaponColumnHeaders =
 	{
-		{ ColumnName = "Name", X = 600, Justification = "Right", },
-		{ ColumnName = "Icon", X = 640 },
-		{ ColumnName = "UseCount", X = 730, HeaderX = 920, Text = "GameStatsScreen_Usage", Justification = "Center", },
-		{ ColumnName = "BarGraph", X = 770, Justification = "Right", },
-		{ ColumnName = "ClearCount", X = 1200, Text = "RunClearScreen_Header_Clears", Justification = "Center", },
-		{ ColumnName = "ClearRecordTime", X = 1400, Text = "RunClearScreen_Header_RecordClearTime", Justification = "Center", },
-		{ ColumnName = "ClearRecordShrinePoints", X = 1600, Text = "RunClearScreen_Header_RecordShrinePoints", Justification = "Center", },
+		{ ColumnName = "Name", X = 340, Justification = "Right", },
+		{ ColumnName = "Icon", X = 380 },
+		{ ColumnName = "UseCount", X = 450, HeaderX = 620, Text = "GameStatsScreen_Usage", Justification = "Center", },
+		{ ColumnName = "BarGraph", X = 490, Justification = "Right", },
+		{ ColumnName = "ClearCount", X = 920, Text = "RunClearScreen_Header_Clears", Justification = "Center", },
+		{ ColumnName = "FastestTimeUnderworld", X = 1120, Text = "RunClearScreen_Header_RecordClearTime_Underworld", Justification = "Center", },
+		{ ColumnName = "HighestShrinePointsUnderworld", X = 1345, Text = "RunClearScreen_Header_RecordShrinePoints_Underworld", Justification = "Center", },
+		{ ColumnName = "FastestTimeSurface", X = 1570, Text = "RunClearScreen_Header_RecordClearTime_Surface", Justification = "Center", },
+		{ ColumnName = "HighestShrinePointsSurface", X = 1795, Text = "RunClearScreen_Header_RecordShrinePoints_Surface", Justification = "Center", },
 	},
 
 	ActiveColumnColor = {0.569, 1.000, 0.533, 1.0},
@@ -67,8 +69,15 @@ ScreenData.GameStats =
 	{
 		"UseCount",
 		"ClearCount",
-		"ClearRecordTime",
-		"ClearRecordShrinePoints",
+		"FastestTimeUnderworld",
+		"HighestShrinePointsUnderworld",
+		"FastestTimeSurface",
+		"HighestShrinePointsSurface",
+	},
+	SortInReverse =
+	{
+		FastestTimeUnderworld = true,
+		FastestTimeSurface = true,
 	},
 
 	HeaderFormat =
@@ -144,8 +153,8 @@ ScreenData.GameStats =
 
 		CategoryTitleText = 
 		{
-			X = 300,
-			Y = 200,
+			X = 100,
+			Y = 180,
 			TextArgs =
 			{
 				FontSize = 26,
@@ -160,20 +169,6 @@ ScreenData.GameStats =
 			},
 		},
 
-		GodModeIndicator =
-		{
-			AnimationName = "GodMode",
-			X = 1500,
-			Y = 200,
-			Scale = 0.75,
-			Requirements =
-			{
-				{
-					PathTrue = { "ConfigOptionCache", "EasyMode" },
-				}
-			}
-		},
-
 		SortModeIndicator =
 		{
 			AnimationName = "QuestLogEntryArrow",
@@ -186,7 +181,7 @@ ScreenData.GameStats =
 		ScrollUp =
 		{
 			Graphic = "ButtonCodexUp",
-			X = 500,
+			X = 140,
 			Y = 320,
 			Alpha = 0,
 			InteractProperties =
@@ -203,7 +198,7 @@ ScreenData.GameStats =
 		ScrollDown = 
 		{
 			Graphic = "ButtonCodexDown",
-			X = 500,
+			X = 140,
 			Y = 1000,
 			Alpha = 0,
 			InteractProperties =

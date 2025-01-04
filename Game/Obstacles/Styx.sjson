@@ -763,33 +763,7 @@
         Offset = { X = 0 Y = -94 }
       }
     }
-    
-    {
-      Name = "StyxGibletsRat01a"
-      InheritFrom = "1_BaseTerrainTile"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "RatDeath"
-        Scale = 1.2
-        Tallness = 35.0
-        Offset = { X = 0 Y = -3 }
-      }
-    }
-    
-    {
-      Name = "StyxGibletsRat01b"
-      InheritFrom = "StyxGibletsRat01a"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "RatDeathSmall"
-        Scale = 1.0
-      }
-    }
-    
+
     {
       Name = "StyxTerrainFlourish02"
       InheritFrom = "1_BaseTerrainTile"

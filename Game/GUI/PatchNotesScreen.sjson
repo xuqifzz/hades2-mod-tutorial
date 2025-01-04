@@ -89,58 +89,34 @@
     ScrollBar = {
       X = 1550
       Y = 570
-      Graphic = "GUI\Shell\ScrollBar"
-      Scale = 0.5
+      Graphic = "GUI\Screens\ScrollbarDownUp"
+      ScaleY = 1.20
       FreeFormSelectable = false
     }
     ScrollBarTracker = {
       X = 1550
-      Y = 320
-      Graphic = "GUI\Shell\ScrollBarGrabber_Base"
-      SelectedGraphic = "GUI\Shell\ScrollBarGrabber_Highlight"
+      Graphic = "GUI\Screens\ScrollbarSlider"
+      SelectedGraphic = "GUI\Screens\ScrollbarSlider"
       FreeFormSelectable = false
-      Scale = 0.5
+      Scale = 0.25
     }
-    UpArrow = {
+    UpArrow =
+    {
       X = 1550
-      Y = 290
+      Y = 270
       Graphic = "GUI\Shell\UpArrow_Base"
       SelectedGraphic = "GUI\Shell\UpArrow_Highlight"
-      FreeFormSelectable = false
-      Scale = 0.35
+      Scale = 0.4
     }
-    DownArrow = {
+    DownArrow =
+    {
       X = 1550
-      Y = 850
+      Y = 870
       Graphic = "GUI\Shell\DownArrow_Base"
       SelectedGraphic = "GUI\Shell\DownArrow_Highlight"
-      FreeFormSelectable = false
-      Scale = 0.35
+      Scale = 0.4
     }
-    RevealSpoilersButton =
-    {
-      X = 1505
-      Y = 965
-      Graphic = "Button_Default"
-      UnderCursorOnAnimation = "Button_HighlightOn"
-      UnderCursorOffAnimation = "Button_HighlightOff"
-      PressAnimation = "Button_Press"
-      HelpTextId = "PatchNotesScreen_ShowSpoilers"
-      Justification = "Center"
-      VerticalJustification = "Center"
-      TextJustification = "Center"
-      Font = "P22UndergroundSCMedium"
-      FontSize = 22
-      TextRed = 0.8
-      TextGreen = 0.714
-      TextBlue = 0.588
-      TextOffsetY = 0
-      PressSound = "/SFX/Menu Sounds/GodBoonMenuClose"
-      MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOut"
-      Width = 280
-      Height = 60
-      /*FreeFormSelectOffsetX = -120*/
-    }
+
     AnnouncementText = {
       X = 450
       Y = 280
@@ -173,24 +149,40 @@
       NonEnglishScaleModifier = 1.0
       LangJaScaleModifier = 1.0
     }/* Controls */
-    CancelButton = {
-      Graphic = "CancelButtonFlash"
-      UnderCursorOnAnimation = "CancelButtonFlashHover"
-      UnderCursorOffAnimation = "CancelButtonFlash"
-      FreeFormSelectable = false
-      Justification = "Center"
-      VerticalJustification = "Center"
-      X = 960
+    CancelButton =
+    {
+      X = 1875
       Y = 1030
-      FlashMin = 0.0
-      FlashMax = 0.5
-      FlashSpeed = 1.2
-      FlashRed = 0.6
-      FlashGreen = 0.4
-      FlashBlue = 0.0
-      Scale = 0.8
-      MouseOverSound = "/SFX/Menu Sounds/DialoguePanelOut"
-      PressSound = "null"
+      HelpTextId = "MiscSettingsScreen_Back"
+      
+      // From ContextualButtonFormatRight
+      FontSize = 20
+      Width = 415
+      LineSpacingBottom = 0
+      TextRed = 0.58
+      TextGreen = 0.34
+      TextBlue = 0.78
+      Font = "LatoBold"
+      ShadowBlur = 0
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetX = 0
+      ShadowOffsetY = 3
+      Justification = "RIGHT"
+      VerticalJustification = "CENTER"
+      SelectedTextRed = 0.50
+      SelectedTextGreen = 0.90
+      SelectedTextBlue = 0.80
+      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      FreeFormSelectable = false
+    }
+    RevealSpoilersButton =
+    {
+      InheritFrom = "CancelButton"
+      OffsetX = -300
+      HelpTextId = "PatchNotesScreen_ShowSpoilers"
+      FreeFormSelectable = false
     }
   }
 }

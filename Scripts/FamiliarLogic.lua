@@ -1,14 +1,4 @@
-﻿function ActivateFamiliar( eventSource, args )
-	local unitData = FamiliarData[args.Name]
-	local newUnit = DeepCopyTable( unitData )
-	newUnit.ObjectId = args.Id
-	if args.OverwriteSelf ~= nil then
-		OverwriteSelf( newUnit, args.OverwriteSelf )
-	end
-	Activate({ Id = newUnit.ObjectId })
-	thread( SetupUnit, newUnit, CurrentRun, args )
-end
-
+﻿-- Familiar Kits / Equipping
 
 function AssignFamiliarKits( eventSource, args )
 
@@ -21,26 +11,21 @@ function AssignFamiliarKits( eventSource, args )
 	for index, familiarName in ipairs( FamiliarOrderData ) do
 
 		local familiarData = FamiliarData[familiarName]
-		local familiarKit = DeepCopyTable( ObstacleData.FamiliarKit )
-		local kitId = MapState.FamiliarKitIds[index]
-		if IsGameStateEligible( CurrentRun, familiarData.GameStateRequirements ) then
+		if IsGameStateEligible( familiarData, familiarData.GameStateRequirements ) then
 			-- Unlocked
+			local familiarKit = DeepCopyTable( ObstacleData.FamiliarKit )
+			local kitId = MapState.FamiliarKitIds[index]
 			AttachLua({ Id = kitId, Table = familiarKit })
 			familiarKit.Name = familiarName
 			familiarKit.ObjectId = kitId
 			MapState.FamiliarKits[kitId] = familiarKit
-
-			GameState.FamiliarStatus[familiarName] = GameState.FamiliarStatus[familiarName] or {}
-			GameState.FamiliarStatus[familiarName].RestTicks = GameState.FamiliarStatus[familiarName].RestTicks or 0
-
-			LoadPackages({ Name = familiarName })
 
 			local familiar = DeepCopyTable( familiarData )
 			if args.OverwriteSelf ~= nil then
 				OverwriteSelf( familiar, args.OverwriteSelf )
 			end	
 			familiar.BlocksLootInteraction = false
-			local destinationId 
+			local destinationId = nil
 			if GameState.EquippedFamiliar == familiarName then
 				local spawnNearId = CurrentRun.NextHeroEndPoint or eventSource.HeroEndPoint
 				if CurrentRun.StoredHeroLocation ~= nil then
@@ -68,13 +53,30 @@ function AssignFamiliarKits( eventSource, args )
 			if GameState.EquippedFamiliar == nil then
 				PlayStatusAnimation( familiar, { Animation = "StatusIconWantsToTalkImportant" } )
 			end
-		else
-			-- Locked
-			--UseableOff({ Id = kitId })
+			if familiar.IgnoreGravity then
+				IgnoreGravity({ Id = familiar.ObjectId })
+			end
+
 			SetAlpha({ Id = kitId, Fraction = 0.0 })
-			SetThingProperty({ Id = kitId })
-			SetThingProperty({ Property = "StopsProjectiles", Value = false, DestinationId = kitId })
-			SetThingProperty({ Property = "StopsUnits", Value = false, DestinationId = kitId })
+			if GameState.WorldUpgradesAdded.WorldUpgradeFamiliarRest then
+				familiarKit.TicksUntilRested = math.max( FamiliarData[familiarKit.Name].TickForRested - (GameState.FamiliarRestTicks[familiarKit.Name] or 0), 0 )
+				CreateTextBox({
+					Id = kitId,
+					Text = "FamiliarRestTicks",
+					OffsetY = 40,
+					ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset = {0, 3},
+					OutlineThickness = 3, OutlineColor = {0.0, 0.0, 0.0,1},
+					Font = "P22UndergroundSCMedium",
+					FontSize = 24,
+					Justification = "Center",
+					LuaKey = "TempTextData",
+					LuaValue = familiarKit,
+					DataProperties =
+					{
+						OpacityWithOwner = true,
+					},
+				})
+			end
 		end
 
 	end
@@ -98,38 +100,26 @@ function UpdateFamiliarKits( args )
 				EquipFamiliar( familiar, { FamiliarName = familiar.Name, EnableAI = false, } )
 			end
 			RemoveInteractBlock( familiarKit , "UpdateFamiliarKits" )
-			DebugPrint({ Text = " familiarKit.Unit.ObjectId = "..familiarKit.Unit.ObjectId })
 			familiarKit.OnUsedFunctionName = "UseFamiliarUnequip"
 			familiarKit.Unit.OnUsedFunctionName = nil
+			SetAlpha({ Id = familiarKit.ObjectId, Fraction = 0.0, Duration = 0.2 })
 			if CanReceiveGift( familiarKit.Unit ) then
 				RemoveInteractBlock( familiarKit.Unit, "UpdateFamiliarKits" )
 			else
 				AddInteractBlock( familiarKit.Unit, "UpdateFamiliarKits" )
 			end
-		end
-	end
-
-	for kitId, familiarKit in pairs( MapState.FamiliarKits ) do
-		if GameState.EquippedFamiliar ~= familiarKit.Name then
+		else
 			-- Unequipped
 			AddInteractBlock( familiarKit, "UpdateFamiliarKits" )
 			if familiarKit.Unit ~= nil then
 				RemoveInteractBlock( familiarKit.Unit, "UpdateFamiliarKits" )
 			end
-			--familiarKit.Unit.OnUsedFunctionName = "UseFamiliar",
-			local familiarStatus = GameState.FamiliarStatus[familiarKit.Name]
-			if familiarStatus ~= nil then
-				if familiarStatus.RestTicks > (familiarKit.TickForRested or 0) then
-					FamiliarRestedPresentation( familiarKit )
-				elseif familiarStatus.RestTicks > 0 then
-					FamiliarRestingPresentation( familiarKit )
-				end
+			if GameState.WorldUpgradesAdded.WorldUpgradeFamiliarRest then
+				FamiliarRestingPresentation( familiarKit )
 			end
 		end
 	end
-
 end
-
 
 function UseFamiliar( familiar, args, user )
 	if familiar.Name == GameState.EquippedFamiliar then
@@ -142,6 +132,7 @@ function UseFamiliar( familiar, args, user )
 	StopStatusAnimation( familiar )	
 	UnequipFamiliar( user, args )
 	EquipFamiliar( familiar, { FamiliarName = familiar.Name, EnableAI = true, } )
+	CheckObjectiveSet( familiar.EquipObjective or "CheckFamiliarInfoPrompt" )
 	UpdateFamiliarKits()
 	SelectCodexEntry( familiar.Name )
 	EquipFamiliarPresentation( familiar )
@@ -150,66 +141,15 @@ function UseFamiliar( familiar, args, user )
 	RemoveInteractBlock( familiar, "UseFamiliar" )
 end
 
-function UseFamiliarUnequip( button, args, user )
-	AddInteractBlock( button, "UseFamiliarUnequip" )
-	AddInteractBlock( button.Unit, "UseFamiliarUnequip" )
+function UseFamiliarUnequip( kit, args, user )
+	AddInteractBlock( kit, "UseFamiliarUnequip" )
+	AddInteractBlock( kit.Unit, "UseFamiliarUnequip" )
 	UnequipFamiliarPresentation( args )
 	UnequipFamiliar( user, args )
 	UpdateFamiliarKits()
 	wait( 1.0 )
-	RemoveInteractBlock( button, "UseFamiliarUnequip" )
-	RemoveInteractBlock( button.Unit, "UseFamiliarUnequip" )
-end
-
-function UnequipFamiliar( user, args )
-	if GameState.EquippedFamiliar == nil then
-		return
-	end
-	args = args or {}
-	local unit = user or CurrentRun.Hero
-	if FamiliarData[GameState.EquippedFamiliar].TraitName then
-		local traitName = FamiliarData[GameState.EquippedFamiliar].TraitName 
-		RemoveTrait( unit, traitName )
-		for i, unlockName in ipairs( ScreenData.FamiliarShop.ItemOrder ) do
-			if GameState.FamiliarUpgrades[unlockName] then
-				local shopItemData = FamiliarShopItemData[unlockName]
-				if shopItemData ~= nil and shopItemData.FamiliarName == GameState.EquippedFamiliar then
-					if shopItemData.TraitName ~= nil then
-						RemoveTrait( unit, shopItemData.TraitName )
-					end
-				end
-			end
-		end
-		if traitName == "LastStandFamiliar" then
-			RemoveLastStand( unit, "LastStandFamiliar" )
-			unit.MaxLastStands = unit.MaxLastStands - 1
-			UpdateLifePips( unit )
-		end
-		local unequippedKit = nil
-		local kitId = nil
-		for kitId, familiarKit in pairs( MapState.FamiliarKits ) do
-			if familiarKit.Name == GameState.EquippedFamiliar then
-				unequippedKit = familiarKit
-			end
-		end
-		if unequippedKit ~= nil and not args.IgnoreAI then
-			local familiar = unequippedKit.Unit
-			familiar.AIDisabled = true
-			familiar.DisableAIWhenReady = true
-			familiar.OnUsedFunctionName = "UseFamiliar"
-			thread( ReturnFamiliarToKit, familiar, unequippedKit, args )
-		end
-	end
-	GameState.EquippedFamiliar = nil
-end
-
-function ReturnFamiliarToKit( familiar, unequippedKit, args )
-	AddInteractBlock( familiar, "AIDisabled" )
-	familiar.AINotifyName = "OnStopped"..familiar.ObjectId
-	NotifyOnStopped({ Id = familiar.ObjectId, Notify = familiar.AINotifyName, Timeout = 3.0 })
-	waitUntil( familiar.AINotifyName, familiar.AIThreadName )
-	MoveFamiliarToLocation( familiar, { Id = unequippedKit.ObjectId, MinLeapDistance = 100, MaxLeapDistance = 9999, SuccessDistance = 48 } )
-	RemoveInteractBlock( familiar, "AIDisabled" )
+	RemoveInteractBlock( kit, "UseFamiliarUnequip" )
+	RemoveInteractBlock( kit.Unit, "UseFamiliarUnequip" )
 end
 
 function EquipFamiliar( familiar, args )
@@ -222,9 +162,6 @@ function EquipFamiliar( familiar, args )
 	GameState.FamiliarResourceSpawnChance = FamiliarData[GameState.EquippedFamiliar].BaseResourceSpawnChance + GetFamiliarBonusResourceSpawnChance( GameState.EquippedFamiliar )
 	MapState.FamiliarUnit = familiar
 
-	if familiar ~= nil then
-		CheckObjectiveSet( familiar.EquipObjective or "CheckFamiliarInfoPrompt" )
-	end
 	local traitName = FamiliarData[GameState.EquippedFamiliar].TraitName 
 	MapState.PriorityTraitInfoHighlight = traitName
 	local traitData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = traitName })
@@ -262,12 +199,84 @@ function EquipFamiliar( familiar, args )
 			IncreaseMax = true,
 			HealAmount = GetTotalHeroTraitValue( "FamiliarLastStandHealAmount" )
 		})
+		RecreateLifePips()
 	end
 
 	if args.EnableAI and familiar ~= nil then
 		familiar.OnUsedFunctionName = nil
 		ReenableFamiliar( familiar, { Equipping = true } )
 	end
+
+end
+
+function UnequipFamiliar( user, args )
+	if GameState.EquippedFamiliar == nil then
+		return
+	end
+	args = args or {}
+	local unit = user or CurrentRun.Hero
+	if FamiliarData[GameState.EquippedFamiliar].TraitName then
+		local traitName = FamiliarData[GameState.EquippedFamiliar].TraitName 
+		RemoveTrait( unit, traitName )
+		for i, unlockName in ipairs( ScreenData.FamiliarShop.ItemOrder ) do
+			if GameState.FamiliarUpgrades[unlockName] then
+				local shopItemData = FamiliarShopItemData[unlockName]
+				if shopItemData ~= nil and shopItemData.FamiliarName == GameState.EquippedFamiliar then
+					if shopItemData.TraitName ~= nil then
+						RemoveTrait( unit, shopItemData.TraitName )
+					end
+				end
+			end
+		end
+		if traitName == "LastStandFamiliar" then
+			RemoveLastStand( unit, "LastStandFamiliar" )
+			unit.MaxLastStands = unit.MaxLastStands - 1
+			UpdateLifePips( unit )
+		end
+
+		if GameState.ActiveObjectiveSet == "CheckFamiliarInfoPrompt" or GameState.ActiveObjectiveSet == "CheckFamiliarUpgradeInfoPrompt" then
+			ClearObjectives()
+		end
+		local equipObjective = FamiliarData[GameState.EquippedFamiliar].EquipObjective
+		if equipObjective ~= nil and GameState.ActiveObjectiveSet == equipObjective then
+			ClearObjectives()
+		end
+
+		local unequippedKit = nil
+		local kitId = nil
+		for kitId, familiarKit in pairs( MapState.FamiliarKits ) do
+			if familiarKit.Name == GameState.EquippedFamiliar then
+				unequippedKit = familiarKit
+			end
+		end
+		if unequippedKit ~= nil and not args.IgnoreAI then
+			local familiar = unequippedKit.Unit
+			familiar.AIDisabled = true
+			familiar.DisableAIWhenReady = true
+			familiar.OnUsedFunctionName = "UseFamiliar"
+			thread( ReturnFamiliarToKit, familiar, unequippedKit, args )
+		end
+	end
+	GameState.EquippedFamiliar = nil
+end
+
+function ReturnFamiliarToKit( familiar, unequippedKit, args )
+	AddInteractBlock( familiar, "ReturningToKit" )
+	CallFunctionName( familiar.MoveFunctionName, familiar, { Id = unequippedKit.ObjectId, MinLeapDistance = 100, MaxLeapDistance = 9999, SuccessDistance = 48 } )
+	RemoveInteractBlock( familiar, "ReturningToKit" )
+end
+
+-- Familiar Setup
+
+function ActivateFamiliar( eventSource, args )
+	local unitData = FamiliarData[args.Name]
+	local newUnit = DeepCopyTable( unitData )
+	newUnit.ObjectId = args.Id
+	if args.OverwriteSelf ~= nil then
+		OverwriteSelf( newUnit, args.OverwriteSelf )
+	end
+	Activate({ Id = newUnit.ObjectId })
+	thread( SetupUnit, newUnit, CurrentRun, args )
 end
 
 function FamiliarSetup( source, args )
@@ -283,14 +292,12 @@ function FamiliarSetup( source, args )
 	end
 
 	wait( args.Wait )
-	
-	LoadPackages({ Name = GameState.EquippedFamiliar })
 
 	local familiar = DeepCopyTable( FamiliarData[GameState.EquippedFamiliar] )
 	
 	familiar.BlocksLootInteraction = false
 	familiar.BlockVictoryPresentation = false
-	local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = { "SpawnPoints" }, DestinationIds = GetIdsByType({ Name = "FamiliarPoint" }) })
+	local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = { "SpawnPoints" }, DestinationIds = GetIdsByType({ Name = "FamiliarPoint" }), RequiredLocationUnblocked = true })
 	local spawnOffset = {}
 	if spawnPointId <= 0 or GetDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = spawnPointId }) > 600 then
 		local angleBetween = GetAngleBetween({ Id = CurrentRun.Hero.ObjectId, DestinationId = spawnPointId })
@@ -303,16 +310,11 @@ function FamiliarSetup( source, args )
 	thread( SetupUnit, familiar, CurrentRun, args )
 	familiar.OnUsedFunctionName = nil
 	AddInteractBlock( familiar, "InRun" )
+	if familiar.IgnoreGravity then
+		IgnoreGravity({ Id = familiar.ObjectId })
+	end
 
 	MapState.FamiliarUnit = familiar
-	--[[
-	if CurrentRun.CurrentRoom.Encounter ~= nil then
-		local encounterData = EncounterData[CurrentRun.CurrentRoom.Encounter.Name] or CurrentRun.CurrentRoom.Encounter
-		if not encounterData.NeverDelayStartFamiliar and encounterData.DelayedStart and not CurrentRun.CurrentRoom.Encounter.Completed then
-			familiar.DisableAIWhenReady = true
-		end
-	end
-	]]
 
 	local familiarModifiers = GetHeroTraitValues( "FamiliarDataModifiers" )
 	for i, modifierData in pairs( familiarModifiers ) do
@@ -346,53 +348,39 @@ function FamiliarSetup( source, args )
 		end
 	end
 
-	-- Reset reset on being used in a run
-	local familiarStatus = GameState.FamiliarStatus[familiar.Name]
-	if familiarStatus ~= nil then
-		familiarStatus.RestTicks = 0
-	end
+	-- Reset rest on being used in a run
+	GameState.FamiliarRestTicks[familiar.Name] = 0
 end
 
-function BackPlayerUp(user, source, args )
+function ReenableFamiliar( familiar, args )
 	args = args or {}
-	local offset = CalcOffset( math.rad(GetAngleBetween({ Id = source.ObjectId, DestinationId = user.ObjectId })), args.Distance or 120 )
-	local searchOffsetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = source.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
-
-	if not IsLocationBlocked({ Id = searchOffsetId }) then
-		local notifyName = "PlayerBackUp"
-		Move({ Id = user.ObjectId, DestinationId = searchOffsetId, SuccessDistance = 150 })
-		NotifyOnStopped({ Id = CurrentRun.Hero.ObjectId, Notify = notifyName })
-		waitUntil( notifyName )
+	if not familiar.AIDisabled then
+		-- Only enable if previously disabled
+		return
 	end
-
-	Destroy({ Id = searchOffsetId })
-	AngleTowardTarget({ Id = user.ObjectId, DestinationId = source.ObjectId })
+	familiar.DisableAIWhenReady = false
+	familiar.AIDisabled = false
+	SetupAI( familiar, args )
 end
 
-function MoveFamiliarToLocation( familiar, args )
-	args = args or {}
-	if familiar == nil then
-		return
-	end
-	
-	if familiar.MoveFunctionName ~= nil then
-		CallFunctionName( familiar.MoveFunctionName, familiar, args )
-		return
-	end
+-- Frinos / FrogFamiliar
 
-	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
-	local notifyName = "FamiliarNotify"		
-	familiar.AIDisabled = true
+function FrogFamiliarStopAI( familiar )
+	local notifyName = "FrogFamiliarStopped"
+	NotifyOnStopped({ Id = familiar.ObjectId, Notify = notifyName, Timeout = 2.0 })
+	waitUntil( notifyName )
+
 	familiar.DisableAIWhenReady = true
-	local collideCache = GetUnitDataValue({ Id = familiar.ObjectId, Property = "CollideWithObstacles" })
-	SetUnitProperty({ DestinationId = familiar.ObjectId, Property = "CollideWithObstacles", Value = false })
-	Move({ Id = familiar.ObjectId, DestinationId = targetLocation, SuccessDistance = args.SuccessDistance })
-	NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = targetLocation, Distance = 120, Notify = notifyName, Timeout = 2 })
-	waitUntil( notifyName )	
-	SetUnitProperty({ DestinationId = familiar.ObjectId, Property = "CollideWithObstacles", Value = collideCache })
+	familiar.AIDisabled = true
+	familiar.AIBehavior = nil
+	killTaggedThreads( familiar.AIThreadName )
+	killWaitUntilThreads( familiar.AINotifyName )
+	wait( 0.02 )
 end
 
 function FrogFamiliarMoveToLocation( familiar, args )
+	args = args or {}
+	FrogFamiliarStopAI( familiar )
 	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
 	FrogLeap( familiar, 
 			MergeTables( GetWeaponAIData( familiar ),
@@ -408,64 +396,17 @@ function FrogFamiliarMoveToLocation( familiar, args )
 			)
 end
 
-function CatFamiliarMoveToLocation( familiar, args )
-	killTaggedThreads( familiar.AIThreadName )
-	familiar.AIBehavior = nil
-	SetAnimation({ Name = "Familiar_Cat_Sleep_Awaken", DestinationId = familiar.ObjectId })
-	StopAnimation({ Name = familiar.DefaultAIData.RecruitAnimation, DestinationId = familiar.ObjectId })
-	familiar.RecruitAnimationId = nil
-	familiar.ReadyToAttack = false
-	wait( 1.0 )
-	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
-	local notifyName = "FamiliarNotify"
-	familiar.AIDisabled = true
-	familiar.DisableAIWhenReady = true
-	local collideCache = GetUnitDataValue({ Id = familiar.ObjectId, Property = "CollideWithObstacles" })
-	SetUnitProperty({ DestinationId = familiar.ObjectId, Property = "CollideWithObstacles", Value = false })
-	Move({ Id = familiar.ObjectId, DestinationId = targetLocation, SuccessDistance = args.SuccessDistance })
-	NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = targetLocation, Distance = 120, Notify = notifyName, Timeout = 9.0 })
-	waitUntil( notifyName )	
-	SetUnitProperty({ DestinationId = familiar.ObjectId, Property = "CollideWithObstacles", Value = collideCache })
-	wait( 1.0 )
-	SetAnimation({ Name = "Familiar_Cat_Sleep_Start", DestinationId = familiar.ObjectId })
-	wait( 3.0 )
-end
-
-function ReenableFamiliar( familiar, args )
+function FrogFollowAI( familiar, args )
 	args = args or {}
-	if not familiar.AIDisabled then
-		-- Only enable if previously disabled
-		return
-	end
-	familiar.DisableAIWhenReady = false
-	familiar.AIDisabled = false
-	SetupAI( familiar, args )
-end
-
-function GetFamiliarBonusResourceSpawnChance( familiarName )
-	local bonusChance = 0
-	for unlockName, value in pairs( GameState.FamiliarUpgrades ) do
-		local shopItemData = FamiliarShopItemData[unlockName]
-		if shopItemData ~= nil and shopItemData.FamiliarName == familiarName and shopItemData.BonusResourceSpawnChance then
-			bonusChance = bonusChance + shopItemData.BonusResourceSpawnChance
-		end
-	end
-	local familiarData = FamiliarData[familiarName]
-	local familiarStatus = GameState.FamiliarStatus[familiarName]
-	if familiarStatus ~= nil then
-		if familiarStatus.RestTicks > familiarData.TickForRested then
-			bonusChance = bonusChance + familiarData.RestBonusResourceSpawnChance
-		end
-	end
-	return bonusChance
-end
-
-function FrogFollowAI( familiar, followId )
 	local aiData = GetWeaponAIData( familiar )
 	local followId = aiData.FollowId or CurrentRun.Hero.ObjectId
 	local followDistance = aiData.HopRestDistance
 	if not IsCombatEncounterActive( CurrentRun ) then
 		followDistance = aiData.HopNonCombatRestDistance
+	end
+
+	if args.Equipping then
+		SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Frog_Greet" })
 	end
 
 	wait( 0.5, familiar.AIThreadName )
@@ -479,9 +420,7 @@ function FrogFollowAI( familiar, followId )
 		end
 		wait( CalcEnemyWait( familiar, aiData.FollowRefreshDuration or 0.3 ), familiar.AIThreadName )
 	end
-
 	familiar.AIBehavior = nil
-	RemoveInteractBlock( familiar, "AIDisabled" )
 end
 
 function FrogLeap( familiar, aiData, args )
@@ -516,11 +455,9 @@ function FrogLeap( familiar, aiData, args )
 		if spawnPointId <= 0 or spawnPointId == familiar.LastSpawnPointId then
 			-- No distance restriction for backup jump
 			spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = "SpawnPoints",  DestinationIds = familiarPoints })
-			DebugPrint({ Text = "Used backup jump" })
 		end
 		if --[[room.FamiliarsPreferSpawnPointMovement and ]]spawnPointId == familiar.LastSpawnPointId then
 			-- Already on the closest available point, do nothing
-			DebugPrint({ Text = "Already on the closest available point" })
 			wait( CalcEnemyWait( familiar, leapRecoveryTime ), familiar.AIThreadName )
 			Destroy({ Id = lockedTargetId })
 			familiar.BlockVictoryPresentation = false
@@ -595,14 +532,55 @@ function FrogHitResponse( unit, triggerArgs )
 	SetAnimation({ Name = "Familiar_Frog_Block", DestinationId = unit.ObjectId })
 end
 
+-- Toula / CatFamiliar
+
+function CatFamiliarStopAI( familiar )
+	Stop({ Id = familiar.ObjectId })
+
+	StopAnimation({ Name = familiar.DefaultAIData.RecruitAnimation, DestinationId = familiar.ObjectId })
+	familiar.RecruitAnimationId = nil
+	RemoveInteractBlock( familiar, "Equipping" )
+	RemoveInteractBlock( familiar, "Alerted" )
+	familiar.ReadyToAttack = false
+
+	familiar.DisableAIWhenReady = true
+	familiar.AIDisabled = true
+	familiar.AIBehavior = nil
+	killTaggedThreads( familiar.AIThreadName )
+	killWaitUntilThreads( familiar.AINotifyName )
+	wait( 0.02 )
+end
+
+function CatFamiliarMoveToLocation( familiar, args )
+	args = args or {}
+	if not args.KeepAIAlive then
+		CatFamiliarStopAI( familiar )
+	end
+
+	if not familiar.Awake then
+		familiar.Awake = true
+		SetAnimation({ Name = "Familiar_Cat_Sleep_Awaken", DestinationId = familiar.ObjectId })
+		wait( 1.0, familiar.AIThreadName )
+	end
+
+	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
+	local notifyName = "CatFamiliarWithinDistance"
+	Move({ Id = familiar.ObjectId, DestinationId = targetLocation, SuccessDistance = args.SuccessDistance, OnFailGoToNearestToGoal = args.OnFailGoToNearestToGoal })
+	NotifyOnStopped({ Id = familiar.ObjectId, DestinationId = targetLocation, Notify = notifyName, Timeout = 9.0 })
+	waitUntil( notifyName )
+	Stop({ Id = familiar.ObjectId })
+
+	if not args.StayAwake then
+		wait( 1.0, familiar.AIThreadName )
+		CatFamiliarGoToSleepPresentation( familiar )
+	end
+end
+
 function CatFamiliarShouldAlert( familiar, args )
 	 if not familiar.ReadyToAttack then
 		return false
 	end
-	if not IsEmpty( familiar.AttackBlocks ) then
-		return false
-	end
-	if CurrentRun.Hero.SprintActive or HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = "RushWeaponDisableMove" }) then
+	if SessionMapState.SprintActive or HasEffect({ Id = CurrentRun.Hero.ObjectId, EffectName = "RushWeaponDisableMove" }) then
 		return true
 	else
 		return false
@@ -612,13 +590,19 @@ end
 function CatFamiliarAI( familiar, args )
 
 	args = args or {}
+
+	if args.InitialDelay ~= nil then
+		wait( args.InitialDelay, familiar.AIThreadName )
+	end
+
 	if args.Equipping then
-		SetAnimation({ Name = "Familiar_Cat_Sleep_Awaken", DestinationId = familiar.ObjectId })
-		wait( 1.0, familiar.AIThreadName )
-		CatFamiliarMoveToRandomLocation( familiar, familiar.DefaultAIData )
-		wait( 0.5, familiar.AIThreadName )
-		SetAnimation({ Name = "Familiar_Cat_Sleep_Start", DestinationId = familiar.ObjectId })
-		wait( 3.0, familiar.AIThreadName )
+		AddInteractBlock( familiar, "Equipping" )
+	end
+	if args.Equipping or args.MoveToRandomLocation then
+		CatFamiliarMoveToRandomLocation( familiar )
+	end
+	if args.Equipping then
+		RemoveInteractBlock( familiar, "Equipping" )
 	end
 
 	local aiData = familiar.DefaultAIData
@@ -626,7 +610,7 @@ function CatFamiliarAI( familiar, args )
 	familiar.ReadyToAttack = true
 	while IsAIActive( familiar ) do
 		-- Wait for hero to sprint by
-		if familiar.ReadyToAttack and IsEmpty( familiar.AttackBlocks ) and familiar.RecruitAnimationId == nil then
+		if familiar.ReadyToAttack and familiar.RecruitAnimationId == nil then
 			familiar.RecruitAnimationId = CreateAnimation({ Name = aiData.RecruitAnimation, DestinationId = familiar.ObjectId, Scale = aiData.RecruitAnimationScale })
 		end
 		familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId
@@ -635,6 +619,7 @@ function CatFamiliarAI( familiar, args )
 									Notify = familiar.AINotifyName })
 		waitUntil( familiar.AINotifyName )
 		if CatFamiliarShouldAlert( familiar, args ) then
+			AddInteractBlock( familiar, "Alerted" )
 			familiar.BlockVictoryPresentation = true
 
 			thread( MarkObjectiveComplete, "ActivateCatFamiliar" )
@@ -644,7 +629,7 @@ function CatFamiliarAI( familiar, args )
 			local numAttacks = familiar.NumAttacks
 			while numAttacks >= 1 do
 				local eligibleIds = {}
-				for id, enemy in pairs( ActiveEnemies ) do
+				for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 					if enemy.RequiredKill or enemy.FamiliarTarget then
 						eligibleIds[id] = true
 					end
@@ -672,13 +657,10 @@ function CatFamiliarAI( familiar, args )
 				end
 			end
 			
-			CatFamiliarMoveToRandomLocation( familiar, familiar.DefaultAIData )
-			wait( 0.5, familiar.AIThreadName )
+			CatFamiliarMoveToRandomLocation( familiar )
 
+			RemoveInteractBlock( familiar, "Alerted" )
 			familiar.BlockVictoryPresentation = false
-
-			SetAnimation({ Name = "Familiar_Cat_Sleep_Start", DestinationId = familiar.ObjectId })
-			wait( 3.0, familiar.AIThreadName )
 		else
 			wait( 0.2, familiar.AIThreadName )
 		end
@@ -687,30 +669,346 @@ function CatFamiliarAI( familiar, args )
 
 end
 
-function CatFamiliarMoveToRandomLocation( familiar, aiData, args )
+function CatFamiliarMoveToRandomLocation( familiar, args )
 	args = args or {}
+	local aiData = familiar.DefaultAIData
 	local spawnPointIds = GetClosestIds({ Id = familiar.ObjectId, DestinationName = "SpawnPoints", Distance = aiData.WanderDistance, ScaleY = aiData.WanderDistanceScaleY, RequiredLocationUnblocked = true })
 	RemoveValue( spawnPointIds, familiar.LastSpawnPointId )
 	local randomSpawnPointId = GetRandomValue( spawnPointIds )
 	familiar.LastSpawnPointId = randomSpawnPointId
-	Move({ Id = familiar.ObjectId, DestinationId = randomSpawnPointId, SuccessDistance = 50 })
-	familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId
-	NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = randomSpawnPointId, Distance = 100, Notify = familiar.AINotifyName, Timeout = 9.0 })
-	waitUntil( familiar.AINotifyName )
-	wait( 0.5, familiar.AIThreadName )
+	CatFamiliarMoveToLocation( familiar, { Id = randomSpawnPointId, KeepAIAlive = true } )
+end
+
+-- Raki / RavenFamiliar
+
+function RavenFamiliarStopAI( familiar, args )
 	Stop({ Id = familiar.ObjectId })
+	RemoveInteractBlock( familiar, "Equipping" )
+	familiar.DisableAIWhenReady = true
+	familiar.AIDisabled = true
+	familiar.AIBehavior = nil
+	killTaggedThreads( familiar.AIThreadName )
+	killWaitUntilThreads( familiar.AINotifyName )
+	wait( 0.02 )
+end
+
+function RavenFamiliarMoveToLocation( familiar, args )
+	args = args or {}
+	if not args.KeepAIAlive then
+		RavenFamiliarStopAI( familiar )
+	end
+
+	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
+
+	if familiar.CurrentHeight == familiar.GroundHeight then
+		SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Raven_Perch_End" })
+		wait( 0.2, familiar.AIThreadName )
+		AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = targetLocation, Duration = 0.3 })
+		AdjustZLocation({ Id = familiar.ObjectId, Distance = familiar.FlightHeight - GetZLocation({ Id = familiar.ObjectId }), Duration = 0.5 })
+		wait( 0.55, familiar.AIThreadName )
+		familiar.CurrentHeight = familiar.FlightHeight
+	end
+
+	familiar.AIDisabled = true
+	familiar.DisableAIWhenReady = true
+
+	local notifyName = "RavenFamiliarWithinDistance"
+	Move({ Id = familiar.ObjectId, DestinationId = targetLocation, SuccessDistance = args.SuccessDistance })
+	NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = targetLocation, Distance = 120, Notify = notifyName, Timeout = 9.0 })
+	waitUntil( notifyName )
+
+	if not args.KeepFlyingOnFinish then
+		SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Raven_Perch_Start" })
+		AdjustZLocation({ Id = familiar.ObjectId, Distance = familiar.GroundHeight - GetZLocation({ Id = familiar.ObjectId }), Duration = 0.3 })
+		wait( 0.8, familiar.AIThreadName )
+		familiar.CurrentHeight = familiar.GroundHeight
+	end
+end
+
+function RavenFamiliarAI( familiar, args )
+	args = args or {}
+
+	local aiData = familiar.DefaultAIData
+	familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId
+
+	if args.InitialDelay ~= nil then
+		wait( args.InitialDelay, familiar.AIThreadName )
+	end
+
+	if args.Equipping then
+		AddInteractBlock( familiar, "Equipping" )
+		RavenFamiliarMoveToLocation( familiar, { Id = 589725, KeepAIAlive = true } )
+		RemoveInteractBlock( familiar, "Equipping" )
+	end
+
+	while IsAIActive( familiar ) do
+		while FamiliarShouldUseCombatLogic() do
+
+			if familiar.CurrentHeight ~= familiar.SkyHeight then
+				RavenFamiliarDropExitPresentation( familiar )
+			end
+
+			wait( RandomFloat( familiar.MinTimeBetweenAttacks, familiar.MaxTimeBetweenAttacks ), familiar.AIThreadName )
+			Stop({ Id = familiar.ObjectId })
+			RavenFamiliarDropEnterPresentation( familiar )
+			
+			local numAttacks = familiar.NumAttacks
+			while numAttacks >= 1 do
+				local eligibleIds = {}
+				for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+					if not enemy.IsDead and ( enemy.RequiredKill or enemy.FamiliarTarget ) then
+						eligibleIds[id] = true
+					end
+				end
+				local targetId = GetClosest({ Id = familiar.ObjectId, DestinationIds = GetAllKeys( eligibleIds ), Distance = familiar.TargetSearchDistance or aiData.TargetSearchDistance, IgnoreHomingIneligible = true, IgnoreSelf = true })
+				if targetId > 0 then
+					local distanceToTarget = GetDistance({ Id = familiar.ObjectId, DestinationId = targetId })
+					if distanceToTarget > aiData.AttackDistance then
+						Move({ Id = familiar.ObjectId, DestinationId = targetId })
+						NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = targetId, Distance = aiData.AttackDistance, Notify = familiar.AINotifyName, Timeout = 9.0 })
+						waitUntil( familiar.AINotifyName )
+					end
+					local angleToTarget = GetAngleBetween({ Id = familiar.ObjectId, DestinationId = targetId })
+					AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = targetId })
+					wait( 0.02, familiar.AIThreadName )
+
+					RavenFamiliarAttackPresentation( familiar, args )
+					AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = targetId })
+					wait( 0.115, familiar.AIThreadName )
+					CreateProjectileFromUnit({ Name = "RavenFamiliarMelee", Id = familiar.ObjectId })
+					wait( 0.115, familiar.AIThreadName  )
+					AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = targetId })
+					wait( 0.115, familiar.AIThreadName  )
+					CreateProjectileFromUnit({ Name = "RavenFamiliarMelee", Id = familiar.ObjectId })
+					wait( 0.115, familiar.AIThreadName )
+					AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = targetId })
+					wait( 0.115, familiar.AIThreadName )
+					CreateProjectileFromUnit({ Name = "RavenFamiliarMelee_Crit", Id = familiar.ObjectId })
+
+					Stop({ Id = familiar.ObjectId })
+					numAttacks = numAttacks - 1
+					wait( 0.35, familiar.AIThreadName )
+				else
+					break
+				end
+			end
+
+			wait( 1.0, familiar.AIThreadName )
+		end
+		if familiar.CurrentHeight ~= familiar.GroundHeight then
+			local closestSpawnPoint = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationName = "SpawnPoints", RequiredLocationUnblocked = true })
+			RavenFamiliarMoveToLocation( familiar, { Id = closestSpawnPoint } )
+		else
+			-- hang out and wait for a new combat encounter to start
+			wait(1.0, familiar.AIThreadName )
+		end
+	end
+	familiar.AIBehavior = nil
+end
+
+function ClearRavenMark( victim, args )
+	ClearEffect({ Id = victim.ObjectId, Name = "RavenFamiliarMark" })
+end
+-- Hecuba / HoundFamiliar
+
+function HoundFamiliarStopAI( familiar )
+	Stop({ Id = familiar.ObjectId })
+	RemoveInteractBlock( familiar, "Equipping" )
+	familiar.DisableAIWhenReady = true
+	familiar.AIDisabled = true
+	familiar.AIBehavior = nil
+	killTaggedThreads( familiar.AIThreadName )
+	killWaitUntilThreads( familiar.AINotifyName )
+	wait( 0.02 )
+end
+
+function HoundFamiliarMoveToLocation( familiar, args )
+	args = args or {}
+	if not args.KeepAIAlive then
+		HoundFamiliarStopAI( familiar )
+	end
+
+	local targetLocation = args.Id or CurrentRun.Hero.ObjectId
+	if not IsWithinDistance({ Id = familiar.ObjectId, DestinationId = targetLocation, Distance = args.SuccessDistance }) then
+		local notifyName = "HoundFamiliarWithinDistance"
+		Move({ Id = familiar.ObjectId, DestinationId = targetLocation, SuccessDistance = args.SuccessDistance, OnFailGoToNearestToGoal = args.OnFailGoToNearestToGoal })
+		NotifyOnStopped({ Id = familiar.ObjectId, DestinationId = targetLocation, Notify = notifyName, Timeout = 9.0 })
+		waitUntil( notifyName )
+	end
+
+	if not args.KeepStandingOnFinish then
+		SetAnimation({ Name = "Familiar_Hound_StandToSit", DestinationId = familiar.ObjectId })
+		wait(1.0)
+	end
+end
+
+function HoundFamiliarAI( familiar, args )
+	args = args or {}
+
+	if args.InitialDelay ~= nil then
+		wait( args.InitialDelay, familiar.AIThreadName )
+	end
+
+	if args.Equipping then
+		SetAnimation({ Name = "Familiar_Hound_SitToStand", DestinationId = familiar.ObjectId })
+		wait( 1.0, familiar.AIThreadName )
+	end
+
+	local aiData = familiar.DefaultAIData
+	local followDistance = aiData.FollowRestDistance
+	if not IsCombatEncounterActive( CurrentRun ) then
+		followDistance = aiData.FollowNonCombatRestDistance
+	end
+
+	HoundFamiliarStartEncounter( familiar )
+
+	wait( 0.5, familiar.AIThreadName )
+
+	while IsAIActive( familiar ) do
+		local moved = false
+		if IsInputAllowed({ }) and not IsWithinDistance({ Id = familiar.ObjectId, DestinationId = CurrentRun.Hero.ObjectId, Distance = followDistance, ScaleY = aiData.FollowRestDistanceScaleY }) then
+			local spawnPointId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = { "SpawnPoints" }, DestinationIds = GetIdsByType({ Name = "FamiliarPoint" }), RequiredLocationUnblocked = true })
+			if spawnPointId ~= familiar.LastSpawnPointId then
+
+				familiar.BlockVictoryPresentation = true
+
+				-- Move
+				familiar.LastSpawnPointId = spawnPointId
+				Move({ Id = familiar.ObjectId, DestinationId = spawnPointId, SuccessDistance = 100 })
+				familiar.AINotifyName = "WithinDistance_"..familiar.Name.."_"..familiar.ObjectId
+				NotifyWithinDistance({ Id = familiar.ObjectId, DestinationId = spawnPointId, Distance = 120, Notify = familiar.AINotifyName, Timeout = 3.0 })
+				waitUntil( familiar.AINotifyName )
+				moved = true
+
+				familiar.BlockVictoryPresentation = false
+
+			end
+		end
+		if not moved then
+			wait( 0.3, familiar.AIThreadName )
+		end
+
+		-- Combat
+		if FamiliarShouldUseCombatLogic() then
+			local barked = false
+			if CheckCooldownNoTrigger( "FamiliarHoundBark", familiar.BarkCooldown ) then
+				local closestEnemyIds = GetClosestIds({ Id = familiar.ObjectId, DestinationName = "EnemyTeam", IgnoreInvulnerable = true, IgnoreHomingIneligible = true, Distance = familiar.BarkRange })
+				local barkAtEnemyId = nil
+				for i, enemyId in ipairs( closestEnemyIds ) do
+					local enemy = ActiveEnemies[enemyId]
+					if enemy ~= nil and ( enemy.HealthBuffer == nil or enemy.HealthBuffer == 0 ) then
+						barkAtEnemyId = enemyId
+					end
+				end
+				if barkAtEnemyId ~= nil then
+					Stop({ Id = familiar.ObjectId })
+					AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = barkAtEnemyId })
+					wait( 0.05, familiar.AIThreadName )
+					SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Hound_Attack" })
+					wait( 0.12, familiar.AIThreadName )
+					CreateProjectileFromUnit({ Name = "HoundFamiliarBark", Id = familiar.ObjectId })
+					TriggerCooldown( "FamiliarHoundBark" )
+					familiar.BarkCooldown = RandomFloat( familiar.MinTimeBetweenBarks, familiar.MaxTimeBetweenBarks )
+					barked = true
+					wait( 1.0, familiar.AIThreadName )
+				end
+			end
+
+			if not barked and CheckCooldownNoTrigger( "FamiliarHoundDig", familiar.DigCooldown ) then
+				local canDigMana = familiar.ManaDigCount < familiar.MaxManaDigsPerEncounter and ( CurrentRun.Hero.Mana / CurrentRun.Hero.MaxMana ) < familiar.HeroManaPercentForDig
+				if canDigMana then
+					Stop({ Id = familiar.ObjectId })
+					PlaySound({ Name = familiar.SensedLootSound or "/EmptyCue", Id = familiar.ObjectId })
+					wait( 0.3, familiar.AIThreadName )
+					SetAnimation({ Name = "Familiar_Hound_Dig", DestinationId = familiar.ObjectId })
+					waitUnmodified( 0.7, familiar.AIThreadName )
+					CreateAnimation({ Name = "ShovelDirtInSprayHound", DestinationId = familiar.ObjectId })
+					waitUnmodified( 0.82, familiar.AIThreadName )
+					CreateAnimation({ Name = "ShovelDirtInSprayHound", DestinationId = familiar.ObjectId })
+					wait( 0.98, familiar.AIThreadName )
+					CreateAnimation({ Name = "ShovelDirtOutSprayHound", DestinationId = familiar.ObjectId })
+					wait( 0.15, familiar.AIThreadName )
+					PlaySound({ Name = familiar.FoundLootSound or "/EmptyCue", Id = familiar.ObjectId })
+
+					DropMinorConsumable( familiar.ManaDigReward, familiar.ObjectId )
+					familiar.ManaDigCount = familiar.ManaDigCount + 1
+					thread( InCombatText, familiar.ObjectId, "HoundFamiliar_ManaItemDug", 1.65, { PreDelay = 0.35, OffsetY = -100 }  )
+
+					TriggerCooldown( "FamiliarHoundDig" )
+					familiar.DigCooldown = RandomFloat( familiar.MinTimeBetweenDigs, familiar.MaxTimeBetweenDigs )
+					wait( 0.5, familiar.AIThreadName )
+				end
+			end
+		end
+	end
+	familiar.AIBehavior = nil
+end
+
+function HoundFamiliarStartEncounter( familiar )
+	familiar.ManaDigCount = 0
+	familiar.DigCooldown = RandomFloat( familiar.MinTimeBetweenDigs, familiar.MaxTimeBetweenDigs )
+	TriggerCooldown( "FamiliarHoundDig" )
+
+	familiar.BarkCooldown = 0
+	TriggerCooldown( "FamiliarHoundBark" )
+end
+
+-- Helper Functions
+
+function GetFamiliarBonusResourceSpawnChance( familiarName )
+	local bonusChance = 0
+	for unlockName, value in pairs( GameState.FamiliarUpgrades ) do
+		local shopItemData = FamiliarShopItemData[unlockName]
+		if shopItemData ~= nil and shopItemData.FamiliarName == familiarName and shopItemData.BonusResourceSpawnChance then
+			bonusChance = bonusChance + shopItemData.BonusResourceSpawnChance
+		end
+	end
+	local familiarData = FamiliarData[familiarName]
+	if (GameState.FamiliarRestTicks[familiarName] or 0) > familiarData.TickForRested then
+		bonusChance = bonusChance + familiarData.RestBonusResourceSpawnChance
+	end
+	return bonusChance
 end
 
 function FamiliarTimeTick( args )
 	args = args or {}
 	AddInputBlock({ Name = "FamiliarTimeTick" })
 	for tick = 1, (args.Ticks or 1) do
-		for familiarName, familiarStatus in pairs( GameState.FamiliarStatus ) do
+		for familiarName in pairs( GameState.FamiliarsUnlocked ) do
 			if familiarName ~= GameState.EquippedFamiliar and GameState.WorldUpgradesAdded.WorldUpgradeFamiliarRest then
-				familiarStatus.RestTicks = (familiarStatus.RestTicks or 0) + 1
+				GameState.FamiliarRestTicks[familiarName] = (GameState.FamiliarRestTicks[familiarName] or 0) + 1
 			end
 		end
 		wait( args.TickInterval )
 	end
 	RemoveInputBlock({ Name = "FamiliarTimeTick" })
+end
+
+function FamiliarShouldUseCombatLogic()
+	if CurrentHubRoom ~= nil or CurrentRun.CurrentRoom == nil then
+		return false
+	end
+
+	if not IsEmpty( RequiredKillEnemies ) then
+		return true
+	end
+
+	if IsCombatEncounterActive( CurrentRun, { IgnoreMainEncounter = CurrentRun.CurrentRoom.IgnoreMainEncounterForFamiliar }) then
+		return true
+	end
+
+	return false
+end
+
+function GetFamiliarUpgradeCount( familiarName )
+	local count = 0
+	for i, unlockName in ipairs( ScreenData.FamiliarShop.ItemOrder ) do
+		if GameState.FamiliarUpgrades[unlockName] then
+			local shopItemData = FamiliarShopItemData[unlockName]
+			if shopItemData ~= nil and shopItemData.FamiliarName == familiarName then
+				count = count + 1
+			end
+		end
+	end
+	return count
 end

@@ -4,7 +4,7 @@
 		Name = "DaggerBlockActiveFx"
 		FilePath = "Fx\ArtemisDashTwinkle\ArtemisDashTwinkle"
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
-		GroupName = "FX_Standing_Add"      
+		GroupName = "FX_Standing_Add"			
 		AngleFromOwner = "Ignore"
 		AngleMax = 360.0
 		UseOwnAngle = false
@@ -21,7 +21,7 @@
 		Name = "OmegaDamageBuffFx"
 		FilePath = "Fx\ArtemisDashTwinkle\ArtemisDashTwinkle"
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
-		GroupName = "FX_Standing_Add"      
+		GroupName = "FX_Standing_Add"			
 		AngleFromOwner = "Ignore"
 		AngleMax = 360.0
 		UseOwnAngle = false
@@ -35,4 +35,353 @@
 		Sound = "/SFX/SelfDamageBuffLoopSFX"
 		StopSoundOnFinishFade = 0.2
 	}
+	{
+		Name = "ArtemisRangedArrowheadLegendary"
+		FilePath = "Animations\ArtemisRangedArrowhead\ArtemisRangedArrowhead"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "ArtemisRangedArrowhead1Legendary" }
+		]
+	}
+
+	{
+		Name = "ArtemisRangedArrowhead1Legendary"
+		ChildAnimation = "ArtemisRangedArrowheadGlow"
+		FilePath = "Fx\ArtemisRangedArrowhead\ArtemisRangedArrowhead0001"
+		GroupName = "FX_Standing_Add"
+		
+		VisualFx = "ArtemisRangedTrailSuper"
+		Sound = "/SFX/Player Sounds/ArtemisLeavesRangedAttack"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 160.0
+		EndScaleY = -1.0
+		PingPongScale = true
+		Ambient = 0.0
+		VisualFxDistanceMax = 41.0
+		VisualFxDistanceMin = 40.0
+	}
+
+	{
+		Name = "ArtemisRangedArrowheadGlow"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Standing_Add"
+		
+		Alpha = 0.15
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 1.0 Blue = 0.0 }
+	}
+	{
+		Name = "ArtemisRangedTrailSuper"
+		FilePath = "Fx\ArtemisRangedTrail\ArtemisRangedTrail"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		EndFrame = 53
+		NumFrames = 53
+		RandomPlaySpeedMax = 91.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 0.4
+		ScaleY = 0.75
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "ArtemisRangedTrailDarkSimple" }
+		]
+	}
+	{
+		Name = "ArtemisRangedTrailDarkSimple"
+		FilePath = "Fx\ArtemisRangedTrail\ArtemisRangedTrail"
+		AngleFromOwner = "Take"
+		EndFrame = 53
+		NumFrames = 53
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 0.4
+		Ambient = 0.0
+		GroupName = "FX_Dark"
+		ScaleY = 1.25
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		RandomPlaySpeedMax = 180.0
+		RandomPlaySpeedMin = 160.0
+		OffsetZ = -4.0
+		LocationZFromOwner = "Take"
+		ScaleX = 1.5
+		OverlayVfx = true
+	}
+	{
+		Name = "ArtemisCritVulnerabilityStatus"
+		FilePath = "Fx\ArtemisCritReticle\ArtemisCritReticle"
+		GroupName = "Combat_UI"
+
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Duration = 0.5
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 80.0
+		EndScale = 1.1
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.9
+		Ambient = 0.0
+		Sound = "/SFX/SelfDamageBuffLoopSFX"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimationOnEnd = "DebuffStatusComplete"
+		UseAttachedFlasher = false
+	}
+	{
+		Name = "ArtemisCritVulnerabilityStatusIn"
+		InheritFrom = "ArtemisCritVulnerabilityStatus"
+		ChainTo = "ArtemisCritVulnerabilityStatus"
+		Duration = 0.4
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 5
+		EndScale = 0.9
+		PingPongScale = false
+		Loop = false
+		CreateAnimationOnEnd = "null"
+	}
+	{
+		Name = "DebuffStatusComplete"
+		FilePath = "Fx\SkillProcFeedbackTint\SkillProcFeedbackTint"
+		GroupName = "FX_Standing_Add"
+
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndFrame = 16
+		NumFrames = 16
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 160.0
+		LocationZFromOwner = "Ignore"
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 1.0 Blue = 0.50 }
+	}
+
+	{
+		Name = "ArtemisArrow"
+		InheritFrom = "ElysiumBallistaLoop"
+		VisualFx = "ArtemisTrail"
+		VisualFxCap = 200
+		VisualFxDistanceMax = 160.0
+		VisualFxDistanceMin = 120.0
+	}
+
+	{
+		Name = "ArtemisTrail"
+		Random =
+		[
+			{ Name = "ArtemisTrailA" }
+			{ Name = "ArtemisTrailB" }
+		]
+	}
+
+	{
+		Name = "ArtemisTrailA"
+		FilePath = "Fx\ArtemisTrailA\ArtemisTrailA"
+		NumFrames = 45
+		Material = "Unlit"
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		VelocityMin = 50
+		VelocityMax = 100
+		Acceleration = -100
+		ScaleX = 2.0
+		ScaleY = 1.2
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.5
+		StartBlue = 0.2
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		GroupName = "FX_Standing"
+		CreateAnimations =
+		[
+			{ Name = "ArtemisHelixRandom" }
+			{ Name = "ArtemisTrailLight" }
+			{ Name = "ArtemisTrailLinger" }
+			{ Name = "ArtemisTrailParticles" }
+			{ Name = "ArtemisTrailParticles" }
+			{ Name = "ArtemisTrailParticles" }
+		]
+	}
+
+	{
+		Name = "ArtemisTrailB"
+		InheritFrom = "ArtemisTrailA"
+		FilePath = "Fx\ArtemisTrailB\ArtemisTrailB"
+	}
+
+	{
+		Name = "ArtemisTrailLinger"
+		Random =
+		[
+			{ Name = "ArtemisTrailLingerA" }
+			{ Name = "ArtemisTrailLingerB" }
+		]
+	}
+	{
+		Name = "ArtemisTrailLingerA"
+		InheritFrom = "ArtemisTrailA"
+		ClearCreateAnimations = true
+		Red = 0
+		Green = 0
+		Blue = 0
+		AddColor = false
+		GroupName = "FX_Dark"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		ScaleY = 1.0
+		ScaleX = 1.5
+	}
+
+	{
+		Name = "ArtemisTrailLingerB"
+		InheritFrom = "ArtemisTrailLingerA"
+		FilePath = "Fx\ArtemisTrailB\ArtemisTrailB"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "ArtemisTrailParticles"
+		FilePath = "Particles\particle_ember_03_glow_add"
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2.0
+		ScaleMin = 0.2
+		ScaleMax = 0.7
+		RandomRotation = true
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		VelocityMin = 50
+		VelocityMax = 300
+		RandomAccelerationMin = -100
+		RandomAccelerationMax = -20
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Red = 0.9
+		Green = 1
+		Blue = 0.6
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ArtemisTrailLight"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 0.9
+		Green = 1
+		Blue = 0.6
+		StartAlpha = 0.3
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1
+		Duration = 0.33
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		Scale = 1.5
+	}
+
+	{
+		Name = "ArtemisHelixRandom"
+		Random =
+		[
+			{ Name = "ArtemisHelix" }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+	{
+		Name = "ArtemisHelix"
+		FilePath = "Fx\ArtemisHelix\ArtemisHelix"
+		NumFrames = 37
+		Material = "Unlit"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		Scale = 1.5
+	}
+
+	{
+      Name = "ArtemisDefenseFront"
+      ChainTo = "ArtemisDefenseFrontFade"
+      FilePath = "Fx\EurydiceShield\EurydiceShield"
+      GroupName = "FX_Standing_Add"
+      
+      AngleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      EndFrame = 30
+      Loop = true
+      NumFrames = 30
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetZ = 80.0
+      SortMode = "FromParent"
+      TransferFrameFromThis = true
+      Scale = 0.85
+      ScaleFromOwner = "Ignore"
+      Ambient = 0.0
+    }
+    
+    {
+      Name = "ArtemisDefenseFrontFade"
+      InheritFrom = "ArtemisDefenseFront"
+      ChainTo = "null"
+      CreateAnimation = "QuickFlashGreen"
+      StartAlpha = 1.0
+      Duration = 0.25
+      Loop = false
+      EndScale = 1.25
+    }
+    
 ]}

@@ -1,0 +1,392 @@
+{ Animations = [
+	{
+		Name = "EnemyEnforcerBaseAnimation"
+		
+		GrannyModel = "AutomatonEnforcer_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "Enemy_Enforcer_Idle"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_MoveStart"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Move_Start_C_00"
+		NativeMoveSpeed = 350
+		ChainTo = "Enemy_Enforcer_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_Move"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Move_C_00"
+		NativeMoveSpeed = 350
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_MoveStop"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 350
+		ChainTo = "Enemy_Enforcer_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_OnHit"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Enforcer_Idle"
+		Sound = "/SFX/Enemy Sounds/AutomatonBeamer/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 2
+				FrameSpeed = 2.5
+			}
+			{
+				Frame = 16
+				FrameSpeed = 1.5
+			}
+		]
+	}
+	{
+		Name = "Enemy_Enforcer_OnHit_Heavy"
+		InheritFrom = "Enemy_Enforcer_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_Enforcer_Boost"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Boost_C_00"
+		ChainTo = "Enemy_Enforcer_Idle"
+		CancelOnOwnerMove = false
+		CreateAnimation = "AutomatonEnforcerBoostFx"
+		Sound = "/SFX/Enemy Sounds/Theseus/TheseusSpearThrowCharge"
+		StopSoundOnFinishFade = 0.2
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/AutomatonEnforcer/EmoteTaunting"
+			}
+			{
+				Frame = 20
+				FootstepFxR = "AutomatonEnforcerBoostDisplacementFx"
+				FootstepFxL = "AutomatonEnforcerBoostStreak2"
+			}
+			{
+				Frame = 25
+				FootstepFxR = "AutomatonEnforcerBoostDisplacementFx"
+			}
+			{
+				Frame = 30
+				FootstepFxR = "AutomatonEnforcerBoostDisplacementFx"
+			}
+		]
+	}
+
+	// SLASH
+
+	{
+		Name = "Enemy_Enforcer_SlashPreFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_SlashPreFire_C_00"
+		CreateAnimation = "AutomatonEnforcerSlashCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/AutomatonEnforcer/EnforcerChargeQuick"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_SlashFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_SlashFire_C_00"
+		ChainTo = "Enemy_Enforcer_SlashPostFire"
+		Sound = "/SFX/Enemy Sounds/AutomatonEnforcer/EmoteAttacking"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_SlashPostFire"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_SlashPostFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_SlashPostFire_C_00"
+		ChainTo = "Enemy_Enforcer_Idle"
+	}
+
+	// Whirlwind
+
+	{
+		Name = "Enemy_Enforcer_WhirlwindPreFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_WhirlWindPreFire_C_00"
+		CreateAnimation = "AutomatonEnforcerWhirlwindCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/AutomatonEnforcer/EnforcerCharge"
+		StopSoundOnFinishFade = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Enforcer_WhirlwindFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_WhirlWindFireLoop_C_00"
+		Loop = true
+		Sound = "/SFX/Enemy Sounds/AutomatonEnforcer/EmotePowerAttacking",
+	}
+
+	{
+		Name = "Enemy_Enforcer_WhirlwindPostFire"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_WhirlWindPostFire_C_00"
+		ChainTo = "Enemy_Enforcer_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Enforcer_WhirlwindFire"
+				Duration = 6
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Enforcer_Spawn"
+		InheritFrom = "EnemyEnforcerBaseAnimation"
+		GrannyAnimation = "AutomatonEnforcer_Base_Idle_C_00"
+		GrannyAnimationSpeed = 0.5
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		StartRed = 0.68
+		StartGreen = 0.7
+		StartBlue = 0.72
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		Duration = 1.8
+		EaseIn = 0
+		EaseOut = 1
+		
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.2
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/AutomatonSpawnMask"
+		DeathFxReverse = true
+		VerticalMaskInModelSpace = true
+		ReverseVerticalMaskInModelSpace = false
+		StartOffsetZ = -175
+		EndOffsetZ = 0
+		Enable3DShadow = false
+
+		Sound = "/SFX/Enemy Sounds/AutomatonSpawn"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 40
+				VerticalMask = 0.9
+				Sound = "/SFX/Enemy Sounds/Exalted/NakedShadeRespawned"
+			}
+		]
+	}
+
+
+	{
+		Name = "Enemy_Enforcer_Death"
+		InheritFrom = "Enemy_Enforcer_OnHit"
+		GrannyAnimationSpeed = 1
+		VerticalMaskInModelSpace = false
+		StartOffsetZ = 0
+		EndOffsetZ = -25
+		Duration = 0.4
+		DeathFxFrameDuration = 36
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskRadial"
+		DeathFxReverse = false
+		VisualFx = "EnemyEnforcerDeathArcs"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 20
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		HoldLastFrame = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		Frames =
+		[
+			{
+				Frame = 0
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/Enemy Sounds/AutomatonDeath"
+			}
+			{
+				Frame = 10
+				FrameSpeed = 0
+			}
+		]
+	}
+
+]}

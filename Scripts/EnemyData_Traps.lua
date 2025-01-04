@@ -112,54 +112,6 @@
 		CleanupAnimation = "Blank",
 	},
 
-	LovesickHeart =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		ActivateFuseIfNoSpawner = true,
-		FuseWarningAnimation = "LovesickHeartMineDecalIn",
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-		},
-
-		TriggerGroups = { "HeroTeam" },
-		StartCharmedDataOverrides =
-		{
-			TriggerGroups = { "EnemyTeam" },
-		},
-
-		OnDamagedFunctionNames = { "ActivateFuse" },
-		OnDeathFireWeapons = { "LovesickHeartMineBlast" },
-
-		DissipateAnimation = "LovesickHeartMineDissipate",
-		FuseAnimation = "LovesickHeartMineActivated",
-		FuseWarningProjectileName = "LovesickHeartMineBlast",
-		FlashOnFuse = true,
-		FuseDuration = 0.6,
-		--TriggerDistance = 225,
-		--WakeUpDelay = 1.5,
-		TriggerDistance = 310,
-		WakeUpDelay = 0.15,
-		ExpirationDuration = 12.0,
-
-		AIOptions =
-		{
-			"MineAI",
-		},
-		AttackDistance = 100,
-
-		CleanupAnimation = "Blank",
-		OutgoingDamageModifiers =
-		{
-			{
-				Name = "FriendImmunity",
-				FriendMultiplier = 0,
-			},
-		},
-	},
-
 	BloodMine =
 	{
 		InheritFrom = { "BaseTrap" },
@@ -184,7 +136,8 @@
 		TriggerDistance = 225,
 		WakeUpDelay = 1.5,
 		ExpirationDuration = 15.0,
-
+		
+		DestroyDelay = 0.5,
 		AIOptions =
 		{
 			"MineAI",
@@ -196,7 +149,13 @@
 		{
 			{
 				Name = "FriendImmunity",
+				IsMultiplier = true,
 				FriendMultiplier = 0,
+			},
+			{
+				Name = "CharmedMultiplier",
+				IsMultiplier = true,
+				NonPlayerMultiplier = 10,
 			},
 		},
 	},
@@ -237,6 +196,10 @@
 	{
 		InheritFrom = { "BaseTrap" },
 
+		SpawnObstaclesOnSpawn =
+		{
+			{ Name = "_Impassable_FloodTrap", SyncOwnerAngle = true, GroupName = "Impassable" },
+		},
 
 		DefaultAIData =
 		{
@@ -299,7 +262,7 @@
 
 		KillingEnemyVoiceLines =
 		{
-			[1] = GlobalVoiceLines.SteamTrapKillVoiceLines,
+			[1] = { GlobalVoiceLines = "SteamTrapKillVoiceLines" },
 		},
 	},
 
@@ -337,7 +300,7 @@
 
 		KillingEnemyVoiceLines =
 		{
-			[1] = GlobalVoiceLines.SteamTrapKillVoiceLines,
+			[1] = { GlobalVoiceLines = "SteamTrapKillVoiceLines" },
 		},		
 	},
 
@@ -391,7 +354,7 @@
 
 		KillingEnemyVoiceLines =
 		{
-			[1] = GlobalVoiceLines.SteamTrapKillVoiceLines,
+			[1] = { GlobalVoiceLines = "SteamTrapKillVoiceLines" },
 		},		
 	},
 
@@ -450,6 +413,7 @@
 					ProjectileName = "BrambleTrap",
 					FireProjectileAtSelf = true,
 					--FireFromTarget = true,
+					SkipCanAttack = true,
 				},
 			}
 		},
@@ -539,7 +503,7 @@
 		DamagedFxStyles =
 		{
 			Default = "HitSparkEnemyDamagedGlass",
-			Rapid = "HitSparkEnemyDamagedGlass",
+			Rapid = "HitSparkEnemyDamagedGlassRapid",
 		},
 
 		SpawnObstaclesOnDeath =
@@ -594,59 +558,6 @@
 
 				{ Cue = "/VO/MelinoeField_2372", Text = "Enough of that." },
 				{ Cue = "/VO/MelinoeField_2373", Text = "Blasted buzzing..." },
-			},
-		},
-	},
-
-	DartTrapEmitterClockwork =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		Material = "MetalObstacle",
-		DisabledAnimation = "ArcherTrapDeactivated",
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-
-			PreAttackDuration = 0.5,
-			FireDuration = 0.3,
-			PostAttackDuration = 0.5,
-			PostAttackCooldown = 3.0,
-
-			ProjectileName = "DartTrapWeaponClockwork",
-			FireTicksMin = 9,
-			FireTicksMax = 9,
-			FireInterval = 0.15,
-			TrackTargetDuringCharge = false,
-
-			PreAttackAnimation = "DartTrapEmitterFire",
-			FireAnimation = "DartTrapEmitterFire",
-			PostAttackAnimation = "DartTrapEmitterReturnToIdle",
-			ReloadingLoopSound = "/SFX/TrapSettingLoop",
-			ReloadedSound = "/SFX/ArcherTrapReloaded",
-			PreAttackEndShake = true,
-
-			MoveWithinRange = false,
-			PreAttackAngleTowardTarget = false,
-
-			TargetSelf = true,
-			TargetOffsetForward = 100,
-		},
-
-		ClockworkReaction = "DoAttackerAILoop",
-
-		WeaponOptions =
-		{
-			"ArcherTrapWeapon",
-		},
-		ToggleTrap = true,
-		IdleAnimation = "BallistaIdle",
-
-		OutgoingDamageModifiers =
-		{
-			{
-				NonPlayerMultiplier = 30,
 			},
 		},
 	},
@@ -747,7 +658,7 @@
 	OilPuddle =
 	{
 		InheritFrom = { "BaseTrap" },
-		
+		SilentImpact = true,
 		TriggersOnHitEffects = true,
 
 		DefaultAIData = {
@@ -1198,113 +1109,7 @@
 		},
 	},
 
-	Ballista =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		UseText = "Use",
-		
-		OnUsedFunctionName = "OnUseBallista",
-
-		DefaultAIData =
-		{
-			DeepInheritance = true,
-			
-			IdleAnimation = "BallistaIdle",
-		},
-
-		AIOptions =
-		{
-			"EmptyAI",
-		},
-
-		WeaponOptions =
-		{
-			"BallistaWeapon",
-		},
-
-		OutgoingDamageModifiers =
-		{
-			{
-				NonPlayerMultiplier = 30,
-			},
-		},
-	},
-
-	-- Olympus Traps
-	AutomatonSentryTrap =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		DefaultAIData = {
-			DeepInheritance = true,
-			
-			TriggerGroups =  { "HeroTeam" },
-			TargetGroups = { "GroundEnemies", "FlyingEnemies", "HeroTeam" },
-			FireProjectileTowardTarget = true,
-
-			SentryTetherDistance = 900,
-			SentryActivateDistance = 550,
-
-			IdleAnimation = "AutomatonSentryTrapIdle",
-			DisabledAnimation = "AutomatonSentryTrapIdle",
-		},
-
-		WeaponOptions =
-		{
-			"AutomatonSentrySeekAndDestroy",
-		},
-
-		AIOptions =
-		{
-			"SentryAI",
-		},
-		ToggleTrap = true,
-	},
-
 	-- Misc / Unsorted Traps
-	UnstableCauldron =
-	{
-		InheritFrom = { "BaseTrap" },
-
-		IgnoreDamage = true,
-		IgnoreAutoLock = false,
-		HideHealthBar = true,
-		HideLevelDisplay = true,
-
-		OnDamagedFunctionName = "RetaliateAttackerAILoop",
-
-		DefaultAIData = {
-			DeepInheritance = true,
-
-			PreAttackDuration = 0.5,
-			PostAttackCooldown = 5.0,
-			FireAnimation = "UnstableCauldronDisabled",
-
-			IdleAnimation = "UnstableCauldronIdle",
-			DisabledAnimation = "UnstableCauldronDisabled",
-		},
-
-		WeaponOptions =
-		{
-			"UnstableCauldronDamage", "UnstableCauldronHeal", "UnstableCauldronSlow",
-		},
-
-		AIOptions =
-		{
-			"EmptyAI",
-		},
-		ToggleTrap = true,
-
-		OutgoingDamageModifiers =
-		{
-			{
-				NonPlayerMultiplier = 50,
-			},
-		},
-	},
-
-	
 	ShatterCrystal =
 	{
 		InheritFrom = { "BaseTrap" },
@@ -1440,6 +1245,10 @@
 					Comparison = ">=",
 					Value = 15,
 				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsNone = { "F_Boss01" },
+				},
 			},
 			Cooldowns =
 			{
@@ -1483,7 +1292,12 @@
 		
 		SplinterAnimation = "DestructibleMastDamagedA",
 		DestroyedAnimation = "DestructibleMastDestroyedA",
-
+		DamagedFxStyles =
+		{
+			Default = "EphyraIndestructibleWoodSplinters",
+			Rapid = "EphyraIndestructibleWoodSplinters",
+		},
+		
 		DefaultAIData = {
 			DeepInheritance = true,
 
@@ -1515,7 +1329,10 @@
 			SuccessiveChanceToPlay = 0.1,
 			GameStateRequirements =
 			{
-				RequiredMinHealthFraction = 0.2,
+				{
+					FunctionName = "RequiredHealthFraction",
+					FunctionArgs = { Comparison = ">=", Value = 0.2, },
+				},
 			},
 			Cooldowns =
 			{

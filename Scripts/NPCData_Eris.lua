@@ -9,7 +9,9 @@ UnitSetData.NPC_Eris =
 		AnimOffsetZ = 0,
 		Groups = { "NPCs" },
 		SubtitleColor = Color.ErisVoice,
+		EmoteOffsetY = -205,
 		SpeakerName = "Eris",
+		FieldSpeakerName = "ErisField",
 		StatusAnimUseOwnerGroup = true,
 		BlockExitText = "ExitBlockedByNPC",
 		TurnInPlaceAnimation = "Eris_Turn",
@@ -47,7 +49,7 @@ UnitSetData.NPC_Eris =
 
 				{ Cue = "/VO/Melinoe_2693", Text = "Hail, Strife." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				PreLineWait = 0.4,
@@ -243,8 +245,8 @@ UnitSetData.NPC_Eris =
 							ConsumablePreDropFunctionName = "ErisLitterPresentation",
 							ConsumablePreDropFunctionDelay = 0.9,
 						},
-
 					},
+					MaxLitterForToss = 12,
 					LitterSpawnPointIds = { 585561, 585562, 585563, 585565, 585566, 585567, 585570 },
 					LitterSpawnsMin = 2,
 					LitterSpawnsMax = 3,
@@ -432,7 +434,7 @@ UnitSetData.NPC_Eris =
 					Text = "Eris, you... you said before that I don't even know what I'm missing. What did you mean by that?" },
 				{ Cue = "/VO/Eris_0028",
 					PreLineAnim = "Enemy_Eris_Hub_Flattered",
-					Text = "Didn't mean your family, that's for sure! Come on, look at yourself. You've never lived a day in your life! That heart beating in your chest, you think it's only there to pump your blood. Just another muscle!" },
+					Text = "Didn't mean your {#Emph}family{#Prev}, that's for sure! Come {#Emph}on{#Prev}, look at yourself. You've never lived a {#Emph}day {#Prev}in your {#Emph}life! {#Prev}That heart beating in your chest? You think it's only there to pump your blood! Just another muscle!" },
 				{ Cue = "/VO/Melinoe_2655", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -724,8 +726,9 @@ UnitSetData.NPC_Eris =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You've seen firsthand the suffering out there, from all the endless warring between Chronos and the gods. But you're entirely unmoved?" },
 				{ Cue = "/VO/Eris_0058",
+					Emote = "PortraitEmoteDepressed",
 					PreLineAnim = "Enemy_Eris_Hub_Flattered",
-					Text = "Who says I'm unmoved? On the contrary, it makes me all emotional. I'm trying to live in the moment and everything, but... I just know I'm going to look back on this and think, {#Emph}these were the best of times." },
+					Text = "Who says I'm {#Emph}unmoved? {#Prev}On the contrary, it makes me all {#Emph}emotional! {#Prev}I'm trying to live in the moment and everything, but... I just know I'm going to look back on this and think, {#Emph}these were the best of times." },
 				EndVoiceLines =
 				{
 					{
@@ -751,7 +754,10 @@ UnitSetData.NPC_Eris =
 						Path = { "GameState", "UseRecord" },
 						HasAll = { "NPC_Nemesis_01", "NPC_Moros_01" },
 					},
-					AreIdsAlive = { 557113 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 557113 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ErisGreeting,
@@ -1007,13 +1013,15 @@ UnitSetData.NPC_Eris =
 						PathTrue = { "GameState", "TextLinesRecord", "ErisAboutSurface01" },
 					},
 					{
-						PathTrue = { "CurrentRun", "RoomCountCache", "N_Opening01" },
+						PathTrue = { "CurrentRun", "RoomsEntered", "N_Opening01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "N_Opening01" },
+						Comparison = ">=",
+						Value = 3,
 					},
 					{
 						PathFalse = { "GameState", "RoomCountCache", "O_Boss01" },
-					},
-					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1174,9 +1182,9 @@ UnitSetData.NPC_Eris =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
-				-- InitialGiftableOffSource = true,
+				InitialGiftableOffSource = true,
 				GiftableOffSource = true,
-				-- PreBlockSpecialInteract = true,
+				PreBlockSpecialInteract = true,
 				PostBlockSpecialInteract = true,
 				GameStateRequirements =
 				{
@@ -1301,7 +1309,7 @@ UnitSetData.NPC_Eris =
 						PreLineWait = 0.4,
 						UsePlayerSource = true,
 						RequiredMinElapsedTime = 2,
-						{ Cue = "/VO/Melinoe_3216", Text = "{#Emph}Khh." },
+						{ Cue = "/VO/Melinoe_3216", Text = "{#Emph}<Scoff>" },
 					},
 				},
 			},
@@ -1401,7 +1409,10 @@ UnitSetData.NPC_Eris =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisGetFreeItemIntro01" },
 					},
-					AreIdsNotAlive = { 557113 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 557113 }, Alive = false },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ErisGreeting,
@@ -1443,8 +1454,14 @@ UnitSetData.NPC_Eris =
 						Comparison = ">=",
 						Value = 10,
 					},
-					RequiredFalseQueuedTextLines = { "DoraWithMoros01", "DoraWithMoros02", "MorosWithOdysseus01", "MorosWithOdysseus02" },
-					AreIdsAlive = { 560612 },
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsNone = { "DoraWithMoros01", "DoraWithMoros02", "MorosWithOdysseus01", "MorosWithOdysseus02" },  },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 560612 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				-- OnQueuedFunctionArgs = PresetEventArgs.ErisSnacking,
@@ -1475,7 +1492,7 @@ UnitSetData.NPC_Eris =
 				{
 					{
 						Path = { "CurrentRun", "EncountersOccurredCache" },
-						HasAny = { "HeraclesCombatN", "HeraclesCombatO", "HeraclesCombatP", "HeraclesCombatF", "HeraclesCombatG" },
+						HasAny = { "HeraclesCombatN", "HeraclesCombatN2", "HeraclesCombatO", "HeraclesCombatO2", "HeraclesCombatP", "HeraclesCombatP2", "HeraclesCombatF", "HeraclesCombatF2", "HeraclesCombatG", "HeraclesCombatG2" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1605,7 +1622,10 @@ UnitSetData.NPC_Eris =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					AreIdsNotAlive = { 557113 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 557113 }, Alive = false },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ErisGreeting,
@@ -1774,7 +1794,6 @@ UnitSetData.NPC_Eris =
 				{ Cue = "/VO/Melinoe_2692", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineThreadedFunctionName = "GiftPointRefundPresentation",
 					Text = "{#Emph}Huh? {#Prev}And, what exactly happened between us, would you say, if you had to summarize...? You're just... mocking me as usual, aren't you..." },
 				EndVoiceLines =
@@ -1816,7 +1835,7 @@ UnitSetData.NPC_Eris =
 					Text = "Look, I... do want you to feel welcome here and safe. It's not just something that we say. All of us have lost something here. May this gift of Nectar show my words are true." },
 				{ Cue = "/VO/Eris_0067",
 					PreLineAnim = "Enemy_Eris_Hub_Toss",
-					Text = "Wow... made with real Golden Apples! {#Emph}Thanks{#Prev}, babe. You're the only one who's made a real effort to bring me into the fold. Say, why don't you take this? It isn't much, but I've been holding onto it, in case I found a friend..." },
+					Text = "{#Emph}Wow... {#Prev}made with real Golden Apples! {#Emph}Thanks{#Prev}, babe. You're the only one who's made a real effort to bring me into the fold! Say, why don't you take this? It isn't much, but I've been holding onto it, in case I found a friend..." },
 			},
 			ErisGift01_B =
 			{
@@ -1846,7 +1865,7 @@ UnitSetData.NPC_Eris =
 					Text = "Look, I... do want you to feel welcome here and safe. It's not just something that we say. All of us have lost something here. May this gift of Nectar show my words are true." },
 				{ Cue = "/VO/Eris_0067",
 					PreLineAnim = "Enemy_Eris_Hub_Toss",
-					Text = "Wow... made with real Golden Apples! {#Emph}Thanks{#Prev}, babe. You're the only one who's made a real effort to bring me into the fold. Say, why don't you take this? It isn't much, but I've been holding onto it, in case I found a friend..." },
+					Text = "{#Emph}Wow... {#Prev}made with real Golden Apples! {#Emph}Thanks{#Prev}, babe. You're the only one who's made a real effort to bring me into the fold! Say, why don't you take this? It isn't much, but I've been holding onto it, in case I found a friend..." },
 			},
 
 			ErisGift02 =
@@ -1886,7 +1905,8 @@ UnitSetData.NPC_Eris =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ErisGift02" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ErisGift01", "ErisGift01_B" },
 					},
 				},
 				{ Cue = "/VO/Eris_0089",
@@ -1918,7 +1938,8 @@ UnitSetData.NPC_Eris =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ErisGift03" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ErisGift01", "ErisGift01_B" },
 					},
 				},
 				{ Cue = "/VO/Eris_0090",
@@ -1973,7 +1994,8 @@ UnitSetData.NPC_Eris =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3474", UsePlayerSource = true,
@@ -1984,8 +2006,6 @@ UnitSetData.NPC_Eris =
 					PortraitExitAnimation = "Portrait_Eris_Default_01_Exit",
 					PostLineRemoveContextArt = true,
 					Emote = "PortraitEmoteSurprise",
-
-
 					Text = "Wait, the springs are purified again? I've been out of the loop! Surprised I'd get another invite after last time, but... {#Emph}OK!" }, 
 
 				{ Cue = "/VO/Eris_0180",
@@ -2074,7 +2094,8 @@ UnitSetData.NPC_Eris =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 
 				},
@@ -2119,7 +2140,8 @@ UnitSetData.NPC_Eris =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3554", UsePlayerSource = true,
@@ -2154,7 +2176,10 @@ UnitSetData.NPC_Eris =
 					PlayOnceFromTableThisRun = true,
 					GameStateRequirements =
 					{
-						AreIdsNotAlive = { 585573 },
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 585573 }, Alive = false },
+						},
 					},
 
 					{ Cue = "/VO/Melinoe_1158", Text = "Eris is gone...", PlayFirst = true },
@@ -2175,7 +2200,7 @@ UnitSetData.NPC_Eris =
 		RepulseOnMeleeInvulnerableHit = 150,
 		OnHitVoiceLines =
 		{
-			[1] = GlobalVoiceLines.ErisInvulnerableVoiceLines,
+			[1] = { GlobalVoiceLines = "ErisInvulnerableVoiceLines" },
 			[2] =
 			{
 				UsePlayerSource = true,
@@ -2223,7 +2248,15 @@ UnitSetData.NPC_Eris =
 				{ Cue = "/VO/ErisField_0033", Text = "See you later!" },
 				{ Cue = "/VO/ErisField_0034", Text = "Bye now!" },
 				{ Cue = "/VO/ErisField_0035", Text = "My work here is done!" },
-				{ Cue = "/VO/ErisField_0036", Text = "Death to {#Emph}Chronos!" },
+				{ Cue = "/VO/ErisField_0036", Text = "Death to {#Emph}Chronos!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "TextLinesRecord" },
+							HasNone = { "ErisGrantsCurse03", "ErisGrantsCurse05" }
+						},
+					},
+				},
 				{ Cue = "/VO/ErisField_0037", Text = "OK, gotta go!" },
 			},
 			{
@@ -2335,7 +2368,7 @@ VariantSetData.NPC_Eris_01 =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You again. What, are you concerned my task just isn't difficult enough? Going a bit too swimmingly?" },
 				{ Cue = "/VO/ErisField_0021",
-					Text = "Actually, yes, I was a little worried about that. You got past the {#Emph}Sirens! {#Prev}What next, you'll go kill Chronos, and then what? Come on, babe. Let's not do anything {#Emph}rash." },
+					Text = "Actually {#Emph}yes{#Prev}, I was a little worried about that. You got past the {#Emph}Sirens! {#Prev}What next, you'll go kill Chronos, and then what? Come on, babe. Let's not do anything rash." },
 				EndFunctionName = "ApplyErisCurse",
 				EndFunctionArgs = PresetEventArgs.ApplyErisCurse,
 			},
@@ -2482,7 +2515,7 @@ VariantSetData.NPC_Eris_01 =
 				OnQueuedFunctionArgs = PresetEventArgs.ErisGreeting,
 
 				{ Cue = "/VO/ErisField_0028",
-					Text = "Look, {#Emph}heh! {#Prev}I know it's been a little rocky between us, but... we'll look back on this and laugh!", },
+					Text = "Look, {#Emph}heh! {#Prev}I know it's been a little rocky between us, but... we'll probably look back on this and laugh!", },
 				EndFunctionName = "ApplyErisCurse",
 				EndFunctionArgs = PresetEventArgs.ApplyErisCurse,
 			},
@@ -2553,6 +2586,93 @@ VariantSetData.NPC_Eris_01 =
 
 		},
 	},
+}
+
+-- Global Eris Lines
+GlobalVoiceLines.ErisAttemptedExitVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.35,
+	ObjectTypes = { "Eris", "NPC_Eris_01" },
+	Cooldowns =
+	{
+		{ Name = "ErisSpokeRecently", Time = 6 },
+	},
+
+	{ Cue = "/VO/ErisField_0038", Text = "Excuse me?" },
+	{ Cue = "/VO/ErisField_0039", Text = "Oh, no you {#Emph}don't!", PlayFirst = true },
+	{ Cue = "/VO/ErisField_0041", Text = "Hold up, babe." },
+	{ Cue = "/VO/Eris_0081", Text = "What's the matter?" },
+	{ Cue = "/VO/Eris_0082", Text = "{#Emph}Aw{#Prev}, what's wrong?" },
+	{ Cue = "/VO/ErisField_0040", Text = "{#Emph}Aw{#Prev}, c'mon.",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "O_Boss01" },
+			},
+		},
+	},
+}
+GlobalVoiceLines.ErisInvulnerableVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.25,
+	ObjectType = "NPC_Eris_01",
+	GameStateRequirements =
+	{
+		{
+			PathFromArgs = true,
+			Path = { "SourceProjectile", },
+			IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "ErisSpokeRecently", Time = 8 },
+	},
+
+	{ Cue = "/VO/ErisField_0043", Text = "Nu-{#Emph}uh!", PlayFirst = true },
+	{ Cue = "/VO/ErisField_0044", Text = "Not now." },
+	{ Cue = "/VO/ErisField_0045", Text = "Nice try!" },
+	{ Cue = "/VO/ErisField_0046", Text = "You wish!" },
+	{ Cue = "/VO/ErisField_0047", Text = "{#Emph}Cute!" },
+	{ Cue = "/VO/ErisField_0042", Text = "Maybe later?",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "Name" },
+				IsNone = { "O_Boss01" },
+			},
+		},
+	},
+}
+GlobalVoiceLines.ErisAttackVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.35,
+	SuccessiveChanceToPlay = 0.33,
+	ObjectType = "Eris",
+	Cooldowns =
+	{
+		{ Name = "ErisSpokeRecently", Time = 8 },
+	},
+
+	{ Cue = "/VO/ErisField_0058", Text = "Here!" },
+	{ Cue = "/VO/ErisField_0059", Text = "Run...!", PlayFirst = true },
+	{ Cue = "/VO/ErisField_0060", Text = "Got you!" },
+	{ Cue = "/VO/ErisField_0061", Text = "Now..." },
+	{ Cue = "/VO/ErisField_0062", Text = "Eat {#Emph}this!" },
+	{ Cue = "/VO/ErisField_0063", Text = "Now...!" },
+	{ Cue = "/VO/ErisField_0064", Text = "{#Emph}<Chuckle>" },
+	{ Cue = "/VO/ErisField_0065", Text = "{#Emph}Boom!" },
+	{ Cue = "/VO/ErisField_0066", Text = "Better {#Emph}hide!" },
+	{ Cue = "/VO/ErisField_0067", Text = "How's this?" },
+	{ Cue = "/VO/ErisField_0068", Text = "Want more?" },
+	{ Cue = "/VO/ErisField_0069", Text = "All mine." },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Eris )

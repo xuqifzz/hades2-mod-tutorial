@@ -5,6 +5,7 @@ WeaponSetData =
 		Requirements =
 		{
 			-- MaxPlayerDistance = 300,
+			MaxAttackers = 5,
 		},
 		AIData =
 		{
@@ -77,6 +78,50 @@ WeaponSetData =
 			PreAttackDuration = 0.2,
 			MoveWithinRange = false,
 			WaitForAngleTowardTarget = false,
+		},
+	},
+
+	WaterElementalFidget =
+	{
+		Requirements =
+		{
+			MinAttackers = 5,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackStop = true,
+			NoProjectile = true,
+			MoveWithinRange = false,
+
+			WaitForAngleTowardTarget = true,
+
+			PreAttackAnimation = "Enemy_WaterElemental_BurstPreFire",
+			FireAnimation = "Enemy_WaterElemental_BurstFire",
+			PostAttackAnimation = "Enemy_WaterElemental_BurstPostFire",
+
+			PreAttackSound = "/SFX/Enemy Sounds/WaterElemental/EmoteCharging",
+			PreAttackDuration = 0.92,
+			FireDuration = 0.63,
+			PostAttackDuration = 0.55,
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/WaterElemental/EmoteAttacking" },
+				{ Name = "/SFX/Player Sounds/ZagreusBloodshotFire" },
+			},
 		},
 	},
 

@@ -147,7 +147,7 @@ function CheckTriggerAllDamageEcho( ignoreUnit )
 	if not HeroHasTrait("EchoAllBoon") then
 		return
 	end
-	for _, enemy in pairs(ActiveEnemies) do
+	for _, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if not enemy.IsDead and not IsEmpty(enemy.ActiveEchoes) and enemy ~= ignoreUnit then
 			local echoData = GetFirstValue(enemy.ActiveEchoes)
 			local effectName = GetFirstKey(enemy.ActiveEchoes)
@@ -190,10 +190,10 @@ function DamageEchoTrigger( enemy, effectName, damageMultiplier, cooldown )
 end
 
 function ProcessDamageShare( victim, triggerArgs)
-	if victim.DamageShareAmount and HasEffectWithEffectGroup( victim, "DamageShare") and not triggerArgs.PureDamage and not IsEmpty(ActiveEnemies) and ( not victim.SkipModifiers or victim.BondAlwaysApplies) then
+	if victim.DamageShareAmount and HasEffectWithEffectGroup( victim, "DamageShare") and not triggerArgs.PureDamage and not IsEmpty(ActiveEnemies) and ( not victim.SkipModifiers or victim.TrainingTarget) then
 		local range = EffectData.DamageShareEffect.Range
 		local damageAmount = triggerArgs.DamageAmount * victim.DamageShareAmount		
-		for id, enemy in pairs( ActiveEnemies ) do
+		for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 			if enemy and victim and enemy ~= victim and not enemy.IsDead and IsEmpty( enemy.InvulnerableFlags )
 				and HasEffectWithEffectGroup( enemy, "DamageShare") and GetDistance({ Id = victim.ObjectId, DestinationId = enemy.ObjectId}) <= range then
 				CreateAnimationsBetween({ 
@@ -234,6 +234,9 @@ function HecatePolymorphApply( triggerArgs )
 		if MapState.BlinkDropTrail then	
 			TerminateBlinkTrail()
 		end
+		if SessionMapState.ThrowWeaponCharged then
+			ApplyDeferredThrowReversions( GetWeaponData( CurrentRun.Hero, "WeaponLobSpecial" ))
+		end
 		for weaponName, v in pairs( CurrentRun.Hero.Weapons ) do
 			local weaponData = WeaponData[weaponName]
 			if weaponData ~= nil and weaponData.SwapAnimations ~= nil then
@@ -247,6 +250,7 @@ function HecatePolymorphApply( triggerArgs )
 		thread( PlayVoiceLines, GlobalVoiceLines.HecatePolymorphVoiceLines, true )
 		RunWeaponMethod({ Id = CurrentRun.Hero.ObjectId, Weapon = "WeaponLob", Method = "ArmProjectiles" })
 		EndSpellTransform()
+		EndAllControlSwaps({ DestinationId = CurrentRun.Hero.ObjectId })
 		HecatePolymorphEquipWeapons()
 		PolymorphApplyPresentation( triggerArgs, { BossPolymorph = true } )
 	else
@@ -275,6 +279,9 @@ function HecatePolymorphClear( triggerArgs )
 			thread( CallFunctionName, trait.CheckChargeFunctionName, CurrentRun.Hero )
 		end
 		SetupCostume()
+		if not IsEmpty(SessionMapState.ReadiedMassiveAttacks) then
+			AddReadiedMassiveAttackPresentation( GetFirstKey(SessionMapState.ReadiedMassiveAttacks) )
+		end
 	end
 end
 
@@ -352,6 +359,10 @@ function PolyphemusPlayerGrabApply( triggerArgs )
 	local victim = triggerArgs.Victim
 	victim.SkipDamageAnimation = true
 	MapState.HostilePolymorph = true
+	if SessionMapState.WaitUntilAutoSprintInput then
+		EndAutoSprint()
+		Halt({ Id = CurrentRun.Hero.ObjectId })
+	end
 	PolyphemusPlayerGrabApplyPresentation( triggerArgs, { } )
 end
 
@@ -443,7 +454,7 @@ function ClearCastApply( triggerArgs )
 		UpdateWeaponMana()
 		local effectData = EffectData[triggerArgs.EffectName]
 		local bonus = triggerArgs.Amount
-		if GetTotalHeroTraitValue("ClearCastDamageMultiplierOverride", {IsMultiplier = true}) then
+		if GetTotalHeroTraitValue("ClearCastDamageMultiplierOverride", {IsMultiplier = true}) ~= 1 then
 			bonus = GetTotalHeroTraitValue("ClearCastDamageMultiplierOverride", {IsMultiplier = true})
 		end
 		AddOutgoingDamageModifier( CurrentRun.Hero, 
@@ -481,6 +492,9 @@ function DamageShareApply( triggerArgs )
 	end
 end
 
+function DamageOverTimeApply( triggerArgs )
+end
+
 function DamageShareClear( triggerArgs )
 	local victim = triggerArgs.Victim
 	victim.DamageShareAmount = nil
@@ -502,6 +516,26 @@ function PlayerSprintPhasingClear( triggerArgs )
 		if triggerArgs.EffectName == "RushWeaponInvulnerable" and not CurrentRun.Hero.ActiveEffects.RushWeaponInvulnerableCharge then
 			ClearEffect({ Id = CurrentRun.Hero.ObjectId, Name = "DashInvulnerableTag"})
 			EndPlayerBlinkAlpha()
+		end
+	end
+end
+
+function LobShortInvulnerableApply( triggerArgs )
+	local victim = triggerArgs.Victim
+	
+	if not triggerArgs.Reapplied and victim == CurrentRun.Hero then
+		if IsEmpty(MapState.TransformArgs) then
+			SetThingProperty({ Property = "GrannyTexture", Value ="Models/Melinoe/MelinoeTransform_Color", DestinationId = CurrentRun.Hero.ObjectId })
+		end
+	end
+end
+
+function LobShortInvulnerableClear( triggerArgs )
+	local victim = triggerArgs.Victim
+	if victim == CurrentRun.Hero then
+		if IsEmpty(MapState.TransformArgs) then
+			SetThingProperty({ Property = "GrannyTexture", Value = "null", DestinationId = CurrentRun.Hero.ObjectId })
+			SetupCostume( MapState.HostilePolymorph )
 		end
 	end
 end
@@ -628,6 +662,16 @@ function BlinkTriggerLockClear( triggerArgs )
 	RemoveBlinkLockLayer( "Disable"..triggerArgs.EffectName )
 end
 
+function BlinkAndSpecialTriggerLockApply( triggerArgs )	
+	AddBlinkLockLayer( "Disable"..triggerArgs.EffectName )	
+	AddSpecialLockLayer( "WeaponLobSpecial", "Disable"..triggerArgs.EffectName )	
+end
+
+function BlinkAndSpecialTriggerLockClear( triggerArgs )
+	RemoveBlinkLockLayer( "Disable"..triggerArgs.EffectName )
+	RemoveSpecialLockLayer( "WeaponLobSpecial", "Disable"..triggerArgs.EffectName )
+end
+
 function LobDisableTriggerLockApply( triggerArgs )	
 	AddLobWeaponLockLayer( "Disable" )	
 end
@@ -638,7 +682,6 @@ function LobDisableTriggerLockClear( triggerArgs )
 	waitUnmodified(chargeTime * minCharge + 0.06 )
 	RemoveLobWeaponLockLayer( "Disable" )
 end
-
 function AddLobWeaponLockLayer( tag )
 	if not SessionMapState.LobLock[tag] then
 		SessionMapState.LobLock[tag] = true
@@ -691,6 +734,44 @@ function RemoveBlinkLockLayer( tag )
 	end
 end
 
+function SuitDashAttackLockApply( triggerArgs )	
+end
+
+function SuitDisableTriggerLockApply( triggerArgs )	
+	AddSuitWeaponLockLayer( "Disable" )	
+end
+
+
+function SuitDisableTriggerLockClear( triggerArgs )
+	RemoveSuitWeaponLockLayer( "Disable" )
+end
+
+function AddSuitWeaponLockLayer( tag )
+	if not SessionMapState.SuitLock[tag] then
+		SessionMapState.SuitLock[tag] = true
+	end
+	SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "LockTriggerForFireOnRelease", Value = true})
+	SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowMultiFireRequest", Value = true})
+	SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "CanCancelDisables", Value = true})
+end
+
+function RemoveSuitWeaponLockLayer( tag )
+	SessionMapState.SuitLock[tag] = nil
+	if IsEmpty(SessionMapState.SuitLock) then
+		SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "LockTriggerForFireOnRelease", Value = false})
+		SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "AllowMultiFireRequest", Value = false})
+		SetWeaponProperty({ WeaponName = "WeaponSuit", DestinationId = CurrentRun.Hero.ObjectId, Property = "CanCancelDisables", Value = false})	
+	end
+end
+
+function AxeSpecialBlockSelfTriggerLockApply( triggerArgs )
+	SetWeaponProperty({ WeaponName = "WeaponAxeSpecial", DestinationId = CurrentRun.Hero.ObjectId, Property = "IgnoreTriggerLockDuringCooldown", Value = true})	
+end
+
+function AxeSpecialBlockSelfTriggerLockClear( triggerArgs )
+	SetWeaponProperty({ WeaponName = "WeaponAxeSpecial", DestinationId = CurrentRun.Hero.ObjectId, Property = "IgnoreTriggerLockDuringCooldown", Value = false})
+end
+
 function BurnEffectApply( triggerArgs )
 	local victim = triggerArgs.Victim
 	local effectName = triggerArgs.EffectName
@@ -701,6 +782,13 @@ function BurnEffectApply( triggerArgs )
 	if not triggerArgs.Reapplied and effectData and effectData.InflictedVfx then
 		CreateAnimation({ Name = effectData.InflictedVfx, DestinationId = victim.ObjectId})
 	end
+	local burnMissChance = GetTotalHeroTraitValue("BurnMissChance")
+	if burnMissChance > 0 then
+		local dataProperties = EffectData.BurnBlind.DataProperties
+		dataProperties.Duration = 3600
+		dataProperties.MissChance = burnMissChance
+		ApplyEffect({ DestinationId = victim.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = "BurnBlind", DataProperties = dataProperties })
+	end
 	thread( HandleBurnTicks, triggerArgs  )
 end
 
@@ -708,6 +796,16 @@ function BurnEffectClear( triggerArgs )
 	local victim = triggerArgs.Victim
 	if victim and victim.UseBossHealthBar then
 		UpdateHealthBar( victim, 0, {Force = true})
+	end
+	ClearEffect({ Id = victim.ObjectId, Name = "BurnBlind" })
+end
+
+function ClearSuitAttackShield( triggerArgs )
+	local victim = triggerArgs.Victim
+	if victim == CurrentRun.Hero and SessionMapState.SuitBlockGraphic then
+		local weaponData = GetWeaponData( CurrentRun.Hero, "WeaponSuitCharged" )
+		StopAnimation({ Name = weaponData.BlockGraphic, DestinationId = victim.ObjectId })
+		SessionMapState.SuitBlockGraphic = nil
 	end
 end
 
@@ -781,6 +879,7 @@ function HandleBurnStacks( victim, args )
 		if expectedDelta > 0 then
 			if EnemyHealthDisplayAnchors[ victim.ObjectId .. effectData.DisplaySuffix ] then
 				ModifyTextBox({ Id = EnemyHealthDisplayAnchors[ victim.ObjectId .. effectData.DisplaySuffix ], Text = expectedStacks })
+				UpdateHealthBar(victim, 0, { Force = true })
 			end
 		end
 		lastStacks = expectedStacks
@@ -822,4 +921,22 @@ function EffectUninterruptibleClear( triggerArgs )
 	if victim and victim == CurrentRun.Hero then
 		SetPlayerInterruptible( triggerArgs.EffectName )
 	end
+end
+
+function MoonBeamVulnerabilityApply( triggerArgs )
+	local victim = triggerArgs.Victim
+	if not triggerArgs.Reapplied then
+		AddIncomingDamageModifier( victim, 
+		{
+			Name = triggerArgs.EffectName,
+			ExMultiplier = triggerArgs.Modifier + GetTotalHeroTraitValue("MoonBeamVulnerabilityBonus"),
+			WeaponNames = WeaponSets.HeroAllWeapons,
+			Temporary = true,
+		})
+	end
+end
+
+function MoonBeamVulnerabilityClear( triggerArgs )	
+	local victim = triggerArgs.Victim
+	RemoveIncomingDamageModifier( victim, triggerArgs.EffectName )
 end

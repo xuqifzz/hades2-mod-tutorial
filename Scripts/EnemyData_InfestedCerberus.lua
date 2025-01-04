@@ -29,7 +29,15 @@ UnitSetData.InfestedCerberus =
 		HealthBarTextId = "InfestedCerberus",
 		AltHealthBarTextIds =
 		{
-			{ TextId = "InfestedCerberus_Named", Requirements = { RequiredPlayed = { "/VO/MelinoeField_0934" } } },
+			{
+				TextId = "InfestedCerberus_Named",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0934" },
+					},
+				},
+			},
 		},
 
 		PreBossHealthBarSetupFunctionName = "InfestedCerberusSpawnPresentation",
@@ -139,7 +147,7 @@ UnitSetData.InfestedCerberus =
 						{ Cue = "/VO/MelinoeField_2123", Text = "You get out of here!" },
 						{ Cue = "/VO/MelinoeField_2124", Text = "Tormenting him are you?" },
 						{ Cue = "/VO/MelinoeField_2125", Text = "Infested with these things..." },
-						{ Cue = "/VO/MelinoeField_2126", Text = "All these daemons..." },
+						{ Cue = "/VO/MelinoeField_2126", Text = "All these Daemons..." },
 					},
 
 				},
@@ -212,12 +220,14 @@ UnitSetData.InfestedCerberus =
 			[1] =
 			{
 				PlayOnce = true,
+				PlayOnceContext = "CerberusFirstDefeatVO",
 				PreLineWait = 2.0,
 				UsePlayerSource = true,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 				{ Cue = "/VO/MelinoeField_0936", Text = "Where did he go...?", BreakIfPlayed = true },
 			},
-			[2] = GlobalVoiceLines.BarelySurvivedBossFightVoiceLines,
+			[2] = { GlobalVoiceLines = "BarelySurvivedBossFightVoiceLines" },
 			[3] =
 			{
 				BreakIfPlayed = true,
@@ -274,8 +284,8 @@ UnitSetData.InfestedCerberus =
 			CerberusBossOutro02 =
 			{
 				PlayOnce = true,
-				{ Cue = "/VO/Storyteller_0189", PreLineWait = 0.75, IsNarration = true, StartSound = "/VO/CerberusWhineHappy",
-					Text = "{#Emph}His rage dispelled, and his true form revealed, infernal watch-dog Cerberus regards the Underworld Princess with mixed emotions, from purest joy to deepest melancholy." },
+				{ Cue = "/VO/Storyteller_0299", PreLineWait = 0.75, IsNarration = true, StartSound = "/VO/CerberusWhineHappy",
+					Text = "{#Emph}His rage dispelled, and his true form revealed, infernal watch-dog Cerberus regards the Underworld Princess with but the faintest glint of recognition in his six terrible eyes." },
 				EndVoiceLines =
 				{
 					PreLineWait = 1.4,
@@ -341,7 +351,10 @@ UnitSetData.InfestedCerberus =
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				{ Cue = "/VO/Storyteller_0200", PreLineWait = 0.75, IsNarration = true, StartSound = "/VO/CerberusWhine",
 					Text = "{#Emph}The barely-breathing Princess of the Dead somehow manages to overcome the beast." },

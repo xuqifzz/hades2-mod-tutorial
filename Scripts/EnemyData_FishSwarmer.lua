@@ -23,7 +23,7 @@ UnitSetData.FishSwarmer =
 		AggroReactionTimeMax = 1.5,
 		PreSpawnAggroReactionTimeMin = 1.0,
 		PreSpawnAggroReactionTimeMax = 1.5,
-		
+
 		StunAnimations = 
 		{
 			Default = "Enemy_FishSwarmer_HitStun",
@@ -78,34 +78,23 @@ UnitSetData.FishSwarmer =
 		},
 		LeaderDeadAI = "AttackerAI",
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0095", Text = "Pinheads!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatG" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0094", Text = "Pinheads.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0095", Text = "Pinheads!" },
+			{ Cue = "/VO/MelinoeField_0094", Text = "Pinheads." },
+			{ Cue = "/VO/MelinoeField_0095", Text = "Pinheads!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0096", Text = "More Pinheads." },
 			{ Cue = "/VO/MelinoeField_0097", Text = "Pinheads there." },
 		},		
@@ -120,6 +109,8 @@ UnitSetData.FishSwarmer =
 		HealthBarType = "Medium",
 
 		IsAggroedSound = "/SFX/Enemy Sounds/FishSwarmer/EmoteAlerted",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
 
 		DefaultAIData =
 		{
@@ -183,11 +174,6 @@ UnitSetData.FishSwarmer =
 			--"FishSwarmer_Elite",
 			--"FishSwarmer_Elite",
 			--"FishSwarmer_Elite",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		GeneratorData =

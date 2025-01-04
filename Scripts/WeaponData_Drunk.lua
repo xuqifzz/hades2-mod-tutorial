@@ -211,6 +211,51 @@ WeaponSetData =
 			FireSelfVelocity = 1900,
 		},
 	},
+
+	DrunkBarrel =
+	{
+
+		Requirements = 
+		{
+			MaxConsecutiveUses = 1,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			NoProjectile = true,
+			
+			PreAttackStop = true,
+			MoveWithinRange = false,
+			
+			AttackDistance = 9999,
+
+			FireAnimation = "Enemy_Drunk_BarrelHide",
+			PostAttackAnimation = "Enemy_Drunk_Idle",
+			PreAttackDuration = 0,
+			FireDuration = 2.0,
+			PostAttackDuration = 0.5,
+
+			SkipSurroundAICount = true,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteAttackingStab" },
+				{ Name = "/SFX/Player Sounds/ZagreusSpearSwipe" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.17, Fraction = 1.00, LerpTime = 0 },
+		},
+	},
 }
 
 OverwriteTableKeys( WeaponData, WeaponSetData )

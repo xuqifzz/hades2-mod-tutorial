@@ -90,25 +90,6 @@ TraitSetData.Essence =
 			},
 		}
 	},
-	MinorHitShieldBoon = 
-	{
-		Icon = "Boon_Hermes_05",
-		SuppliesHitShields = true,
-		RemainingUses = 1,
-		HitShieldAnimation = "TempHitShield",
-		SetupFunction =
-		{
-			Name = "StartHitShield",
-			Args =
-			{
-				Vfx = "TempHitShield"
-			}
-		},
-		StatLines =
-		{
-			"CurrentHitShieldsStatDisplay1",
-		},
-	},
 	MinorArmorBoon = 
 	{
 		InheritFrom = { "CostumeTrait" },
@@ -133,10 +114,6 @@ TraitSetData.Essence =
 		},
 		ExtractValues =
 		{
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
 		}
 	},
 	ElementalEssence = 

@@ -92,7 +92,7 @@ function GardenPlotTimeUpdateStartPresentation( args )
 		PanCamera({ Ids = plotIds, Duration = args.PanDuration or 1.5, EaseIn = 0.05, EaseOut = 0.3, Retarget = true, FromCurrentLocation = true })
 	end
 
-	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
+	-- PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
 
 	wait( args.PanDuration or 1.5 )
 end

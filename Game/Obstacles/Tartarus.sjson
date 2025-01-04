@@ -3012,6 +3012,7 @@
     
     {
       Name = "TartarusWallBrick05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       CollisionBounce = 0.3
       CollisionBounceRequiredVelocity = 700.01
       CollisionReactionFx = "WallSlamCrumble"

@@ -321,6 +321,8 @@
 		RandomOffsetY = 80
 		OffsetZ = 100
 		Gravity = 400
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		CreateAnimations =
 		[
 			{ Name = "FieldsDustCloud_ShadeVacuum" }
@@ -1966,6 +1968,7 @@
 		AngleFromOwner = "Ignore"
 		UseAttachedFlasher = false
 		UseAttachedShake = false
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -2037,6 +2040,7 @@
 		OffsetZ = 100
 		Material = "Unlit"
 		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
 	}
 
 	{
@@ -2089,6 +2093,7 @@
 		VisualFxIntervalMax = 0.02
 		VisualFxIntervalMin = 0.01
 		OverlayVfx = true
+		ColorFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "LamiaLightningDark" }
@@ -2180,6 +2185,7 @@
 		StartFrame = 1
 		Scale = 2.0
 		Ambient = 0.0
+		ScaleFromOwner = "Ignore"
 		CreateAnimations =
 		[
 			{ Name = "LamiaLightningGroundLight" }
@@ -2208,6 +2214,7 @@
 		AngleFromOwner = "Ignore"
 		UseAttachedFlasher = false
 		UseAttachedShake = false
+		ScaleFromOwner = "Ignore"
 	}
 	
 	{
@@ -2256,6 +2263,7 @@
 		StartFrame = 1
 		PostRotateScaleY = 0.5
 		Scale = 1.5
+		ScaleFromOwner = "Ignore"
 	}
 
 
@@ -2588,7 +2596,7 @@
 
 	{ 
 		Name = "LamiaMinibossMiasmaProjectileGlow" 
-		FilePath = "Particles\particle_quickFlash"
+		FilePath = "Particles\particle_quickflash"
 		Red = 1
 		Green = 0
 		Blue = 0.1
@@ -2831,10 +2839,11 @@
 	{
 		Name = "VampireSweepBase"
 		FilePath = "Dev\blank_invisible"
-		
 		EndFrame = 1
 		NumFrames = 1
 		StartFrame = 1
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		CreateAnimations =
 		[
 			{ Name = "VampireSweep" }
@@ -5112,6 +5121,8 @@
 		VisualFx = "CerbFireballDetonateWorms"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.01
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		VisualFxCap = 36
 		OriginX = 500
 		OriginY = 260
@@ -5499,6 +5510,8 @@
 		VisualFx = "CerbFireballDetonateWorms"
 		VisualFxIntervalMin = 0.001
 		VisualFxIntervalMax = 0.001
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
 		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_HeadAttackEmerge"
 		VisualFxCap = 24
 		DieWithOwner = false
@@ -5631,6 +5644,7 @@
 		VisualFxManagerCap = 400
 		VisualFxManagerFrameCap = 16
 		VisualFxFrameCap = 10
+		Sound = "/SFX/Player Sounds/DionysusRadialPoof"
 	}
 	{
 		Name = "CerbMiasmaEyeballB"
@@ -7473,7 +7487,6 @@
 		ScaleY = 0.66
 		GroupName = "FX_Standing_Add"
 		TransferFrameToThis = true
-		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_FireballFire"
 	}
 
 	{
@@ -7498,6 +7511,7 @@
 		StartScaleX = 2
 		EndScaleX = 1
 		TransferFrameFromThis = true
+		Sound = "/SFX/Enemy Sounds/Megaera/MegaeraFlameBurst"
 		CreateAnimations =
 		[
 			{ Name = "CerbFireballBreathDark" }
@@ -8132,5 +8146,485 @@
 		AngleMin = -10
 		AngleMax = -9
 	}
+	{
+		Name = "CerberusTeleportCloud"
+		FilePath = "Fx\ShadeTeleportCloudStraight\ShadeTeleportCloudStraight"
+		
+		Angle = 90.0
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 12
+		NumFrames = 12
+		PlaySpeed = 50.0
+		StartFrame = 1
+		FlipHorizontal = true
+		OffsetZ = 30.0
+		OriginX = 160.0
+		OriginY = 68.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		IsometricSkew = "Y"
+		ScaleFromOwner = "Ignore"
+		ScaleX = 1.5
+		Ambient = 0.0
+		UseVelocityAngleFromOwner = true
+		Sound = "/SFX/Enemy Sounds/CorruptedCerberus/Cerberus_TransformPoof"
+	}
+
+	{
+		Name = "ThornTreeIdle"
+		FilePath = "Tilesets\Fields\Fields_TreeofThorns_Idle"
+		AngleFromOwner = "Ignore"
+		Scale = 0.25
+		OffsetY = -125
+		ChildAnimation = "ThornTreeIdleGlint"
+		Duration = 1
+		Loop = true
+		StartScale = 1
+		EndScale = 1.0001
+		PingPongScale = true
+	}
+
+	{
+		Name = "ThornTreeIdleGlint"
+		FilePath = "Fx\FieldsTreeofThornsGlint\FieldsTreeofThornsGlint"
+		NumFrames = 20
+		Material = "Unlit"
+		Loop = true
+		AngleFromOwner = "Ignore"
+		OffsetY = -125
+		Slides =
+		[
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 90 }
+		]
+	}
+
+	{
+		Name = "ThornTreeHitAnim"
+		FilePath = "Fx\FieldsTreeofThornsHit\FieldsTreeofThornsHit"
+		NumFrames = 25
+		PlaySpeed = 40
+		ChainTo = "ThornTreeIdle"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -125
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.99
+		EaseOut = 1.00
+		Sound = "/SFX/Enemy Sounds/Heartless/HeartBeatSquishy"
+		AllowRestart = true
+	}
+
+	{
+		Name = "ThornTreeDamaged"
+		InheritFrom = "ThornTreeIdle"
+		ChildAnimation = null
+		FilePath = "Tilesets\Fields\Fields_TreeofThorns_Damaged"
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanRangedAttackFire"
+	}
+
+	{
+		Name = "ThornTreeDestroyed"
+		FilePath = "Fx\FieldsTreeofThornsExplode\FieldsTreeofThornsExplode"
+		ChildAnimation = null
+		NumFrames = 38
+		PlaySpeed = 40
+		ChainTo = "ThornTreeDestroyedStatic"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -125
+		Sound = "/SFX/Enemy Sounds/Mudman/MudmanMeleeAttackFire"
+	}
+
+	{
+		Name = "ThornTreeDestroyedStatic"
+		InheritFrom = "ThornTreeIdle"
+		ChildAnimation = null
+		FilePath = "Tilesets\Fields\Fields_TreeofThorns_Destroyed"
+		OffsetY = -125
+	}
+
+	{
+		Name = "ThornTreeProjectile"
+		FilePath = "Fx\TreantProjectile\TreantProjectile"
+		NumFrames = 15
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Material = "Unlit"
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		Scale = 1.2
+		ScaleX = 1.5
+		LocationZFromOwner = "Take"
+		VisualFx = "ThornTreeProjectileTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 50
+		Loop = true
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.3
+		StartBlue = 0.1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		RandomOffsetY = 50
+		OffsetZ = 100
+	}
+
+	{
+		Name = "ThornTreeProjectileTrail"
+		FilePath = "Particles\particle_streak"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Scale = 1.0
+		ScaleX = 0.8
+		StartScaleY = 1.5
+		EndScaleY = 0
+		RandomDurationMin = 0.1
+		RandomDurationMax = 0.4
+		RandomFlipHorizontal = true
+		AddColor = true
+		StartRed = 0.5
+		StartGreen = 0.1
+		StartBlue = 0.01
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		GroupName = "Standing"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+	}
+
+	{
+		Name = "MiasmaGeyserInactive"
+		FilePath = "Fx\FieldsHeartPoolInactiveTransition\FieldsHeartPoolInactiveTransition"
+		EndFrame = 10
+		NumFrames = 10
+		StartFrame = 1
+		Ambient = 0.0
+		HoldLastFrame = false
+		ChainTo = "MiasmaGeyserInactiveLoop"
+		Slides =
+		[
+			{ DurationFrames = 30 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "MiasmaGeyserInactiveLoop"
+		FilePath = "Fx\FieldsHeartPoolInactiveIdle\FieldsHeartPoolInactiveIdle"
+		NumFrames = 40
+		PlaySpeed = 30
+		Loop = true
+		Ambient = 0.0
+	}
+
+	{
+		Name = "MiasmaGeyserIdleTransition"
+		InheritFrom = "MiasmaGeyserInactive"
+		PlayBackwards = true
+		ClearSlides = true
+		PlaySpeed = 30
+		HoldLastFrame = false
+		ChainTo = "MiasmaGeyserIdle"
+	}
+	
+	{
+		Name = "MiasmaGeyserIdle"
+		FilePath = "Fx\FieldsHeartPoolIdle\FieldsHeartPoolIdle"
+		EndFrame = 40
+		NumFrames = 40
+		StartFrame = 1
+		Loop = true
+		PlaySpeed = 30
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "MiasmaGeyserPreFire"
+		FilePath = "Fx\FieldsHeartPoolPreFire\FieldsHeartPoolPreFire"
+		PlaySpeed = 30
+		EndFrame = 22
+		NumFrames = 22
+		HoldLastFrame = true
+		StartFrame = 1
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Sound = "/SFX/ArcherTrapPreAttackSound"
+		StopSoundOnFinishFade = 0.2
+	}
+	
+	{
+		Name = "MiasmaGeyserFire"
+		InheritFrom = "MiasmaGeyserPreFire"
+		EndFrame = 30
+		NumFrames = 8
+		StartFrame = 23
+		Ambient = 0.0
+	}
+
+	{
+		Name = "FieldsMiasmaLobProjectile"
+		FilePath = "Fx\FieldsMiasmaLobProjectile\FieldsMiasmaLobProjectile"
+		NumFrames = 30
+		PlaySpeed = 30
+		RandomFlipHorizontal = true
+		Loop = true
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		Scale = 1.5
+		Material = "Unlit"
+		VisualFx = "FieldsMiasmaLobProjectileTrail"
+		VisualFxDistanceMin = 20
+		VisualFxDistanceMax = 20
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+	}
+
+	{
+		Name = "FieldsMiasmaLobProjectileTrail"
+		InheritFrom = "FieldsMiasmaLobProjectile"
+		AngleFromOwner = "Take"
+		GroupName = "FX_Standing_Top"
+		AngleMax = 0.0
+		AngleMin = 360.0
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleMax = 0.9
+		ScaleMin = 0.6
+		Ambient = 0.0
+		StartAlpha = 0.66
+		EndAlpha = 0
+		VisualFx = null
+		Loop = false
+		Saturation = -0.1
+		Hue = 0.03
+	}
+
+	{
+		Name = "FieldsMiasmaCloud"
+		FilePath = "Fx\FieldsMiasmaCloud\FieldsMiasmaCloud"
+		NumFrames = 70
+		PlaySpeed = 30
+		ReRandomizeOnLoop = false
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		TransferFrameFromThis = true
+		Loop = true
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 60
+		Scale = 1.33
+		SortMode = "Isometric"
+		ChainTo = "FieldsMiasmaCloudFade"
+		VisualFx = "FieldsMiasmaCloudTrail"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 50
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		VisualFxFrameCap = 10
+		Value = 0.05
+		Sound = "/Leftovers/Ambience/StatueAmbienceLoop"
+		StopSoundOnFinishFade = 0.2
+		CreateAnimations =
+		[
+			{ Name = "FieldsMiasmaCloudShadow" }
+			{ Name = "FieldsMiasmaCloudImpact" }
+		]
+	}
+
+	{
+		Name = "FieldsMiasmaCloudTrail"
+		InheritFrom = "FieldsMiasmaCloud"
+		VisualFx = null
+		Sound = null
+		ClearCreateAnimations = true
+		Loop = false
+		TransferFrameToThis = true
+		PlaySpeed = 10
+		StartAlpha = 0
+		EndAlpha = 0.3
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.4
+		EndBlue = 0.2
+		PingPongColor = true
+		LoopFramesOnly = true
+		Duration = 2
+		ChainTo = null
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+	}
+
+	{
+		Name = "FieldsMiasmaCloudImpact"
+		InheritFrom = "FieldsMiasmaCloud"
+		ColorFromOwner = "Ignore"
+		Sound = null
+		Loop = false
+		PlaySpeed = 120
+		ScaleRadius = 0
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		Scale = 2
+		ClearCreateAnimations = true
+		ChainTo = null
+		CreateAnimations =
+		[
+			{ Name = "FieldsMiasmaCloudImpact2" }
+			{ Name = "FieldsMiasmaCloudImpact3" }
+			{ Name = "FieldsMiasmaCloudImpact4" }
+		]
+	}
+
+	{
+		Name = "GhostWallImpactPuff"
+		InheritFrom = "FieldsMiasmaCloudImpact"
+		ClearCreateAnimations = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		CreateAnimations =
+		[
+			// { Name = "FieldsMiasmaCloudImpact2" }
+			{ Name = "FieldsMiasmaCloudImpact3" }
+			{ Name = "FieldsMiasmaCloudImpact4" }
+		]
+	}
+
+	{ 
+		Name = "FieldsMiasmaCloudImpact3" 
+		FilePath = "Fx\FieldsDustPuffFront\FieldsDustPuffFront"
+		NumFrames = 40
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Scale = 2.5
+		Red = 1
+		Green = 0.4
+		Blue = 0.4
+		Alpha = 0.5
+		OffsetZ = 100
+		PlaySpeed = 30
+	}
+	{ 
+		Name = "FieldsMiasmaCloudImpact4" 
+		InheritFrom = "FieldsMiasmaCloudImpact3"
+		FilePath = "Fx\FieldsDustPuffBack\FieldsDustPuffBack"
+		DrawBehindOwner = true
+		GroupName = "FX_Dark"
+	}
+
+
+	{
+		Name = "FieldsMiasmaCloudImpact2"
+		InheritFrom = "FieldsMiasmaCloudImpact"
+		ClearCreateAnimations = true
+		ScaleY = 3
+		ScaleX = 0.2
+		PlaySpeed = 120
+		OriginX = 240
+		OriginY = 280
+	}
+
+	{
+		Name = "FieldsMiasmaCloudShadow"
+		InheritFrom = "FieldsMiasmaCloud"
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		GroupName = "Shadows"
+		Red = 0.2
+		Green = 0.05
+		Blue = 0.02
+		ScaleY = 0.5
+		Alpha = 0.5
+		FlipVertical = true
+		OffsetY = 80
+		VisualFx = null
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ChainTo = "FieldsMiasmaCloudShadowFade"
+	}
+
+	{
+		Name = "FieldsMiasmaCloudFade"
+		InheritFrom = "FieldsMiasmaCloud"
+		ClearCreateAnimations = true
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+		ChainTo = null
+	}
+
+	{
+		Name = "FieldsMiasmaCloudShadowFade"
+		InheritFrom = "FieldsMiasmaCloudFade"
+		GroupName = "FX_Terrain"
+		Red = 0
+		Green = 0
+		Blue = 0
+		ScaleY = 0.5
+		Alpha = 0.75
+	}
+
+
 
 ]}

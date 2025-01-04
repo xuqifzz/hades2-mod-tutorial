@@ -46,6 +46,7 @@ ScreenData.WeaponUpgradeScreen =
 		WeaponTorch = "TorchSpecialDurationAspect",
 		WeaponAxe = "AxeRecoveryAspect",
 		WeaponLob = "LobAmmoBoostAspect",
+		WeaponSuit = "BaseSuitAspect",
 	},
 
 	DisplayOrder =
@@ -80,6 +81,12 @@ ScreenData.WeaponUpgradeScreen =
 			"LobCloseAttackAspect",
 			"LobImpulseAspect",
 		},
+		WeaponSuit = 
+		{
+			"BaseSuitAspect",
+			"SuitHexAspect",
+			"SuitMarkCritAspect",
+		}
 	},
 
 	DefaultGroup = "Combat_Menu",
@@ -147,6 +154,7 @@ ScreenData.WeaponUpgradeScreen =
 			},
 		}
 	},
+
 	ComponentData =
 	{
 		DefaultGroup = "Combat_Menu",
@@ -156,6 +164,7 @@ ScreenData.WeaponUpgradeScreen =
 		{
 			"BackgroundDim",
 			"Background",
+			"ActionBarBackground",
 			"WeaponImage",
 			"StatsBox",
 		},
@@ -185,7 +194,7 @@ ScreenData.WeaponUpgradeScreen =
 						Font = "P22UndergroundSCMedium",
 						FontSize = 25,
 						OffsetX = -747,
-						OffsetY = 131,
+						OffsetY = 120,
 						Justification = "Center",
 						Color = Color.White,
 						ShadowBlur = 0,
@@ -203,7 +212,7 @@ ScreenData.WeaponUpgradeScreen =
 						FontSize = 17,
 						Width = 620,
 						OffsetX = -747,
-						OffsetY = 167,
+						OffsetY = 152,
 						Justification = "Center",
 						Color = {1, 1, 1, 0.6},						
 						ShadowBlur = 0,
@@ -228,13 +237,13 @@ ScreenData.WeaponUpgradeScreen =
 			ScaleX = 0.9,
 			ScaleY = 0.96,
 			X = 215,
-			Y = 797,
+			Y = 808,
 		},
 
 		KillsLabel =		
 		{
 			X = 44,
-			Y = 800,
+			Y = 775,
 			Text = "WeaponUpgradeScreen_Kills",
 			TextArgs =
 			{
@@ -249,7 +258,7 @@ ScreenData.WeaponUpgradeScreen =
 		KillsValue =
 		{
 			X = 380,
-			Y = 800,
+			Y = 775,
 			TextArgs =
 			{
 				Color = {1.000, 0.910, 0.510, 1.0},
@@ -264,7 +273,7 @@ ScreenData.WeaponUpgradeScreen =
 		ClearsLabel =
 		{
 			X = 44,
-			Y = 840,
+			Y = 805,
 			Text = "WeaponUpgradeScreen_Clears",
 			TextArgs =
 			{
@@ -279,7 +288,7 @@ ScreenData.WeaponUpgradeScreen =
 		ClearsValue =
 		{
 			X = 380,
-			Y = 840,
+			Y = 805,
 			TextArgs =
 			{
 				Color = {1.000, 0.910, 0.510, 1.0},
@@ -291,11 +300,11 @@ ScreenData.WeaponUpgradeScreen =
 			},
 		},
 
-		ClearTimeRecordLabel =
+		UnderworldClearTimeRecordLabel =
 		{
 			X = 44,
-			Y = 880,
-			Text = "WeaponUpgradeScreen_ClearTimeRecord",
+			Y = 845,
+			Text = "WeaponUpgradeScreen_ClearTimeRecord_Underworld",
 			TextArgs =
 			{
 				Font = "LatoMedium",
@@ -304,12 +313,13 @@ ScreenData.WeaponUpgradeScreen =
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 				OutlineThickness = 2, OutlineColor = {0,0,0,1},
 				Justification = "Left",
+				TextSymbolScale = 0.8,
 			},
 		},
-		ClearTimeRecordValue =
+		UnderworldClearTimeRecordValue =
 		{
 			X = 380,
-			Y = 880,
+			Y = 845,
 			TextArgs =
 			{
 				Color = {1.000, 0.910, 0.510, 1.0},
@@ -321,11 +331,11 @@ ScreenData.WeaponUpgradeScreen =
 			},
 		},
 
-		ShrinePointRecordLabel =
+		UnderworldShrinePointRecordLabel =
 		{
 			X = 44,
-			Y = 920,
-			Text = "WeaponUpgradeScreen_ShrinePointRecord",
+			Y = 875,
+			Text = "WeaponUpgradeScreen_ShrinePointRecord_Underworld",
 			TextArgs =
 			{
 				Font = "LatoMedium",
@@ -334,12 +344,75 @@ ScreenData.WeaponUpgradeScreen =
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 				OutlineThickness = 2, OutlineColor = {0,0,0,1},
 				Justification = "Left",
+				TextSymbolScale = 0.8,
 			},
 		},
-		ShrinePointRecordValue =
+		UnderworldShrinePointRecordValue =
 		{
 			X = 380,
-			Y = 920,
+			Y = 875,
+			TextArgs =
+			{
+				Color = {1.000, 0.910, 0.510, 1.0},
+				FontSize = 21,
+				Font = "NumericP22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+				OutlineThickness = 2, OutlineColor = {0,0,0,1},
+				Justification = "Right",
+			},
+		},
+
+		SurfaceClearTimeRecordLabel =
+		{
+			X = 44,
+			Y = 915,
+			Text = "WeaponUpgradeScreen_ClearTimeRecord_Surface",
+			TextArgs =
+			{
+				Font = "LatoMedium",
+				FontSize = 17,
+				Color = {241,241,241,255},
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+				OutlineThickness = 2, OutlineColor = {0,0,0,1},
+				Justification = "Left",
+				TextSymbolScale = 0.8,
+			},
+		},
+		SurfaceClearTimeRecordValue =
+		{
+			X = 380,
+			Y = 915,
+			TextArgs =
+			{
+				Color = {1.000, 0.910, 0.510, 1.0},
+				FontSize = 21,
+				Font = "NumericP22UndergroundSCMedium",
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+				OutlineThickness = 2, OutlineColor = {0,0,0,1},
+				Justification = "Right",
+			},
+		},
+
+		SurfaceShrinePointRecordLabel =
+		{
+			X = 44,
+			Y = 945,
+			Text = "WeaponUpgradeScreen_ShrinePointRecord_Surface",
+			TextArgs =
+			{
+				Font = "LatoMedium",
+				FontSize = 17,
+				Color = {241,241,241,255},
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
+				OutlineThickness = 2, OutlineColor = {0,0,0,1},
+				Justification = "Left",
+				TextSymbolScale = 0.8,
+			},
+		},
+		SurfaceShrinePointRecordValue =
+		{
+			X = 380,
+			Y = 945,
 			TextArgs =
 			{
 				Color = {1.000, 0.910, 0.510, 1.0},
@@ -355,13 +428,15 @@ ScreenData.WeaponUpgradeScreen =
 		{
 			AnimationName = "GUI\\ActionBar",
 			X = ScreenCenterX,
-			Y = 984,
+			BottomOffset = UIData.ActionBarBottomOffset,
+			UseScreenScaleX = true,
 		},
 
 		ActionBar =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 

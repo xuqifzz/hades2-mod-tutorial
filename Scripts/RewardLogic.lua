@@ -50,7 +50,7 @@ function IsRoomRewardEligible( run, room, reward, previouslyChosenRewards, args 
 		return false
 	end
 
-	if (not args.IgnoreGameStateRequirements or not reward.AllowSkipRequirements) and not IsGameStateEligible( run, reward, reward.GameStateRequirements ) then
+	if (not args.IgnoreGameStateRequirements or not reward.AllowSkipRequirements) and ( reward.GameStateRequirements ~= nil and not IsGameStateEligible( reward, reward.GameStateRequirements ) ) then
 		return false
 	end
 
@@ -69,7 +69,11 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		if CurrentRun.ActiveBounty ~= nil then
 			local bountyData = BountyData[CurrentRun.ActiveBounty]
 			if bountyData ~= nil and Contains( room.LegalEncounters, bountyData.Encounter ) then
-				return bountyData.ForcedReward
+				if GameState.BountiesCompleted[bountyData.Name] then
+					return bountyData.ForcedRewardRepeat
+				else
+					return bountyData.ForcedReward
+				end
 			end
 		end
 
@@ -106,7 +110,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		end
 
 		if room.ChooseRewardRequirements ~= nil then
-			if not IsGameStateEligible( run, room, room.ChooseRewardRequirements ) then
+			if not IsGameStateEligible( room, room.ChooseRewardRequirements ) then
 				return nil
 			end
 		end
@@ -114,7 +118,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		local forcedRewards = args.ForcedRewards or room.ForcedRewards
 		if forcedRewards ~= nil then
 			for k, forcedReward in pairs( forcedRewards ) do
-				if IsGameStateEligible( run, forcedReward, forcedReward.GameStateRequirements ) then
+				if forcedReward.GameStateRequirements == nil or IsGameStateEligible( forcedReward, forcedReward.GameStateRequirements ) then
 					room.ForceLootName = forcedReward.LootName
 					room.ForcedReward = forcedReward
 					room.Reward = room.ForcedReward
@@ -127,7 +131,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 
 	RandomSynchronize( 4 + run.NumRerolls )
 	local eligibleRewardKeys = {}
-	for key, reward in pairs( run.RewardStores[rewardStoreName] ) do
+	for key, reward in ipairs( run.RewardStores[rewardStoreName] ) do
 		if IsRoomRewardEligible( CurrentRun, room, reward, previouslyChosenRewards, args ) then
 			table.insert( eligibleRewardKeys, key )
 		end
@@ -164,8 +168,7 @@ function ChooseRoomReward( run, room, rewardStoreName, previouslyChosenRewards, 
 		rewardKey = GetRandomValue( eligibleRewardKeys )
 	end
 	local reward = run.RewardStores[rewardStoreName][rewardKey]
-	run.RewardStores[rewardStoreName][rewardKey] = nil
-	CollapseTable( run.RewardStores[rewardStoreName] )
+	RemoveIndexAndCollapse( run.RewardStores[rewardStoreName], rewardKey )
 	room.Reward = reward -- Transition to using the full reward directly rather than its data in piecemeal
 	room.ForceLootName = reward.ForceLootName or room.ForceLootName
 	room.RewardOverrides = reward.Overrides
@@ -185,7 +188,7 @@ function GetEligibleLootNames( excludeLootNames )
 	local output = {}
 	for i, lootName in pairs( eligibleLootNames ) do
 		local lootData = LootData[lootName]
-		if lootData and not lootData.DebugOnly and lootData.GodLoot and IsGameStateEligible( CurrentRun, lootData, lootData.GameStateRequirements ) then
+		if lootData and not lootData.DebugOnly and lootData.GodLoot and IsGameStateEligible( lootData, lootData.GameStateRequirements ) then
 			table.insert( output, lootName )
 		end
 	end
@@ -344,12 +347,14 @@ function SpawnRoomReward( eventSource, args )
 	elseif rewardType == "HermesUpgrade" then
 		reward = CheckBoonSkipShrineUpgrade( eventSource, { LootPointId = lootPointId, LootOffset = lootOffset } )
 		if reward == nil then
-			reward = GiveLoot({ ForceLootName = "HermesUpgrade", SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y, SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds })
+			reward = GiveLoot({ ForceLootName = "HermesUpgrade", SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y,
+				SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds, AutoLoadPackages = args.AutoLoadPackages })
 		end
 	elseif rewardType == "Boon" then
 		reward = CheckBoonSkipShrineUpgrade( eventSource, { LootPointId = lootPointId, LootOffset = lootOffset } )
 		if reward == nil then
-			reward = GiveLoot({ ForceLootName = args.LootName or currentRoom.ForceLootName, SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y, SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds })
+			reward = GiveLoot({ ForceLootName = args.LootName or currentRoom.ForceLootName, SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y,
+				SuppressSpawnSounds = currentRoom.SuppressRewardSpawnSounds, AutoLoadPackages = args.AutoLoadPackages })
 			if currentRoom.ForcedReward ~= nil then
 				if currentRoom.ForcedReward.ForcedTextLines ~= nil then
 					ProcessTextLines( currentRoom.ForcedReward, currentRoom.ForcedReward.ForcedTextLines )
@@ -373,18 +378,23 @@ function SpawnRoomReward( eventSource, args )
 			end
 		end
 	elseif rewardType == "TrialUpgrade" then
-		reward = GiveLoot({ ForceLootName = "TrialUpgrade", SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y })
+		reward = GiveLoot({ ForceLootName = "TrialUpgrade", SpawnPoint = lootPointId,
+			OffsetX = lootOffset.X, OffsetY = lootOffset.Y, AutoLoadPackages = args.AutoLoadPackages })
 	elseif rewardType == "Devotion" then
-		reward = GiveLoot({ ForceLootName = currentEncounter.SpurnedGodName, ExchangeOnlyFromLootName = currentEncounter.ChosenGodName, SpawnPoint = lootPointId, OffsetX = lootOffset.X, OffsetY = lootOffset.Y })
+		reward = GiveLoot({ ForceLootName = currentEncounter.SpurnedGodName, ExchangeOnlyFromLootName = currentEncounter.ChosenGodName, SpawnPoint = lootPointId,
+			OffsetX = lootOffset.X, OffsetY = lootOffset.Y, AutoLoadPackages = args.AutoLoadPackages })
 		reward.CanReceiveGift = false
 	else
 		local consumableId = SpawnObstacle({ Name = rewardType, DestinationId = lootPointId, Group = "Standing", OffsetX = lootOffset.X, OffsetY = lootOffset.Y })
-		reward = CreateConsumableItem( consumableId, rewardType, 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds, RunProgressUpgradeEligible = true } )
+		reward = CreateConsumableItem( consumableId, rewardType, 0, { IgnoreSounds = currentRoom.SuppressRewardSpawnSounds, RunProgressUpgradeEligible = true, AutoLoadPackages = args.AutoLoadPackages, IgnoreAssert = args.IgnoreAssert } )
 		if reward ~= nil then
 			reward.IgnorePurchase = true
+			reward.PurchaseRequirements = nil
 			reward.LootName = args.LootName
 			ApplyConsumableItemResourceMultiplier( currentRoom, reward )
-			ExtractValues( CurrentRun.Hero, reward, reward )
+			if reward.ExtractValues ~= nil then
+				ExtractValues( CurrentRun.Hero, reward, reward )
+			end
 			if not args.NotRequiredPickup then
 				MapState.RoomRequiredObjects[consumableId] = reward
 			end
@@ -400,9 +410,6 @@ function SpawnRoomReward( eventSource, args )
 
 	MapState.RewardPointsUsed[lootPointId] = reward.ObjectId
 
-	if UseTrait(CurrentRun.Hero, "OnionCurse") then
-		reward.OnUsedFunctionName = "OnionTransformation"
-	end
 	RoomRewardSpawnPresentation( reward, args )
 	currentRun.BiomeRewardsSpawned = (currentRun.BiomeRewardsSpawned or 0) + 1
 

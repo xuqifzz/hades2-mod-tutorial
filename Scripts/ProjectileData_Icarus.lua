@@ -26,6 +26,6 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		SelfMultiplier = 0,
 		SelfDamage = true,
-		ReticleAnimation = "LobWarningDecalIris",
+		ReticleAnimation = "LobWarningDecalIcarus",
 	},
 })

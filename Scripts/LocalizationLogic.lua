@@ -3,6 +3,9 @@ function ValueBetweenIncl(value, a, b)
 end
 
 function GetLocalizedValue(default, tbl)
+	if tbl == nil then
+		return default
+	end
 	local lang = GetLanguage({})
 
 	for i, item in pairs(tbl) do
@@ -17,6 +20,16 @@ function GetLocalizedValue(default, tbl)
 	end
 
 	return default
+end
+
+function ApplyLocalizedProperties( tbl )
+	for k, v in pairs( tbl ) do
+		if tbl["Lang"..k] ~= nil then
+			local val = GetLocalizedValue( v, tbl["Lang"..k] )
+			tbl[k] = val
+		end
+	end
+	return tbl
 end
 
 function GetPluralizedForm( text, value )

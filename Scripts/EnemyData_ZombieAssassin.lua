@@ -20,7 +20,7 @@ UnitSetData.Zombie =
 		ActivateFadeInDelay = 0.0,
 		ActivateFadeInDuration = 1.0,
 		ActivateDuration = 1.50,
-		
+
 		DamagedFxStyles =
 		{
 			Default = "HitSparkEnemyDamagedUndead",
@@ -51,6 +51,16 @@ UnitSetData.Zombie =
 		},
 		
 		HeraclesCombatMoneyValue = 2,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.100,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
 
 		WeaponOptions =
 		{
@@ -74,21 +84,6 @@ UnitSetData.Zombie =
 			BlockEnemyTypes = {"ZombieAssassin_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
-				},
-			},
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0460", Text = "Cutthroats!", PlayFirst = true },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
@@ -96,21 +91,18 @@ UnitSetData.Zombie =
 			GameStateRequirements = 
 			{
 				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
-				{
 					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
 				},
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0459", Text = "Cutthroats.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0460", Text = "Cutthroats!" },
+			{ Cue = "/VO/MelinoeField_0459", Text = "Cutthroats." },
+			{ Cue = "/VO/MelinoeField_0460", Text = "Cutthroats!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0461", Text = "More Cutthroats." },
 			{ Cue = "/VO/MelinoeField_0462", Text = "More Cutthroats...!" },
 		},
@@ -122,6 +114,8 @@ UnitSetData.Zombie =
 		HealthBuffer = 230,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Assassin/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
 
 		GameStateRequirements =
 		{

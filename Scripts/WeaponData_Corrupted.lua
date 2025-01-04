@@ -287,6 +287,9 @@ WeaponSetData =
 			DoNotRepeatOnAttackFail = true,
 			MoveWithinRangeTimeout = 4.0,
 			SkipAttackAfterMoveTimeout = true,
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },

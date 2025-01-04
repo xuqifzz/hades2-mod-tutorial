@@ -1,7 +1,8 @@
 ﻿function MetaUpgradeCardScreenOpenPresentation( screen )
 
-	if CanUpgradeCards() and not GameState.ScreensViewed.CardUpgradeInfoLayout then
-		thread( PlayVoiceLines, GlobalVoiceLines.UnlockedUpgradeModeVoiceLines, true )
+
+	if CanIncreaseMetaUpgradeCardLimit() then
+		thread( PlayVoiceLines, GlobalVoiceLines.OpenedCardScreenHighPsycheLines, true )
 	else
 		thread( PlayVoiceLines, GlobalVoiceLines.OpenedCardScreenVoiceLines, true )
 	end
@@ -52,8 +53,8 @@ end
 function MetaUpgradeCardMaxLevelPresentation( button )
 	CreateAnimation({ Name = "CardUpgradeMaxLevel", DestinationId = button.CardArtId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })
 	Flash({ Id = button.Id, Speed = 4, MinFraction = 0.5, MaxFraction = 0, Color = Color.Gold, Duration = 0.125, ExpireAfterCycle = true })
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo" })
-	thread( PlayVoiceLines, GlobalVoiceLines.ReachedMaxMemLimitVoiceLines, true )
+	PlaySound({ Name = "/SFX/Menu Sounds/MirrorCloseWithUpgrade", Id = button.Id })
+	-- thread( PlayVoiceLines, GlobalVoiceLines.ReachedMaxMemLimitVoiceLines, true )
 end
 
 function CannotAffordMetaUpgradeLimitPresentation( screen, button )
@@ -146,6 +147,7 @@ function DoMetaUpgradeCardReveal( screen, args )
 	if expandPsyche then
 		OpenGraspLimitScreen( screen )
 		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
+		MetaUpgradeCardScreenResetCursor( screen )
 	end
 end
 
@@ -234,13 +236,10 @@ function MetaUpgradeCardZoomPresentation( screen, revealCoords )
 				if newlyRevealed then 
 					SetAnimation({ Name = "DevBacking", DestinationId = card.CardArtId, Scale = screen.DefaultArtScale })
 					DestroyTextBox({ Id = card.Id })
-						SetHSV({ Id = card.CardArtId, HSV = {0, 0, 0}, ValueChangeType = "Absolute" })
-			
+					SetHSV({ Id = card.CardArtId, HSV = {0, 0, 0}, ValueChangeType = "Absolute" })			
 				end
-				if row == screen.ZoomLevel or column == screen.ZoomLevel then
-				
+				if row == screen.ZoomLevel or column == screen.ZoomLevel then				
 					SetAnimation({ Name = "DevBacking", DestinationId = card.CardArtId, Scale = screen.DefaultArtScale })
-
 					SetAlpha({ Id = card.Id, Fraction = 1, Duration = 0.5 })
 					SetAlpha({ Id = card.CardArtId, Fraction = 1, Duration = 0.5 })
 					--SetAlpha({ Id = card.CardCornersId, Fraction = 1, Duration = 0.5 })
@@ -326,4 +325,43 @@ function PulseMetaUpgradeMemCostDisplay( screen, button )
 			end
 		end
 	end
+end
+
+function MetaUpgradeCardScreenMouseOverLayout( button )
+	local screen = button.Screen
+	SetScale({ Id = button.Id, Fraction = button.MouseOverScale, Duration = 0.05 })
+end
+
+function MetaUpgradeCardScreenMouseOffLayout( button )
+	local screen = button.Screen
+	SetScale({ Id = button.Id, Fraction = button.Scale, Duration = 0.05 })
+end
+
+function MetaUpgradeCardScreenUpdateLayoutSets( screen, button )
+	for i = 1, MetaUpgradeSaveLayoutData.MaximumMetaUpgradeLayouts do
+		local slotComponent = screen.Components["LayoutSet"..i]
+		if slotComponent ~= nil then
+			if GameState.CurrentMetaUpgradeLayout == i then
+				SetColor({ Id = slotComponent.Id, Color = Color.Yellow, Duration = 0.1 })
+			else
+				SetColor({ Id = slotComponent.Id, Color = Color.White, Duration = 0.1 })
+			end
+		end
+	end
+end
+
+function MetaUpgradeCardScreenLayoutChangeOut( screen, button )
+
+	-- FullScreenFadeOutAnimation()
+
+	local deckButton = screen.Components["LayoutSet"..GameState.CurrentMetaUpgradeLayout]
+	PlaySound({ Name = "/SFX/HadesPaperFinish", Id = screen.Components["LayoutSet3"].Id })
+	Flash({ Id = deckButton.Id, Speed = 3.0, MinFraction = 0.1, MaxFraction = 1.0, Color = Color.White, ExpireAfterCycle = true })
+
+end
+
+function MetaUpgradeCardScreenLayoutChangeIn( screen, button )
+
+	-- FullScreenFadeInAnimation()
+
 end

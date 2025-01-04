@@ -187,6 +187,8 @@ WeaponSetData =
 			FireAnimation = "Enemy_Scylla_AttackBeltInitialFire",
 			PostAttackAnimation = "Enemy_Scylla_AttackBeltReturnToIdle",
 
+			WeaponFireLoopingSound = "/SFX/Enemy Sounds/Scylla/ScyllaBeltScreamAttack",
+
 			ForceFirst = true,
 		},
 

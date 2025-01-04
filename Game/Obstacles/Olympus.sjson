@@ -1,0 +1,4542 @@
+{
+  Obstacles = [
+    {
+      Name = "OlympusOutdoorExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Ambient = 0.0
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusOutdoorExitDoorClosed"
+        SortMode = "Secondary"
+        StopsLight = false
+        StopsProjectiles = false
+        Interact = 
+        {
+          Distance = 180.0
+        }
+        Tallness = 1
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 126 Y = 20 }
+          { X = 125 Y = -37 }
+          { X = 44 Y = -64 }
+          { X = -64 Y = -62 }
+          { X = -127 Y = -22 }
+          { X = -125 Y = 27 }
+          { X = -53 Y = 67 }
+          { X = 43 Y = 67 }
+          { X = 95 Y = 46 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIndoorExitDoor"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusIndoorExitDoorLocked"
+        StopsLight = false
+        Interact = 
+        {
+          Distance = 170.0
+        }
+        Scale = 1.52
+        Tallness = 410
+        Offset = { X = 0 Y = -35 }
+        Points = [
+          { X = -106 Y = -23 }
+          { X = 65 Y = 63 }
+          { X = 110 Y = 39 }
+          { X = -60 Y = -46 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusTerrainSnow01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Snow_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+            {
+      Name = "OlympusTerrainSnow02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Snow_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+            {
+      Name = "OlympusTerrainBrick03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_03"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainGrass01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Grass_01"
+        Tallness = 117
+        Offset = { X = 0 Y = -36 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlowers01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flowers_01"
+        Tallness = 117
+        Offset = { X = 0 Y = -36 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlowers01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flowers_01a"
+        Tallness = 117
+        Offset = { X = 0 Y = -36 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_05"
+        Tallness = 119
+        Offset = { X = 0 Y = 16 }
+        Points = [
+          { X = -471 Y = 81 }
+          { X = -43 Y = 306 }
+          { X = 469 Y = 41 }
+          { X = 39 Y = -174 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick07"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_07"
+        Tallness = 232
+        Offset = { X = 0 Y = -42 }
+        Points = [
+          { X = -586 Y = 76 }
+          { X = -91 Y = 338 }
+          { X = 617 Y = 48 }
+          { X = 36 Y = -246 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_04"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainSnow01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Snow_01a"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainRocks01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Rocks_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainSnow01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Snow_01b"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusTerrainSnow01c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Snow_01c"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusTerrainBalcony_01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Balcony_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIsland01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Island_01"
+        Tallness = 117
+        Offset = { X = 0 Y = -392 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainSnowBorder01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_SnowBorder_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusSnowBorder01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_SnowBorder_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainGroup01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_TerrainGroup_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCloud01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Cloud_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusStars01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Stars_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainSnowBorder02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_SnowBorder_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusFencePost02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_FencePost_02"
+        Tallness = 712
+        Offset = { X = 0 Y = -264 }
+        Points = [
+          { X = -125 Y = 34 }
+          { X = -1 Y = 93 }
+          { X = 127 Y = 34 }
+          { X = 3 Y = -26 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusFence01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Fence_01"
+        Tallness = 560
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -427 Y = 186 }
+          { X = -327 Y = 234 }
+          { X = 434 Y = -137 }
+          { X = 318 Y = -189 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusFence02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Fence_02"
+        Tallness = 295
+        Offset = { X = 0 Y = -158 }
+        Points = [
+          { X = -322 Y = 70 }
+          { X = -185 Y = 140 }
+          { X = 294 Y = -92 }
+          { X = 145 Y = -169 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStructure01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Structure_01"
+        Tallness = 930
+        Offset = { X = 0 Y = -305 }
+        Points = [
+          { X = -275 Y = 0 }
+          { X = -150 Y = 94 }
+          { X = 22 Y = 112 }
+          { X = 237 Y = 65 }
+          { X = 273 Y = -63 }
+          { X = 135 Y = -224 }
+          { X = -220 Y = -197 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStructure02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Structure_02"
+        Tallness = 733
+        Offset = { X = 0 Y = -365 }
+        Points = [
+          { X = -135 Y = 70 }
+          { X = -63 Y = 108 }
+          { X = 289 Y = -59 }
+          { X = 189 Y = -100 }
+        ]
+      }
+    }
+
+                {
+      Name = "OlympusRocks01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Rocks_01"
+        Tallness = 168
+        Offset = { X = 0 Y = -78 }
+        Points = [
+          { X = -254 Y = 64 }
+          { X = -149 Y = 100 }
+          { X = 135 Y = 124 }
+          { X = 223 Y = 82 }
+          { X = 265 Y = -47 }
+          { X = 103 Y = -144 }
+          { X = -69 Y = -118 }
+          { X = -209 Y = -67 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIncenseBurner01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_IncenseBurner_01"
+        Tallness = 1184
+        Offset = { X = 0 Y = -462 }
+        Points = [
+          { X = -199 Y = 39 }
+          { X = 6 Y = 132 }
+          { X = 221 Y = 27 }
+          { X = 8 Y = -80 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusRocks02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Rocks_02"
+        Tallness = 191
+        Offset = { X = 0 Y = -78 }
+        Points = [
+          { X = -323 Y = 25 }
+          { X = -176 Y = 193 }
+          { X = 190 Y = 189 }
+          { X = 314 Y = 19 }
+          { X = 151 Y = -127 }
+          { X = -166 Y = -115 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusRocks03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Rocks_03"
+        Tallness = 109
+        Offset = { X = 0 Y = -42 }
+        Points = [
+          { X = -189 Y = 11 }
+          { X = -146 Y = 60 }
+          { X = -2 Y = 75 }
+          { X = 184 Y = 12 }
+          { X = 54 Y = -46 }
+          { X = -71 Y = -49 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusRocks04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Rocks_04"
+        Tallness = 362
+        Offset = { X = 0 Y = -218 }
+        Points = [
+          { X = -328 Y = -60 }
+          { X = -276 Y = 40 }
+          { X = -78 Y = 117 }
+          { X = 294 Y = 73 }
+          { X = 343 Y = -105 }
+          { X = 59 Y = -193 }
+          { X = -197 Y = -196 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCornice01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Cornice_01"
+        Tallness = 469
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -617 Y = 153 }
+          { X = -326 Y = 303 }
+          { X = 536 Y = -128 }
+          { X = 241 Y = -276 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusFencePost03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        CausesOcclusion = true
+        Graphic = "Tilesets\Olympus\Olympus_FencePost_03"
+        Tallness = 673
+        Offset = { X = 0 Y = -259 }
+        Points = [
+          { X = -300 Y = 24 }
+          { X = 1 Y = 177 }
+          { X = 301 Y = 22 }
+          { X = 3 Y = -128 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCornice03a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Cornice_03a"
+        Tallness = 234
+        Offset = { X = 0 Y = -1 }
+        Points = [
+          { X = -399 Y = 161 }
+          { X = -255 Y = 238 }
+          { X = 386 Y = -91 }
+          { X = 230 Y = -170 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCornice03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Cornice_03"
+        Tallness = 269
+        Offset = { X = 0 Y = -90 }
+        Points = [
+          { X = -467 Y = 174 }
+          { X = -323 Y = 236 }
+          { X = 437 Y = -138 }
+          { X = 289 Y = -202 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusWall01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Wall_01"
+        Tallness = 846
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = -410 Y = 126 }
+          { X = -236 Y = 211 }
+          { X = 410 Y = -111 }
+          { X = 251 Y = -193 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusWall01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Wall_01a"
+        Tallness = 846
+        Offset = { X = 0 Y = -366 }
+        Points = [
+          { X = -410 Y = 126 }
+          { X = -236 Y = 211 }
+          { X = 410 Y = -111 }
+          { X = 251 Y = -193 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBarrels01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Barrels_01"
+        Tallness = 753
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -380 Y = 181 }
+          { X = -165 Y = 278 }
+          { X = 374 Y = 12 }
+          { X = 167 Y = -99 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusHill01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Hill_01"
+        Tallness = 308
+        Offset = { X = 0 Y = -168 }
+        Points = [
+          { X = -513 Y = 43 }
+          { X = -280 Y = 182 }
+          { X = -30 Y = 154 }
+          { X = 227 Y = 78 }
+          { X = 500 Y = -52 }
+          { X = 343 Y = -162 }
+          { X = -20 Y = -177 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusSofa01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Sofa_01"
+        Tallness = 837
+        Offset = { X = 0 Y = -213 }
+        Points = [
+          { X = -461 Y = 26 }
+          { X = 293 Y = 399 }
+          { X = 629 Y = 246 }
+          { X = -142 Y = -129 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPlanter01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Planter_01"
+        Tallness = 347
+        Offset = { X = 0 Y = -145 }
+        Points = [
+          { X = -387 Y = -41 }
+          { X = 105 Y = 227 }
+          { X = 322 Y = 195 }
+          { X = 407 Y = 123 }
+          { X = 426 Y = 62 }
+          { X = -104 Y = -205 }
+          { X = -252 Y = -202 }
+          { X = -359 Y = -148 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCapital01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Capital_01"
+        Tallness = 782
+        Offset = { X = 0 Y = -370 }
+        Points = [
+          { X = -157 Y = 13 }
+          { X = -83 Y = 101 }
+          { X = 111 Y = 76 }
+          { X = 221 Y = 30 }
+          { X = 160 Y = -73 }
+          { X = -17 Y = -93 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusPillarBase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_Base_01"
+        Tallness = 661
+        Offset = { X = 0 Y = -234 }
+        Points = [
+          { X = -438 Y = 41 }
+          { X = -337 Y = 209 }
+          { X = -29 Y = 273 }
+          { X = 249 Y = 237 }
+          { X = 399 Y = 114 }
+          { X = 404 Y = -67 }
+          { X = 135 Y = -179 }
+          { X = -218 Y = -168 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusBench01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Bench_01"
+        Tallness = 295
+        Offset = { X = 0 Y = -92 }
+        Points = [
+          { X = -397 Y = 135 }
+          { X = -185 Y = 239 }
+          { X = 398 Y = -48 }
+          { X = 169 Y = -160 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusDiningTable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_DiningTable_01"
+        Tallness = 418
+        Offset = { X = 0 Y = -92 }
+        Points = [
+          { X = -898 Y = 246 }
+          { X = -333 Y = 529 }
+          { X = 884 Y = -80 }
+          { X = 319 Y = -362 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusBarrelShelf01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BarrelShelf_01"
+        Tallness = 1013
+        Offset = { X = 0 Y = -421 }
+        Points = [
+          { X = -442 Y = -105 }
+          { X = 247 Y = 252 }
+          { X = 512 Y = 122 }
+          { X = -189 Y = -242 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusCapital02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Capital_02"
+        Tallness = 782
+        Offset = { X = 0 Y = -370 }
+        Points = [
+          { X = -157 Y = 13 }
+          { X = -83 Y = 101 }
+          { X = 111 Y = 76 }
+          { X = 221 Y = 30 }
+          { X = 160 Y = -73 }
+          { X = -17 Y = -93 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatueLion01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_Lion_01"
+        Tallness = 1082
+        Offset = { X = 0 Y = -501 }
+        Points = [
+          { X = -12 Y = -126 }
+          { X = 209 Y = -9 }
+          { X = -28 Y = 111 }
+          { X = -248 Y = -3 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatueLion02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_Lion_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestNymphTowelRender"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymphTowel_Render"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestNymphTowelHead01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymphTowelHead_01"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestNymphTowelHead02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymphTowelHead_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestNymphTowel02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymphTowel_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestNymphTowel03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymphTowel_03"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestSatyrTowel01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestSatyrTowel_01"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestSatyrGlass01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestSatyrGlass_01"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestSatyrGlass02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestSatyrGlass_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusGuestSatyrTowel02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestSatyrTowel_02"
+        Tallness = 1209
+        Offset = { X = 0 Y = -377 }
+        Points = [
+          { X = -394 Y = 73 }
+          { X = -212 Y = 224 }
+          { X = 76 Y = 204 }
+          { X = 200 Y = 121 }
+          { X = 426 Y = -37 }
+          { X = 530 Y = -187 }
+          { X = 494 Y = -263 }
+          { X = -198 Y = -73 }
+        ]
+      }
+    }
+    {
+      Name = "OlympusGuestSatyrTowel03"
+      InheritFrom = "OlympusGuestSatyrTowel02"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestSatyrTowel_03"
+      }
+    }
+
+
+        {
+      Name = "OlympusGuestNymph01"
+      InheritFrom = "OlympusGuestSatyrTowel02"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymph_01"
+      }
+    }
+
+
+        {
+      Name = "OlympusGuestNymph02"
+      InheritFrom = "OlympusGuestSatyrTowel02"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymph_02"
+      }
+    }
+
+
+        {
+      Name = "OlympusGuestNymph03"
+      InheritFrom = "OlympusGuestSatyrTowel02"
+      DisplayInEditor = true
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GuestNymph_03"
+      }
+    }
+
+
+        {
+      Name = "OlympusStatue01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_01"
+        Tallness = 1286
+        Offset = { X = 0 Y = -526 }
+        Points = [
+          { X = -408 Y = -2 }
+          { X = 54 Y = 253 }
+          { X = 417 Y = 70 }
+          { X = -67 Y = -172 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusStatue02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_02"
+        Tallness = 1795
+        Offset = { X = 0 Y = -745 }
+        Points = [
+          { X = -219 Y = 28 }
+          { X = -141 Y = 114 }
+          { X = 157 Y = 111 }
+          { X = 228 Y = 25 }
+          { X = 119 Y = -88 }
+          { X = -92 Y = -88 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatue03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_03"
+        Tallness = 1314
+        Offset = { X = 0 Y = -503 }
+        Points = [
+          { X = -258 Y = 50 }
+          { X = 3 Y = 171 }
+          { X = 228 Y = 43 }
+          { X = -8 Y = -75 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatue04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_04"
+        Tallness = 1533
+        Offset = { X = 0 Y = -666 }
+        Points = [
+          { X = -96 Y = 17 }
+          { X = -50 Y = 92 }
+          { X = 156 Y = 135 }
+          { X = 312 Y = 50 }
+          { X = 75 Y = -69 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatue05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_05"
+        Tallness = 1450
+        Offset = { X = 0 Y = -591 }
+        Points = [
+          { X = -127 Y = 97 }
+          { X = 134 Y = 88 }
+          { X = 219 Y = 22 }
+          { X = 203 Y = -80 }
+          { X = 5 Y = -167 }
+          { X = -200 Y = -82 }
+          { X = -214 Y = 12 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusStatueDionysus01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Statue_Dionysus_01"
+        Tallness = 1377
+        Offset = { X = 0 Y = -550 }
+        Points = [
+          { X = -226 Y = 44 }
+          { X = -10 Y = 136 }
+          { X = 246 Y = 30 }
+          { X = 10 Y = -75 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMoulding01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Moulding_01"
+        Tallness = 218
+        Offset = { X = 0 Y = -106 }
+        Points = [
+          { X = -415 Y = 112 }
+          { X = -255 Y = 201 }
+          { X = 412 Y = -139 }
+          { X = 231 Y = -207 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMural01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Mural_01"
+        Tallness = 218
+        Offset = { X = 0 Y = -106 }
+      }
+    }
+
+        {
+      Name = "OlympusTapestry01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Tapestry_01"
+        Tallness = 218
+        Offset = { X = 0 Y = -106 }
+      }
+    }
+
+        {
+      Name = "OlympusMural02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Mural_02"
+        Tallness = 218
+        Offset = { X = 0 Y = -106 }
+      }
+    }
+
+        {
+      Name = "OlympusArch01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Arch_01"
+        Tallness = 506
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -411 Y = 169 }
+          { X = -262 Y = 227 }
+          { X = 405 Y = -100 }
+          { X = 258 Y = -167 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCandle01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Candle_01"
+        Tallness = 506
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -247 Y = 22 }
+          { X = -58 Y = 93 }
+          { X = 247 Y = -44 }
+          { X = 193 Y = -159 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPoolDucky01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusPoolDucky01Float"
+        Tallness = 156
+        Offset = { X = 0 Y = -34 }
+        Points = [
+          { X = -85 Y = 50 }
+          { X = -56 Y = 76 }
+          { X = 37 Y = 54 }
+          { X = 89 Y = 23 }
+          { X = 84 Y = -13 }
+          { X = 21 Y = -34 }
+          { X = -46 Y = -3 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBookcase01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        CausesOcclusion = true
+        Graphic = "Tilesets\Olympus\Olympus_Bookcase_01"
+        Tallness = 1006
+        Offset = { X = 0 Y = -417 }
+        Points = [
+          { X = -308 Y = 44 }
+          { X = -85 Y = 163 }
+          { X = 298 Y = -19 }
+          { X = 58 Y = -139 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBattleDebris01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BattleDebris_01"
+        Tallness = 499
+        Offset = { X = 0 Y = -113 }
+        Points = [
+          { X = -273 Y = 78 }
+          { X = 171 Y = 229 }
+          { X = 317 Y = 144 }
+          { X = 333 Y = 13 }
+          { X = 215 Y = -162 }
+          { X = -103 Y = -67 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBattleDebris02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BattleDebris_02"
+        Tallness = 466
+        Offset = { X = 0 Y = -89 }
+        Points = [
+          { X = -172 Y = 149 }
+          { X = -74 Y = 216 }
+          { X = 379 Y = -54 }
+          { X = 299 Y = -106 }
+          { X = -2 Y = 0 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusWartabletop01"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Wartabletop_01"
+        Tallness = 466
+        Offset = { X = 0 Y = -89 }
+      }
+    }
+    
+    {
+      Name = "OlympusBattleDebris02a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BattleDebris_02a"
+        Tallness = 677
+        Offset = { X = 0 Y = -286 }
+      }
+    }
+    
+    {
+      Name = "OlympusDionysusStaff01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Dionysus_Staff_01"
+        Tallness = 1000
+        Offset = { X = 0 Y = -443 }
+        Points = [
+          { X = -40 Y = 3 }
+          { X = 3 Y = 13 }
+          { X = 18 Y = -9 }
+          { X = -18 Y = -24 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCeilingChain01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_CeilingChain_01"
+        Tallness = 677
+        Offset = { X = 0 Y = -286 }
+      }
+    }
+    
+    {
+      Name = "OlympusFlowers01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Flowers_01"
+        Tallness = 1433
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "OlympusGrapeVine01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GrapeVine_01"
+        Tallness = 1433
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "OlympusGrapeVine01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_GrapeVine_01a"
+        Tallness = 1433
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "OlympusFlowers01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Flowers_01a"
+        Tallness = 1433
+        Offset = { X = 0 Y = 14 }
+      }
+    }
+    
+    {
+      Name = "OlympusStool01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Stool_01"
+        Tallness = 418
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -296 Y = 5 }
+          { X = -71 Y = 130 }
+          { X = 292 Y = -49 }
+          { X = 71 Y = -159 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBattleScar01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BattleScar_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalDemeter01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Demeter_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalHera01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Hera_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalPoseidon01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Poseidon_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalHades01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Hades_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalHestia01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Hestia_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusWallDecalZeus01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallDecal_Zeus_01"
+        Tallness = 419
+        Offset = { X = 0 Y = 7 }
+      }
+    }
+    
+    {
+      Name = "OlympusArch01a"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Arch_01a"
+        Tallness = 419
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -373 Y = 106 }
+          { X = -240 Y = 184 }
+          { X = 381 Y = -133 }
+          { X = 244 Y = -200 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_01"
+        Tallness = 419
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -394 Y = -19 }
+          { X = -25 Y = 266 }
+          { X = 318 Y = 337 }
+          { X = 462 Y = 27 }
+          { X = 219 Y = -251 }
+          { X = -197 Y = -237 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_02"
+        Tallness = 419
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -394 Y = -19 }
+          { X = -25 Y = 266 }
+          { X = 318 Y = 337 }
+          { X = 462 Y = 27 }
+          { X = 219 Y = -251 }
+          { X = -197 Y = -237 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_03"
+        Tallness = 792
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -692 Y = -151 }
+          { X = -342 Y = 335 }
+          { X = 132 Y = 520 }
+          { X = 689 Y = 443 }
+          { X = 127 Y = -57 }
+          { X = -354 Y = -289 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_04"
+        Tallness = 958
+        Offset = { X = 0 Y = -399 }
+        Points = [
+          { X = 781 Y = -58 }
+          { X = 212 Y = 283 }
+          { X = -285 Y = 295 }
+          { X = -629 Y = 61 }
+          { X = 223 Y = -295 }
+          { X = 606 Y = -324 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet05"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_05"
+        Tallness = 792
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -692 Y = -151 }
+          { X = -342 Y = 335 }
+          { X = 132 Y = 520 }
+          { X = 689 Y = 443 }
+          { X = 127 Y = -57 }
+          { X = -354 Y = -289 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet06"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_06"
+        Tallness = 648
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -604 Y = 59 }
+          { X = -342 Y = 335 }
+          { X = -21 Y = 405 }
+          { X = 484 Y = -65 }
+          { X = 74 Y = -331 }
+          { X = -354 Y = -289 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet07"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_07"
+        Tallness = 621
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -707 Y = 2 }
+          { X = 109 Y = 428 }
+          { X = 748 Y = 60 }
+          { X = -59 Y = -343 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet09"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_09"
+        Tallness = 891
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -707 Y = 2 }
+          { X = 299 Y = 555 }
+          { X = 710 Y = 327 }
+          { X = -59 Y = -343 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusMountainWall07"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_07"
+        Tallness = 896
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -626 Y = 80 }
+          { X = 12 Y = 368 }
+          { X = 558 Y = 379 }
+          { X = 506 Y = 117 }
+          { X = -30 Y = -188 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusMountainWall08"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_08"
+        Tallness = 857
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -618 Y = 215 }
+          { X = -430 Y = 413 }
+          { X = 140 Y = 426 }
+          { X = 469 Y = 277 }
+          { X = 646 Y = -135 }
+          { X = 182 Y = -295 }
+          { X = -291 Y = -135 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet10"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_10"
+        Tallness = 891
+        Offset = { X = 0 Y = -380 }
+        Points = [
+          { X = -577 Y = 92 }
+          { X = -311 Y = 324 }
+          { X = 241 Y = 273 }
+          { X = 608 Y = 96 }
+          { X = 549 Y = -330 }
+          { X = 249 Y = -407 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCharoncrow01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        Interact = 
+        {
+          Distance = 180.0
+        }
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Charoncrow_01"
+        Tallness = 1021
+        Offset = { X = 0 Y = -387 }
+        Points = [
+          { X = -303 Y = -54 }
+          { X = -148 Y = 36 }
+          { X = -79 Y = 43 }
+          { X = -78 Y = 12 }
+          { X = -268 Y = -71 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet13"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_13"
+        Tallness = 555
+        Offset = { X = 0 Y = -380 }
+        Points = [
+          { X = -361 Y = -668 }
+          { X = -1 Y = 255 }
+          { X = 223 Y = 313 }
+          { X = 155 Y = -303 }
+          { X = -135 Y = -678 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet11"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_11"
+        Tallness = 891
+        Offset = { X = 0 Y = -139 }
+        Points = [
+          { X = -237 Y = 135 }
+          { X = 137 Y = 362 }
+          { X = 353 Y = 207 }
+          { X = -40 Y = -18 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet12"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_12"
+        Tallness = 205
+        Offset = { X = 0 Y = -139 }
+        Points = [
+          { X = -338 Y = 239 }
+          { X = -249 Y = 293 }
+          { X = 424 Y = -357 }
+          { X = 272 Y = -427 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBuildingSet08"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_BuildingSet_08"
+        Tallness = 621
+        Offset = { X = 0 Y = -194 }
+        Points = [
+          { X = -707 Y = 2 }
+          { X = 109 Y = 428 }
+          { X = 748 Y = 60 }
+          { X = -59 Y = -343 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Table_01"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusEntranceGate01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_EntranceGate_01"
+        Tallness = 991
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -342 Y = -149 }
+          { X = 323 Y = 191 }
+          { X = 352 Y = 175 }
+          { X = -321 Y = -160 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTable02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Table_02"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest01Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest02Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest03Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest04Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest05Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest06"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest06Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest07"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest07Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest08"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest08Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest09"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest09Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest10"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest10Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest11"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest11Float"
+        Tallness = 241
+        Offset = { X = 0 Y = -103 }
+        Points = [
+          { X = -57 Y = 8 }
+          { X = -21 Y = 37 }
+          { X = 26 Y = 42 }
+          { X = 54 Y = 19 }
+          { X = 55 Y = -24 }
+          { X = 6 Y = -39 }
+          { X = -35 Y = -34 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest12"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest12Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest13"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest13Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest14"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest14Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest15"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest15Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest16"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest16Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest17"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest17Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest18"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest18Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest19"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest19Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest20"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest20Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest21"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest21Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest22"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest22Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest23"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest23Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest24"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest24Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGuest25"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusGuest25Float"
+        Tallness = 872
+        Offset = { X = 0 Y = -357 }
+        Points = [
+          { X = -295 Y = -1 }
+          { X = -211 Y = 112 }
+          { X = -19 Y = 180 }
+          { X = 218 Y = 141 }
+          { X = 323 Y = 14 }
+          { X = 181 Y = -127 }
+          { X = -144 Y = -121 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusChair02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Chair_02"
+        Tallness = 1006
+        Offset = { X = 0 Y = -425 }
+        Points = [
+          { X = -215 Y = -130 }
+          { X = -266 Y = 145 }
+          { X = 215 Y = 145 }
+          { X = 186 Y = -118 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusChair01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Chair_01"
+        Tallness = 1030
+        Offset = { X = 0 Y = -440 }
+        Points = [
+          { X = -384 Y = 52 }
+          { X = -21 Y = 168 }
+          { X = 291 Y = 39 }
+          { X = -34 Y = -123 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCornice02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Cornice_02"
+        Tallness = 215
+        Offset = { X = 0 Y = -61 }
+        Points = [
+          { X = -370 Y = 40 }
+          { X = -140 Y = 152 }
+          { X = 149 Y = 178 }
+          { X = 339 Y = 95 }
+          { X = 375 Y = 35 }
+          { X = 332 Y = -135 }
+          { X = 151 Y = -230 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusGrass01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Grass_01"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+        Points = [
+          { X = -249 Y = -11 }
+          { X = -60 Y = 95 }
+          { X = 161 Y = 68 }
+          { X = 305 Y = -59 }
+          { X = 66 Y = -150 }
+          { X = -125 Y = -127 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusTerrainSnowBorder03"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_SnowBorder_03"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+        Points = [
+          { X = -249 Y = -11 }
+          { X = -60 Y = 95 }
+          { X = 161 Y = 68 }
+          { X = 305 Y = -59 }
+          { X = 66 Y = -150 }
+          { X = -125 Y = -127 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusSnowBorder05"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_SnowBorder_05"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+        Points = [
+          { X = -249 Y = -11 }
+          { X = -60 Y = 95 }
+          { X = 161 Y = 68 }
+          { X = 305 Y = -59 }
+          { X = 66 Y = -150 }
+          { X = -125 Y = -127 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusOverlook01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Overlook_01"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusOverlook01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Overlook_01a"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusOverlook01b"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Overlook_01b"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusOverlook01c"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Overlook_01c"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusOverlook01d"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Overlook_01d"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusBanner01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Banner_01"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusBanner02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Banner_02"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusDrapery01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Drapery_01"
+        Tallness = 480
+        Offset = { X = 0 Y = -17 }
+      }
+    }
+
+    {
+      Name = "OlympusWallIvy01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallIvy_01"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusWallIvy01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallIvy_01a"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusWallIvy02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_WallIvy_02"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusTerrainSnowBorder04"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_SnowBorder_04"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+        Points = [
+          { X = -249 Y = -11 }
+          { X = -60 Y = 95 }
+          { X = 161 Y = 68 }
+          { X = 305 Y = -59 }
+          { X = 66 Y = -150 }
+          { X = -125 Y = -127 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusGrass02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Grass_02"
+        Tallness = 342
+        Offset = { X = 0 Y = -159 }
+        Points = [
+          { X = -249 Y = -11 }
+          { X = -60 Y = 95 }
+          { X = 161 Y = 68 }
+          { X = 305 Y = -59 }
+          { X = 66 Y = -150 }
+          { X = -125 Y = -127 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusBush01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Bush_01"
+        Tallness = 747
+        Offset = { X = 0 Y = -281 }
+        Points = [
+          { X = -264 Y = 11 }
+          { X = -25 Y = 123 }
+          { X = 122 Y = 105 }
+          { X = 265 Y = 50 }
+          { X = 179 Y = -76 }
+          { X = -135 Y = -88 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusBush02"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Bush_02"
+        Tallness = 632
+        Offset = { X = 0 Y = -246 }
+        Points = [
+          { X = -308 Y = 72 }
+          { X = -109 Y = 132 }
+          { X = 143 Y = 116 }
+          { X = 324 Y = 43 }
+          { X = 179 Y = -76 }
+          { X = -245 Y = -69 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusPillar01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_01"
+        Tallness = 1499
+        Offset = { X = 0 Y = -581 }
+        Points = [
+          { X = -290 Y = 47 }
+          { X = -19 Y = 187 }
+          { X = 288 Y = 60 }
+          { X = -8 Y = -91 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillar01a"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_01a"
+        Tallness = 1469
+        Offset = { X = 0 Y = -610 }
+        Points = [
+          { X = -294 Y = 18 }
+          { X = -5 Y = 167 }
+          { X = 295 Y = 15 }
+          { X = -33 Y = -132 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillar03"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_03"
+        Tallness = 1511
+        Offset = { X = 0 Y = -614 }
+        Points = [
+          { X = -247 Y = 19 }
+          { X = 9 Y = 145 }
+          { X = 240 Y = 30 }
+          { X = -8 Y = -93 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillar04"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        UseBoundsForSortDrawArea = true
+        SortBoundsScale = 0.75
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_04"
+        Tallness = 1376
+        Offset = { X = 0 Y = -527 }
+        Points = [
+          { X = -261 Y = 56 }
+          { X = -4 Y = 194 }
+          { X = 272 Y = 56 }
+          { X = 6 Y = -77 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillar05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_05"
+        Tallness = 915
+        Offset = { X = 0 Y = -527 }
+        Points = [
+          { X = -374 Y = -116 }
+          { X = -254 Y = 9 }
+          { X = -111 Y = 48 }
+          { X = 84 Y = 39 }
+          { X = 239 Y = 13 }
+          { X = 336 Y = -52 }
+          { X = 374 Y = -141 }
+          { X = 304 Y = -228 }
+          { X = 133 Y = -313 }
+          { X = -173 Y = -296 }
+          { X = -319 Y = -246 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIceWaterfall01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Ice_Waterfall_01"
+        Tallness = 1276
+        Offset = { X = 0 Y = -527 }
+      }
+    }
+    
+    {
+      Name = "OlympusIceWaterfall01a"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Ice_Waterfall_01a"
+        Tallness = 1431
+        Offset = { X = 0 Y = -532 }
+        Points = [
+          { X = -236 Y = -152 }
+          { X = -356 Y = -89 }
+          { X = -347 Y = 20 }
+          { X = -1 Y = 204 }
+          { X = 225 Y = 207 }
+          { X = 307 Y = 126 }
+          { X = 214 Y = 22 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIceWaterfall01b"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Ice_Waterfall_01b"
+        Tallness = 1276
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainSnowShadow01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_SnowShadow_01"
+        Tallness = 1276
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+    
+    {
+      Name = "OlympusJumpPadExit01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_JumpPadExit_01"
+        Tallness = 1276
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+    
+    {
+      Name = "OlympusIceWaterfall01c"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Ice_Waterfall_01c"
+        Tallness = 1276
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+    
+    {
+      Name = "OlympusRug01"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Rug_01"
+        Tallness = 1276
+        Offset = { X = 0 Y = 79 }
+      }
+    }
+    
+    {
+      Name = "OlympusGable01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Gable_01"
+        Tallness = 718
+        Offset = { X = 0 Y = -149 }
+        Points = [
+          { X = -757 Y = -222 }
+          { X = 584 Y = 452 }
+          { X = 743 Y = 355 }
+          { X = -564 Y = -310 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillar02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        UseBoundsForSortDrawArea = true
+        Graphic = "Tilesets\Olympus\Olympus_Pillar_02"
+        Tallness = 1261
+        Offset = { X = 0 Y = -556 }
+        Points = [
+          { X = -108 Y = -13 }
+          { X = 42 Y = 62 }
+          { X = 103 Y = 31 }
+          { X = -46 Y = -44 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusCubeBrick01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_CubeBrick_01"
+        Tallness = 560
+        Offset = { X = 0 Y = -235 }
+        Points = [
+          { X = -233 Y = 16 }
+          { X = -40 Y = 121 }
+          { X = 246 Y = -28 }
+          { X = 56 Y = -139 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillow01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillow_01"
+        Tallness = 128
+        Offset = { X = 0 Y = -47 }
+        Points = [
+          { X = -326 Y = -109 }
+          { X = -280 Y = 79 }
+          { X = 6 Y = 241 }
+          { X = 374 Y = 47 }
+          { X = 283 Y = -98 }
+          { X = 38 Y = -222 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusPillow02"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Pillow_02"
+        Tallness = 146
+        Offset = { X = 0 Y = -47 }
+        Points = [
+          { X = -248 Y = 65 }
+          { X = -205 Y = 115 }
+          { X = -121 Y = 114 }
+          { X = 215 Y = -49 }
+          { X = 105 Y = -103 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBrazier01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Brazier_01"
+        Tallness = 346
+        Offset = { X = 0 Y = -235 }
+        Points = [
+          { X = -287 Y = -71 }
+          { X = 19 Y = 49 }
+          { X = 252 Y = -72 }
+          { X = 166 Y = -201 }
+          { X = -90 Y = -238 }
+          { X = -217 Y = -188 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusBowl01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Bowl_01"
+        Tallness = 230
+        Offset = { X = 0 Y = -76 }
+        Points = [
+          { X = -215 Y = -35 }
+          { X = -75 Y = 61 }
+          { X = 128 Y = 58 }
+          { X = 196 Y = 29 }
+          { X = 209 Y = -71 }
+          { X = 48 Y = -149 }
+          { X = -96 Y = -143 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusUrn01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Urn_01"
+        Tallness = 1314
+        Offset = { X = 0 Y = -454 }
+        Points = [
+          { X = -337 Y = 98 }
+          { X = 7 Y = 259 }
+          { X = 339 Y = 90 }
+          { X = -5 Y = -86 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusFencePost01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_FencePost_01"
+        Tallness = 788
+        Offset = { X = 0 Y = -329 }
+        Points = [
+          { X = -167 Y = 39 }
+          { X = 13 Y = 123 }
+          { X = 170 Y = 36 }
+          { X = -7 Y = -47 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainStairs01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Stairs_01"
+        Tallness = 603
+        Offset = { X = 0 Y = -233 }
+        Points = [
+          { X = -764 Y = 31 }
+          { X = -1 Y = 421 }
+          { X = 811 Y = -27 }
+          { X = 78 Y = -391 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainBrick06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Brick_06"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus01a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_01a"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_04"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus01b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_01b"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus02b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_02b"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus02c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_02c"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus02a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_02a"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_03"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus03a"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_03a"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus03b"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_03b"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainPrometheus03c"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Prometheus_03c"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFishingHole01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_FishingHole_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainDionysus01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Dionysus_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish06"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_06"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainCrack01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Crack_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainCrack02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Crack_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrain01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainExitDecor01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Exit_Decor_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish02"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_02"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainMural01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Mural_01"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish03"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_03"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish04"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_04"
+        Tallness = 117
+        Offset = { X = 0 Y = -82 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainHarvestPointBase01"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_HarvestPointBase_01"
+        Tallness = 117
+        Offset = { X = 0 Y = -82 }
+      }
+    }
+    
+    {
+      Name = "OlympusTerrainFlourish05"
+      InheritFrom = "1_BaseTerrainTile"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Terrain_Flourish_05"
+        Tallness = 117
+        Offset = { X = 0 Y = 28 }
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusMountainWall01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_01"
+        Tallness = 949
+        Offset = { X = 0 Y = -382 }
+        Points = [
+          { X = 299 Y = -39 }
+          { X = 191 Y = -139 }
+          { X = -320 Y = 96 }
+          { X = -188 Y = 198 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMountainWall02"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_02"
+        Tallness = 1172
+        Offset = { X = 0 Y = -513 }
+        Points = [
+          { X = 362 Y = -70 }
+          { X = 191 Y = -139 }
+          { X = -393 Y = 136 }
+          { X = -228 Y = 198 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusDoor01Unlocked"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Door_01Unlocked"
+        Tallness = 1172
+        Offset = { X = 0 Y = -505 }
+        Points = [
+          { X = -261 Y = -65 }
+          { X = 158 Y = 132 }
+          { X = 261 Y = 72 }
+          { X = -136 Y = -120 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusDoor01Locked"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_Door_01Locked"
+        Tallness = 1172
+        Offset = { X = 0 Y = -505 }
+        Points = [
+          { X = -253 Y = -59 }
+          { X = 131 Y = 127 }
+          { X = 259 Y = 66 }
+          { X = -138 Y = -116 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMountainWall03"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_03"
+        Tallness = 764
+        Offset = { X = 0 Y = -411 }
+        Points = [
+          { X = 271 Y = -51 }
+          { X = 171 Y = 57 }
+          { X = -194 Y = -57 }
+          { X = -288 Y = -234 }
+          { X = 245 Y = -137 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMountainWall04"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_04"
+        Tallness = 764
+        Offset = { X = 0 Y = -411 }
+        Points = [
+          { X = 271 Y = -51 }
+          { X = 171 Y = 57 }
+          { X = -194 Y = -57 }
+          { X = -288 Y = -234 }
+          { X = 245 Y = -137 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMountainWall05"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_05"
+        Tallness = 764
+        Offset = { X = 0 Y = -411 }
+        Points = [
+          { X = 432 Y = -23 }
+          { X = -7 Y = 134 }
+          { X = -386 Y = -6 }
+          { X = -288 Y = -234 }
+          { X = 240 Y = -280 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusMountainWall06"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        UseBoundsForSortDrawArea = true
+        Graphic = "Tilesets\Olympus\Olympus_MountainWall_06"
+        Tallness = 1078
+        Offset = { X = 0 Y = -426 }
+        Points = [
+          { X = -350 Y = 115 }
+          { X = -85 Y = 256 }
+          { X = 377 Y = 56 }
+          { X = 31 Y = -84 }
+        ]
+      }
+    }
+
+        {
+      Name = "OlympusIceWall01"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_IceWall_01"
+        Tallness = 949
+        Offset = { X = 0 Y = -382 }
+        Points = [
+          { X = 425 Y = -61 }
+          { X = 336 Y = -186 }
+          { X = -404 Y = 112 }
+          { X = -311 Y = 186 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusMountainCorner01"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "Tilesets\Olympus\Olympus_MountainCorner_01"
+        Tallness = 980
+        Offset = { X = 0 Y = -405 }
+        Points = [
+          { X = -162 Y = 20 }
+          { X = -60 Y = 74 }
+          { X = 34 Y = 88 }
+          { X = 166 Y = -3 }
+          { X = -12 Y = -80 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusDestructiblePillar"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      AllowStoppingImpacts = false
+      DisplayInEditor = true
+      ReflectLobProjectiles = false
+      Life = 
+      {
+        HitFx = "PillarHitFx"
+      }
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusDestructiblePillarA"
+        Scale = 0.35
+        Tallness = 1617
+        Offset = { X = 0 Y = -655 }
+        Points = [
+          { X = -206 Y = 9 }
+          { X = -133 Y = 112 }
+          { X = 93 Y = 112 }
+          { X = 185 Y = 17 }
+          { X = 74 Y = -81 }
+          { X = -109 Y = -76 }
+        ]
+        Using =
+        [
+          { Name = "OlympusIcicle01_Sky" Scale = 3 }
+          { Name = "OlympusRubble01" Scale = 3 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusDestructiblePillarA"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      AllowStoppingImpacts = false
+      DisplayInEditor = true
+      ReflectLobProjectiles = false
+      Life = 
+      {
+        HitFx = "PillarHitFx"
+      }
+      Thing = 
+      {
+        CausesOcclusion = true
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusDestructiblePillarB"
+        Scale = 0.35
+        Tallness = 1617
+        Offset = { X = 0 Y = -655 }
+        Points = [
+          { X = -206 Y = 9 }
+          { X = -133 Y = 112 }
+          { X = 93 Y = 112 }
+          { X = 185 Y = 17 }
+          { X = 74 Y = -81 }
+          { X = -109 Y = -76 }
+        ]
+      }
+    }
+    
+    {
+      Name = "OlympusIcicle01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        HitFx = "RubbleFallOlympus"
+        HitSound = "/SFX/PillarBoulderImpact"
+        HomingEligible = false
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusIcicleIdle"
+        Tallness = 196
+        Offset = { X = 0 Y = -329 }
+        Points = [
+          { X = -26 Y = 34 }
+          { X = 23 Y = 35 }
+          { X = 22 Y = 18 }
+          { X = 2 Y = 4 }
+          { X = -23 Y = 11 }
+        ]
+      }
+    }
+    {
+      Name = "OlympusIcicle01_Sky"
+      InheritFrom = "OlympusIcicle01"
+      Thing = 
+      {
+        Graphic = "OlympusIcicleFalling"
+      }
+    }
+    
+    {
+      Name = "OlympusRubble01"
+      InheritFrom = "1_BaseVulnerableObstacle"
+      DisplayInEditor = true
+      Life = 
+      {
+        DieOnCollision = true
+        DieOnCollisionRequiredVelocity = 1000.0
+        HitFx = "RubbleFallOlympus"
+        HitSound = "/SFX/PillarBoulderImpact"
+        HomingEligible = false
+        ProjectilesAlwaysPenetrate = true
+      }
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusDestructiblePillarRubble"
+        Tallness = 146
+        Offset = { X = 0 Y = -329 }
+        Scale = 0.75
+        Points = [
+          { X = -55 Y = 36 }
+          { X = 73 Y = 29 }
+          { X = 77 Y = 2 }
+          { X = 48 Y = -41 }
+          { X = -38 Y = -36 }
+          { X = -78 Y = -8 }
+        ]
+      }
+    }
+    
+    {
+      Name = "Breakable_P"
+      AutoLockable = false
+      DisplayInEditor = true
+      Life = 
+      {
+        HomingEligible = false
+        JumpTargetEligible = false
+        RequiresDamageToAffect = true
+        HitSound = "/EmptyCue"
+        ProjectilesAlwaysPenetrate = true
+        TriggerOnHit = true
+      }
+      Thing = 
+      {
+        StopsProjectiles = true
+        StopsUnits = true
+        StopsLight = true
+        Tallness = 100.0
+        UseBoundsForSortDrawArea = true
+        EditorOutlineDrawBounds = false
+        ExtentScale = 0.5
+        Graphic = "Breakable_P01"
+        Points = [
+          { X = 32 Y = 44 }
+          { X = 96 Y = 12 }
+          { X = 96 Y = -20 }
+          { X = 32 Y = -52 }
+          { X = -32 Y = -52 }
+          { X = -96 Y = -20 }
+          { X = -96 Y = 12 }
+          { X = -32 Y = 44 }
+        ]
+      }
+    }
+
+
+{
+    Name = "OlympusCorpseAutomatonBeamerA"
+    InheritFrom = "1_BaseVulnerableObstacle"
+    DisplayInEditor = true
+    Life = 
+    {
+      HitFx = "RubbleFallOlympus"
+      HitSound = "/SFX/PillarBoulderImpact"
+      HomingEligible = false
+      ProjectilesAlwaysPenetrate = true
+    }
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusCorpseAutomatonBeamerA"
+      Tallness = 49
+        Offset = { X = 0 Y = -68 }
+        Points = [
+          { X = 77 Y = 41 }
+          { X = 135 Y = -93 }
+          { X = 112 Y = -174 }
+          { X = -1 Y = -171 }
+          { X = -51 Y = -134 }
+          { X = -131 Y = -39 }
+          { X = -122 Y = 28 }
+          { X = -17 Y = 41 }
+        ]
+      }
+  }
+  {
+    Name = "OlympusCorpseAutomatonBeamerB"
+    InheritFrom = "OlympusCorpseAutomatonBeamerA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseAutomatonBeamerB"
+      Tallness = 49
+        Offset = { X = 0 Y = -68 }
+        Points = [
+          { X = 141 Y = 2 }
+          { X = 135 Y = -93 }
+          { X = 111 Y = -147 }
+          { X = -17 Y = -127 }
+          { X = -119 Y = -85 }
+          { X = -154 Y = -37 }
+          { X = -121 Y = 2 }
+          { X = 6 Y = 30 }
+        ]
+      }
+  }
+  {
+    Name = "OlympusCorpseAutomatonBeamerC"
+    InheritFrom = "OlympusCorpseAutomatonBeamerA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseAutomatonBeamerC"
+      Tallness = 49
+        Offset = { X = 0 Y = -68 }
+        Points = [
+          { X = 70 Y = 56 }
+          { X = 170 Y = -18 }
+          { X = 122 Y = -109 }
+          { X = -14 Y = -132 }
+          { X = -146 Y = -102 }
+          { X = -173 Y = -52 }
+          { X = -113 Y = 25 }
+          { X = -13 Y = 50 }
+        ]
+      }
+  }
+
+  {
+    Name = "OlympusCorpseAutomatonEnforcerA"
+    InheritFrom = "1_BaseVulnerableObstacle"
+    DisplayInEditor = true
+    Life = 
+    {
+      HitFx = "RubbleFallOlympus"
+      HitSound = "/SFX/PillarBoulderImpact"
+      HomingEligible = false
+      ProjectilesAlwaysPenetrate = true
+    }
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusCorpseAutomatonEnforcerA"
+      Tallness = 49
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = 43 Y = 55 }
+          { X = 143 Y = 30 }
+          { X = 156 Y = -46 }
+          { X = 98 Y = -127 }
+          { X = -15 Y = -137 }
+          { X = -144 Y = -134 }
+          { X = -156 Y = -47 }
+          { X = -65 Y = 33 }
+        ]
+      }
+  }
+  {
+    Name = "OlympusCorpseAutomatonEnforcerB"
+    InheritFrom = "OlympusCorpseAutomatonEnforcerA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseAutomatonEnforcerB"
+      Tallness = 49
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = -46 Y = 48 }
+          { X = 111 Y = 42 }
+          { X = 164 Y = -81 }
+          { X = 45 Y = -142 }
+          { X = -108 Y = -116 }
+          { X = -160 Y = -56 }
+          { X = -158 Y = 38 }
+        ]
+      }
+  }
+  {
+    Name = "OlympusCorpseAutomatonEnforcerC"
+    InheritFrom = "OlympusCorpseAutomatonEnforcerA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseAutomatonEnforcerC"
+        Offset = { X = 0 Y = -46 }
+        Points = [
+          { X = -52 Y = 121 }
+          { X = 215 Y = 57 }
+          { X = 203 Y = -60 }
+          { X = 158 Y = -167 }
+          { X = -1 Y = -163 }
+          { X = -170 Y = -137 }
+          { X = -208 Y = -24 }
+          { X = -160 Y = 62 }
+        ]
+    }
+  }
+
+
+  {
+    Name = "OlympusCorpseSentryBotA"
+    InheritFrom = "1_BaseVulnerableObstacle"
+    DisplayInEditor = true
+    Life = 
+    {
+      HitFx = "RubbleFallOlympus"
+      HitSound = "/SFX/PillarBoulderImpact"
+      HomingEligible = false
+      ProjectilesAlwaysPenetrate = true
+    }
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusCorpseSentryBotA"
+      Tallness = 49
+        Offset = { X = 0 Y = -29 }
+        Points = [
+          { X = -63 Y = 18 }
+          { X = 40 Y = 27 }
+          { X = 84 Y = 4 }
+          { X = 58 Y = -67 }
+          { X = -48 Y = -70 }
+          { X = -87 Y = -22 }
+        ]
+      }
+  }
+  {
+    Name = "OlympusCorpseSentryBotB"
+    InheritFrom = "OlympusCorpseSentryBotA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseSentryBotB"
+    }
+  }
+  {
+    Name = "OlympusCorpseSentryBotC"
+    InheritFrom = "OlympusCorpseSentryBotA"
+    Thing = 
+    {
+      Graphic = "OlympusCorpseSentryBotC"
+    }
+  }
+
+  {
+    Name = "NPC_LeopardGuest"
+    InheritFrom = "1_BaseInvulnerableObstacle"
+    DisplayInEditor = true
+    Thing =
+    {
+      EditorOutlineDrawBounds = true
+      GrannyModel = "LeopardGuest_Mesh"
+      Graphic = "LeopardGuest_Idle"
+      Tallness = 300
+      Points =
+      [
+        { X = 0 Y = 30 }
+        { X = 80 Y = 0 }
+        { X = 0 Y = -30 }
+        { X = -80 Y = 0 }
+      ]
+    }
+  }
+  
+  {
+    Name = "StatueTrap_Zeus"
+    InheritFrom = "1_BaseInvulnerableImpassableObstacle"
+    DisplayInEditor = true
+    Life = 
+    {
+      Invulnerable = true
+      TriggerOnHit = true
+    }
+    Thing = 
+    {
+      CanBeOccluded = true
+      StopsProjectiles = true
+      StopsUnits = true
+      EditorOutlineDrawBounds = false
+      Graphic = "ZeusStatueIdle"
+      ImmuneToForce = true
+      ExtentScale = 1.5
+      Scale = 0.875
+      Tallness = 400
+          Offset = { X = 0 Y = 0 }
+          Points = [
+            { X = 32 Y = 48 }
+            { X = 96 Y = 16 }
+            { X = 95 Y = -30 }
+            { X = 44 Y = -69 }
+            { X = -39 Y = -70 }
+            { X = -97 Y = -33 }
+            { X = -96 Y = 16 }
+            { X = -32 Y = 48 }
+          ]
+        }
+  }
+  
+  {
+    Name = "StatueTrap_Poseidon"
+    InheritFrom = "StatueTrap_Zeus"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "PoseidonStatueIdle"
+    }
+  }
+  
+  {
+    Name = "StatueTrap_Demeter"
+    InheritFrom = "StatueTrap_Zeus"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "DemeterStatueIdle"
+    }
+  }
+  
+  {
+    Name = "StatueTrap_Hestia"
+    InheritFrom = "StatueTrap_Zeus"
+    DisplayInEditor = true
+    Thing = 
+    {
+      Graphic = "HestiaStatueIdle"
+    }
+  }
+
+  ]
+}

@@ -1,16 +1,12 @@
 Import "RequirementsData.lua"
 
-function IsGameStateEligible( currentRun, source, requirements, args )
+function IsGameStateEligible( source, requirements, args )
 
 	args = args or {}
+	source = source or { Name = "Unknown" }
 
-	if source == nil then
-		args.FirstFailedRequirement = "MissingSource"
-		return false
-	end
-
-	if requirements == nil then
-		requirements = source
+	if verboseLogging and requirements == nil then
+		DebugAssert({ Condition = false, Text = "IsGameStateEligible called with no requirements on "..tostring(source.Name), Owner = "Gavin" })
 	end
 
 	if IsEmpty( requirements ) then
@@ -40,7 +36,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	if requirements.NamedRequirements ~= nil then
 		for k, name in ipairs( requirements.NamedRequirements ) do
 			DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
-			if not IsGameStateEligible( currentRun, source, NamedRequirementsData[name], args ) then
+			if not IsGameStateEligible( source, NamedRequirementsData[name], args ) then
 				return false
 			end
 		end
@@ -48,569 +44,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 	if requirements.NamedRequirementsFalse ~= nil then
 		for k, name in ipairs( requirements.NamedRequirementsFalse ) do
 			DebugAssert({ Condition = NamedRequirementsData[name] ~= nil, Text = name.." is not a named requirement.", Owner = "Greg", })
-			if IsGameStateEligible( currentRun, source, NamedRequirementsData[name], args ) then
-				return false
-			end
-		end
-	end
-
-	-- Hard-coded Checks
-
-	local currentRunDepth = 0
-	if currentRun.RunDepthCache ~= nil then
-		currentRunDepth = currentRun.RunDepthCache
-	end
-
-	local currentBiomeDepth = 0
-	if currentRun.BiomeDepthCache ~= nil then
-		currentBiomeDepth = currentRun.BiomeDepthCache
-	end
-
-	if requirements.RequiredTextLines ~= nil then
-		for k, textLineSet in pairs( requirements.RequiredTextLines ) do
-			if GameState.TextLinesRecord[textLineSet] == nil then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredMinAnyTextLines ~= nil then
-		local numTrue = 0
-		for k, textLineSet in pairs( requirements.RequiredMinAnyTextLines.TextLines ) do
-			if GameState.TextLinesRecord[textLineSet] then
-				numTrue = numTrue + 1
-			end
-		end
-		if numTrue < requirements.RequiredMinAnyTextLines.Count then
-			return false
-		end
-	end
-
-	if requirements.RequiredFalseTextLines ~= nil then
-		for k, textLineSet in pairs( requirements.RequiredFalseTextLines ) do
-			if GameState.TextLinesRecord[textLineSet] ~= nil then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredQueuedTextLines ~= nil then
-		local anyTrue = false
-		for unitId, unit in pairs( ActiveEnemies ) do
-			if unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == requirements.RequiredQueuedTextLines then
-				anyTrue = true
-				break
-			end
-		end
-		if not anyTrue then
-			return false
-		end
-	end
-	if requirements.RequiredAnyQueuedTextLines ~= nil then
-		local anyTrue = false
-		for unitId, unit in pairs( ActiveEnemies ) do
-			for k, textLineSet in pairs( requirements.RequiredAnyQueuedTextLines ) do
-				if unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == textLineSet then
-					anyTrue = true
-					break
-				end
-			end
-		end
-		if not anyTrue then
-			return false
-		end
-	end
-	if requirements.RequiredFalseQueuedTextLines ~= nil then
-		for unitId, unit in pairs( ActiveEnemies ) do
-			for k, textLineSet in pairs( requirements.RequiredFalseQueuedTextLines ) do
-				if unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == textLineSet then
-					return false
-				end
-			end
-		end
-	end
-
-	if requirements.RequiredWeapon ~= nil and not CurrentRun.Hero.Weapons[requirements.RequiredWeapon] then
-		return false
-	end
-
-	if requirements.ConsecutiveDeathsInRoom ~= nil then
-		if verboseLogging and requirements.ConsecutiveDeathsInRoom.Count >= 10 then
-			DebugAssert({ Condition = false, Text = "requirements.ConsecutiveDeathsInRoom.Count = "..requirements.ConsecutiveDeathsInRoom.Count.." (Max is 10)", Owner = "Gavin" })
-		end
-		local consecutiveDeathsInRoom = 0
-		if HasSeenRoomEarlierInRun( currentRun, requirements.ConsecutiveDeathsInRoom.Name ) then
-			if not currentRun.Cleared and currentRun.EndingRoomName == requirements.ConsecutiveDeathsInRoom.Name then
-				-- Saw the room this run and died in it, streak continues
-				consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
-			else
-				-- Saw the room this run and didn't die in it, streak is 0
-				return false
-			end
-		end
-		for i = #GameState.RunHistory, 1 , -1 do
-			local run = GameState.RunHistory[i]
-			if HasSeenRoomInRun( run, requirements.ConsecutiveDeathsInRoom.Name ) then
-				if not run.Cleared and run.EndingRoomName == requirements.ConsecutiveDeathsInRoom.Name then
-					-- Saw the room this run and died in it, streak continues
-					consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
-				else
-					-- Saw the room this run and didn't die, streak is broken
-					break
-				end
-			end
-		end
-
-		if consecutiveDeathsInRoom < requirements.ConsecutiveDeathsInRoom.Count then
-			return false
-		end
-	end
-
-	if requirements.ConsecutiveClearsOfRoom ~= nil then
-		if verboseLogging and requirements.ConsecutiveClearsOfRoom.Count >= 10 then
-			DebugAssert({ Condition = false, Text = "requirements.ConsecutiveClearsOfRoom.Count = "..requirements.ConsecutiveClearsOfRoom.Count.." (Max is 10)", Owner = "Gavin" })
-		end
-		local consecutiveClearsOfRoom = 0
-		if HasSeenRoomEarlierInRun( currentRun, requirements.ConsecutiveClearsOfRoom.Name ) then
-			if currentRun.Cleared or currentRun.EndingRoomName ~= requirements.ConsecutiveClearsOfRoom.Name then
-				-- Saw the room this run and didn't die in it, streak continues
-				consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
-			else
-				-- Saw the room this run and died in it, streak is 0
-				return false
-			end
-		end
-		for i = #GameState.RunHistory, 1 , -1 do
-			local run = GameState.RunHistory[i]
-			if HasSeenRoomInRun( run, requirements.ConsecutiveClearsOfRoom.Name ) then
-				if run.Cleared or run.EndingRoomName ~= requirements.ConsecutiveClearsOfRoom.Name then
-					-- Saw the room this run and didn't die in it, streak continues
-					consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
-				else
-					-- Saw the room this run and died in it, streak is broken
-					break
-				end
-			end
-		end
-		if consecutiveClearsOfRoom < requirements.ConsecutiveClearsOfRoom.Count then
-			return false
-		end
-	end
-
-	if requirements.RequiredFalseSeenRoomsThisRun ~= nil then
-		for k, roomName in pairs(requirements.RequiredFalseSeenRoomsThisRun) do
-			if HasSeenRoomInRun( currentRun, roomName ) then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredSlottedTrait ~= nil then
-		local hasSlot = false
-		for i, traitData in pairs(CurrentRun.Hero.Traits ) do
-			if traitData.Slot == requirements.RequiredSlottedTrait then
-				hasSlot = true
-				break
-			end
-			if traitData.AltSlot and traitData.AltSlot == requirements.RequiredSlottedTrait then
-				hasSlot = true
-				break
-			end
-		end
-
-		if not hasSlot then
-			return false
-		end
-	end
-
-	if requirements.RequireSpell ~= nil then
-		if requirements.RequireSpell == "Any" and not CurrentRun.Hero.SlottedSpell then
-			return false
-		elseif not SpellData[requirements.RequireSpell] then
-			return false
-		elseif SpellData[requirements.RequireSpell] and not HeroHasTrait( SpellData[requirements.RequireSpell].TraitName) then
-			return false
-		end
-	end
-
-	if requirements.RequireSpellCharged ~= nil then
-		if not CurrentRun.Hero.SlottedSpell then
-			return false
-		elseif not SpellData[requirements.RequireSpellCharged] then
-			return false
-		elseif SpellData[requirements.RequireSpellCharged] and not HeroHasTrait( SpellData[requirements.RequireSpellCharged].TraitName) then
-			return false
-		end
-		local trait = GetHeroTrait( SpellData[requirements.RequireSpellCharged].TraitName )
-		local weaponData = GetWeaponData( CurrentRun.Hero, trait.PreEquipWeapons[1] )
-		if CurrentRun.SpellCharge < GetManaSpendCost(weaponData) then
-			return false
-		end
-	end
-
-	if requirements.RequiredFalseTraits ~= nil  then
-		for i, traitName in pairs(requirements.RequiredFalseTraits) do
-			if HeroHasTrait( traitName ) then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredTraitCount ~= nil and requirements.RequiredTraitCount > GetTotalTraitCount(CurrentRun.Hero) then
-		return false
-	end
-	
-	if requirements.RequiresInRun then
-		if currentRun.Hero.IsDead then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinExits ~= nil then
-		if currentRun.CurrentRoom == nil then
-			return false
-		end
-		local exitDoorsIPairs = CollapseTableOrdered( MapState.OfferedExitDoors )
-		if #exitDoorsIPairs < requirements.RequiredMinExits then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinCompletedRuns ~= nil and GetCompletedRuns() < requirements.RequiredMinCompletedRuns then
-		return false
-	end
-
-	if requirements.RequiredMaxWeaponUpgrade ~= nil and requirements.RequiredMaxWeaponUpgradeIndex ~= nil then
-		if not IsWeaponUpgradeMaxed( requirements.RequiredMaxWeaponUpgrade, requirements.RequiredMaxWeaponUpgradeIndex ) then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinDepth ~= nil and currentRunDepth < requirements.RequiredMinDepth then
-		return false
-	end
-
-	if requirements.RequiredMinBiomeDepth ~= nil and (currentBiomeDepth or 0) < requirements.RequiredMinBiomeDepth then
-		return false
-	end
-
-	if requirements.RequiredPlayed ~= nil then
-		for k, voiceLine in pairs( requirements.RequiredPlayed ) do
-			if GameState.SpeechRecord[voiceLine] == nil then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredKillEnemiesNotFound ~= nil and not IsEmpty( RequiredKillEnemies ) then
-		return false
-	end
-
-	if requirements.RequiredUnitAlive ~= nil then
-		local unitId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = requirements.RequiredUnitAlive })
-		if unitId <= 0 then
-			return false
-		end
-	end
-	if requirements.RequiredUnitsNotAlive ~= nil then
-		for k, unit in pairs( requirements.RequiredUnitsNotAlive ) do
-			local unitId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = unit })
-			if unitId > 0 then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredMainWeapon ~= nil and not currentRun.Hero.Weapons[requirements.RequiredMainWeapon] then
-		return false
-	end
-
-	if requirements.RequiredLootChoices ~= nil and requirements.RequiredLootChoices ~= CalcNumLootChoices() then
-		return false
-	end
-
-	if requirements.RequiredKills ~= nil then
-		for requiredKill, requiredKillCount in pairs( requirements.RequiredKills ) do
-			if GameState.EnemyKills[requiredKill] == nil or GameState.EnemyKills[requiredKill] < requiredKillCount then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredBossPhase ~= nil and ActiveEnemies[CurrentRun.CurrentRoom.BossId] ~= nil then
-		local boss = ActiveEnemies[CurrentRun.CurrentRoom.BossId]
-		if boss.CurrentPhase ~= requirements.RequiredBossPhase then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinMaximumLastStands ~= nil then
-		if currentRun.Hero.MaxLastStands == nil or currentRun.Hero.MaxLastStands < requirements.RequiredMinMaximumLastStands then
-			return false
-		end
-	end
-
-	if requirements.RequiredMaxHealthFraction ~= nil then
-		local currentHealthFraction = currentRun.Hero.Health / currentRun.Hero.MaxHealth
-		if currentHealthFraction > requirements.RequiredMaxHealthFraction then
-			if verboseLogging then
-				args.FirstFailedRequirement = "CurrentRun.Hero.HealthFraction <= "..requirements.RequiredMaxHealthFraction.." (Current: "..tostring(currentHealthFraction)..")"
-			end
-			return false
-		end
-	end
-
-	if requirements.RequiredMinHealthFraction ~= nil then
-		local currentHealthFraction = currentRun.Hero.Health / currentRun.Hero.MaxHealth
-		if currentHealthFraction < requirements.RequiredMinHealthFraction then
-			if verboseLogging then
-				args.FirstFailedRequirement = "CurrentRun.Hero.HealthFraction >= "..requirements.RequiredMinHealthFraction.." (Current: "..tostring(currentHealthFraction)..")"
-			end
-			return false
-		end
-	end
-
-	if requirements.RequiredMaxLastStands ~= nil then
-		if GetNumLastStands( currentRun.Hero ) > requirements.RequiredMaxLastStands then
-			return false
-		end
-	end
-
-	if requirements.RequiresLastUpgradeSwapped ~= nil and currentRun.CurrentRoom.ReplacedTraitSource == nil then
-		return false
-	end
-
-	if source ~= nil then
-
-		if requirements.HasTraitNameInRoom and not HasTraitOnLoot( source, requirements.HasTraitNameInRoom ) then
-			return false
-		end
-
-		if requirements.MaxDistanceFromHero ~= nil then
-			local distanceSource = args.CurrentSource or args.OriginalSource or source
-			if GetDistance({ Id = distanceSource.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) > requirements.MaxDistanceFromHero then
-				return false
-			end
-		end
-
-		if requirements.ValuableUpgradeInRoom ~= nil then
-			local meetsMinRarityRequirement = false
-			local meetsHighestRarityRequirement = false
-			if requirements.ValuableUpgradeInRoom.AllAtLeastRarity ~= nil and AllAtLeastRarity( source, requirements.ValuableUpgradeInRoom.AllAtLeastRarity ) then
-				meetsMinRarityRequirement = true
-			end
-			if requirements.ValuableUpgradeInRoom.HasAtLeastRarity ~= nil and HasAtLeastRarity( source, requirements.ValuableUpgradeInRoom.HasAtLeastRarity ) then
-				meetsHighestRarityRequirement = true
-			end
-			if not meetsMinRarityRequirement then
-				args.FirstFailedRequirement = "ValuableUpgradeInRoom.AllAtLeastRarity"
-				return false
-			end
-			if not meetsHighestRarityRequirement then
-				args.FirstFailedRequirement = "ValuableUpgradeInRoom.HasAtLeastRarity"
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredFalseRewardTypesInRoom ~= nil then
-		for i, value in pairs( MapState.RoomRequiredObjects ) do
-			if Contains( requirements.RequiredFalseRewardTypesInRoom, value.Name ) then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredFalseRewardType ~= nil then
-		if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.ChosenRewardType == requirements.RequiredFalseRewardType then
-			return false
-		end
-	end
-
-	if requirements.NotMaxLastStands ~= nil and ( not currentRun.Hero.LastStands or not currentRun.Hero.MaxLastStands or TableLength( currentRun.Hero.LastStands ) >= currentRun.Hero.MaxLastStands ) then
-		return false
-	end
-
-	if requirements.IsIdAlive ~= nil and not IsAlive({ Id = requirements.IsIdAlive }) then
-		return false
-	end
-	if requirements.AreIdsAlive ~= nil then
-		for i, id in pairs( requirements.AreIdsAlive ) do
-			if not IsAlive({ Id = id }) then
-				return false
-			end
-		end
-	end
-	if requirements.AreIdsNotAlive ~= nil then
-		for i, id in pairs( requirements.AreIdsNotAlive ) do
-			if IsAlive({ Id = id }) then
-				return false
-			end
-		end
-	end
-	if requirements.IsObjectTypeAlive ~= nil then
-		local id = GetIdsByType({ Name = requirements.IsObjectTypeAlive })
-		if not IsAlive({ Id = id }) then
-			return false
-		end
-	end
-	if requirements.IsObjectTypeNotAlive ~= nil then
-		local id = GetIdsByType({ Name = requirements.IsObjectTypeNotAlive })
-		if IsAlive({ Id = id }) then
-			return false
-		end
-	end
-
-	if requirements.AnyQuestWithStatus ~= nil and not HasAnyQuestWithStatus( requirements.AnyQuestWithStatus ) then
-		return false
-	end
-
-	if requirements.RequiredMinQuestsComplete ~= nil then
-		local numQuestsComplete = 0
-		if GameState.QuestStatus ~= nil then
-			for questName, questStatus in pairs( GameState.QuestStatus ) do
-				if questStatus == "CashedOut" then
-					numQuestsComplete = numQuestsComplete + 1
-				end
-			end
-		end
-		if numQuestsComplete < requirements.RequiredMinQuestsComplete then
-			return false
-		end
-	end
-	if requirements.RequiredMaxQuestsComplete ~= nil then
-		local numQuestsComplete = 0
-		if GameState.QuestStatus ~= nil then
-			for questName, questStatus in pairs( GameState.QuestStatus ) do
-				if questStatus == "CashedOut" then
-					numQuestsComplete = numQuestsComplete + 1
-				end
-			end
-		end
-		if numQuestsComplete > requirements.RequiredMaxQuestsComplete then
-			return false
-		end
-	end
-
-	if requirements.AnyAffordableItemInScreen ~= nil then
-		local canAffordAny = false
-		local screenData = ScreenData[requirements.AnyAffordableItemInScreen]
-		local itemCategories = screenData.ItemCategories
-		local dataStore = _G[requirements.AnyAffordableItemDataStore]
-		if itemCategories ~= nil then
-			for i, category in ipairs( itemCategories ) do
-				if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
-					for j, itemName in ipairs( category ) do
-						local itemData = dataStore[itemName]
-						if itemData ~= nil and not GameState.WorldUpgradesAdded[itemName] and not GameState.WeaponsUnlocked[itemName] and not itemData.IgnoreAffordable then
-							local cost = itemData.ResourceCost or itemData.Cost
-							if HasResources( cost ) then
-								if GhostAdminAllowViewItem( screenData, category, itemData ) then
-									--DebugPrint({ Text = "can afford: "..itemName })
-									canAffordAny = true
-									break
-								end
-							end
-						end
-					end
-				end
-			end
-		end
-		if not canAffordAny then
-			return false
-		end
-	end
-	if requirements.AnyAffordableMetaUpgradeItems ~= nil then
-		local canAffordAny = false
-		if CanIncreaseMetaUpgradeCardLimit() then
-			canAffordAny = true
-		else
-			local current = GetCurrentMetaUpgradeCost()
-			local limit = GetMaxMetaUpgradeCost()
-			for row, rowData in pairs( GameState.MetaUpgradeCardLayout ) do
-				for column, cardName in pairs( rowData ) do
-					if not canAffordAny
-						and GameState.MetaUpgradeState[cardName]
-						and not GameState.MetaUpgradeState[cardName].Unlocked
-						and not MetaUpgradeCardData[cardName].DebugOnly
-						and MetaUpgradeCardData[cardName].ResourceCost
-						and HasResources(MetaUpgradeCardData[cardName].ResourceCost)
-						and (HasNeighboringUnlockedCards( row, column ) or (row == 1 and column == 1))
-						and current + MetaUpgradeCardData[ cardName ].Cost <= limit
-						then
-						canAffordAny = true
-					end
-				end
-			end
-		end
-		
-		if not canAffordAny then
-			return false
-		end
-	end
-
-	if requirements.MinRunsSinceAnyTextLines ~= nil then
-		if verboseLogging and requirements.MinRunsSinceAnyTextLines.Count >= 10 then
-			DebugAssert({ Condition = false, Text = "requirements.MinRunsSinceAnyTextLines.Count = "..requirements.MinRunsSinceAnyTextLines.Count.." (Max is 10)", Owner = "Gavin" })
-		end
-		for k, textLines in pairs( requirements.MinRunsSinceAnyTextLines.TextLines ) do
-			local runsSinceOccurred = 0
-			for runIndex = #GameState.RunHistory + 1, 1, -1 do
-				local prevRun = GameState.RunHistory[runIndex] or currentRun
-				if prevRun.TextLinesRecord ~= nil and prevRun.TextLinesRecord[textLines] then
-					if runsSinceOccurred < requirements.MinRunsSinceAnyTextLines.Count then
-						DebugPrint({ Text = "textLines = "..textLines..", ".."runsSinceOccurred = "..runsSinceOccurred })
-						return false
-					end
-				end
-				runsSinceOccurred = runsSinceOccurred + 1
-				if runsSinceOccurred >= requirements.MinRunsSinceAnyTextLines.Count then
-					-- Already exceeded safely
-					break
-				end
-			end
-		end
-	end
-	if requirements.MaxRunsSinceAnyTextLines ~= nil then
-		if verboseLogging and requirements.MaxRunsSinceAnyTextLines.Count >= 10 then
-			DebugAssert({ Condition = false, Text = "requirements.MaxRunsSinceAnyTextLines.Count = "..requirements.MaxRunsSinceAnyTextLines.Count.." (Max is 10)", Owner = "Gavin" })
-		end
-		for k, textLines in pairs( requirements.MaxRunsSinceAnyTextLines.TextLines ) do
-			local runsSinceOccurred = 0
-			for runIndex = #GameState.RunHistory + 1, 1, -1 do
-				local prevRun = GameState.RunHistory[runIndex] or currentRun
-				if prevRun.TextLinesRecord ~= nil and prevRun.TextLinesRecord[textLines] then
-					if runsSinceOccurred > requirements.MaxRunsSinceAnyTextLines.Count then
-						DebugPrint({ Text = "textLines = "..textLines..", ".."runsSinceOccurred = "..runsSinceOccurred })
-						return false
-					else
-						-- Did occur recently enough
-						break
-					end
-				end
-				runsSinceOccurred = runsSinceOccurred + 1
-			end
-		end
-	end
-
-	if requirements.RequiredTrueConfigOptions ~= nil then
-		for k, configOption in pairs( requirements.RequiredTrueConfigOptions ) do
-			if not GetConfigOptionValue({ Name = configOption }) then
-				return false
-			end
-		end
-	end
-	if requirements.RequiredFalseConfigOptions ~= nil then
-		for k, configOption in pairs( requirements.RequiredFalseConfigOptions ) do
-			if GetConfigOptionValue({ Name = configOption }) then
-				return false
-			end
-		end
-	end
-
-	if requirements.RequiredFalseCosmetics ~= nil then
-		for k, name in pairs( requirements.RequiredFalseCosmetics ) do
-			if GameState.WorldUpgrades[name] then
+			if IsGameStateEligible( source, NamedRequirementsData[name], args ) then
 				return false
 			end
 		end
@@ -618,15 +52,20 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 
 	-- Generic state value checks
 
-	if verboseLogging and DebugData.LegalGenericRequirementKeys then
+	if verboseLogging then
 		for key, value in pairs( DebugData.LegalGenericRequirementKeys ) do
 			if requirements[key] then
-				DebugAssert({ Condition = false, Text = key.." used at top level of GameStateRequirements on "..tostring(source.Name), Owner = "Greg" })
+				DebugAssert({ Condition = false, Text = key.." used at top level of GameStateRequirements on "..tostring(source.Name), Owner = "Gavin" })
+			end
+		end
+		for key, value in pairs( requirements ) do
+			if not DebugData.LegalNonGenericRequirementKeys[key] and type(key) ~= "number" then
+				DebugAssert({ Condition = false, Text = key.." used at top level of GameStateRequirements on "..tostring(source.Name), Owner = "Gavin" })
 			end
 		end
 	end
 
-	for i, requirement in ipairs( requirements ) do
+	for requirementIndex, requirement in ipairs( requirements ) do
 
 		if verboseLogging and DebugData.LegalGenericRequirementKeys then
 			for key, value in pairs( requirement ) do
@@ -647,7 +86,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 		end
 
 		if requirement.FunctionName ~= nil then
-			if not CallFunctionName( requirement.FunctionName, source, requirement.FunctionArgs ) then
+			if not CallFunctionName( requirement.FunctionName, source, requirement.FunctionArgs, args ) then
 				return false
 			end
 		elseif requirement.PathFalse ~= nil then
@@ -656,6 +95,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 				DebugAssert({ Condition = false, Text = "Using PathFalse with other keys on "..tostring(source.Name), Owner = "Greg", })
 			end
 			for j, subTable in ipairs( requirement.PathFalse ) do
+				if verboseLogging and type(valueToCheck) == "string" then
+					DebugAssert({ Condition = false, Text = "Using string "..valueToCheck.." inside PathFalse on "..tostring(source.Name), Owner = "Gavin", })
+				end
 				valueToCheck = valueToCheck[subTable]
 				if valueToCheck == nil then
 					break
@@ -686,6 +128,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 				DebugAssert({ Condition = false, Text = "Using PathTrue with other keys on "..tostring(source.Name), Owner = "Greg", })
 			end
 			for j, subTable in ipairs( requirement.PathTrue ) do
+				if verboseLogging and type(valueToCheck) == "string" then
+					DebugAssert({ Condition = false, Text = "Using string "..valueToCheck.." inside PathTrue on "..tostring(source.Name), Owner = "Gavin", })
+				end
 				valueToCheck = valueToCheck[subTable]
 				if (not valueToCheck) or valueToCheck == 0 then
 					if verboseLogging then
@@ -704,6 +149,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 						end
 						args.FirstFailedRequirement = keyString.." == true (Current: "..tostring(valueToCheck)..")"
 					end
+					args.FailedRequirementIndex = requirementIndex
 					return false
 				end
 			end
@@ -712,6 +158,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 				DebugAssert({ Condition = false, Text = "Using Comparison with a PathEmpty requirement on "..tostring(source.Name), Owner = "Greg", })
 			end
 			for j, subTable in ipairs( requirement.PathEmpty ) do
+				if verboseLogging and type(valueToCheck) == "string" then
+					DebugAssert({ Condition = false, Text = "Using string "..valueToCheck.." inside PathEmpty on "..tostring(source.Name), Owner = "Gavin", })
+				end
 				valueToCheck = valueToCheck[subTable]
 				if valueToCheck == nil then
 					break
@@ -761,7 +210,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 							keyString = keyString.."."..subTable
 						end
 					end
-					args.FirstFailedRequirement = keyString.." not IsEmpty() (Current Size: "..TableLength(valueToCheck)..")"
+					args.FirstFailedRequirement = keyString.." not IsEmpty() (Current Size: "..(TableLength(valueToCheck) or 0)..")"
 				end
 				return false
 			end
@@ -850,6 +299,9 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 					for k, subTable in ipairs( requirement.Path ) do
 						valueToCheck = valueToCheck[subTable]
 						if valueToCheck == nil then
+							if verboseLogging and k == 1 and not requirement.CountPathTrue and requirement.ValuesToCount == nil then
+								DebugAssert({ Condition = false, Text = "First key \""..subTable.."\" on SumPrevRooms is nil on "..tostring(source.Name), Owner = "Gavin", })
+							end
 							break
 						end
 					end
@@ -970,6 +422,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 							if verboseLogging then
 								args.FirstFailedRequirement = args.FirstFailedRequirement.." HasNone (Does have: "..tostring(valueFalse)..")"
 							end
+							args.FailedRequirementIndex = requirementIndex
 							return false
 						end
 					end
@@ -1037,6 +490,7 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 						if verboseLogging then
 							args.FirstFailedRequirement = args.FirstFailedRequirement.." IsNone (Current: "..tostring(valueToCheck)..")"
 						end
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				end
@@ -1089,26 +543,32 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 
 				if comparison == nil or comparison == "==" or comparison == "=" then
 					if (valueToCheck or 0) ~= value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				elseif comparison == "~=" or comparison == "!=" then
 					if (valueToCheck or 0) == value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				elseif comparison == ">=" then
 					if (valueToCheck or 0) < value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				elseif comparison == ">" then
 					if (valueToCheck or 0) <= value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				elseif comparison == "<=" then
 					if (valueToCheck or 0) > value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				elseif comparison == "<" then
 					if (valueToCheck or 0) >= value then
+						args.FailedRequirementIndex = requirementIndex
 						return false
 					end
 				else
@@ -1127,135 +587,543 @@ function IsGameStateEligible( currentRun, source, requirements, args )
 
 	end
 
-	if requirements.RequiredConsumablesThisRun ~= nil then
-		local count = 0
-		for k, name in pairs( requirements.RequiredConsumablesThisRun.Names ) do
-			count = count + (currentRun.ConsumableRecord[name] or 0)
-		end
-		if count < requirements.RequiredConsumablesThisRun.Count then
-			return false
-		end
-	end
+	return true
+end
 
-	-- note this is for the Daedalus Hammer not Weapon Aspects
-	if requirements.RequiredMinWeaponUpgrades ~= nil then
-		local numUpgrades = 0
-		if currentRun.LootTypeHistory and currentRun.LootTypeHistory.WeaponUpgrade then
-			if currentRun.LootTypeHistory.WeaponUpgrade < requirements.RequiredMinWeaponUpgrades then
-				return false
-			else
-				numUpgrades = currentRun.LootTypeHistory.WeaponUpgrade
+
+function RequiredQueuedTextLine( source, args )
+	args = args or {}
+
+	if args.IsAny ~= nil then
+		local anyTrue = false
+		for unitId, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+			for k, textLineSet in pairs( args.IsAny ) do
+				if unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == textLineSet then
+					anyTrue = true
+					break
+				end
 			end
 		end
-
-		if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.ChosenRewardType == "WeaponUpgrade" and (numUpgrades + 1) < requirements.RequiredMinWeaponUpgrades then
-			return false
-		elseif numUpgrades < requirements.RequiredMinWeaponUpgrades then
+		if not anyTrue then
 			return false
 		end
-	end
-
-	if requirements.RequiredMaxWeaponUpgrades ~= nil then
-		local numUpgrades = 0
-		if currentRun.LootTypeHistory and currentRun.LootTypeHistory.WeaponUpgrade then
-			if currentRun.LootTypeHistory.WeaponUpgrade > requirements.RequiredMaxWeaponUpgrades then
-				return false
-			else
-				numUpgrades = currentRun.LootTypeHistory.WeaponUpgrade
-			end
-		end
-		if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.ChosenRewardType == "WeaponUpgrade" and (numUpgrades + 1) > requirements.RequiredMaxWeaponUpgrades then
-			return false
-		end
-	end
-
-	if requirements.RequiredNotInStore ~= nil then
-		if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.Store ~= nil and currentRun.CurrentRoom.Store.StoreOptions ~=nil then
-			for i, value in pairs(currentRun.CurrentRoom.Store.StoreOptions) do
-				if value.Name == requirements.RequiredNotInStore then
+	elseif args.IsNone ~= nil then
+		for unitId, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+			for k, textLineSet in pairs( args.IsNone ) do
+				if unit.NextInteractLines ~= nil and unit.NextInteractLines.Name == textLineSet then
 					return false
+				end
+			end
+		end
+	else
+		DebugAssert({ Condition = false, Text = "RequiredQueuedTextLine missing IsAny or IsNone on "..tostring(source.Name), Owner = "Greg" })
+		return false
+	end
+
+	return true
+end
+
+function RequiredConsecutiveDeathsInRoom( source, args )
+
+	if verboseLogging and args.Count >= 10 then
+		DebugAssert({ Condition = false, Text = "RequiredConsecutiveDeathsInRoom args.Count = "..args.Count.." (Max is 10)", Owner = "Gavin" })
+	end
+
+	local currentRun = CurrentRun
+	local consecutiveDeathsInRoom = 0
+	if HasSeenRoomEarlierInRun( currentRun, args.Name ) then
+		if not currentRun.Cleared and currentRun.EndingRoomName == args.Name then
+			-- Saw the room this run and died in it, streak continues
+			consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
+		else
+			-- Saw the room this run and didn't die in it, streak is 0
+			return false
+		end
+	end
+	for i = #GameState.RunHistory, 1 , -1 do
+		local run = GameState.RunHistory[i]
+		if HasSeenRoomInRun( run, args.Name ) then
+			if not run.Cleared and run.EndingRoomName == args.Name then
+				-- Saw the room this run and died in it, streak continues
+				consecutiveDeathsInRoom = consecutiveDeathsInRoom + 1
+			else
+				-- Saw the room this run and didn't die, streak is broken
+				break
+			end
+		end
+	end
+
+	if consecutiveDeathsInRoom < args.Count then
+		return false
+	end
+
+	return true
+end
+
+function RequiredConsecutiveClearsOfRoom( source, args )
+
+	if verboseLogging and args.Count >= 10 then
+		DebugAssert({ Condition = false, Text = "RequiredConsecutiveClearsOfRoom args.Count = "..args.Count.." (Max is 10)", Owner = "Gavin" })
+	end
+
+	local currentRun = CurrentRun
+	local consecutiveClearsOfRoom = 0
+
+	if HasSeenRoomEarlierInRun( currentRun, args.Name ) then
+		if currentRun.Cleared or currentRun.EndingRoomName ~= args.Name then
+			-- Saw the room this run and didn't die in it, streak continues
+			consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
+		else
+			-- Saw the room this run and died in it, streak is 0
+			return false
+		end
+	end
+	for i = #GameState.RunHistory, 1 , -1 do
+		local run = GameState.RunHistory[i]
+		if HasSeenRoomInRun( run, args.Name ) then
+			if run.Cleared or run.EndingRoomName ~= args.Name then
+				-- Saw the room this run and didn't die in it, streak continues
+				consecutiveClearsOfRoom = consecutiveClearsOfRoom + 1
+			else
+				-- Saw the room this run and died in it, streak is broken
+				break
+			end
+		end
+	end
+	if consecutiveClearsOfRoom < args.Count then
+		return false
+	end
+
+	return true
+end
+
+
+function RequireSpellCharged( source, args )
+
+	if not CurrentRun.Hero.SlottedSpell then
+		return false
+	elseif not SpellData[args.SpellName] then
+		return false
+	elseif SpellData[args.SpellName] and not HeroHasTrait( SpellData[args.SpellName].TraitName) then
+		return false
+	end
+	local trait = GetHeroTrait( SpellData[args.SpellName].TraitName )
+	local weaponData = GetWeaponData( CurrentRun.Hero, trait.PreEquipWeapons[1] )
+	if CurrentRun.SpellCharge < GetManaSpendCost(weaponData) then
+		return false
+	end
+
+	return true
+end
+
+function RequiredTraitCount( source, args )
+
+	if args.Count > GetTotalTraitCount(CurrentRun.Hero) then
+		return false
+	end
+
+	return true
+end
+
+function RequiredMinExits( source, args )
+
+	if CurrentRun.CurrentRoom == nil then
+		return false
+	end
+
+	local exitDoorsIPairs = CollapseTableOrdered( MapState.OfferedExitDoors )
+	if #exitDoorsIPairs < args.Count then
+		return false
+	end
+
+	return true
+end
+
+function RequiredAlive( source, args )
+
+	if args.Alive == nil then
+		args.Alive = true
+	end
+
+	if args.Ids ~= nil then
+		for i, id in pairs( args.Ids ) do
+			if not ( IsAlive({ Id = id }) == args.Alive ) then
+				return false
+			end
+		end
+
+	elseif args.Units ~= nil then
+		for i, unit in ipairs( args.Units ) do
+			if not ( IsAlive({ Id = GetIdsByType({ Name = unit }) }) == args.Alive ) then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
+function RequireUnrestrictedBoonChoices( source, args )
+	
+	if HasHeroTraitValue("RestrictBoonChoices") then
+		return false
+	end
+
+	return true
+end
+
+function RequiredBossPhase( source, args )
+
+	if ActiveEnemies[CurrentRun.CurrentRoom.BossId] ~= nil then
+		local boss = ActiveEnemies[CurrentRun.CurrentRoom.BossId]
+		if boss.CurrentPhase ~= args.Phase then
+			return false
+		end
+	end
+
+	return true
+end
+
+function RequiredHealthFraction( source, args )
+
+	local currentHealthFraction = CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth
+	local comparison = args.Comparison
+	local value = args.Value
+
+	if comparison == nil or comparison == "==" or comparison == "=" then
+		if currentHealthFraction ~= value then
+			return false
+		end
+	elseif comparison == "~=" or comparison == "!=" then
+		if currentHealthFraction == value then
+			return false
+		end
+	elseif comparison == ">=" then
+		if currentHealthFraction < value then
+			return false
+		end
+	elseif comparison == ">" then
+		if currentHealthFraction <= value then
+			return false
+		end
+	elseif comparison == "<=" then
+		if currentHealthFraction > value then
+			return false
+		end
+	elseif comparison == "<" then
+		if currentHealthFraction >= value then
+			return false
+		end
+	else
+		DebugAssert({ Condition = false, Text = "Invalid requirements comparison: "..tostring(comparison), Owner = "Greg", })
+	end
+
+	return true
+end
+
+function RequiredTraitNameInRoom( source, args )
+	if args.Name == nil then
+		DebugAssert({ Condition = false, Text = "Missing Trait name in RequiredTraitNameInRoom", Owner = "Greg", })
+	end
+
+	if source ~= nil and not HasTraitOnLoot( source, args.Name ) then
+		return false
+	end
+
+	return true
+end
+
+function RequiredRarityInRoom( source, args )
+
+	if source ~= nil then
+		local meetsMinRarityRequirement = false
+		local meetsHighestRarityRequirement = false
+		if args.AllAtLeastRarity ~= nil and AllAtLeastRarity( source, args.AllAtLeastRarity ) then
+			meetsMinRarityRequirement = true
+		end
+		if args.HasAtLeastRarity ~= nil and HasAtLeastRarity( source, args.HasAtLeastRarity ) then
+			meetsHighestRarityRequirement = true
+		end
+		if not meetsMinRarityRequirement or not meetsHighestRarityRequirement then
+			return false
+		end
+	end
+
+	return true
+end
+
+function RequiredRewardTypeInRoom( source, args )
+
+	if args.IsNone ~= nil then
+		for i, roomObject in pairs( MapState.RoomRequiredObjects ) do
+			if Contains( args.IsNone, roomObject.Name ) then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
+function RequireQuestWithStatus( source, args )
+
+	if args.Status ~= nil and not HasAnyQuestWithStatus( args.Status ) then
+		return false
+	end
+
+	return true
+end
+
+function RequireQuestCount( source, args )
+
+	local numQuests = 0
+	if GameState.QuestStatus ~= nil then
+		for questName, questStatus in pairs( GameState.QuestStatus ) do
+			if questStatus == args.Status then
+				numQuests = numQuests + 1
+			end
+		end
+	end
+
+	if args.Min ~= nil and numQuests < args.Min then
+		return false
+	end
+
+	if args.Max ~= nil and numQuests > args.Max then
+		return false
+	end
+
+	return true
+end
+
+function RequireAffordableItemInScreen( source, args )
+
+	local canAffordAny = false
+	local screenData = ScreenData[ args.Screen ]
+	local itemCategories = screenData.ItemCategories
+	local dataStore = _G[ args.DataStore ]
+
+	if itemCategories ~= nil then
+		for i, category in ipairs( itemCategories ) do
+			if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
+				for j, itemName in ipairs( category ) do
+					local itemData = dataStore[itemName]
+					if itemData ~= nil and not GameState.WorldUpgradesAdded[itemName] and not GameState.WeaponsUnlocked[itemName] and not itemData.IgnoreAffordable then
+						local cost = itemData.ResourceCost or itemData.Cost
+						if HasResources( cost ) then
+							if GhostAdminAllowViewItem( screenData, category, itemData ) then
+								--DebugPrint({ Text = "can afford: "..itemName })
+								canAffordAny = true
+								break
+							end
+						end
+					end
 				end
 			end
 		end
 	end
 
-	if requirements.RequiredMusicName ~= nil then
-		if requirements.RequiredMusicName ~= AudioState.MusicName then
-			return false
-		end
-	end
-
-	if requirements.RequiredMusicSection ~= nil then
-		if requirements.RequiredMusicSection ~= AudioState.MusicSection then
-			return false
-		end
-	end
-
-	if requirements.RequiredMusicSectionRoomDuration ~= nil and AudioState.MusicSectionStartDepth ~= nil then
-		local duration = GetRunDepth( currentRun ) - AudioState.MusicSectionStartDepth
-		if duration < requirements.RequiredMusicSectionRoomDuration then
-			return false
-		end
-	end
-
-	if requirements.RequiresNotFishing ~= nil and CurrentRun.Hero.FishingStarted then
+	if not canAffordAny then
 		return false
 	end
 
-	if requirements.RequiredSellableGodTraits ~= nil then
-		local hasSellable = false
-		for index, traitData in pairs (CurrentRun.Hero.Traits) do
-			if not hasSellable and IsGodTrait( traitData.Name, { ForShop = true }) and traitData.Rarity and not Contains( args.ExclusionNames, traitData.Name ) then
-				hasSellable = true
+	return true
+end
+
+function RequireAffordableMetaUpgrade( source, args )
+
+	local canAffordAny = false
+	if CanIncreaseMetaUpgradeCardLimit() then
+		canAffordAny = true
+	else
+		local current = GetCurrentMetaUpgradeCost()
+		local limit = GetMaxMetaUpgradeCost()
+		for row, rowData in pairs( GameState.MetaUpgradeCardLayout ) do
+			for column, cardName in pairs( rowData ) do
+				if not canAffordAny
+					and GameState.MetaUpgradeState[cardName]
+					and not GameState.MetaUpgradeState[cardName].Unlocked
+					and not MetaUpgradeCardData[cardName].DebugOnly
+					and MetaUpgradeCardData[cardName].ResourceCost
+					and HasResources(MetaUpgradeCardData[cardName].ResourceCost)
+					and (HasNeighboringUnlockedCards( row, column ) or (row == 1 and column == 1))
+					and current + MetaUpgradeCardData[ cardName ].Cost <= limit
+					then
+					canAffordAny = true
+				end
 			end
 		end
-		if not hasSellable then
-			return false
-		end
 	end
-
-	if requirements.RequiredUpgradeableGodTraits ~= nil then
-		if not UpgradableGodTraitCountAtLeast( requirements.RequiredUpgradeableGodTraits ) then
-			return false
-		end
+	
+	if not canAffordAny then
+		return false
 	end
-
-	if requirements.RequiredInteractedGods ~= nil then
-		if TableLength( GetEligibleInteractedGods() ) < requirements.RequiredInteractedGods then
-			return false
-		end
-	end
-
-	if requirements.RequiredInteractedGodsThisRun ~= nil then
-		if TableLength( GetInteractedGodsThisRun() ) < requirements.RequiredInteractedGodsThisRun then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinRoomsSinceDevotion ~= nil then
-		if currentRun.LastDevotionDepth ~= nil and currentRun.LastDevotionDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceDevotion < currentRun.LastDevotionDepth then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinRoomsSinceWellShop ~= nil then
-		if currentRun.LastWellShopDepth ~= nil and currentRun.LastWellShopDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceWellShop < currentRun.LastWellShopDepth then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinRoomsSinceChallengeSwitch ~= nil then
-		if currentRun.LastChallengeDepth ~= nil and currentRun.LastChallengeDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceChallengeSwitch < currentRun.LastChallengeDepth then
-			return false
-		end
-	end
-
-	if requirements.RequiredMinRoomsSinceFishingPoint ~= nil then
-		if currentRun.LastFishingPointDepth ~= nil and currentRun.LastFishingPointDepth ~= currentRun.RunDepthCache and currentRun.RunDepthCache - requirements.RequiredMinRoomsSinceFishingPoint < currentRun.LastFishingPointDepth then
-			return false
-		end
-	end	
 
 	return true
+end
 
+function RequireRunsSinceTextLines( source, args )
+
+	if verboseLogging and ( args.Min ~= nil and args.Min >= 10 ) or (args.Max ~= nil and args.Max >= 10 ) then
+		DebugAssert({ Condition = false, Text = "RequireRunsSinceTextLines args.Min = ".. (args.Min or "nil") .."; args.Max = " .. (args.Max or "nil") .. " (Max is 10)", Owner = "Gavin" })
+	end
+	for k, textLines in pairs( args.TextLines ) do
+		local runsSinceOccurred = 0
+		for runIndex = #GameState.RunHistory + 1, 1, -1 do
+			local prevRun = GameState.RunHistory[runIndex] or CurrentRun
+			if prevRun.TextLinesRecord ~= nil and prevRun.TextLinesRecord[textLines] then
+
+				if ( args.Min ~= nil and runsSinceOccurred < args.Min ) or ( args.Max ~= nil and runsSinceOccurred > args.Max ) then
+					return false
+				else
+					-- voiceline was found and valid for both cases
+					break
+				end
+			end
+			runsSinceOccurred = runsSinceOccurred + 1
+			if args.Max == nil and runsSinceOccurred >= args.Min then
+				-- No max test and already past Min
+				break
+			end
+		end
+	end
+
+	return true
+end
+
+
+function RequiredConfigOptions( source, args )
+
+	if args.HasOptions == nil then
+		args.HasOptions = true
+	end
+
+	for k, configOption in pairs( args.ConfigOptions ) do
+		if not ( GetConfigOptionValue({ Name = configOption }) == args.HasOptions ) then
+			return false
+		end
+	end
+
+	return true
+end
+
+function RequiredWeaponUpgrades( source, args )
+
+	local currentRun = CurrentRun
+	local numUpgrades = 0
+
+	if currentRun.LootTypeHistory and currentRun.LootTypeHistory.WeaponUpgrade then
+		numUpgrades = currentRun.LootTypeHistory.WeaponUpgrade
+	end
+	if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.ChosenRewardType == "WeaponUpgrade" then
+		numUpgrades = numUpgrades + 1
+	end
+
+	if ( args.Min ~= nil and numUpgrades < args.Min ) or ( args.Max ~= nil and numUpgrades > args.Max ) then
+		return false
+	end
+
+	return true
+end
+
+function RequiredNotInStore( source, args )
+
+	local currentRun = CurrentRun
+	if currentRun.CurrentRoom ~= nil and currentRun.CurrentRoom.Store ~= nil and currentRun.CurrentRoom.Store.StoreOptions ~=nil then
+		for i, value in pairs(currentRun.CurrentRoom.Store.StoreOptions) do
+			if value.Name == args.Name then
+				return false
+			end
+		end
+	end
+
+	return true
+end
+
+function RequiredMusicSectionRoomDuration( source, args )
+
+	if AudioState.MusicSectionStartDepth ~= nil then
+		local duration = GetRunDepth( CurrentRun ) - AudioState.MusicSectionStartDepth
+		if duration < args.Value then
+			return false
+		end
+	end
+
+	return true
+end
+
+function RequiredSellableGodTraits( source, args )
+
+	local hasSellable = false
+	for index, traitData in pairs (CurrentRun.Hero.Traits) do
+		if not hasSellable and IsGodTrait( traitData.Name, { ForShop = true }) and traitData.Rarity then
+			hasSellable = true
+		end
+	end
+	if not hasSellable then
+		return false
+	end
+
+	return true
+end
+
+function RequiredUpgradeableGodTraits( source, args )
+
+	if not UpgradableGodTraitCountAtLeast( args.Count ) then
+		return false
+	end
+
+	return true
+end
+
+
+function RequiredDistanceFromHero( source, dataArgs, contextArgs )
+	if source ~= nil and dataArgs.MaxDistance ~= nil then
+		local distanceSource = contextArgs.CurrentSource or contextArgs.OriginalSource or source
+		if GetDistance({ Id = distanceSource.ObjectId, DestinationId = CurrentRun.Hero.ObjectId }) > dataArgs.MaxDistance then
+			return false
+		end
+	end
+	return true
+end
+
+function RequiredOfferedDoorWithReward( source, args )
+	for id, door in pairs( MapState.OfferedExitDoors ) do
+		if door.Room ~= nil and door.Room.ChosenRewardType == args.RewardType then
+			return true
+		end
+	end
+	return false
+end
+
+function RequiredOfferedDoorWitRoomSetName( source, args )
+	for id, door in pairs( MapState.OfferedExitDoors ) do
+		if door.Room ~= nil and door.Room.RoomSetName == args.RoomSetName then
+			return true
+		end
+	end
+	return false
+end
+
+function RequiredMinRoomsSinceEvent( source, args )
+
+	local depthCheck = nil
+	if args.Event == "Devotion" then
+		depthCheck = "LastDevotionDepth"
+	elseif args.Event == "WellShop" then
+		depthCheck = "LastWellShopDepth"
+	elseif args.Event == "ChallengeSwitch" then
+		depthCheck = "LastChallengeDepth"
+	elseif args.Event == "FishingPoint" then
+		depthCheck = "LastFishingPointDepth"
+	else
+		DebugAssert({ Condition = false, Text = "No known event for RequiredMinRoomsSinceEvent: " .. args.Event, Owner = "Greg" })
+	end
+
+	local currentRun = CurrentRun
+	if currentRun[depthCheck] ~= nil and currentRun[depthCheck] ~= currentRun.RunDepthCache and currentRun.RunDepthCache - args.Count < currentRun[depthCheck] then
+		return false
+	end
+
+	return true
 end

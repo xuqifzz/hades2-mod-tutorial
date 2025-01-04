@@ -263,6 +263,10 @@
 		*/
 		Loop = true
 		NativeMoveSpeed = 740.0
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "MelinoeDash" }
+		]
 		Frames = 
 		[
 			{
@@ -436,13 +440,6 @@
 		GrannyAnimationSpeed = 1.0
 		HoldLastFrame = true
 		DisableOwnerManualInteract = true
-		Blends =
-		[
-			{
-				BlendTransitionFrom = "BlendTransitionFromAll"
-				Duration = 4
-			}
-		]
 		Frames =
 		[
 			{

@@ -2,7 +2,7 @@ OverwriteTableKeys( TraitData, {
 	-- Hermes
 	HermesWeaponBoon =
 	{
-		Icon = "Boon_Hermes_27",
+		Icon = "Boon_Hermes_40",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "EarthBoon" },
 		RarityLevels =
 		{
@@ -55,7 +55,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	HermesSpecialBoon =
 	{
-		Icon = "Boon_Hermes_30",
+		Icon = "Boon_Hermes_41",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "EarthBoon" },
 		RarityLevels =
 		{
@@ -79,7 +79,7 @@ OverwriteTableKeys( TraitData, {
 		
 		WeaponSpeedMultiplier =
 		{
-			WeaponNames = WeaponSets.HeroAllWeapons,
+			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
 			Value = 
 			{
 				BaseValue = 0.85,
@@ -115,8 +115,17 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = {"AirBoon"},
 		Icon = "Boon_Hermes_32",
 		HexCooldownSpeedBuff = { BaseValue = 0.85, SourceIsMultiplier = true },
-		RequiredSlottedTrait = "Spell",
-		RequiredFalseTraits = { "SpellPotionTrait" },
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "SlottedTraits", "Spell", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
 		
 		RarityLevels =
 		{
@@ -412,9 +421,17 @@ OverwriteTableKeys( TraitData, {
 		InheritFrom = { "BaseTrait", "EarthBoon" },
 		Icon = "Boon_Hermes_35",
 		SpellModifier = true,
-
-		RequiredSlottedTrait = "Spell",
-		RequiredFalseTraits = { "SpellPotionTrait" },
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "Hero", "SlottedTraits", "Spell", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "SpellPotionTrait" },
+			},
+		},
 
 		RarityLevels =
 		{
@@ -548,7 +565,7 @@ OverwriteTableKeys( TraitData, {
 			{
 				Duration = 30,
 				ReportValues = { ReportedDuration = "Duration" },
-				Fx = "ErisPowerUpFx",
+				Fx = "HermesWingsBuff",
 			}
 		},
 		StatLines =
@@ -572,7 +589,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	SprintShieldBoon =
 	{
-		Icon = "Boon_Hermes_28",
+		Icon = "Boon_Hermes_42",
 		InheritFrom = { "BaseTrait", "FireBoon"},
 		RarityLevels =
 		{
@@ -600,11 +617,20 @@ OverwriteTableKeys( TraitData, {
 			{
 				SprintShields = { BaseValue = 1 },
 				ActiveVfx = "EurydiceDefenseFront",
+				TraitName = "SprintShieldBoon",
 				ReportValues = { ReportedShields = "SprintShields" ,}
 			},
 			RunOnce = true
 		},
-
+		OnSprintStartAction = 
+		{
+			FunctionName = "SprintShieldPresentation",
+		},
+		
+		OnSprintEndAction = 
+		{
+			FunctionName = "SprintShieldEndPresentation",
+		},
 		PropertyChanges = 
 		{
 			{

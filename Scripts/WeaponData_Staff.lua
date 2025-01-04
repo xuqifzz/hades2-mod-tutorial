@@ -8,10 +8,12 @@ OverwriteTableKeys( WeaponData,
 		EquippedKitAnimation = "WeaponStaffFloatingIdleOff",
 		UnequippedKitAnimation = "WeaponStaffFloatingIdle",
 		UpgradeScreenKitAnimation = "WeaponStaffFloatingIdleVertical",
+		BountyScreenKitAnimation = "WeaponStaffIdle",
 		FirstTimeEquipAnimation = "Melinoe_Staff_Equip",
 		FirstTimeEquipSound = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing",
 		UseText = "UseWeaponKit",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
+		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Staff",
 		DummyTraitName = "DummyWeaponStaff",
 		Using = { GrannyModel = "WeaponBlurWheel_Mesh" },
 		
@@ -76,8 +78,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiscWeaponEquipVoiceLines,
-			[2] = GlobalVoiceLines.SkellyWeaponEquipReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 
 		Sounds =
@@ -353,7 +355,6 @@ OverwriteTableKeys( WeaponData,
 	{
 		StartingWeapon = false,
 		CauseImpactReaction = true,
-		ImpactReactionHitsOverride = 2,
 
 		SkipAttackNotReadySounds = true,
 		SelfMultiplier = 0,
@@ -375,19 +376,8 @@ OverwriteTableKeys( WeaponData,
 				-- { Name = "/VO/MelinoeEmotes/EmoteAttackingStaff" },
 				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
 			},
-			ImpactSounds =
-			{
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/ArrowMetalStoneClang",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-				StoneObstacle = "/SFX/SwordWallHitClankSmall",
-				BrickObstacle = "/SFX/SwordWallHitClankSmall",
-				MetalObstacle = "/SFX/SwordWallHitClankSmall",
-				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-				Shell = "/SFX/ShellImpact",
-			},
+
+			-- ImpactSounds handled in ProjectileData
 		},
 		
 		SpeedPropertyChanges = 
@@ -439,22 +429,9 @@ OverwriteTableKeys( WeaponData,
 				},
 				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
 				{ Name = "/SFX/Player Sounds/ZagreusSwordSwipe" },
-				{ Name = "/SFX/Enemy Sounds/Hades/HadesReappear" },				
 			},
 
-			ImpactSounds =
-			{
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/ArrowMetalStoneClang",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-				StoneObstacle = "/SFX/SwordWallHitClankSmall",
-				BrickObstacle = "/SFX/SwordWallHitClankSmall",
-				MetalObstacle = "/SFX/SwordWallHitClankSmall",
-				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-				Shell = "/SFX/ShellImpact",
-			},
+			-- ImpactSounds handled in ProjectileData
 		},
 		SpeedPropertyChanges = 
 		{
@@ -470,12 +447,12 @@ OverwriteTableKeys( WeaponData,
 	WeaponStaffBall =
 	{
 		InheritFrom = { "WeaponStaffBolt", },
-		ImpactReactionHitsOverride = 10,
 		ShowManaIndicator = true,
 		HideChargeDuration = 0.325,
 		OnChargeFunctionName = "DoWeaponCharge",
 		CustomChannelSlowEvent = "StaffBallSlow",
-
+		
+		CheckPostFireFail = true,
 		ChargeWeaponData =
 		{
 			EmptyChargeFunctionName = "EmptyStaffCharge",
@@ -535,19 +512,8 @@ OverwriteTableKeys( WeaponData,
 				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
 				{ Name = "/Leftovers/SFX/AuraThrowSmall" },
 			},
-			ImpactSounds =
-			{
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/ArrowMetalStoneClang",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-				StoneObstacle = "/SFX/SwordWallHitClankSmall",
-				BrickObstacle = "/SFX/SwordWallHitClankSmall",
-				MetalObstacle = "/SFX/SwordWallHitClankSmall",
-				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-				Shell = "/SFX/ShellImpact",
-			},
+
+			-- ImpactSounds handled in ProjectileData
 		},
 		SpeedPropertyChanges = 
 		{
@@ -567,7 +533,6 @@ OverwriteTableKeys( WeaponData,
 	{
 		InheritFrom = { "WeaponStaffBolt", },
 		SwapUnchargedWeapon = "WeaponStaffBolt",
-		ImpactReactionHitsOverride = 10,
 		SourceWeapon = "WeaponStaffBall",
 		HideOutOfManaPresentation = true,
 		OnFiredFunctionName = "StaffBall2FiredFunction",
@@ -612,21 +577,9 @@ OverwriteTableKeys( WeaponData,
 			{
 				{ Name = "/VO/MelinoeEmotes/EmoteAttackingAxe" },
 				{ Name = "/SFX/Player Sounds/ZagreusSwordSwipe" },
-				{ Name = "/SFX/Enemy Sounds/Hades/HadesReappear" },				
 			},
-			ImpactSounds =
-			{
-				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/SFX/ArrowMetalBoneSmash",
-				Brick = "/SFX/ArrowMetalStoneClang",
-				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
-				StoneObstacle = "/SFX/SwordWallHitClankSmall",
-				BrickObstacle = "/SFX/SwordWallHitClankSmall",
-				MetalObstacle = "/SFX/SwordWallHitClankSmall",
-				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
-				Shell = "/SFX/ShellImpact",
-			},
+
+			-- ImpactSounds handled in ProjectileData 
 		},
 		SpeedPropertyChanges = 
 		{

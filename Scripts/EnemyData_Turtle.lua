@@ -14,6 +14,8 @@ UnitSetData.Turtle =
 		OnHitFunctionName = "CheckUnitInvulnerableHit",
 		InvulnerableHitFx = "TurtleInvincibubbleHit",
 		InvulnerableHitImpactVelocity = 1000,
+		InvulnerableHitFlash = true,
+		InvulnerableBlockHint = true,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Turtle/EmoteAlerted",
 		DeathSound = "/SFX/Enemy Sounds/Turtle/EmoteDying",
@@ -31,11 +33,14 @@ UnitSetData.Turtle =
 			"AggroAI",
 		},
 		AIAggroRange = 1300,
-		PostAggroAI = "AttackerAI",
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			SurroundRetaliateDistance = 370,
+			MaxAttackers = 99, -- Let them claw when too many are lobbing
 		},
 
 		MoneyDropOnDeath =
@@ -51,7 +56,7 @@ UnitSetData.Turtle =
 
 		WeaponOptions =
 		{
-			"TurtleBounceLob", "TurtleHide", "TurtleClaw",
+			"TurtleBounceLob", "TurtleHide", "TurtleClaw", "TurtleClawRush"
 		},
 
 		GeneratorData =
@@ -60,34 +65,23 @@ UnitSetData.Turtle =
 			BlockEnemyTypes = {"Turtle_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0545", Text = "Shellbacks!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatG" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0544", Text = "Shellbacks.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0545", Text = "Shellbacks!" },
+			{ Cue = "/VO/MelinoeField_0544", Text = "Shellbacks." },
+			{ Cue = "/VO/MelinoeField_0545", Text = "Shellbacks!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0546", Text = "More Shellbacks." },
 			{ Cue = "/VO/MelinoeField_0547", Text = "Shellbacks again." },
 		},
@@ -105,14 +99,9 @@ UnitSetData.Turtle =
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		WeaponOptions =
 		{
-			"TurtleBounceLobElite", "TurtleHide", "TurtleClaw",
+			"TurtleBounceLobElite", "TurtleHide", "TurtleClaw", "TurtleClawRush"
 		},
 
 		GeneratorData =

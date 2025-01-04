@@ -1,6 +1,19 @@
-function GenerateSellTraitShop( currentRun, currentRoom, args )
+function IsSellTraitShopEligible( currentRoom )
+	if currentRoom.ForceSellShop then
+		return true
+	end
+	if not currentRoom.SellShopChanceSuccess then
+		return false
+	end
+	if currentRoom.SellShopRequirements ~= nil and not IsGameStateEligible( currentRoom, currentRoom.SellShopRequirements ) then
+		return false
+	end
+	return true
+end
+
+function GenerateSellTraitShop( currentRoom, args )
 	args = args or {}
-	GenerateSellTraitValues( currentRun, currentRoom, args )
+	GenerateSellTraitValues( currentRoom, args )
 	if currentRoom.SellOptions == nil then
 		currentRoom.SellOptions = {}
 		for i = 1, args.SellOptionCount or 3 do
@@ -13,10 +26,10 @@ function GenerateSellTraitShop( currentRun, currentRoom, args )
 	end
 end
 
-function GenerateSellTraitValues( currentRun, currentRoom, args )
+function GenerateSellTraitValues( currentRoom, args )
 	args = args or {}
 	currentRoom.SellValues = {}
-	for index, traitData in pairs (CurrentRun.Hero.Traits) do
+	for index, traitData in pairs( CurrentRun.Hero.Traits ) do
 		if IsGodTrait( traitData.Name, { ForShop = true }) and traitData.Rarity and not Contains( args.ExclusionNames, traitData.Name ) then
 			currentRoom.SellValues[traitData.Name] = { Name = traitData.Name, Value = GetTraitValue( traitData ) }
 		end
@@ -28,68 +41,32 @@ function OpenSellTraitMenu( args )
 	args = args or {}
 
 	local screen = DeepCopyTable( ScreenData.SellTraits )
-	ScreenAnchors.SellTraitScreen = screen
 
+	SetPlayerInvulnerable( screen.Name )
 	OnScreenOpened( screen )
-	CreateScreenFromData( screen, screen.ComponentData )
-	SetPlayerInvulnerable("SellTraitMenuOpen")
+	HideCombatUI( screen.Name, screen.TraitTrayArgs )
+	CreateScreenFromData( screen, screen.ComponentData )	
 
-	local components = screen.Components
-
-	components.ShopBackgroundDim = CreateScreenComponent({ Name = "rectangle01", Group = "Combat_Menu" })
-	components.ShopBackground = CreateScreenComponent({ Name = "SellShopBackground", Group = "Combat_Menu" })
-	components.CloseButton = CreateScreenComponent({ Name = "ButtonClose", Group = "Combat_Menu", Scale = 0.7 })
-	Attach({ Id = components.CloseButton.Id, DestinationId = components.ShopBackground.Id, OffsetX = 0, OffsetY = 440 })
-	components.CloseButton.OnPressedFunctionName = "CloseSellTraitScreen"
-	components.CloseButton.ControlHotkey = "Cancel"
-	SetScale({ Id = components.ShopBackgroundDim.Id, Fraction = 4 })
-	SetColor({ Id = components.ShopBackgroundDim.Id, Color = {0.157, 0.090, 0.055, 0.85} })
-
-	-- Title
-	CreateTextBox(MergeTables({ 
-		Id = components.ShopBackground.Id, 
-		Text = "SellTrait_Title",
-		FontSize = 32,
-		OffsetX = 0,
-		OffsetY = -445,
-		Color = Color.White,
-		Font = "P22UndergroundSCLightTitling",
-		ShadowBlur = 0,
-		ShadowColor = {0,0,0,1},
-		ShadowOffset = {0, 3},
-		Justification = "Center",
-	},LocalizationData.SellTraitScripts.TitleText))
-
-	CreateTextBox({ Id = components.ShopBackground.Id, Text = "SellTrait_Hint", FontSize = 17, OffsetX = 0, OffsetY = 390, Width = 840, Color = Color.Gray, Font = "LatoItalic", ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2}, Justification = "Center" })
-
-	-- Flavor Text
-	local flavorTextOptions = { "SellTrait_FlavorText01", "SellTrait_FlavorText02", "SellTrait_FlavorText03", }
-	local flavorText = GetRandomValue( flavorTextOptions )
-	CreateTextBox({ Id = components.ShopBackground.Id, Text = flavorText,
-			FontSize = 20,
-			OffsetY = -385, Width = 840,
-			Color = {0.698, 0.702, 0.514, 1.0},
-			Font = "LatoItalic",
-			ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-			Justification = "Center" })
-
+	screen.ShopItemStartX = screen.ShopItemStartX + ScreenCenterNativeOffsetX
+	screen.ShopItemStartY = screen.ShopItemStartY + ScreenCenterNativeOffsetY
 
 	local outdatedData = false
 	if CurrentRun.CurrentRoom.SellOptions == nil then
 		outdatedData = true
 	else
-		for itemIndex, sellData in pairs(CurrentRun.CurrentRoom.SellOptions ) do
-			if sellData.Name and not HeroHasTrait(sellData.Name) then
+		for itemIndex, sellData in pairs( CurrentRun.CurrentRoom.SellOptions ) do
+			if sellData.Name and not HeroHasTrait( sellData.Name ) then
 				outdatedData = true
 			end
 		end
 	end
 	if outdatedData then
 		CurrentRun.CurrentRoom.SellOptions = nil
-		GenerateSellTraitShop( CurrentRun, CurrentRun.CurrentRoom )
+		GenerateSellTraitShop( CurrentRun.CurrentRoom )
 	end
 
-	CreateSellButtons()
+	wait( 0.25 )
+	CreateSellButtons( screen )
 
 	if TableLength( CurrentRun.CurrentRoom.SellOptions ) > 0 then
 		thread( PlayVoiceLines, HeroVoiceLines.SellTraitShopUsedVoiceLines, true )
@@ -97,234 +74,220 @@ function OpenSellTraitMenu( args )
 		thread( PlayVoiceLines, HeroVoiceLines.SellTraitShopSoldOutVoiceLines, true )
 	end
 
-	-- Short delay to let animations finish and prevent accidental input
-	wait(0.5)
-
 	screen.KeepOpen = true
 	HandleScreenInput( screen )
 
 end
 
-function CreateSellButtons()
+function CreateSellButtons( screen )
 
-	local itemLocationY = 370
-	local itemLocationX = ScreenCenterX - 355
+	local itemLocationStartY = screen.ShopItemStartY
+	local itemLocationYSpacer = screen.ShopItemSpacerY
+	local itemLocationMaxY = itemLocationStartY + 4 * itemLocationYSpacer
+
+	local itemLocationStartX = screen.ShopItemStartX
+	local itemLocationXSpacer = screen.ShopItemSpacerX
+	local itemLocationMaxX = itemLocationStartX + 1 * itemLocationXSpacer
+
+	local itemLocationX = itemLocationStartX
+	local itemLocationY = itemLocationStartY
+
+	local components = screen.Components
+
 	local firstOption = true
-	local buttonOffsetX = 350
-	local components = ScreenAnchors.SellTraitScreen.Components
 	local sellList = {}
 	local upgradeOptionsTable = {}
 	for itemIndex, sellData in pairs( CurrentRun.CurrentRoom.SellOptions ) do
-		for index, traitData in pairs (CurrentRun.Hero.Traits) do
-			if sellData.Name == traitData.Name and traitData.Rarity and ( upgradeOptionsTable[traitData.Name] == nil or GetRarityValue(upgradeOptionsTable[traitData.Name].Rarity) > GetRarityValue(traitData.Rarity) ) then
+		for index, traitData in pairs( CurrentRun.Hero.Traits ) do
+			if sellData.Name == traitData.Name and traitData.Rarity and ( upgradeOptionsTable[traitData.Name] == nil or GetRarityValue( upgradeOptionsTable[traitData.Name].Rarity ) > GetRarityValue( traitData.Rarity ) ) then
 				upgradeOptionsTable[traitData.Name] = { Data = traitData, Value = sellData.Value }
 			end
 		end
 	end
 
-	for i, value in pairs(upgradeOptionsTable) do
+	for i, value in pairs( upgradeOptionsTable ) do
 		table.insert( sellList, value )
 	end
 
-	for itemIndex, sellData in pairs( sellList ) do
-		local itemData = sellData.Data
-		if itemData ~= nil then
-			local itemBackingKey = "Backing"..itemIndex
-			components[itemBackingKey] = CreateScreenComponent({ Name = "TraitBacking", Group = "Combat_Menu", X = ScreenCenterX, Y = itemLocationY })
-			SetScaleY({ Id = components[itemBackingKey].Id, Fraction = 1.25 })
-			local upgradeData = nil
-			local upgradeTitle = nil
-			local upgradeDescription = nil
-			local upgradeData = GetProcessedTraitData({ Unit = CurrentRun.Hero, TraitName = itemData.Name, Rarity = itemData.Rarity })
+	local screenData = ScreenData.UpgradeChoice
+
+	for itemIndex, sellData in ipairs( sellList ) do
+		local upgradeData = sellData.Data
+		if upgradeData ~= nil then
 			local tooltipData = upgradeData
-			SetTraitTextData( tooltipData, { OldOnly = true })
-			upgradeTitle = GetTraitTooltipTitle( upgradeData )
-			upgradeDescription = GetTraitTooltip( upgradeData, { ForTraitTray = true, Initial = true })
-			-- Setting button graphic based on boon type
-			local purchaseButtonKey = "PurchaseButton"..itemIndex
+			local traitData = upgradeData
+			SetTraitTextData( traitData )
 
-			local iconOffsetX = -338
-			local iconOffsetY = -2
-			local overlayLayer = "Combat_Menu_Overlay"
+			local purchaseButtonKey = "PurchaseButton"..itemIndex		
+			local purchaseButton = DeepCopyTable( ScreenData.UpgradeChoice.PurchaseButton )
+			purchaseButton.X = itemLocationX
+			purchaseButton.Y = itemLocationY
+			components[purchaseButtonKey] = CreateScreenComponent( purchaseButton )
+			local button = components[purchaseButtonKey]
+			button.Value = sellData.Value
+			button.UpgradeName = traitData.Name
+			button.ItemIndex = itemIndex
 
-			components[purchaseButtonKey] = CreateScreenComponent({ Name = "BoonSlot"..itemIndex, Group = "Combat_Menu", Scale = 1, X = itemLocationX + buttonOffsetX, Y = itemLocationY })
-			if upgradeData.CustomRarityColor then
-				components[purchaseButtonKey.."Patch"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = iconOffsetX + itemLocationX + buttonOffsetX + 35, Y = iconOffsetY + itemLocationY })
-				SetAnimation({ DestinationId = components[purchaseButtonKey.."Patch"].Id, Name = "BoonRarityPatch"})
-				SetColor({ Id = components[purchaseButtonKey.."Patch"].Id, Color = upgradeData.CustomRarityColor })
-			elseif itemData.Rarity ~= "Common" and itemData.Rarity then
-				components[purchaseButtonKey.."Patch"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = iconOffsetX + itemLocationX + buttonOffsetX + 35, Y = iconOffsetY + itemLocationY })
-				SetAnimation({ DestinationId = components[purchaseButtonKey.."Patch"].Id, Name = "BoonRarityPatch"})
-				SetColor({ Id = components[purchaseButtonKey.."Patch"].Id, Color = Color["BoonPatch" .. itemData.Rarity] })
-			end
-
-			if upgradeData.Icon ~= nil then
-				components[purchaseButtonKey.."Icon"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = iconOffsetX + itemLocationX + buttonOffsetX, Y = iconOffsetY + itemLocationY })
-				SetAnimation({ DestinationId = components[purchaseButtonKey.."Icon"].Id, Name = upgradeData.Icon })
-				SetScale({ DestinationId = components[purchaseButtonKey.."Icon"].Id, Fraction = 0.85 })
-			end
-			components[purchaseButtonKey.."IconOverlay"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu_Overlay", X = iconOffsetX + itemLocationX + buttonOffsetX, Y = iconOffsetY + itemLocationY })
-			SetAnimation({ DestinationId = components[purchaseButtonKey.."IconOverlay"].Id, Name = "Frame_Sell_Overlay" })
-			SetAlpha({ Id = components[purchaseButtonKey.."IconOverlay"].Id, Fraction = 0, Duration = 0 })
-			SetScale({ Id = components[purchaseButtonKey.."IconOverlay"].Id, Fraction = 0.85 })
-
-			components[purchaseButtonKey.."Frame"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", X = iconOffsetX + itemLocationX + buttonOffsetX, Y = iconOffsetY + itemLocationY })
-			SetAnimation({ DestinationId = components[purchaseButtonKey.."Frame"].Id, Name = "Frame_Sell"})
-			SetScale({ Id = components[purchaseButtonKey.."Frame"].Id, Fraction = 0.85 })
-
-			-- Button data setup
-			components[purchaseButtonKey].OnPressedFunctionName = "HandleSellChoiceSelection"
-			components[purchaseButtonKey].UpgradeName = upgradeData.Name
-			components[purchaseButtonKey].Index = itemIndex
-			components[purchaseButtonKey].Rarity = upgradeData.Rarity
-			components[purchaseButtonKey].IsDuoBoon = upgradeData.IsDuoBoon
-			if HasHeroTraitValue( "BlockMoney" ) then
-				components[purchaseButtonKey].Value = 0
-			else
-				components[purchaseButtonKey].Value = sellData.Value
-			end
-			components[components[purchaseButtonKey].Id] = purchaseButtonKey
-			-- Creates upgrade slot text
-			SetInteractProperty({ DestinationId = components[purchaseButtonKey].Id, Property = "TooltipOffsetX", Value = 665 })
-			local selectionString = "UpgradeChoiceMenu_PermanentItem"
-			local selectionStringColor = Color.Black
-
-			local traitData = TraitData[itemData.Name]
-			if traitData.Slot ~= nil then
-				selectionString = "UpgradeChoiceMenu_"..traitData.Slot
-			end
-
-			local textOffset = 115 - buttonOffsetX
-			local exchangeIconOffset = 0
-			local lineSpacing = 8
-			local traitNameOffset = LocalizationData.SellTraitScripts.UpgradeTitle.TraitNameOffsetX[GetLanguage({})] or 85
-			local text = "Boon_Common"
-			local overlayLayer = ""
-			local color = Color.White
-			if itemData.Rarity then
-				text = "Boon_"..tostring(itemData.Rarity)
-				color = Color["BoonPatch" .. itemData.Rarity ]
-				if upgradeData.CustomRarityColor then
-					color = upgradeData.CustomRarityColor
+			local title = GetTraitTooltipTitle( traitData )
+			local traitCount = GetTraitCount( CurrentRun.Hero, { TraitData = traitData } )
+			if traitCount > 1 then
+				title = "TraitLevel_Current"
+				traitData.OldLevel = traitCount
+				if not traitData.Title then
+					traitData.Title = GetTraitTooltipTitle( traitData )
 				end
 			end
+
+			local titleColor = Color.White
+			local rarityPatchColor = Color.Transparent
+	
+			if traitData.CustomRarityColor then
+				rarityPatchColor = traitData.CustomRarityColor
+				titleColor = traitData.CustomRarityColor
+			elseif button.OverrideRarity ~= nil and button.OverrideRarity ~= "Common" then
+				rarityPatchColor = Color["BoonPatch"..button.OverrideRarity]
+				titleColor = Color["BoonPatch"..button.OverrideRarity]
+			elseif traitData.Rarity ~= nil and traitData.Rarity ~= "Common" then
+				rarityPatchColor = Color["BoonPatch"..traitData.Rarity]
+				titleColor = Color["BoonPatch"..traitData.Rarity]
+			else
+				local rarityLevel = GetNumShrineUpgrades( traitData.Name )
+				if rarityLevel > 0 then
+					local rarityName = TraitRarityData.WeaponRarityUpgradeOrder[rarityLevel]
+					titleColor = Color["BoonPatch"..rarityName]
+				end
+			end
+
+			local highlight = ShallowCopyTable( ScreenData.UpgradeChoice.Highlight )
+			highlight.X = purchaseButton.X
+			highlight.Y = purchaseButton.Y
+			components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
+			components[purchaseButtonKey].Highlight = components[purchaseButtonKey.."Highlight"]
+	
+			local icon = ShallowCopyTable( ScreenData.UpgradeChoice.Icon )
+			icon.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
+			icon.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY 
+			icon.Animation = upgradeData.Icon
+			components[purchaseButtonKey.."Icon"] = CreateScreenComponent( icon )
+
+			local frame = ShallowCopyTable( ScreenData.UpgradeChoice.Frame )
+			frame.X = itemLocationX + ScreenData.UpgradeChoice.IconOffsetX
+			frame.Y = itemLocationY + ScreenData.UpgradeChoice.IconOffsetY 
+			frame.Animation = GetTraitFrame( upgradeData )
+			components[purchaseButtonKey.."Frame"] = CreateScreenComponent( frame )
+
+			if IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and not IsEmpty( traitData.Elements ) then
+				local elementName = GetFirstValue( traitData.Elements )
+				local elementIcon = ShallowCopyTable( screenData.ElementIcon )
+				elementIcon.Group = screenData.ComponentData.DefaultGroup
+				elementIcon.Name = TraitElementData[elementName].Icon
+				elementIcon.X = itemLocationX + elementIcon.XShift - 350
+				elementIcon.Y = itemLocationY + elementIcon.YShift
+				components[purchaseButtonKey.."ElementIcon"] = CreateScreenComponent( elementIcon )
+			end
+
+			local rarity = upgradeData.Rarity
+			if not rarity then
+				rarity = "Common"
+			end
+			local text = "Boon_"..rarity
+			local overlayLayer = ""
 			if upgradeData.CustomRarityName then
 				text = upgradeData.CustomRarityName
 			end
-			CreateTextBox(MergeTables(LocalizationData.SellTraitScripts.ShopButton,{
-				Id = components[purchaseButtonKey].Id, Text = text,
-				FontSize = 25,
-				OffsetX = textOffset + 630, OffsetY = -60,
-				Width = 720,
-				Color = color,
-				Font = "P22UndergroundSCLight",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Right",
-			}))
+			local color = Color["BoonPatch"..rarity]
+			if upgradeData.CustomRarityColor then
+				color = upgradeData.CustomRarityColor
+			end
 
-			CreateTextBox(MergeTables(LocalizationData.SellTraitScripts.ShopButton,{
-				Id = components[purchaseButtonKey].Id,
-				Text = "SellTraitPrefix",
-				FontSize = 21,
-				OffsetX = textOffset + exchangeIconOffset, OffsetY = -65,
-				Color = Color.CostUnaffordableLight,
-				Font = "P22UndergroundSCMedium",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Left",
-			}))
+			local rarityText = ShallowCopyTable( screenData.RarityText )
+			rarityText.Id = button.Id
+			rarityText.Text = text
+			rarityText.Color = color
+			CreateTextBox( rarityText )
 
-			CreateTextBox(MergeTables(LocalizationData.SellTraitScripts.ShopButton,{
-				Id = components[purchaseButtonKey].Id,
-				Text = upgradeTitle,
-				FontSize = 25,
-				OffsetX = textOffset + exchangeIconOffset + traitNameOffset, OffsetY = -65,
-				Color = color,
-				Font = "P22UndergroundSCLight",
-				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
-				Justification = "Left",
-				LuaKey = "TooltipData", LuaValue = tooltipData,
-			}))
+			local titleText = ShallowCopyTable( screenData.TitleText )
+			titleText.Id = button.Id
+			titleText.Text = title
+			titleText.Color = titleColor
+			titleText.LuaValue = traitData
+			CreateTextBox( titleText )
 
-			CreateTextBox(MergeTables(LocalizationData.SellTraitScripts.ShopButton,{
-				Id = components[purchaseButtonKey].Id, Text = "Sell_ItemCost", LuaKey = "TempTextData", LuaValue = { Amount = components[purchaseButtonKey].Value }, FontSize = 24,
-				OffsetY = GetLocalizedValue(60, { { Code = "ja", Value = 75}, }),
-				OffsetX = 430,
-				Color = Color.Gold,
-				Justification = "RIGHT",
-				Font="P22UndergroundSCMedium",
-				FontSize=26,
-				LangJaScaleModifier = 1.0,
-				ShadowColor = {0,0,0,1},
-				ShadowOffsetY=2,
-				ShadowOffsetX=0,
-				ShadowAlpha=1,
-				ShadowBlur=0,
-				OutlineColor={0,0,0,1},
-				OutlineThickness=2,
-			}))
+			local descriptionText = ShallowCopyTable( screenData.DescriptionText )
+			descriptionText.Id = button.Id
+			descriptionText.Text = GetTraitTooltip( upgradeData )
+			descriptionText.LuaKey = "TooltipData"
+			descriptionText.LuaValue = upgradeData
+			CreateTextBoxWithFormat( descriptionText )
+			
+			SetInteractProperty({ DestinationId = button.Id, Property = "TooltipOffsetX", Value = ScreenData.UpgradeChoice.TooltipOffsetX })
 
-			CreateTextBoxWithFormat(MergeTables(LocalizationData.SellTraitScripts.ShopButton,{
-				Id = components[purchaseButtonKey].Id,
-				Text = upgradeDescription,
-				OffsetX = textOffset, OffsetY = -40,
-				Width = GetLocalizedValue(675, { { Code = "ja", Value = 670 }, }),
-				Justification = "Left",
-				VerticalJustification = "Top",
-				LineSpacingBottom = lineSpacing,
-				UseDescription = true,
-				LuaKey = "TooltipData", LuaValue = tooltipData,
-				Format = "BaseFormat",
-				VariableAutoFormat = "BoldFormatGraft",
-				TextSymbolScale = 0.8,
-			}))
+			local sellAmountFormat = ShallowCopyTable( screen.SellAmountFormat )
+			sellAmountFormat.Id = components[purchaseButtonKey.."Icon"].Id
+			sellAmountFormat.Text = "Sell_ItemCost"
+			sellAmountFormat.LuaKey = "TempTextData"
+			sellAmountFormat.LuaValue = { Amount = button.Value }
+			CreateTextBox( sellAmountFormat )
+			
+			local statLines = upgradeData.StatLines
+			local statLineData = upgradeData
+			if statLines ~= nil then
+				for lineNum, statLine in ipairs( statLines ) do
+					if statLine ~= "" then
+
+						local offsetY = (lineNum - 1) * ScreenData.UpgradeChoice.LineHeight
+						if statLineData.ExtraDescriptionLine then
+							offsetY = offsetY + ScreenData.UpgradeChoice.LineHeight
+						end
+
+						local statLineLeft = DeepCopyTable(ScreenData.UpgradeChoice.StatLineLeft)
+						statLineLeft.Id = components[purchaseButtonKey].Id
+						statLineLeft.Text = statLine
+						statLineLeft.OffsetY = offsetY
+						statLineLeft.LuaValue = statLineData
+						statLineLeft.AppendToId = descriptionText.Id
+						CreateTextBoxWithFormat( statLineLeft )
+
+						local statLineRight = DeepCopyTable(ScreenData.UpgradeChoice.StatLineRight)
+						statLineRight.Id = components[purchaseButtonKey].Id
+						statLineRight.Text = statLine
+						statLineRight.OffsetY = offsetY
+						statLineRight.AppendToId = descriptionText.Id
+						statLineRight.LuaValue = statLineData
+						CreateTextBoxWithFormat( statLineRight )
+
+					end
+				end
+			end
+
+			button.Screen = screen
+			AttachLua({ Id = button.Id, Table = button })
+			button.Data = upgradeData
+			button.WeaponName = currentWeapon
+			button.Index = itemIndex
+			button.OnPressedFunctionName = "HandleSellChoiceSelection"
+			button.OnMouseOverFunctionName = "MouseOverWellShopButton"
+			button.OnMouseOffFunctionName = "MouseOffWellShopButton"
 
 			if firstOption then
-				TeleportCursor({ OffsetX = itemLocationX + buttonOffsetX, OffsetY = itemLocationY, ForceUseCheck = true, })
+				TeleportCursor({ OffsetX = itemLocationX, OffsetY = itemLocationY, ForceUseCheck = true })
 				firstOption = false
 			end
 		end
-		itemLocationY = itemLocationY + 220
+
+		itemLocationX = itemLocationX + itemLocationXSpacer
+		if itemLocationX >= itemLocationMaxX then
+			itemLocationX = itemLocationStartX
+			itemLocationY = itemLocationY + itemLocationYSpacer
+		end
 	end
 
+	UpdateStoreReroll( screen, CurrentRun.CurrentRoom.SellOption, "SellTraitScreenReroll" )
 
-	if HeroHasTrait( "PanelRerollMetaUpgrade" ) then
-		local increment = 0
-		if CurrentRun.CurrentRoom.SpentRerolls then
-			increment = CurrentRun.CurrentRoom.SpentRerolls[ScreenAnchors.SellTraitScreen.Name] or 0
-		end
-		local cost = RerollCosts.SellTrait + increment
-		if IsEmpty( CurrentRun.CurrentRoom.SellValues ) then
-			cost = -1
-		end
-		local color = Color.White
-		if CurrentRun.NumRerolls < cost then
-			color = Color.CostUnaffordable
-		end
-
-		local name = "RerollPanelMetaUpgrade_ShortTotal"
-		local tooltip = "MetaUpgradeRerollHint"
-		if cost < 0 then
-			name = "RerollPanel_Blocked"
-			tooltip = "MetaUpgradeRerollBlockedHint"
-		end
-
-		components["RerollPanel"] = CreateScreenComponent({ Name = "ShopRerollButton", Scale = 1.0, Group = "Combat_Menu" })
-		Attach({ Id = components["RerollPanel"].Id, DestinationId = components.ShopBackground.Id, OffsetX = -200, OffsetY = 440 })
-		components["RerollPanel"].OnPressedFunctionName = "AttemptPanelReroll"
-		components["RerollPanel"].RerollFunctionName = "RerollSellTraitScreen"
-		components["RerollPanel"].Cost = cost
-		components["RerollPanel"].RerollColor = Color.DarkRed
-		components["RerollPanel"].RerollId = ScreenAnchors.SellTraitScreen.Name
-		CreateTextBox({ Id = components["RerollPanel"].Id, Text = name, OffsetX = 28, OffsetY = -5,
-		ShadowColor = {0,0,0,1}, ShadowOffset={0,3}, OutlineThickness = 3, OutlineColor = {0,0,0,1},
-		FontSize = 28, Color = color, Font = "P22UndergroundSCHeavy", LuaKey = "TempTextData", LuaValue = { Amount = cost }})
-		SetInteractProperty({ DestinationId = components["RerollPanel"].Id, Property = "TooltipOffsetX", Value = 850 })
-		CreateTextBox({ Id = components["RerollPanel"].Id, Text = tooltip, Color = Color.Transparent, Font = "P22UndergroundSCHeavy", LuaKey = "TempTextData", LuaValue = { Amount = cost }})
-	end
 end
 
 function HandleSellChoiceSelection( screen, button )
-	RemoveWeaponTrait( button.UpgradeName )
+	RemoveWeaponTrait( button.UpgradeName, { Silent = true } )
 	AddResource( "Money", button.Value, "TraitSell" )
 
 	for index, sellData in pairs( CurrentRun.CurrentRoom.SellOptions ) do
@@ -332,33 +295,42 @@ function HandleSellChoiceSelection( screen, button )
 			CurrentRun.CurrentRoom.SellOptions[index] = nil
 		end
 	end
-	CurrentRun.CurrentRoom.SoldTrait = true
-	CurrentRun.Hero.TraitsSold = (CurrentRun.Hero.TraitsSold or 0) + 1
-	local purchaseButtonKey = screen.Components[button.Id]
-	Destroy({ Ids = { screen.Components[purchaseButtonKey].Id }})
+	
+	CurrentRun.CurrentRoom.TraitsSold = (CurrentRun.CurrentRoom.TraitsSold or 0) + 1
+	CurrentRun.TraitsSold = (CurrentRun.TraitsSold or 0) + 1
+	GameState.TraitsSold = (GameState.TraitsSold or 0) + 1
+
+	local purchaseButtonKey = "PurchaseButton"..button.ItemIndex
 	local clearIds = {}
-	if( screen.Components[purchaseButtonKey.."Icon"] ) then
-		table.insert(clearIds, screen.Components[purchaseButtonKey.."Icon"].Id )
+	if screen.Components[purchaseButtonKey] ~= nil then
+		table.insert( clearIds, screen.Components[purchaseButtonKey].Id )
 	end
-	if( screen.Components[purchaseButtonKey.."Frame"] ) then
+	if screen.Components[purchaseButtonKey.."Highlight"] ~= nil then
+		table.insert( clearIds, screen.Components[purchaseButtonKey.."Highlight"].Id )
+	end
+	if screen.Components[purchaseButtonKey.."Icon"] ~= nil then
+		table.insert( clearIds, screen.Components[purchaseButtonKey.."Icon"].Id )
+	end
+	if screen.Components[purchaseButtonKey.."Frame"] ~= nil then
 		table.insert(clearIds, screen.Components[purchaseButtonKey.."Frame"].Id )
 	end
-	if( screen.Components[purchaseButtonKey.."Patch"] ) then
+	if screen.Components[purchaseButtonKey.."ElementIcon"] ~= nil then
+		table.insert(clearIds, screen.Components[purchaseButtonKey.."ElementIcon"].Id )
+	end
+	if screen.Components[purchaseButtonKey.."Patch"] ~= nil then
 		table.insert(clearIds, screen.Components[purchaseButtonKey.."Patch"].Id )
 	end
-	if( screen.Components[purchaseButtonKey.."IconOverlay"] ) then
+	if screen.Components[purchaseButtonKey.."IconOverlay"] ~= nil then
 		table.insert(clearIds, screen.Components[purchaseButtonKey.."IconOverlay"].Id )
 	end
-
 	if not IsEmpty( clearIds ) then
 		Destroy({ Ids = clearIds })
 	end
-	CreateAnimation({ Name = "BoonSlotPurchase", DestinationId = screen.Components["Backing".. button.Index].Id, OffsetX = 0 })
+
+	--CreateAnimation({ Name = "BoonSlotPurchase", DestinationId = screen.Components["Backing".. button.Index].Id, OffsetX = 0 })
 	PlaySound({ Name = "/SFX/Menu Sounds/SellTraitShopConfirm" })
 	thread( PlayVoiceLines, HeroVoiceLines.SoldTraitVoiceLines, true )
-	if button.Rarity == "Legendary" and not button.IsDuoBoon then
-		CheckAchievement({ Name = "AchPurgedLegendBoon" })
-	end
+
 end
 
 function CloseSellTraitScreen( screen, button )
@@ -377,50 +349,54 @@ function CloseSellTraitScreen( screen, button )
 	SetPlayerVulnerable("SellTraitMenuOpen")
 	OnScreenCloseFinished( screen )
 
-	ScreenAnchors.SellTraitScreen = nil
 end
 
 
-function RerollSellTraitScreen()
-	DestroySellButtons()
+function SellTraitScreenReroll( screen )
+	SellTraitScreenDestroyButtons( screen )
 	local exclusions = {}
-	if not IsEmpty(CurrentRun.CurrentRoom.SellOptions ) and not IsEmpty( CurrentRun.CurrentRoom.SellValues ) then
-		exclusions = { GetRandomValue( CurrentRun.CurrentRoom.SellOptions).Name }
+	if not IsEmpty( CurrentRun.CurrentRoom.SellOptions ) and not IsEmpty( CurrentRun.CurrentRoom.SellValues ) then
+		exclusions = { GetRandomValue( CurrentRun.CurrentRoom.SellOptions ).Name }
 	end
 	CurrentRun.CurrentRoom.SellOptions = nil
-	GenerateSellTraitShop( CurrentRun, CurrentRun.CurrentRoom, { ExclusionNames = exclusions } )
-	CreateSellButtons()
+	GenerateSellTraitShop( CurrentRun.CurrentRoom, { ExclusionNames = exclusions } )
+	CreateSellButtons( screen )
 end
 
-function DestroySellButtons()
-	local components = ScreenAnchors.SellTraitScreen.Components
+function SellTraitScreenDestroyButtons( screen )
+	local components = screen.Components
 	local toDestroy = {}
 	for index = 1, 3 do
-		local destroyIndexes = {
-		"ItemBackingSoldOut"..index,
-		"PurchaseButton"..index,
-		"PurchaseButton"..index.. "Icon",
-		"PurchaseButton"..index.. "IconOverlay",
-		"Backing"..index,
-		"PurchaseButtonTitle"..index,
-		"PurchaseButton"..index.. "Frame",
-		"PurchaseButton"..index.. "Patch"}
+		local destroyIndexes =
+		{
+			"PurchaseButton"..index,
+			"PurchaseButton"..index.."Icon",
+			"PurchaseButton"..index.."IconOverlay",
+			"PurchaseButton"..index.."ElementIcon",
+			"Backing"..index,
+			"PurchaseButtonTitle"..index,
+			"PurchaseButton"..index.."Frame",
+			"PurchaseButton"..index.."Patch",
+			"PurchaseButton"..index.."Highlight",
+		}
 		for i, indexName in pairs( destroyIndexes ) do
-			if components[indexName] then
-				table.insert(toDestroy, components[indexName].Id)
+			if components[indexName] ~= nil then
+				table.insert( toDestroy, components[indexName].Id )
 			end
 		end
 	end
 
-	if components["RerollPanel"] then
-		table.insert(toDestroy, components["RerollPanel"].Id)
-	end
 	Destroy({ Ids = toDestroy })
 end
 
 function GetBaseRarityValue( traitData )
-	if traitData.Rarity and SellTraitData.RarityValues[traitData.Rarity] then
-		return math.floor( RandomInt( SellTraitData.RarityValues[traitData.Rarity].Min, SellTraitData.RarityValues[traitData.Rarity].Max ) / SellTraitData.RoundToNearestValue ) * SellTraitData.RoundToNearestValue
+	local rarityKey = traitData.Rarity
+	if traitData.IsElementalTrait then
+		rarityKey = "Elemental"
+	end
+	
+	if traitData.Rarity and SellTraitData.RarityValues[rarityKey] then
+		return math.floor( RandomInt( SellTraitData.RarityValues[rarityKey].Min, SellTraitData.RarityValues[rarityKey].Max ) / SellTraitData.RoundToNearestValue ) * SellTraitData.RoundToNearestValue
 	end
 	return SellTraitData.BaseValue
 end
@@ -430,23 +406,3 @@ function GetTraitValue( traitData )
 	local stackValue = (GetTraitCount(CurrentRun.Hero, { TraitData = traitData }) - 1) * math.floor( RandomInt( SellTraitData.StackValue.Min, SellTraitData.StackValue.Max ) / SellTraitData.RoundToNearestValue ) * SellTraitData.RoundToNearestValue
 	return round(( baseValue + stackValue ))
 end
-
--- Restore as OnMouseOverFunctionName
---[[
-function( triggerArgs )
-	if triggerArgs.triggeredById == nil or not IsScreenOpen("SellTraitMenu") or ScreenAnchors.SellTraitScreen == nil or ScreenAnchors.SellTraitScreen.Components[ triggerArgs.triggeredById ] == nil then
-		return
-	end
-	local key = ScreenAnchors.SellTraitScreen.Components[ triggerArgs.triggeredById ]
-	SetAlpha({ Id = ScreenAnchors.SellTraitScreen.Components[key.."IconOverlay"].Id, Fraction = 1.0, Duration = 0.1 })
-end
-
--- Restore as OnMouseOffFunctionName
---[[
-function( triggerArgs )
-	if IsScreenOpen("SellTraitMenu") then
-		local key = ScreenAnchors.SellTraitScreen.Components[ triggerArgs.triggeredById ]
-	SetAlpha({ Id = ScreenAnchors.SellTraitScreen.Components[key.."IconOverlay"].Id, Fraction = 0, Duration = 0.1 })
-	end
-end
-]]

@@ -84,7 +84,7 @@ OverwriteTableKeys( TraitData, {
 		RoomsPerUpgrade = 
 		{ 
 			Amount = 1,
-			MaxMana = 10,
+			MaxMana = 5,
 			ReportValues = 
 			{ 
 				ReportedGrowth = "MaxMana", 
@@ -196,6 +196,15 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseCurse"},
 		Icon = "Boon_Medea_02",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "LastStands", },
+				UseLength = true,
+				Comparison = ">",
+				Value = 0,
+			},
+		},
 		OnLastStandFunction = 
 		{
 			Name = "CurseRetaliate",

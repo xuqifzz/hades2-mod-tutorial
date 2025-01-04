@@ -1,7 +1,12 @@
 { Animations = [
 	{
+		Name = "CritterCat"
+		GrannyModel = "CritterCat_Mesh"
+	}
+	{
 		Name = "FamiliarCatBaseAnimation"
 		GrannyModel = "CatFamiliar_Mesh"
+		ExtraGrannyAnimations = [{ Name = "CritterCat" }]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.0
@@ -40,11 +45,12 @@
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Move_Start_C_00"
 		ChainTo = "Familiar_Cat_Move"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
 				Frame = 11
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 		]
 	}
@@ -53,23 +59,24 @@
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Move_C_00"
 		Loop = true
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
 				Frame = 0
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 			{
 				Frame = 2
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 			{
 				Frame = 12
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 			{
 				Frame = 16
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 		]
 	}
@@ -79,19 +86,20 @@
 		GrannyAnimation = "Cat_Familiar_Base_Move_Stop_C_00"
 		CancelOnOwnerMove = true
 		ChainTo = "Familiar_Cat_Idle"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
 				Frame = 1
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 			{
 				Frame = 14
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 			{
 				Frame = 18
-				Sound = "/Leftovers/SFX/FootstepsWheat2Small"
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
 			}
 		]
 		Blends =
@@ -126,7 +134,7 @@
 		Name = "Familiar_Cat_Groom_End"
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Idle_Fidget_01_C_00"
-		ChainTo = "Familiar_Cat_Groom_Loop"
+		ChainTo = "Familiar_Cat_Idle_Loop"
 		Frames =
 		[
 			{
@@ -146,6 +154,13 @@
 		GrannyAnimation = "Cat_Familiar_Base_Greet_C_00"
 		ChainTo = "Familiar_Cat_Idle"
 		CancelOnOwnerMove = true
+		Frames =
+		[
+			{
+				Frame = 60
+				FrameSpeed = 1.5
+			}
+		]
 	}
 
 	{
@@ -153,6 +168,7 @@
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Sleep_Start_C_00"
 		ChainTo = "Familiar_Cat_Sleep_Loop"
+		CancelOnOwnerMove = true
 		Frames =
 		[
 			{
@@ -166,6 +182,11 @@
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_C_00"
 		Loop = true
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Loop_NoBlend"
+		InheritFrom = "Familiar_Cat_Sleep_Loop"
+		Blends = null
 	}
 	{
 		Name = "Familiar_Cat_Sleep_Awaken"
@@ -332,6 +353,47 @@
 		InheritFrom = "FamiliarCatBaseAnimation"
 		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_C_00"
 		Loop = true
+	}
+
+	/* Ambient Cats */
+
+	{
+		Name = "Familiar_Cat_Startle"
+		InheritFrom = "Familiar_Cat_Greet"
+		ChainTo = "Familiar_Cat_Fidget"
+	}
+
+	{
+		Name = "Familiar_Cat_Meow"
+		InheritFrom = "Familiar_Cat_Victory"
+		ChainTo = "Familiar_Cat_Idle"
+	}
+
+	{
+		Name = "Familiar_Cat_Fish_Swipe_NoEnd"
+		InheritFrom = "Familiar_Cat_Fish_Swipe"
+		ChainTo = "Familiar_Cat_Fish_Sit_Loop"
+	}
+
+	{
+		Name = "Familiar_Cat_Sleep_Loop_Alt1"
+		InheritFrom = "Familiar_Cat_Sleep_Loop"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_Extra_Cat_01_C_00"
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Loop_Alt2"
+		InheritFrom = "Familiar_Cat_Sleep_Loop"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_Extra_Cat_02_C_00"
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Loop_Alt3"
+		InheritFrom = "Familiar_Cat_Sleep_Loop"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_Extra_Cat_03_C_00"
+	}
+	{
+		Name = "Familiar_Cat_Sleep_Loop_Alt4"
+		InheritFrom = "Familiar_Cat_Sleep_Loop"
+		GrannyAnimation = "Cat_Familiar_Base_Sleep_Loop_Extra_Cat_04_C_00"
 	}
 
 ]}

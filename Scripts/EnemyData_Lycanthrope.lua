@@ -67,18 +67,26 @@ UnitSetData.Lycanthrope =
 		ActiveCapWeight = 1.5,
 		GeneratorData =
 		{
-		DifficultyRating = 115,
+			DifficultyRating = 115,
 			BlockEnemyTypes = {"Lycanthrope_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
+		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
-			TriggerCooldowns =
+			RandomRemaining = true,
+			GameStateRequirements = 
 			{
-				"CombatBeginsLinesPlayedRecently",
+				-- None
 			},
-			{ Cue = "/VO/MelinoeField_1034", Text = "Lycaons...!" },
+			SkipCooldownCheckIfNonePlayed = true,
+			Cooldowns =
+			{
+				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+			},
+			SuccessiveChanceToPlay = 0.1,
+
+			{ Cue = "/VO/MelinoeField_1034", Text = "Lycaons...!" , PlayFirst = true },
 		},
 	},
 
@@ -91,6 +99,8 @@ UnitSetData.Lycanthrope =
 		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Werewolf/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts", "Hex" }),
 
 		DefaultAIData =
 		{
@@ -110,6 +120,17 @@ UnitSetData.Lycanthrope =
 			{
 				"LycanthropePounce_Elite"
 			},
+		},
+
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.225,
+			ValuePerDifficultyMaxValueVariance = 1.3,
 		},
 
 		GeneratorData =

@@ -88,7 +88,6 @@ WeaponSetData =
 
 			FireFx = "BloodlessBerserkerSwipe",
 
-			PreAttackSound = nil,
 			PreAttackDuration = 0.2,
 			FireDuration = 0.22,
 			PostAttackDuration = 0.0,
@@ -104,6 +103,9 @@ WeaponSetData =
 
 			MoveWithinRange = false,
 			AttackDistance = 9999,
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 
 		Sounds =
@@ -125,20 +127,56 @@ WeaponSetData =
 
 	BloodlessMeleeBerserkerAttackStart =
 	{
-		InheritFrom = { "BloodlessMeleeBerserker1" },
 		AIData =
 		{
 			DeepInheritance = true,
+
+			ProjectileName = "BloodlessMeleeBerserker",
+
+			PreAttackAnimation = "Enemy_BloodlessNaked_WildAttack1_Start",
+			FireAnimation = "Enemy_BloodlessNaked_WildAttack1_Fire",
+
+			FireProjectileStartDelay = 0.05,
+			FireSelfVelocity = 1200,
+
+			FireFx = "BloodlessBerserkerSwipe",
 
 			PreAttackSound = "/SFX/Enemy Sounds/Bloodless01/EmoteCharging",
 			PreAttackAnimation = "Enemy_BloodlessNaked_WildAttack1_Start",
 			PreAttackAnimationSpeed = 0.4,
 			PreAttackDuration = 0.5,
 			PreAttackEndShake = true,
+			FireDuration = 0.22,
+			PostAttackDuration = 0.0,
+
+			PreAttackRotationDampening = 0.09,
+			FireRotationDampening = 0.09,
+
+			PreAttackStop = true,
+			TrackTargetDuringCharge = true,
+			StopBeforeFire = true,
+			TrackTargetDuringFire = true,
+			PostAttackStop = true,
 
 			AttackDistance = 500,
 			MoveWithinRange = true,
-		}
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Bloodless01/EmoteThrustAttacking" },
+				{ Name = "/SFX/Enemy Sounds/WrechPunchSwing" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
+		},
 	},
 
 	BloodlessMeleeBerserker2 =
@@ -261,6 +299,9 @@ WeaponSetData =
 
 			LeapWhenTargetBeyondDistance = 9999,
 			LeapWhenTargetOutOfSight = false,
+
+			-- Elite Attribute Blink ban
+			TeleportToSpawnPoints = false,
 		},
 	},
 
@@ -360,6 +401,9 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
 			PreAttackAnimation = "Enemy_BloodlessGrenadier_Leap",
+
+			-- Elite Attribute Blink ban
+			TeleportToSpawnPoints = false,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
@@ -389,6 +433,9 @@ WeaponSetData =
 
 			MoveWithinRange = false,
 			AttackDistance = 9999999,
+
+			-- Elite Attribute Blink ban
+			TeleportToSpawnPoints = false,
 		},	
 	},
 

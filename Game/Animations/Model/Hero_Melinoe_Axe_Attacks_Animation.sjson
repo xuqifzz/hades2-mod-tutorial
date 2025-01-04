@@ -304,7 +304,7 @@
 		Frames =
 		[
 			{
-				Frame = 16
+				Frame = 15
 				Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk"
 			}
 		]
@@ -468,6 +468,7 @@
 	}
 
 	/* Melinoe Axe Special1 (Block) */
+	/*
 	{
 		Name = "Axe_Special1_Start"
 		InheritFrom = "WeaponAxeBase"
@@ -649,6 +650,137 @@
 			}
 		]
 	}
+	*/
+
+	// Axe Special Upper
+
+	{
+		Name = "Axe_Special1_Start"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpperAntic_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.75
+			}
+		]
+	}
+	{
+		Name = "Melinoe_Axe_Special1_Start"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpperAntic_C_00"
+		DisableOwnerManualInteract = true
+		HoldLastFrame = true
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.75
+			}
+		]
+		Attachments =
+		[
+			{
+				Name = "Axe_Special1_Start"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 9
+			}
+		]
+	}
+
+	{
+		Name = "Axe_Special1_Fire"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpper_C_00"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.55
+			}
+		]
+	}	
+	{
+		Name = "Melinoe_Axe_Special1_Fire"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpper_C_00"
+		DisableOwnerManualInteract = true
+		ChainTo = "Melinoe_Axe_Special1_End"
+		StopSoundOnFinishFade = 0.2
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Special1_Fire"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.55
+			}
+			{
+				Frame = 9
+				Sound = "/SFX/Player Sounds/MelinoeAxeSpecialSpin"
+				FrameSpeed = 1.55
+			}
+		]
+	}
+	{
+		Name = "Axe_Special1_End"
+		InheritFrom = "WeaponAxeBase"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpperReturnToIdle_C_00"
+	}	
+	{
+		Name = "Melinoe_Axe_Special1_End"
+		InheritFrom = "MelinoeBaseAxeAnimations"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpperReturnToIdle_C_00"
+		ChainTo = "Melinoe_Axe_Idle"
+		CancelOnOwnerMove = true
+
+		Attachments =
+		[
+			{
+				Name = "Axe_Special1_End"
+				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT"
+			}
+		]
+
+		/*
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 4
+			}
+		]
+		*/
+
+		Frames =
+		[
+			{
+				Frame = 7
+				Sound = "/Leftovers/World Sounds/QuickSnap3"
+			}
+			{
+				Frame = 10
+				Sound = "/SFX/Player Sounds/MelinoeAxeGroudClunk"
+			}
+		]
+
+	}
 
 	/* Melinoe Axe SpecialEx1 */
 
@@ -656,26 +788,22 @@
 	{
 		Name = "Axe_SpecialEx1_Start"
 		InheritFrom = "WeaponAxeBase"
-		GrannyAnimation = "Axe_Weapon_Base_AttackDragToLevitateSlamIntro_C_00"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpper2ChargeLoop_C_00"
 		FrameData =
 		[	
 			{
 				Frame = 0
-				FrameSpeed = 0
-			}
-			{
-				Frame = 35
-				FrameSpeed = 1.0
+				FrameSpeed = 1.4
 			}
 		]
 	}
 	{
 		Name = "Melinoe_Axe_SpecialEx1_Start"
 		InheritFrom = "MelinoeBaseAxeAnimations"
-		GrannyAnimation = "Melinoe_Axe_Base_AttackDragToLevitateSlamIntro_C_00"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpper2ChargeLoop_C_00"
 		DisableOwnerManualInteract = true
 		HoldLastFrame = true
-		GrannyAnimationSpeed = 0.6
+		StopSoundOnFinishFade = 0.2
 		Sound = "/SFX/Player Sounds/MelinoeAxeGroudPull"
 		Attachments =
 		[
@@ -686,35 +814,27 @@
 		]
 
 		FrameData =
-		[	
+		[
 			{
 				Frame = 0
-				FrameSpeed = 0
+				FrameSpeed = 1.4
 			}
 			{
-				Frame = 35
+				Frame = 23
 				Sound = "/SFX/Player Sounds/MelinoeAxePhysicalChargeUpShort"
-				FrameSpeed = 1.0
+				FrameSpeed = 1.4
 			}
 			{
-				Frame = 36
+				Frame = 25
 				Sound = "/VO/MelinoeEmotes/EmoteChargingAxe"
-				FrameSpeed = 1.0
+				FrameSpeed = 1.4
 			}
 		]
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
-				Duration = 7
-			}
-			{
 				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
-				Duration = 7
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Axe_Special1_FireLoop"
-				Duration = 7
+				Duration = 3
 			}
 		]
 	}
@@ -727,15 +847,16 @@
 	{
 		Name = "Axe_SpecialEx1_Fire"
 		InheritFrom = "WeaponAxeBase"
-		GrannyAnimation = "Axe_Weapon_Base_AttackDragToLevitateSlamFire_C_00"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpper2_C_00"
 	}
 	{
 		Name = "Melinoe_Axe_SpecialEx1_Fire"
 		InheritFrom = "MelinoeBaseAxeAnimations"
-		GrannyAnimation = "Melinoe_Axe_Base_AttackDragToLevitateSlamFire_C_00"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpper2_C_00"
 		DisableOwnerManualInteract = true
 		ChainTo = "Melinoe_Axe_SpecialEx1_End"
 		GrannyAnimationSpeed = 2.0
+		StopSoundOnFinishFade = 0.2
 		Attachments =
 		[
 			{
@@ -746,12 +867,12 @@
 		FrameData =
 		[
 			{
-				Frame = 1
-				Sound = "/VO/MelinoeEmotes/EmoteAttackingAxeThrow"
-			}
-			{
 				Frame = 2
 				Sound = "/SFX/Player Sounds/MelinoeHugeAxeSwing"
+			}
+			{
+				Frame = 6
+				Sound = "/VO/MelinoeEmotes/EmoteAttackingFierce"
 			}
 		]
 	}
@@ -776,12 +897,12 @@
 	{
 		Name = "Axe_SpecialEx1_End"
 		InheritFrom = "WeaponAxeBase"
-		GrannyAnimation = "Axe_Weapon_Base_AttackDragToLevitateSlamReturnToIdle_C_00"
+		GrannyAnimation = "Axe_Weapon_Base_SpecialUpperReturnToIdle2_C_00"
 	}
 	{
 		Name = "Melinoe_Axe_SpecialEx1_End"
 		InheritFrom = "MelinoeBaseAxeAnimations"
-		GrannyAnimation = "Melinoe_Axe_Base_AttackDragToLevitateSlamReturnToIdle_C_00"
+		GrannyAnimation = "Melinoe_Axe_Base_SpecialUpperReturnToIdle2_C_00"
 		GrannyAnimationSpeed = 1.1
 		ChainTo = "Melinoe_Axe_Idle"
 		CancelOnOwnerMove = true

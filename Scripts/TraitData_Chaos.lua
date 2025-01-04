@@ -5,6 +5,7 @@ TraitSetData.Chaos =
 	ChaosCurse =
 	{
 		Icon = "Shop_Vial",
+		SpeakerNames = { "Chaos" },
 	},
 
 	ChaosCurseRemainingEncounters =
@@ -148,6 +149,7 @@ TraitSetData.Chaos =
 				LuaProperty = "MaxHealth",
 				BaseMin = 26,
 				BaseMax = 35,
+				AsInt = true,
 				ChangeType = "Add",
 				ReportValues = { ReportedHealth = "ChangeValue"}
 			},
@@ -299,6 +301,7 @@ TraitSetData.Chaos =
 		}
 	},
 	
+	
 	ChaosManaBlessing =
 	{
 		InheritFrom = { "ChaosBlessing" },
@@ -413,7 +416,7 @@ TraitSetData.Chaos =
 		},
 		WeaponSpeedMultiplier =
 		{
-			WeaponNames = { "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponAxeBlock2", "WeaponAxeSpin", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5" },
+			WeaponNames = { "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponAxeBlock2", "WeaponAxeSpin", "WeaponCastArm", "WeaponStaffBall", "WeaponStaffSwing5", "WeaponDaggerThrow", "WeaponDagger5", "WeaponSprintEx" },
 			Value = 
 			{
 				BaseMin = 0.85,
@@ -689,7 +692,7 @@ TraitSetData.Chaos =
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroAllWeaponsAndSprint,
 			ExMultiplier =
 			{
 				BaseValue = 1.3,
@@ -755,15 +758,15 @@ TraitSetData.Chaos =
 				AsInt = true,
 				ReportValues = 
 				{
-					ReportedHealth = "ChangeValue"
+					ReportedHealthCurse = "ChangeValue"
 				},
 			},
 		},
 		ExtractValues =
 		{
 			{
-				Key = "ReportedHealth",
-				Format = "MaxHealthIgnoreCap",
+				Key = "ReportedHealthCurse",
+				Format = "MaxHealth",
 				ExtractAs = "TooltipHealthCurse",
 				SkipAutoExtract = true,
 			},
@@ -908,7 +911,7 @@ TraitSetData.Chaos =
 				TraitName = "ApolloSprintBoon",
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocity",
-				ChangeValue = 0.5,
+				ChangeValue = 0.9, 
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
 			},
@@ -917,7 +920,7 @@ TraitSetData.Chaos =
 	
 				WeaponNames = { "WeaponSprint" },
 				WeaponProperty = "SelfVelocityCap",
-				ChangeValue = 0.5,
+				ChangeValue = 0.9,
 				ChangeType = "Multiply",
 				ExcludeLinked = true,
 			},

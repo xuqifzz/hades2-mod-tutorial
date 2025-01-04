@@ -141,33 +141,6 @@
     }
     
     {
-      Name = "MetaUpgradeWorldObject01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "MetaUpgradeWorldObject01"
-        Tallness = 460.0
-        Interact = 
-        {
-          Distance = 250.0
-        }
-        Points = [
-          { X = -147 Y = -469 }
-          { X = -429 Y = -349 }
-          { X = -413 Y = 36 }
-          { X = -272 Y = 142 }
-          { X = 17 Y = 202 }
-          { X = 254 Y = 128 }
-          { X = 429 Y = 42 }
-          { X = 427 Y = -308 }
-          { X = 180 Y = -467 }
-        ]
-      }
-    }
-    
-    {
       Name = "CriticalItemWorldObject01"
       InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
@@ -1919,10 +1892,6 @@
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_Lyre_01"
         Tallness = 635.0
-        Interact = 
-        {
-          Distance = 160.0
-        }
         Offset = { X = 0 Y = -396 }
         Points = [
           { X = -33 Y = -153 }
@@ -5337,7 +5306,7 @@
     
     {
       Name = "HousePottedPlant01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -5494,7 +5463,7 @@
       DisplayInEditor = true
       Thing = 
       {
-        AmbientSound = "/SFX/ScryingPoolAmbience"
+        AmbientSound = "/SFX/ScryingPoolAmbienceSmall"
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\House\House_WaterBowl_01"
         Interact = 
@@ -6769,6 +6738,7 @@
         AttachedAnim = "GhostShadow_Small"
         EditorOutlineDrawBounds = false
         Graphic = "SmallGhostIdle"
+        SortBoundsScale = 0.75
         StopsLight = false
         Points = [
           { X = 30 Y = 3 }
@@ -6849,7 +6819,7 @@
       Name = "ShadeHubSIdle01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
-      CollisionEndedAlphaInDuration = 3.0
+      CollisionEndedAlphaInDuration = 0.4
       DisplayInEditor = true
       UseCollisionShift = false
       Life = 

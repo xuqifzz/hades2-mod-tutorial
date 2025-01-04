@@ -20,7 +20,8 @@ function OpenRunClearScreen()
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
 	OnScreenOpened( screen )
-	
+	thread(UpdateHealthUI)
+
 	local traitTrayScreen = OpenTraitTrayScreen( { DontDuckAudio = true, DisableTooltips = true, HideCloseButton = true, HideInfoButton = true, AutoPin = true, SkipInputHandlers = true, OverwriteSelf = { IgnoreOtherScreenInput = false, }, } )
 
 	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelIn" })
@@ -52,16 +53,15 @@ function OpenRunClearScreen()
 	end
 
 	-- Damage Dealt
-	--SetAlpha({ Id = components.ShrinePointsLabel.Id, Duration = HUDScreen.FadeOutDuration, Fraction = 1.0 })
-	--SetAlpha({ Id = components.ShrinePointsValue.Id, Duration = HUDScreen.FadeOutDuration, Fraction = 1.0 })
 	local damageLocationX = screen.DamageDealtStartX
 	local damageLocationY = screen.DamageDealtStartY
 	local mappedDamageDealtRecord = {}
-	for sourceName, amount in pairs( CurrentRun.DamageDealtRecord ) do
+	for sourceName, amount in pairs( CurrentRun.DamageDealtByHeroRecord ) do
 		local mappedName = screen.DamageSourceMap[sourceName] or sourceName
-		if WeaponDataEnemies[mappedName] then
-			mappedName = "RunClearScreen_DamageDealtAllies"
-		end
+		mappedDamageDealtRecord[mappedName] = (mappedDamageDealtRecord[mappedName] or 0) + amount
+	end
+	for sourceName, amount in pairs( CurrentRun.DamageDealtByCharmedEnemiesRecord ) do
+		local mappedName = "RunClearScreen_DamageDealtAllies"
 		mappedDamageDealtRecord[mappedName] = (mappedDamageDealtRecord[mappedName] or 0) + amount
 	end
 	local damageRecordItems = {}
@@ -102,6 +102,9 @@ function OpenRunClearScreen()
 	damageLocationY = screen.DamageTakenStartY
 	local mappedDamageTakenRecord = {}
 	for sourceName, amount in pairs( CurrentRun.DamageTakenFromRecord ) do
+		if EnemyData[sourceName] ~= nil then
+			sourceName = GetGenusName(EnemyData[sourceName])
+		end
 		local mappedName = screen.DamageSourceMap[sourceName] or sourceName
 		mappedDamageTakenRecord[mappedName] = (mappedDamageTakenRecord[mappedName] or 0) + amount
 	end

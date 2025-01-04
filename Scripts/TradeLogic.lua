@@ -10,7 +10,7 @@
 
 	local giveItemData = nil
 	if screen.ChosenGiveOption.SellTrait then
-		GenerateSellTraitShop( CurrentRun, CurrentRun.CurrentRoom, { SellOptionCount = 1 } )
+		GenerateSellTraitShop( CurrentRun.CurrentRoom, { SellOptionCount = 1 } )
 		for i, sellData in pairs( CurrentRun.CurrentRoom.SellOptions ) do
 			giveItemData = CurrentRun.Hero.TraitDictionary[sellData.Name][1]
 			SetTraitTextData( giveItemData )
@@ -102,7 +102,7 @@
 	end
 	if getItemData.DropMoney ~= nil then
 		local moneyMultiplier = GetTotalHeroTraitValue( "MoneyMultiplier", { IsMultiplier = true } )
-		getItemData.DropMoney = getItemData.DropMoney * moneyMultiplier
+		getItemData.DropMoney = round(getItemData.DropMoney * moneyMultiplier)
 	end
 
 	local getItemIcon = getItemData.Icon or getItemData.SurfaceShopIcon
@@ -134,7 +134,6 @@
 	if giveItemData.ResourceName ~= nil and not HasResource( giveItemData.ResourceName, giveItemData.Cost ) then
 		SetAlpha({ Id = components.AcceptButton.Id, Fraction = 0.0, Duration = 0.0 })
 		UseableOff({ Id = components.AcceptButton.Id })
-		components.AcceptButton.Disabled = true
 		ModifyTextBox({ Id = components.CloseButton.Id, Text = "TradeScreen_DeclineCannotAfford", })
 	end
 	

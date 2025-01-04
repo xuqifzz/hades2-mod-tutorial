@@ -648,16 +648,16 @@
 		Name = "StaffProjectileFireFx2_Zeus"
 		InheritFrom = "StaffProjectileFireFx2"
 		CreateAnimation = null
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.7
-        EndGreen = 1
-        EndBlue = 0.1
-        Red = 1
-        Green = 1
-        Blue = 1
-        ColorFromOwner = "Ignore"
+		StartRed = 1.0
+		StartGreen = 0.95
+		StartBlue = 0.7
+		EndRed = 0.7
+		EndGreen = 1
+		EndBlue = 0.1
+		Red = 1
+		Green = 1
+		Blue = 1
+		ColorFromOwner = "Ignore"
 	}
 
 	{
@@ -666,6 +666,30 @@
 		RadialOffsetMin = 0
 		RadialOffsetMax = 0
 		CreateAnimation = "StaffProjectileFireFxRingClose_Zeus"
+	}	
+
+	{
+		Name = "StaffProjectileFireFx2_Hephaestus"
+		InheritFrom = "StaffProjectileFireFx2"
+		CreateAnimation = null
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+				Red = 1
+				Green = 1
+				Blue = 1
+				ColorFromOwner = "Ignore"
+	}
+
+	{
+		Name = "StaffProjectileFireFx2Close_Hephaestus"
+		InheritFrom = "StaffProjectileFireFx2_Hephaestus"
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		CreateAnimation = "StaffProjectileFireFxRingClose_Hephaestus"
 	}
 
 	{
@@ -787,18 +811,36 @@
 	{
 		Name = "StaffProjectileFireFx3_Zeus"
 		InheritFrom = "StaffProjectileFireFx3"
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.7
-        EndBlue = 0.5
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.7
+				EndBlue = 0.5
 		ClearCreateAnimations = true
 		CreateAnimation = null
 		CreateAnimations =
 		[
 			{ Name = "StaffProjectileFireFxRing_Zeus" }
 			{ Name = "StaffProjectileFireFx1_Zeus" }
+		]
+	}	
+
+	{
+		Name = "StaffProjectileFireFx3_Hephaestus"
+		InheritFrom = "StaffProjectileFireFx3"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		CreateAnimations =
+		[
+			{ Name = "StaffProjectileFireFxRing_Hephaestus" }
+			{ Name = "StaffProjectileFireFx1_Hephaestus" }
 		]
 	}
 
@@ -1580,12 +1622,12 @@
 		Scale = 3
 		StartAlpha = 0.25
 		EndAlpha = 0
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0.3
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0.3
 		Material = "Unlit"
 		Duration = 0.5
 		EaseIn = 0.5
@@ -1601,12 +1643,12 @@
 		InheritFrom = "StaffProjectileFireFxRing_Zeus"
 		Sound = null
 		PlaySpeed = 45
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 	}
 
 	{
@@ -1631,6 +1673,120 @@
 		FilePath = "Fx\Zeus\ZeusCircle\ZeusCircle"
 		NumFrames = 36
 		StartFrame = 35
+	}
+
+
+	{
+		Name = "StaffProjectileFireFx1_Hephaestus"
+		InheritFrom = "StaffProjectileFireFx1"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		EndAlpha = 0.999
+		StartScale = 1.2
+		EndScale = 1.4
+		AddColor = false
+		NumFrames = 25
+		PlaySpeed = 90
+		StartFrame = 31
+		DieWithOwner = false
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		ClearCreateAnimations = true
+		CreateAnimation = "StaffProjectileFireFxRing_Hephaestus"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		Scale = 0.6
+		EaseIn = 0.999
+		ColorFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HephaestusSwipeWhoosh"
+		CreateAnimations = []
+	}
+
+	{
+		Name = "StaffProjectileFireFxRing_Hephaestus"
+		InheritFrom = "StaffProjectileFireFxRing"
+		CreateAnimation = "StaffGlow1_Hephaestus"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		Hue = 0.7
+		Saturation = -1
+	}
+
+	{
+		Name = "StaffGlow1_Hephaestus"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Terrain_Add"
+		RandomRotation = false
+		ScaleY = 0.5
+		Scale = 3
+		StartAlpha = 0.25
+		EndAlpha = 0
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.5
+		EaseOut = 1.0
+		OriginX = 32
+		OriginY = 128
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "StaffProjectileFireFxRingSlow_Hephaestus"
+		InheritFrom = "StaffProjectileFireFxRing_Hephaestus"
+		Sound = null
+		PlaySpeed = 45
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "StaffProjectileFireFxRingClose_Hephaestus"
+		InheritFrom = "StaffProjectileFireFxRing_Hephaestus"
+		Hue = 0
+		Saturation = 0
+		Material = "Unlit"
+		GroupName = "FX_Standing"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Scale = 0.75
+		RadialOffsetMin = 30
+		RadialOffsetMax = 30
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		NumFrames = 25
+		StartFrame = 31
 	}
 
 
@@ -2000,12 +2156,27 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0.3
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0.3
+		Hue = 0
+	}	
+
+	{
+		Name = "StaffMagicGlow_Hephaestus"
+		InheritFrom = "StaffMagicGlow"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
 		Hue = 0
 	}
 
@@ -2475,9 +2646,67 @@
 	{
 		Name = "StaffBallProjectile_ZeusGlow"
 		FilePath = "Particles\particle_glow_egg_horizontal"
-        Red = 1
-        Green = 0.9
-        Blue = 0.3
+				Red = 1
+				Green = 0.9
+				Blue = 0.3
+		Material = "Unlit"
+		Duration = 0.5
+		Loop = true
+		DieWithOwner = true
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartAlpha = 0.3
+		EndAlpha = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		FlipHorizontal = true
+	}	
+
+	{
+		Name = "StaffBallProjectile_Hephaestus"
+		InheritFrom = "StaffBallProjectile"
+		ChildAnimation = "StaffBallProjectileGlow_Hephaestus"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Scale = 0.85
+		FilePath = "Fx\Hephaestus\HephStaffProjectile\HephStaffProjectile"
+		NumFrames = 15
+		Material = "Unlit"
+		PlaySpeed = 60
+		VisualFx = "StaffProjectileTrailLine_Hephaestus"
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HephaestusLoop"
+		StopSoundOnFinishFade = 0.3
+		CreateAnimations =
+		[
+			{ Name = "StaffBallProjectile_HephaestusGlow" }
+		]
+	}
+
+	{
+		Name = "HephaestusStaffProjectileShadow"
+		InheritFrom = "StaffBallProjectile_Hephaestus"
+		GroupName = "Shadows"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		VisualFx = null
+		ClearCreateAnimations = true
+		DieWithOwner = true
+		Alpha = 0.5
+	}
+
+	{
+		Name = "StaffBallProjectile_HephaestusGlow"
+		FilePath = "Particles\particle_glow_egg_horizontal"
+				Red = 0.5
+				Green = 0.8
+				Blue = 1.0
 		Material = "Unlit"
 		Duration = 0.5
 		Loop = true
@@ -2625,6 +2854,25 @@
 		InheritFrom = "StaffBallProjectile_Zeus"
 		ClearCreateAnimations = true
 		ChainTo = "StaffBallProjectile_Zeus"
+		Loop = false
+		PingPongScale = false
+		DurationFrames = 10
+		StartScale = 0
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		ChildAnimation = null
+		TransferFrameFromThis = true
+		CreateAnimation = null
+		VisualFx = null
+		OverlayVfx = true
+	}	
+
+	{
+		Name = "StaffBallProjectileIn_Hephaestus"
+		InheritFrom = "StaffBallProjectile_Hephaestus"
+		ClearCreateAnimations = true
+		ChainTo = "StaffBallProjectile_Hephaestus"
 		Loop = false
 		PingPongScale = false
 		DurationFrames = 10
@@ -2890,6 +3138,45 @@
 	{
 		Name = "StaffBallProjectileCharged_Zeus_Shadow"
 		InheritFrom = "StaffBallProjectileCharged_Zeus"
+		VisualFx = null
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		PostRotateScaleY = 0.5
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		GroupName = "Shadows"
+		DieWithOwner = true
+		Sound = null
+	}
+
+	{
+		Name = "StaffBallProjectileCharged_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephStaffBall\HephStaffBall"
+		NumFrames = 50
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		Scale = 1.2
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		OffsetZ = 0
+		// ChildAnimation = "HephaestusChargedCircleEmitter"
+		VisualFxDistanceMin = 120
+		VisualFxDistanceMax = 120
+		StopSoundOnFinishFade = 0.4
+		CreateAnimation = "StaffBallProjectileGlowCharged_Hephaestus"
+	}
+
+	{
+		Name = "StaffBallProjectileCharged_Hephaestus_Shadow"
+		InheritFrom = "StaffBallProjectileCharged_Hephaestus"
 		VisualFx = null
 		ClearCreateAnimations = true
 		ChildAnimation = null
@@ -3209,6 +3496,7 @@
 		OverlayVfx = true
 		SortMode = "FromParent"
 		SortFromOwner = "Take"
+		UseBoundsForSortDrawArea = true
 		GroupName = "FX_Standing_Add"
 		Velocity = 450
 		Acceleration = -450
@@ -3518,6 +3806,114 @@
 	}
 
 	{
+		Name = "StaffComboAttack1_Hephaestus"
+		InheritFrom = "StaffComboAttack1"
+		VisualFx = "StaffProjectileTrailLineAttack1_Hephaestus"
+		NumFrames = 12
+		PlaySpeed = 30
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.031
+		VisualFxCap = 2
+		ChildAnimation = "StaffBallProjectileGlow_Hephaestus"
+		OriginX = 90
+		OriginY = 60
+		AngleFromOwner = "Maintain"
+		CreateAnimations =
+		[
+			{ Name = "StaffComboAttack1CircleA_Hephaestus" }
+			{ Name = "StaffComboAttack1CircleB_Hephaestus" }
+			{ Name = "StaffComboAttack1CircleD_Hephaestus" }
+			{ Name = "HephaestusDirectionalTrailStaff" }
+		]
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaff"
+		Random =
+		[
+			{ Name = "HephaestusDirectionalTrailStaffA" }
+			{ Name = "HephaestusDirectionalTrailStaffB" }
+		]
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffA"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkA\HephDirectionalSparkA"
+		NumFrames = 36
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 150
+		RadialOffsetMax = 150
+		RandomPlaySpeedMin = 100
+		RandomPlaySpeedMax = 120
+		EaseIn = 0.99
+		EaseOut = 1.0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		GroupName = "Standing"
+		Velocity = 1800
+		Acceleration = -8000
+		RandomFlipVertical = false
+		OriginX = 280
+		OriginY = 180
+		// CreateAnimation = "HephaestusDirectionalTrailStaffA_Dark"
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffB"
+		InheritFrom = "HephaestusDirectionalTrailStaffA"
+		NumFrames = 32
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkB\HephDirectionalSparkB"
+		// CreateAnimation = "HephaestusDirectionalTrailStaffB_Dark"
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffA_Dark"
+		InheritFrom = "HephaestusDirectionalTrailStaffA"
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		Red = 0
+		Green = 0
+		Blue = 0
+		Velocity = 0
+	}
+	{
+		Name = "HephaestusDirectionalTrailStaffB_Dark"
+		InheritFrom = "HephaestusDirectionalTrailStaffA_Dark"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkB\HephDirectionalSparkB"
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffDash"
+		Random =
+		[
+			{ Name = "HephaestusDirectionalTrailStaffDashA" }
+			{ Name = "HephaestusDirectionalTrailStaffDashB" }
+		]
+	}
+	{
+		Name = "HephaestusDirectionalTrailStaffDashA"
+		InheritFrom = "HephaestusDirectionalTrailStaffA"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkA\HephDirectionalSparkA"
+		PlaySpeed = 120
+		RadialOffsetMin = 0
+		RadialOffsetMax = 0
+		Velocity = 1
+		StartAlpha = 1
+		EndAlpha = 0.99
+		StartScaleY = 0.9
+	}
+	{
+		Name = "HephaestusDirectionalTrailStaffDashB"
+		InheritFrom = "HephaestusDirectionalTrailStaffDashA"
+		NumFrames = 32
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkB\HephDirectionalSparkB"
+	}
+
+
+	{
 		Name = "StaffComboAttack1Dash"
 		InheritFrom = "StaffComboAttack1"
 		VisualFx = "StaffProjectileTrailLineDash"
@@ -3555,6 +3951,12 @@
 		Name = "StaffComboAttack1Dash_Zeus"
 		InheritFrom = "StaffComboAttack1Dash"
 		VisualFx = "StaffProjectileTrailLineAttack1Dash_Zeus"
+	}	
+
+	{
+		Name = "StaffComboAttack1Dash_Hephaestus"
+		InheritFrom = "StaffComboAttack1Dash"
+		VisualFx = "StaffProjectileTrailLineAttack1Dash_Hephaestus"
 	}
 
 	{
@@ -3865,12 +4267,12 @@
 		InheritFrom = "StaffComboAttack1CircleA"
 		Hue = 0.5
 		Saturation = 0.25
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 	}
 
 	{
@@ -3878,12 +4280,12 @@
 		InheritFrom = "StaffComboAttack1CircleB"
 		Hue = 0.5
 		Saturation = 0.25
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 	}
 
 	{
@@ -3891,12 +4293,51 @@
 		InheritFrom = "StaffComboAttack1CircleD"
 		Hue = 0.5
 		Saturation = 0.25
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
+	}
+
+	{
+		Name = "StaffComboAttack1CircleA_Hephaestus"
+		InheritFrom = "StaffComboAttack1CircleA"
+		Saturation = -1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Value = 0.5
+	}
+
+	{
+		Name = "StaffComboAttack1CircleB_Hephaestus"
+		InheritFrom = "StaffComboAttack1CircleB"
+		Saturation = -1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Value = 0.5
+	}
+
+	{
+		Name = "StaffComboAttack1CircleD_Hephaestus"
+		InheritFrom = "StaffComboAttack1CircleD"
+		Saturation = -1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Value = 0.5
 	}
 
 	{
@@ -3990,6 +4431,21 @@
 	{
 		Name = "StaffComboAttack1Dissipate_Zeus"
 		InheritFrom = "StaffComboAttack1_Zeus"
+		PingPongScale = false
+		ChainTo = null
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.125
+		Loop = false
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		ChildAnimation = null
+		VisualFx = null
+	}	
+
+	{
+		Name = "StaffComboAttack1Dissipate_Hephaestus"
+		InheritFrom = "StaffComboAttack1_Hephaestus"
 		PingPongScale = false
 		ChainTo = null
 		StartScale = 1
@@ -4531,9 +4987,9 @@
 		Name = "StaffComboAttack2_Zeus"
 		InheritFrom = "StaffComboAttack2"
 		FilePath = "Particles\particle_glow"
-        Red = 1
-        Green = 0.9
-        Blue = 0.3
+				Red = 1
+				Green = 0.9
+				Blue = 0.3
 		Scale = 2
 		Alpha = 0.2
 		VisualFx = "StaffCombo2Stars_Zeus"
@@ -4592,12 +5048,132 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0.3
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0.3
+	}	
+
+
+	{
+		Name = "StaffComboAttack2_Hephaestus"
+		InheritFrom = "StaffComboAttack2"
+		FilePath = "Particles\particle_glow"
+				Red = 0.51
+				Green = 0.82
+				Blue = 1.0
+		Scale = 2
+		Alpha = 0.2
+		VisualFx = "StaffCombo2Stars_Hephaestus"
+	}
+
+	{
+		Name = "StaffCombo2Stars_Hephaestus"
+		InheritFrom = "StaffCombo2Stars"
+		VisualFx = "StaffCombo2StarParticles_Hephaestus"
+		CreateAnimation = null
+		Hue = 0.1
+		Saturation = -0.0
+	}
+
+	{
+		Name = "StaffCombo2StarParticles_Hephaestus"
+		Random = [
+			{ Name = "StaffCombo2StarParticleA_Hephaestus" }
+			{ Name = "StaffCombo2StarParticleB_Hephaestus" }
+			{ Name = "StaffCombo2StarParticleC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "StaffCombo2StarParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -400
+		RadialOffsetMin = 100
+		RadialOffsetMax = 300
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		Gravity = 200
+	}
+
+	{
+		Name = "StaffCombo2StarParticleB_Hephaestus"
+		InheritFrom = "StaffCombo2StarParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "StaffCombo2StarParticleC_Hephaestus"
+		InheritFrom = "StaffCombo2StarParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+	{
+		Name = "StaffCombo3Particles_Hephaestus"
+		Random = [
+			{ Name = "StaffCombo3ParticleA_Hephaestus" }
+			{ Name = "StaffCombo3ParticleB_Hephaestus" }
+			{ Name = "StaffCombo3ParticleC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "StaffCombo3ParticleA_Hephaestus"
+		InheritFrom = "StaffCombo2StarParticleA_Hephaestus"
+		RandomPlaySpeedMin = 120
+		RandomPlaySpeedMax = 160
+		VelocityMin = 200
+		VelocityMax = 400
+		Acceleration = -900
+		RadialOffsetMin = 10
+		RadialOffsetMax = 30
+	}
+
+
+	{
+		Name = "StaffCombo3StarParticleB_Hephaestus"
+		InheritFrom = "StaffCombo3ParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "StaffCombo3StarParticleC_Hephaestus"
+		InheritFrom = "StaffCombo3ParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+	{
+		Name = "StaffComboAttack2Dissipate_Hephaestus"
+		InheritFrom = "StaffComboAttack2Dissipate"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.05
+		Scale = 2
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
 	}
 
 	{
@@ -5778,7 +6354,8 @@
 		VisualFxCap = 4
 		Sound = "/SFX/Player Sounds/PoseidonWaterDashUpgrade"
 	}
-	{
+
+		{
 		Name = "StaffComboAttack3_Zeus"
 		FilePath = "Fx\Staff\StaffCircleA"
 		Hue = 0.5
@@ -5802,7 +6379,6 @@
 			{ Name = "StaffComboAttack3Trail_Zeus"}
 		]
 	}
-
 
 	{
 		Name = "ZeusDirectionalTrailStaff_Attack3"
@@ -5866,12 +6442,12 @@
 		FilePath = "Particles\particle_glow"
 		GroupName = "FX_Standing_Add"
 		Material = "Unlit"
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 		Alpha = 0.8
 		Scale = 4
 		ScaleY = 0.5
@@ -5930,12 +6506,12 @@
 		Name = "StaffComboAttack3Dissipate_Zeus"
 		FilePath = "Fx\Staff\StaffCircleAOut\StaffCircleAOut"
 		Saturation = -1
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.5
-        EndRed = 0.9999
-        EndGreen = 0.8
-        EndBlue = 0.3
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.5
+				EndRed = 0.9999
+				EndGreen = 0.8
+				EndBlue = 0.3
 		NumFrames = 12
 		PlaySpeed = 60
 		IsometricSkew = "Y"
@@ -5955,12 +6531,12 @@
 		NumFrames = 30
 		Material = "Unlit"
 		OffsetZ = 0
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 		StartScaleY = 0.5
 		EndScaleY = 0.2
 		LocationZFromOwner = "Take"
@@ -5970,6 +6546,189 @@
 		VisualFxIntervalMax = 0.031
 		Sound = "/SFX/Player Sounds/ZeusLightningWrathImpact"
 		VisualFxCap = 4
+	}	
+
+
+	{
+		Name = "StaffComboAttack3_Hephaestus"
+		FilePath = "Fx\Staff\StaffCircleA"
+		Red = 1
+		Green = 1
+		Blue = 1
+		IsometricSkew = "Y"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		VisualFx = null
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 100
+		VisualFxCap = 6
+		LocationZFromOwner = "Take"
+		Scale = 1
+		CreateAnimations =
+		[
+			{ Name = "StaffComboAttack3Glow_Hephaestus" }
+			{ Name = "StaffComboAttack3IsoFade_Hephaestus" }
+			{ Name = "StaffTrailDarkSmearAttack3"}
+			{ Name = "StaffComboAttack3Trail_Hephaestus"}
+		]
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaff_Attack3"
+		Random =
+		[
+			{ Name = "HephaestusDirectionalTrailStaffA_Attack3" }
+			{ Name = "HephaestusDirectionalTrailStaffB_Attack3" }
+		]
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffA_Attack3"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileA\HephDirectionalProjectileA"
+		NumFrames = 37
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RadialOffsetMin = 150
+		RadialOffsetMax = 150
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 70
+		EaseIn = 0.99
+		EaseOut= 1.0
+		OverlayVfx = true
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		GroupName = "FX_Standing"
+		ColorFromOwner = "Ignore"
+		Velocity = 300
+		Acceleration = -1200
+		ScaleX = 1.0
+		StartScaleY = 1.0
+		EndScaleY = 1.5
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomFlipVertical = true
+		CreateAnimation = "StaffCombo3Particles_Hephaestus"
+	}
+
+	{
+		Name = "HephaestusDirectionalTrailStaffB_Attack3"
+		InheritFrom = "HephaestusDirectionalTrailStaffA_Attack3"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileB\HephDirectionalProjectileB"
+		CreateAnimation = "StaffCombo3Particles_Hephaestus"
+	}
+
+
+	{
+		Name = "StaffComboAttack3Glow_Hephaestus"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Alpha = 0.8
+		Scale = 4
+		ScaleY = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		DieWithOwner = false
+	}
+
+	{
+		Name = "StaffComboAttack3GlowFade_Hephaestus"
+		InheritFrom = "StaffComboAttack3Glow_Hephaestus"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.15
+	}
+
+	{
+		Name = "StaffComboAttack3IsoFade_Hephaestus"
+		FilePath = "Fx\Staff\StaffComboFlatOut\StaffComboFlatOut"
+		GroupName = "FX_Standing_Add"
+		Material = "Unlit"
+		Hue = 0.2
+		Saturation = 0.0
+		Value = 0.1
+		NumFrames = 14
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+		IsometricSkew = "X"
+		OriginX = 250
+		OriginY = 128
+		PlaySpeed = 45
+		OffsetZ = 0
+		ColorFromOwner = "Ignore"
+		ChildAnimation = "HephaestusCircleFade"
+		// CreateAnimation = "HestiaStaff3Explosion"
+	}
+
+	{
+		Name = "HephaestusCircleFade"
+		FilePath = "Fx\Hephaestus\HephaestusCircle\HephaestusCircle"
+		ColorFromOwner = "Ignore"
+		NumFrames = 25
+		PlaySpeed = 80
+		StartFrame = 31
+		Material = "Unlit"
+		Scale = 0.6
+		IsometricSkew = "X"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Maintain"
+	}
+
+	{
+		Name = "StaffComboAttack3Dissipate_Hephaestus"
+		FilePath = "Fx\Staff\StaffCircleAOut\StaffCircleAOut"
+		Saturation = -1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		NumFrames = 12
+		PlaySpeed = 60
+		IsometricSkew = "Y"
+		Material = "Unlit"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.1
+	}
+
+
+	{
+		Name = "StaffComboAttack3Trail_Hephaestus"
+		FilePath = "Fx\Staff\StaffTrail\StaffTrail"
+		NumFrames = 30
+		Material = "Unlit"
+		OffsetZ = 0
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		StartScaleY = 0.5
+		EndScaleY = 0.2
+		LocationZFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		VisualFx = null
+		VisualFxIntervalMin = 0.03
+		VisualFxIntervalMax = 0.031
+		VisualFxCap = 4
+		Sound = "/SFX/Player Sounds/HephaestusSwipeMedium"
 	}
 
 	{
@@ -6056,12 +6815,26 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.8
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0.4
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.8
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0.4
+	}	
+
+	{
+		Name = "StaffBallProjectileGlow_Hephaestus"
+		InheritFrom = "StaffBallProjectileGlow"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
 	}
 
 	{
@@ -6217,12 +6990,12 @@
 		Red = 1
 		Green = 1
 		Blue = 1
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.7
-        EndBlue = 0.5
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.7
+				EndBlue = 0.5
 		PingPongColor = true
 		EaseIn = 0
 		EaseOut = 1
@@ -6232,7 +7005,40 @@
 		VisualFx = "StaffProjectileTrailLineCharged_Zeus"
 		VisualFxDistanceMin = 150
 		VisualFxDistanceMax = 150
+	}	
+	{
+		Name = "StaffBallProjectileGlowCharged_Hephaestus"
+		InheritFrom = "StaffBallProjectileGlow"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		PostRotateScaleY = 0.5
+		OffsetZ = 0
+		ScaleY = 1
+		Alpha = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.5
+		Scale = 1.5
+		Loop = true
+		VisualFx = "StaffProjectileTrailLineCharged_Hephaestus"
+		Sound = "/SFX/Player Sounds/HephaestusLoopSingle"
+		StopSoundOnFinishFade = 0.3
+		VisualFxDistanceMin = 150
+		VisualFxDistanceMax = 150
 	}
+
+
 	{
 		Name = "StaffCircleTrail"
 		Random =
@@ -6564,6 +7370,22 @@
 		[
 			{ Name = "StaffTrailDarkSmearBallCharged" }
 		]
+	}	
+
+	{
+		Name = "StaffProjectileTrailLineCharged_Hephaestus"
+		InheritFrom = "StaffProjectileTrailLineCharged"
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 100
+		Red = 0
+		Green = 0
+		Blue = 0
+		Scale = 0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "StaffTrailDarkSmearBallCharged" }
+		]
 	}
 
 	{
@@ -6795,12 +7617,12 @@
 	{
 		Name = "StaffProjectileTrailLineAttack1_Zeus"
 		InheritFrom = "StaffProjectileTrailLineAttack1"
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.3
-        EndRed = 0.9999
-        EndGreen = 0.5
-        EndBlue = 0
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.3
+				EndRed = 0.9999
+				EndGreen = 0.5
+				EndBlue = 0
 		OriginX = 240
 		ClearCreateAnimations = true
 		GroupName = "FX_Standing_Add"
@@ -6814,6 +7636,31 @@
 		CreateAnimations =
 		[
 			{ Name = "ZeusDirectionalTrailStaffDash" }
+		]
+	}	
+
+	{
+		Name = "StaffProjectileTrailLineAttack1_Hephaestus"
+		InheritFrom = "StaffProjectileTrailLineAttack1"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		OriginX = 240
+		ClearCreateAnimations = true
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		CreateAnimations = []
+	}		
+
+	{
+		Name = "StaffProjectileTrailLineAttack1Dash_Hephaestus"
+		InheritFrom = "StaffProjectileTrailLineAttack1_Hephaestus"
+		CreateAnimations =
+		[
+			{ Name = "HephaestusDirectionalTrailStaffDash" }
 		]
 	}
 
@@ -7009,15 +7856,31 @@
 		Name = "StaffProjectileTrailLine_Zeus"
 		InheritFrom = "StaffProjectileTrailLine"
 		ClearCreateAnimations = true
-        StartRed = 1.0
-        StartGreen = 0.95
-        StartBlue = 0.7
-        EndRed = 0.9999
-        EndGreen = 0.7
-        EndBlue = 0.5
+				StartRed = 1.0
+				StartGreen = 0.95
+				StartBlue = 0.7
+				EndRed = 0.9999
+				EndGreen = 0.7
+				EndBlue = 0.5
 		CreateAnimations =
 		[
 			{ Name = "ZeusStaffProjectileTrail" }
+		]
+	}		
+		
+	{
+		Name = "StaffProjectileTrailLine_Hephaestus"
+		InheritFrom = "StaffProjectileTrailLine"
+		ClearCreateAnimations = true
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[
+			{ Name = "HephaestusStaffProjectileTrail" }
 		]
 	}		
 	
@@ -7756,6 +8619,17 @@
 	}
 
 	{
+		Name = "StaffChargedAttackFx_Hephaestus"
+		Random =
+		[
+			{ Name = "StaffTerrainCircleA_Hephaestus" }
+			{ Name = "StaffTerrainCircleB_Hephaestus" }
+			{ Name = "StaffTerrainCircleC_Hephaestus" }
+			{ Name = "StaffTerrainCircleD_Hephaestus" }
+		]
+	}
+
+	{
 		Name = "StaffChargedAttackFxBall"
 		Random =
 		[
@@ -8480,6 +9354,149 @@
 		Sound = "/SFX/Player Sounds/ZeusLightningImpactSecondarySingle"
 	}
 
+	{
+		Name = "StaffTerrainCircleA_Hephaestus"
+		FilePath = "Fx\Staff\StaffTerrainCircleA"
+		StartAlpha = 0.6
+		Saturation = -1
+		EndAlpha = 0
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		StartScale = 1
+		EndScale = 0.95
+		RandomDurationMin = 0.8
+		RandomDurationMax = 1
+		Scale = 1.0
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		PostRotateScaleY = 0.5
+		AngleFromOwner = "Take"
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		VisualFx = "HephStaffCircleFxUpward"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		VisualFxCap = 3
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		OffsetZ = 0
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 110
+		CreateAnimations =
+		[
+			{ Name = "HephMassiveHitTerrain"}
+			{ Name = "StaffMagicDark" }
+			{ Name = "StaffMagicGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "StaffTerrainCircleB_Hephaestus"
+		InheritFrom = "StaffTerrainCircleA_Hephaestus"
+		FilePath = "Fx\Staff\StaffTerrainCircleB"
+	}
+
+	{
+		Name = "StaffTerrainCircleC_Hephaestus"
+		InheritFrom = "StaffTerrainCircleA_Hephaestus"
+		FilePath = "Fx\Staff\StaffTerrainCircleC"
+	}
+
+	{
+		Name = "StaffTerrainCircleD_Hephaestus"
+		InheritFrom = "StaffTerrainCircleA_Hephaestus"
+		FilePath = "Fx\Staff\StaffTerrainCircleD"
+	}
+
+	{
+		Name = "HephStaffCircleFxUpward"
+		Random = [
+			{ Name = "HephStaffCircleFxUpwardA" }
+			{ Name = "HephStaffCircleFxUpwardB" }
+		]
+	}
+
+	{
+		Name = "HephStaffCircleFxUpwardA"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkA\HephDirectionalSparkA"
+		NumFrames = 36
+		AngleFromOwner = "Ignore"
+		Angle = 90
+		OriginX = 0
+		OriginY = 96
+		Material = "Unlit"
+		RandomFlipVertical = true
+		ScaleX = 0.66
+		ScaleMin = 0.25
+		ScaleMax = 0.75
+		FlipHorizontal = false
+		RandomOffsetX = 100
+		RandomOffsetY = 50
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 90
+		SortMode = "Isometric"
+		SortFromOwner = "Take"
+		GroupName = "FX_Standing_Add"
+		VisualFx = "HephStaffCircleSparks"
+		VisualFxCap = 3
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+	}
+
+	{
+		Name = "HephStaffCircleFxUpwardB"
+		InheritFrom = "HephStaffCircleFxUpwardA"
+		FilePath = "Fx\Hephaestus\HephDirectionalSparkB\HephDirectionalSparkB"
+		NumFrames = 32
+	}
+
+	{
+		Name = "HephStaffCircleSparks"
+		Random = [
+			{ Name = "HephStaffCircleSparkA" }
+			{ Name = "HephStaffCircleSparkB" }
+			{ Name = "HephStaffCircleSparkC" }
+		]
+	}
+
+	{
+		Name = "HephStaffCircleSparkA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		GroupName = "FX_Standing_Add"
+		RandomOffsetX = 200
+		RandomOffsetY = 100
+		OffsetZ = 150
+		RandomFlipHorizontal = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+	}	
+
+	{
+		Name = "HephStaffCircleSparkB"
+		InheritFrom = "HephStaffCircleSparkA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+
+	{
+		Name = "HephStaffCircleSparkC"
+		InheritFrom = "HephStaffCircleSparkA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
 
 	{
 		Name = "StaffTerrainCircleBallA"
@@ -8742,4 +9759,569 @@
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:hand_00_L_JNT"
 		Scale = 0.4
 	}
+	{
+		Name = "StaffLaserOriginFlare"
+		FilePath = "Fx\ProjectileFlare\ProjectileFlare"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		EndScale = 1.2
+		PingPongScale = true
+		Scale = 2.7
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+		Color = { Red = 1.0 Green = 0.4 Blue = 0.0 }
+		Duration = 0.4
+		Loop = false
+		LoopFramesOnly = false
+		OffsetZ = 80
+	}
+
+	// Aspect of Momus
+
+	{
+		Name = "MomusCastPointIdle"
+		FilePath = "Fx\WeaponAspects\Momus\MomusCastPointIdle\MomusCastPointIdle"
+		NumFrames = 30
+		NumAngles = 16
+		Loop = true
+		PlaySpeed = 30
+		Material = "Unlit"
+		StartOffsetZ = 10
+		EndOffsetZ = -10
+		EaseIn = 0
+		EaseOut = 1
+		PingPongShiftOverDuration = true
+		AngleFromOwner = "Take"
+		VisualFx = "MomusCastPointBackingFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.2
+		Sound = "/SFX/Player Sounds/MelMomusCastPointLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "MomusCastPointBackingFx"
+		FilePath = "Particles\particle_cloudShadow"
+		DrawBehindOwner = true
+		RandomRotation = true
+		StartScale = 1
+		EndScale = 1.5
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.01
+		EndGreen = 1
+		EndBlue = 0.6
+		Duration = 1
+		OffsetZ = 40
+		ScaleMin = 1.5
+		ScaleMax = 1.0
+		PostRotateScaleY = 1.25
+		StartAlpha = 0
+		EndAlpha = 1
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		LocationZFromOwner = "Take"
+		CreateAnimation = "MomusCastPointDisplacementFx"
+		GroupName = "FX_Dark"
+	}
+
+	{
+		Name = "MomusCastPointDisplacementFx"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 60
+		Scale = 0.8
+		StartAlpha = 0
+		EndAlpha = 1
+		AlphaMin = 0.4
+		AlphaMax = 1.0
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+		StartScale = 0.5
+		EndScale = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		DieWithOwner = true
+		TransferFrameFromThis = true
+		ChainTo = "MomusCastPointDisplacementFxFade"
+	}
+
+	{
+		Name = "MomusCastPointDisplacementFxFade"
+		InheritFrom = "MomusCastPointDisplacementFx"
+		ChainTo = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.33
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+	}
+
+	{
+		Name = "MomusCastPointIdleShadow"
+		InheritFrom = "MomusCastPointIdle"
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Red = 0
+		Green = 0
+		Blue = 0
+		PostRotateScaleY = 0.5
+		GroupName = "Shadows"
+		CreateAnimation = null
+		StartOffsetZ = 0
+		EndOffsetZ = 0.001
+		Alpha = 0.5
+	}
+
+	{
+		Name = "MomusCastPointSpawn"
+		InheritFrom = "MomusCastPointIdle"
+		Loop = false
+		FilePath = "Fx\WeaponAspects\Momus\MomusCastPointSpawn\MomusCastPointSpawn"
+		NumFrames = 15
+		ChainTo = "MomusCastPointIdle"
+		VisualFx = "MomusCastPointParticles"
+		VisualFxCap = 10
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		Sound = "/SFX/DusaRattle"
+		CreateAnimations = [
+			{ Name = "MomusCastPointFlareA" }
+			{ Name = "MomusCastPointFlareB" }
+		]
+	}
+
+	{
+		Name = "MomusCastPointOut"
+		InheritFrom = "MomusCastPointSpawn"
+		Sound = "/SFX/DusaHiss"
+		PlayBackwards = true
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		ChainTo = null
+		VisualFx = "MomusCastPointParticles"
+		VisualFxCap = 10
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		CreateAnimations = [
+			{ Name = "MomusCastPointFlareA" }
+			{ Name = "MomusCastPointFlareB" }
+			{ Name = "MomusCastPointFlareC" }
+		]
+	}
+
+	{
+		Name = "MomusCastPointFlareA"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 0.1
+		Green = 1
+		Blue = 0.8
+		GroupName = "FX_Add_Top"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		StartScale = 0.6
+		EndScale = 0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomRotation = true
+		OffsetZ = 60
+		SortMode = "Id"
+	}
+
+	{
+		Name = "MomusCastPointFlareB"
+		InheritFrom = "MomusCastPointFlareA"
+		FilePath = "Particles\particle_addFlare"
+		StartScale = 1
+		Duration = 0.33
+		AddColor = true
+	}
+
+	{
+		Name = "MomusCastPointFlareC"
+		InheritFrom = "MomusCastPointFlareA"
+		Duration = 0.7
+		FilePath = "Particles\particle_glow"
+		StartScale = 2
+		EndScale = 1.9
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "MomusCastPointParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		StartScale = 1
+		EndScale = 0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 10
+		RadialOffsetMax = 30
+		RadialOffsetScaleY = 2
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 300
+		AngleFromOwner = "Ignore"
+		Acceleration = -200
+		AddColor = true
+		StartScaleX = 1.2
+		EndScaleX = 1
+		ScaleY = 0.8
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Red = 0
+		Green = 1.0
+		Blue = 0.7
+		OffsetZ = 70
+		LocationZFromOwner = "Take"
+	}
+
+
+	{
+		Name = "MomusCastPointAttack"
+		InheritFrom = "MomusCastPointIdle"
+		PlaySpeed = 30
+		Loop = false
+		Sound = "/Leftovers/SFX/CroneHiss"
+		FilePath = "Fx\WeaponAspects\Momus\MomusCastPointAttack\MomusCastPointAttack"
+		ChainTo = "MomusCastPointIdle"
+	}
+
+	{
+		Name = "WeaponStaffBallFireSFX"
+		FilePath = "Dev\blank_invisible"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesReappear"
+	}
+	
+	// Aspect of Circe
+
+	{
+		Name = "SerenityChargedBurst"
+		FilePath = "Particles\particle_quickFlashIris"
+		Red = 1
+		Green = 0.4
+		Blue = 1
+		GroupName = "FX_Standing_Add"
+		Duration = 0.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+		StartScale = 1.5
+		EndScale = 0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomRotation = true
+		OffsetZ = 60
+		VisualFx = "SerenityChargedBurstParticles"
+		VisualFxCap = 10
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.011
+		CreateAnimations = [
+			{ Name = "SerenityChargedRingA" }
+			{ Name = "SerenityChargedRingB" }
+			{ Name = "SerenityChargedRingC" }
+			{ Name = "SerenityChargedGlow" }
+			{ Name = "SerenityChargedGlowDark" }
+			{ Name = "SerenityChargedDisplacement" }
+		]
+	}
+
+	{
+		Name = "SerenityChargedGlow"
+		FilePath = "Particles\particle_glow"
+		StartRed = 1
+		StartGreen = 0.6
+		StartBlue = 1
+		EndRed = 0.6
+		EndGreen = 0.2
+		EndBlue = 0.999
+		Duration = 2.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 60
+		Scale = 4.5
+	}
+
+	{
+		Name = "SerenityChargedGlowDark"
+		InheritFrom = "SerenityChargedGlow"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0 
+		Blue = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		StartAlpha = 1
+		Duration = 1
+		Scale = 3.0
+	}
+
+	{
+		Name = "SerenityChargedRingA"
+		FilePath = "Particles\particle_ringNova"
+		Material = "Unlit"
+		StartScale = 0.1
+		EndScale = 1.5
+		EaseIn = 0.99
+		EaseOut = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		GroupName = "FX_Standing_Add"
+		Duration = 0.66
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartAlpha = 1
+		EndAlpha = 0
+		Hue = 0.8
+		Scale = 0.4
+		OffsetZ = 60
+	}
+
+	{
+		Name = "SerenityChargedRingB"
+		InheritFrom = "SerenityChargedRingA"
+		FlipVertical = true
+		FlipHorizontal = true
+		ScaleY = 0.5
+	}
+
+	{
+		Name = "SerenityChargedRingC"
+		InheritFrom = "SerenityChargedRingA"
+		FilePath = "Particles\particle_spectral_shimmer_03"
+		Scale = 1.8
+		Angle = 90
+		Saturation = 1
+		UseOwnAngle = true
+	}
+
+	{
+		Name = "SerenityChargedDisplacement"
+		FilePath = "Fx\RadialDisplacement\RadialDisplacement"
+		NumFrames = 60
+		PlaySpeed = 120
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetZ = 90
+		Scale = 2.0
+		StartAlpha = 0
+		EndAlpha = 1
+		StartScale = 0.8
+		EndScale = 1.0
+		EaseIn = 0.99
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "SerenityChargedBurstParticles"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		StartScale = 2
+		EndScale = 0
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 150
+		RadialOffsetScaleY = 0.25
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Ignore"
+		VelocityMin = 100
+		VelocityMax = 300
+		AngleFromOwner = "Ignore"
+		Acceleration = -200
+		AddColor = true
+		StartScaleX = 1.2
+		EndScaleX = 1
+		ScaleY = 0.8
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Red = 1
+		Green = 0.3
+		Blue = 1.0
+	}
+
+	{
+		Name = "CirceCrystalRotateFront1_Loop"
+		FilePath = "Fx\WeaponAspects\Circe\CirceCrystalRotateFront\CirceCrystalRotateFront"
+		NumFrames = 180
+		PlaySpeed = 45
+		Loop = true
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 0.75
+		OffsetZ = 75
+	}
+
+	{
+		Name = "CirceCrystalRotateFront2_Loop"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateFront3_Loop"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateFront4_Loop"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateFront5_Loop"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+	}
+
+	{
+		Name = "CirceCrystalRotateFront2"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+		ClearCreateAnimations = true
+		StartFrame = 36
+		NumFrames = 144
+		ChainTo = "CirceCrystalRotateFront2_Loop"
+		Loop = false
+	}
+	{
+		Name = "CirceCrystalRotateFront3"
+		InheritFrom = "CirceCrystalRotateFront2"
+		ChainTo = "CirceCrystalRotateFront3_Loop"
+		StartFrame = 72
+		NumFrames = 108
+	}
+	{
+		Name = "CirceCrystalRotateFront4"
+		InheritFrom = "CirceCrystalRotateFront2"
+		ChainTo = "CirceCrystalRotateFront4_Loop"
+		StartFrame = 108
+		NumFrames = 72
+	}
+	{
+		Name = "CirceCrystalRotateFront5"
+		InheritFrom = "CirceCrystalRotateFront2"
+		ChainTo = "CirceCrystalRotateFront5_Loop"
+		StartFrame = 144
+		NumFrames = 36
+	}
+
+	{
+		Name = "CirceCrystalRotateFront1"
+		InheritFrom = "CirceCrystalRotateFront2"
+		ChainTo = "CirceCrystalRotateFront1_Loop"
+		StartFrame = 180
+		NumFrames = 1
+	}
+
+	{
+		Name = "CirceCrystalRotateBack1_Loop"
+		InheritFrom = "CirceCrystalRotateFront1_Loop"
+		FilePath = "Fx\WeaponAspects\Circe\CirceCrystalRotateBack\CirceCrystalRotateBack"
+		DrawBehindOwner = true
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "CirceCrystalRotateBack2_Loop"
+		InheritFrom = "CirceCrystalRotateBack1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateBack3_Loop"
+		InheritFrom = "CirceCrystalRotateBack1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateBack4_Loop"
+		InheritFrom = "CirceCrystalRotateBack1_Loop"
+	}
+	{
+		Name = "CirceCrystalRotateBack5_Loop"
+		InheritFrom = "CirceCrystalRotateBack1_Loop"
+	}
+
+	{
+		Name = "CirceCrystalRotateBack2"
+		ClearCreateAnimations = true
+		InheritFrom = "CirceCrystalRotateBack1_Loop"
+		ChainTo = "CirceCrystalRotateBack2_Loop"
+		StartFrame = 36
+		NumFrames = 144
+		Loop = false
+		GroupName = "FX_Dark"
+	}
+	{
+		Name = "CirceCrystalRotateBack3"
+		InheritFrom = "CirceCrystalRotateBack2"
+		ChainTo = "CirceCrystalRotateBack3_Loop"
+		StartFrame = 72
+		NumFrames = 108
+	}
+	{
+		Name = "CirceCrystalRotateBack4"
+		InheritFrom = "CirceCrystalRotateBack2"
+		ChainTo = "CirceCrystalRotateBack4_Loop"
+		StartFrame = 108
+		NumFrames = 72
+	}
+	{
+		Name = "CirceCrystalRotateBack5"
+		InheritFrom = "CirceCrystalRotateBack2"
+		ChainTo = "CirceCrystalRotateBack5_Loop"
+		StartFrame = 144
+		NumFrames = 36
+	}
+
+	{
+		Name = "CirceCrystalRotateBack1"
+		InheritFrom = "CirceCrystalRotateBack2"
+		ChainTo = "CirceCrystalRotateBack1_Loop"
+		StartFrame = 180
+		NumFrames = 1
+	}
+
 ]}

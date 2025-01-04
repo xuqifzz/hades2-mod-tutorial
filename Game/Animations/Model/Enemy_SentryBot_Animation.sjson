@@ -1,0 +1,367 @@
+{ Animations = [
+
+	{
+		Name = "EnemySentryBotBaseAnimation"
+		
+		GrannyModel = "SentryBot_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	{
+		Name = "Enemy_SentryBot_Idle"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_IdleFlourish"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Idle_Flourish_C_00"
+		ChainTo = "Enemy_SentryBot_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_MoveStart"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Move_Start_C_00"
+		NativeMoveSpeed = 325
+		ChainTo = "Enemy_SentryBot_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_IdleFlourish"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_Move"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Move_C_00"
+		NativeMoveSpeed = 325
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_IdleFlourish"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_MoveStop"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Move_Stop_C_00"
+		NativeMoveSpeed = 325
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SentryBot_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_OnHit"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_SentryBot_Idle"
+		Sound = "/SFX/Enemy Sounds/SentryBot/EmoteHurt"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 1.66
+			}
+			{
+				Frame = 14
+				FrameSpeed = 0.67
+			}
+		]
+	}
+	{
+		Name = "Enemy_SentryBot_OnHit_Heavy"
+		InheritFrom = "Enemy_SentryBot_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	{
+		Name = "Enemy_SentryBot_Shutdown"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Shutdown_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/BloodMineBeepRising"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_IdleFlourish"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	// VENT
+
+	{
+		Name = "Enemy_SentryBot_VentPreFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_VentPreFire_C_00"
+		CreateAnimation = "SentryBotVentCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/GoldElemental/GoldElementalCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_IdleFlourish"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_VentFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_VentFire_C_00"
+		ChainTo = "Enemy_SentryBot_VentPostFire"
+	}
+
+	{
+		Name = "Enemy_SentryBot_VentPostFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_VentPostFire_C_00"
+		ChainTo = "Enemy_SentryBot_Idle"
+	}
+
+	// BURST
+
+	{
+		Name = "Enemy_SentryBot_BurstPreFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_BurstPreFire_C_00"
+		CreateAnimation = "SentryBotBlastCharge"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/SentryBot/SentryFireCharge"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_IdleFlourish"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_SentryBot_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 6
+				Sound = "/Leftovers/World Sounds/CaravanJostle1"
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_SentryBot_BurstFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_BurstFire_C_00"
+		ChainTo = "Enemy_SentryBot_BurstPostFire"
+	}
+
+	{
+		Name = "Enemy_SentryBot_BurstPostFire"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_BurstPostFire_C_00"
+		ChainTo = "Enemy_SentryBot_Idle"
+		Sound = "/Leftovers/World Sounds/CaravanJostle1"
+	}
+
+	// SPAWN
+
+	{
+		Name = "Enemy_SentryBot_Spawn"
+		InheritFrom = "EnemySentryBotBaseAnimation"
+		GrannyAnimation = "SentryBot_Base_Idle_C_00"
+		OwnerImmobile = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		StartRed = 0.68
+		StartGreen = 0.7
+		StartBlue = 0.72
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		Duration = 1.8
+		EaseIn = 0
+		EaseOut = 1
+		
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.06
+		DeathFxEaseIn = 0.2
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/AutomatonSpawnMask"
+		DeathFxReverse = true
+		VerticalMaskInModelSpace = true
+		ReverseVerticalMaskInModelSpace = false
+		StartOffsetZ = -60
+		EndOffsetZ = 0
+		Enable3DShadow = false
+
+		Sound = "/SFX/Enemy Sounds/AutomatonSpawnSmall"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				VerticalMask = 0.0
+			}
+			{
+				Frame = 90
+				VerticalMask = 0.9
+				Sound = "/SFX/Enemy Sounds/Exalted/NakedShadeRespawned"
+			}
+		]
+	}
+
+]}

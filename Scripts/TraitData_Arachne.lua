@@ -45,10 +45,6 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipAmount",
 			},
 			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
-			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "TooltipSpeed",
 				Format = "NegativePercentDelta"
@@ -88,10 +84,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedArmor",
 				ExtractAs = "TooltipAmount",
-			},
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
 			},
 			{
 				Key = "ReportedDamageBonus",
@@ -139,10 +131,6 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipAmount",
 			},
 			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
-			{
 				Key = "ReportedManaRecovery",
 				ExtractAs = "TooltipManaRecovery",
 				DecimalPlaces = 1,
@@ -174,10 +162,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedArmor",
 				ExtractAs = "TooltipAmount",
-			},
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
 			},
 			{
 				Key = "DoorHealFixed",
@@ -227,10 +211,6 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "TooltipAmount",
 			},
 			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
-			{
 				Key = "ReportedResource",
 				ExtractAs = "ResourceCount",
 			},
@@ -261,10 +241,6 @@ OverwriteTableKeys( TraitData, {
 			{
 				Key = "ReportedArmor",
 				ExtractAs = "TooltipAmount",
-			},
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
 			},
 			{
 				Key = "DoorCash",

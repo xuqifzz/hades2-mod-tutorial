@@ -7,7 +7,7 @@ UnitSetData.NPC_Hypnos =
 		UseText = "NPCUseTextTalkAlt",
 		Portrait = "Portrait_Hypnos_Sleeping_01",
 		SubtitleColor = Color.HypnosVoice,
-		AnimOffsetZ = 220,
+		AnimOffsetZ = 110,
 		EmoteOffsetX = -20,
 		EmoteOffsetY = -160,
 		-- EndTextLinesThreadedFunctionName = "HypnosReturnToSleep",
@@ -45,12 +45,35 @@ UnitSetData.NPC_Hypnos =
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{
-			[1] =
 			{
 				PreLineWait = 0.3,
 				RandomRemaining = true,
 				UsePlayerSource = true,
 				-- RandomRemaining = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "SessionState", "InDreamSequence" }
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "MelinoeSaluteSpeech", Time = 4 },
+				},
+				{ Cue = "/VO/Melinoe_3576", Text = "Not a care in the world." },
+				{ Cue = "/VO/Melinoe_3577", Text = "You're safe here..." },
+			},
+			{
+				PreLineWait = 0.3,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				-- RandomRemaining = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "SessionState", "InDreamSequence" }
+					},
+				},
 				Cooldowns =
 				{
 					{ Name = "MelinoeSaluteSpeech", Time = 4 },
@@ -83,6 +106,47 @@ UnitSetData.NPC_Hypnos =
 					-- PreLineAnim = "ZagreusTalkEmpathyStart", PreLineAnimTarget = "Hero",
 					-- PostLineAnim = "ZagreusTalkEmpathy_Return", PostLineAnimTarget = "Hero",
 					Text = "We'll find a way to wake you, O Sleep. I promise." },
+			},
+
+			HypnosAboutPoppies01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				StatusAnimation = "StatusIconWantsToTalkImportant_NPC",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HypnosGift02" }
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesGained", "PlantIPoppy" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					-- back compat
+					{
+						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWakeHypnos" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.Sleeping,
+
+				{ Cue = "/VO/Hypnos_0008",
+					Text = "{#Emph}Zzzz... hmm, zzzz...." },
+				{ Cue = "/VO/Melinoe_3910", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkPensive01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Lord Hypnos, when I was in Tartarus, I found some seeds, which grew into Poppies... like the ones that line your bedding there. What if I used them with... I just had an idea...!" },
+				EndFunctionName = "DisplayInfoToast",
+				EndFunctionArgs = { Duration = 2, Title = "WorldUpgradeAdded", Text = "WorldUpgradeWakeHypnos" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 1.0,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3911", Text = "...I promise to be careful." },
+					}
+				},
 			},
 
 			HypnosHideAndSeek01 =
@@ -202,6 +266,44 @@ UnitSetData.NPC_Hypnos =
 
 		GiftTextLineSets =
 		{
+			HypnosWakeUp01 =
+			{
+				PlayOnce = true,
+				OnGiftTrack = false,
+				Cost =
+				{
+					HypnosPoints = 1,
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeWakeHypnos" }
+					},
+					
+				},
+
+				{ Cue = "/VO/Hypnos_0013",
+					-- Emote = "PortraitEmoteDepressed",
+					Text = "{#Emph}Zzz... mm, hmm... zzz... hmhm... " },
+
+				{ Cue = "/VO/Melinoe_3681", UsePlayerSource = true,
+					SkipContextArt = true,
+					PostLineRemoveContextArt = true,
+					PostLineFunctionName = "HypnosDream01StartPresentation",
+					PortraitExitAnimation = "Portrait_Mel_Default_01_Exit",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "{#Emph}Please work... {#Prev}Lord Hypnos, you have slumbered long enough! I know you're lost in dream, but I shall do my best to lead you back here to reality. Now breathe in deep!" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 1.65,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3682", Text = "Is this...? Where am I?" },
+					},
+				},
+			},
+
 			HypnosGift01 =
 			{
 				PlayOnce = true,
@@ -221,7 +323,7 @@ UnitSetData.NPC_Hypnos =
 					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
 					Text = "May you have pleasant dreams for as long as you slumber. And if and when you finally wake... know that this Nectar shall be waiting for you." },
 				{ Cue = "/VO/Hypnos_0011",
-					Text = "{#Emph}Zzzzz, welcome to the... haah, zzzz..." },
+					Text = "{#Emph}Zzzzz, welcome... to the haah, hm, zzzz..." },
 				EndVoiceLines =
 				{
 					{
@@ -265,6 +367,132 @@ UnitSetData.NPC_Hypnos =
 		},
 
 	},
+
+	-- Dream Hypnos 1
+	NPC_Hypnos_02 =
+	{
+		InheritFrom = { "NPC_Neutral", "NPC_Giftable" },
+		UseText = "NPCUseTextTalkAlt",
+		Portrait = "Portrait_Hypnos_Sleeping_01",
+		SubtitleColor = Color.HypnosVoice,
+		AnimOffsetZ = 110,
+		EmoteOffsetX = -20,
+		EmoteOffsetY = -160,
+		Groups = { "NPCs" },
+		SubtitleColor = Color.HypnosVoice,
+		SpeakerName = "Hypnos",
+
+		ActivateRequirements =
+		{
+		},
+
+		SpecialInteractFunctionName = "SpecialInteractSalute",
+		SpecialInteractGameStateRequirements =
+		{
+		},
+		SpecialInteractCooldown = 60,
+		InteractVoiceLines =
+		{
+			[1] =
+			{
+				PreLineWait = 0.3,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				-- RandomRemaining = true,
+				Cooldowns =
+				{
+					{ Name = "MelinoeSaluteSpeech", Time = 4 },
+				},
+				{ Cue = "/VO/Melinoe_1883", Text = "Rest easy, Son of Nyx.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3575", Text = "You look comfortable." },
+				{ Cue = "/VO/Melinoe_3576", Text = "Not a care in the world." },
+				{ Cue = "/VO/Melinoe_3577", Text = "You're safe here..." },
+				{ Cue = "/VO/Melinoe_3578", Text = "Moonlight guide you." },
+			},
+		},
+
+		InteractTextLineSets =
+		{
+			HypnosDreamMeeting01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				-- PreBlockSpecialInteract = true,
+				-- PostBlockSpecialInteract = true,
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.Sleeping,
+				StatusAnimation = false,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "HypnosWakeUp01" },
+					},
+				},
+
+				{ Cue = "/VO/Hypnos_0014",
+					SkipContextArt = true,
+					Text = "{#Emph}Zzzz... welcome to the how... zzz..." },
+
+				{ Cue = "/VO/Melinoe_3684", UsePlayerSource = true,
+					SkipContextArt = true,
+					Emote = "PortraitEmoteSurprise",
+					Portrait = "Portrait_Mel_Intense_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "He said {#Emph}how? {#Prev}He's... trying to communicate! Lord Hypnos, I'm Melinoë, daughter of Hades, and I mean to find a way to rouse you from your slumber! Can you hear me?" },
+
+				{ Cue = "/VO/Hypnos_0015",
+					SkipContextArt = true,
+					Text = "{#Emph}Zzzz... a wake I'm a wake I... haha hm, zzz...." },
+
+				{ Cue = "/VO/Melinoe_3685", UsePlayerSource = true,
+					SkipContextArt = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkBrooding01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "How is that you sleep, even in dream? What can I do to bring you back to us? Because we need you... your own sister tells me that your wisdom and knowledge are second to none!" },
+
+				{ Cue = "/VO/Hypnos_0016",
+					SkipContextArt = true,
+					Text = "{#Emph}Zzzz... so you walked... zzz... straight into... zzz..." },
+
+				{ Cue = "/VO/Melinoe_3686", UsePlayerSource = true,
+					SkipContextArt = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "I walked straight into {#Emph}what? {#Prev}Lord Hypnos, I don't understand. You have to snap out of this! My time here runs short, and if this doesn't work, I... don't know what else to do..." },
+
+				{ Cue = "/VO/Hypnos_0017",
+					SkipContextArt = true,
+					PortraitExitAnimation = "Portrait_Hypnos_Sleeping_01_Exit",
+					Text = "{#Emph}Zzz... dream... come... true... zzz... thanks... zzz... for stopping... by... zzz..." },
+
+				{ Cue = "/VO/Hypnos_0018",
+					PreLineFunctionName = "HypnosDream01EndPresentation",
+					PreLineWait = 0.35,
+					Text = "{#Emph}Zzzz... hmm, tsk-tsk, hm... zzz..." },
+
+				{ Cue = "/VO/Melinoe_3688", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01ReturnToIdle",
+					PreLineAnimTarget = "Hero",
+					PostLineThreadedFunctionName = "InCombatTextEvent",
+					PostLineThreadedFunctionArgs = GameData.PostDreamArgs,
+					Text = "No, his consciousness, it... slipped away from me. How am I... {#Emph}augh{#Prev}. I need to think..." },
+
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.46,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3689", Text = "...Pleasant dreams, for now..." },
+					},
+				},
+
+			},
+		},
+	},
+	
 
 }
 

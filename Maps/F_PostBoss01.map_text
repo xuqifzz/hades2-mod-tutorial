@@ -273,7 +273,7 @@
       "Visible": true
     },
     {
-      "BlendMode": 0,
+      "BlendMode": 2,
       "ChildGroups": [],
       "Id": "Godrays_01",
       "NumSelectedAsDraw": 0,
@@ -405,45 +405,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "DrownedChambers",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "FloorExit",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "FloorEntrance",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Default",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -458,6 +419,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Scripting",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
+      "Id": "WellLightsGroup",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -554,6 +528,7 @@
         "Impassable",
         "NPCs",
         "Terrain_Drop",
+        "WellLightsGroup",
         "Scripting"
       ],
       "Id": "MapLogic",

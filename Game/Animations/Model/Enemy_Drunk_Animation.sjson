@@ -30,6 +30,10 @@
 				BlendTransitionFrom = "Enemy_Drunk_Move"
 				Duration = 4
 			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_BarrelHide"
+				Duration = 4
+			}
 		]
 	}
 
@@ -57,6 +61,10 @@
 				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
 				Duration = 4
 			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_BarrelHide"
+				Duration = 4
+			}
 		]
 	}
 
@@ -65,6 +73,9 @@
 		InheritFrom = "EnemyDrunkBaseAnimation"
 		GrannyAnimation = "DeadSeaDrunk_Base_Move_C_00"
 		Loop = true
+		VisualFx = "ShipsDustTerrainDrunkMove_NoParticles"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 75
 		Frames = 
 		[
 			{
@@ -84,6 +95,10 @@
 			}
 			{
 				BlendTransitionFrom = "Enemy_Drunk_OnHit_Heavy"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_BarrelHide"
 				Duration = 4
 			}
 		]
@@ -148,7 +163,23 @@
 		Name = "Enemy_Drunk_InBarrel"
 		InheritFrom = "EnemyDrunkBaseAnimation"
 		GrannyAnimation = "DeadSeaDrunk_Base_Barrel_C_00"
+		CreateAnimation = "DrunkSpawnTrail"
 		Loop = true
+	}
+
+	{
+		Name = "Enemy_Drunk_BarrelHide"
+		InheritFrom = "EnemyDrunkBaseAnimation"
+		GrannyAnimation = "DeadSeaDrunk_Base_Barrel_C_00"
+		Loop = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 10
+			}
+		]
 	}
 
 	{
@@ -219,6 +250,11 @@
 				BlendTransitionFrom = "Enemy_Drunk_LeftSwingPostFire"
 				Duration = 10
 			}
+
+			{
+				BlendTransitionFrom = "Enemy_Drunk_BarrelHide"
+				Duration = 10
+			}
 		]
 	}
 
@@ -227,6 +263,9 @@
 		InheritFrom = "EnemyDrunkBaseAnimation"
 		GrannyAnimation = "DeadSeaDrunk_Base_LeftSwingFire_C_00"
 		ChainTo = "Enemy_Drunk_LeftSwingPostFire"
+		VisualFx = "ShipsDustTerrainDrunkMove"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 75
 	}
 
 	{
@@ -292,6 +331,10 @@
 				BlendTransitionFrom = "Enemy_Drunk_LeftSwingPostFire"
 				Duration = 10
 			}
+			{
+				BlendTransitionFrom = "Enemy_Drunk_BarrelHide"
+				Duration = 10
+			}
 		]
 	}
 
@@ -300,6 +343,10 @@
 		InheritFrom = "EnemyDrunkBaseAnimation"
 		GrannyAnimation = "DeadSeaDrunk_Base_RightSwingFire_C_00"
 		ChainTo = "Enemy_Drunk_RightSwingPostFire"
+		VisualFx = "ShipsDustTerrainDrunkMove"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 75
+
 	}
 
 	{
@@ -380,6 +427,9 @@
 		InheritFrom = "EnemyDrunkBaseAnimation"
 		GrannyAnimation = "DeadSeaDrunk_Base_StabFire_C_00"
 		ChainTo = "Enemy_Drunk_StabPostFire"
+		VisualFx = "ShipsDustTerrainDrunkMove"
+		VisualFxDistanceMin = 75
+		VisualFxDistanceMax = 100
 	}
 
 	{
@@ -388,6 +438,9 @@
 		GrannyAnimation = "DeadSeaDrunk_Base_StabPostFire_C_00"
 		ChainTo = "Enemy_Drunk_Idle"
 		Sound = "/Leftovers/World Sounds/JumpLanding"
+		VisualFx = "ShipsDustTerrainDrunkMove"
+		VisualFxDistanceMin = 75
+		VisualFxDistanceMax = 100
 		Frames =
 		[
 			{
@@ -395,6 +448,42 @@
 				FrameSpeed = 0.5
 			}
 		]
+	}
+
+
+	{
+		Name = "Enemy_Drunk_Death"
+		InheritFrom = "Enemy_Drunk_Idle"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 2.0
+		GrannyAnimationSpeed = 0.25
+		DeathFxFrameDuration = 45
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		StartScale = 1
+		EndScale = 1.25
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		CreateAnimation = "EnemyDrunkBarrelSplinter"
 	}
 
 ]}

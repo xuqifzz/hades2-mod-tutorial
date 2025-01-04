@@ -250,11 +250,39 @@
 	}
 
 	{
+		Name = "ApolloAoERingA_SuitNovaBurn"
+		InheritFrom = "ApolloAoERingA"
+		Scale = 0.4
+	}
+
+	{
 		Name = "ApolloAoERingB"
 		InheritFrom = "ApolloAoERingA"
 		RotationSpeed = -180
 		StartScale = 0.9
 		EndScale = 1.1
+	}
+
+
+	{
+		Name = "ApolloAoERingB_SuitNovaBurn"
+		InheritFrom = "ApolloAoERingB"
+		Scale = 0.4
+	}	
+
+	{
+		Name = "ApolloAoERingC_SuitNovaBurn"
+		InheritFrom = "ApolloAoERingB_SuitNovaBurn"
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		RandomDurationMin = 0.7
+		RandomDurationMax = 1.1
+		Scale = 1
+		StartAlpha = 0.5
+		EndAlpha = 0
+		StartScale = 0.99
+		AngleFromOwner = "Ignore"
+		RandomRotation = true
+		DieWithOwner = false
 	}
 
 	{
@@ -829,6 +857,15 @@
 	}
 
 	{
+		Name = "ApolloDotsUpward"
+		Random =
+		[
+			{ Name = "ApolloDotUpwardA" }
+			{ Name = "ApolloDotUpwardB" }
+		]
+	}
+
+	{
 		Name = "ApolloDotsDirectional"
 		Random =
 		[
@@ -1073,6 +1110,35 @@
 	{
 		Name = "ApolloDotAxe2B"
 		InheritFrom = "ApolloDotAxe2A"
+		Red = 1
+		Green = 0.5
+		Blue = 0
+	}
+
+	{
+		Name = "ApolloDotUpwardA"
+		InheritFrom = "ApolloDotA"
+		AngleFromOwner = "Take"
+		AngleMin = 0
+		AngleMax = 0.01
+		RadialOffsetMin = 25
+		RadialOffsetMax = 100
+		StartOffsetZ = 0
+		EndOffsetZ = 120
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 0
+		VelocityMax = 1
+		Acceleration = 0
+		RandomDurationMin = 0.25
+		RandomDurationMax = 1.0
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ApolloDotUpwardB"
+		InheritFrom = "ApolloDotUpwardA"
 		Red = 1
 		Green = 0.5
 		Blue = 0
@@ -1422,6 +1488,4 @@
 		Green = 0.9
 		Blue = 0.5
 	}
-
-
 ]}

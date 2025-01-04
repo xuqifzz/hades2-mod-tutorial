@@ -7,6 +7,17 @@
 	{ "TradeOff",				"ScreenReroll",			"LowHealthBonus",		"EpicRarityBoost",		"CardDraw" },
 }
 
+MetaUpgradeSaveLayoutData = 
+{
+	MaximumMetaUpgradeLayouts = 6,
+	GameStateRequirements = 
+	{
+		{
+			PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMetaUpgradeSaveLayout" },
+		},
+	}
+}
+
 MetaUpgradeSwapGameStateRequirement = 
 {
 	{
@@ -36,7 +47,7 @@ MetaUpgradeCostData =
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 320 }},
 		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 350 }},
 
-		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 1000, Mixer6Common = 3, MixerShadow = 3 }},
+		{ CostIncrease = 1, ResourceCost = { MemPointsCommon = 500, Mixer6Common = 2, MixerShadow = 2 }},
 	}
 }
 
@@ -95,7 +106,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 1 },
-			{ CardUpgradePoints = 3, PlantFMoly = 6 },
+			{ CardUpgradePoints = 3, PlantFMoly = 1 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -152,7 +163,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 3, OreFSilver = 10, },
+			{ CardUpgradePoints = 3, OreFSilver = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -208,7 +219,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, PlantGLotus = 8, },
+			{ CardUpgradePoints = 3, PlantGLotus = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -263,7 +274,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3, },
-			{ CardUpgradePoints = 6, OreGLime = 15 },
+			{ CardUpgradePoints = 5, OreGLime = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -315,8 +326,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantGCattail = 10, },
+			{ CardUpgradePoints = 1 },
+			{ CardUpgradePoints = 3, PlantGCattail = 3, },
 		},
 		--[[
 		AutoEquipRequirements = 
@@ -385,7 +396,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, PlantFNightshade = 10, },
+			{ CardUpgradePoints = 3, PlantFNightshade = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -438,7 +449,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, OreNBronze = 6 },
+			{ CardUpgradePoints = 4, OreNBronze = 3 },
 		},
 		TraitName = "HealthManaBonusMetaUpgrade",
 		CustomTrayText = "HealthManaBonusMetaUpgrade_Tray",
@@ -494,7 +505,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantHMyrtle = 8, },
+			{ CardUpgradePoints = 10, PlantHMyrtle = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -549,7 +560,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MixerGBoss = 5, },
+			{ CardUpgradePoints = 6, MixerGBoss = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -611,7 +622,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 8, OreOIron = 8 },
+			{ CardUpgradePoints = 5, OreOIron = 3 },
 		},
 		UnlockedCardVoiceLines =
 		{
@@ -779,8 +790,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3, },
-			{ CardUpgradePoints = 6, OreHGlassrock = 8 },
+			{ CardUpgradePoints = 2, },
+			{ CardUpgradePoints = 4, OreHGlassrock = 3 },
 		},
 
 		AutoEquipRequirements = 
@@ -841,8 +852,8 @@ MetaUpgradeCardData =
 		},
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 4 },
-			{ CardUpgradePoints = 8, PlantNMoss = 10 },
+			{ CardUpgradePoints = 2 },
+			{ CardUpgradePoints = 3, PlantNMoss = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -887,7 +898,6 @@ MetaUpgradeCardData =
 	{
 		InheritFrom = { "BaseMetaUpgrade" },
 		TraitName = "LowHealthBuffMetaUpgrade",
-		DamageResistancePlaceholder = -30,
 		Cost = 4,
 		Image = "CardArt_23",
 		ResourceCost = 
@@ -897,9 +907,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			-- Replace with grown Olympus plant
-			{ CardUpgradePoints = 8 },
-			{ CardUpgradePoints = 15, PlantIPoppy = 8 },
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, PlantNGarlic = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -957,7 +966,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MetaFabric = 12 },
+			{ CardUpgradePoints = 5, MetaFabric = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1012,9 +1021,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			-- Replace with Olympus Ore
-			{ CardUpgradePoints = 6 },
-			{ CardUpgradePoints = 12, OreIMarble = 10 },
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, OrePAdamant = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1067,8 +1075,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, PlantNGarlic = 8, },
+			{ CardUpgradePoints = 5 },
+			{ CardUpgradePoints = 10, PlantPOlive = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1120,8 +1128,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 6, MetaFabric = 6 },
+			{ CardUpgradePoints = 4 },
+			{ CardUpgradePoints = 6, MetaFabric = 3 },
 		},
 
 		TraitName = "RarityBoostMetaUpgrade",
@@ -1176,7 +1184,7 @@ MetaUpgradeCardData =
 		UpgradeResourceCost = 
 		{
 			{ CardUpgradePoints = 2 },
-			{ CardUpgradePoints = 4, MetaFabric = 12, },
+			{ CardUpgradePoints = 4, PlantPIris = 3, },
 		},
 		AutoEquipRequirements = 
 		{
@@ -1238,9 +1246,8 @@ MetaUpgradeCardData =
 		},
 		UpgradeResourceCost = 
 		{
-			-- Replace with picked Ships plant
 			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, MixerIBoss = 3, },
+			{ CardUpgradePoints = 6, MixerIBoss = 2, },
 		},
 		TraitName = "RerollTradeOffMetaUpgrade",
 		OnGrantedFunctionName = "GrantMetaUpgradeRerolls",
@@ -1305,9 +1312,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			-- Replace with Olympus picked plant
 			{ CardUpgradePoints = 5 },
-			{ CardUpgradePoints = 10, PlantIShaderot = 9, },
+			{ CardUpgradePoints = 10, PlantIShaderot = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1423,8 +1429,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 3 },
-			{ CardUpgradePoints = 5, MixerHBoss = 5, },
+			{ CardUpgradePoints = 2 },
+			{ CardUpgradePoints = 4, MixerHBoss = 3, },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1472,7 +1478,7 @@ MetaUpgradeCardData =
 		ResourceCost = 
 		{
 			MetaCardPointsCommon = 50,
-			MixerIBoss = 1, -- Replace with MixerPBoss
+			MixerPBoss = 1,
 		},
 		TraitName = "BossProgressionMetaUpgrade",
 		
@@ -1485,8 +1491,8 @@ MetaUpgradeCardData =
 
 		UpgradeResourceCost = 
 		{
-			{ CardUpgradePoints = 10, PlantChaosThalamus = 2, MetaFabric = 10, MixerIBoss = 1 },
-			{ CardUpgradePoints = 20, PlantChaosThalamus = 4, MetaFabric = 25, MixerIBoss = 3 },
+			{ CardUpgradePoints = 10, MixerPBoss = 2 },
+			{ CardUpgradePoints = 20, MixerPBoss = 3 },
 		},
 
 		UnlockedCardVoiceLines =
@@ -1531,7 +1537,8 @@ MetaUpgradeCardData =
 MetaUpgradeData =
 {
 	BaseMetaUpgrade =
-	{		
+	{
+		InfoBackingAnimation = "ShrineSlotBase",
 	},
 
 	-- Shrine/Difficulty/Heat MetaUpgrades
@@ -1759,6 +1766,7 @@ MetaUpgradeData =
 			G = EnemySets.BiomeH,
 			H = EnemySets.BiomeI,
 			N = EnemySets.BiomeO,
+			O = EnemySets.BiomeP,
 		},
 		SwapMap =
 		{
@@ -1784,7 +1792,7 @@ MetaUpgradeData =
 			FishmanRanged = { Name = "Lamia", RequiredSpawnPoint = "EnemyPoint", },
 			FishmanRanged_Elite = { Name = "Lamia_Elite", RequiredSpawnPoint = "EnemyPoint", },
 			FishSwarmerSquad = { Name = "LycanSwarmer", RequiredSpawnPoint = "EnemyPoint", },
-			--FishSwarmerSquad_Elite = { Name = "LycanSwarmer_Elite", RequiredSpawnPoint = "EnemyPoint", },
+			FishSwarmerSquad_Elite = { Name = "LycanSwarmer_Elite", RequiredSpawnPoint = "EnemyPoint", },
 			Turtle = { Name = "DespairElemental", RequiredSpawnPoint = "EnemyPoint", },
 			Turtle_Elite = { Name = "DespairElemental_Elite", RequiredSpawnPoint = "EnemyPoint", },
 			WaterUnit = { Name = "Lovesick", RequiredSpawnPoint = "EnemyPoint", },
@@ -1821,6 +1829,23 @@ MetaUpgradeData =
 			ZombieHeavyRanged_Elite = { Name = "HarpyCutter_Elite", },
 			ZombieAssassin = { Name = "Drunk", },
 			ZombieAssassin_Elite = { Name = "Drunk_Elite", },
+
+			-- Ships
+			Stickler = { Name = "AutomatonBeamer" },
+			Stickler_Elite = { Name = "AutomatonBeamer_Elite" },
+			Scimiterror = { Name = "SatyrSapper" },
+			Scimiterror_Elite = { Name = "SatyrSapper_Elite" },
+			Swab = { Name = "Dragon" },
+			Swab_Elite = { Name = "Dragon_Elite" },
+			Drunk = { Name = "AutomatonEnforcer" },
+			Drunk_Elite = { Name = "AutomatonEnforcer_Elite" },
+			HarpyCutter = { Name = "HarpyDropper" },
+			HarpyCutter_Elite = { Name = "HarpyDropper_Elite" },
+			WaterElemental = { Name = "SentryBot" },
+			WaterElemental_Elite = { Name = "SentryBot_Elite" },
+			Mage2 = { Name = "SatyrLancer2" },
+			Mage2_Elite = { Name = "SatyrLancer2_Elite" },
+			-- Zombie_Crewman banned
 		},
 		FlavorText = "NextBiomeEnemyShrineUpgrade_Flavor",
 	},
@@ -1857,8 +1882,7 @@ MetaUpgradeData =
 		InactiveChangeValue = 0,
 		Ranks =
 		{
-			{ Points = 1, ChangeValue = 1 },
-			{ Points = 1, ChangeValue = 2 },
+			{ Points = 2, ChangeValue = 1 },
 		},
 		FlavorText = "MinibossCountShrineUpgrade_Flavor",
 	},
@@ -1903,8 +1927,8 @@ MetaUpgradeData =
 		InactiveChangeValue = 0,
 		Ranks =
 		{
-			{ Points = 1, ChangeValue = 5 },
-			{ Points = 3, ChangeValue = 10 },
+			{ Points = 1, ChangeValue = 3 },
+			{ Points = 1, ChangeValue = 6 },
 		},
 		FlavorText = "BoonManaReserveShrineUpgrade_Flavor",
 	},
@@ -1922,59 +1946,19 @@ MetaUpgradeData =
 		FlavorText = "BanUnpickedBoonsShrineUpgrade_Flavor",
 	},
 
-	FirstDamageShrineUpgrade =
-	{
-		InheritFrom = { "BaseMetaUpgrade", },
-		Icon = "ShrineIcon_TrapDamage",
-		InactiveChangeValue = 1.0,
-		SimpleExtractValues =
-		{
-			{
-				Property = "ChangeValue",
-				Multiply = 100,
-				Add = -100,
-				NewProperty = "DisplayValue",
-			},
-		},
-		Ranks =
-		{
-			{ Points = 2, ChangeValue = 2.0 },
-			{ Points = 2, ChangeValue = 4.0 },
-		},
-		FlavorText = "FirstDamageShrineUpgrade_Flavor",
-	},
-
-	RoomStartManaShrineUpgrade =
-	{
-		InheritFrom = { "BaseMetaUpgrade", },
-		Icon = "ShrineIcon_RoomStartMana",
-		InactiveChangeValue = 1.0,
-		SimpleExtractValues =
-		{
-			{
-				Property = "ChangeValue",
-				Multiply = 100,
-				NewProperty = "DisplayValue",
-			},
-		},
-		Ranks =
-		{
-			{ Points = 1, ChangeValue = 0.5 },
-			--{ Points = 1, ChangeValue = 0.0 },
-		},
-		FlavorText = "RoomStartManaShrineUpgrade_Flavor",
-	},
-
-	NoMetaUpgradesShrineUpgrade =
+	LimitGraspShrineUpgrade =
 	{
 		InheritFrom = { "BaseMetaUpgrade", },
 		Icon = "ShrineIcon_NoMetaUpgrades",
-		InactiveChangeValue = 0,
+		InactiveChangeValue = 100,
 		Ranks =
 		{
-			{ Points = 5, ChangeValue = 100 },
+			{ Points = 1, ChangeValue = 60 },
+			{ Points = 1, ChangeValue = 40 },
+			{ Points = 1, ChangeValue = 20 },
+			{ Points = 2, ChangeValue = 0 },
 		},
-		FlavorText = "NoMetaUpgradesShrineUpgrade_Flavor",
+		FlavorText = "LimitGraspShrineUpgrade_Flavor",
 	},
 
 	EnemyEliteShrineUpgrade =
@@ -2006,4 +1990,11 @@ RerollCosts =
 	Talent = 1,
 	Hammer = -1, -- Disabled
 	ReuseIncrement = 1,
+}
+
+MetaUpgradeCardRarityIcons =
+{
+	Rare = "MetaRank2",
+	Epic = "MetaRank3",
+	Heroic = "MetaRank4",
 }

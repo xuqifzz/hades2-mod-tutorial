@@ -27,7 +27,98 @@
 		MouseOverSound = "/Leftovers/World Sounds/Caravan Interior/TarotCardSpecialInteract",
 	},
 
-	WeaponAnywhereCast=
+	WeaponCastLob =
+	{
+		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
+		LinkedTraitNames = { "ArtemisCastCountBoon", "CastCountMetaUpgrade" },
+		
+		ShowManaIndicator = true,
+		HideChargeDuration = 0.15,
+		OnChargeFunctionName = "DoWeaponCharge",
+		CustomChannelSlowEvent = "WeaponCastProjectile",
+		ArmedCastChargeStage = true,
+		ChargeWeaponData =
+		{
+			EmptyChargeFunctionName = "EmptyIndirectCastCharge",
+			OnStageReachedFunctionName = "IndirectCastChargeStage"
+		},
+		ChargeWeaponStages = 
+		{
+			{ 
+				ManaCost = 15, 
+				Wait = 0.8, 
+				ChannelSlowEventOnStart = true 
+			},
+		},
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.06, Fraction = 0.21, Duration = 0.21 },
+		},
+
+		CauseImpactReaction = true,
+		ImpactReactionHitsOverride = 10,
+
+		SkipManaIndicatorIfZeroManaCost = true,
+		OnProjectileDeathFunction = "FireCastAtLocation",
+		SpeedPropertyChanges = 
+		{
+			{
+				EffectName = "WeaponCastAttackDisable",
+				EffectProperty = "Duration",
+			},
+			{
+				EffectName = "WeaponCastSelfSlow",
+				EffectProperty = "Duration",
+			},
+		},
+		Sounds =
+		{
+			ChargeSounds =
+			{
+				{
+					Name = "/VO/MelinoeEmotes/EmoteEvading",
+					Name = "/SFX/Player Sounds/MelMagicalChargeLoop",
+					StoppedBy = { "ChargeCancel", "Fired" }
+				}
+			},
+			FireSounds =
+			{
+				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
+				{ Name = "/Leftovers/SFX/WyrmCastAttack" },
+			},
+			FireStageSounds = 
+			{
+				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+				{ Name = "/Leftovers/SFX/AuraThrowSmall" },
+			},
+
+			ImpactSounds =
+			{
+				Invulnerable = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				Brick = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				Stone = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				Organic = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				StoneObstacle = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				BrickObstacle = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				MetalObstacle = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				BushObstacle = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+			},
+		},
+
+		SimSlowDistanceThreshold = 180,
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.3, LerpTime = 0 },
+			{ ScreenPreWait = 0.02, Fraction = 1.0, LerpTime = 0.07 },
+		},
+
+		SelfMultiplier = 0,
+	},
+	WeaponAnywhereCast =
 	{
 		UpgradeChoiceText = "UpgradeChoiceMenu_Ranged",
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.05, FalloffSpeed = 3000 },
@@ -87,7 +178,11 @@
 				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
 				{ Name = "/Leftovers/SFX/WyrmCastAttack" },
 			},
-
+			FireStageSounds = 
+			{
+				{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+				{ Name = "/Leftovers/SFX/AuraThrowSmall" },
+			},
 			ImpactSounds =
 			{
 				Invulnerable = "/SFX/Player Sounds/ZagreusBloodshotImpact",
@@ -255,7 +350,7 @@
 			FireSounds =
 			{
 				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
-				{ Name = "/Leftovers/SFX/WyrmCastAttack" },
+				{ Name = "/SFX/Enemy Sounds/Hades/HadesFireSkullImpact" },
 			},
 
 			ImpactSounds =
@@ -578,6 +673,10 @@
 			OutOfManaFunctionName = "WeaponSprintOutOfMana",
 		}
 		]]
+	},
+	WeaponSprintEx =
+	{
+		IsExWeapon = true,
 	},
 
 	WeaponMorphedAttack =
@@ -1107,6 +1206,46 @@
 			},
 		},
 	},		
+	WeaponSpellMoonBeam = 
+	{
+		InheritFrom = { "BaseSpell", },
+		CompleteObjectivesOnFire = { "SpellPotionPrompt" },
+
+		OnChargeFunctionName = "nil",
+		OnChargeFunctionArgs = {},
+
+		OnFiredFunctionNames = { "MoonBeamSpellFire" },
+		OnFiredFunctionArgs = 
+		{
+			Range = 450,
+			ProjectileName = "ProjectileMoonBeam",
+			Count = 8,
+			Delay = 0.525,
+			FollowUpDelay = 0.525,
+		},
+		Using = { EffectName = "MoonBeamVulnerability", },
+		ShowManaIndicator = false,
+		ManaSpendCost = 100,
+
+		FireScreenshake = { Distance = 4, Speed = 400, FalloffSpeed = 1400, Duration = 0.08, Angle = 225, ScreenPreWait = 0.19 },
+
+		ChargeScreenshake = { Distance = 2, Speed = 100, FalloffSpeed = 2000, Duration = 1.5 },
+		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 1.08, Duration = 1.6, HoldDuration = 1.0, RestoreDefaultDuration = 0.4 },
+
+		ChargeRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.14, Duration = 1.5 },
+		},
+		
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Player Sounds/PotionTraitTrigger" },
+				{ Name = "/VO/MelinoeEmotes/EmoteCastingAlt" },
+			},
+		},
+	},
 	-- Enemy Weapons
 
 	BaseCollisionWeapon =
@@ -1162,7 +1301,7 @@ ToLookup({
 	"WeaponCastArm",
 	"WeaponDaggerThrow",
 	"WeaponSprint",
-	"WeaponAxeBlock2",
+	"WeaponAxeSpecial",
 	"WeaponStaffBall",
 	"WeaponLobSpecial",
 	"StackUpgrade",
@@ -1173,4 +1312,5 @@ ToLookup({
 	"WeaponCastProjectileHades",
 	"EncounterStartBuffWeapon",
 	"PoseidonSprintWeapon",
+	"MixerIBossDrop",
 })

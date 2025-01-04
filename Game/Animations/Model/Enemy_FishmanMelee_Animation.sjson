@@ -54,6 +54,7 @@
 		VisualFxDistanceMin = 40
 		VisualFxDistanceMax = 50
 		Loop = true
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -156,6 +157,7 @@
 				Duration = 4
 			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -263,7 +265,17 @@
 				BlendTransitionFrom = "Enemy_FishmanMelee_HitStun_Heavy"
 				Duration = 4
 			}
+
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_Fire"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_End"
+				Duration = 4
+			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -305,6 +317,7 @@
 				Duration = 2
 			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -345,7 +358,7 @@
 		Name = "Enemy_FishmanMelee_PullSwingFire"
 		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
 		GrannyAnimation = "FishmanMelee_Base_PullSwingFire_C_00"
-
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -412,6 +425,7 @@
 		InheritFrom = "EnemyFishmanMeleeBaseAnimation"
 		GrannyAnimation = "FishmanMelee_Base_PullSwingReturnToIdle_C_00"
 		CancelOnOwnerMove = true
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -478,8 +492,8 @@
 		Blends = 
 		[ 
 			{
-				BlendTransitionFrom = "Enemy_FishmanMelee_PullSwingReturnToIdle"
-				Duration = 10
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 5
 			}
 		]
 	}
@@ -500,8 +514,8 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Enemy_FishmanMelee_Slam_Start"
-				Duration = 10
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 4
 			}
 		]
 	}

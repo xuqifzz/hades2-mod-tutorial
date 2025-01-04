@@ -1,4 +1,5 @@
 ﻿function TradeScreenAcceptPresentation( screen, button )
+	PlaySound({ Name = "/SFX/MarkedFoeGoldDropSFX" })
 	if screen.Args.AcceptSourceVoiceLines ~= nil then
 		thread( PlayVoiceLines, screen.Source[screen.Args.AcceptSourceVoiceLines], true, screen.Source )
 	else
@@ -23,7 +24,11 @@ end
 function NemesisDropPresentation( source, args )
 	SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Toss" })
 	wait( 1.6 )
-	SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Equip" })
+	if CurrentRun.CurrentRoom.RoomSetName == "H" then
+		SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Idle" })
+	else
+		SetAnimation({ DestinationId = source.ObjectId, Name = "Nemesis_Hub_Equip" })
+	end
 end
 
 function TradeOptionPressedPresentation( screen, button )

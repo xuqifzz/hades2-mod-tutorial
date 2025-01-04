@@ -32,23 +32,16 @@ ScreenData.MailboxScreen = ScreenData.MailboxScreen or
 		NamedRequirements = { "MailboxUnlocked" },
 	},
 }
-Icons = Icons or {}
+
 Keywords = Keywords or {}
 
 local fullGame = (GetConfigOptionValue({ Name = "DemoMode" }) == false)
 
 
-if fullGame then
-	Import "RoomSets.lua"
-	Import "WeaponSets.lua"
-	Import "EncounterSets.lua"
-	Import "EnemySets.lua"
-else
-	Import "RoomSets_Demo.lua"
-	Import "WeaponSets_Demo.lua"
-	Import "EncounterSets_Demo.lua"
-	Import "EnemySets_Demo.lua"
-end
+Import "RoomSets.lua"
+Import "WeaponSets.lua"
+Import "EncounterSets.lua"
+Import "EnemySets.lua"
 
 Import "RewardData.lua"
 Import "EnemyAILogic.lua"
@@ -57,49 +50,12 @@ Import "UIData.lua"
 Import "TraitTrayData.lua"
 Import "HUDData.lua"
 Import "NarrativeData.lua"
-Import "NarrativeData_Charon.lua"
-if fullGame then
-	Import "NarrativeData_Bouldy.lua"
-	Import "NarrativeData_Cerberus.lua"
-	Import "NarrativeData_Chaos.lua"
-	Import "NarrativeData_Chronos.lua"
-	Import "NarrativeData_Circe.lua"
-	Import "NarrativeData_Echo.lua"
-	Import "NarrativeData_Eris.lua"
-	Import "NarrativeData_Familiars.lua"
-	Import "NarrativeData_Hera.lua"
-	Import "NarrativeData_Heracles.lua"
-	Import "NarrativeData_Hermes.lua"
-	Import "NarrativeData_Icarus.lua"
-	Import "NarrativeData_Medea.lua"
-	Import "NarrativeData_Narcissus.lua"
-	Import "NarrativeData_Nyx.lua"
-	Import "NarrativeData_Polyphemus.lua"
-	Import "NarrativeData_Scylla.lua"
-	Import "NarrativeData_ConversationOrder.lua"
-else
-	Import "NarrativeData_ConversationOrderDemo.lua"
-end
 Import "AudioData.lua"
-if fullGame then
-	Import "AudioData_Challenge.lua"
-	Import "AudioData_Chaos.lua"
-	Import "AudioData_Chronos.lua"
-	Import "AudioData_Circe.lua"
-	Import "AudioData_Echo.lua"
-	Import "AudioData_Eris.lua"
-	Import "AudioData_Heracles.lua"
-	Import "AudioData_Hermes.lua"
-	Import "AudioData_Icarus.lua"
-	Import "AudioData_Mailbox.lua"
-	Import "AudioData_Medea.lua"
-	Import "AudioData_Narcissus.lua"
-	Import "AudioData_Polyphemus.lua"
-	Import "AudioData_Scylla.lua"
-	Import "AudioData_Shrine.lua"
-	Import "AudioData_Tartarus.lua"
-end
 Import "KeywordData.lua"
+Import "EffectData.lua"
+Import "WeaponData.lua"
+Import "WeaponDataEnemies.lua"
+
 Import "EnemyData.lua"
 Import "EnemyData_Traps.lua"
 Import "EnemyData_Mage.lua"
@@ -138,13 +94,20 @@ if fullGame then
 	Import "EnemyData_ZombieAssassin.lua"
 	Import "EnemyData_Zombie.lua"
 	Import "EnemyData_Mudman.lua"
-	Import "EnemyData_HarpyCutter.lua"
+	Import "EnemyData_Harpy.lua"
 	Import "EnemyData_Eris.lua"
+	Import "EnemyData_Prometheus.lua"
+	Import "EnemyData_Eagle.lua"
 	Import "EnemyData_Stickler.lua"
 	Import "EnemyData_Swab.lua"
 	Import "EnemyData_Scimiterror.lua"
 	Import "EnemyData_Drunk.lua"
 	Import "EnemyData_WaterElemental.lua"
+	Import "EnemyData_Talos.lua"
+	Import "EnemyData_SentryBot.lua"
+	Import "EnemyData_AutomatonBeamer.lua"
+	Import "EnemyData_AutomatonEnforcer.lua"
+	Import "EnemyData_Dragon.lua"
 	Import "EnemyData_InfestedCerberus.lua"
 	Import "EnemyData_Chronos.lua"
 	Import "EnemyData_BloodlessNaked.lua"
@@ -160,6 +123,7 @@ if fullGame then
 	Import "EnemyData_GoldElemental.lua"
 	Import "EnemyData_TimeElemental.lua"
 	Import "EnemyData_SatyrLancer.lua"
+	Import "EnemyData_SatyrSapper.lua"
 	Import "EnemyData_SatyrRatCatcher.lua"
 	Import "EnemyData_Swarmer.lua"
 end
@@ -172,6 +136,7 @@ Import "EncounterData.lua"
 
 if fullGame then
 	Import "EncounterData_Arachne.lua"
+	Import "EncounterData_Athena.lua"
 	Import "EncounterData_Artemis.lua"
 	Import "EncounterData_Boss.lua"
 	Import "EncounterData_Challenge.lua"
@@ -184,8 +149,10 @@ if fullGame then
 	Import "EncounterData_Nemesis.lua"
 	Import "EncounterData_Opening.lua"
 	Import "EncounterData_Story.lua"
-	Import "EncounterData_Test.lua"
 	Import "EncounterData_TimeChallenge.lua"
+	if _isdebug() then
+		Import "EncounterData_Test.lua"
+	end
 end
 
 Import "EncounterData_Unique.lua"
@@ -195,7 +162,6 @@ Import "RoomData.lua"
 Import "RoomDataF.lua"
 
 if fullGame then
-	Import "RoomDataSecrets.lua"
 	Import "RoomDataAnomaly.lua"
 	Import "RoomDataChaos.lua"
 	Import "RoomDataG.lua"
@@ -203,6 +169,10 @@ if fullGame then
 	Import "RoomDataI.lua"
 	Import "RoomDataN.lua"
 	Import "RoomDataO.lua"
+	Import "RoomDataP.lua"
+	if _isdebug() then
+		Import "RoomDataTest.lua"
+	end
 end
 
 Import "HeroData.lua"
@@ -226,6 +196,7 @@ Import "TraitData.lua"
 Import "TraitData_Staff.lua"
 Import "TraitData_Dagger.lua"
 Import "TraitData_Axe.lua"
+Import "TraitData_Suit.lua"
 Import "TraitData_Torch.lua"
 Import "TraitData_Lob.lua"
 Import "TraitData_Arachne.lua"
@@ -233,6 +204,7 @@ Import "TraitData_Artemis.lua"
 Import "TraitData_Aphrodite.lua"
 Import "TraitData_Apollo.lua"
 Import "TraitData_Demeter.lua"
+Import "TraitData_Dionysus.lua"
 Import "TraitData_Hephaestus.lua"
 Import "TraitData_Hestia.lua"
 Import "TraitData_Poseidon.lua"
@@ -253,6 +225,7 @@ if fullGame then
 	Import "TraitData_Medea.lua"
 	Import "TraitData_Icarus.lua"
 	Import "TraitData_Hera.lua"
+	Import "TraitData_Athena.lua"
 	Import "TraitData_Hermes.lua"
 	Import "TraitData_Aspect.lua"
 	Import "TraitData_Essence.lua"
@@ -266,21 +239,20 @@ Import "TradeData.lua"
 Import "SpellScreenData.lua"
 Import "TalentScreenData.lua"
 Import "StoreData.lua"
+Import "SurfaceShopData.lua"
 Import "SellTraitData.lua"
 Import "TraitLogic.lua"
 Import "FamiliarLogic.lua"
-Import "EffectData.lua"
-Import "WeaponData.lua"
+
 Import "WeaponData_Dagger.lua"
 Import "WeaponData_Staff.lua"
-Import "WeaponData_Traps.lua"
-
 Import "WeaponData_Axe.lua"
 Import "WeaponData_Lob.lua"
 Import "WeaponData_Torch.lua"
+Import "WeaponData_Suit.lua"
 
-Import "WeaponDataEnemies.lua"
-Import "WeaponData_Brawler.lua"
+Import "WeaponData_Traps.lua"
+
 Import "WeaponData_FogEmitter.lua"
 Import "WeaponData_Guard.lua"
 Import "WeaponData_Hecate.lua"
@@ -293,6 +265,9 @@ Import "WeaponData_TrapsEnemies.lua"
 Import "WeaponData_Treant.lua"
 
 if fullGame then
+	Import "WeaponData_Automaton.lua"
+	Import "WeaponData_Talos.lua"
+	Import "WeaponData_Dragon.lua"
 	Import "WeaponData_Bloodless.lua"
 	Import "WeaponData_BrokenHearted.lua"
 	Import "WeaponData_Carrion.lua"
@@ -328,6 +303,8 @@ if fullGame then
 	Import "WeaponData_WaterElemental.lua"
 	Import "WeaponData_WaterUnit.lua"
 	Import "WeaponData_Zombie.lua"
+	Import "WeaponData_Prometheus.lua"
+	Import "WeaponData_Eagle.lua"
 end
 
 Import "WeaponDataAllies.lua"
@@ -353,34 +330,19 @@ end
 Import "ConsumableData.lua"
 Import "WorldUpgradeData.lua"
 if fullGame then
-	Import "WorldUpgradeData_Cosmetics.lua"
-	Import "WorldUpgradeData_Hub.lua"
-	Import "WorldUpgradeData_Repeatable.lua"
-	Import "WorldUpgradeData_Run.lua"
-	Import "WorldUpgradeData_Story.lua"
-	Import "WorldUpgradeData_Support.lua"
-	Import "WorldUpgradeData_Systems.lua"
-	Import "WorldUpgradeData_Upgrades.lua"
-
 	Import "AchievementData.lua"
 end
 Import "RunClearData.lua"
 Import "BadgeData.lua"
 Import "ResourceData.lua"
-Import "ResourceData_Ores.lua"
-Import "ResourceData_Fish.lua"
-Import "ResourceData_Plants.lua"
-Import "ResourceData_Boss.lua"
-Import "ResourceData_Cosmetics.lua"
 Import "MarketData.lua"
+Import "MarketPromptScreenData.lua"
 if fullGame then
 	Import "MailboxData.lua"
 end
 Import "GhostAdminData.lua"
 if fullGame then
 	Import "GhostAdminData_Items.lua"
-else
-	Import "GhostAdminData_DemoItems.lua"
 end
 Import "CosmeticsData.lua"
 Import "CostumeData.lua"
@@ -395,9 +357,12 @@ if fullGame then
 	Import "ObstacleDataI.lua"
 	Import "ObstacleDataN.lua"
 	Import "ObstacleDataO.lua"
+	Import "ObstacleDataP.lua"
 end
 Import "NPCData_Hecate.lua"
 Import "NPCData_Odysseus.lua"
+Import "NPCData_Dionysus.lua"
+Import "NPCData_Athena.lua"
 Import "NPCData_Dora.lua"
 Import "NPCData_Nemesis.lua"
 Import "NPCData_Moros.lua"
@@ -439,39 +404,22 @@ if fullGame then
 	Import "ElementalPromptScreenData.lua"
 end
 Import "ObjectiveData.lua"
-if fullGame then
-	Import "ObjectiveData_Spoilers.lua"	
-end
 
 Import "FishingData.lua"
 Import "HarvestData.lua"
 Import "GardenData.lua"
 Import "DeathLoopData.lua"
-if fullGame then
-	Import "DeathLoopData_Late.lua"
-end
 Import "GamePhaseData.lua"
 Import "BiomeStateData.lua"
 Import "QuestData.lua"
-if fullGame then
-	Import "QuestData_Ordering.lua"
-	Import "QuestData_Spoilers.lua"
-else
-	Import "QuestData_OrderingDemo.lua"
-end
 if fullGame then
 	Import "BountyData.lua"
 	Import "ShrineData.lua"
 end
 Import "CodexData.lua"
-if fullGame then
-	Import "CodexData_Ordering.lua"
-	Import "CodexData_Spoilers.lua"
-else
-	Import "CodexData_OrderingDemo.lua"
-end
 Import "GameStatsData.lua"
 Import "RunHistoryData.lua"
+Import "MusicPlayerData.lua"
 
 Import "GiftLogic.lua"
 Import "GiftPresentation.lua"
@@ -785,6 +733,9 @@ function SetupRunData( args )
 				if traitData.OnEnemyDamagedAction.ValidProjectiles then
 					traitData.OnEnemyDamagedAction.ValidProjectilesLookup = ToLookup( traitData.OnEnemyDamagedAction.ValidProjectiles )
 				end
+				if traitData.OnEnemyDamagedAction.ExcludeProjectiles then
+					traitData.OnEnemyDamagedAction.ExcludeProjectilesLookup = ToLookup( traitData.OnEnemyDamagedAction.ExcludeProjectiles )
+				end
 				if traitData.OnEnemyDamagedAction.Args then
 					if traitData.OnEnemyDamagedAction.Args.TraitWeaponMappings then
 						for traitName, weaponList in pairs ( traitData.OnEnemyDamagedAction.Args.TraitWeaponMappings ) do
@@ -877,6 +828,19 @@ function SetupRunData( args )
 
 		local traitDictionary = {}
 		ScreenData.BoonInfo.TraitDictionary[lootName] = {}
+		
+		ScreenData.BoonInfo.TraitSortOrder[lootName] = {}
+		if lootData.TraitSortOrder then 
+			ScreenData.BoonInfo.TraitSortOrder[lootName] = ShallowCopyTable(lootData.TraitSortOrder)
+		else
+			if lootData.WeaponUpgrades then
+				ScreenData.BoonInfo.TraitSortOrder[lootName] = ConcatTableValuesIPairs( ScreenData.BoonInfo.TraitSortOrder[lootName], lootData.WeaponUpgrades )
+			end
+			if lootData.Traits then
+				ScreenData.BoonInfo.TraitSortOrder[lootName] = ConcatTableValuesIPairs( ScreenData.BoonInfo.TraitSortOrder[lootName], lootData.Traits )
+			end
+		end
+		
 		if lootData.WeaponUpgrades ~= nil then
 			for i, traitName in pairs (lootData.WeaponUpgrades) do
 				traitDictionary[traitName] = true
@@ -961,6 +925,7 @@ function SetupRunData( args )
 	end
 	
 	ProcessDataStore( ResourceData )
+	Icons = {}
 	for resourceName, resourceData in pairs( ResourceData ) do
 		Icons[resourceName] = resourceData.TextIconPath or resourceData.IconPath
 		Keywords[resourceName] = resourceData.TooltipId
@@ -970,12 +935,14 @@ function SetupRunData( args )
 	end
 
 	for iconName, iconData in pairs( IconData ) do
+		if Icons[iconName] ~= nil then
+			DebugAssert({ Condition = false, Text = iconName.." already has a ResourceData entry" })
+		end
 		Icons[iconName] = iconData.TexturePath
 	end
 
 	ProcessDataStore( QuestData )
 	ProcessDataStore( BountyData )
-	ProcessDataStore( MusicPlayerTrackData )
 	ProcessDataStore( GameData.RunClearMessageData )
 	ProcessDataStore( ScreenData )
 
@@ -1013,6 +980,12 @@ function SetupRunData( args )
 			upgradeData.AddOutgoingDamageModifiers.ValidWeapons = AddLinkedWeapons( upgradeData.AddOutgoingDamageModifiers.ValidWeapons )
 		end
 		AddFormattedPercentageChangeValues(upgradeData)
+	end
+
+	-- For use with Forget-Me-Not
+	MetaUpgradeCostDataStore = {}
+	for i, data in pairs( MetaUpgradeCostData.MetaUpgradeLevelData ) do
+		MetaUpgradeCostDataStore["MetaUpgradeLevelData"..i] = data
 	end
 
 	for weaponName, weaponData in pairs( WeaponData ) do
@@ -1062,6 +1035,9 @@ function SetupRunData( args )
 		WeaponSetLookups[key] = ToLookup(weaponSet)
 	end
 	ScreenData.BoonInfo.TraitDictionary.SpellDrop = {}
+	ScreenData.BoonInfo.TraitSortOrder.SpellDrop = {}
+	ScreenData.BoonInfo.CustomSortFunction.SpellDrop = "BoonInfoSpellSort"
+
 	for spellName, spellData in pairs( SpellData ) do
 		spellData.Name = spellName
 		local traitName = spellData.TraitName
@@ -1164,7 +1140,6 @@ function SetupRunData( args )
 
 	if verboseLogging then
 		ValidateOrderData( QuestData, QuestOrderData )
-		ValidateOrderData( MusicPlayerTrackData, MusicPlayerTrackOrderData )
 		ValidateGlobalFormats()
 	end
 
@@ -1309,6 +1284,11 @@ function DeepInheritData( data, parentData )
 		local value = data[parentKey]
 		if data.NilValues ~= nil and data.NilValues[parentKey] then
 			data[parentKey] = nil
+		elseif value == "nil" then
+			data[parentKey] = nil
+			-- Need to preserver the record that "nil" was requested after it is erased for actual nil
+			data.NilValues = data.NilValues or {}
+			data.NilValues[parentKey] = true
 		elseif value == nil then
 			if type(parentValue) == "table" then
 				data[parentKey] = DeepCopyTable( parentValue )
@@ -1325,11 +1305,6 @@ function DeepInheritData( data, parentData )
 			else
 				ConcatTableValuesIPairs( value, parentTable )
 			end
-		elseif value == "nil" then
-			data[parentKey] = nil
-			-- Need to preserver the record that "nil" was requested after it is erased for actual nil
-			data.NilValues = data.NilValues or {}
-			data.NilValues[parentKey] = true
 		end
 	end
 

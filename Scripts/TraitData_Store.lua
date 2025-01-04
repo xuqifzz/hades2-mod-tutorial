@@ -3,6 +3,7 @@
 	ShopTrait =
 	{
 		NoFrame = true,
+		HideInRunHistory = true,
 	},
 	ExtendedShopTrait = 
 	{
@@ -22,6 +23,7 @@
 			TemporaryImprovedExTrait = true,
 			TemporaryImprovedDefenseTrait = true,
 			TemporaryDiscountTrait = true,
+			TemporaryEmptySlotDamageTrait = true,
 		},
 		BossExtension = {BaseValue = 2},
 		PermanentItemBadgeAnimationName = "Shop_Seal",
@@ -219,6 +221,53 @@
 			},
 		},
 	},
+	TemporaryEmptySlotDamageTrait =
+	{
+		InheritFrom = { "ShopTrait" },
+		Icon = "Shop_TemporaryEmptySlotDamageTrait",
+		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Jar",
+		ResourceCosts =
+		{
+			Money = 10,
+		},
+		RemainingUses = 6,
+		UsesAsEncounters = true,
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "SlottedTraits" },
+				NotHasAll = {"Melee", "Secondary" },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "TemporaryEmptySlotDamageTrait" },
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			EmptySlotMultiplier = 3,
+			EmptySlotValidData =
+			{
+				Melee = WeaponSets.HeroPrimaryWeapons,
+				Secondary = WeaponSets.HeroSecondaryWeapons,
+			},
+			ReportValues = { ReportedWeaponMultiplier = "EmptySlotMultiplier"},
+		},
+		StatLines = 
+		{
+			"StoreUsesRemainingDisplay1",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "TooltipBonus",
+				Format = "PercentDelta",
+				SkipAutoExtract = true
+			},
+		}
+	},
 	TemporaryMoveSpeedTrait =
 	{
 		InheritFrom = { "ShopTrait" },
@@ -263,6 +312,7 @@
 		},
 		RarityBonus =
 		{
+			GodLootOnly = true,
 			Rare = 1,
 			Epic = 0.25,
 			Legendary = 0.1,
@@ -272,6 +322,13 @@
 	TemporaryForcedSecretDoorTrait =
 	{
 		InheritFrom = { "ShopTrait" },
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "ChaosFirstPickUp" },
+			},
+		},
 		Icon = "Shop_Lamp",
 		OnPurchaseSound = "/Leftovers/Menu Sounds/WellPurchase_Crystal",
 		ResourceCosts =
@@ -280,7 +337,6 @@
 		},
 		RemainingUses = 1,
 		ForceSecretDoor = true,
-		RequiredTextLines = { "ChaosFirstPickUp", },
 	},
 	TemporaryDiscountTrait =
 	{
@@ -290,6 +346,14 @@
 		ResourceCosts =
 		{
 			Money = 80,
+		},
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary" },
+				HasNone = { "TemporaryDiscountTrait" },
+			},
 		},
 		StoreCostMultiplier = 0.7,
 		RemainingUses = 6,
@@ -352,7 +416,7 @@
 	FirstHitHealTrait =
 	{
 		InheritFrom = { "ShopTrait" },
-		Icon = "Keepsake_01",
+		Icon = "Shop_FirstHitHeal",
 		ResourceCosts =
 		{
 			Money = 15,
@@ -364,7 +428,7 @@
 			{
 				HealPercent = 1,
 				CombatText = "FirstHitHeal_CombatText",
-				Vfx = "ZagreusWrathFire",
+				Vfx = "WrathFire",
 				SoundName = "/SFX/GyroHealthPickupMunch",
 				ReportValues = { ReportedHealPercent = "HealPercent" }
 			},
@@ -393,7 +457,74 @@
 			}
 		}
 	},
-
+	ManaOverTimeRefundTrait = 
+	{
+		InheritFrom = { "ShopTrait" },
+		Icon = "Shop_LimitedManaRegenDrop",
+		ShowInHUD = true,
+		TotalManaRecovered = { BaseValue = 500 },
+		ResourceCosts =
+		{
+			Money = 5,
+		},
+		SetupFunction =
+		{
+			Name = "ManaRegenSetup",
+			Args =
+			{
+				Name = "ManaOverTimeRefundKeepsake",
+			},
+			RunOnce = true
+		},
+		OnManaSpendAction = 
+		{
+			ManaDrainTriggers = true,
+			FunctionName = "CheckOverTimeManaRefund",
+			FunctionArgs = 
+			{
+				Duration = 3,
+				Interval = 0.5,
+				ReportValues = 
+				{ 
+					ReportedDuration = "Duration",
+				}
+			}
+		},
+		ExtractValues =
+		{
+			{
+				Key = "TotalManaRecovered",
+				ExtractAs = "TooltipManaRecovery",
+			},
+			{
+				Key = "ReportedDuration",
+				ExtractAs = "TooltipDuration",
+				DecimalPlaces = 1,
+			},
+		},
+	},
+	
+	LimitedSwapBonusTrait = 
+	{
+		InheritFrom = { "ShopTrait" },
+		Icon = "Shop_LimitedSwapTraitDrop",
+		ShowInHUD = true,
+		Uses = 1,
+		ForceSwaps = true,		
+		BlockStacking = true,
+		ExchangeLevelBonus = 2,
+		ResourceCosts =
+		{
+			Money = 20,
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ExchangeLevelBonus",
+				ExtractAs = "Levels",
+			},
+		}
+	},
 }
 
 

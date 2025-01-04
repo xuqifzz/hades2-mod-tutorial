@@ -242,15 +242,12 @@ SpellDisplayData =
 		"SpellSummonTrait",
 		"SpellMeteorTrait",
 		"SpellTransformTrait",
+		"SpellMoonBeamTrait",
 	}
 }
 
 SpellData = 
 {
-	Debug = 
-	{
-		Skip = true,
-	},
 	Polymorph = 
 	{
 		Objective = "SpellPolymorphPrompt",
@@ -305,13 +302,14 @@ SpellData =
 			},
 			Unique = 
 			{
-				"MeteorInvulnerableChargeTalent",
 				"MeteorVulnerabilityDecalTalent",
 				"MeteorSlowDecalTalent",
 				"MeteorShowerTalent",
+				"MeteorChargeTalent",
 			},
 			Legendary = 
 			{
+				"MeteorInvulnerableChargeTalent",
 				"MeteorDoubleTalent",
 				"MeteorExCastTalent",
 			}
@@ -383,13 +381,13 @@ SpellData =
 			{
 				"LeapLaunchAoETalent",
 				"LeapAoETalent",
-				"LeapShieldTalent",
 				"LeapCritTalent",
+				"LeapSprintTalent",
 			},
 			Legendary = 
 			{
+				"LeapShieldTalent",
 				"LeapTwiceTalent",
-				"LeapSprintTalent",
 			}
 		}
 	},
@@ -412,8 +410,10 @@ SpellData =
 			{
 				"LaserPrimaryTalent",
 				"LaserAoETalent",
+				"LaserStartAoETalent",
 				"LaserPenetrationTalent",
 				"LaserDurationTalent",
+				"LaserFirstHitDamageTalent",
 			},
 			Legendary = 
 			{
@@ -435,6 +435,7 @@ SpellData =
 		},
 		Objective = "SpellSummonPrompt",
 		TraitName = "SpellSummonTrait",
+		CheckSpellReadyOnAcquire = true,		-- Summon has additional requirements so cannot use the same 'insta-ready' presentation
 		Talents = 
 		{
 			Repeatable = 
@@ -522,6 +523,37 @@ SpellData =
 			{
 				"ClearCastTalent",
 				"HealRetaliateTalent",
+				"PotionExCastTalent",
+			},
+		}
+	},
+	MoonBeam = 
+	{
+		GameStateRequirements = 
+		{
+			Skip = true
+		},
+		--Objective = "SpellPotionPrompt",
+		TraitName = "SpellMoonBeamTrait",
+		Talents = 
+		{
+			Repeatable = 
+			{
+				"ChargeRegenTalent",
+				"MoonBeamVulnerabilityTalent",
+				"MoonBeamDamageTalent",
+				"MoonBeamCountTalent",
+			},
+			Unique = 
+			{
+				"MoonBeamConsecutiveDamageTalent",
+				"MoonBeamDefenseTalent",
+				"MoonBeamPrimaryTalent",
+			},
+			Legendary = 
+			{
+				"MoonBeamTargetTalent",
+				"MoonBeamExBeamBonusTalent",
 			},
 		}
 	},

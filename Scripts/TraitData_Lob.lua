@@ -1,10 +1,21 @@
 OverwriteTableKeys( TraitData, {
 	-- Lob
+	LobHammerTrait = 
+	{
+		CodexWeapon = "WeaponLob"
+	},
+
 	LobAmmoTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_02",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		WeaponAmmoModification = 
 		{
 			Name = "WeaponLob",
@@ -19,28 +30,28 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	LobAmmoMagnetismTrait =
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_01",
-		RequiredWeapon = "WeaponLob",
-		RequiredFalseTraits = { "LobPulseAmmoTrait" },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "LobPulseAmmoTrait" },
+			},
+		},
+		AmmoMagnetismMultiplier = 100,
 		PropertyChanges =
 		{
 			{
-				UnitProperty = "Magnetism",
-				BaseValue = 100.0,
-				ChangeType = "Multiply",
-				SourceIsMultiplier = true,
-				ExtractValue =
-				{
-					ExtractAs = "TooltipMagnetism",
-					Format = "PercentDelta"
-				}
-			},
-			{
 				UnitProperty = "MagnetismFx",
-				ChangeValue = "HermesWings_Ammo",
+				ChangeValue = "LobAmmoMagnetismFx",
 			}
 		},
 		WeaponAmmoModification = 
@@ -57,11 +68,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	LobRushArmorTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_08",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			NonExHealthBufferRemoval = 0.50,
@@ -77,11 +95,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	LobSpreadShotTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_10",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		ForceWeaponRefreshOnRemove = "WeaponLob",
 		WeaponDataOverride =
 		{
@@ -99,11 +124,18 @@ OverwriteTableKeys( TraitData, {
 			}
 		}
 	},
+
 	LobOneSideTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_05",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		
 		AddOutgoingDamageModifiers =
 		{
@@ -176,9 +208,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	LobSturdySpecialTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_12",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		
 		OnWeaponFiredFunctions = 
 		{
@@ -233,11 +271,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},		
 	},
+
 	LobSpecialSpeedTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_09",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		PropertyChanges = 
 		{
 			{
@@ -271,9 +316,15 @@ OverwriteTableKeys( TraitData, {
 	},
 	LobInOutSpecialExTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_04",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		PropertyChanges = 
 		{
 			{
@@ -284,11 +335,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	LobPulseAmmoCollectTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_06",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		PreEquipWeapons = { "WeaponLobChargedPulse" },
 		OnCollectAmmoFunctionName = 
 		{
@@ -308,15 +366,24 @@ OverwriteTableKeys( TraitData, {
 				ExtractAs = "Cost",
 			}
 		}
-
 	},
+
 	LobPulseAmmoTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_07",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "LobAmmoMagnetismTrait" },
+			},
+		},
 		PreEquipWeapons = { "WeaponLobPulse" },
-		RequiredFalseTraits = { "LobAmmoMagnetismTrait" },
 		OnTouchdownFunction =
 		{
 			Name = "CheckLobPulse",
@@ -333,11 +400,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},	
 	},
+
 	LobGrowthTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_03",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		PropertyChanges = 
 		{
 			{
@@ -372,11 +446,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	LobStraightShotTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
 		Icon = "Hammer_Lob_11",
-		RequiredWeapon = "WeaponLob",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
 		ChargeStageModifiers = 
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
@@ -387,6 +468,7 @@ OverwriteTableKeys( TraitData, {
 				TargetReticleAnimation = "null",
 			},
 		},
+
 		PropertyChanges =
 		{	
 			{
@@ -417,15 +499,65 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSturdyModifier",
-				ExtractAs = "SturdyModifier",
-				Format = "NegativePercentDelta",
-				HideSigns = true,
-			},
-			{
 				Key = "ReportedDamageBonus",
 				ExtractAs = "DamageIncrease",
 			},
-		},	
+		},
+
+		WeaponDataOverride =
+		{
+			WeaponLob =
+			{
+				Sounds =
+				{
+					ChargeSounds =
+					{
+						{
+							Name = "/SFX/Player Sounds/MelinoeSkullsChargeLoop",
+							StoppedBy = { "ChargeCancel", "Fired" }
+						},
+					},			
+					FireSounds =
+					{
+						{ Name = "/VO/MelinoeEmotes/EmoteAttackingBombLob" },
+					},
+					FireStageSounds = 
+					{
+						{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+						{ Name = "/SFX/Player Sounds/MelSkullsOmegaAttackExplode" },
+					},
+					ImpactSounds =
+					{
+						Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
+						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+						Bone = "/SFX/ArrowMetalBoneSmash",
+						Brick = "/SFX/ArrowMetalStoneClang",
+						Stone = "/SFX/ArrowMetalStoneClang",
+						Organic = "/SFX/GunBulletOrganicImpact",
+						StoneObstacle = "/SFX/ArrowWallHitClankSmall",
+						BrickObstacle = "/SFX/ArrowWallHitClankSmall",
+						MetalObstacle = "/SFX/ArrowWallHitClankSmall",
+						BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+						Shell = "/SFX/ShellImpact",
+					},
+				},
+
+			},
+		},
+
+	},
+	
+	LobSpecialAspect = 
+	{
+		InheritFrom = { "WeaponTrait", "LobHammerTrait" },
+		Icon = "Hammer_Torch_01",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponLob", },
+			},
+		},
+		LobExSpecialRecall = true,
 	},
 })

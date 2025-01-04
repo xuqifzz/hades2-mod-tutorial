@@ -98,10 +98,26 @@
 		Name = "Enemy_Zombie_Move"
 		InheritFrom = "EnemyZombieBaseAnimation"
 		GrannyAnimation = "Zombie_Base_Move_C_00"
+		NativeMoveSpeed = 75
 		Loop = true
-		GrannyAnimationSpeed = 1.25
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Enemy_Zombie_ProneIdle"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_Prone_IdleLoop"
+				Duration = 5
+			}
+		]
+		SoundManagerCap = 26
 		Frames =
 		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
 			{
 				Frame = 13
 				FootstepSound = "/Leftovers/SFX/FootstepsSlime"
@@ -112,23 +128,27 @@
 			}
 		]
 	}
-
-	{
-		Name = "Enemy_Zombie_MoveFast"
-		InheritFrom = "Enemy_Zombie_Move"
-		GrannyAnimationSpeed = 2.5
-	}
-
 	{
 		Name = "Enemy_Zombie_MoveStart"
 		InheritFrom = "EnemyZombieBaseAnimation"
 		GrannyAnimation = "Zombie_Base_MoveStart_C_00"
 		ChainTo = "Enemy_Zombie_Move"
-		GrannyAnimationSpeed = 1.25
+		NativeMoveSpeed = 75
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
+		]
 		Blends = 
 		[
 			{
 				BlendTransitionFrom = "Enemy_Zombie_ProneIdle"
+				Duration = 5
+			}	
+			{
+				BlendTransitionFrom = "Enemy_Zombie_Prone_IdleLoop"
 				Duration = 5
 			}	
 			{
@@ -141,22 +161,19 @@
 			}	
 		]
 	}
-
-	{
-		Name = "Enemy_Zombie_MoveStartFast"
-		InheritFrom = "Enemy_Zombie_MoveStart"
-		ChainTo = "Enemy_Zombie_MoveFast"
-		GrannyAnimationSpeed = 2.5
-	}
-
 	{
 		Name = "Enemy_Zombie_MoveStop"
 		InheritFrom = "EnemyZombieBaseAnimation"
 		GrannyAnimation = "Zombie_Base_MoveStop_C_00"
 		ChainTo = "Enemy_Zombie_Idle"
-		GrannyAnimationSpeed = 1.25
+		NativeMoveSpeed = 75
+		SoundManagerCap = 26
 		Frames =
 		[
+			{
+				Frame = 0
+				FrameSpeed = 1.25
+			}
 			{
 				Frame = 46
 				Sound = "/Leftovers/SFX/FootstepsSlime"
@@ -222,6 +239,7 @@
 		GrannyAnimation = "Zombie_Base_GetHitProneIdle_C_00"
 		Loop = true
 		GrannyAnimationSpeed = 1.3
+		CancelOnOwnerMove = true
 	}	
 
 	{

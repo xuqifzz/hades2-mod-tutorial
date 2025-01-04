@@ -37,7 +37,7 @@ function CheckCodexUnlock( chapterName, entryName, args )
 
 			if CodexStatus[chapterName][entryName][entryIndex].Unlocked then
 				-- Already unlocked
-			elseif entry.UnlockGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, entry.UnlockGameStateRequirements ) then
+			elseif entry.UnlockGameStateRequirements ~= nil and IsGameStateEligible( entry, entry.UnlockGameStateRequirements ) then
 
 				CodexStatus[chapterName][entryName][entryIndex].Unlocked = true
 				DebugPrint({ Text = "CodexUnlock: "..chapterName.." - "..entryName.." - Entry "..entryIndex })
@@ -111,7 +111,7 @@ function HasUnlockedEntries( chapterName )
 		if requirements == nil and not IsEmpty( entryData.Entries ) then
 			requirements = entryData.Entries[1].UnlockGameStateRequirements
 		end
-		if requirements == nil or IsGameStateEligible( CurrentRun, entryData, requirements ) then
+		if requirements == nil or IsGameStateEligible( entryData, requirements ) then
 			return true
 		end
 	end
@@ -152,7 +152,7 @@ function SelectNearbyUnlockedEntry()
 			for entryName, entryData in pairs( chapterData.Entries ) do
 				if entryName == nearbyName then
 					for i, subEntryData in ipairs( entryData.Entries ) do
-						if subEntryData.UnlockGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, subEntryData.UnlockGameStateRequirements ) then
+						if subEntryData.UnlockGameStateRequirements ~= nil and IsGameStateEligible( subEntryData, subEntryData.UnlockGameStateRequirements ) then
 							CodexStatus.SelectedChapterName = chapterName
 							CodexStatus.SelectedEntryNames[chapterName] = nearbyName
 							return
@@ -194,7 +194,7 @@ function OpenCodexScreen()
 	screen.ItemStartX = screen.ItemStartX + ScreenCenterNativeOffsetX
 	screen.ItemStartY = screen.ItemStartY + ScreenCenterNativeOffsetY
 
-	OnScreenOpened( screen, { SkipBlockTimer = true } )
+	OnScreenOpened( screen )
 	HideCombatUI( screen.Name )
 	CreateScreenFromData( screen, screen.ComponentData )
 	
@@ -205,8 +205,6 @@ function OpenCodexScreen()
 		selectedChapterName = screen.DefaultChapter
 	end
 	CodexOpenChapter( screen, components[selectedChapterName], { FirstOpen = true } )
-
-	AddTimerBlock( CurrentRun, screen.Name )
 
 	screen.KeepOpen = true
 	screen.AllowInput = true
@@ -375,7 +373,7 @@ function CodexOpenChapter( screen, button, args )
 				DebugAssert({ Condition = (requirements == nil or requirements[1].SumOf ~= nil), Text = "Codex enemy entry for "..entryName.." is missing a SumOf requirement", Owner = "Caleb" })
 			end
 		end
-		if requirements == nil or SessionState.CodexDebugUnlocked or IsGameStateEligible( CurrentRun, entryData, requirements ) then
+		if requirements == nil or SessionState.CodexDebugUnlocked or IsGameStateEligible( entryData, requirements ) then
 			text = entryName
 		end
 		if text ~= nil then
@@ -404,7 +402,6 @@ function CodexOpenChapter( screen, button, args )
 			end
 
 			if not GameState.CodexEntriesViewed[entryName] then
-				--screen.Components[entryName].UnreadStarId = CreateScreenObstacle({ Name = "CodexUnreadStar", X = entryX + screen.UnreadStarOffsetX, Y = entryY, Group = screen.ComponentData.DefaultGroup })
 				OverwriteTableKeys( entryTextFormat, screen.UnreadUnselectedFormat )
 			end
 			
@@ -500,7 +497,7 @@ function CodexOpenEntry( screen, button, args )
 		local uniqueThresholdText = nil
 		for index, unlockPortion in ipairs( button.EntryData.Entries ) do
 			local subEntryData = CodexData[button.ChapterName].Entries[button.EntryName].Entries[index]
-			if SessionState.CodexDebugUnlocked or subEntryData.UnlockGameStateRequirements == nil or IsGameStateEligible( CurrentRun, subEntryData.UnlockGameStateRequirements ) then
+			if SessionState.CodexDebugUnlocked or subEntryData.UnlockGameStateRequirements == nil or IsGameStateEligible( screen, subEntryData.UnlockGameStateRequirements ) then
 				text = GetDisplayName({ Text = unlockPortion.HelpTextId or unlockPortion.Text }) .. " "
 			else	
 				complete = false
@@ -698,14 +695,38 @@ function CreateGiftTrack( screen, args )
 	local locationY = screen.GiftTrackY + ScreenCenterNativeOffsetY
 	local iconCount = 0
 	local row = 1
-	
+
+	local npcTarget = ActiveEnemies[GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = entryName })]
+	if npcTarget ~= nil then
+		local giftable = true
+		if npcTarget.NextInteractLines ~= nil and npcTarget.NextInteractLines.InitialGiftableOffSource ~= nil then
+			giftable = false
+		end
+		if npcTarget.InteractTextLineSets ~= nil then
+			for k, textLineSet in pairs( npcTarget.InteractTextLineSets ) do
+				if CurrentRun.TextLinesRecord[textLineSet.Name] and textLineSet.GiftableOffSource then
+					giftable = false
+					break
+				end
+			end
+		end
+		if not giftable then
+			args.HintId = "Codex_DoesntWantGiftHint"
+			args.HintValues = { CharacterName = entryName }
+		end
+	end
+
 	for i, eventName in ipairs( giftEvents ) do
-		local giftSource = EnemyData[entryName] or LootData[entryName] or ConsumableData[entryName]
+		local giftSource = npcTarget or EnemyData[entryName] or LootData[entryName] or ConsumableData[entryName]
 		local giftEventData = giftSource.GiftTextLineSets[eventName]
 		local onGiftTrack = giftEventData.OnGiftTrack
-		if giftEventData.AltGiftTrackEvent ~= nil and GameState.TextLinesRecord[giftEventData.AltGiftTrackEvent] then
-			--DebugPrint({ Text = "giftEventData.AltGiftTrackEvent = "..giftEventData.AltGiftTrackEvent })
-			giftEventData = giftSource.GiftTextLineSets[giftEventData.AltGiftTrackEvent]
+		if giftEventData.AltGiftTrackEvent ~= nil then
+			local altGiftEventData = giftSource.GiftTextLineSets[giftEventData.AltGiftTrackEvent]
+			if GameState.TextLinesRecord[giftEventData.AltGiftTrackEvent] or 
+				( not IsGameStateEligible( giftSource, giftEventData.GameStateRequirements ) and IsGameStateEligible( giftSource, altGiftEventData.GameStateRequirements ) ) then
+				--DebugPrint({ Text = "giftEventData.AltGiftTrackEvent = "..giftEventData.AltGiftTrackEvent })
+				giftEventData = altGiftEventData
+			end
 		end
 		if onGiftTrack then
 			local resourceData = nil
@@ -716,18 +737,23 @@ function CreateGiftTrack( screen, args )
 
 			local newIconId = CreateScreenComponent({ Name = "BlankObstacle", Group = group, X = locationX, Y = locationY, Angle = screen.GiftTrackAngle }).Id
 			table.insert( screen.Components.RelationshipIcons, newIconId )
-
+			
+			local requirementsArgs = {}
 			if GameState.TextLinesRecord[giftEventData.Name] then
 				local iconName = giftEventData.FilledIcon or "FilledHeartIcon"
 				SetAnimation({ Name = iconName, DestinationId = newIconId })
-			elseif giftEventData.GameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, giftEventData, giftEventData.GameStateRequirements ) then
+			elseif giftEventData.GameStateRequirements ~= nil and not IsGameStateEligible( giftSource, giftEventData.GameStateRequirements, requirementsArgs ) then
 				local iconName = "LockedHeartIcon"
 				SetAnimation({ Name = iconName, DestinationId = newIconId })
 				if args.HintId == nil and giftEventData.LockedHintId ~= nil then
-					args.HintId = giftEventData.LockedHintId
+					if requirementsArgs.FailedRequirementIndex ~= nil and giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId ~= nil then
+						args.HintId = giftEventData.GameStateRequirements[requirementsArgs.FailedRequirementIndex].HintId
+					else
+						args.HintId = giftEventData.LockedHintId
+					end
 					DebugPrint({ Text = "Locked args.HintId = "..args.HintId..", eventName = "..eventName })
-					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.IconPath }
-					Flash({ Id = newIconId, Speed = 0.5, MinFraction = 0.1, MaxFraction = 0.2, Color = Color.White })
+					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
+					Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
 				end	
 			else
 				local iconName = giftEventData.UnfilledIcon or "EmptyHeartIcon"
@@ -735,8 +761,8 @@ function CreateGiftTrack( screen, args )
 				if args.HintId == nil then
 					args.HintId = giftEventData.HintId or "Codex_DefaultGiftHint"
 					DebugPrint({ Text = "Unlocked args.HintId = "..args.HintId..", eventName = "..eventName })
-					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.IconPath }
-					Flash({ Id = newIconId, Speed = 0.5, MinFraction = 0.1, MaxFraction = 0.2, Color = Color.White })
+					args.HintValues = { CharacterName = entryName, ResourceName = resourceData.Name, ResourceIcon = resourceData.TextIconPath }
+					Flash({ Id = newIconId, Speed = 0.8, MinFraction = 0.1, MaxFraction = 0.3, Color = Color.White })
 				end
 			end
 
@@ -960,11 +986,26 @@ function UpdateCodexContextualAction( screen, button )
 	if button ~= nil and components.BoonInfoButton ~= nil then
 		if ScreenData.BoonInfo.TraitDictionary[button.EntryName] ~= nil or button.EntryData.BoonInfoEnemyName ~= nil or button.EntryData.BoonInfoLootName ~= nil then
 			SetAlpha({ Id = components.BoonInfoButton.Id, Fraction = 1.0, Duration = 0.3 })
-			components.BoonInfoButton.Disabled = false
+			UseableOn({ Id = components.BoonInfoButton.Id })
 		else
 			SetAlpha({ Id = components.BoonInfoButton.Id, Fraction = 0.0, Duration = 0.0 })
-			components.BoonInfoButton.Disabled = true
+			UseableOff({ Id = components.BoonInfoButton.Id })
 		end
 	end
 
+end
+
+function ValidateCodexCategories()
+	if not verboseLogging then
+		return
+	end
+	local allEntries = {}
+	for categoryName, category in pairs( CodexData ) do
+		DebugAssert({ Condition = Contains( CodexOrdering.Order, categoryName ), Text = categoryName.." is missing from CodexOrdering.Order", Owner = "Greg" })
+		for entryName, entry in pairs( category.Entries ) do
+			DebugAssert({ Condition = not allEntries[entryName], Text = entryName.." is duplicated in CodexData", Owner = "Greg" })
+			DebugAssert({ Condition = Contains( CodexOrdering[categoryName], entryName ), Text = entryName.." is not included in CodexOrdering."..categoryName, Owner = "Greg" })
+			allEntries[entryName] = true
+		end
+	end
 end

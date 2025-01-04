@@ -16,6 +16,7 @@ function AddResource( name, amount, source, args )
 	local resourceData = ResourceData[name]
 	if resourceData == nil then
 		DebugAssert({ Condition = false, Text = "Missing ResourceData for "..name, Owner = "James" })
+		return
 	end
 	if CurrentRun and CurrentRun.Hero and not CurrentRun.Hero.IsDead then
 		local healthGained = 0
@@ -37,6 +38,13 @@ function AddResource( name, amount, source, args )
 		GameState.UnviewedLastResourceGained = name
 	end
 	CurrentRun.ResourcesGained[name] = (CurrentRun.ResourcesGained[name] or 0) + roundedAmount
+
+	if verboseLogging and not GameState.ResourceAssertIgnored then
+		if (GameState.Resources[name] or 0) > (GameState.LifetimeResourcesGained[name] or 0) then
+			DebugAssert({ Condition = false, Owner = "Gavin",
+				Text = "Resource "..name.." has more Current ("..tostring(GameState.Resources[name])..") than Lifetime ("..tostring(GameState.LifetimeResourcesGained[name])..")" })
+		end
+	end
 
 	if resourceData.OnAddedFunctionName ~= nil then
 		CallFunctionName( resourceData.OnAddedFunctionName, name, amount, source, args )
@@ -176,7 +184,7 @@ function OnGiftPointsAdded( name, amount, source, args )
 	end
 
 	if not IsEmpty( ActiveEnemies ) then
-		for id, unit in pairs( ActiveEnemies ) do
+		for id, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 			if not unit.PostCombatTravel and CanReceiveGift( unit ) then
 				SetAvailableUseText( unit )
 			end
@@ -259,7 +267,8 @@ function OpenInventoryScreen( args )
 	local categoryTitleX = screen.CategoryStartX
 	screen.CategoryStartY = screen.CategoryStartY + ScreenCenterNativeOffsetY
 	for slotIndex, category in ipairs( screen.ItemCategories ) do
-		if category.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, category, category.GameStateRequirements ) then
+		local locked = true
+		if category.GameStateRequirements == nil or IsGameStateEligible( category, category.GameStateRequirements ) then
 			if not args.CategoryLocked or slotIndex == screen.ActiveCategoryIndex then
 				local slotName = category.Name
 				local categoryButton = CreateScreenComponent({ Name = "ButtonInventoryTab", X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay" })
@@ -282,27 +291,31 @@ function OpenInventoryScreen( args )
 					end
 				end
 
-				--CreateTextBoxWithScreenFormat( screen, categoryButton, "CategoryFormat", { Text = slotName } )
-
-				--[[
-				if slotIndex ~= screen.ActiveCategoryIndex and HasUnviewedCosmetic( slotName ) then
-					-- New icon
-					local newButtonKey = "NewIcon"..slotName
-					components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
-					SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "MusicPlayerNewTrack" })
-					Attach({ Id = components[newButtonKey].Id, DestinationId = screen.Components["Category"..slotName].Id, OffsetX = 0, OffsetY = -30 })
-				elseif not HasUnpurchasedCosmetic( slotName ) then
-					-- Complete icon
-					local completeButtonKey = "CompleteIcon"..slotName
-					components[completeButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu" })
-					SetAnimation({ DestinationId = components[completeButtonKey].Id , Name = "ContractorPurchasedCheckmark" })
-					Attach({ Id = components[completeButtonKey].Id, DestinationId = screen.Components["Category"..slotName].Id, OffsetX = 0, OffsetY = -20 })
+				if slotIndex ~= screen.ActiveCategoryIndex then
+					local hasNewItem = false
+					for i, itemName in ipairs(screen.ItemCategories[slotIndex]) do
+						if CanShowResourceInInventory( ResourceData[itemName] ) and not GameState.ResourcesViewed[itemName] then
+							hasNewItem = true
+						end
+					end
+					if hasNewItem then
+						-- New icon
+						local newButtonKey = "NewIcon"..slotName
+						components[newButtonKey] = CreateScreenComponent({ Name = "BlankObstacle", Animation = "NewTabStar", Group = screen.ComponentData.DefaultGroup, Alpha = 0.0, AlphaTarget = 1.0, AlphaTargetDuration = 0.1, Scale = screen.TabStarScale, })
+						Attach({ Id = components[newButtonKey].Id, DestinationId = categoryButton.Id, OffsetX = 0, OffsetY = screen.TabStarOffsetY })
+					end
 				end
-				]]
+
+				locked = false
 				screen.NumCategories = screen.NumCategories + 1
 			end
 		else
 			category.Locked = true
+		end
+
+		if locked then
+			local categoryButton = CreateScreenComponent({ Name = "BlankObstacle", X = categoryTitleX, Y = screen.CategoryStartY, Group = "Combat_Menu_Overlay", Animation = "GUI/Screens/Inventory/CategoryTabInactive", Scale = 0.5 })
+			screen.Components["InactiveCategory"..category.Name] = categoryButton
 		end
 
 		categoryTitleX = categoryTitleX + screen.CategorySpacingX
@@ -348,6 +361,9 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 	else
 		for i, resourceName in ipairs( prevCategory ) do
 			if components[resourceName] ~= nil then
+				if components[resourceName].NewIcon ~= nil then
+					Destroy({ Id = components[resourceName].NewIcon.Id })
+				end
 				Destroy({ Id = components[resourceName].Id })
 			end
 		end
@@ -371,6 +387,11 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 	CreateAnimation({ DestinationId = screen.Components["Category"..slotName].Id, Name = "InventoryTabHighlightActiveCategory", Group = "Combat_Menu_TraitTray" })
 	ModifyTextBox({ Id = screen.Components.CategoryTitleText.Id, Text = category.Name })
 
+	local newButtonKey = "NewIcon"..slotName
+	if components[newButtonKey] ~= nil then
+		Destroy({ Id = components[newButtonKey].Id })
+	end
+
 	screen.ActiveCategoryIndex = categoryIndex
 
 	SetAnimation({ DestinationId = components.Background.Id, Name = category.Background or screen.ComponentData.Background.AnimationName })
@@ -391,7 +412,7 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 	for i, resourceName in ipairs( category ) do
 
 		local resourceData = ResourceData[resourceName]
-		if (GameState.LifetimeResourcesGained[resourceName] or 0) > 0 or ( resourceData.RevealGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, resourceData, resourceData.RevealGameStateRequirements ) ) then
+		if CanShowResourceInInventory( resourceData ) then
 
 			local textLines = nil
 			local canBeGifted = false
@@ -451,11 +472,23 @@ function InventoryScreenDisplayCategory( screen, categoryIndex, args )
 			button.OnMouseOverFunctionName = "MouseOverResourceItem"
 			button.OnMouseOffFunctionName = "MouseOffResourceItem"
 
-			if (resourceName == args.InitialSelection) or (args.InitialSelection == nil and resourceName == GameState.UnviewedLastResourceGained) then
-				UnviewedLastResourceGainedPresentation( screen, button )
-				GameState.UnviewedLastResourceGained = nil
-				TeleportCursor({ OffsetX = resourceLocation.X, OffsetY = resourceLocation.Y, ForceUseCheck = true })
-				screen.CursorSet = true
+			button.Viewable = not screen.Args.CategoryLocked or button.OnPressedFunctionName ~= nil
+			if button.Viewable then
+				-- highlight the last resource you collected
+				if resourceName == (args.InitialSelection or GameState.UnviewedLastResourceGained) then
+					UnviewedLastResourceGainedPresentation( screen, button )
+					GameState.UnviewedLastResourceGained = nil
+					TeleportCursor({ OffsetX = resourceLocation.X, OffsetY = resourceLocation.Y, ForceUseCheck = true })
+					screen.CursorSet = true
+				end
+
+				-- mark unviewed resources as "new"
+				if not GameState.ResourcesViewed[resourceName] then
+					local newIconKey = "NewIcon"..resourceName
+					components[newIconKey] = CreateScreenComponent({ Name = "BlankObstacle", Animation = "MusicPlayerNewTrack", Group = screen.ComponentData.DefaultGroup, Scale = screen.NewItemStarScale, })
+					Attach({ Id = components[newIconKey].Id, DestinationId = button.Id, OffsetX = screen.NewItemStarOffsetX, OffsetY = screen.NewItemStarOffsetY })
+					button.NewIcon = components[newIconKey]
+				end
 			end
 
 			if columnNum < screen.GridWidth then
@@ -575,7 +608,8 @@ function HasStoreItemPin( name )
 	return false
 end
 
-function HasPinWithResource( resourceName )
+function GetResourceAmountNeededByPins( resourceName )
+	local totalCost = 0
 	for index, pin in ipairs( GameState.StoreItemPins ) do
 		local store = _G[pin.StoreName]
 		if store ~= nil then
@@ -583,12 +617,12 @@ function HasPinWithResource( resourceName )
 			if itemData ~= nil then
 				local cost = itemData.ResourceCost or itemData.Cost
 				if cost ~= nil and (cost[resourceName] or 0) > 0 then
-					return true
+					totalCost = totalCost + cost[resourceName]
 				end
 			end
 		end
 	end
-	return false
+	return totalCost
 end
 
 function InventoryScreenDisplayPins( screen )
@@ -633,7 +667,8 @@ function InventoryScreenDisplayPins( screen )
 				table.insert( screen.PinIds, icon.Id )
 				components[itemData.Name.."Icon"] = icon
 				
-				local iconName = itemData.Icon or itemData.Image
+				local iconData = TraitData[itemData.TraitUpgrade or itemData.Name] or itemData
+				local iconName = iconData.Icon or itemData.Image
 				if iconName ~= nil then
 					SetAnimation({ DestinationId = icon.Id, Name = iconName })
 				end
@@ -743,6 +778,8 @@ function InventoryScreenHideLineHistory( screen )
 	SetAlpha({ Id = screen.Components.LineHistoryScrollbarSlider.Id, Fraction = 0.0, Duration = 0.0 })
 	SetAlpha({ Id = screen.Components.ScrollUp.Id, Fraction = 0, Duration = 0.2 })
 	SetAlpha({ Id = screen.Components.ScrollDown.Id, Fraction = 0, Duration = 0.2 })
+	UseableOff({ Id = screen.Components.ScrollUp.Id })
+	UseableOff({ Id = screen.Components.ScrollDown.Id })
 end
 
 function InventoryScreenScrollUp( screen, button )
@@ -812,6 +849,7 @@ function InventoryScreenUpdateVisibility( screen, args )
 		end
 		Move({ Id = components.LineHistoryScrollbarSlider.Id, OffsetX = components.LineHistoryScrollbarSlider.X, OffsetY = sliderTargetY, Duration = slideDuration, EaseIn = 0.0, EaseOut = 1.0 })
 
+		SetInteractProperty({ DestinationIds = { components.ScrollUp.Id, components.ScrollDown.Id }, Property = "FreeFormSelectable", Value = false })
 		if scrollFraction <= 0.0 then
 			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
 			SetAlpha({ Id = components.LineHistoryGradient.Id, Fraction = 0, Duration = 0.1 })
@@ -822,6 +860,7 @@ function InventoryScreenUpdateVisibility( screen, args )
 			UseableOn({ Id = components.ScrollUp.Id })
 		end
 	else
+		SetInteractProperty({ DestinationIds = { components.ScrollUp.Id, components.ScrollDown.Id }, Property = "FreeFormSelectable", Value = true })
 		SetAlpha({ Id = components.LineHistoryGradient.Id, Fraction = 0, Duration = 0.1 })
 		if screen.ScrollOffset <= 0 or screen.NumItems == 0 then
 			SetAlpha({ Id = components.ScrollUp.Id, Fraction = 0, Duration = 0.1 })
@@ -887,6 +926,27 @@ function InventoryScreenUpdate( screen, args, elapsed )
 		elseif IsControlDown({ Name = "Down" }) or ( IsControlDown({ Name = "Select" }) and GetUseTargetId({ }) == screen.Components.ScrollDown.Id ) then
 			ModifyTextBox({ Id = screen.Components.LineHistory.Id, ScrollAmount = -screen.LineHistoryScrollSpeed * elapsed })
 			InventoryScreenUpdateVisibility( screen )
+		end
+	end
+end
+
+function CanShowResourceInInventory( resourceData )
+	return (GameState.LifetimeResourcesGained[resourceData.Name] or 0) > 0 or ( resourceData.RevealGameStateRequirements ~= nil and IsGameStateEligible( resourceData, resourceData.RevealGameStateRequirements ) )
+end
+
+function ValidateResourceCategories()
+	if not verboseLogging then
+		return
+	end
+	local allItems = {}
+	for i, itemCategory in pairs( ScreenData.InventoryScreen.ItemCategories ) do
+		for j, itemName in ipairs( itemCategory ) do
+			allItems[itemName] = true
+		end
+	end
+	for i, itemName in pairs( ResourceDisplayOrderData ) do
+		if not allItems[itemName] then
+			DebugAssert({ Condition = false, Text = itemName.." is not listed in ScreenData.InventoryScreen.ItemCategories" })
 		end
 	end
 end

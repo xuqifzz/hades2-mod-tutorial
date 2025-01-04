@@ -1,7 +1,7 @@
 ﻿function OpenTalentScreen( args, spellItem )
 	args = args or {}
 	local screenName = "TalentScreen"
-	if not args.ReadOnly then
+	if not args.ReadOnly and spellItem and spellItem.AddTalentPoints then
 		local talentPoints = ( spellItem.AddTalentPoints - 1 ) or 0
 		CurrentRun.NumTalentPoints = CurrentRun.NumTalentPoints + talentPoints
 	end
@@ -15,7 +15,9 @@
 	if spellItem ~= nil then
 		LootPickupPresentation( spellItem )
 		RecordConsumableItem( spellItem )
+		MapState.RoomRequiredObjects[spellItem.ObjectId] = nil
 		SetAlpha({ Id = spellItem.ObjectId, Fraction = 0, Duration = 0 })
+		RemoveScreenEdgeIndicator( spellItem )
 	end
 	
 	local screen = DeepCopyTable( ScreenData[screenName] )
@@ -29,7 +31,8 @@
 	AltAspectRatioFramesShow()
 	HideCombatUI( screen.Name )
 	OnScreenOpened( screen )
-	
+	LoadVoiceBanks( { Name = "Selene" }, nil, true )
+
 	local traitData = nil
 	if spellItem ~= nil and spellItem.RotateAfterUse and CurrentRun.Hero.SlottedSpell then
 		MapState.GeneratedSpells = MapState.GeneratedSpells or {}
@@ -103,7 +106,7 @@
 	if HeroHasTrait( "SpellTalentKeepsake" ) then
 		local trait = GetHeroTrait("SpellTalentKeepsake")
 		ReduceTraitUses( trait, {Force = true })
-		trait.CustomName = trait.ZeroBonusTrayText
+		trait.CustomTrayText = trait.ZeroBonusTrayText
 	end
 
 	-- Short delay to let animations finish and prevent accidental input
@@ -405,6 +408,10 @@ function TryCloseTalentTree( screen, button )
 	UpdateTalentPointInvestedCache()
 	OnScreenCloseStarted( screen )
 
+	if screen.Source and screen.Source.DestroySourceOnClose then
+		Destroy({ Id = screen.Source.ObjectId })
+	end
+
 	Destroy({ Ids = components.TalentIds})
 	Destroy({ Ids = components.TalentFrameIds})
 	Destroy({ Ids = components.LinkObjects })
@@ -414,7 +421,7 @@ function TryCloseTalentTree( screen, button )
 		CloseTalentScreenPresentation( screen )
 		if HeroHasTrait("SpellTalentKeepsake") then
 			local traitData = GetHeroTrait("SpellTalentKeepsake")
-			traitData.CustomName = traitData.ZeroBonusTrayText
+			traitData.CustomTrayText = traitData.ZeroBonusTrayText
 			ReduceTraitUses( traitData, {Force = true })
 		end
 	end
@@ -427,7 +434,9 @@ function TryCloseTalentTree( screen, button )
 	
 	OnScreenCloseFinished( screen )
 	ShowCombatUI( screen.Name )
-
+	if screen.Source and screen.Source.DoSpellInteractEndOnClose then
+		SpellDropInteractPresentationEnd()
+	end
 	if screen.ReadOnly then
 		ShowTraitTrayScreen( { AutoPin = false } )
 	else

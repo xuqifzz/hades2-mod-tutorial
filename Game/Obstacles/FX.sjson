@@ -1711,7 +1711,8 @@
         FootstepFxR = "WheatFootstepR-Spawner"
         Graphic = "WheatClusterC"
         StopsUnits = false
-	UseBoundsForSortDrawArea = true        
+        FootstepSound = "/Leftovers/World Sounds/LeavesRustleSoft"
+	    UseBoundsForSortDrawArea = true        
         Tallness = 96
         Offset = { X = 0 Y = 0 }
         Points = [
@@ -1799,6 +1800,14 @@
           { X = 2 Y = 2 }
           { X = 0 Y = -2 }
         ]
+      }
+    }
+    {
+      Name = "ErebusRiverGhost_Interactive"
+      InheritFrom = "ErebusRiverGhost"
+      Thing = 
+      {
+        Graphic = "ErebusRiverGhost_Hidden"
       }
     }
 
@@ -3162,6 +3171,290 @@
       }
     }
   }
+
+  {
+    Name = "OlympusSnowflakesGentle"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusSnowflakesGentleSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "OlympusSnowflakesStorm"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusSnowflakesStormSpawner"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "OlympusWallIvy01Anim"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusWallIvy01"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "OlympusWallIvy02Anim"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusWallIvy02"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "OlympusSnowSparkles"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusSnowSparkles"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+  {
+    Name = "OlympusStarsAnim"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusStars"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }  
+
+  {
+    Name = "OlympusCloudAnim"
+    InheritFrom = "1_BaseDecalObstacle"
+    DisplayInEditor = true
+    Thing = 
+    {
+      EditorOutlineDrawBounds = false
+      Graphic = "OlympusCloud"
+      Points = [
+        { X = -2 Y = 2 }
+        { X = 2 Y = 2 }
+        { X = 0 Y = -2 }
+      ]
+    }
+  }
+
+    {
+      Name = "OlympusBush01Anim"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBush01"
+        Tallness = 747
+        Offset = { X = 0 Y = -281 }
+        Points = [
+          { X = -264 Y = 11 }
+          { X = -25 Y = 123 }
+          { X = 122 Y = 105 }
+          { X = 265 Y = 50 }
+          { X = 179 Y = -76 }
+          { X = -135 Y = -88 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusBush02Anim"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBush02"
+        Tallness = 632
+        Offset = { X = 0 Y = -246 }
+        Points = [
+          { X = -308 Y = 72 }
+          { X = -109 Y = 132 }
+          { X = 143 Y = 116 }
+          { X = 324 Y = 43 }
+          { X = 179 Y = -76 }
+          { X = -245 Y = -69 }
+        ]
+      }
+    }
+
+
+    {
+      Name = "OlympusBanner01Inside"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBanner01Inside"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusBanner02Inside"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBanner02Inside"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }    
+
+    {
+      Name = "OlympusBanner01Outside"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBanner01Outside"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusBanner02Outside"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusBanner02Outside"
+        Tallness = 480
+        Offset = { X = 0 Y = -239 }
+      }
+    }
+
+    {
+      Name = "OlympusHephSparks"
+      InheritFrom = "1_BaseStandingDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusHephSparkSpawner"
+        Tallness = 300
+        Offset = { X = 0 Y = 0 }
+      }
+    }
+
+    {
+      Name = "OlympusFlameA"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusFlameA"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusFlameB"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusFlameB"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusSnowClump"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusSnowClumpSpawner"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
+
+    {
+      Name = "OlympusFirelight"
+      InheritFrom = "1_BaseDecalObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = false
+        Graphic = "OlympusFirelight"
+        Points = [
+          { X = -2 Y = 2 }
+          { X = 2 Y = 2 }
+          { X = 0 Y = -2 }
+        ]
+      }
+    }
 
   ]
 }

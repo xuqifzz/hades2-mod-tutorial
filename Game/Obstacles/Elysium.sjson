@@ -40,19 +40,6 @@
     }
     
     {
-      Name = "ElysiumBackground01"
-      InheritFrom = "1_BaseDecalObstacle"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "Tilesets\Elysium\Elysium_Background_01"
-        Tallness = 1338.0
-        Offset = { X = 0 Y = -486 }
-      }
-    }
-    
-    {
       Name = "ElysiumBackground02"
       InheritFrom = "1_BaseDecalObstacle"
       DisplayInEditor = true

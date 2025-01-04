@@ -174,7 +174,7 @@ WeaponSetData =
 			TeleportToTargetId = true,
 
 			TargetSpawnPoints = true,
-			TargetSpawnPointsPlayerRadius = 900,
+			TargetSpawnPointsRadius = 900,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
@@ -234,7 +234,7 @@ WeaponSetData =
 			TeleportToTargetId = true,
 
 			TargetSpawnPoints = true,
-			TargetSpawnPointsPlayerRadius = 250,
+			TargetSpawnPointsRadius = 250,
 		},
 
 		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },

@@ -46,16 +46,16 @@ LootSetData.Hermes =
 		{
 			"HermesWeaponBoon",
 			"HermesSpecialBoon",
-			"DodgeChanceBoon",
-			"SorcerySpeedBoon",
 			"HermesCastDiscountBoon",
-			"ElementalUnifiedBoon",
-			"SlowProjectileBoon",
+			"SprintShieldBoon",
+			"SorcerySpeedBoon",
 			"HexCooldownBuffBoon",
+			"DodgeChanceBoon",
+			"SlowProjectileBoon",
 			"MoneyMultiplierBoon",
 			"TimedKillBuffBoon",
-			"SprintShieldBoon",
-
+			-- Elemental
+			"ElementalUnifiedBoon",
 			-- Legendary
 			"TimeStopLastStandBoon",
 		},
@@ -84,7 +84,7 @@ LootSetData.Hermes =
 				},
 				{ Cue = "/VO/Melinoe_1884", Text = "Lord Hermes, go unseen." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -202,8 +202,8 @@ LootSetData.Hermes =
 				},
 				{ Cue = "/VO/Melinoe_1161", Text = "Olympus needs me... on the surface?" },
 			},
-			[2] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
-			[3] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[2] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			[3] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		TextLinesEndEvents =
@@ -267,7 +267,10 @@ LootSetData.Hermes =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -289,7 +292,10 @@ LootSetData.Hermes =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -311,7 +317,10 @@ LootSetData.Hermes =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -334,7 +343,10 @@ LootSetData.Hermes =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -351,8 +363,8 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -367,8 +379,8 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -383,8 +395,8 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -399,8 +411,8 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -418,8 +430,7 @@ LootSetData.Hermes =
 						PathTrue = { "PrevRun", "BiomesReached", "N" },
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03" },
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -435,8 +446,10 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "N_Opening01" },
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathFalse = { "CurrentRun", "RoomsEntered", "N_Boss01" },
 					},
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
@@ -457,8 +470,10 @@ LootSetData.Hermes =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name" },
-						IsAny = { "N_Opening01" },
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathFalse = { "CurrentRun", "RoomsEntered", "N_Boss01" },
 					},
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
@@ -506,8 +521,10 @@ LootSetData.Hermes =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "HermesAboutSurface02" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HermesAboutSurface02", "HermesAboutSurface02B", "HermesAboutSurface03" },
 					},
+					-- @ update with additional requirements
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0074",	
@@ -526,7 +543,7 @@ LootSetData.Hermes =
 						PathTrue = { "PrevRun", "Cleared" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "I_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
@@ -544,6 +561,9 @@ LootSetData.Hermes =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "P_Intro" }
 					},
 				},
 
@@ -624,10 +644,32 @@ LootSetData.Hermes =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
+					{
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = "<",
+						Value = 1,
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0077",
 					Text = "No way you could have already stopped Gramps by now, but going after him right when you did, you're buying us some time to put a little wrinkle in his plan. So {#Emph}cheers!" },
+			},
+
+			HermesAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Hermes_0102",
+					Text = "We've got more Titan problems than we figured, M. If Gramps could get Prometheus to take his side, who only knows what else. Ruffled a lot of feathers haven't we?" },
 			},
 
 			HermesAboutMoros01 =
@@ -661,8 +703,7 @@ LootSetData.Hermes =
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
 					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HecateAboutHades01" },
+						PathTrue = { "GameState", "RoomsEntered", "I_Story01" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -910,6 +951,8 @@ LootSetData.Hermes =
 				{ Cue = "/VO/Hermes_0080",
 					Text = "You made it up here, M! I'll speed you on except this climate's going to be {#Emph}rough. {#Prev}You Underworld types and surface air! Must be something we can do about it, right...?" },
 			},
+
+			-- alt below
 			HermesAboutSurface02 =
 			{
 				PlayOnce = true,
@@ -935,7 +978,6 @@ LootSetData.Hermes =
 				{ Cue = "/VO/Hermes_0081",
 					Text = "Hey M! Don't know exactly what you did, or maybe Hec, but you seem much much more yourself than last I saw. That's great! Because to make it all this way, you're going to need {#Emph}every {#Prev}bit of strength. And {#Emph}speed!" },
 			},
-
 			HermesAboutSurface02B =
 			{
 				PlayOnce = true,
@@ -972,7 +1014,7 @@ LootSetData.Hermes =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
-						PathTrue = { "GameState", "RoomCountCache", "N_Opening01" },
+						PathTrue = { "GameState", "RoomsEntered", "N_Opening01" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -989,16 +1031,21 @@ LootSetData.Hermes =
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
 					{
-						PathFalse = { "CurrentRun", "BiomesReached", "P" },
+						PathTrue = { "GameState", "RoomsEntered", "P_Intro" },
 					},
 					{
-						PathTrue = { "GameState", "RoomCountCache", "P_Intro" },
+						Path = { "GameState", "RoomsEntered", "P_Intro" },
+						Comparison = "<=",
+						Value = 4,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0059",
 					
-					Text = "You finally saw what it was like up here! Most of the others are holding out at the top of Olympus, and {#Emph}you {#Prev}are the reinforcements. So come on back when you can, all right?" },
+					Text = "You finally saw what it was like up here! Most of the others are holding out at the top of Olympus, and {#Emph}you {#Prev}are the reinforcements. So, come on back when you can, all right?" },
 			},
 
 			HermesAboutOceanus01 =
@@ -1046,7 +1093,10 @@ LootSetData.Hermes =
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "RoomCountCache", "P_Intro" },
+						PathTrue = { "GameState", "RoomsEntered", "P_Intro" },
+					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "Q_Intro" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1172,6 +1222,11 @@ LootSetData.Hermes =
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" }
 					},
+					{
+						Path = { "GameState", "UseRecord", "SpellDrop" },
+						Comparison = "<",
+						Value = 6,
+					},
 					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
@@ -1193,10 +1248,10 @@ LootSetData.Hermes =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0093",
@@ -1211,10 +1266,10 @@ LootSetData.Hermes =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0094",
@@ -1229,10 +1284,10 @@ LootSetData.Hermes =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0167",
@@ -1330,7 +1385,7 @@ LootSetData.Hermes =
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
 					{
-						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfaceShops" },
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfaceShops" },
 					},
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "SurfaceShop" },
@@ -1482,7 +1537,9 @@ LootSetData.Hermes =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HermesUpgrade" }
 					},
-					RequiredLootChoices = 3,
+					{
+						FunctionName = "RequireUnrestrictedBoonChoices",
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1811,7 +1868,10 @@ LootSetData.Hermes =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0068",
@@ -1822,7 +1882,10 @@ LootSetData.Hermes =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0069",
@@ -1833,7 +1896,10 @@ LootSetData.Hermes =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0170",
@@ -1844,7 +1910,10 @@ LootSetData.Hermes =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hermes_0171",
@@ -1869,6 +1938,10 @@ LootSetData.Hermes =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 
@@ -1899,6 +1972,10 @@ LootSetData.Hermes =
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 
 				{ Cue = "/VO/Melinoe_0958", UsePlayerSource = true,
@@ -1928,6 +2005,10 @@ LootSetData.Hermes =
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 
 				{ Cue = "/VO/MelinoeField_2005", UsePlayerSource = true,
@@ -1956,6 +2037,10 @@ LootSetData.Hermes =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HermesUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 
@@ -2003,8 +2088,13 @@ LootSetData.Hermes =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

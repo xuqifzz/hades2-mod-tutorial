@@ -36,13 +36,13 @@
 	TraitSpacingY = 90,
 	TraitsPerColumn = 7,
 
-	ShrineStartX = 52,
-	ShrineSpacingX = 95,
-	ShrineSpacingY = 95,
+	ShrineStartX = 65,
+	ShrineSpacingX = 120,
+	ShrineSpacingY = 80,
 	ShrineStartBottomOffset = 600,
-	ShrinesPerColumn = 4,
-	ShrinesPerRow = 5,
-	ShrineBackingScale = 0.8,
+	ShrinesPerColumn = 5,
+	ShrinesPerRow = 4,
+	ShrineBackingScale = 0.67,
 	ShrineIconScale = 0.4,
 
 	CategoryCenterX = 240,
@@ -70,6 +70,26 @@
 		{ Rarity = "Rare" },
 	},
 
+	TabLabelFormat =
+	{
+		Format = "BaseFormat",
+		Font = "NumericP22UndergroundSCMedium",
+		Color = Color.White,
+		FontSize = 24,
+		Justification = "Left",
+		OffsetX = 10,
+		OffsetY = -38,
+		ShadowRed = 0.1, ShadowBlue = 0.1, ShadowGreen = 0.1,
+		OutlineColor = {0.113, 0.113, 0.113, 1}, OutlineThickness = 2,
+		ShadowAlpha = 1.0, ShadowBlur = 1, ShadowOffset = {0, 4},
+	},
+
+	MetaUpgradePinFormat =
+	{
+		TextSymbolScale = 0.9,
+		OffsetY = -65,
+	},
+
 	GamepadNavigation =
 	{
 		--ExclusiveInteractGroup = "HUD_Main",
@@ -86,8 +106,7 @@
 	{
 		{
 			Name = "TraitTray_Category_Traits",
-			--Icon = "GUI\\Icons\\Boon",
-			IconComponent = "TraitCount",
+			HUDIconComponent = "TraitCount",
 			BackgroundAnimation = "GUI\\HUD\\TraitTrayBacking",
 			GameStateRequirements =
 			{
@@ -96,9 +115,23 @@
 			DisplayFunctionName = "TraitTrayShowTraits",
 		},
 		{
+			Name = "TraitTray_Category_OverflowTraits",
+			DisplayName = "TraitTray_Label_OverflowTraits",
+			Icon = "GUI\\Icons\\Boon",
+			BackgroundAnimation = "GUI\\HUD\\TraitTrayBacking",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "Hero", "VisibleNonHUDTraitCount" },
+					Comparison = ">",
+					Value = 28, -- 4 columns * 7 boons per column
+				},
+			},
+			DisplayFunctionName = "TraitTrayShowOverflowTraits",
+		},
+		{
 			Name = "TraitTray_Category_MetaUpgrades",
-			--Icon = "GUI\\Icons\\ManaCrystal",
-			IconComponent = "MetaUpgradeCount",
+			HUDIconComponent = "MetaUpgradeCount",
 			BackgroundAnimation = "GUI\\HUD\\TraitTrayBacking_NoHeader",
 			GameStateRequirements =
 			{
@@ -119,8 +152,7 @@
 		},
 		{
 			Name = "TraitTray_Category_ShrineUpgrades",
-			--Icon = "GUI\\Icons\\ShrinePoint",
-			IconComponent = "ShrinePointCount",
+			HUDIconComponent = "ShrinePointCount",
 			BackgroundAnimation = "GUI\\HUD\\TraitTrayBacking_NoHeader",
 			GameStateRequirements =
 			{
@@ -204,38 +236,21 @@
 			Name = "BlankObstacle",
 			X = 4,
 			BottomOffset = 922,
-			Scale = 0.5,
+			Scale = 1.0,
 			ScaleX = 0.4,
 			AlphaTarget = 0.0,
 			Animation = null,
 			TextArgs =
 			{
 				Text = "ElementalTooltipHeader",
-				Font = "NumericP22UndergroundSCMedium",
+				Font = "MonospaceNumericP22UndergroundSCMedium",
 				FontSize = 22,
 				OffsetX = 60,
 				OffsetY = 2,
 				Color = Color.White,				
 				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
 				Justification = "Left",
-			}
-		},
-
-		NoMetaUpgradesHint =
-		{
-			X = 4,
-			BottomOffset = 800,
-			AlphaTarget = 0.0,
-			TextArgs =
-			{
-				Text = "NoMetaUpgradesShrineUpgrade_TrayHint",
-				Font = "P22UndergroundSCMedium",
-				FontSize = 22,
-				OffsetX = 60,
-				OffsetY = 2,
-				Color = Color.White,				
-				ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-				Justification = "Left",
+				TextSymbolScale = 0.8,
 			}
 		},
 
@@ -330,6 +345,7 @@
 		{
 			X = 1750,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 

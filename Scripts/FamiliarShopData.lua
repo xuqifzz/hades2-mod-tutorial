@@ -11,16 +11,15 @@
 	FrogHealthBonus = 
 	{
 		InheritFrom = { "BaseFrogUpgrade" },
-		IncreaseTraitLevel = "HealthFamiliar",
+		Icon = "FamiliarShopIcon_FrogHealthBonus",
 		ShowLastInGroup = "FrogHealthBonus",
+		IncreaseTraitLevel = "HealthFamiliar",
 	},
 
 	FrogHealthBonus2 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
-		IncreaseTraitLevel = "HealthFamiliar",
+		InheritFrom = { "FrogHealthBonus" },
 		RarityLevel = 2,
-		ShowLastInGroup = "FrogHealthBonus",
 		GameStateRequirements = 
 		{
 			{
@@ -31,10 +30,8 @@
 
 	FrogHealthBonus3 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
-		IncreaseTraitLevel = "HealthFamiliar",
+		InheritFrom = { "FrogHealthBonus" },
 		RarityLevel = 3,
-		ShowLastInGroup = "FrogHealthBonus",
 		GameStateRequirements = 
 		{
 			{
@@ -46,6 +43,7 @@
 	FrogUses = 
 	{
 		InheritFrom = { "BaseFrogUpgrade" },
+		Icon = "FamiliarShopIcon_FrogUses",
 		BonusResourceSpawnChance = 0.03,
 		ShowLastInGroup = "FrogUses",
 		SimpleExtractValues =
@@ -85,16 +83,17 @@
 	FrogDamage =
 	{
 		InheritFrom = { "BaseFrogUpgrade" },
-		TraitName = "FamiliarFrogDamage",
+		Icon = "FamiliarShopIcon_FrogDamage",
 		ShowLastInGroup = "FrogDamage",
+		TraitName = "FamiliarFrogDamage",
 	},
 
 	FrogDamage2 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
+		InheritFrom = { "FrogDamage" },
+		TraitName = nil,
 		IncreaseTraitLevel = "FamiliarFrogDamage",
 		RarityLevel = 2,
-		ShowLastInGroup = "FrogDamage",
 		GameStateRequirements = 
 		{
 			{
@@ -105,10 +104,10 @@
 
 	FrogDamage3 = 
 	{
-		InheritFrom = { "BaseFrogUpgrade" },
+		InheritFrom = { "FrogDamage" },
+		TraitName = nil,
 		IncreaseTraitLevel = "FamiliarFrogDamage",
 		RarityLevel = 3,
-		ShowLastInGroup = "FrogDamage",
 		GameStateRequirements = 
 		{
 			{
@@ -116,26 +115,6 @@
 			},
 		},
 	},
-
-	--[[
-	FrogDeflect = 
-	{
-		InheritFrom = { "BaseFrogUpgrade" },
-		TraitName = "FamiliarFrogDeflect",
-		GameStateRequirements = 
-		{
-			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "FrogHealthBonus3" },
-			},
-			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "FrogUses3" },
-			},
-			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "FrogDamage3" },
-			},
-		},
-	},
-	]]
 
 	-- CatFamiliar / Toula
 
@@ -148,16 +127,15 @@
 	CatLastStandHeal = 
 	{
 		InheritFrom = { "BaseCatUpgrade" },
+		Icon = "FamiliarShopIcon_CatLastStandHeal",
 		IncreaseTraitLevel = "LastStandFamiliar",
 		ShowLastInGroup = "CatLastStandHeal",
 	},
 
 	CatLastStandHeal2 =
 	{
-		InheritFrom = { "BaseCatUpgrade" },
-		IncreaseTraitLevel = "LastStandFamiliar",
+		InheritFrom = { "CatLastStandHeal" },
 		RarityLevel = 2,
-		ShowLastInGroup = "CatLastStandHeal",
 		GameStateRequirements = 
 		{
 			{
@@ -168,10 +146,8 @@
 
 	CatLastStandHeal3 =
 	{
-		InheritFrom = { "BaseCatUpgrade" },
-		IncreaseTraitLevel = "LastStandFamiliar",
+		InheritFrom = { "CatLastStandHeal" },
 		RarityLevel = 3,
-		ShowLastInGroup = "CatLastStandHeal",
 		GameStateRequirements = 
 		{
 			{
@@ -183,6 +159,7 @@
 	CatUses =
 	{
 		InheritFrom = { "BaseCatUpgrade" },
+		Icon = "FamiliarShopIcon_CatUses",
 		BonusResourceSpawnChance = 0.025,
 		ShowLastInGroup = "CatUses",
 		SimpleExtractValues =
@@ -222,7 +199,7 @@
 	CatAttack =
 	{
 		InheritFrom = { "BaseCatUpgrade" },
-		--TraitName = "FamiliarFrogDamage",
+		Icon = "FamiliarShopIcon_CatAttack",
 		ShowLastInGroup = "CatAttack",
 		OverwriteSelf =
 		{
@@ -232,10 +209,8 @@
 
 	CatAttack2 = 
 	{
-		InheritFrom = { "BaseCatUpgrade" },
-		--IncreaseTraitLevel = "FamiliarFrogDamage",
+		InheritFrom = { "CatAttack" },
 		RarityLevel = 2,
-		ShowLastInGroup = "CatAttack",
 		GameStateRequirements = 
 		{
 			{
@@ -250,10 +225,8 @@
 
 	CatAttack3 = 
 	{
-		InheritFrom = { "BaseCatUpgrade" },
-		--IncreaseTraitLevel = "FamiliarFrogDamage",
+		InheritFrom = { "CatAttack" },
 		RarityLevel = 3,
-		ShowLastInGroup = "CatAttack",
 		GameStateRequirements = 
 		{
 			{
@@ -266,25 +239,286 @@
 		},
 	},
 
-	--[[
-	CatCrit = 
+	-- RavenFamiliar / Raki
+
+	BaseRavenUpgrade = 
 	{
-		InheritFrom = { "BaseCatUpgrade" },
-		TraitName = "FamiliarCatCrit",
-		GameStateRequirements = 
+		DebugOnly = true,
+		FamiliarName = "RavenFamiliar",
+	},
+
+	RavenCritChanceBonus =
+	{
+		InheritFrom = { "BaseRavenUpgrade" },
+		Icon = "FamiliarIcon_Raven",
+		ShowLastInGroup = "RavenCritChanceBonus",
+		IncreaseTraitLevel = "CritFamiliar",
+		BonusChance = 0.01, -- Temp hardcoding, should match CritFamiliar AbsoluteStackValues
+		SimpleExtractValues =
 		{
 			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "CatLastStandHeal3" },
-			},
-			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "CatUses3" },
-			},
-			{
-				PathTrue = { "GameState", "FamiliarUpgrades", "CatAttack3" },
+				Property = "BonusChance",
+				Multiply = 100, 
+				NewProperty = "BonusCritChancePercent",
 			},
 		},
 	},
-	]]
+
+	RavenCritChanceBonus2 = 
+	{
+		InheritFrom = { "RavenCritChanceBonus" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenCritChanceBonus" },
+			},
+		},
+	},
+
+	RavenCritChanceBonus3 = 
+	{
+		InheritFrom = { "RavenCritChanceBonus" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenCritChanceBonus2" },
+			},
+		},
+	},
+
+	RavenUses =
+	{
+		InheritFrom = { "BaseRavenUpgrade" },
+		Icon = "FamiliarIcon_Raven",
+		BonusResourceSpawnChance = 0.025,
+		ShowLastInGroup = "RavenUses",
+		SimpleExtractValues =
+		{
+			{
+				Property = "BonusResourceSpawnChance",
+				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
+				NewProperty = "BonusResourceSpawnChancePercent",
+			},
+		},
+	},
+
+	RavenUses2 =
+	{
+		InheritFrom = { "RavenUses" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenUses" },
+			},
+		},
+	},
+
+	RavenUses3 =
+	{
+		InheritFrom = { "RavenUses" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenUses2" },
+			},
+		},
+	},
+
+	RavenAttack =
+	{
+		InheritFrom = { "BaseRavenUpgrade" },
+		Icon = "FamiliarIcon_Raven",
+		ShowLastInGroup = "RavenAttack",
+		FrequencyIncrease = 10.0 / 8.0, -- Temp divide from original to modified MaxTimeBetweenAttacks
+		OverwriteSelf =
+		{
+			MinTimeBetweenAttacks = 7.0,
+			MaxTimeBetweenAttacks = 8.0,
+		},
+		SimpleExtractValues =
+		{
+			{
+				Property = "FrequencyIncrease",
+				Multiply = 100,
+				Add = -100,
+				NewProperty = "FrequencyIncreasePercent",
+			},
+		},
+	},
+
+	RavenAttack2 = 
+	{
+		InheritFrom = { "RavenAttack" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenAttack" },
+			},
+		},
+		OverwriteSelf =
+		{
+			MinTimeBetweenAttacks = 5.0,
+			MaxTimeBetweenAttacks = 6.0,
+		},
+	},
+
+	RavenAttack3 = 
+	{
+		InheritFrom = { "RavenAttack" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "RavenAttack2" },
+			},
+		},
+		OverwriteSelf =
+		{
+			MinTimeBetweenAttacks = 3.0,
+			MaxTimeBetweenAttacks = 4.0,
+		},
+	},
+
+	-- HoundFamiliar / Hecuba
+
+	BaseHoundUpgrade = 
+	{
+		DebugOnly = true,
+		FamiliarName = "HoundFamiliar",
+	},
+
+	HoundManaBonus = 
+	{
+		InheritFrom = { "BaseHoundUpgrade" },
+		Icon = "FamiliarIcon_Hound",
+		ShowLastInGroup = "HoundManaBonus",
+		IncreaseTraitLevel = "DigFamiliar",
+	},
+
+	HoundManaBonus2 = 
+	{
+		InheritFrom = { "HoundManaBonus" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundManaBonus" },
+			},
+		},
+	},
+
+	HoundManaBonus3 = 
+	{
+		InheritFrom = { "HoundManaBonus" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundManaBonus2" },
+			},
+		},
+	},
+
+	HoundUses =
+	{
+		InheritFrom = { "BaseHoundUpgrade" },
+		Icon = "FamiliarIcon_Hound",
+		BonusResourceSpawnChance = 0.025,
+		ShowLastInGroup = "HoundUses",
+		SimpleExtractValues =
+		{
+			{
+				Property = "BonusResourceSpawnChance",
+				Multiply = 100 / 0.1, -- Temp divide by BaseResourceSpawnChance 
+				NewProperty = "BonusResourceSpawnChancePercent",
+			},
+		},
+	},
+
+	HoundUses2 =
+	{
+		InheritFrom = { "HoundUses" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundUses" },
+			},
+		},
+	},
+
+	HoundUses3 =
+	{
+		InheritFrom = { "HoundUses" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundUses2" },
+			},
+		},
+	},
+
+	HoundAttack =
+	{
+		InheritFrom = { "BaseHoundUpgrade" },
+		Icon = "FamiliarIcon_Hound",
+		ShowLastInGroup = "HoundAttack",
+		FrequencyIncrease = 0.15, -- This is wrong but close enough... 12% -> 14% -> 16%
+		OverwriteSelf =
+		{
+			MinTimeBetweenBarks = 7.0,
+			MaxTimeBetweenBarks = 8.0,
+		},
+		SimpleExtractValues =
+		{
+			{
+				Property = "FrequencyIncrease",
+				Multiply = 100,
+				NewProperty = "FrequencyIncreasePercent",
+			},
+		},
+	},
+
+	HoundAttack2 =
+	{
+		InheritFrom = { "HoundAttack" },
+		RarityLevel = 2,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundAttack" },
+			},
+		},
+		OverwriteSelf =
+		{
+			MinTimeBetweenBarks = 6.0,
+			MaxTimeBetweenBarks = 7.0,
+		},
+	},
+
+	HoundAttack3 =
+	{
+		InheritFrom = { "HoundAttack" },
+		RarityLevel = 3,
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarUpgrades", "HoundAttack2" },
+			},
+		},
+		OverwriteSelf =
+		{
+			MinTimeBetweenBarks = 5.0,
+			MaxTimeBetweenBarks = 6.0,
+		},
+	},
+
 }
 
 ScreenData.FamiliarShop =
@@ -308,6 +542,8 @@ ScreenData.FamiliarShop =
 	ItemsPerPage = 5,
 	ScrollOffset = 0,
 	FreeFormSelectOffsetX = -450,
+
+	OpenSound = "/SFX/CrappyRewardPickup",
 
 	ItemAvailableNameFormat =
 	{
@@ -367,6 +603,26 @@ ScreenData.FamiliarShop =
 		"CatAttack2",
 		"CatAttack3",
 		--"CatCrit",
+
+		"RavenCritChanceBonus",
+		"RavenCritChanceBonus2",
+		"RavenCritChanceBonus3",
+		"RavenUses",
+		"RavenUses2",
+		"RavenUses3",
+		"RavenAttack",
+		"RavenAttack2",
+		"RavenAttack3",
+
+		"HoundManaBonus",
+		"HoundManaBonus2",
+		"HoundManaBonus3",
+		"HoundUses",
+		"HoundUses2",
+		"HoundUses3",
+		"HoundAttack",
+		"HoundAttack2",
+		"HoundAttack3",
 	},
 
 	Components = {},
@@ -490,14 +746,6 @@ ScreenData.FamiliarShop =
 				{ 
 					TextArgs = ScreenData.UpgradeChoice.DescriptionText,
 				},
-				InfoBoxStatLineLeft =
-				{ 
-					TextArgs = ScreenData.UpgradeChoice.StatLineLeft,
-				},
-				InfoBoxStatLineRight =
-				{ 
-					TextArgs = ScreenData.UpgradeChoice.StatLineRight,
-				},
 				InfoBoxFlavor =
 				{
 					TextArgs = ScreenData.UpgradeChoice.FlavorText,
@@ -505,44 +753,12 @@ ScreenData.FamiliarShop =
 			}
 		},
 
-		--[[
-		ScrollUp =
-		{
-			Graphic = "ButtonCodexUp",
-			X = 30,
-			Y = 210,
-			Alpha = 0.0,
-			Scale = 0.85,
-			Data =
-			{
-				OnPressedFunctionName = "WeaponShopScrollUp",
-				ControlHotkey = "MenuUp",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
-			},
-		},
-
-		ScrollDown =
-		{
-			Graphic = "ButtonCodexDown",
-			X = 30,
-			Y = 692,
-			Alpha = 0.0,
-			Scale = 0.85,
-			Data =
-			{
-				OnPressedFunctionName = "WeaponShopScrollDown",
-				ControlHotkey = "MenuDown",
-				Sound = "/SFX/Menu Sounds/GeneralWhooshMENU",
-			},
-		},
-		]]
-
 		SelectButton =
 		{
 			Graphic = "ContextualActionButton",
 			GroupName = "Combat_Menu_Overlay",
 			X = UIData.ContextualButtonXRight - UIData.ContextualButtonSpacing - 100,
-			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			Alpha = 0.0,
 			Data =
 			{

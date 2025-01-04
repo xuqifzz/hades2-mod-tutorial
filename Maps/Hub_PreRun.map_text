@@ -803,6 +803,19 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
+      "Id": "GhostPatrol",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapLogic",
+      "Visible": true
+    },
+    {
+      "BlendMode": 0,
+      "ChildGroups": [],
       "Id": "Impassable",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -887,6 +900,7 @@
         "ExitDoorBasic",
         "SpawnPoints",
         "Impassable",
+        "GhostPatrol",
         "GhostRecruits",
         "SpawnArea_LogicGroup",
         "RoomNumbers",
@@ -940,5 +954,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

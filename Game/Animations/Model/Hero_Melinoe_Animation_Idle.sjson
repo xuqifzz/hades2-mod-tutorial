@@ -117,6 +117,12 @@
 				BlendTransitionFrom = "Melinoe_Kneel"
 				Duration = 20
 			}
+
+			/* Trial Start */
+			{
+				BlendTransitionFrom = "MelinoeCrossCastAnticReverse"
+				Duration = 16
+			}
 		]
 	}
 

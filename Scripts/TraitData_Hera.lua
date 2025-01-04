@@ -39,6 +39,13 @@ OverwriteTableKeys( TraitData, {
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
 			ReportValues = { ReportedWeaponMultiplier = "ValidWeaponMultiplier"},
 		},
+		WeaponDataOverride = 
+		{
+			WeaponSuitCharged = 
+			{
+				BlockGraphic = "SuitDeflect_Hera",
+			}
+		},
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,			
@@ -293,6 +300,7 @@ OverwriteTableKeys( TraitData, {
 			},
 
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "StartFx",
@@ -311,6 +319,7 @@ OverwriteTableKeys( TraitData, {
 			},
 
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLobCharged",
 				ProjectileProperty = "Graphic",
@@ -319,6 +328,24 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "MedeaLoadFx_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "MedeaFuseFx_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
 			{
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLobCharged",
@@ -365,6 +392,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "TorchProjectileLargeIn_Hera",
@@ -381,6 +409,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Hera",
@@ -419,7 +448,89 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "EosProjectile_Hera_In",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "EosProjectileShadow",
+				ChangeType = "Absolute",
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
 
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Hera",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit2",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitCharged",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunchLarge_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitNovaBurn_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitNovaBurn_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "Null",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitDash",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitExhaustDashTrail_R_Spawner_Hera",
+				ChangeType = "Absolute",
+			},
 		},
 
 		StatLines =
@@ -496,6 +607,7 @@ OverwriteTableKeys( TraitData, {
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,		
+			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			FunctionName = "ApplyDamageShare",
 			Args = 
 			{
@@ -587,14 +699,26 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "RadialNovaPentagramCharged_Hera",
 				ChangeType = "Absolute",
 			},
-
-
 			{
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileCurved_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
 				ChangeValue = "DaggerProjectileFx_Hera",
 				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerHomingThrowAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Pan_Hera",
 			},
 			{
 				WeaponName = "WeaponDaggerThrow",
@@ -615,6 +739,30 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "AxeDeflect_Hera",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
+			},
+			{
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSpinDouble_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSpinDouble_Hera",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
@@ -698,6 +846,64 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty = "DissipateFx",
 				ChangeValue = "TorchSpecialProjectileDissipate_Hera",
 				ChangeType = "Absolute",
+			},
+
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedChargedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravel_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocket_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketUnguided_Hera",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravelUnguided_Hera",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Hera",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Hera",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Hera",
+				ChangeType = "Absolute",
+			},		
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Hera",
 			},
 
 		},
@@ -1082,10 +1288,11 @@ OverwriteTableKeys( TraitData, {
 			{
 				BaseValue = 20,
 				AsInt = true,
-				MinMultiplier = -1,
-				IdenticalMultiplier =
+				MinimumSourceValue = 5,
+				AbsoluteStackValues =
 				{
-					Value = -7/6,
+					[1] = -2,
+					[2] = -1,
 				},
 			},
 			Threshold = 5,
@@ -1347,55 +1554,19 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	SwapBonusBoon = 
-	{
-		Icon = "Boon_Hera_37",
-		InheritFrom = { "BaseTrait", "EarthBoon" },
-		Uses = 1,
-		ForceSwaps = true,		
-		BlockStacking = true,
-		RarityLevels =
-		{
-			Common =
-			{
-				Multiplier = 1.00,
-			},
-			Rare =
-			{
-				Multiplier = 1.5,
-			},
-			Epic =
-			{
-				Multiplier = 2.0,
-			},
-			Heroic =
-			{
-				Multiplier = 2.5,
-			},
-		},			
-		ExchangeLevelBonus = 
-		{
-			BaseValue = 2,
-			AsInt = true,	
-		},
-		StatLines = 
-		{
-			"BonusLevelStatDisplay1",
-		},
-		ExtractValues = 
-		{
-			{
-				Key = "ExchangeLevelBonus",
-				ExtractAs = "Levels",
-			},
-		}
-	},
 	BoonDecayBoon =
 	{
 		InheritFrom = { "BaseTrait", "EarthBoon" },
+		BoonInfoIgnoreRequirements = true,
+		GameStateRequirements =
+		{
+			{
+				FunctionName = "RequiredUpgradeableGodTraits",
+				FunctionArgs = { Count = 2 },
+			},
+		},
 		Icon = "Boon_Hera_36",
 		BlockInRunRarify = true,
-		RequiredUpgradeableGodTraits = 2,
 		ExcludeTraitFromLastRunBoonPool = true,
 		BlockStacking = true,
 		RarityLevels =
@@ -1479,7 +1650,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		ManaCostModifiers = 
 		{
-			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeapons, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" }),
+			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeaponsAndSprint, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile", "WeaponCastLob" }),
 			ExWeapons = true,
 			ManaCostAdd = 15,
 			ReportValues = 
@@ -1489,7 +1660,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnWeaponFiredFunctions =
 		{
-			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeapons, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile" }),	
+			WeaponNames = ConcatTableValues(WeaponSets.HeroAllWeaponsAndSprint, {"WeaponCastProjectileHades", "WeaponAnywhereCast", "WeaponCastProjectile", "WeaponCastLob" }),	
 			FunctionName = "CheckExProjectileSpawn",
 			FunctionArgs = 
 			{
@@ -1594,38 +1765,47 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
-	HeraManaShieldBoon = -- Legendary
+	AllElementalBoon =-- Legendary
+	{
+		Icon = "Boon_Hera_40",
+		InheritFrom = {"LegendaryTrait"},
+		Elements = { "Aether", "Earth", "Air", "Fire", "Water" }, 
+		AcquireFunctionName = "GrantBoons",
+		AcquireFunctionArgs = 
+		{
+			BoonSets = 
+			{	
+				-- Earth
+				{ "ElementalDamageBoon", "ElementalRarityUpgradeBoon", },
+				-- Fire
+				{ "ElementalBaseDamageBoon", "ElementalRallyBoon" },
+				-- Air
+				{ "ElementalDamageFloorBoon", "ElementalDodgeBoon" },
+				-- Water
+				{ "ElementalHealthBoon", "ElementalDamageCapBoon" },
+			},
+		},
+		StatLines =
+		{
+			"AllElementStatDisplay",
+		},
+	},
+	ReserveReductionBoon = -- Unused
 	{
 		Icon = "Boon_Hera_40",
 		InheritFrom = { "LegendaryTrait", "EarthBoon" }, 
-		RequiredFalseTraits = { "HephaestusManaBoon" },
-
-		ManaShieldData = 
+		ReserveManaMultiplier = 0.20,
+		StatLines = 
 		{
-			DamageBlocked = 0.5,					 --Percent of damage that is redirected
-			ManaPerDamageBlocked =	5,			-- Amount of mana burned per damage blocked
-			ReportValues = 
-			{ 
-				ReportedDamageBlocked = "DamageBlocked",
-				ReportedManaConversion = "ManaPerDamageBlocked",
-			}
+			"ReserveReductionStatDisplay",
 		},
-		
-		StatLines =
-		{
-			"ManaShieldStatDisplay1",
-		},
-		ExtractValues =
+		ExtractValues = 
 		{
 			{
-				Key = "ReportedManaConversion",
-				ExtractAs = "TooltipManaConversion",
-			},
-			{
-				Key = "ReportedDamageBlocked",
-				ExtractAs = "TooltipDamageBlocked",
-				Format = "Percent",
-				SkipAutoExtract = true,
+				Key = "ReserveManaMultiplier",
+				ExtractAs = "TooltipReduction",
+				Format = "NegativePercentDelta",
+				HideSigns = true,
 			},
 		}
 	},

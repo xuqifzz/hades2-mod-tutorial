@@ -55,17 +55,17 @@ UnitSetData.Zombie =
 			RetreatTimeoutMax = 2.0,
 		},
 
+		HeraclesCombatMoneyValue = 2,
 		MoneyDropOnDeath =
 		{
-			Chance = 0.5,
+			Chance = 0.25,
 			MinParcels = 1,
 			MaxParcels = 1,
 			MinValue = 1,
 			MaxValue = 1,
-			ValuePerDifficulty = 0.33,
+			ValuePerDifficulty = 0.17,
 			ValuePerDifficultyMaxValueVariance = 1.3,
 		},
-		HeraclesCombatMoneyValue = 2,
 
 		WeaponOptions =
 		{
@@ -80,21 +80,6 @@ UnitSetData.Zombie =
 
 		ActiveCapWeight = 0.35,
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			GameStateRequirements =
-			{
-				{
-					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
-				},
-			},
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0452", Text = "Shamblers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
@@ -102,21 +87,22 @@ UnitSetData.Zombie =
 			GameStateRequirements = 
 			{
 				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
-				{
 					PathTrue = { "GameState", "SpeechRecord", "/VO/MelinoeField_0387" },
 				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+					IsNone = { "OlympusIntro" },
+				},
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0451", Text = "Shamblers.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0452", Text = "Shamblers!" },
+			{ Cue = "/VO/MelinoeField_0451", Text = "Shamblers." },
+			{ Cue = "/VO/MelinoeField_0452", Text = "Shamblers!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0453", Text = "Shamblers..." },
 			{ Cue = "/VO/MelinoeField_0454", Text = "Shamblers ahead..." },
 		},
@@ -141,7 +127,7 @@ UnitSetData.Zombie =
 
 	Zombie_Elite =
 	{
-		InheritFrom = { "Zombie" },
+		InheritFrom = { "Elite", "Zombie" },
 		HealthBuffer = 170,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Zombie/EmoteTaunting",
@@ -171,7 +157,9 @@ UnitSetData.Zombie =
 
 	ZombieCrewman =
 	{
-		InheritFrom = { "Zombie" },
+		InheritFrom = { "BaseOEnemy", "Zombie" },
+		BlockNextBiomeEnemyShrineUpgrade = true,
+
 		MaxHealth = 260,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Zombie/EmoteTaunting",
@@ -208,7 +196,11 @@ UnitSetData.Zombie =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 3,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 3,
+			},
 		},
 
 		HeraclesCombatMoneyValue = 5,
@@ -217,6 +209,69 @@ UnitSetData.Zombie =
 		{
 			DifficultyRating = 35,
 			BlockEnemyTypes = {"ZombieCrewman"}
+		},
+	},
+
+	ZombieOlympus =
+	{
+		InheritFrom = { "BasePEnemy", "BaseChronosForces", "Zombie" },
+		MaxHealth = 590,
+		ActivateFx = "ZombieOlympusHoleIn",
+		ActivateFx2 = "ZombieOlympusSpawnMask",
+
+		GrannyTexture = "GR2/ZombieOlympus_Color",
+
+		PreferredSpawnPoint = "EnemyPointRanged", -- Chronos Forces spawn on these.
+		Groups = { "GroundEnemies", "ChronosForces" },
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+
+			AmbientBattleTargetGroups = { "Automatons" },
+		},
+		DamagedFxStyles =
+		{
+			Default = "HitSparkEnemyDamagedPhysicalOlympus",
+			Rapid = "HitSparkEnemyDamagedPhysicalOlympusRapid",
+		},
+		WeaponOptions =
+		{
+			"ZombieOlympusMelee",
+		},
+
+		HeraclesCombatMoneyValue = 1,
+		GeneratorData =
+		{
+			DifficultyRating = 35,
+			BlockEnemyTypes = {"ZombieOlympus_Elite"}
+		},
+	},
+
+	ZombieOlympus_Elite =
+	{
+		InheritFrom = { "ZombieOlympus" },
+		HealthBuffer = 350,
+
+		WeaponOptions =
+		{
+			"ZombieOlympusMelee_Elite",
+		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 3,
+			},
+		},
+
+		HeraclesCombatMoneyValue = 2,
+		GeneratorData =
+		{
+			DifficultyRating = 60,
+			BlockEnemyTypes = {"ZombieOlympus"}
 		},
 	},
 

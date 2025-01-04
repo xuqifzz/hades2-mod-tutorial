@@ -36,7 +36,8 @@ function ShowCombatUI( flag, args )
 	ShowDaggerUI()
 	ShowAxeUI()
 	ShowTorchUI()
-	ShowTraitUI()
+	ShowSuitUI()
+	ShowTraitUI( args )
 
 	local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom or {}
 	ShowResourceUIs()
@@ -78,13 +79,6 @@ function ShowResourceUIs( args )
 		SetAlpha({ Id = HUDScreen.Components.ToolIcon.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = HUDScreen.FadeInDuration })
 	else
 		SetAlpha({ Id = HUDScreen.Components.ToolIcon.Id, Fraction = 0.0, Duration = 0 })
-	end
-
-	if GameState.EquippedFamiliar ~= nil then
-		SetAnimation({ Name = FamiliarData[GameState.EquippedFamiliar].Icon, DestinationId = HUDScreen.Components.FamiliarIcon.Id })
-		SetAlpha({ Id = HUDScreen.Components.FamiliarIcon.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = HUDScreen.FadeInDuration })
-	else
-		SetAlpha({ Id = HUDScreen.Components.FamiliarIcon.Id, Fraction = 0.0, Duration = 0 })
 	end
 end
 
@@ -159,6 +153,7 @@ function HideCombatUI( flag, args )
 	thread( HideDaggerUI, args )
 	thread( HideAxeUI, args )
 	thread( HideTorchUI, args )
+	thread( HideSuitUI, args )
 
 	killTaggedThreads( CombatUI.HideThreadName )
 end
@@ -168,7 +163,6 @@ function HideResourceUIs( args )
 	SetAlpha({ Id = HUDScreen.Components.ResourceBackingShadow.Id, Fraction = 0, Duration = HUDScreen.FadeOutDuration })
 	SetAlpha({ Id = HUDScreen.Components.InventoryIcon.Id, Fraction = 0, Duration = args.FadeDuration or HUDScreen.FadeOutDuration })
 	SetAlpha({ Id = HUDScreen.Components.ToolIcon.Id, Fraction = 0, Duration = args.FadeDuration or HUDScreen.FadeOutDuration })
-	SetAlpha({ Id = HUDScreen.Components.FamiliarIcon.Id, Fraction = 0, Duration = args.FadeDuration or HUDScreen.FadeOutDuration })
 end
 
 function RecreateLifePips()
@@ -184,16 +178,7 @@ function RecreateLifePips()
 		numLastStands = CurrentRun.Hero.MaxLastStands
 	end
 	for i = 1, numLastStands do
-		local obstacleId = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ComponentData.DefaultGroup,
-			X = HUDScreen.LastStandX + (i * HUDScreen.LastStandSpacingX),
-			Y = ScreenHeight - HUDScreen.LastStandBottomOffset,
-			Scale = HUDScreen.LastStandScale,
-		})
-		local pipSubtitleFormat = ShallowCopyTable( ScreenData.HUD.LastStandTextFormat )
-		pipSubtitleFormat.Id = obstacleId
-		CreateTextBox( pipSubtitleFormat)
-		SetAnimation({ Name = "ExtraLifeEmpty", DestinationId = obstacleId })
-		table.insert( ScreenAnchors.LifePipIds, obstacleId )
+		CreateLifePip(i)
 	end
 
 	SetAlpha({ Ids = ScreenAnchors.LifePipIds, Fraction = 0, Duration = 0 })
@@ -267,6 +252,29 @@ function UpdateLifePips( heroUnit )
 	end
 end
 
+function CreateLifePip( index )
+	local obstacleId = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ComponentData.DefaultGroup,
+		X = HUDScreen.LastStandX + (index * HUDScreen.LastStandSpacingX),
+		Y = ScreenHeight - HUDScreen.LastStandBottomOffset,
+		Scale = HUDScreen.LastStandScale,
+	})
+	local pipSubtitleFormat = ShallowCopyTable( ScreenData.HUD.LastStandTextFormat )
+	pipSubtitleFormat.Id = obstacleId
+	CreateTextBox( pipSubtitleFormat)
+	SetAnimation({ Name = "ExtraLifeEmpty", DestinationId = obstacleId })
+	table.insert( ScreenAnchors.LifePipIds, obstacleId )
+end
+
+function IsHealthHidden()
+	if CurrentRun.Cleared then
+		return false
+	end
+	if HasHeroTraitValue("HideHealth") then
+		return true
+	end
+	return false
+end
+
 function ShowHealthUI()
 	if not ConfigOptionCache.ShowUIAnimations then
 		return
@@ -277,11 +285,15 @@ function ShowHealthUI()
 	local healthFraction = CurrentRun.Hero.Health / CurrentRun.Hero.MaxHealth
 
 	
+	if IsHealthHidden() then
+		healthFraction = 1
+	end
 	SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - healthFraction, DestinationId = HUDScreen.Components.HealthFalloff.Id, Instant = true })
 	SetAnimationFrameTarget({ Name = "HPBarFill", Fraction = 1 - healthFraction, DestinationId = HUDScreen.Components.HealthFill.Id, Instant = true })
+	SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - healthFraction, DestinationId = HUDScreen.Components.HealthRally.Id, Instant = true })
 
 	local healthIds = {}
-	local healthComponents = { "HealthBack", "HealthFalloff", "HealthFill", "HealthBuffer" } -- "HealthFlash", }
+	local healthComponents = { "HealthBack", "HealthRally", "HealthFalloff", "HealthFill", "HealthBuffer" } -- "HealthFlash", }
 	
 	if HasHeroTraitValue("ShowHighHealthIndicator") then
 		table.insert( healthComponents, "HealthHighIndicator" )
@@ -289,6 +301,10 @@ function ShowHealthUI()
 	if HasHeroTraitValue("ShowLowHealthIndicator") then
 		table.insert( healthComponents, "HealthLowIndicator" )
 	end
+	if not HeroHasTrait("AxeRallyAspect") then
+		RemoveValueAndCollapse( healthComponents, "HealthRally" )
+	end
+	
 
 	for k, componentName in ipairs( healthComponents ) do
 		local component = HUDScreen.Components[componentName]
@@ -307,9 +323,12 @@ function UpdateHealthUI( args )
 	end
 	local currentHealth = unit.Health
 	local maxHealth = unit.MaxHealth
+	CurrentRun.TooltipHeroHealth = currentHealth
+	CurrentRun.TooltipHeroMaxHealth = maxHealth
 	if currentHealth == nil or maxHealth == nil then
 		return
 	end
+	
 	if HUDScreen == nil then
 		return
 	end
@@ -317,12 +336,21 @@ function UpdateHealthUI( args )
 	args = args or {}
 
 	local healthBackId = HUDScreen.Components.HealthBack.Id
-	ModifyTextBox({ Id = healthBackId, Text = "UI_PlayerHealth", LuaKey = "TempTextData", LuaValue = { Current = math.ceil(currentHealth), Maximum = math.ceil(maxHealth) }, AutoSetDataProperties = false } )
-
 	local healthFill = HUDScreen.Components.HealthFill
-	SetAnimationFrameTarget({ Name = "HPBarFill", Fraction = 1 - (currentHealth / maxHealth), DestinationId = HUDScreen.Components.HealthFill.Id,
-		Duration = healthFill.UpdateDuration, EaseIn = healthFill.UpdateEaseIn, EaseOut = healthFill.UpdateEaseOut })
+	if IsHealthHidden() then
+	
+		CurrentRun.TooltipHeroHealth = "UI_Mystery"
+		CurrentRun.TooltipHeroMaxHealth = "UI_Mystery"
+		ModifyTextBox({ Id = healthBackId, Text = "UI_PlayerHealth", LuaKey = "TempTextData", LuaValue = { Current = "UI_Mystery", Maximum = "UI_Mystery" }, AutoSetDataProperties = false } )
 
+		SetAnimationFrameTarget({ Name = "HPBarFill", Fraction = 0, DestinationId = HUDScreen.Components.HealthFill.Id,
+			Duration = healthFill.UpdateDuration, EaseIn = healthFill.UpdateEaseIn, EaseOut = healthFill.UpdateEaseOut })
+	else
+		ModifyTextBox({ Id = healthBackId, Text = "UI_PlayerHealth", LuaKey = "TempTextData", LuaValue = { Current = math.ceil(currentHealth), Maximum = math.ceil(maxHealth) }, AutoSetDataProperties = false } )
+
+		SetAnimationFrameTarget({ Name = "HPBarFill", Fraction = 1 - (currentHealth / maxHealth), DestinationId = HUDScreen.Components.HealthFill.Id,
+			Duration = healthFill.UpdateDuration, EaseIn = healthFill.UpdateEaseIn, EaseOut = healthFill.UpdateEaseOut })
+	end
 	local healthBufferId = HUDScreen.Components.HealthBuffer.Id
 	if unit.HealthBuffer ~= nil and unit.HealthBuffer > 0 then
 		local armorFraction = unit.HealthBuffer / maxHealth
@@ -338,16 +366,35 @@ function UpdateHealthUI( args )
 		SetAlpha({ Id = healthBufferId, Fraction = 0.0, Duration = 0.1 })
 		ModifyTextBox({ Id = healthBufferId, Text = "UI_HealthBuffer", LuaKey = "TempTextData", LuaValue = { Current = 0, AutoSetDataProperties = false } })
 	end
+	
+	if IsHealthHidden() then
+		local healthFalloff = HUDScreen.Components.HealthFalloff
+		SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 0, DestinationId = healthFalloff.Id, Instant = true})
+	
+	else
+		if HeroHasTrait("AxeRallyAspect") then
+			local rallyData = GetHeroTrait("AxeRallyAspect").RallyProperties
+			local rallyHealth = rallyData.Store
+			SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - (currentHealth + rallyHealth) / maxHealth, DestinationId = HUDScreen.Components.HealthRally.Id })
+		end
+		local healthFalloff = HUDScreen.Components.HealthFalloff
+		waitUnmodified( args.FalloffDelay or healthFalloff.UpdateDelay )
+		SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - (currentHealth / maxHealth), DestinationId = healthFalloff.Id,
+			Duration = healthFalloff.UpdateDuration, EaseIn = healthFalloff.UpdateEaseIn, EaseOut = healthFalloff.UpdateEaseOut })
+	end
+end
 
-	local healthFalloff = HUDScreen.Components.HealthFalloff
-	waitUnmodified( args.FalloffDelay or healthFalloff.UpdateDelay )
-	SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - (currentHealth / maxHealth), DestinationId = healthFalloff.Id,
-		Duration = healthFalloff.UpdateDuration, EaseIn = healthFalloff.UpdateEaseIn, EaseOut = healthFalloff.UpdateEaseOut })
+function UpdateRallyHealthUI( rallyData )
+	local unit = CurrentRun.Hero
+	local rallyHealth = rallyData.Store
+	local currentHealth = unit.Health
+	local maxHealth = unit.MaxHealth
+	SetAnimationFrameTarget({ Name = "HPBarFalloff", Fraction = 1 - ((currentHealth + rallyHealth) / maxHealth ), DestinationId = HUDScreen.Components.HealthRally.Id })
 end
 
 function HideHealthUI( args )
 	local healthIds = {}
-	local healthComponents = { "HealthBack", "HealthFalloff", "HealthFill", "HealthBuffer", "HealthFlash", "HealthHighIndicator", "HealthLowIndicator" }
+	local healthComponents = { "HealthBack", "HealthFalloff", "HealthFill", "HealthRally", "HealthBuffer", "HealthFlash", "HealthHighIndicator", "HealthLowIndicator" }
 	for k, componentName in ipairs( healthComponents ) do
 		local component = HUDScreen.Components[componentName]
 		table.insert( healthIds, component.Id )
@@ -360,6 +407,10 @@ end
 function ResetUI()
 	if CurrentRun and MapState and MapState.MoneyUI then
 		MapState.MoneyUI.LastValue = GetResourceAmount( "Money" )
+	end
+	if CurrentRun and CurrentRun.Hero then
+		CurrentRun.TooltipHeroHealth = CurrentRun.Hero.Health
+		CurrentRun.TooltipHeroMaxHealth = CurrentRun.Hero.MaxHealth
 	end
 	ClearHealthShroud()
 	CreateVignette()
@@ -618,14 +669,17 @@ function ShowDaggerUI()
 	if ScreenAnchors.DaggerUI ~= nil then
 		return
 	end
-
+	if ScreenAnchors.DaggerUIChargeAmount then
+		Destroy({ Id = ScreenAnchors.DaggerUIChargeAmount })
+	end
+	
 	if ScreenAnchors.Shadow ~= nil then
 		SetScaleX({ Id = ScreenAnchors.Shadow, Fraction = 1.3 })
 	end
 
 	ScreenAnchors.DaggerUI = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Additive", X = DaggerUI.StartX, Y = ScreenHeight - DaggerUI.BottomOffset })
 	ScreenAnchors.DaggerUIChargeAmount = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ComponentData.DefaultGroup, X = DaggerUI.StartX, Y = ScreenHeight - DaggerUI.BottomOffset })
-	
+
 	local trait = GetHeroTrait("DaggerBlockAspect")
 	local totalTime = trait.OnWeaponChargeFunctions.FunctionArgs.Cooldown
 	
@@ -642,6 +696,8 @@ function ShowDaggerUI()
 	end
 	SetAlpha({ Id = ScreenAnchors.DaggerUI, Duration = 0, Fraction = 0 })
 	SetAlpha({ Id = ScreenAnchors.DaggerUI, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
+	SetAlpha({ Id = ScreenAnchors.DaggerUIChargeAmount, Duration = 0, Fraction = 0 })
+	SetAlpha({ Id = ScreenAnchors.DaggerUIChargeAmount, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
 end
 
 function UpdateDaggerUI()
@@ -667,13 +723,14 @@ function HideDaggerUI( forceDestroy, args )
 	args = args or {}
 
 	local id = ScreenAnchors.DaggerUI
+	local chargeId = ScreenAnchors.DaggerUIChargeAmount
 	HideObstacle({ Id = id, IncludeText = true, Distance = CombatUI.FadeDistance.Ammo, Angle = 180, Duration = args.FadeDuration or HUDScreen.FadeOutDuration, SmoothStep = true })
-	HideObstacle({ Id = ScreenAnchors.DaggerUIChargeAmount, IncludeText = true, Distance = CombatUI.FadeDistance.Ammo, Angle = 180, Duration = args.FadeDuration or HUDScreen.FadeOutDuration, SmoothStep = true })
+	HideObstacle({ Id = chargeId, IncludeText = true, Distance = CombatUI.FadeDistance.Ammo, Angle = 180, Duration = args.FadeDuration or HUDScreen.FadeOutDuration, SmoothStep = true })
 	ScreenAnchors.DaggerUI = nil
 	ScreenAnchors.DaggerUIChargeAmount = nil
 
 	wait( HUDScreen.FadeOutDuration, RoomThreadName)
-	Destroy({ Id = ScreenAnchors.DaggerUIChargeAmount })
+	Destroy({ Id = chargeId })
 	Destroy({ Id = id })
 	ModifyTextBox({ Id = id, FadeTarget = 0, FadeDuration = 0, AutoSetDataProperties = false, })
 end
@@ -731,6 +788,49 @@ function HideStaffUI( forceDestroy, args )
 	ModifyTextBox({ Id = id, FadeTarget = 0, FadeDuration = 0, AutoSetDataProperties = false, })
 end
 
+function ShowSuitUI( )
+
+	if not HeroHasTrait("SuitMarkCritAspect") or not ShowingCombatUI then
+		return
+	end
+	local trait = GetHeroTrait("SuitMarkCritAspect")
+
+	if ScreenAnchors.SuitUI ~= nil then
+		return
+	end
+
+	if ScreenAnchors.Shadow ~= nil then
+		SetScaleX({ Id = ScreenAnchors.Shadow, Fraction = 1.3 })
+	end
+
+	ScreenAnchors.SuitUI = CreateScreenObstacle({ Name = "BlankObstacle", Group = "Combat_Menu_TraitTray_Overlay_Additive", X = StaffUI.StartX, Y = ScreenHeight - StaffUI.BottomOffset })
+	ScreenAnchors.SuitUIChargeAmount = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ComponentData.DefaultGroup, X = StaffUI.StartX, Y = ScreenHeight - StaffUI.BottomOffset })
+
+	SetAnimation({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.SuitUIChargeAmount })
+	SetAnimationFrameTarget({ Name = "StaffReloadTimer", DestinationId = ScreenAnchors.SuitUIChargeAmount, Fraction = 0, Instant = true })
+	SetAlpha({ Id = ScreenAnchors.SuitUI, Duration = 0, Fraction = 0 })
+	SetAlpha({ Id = ScreenAnchors.SuitUI, Duration = HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
+
+end
+
+function HideSuitUI( forceDestroy, args )
+	if ScreenAnchors.SuitUI == nil then
+		return
+	end
+	args = args or {}
+
+	local id = ScreenAnchors.SuitUI
+	HideObstacle({ Id = id, IncludeText = true, Distance = CombatUI.FadeDistance.Ammo, Angle = 180, Duration = args.FadeDuration or HUDScreen.FadeOutDuration, SmoothStep = true })
+	HideObstacle({ Id = ScreenAnchors.SuitUIChargeAmount, IncludeText = true, Distance = CombatUI.FadeDistance.Ammo, Angle = 180, Duration = args.FadeDuration or HUDScreen.FadeOutDuration, SmoothStep = true })
+
+	ScreenAnchors.SuitUI = nil
+	ScreenAnchors.SuitUIChargeAmount = nil
+
+	wait( HUDScreen.FadeOutDuration, RoomThreadName)
+	Destroy({ Id = ScreenAnchors.SuitUIChargeAmount })
+	Destroy({ Id = id })
+	ModifyTextBox({ Id = id, FadeTarget = 0, FadeDuration = 0, AutoSetDataProperties = false, })
+end
 function ShowManaMeter()
 
 	local manaFraction = CurrentRun.Hero.Mana / CurrentRun.Hero.MaxMana
@@ -876,7 +976,9 @@ function ShowTraitUI( args )
 	end
 	SetAlpha({ Ids = slotIconIds, Duration = args.FadeDuration or HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
 
-	TraitUIActivateTraits()
+	if not args.SkipTraitActivateCheck then
+		TraitUIActivateTraits()
+	end
 end
 
 function HUDShowTrait( trait, args )
@@ -892,7 +994,9 @@ function HUDShowTrait( trait, args )
 
 	if trait.AnchorId ~= nil then
 		SetAlpha({ Id = trait.AnchorId, Duration = args.FadeDuration or HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
-		UseableOn({ Id = trait.AnchorId })
+		if args.ForceUseableOn then
+			UseableOn({ Id = trait.AnchorId })
+		end
 	end
 	if trait.TraitInfoCardId ~= nil then
 		SetAlpha({ Id = trait.TraitInfoCardId, Duration = args.FadeDuration or HUDScreen.FadeInDuration, Fraction = ConfigOptionCache.HUDOpacity })
@@ -956,6 +1060,7 @@ function TraitUIAdd( trait, args )
 		container[traitComponent.Id] = traitComponent
 	end
 	SetAlpha({ Id = trait.AnchorId, Fraction = 0, Duration = 0 })
+	UseableOff({ Id = traitComponent.Id })
 	
 	local traitFrameId = CreateScreenObstacle({ Name = "BlankObstacle", Group = HUDScreen.ActiveTraitGroup, Scale = 0.5 })
 	Attach({ Id = traitFrameId, DestinationId = trait.AnchorId })
@@ -1061,7 +1166,7 @@ function TraitUICreateText( trait, args )
 		return
 	end
 	local xOffset = 0
-	local yOffset = 0
+	local yOffset = -3
 	local traitCount = GetTraitCount( CurrentRun.Hero, { TraitData = trait } )
 	local time = trait.RemainingUses or trait.Uses
 	if trait.RarityUpgradeData then
@@ -1118,14 +1223,36 @@ function TraitUICreateText( trait, args )
 					LuaValue = { Time = lifestealUses },
 				})
 			end
-		elseif ( trait.UsesAsRooms and trait.RemainingUses ~= nil ) then
+		elseif ( trait.UsesAsEncounters and trait.RemainingUses ~= nil and trait.OnExpire and trait.OnExpire.HealFraction ) then
 			CreateTextBox({ Id = trait.TraitInfoCardId,
 				Text = "UI_Time", Font = "P22UndergroundSCMedium",
 				Color = Color.White,
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 				FontSize = 22,
 				OffsetX = xOffset, OffsetY = yOffset,
+				DataProperties =
+				{
+					TextSymbolScale = 0.9,
+					TextSymbolOffsetY = 3,
+				},
 				Justification = "Center", LuaKey = "TempTextData",
+				LuaValue = { Time = math.floor(time)},
+			})
+			xOffset = xOffset + 40
+		elseif ( trait.UsesAsRooms and trait.RemainingUses ~= nil ) then
+			CreateTextBox({ Id = trait.TraitInfoCardId,
+				Text = "UI_Uses", Font = "P22UndergroundSCMedium",
+				Color = Color.White,
+				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
+				FontSize = 22,
+				OffsetX = xOffset, OffsetY = yOffset,
+				Justification = "Center",
+				DataProperties =
+				{
+					TextSymbolScale = 0.9,
+					TextSymbolOffsetY = 3,
+				},
+				LuaKey = "TempTextData",
 				LuaValue = { Time = math.floor(time)},
 			})
 			xOffset = xOffset + 40
@@ -1152,6 +1279,11 @@ function TraitUICreateText( trait, args )
 				ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 				OffsetX = xOffset, OffsetY = yOffset,
 				Justification = "Center",
+				DataProperties =
+				{
+					TextSymbolScale = 0.9,
+					TextSymbolOffsetY = 3,
+				},
 				LuaKey = "TempTextData",
 				LuaValue = { Time = math.floor(time) },
 			})
@@ -1173,27 +1305,42 @@ function TraitUICreateText( trait, args )
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset, OffsetY = yOffset,
 			Justification = "Center",
+			DataProperties =
+			{
+				TextSymbolScale = 0.9,
+				TextSymbolOffsetY = 3,
+			},
 			LuaKey = "TempTextData",
 			LuaValue = { Time = math.floor(countdown) },
 		})
 	elseif trait.TotalManaRecovered then
-			CreateTextBox({
+		CreateTextBox({
 			Id = trait.TraitInfoCardId,
 			Text = "UI_ManaUses", Font = "NumericP22UndergroundSCMedium",
 			Color = Color.White, FontSize = 22, 
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset, OffsetY = yOffset,
+			DataProperties =
+			{
+				TextSymbolScale = 0.7,
+				TextSymbolOffsetY = 3,
+			},
 			Justification = "Center",
 			LuaKey = "TempTextData",
 			LuaValue = { Time = trait.TotalManaRecovered },
 		})
 	elseif trait.DoorHealReserve then
-			CreateTextBox({
+		CreateTextBox({
 			Id = trait.TraitInfoCardId,
 			Text = "UI_HealingUses", Font = "NumericP22UndergroundSCMedium",
 			Color = Color.White, FontSize = 22, 
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset, OffsetY = yOffset,
+			DataProperties =
+			{
+				TextSymbolScale = 0.7,
+				TextSymbolOffsetY = 3,
+			},
 			Justification = "Center",
 			LuaKey = "TempTextData",
 			LuaValue = { Time = trait.DoorHealReserve },
@@ -1202,7 +1349,7 @@ function TraitUICreateText( trait, args )
 		CreateTextBox({
 			Id = trait.TraitInfoCardId,
 			Text = "UI_TraitLevel",
-			Font = "LatoBold", FontSize = 19,
+			Font = "NumericP22UndergroundSCMedium", FontSize = 19,
 			Color = Color.White,
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
 			OffsetX = xOffset, OffsetY = 1,
@@ -1212,6 +1359,7 @@ function TraitUICreateText( trait, args )
 		})
 		xOffset = xOffset + 45
 	end
+
 	if not ShowingCombatUI then
 		SetAlpha({ Id = trait.TraitInfoCardId, Fraction = 0, Duration = 0})
 	end
@@ -1256,18 +1404,21 @@ function TraitUIActivateTraits()
 			end
 		end
 	end
-	for _, traitName in pairs({"HephaestusWeaponBoon", "HephaestusSpecialBoon"}) do
+	for _, traitName in pairs({"HephaestusWeaponBoon", "HephaestusSpecialBoon", "MassiveCastBoon" }) do
 		if HeroHasTrait(traitName) then
 			local traitData = GetHeroTrait( traitName )
 			local damagedActionArgs = traitData.OnEnemyDamagedAction.Args
+			local visibleTrait = GetHeroTrait( damagedActionArgs.TraitName)
 			if not CheckCooldownNoTrigger( damagedActionArgs.Name, damagedActionArgs.Cooldown, true ) and SessionState.GlobalCooldowns[damagedActionArgs.Name] then
 				local totalTime = damagedActionArgs.Cooldown
 				local elapsedTime = totalTime - ( _worldTime - SessionState.GlobalCooldowns[damagedActionArgs.Name])
-				TraitUIActivateTrait( traitData, { CustomAnimation = "ActiveTraitCooldownNoFlash", PlaySpeed = 101 / totalTime })
-				local existingTraitData = GetExistingUITrait( traitData )
-				SetAnimation({ Name = "ActiveTraitCooldownNoFlash", StartFrameFraction = 1 - elapsedTime/totalTime, DestinationId = existingTraitData.TraitActiveOverlay })
+				TraitUIActivateTrait( visibleTrait, { CustomAnimation = "ActiveTraitCooldownNoFlash", PlaySpeed = 101 / totalTime })
+				local existingTraitData = GetExistingUITrait( visibleTrait )
+				if existingTraitData ~= nil then
+					SetAnimation({ Name = "ActiveTraitCooldownNoFlash", StartFrameFraction = 1 - elapsedTime/totalTime, DestinationId = existingTraitData.TraitActiveOverlay })
+				end
 			else
-				TraitUIActivateTrait( traitData )
+				TraitUIActivateTrait( visibleTrait )
 			end
 		end
 	end
@@ -1291,6 +1442,22 @@ function TraitUIActivateTraits()
 		end
 	end
 	
+	UpdateTimerDependentTraits()
+
+	if HeroHasTrait("SpellPotionTrait") then
+		local traitData = GetHeroTrait("SpellPotionTrait")
+		if traitData.RemainingUses <= 0 then
+			TraitUIActivateTrait( traitData, {CustomAnimation = "InactiveTrait" })
+		end
+	end
+	if HeroHasTrait("TimedKillBuffBoon") then
+		local traitData = GetHeroTrait("TimedKillBuffBoon")
+		UpdateTraitNumber( traitData )
+	end
+end
+
+function UpdateTimerDependentTraits()
+
 	if HeroHasTrait("ChaosTimeCurse") or ( HeroHasTrait("TimedBuffKeepsake") and not CurrentRun.Hero.IsDead) then
 		local traits = {}
 		if HeroHasTrait("ChaosTimeCurse") then
@@ -1303,25 +1470,17 @@ function TraitUIActivateTraits()
 			local currentTime = trait.CurrentTime or 0.0
 			local totalTime = trait.StartingTime or 1.0
 			TraitUIActivateTrait( trait , { CustomAnimation = "ActiveTraitCooldownNoFlash", PlaySpeed = 101 / totalTime })
-			if IsBiomeTimerPaused() or HasTimerBlock( CurrentRun ) then
-				SetAnimationFrameTarget({ Name = "ActiveTraitCooldownNoFlash", Fraction = 1 - currentTime/totalTime, DestinationId = trait.TraitActiveOverlay, Instant = true })
-			else
-				SetAnimation({ Name = "ActiveTraitCooldownNoFlash", StartFrameFraction = 1 - currentTime/totalTime, DestinationId = trait.TraitActiveOverlay })
-				SetAnimationFrameTarget({ Name = "ActiveTraitCooldownNoFlash", Fraction = 1, DestinationId = trait.TraitActiveOverlay})
+			if trait.TraitActiveOverlay then
+				if IsBiomeTimerPaused() or HasTimerBlock( CurrentRun ) then
+					SetAnimationFrameTarget({ Name = "ActiveTraitCooldownNoFlash", Fraction = 1 - currentTime/totalTime, DestinationId = trait.TraitActiveOverlay, Instant = true })
+				else
+					SetAnimation({ Name = "ActiveTraitCooldownNoFlash", StartFrameFraction = 1 - currentTime/totalTime, DestinationId = trait.TraitActiveOverlay })
+					SetAnimationFrameTarget({ Name = "ActiveTraitCooldownNoFlash", Fraction = 1, DestinationId = trait.TraitActiveOverlay})
+				end
 			end
 		end
 	end
 
-	if HeroHasTrait("SpellPotionTrait") then
-		local traitData = GetHeroTrait("SpellPotionTrait")
-		if traitData.RemainingUses <= 0 then
-			TraitUIActivateTrait( traitData, {CustomAnimation = "InactiveTrait" })
-		end
-	end
-	if HeroHasTrait("TimedKillBuffBoon") then
-		local traitData = GetHeroTrait("TimedKillBuffBoon")
-		UpdateTraitNumber( traitData )
-	end
 end
 
 function TraitUIActivateTrait( trait, args )
@@ -1392,7 +1551,7 @@ function GetTraitTooltip( trait, args )
 	elseif trait.CustomDescriptionFunctionName ~= nil and _G[trait.CustomDescriptionFunctionName] ~= nil then
 		local traitCustomArgs = trait.CustomDescriptionFunctionArgs
 		for index, t in ipairs(traitCustomArgs) do
-			if IsGameStateEligible( CurrentRun, trait, t.GameStateRequirements ) then
+			if IsGameStateEligible( trait, t.GameStateRequirements ) then
 				traitCustomArgs = t
 				break
 			end
@@ -1432,8 +1591,15 @@ function TraitUIRemove( trait )
 		return
 	end
 
-	local traitComponent = HUDScreen.ActiveTraitComponents[trait.AnchorId]
-	HUDScreen.ActiveTraitComponents[trait.AnchorId] = nil
+	local container = nil
+	local slotIndex = GetIndex( HUDScreen.SlottedTraitOrder, trait.Slot )
+	if slotIndex > 0 then
+		container = HUDScreen.SlottedTraitComponents
+	else
+		container = HUDScreen.ActiveTraitComponents
+	end
+	local traitComponent = container[trait.AnchorId]
+	container[trait.AnchorId] = nil
 
 	if trait.AnchorId ~= nil then
 		Destroy({ Id = trait.AnchorId })
@@ -1551,10 +1717,10 @@ function UpdateTraitSummary( args )
 	end
 
 	SetAlpha({ Id = traitCount.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
-	if IsGameStateEligible( CurrentRun, HUDScreen, ScreenData.TraitTrayScreen.ItemCategories[2].GameStateRequirements) then
+	if IsGameStateEligible( HUDScreen, ScreenData.TraitTrayScreen.ItemCategories[3].GameStateRequirements) then
 		SetAlpha({ Id = metaUpgradeCount.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
 	end
-	if IsGameStateEligible( CurrentRun, HUDScreen, ScreenData.TraitTrayScreen.ItemCategories[3].GameStateRequirements ) then
+	if IsGameStateEligible( HUDScreen, ScreenData.TraitTrayScreen.ItemCategories[4].GameStateRequirements ) then
 		SetAlpha({ Id = shrinePointCount.Id, Fraction = ConfigOptionCache.HUDOpacity, Duration = 0.2 })
 	end
 	if CurrentRun.ActiveBounty and CurrentHubRoom == nil then

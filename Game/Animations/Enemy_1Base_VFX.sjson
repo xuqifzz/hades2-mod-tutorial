@@ -521,7 +521,7 @@
 		UseAttachedFlasher = false
 		UseAttachedShake = false
 		DieWithOwner = true
-		Sound = "/SFX/Enemy Sounds/CorruptedShadeMedium/AttackLoop"
+		Sound = "/SFX/Enemy Sounds/CorruptedShadeLarge/Charge"
 		StopSoundOnFinishFade = 0.2
 	}
 
@@ -1951,6 +1951,8 @@
 		UseAttachedFlasher = false
 		UseAttachedShake = false
 		ScaleFromOwner = "Ignore"
+		Sound = "/SFX/SelfDamageBuffLoopSFX"
+		StopSoundOnFinishFade = 0.2
 		CreateAnimations =
 		[
 			{ Name = "EliteUnitStatusGlow" }
@@ -1963,6 +1965,8 @@
 		Name = "EliteUnitStatus2"
 		InheritFrom = "EliteUnitStatus"
 		CreateAnimation = "null"
+		Sound = "/Leftovers/Object Ambiences/GasTrapLoop"
+		StopSoundOnFinishFade = 0.2
 		PlaySpeed = 45.0
 		Hue = 0.17
 		CreateAnimations =
@@ -1976,6 +1980,7 @@
 		Name = "EliteUnitStatus_Add"
 		InheritFrom = "EliteUnitStatus"
 		GroupName = "FX_Terrain_Add"
+		Sound = "null"
 		CreateAnimations = []
 		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
 	}
@@ -2033,4 +2038,823 @@
 		Ambient = 0.0
 		OverlayVfx = true
 	}
+	{
+		Name = "EnemyLaser"
+		ChainTo = "EnemyLaserEnd"
+		ChildAnimation = "EnemyLaserStartBurst"
+		FilePath = "Fx\EnemyLaser\EnemyLaser"
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamAttackLoop"
+		StopSoundOnFinishFade = 0.25
+		EndFrame = 40
+		LoopFramesOnly = true
+		NumFrames = 40
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 13.0
+		OriginY = 128.0
+		TransferFrameFromThis = true
+		ScaleLength = 226.0
+		Ambient = 0.0
+		OverlayVfx = true
+	}
+
+	{
+		Name = "HadesLaserStartBurst"
+		InheritFrom = "EnemyLaser"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		AddColor = true
+		Duration = 0.1
+		EndScaleY = 0.0
+		StartScaleY = 3.0
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.0 }
+	}
+	
+    {
+      Name = "HadesLaser"
+      ChildAnimation = "HadesLaserStartBurst"
+      FilePath = "Fx\HadesBeam\HadesBeam"
+      Sound = "/SFX/Enemy Sounds/Hades/HadesLaserBlastLoop"
+      StopSoundOnFinishFade = 0.2
+      EndFrame = 40
+      LoopFramesOnly = true
+      NumFrames = 40
+      RandomPlaySpeedMin = 30.0
+      RandomPlaySpeedMax = 60.0
+      StartFrame = 1
+      OriginY = 50.0
+      TransferFrameFromThis = true
+      ScaleLength = 470.0
+      Ambient = 0.0
+      OverlayVfx = true
+      Scale = 1
+      ScaleY = 1.0
+      RandomFlipVertical = true
+      CreateAnimationOnEnd = "HadesLaserEnd"
+      CreateAnimations = [
+        { Name = "HadesLaserDark" }
+        { Name = "HadesLaserGlow" }
+        { Name = "HadesLaserGlowTerrain" }
+      ]
+    }
+
+    {
+      Name = "HadesLaserGlow"
+      FilePath = "Particles\particle_glow"
+      ScaleLength = 200
+      GroupName = "FX_Standing_Add"
+      LocationFromOwner = "Maintain"
+      LocationZFromOwner = "Maintain"
+      DieWithOwner = true
+      OriginX = 0
+      OriginY = 128
+      ScaleY = 2.0
+      Red = 1
+      Green = 0.4
+      Blue = 0
+      StartAlpha = 0.9
+      EndAlpha = 1.0
+      PingPongColor = true
+      RandomDurationMin = 0.05
+      RandomDurationMax = 0.10
+      Loop = true
+    }
+
+    {
+      Name = "HadesLaserGlowTerrain"
+      InheritFrom = "HadesLaserGlow"
+      GroupName = "FX_Terrain_Add"
+      LocationZFromOwner = "Ignore"
+    }
+	
+    {
+      Name = "HadesGraspingHandsFx"
+      FilePath = "Fx\GraspingHands\GraspingHands"
+      NumFrames = 69
+      RandomFlipHorizontal = true
+      Material = "Unlit"
+      GroupName = "FX_Terrain"
+      AngleFromOwner = "Ignore"
+      DieWithOwner = false
+      RandomPlaySpeedMin = 45
+      RandomPlaySpeedMax = 45
+      ScaleRadius = 185
+      Sound = "/Leftovers/SFX/BallHoldingAmbience"
+      StopSoundOnFinishFade = 0.25
+    }
+    {
+      Name = "HadesLaserDark"
+      InheritFrom = "HadesLaser"
+      GroupName = "FX_Dark"
+      Red = 0 
+      Green = 0
+      Blue = 0
+      CreateAnimation = null
+      ClearCreateAnimations = true
+      CreateAnimationOnEnd = null
+      ScaleY = 1.0
+      StartScaleY = 1.0
+      EndScaleY = 1.2
+      EaseIn = 0 
+      EaseOut = 1
+      PingPongScale = true
+      DieWithOwner = true
+    }
+	
+    {
+      Name = "HadesLaserEnd"
+      InheritFrom = "HadesLaser"
+      Sound = "/EmptyCue"
+      LoopFramesOnly = true
+      StartScaleY = 1
+      EndScaleY = 0
+      ChainTo = null
+      CreateAnimationOnEnd = null
+      Duration = 0.33
+      EaseIn = 0.5
+      EaseOut = 1.0
+      Loop = false
+      GroupName = "Standing"
+      ClearCreateAnimations = true
+      CreateAnimation = null
+      ChildAnimation = null
+    }
+    {
+      Name = "HadesLaserOrigin"
+      FilePath = "Fx\HadesBeamCapEnd\HadesBeamCapEnd"
+      GroupName = "Standing"
+      FlipHorizontal = true
+      ColorFromOwner = "Ignore"
+      EndFrame = 40
+      Loop = true
+      NumFrames = 40
+      PlaySpeed = 30.0
+      StartFrame = 1
+      DieWithOwner = true
+      SortMode = "FromParent"
+      ScaleFromOwner = "Ignore"
+      Scale = 1.0
+      ScaleX = 2
+      OriginX = 9
+      OriginY = 57
+      RandomFlipVertical = true
+      CreateAnimation = "HadesLaserOriginGlow"
+    }
+
+    {
+      Name = "HadesLaserOriginNoLight"
+      InheritFrom = "HadesLaserOrigin"
+      CreateAnimation = null
+    }
+    {
+      Name = "HadesLaserTip"
+      FilePath = "Fx\HadesBeamCapStart\HadesBeamCapStart"
+      Material = "Unlit"
+      GroupName = "Standing"
+      SortMode = "FromParent"
+      NumFrames = 40
+      Loop = true
+      LoopFramesOnly = true
+      StartScale = 0.5
+      EndScale = 1.0
+      EaseIn = 0
+      EaseOut = 1
+      PingPongScale = true
+      RandomPlaySpeedMin = 30
+      RandomPlaySpeedMax = 50
+      ScaleMin = 0.98
+      ReRandomizeOnLoop = true
+      ScaleMax = 1.02
+      Scale = 0.9
+      ScaleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      RandomStartFrame = true
+      LocationFromOwner = "Ignore"
+      FlipHorizontal = true
+      RandomFlipVertical = true
+      VisualFx = "HadesLaserTipParticles"
+	  VisualFxManagerCap = 400
+      VisualFxIntervalMax = 0.3
+      VisualFxIntervalMin = 0.2
+      TransferFrameToThis = true
+      TransferFrameFromThis = false
+      DieWithOwner = true
+      CreateAnimation = "HadesLaserTipGlow"
+    }
+
+    {
+      Name = "HadesLaserTipGlow"
+      FilePath = "Particles\particle_quickflash"
+      Red = 1
+      Green = 1
+      Blue = 0.2
+      StartScale = 1
+      EndScale = 1.2
+      PingPongScale = true
+      StartAlpha = 0.8
+      EndAlpha = 1
+      PingPongColor = true
+      DieWithOwner = true
+      ScaleFromOwner = "Ignore"
+      ColorFromOwner = "Ignore"
+      LocationFromOwner = "Ignore"
+      GroupName = "FX_Standing_Add"
+      Material = "Unlit"
+      Scale = 0.6
+      RandomRotation = true
+    }
+
+    {
+      Name = "HadesLaserTipIntro"
+      InheritFrom = "HadesLaserTip"
+      LoopFramesOnly = true
+      ChainTo = "HadesLaserTip"
+      StartScale = 0
+      EndScale = 0.3
+      Loop = false
+      Duration = 0.75
+      TransferFrameToThis = false
+      TransferFrameFromThis = true
+      VisualFx = null
+    }
+
+    {
+      Name = "HadesLaserTipIntroNoParticles"
+      InheritFrom = "HadesLaserTipIntro"
+      ChainTo = "HadesLaserTipNoParticles"
+    }
+
+    {
+      Name = "HadesLaserTipNoParticles"
+      InheritFrom = "HadesLaserTip"
+      VisualFx = null
+    }
+	{
+		Name = "MinotaurAxeArc"
+		FilePath = "Fx\MinotaurAxeArc\MinotaurAxeArc"
+		ColorFromOwner = "Ignore"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 60.0
+		StartFrame = 1
+		FlipVertical = true
+		PostRotateScaleY = 0.5
+		Scale = 3.75
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "MinotaurAxeArcRight"
+		InheritFrom = "MinotaurAxeArc"
+		CreateAnimation = "MinotaurAxeArcRightDisplacement"
+		FlipVertical = false
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "MinotaurAxeArcRightDisplacement"
+		InheritFrom = "MinotaurAxeArcRight"
+		CreateAnimation = "null"
+		GroupName = "FX_Displacement"
+		EndAlpha = 0.1
+		PingPongColor = true
+		PlaySpeed = 50.0
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashEnemy" }
+		]
+	}
+
+	{
+		Name = "DisplaceShockwave-EnemyProjectileImpact"
+		InheritFrom = "DisplaceShockwave"
+		StartAlpha = 0.5
+		PlaySpeed = 60.0
+		OffsetZ = 100.0
+		LocationZFromOwner = "Take"
+		TimeModifierFraction = 1.0
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "EnemyLightSlash"
+		ChildAnimation = "QuickFlashEnemySpawnerSmall"
+		FilePath = "Fx\EnemyLightSlash\EnemyLightSlash"
+		GroupName = "Standing"
+
+		AngleFromOwner = "Ignore"
+		EndFrame = 24
+		NumFrames = 24
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		Scale = 0.85
+		ScaleY = 0.6
+		Ambient = 0.0
+		TimeModifierFraction = 1.0
+	}
+
+	{
+		Name = "EnemyHeavySlash"
+		CreateAnimation = "QuickFlashEnemy"
+		FilePath = "Fx\EnemyHeavySlash\EnemyHeavySlash"
+		GroupName = "Standing"
+
+		Angle = 180.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 90.0
+		StartFrame = 1
+		OriginX = 130.0
+		OriginY = 124.0
+		SortMode = "Id"
+		ScaleX = 1.25
+		Ambient = 0.0
+	}
+
+
+	{
+		Name = "DeathBlobSmallRed"
+		FilePath = "Fx\DeathBlobSmall\DeathBlobSmall"
+		GroupName = "Standing"
+		AngleMax = 30.0
+		AngleMin = -30.0
+		EndFrame = 30
+		LoopFramesOnly = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.05
+		StartFrame = 1
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Gravity = 1000.0
+		UpwardVelocityMax = 400.0
+		UpwardVelocityMin = 20.0
+		VelocityMax = 600.0
+		VelocityMin = 100.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		Ambient = 0.0
+		CreateAnimationOnEnd = "DeathSplatsRed"
+		Color = { Red = 0.65 Green = 0.0 Blue = 0.0 }
+	}
+
+
+	{
+		Name = "EnemyLaserStartBurst"
+		InheritFrom = "EnemyLaser"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		AddColor = true
+		Duration = 0.1
+		EndScaleY = 0.0
+		StartScaleY = 3.0
+		Color = { Red = 1.0 Green = 0.01 Blue = 0.90 }
+	}
+	
+	{
+		Name = "EnemyLaserOriginFlare"
+		FilePath = "Fx\ProjectileFlare\ProjectileFlare"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		Duration = 0.2
+		EndFrame = 60
+		Loop = true
+		LoopFramesOnly = true
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		DieWithOwner = true
+		SortMode = "FromParent"
+		EndScale = 1.2
+		PingPongScale = true
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+		Color = { Red = 1.0 Green = 0.01 Blue = 0.90 }
+	}
+
+	
+	{
+		Name = "EnemyLaserTipFlare"
+		InheritFrom = "EnemyLaserOriginFlare"
+		VisualFx = "EnemyLaserTipParticles"
+		Sound = "/SFX/Enemy Sounds/Brimstone/CrystalBeamFireStart"
+		LocationFromOwner = "Ignore"
+		Scale = 0.9
+		VisualFxIntervalMax = 0.04
+		VisualFxIntervalMin = 0.02
+	}	
+
+	{
+		Name = "EnemyLaserTipParticles"
+		InheritFrom = "EnemyLaserOriginFlare"
+		AngleMax = 360.0
+		Loop = false
+		RandomDurationMax = 0.9
+		RandomDurationMin = 0.3
+		OffsetZ = 0.0
+		DieWithOwner = false
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Acceleration = -600.0
+		Gravity = 300.0
+		VelocityMax = 450.0
+		VelocityMin = 200.0
+		EndScale = 0.0
+		PingPongScale = false
+		ScaleMax = 0.12
+		ScaleMin = 0.06
+		StartScale = 1.0
+	}
+	
+	{
+		Name = "EnemyLaserEnd"
+		InheritFrom = "EnemyLaser"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		EndBlue = 0.5
+		EndRed = 0.99
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.15
+		EaseOut = 1.0
+		TransferCopyBody = true
+		EndScaleY = 0.0
+	}
+	
+
+	{
+		Name = "DeathSplats"
+		FilePath = "Animations\DeathSplats\DeathSplats"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "DeathSplatA" }
+			{ Name = "DeathSplatB" }
+			{ Name = "DeathSplatC" }
+			{ Name = "DeathSplatD" }
+		]
+	}
+
+	{
+		Name = "DeathSplatA"
+		ChainTo = "DeathSplatADissipate"
+		ChildAnimation = "DeathSplatSmoke"
+		FilePath = "Fx\DeathSplatA\DeathSplatA"
+		GroupName = "FX_Terrain_Liquid"
+		RequiresUnblocked = true
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 18
+		HoldLastFrame = true
+		LoopFramesOnly = true
+		NumFrames = 18
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.25
+		Ambient = 1.0
+		CancelOverCap = true
+		OnlyWhenVisible = true
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "DeathSplatADissipate"
+		InheritFrom = "DeathSplatA"
+		LoopFramesOnly = false
+		NumFrames = 1
+		EndFrame = 1
+		StartFrame = 1
+		FilePath = "Fx\DeathSplatA\DeathSplatA0018"
+		ChainTo = "null"
+		ChildAnimation = "null"
+		Sound = "/EmptyCue"
+		StartScale = 1
+		EndScale = 0
+		HoldLastFrame = false
+		RandomDurationMax = 1.1
+		RandomDurationMin = 0.9
+		TransferAngle = true
+		CancelOverCap = false
+	}
+	
+	{
+		Name = "DeathSplatB"
+		InheritFrom = "DeathSplatA"
+		ChainTo = "DeathSplatBDissipate"
+		FilePath = "Fx\DeathSplatB\DeathSplatB"
+	}
+	
+	{
+		Name = "DeathSplatBDissipate"
+		InheritFrom = "DeathSplatADissipate"
+		FilePath = "Fx\DeathSplatB\DeathSplatB0018"
+	}
+	
+	{
+		Name = "DeathSplatC"
+		InheritFrom = "DeathSplatA"
+		ChainTo = "DeathSplatCDissipate"
+		FilePath = "Fx\DeathSplatC\DeathSplatC"
+	}
+	
+	{
+		Name = "DeathSplatCDissipate"
+		InheritFrom = "DeathSplatADissipate"
+		FilePath = "Fx\DeathSplatC\DeathSplatC0018"
+	}
+	
+	{
+		Name = "DeathSplatD"
+		InheritFrom = "DeathSplatA"
+		ChainTo = "DeathSplatDDissipate"
+		FilePath = "Fx\DeathSplatD\DeathSplatD"
+	}
+	
+	{
+		Name = "DeathSplatDDissipate"
+		InheritFrom = "DeathSplatADissipate"
+		FilePath = "Fx\DeathSplatD\DeathSplatD0018"
+	}
+
+	{
+		Name = "DeathBlobs"
+		FilePath = "Animations\DeathBlobs\DeathBlobs"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "DeathBlobSmall" }
+			{ Name = "DeathBlobSmall" }
+			{ Name = "DeathBlobSmall" }
+			{ Name = "DeathBlobMedium" }
+		]
+	}
+
+	{
+		Name = "DeathBlobSmall"
+		FilePath = "Fx\DeathBlobSmall\DeathBlobSmall"
+		GroupName = "Standing"
+		AngleMax = 30.0
+		AngleMin = -30.0
+		EndFrame = 30
+		LoopFramesOnly = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.05
+		StartFrame = 1
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Gravity = 1000.0
+		UpwardVelocityMax = 400.0
+		UpwardVelocityMin = 20.0
+		VelocityMax = 600.0
+		VelocityMin = 100.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		Ambient = 0.0
+		CreateAnimationOnEnd = "DeathSplats"
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "DeathBlobMedium"
+		InheritFrom = "DeathBlobSmall"
+		FilePath = "Fx\DeathBlobMedium\DeathBlobMedium"
+	}
+
+	{
+		Name = "DevotionPreAttackBase"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Terrain_Add"
+		
+		VisualFx = "DevotionPreAttackFx"
+		UseOwnAngle = false
+		EndAlpha = 0.4
+		Duration = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 100.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+		CreateAnimationOnEnd = "DevotionPreAttackBaseEnd"
+	}
+	
+	{
+		Name = "DevotionPreAttackFx"
+		FilePath = "Fx\DevotionRingsDark\DevotionRingsDark"
+		GroupName = "FX_Terrain"
+		
+		EndAlpha = 1.0
+		PingPongColor = true
+		EndFrame = 3
+		NumFrames = 3
+		PlaySpeed = 1E-07
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.5
+		RandomStartFrame = true
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		DieWithOwner = true
+		RandomRotation = true
+		EndScale = 1.05
+		PostRotateScaleY = 0.5
+		Scale = 1.15
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.01
+		ScaleMin = 0.99
+		ScaleRadius = 160.0
+		CreateAnimations =
+		[
+			{ Name = "DevotionRings" }
+			{ Name = "DevotionLines" }
+		]
+	}
+	
+	{
+		Name = "DevotionRings"
+		FilePath = "Fx\DevotionRings\DevotionRings"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 3
+		NumFrames = 3
+		PlaySpeed = 1E-07
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.6
+		RandomStartFrame = true
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = true
+		EndScale = 1.03
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.02
+		ScaleMin = 0.99
+		ScaleRadius = 300.0
+	}
+	
+	{
+		Name = "DevotionLines"
+		InheritFrom = "DevotionRings"
+		FilePath = "Fx\DevotionLines\DevotionLines"
+		GroupName = "FX_Add_Top"
+		Angle = 270.0
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.7
+		RandomFlipVertical = false
+		OriginX = 60.0
+		OriginY = 480.0
+		RandomOffsetX = 3.0
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		VelocityMax = 75.0
+		VelocityMin = 50.0
+		RandomRotation = false
+		EndScaleY = 1.2
+		PostRotateScaleY = 1.0
+		ScaleX = 0.5
+	}
+	
+	{
+		Name = "DevotionPreAttackBaseEnd"
+		InheritFrom = "DevotionPreAttackBase"
+		CreateAnimation = "DevotionPreAttackEndSpike"
+		VisualFx = "null"
+		EndAlpha = 0.0
+		StartAlpha = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndScale = 1.7
+		StartScale = 1.5
+		CreateAnimationOnEnd = "null"
+	}
+	
+	{
+		Name = "DevotionPreAttackEndSpike"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Take"
+		StartAlpha = 1.0
+		DurationFrames = 15
+		EaseIn = 0.98
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 800.0
+		SortMode = "FromParent"
+		EndScaleX = 0.0
+		EndScaleY = 2.0
+		Scale = 0.75
+		StartScaleX = 1.5
+		StartScaleY = 0.8
+		UseBoundsForSortDrawArea = true
+	}
+
+
+	{
+		Name = "LightningBolt"
+		FilePath = "Fx\LightningBolt\LightningBolt"
+		GroupName = "Standing"
+
+		AngleFromOwner = "Ignore"
+		AngleMax = 30.0
+		AngleMin = -30.0
+		Sound = "/EmptyCue"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OriginX = 160.0
+		OriginY = 940.0
+		SortMode = "Isometric"
+		Ambient = 0.0
+	}
+	{
+		Name = "Immolation"
+		FilePath = "Fx\Immolation\Immolation"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AngleMax = 190.0
+		AngleMin = 170.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 80.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 128.0
+		OriginY = 260.0
+		RandomOffsetX = 20.0
+		RandomOffsetY = 6.0
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleMax = 1.1
+		ScaleMin = 0.5
+		Ambient = 0.0
+	}
+
+
+	{
+		Name = "Immolation_Prometheus"
+		InheritFrom = "Immolation"
+		Hue = 0.5
+		Scale = 1.5
+		GroupName = "FX_Standing_Add"
+	}
+
 ]}

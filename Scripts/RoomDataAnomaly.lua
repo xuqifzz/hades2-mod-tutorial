@@ -13,9 +13,7 @@ RoomSetData.Anomaly =
 		-- for GameStateRequirements, search AnomalyDoorRequirements =
 		SecretSpawnChance = 0.0,
 		ShrinePointDoorSpawnChance = 0.0,
-		TimeChallengeSwitchSpawnChance = 0.0,
-		CapturePointSwitchSpawnChance = 0.0,
-		PerfectClearSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 0.0,
 		SurfaceShopSpawnChance = 0.0,
 		BlockGiftBoons = true,	--Don't serve boons that drop objects
@@ -59,7 +57,6 @@ RoomSetData.Anomaly =
 	B_Combat05 =
 	{
 		InheritFrom = { "BaseAnomaly" },
-		DebugOnly = true,
 	},
 
 	B_Combat06 =
@@ -70,25 +67,21 @@ RoomSetData.Anomaly =
 	B_Combat07 =
 	{
 		InheritFrom = { "BaseAnomaly" },
-		DebugOnly = true,
 	},
 
 	B_Combat08 =
 	{
 		InheritFrom = { "BaseAnomaly" },
-		DebugOnly = true,
 	},
 
 	B_Combat10 =
 	{
 		InheritFrom = { "BaseAnomaly" },
-		DebugOnly = true,
 	},
 
 	B_Combat21 =
 	{
 		InheritFrom = { "BaseAnomaly" },
-		DebugOnly = true,
 	},
 }
 AddTableKeysCheckDupes( RoomData, RoomSetData.Anomaly )

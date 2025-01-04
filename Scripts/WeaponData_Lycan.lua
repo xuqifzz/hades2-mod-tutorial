@@ -72,6 +72,9 @@ WeaponSetData =
 
 			MoveWithinRange = false,
 			AttackDistance = 9999,
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Sounds =
@@ -99,6 +102,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "LycanthropeLeapKnockbackFriends",
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 	},
 
@@ -159,6 +165,9 @@ WeaponSetData =
 			MaxActiveSpawns = 3,
 			SpawnerOptions = { "LycanSwarmer" },
 			SpawnAggroed = true,
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Sounds =

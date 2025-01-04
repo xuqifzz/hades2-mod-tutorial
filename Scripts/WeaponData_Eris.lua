@@ -38,7 +38,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ErisAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},
 		},
 
@@ -88,6 +88,9 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
+			PreAttackFx = "ErisSprayPreview",
+			EndPreAttackFx = true,
+
 			ProjectileName = "GunWeapon",
 			FireTicksMin = 15,
 			FireTicksMax = 15,
@@ -129,7 +132,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ErisAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},			
 		},
 
@@ -161,6 +164,9 @@ WeaponSetData =
 			--DeepInheritance = true,
 
 			ProjectileName = "GunWeapon",
+
+			PreAttackFx = "ErisSprayPreview",
+			EndPreAttackFx = true,
 
 			AttackSlots =
 			{
@@ -209,7 +215,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ErisAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},
 		},
 
@@ -675,7 +681,7 @@ WeaponSetData =
 
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.ErisAttackVoiceLines,
+				[1] = { GlobalVoiceLines = "ErisAttackVoiceLines" },
 			},
 		},
 
@@ -692,6 +698,19 @@ WeaponSetData =
 		{
 			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
 			{ ScreenPreWait = 0.02, Fraction = 1.00, LerpTime = 0.08 },
+		},
+	},
+
+	ErisDashOutOfFire =
+	{
+		InheritFrom = { "ErisDash" },
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			TargetSpawnPoints = true,
+			TargetSpawnPointsRadius = 700,
 		},
 	},
 
@@ -899,8 +918,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			SpawnsPerBurstMin = 4,
-			SpawnsPerBurstMax = 4,
+			SpawnsPerBurstMin = 1,
+			SpawnsPerBurstMax = 1,
 			MaxActiveSpawns = 6,
 			SpawnerOptions = { "Drunk_Elite" },
 		},
@@ -935,8 +954,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			SpawnsPerBurstMin = 3,
-			SpawnsPerBurstMax = 3,
+			SpawnsPerBurstMin = 1,
+			SpawnsPerBurstMax = 1,
 			MaxActiveSpawns = 6,
 			SpawnerOptions = { "Stickler_Elite" },
 		},
@@ -1210,7 +1229,7 @@ WeaponSetData =
 			NoProjectile = true,
 			AttackDistance = 9999,
 
-			PreAttackTeleportToSpawnPoints = true,
+			PreAttackTeleport = true,
 			RequireTeleportTargetLoS = true,
 
 			ChainedWeapon = "ErisSnipe3",
@@ -1235,8 +1254,6 @@ WeaponSetData =
 			"ErisDash",
 			"ErisSpreadFire",
 			"ErisDash",
-			"ErisSpray",
-			"ErisGrenadeCluster01",
 			"ErisSnipe1",
 		},
 
@@ -1256,8 +1273,6 @@ WeaponSetData =
 			"ErisGrenadeCluster01",
 			"ErisDash",
 			"ErisGrenadeCluster02",
-			"ErisDash",
-			"ErisGrenadeCluster03",
 			"ErisDash",
 			"ErisSnipe2",
 		},
@@ -1324,7 +1339,7 @@ WeaponSetData =
 			NoProjectile = true,
 			AttackDistance = 9999,
 
-			PreAttackTeleportToSpawnPoints = true,
+			PreAttackTeleport = true,
 
 			RequireTeleportTargetLoS = true,
 
@@ -1356,9 +1371,65 @@ WeaponSetData =
 
 			AttackDistance = 99999,
 
-			PostAttackDuration = 0.75,
+			PreAttackRotationDampening = 0.09,
+			AngleTowardsTargetWhileFiring = true,
+
+			PostAttackDuration = 1.1,
 			ChainedWeaponOptions = { },
 		},
+	},
+
+	ErisRelocate_Up =
+	{
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackStop = true,
+			MoveWithinRange = false,
+			NoProjectile = true,
+			AttackDistance = 9999,
+
+			PreAttackDuration = 0.225,
+			FireDuration = 0.275,
+			PostAttackDuration = 0.5,
+
+			ChainedWeaponOptions = { "ErisRelocate_Down", },
+
+			PreAttackAnimation = "Enemy_Eris_FlyUp_Start_Fast",
+			FireAnimation = "Enemy_Eris_FlyUp_Fire_Fast",
+
+			FireSetZHeight = 800,
+			FireSetZDuration = 0.275,
+		},
+	},
+
+	ErisRelocate_Down =
+	{
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			PreAttackStop = true,
+			MoveWithinRange = false,
+			NoProjectile = true,
+			AttackDistance = 9999,
+
+			PreAttackTeleport = true,
+
+			RequireTeleportTargetLoS = true,
+
+			PreAttackDuration = 0.5,
+			FireDuration = 0.2,
+			PostAttackDuration = 1.25,
+
+			FireAnimation = "Enemy_Eris_FlyDown",
+			PreAttackSetZHeight = 800,
+			FireSetZHeight = 5,
+			FireSetZDuration = 0.19,
+		}
 	},
 }
 

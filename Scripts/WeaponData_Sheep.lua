@@ -125,7 +125,7 @@ WeaponSetData =
 			NoProjectile = true,
 
 			TargetSpawnPoints = true,
-			TargetSpawnPointsPlayerRadius = 900,
+			TargetSpawnPointsRadius = 900,
 
 			FireSelfVelocity = 1100,
 			ApplyEffectsOnWeaponFire =

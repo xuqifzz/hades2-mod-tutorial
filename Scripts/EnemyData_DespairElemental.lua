@@ -86,7 +86,11 @@ UnitSetData.DespairElemental =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 2,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 2,
+			},
 		},
 	},
 
@@ -110,7 +114,11 @@ UnitSetData.DespairElemental =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 4,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 4,
+			},
 		},
 	},
 	DespairElementalLarge_Elite =

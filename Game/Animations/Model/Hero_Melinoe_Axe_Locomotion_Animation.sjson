@@ -47,20 +47,13 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Axe_Idle"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Axe_Sprint_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Axe_Run_FireLoop"
-				Duration = 6
-			}
-			{
 				BlendTransitionFrom = "Melinoe_Axe_Equip"
 				Duration = 6
+			}
+
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 3
 			}
 		]
 
@@ -103,6 +96,14 @@
 			{
 				Name = "Axe_Dash_Fire"
 				ToBone = "Melinoe_Rig:weaponHand_00_R_JNT" 
+			}
+		]
+
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_Fire"
+				Duration = 3
 			}
 		]
 	}
@@ -431,6 +432,10 @@
 			}
 
 			{
+				BlendTransitionFrom = "Melinoe_HeroLanding"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "MelinoeInteract"
 				Duration = 5
 			}
@@ -519,6 +524,10 @@
 		VisualFxDistanceMin = 40
 		VisualFxDistanceMax = 100
 		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Axe_Dash_Fire" }
+		]
 		Attachments =
 		[
 			{
@@ -545,8 +554,8 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Axe_Dash_Fire"
-				Duration = 4
+				BlendTransitionFrom = "Melinoe_Axe_Dash_End1"
+				Duration = 6
 			}
 		]
 	}

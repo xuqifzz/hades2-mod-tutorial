@@ -1,8 +1,7 @@
 ﻿function OpenMetaUpgradeCardScreen( source, args )
 	args = args or {}
 	StopStatusAnimation( source )
-	ScreenAnchors.MetaUpgradeScreen = DeepCopyTable( ScreenData.MetaUpgradeCardLayout)
-	local screen = ScreenAnchors.MetaUpgradeScreen
+	local screen = DeepCopyTable( ScreenData.MetaUpgradeCardLayout )
 	local components = screen.Components
 	screen.SourceId = source.ObjectId
 	screen.OpenedFrom = source
@@ -16,7 +15,7 @@
 		local resourceData = ConsumableData[resourceConsumable]
 		for resourceName, amount in pairs( resourceData.AddResources ) do
 			if GetResourceAmount( resourceName ) <= 0 then
-				AddResource( resourceName, amount, "FirstOpenPity", { Silent = true })
+				AddResource( resourceName, amount, "FirstOpenPity", { Silent = true } )
 			end
 		end
 	end
@@ -36,6 +35,7 @@
 
 	RecordStartingMetaUpgrades( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
+	InitializeMetaUpgradePins( screen )
 	UpdateMetaUpgradeCostText( screen )
 	CreateMetaUpgradeCards( screen, {Autoselect = args.HighlightedCardName })
 	screen.LastMouseOffButtonCardName = args.LastMouseOffButtonCardName
@@ -47,6 +47,7 @@
 	if screen.FirstView then
 		DoMetaUpgradeCardReveal( screen, { RevealedCardCoords = {{ Row = 1, Column = 1 }}})
 	end
+	MetaUpgradeCardScreenUpdateLayoutSets( screen )
 	wait(0.2)
 
 	screen.KeepOpen = true
@@ -54,8 +55,14 @@
 	MetaUpgradeCardScreenOpenPresentation( screen )	
 	
 	if CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 and GetMaximumUnlockedMetaUpgradeCost() > GetMaxMetaUpgradeCost() then
-		OpenGraspLimitScreen( screen, true )
+		OpenGraspLimitScreen( screen, { UnlockedCards = true } )
 		thread( PlayVoiceLines, GlobalVoiceLines.ReachedMemLimitVoiceLines )
+		MetaUpgradeCardScreenResetCursor( screen )
+		CreateAnimation({ Name = "MEMCanAffordBadge", DestinationId = screen.Components.MemCostModule.Id, OffsetY = -210})
+	elseif CanIncreaseMetaUpgradeCardLimit() and GetCurrentMetaUpgradeLimitLevel() == 0 then
+		OpenGraspLimitScreen( screen, { CanAfford = true } )
+		MetaUpgradeCardScreenResetCursor( screen )
+		CreateAnimation({ Name = "MEMCanAffordBadge", DestinationId = screen.Components.MemCostModule.Id, OffsetY = -210})
 	elseif CanUpgradeCards() and not GameState.ScreensViewed.CardUpgradeInfoLayout then
 		thread( UpgradeModeAvailablePresentation )
 
@@ -70,6 +77,7 @@ end
 
 function DoMetaUpgradePatches()
 	for row, rowData in pairs( MetaUpgradeDefaultCardLayout ) do
+		GameState.MetaUpgradeCardLayout[row] = GameState.MetaUpgradeCardLayout[row] or {}
 		for column, cardName in pairs( rowData ) do
 			GameState.MetaUpgradeCardLayout[row][column] = MetaUpgradeDefaultCardLayout[row][column]
 		end
@@ -103,6 +111,8 @@ function DoMetaUpgradePatches()
 		ShrineUpgradeExtractValues( name )
 	end
 
+	GameState.CurrentMetaUpgradeLayout = GameState.CurrentMetaUpgradeLayout or 1
+	GameState.SavedMetaUpgradeLayouts = GameState.SavedMetaUpgradeLayouts or {}
 	UpdateMetaUpgradeUnlockedCountCache()
 end
 
@@ -130,6 +140,19 @@ function GetZoomLevel()
 	return zoomLevel
 end
 
+function MetaUpgradeCardScreenResetCursor( screen, args )
+	local destination = nil
+	if args ~= nil and args.Destination ~= nil then
+		destination = args.Destination
+	elseif screen.SelectedButton ~= nil then
+		destination = screen.SelectedButton
+	else
+		destination = screen.Components[GetMetaUpgradeKey(1, 1)]
+	end
+	TeleportCursor({ DestinationId = destination.Id, OffsetX = 20, OffsetY = 20, ForceUseCheck = true })
+	MouseOverMetaUpgrade( destination, true)
+end
+
 function CreateMetaUpgradeCards( screen, cardArgs )
 	cardArgs = cardArgs or {}
 	local firstUsable = false
@@ -139,15 +162,13 @@ function CreateMetaUpgradeCards( screen, cardArgs )
 				local newCard = CreateMetaUpgradeCard( screen, row, column, cardName, cardArgs )
 				if cardName == cardArgs.Autoselect or newCard.CardState == "UNLOCKED" and not firstUsable then
 					firstUsable = true
-					TeleportCursor({ DestinationId = newCard.Id, OffsetX = 20, OffsetY = 20, ForceUseCheck = true })
-					MouseOverMetaUpgrade( newCard, true )
+					MetaUpgradeCardScreenResetCursor( screen, { Id = newCard.Id })
 				end
 			end
 		end
 	end
 	if not firstUsable then
-		TeleportCursor({ DestinationId = screen.Components[GetMetaUpgradeKey(1, 1)].Id, OffsetX = 20, OffsetY = 20, ForceUseCheck = true })
-		MouseOverMetaUpgrade(  screen.Components[GetMetaUpgradeKey(1, 1)], true)
+		MetaUpgradeCardScreenResetCursor( screen )
 	end
 end
 
@@ -188,10 +209,8 @@ function CreateMetaUpgradeCard( screen, row, column, cardName, args )
 	end
 	components[GetMetaUpgradeKey(row, column)] = newObstacle
 	AttachLua({ Id = newObstacle.Id, Table = newObstacle })
-	SetInteractProperty({ DestinationId = newObstacle.Id, Property = "TooltipX", Value = ScreenCenterNativeOffsetX + 1675 })
-	SetInteractProperty({ DestinationId = newObstacle.Id, Property = "TooltipY", Value = ScreenCenterNativeOffsetY + 620 })
-	
-	
+	SetInteractProperty({ DestinationId = newObstacle.Id, Property = "TooltipX", Value = ScreenCenterNativeOffsetX + screen.TooltipX })
+	SetInteractProperty({ DestinationId = newObstacle.Id, Property = "TooltipY", Value = ScreenCenterNativeOffsetY + screen.TooltipY })	
 
 	-- auxilary items
 	local cardArtOverlay = CreateScreenComponent({ 
@@ -488,6 +507,23 @@ function GetMetaUpgradeCardButton( screen, metaUpgradeName )
 	return nil
 end
 
+function InitializeMetaUpgradePins( screen )
+
+	local components = screen.Components
+	local pinIcon = CreateScreenComponent({ 
+		Name = "BlankObstacle", 
+		Group = "Combat_Menu_Overlay",
+	})
+	components.MemCostModule.PinButtonId = pinIcon.Id 
+	Attach({ Id = pinIcon.Id, DestinationId = components.MemCostModule.Id, OffsetX = 155, OffsetY = 156 })
+	if HasStoreItemPin( "MetaUpgradeLevelData".. GetCurrentMetaUpgradeLimitLevel() + 1 ) then
+		AddStoreItemPinPresentation( components.MemCostModule, { AnimationName = "MetaUpgradeItemPin", SkipVoice = true })
+		-- Silent toolip
+		CreateTextBox({ Id = components.MemCostModule.Id, TextSymbolScale = 0, Text = "StoreItemPinTooltip", Color = Color.Transparent, })
+	end
+
+end
+
 function UpdateMetaUpgradeCostText( screen, nextIncrease )
 	if not screen.KeepOpen then
 		return
@@ -518,9 +554,8 @@ function UpdateMetaUpgradeCostText( screen, nextIncrease )
 	end
 	ModifyTextBox({ Id = components.CurrentCostText.Id, Text = currentCost, Color = color })
 	ModifyTextBox({ Id = components.MaxCostText.Id, Text = maxCost .. "{!Icons.ManaCrystal}"})
-
-	if CanIncreaseMetaUpgradeCardLimit() then
 	
+	if CanIncreaseMetaUpgradeCardLimit() then
 		SetAlpha({ Id = components.MemNotifyUpgradeAvailableFrame.Id, Fraction = 1, Duration = 0.1 })
 	else
 		SetAlpha({ Id = components.MemNotifyUpgradeAvailableFrame.Id, Fraction = 0, Duration = 0.1 })
@@ -541,11 +576,7 @@ function GetCurrentMetaUpgradeCost()
 			totalCost = MetaUpgradeCardData[ metaUpgradeName ].Cost + totalCost
 		end
 	end
-	if GetNumShrineUpgrades( "NoMetaUpgradesShrineUpgrade" ) <= 0 then
-		GameState.MetaUpgradeCostCache = totalCost
-	else
-		GameState.MetaUpgradeCostCache = 0
-	end
+	GameState.MetaUpgradeCostCache = totalCost
 	return totalCost
 end
 
@@ -662,7 +693,7 @@ function SelectMetaUpgradeButton( screen, button )
 		if components.MetaUpgradeCardFlavorText then
 			if button.CardState == "UNLOCKED" and MetaUpgradeCardData[button.CardName].FlavorTextData then
 				for i, flavorTextData in ipairs(MetaUpgradeCardData[button.CardName].FlavorTextData) do
-					if IsGameStateEligible(CurrentRun, flavorTextData.GameStateRequirements) then
+					if IsGameStateEligible( flavorTextData, flavorTextData.GameStateRequirements ) then
 						if components.MetaUpgradeCardFlavorText.Text ~= flavorTextData.Name then
 							components.MetaUpgradeCardFlavorText.Text = flavorTextData.Name
 							DestroyTextBox({ Id = components.MetaUpgradeCardFlavorText.Id })
@@ -823,11 +854,16 @@ function IncreaseMetaUpgradeCardLimit( screen, button )
 	local nextCostData = MetaUpgradeCostData.MetaUpgradeLevelData[GetCurrentMetaUpgradeLimitLevel() + 1 ].ResourceCost
 	if nextCostData then
 		if HasResources(nextCostData) then
+		
+			RemoveStoreItemPin( "MetaUpgradeLevelData".. GetCurrentMetaUpgradeLimitLevel() + 1, { Purchase = true } )
+			RemoveStoreItemPinPresentation( button )
+
 			UpgradeMetaUpgradeLimitPresentation( screen, button )
 			SpendResources (nextCostData, "IncreaseCardLimit", { SkipOverheadText = true })
 			IncrementTableValue( GameState, "MetaUpgradeLimitLevel", 1 )
 			MouseOverMetaUpgradeCardLimit( button )
 			UpdateAffordabilityStatus()
+			StopAnimation({ Name = "MEMCanAffordBadge", DestinationId = button.Id })
 		else
 			ScreenCantAffordPresentation( screen, button, nextCostData)
 		end
@@ -850,8 +886,13 @@ function MouseOverMetaUpgradeCardLimit( button )
 	SetAlpha({ Id = components.CardHoverFrame.Id, Fraction = 0, Duration = 0.1 })
 	SetAlpha({ Id = components.MemHighlightFrame.Id, Fraction = 1, Duration = 0.1 })
 	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
+	SetAnimation({ Name = "Blank", DestinationId = components.MetaUpgradeCardArtPatch.Id })
+
 	if components.MetaUpgradeCardFlavorText then
 		ModifyTextBox({ Id = components.MetaUpgradeCardFlavorText.Id, Text = " " })
+	end	
+	if components.MetaUpgradeCardMaxLevel then
+		ModifyTextBox({ Id = components.MetaUpgradeCardMaxLevel.Id, Text = " " })
 	end
 	DestroyTextBox({ Ids = screen.CostIds })
 	local nextMetaUpgradeLevel = MetaUpgradeCostData.MetaUpgradeLevelData[GetCurrentMetaUpgradeLimitLevel() + 1 ]
@@ -866,7 +907,8 @@ function MouseOverMetaUpgradeCardLimit( button )
 
 		nextCostData = nextMetaUpgradeLevel.ResourceCost
 		if nextCostData then
-			SetAnimation({ DestinationId = components.MetaUpgradeCardArt.Id, Name = "CardArt_17", Scale = 0.66, OffsetX = -82, OffsetY = -160 })
+			SetAnimation({ DestinationId = components.MetaUpgradeCardArt.Id, Name = "DevBacking", Scale = 0.66, OffsetX = -82, OffsetY = -160 })
+			SetHSV({ Id = components.MetaUpgradeCardArt.Id, HSV = {0, -1, -0.1}, ValueChangeType = "Absolute" })
 			UpdateMetaUpgradeCostText( screen, nextMetaUpgradeLevel.CostIncrease  )
 			AddResourceCostDisplay( screen, nextCostData, screen.CostDisplay )
 			ModifyTextBox({ Id = components.MetaUpgradeCardTitle.Id, Text = "IncreaseMetaUpgradeCard" })
@@ -888,13 +930,17 @@ function MouseOffMetaUpgradeCardLimit( button )
 	end
 	local components = screen.Components
 	UpdateMetaUpgradeCostText( screen )
+	
 	SetAnimation({ DestinationId = components.MetaUpgradeCardArt.Id, Name = "DevBacking", Scale = 0.66, OffsetX = -82, OffsetY = -160 })
 	ModifyTextBox({ Id = components.MetaUpgradeCardTitle.Id, Text = " " })
 	ModifyTextBox({ Id = components.MetaUpgradeCardText.Id, Text = " " })
 	SetAlpha({ Id = components.CardHoverFrame.Id, Fraction = 1, Duration = 0.1 })
 	SetAlpha({ Id = components.MemHighlightFrame.Id, Fraction = 0, Duration = 0.1 })
-
+	
 	UpdateMetaUpgradeCardInteractionText( screen )
+	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
+	DestroyTextBox({ Ids = screen.CostIds })
+	screen.SelectedButton = nil
 end
 
 
@@ -943,6 +989,11 @@ function UpdateMetaUpgradeCardInteractionText( screen, button )
 		if button.Name == "MemCostModule" then
 			if MetaUpgradeCostData.MetaUpgradeLevelData[GetCurrentMetaUpgradeLimitLevel() + 1 ] then
 				--table.insert( textData, "MetaUpgradeMem_Upgrade" )
+				
+				if GameState.WorldUpgrades.WorldUpgradePinning then
+					--table.insert( textData, "MetaUpgrade_Pin" )
+					canPin = true
+				end
 				selectButtonText = "MetaUpgradeMem_Upgrade"
 			else
 				--table.insert( textData, "Max_MetaUpgrade_Action" )
@@ -969,7 +1020,7 @@ function UpdateMetaUpgradeCardInteractionText( screen, button )
 				end
 			end
 
-			if IsGameStateEligible( CurrentRun, MetaUpgradeSwapGameStateRequirement ) then
+			if IsGameStateEligible( screen, MetaUpgradeSwapGameStateRequirement ) then
 				if screen.PickedUpButton then
 					if screen.PickedUpButton == button then
 						--table.insert( textData, "MetaUpgrade_CancelSwap" )
@@ -1061,8 +1112,7 @@ function CloseMetaUpgradeCardScreen( screen, args )
 			end
 		end
 		if exitCanceled then
-			TeleportCursor({ DestinationId = screen.Components[GetMetaUpgradeKey(1, 1)].Id, OffsetX = 20, OffsetY = 20, ForceUseCheck = true })
-			MouseOverMetaUpgrade(  screen.Components[GetMetaUpgradeKey(1, 1)], true )
+			MetaUpgradeCardScreenResetCursor( screen )
 			return
 		end
 		
@@ -1105,9 +1155,10 @@ function CloseMetaUpgradeCardScreen( screen, args )
 	for _, id in pairs(screen.CostRingIds) do
 		table.insert( ids, id )
 	end
+	table.insert( ids, screen.Components.MemCostModule.PinButtonId )
 	OnScreenCloseStarted( screen )
 
-	if screen.ChangeMade then
+	if screen.ChangeMade and GameState.CompletedObjectiveSets.CardPrompt then
 		RequestPreRunLoadoutChangeSave()
 	end
 
@@ -1132,14 +1183,13 @@ function CloseMetaUpgradeCardScreen( screen, args )
 	UpdateRerollUI( CurrentRun.NumRerolls )
 	ValidateMaxHealth()
 	ValidateMaxMana()
-	if not IsGameStateEligible(CurrentRun, { AnyAffordableMetaUpgradeItems = true }) then
-		StopCurrentStatusAnimation( screen.OpenedFrom ) 
+	if not IsGameStateEligible( screen, { { FunctionName = "RequireAffordableMetaUpgrade" } } ) then
+		StopCurrentStatusAnimation( screen.OpenedFrom )
 	end
 
 	if not NoMetaUpgradeCardsUnlocked() then
 		thread( MarkObjectiveComplete, "CardPrompt" )
 	end
-	DebugPrint({Text = " screen end "})
 end
 
 function UpdateMetaUpgradeCardState( screen, button )
@@ -1167,7 +1217,7 @@ function HandleCardSwapInput( screen )
 	while screen.KeepOpen do
 		NotifyOnControlPressed({ Names = {"Attack3"}, Notify = "CardSwapInput" })
 		waitUntil( "CardSwapInput" )
-		if IsGameStateEligible( CurrentRun, MetaUpgradeSwapGameStateRequirement ) then
+		if IsGameStateEligible( screen, MetaUpgradeSwapGameStateRequirement ) then
 			if not screen.PickedUpButton then
 				-- Pick up card + start presentation
 				if screen.SelectedButton.CardState == "UNLOCKED" then
@@ -1236,7 +1286,7 @@ function SetCardOnDelay( id, delay )
 end
 
 function CanUpgradeCards()
-	return IsGameStateEligible( CurrentRun, ScreenData.MetaUpgradeCardUpgradeLayout.GameStateRequirements )
+	return IsGameStateEligible( nil, ScreenData.MetaUpgradeCardUpgradeLayout.GameStateRequirements )
 end
 
 function EnterUpgradeMode( screen, button )
@@ -1252,25 +1302,107 @@ function EnterUpgradeMode( screen, button )
 	thread( EnterMetaUpgradeUpgradeModePresentation, screen )
 end
 
+function SaveCurrentMetaUpgradeSet()
+	GameState.SavedMetaUpgradeLayouts[GameState.CurrentMetaUpgradeLayout] = {}
+	for metaUpgradeName, metaUpgradeState in pairs( GameState.MetaUpgradeState ) do
+		if GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+			GameState.SavedMetaUpgradeLayouts[GameState.CurrentMetaUpgradeLayout][metaUpgradeName] = true
+		end
+	end
+end
+function LoadCurrentMetaUpgradeSet( screen, button )
+	for metaUpgradeName, metaUpgradeState in pairs( GameState.MetaUpgradeState ) do
+		if GameState.MetaUpgradeState[metaUpgradeName].Equipped then
+			GameState.MetaUpgradeState[metaUpgradeName].Equipped = nil
+		end
+	end
+	if not IsEmpty(GameState.SavedMetaUpgradeLayouts[GameState.CurrentMetaUpgradeLayout]) then
+		for metaUpgradeName in pairs( GameState.SavedMetaUpgradeLayouts[GameState.CurrentMetaUpgradeLayout] ) do
+			GameState.MetaUpgradeState[metaUpgradeName].Equipped = true
+		end
+	end
+	
+	for row, rowData in pairs( GameState.MetaUpgradeCardLayout ) do
+		for column, cardName in pairs( rowData ) do
+		
+			local button = screen.Components[GetMetaUpgradeKey( row, column )]
+			if button then
+				UpdateMetaUpgradeCardAnimation( button )
+			end
+		end
+	end
+	UpdateMetaUpgradeCostText( screen )
+end
+
+function MetaUpgradeCardScreenSelectLayout( screen, button )
+
+	SaveCurrentMetaUpgradeSet()
+
+	GameState.PrevMetaUpgradeLayout = GameState.CurrentMetaUpgradeLayout
+	GameState.CurrentMetaUpgradeLayout = button.MetaUpgradeLayoutNum
+
+	if GameState.CurrentMetaUpgradeLayout ~= GameState.PrevMetaUpgradeLayout then
+		MetaUpgradeCardScreenLayoutChangeOut( screen, button )
+		LoadCurrentMetaUpgradeSet( screen, button )
+		MetaUpgradeCardScreenUpdateLayoutSets( screen, button )
+		MetaUpgradeCardScreenLayoutChangeIn( screen, button )
+	end
+end
+
+function MetaUpgradeCardScreenNextLayout( screen, button )
+	
+	SaveCurrentMetaUpgradeSet()
+
+	GameState.CurrentMetaUpgradeLayout = GameState.CurrentMetaUpgradeLayout + 1
+	if GameState.CurrentMetaUpgradeLayout > MetaUpgradeSaveLayoutData.MaximumMetaUpgradeLayouts then
+		GameState.CurrentMetaUpgradeLayout = 1
+	end
+
+	MetaUpgradeCardScreenLayoutChangeOut( screen, button )
+	LoadCurrentMetaUpgradeSet( screen, button )
+	MetaUpgradeCardScreenUpdateLayoutSets( screen, button )
+	MetaUpgradeCardScreenLayoutChangeIn( screen, button )
+end
+
+function MetaUpgradeCardScreenPrevLayout( screen, button )
+	SaveCurrentMetaUpgradeSet()
+
+	GameState.CurrentMetaUpgradeLayout = GameState.CurrentMetaUpgradeLayout - 1
+	if GameState.CurrentMetaUpgradeLayout < 1 then
+		GameState.CurrentMetaUpgradeLayout = MetaUpgradeSaveLayoutData.MaximumMetaUpgradeLayouts
+	end
+	
+	MetaUpgradeCardScreenLayoutChangeOut( screen, button )
+	LoadCurrentMetaUpgradeSet( screen, button )
+	MetaUpgradeCardScreenUpdateLayoutSets( screen, button )
+	MetaUpgradeCardScreenLayoutChangeIn( screen, button )
+end
+
 function MetaUpgradeCardScreenPinItem( screen, button )
 	if screen.SelectedButton == nil then
 		return
 	end
-	if screen.SelectedButton.CardName == button.Screen.LastMouseOffButtonCardName then
+	if screen.SelectedButton.CardName == button.Screen.LastMouseOffButtonCardName and screen.SelectedButton.Name ~= "MemCostModule" then
 		return
 	end
 	if not GameState.WorldUpgrades.WorldUpgradePinning then
 		return
 	end
-	if screen.SelectedButton.CardState ~= "LOCKED" or screen.SelectedButton.Name == "MemCostModule" then
+	if screen.SelectedButton.CardState ~= "LOCKED" and screen.SelectedButton.Name ~= "MemCostModule" then
 		return
 	end
 	local itemName = screen.SelectedButton.CardName
+	local storeName = "MetaUpgradeCardData"
+	if screen.SelectedButton.Name == "MemCostModule" then
+		itemName = "MetaUpgradeLevelData".. GetCurrentMetaUpgradeLimitLevel() + 1
+		storeName = "MetaUpgradeCostDataStore"
+		
+	end
 	if HasStoreItemPin( itemName ) then
 		RemoveStoreItemPin( itemName )
 		RemoveStoreItemPinPresentation( screen.SelectedButton )
 	else
-		AddStoreItemPin( itemName, "MetaUpgradeCardData" )
+		AddStoreItemPin( itemName, storeName )
 		AddStoreItemPinPresentation( screen.SelectedButton, { AnimationName = "MetaUpgradeItemPin" })
 	end
 end

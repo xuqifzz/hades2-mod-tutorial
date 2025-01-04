@@ -113,6 +113,7 @@ UnitSetData.LightRanged =
 
 		HealthBuffer = 225,
 
+		ActiveCapWeight = 1.5, -- for encounter difficulty tuning
 		DefaultAIData =
 		{
 			DeepInheritance = true,

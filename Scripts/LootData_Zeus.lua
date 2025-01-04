@@ -30,6 +30,8 @@ LootSetData.Zeus =
 		LightingColor = {255, 255, 128, 255},
 		LootColor = {255, 255, 64, 255},
 		SubtitleColor = Color.ZeusVoice,
+		EmoteOffsetY = -280,
+		EmoteOffsetX = 30,
 		ColorGrade = "ZeusLightning",
 		LootRejectionAnimation = "BoonDissipateA_Zeus",
 		SpawnSound = "/SFX/ZeusBoonThunder",
@@ -55,11 +57,11 @@ LootSetData.Zeus =
 			"EchoExpirationBoon",
 			"LightningDebuffGeneratorBoon",
 
-			-- Legendary
-			"SpawnKillBoon",
-
 			-- Elemental
 			"ElementalDamageFloorBoon",
+
+			-- Legendary
+			"SpawnKillBoon",
 
 			-- Duos
 			"SuperSacrificeBoonZeus",
@@ -75,7 +77,6 @@ LootSetData.Zeus =
 		SpeakerName = "Zeus",
 		Speaker = "NPC_Zeus_01",
 		Portrait = "Portrait_Zeus_Default_01",
-		WrathPortrait = "Portrait_Zeus_Wrath_01",
 		OverlayAnim = "ZeusOverlay",
 		Gender = "Male",
 		FlavorTextIds =
@@ -117,8 +118,8 @@ LootSetData.Zeus =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
-			[2] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			[2] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 		
 		DuoPickupTextLines =
@@ -128,7 +129,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SuperSacrificeBoonZeus",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SuperSacrificeBoonZeus" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0097",
@@ -144,7 +148,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SuperSacrificeBoonZeus",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SuperSacrificeBoonZeus" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0153",
@@ -161,7 +168,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "LightningVulnerabilityBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "LightningVulnerabilityBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0085",
@@ -178,7 +188,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "LightningVulnerabilityBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "LightningVulnerabilityBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0155",
@@ -196,7 +209,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ApolloSecondStageCastBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ApolloSecondStageCastBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0099",
@@ -213,7 +229,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "RootStrikeBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "RootStrikeBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0157",
@@ -230,7 +249,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SprintEchoBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SprintEchoBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0159",
@@ -247,7 +269,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ReboundingSparkBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ReboundingSparkBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0161",
@@ -264,7 +289,10 @@ LootSetData.Zeus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EchoBurnBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "EchoBurnBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0163",
@@ -305,7 +333,7 @@ LootSetData.Zeus =
 					NarrativeContextArt = "DialogueBackground_Olympus",
 					PreContentSound = "/Leftovers/Menu Sounds/TextReveal2",
 					Text = "{#Emph}Ah{#Prev}, young lady, so we meet at last! Emerged from all that gloom to help us settle an old score. If you possess your father's strength, then we have the advantage! Let us strike." },
-			},
+				},
 
 			-- low health
 			ZeusLowHealth01 =
@@ -322,7 +350,10 @@ LootSetData.Zeus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -345,7 +376,10 @@ LootSetData.Zeus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -368,7 +402,10 @@ LootSetData.Zeus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -392,7 +429,11 @@ LootSetData.Zeus =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
+
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -668,7 +709,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HermesAboutFates01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChronosNightmare01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChronosNightmare01" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0078",
@@ -756,6 +800,48 @@ LootSetData.Zeus =
 					Text = "You Underworld goddesses and gods all know each other, do you not? If you could please notify Nyx's pest of a daughter {#Emph}Eris {#Prev}that she has no permission to fly within our borders, we would be mightily obliged!" },
 			},
 
+			ZeusAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01", },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Zeus_0186",
+					Emote = "PortraitEmoteAnger",
+					Text = "That traitorous Titan Prometheus leads the vanguard of our enemy's forces on Olympus. Apparently he didn't learn a {#Emph}thing {#Prev}from when we punished him for his past crimes! We shall have to think of {#Emph}new {#Prev}ways to make him come around..." },
+			},
+			ZeusAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZeusAboutPrometheus01" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01", },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Zeus_0187",
+					Text = "You may have heard about the actions of Prometheus that earned him all my wrath. He {#Emph}stole {#Prev}from us! Denied us the glory of bestowing fire unto mortalkind on our own terms! He suffered as a consequence, but not nearly enough." },
+			},
+
 			ZeusAboutOlympians01 =
 			{
 				PlayOnce = true,
@@ -794,7 +880,6 @@ LootSetData.Zeus =
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0074",
-					
 					Text = "Once all of this is settled, you come join us on Olympus here, won't you? No need to toil on within that witch's glade. Though, I suppose you may be needed in your father's House. At any rate, know that the invitation stands!" },
 			},
 			ZeusAboutOlympus02 =
@@ -806,14 +891,38 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
 					},
 					{
-						PathTrue = { "GameState", "RoomCountCache", "P_Intro" },
+						Path = { "GameState", "RoomsEntered", "P_Intro" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0075",
-					
 					Text = "You've seen it now firsthand: Our great mountain is perpetually besieged, and we've not had a moment's peace of late. Yet this trial only makes us stronger as a family!" },
+			},
+			ZeusAboutOlympus03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Intro" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Zeus_0188",
+					Text = "It pains me that our mountain home remains in such an utterly unserviceable state, and that your arrival here was not met with a proper welcome! But mark my words, you shall witness Olympus in all its glory once this little matter is resolved!" },
 			},
 
 			ZeusAboutMortals01 =
@@ -825,7 +934,7 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
 					},
 					{
-						Path = { "GameState", "RoomCountCache", "N_Opening01", },
+						Path = { "GameState", "RoomsEntered", "N_Opening01" },
 						Comparison = ">=",
 						Value = 2,
 					},
@@ -891,7 +1000,8 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" },
 					},
 					{
-						PathTrue = { "GameState", "EncountersOccurredCache", "DevotionTestN"  },
+						Path = { "GameState", "EncountersOccurredCache" },
+						HasAny = { "DevotionTestF", "DevotionTestG", "DevotionTestH", "DevotionTestI", "DevotionTestN", "DevotionTestO" },
 					},
 				},
 
@@ -984,6 +1094,13 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusAboutSurfaceNoCure01", },
 					},
+					{
+						SumPrevRuns = 5,
+						Path = { "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
+						CountPathTrue = true,
+						Comparison = ">=",
+						Value = 1,
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1059,7 +1176,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ZeusAboutRouteChoice01" }, Count = 8 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ZeusAboutRouteChoice01" }, Min = 8 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0144",
@@ -1083,7 +1203,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ZeusAboutSurface05" }, Count = 8 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ZeusAboutSurface05" }, Min = 8 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0171",	
@@ -1161,7 +1284,7 @@ LootSetData.Zeus =
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0077",
-					Text = "Now, where exactly are you, young lady? The outskirts of Poseidon's realm, it seems. You mean to circumnavigate your father's domain! Why confront the armies of Chronos head on, when you could go around. A clever move!" },
+					Text = "Now, where exactly {#Emph}are {#Prev}you, young lady? The outskirts of Poseidon's realm, it seems. You mean to circumnavigate your father's domain! Why confront the armies of Chronos head-on when you could go around... a clever move!" },
 			},
 			ZeusAboutOceanus02 =
 			{
@@ -1261,7 +1384,7 @@ LootSetData.Zeus =
 					},
 					-- @ update based on last boss chamber
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
 					},
 				},
 
@@ -1279,7 +1402,7 @@ LootSetData.Zeus =
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ZeusGift01", },
+						PathTrue = { "GameState", "TextLinesRecord", "ZeusGift01" },
 					},
 					{
 						Path = { "GameState", "UseRecord", "ZeusUpgrade" },
@@ -1304,7 +1427,7 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusGift02" },
 					},
-				},			
+				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1321,10 +1444,10 @@ LootSetData.Zeus =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0054",
@@ -1338,10 +1461,10 @@ LootSetData.Zeus =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0055",
@@ -1613,6 +1736,11 @@ LootSetData.Zeus =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
 					},
+					{
+						Path = { "GameState", "UseRecord", "NPC_Athena_01" },
+						Comparison = "<=",
+						Value = 4,
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0043",
@@ -1723,6 +1851,62 @@ LootSetData.Zeus =
 
 				{ Cue = "/VO/Zeus_0172",
 					Text = "I can always sense when something is amiss, and on this night, strange forces are at work. Perhaps it was the Fates themselves ensuring you would find me thus!" },
+			},
+
+			ZeusPackageBountyIntro01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = { "PackageBountyZeus" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Zeus_0173",
+					Text = "You Underworld gods and your ancient ways... I know only that you've done something to shape the course of this evening, for I can feel it in the air. May it be to our benefit!" },
+			},
+			ZeusPackageBountyIntro02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ZeusUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						Path = { "CurrentRun", "ActiveBounty" },
+						IsAny = { "PackageBountyZeus" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ZeusPackageBountyIntro01" },
+					},
+					--[[
+					{
+						PathFromArgs = true,
+						Path = { "ActiveBountyClears" },
+						Comparison = ">=",
+						Value = 1,
+					},
+					]]--
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Zeus_0174",
+					Text = "It feels as though we've met before upon a night exactly such as this... but then we've been battling Chronos for so long, our sense of time can be just as deceiving as our foe!" },
 			},
 
 			-- repeatable lines
@@ -2128,7 +2312,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusLootBought03" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0140",
@@ -2142,7 +2329,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusLootBought03" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0141",
@@ -2163,7 +2353,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ZeusLootBought03" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Zeus_0143",
@@ -2176,6 +2369,13 @@ LootSetData.Zeus =
 		{
 			ZeusRejection01 =
 			{
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsNone = { "O" },
+					},
+				},
 				{ Cue = "/VO/Zeus_0128",
 				PreLineFunctionName = "BoonInteractPresentation",
 				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
@@ -2227,7 +2427,7 @@ LootSetData.Zeus =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2288,6 +2488,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "UseRecord", "ZeusUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0954", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2315,6 +2519,10 @@ LootSetData.Zeus =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "ZeusUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0955", UsePlayerSource = true,
@@ -2344,6 +2552,10 @@ LootSetData.Zeus =
 					{
 						PathTrue = { "GameState", "UseRecord", "ZeusUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0956", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2369,6 +2581,10 @@ LootSetData.Zeus =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "ZeusUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1763", UsePlayerSource = true,
@@ -2415,8 +2631,13 @@ LootSetData.Zeus =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

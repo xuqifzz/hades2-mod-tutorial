@@ -67,7 +67,7 @@ UnitSetData.NPC_Charon =
 					},
 				},
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -177,6 +177,9 @@ UnitSetData.NPC_Charon =
 				},
 
 				{ Cue = "/VO/Charon_0076",
+					-- PreLineAnim = "Charon_Fierce",
+					-- PreLineAnim = "Charon_Thanking",
+					-- PreLineAnim = "Charon_Greeting",
 					Text = "{#Emph}Hrraauuggh, naaaauugggghh..." },
 				{ Cue = "/VO/MelinoeField_1581", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
@@ -267,7 +270,7 @@ UnitSetData.NPC_Charon =
 				{
 					PreLineWait = 0.5,
 					UsePlayerSource = true,
-					{ Cue = "/VO/Melinoe_0842", Text = "Why thank you...!" },
+					{ Cue = "/VO/Melinoe_0842_B", Text = "Why thank you...!" },
 				},
 			},
 
@@ -331,6 +334,98 @@ UnitSetData.NPC_Charon =
 					UsePlayerSource = true,
 					{ Cue = "/VO/MelinoeField_1585", Text = "Well it can't hurt..." },
 				},
+			},
+			CharonAboutKeepsake02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "TraitDictionary" },
+						HasAny = { "BonusMoneyKeepsake" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "CharonAboutKeepsake01" }
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2837", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "This Gold Purse that you handed me before... each night I find it brimming with coins... which must mean technically I'm in your debt." },
+				{ Cue = "/VO/Charon_0092",
+					PreLineAnim = "Charon_Thanking",
+					Text = "{#Emph}Nnnaauuugghh, hrrnnn..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.45,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_2838", Text = "Whatever you say, my lord." },
+				},
+			},
+
+			CharonAboutWellShops01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWellShops" },
+					},
+					{
+						PathTrue = { "GameState", "ScreensViewed", "WellShop" }
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/Charon_0094",
+					Text = "{#Emph}Rnnggghhh, ggraagghhh...?" },
+				{ Cue = "/VO/MelinoeField_2839", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "The reappearance of your Wells is certainly no accident, my lord. All it took was the appropriate incantation! Little by little, we shall restore the old order." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					ObjectType = "NPC_Charon_01",
+					RequiredMinElapsedTime = 2,
+					{ Cue = "/VO/Charon_0095", Text = "{#Emph}Hhhaaughh..." },
+				},
+			},
+			CharonAboutSurfaceShops01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfaceShops" },
+					},
+					{
+						PathTrue = { "GameState", "ScreensViewed", "SurfaceShop" }
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2842", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "The Shrines to Lord Hermes that I've seen around the Surface... I noticed they take offerings of Gold as well. I take it the two of you are back in business, then?" },
+				{ Cue = "/VO/Charon_0097",
+					Text = "Hrrrrmmm, {#Emph}nnrrrraaauggghh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.45,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_2843", Text = "Then may business be good." },
+				},
+
 			},
 
 			CharonAboutCharonAspect01 =
@@ -451,6 +546,38 @@ UnitSetData.NPC_Charon =
 					PreLineWait = 0.45,
 					UsePlayerSource = true,
 					{ Cue = "/VO/Melinoe_1206", Text = "I won't forget your generosity." },
+				},
+			},
+
+			CharonAboutOlympus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Intro" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						HasAll = { "P_Shop01", "P_PreBoss01" },
+					},
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2840", UsePlayerSource = true,
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "MelTalkExplaining01", WaitTime = 1, UsePlayerSource = true },
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I made it all the way up to the mountain of the gods, my lord! Though I missed you up there. Never thought I'd see a place you couldn't reach by boat." },
+				{ Cue = "/VO/Charon_0096",
+					Text = "{#Emph}Grrnnnggghh{#Prev}, hrreehhhh..." },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.45,
+					UsePlayerSource = true,
+					{ Cue = "/VO/MelinoeField_2841", Text = "You have a very good distributor." },
 				},
 			},
 
@@ -676,7 +803,10 @@ UnitSetData.NPC_Charon =
 						Path = { "GameState", "TextLinesRecord" },
 						HasNone = { "MorosWithCharon01" }
 					},
-					MaxRunsSinceAnyTextLines = { TextLines = { "MorosSecondAppearance" }, Count = 8 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 8 },
+					},
 				},
 				{ Cue = "/VO/Melinoe_2007", UsePlayerSource = true,
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
@@ -848,6 +978,10 @@ UnitSetData.NPC_Charon =
 					{
 						PathFalse = { "CurrentRun", "Hero", "IsDead" }
 					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nemesis_01", }, Alive = false },
+					},
 				},
 				{ Cue = "/VO/Melinoe_1296", UsePlayerSource = true,
 					PreLineThreadedFunctionName = "PlayCharacterAnim",
@@ -875,6 +1009,13 @@ UnitSetData.NPC_Charon =
 					},
 					{
 						PathFalse = { "CurrentRun", "Hero", "IsDead" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nemesis_01", }, Alive = false },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1587", UsePlayerSource = true,

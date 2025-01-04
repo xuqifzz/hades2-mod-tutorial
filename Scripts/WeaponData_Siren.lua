@@ -1268,6 +1268,7 @@ WeaponSetData =
 			PostAttackAlpha = 0,
 			PostAttackDuration = 1.0,
 
+			ClearAllEffects = true,
 			PostAttackTeleportToSpawnPoints = true,
 			TeleportMinDistance = 500,
 			TeleportMaxDistance = 99999,

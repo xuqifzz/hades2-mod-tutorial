@@ -1,0 +1,883 @@
+{ Animations = [
+
+	
+	{
+		Name = "AsphodelTerrain16c_Anim"
+		FilePath = "Fx\Asphodel_Terrain_16c\Asphodel_Terrain_16c"
+		
+		EndFrame = 45
+		Loop = true
+		NumFrames = 45
+		RandomPlaySpeedMax = 30.0
+		RandomPlaySpeedMin = 24.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		Scale = 4.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "AsphodelTerrain16d_Anim"
+		InheritFrom = "AsphodelTerrain16c_Anim"
+		FilePath = "Fx\Asphodel_Terrain_16d\Asphodel_Terrain_16d"
+	}
+	
+	{
+		Name = "AsphodelTerrain16e_Anim"
+		InheritFrom = "AsphodelTerrain16c_Anim"
+		FilePath = "Fx\Asphodel_Terrain_16e\Asphodel_Terrain_16e"
+	}
+
+	{
+		Name = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_02"
+		
+		EndAngle = 1.0
+		PhaseOffsetAngle = 90.0
+		PingPongAngle = true
+		StartAngle = -1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 5.0
+		RandomDurationMin = 3.0
+		StartFrame = 1
+		EndOffsetZ = 5.0
+		OffsetY = 1218.0
+		OriginX = 520.0
+		OriginY = 2280.0
+		StartOffsetZ = -5.0
+		OnlyWhenVisible = true
+		PingPongShiftOverDuration = true
+	}
+	
+	{
+		Name = "Asphodel_Tombstone_01b_Bob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_01b"
+		EndOffsetZ = 3.0
+		OffsetY = 405.5
+		OriginX = 640.0
+		OriginY = 1110.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelPillar07Bob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_07"
+		EndAngle = 2.0
+		StartAngle = -2.0
+		EndOffsetZ = 1.0
+		OffsetY = 120.0
+		OriginX = 82.0
+		OriginY = 266.0
+		StartOffsetZ = -1.0
+	}
+	
+	{
+		Name = "AsphodelTombstone01aBob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_01a"
+		EndAngle = 1.5
+		StartAngle = -1.5
+		EndOffsetZ = 3.0
+		OffsetY = 405.5
+		OriginX = 640.0
+		OriginY = 1110.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelTombstone01Bob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_01"
+		EndAngle = 0.5
+		StartAngle = -0.5
+		EndOffsetZ = 3.0
+		OffsetY = 841.0
+		OriginX = 620.0
+		OriginY = 1890.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelTombstone03Bob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_03"
+		EndAngle = 0.5
+		StartAngle = -0.5
+		EndOffsetZ = 3.0
+		OffsetY = 0.0
+		OriginX = 414.0
+		OriginY = 202.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelTombstone04Bob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Tombstone_04"
+		EndAngle = 0.5
+		StartAngle = -0.5
+		EndOffsetZ = 3.0
+		OffsetY = -20.0
+		OriginX = 230.0
+		OriginY = 256.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelGable01bBob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Gable_01b"
+		EndAngle = 0.5
+		StartAngle = -0.5
+		EndOffsetZ = 3.0
+		OffsetY = 0.0
+		OriginX = 401.0
+		OriginY = 235.0
+		StartOffsetZ = -3.0
+	}
+	
+	{
+		Name = "AsphodelPillar08bBob"
+		InheritFrom = "AsphodelTombstone02Bob"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_08b"
+		EndAngle = 0.5
+		StartAngle = -0.5
+		EndOffsetZ = 3.0
+		OffsetX = -226.0
+		OffsetY = 422.0
+		OriginX = 226.0
+		OriginY = 907.0
+		StartOffsetZ = -3.0
+	}
+
+	{
+		Name = "LavaProjectileBubbling"
+		FilePath = "Fx\LavaProjectileBubbling\LavaProjectileBubbling"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 145
+		NumFrames = 145
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "LavaSplashProjectileHead"
+		FilePath = "Fx\LavaSplashProjectileHead\LavaSplashProjectileHead"			
+		VisualFx = "LavaSplashProjectileTrail"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+		VisualFxCap = 40
+		VisualFxDistanceMax = 30.0
+		VisualFxDistanceMin = 20.0
+		Sound = "/SFX/Player Sounds/HestiaFireballLaunchLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "LavaSplashProjectileTrail"
+		FilePath = "Animations\LavaSplashProjectileTrail\LavaSplashProjectileTrail"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LavaSplashProjectileTrailA" }
+			{ Name = "LavaSplashProjectileTrailB" }
+			{ Name = "LavaSplashProjectileTrailC" }
+			{ Name = "LavaSplashProjectileTrailD" }
+		]
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailA"
+		FilePath = "Fx\LavaSplashProjectileTrailA\LavaSplashProjectileTrailA"			
+		AngleFromOwner = "Take"
+		AngleMax = 5.0
+		AngleMin = -5.0
+		EndFrame = 50
+		NumFrames = 50
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailB"
+		InheritFrom = "LavaSplashProjectileTrailA"
+		FilePath = "Fx\LavaSplashProjectileTrailB\LavaSplashProjectileTrailB"
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailC"
+		InheritFrom = "LavaSplashProjectileTrailA"
+		FilePath = "Fx\LavaSplashProjectileTrailC\LavaSplashProjectileTrailC"
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailD"
+		InheritFrom = "LavaSplashProjectileTrailA"
+		FilePath = "Fx\LavaSplashProjectileTrailD\LavaSplashProjectileTrailD"
+	}
+
+	{
+		Name = "AsphodelDestructibleStalagmiteA"
+		ChildAnimation = "Asphodel_Stalagmite04TransitionA"
+		FilePath = "Tilesets\Asphodel\Asphodel_Stalagmite_02"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "AsphodelDestructibleStalagmiteB"
+		ChildAnimation = "Asphodel_Stalagmite04TransitionB"
+		FilePath = "Tilesets\Asphodel\Asphodel_Stalagmite_03"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "AsphodelDestructibleStalagmiteC"
+		ChildAnimation = "Asphodel_Stalagmite04TransitionC"
+		FilePath = "Tilesets\Asphodel\Asphodel_Stalagmite_04"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "AsphodelPillar06A"
+		ChildAnimation = "Asphodel_Pillar06TransitionA"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_06A"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "AsphodelPillar06B"
+		ChildAnimation = "Asphodel_Pillar06TransitionB"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_06B"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "AsphodelPillar06C"
+		ChildAnimation = "Asphodel_Pillar06TransitionC"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_06C"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "Asphodel_Pillar06TransitionA"
+		FilePath = "Fx\Asphodel_Pillar06TransitionA\Asphodel_Pillar06TransitionA"
+		
+		VisualFx = "AsphodelDestructibleHitSmoke"
+		Sound = "/SFX/PillarCrack"
+		EndFrame = 59
+		NumFrames = 59
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetY = -664.0
+		Scale = 4.444
+		VisualFxCap = 5
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		OnlyWhenVisible = true
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 15 VisualFx = "DustRingFrontAsphodel" }
+			{ DurationFrames = 1 Frame = 16 VisualFx = "DustRingBackAsphodel" }
+		]
+	}
+	
+	{
+		Name = "Asphodel_Pillar06TransitionB"
+		InheritFrom = "Asphodel_Pillar06TransitionA"
+		FilePath = "Fx\Asphodel_Pillar06TransitionB\Asphodel_Pillar06TransitionB"
+		EndFrame = 49
+		NumFrames = 49
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 15 VisualFx = "DustRingFrontAsphodel" }
+			{ DurationFrames = 1 Frame = 16 VisualFx = "DustRingBackAsphodel" }
+		]
+	}
+	
+	{
+		Name = "Asphodel_Pillar06TransitionC"
+		InheritFrom = "Asphodel_Pillar06TransitionA"
+		FilePath = "Fx\Asphodel_Pillar06TransitionC\Asphodel_Pillar06TransitionC"
+		EndFrame = 48
+		NumFrames = 48
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 15 VisualFx = "DustRingFrontAsphodel" }
+			{ DurationFrames = 1 Frame = 16 VisualFx = "DustRingBackAsphodel" }
+		]
+	}
+	
+	{
+		Name = "Asphodel_Pillar06Footprint"
+		FilePath = "Tilesets\Asphodel\Asphodel_Pillar_06C"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -663.0
+	}
+	
+	{
+		Name = "Asphodel_Stalagmite04TransitionA"
+		FilePath = "Fx\Asphodel_Stalagmite04TransitionA\Asphodel_Stalagmite04TransitionA"
+		
+		VisualFx = "AsphodelDestructibleHitSmoke"
+		Sound = "/SFX/PillarCrack"
+		EndFrame = 59
+		NumFrames = 59
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetY = -1050.0
+		Scale = 6.666
+		VisualFxCap = 5
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "Asphodel_Stalagmite04TransitionB"
+		InheritFrom = "Asphodel_Stalagmite04TransitionA"
+		FilePath = "Fx\Asphodel_Stalagmite04TransitionB\Asphodel_Stalagmite04TransitionB"
+		EndFrame = 49
+		NumFrames = 49
+		StartFrame = 1
+	}
+	
+	{
+		Name = "Asphodel_Stalagmite04TransitionC"
+		InheritFrom = "Asphodel_Stalagmite04TransitionA"
+		FilePath = "Fx\Asphodel_Stalagmite04TransitionC\Asphodel_Stalagmite04TransitionC"
+		EndFrame = 45
+		NumFrames = 45
+		StartFrame = 1
+	}
+	
+	{
+		Name = "Asphodel_StalagmiteFootprint"
+		FilePath = "Tilesets\Asphodel\Asphodel_Stalagmite_04"
+		
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -963.0
+	}
+	
+	{
+		Name = "AsphodelDestructibleHitSmoke"
+		FilePath = "Fx\WallSlamDustPuffDirectional\WallSlamDustPuffDirectional"
+		
+		Angle = 90.0
+		AngleMax = 100.0
+		AngleMin = 80.0
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0.4
+		EndFrame = 63
+		NumFrames = 63
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OriginX = 70.0
+		OriginY = 120.0
+		RandomOffsetX = 40.0
+		RandomOffsetY = 100.0
+		LocationFromOwner = "Ignore"
+		Acceleration = -100.0
+		VelocityMax = 200.0
+		VelocityMin = 50.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 1.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "LavaWaveA"
+		FilePath = "Fx\LavaWave\LavaWave"
+		
+		EndFrame = 120
+		Loop = true
+		NumFrames = 120
+		RandomPlaySpeedMax = 24.0
+		RandomPlaySpeedMin = 20.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaWaveB"
+		InheritFrom = "LavaWaveA"
+		FilePath = "Fx\LavaWaveB\LavaWaveB"
+	}
+	
+	{
+		Name = "LavaWaveC"
+		InheritFrom = "LavaWaveA"
+		FilePath = "Fx\LavaWaveC\LavaWaveC"
+	}
+	
+	{
+		Name = "LavaWaveD"
+		InheritFrom = "LavaWaveA"
+		FilePath = "Fx\LavaWaveD\LavaWaveD"
+		Scale = 2.0
+	}
+	
+	{
+		Name = "LavaHeatWaves"
+		FilePath = "Fx\LavaHeatWaves\LavaHeatWaves"
+		GroupName = "FX_Displacement"
+		
+		Alpha = 0.02
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "AsphodelEmberSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		
+		VisualFx = "AsphodelEmbers"
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+		OnlyWhenVisible = true
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "AsphodelEmber01"
+		FilePath = "Particles\particle_ember_01_glow"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 330.0
+		AngleMin = 300.0
+		ColorFromOwner = "Take"
+		EndGreen = 0.3
+		EndRed = 0.99
+		StartBlue = 0.05
+		StartGreen = 0.6
+		StartRed = 1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 0.5
+		StartFrame = 1
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Take"
+		VelocityMax = 250.0
+		VelocityMin = 40.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 360.0
+		RandomRotationSpeedMin = -360.0
+		PingPongScale = true
+		ScaleMax = 0.24
+		ScaleMin = 0.15
+		StartScale = 0.0
+		Ambient = 0.0
+		VisualFxCap = 2
+		VisualFxIntervalMax = 2.0
+		VisualFxIntervalMin = 0.1
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "AsphodelEmber02"
+		InheritFrom = "AsphodelEmber01"
+		FilePath = "Particles\particle_ember_02_glow"
+	}
+	
+	{
+		Name = "AsphodelEmber03"
+		InheritFrom = "AsphodelEmber01"
+		FilePath = "Particles\particle_ember_03_glow"
+	}
+
+	{
+		Name = "AsphodelEmbers"
+		FilePath = "Animations\AsphodelEmbers\AsphodelEmbers"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "AsphodelEmber01" }
+			{ Name = "AsphodelEmber02" }
+			{ Name = "AsphodelEmber03" }
+		]
+	}
+
+	{
+		Name = "LavaBubble"
+		ChainTo = "LavaBubbleWait"
+		FilePath = "Fx\LavaBubble\LavaBubble"
+		
+		EndFrame = 56
+		NumFrames = 56
+		RandomPlaySpeedMax = 36.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		ScaleMax = 1.1
+		ScaleMin = 0.8
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 29 RandomDurationFramesMax = 150 RandomDurationFramesMin = 3 }
+		]
+	}
+	
+	{
+		Name = "LavaBubbleWait"
+		ChainTo = "LavaBubble"
+		FilePath = "Fx\LavaBubble\LavaBubble0046"
+		
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 6.0
+		RandomDurationMin = 2.0
+		StartFrame = 1
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaFallA"
+		FilePath = "Fx\LavaFallA\LavaFallA"
+		
+		EndFrame = 100
+		Loop = true
+		NumFrames = 100
+		RandomPlaySpeedMax = 34.0
+		RandomPlaySpeedMin = 28.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaFallB"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallB\LavaFallB"
+	}
+	
+	{
+		Name = "LavaFallC"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallC\LavaFallC"
+	}
+	
+	{
+		Name = "LavaFallD"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallD\LavaFallD"
+	}
+	
+	{
+		Name = "LavaFallE"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallE\LavaFallE"
+	}
+	
+	{
+		Name = "LavaFallF"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallF\LavaFallF"
+	}
+	
+	{
+		Name = "LavaFallG"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaFallG\LavaFallG"
+	}
+	
+	{
+		Name = "LavaMoundA"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaMoundA\LavaMoundA"
+	}
+	
+	{
+		Name = "LavaMoundB"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaMoundB\LavaMoundB"
+	}
+	
+	{
+		Name = "LavaMoundD"
+		InheritFrom = "LavaFallA"
+		FilePath = "Fx\LavaMoundD\LavaMoundD"
+	}
+	
+	{
+		Name = "LavaPuddle"
+		CreateAnimation = "LavaHeatWavesPuddle"
+		FilePath = "Fx\LavaPuddleIn\LavaPuddleIn"
+		GroupName = "FX_Terrain"			
+		VisualFx = "LavaPuddleParticles"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 17
+		HoldLastFrame = true
+		NumFrames = 17
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginX = 320.0
+		OriginY = 330.0
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.2
+		VisualFxIntervalMin = 0.1
+	}
+	
+	{
+		Name = "LavaPuddleParticles"
+		FilePath = "Animations\LavaPuddleParticles\LavaPuddleParticles"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LavaSplashProjectileTrailPuddleA" }
+			{ Name = "LavaSplashProjectileTrailPuddleB" }
+			{ Name = "LavaSplashProjectileTrailPuddleC" }
+			{ Name = "LavaSplashProjectileTrailPuddleD" }
+		]
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailPuddleA"
+		FilePath = "Fx\LavaSplashProjectileTrailA\LavaSplashProjectileTrailA"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 295.0
+		AngleMin = 245.0
+		EndFrame = 50
+		NumFrames = 50
+		RandomPlaySpeedMax = 45.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		RandomOffsetX = 120.0
+		RandomOffsetY = 20.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		ScaleMax = 1.2
+		ScaleMin = 0.8
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "LavaHeatWavesPuddle"
+		FilePath = "Fx\LavaHeatWaves\LavaHeatWaves"
+		GroupName = "FX_Displacement"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		StartAlpha = 0.03
+		Duration = 7.0
+		EndFrame = 40
+		LoopFramesOnly = true
+		NumFrames = 40
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		Scale = 2.0
+		ScaleX = 2.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailPuddleB"
+		InheritFrom = "LavaSplashProjectileTrailPuddleA"
+		FilePath = "Fx\LavaSplashProjectileTrailB\LavaSplashProjectileTrailB"
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailPuddleC"
+		InheritFrom = "LavaSplashProjectileTrailPuddleA"
+		FilePath = "Fx\LavaSplashProjectileTrailC\LavaSplashProjectileTrailC"
+	}
+	
+	{
+		Name = "LavaSplashProjectileTrailPuddleD"
+		InheritFrom = "LavaSplashProjectileTrailPuddleA"
+		FilePath = "Fx\LavaSplashProjectileTrailD\LavaSplashProjectileTrailD"
+	}
+	
+	{
+		Name = "LavaPuddleOut"
+		InheritFrom = "LavaPuddle"
+		CreateAnimation = "null"
+		FilePath = "Fx\LavaPuddleOut\LavaPuddleOut"
+		UseOwnAngle = false
+		EndFrame = 20
+		HoldLastFrame = false
+		NumFrames = 20
+		StartFrame = 1
+		Scale = 0.9
+	}
+	
+	{
+		Name = "LavaPuddleLarge"
+		InheritFrom = "LavaPuddle"
+		Sound = "/SFX/LavaPuddleAmbientLoop"
+		StopSoundOnFinishFade = 0.2
+		Scale = 0.9
+	}
+	
+	{
+		Name = "LavaFire"
+		FilePath = "Fx\LavaFire\LavaFire"
+		
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		RandomPlaySpeedMax = 34.0
+		RandomPlaySpeedMin = 28.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	{
+		Name = "LavaSmoke"
+		FilePath = "Fx\LavaSmoke\LavaSmoke"
+		
+		EndFrame = 50
+		Loop = true
+		NumFrames = 50
+		RandomPlaySpeedMax = 34.0
+		RandomPlaySpeedMin = 28.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		OriginX = 512.0
+		OriginY = 448.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaRippleA"
+		FilePath = "Fx\LavaRippleA\LavaRippleA"
+		
+		EndFrame = 100
+		Loop = true
+		NumFrames = 100
+		RandomPlaySpeedMax = 30.0
+		RandomPlaySpeedMin = 24.0
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "LavaRippleB"
+		InheritFrom = "LavaRippleA"
+		FilePath = "Fx\LavaRippleB\LavaRippleB"
+		EndFrame = 60
+		NumFrames = 60
+		StartFrame = 1
+	}
+	{
+		Name = "DustRingFrontAsphodel"
+		InheritFrom = "DustRingFront"
+		Color = { Red = 0.50 Green = 0.55 Blue = 0.6 }
+	}
+
+	{
+		Name = "DustRingBackAsphodel"
+		InheritFrom = "DustRingBack"
+		Color = { Red = 0.2 Green = 0.25 Blue = 0.30 }
+	}
+    
+	{
+		Name = "BreakableAsphodelIdle"
+		FilePath = "Tilesets\Asphodel\Asphodel_Vase_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -100.0
+		Scale = 0.2
+	}
+]}

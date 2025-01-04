@@ -314,7 +314,8 @@ function HasThread( tag )
 	return false
 end
 
-function SetElapsedTimeMultiplier( newTimeMultiplier, tag )
+function SetElapsedTimeMultiplier( newTimeMultiplier, tag, args )
+	args = args or { Ignores = {} }
 	local threadTargets = { _threads, _workingThreads }
 	for k, threadTarget in pairs( threadTargets ) do
 		for k, threadInfo in pairs( threadTarget ) do
@@ -326,6 +327,10 @@ function SetElapsedTimeMultiplier( newTimeMultiplier, tag )
 					threadInfo.processed = true
 					if threadInfo.tag == tag then
 						threadInfo.processed = false
+					end
+				elseif not IsEmpty(args.Ignores) then
+					if args.Ignores[threadInfo.tag] then
+						threadInfo.processed = true
 					end
 				end
 			end
@@ -464,17 +469,17 @@ function update( time, unmodifiedTime )
 	_worldTimeUnmodified = unmodifiedTime
 
 	SessionMapState.SecondaryEffectsThisFrame = 0
-	if SessionMapState.OnHitsThisFrame > 5 then
-		DebugPrint({ Text = "SessionMapState.OnHitsThisFrame = "..SessionMapState.OnHitsThisFrame })
-	end
+	--if SessionMapState.OnHitsThisFrame > 5 then
+		--DebugPrint({ Text = "SessionMapState.OnHitsThisFrame = "..SessionMapState.OnHitsThisFrame })
+	--end
 	if SessionMapState.OnHitsThisFrame > (CurrentRun.MaxFrameHits or 0) then
 		CurrentRun.MaxFrameHits = SessionMapState.OnHitsThisFrame
 	end
 	SessionMapState.OnHitsThisFrame = 0
 
-	if SessionMapState.RequirementChecksThisFrame > 20 then
-		DebugPrint({ Text = "SessionMapState.RequirementChecksThisFrame = "..SessionMapState.RequirementChecksThisFrame })
-	end
+	--if SessionMapState.RequirementChecksThisFrame > 20 then
+		--DebugPrint({ Text = "SessionMapState.RequirementChecksThisFrame = "..SessionMapState.RequirementChecksThisFrame })
+	--end
 	if SessionMapState.RequirementChecksThisFrame > (CurrentRun.MaxRequirementChecks or 0) then
 		CurrentRun.MaxRequirementChecks = SessionMapState.RequirementChecksThisFrame
 	end
@@ -486,6 +491,7 @@ function update( time, unmodifiedTime )
 		_G[writeInfo.TableName][writeInfo.Key] = writeInfo.Value
 	end
 	SessionMapState.DeferredTableWrite = {}
+	SessionMapState.DeferredRequiredKillEnemy = nil
 
 	if UpdateTimers ~= nil then
 		UpdateTimers( elapsed )
@@ -609,48 +615,11 @@ GlobalSaveWhitelist =
 	"NextSeeds",
 }
 
---[[
-RunSaveWhitelist = ToLookup(
-{
-	"CurrentRoom",
-	"EndingRoomName",
-	"TotalTime",
-	"GameplayTime",
-	"EnemyUpgrades",
-	"MetaPointsCache",
-	"VisibleTraitCountCache",
-	"MetaUpgradeCostCache",
-	"ShrinePointsCache",
-	"EasyModeLevel",
-	"RunDepthCache",
-	"BiomeDepthCache",
-	"RoomCountCache",
-	"Cleared",
-	"ActiveBounty",
-	"BountyCleared",
-	"WeaponsCache",
-	"TraitCache",
-	"TraitRarityCache",
-	"EndingKeepsakeName",
-	"MetaUpgradeCache",
-	"ShrineUpgradesCache",
-	"BiomeStateChangeCount",
-	"BiomesReached",
-	"TextLinesRecord",
-	"RunClearMessage",
-	"SpawnRecord",
-	"CauldronWitchcraftOccurred",
-	"EncountersOccurredCache",
-})
-]]
-
 PermanentRunSaveWhitelist = ToLookup(
 {
 	"EndingRoomName",
 	"TotalTime",
 	"GameplayTime",
-	"MetaPointsCache",
-	"VisibleTraitCountCache",
 	"MetaUpgradeCostCache",
 	"ShrinePointsCache",
 	"EasyModeLevel",
@@ -666,10 +635,11 @@ MainRunSaveWhitelist = ToLookup(
 	"WeaponsCache",
 	"TraitCache",
 	"ShrineUpgradesCache",
-	"EndingKeepsakeName",
+	"KeepsakeCache",
 	"RunClearMessage",
 	"BiomeStateChangeCount",
 	"CauldronWitchcraftOccurred",
+	"KilledByName",
 })
 
 RecentRunSaveWhitelist = ToLookup(
@@ -677,26 +647,54 @@ RecentRunSaveWhitelist = ToLookup(
 	"EncountersOccurredCache",
 	"RoomCountCache",
 	"SpawnRecord",
-	"TextLinesRecord",	
+	"TextLinesRecord",
+	"WorldUpgradesAdded",
+	"UseRecord",
+	"SpeechRecord",
 })
 
-RoomSaveBlacklist = ToLookup(
+RoomSaveWhitelist = ToLookup(
 {
-	--"ObjectStates",
-	"ThreadedEvents",
-	"DistanceTriggers",
-	"EnterVoiceLines",
-	"ExitVoiceLines",
-	"InspectPoints",
+	"Name",
+	"NumHarvestPoints",
+	"NumShovelPoints",
+	"NumPickaxePoints",
+	"NumExorcismPoints",
+	"NumFishingPoints",
+	"ForceSecretDoor",
+	"EncountersOccurredCache",
+	"UseRecord",
+	"TextLinesRecord",
+	"SurfaceShop",
+	"OlympusEagleSpawn",
+	"RoomSetName",
+	"Reward",
+	"RewardStoreName",
+	"ChosenRewardType",
+	"OfferedRewards",
+	"ExitDoorRooms",
+	"TimesVisited",
+	"UnavailableDoors",
+	"ExitsUnlocked",
+	"NextRoomSet",
+	"Encounter",
+	"Encounters",
+	"SaveWhitelist",
 })
 
-EncounterSaveBlacklist = ToLookup(
+EncounterSaveWhitelist = ToLookup(
 {
-	--"SpawnWaves",
-	"DistanceTriggers",
-	"ExitVoiceLines",
-	"StartRoomUnthreadedEvents",
-	"WrappingData",
+	"Name",
+	"NemesisShopping",
+	"HeraclesShopping",
+	"RewardStoreName",
+})
+
+MapStateWhitelist = ToLookup(
+{
+	"OfferedExitDoors",
+	"ShipWheels",
+	"SpawnPoints",
 })
 
 AudioSaveWhitelist = ToLookup(
@@ -707,60 +705,73 @@ AudioSaveWhitelist = ToLookup(
 	"MusicActiveStems",
 	"MusicMutedStems",
 	"AmbientTrackName",
-	"AmbientMusicSource",
 })
 
 function StripRunForSave( run, runsBackFromCurrent )
 
-	if runsBackFromCurrent <= 1 then
+	if runsBackFromCurrent <= 0 then
 		return -- Don't strip prevRun
 	end
 
 	for key, value in pairs( run ) do
-		--if not RunSaveWhitelist[key] then
-		if not PermanentRunSaveWhitelist[key] and ( runsBackFromCurrent > 999 or not MainRunSaveWhitelist[key] ) and ( runsBackFromCurrent > 10 or not RecentRunSaveWhitelist[key] ) then
+		if not PermanentRunSaveWhitelist[key] and ( runsBackFromCurrent > 500 or not MainRunSaveWhitelist[key] ) and ( runsBackFromCurrent > 10 or not RecentRunSaveWhitelist[key] ) then
 			run[key] = nil
 		end
 	end
 end
 
-function StripRoomsForSave( run )
+function StripRoomsForSave( run, keepLastRoom )
 
 	if run == nil then
 		return
 	end
 
 	if run.RoomHistory ~= nil then
-		for roomIndex, room in pairs( run.RoomHistory ) do
-			if roomIndex ~= TableLength( run.RoomHistory ) then -- Don't strip prevRoom
-				for key, value in pairs( room ) do
-					if RoomSaveBlacklist[key] then
-						room[key] = nil
+		for roomIndex, room in ipairs( run.RoomHistory ) do
+			if not keepLastRoom or roomIndex ~= TableLength( run.RoomHistory ) then
+				for roomKey, roomValue in pairs( room ) do
+					if not RoomSaveWhitelist[roomKey] and ( room.SaveWhitelist == nil or not room.SaveWhitelist[roomKey] ) then
+						room[roomKey] = nil
 					end
 				end
 				if room.Encounter ~= nil then
 					for encounterKey, encounterValue in pairs( room.Encounter ) do
-						if EncounterSaveBlacklist[encounterKey] then
+						if not EncounterSaveWhitelist[encounterKey] then
 							room.Encounter[encounterKey] = nil
+						end
+					end
+				end
+				if room.Encounters ~= nil then
+					for encounterIndex, encounter in ipairs( room.Encounters ) do
+						for encounterKey, encounterValue in pairs( encounter ) do
+							if not EncounterSaveWhitelist[encounterKey] then
+								encounter[encounterKey] = nil
+							end
 						end
 					end
 				end
 			end
 		end
 	end
-
 end
+
 
 function Save()
 
 	-- Iris specific stripping
-	StripRoomsForSave( CurrentRun )
+	StripRoomsForSave( CurrentRun, true )
 	local runCount = #GameState.RunHistory
 	for runIndex, run in ipairs( GameState.RunHistory ) do
 		StripRunForSave( run, runCount - runIndex )
 		if run.RoomHistory ~= nil then
-			StripRoomsForSave( run )
+			StripRoomsForSave( run, false )
 		end
+	end
+
+	local sessionMapState = MapState
+	MapState = {}
+	for key, value in ipairs( MapStateWhitelist ) do
+		MapState[key] = sessionMapState[key]
 	end
 
 	local sessionAudioState = ShallowCopyTable( AudioState )
@@ -792,6 +803,7 @@ function Save()
 	_saveData = assert( luabins.save( saveTable ) )
 
 	AudioState = sessionAudioState
+	MapState = sessionMapState
 
 end
 

@@ -87,8 +87,6 @@
 		Name = "Enemy_Treant_SprayFireLoop"
 		InheritFrom = "EnemyTreantBaseAnimation"
 		GrannyAnimation = "Treant_Base_RangedSprayFireLoop_C_00"
-		Sound = "/SFX/Enemy Sounds/Treant/TreantFlurryLoop"
-		StopSoundOnFinishFade = 0.3
 		Loop = true
 		Blends = 
 		[

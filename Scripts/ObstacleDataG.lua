@@ -18,7 +18,7 @@ OverwriteTableKeys( ObstacleData, {
 		LockedUseSound = "/Leftovers/SFX/OutOfAmmo2",
 		UnlockedUseSound = "/SFX/Menu Sounds/GeneralWhooshMENULoudLow",
 
-		ExitDoorOpenAnimation = "OceanusExitDoorTaken",
+		--ExitDoorOpenAnimation = "OceanusExitDoorTaken",
 		ExitDoorCloseAnimation = "OceanusExitDoorClosed",
 		UnlockedAnimation = "OceanusExitDoorOpen",
 		PreExitsUnlockedFunctionName = "CheckExitPreUnlock",
@@ -67,19 +67,6 @@ OverwriteTableKeys( ObstacleData, {
 					},
 				},
 			},
-		},
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
 		},
 	},
 

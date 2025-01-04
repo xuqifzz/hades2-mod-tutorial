@@ -1,8 +1,8 @@
 {
   "AmbientLightColor": {
-    "X": 0.673,
-    "Y": 0.800,
-    "Z": 0.953
+    "X": 0.640,
+    "Y": 0.688,
+    "Z": 0.747
   },
   "BackdropColor": {
     "R": 0,
@@ -731,5 +731,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

@@ -12,6 +12,7 @@
 		CancelOnOwnerMove = false
 	}
 
+
 	// HUB ANIMATIONS
 	{
 		Name = "Heracles_Hub_Idle_Start"
@@ -21,8 +22,8 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Heracles_Combat_Idle",
-				Duration = 4,
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 4
 			}
 			{
 				BlendTransitionFrom = "Heracles_Combat_Move"
@@ -40,7 +41,7 @@
 		Frames =
 		[
 			{
-				Frame = 44
+				Frame = 42
 				Sound = "/SFX/Enemy Sounds/Minotaur/MinotaurFootstepsHugeRUSH"
 			}
 		]
@@ -54,8 +55,8 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Heracles_Combat_Idle",
-				Duration = 10,
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 10
 			}
 		]
 	}
@@ -112,6 +113,39 @@
 
 
 	// COMBAT ANIMATIONS
+
+	{
+		Name = "Heracles_Combat_Idle_Start"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_Idle_Narrative_To_Combat_C_00"
+		ChainTo = "Heracles_Combat_Idle"
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Heracles_Hub_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Heracles_Hub_Brooding"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Heracles_Hub_Granting"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Heracles_Hub_Greet"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 23
+				Sound = "/SFX/WoodSplinterSFX"
+			}
+		]
+	}
 	{
 		Name = "Heracles_Combat_Idle"
 		InheritFrom = "NPCHercalesBaseAnimation"
@@ -123,6 +157,49 @@
 			{
 				BlendTransitionFrom = "Heracles_Combat_AttackPostFire"
 				Duration = 4
+			}
+		]
+	}
+
+
+	{
+		Name = "Heracles_Combat_LeapExit"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapPreAttack_C_00"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusKickCharge"
+		StopSoundOnFinishFade = 0.2
+		ChainTo = "Heracles_Combat_LeapExit2"
+
+
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/Heracles/EmotePowerCharging"
+			}
+		]
+		Blends = 
+		[
+			{
+				BlendTransitionFrom = "Heracles_Combat_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Heracles_Combat_LeapExit2"
+		InheritFrom = "NPCHercalesBaseAnimation"
+		GrannyAnimation = "Heracles_Base_LeapFire_C_00"
+		GrannyAnimationSpeed = 2.0
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+		CreateAnimation = "HeraclesExitStreak"
+		Frames =
+		[
+			{
+				Frame = 9
+				FrameSpeed = 0
 			}
 		]
 	}

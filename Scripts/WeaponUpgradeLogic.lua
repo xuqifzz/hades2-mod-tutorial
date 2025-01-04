@@ -28,16 +28,24 @@ function OpenWeaponUpgradeScreen( args )
 	local weaponKills = GameState.WeaponKills[weaponName]
 	ModifyTextBox({ Id = components.KillsValue.Id, Text = weaponKills })
 
-	local weaponClears = GetNumRunsClearedWithWeapon( weaponName )
-	ModifyTextBox({ Id = components.ClearsValue.Id, Text = weaponClears })
-
-	local fastestClearTime = GetFastestRunClearTimeWithWeapon( CurrentRun, weaponName )
-	if fastestClearTime ~= nil then
-		ModifyTextBox({ Id = components.ClearTimeRecordValue.Id, Text = GetTimerString( fastestClearTime, 2 ) })
+	local clearStats = GameState.LifetimeWeaponStats[weaponName]
+	if clearStats ~= nil then
+		if clearStats.ClearCount ~= nil then
+			ModifyTextBox({ Id = components.ClearsValue.Id, Text = clearStats.ClearCount })
+		end
+		if clearStats.FastestTimeUnderworld ~= nil then
+			ModifyTextBox({ Id = components.UnderworldClearTimeRecordValue.Id, Text = GetTimerString( clearStats.FastestTimeUnderworld, 2 ) })
+		end
+		if clearStats.FastestTimeSurface ~= nil then
+			ModifyTextBox({ Id = components.SurfaceClearTimeRecordValue.Id, Text = GetTimerString( clearStats.FastestTimeSurface, 2 ) })
+		end
+		if clearStats.HighestShrinePointsUnderworld ~= nil then
+			ModifyTextBox({ Id = components.UnderworldShrinePointRecordValue.Id, Text = clearStats.HighestShrinePointsUnderworld })
+		end
+		if clearStats.HighestShrinePointsSurface ~= nil then
+			ModifyTextBox({ Id = components.SurfaceShrinePointRecordValue.Id, Text = clearStats.HighestShrinePointsSurface })
+		end
 	end
-
-	local highestShrinePoints = GetHighestShrinePointRunClearWithWeapon( CurrentRun, weaponName )
-	ModifyTextBox({ Id = components.ShrinePointRecordValue.Id, Text = highestShrinePoints })
 
 	PlaySound({ Name = "/SFX/Menu Sounds/GeneralWhooshMENULoud" })
 
@@ -187,15 +195,26 @@ function SelectWeaponUpgrade( screen, weaponName, traitData )
 		-- Already equipped
 		return
 	end
-
+	local prevTraitData = GetHeroTrait(GameState.LastWeaponUpgradeName[weaponName])
+	if prevTraitData and prevTraitData.LinkedSpell then
+		UnequipLinkedSpell( prevTraitData )
+		local traitName = SpellData[prevTraitData.LinkedSpell].TraitName
+		local spellTrait = GetHeroTrait(traitName)
+		RemoveTrait( CurrentRun.Hero, spellTrait.Name )
+	end
 	PlaySound({ Name = traitData.EquipSound or "/Leftovers/SFX/PerfectTiming" })
 
 	if GameState.LastWeaponUpgradeName[weaponName] ~= nil then
 		-- Unequip previous trait
+		
+		if prevTraitData.StopVfxOnUnequip then
+			StopAnimation({ Name = prevTraitData.StopVfxOnUnequip, DestinationId = CurrentRun.Hero.ObjectId})
+		end
 		RemoveTrait( CurrentRun.Hero, GameState.LastWeaponUpgradeName[weaponName] )
 	end
 
 	UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = weaponName, UnloadPackages = false })
+			
 	local weaponSetNames = WeaponSets.HeroWeaponSets[weaponName]
 	if weaponSetNames ~= nil then
 		for k, linkedWeaponName in ipairs( weaponSetNames ) do
@@ -214,7 +233,7 @@ function SelectWeaponUpgrade( screen, weaponName, traitData )
 	GameState.LastWeaponUpgradeName[weaponName] = traitData.Name
 
 	-- Equip new trait
-	EquipWeaponUpgrade( existingHero, { SkipTraitHighlight = true } )
+	EquipWeaponUpgrade( existingHero, { SkipTraitHighlight = true, SkipUIUpdate = true } )
 	thread( PlayVoiceLines, GlobalVoiceLines.SwitchedWeaponUpgradeVoiceLines, true )
 
 	screen.AspectChanged = true
@@ -276,7 +295,7 @@ function CloseWeaponUpgradeScreen( screen )
 		closeFunctionName = trait.PostWeaponUpgradeScreenFunctionName or closeFunctionName
 	end
 	if closeFunctionName ~= nil and _G[closeFunctionName] ~= nil then
-		_G[closeFunctionName]( CurrentRun.Hero )
+		_G[closeFunctionName]( CurrentRun.Hero, weaponData )
 	end
 	if closeAnim ~= nil then
 		SetGoalAngle({ Id = CurrentRun.Hero.ObjectId, Angle = closeAngle, CompleteAngle = true })
@@ -340,30 +359,55 @@ function GetWeaponKitAnimation( weaponName, type )
 
 end
 
+function UnequipLinkedSpell( traitData )
+	UpdateHeroTraitDictionary()
+	local spellName = traitData.LinkedSpell
+	local traitName = SpellData[traitData.LinkedSpell].TraitName
+	local spellTrait = GetHeroTrait(traitName)
+	if not IsEmpty(spellTrait.PreEquipWeapons) then
+		UnequipWeapon({ DestinationId = CurrentRun.Hero.ObjectId, Name = spellTrait.PreEquipWeapons[1], UnloadPackages = true })
+	end
+	SpellUnreadyPresentation( spellTrait )
+	TraitUIRemove( spellTrait )
+	CurrentRun.Hero.SlottedSpell = nil
+	UpdateTalentPointInvestedCache()
+end
+
 function UnequipWeaponUpgrade()
 	local currentWeaponName = GetEquippedWeapon()
 	local condemnedTraits = {}
+	local parentTraitData = nil
 	for _, traitData in pairs(CurrentRun.Hero.Traits) do
 		if traitData.IsWeaponEnchantment then
 			table.insert(condemnedTraits, traitData )
+			if traitData.LinkedSpell then
+				UnequipLinkedSpell( traitData )
+				local traitName = SpellData[traitData.LinkedSpell].TraitName
+				local spellTrait = GetHeroTrait(traitName)
+				table.insert(condemnedTraits, spellTrait)
+			end
+			if traitData.StopVfxOnUnequip then
+				StopAnimation({ Name = traitData.StopVfxOnUnequip, DestinationId = CurrentRun.Hero.ObjectId})
+			end
 		end
 	end
 	for _, traitData in pairs(condemnedTraits) do
 		RemoveTraitData( CurrentRun.Hero, traitData )
 	end
-	
 end
 
 function EquipWeaponUpgrade( hero, args )
 	args = args or {}
 	local currentWeaponName = GetEquippedWeapon()
 	local currentWeaponData = WeaponData[currentWeaponName]
-
+	
 	local traitName = GameState.LastWeaponUpgradeName[currentWeaponName]
 	if traitName == nil then
 		if currentWeaponData ~= nil and currentWeaponData.DummyTraitName ~= nil and not HeroHasTrait( currentWeaponData.DummyTraitName ) then
-			AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = currentWeaponData.DummyTraitName })
-			UpdateWeaponKitUpgrade(currentWeaponName, traitName)
+			AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = currentWeaponData.DummyTraitName, SkipUIUpdate = args.SkipUIUpdate })
+			if not args.SkipUIUpdate then
+				UpdateWeaponKitUpgrade( currentWeaponName, traitName )
+			end
 		end
 		return
 	end
@@ -375,8 +419,29 @@ function EquipWeaponUpgrade( hero, args )
 	local numRanks = GetWeaponUpgradeLevel( traitName )
 	local rarity = TraitRarityData.WeaponRarityUpgradeOrder[numRanks]
 	AddTraitToHero({ SkipNewTraitHighlight = args.SkipTraitHighlight, TraitName = traitName, Rarity = rarity })
+	if TraitData[traitName].LinkedSpell then
+		local spellName = TraitData[traitName].LinkedSpell
+		local traitName = SpellData[TraitData[traitName].LinkedSpell].TraitName
+		local traitData = AddTraitToHero({ TraitName = traitName, SkipNewTraitHighlight = true, SkipUIUpdate = args.SkipUIUpdate })
+		if traitData.CheckChargeFunctionName then
+			thread( CallFunctionName, traitData.CheckChargeFunctionName, CurrentRun.Hero )
+		end
+		CurrentRun.Hero.SlottedSpell = DeepCopyTable( SpellData[spellName] )
+		CurrentRun.Hero.SlottedSpell.Talents = DeepCopyTable( CreateTalentTree( SpellData[spellName] ) )
+		local spellData = CurrentRun.Hero.SlottedSpell
+		UpdateTalentPointInvestedCache()
+		UpdateSpellActiveStatus()
+	end
 	UpdateWeaponKitUpgrade(currentWeaponName, traitName)
 	RefillMana()
+
+	for k, weaponName in ipairs( WeaponSets.HeroPrimaryWeapons ) do
+		local weaponData = WeaponData[weaponName]
+		if weaponData.DummyTraitName ~= nil then
+			RemoveTrait( CurrentRun.Hero, weaponData.DummyTraitName )
+		end
+	end
+
 end
 
 function GetWeaponUpgradeLevel( traitName )

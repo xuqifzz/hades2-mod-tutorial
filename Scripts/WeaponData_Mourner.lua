@@ -2,6 +2,11 @@ WeaponSetData =
 {
 	MournerRampage =
 	{	
+		Requirements = 
+		{
+			MaxAttackers = 4,
+		},
+
 		AIData =
 		{
 			DeepInheritance = true,
@@ -112,6 +117,8 @@ WeaponSetData =
 			PostAttackDuration = 2.2,
 
 			PostAttackAnimation = "Enemy_Mourner_Scream_Fire",
+
+			SkipSurroundAICount = true,
 		},
 
 		Sounds =

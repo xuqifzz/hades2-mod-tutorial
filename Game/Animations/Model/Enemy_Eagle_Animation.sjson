@@ -1,0 +1,437 @@
+{ Animations = [
+	
+	{
+		Name = "EnemyEagleBaseAnimation"
+		
+		GrannyModel = "PrometheusEagle_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+		VisualFx = "EagleVFX"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.2
+	}
+
+	// IDLE //
+	{
+		Name = "Enemy_Eagle_Idle"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_IdleFly_C_00"
+		Loop = true
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/Leftovers/SFX/WingFlapLarge"
+			}
+		]
+	}
+	{
+
+		Name = "Enemy_Eagle_Glide"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_IdleGlide_C_00"
+		Loop = true
+	}
+
+	{
+		Name = "Enemy_Eagle_Invisible"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_IdleFly_C_00"
+		OwnerInvulnerable = true
+		OwnerHasNoCollision = true
+		OwnerUntargetable = true
+		CancelOnOwnerMove = false
+		OwnerImmobile = true
+		Loop = true
+		Alpha = 0.0
+		VisualFx = null
+	}
+
+	// SWEEP //
+	{
+		Name = "Enemy_Eagle_SweepPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_StreakAntic_C_00"
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1.0
+		EndGreen = 0.8
+		EndBlue = 0.5
+		AddColor = true
+		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/MelinoeSkullsChargeLoop"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_DescendPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SweepPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_SweepPreFire_Fast"
+		InheritFrom = "Enemy_Eagle_SweepPreFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_SweepFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_StreakFire_C_00"
+		ChainTo = "Enemy_Eagle_SweepFireLoop"
+		OwnerHasNoUnitCollision = true
+		AddColor = true
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SpiralLaunchFire"
+				Duration = 3
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_SweepFireLoop"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_StreakLoop_C_00"
+		Loop = true
+		AddColor = true
+		Red = 1
+		Green = 0.8
+		Blue = 0.5
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Eagle_SweepPostFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_StreakReturnToIdle_C_00"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		AddColor = true
+		VisualFx = "EagleFeathers"
+		VisualFxCap = 5
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		ChainTo = "Enemy_Eagle_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SweepFireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_SweepPostFire_Fast"
+		InheritFrom = "Enemy_Eagle_SweepPostFire"
+		Duration = 0.1
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	// ROLL //
+	{
+		Name = "Enemy_Eagle_RollLeftPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_RollLeftAntic_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_DescendPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SweepPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_RollLeftFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_RollLeft_C_00"
+		OwnerHasNoUnitCollision = true
+		ChainTo = "Enemy_Eagle_Idle"
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.5
+		EndGreen = 0.4
+		EndBlue = 0.25
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.6
+		AddColor = true
+		VisualFx = "EagleRollLeftFx"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 140
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Eagle_RollRightPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_RollRightAntic_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0.5
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_DescendPostFire_Fast"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SweepPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_RollRightFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_RollRight_C_00"
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 0.5
+		EndGreen = 0.4
+		EndBlue = 0.25
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Duration = 0.6
+		AddColor = true
+		OwnerHasNoUnitCollision = true
+		VisualFx = "EagleRollRightFx"
+		VisualFxDistanceMin = 100
+		VisualFxDistanceMax = 140
+		ChainTo = "Enemy_Eagle_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+
+	// ASCEND //
+	{
+		Name = "Enemy_Eagle_AscendPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AscendAntic_C_00"
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1.0
+		EndGreen = 0.8
+		EndBlue = 0.5
+		AddColor = true
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SweepPostFire_Fast"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_Ascend"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_Ascend_C_00"
+		ChainTo = "Enemy_Eagle_Idle"
+		AddColor = true
+		Red = 1.0
+		Green = 0.8
+		Blue = 0.5
+		VisualFx = "EagleAscendStreak"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		CreateAnimation = "EagleAscendSphere"
+		Sound = "/SFX/Enemy Sounds/EagleAttackScream"
+	}
+
+	// DESCEND //
+	{
+		Name = "Enemy_Eagle_Descend"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_DescendDive_C_00"
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		HoldLastFrame = true
+		VisualFx = "EagleDescendStreak"
+		VisualFxIntervalMin = 0.05
+		VisualFxIntervalMax = 0.05
+		VisualFxCap = 8
+		CreateAnimation = "EagleDescendSphere"
+		Duration = 0.4
+		EaseIn = 0
+		EaseOut = 0.1
+		Sound = "/SFX/Enemy Sounds/SatyrLancer/LancerEvade"
+	}
+	{
+		Name = "Enemy_Eagle_DescendPostFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_DescendReturnToIdle_C_00"
+		EaseIn = 0
+		EaseOut = 1
+		AddColor = false
+		ChainTo = "Enemy_Eagle_Idle"
+	}
+	{
+		Name = "Enemy_Eagle_DescendPostFire_Fast"
+		InheritFrom = "Enemy_Eagle_DescendPostFire"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 3
+			}
+		]
+	}
+
+	// COMBOS //
+
+	// SPIRAL //
+	{
+		Name = "Enemy_Eagle_SpiralCatch"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralCatchEagle_C_00"
+		ChainTo = "Enemy_Eagle_SpiralLaunchPreFireLoop"
+	}
+	{
+		Name = "Enemy_Eagle_SpiralLaunchPreFireLoop"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralReadyLaunchLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Eagle_SpiralLaunchPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralLaunchEagleAntic_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Eagle_SpiralLaunchPreFireLoop"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Eagle_SpiralLaunchFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralLaunchEagle_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_Eagle_SpiralFlyRight"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboSpiralFlyRight_C_00"
+	}
+
+	// FIRE STREAK //
+
+	{
+		Name = "Enemy_Eagle_StreakPreFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboStreakPreFire_C_00"
+		GrannyAnimationSpeed = 0.5
+		HoldLastFrame = true
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Eagle_StreakFire"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboStreakFire_C_00"
+		ChainTo = "Enemy_Eagle_StreakFireLoop"
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Eagle_StreakFireLoop"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboStreakFireLoop_C_00"
+		Loop = true
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Eagle_StreakEndAscend"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboStreakExitAscend_C_00"
+		OwnerHasNoUnitCollision = true
+	}
+	{
+		Name = "Enemy_Eagle_StreakEndRoll"
+		InheritFrom = "EnemyEagleBaseAnimation"
+		GrannyAnimation = "PrometheusEagle_Base_AttackComboStreakExitRollOutToGlide_C_00"
+		OwnerHasNoUnitCollision = true
+	}
+
+]}

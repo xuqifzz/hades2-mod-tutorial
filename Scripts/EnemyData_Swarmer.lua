@@ -17,7 +17,7 @@ UnitSetData.Swarmer =
 		DeathSound = "/SFX/Enemy Sounds/Swarmer/EmoteDying",
 		DeathAnimation = "Enemy_Swarmer_Death",
 
-		BlockAttributes = { "DeathSpreadHitShields" },
+		BlockAttributes = { "SpreadHitShields" },
 
 		MaxHealth = 30,
 		HealthBarOffsetY = -100,
@@ -55,19 +55,19 @@ UnitSetData.Swarmer =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_1647", Text = "Numbskulls." },
-			{ Cue = "/VO/MelinoeField_1648", Text = "Numbskulls...!", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_1649", Text = "More Numbskulls." },
-			{ Cue = "/VO/MelinoeField_1650", Text = "More Numbskulls...?" },
+			{ Cue = "/VO/MelinoeField_2749", Text = "Sandskulls." },
+			{ Cue = "/VO/MelinoeField_2750", Text = "Sandskulls...!", PlayFirst = true },
+			{ Cue = "/VO/MelinoeField_2751", Text = "More Sandskulls." },
+			{ Cue = "/VO/MelinoeField_2752", Text = "More Sandskulls...?" },
 		},
 	},
 
@@ -138,11 +138,6 @@ UnitSetData.Swarmer =
 		WeaponOptions =
 		{
 			"SwarmerClockworkMelee_Elite",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		GeneratorData =

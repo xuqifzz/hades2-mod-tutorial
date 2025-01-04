@@ -31,7 +31,8 @@
 		GroupName = "Vignette"
 		
 		ColorFromOwner = "Ignore"
-		EndAlpha = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.1
 		PingPongColor = true
 		EaseOut = 0.5
 		EndFrame = 1
@@ -40,12 +41,12 @@
 		RandomDurationMin = 1.2
 		StartFrame = 1
 		RandomRotation = true
-		EndScale = 30.0
+		StartScale = 40.0
+		EndScale = 70.0
 		PostRotateScaleY = 0.5
 		ScaleFromOwner = "Ignore"
 		ScaleMax = 1.0
 		ScaleMin = 0.9
-		StartScale = 3.0
 		Ambient = 0.0
 		TimeModifierFraction = 0.0
 	}
@@ -210,6 +211,78 @@
 			{ Name = "CastDust360" }
 		]
 	}
+		
+	{
+		Name = "CastDust360"
+		FilePath = "Fx\CastDust\CastDust"
+		GroupName = "FX_Terrain"
+
+		AngleFromOwner = "Take"
+		EndAlpha = 0.1
+		EndBlue = 0.05
+		EndGreen = 0.15
+		EndRed = 0.2
+		StartAlpha = 1.0
+		StartBlue = 0.8
+		StartGreen = 0.9
+		StartRed = 1.0
+		EndFrame = 35
+		NumAngles = 16
+		NumFrames = 35
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		Ambient = 0.0
+		AngleMax = 360.0
+		AlphaMax = 1.0
+		AlphaMin = 0.2
+		Scale = 2.0
+		TimeModifierFraction = 0.0
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 10*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			/*Frame 20*/
+
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 3 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			/*Frame 30*/
+
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+			{ DurationFrames = 0 }
+		]
+	}
 	
 	{
 		Name = "DeathDefianceShockwaveRings"
@@ -314,154 +387,6 @@
 		ScaleX = 1.1
 		Ambient = 0.0
 		UseAttachedFlasher = false
-	}
-
-	{
-		Name = "DevotionPreAttackBase"
-		FilePath = "Particles\particle_glow"
-		GroupName = "FX_Terrain_Add"
-		
-		VisualFx = "DevotionPreAttackFx"
-		UseOwnAngle = false
-		EndAlpha = 0.4
-		Duration = 1.0
-		EndFrame = 1
-		HoldLastFrame = true
-		NumFrames = 1
-		StartFrame = 1
-		PostRotateScaleY = 0.5
-		ScaleFromOwner = "Ignore"
-		ScaleRadius = 100.0
-		Ambient = 0.0
-		VisualFxIntervalMax = 0.12
-		VisualFxIntervalMin = 0.1
-		CreateAnimationOnEnd = "DevotionPreAttackBaseEnd"
-	}
-	
-	{
-		Name = "DevotionPreAttackFx"
-		FilePath = "Fx\DevotionRingsDark\DevotionRingsDark"
-		GroupName = "FX_Terrain"
-		
-		EndAlpha = 1.0
-		PingPongColor = true
-		EndFrame = 3
-		NumFrames = 3
-		PlaySpeed = 1E-07
-		RandomDurationMax = 0.6
-		RandomDurationMin = 0.5
-		RandomStartFrame = true
-		StartFrame = 1
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		DieWithOwner = true
-		RandomRotation = true
-		EndScale = 1.05
-		PostRotateScaleY = 0.5
-		Scale = 1.15
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 1.01
-		ScaleMin = 0.99
-		ScaleRadius = 160.0
-		CreateAnimations =
-		[
-			{ Name = "DevotionRings" }
-			{ Name = "DevotionLines" }
-		]
-	}
-	
-	{
-		Name = "DevotionRings"
-		FilePath = "Fx\DevotionRings\DevotionRings"
-		GroupName = "FX_Terrain_Add"
-		
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		AddColor = true
-		ColorFromOwner = "Ignore"
-		EndAlpha = 1.0
-		PingPongColor = true
-		EaseOut = 1.0
-		EndFrame = 3
-		NumFrames = 3
-		PlaySpeed = 1E-07
-		RandomDurationMax = 0.8
-		RandomDurationMin = 0.6
-		RandomStartFrame = true
-		StartFrame = 1
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		RandomRotation = true
-		EndScale = 1.03
-		PostRotateScaleY = 0.5
-		ScaleFromOwner = "Ignore"
-		ScaleMax = 1.02
-		ScaleMin = 0.99
-		ScaleRadius = 300.0
-	}
-	
-	{
-		Name = "DevotionLines"
-		InheritFrom = "DevotionRings"
-		FilePath = "Fx\DevotionLines\DevotionLines"
-		GroupName = "FX_Add_Top"
-		Angle = 270.0
-		RandomDurationMax = 1.0
-		RandomDurationMin = 0.7
-		RandomFlipVertical = false
-		OriginX = 60.0
-		OriginY = 480.0
-		RandomOffsetX = 3.0
-		DieWithOwner = true
-		LocationZFromOwner = "Ignore"
-		SortMode = "FromParent"
-		VelocityMax = 75.0
-		VelocityMin = 50.0
-		RandomRotation = false
-		EndScaleY = 1.2
-		PostRotateScaleY = 1.0
-		ScaleX = 0.5
-	}
-	
-	{
-		Name = "DevotionPreAttackBaseEnd"
-		InheritFrom = "DevotionPreAttackBase"
-		CreateAnimation = "DevotionPreAttackEndSpike"
-		VisualFx = "null"
-		EndAlpha = 0.0
-		StartAlpha = 1.0
-		Duration = 0.2
-		EaseIn = 0.9
-		EaseOut = 1.0
-		EndScale = 1.7
-		StartScale = 1.5
-		CreateAnimationOnEnd = "null"
-	}
-	
-	{
-		Name = "DevotionPreAttackEndSpike"
-		FilePath = "Particles\particle_banished_spike2"
-		GroupName = "FX_Standing_Add"
-		
-		AngleFromOwner = "Ignore"
-		AddColor = true
-		ColorFromOwner = "Take"
-		StartAlpha = 1.0
-		DurationFrames = 15
-		EaseIn = 0.98
-		EaseOut = 1.0
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		OriginX = 190.0
-		OriginY = 800.0
-		SortMode = "FromParent"
-		EndScaleX = 0.0
-		EndScaleY = 2.0
-		Scale = 0.75
-		StartScaleX = 1.5
-		StartScaleY = 0.8
-		UseBoundsForSortDrawArea = true
 	}
 
 	{
@@ -979,6 +904,44 @@
 		OriginX = 0.0
 		ScaleX = 1.5
 	}
+	{
+		Name = "DashStreakShortBlink"
+		InheritFrom = "DashStreakBase"
+		FlipHorizontal = true
+		OriginX = 0.0
+		ScaleX = 0.5
+		ScaleY = 0.2
+		CreateAnimations =
+		[
+			{ Name = "DashStreakShortDark_Flipped" }
+			{ Name = "DashStreakShortDisplacement_Flipped" }
+			{ Name = "DashStreakShortFlat_Flipped" }
+			{ Name = "DashLight" }
+		]
+	}
+	{
+		Name = "DashStreakShortDark_Flipped"
+		InheritFrom = "DashStreakDark"
+		FlipHorizontal = true
+		OriginX = 0.0
+		ScaleX = 0.5
+	}
+	
+	{
+		Name = "DashStreakShortDisplacement_Flipped"
+		InheritFrom = "DashStreakDisplacement"
+		FlipHorizontal = true
+		OriginX = 0.0
+		ScaleX = 0.5
+	}
+	
+	{
+		Name = "DashStreakShortFlat_Flipped"
+		InheritFrom = "DashStreakFlat"
+		FlipHorizontal = true
+		OriginX = 0.0
+		ScaleX = 0.5
+	}
 
 	{
 		Name = "MelManaGather"
@@ -1295,6 +1258,7 @@
 		EndAlpha = 0
 		EaseIn = 0.9
 		EaseOut = 1.0
+		AngleFromOwner = "Take"
 		LocationFromOwner = "Maintain"
 		GroupName = "FX_Standing_Add"
 		ScaleFromOwner = "Ignore"
@@ -2393,6 +2357,9 @@
 		InheritFrom = "MelUnequipSparkle"
 		CreateAnimation = null
 		VisualFx = null
+		GrannyAttachedMarkerLocation = null
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
 		FilePath = "Particles\particle_glow"
 		PingPongScale = false
 		StartScale = 0
@@ -2776,6 +2743,7 @@
 		VisualFx = "MelHPostBossHandFxTrailLeft"
 		VisualFxDistanceMin = 3
 		VisualFxDistanceMax = 3
+		VisualFxFrameCap = 10
 		GroupName = "FX_Standing_Add"
 		IsometricSkew = "Y"
 		Angle = 135
@@ -2796,6 +2764,7 @@
 		VisualFx = "MelHPostBossHandFxTrailLeftB"
 		VisualFxDistanceMin = 30
 		VisualFxDistanceMax = 30
+		VisualFxFrameCap = 10
 		RadialOffsetMin = -15
 		RadialOffsetMax = -15
 		Scale = 0.15
@@ -2879,5 +2848,641 @@
 		InheritFrom = "MelHPostBossHandFxTrailLeftB"
 		Angle = 135
 	}
+
+	{
+		Name = "WrathLightA"
+		CreateAnimation = "WrathLightC"
+		FilePath = "Fx\DionysusRainbowShard\DionysusRainbowShard"
+		GroupName = "FX_Standing_Add"
+
+		VisualFx = "WrathLightB"
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		Duration = 0.125
+		EndFrame = 40
+		NumFrames = 40
+		StartFrame = 1
+		FlipHorizontal = true
+		OffsetZ = 500.0
+		SortMode = "Id"
+		EndScaleY = 0.0
+		Scale = 4.0
+		ScaleX = 1.1
+		ScaleY = 2.0
+		VisualFxCap = 5
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+		Color = { Red = 0.98 Green = 1.0 Blue = 0.96 }
+	}
+
+	{
+		Name = "WrathLightB"
+		InheritFrom = "WrathLightA"
+		VisualFx = "null"
+		AlphaMax = 1.0
+		AlphaMin = 0.1
+		Duration = 0.06
+		RandomOffsetX = 30.0
+		RandomOffsetY = 300.0
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		ScaleY = 0.25
+	}
+
+	{
+		Name = "WrathLightC"
+		InheritFrom = "WrathLightA"
+		CreateAnimation = "null"
+		VisualFx = "null"
+		Duration = 0.08
+		ScaleY = 1.0
+	}
+
+	{
+		Name = "WrathPresentationStreak"
+		FilePath = "Fx\WrathPresentationStreak\WrathPresentationStreak"
+
+		EndFrame = 61
+		NumFrames = 61
+		PlaySpeed = 50.0
+		StartFrame = 1
+		ScaleX = 4.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+	}
+
+	{
+		Name = "WrathPresentationBottomDivider"
+		ChildAnimation = "WrathPresentationStreaksTop"
+		FilePath = "Fx\WrathPresentationStreak\WrathPresentationBottomDivider"
+
+		Duration = 1.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		ScaleX = 4.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "WrathPresentationStreaksTop"
+		FilePath = "Fx\WrathPresentationStreaksTop\WrathPresentationStreaksTop"
+
+		EndFrame = 52
+		NumFrames = 52
+		PlaySpeed = 50.0
+		StartFrame = 1
+		OffsetY = -320.0
+		ScaleX = 8.0
+		Ambient = 0.0
+	}
+	{
+		Name = "WrathFire"
+		FilePath = "Fx\ZagreusWrathFire\ZagreusWrathFire"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Ignore"
+		EndFrame = 59
+		NumFrames = 59
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		SortMode = "FromParent"
+		Scale = 3.0
+		OverlayVfx = true
+		TimeModifierFraction = 0.0
+		CreateAnimations =
+		[
+			{ Name = "WrathLight" }
+			{ Name = "WrathFireDark" }
+			{ Name = "WrathLightA" }
+		]
+	}
+
+	{
+		Name = "WrathLight"
+		FilePath = "Fx\PickupFlareA\PickupFlareA"
+		GroupName = "FX_Add_Top"
+
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/AuraOnLoud"
+		AddColor = true
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 90.0
+		StartFrame = 1
+		FlipVertical = true
+		EndOffsetY = -600.0
+		OffsetY = -300.0
+		ScaleX = 0.3
+		TimeModifierFraction = 0.0
+	}
+
+	{
+		Name = "WrathFireDark"
+		InheritFrom = "WrathFire"
+		GroupName = "Standing"
+		PlaySpeed = 50.0
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "KeepsakeLevelUpFlare"
+		InheritFrom = "ProjectileTempFlare"
+		GroupName = "Combat_UI"
+	}
+	
+	{
+		Name = "SuperStartFlare"
+		InheritFrom = "ProjectileTempFlare"
+		EndOffsetZ = 120.0
+		Hue = 0.5
+	}
+	
+	{
+		Name = "SuperNotChargedFlare"
+		InheritFrom = "ProjectileTempFlare"
+		Hue = -0.2
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+	}
+
+
+	{
+		Name = "FireballProjectile"
+		FilePath = "Fx\Fireball\Fireball"
+		
+		VisualFx = "FireballProjectileTrail"
+		Sound = "/SFX/Player Sounds/HestiaFireballLaunchLoop"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 100
+		Loop = true
+		NumFrames = 100
+		PlaySpeed = 30.0
+		StartFrame = 1
+		ScaleX = 1.2
+		Ambient = 0.0
+		VisualFxDistanceMax = 55.0
+		VisualFxDistanceMin = 50.0
+	}
+	
+	{
+		Name = "FireballProjectileTrail"
+		FilePath = "Fx\Flame\Flame"
+		
+		AngleFromOwner = "Take"
+		EndBlue = 0.3
+		EndGreen = 0.5
+		EndRed = 0.99
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 60
+		LoopFramesOnly = true
+		NumFrames = 60
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.5
+		RandomStartFrame = true
+		StartFrame = 1
+		RandomFlipVertical = true
+		DrawBehindOwner = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		EndScaleY = 0.0
+		ScaleMax = 1.1
+		ScaleMin = 0.8
+		Ambient = 0.0
+		OverlayVfx = true
+	}
+	{
+		Name = "FireballExplosion"
+		FilePath = "Fx\FireballExplosion\FireballExplosion"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Sound = "/SFX/Player Sounds/HestiaFireballImpact"
+		ColorFromOwner = "Ignore"
+		EndFrame = 39
+		NumFrames = 39
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		OffsetY = -30.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 225.0
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashRed" }
+		]
+	}
+		
+	{
+		Name = "HitSparkArmorMel"
+		Random = [	
+			{ Name = "HitSparkArmorA" }
+			{ Name = "HitSparkArmorB" }
+			{ Name = "HitSparkArmorC" }
+		]
+	}
+
+	{
+		Name = "HitSparkArmorA"
+		CreateAnimation = "HitSparkArmorFlash"
+		FilePath = "Fx\HitSparkArmorA\HitSparkArmorA"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndFrame = 13
+		NumFrames = 13
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		ScaleFromOwner = "Ignore"
+		ScaleX = 1
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		TimeModifierFraction = 0.05
+		OffsetZ = 140
+		Saturation = -0.25
+	}
+	
+	{
+		Name = "HitSparkArmorB"
+		InheritFrom = "HitSparkArmorA"
+		FilePath = "Fx\HitSparkArmorB\HitSparkArmorB"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+	}
+	
+	{
+		Name = "HitSparkArmorC"
+		InheritFrom = "HitSparkArmorA"
+		FilePath = "Fx\HitSparkArmorC\HitSparkArmorC"
+		TimeModifierFraction = 0.05
+	}
+	
+	{
+		Name = "HitSparkArmorFlash"
+		InheritFrom = "HitSparkArmorA"
+		CreateAnimation = null
+		Hue = 0
+		ChildAnimation = "null"
+		FilePath = "Fx\HitSparkArmorFlash\HitSparkArmorFlash"
+		EndFrame = 30
+		NumFrames = 30
+		RandomPlaySpeedMin = 55.0
+		RandomPlaySpeedMax = 65.0
+		StartFrame = 1
+		Scale = 1.5
+		ColorFromOwner = "Ignore"
+		ScaleFromOwner = "Maintain"
+		RandomFlipHorizontal = true
+		CreateAnimations = []
+		TimeModifierFraction = 0.05
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.99
+		EaseOut = 1.0
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "HitSparkSwordOrb"
+		InheritFrom = "HitSparkB"
+		FilePath = "Fx\HitSparkC\HitSparkC"
+		EndFrame = 23
+		NumFrames = 23
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		FlipHorizontal = true
+		Scale = 0.5
+		Color = { Red = 1.0 Green = 0.85 Blue = 0.6 }
+	}
+	{
+		Name = "PlayerHitSpark"
+		InheritFrom = "HitSparkB"
+		CreateAnimation = "BloodImpactRandom"
+		Sound = "/Leftovers/World Sounds/PhysicalImpactSmaller"
+		AddColor = false
+		Color = { Red = 1.0 Green = 0.05 Blue = 0.0 }
+	}
+	{
+		Name = "PlayerBurnDamage"
+		InheritFrom = "HitSparkB"
+		AddColor = false
+		Color = { Red = 1.0 Green = 0.05 Blue = 0.0 }
+		Sound = "/SFX/BurnDamage"
+	}
+	{
+		Name = "PlayerArmorHitSpark"
+		InheritFrom = "InvincibleHitSpark"
+		Sound = "/SFX/Player Sounds/ZagreusShieldRicochet"
+	}
+
+	{
+		Name = "SwordParrySpike"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		DurationFrames = 6
+		EaseIn = 0.98
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 800.0
+		EndScaleX = 0.0
+		EndScaleY = 1.35
+		Scale = 0.75
+		StartScaleX = 0.6
+		StartScaleY = 0.8
+		Color = { Red = 1.0 Green = 0.4 Blue = 0.0 }
+	}
+    {
+      Name = "WeaponBonusFx"
+	  ChildAnimation = "WeaponBonusGlow"
+      FilePath = "Dev\blank_invisible"
+      VisualFx = "WeaponBonusSmoke"
+      Loop = true
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetZ = 60.0
+      Scale = 0.8
+      Material = "Unlit"
+      VisualFxIntervalMax = 0.45
+      VisualFxIntervalMin = 0.35
+      Color = { Red = 0.6 Green = 0.0 Blue = 1.0 }
+    }
+
+    {
+      Name = "WeaponBonusGlow"
+	  CreateAnimation = "WeaponBonusFxBack"
+      FilePath = "Particles\particle_glow"
+      Red = 0.6
+      Green = 0
+      Blue = 1.0
+      GroupName = "FX_Add_Top"
+      Material = "Unlit"
+      StartScale = 1
+      EndScale = 1.5
+      StartAlpha = 0
+      EndAlpha = 0.3
+      PingPongColor = true
+      Duration = 2
+      Loop = true
+      OffsetZ = 60
+      EaseIn = 0
+      EaseOut = 1
+      ScaleFromOwner = "Ignore"
+      DieWithOwner = true
+      VisualFx = "WeaponBonusStreaks"
+      VisualFxIntervalMin = 0.5
+      VisualFxIntervalMax = 0.8
+    }
+
+    {
+      Name = "WeaponBonusStreaks"
+      FilePath = "Dev\blank_invisible"
+      Duration = 0.2
+      CreateAnimations = [
+        { Name = "WeaponBonusStreakA" }
+        { Name = "WeaponBonusStreakB" }
+        { Name = "WeaponBonusStreakC" }
+        { Name = "WeaponBonusStreakD" }
+        { Name = "WeaponBonusStreakE" }
+        { Name = "WeaponBonusStreakF" }
+        { Name = "WeaponBonusDarknessShard" }
+        { Name = "WeaponBonusDarknessShard" }
+
+      ]
+    }
+
+    {
+      Name = "WeaponBonusDarknessShard"
+      FilePath = "Fx\DarknessShard\DarknessShard"
+      NumFrames = 45
+      Material = "Unlit"
+      AngleMin = 0
+      AngleMax = 360
+      LocationFromOwner = "Ignore"
+      AngleFromOwner = "Ignore"
+      RadialOffsetMin = 20
+      RadialOffsetMax = 30
+      StartScale = 0
+      EndScale = 1
+      ScaleMin = 0.5
+      ScaleMax = 1.0
+      PingPongScale = true
+      RandomRotation = true
+      RandomRotationSpeedMin = -180
+      RandomRotationSpeedMax = 180
+      RandomDurationMin = 1
+      RandomDurationMax = 2
+      GroupName = "Standing"
+      SortMode = "FromParent"
+      ScaleFromOwner = "Ignore"
+      VelocityMin = 40
+      VelocityMax = 120
+      Scale = 0.66
+      Acceleration = -60
+      OffsetZ = 80
+      EaseIn = 0
+      EaseOut = 1
+    }
+	
+    {
+      Name = "MissileTrailDarknessShard"
+	  InheritFrom = "WeaponBonusDarknessShard"
+      RadialOffsetMin = 0
+      RadialOffsetMax = 0
+      StartScale = 0
+      EndScale = 1
+      ScaleMin = 0.5
+      ScaleMax = 1.0
+	  ColorFromOwner = "Ignore"
+    }
+	{
+		Name = "NyxMissileSpawner"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "MissileTrailDarknessShard"
+		Duration = 1
+		Loop = true
+		DieWithOwner = true
+		VisualFxDistanceMin = 130
+		VisualFxDistanceMax = 130
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+
+    {
+      Name = "WeaponBonusStreakA"
+      FilePath = "Particles\particle_streak_boosted"
+      Material = "Unlit"
+      AddColor = true
+      Red = 0.5
+      Green = 0
+      Blue = 1
+      Angle = 90
+      Duration = 1.25
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+      LocationFromOwner = "Maintain"
+      EaseIn = 0
+      EaseOut = 1
+      Loop = false
+      OffsetZ = 80
+      Scale = 0.6
+      ScaleX = 1.0
+      OriginX = 80
+      OriginY = 32
+      VelocityMin = 80
+      VelocityMax = 100
+      Acceleration = -50
+      ScaleMin = 0.5
+      ScaleMax = 1.5
+      AngleChangeSpeedMin = -2
+      AngleChangeSpeedMax = 2
+      AngleFromOwner = "Ignore"
+      GroupName = "FX_Add_Top"
+      AngleMin = 0
+      AngleMax = 360
+    }
+
+    {
+      Name = "WeaponBonusStreakB"
+      InheritFrom = "WeaponBonusStreakA"
+    }
+
+    {
+      Name = "WeaponBonusStreakC"
+      InheritFrom = "WeaponBonusStreakA"
+      ScaleX = 0.6
+      Angle = 45
+      AddColor = false
+      AngleMin = 0
+      AngleMax = 0.01
+    }
+
+    {
+      Name = "WeaponBonusStreakD"
+      InheritFrom = "WeaponBonusStreakC"
+      Angle = 225
+    }
+
+    {
+      Name = "WeaponBonusStreakE"
+      InheritFrom = "WeaponBonusStreakC"
+      Angle = 135
+    }
+
+    {
+      Name = "WeaponBonusStreakF"
+      InheritFrom = "WeaponBonusStreakC"
+      Angle = 315
+    }
+
+    {
+      Name = "WeaponBonusFxBack"
+      FilePath = "Fx\ProjectileFire\ProjectileFire"
+      EndFrame = 60
+      Loop = true
+      NumFrames = 60
+      PlaySpeed = 30.0
+      StartFrame = 1
+      OffsetZ = 60.0
+      Scale = 2.0
+      Material = "Unlit"
+      VisualFxIntervalMax = 0.3
+      VisualFxIntervalMin = 0.1
+      GroupName = "FX_Dark"
+      DieWithOwner = true
+      ScaleFromOwner = "Ignore"
+      Sound = "/Leftovers/Object Ambiences/DarkThirstAmbience"
+      StopSoundOnFinishFade = 0.2
+      Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	  CancelAnimation = "WeaponBonusFxBack"
+    }
+
+    {
+      Name = "WeaponBonusSmoke"
+      FilePath = "Fx\HydraToothSmokeBright\HydraToothSmokeBright"
+      NumFrames = 80
+      RandomPlaySpeedMin = 15
+      RandomPlaySpeedMax = 24
+      AngleMin = 0
+      AngleMax = 360
+      OriginX = 64
+      OriginY = 220
+      AngleFromOwner = "Ignore"
+      LocationFromOwner = "Maintain"
+      ScaleMin = 0.5
+      ScaleMax = 1.0
+      ScaleFromOwner = "Ignore"
+      Material = "Unlit"
+      SortMode = "FromParent"
+      Hue = -0.2
+      Red = 0.6
+      Green = 0
+      Blue = 1.0
+      ScaleX = 1.2
+      StartAlpha = 0
+      EndAlpha = 1
+      PingPongColor = true
+      GroupName = "FX_Standing_Add"
+      OffsetZ = 25
+      CreateAnimations = [
+        { Name = "WeaponBonusParticle" }
+      ]
+    }
+    {
+      Name = "WeaponBonusParticle"
+      FilePath = "Particles\particle_darkness"
+      GroupName = "FX_Standing_Add"
+      AngleFromOwner = "Ignore"
+      AngleMax = 360.00
+      EndFrame = 1
+      NumFrames = 1
+      RandomDurationMax = 1.2
+      RandomDurationMin = 0.4
+      StartFrame = 1
+      OffsetZ = 40.0
+      RadialOffsetMax = 31.0
+      RadialOffsetMin = 30.0
+      LocationFromOwner = "Take"
+      Acceleration = -150.0
+      VelocityMax = 140.0
+      VelocityMin = 100.0
+      EndScale = 1.0
+      StartScale = 0
+      PingPongScale = true
+      EndScaleX = 1.5
+      ScaleMax = 1.4
+      ScaleMin = 0.4
+      ScaleY = 0.5
+      StartScaleX = 0.5
+      Material = "Unlit"
+    }
 
 ]}

@@ -11,8 +11,8 @@ OverwriteTableKeys( EncounterData,
 		SpawnAggroed = true,
 		RequireNearPlayerDistance = 750,
 		IgnoreSpawnPreferences = true,
-		SpawnIntervalMin = 1.0,
-		SpawnIntervalMax = 2.0,
+		SpawnIntervalMin = 0.3,
+		SpawnIntervalMax = 0.6,
 		ActiveEnemyCapBase = 8,
 		ActiveEnemyCapMax = 8,
 		ActiveEnemyCapDepthRamp = 0,
@@ -20,12 +20,13 @@ OverwriteTableKeys( EncounterData,
 		MinTypes = 3,
 		MaxTypes = 4,
 		MaxTypesCap = 4,
-		MinWaves = 1,
-		MaxWaves = 1,
+		MinWaves = 2,
+		MaxWaves = 3,
 		MoneyDropCapMin = 20,
 		MoneyDropCapMax = 30,
 		MoneyDropCapDepthRamp = 0,
 
+		CanEncounterSkip = false,
 		SkipIntroEncounterCheck = true,
 		EncounterType = "Devotion",
 		DelayedStart = true,
@@ -99,7 +100,7 @@ OverwriteTableKeys( EncounterData,
 								PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
 							}, 
 							{
-								Path = { "CurrentRun", "CurrentRoom", "RejectedLootData", "Gender" },
+								Path = { "MapState", "RejectedLoot", "Gender" },
 								IsAny = { "Female" },
 							},
 						},
@@ -120,7 +121,7 @@ OverwriteTableKeys( EncounterData,
 								PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "Completed" },
 							},
 							{
-								Path = { "CurrentRun", "CurrentRoom", "RejectedLootData", "Gender" },
+								Path = { "MapState", "RejectedLoot", "Gender" },
 								IsAny = { "Male" },
 							},
 						},
@@ -138,6 +139,7 @@ OverwriteTableKeys( EncounterData,
 	DevotionTestF =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedF" },
+		CanEncounterSkip = false,
 		--EnemySet = EnemySets.EnemiesBiome1Devotion,
 		BaseDifficulty = 150,
 		ActiveEnemyCapBase = 7,
@@ -147,27 +149,30 @@ OverwriteTableKeys( EncounterData,
 	DevotionTestG =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedG" },
+		CanEncounterSkip = false,
 
 		DifficultyModifier = 0,
-		DepthDifficultyRamp = 0,
+		DepthDifficultyRamp = 5,
 		
 		MinTypes = 2,
 		MaxTypes = 4,
 		MinWaves = 2,
 		MaxWaves = 3,
 		MaxTypesCap = 3,
-		BaseDifficulty = 200,
+		BaseDifficulty = 270,
 		MaxEliteTypes = 3,
 	},
 
 	DevotionTestH =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedH" },
+		CanEncounterSkip = false,
 	},
 
 	DevotionTestI =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedI" },
+		CanEncounterSkip = false,
 
 		ActiveEnemyCapBase = 3.0,
 		ActiveEnemyCapMax = 10,
@@ -186,6 +191,7 @@ OverwriteTableKeys( EncounterData,
 	DevotionTestN =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedN" },
+		CanEncounterSkip = false,
 
 		MinTypes = 2,
 		MaxTypes = 3,
@@ -198,10 +204,21 @@ OverwriteTableKeys( EncounterData,
 	DevotionTestO =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedO" },
+		CanEncounterSkip = false,
+
+		MinTypes = 3,
+		MaxTypes = 4,
+		MinWaves = 3,
+		MaxWaves = 3,
+		MaxTypesCap = 3,
+		BaseDifficulty = 425,
+		DepthDifficultyRamp = 10,
+		MaxEliteTypes = 3,
 	},
 
 	DevotionTestP =
 	{
 		InheritFrom = { "BaseDevotion", "GeneratedP" },
+		CanEncounterSkip = false,
 	},
 })

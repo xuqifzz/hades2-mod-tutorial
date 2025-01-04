@@ -37,7 +37,7 @@ WeaponSetData =
 				ObjectType = "Hecate",
 				Cooldowns =
 				{
-					{ Name = "HecateSpokeRecently", Time = 25 },
+					{ Name = "HecateSpokeRecently", Time = 8 },
 				},
 				{ Cue = "/VO/HecateField_0051", Text = "All right." },
 				{ Cue = "/VO/HecateField_0052", Text = "Let us try {#Emph}this." },
@@ -88,7 +88,9 @@ WeaponSetData =
 			PostAttackAnimation = "Hecate_Combat_Meteor_End",
 			InterruptAnimation = "Hecate_Combat_Meteor_End",
 
+
 			AttackDistance = 9999,
+			MoveWithinRange = false,
 			PreAttackVoiceLines =
 			{
 				{
@@ -98,13 +100,17 @@ WeaponSetData =
 					ObjectType = "Hecate",
 					Cooldowns =
 					{
-						{ Name = "HecateMeteoredRecently", Time = 60 },
+						{ Name = "HecateMeteoredRecently", Time = 80 },
+						{ Name = "HecateSpokeRecently", Time = 12 }
 					},
-					TriggerCooldowns = { "HecateSpokeRecently" },
 
 					{ Cue = "/VO/HecateField_0139", Text = "{#Emph}Total Eclipse!" },
 					{ Cue = "/VO/HecateField_0140", Text = "{#Emph}Total Eclipse...!" },
 					{ Cue = "/VO/HecateField_0142", Text = "Look now upon the Moon!", PlayFirst = true,
+						Cooldowns =
+						{
+							{ Name = "HecateSaidMoonRecently", Time = 30 },
+						},
 						GameStateRequirements =
 						{
 							{
@@ -130,7 +136,7 @@ WeaponSetData =
 						},
 					},
 				},
-				[2] = GlobalVoiceLines.HecateHexVoiceLines,
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
 
 		},
@@ -207,9 +213,9 @@ WeaponSetData =
 					ObjectType = "Hecate",
 					Cooldowns =
 					{
-						{ Name = "HecateLaseredRecently", Time = 60 },
+						{ Name = "HecateLaseredRecently", Time = 80 },
+						{ Name = "HecateSpokeRecently", Time = 12 }
 					},
-					TriggerCooldowns = { "HecateSpokeRecently" },
 
 					{ Cue = "/VO/HecateField_0143", Text = "{#Emph}Lunar Ray!" },
 					{ Cue = "/VO/HecateField_0144", Text = "{#Emph}Lunar Ray...!" },
@@ -230,7 +236,7 @@ WeaponSetData =
 						},
 					},
 				},
-				[2] = GlobalVoiceLines.HecateHexVoiceLines,
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
 			FireDuration = 5.35,
 			PostAttackDuration = 0.8,
@@ -241,6 +247,7 @@ WeaponSetData =
 			InterruptAnimation = "Hecate_Combat_Meteor_End",
 
 			AttackDistance = 9999,
+			MoveWithinRange = false,
 		},
 
 		GameStateRequirements =
@@ -381,13 +388,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	HecateRangedTorchesLine =
@@ -435,13 +435,6 @@ WeaponSetData =
 				{ Name = "/SFX/HellFireImpactQuiet" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	HecateRangedTorchesSpirals =
@@ -482,13 +475,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastFire" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	HecateRangedTorchesSpiralsPhase =
@@ -515,7 +501,7 @@ WeaponSetData =
 			PreAttackSound = "/SFX/Enemy Sounds/Megaera/MegaeraRapidEnergyBlastStartup",
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.HecateHexVoiceLines,
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
 			FireDuration = 3.5,
 			PostAttackDuration = 1.2,
@@ -599,13 +585,6 @@ WeaponSetData =
 				{ Name = "/SFX/HellFireImpactQuiet" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	HecateRangedTorchesConePhase =
@@ -617,8 +596,12 @@ WeaponSetData =
 			InterruptAnimation = "HecateRangedTorchConeLoopReturnToIdle",
 			PreAttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.HecateHexVoiceLines,
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
+
+			RequireProjectileLoS = false,
+			AttackDistance = 9999,
+			MoveWithinRange = false,
 		},
 
 		GameStateRequirements =
@@ -671,10 +654,9 @@ WeaponSetData =
 					},
 					Cooldowns =
 					{
-						{ Name = "HecateBurnedRecently", Time = 30 },
+						{ Name = "HecateBurnedRecently", Time = 80 },
 						{ Name = "HecateSpokeRecently", Time = 12 },
 					},
-					TriggerCooldowns = { "HecateSpokeRecently" },
 
 					{ Cue = "/VO/Hecate_0347", Text = "Beware!" },
 					{ Cue = "/VO/Hecate_0348", Text = "{#Emph}Burn!" },
@@ -682,7 +664,7 @@ WeaponSetData =
 					{ Cue = "/VO/Hecate_0350", Text = "{#Emph}Fire...!" },
 					{ Cue = "/VO/Hecate_0351", Text = "Bathe in flame!" },
 				},
-				[2] = GlobalVoiceLines.HecateHexVoiceLines,
+				{ GlobalVoiceLines = "HecateHexVoiceLines" },
 			},
 
 		},
@@ -693,13 +675,6 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Hecate/HecateShockwaveRingSFX" },
 			},
-		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
-			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.1 },
 		},
 	},
 
@@ -723,6 +698,9 @@ WeaponSetData =
 			ProjectileName = "HecateTorchRingPhase",
 
 			PostAttackDuration = 3.6,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
 		},
 
 		GameStateRequirements =
@@ -861,13 +839,6 @@ WeaponSetData =
 				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteAttacking" },
 			},
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
-		},
 	},
 
 	HecateMeleeCombo1 =
@@ -912,8 +883,8 @@ WeaponSetData =
 
 			PreAttackEndShake = true,
 			PreAttackEndFlashFraction = 0.8,
-			FireFx = "SwordSwipeADisplace-Arthur",
-			FireFxOffset = 200,
+			--FireFx = "SwordSwipeADisplace-Arthur",
+			--FireFxOffset = 200,
 			PreAttackAnimation = "HecateMeleeAttack1_PreAttack",
 			FireAnimation = "HecateMeleeAttack1_Fire",
 			PostAttackAnimation = "HecateMeleeAttack1_ReturnToIdle",
@@ -959,8 +930,8 @@ WeaponSetData =
 			FireDuration = 0.5,
 			PostAttackDuration = 2.2,
 
-			FireFx = "SwordSwipeAFlippedDisplace",
-			FireFxOffset = 200,
+			--FireFx = "SwordSwipeAFlippedDisplace",
+			--FireFxOffset = 200,
 			PreAttackAnimation = "HecateMeleeAttack2_PreAttack",
 			FireAnimation = "HecateMeleeAttack2_Fire",
 			PostAttackAnimation = "HecateMeleeAttack2_ReturnToIdle",
@@ -1043,10 +1014,9 @@ WeaponSetData =
 				},
 				Cooldowns =
 				{
-					{ Name = "HecateDividedRecently", Time = 30 },
-					{ Name = "HecateSpokeRecently", Time = 12 },
+					{ Name = "HecateDividedRecently", Time = 80 },
+					{ Name = "HecateSpokeRecently", Time = 16 },
 				},
-				TriggerCooldowns = { "HecateSpokeRecently" },
 
 				{ Cue = "/VO/Hecate_0144", Text = "Face all of me!" },
 				{ Cue = "/VO/Hecate_0146", Text = "We are three!" },

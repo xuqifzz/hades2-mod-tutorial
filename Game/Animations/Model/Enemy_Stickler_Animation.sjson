@@ -88,6 +88,12 @@
 		InheritFrom = "EnemySticklerBaseAnimation"
 		GrannyAnimation = "Stickler_Base_LeapLoop_C_00"
 		Loop = true
+		VisualFx = "EnemySticklerLeapTrail"
+		VisualFxDistanceMin = 14
+		VisualFxDistanceMax = 18
+		VisualFxUse3DAngle = true
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 14
 	}
 
 	{
@@ -95,6 +101,7 @@
 		InheritFrom = "EnemySticklerBaseAnimation"
 		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
 		ChainTo = "Enemy_Stickler_Idle"
+		CreateAnimation = "EnemySticklerDecal"
 		Frames =
 		[
 			{
@@ -160,6 +167,7 @@
 		Name = "Enemy_Stickler_Spawn"
 		InheritFrom = "EnemySticklerBaseAnimation"
 		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
+		CreateAnimation = "SticklerSpawnTrail"
 		ChainTo = "Enemy_Stickler_Spawn2"
 		Frames =
 		[
@@ -182,6 +190,10 @@
 		InheritFrom = "EnemySticklerBaseAnimation"
 		GrannyAnimation = "Stickler_Base_LeapLand_C_00"
 		ChainTo = "Enemy_Stickler_Idle"
+		CreateAnimations = [
+			{ Name = "EnemySticklerDecal" }
+			{ Name = "ShipsDust" }
+		]
 		Frames =
 		[
 			{
@@ -195,6 +207,56 @@
 			{
 				Frame = 3
 				FrameSpeed = 1.5
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Stickler_Death"
+		InheritFrom = "Enemy_Stickler_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 1.5
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		VisualFx = "SticklerDeathBits"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 12
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 3
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0.25
 			}
 		]
 	}

@@ -32,6 +32,8 @@ LootSetData.Aphrodite =
 		LightingColor = {255, 111, 202, 255},
 		LootColor = {255, 50, 240, 255},
 		SubtitleColor = Color.AphroditeVoice,
+		EmoteOffsetY = -150,
+		EmoteOffsetX = 80,
 		SpawnSound = "/SFX/AphroditeBoonLoveChimes",
 		PortraitEnterSound = "/SFX/AphroditeBoonLoveChimes",
 		UpgradeSelectedSound = "/SFX/AphroditeBoonChoice",
@@ -39,7 +41,6 @@ LootSetData.Aphrodite =
 		SpeakerName = "Aphrodite",
 		Speaker = "NPC_Aphrodite_01",
 		Portrait = "Portrait_Aphrodite_Default_01",
-		WrathPortrait = "Portrait_Aphrodite_Wrath_01",
 		OverlayAnim = "AphroditeOverlay",
 		Gender = "Female",
 		FlavorTextIds =
@@ -98,12 +99,12 @@ LootSetData.Aphrodite =
 			"ManaBurstBoon",
 			"FocusRawDamageBoon",
 
+			-- Elemental
+			"ElementalDodgeBoon",
+
 			-- Legendary
 			"RandomStatusBoon",
 
-			-- Elemental
-			"ElementalDodgeBoon",
-			
 			-- Duos
 			"SprintEchoBoon",
 			"CharmCrowdBoon",
@@ -118,8 +119,8 @@ LootSetData.Aphrodite =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
-			[2] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			[2] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -129,7 +130,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SprintEchoBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SprintEchoBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0140",
@@ -147,7 +151,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CharmCrowdBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "CharmCrowdBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0142",
@@ -165,7 +172,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "AllCloseBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "AllCloseBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0144",
@@ -183,7 +193,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ManaBurstCountBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaBurstCountBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0094",
@@ -202,7 +215,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MaxHealthDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MaxHealthDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0148",
@@ -219,7 +235,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SlamManaBurstBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SlamManaBurstBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0092",
@@ -236,7 +255,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnRefreshBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BurnRefreshBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0146",
@@ -295,7 +317,10 @@ LootSetData.Aphrodite =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -319,7 +344,10 @@ LootSetData.Aphrodite =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -343,7 +371,10 @@ LootSetData.Aphrodite =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -367,7 +398,10 @@ LootSetData.Aphrodite =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -625,8 +659,8 @@ LootSetData.Aphrodite =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Aphrodite_0072",
-					
-					Text = "Are you quite certain that it's best to be up here? I heard your kind... that is to say, those of the Underworld, that you're not fit to linger on the surface for too long. Please, don't overextend on our behalf!" },
+					Emote = "PortraitEmoteSurprise",
+					Text = "Are you quite certain that it's best to be up here? I heard your kind... that is to say, those of the Underworld, that you're not fit to linger on the surface for too long. Please, {#Emph}don't {#Prev}overextend on our behalf!" },
 			},
 			AphroditeAboutSurface03 =
 			{
@@ -649,7 +683,7 @@ LootSetData.Aphrodite =
 				{ Cue = "/VO/Aphrodite_0073",
 					
 					Emote = "PortraitEmoteSparkly",
-					Text = "Sweetness, why, you seem entirely yourself! Upon the surface here, that is! I thought you couldn't tolerate this place, yet here you are, strutting across the war-torn land as though it's yours by right!" },
+					Text = "Sweetness, why, you seem entirely {#Emph}yourself! {#Prev}Upon the surface here, that is! I thought you couldn't tolerate this place, yet here you are, strutting across the war-torn land as though it's yours by right!" },
 			},
 			AphroditeAboutSurface04 =
 			{
@@ -794,7 +828,7 @@ LootSetData.Aphrodite =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0077",
-					Text = "What shall become of our fair mountain, love? Just recently we felt such tremors as I'd not experienced before. At first I thought it was Poseidon shaking up the earth again, but one look at him, and I knew it wasn't so..." },
+					Text = "What shall become of our fair mountain, love? Just recently we felt such tremors as I'd not experienced before. At first I thought it was Poseidon shaking up the earth again, but one look at {#Emph}him{#Prev}, and I knew it wasn't so..." },
 			},
 
 			AphroditeAboutUnderworld01 =
@@ -828,7 +862,22 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift01", },
 					},
-					RequiredMinAnyTextLines = { TextLines = { "AphroditeAboutHecate01", "AphroditeAboutMoros01", "AphroditeAboutEris01", "AphroditeAboutSirens01", "AphroditeAboutNarcissus01", "AphroditeUnderworldRunCleared01", "AphroditeUnderworldRunCleared02", "AphroditeAboutFates01" }, Count = 2 },
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"AphroditeAboutHecate01",
+							"AphroditeAboutMoros01",
+							"AphroditeAboutEris01",
+							"AphroditeAboutSirens01",
+							"AphroditeAboutNarcissus01",
+							"AphroditeUnderworldRunCleared01",
+							"AphroditeUnderworldRunCleared02",
+							"AphroditeAboutFates01",
+						},
+						Comparison = ">=",
+						Value = 2,
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0127",
@@ -891,7 +940,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Moros_01", },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosFirstMeeting" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosFirstMeeting" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0042",
@@ -1013,6 +1065,11 @@ LootSetData.Aphrodite =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "HeraFirstPickUp", "HeraFirstPickUpAlt" },
 					},
+					{
+						Path = { "GameState", "UseRecord", "NPC_Athena_01" },
+						Comparison = "<=",
+						Value = 4,
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0084",
@@ -1091,7 +1148,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Narcissus_01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "NarcissusFirstMeeting" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NarcissusFirstMeeting" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0125",
@@ -1142,7 +1202,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Eris_01", },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ErisFirstMeeting" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ErisFirstMeeting" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0132",
@@ -1163,7 +1226,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HeraclesFirstMeeting" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HeraclesFirstMeeting" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0133",
@@ -1350,7 +1416,10 @@ LootSetData.Aphrodite =
 						Path = { "CurrentRun", "TextLinesRecord" },
 						HasNone = GameData.GodAboutGodVoiceLines,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "AphroditeAboutHephaestus01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "AphroditeAboutHephaestus01" }, Min = 3 },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1565,7 +1634,7 @@ LootSetData.Aphrodite =
 					},
 					-- @ update based on last boss chamber
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomCountCache", "P_Boss01" },
 					},
 				},
 
@@ -1678,10 +1747,10 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0054",
@@ -1696,10 +1765,10 @@ LootSetData.Aphrodite =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0055",
@@ -2060,11 +2129,18 @@ LootSetData.Aphrodite =
 			},
 			AphroditeChat24 =
 			{
+				PlayFirst = true,
 				GameStateRequirements =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "AphroditeUpgrade" }
 					},
+					{
+						SumPrevRuns = 4,
+						Path = { "UseRecord", "AphroditeUpgrade" },
+						Comparison = "<=",
+						Value = 0,
+					}
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -2186,7 +2262,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0136",
@@ -2197,7 +2276,10 @@ LootSetData.Aphrodite =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0137",
@@ -2211,7 +2293,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "CharonGift01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0138",
@@ -2226,7 +2311,10 @@ LootSetData.Aphrodite =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsAny = { "F_PreBoss01", "G_PreBoss01", "H_PreBoss01", "I_PreBoss01", "N_PreBoss01", "O_PreBoss01", "P_PreBoss01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Aphrodite_0139",
@@ -2306,7 +2394,7 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "RejectedLootData", "Name" },
+						Path = { "MapState", "RejectedLoot", "Name" },
 						IsAny = { "HephaestusUpgrade" },
 					},
 				},
@@ -2322,7 +2410,7 @@ LootSetData.Aphrodite =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "CurrentRoom", "RejectedLootData", "Name" },
+						Path = { "MapState", "RejectedLoot", "Name" },
 						IsAny = { "HephaestusUpgrade" },
 					},
 				},
@@ -2337,7 +2425,7 @@ LootSetData.Aphrodite =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2411,6 +2499,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0948", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2439,6 +2531,10 @@ LootSetData.Aphrodite =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0949", UsePlayerSource = true,
@@ -2469,6 +2565,10 @@ LootSetData.Aphrodite =
 					{
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0950", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2497,6 +2597,10 @@ LootSetData.Aphrodite =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "AphroditeUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1766", UsePlayerSource = true,
@@ -2544,9 +2648,13 @@ LootSetData.Aphrodite =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
-
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 		},
 
 		RarityUpgradeVoiceLines =

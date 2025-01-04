@@ -145,6 +145,16 @@
     }
     
     {
+      Name = "FrogsAmbienceGenerator"
+      InheritFrom = "BaseAmbienceGenerator"
+      DisplayInEditor = true
+      Thing = 
+      {
+        AmbientSound = "/Leftovers/Object Ambiences/CroakingFrogsAmbience"
+      }
+    }
+
+    {
       Name = "LavaAmbienceGeneratorBubbles"
       InheritFrom = "BaseAmbienceGenerator"
       DisplayInEditor = true

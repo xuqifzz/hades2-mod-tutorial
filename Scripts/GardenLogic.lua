@@ -99,7 +99,7 @@ function GardenPlantSeed( screen, button  )
 	local seedData = GardenData.Seeds[plot.SeedName]
 	local weightedList = {}
 	for k, option in pairs( seedData.RandomOutcomes ) do
-		if IsGameStateEligible( CurrentRun, option, option.GameStateRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements ) then
 			weightedList[k] = option.Weight or 1
 		end
 	end

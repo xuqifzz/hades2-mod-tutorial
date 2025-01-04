@@ -38,6 +38,7 @@ UnitSetData.ZombieHeavyRanged =
 			"AggroAI",
 		},
 		AIAggroRange = 1100,
+		PostAggroAI = "SurroundAI",
 		
 		StunAnimations = 
 		{
@@ -47,6 +48,11 @@ UnitSetData.ZombieHeavyRanged =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			MaintainSurroundDistance = false,
+			SurroundDistance = 1000,
+			SurroundRefreshInterval = 1.5,
+			MaxAttackers = 3,
 		},
 
 		WeaponOptions =
@@ -55,6 +61,16 @@ UnitSetData.ZombieHeavyRanged =
 		},
 
 		HeraclesCombatMoneyValue = 5,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.125,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
 
 		GeneratorData =
 		{
@@ -62,16 +78,6 @@ UnitSetData.ZombieHeavyRanged =
 			BlockEnemyTypes = {"ZombieHeavyRanged_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			PreLineWait = 0.5,
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0456", Text = "Lubbers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
@@ -79,19 +85,17 @@ UnitSetData.ZombieHeavyRanged =
 			PreLineWait = 0.5,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0455", Text = "Lubbers.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0456", Text = "Lubbers!" },
+			{ Cue = "/VO/MelinoeField_0455", Text = "Lubbers." },
+			{ Cue = "/VO/MelinoeField_0456", Text = "Lubbers!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0457", Text = "More Lubbers." },
 			{ Cue = "/VO/MelinoeField_0458", Text = "More Lubbers?" },
 		},
@@ -99,7 +103,7 @@ UnitSetData.ZombieHeavyRanged =
 
 	ZombieHeavyRanged_Elite =
 	{
-		InheritFrom = { "ZombieHeavyRanged" },
+		InheritFrom = { "Elite", "ZombieHeavyRanged" },
 		HealthBuffer = 380,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteTaunting",

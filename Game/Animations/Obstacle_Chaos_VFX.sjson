@@ -1,0 +1,26 @@
+{ Animations = [
+		
+	{
+		Name = "ChaosNebula01"
+		FilePath = "Tilesets\Chaos\Chaos_Nebula_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomRotationSpeedMax = 2.0
+		RandomRotationSpeedMin = -2.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+	
+	{
+		Name = "ChaosNebula02"
+		InheritFrom = "ChaosNebula01"
+	}
+	
+	{
+		Name = "ChaosNebula03"
+		InheritFrom = "ChaosNebula01"
+		FilePath = "Tilesets\Chaos\Chaos_Nebula_03"
+	}
+]}

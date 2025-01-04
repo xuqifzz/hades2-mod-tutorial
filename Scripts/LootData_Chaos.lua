@@ -20,7 +20,7 @@
 		BoonInfoIcon = "BoonInfoSymbolChaosIcon",
 		BoonInfoTitleText = "UpgradeChoiceMenu_Chaos",
 		Icon = "BoonSymbolChaos",
-		DoorIcon = "BoonSymbolChaos",
+		DoorIcon = "BoonDropChaosPreview",
 		SpawnSound = "/SFX/Menu Sounds/KeepsakeChaosEgg",
 		ConfirmSound = "/SFX/Menu Sounds/ChaosBoonConfirm",
 		PortraitEnterSound = "/EmptyCue",
@@ -67,7 +67,24 @@
 			"ChaosDeathWeaponCurse", "ChaosSpeedCurse", "ChaosExAttackCurse",
 			"ChaosCommonCurse", "ChaosCastCurse", "ChaosDashCurse", "ChaosManaFocusCurse",
 			"ChaosRestrictBoonCurse", "ChaosStunCurse", "ChaosTimeCurse", "ChaosMetaUpgradeCurse" }, 
-			
+		
+		TraitSortOrder = 
+		{
+			-- Blessings
+			"ChaosWeaponBlessing", "ChaosSpecialBlessing", "ChaosCastBlessing", "ChaosHealthBlessing", 
+			"ChaosRarityBlessing", "ChaosMoneyBlessing", "ChaosManaBlessing", 
+			"ChaosManaOverTimeBlessing",
+			"ChaosExSpeedBlessing", "ChaosElementalBlessing", "ChaosManaCostBlessing",
+			"ChaosSpeedBlessing", "ChaosDoorHealBlessing", "ChaosHarvestBlessing",
+			"ChaosOmegaDamageBlessing","ChaosLastStandBlessing", 
+			-- Curses
+			"ChaosNoMoneyCurse", "ChaosHealthCurse", "ChaosHiddenRoomRewardCurse", 
+			"ChaosDamageCurse", "ChaosPrimaryAttackCurse", "ChaosSecondaryAttackCurse",
+			"ChaosDeathWeaponCurse", "ChaosSpeedCurse", "ChaosExAttackCurse",
+			"ChaosCommonCurse", "ChaosCastCurse", "ChaosDashCurse", "ChaosManaFocusCurse",
+			"ChaosRestrictBoonCurse", "ChaosStunCurse", "ChaosTimeCurse", "ChaosMetaUpgradeCurse"
+
+		},
 		BoonRaritiesOverride =
 		{
 			Rare = 0.40,
@@ -85,7 +102,6 @@
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{
-			[1] =
 			{
 				PreLineWait = 0.3,
 				SuccessiveChanceToPlay = 0.2,
@@ -98,8 +114,7 @@
 				{ Cue = "/VO/MelinoeField_0975", Text = "Salutations...?", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_0976", Text = "Thank you for summoning me." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
-			[3] =
+			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
 				PreLineWait = 0.4,
 				RandomRemaining = true,
@@ -152,7 +167,7 @@
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			{ GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		InteractTextLineSets =
@@ -205,7 +220,10 @@
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0053",
@@ -227,7 +245,10 @@
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0054",
@@ -249,7 +270,10 @@
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0055",
@@ -271,7 +295,10 @@
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0056",
@@ -290,8 +317,8 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name", },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G", "O" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -309,8 +336,14 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						Path = { "CurrentRun", "CurrentRoom", "Name", },
-						IsAny = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						Path = { "CurrentRun", "BiomesReached" },
+						HasNone = { "G" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -334,6 +367,12 @@
 					},
 					{
 						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -375,6 +414,9 @@
 					{
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsNone = { "TestAllThings", },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -501,7 +543,10 @@
 					{
 						PathTrue = { "CurrentRun", "ActiveBounty" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChaosAboutBounties02", "ChaosAboutBounties03" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutBounties02", "ChaosAboutBounties03" }, Min = 3 },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0042",
@@ -520,7 +565,10 @@
 					{
 						PathTrue = { "CurrentRun", "ActiveBounty" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties03" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties03" }, Min = 3 },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0209",
@@ -539,7 +587,14 @@
 					{
 						PathTrue = { "CurrentRun", "ActiveBounty" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties02" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutBounties01", "ChaosAboutBounties02" }, Min = 3 },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name", },
+						IsNone = { "F_Opening01", "F_Opening02", "F_Opening03", "N_Opening01" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0210",
@@ -559,7 +614,7 @@
 						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 					{
-						Path = { "GameState", "PackageBountyClears" },
+						Path = { "GameState", "PackagedBountyClears" },
 						UseLength = true,
 						Comparison = ">=",
 						Value = 5,
@@ -603,6 +658,9 @@
 						Path = { "GameState", "LifetimeResourcesGained", "Mixer5Common" },
 						Comparison = ">=",
 						Value = 3,
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -670,6 +728,9 @@
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
 						HasAny = { "RandomBlessingKeepsake" },
 					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0052",
@@ -706,7 +767,7 @@
 					Text = "I see. As you may know, I am uninterested in the Fates having undue influence. Perhaps you may find a catalyst here for this incantation. Whether they like it or not." },
 				{
 					PostLineThreadedFunctionName = "DisplayInfoToast",
-					PostLineFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "PlantChaosThalamusSeedIcon", VoiceLines = GlobalVoiceLines.ChaosSeedsUnlockedVoiceLines, GiftResource = true, WaitTime = 0.25, ResourceName = "PlantChaosThalamusSeed", SoundName = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY" },
+					PostLineFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "PlantChaosThalamusSeedIcon", VoiceLines = { GlobalVoiceLines = "ChaosSeedsUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "PlantChaosThalamusSeed", SoundName = "/Leftovers/Menu Sounds/TalismanRockUpLEGENDARY" },
 				},
 			},
 			ChaosAboutSurface02 =
@@ -721,8 +782,14 @@
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "N_Boss01" },
-					}
+						PathTrue = { "PrevRun", "RoomsEntered", "N_Boss01" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						PathFalse = { "ChaosAboutSurfaceAppearance01" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0034",
@@ -739,7 +806,10 @@
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface02" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurface02" },
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
@@ -762,7 +832,10 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurfaceAppearance01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "ChaosAboutSurfaceAppearance01" }, Count = 4 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ChaosAboutSurfaceAppearance01" }, Min = 4 },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0202",
@@ -810,6 +883,13 @@
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosGift03" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						Path = { "CurrentRun", "TraitUses" },
+						HasNone = { "TemporaryForcedSecretDoorTrait" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -890,7 +970,7 @@
 					Text = "Once there was Darkness all throughout the Underworld, but now... Chronos works to re-shape the realm to suit his preferences. However, there shall always be Darkness here in this space. And I have made it visible to you." },
 				{
 					PostLineThreadedFunctionName = "DisplayInfoToast",
-					PostLineFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "Mixer6Common", VoiceLines = GlobalVoiceLines.DarknessUnlockedVoiceLines, GiftResource = true, WaitTime = 0.25, ResourceName = "Mixer6Common", SoundName = "/SFX/Player Sounds/DarknessCollectionPickup" },
+					PostLineThreadedFunctionArgs = { Duration = 2, Title = "ChaosUnlockAdded", Text = "Mixer6Common", VoiceLines = { GlobalVoiceLines = "DarknessUnlockedVoiceLines" }, GiftResource = true, WaitTime = 0.25, ResourceName = "Mixer6Common", SoundName = "/SFX/Player Sounds/DarknessCollectionPickup" },
 				},
 			},
 
@@ -968,6 +1048,9 @@
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "ChronosNightmare01" },
 					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0045",
@@ -994,6 +1077,9 @@
 							"HadesAboutChronosNightmare01",
 							"HermesAboutFates01",
 						},
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1032,6 +1118,9 @@
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutChronosNightmare01" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1090,6 +1179,9 @@
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0046",
@@ -1108,6 +1200,9 @@
 					{
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "ChaosAboutNyx01", "ChronosNightmare01" }
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1172,6 +1267,9 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "ChaosAboutSurfaceAppearance01" }
 					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0201",
@@ -1215,6 +1313,9 @@
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
@@ -1308,6 +1409,9 @@
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
 					--[[
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
@@ -1331,6 +1435,9 @@
 					},
 					{
 						PathTrue = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
+					},
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
 					--[[
 					{
@@ -1707,7 +1814,9 @@
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "TrialUpgrade" }
 					},
-					RequiredLootChoices = 3,
+					{
+						FunctionName = "RequireUnrestrictedBoonChoices",
+					},
 				},
 				PreEventFunctionName = "ChaosInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0 },
 				{ Cue = "/VO/Chaos_0019",
@@ -1866,6 +1975,10 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_0768", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1891,6 +2004,10 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0770", UsePlayerSource = true,
@@ -1918,6 +2035,10 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_0771", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1943,6 +2064,10 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0772", UsePlayerSource = true,
@@ -1970,6 +2095,10 @@
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_1774", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1995,6 +2124,10 @@
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "TrialUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1775", UsePlayerSource = true,
@@ -2041,8 +2174,13 @@
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 
@@ -2058,6 +2196,55 @@
 				{
 					{
 						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BountyCleared" },
+					},
+				},
+
+				{ Cue = "/VO/Chaos_0252", Text = "After such a simple Trial, surely you would attempt another?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "ActiveBounty" },
+							IsAny = { "PackageBountyChaosIntro" },
+						},
+					},
+				},
+				{ Cue = "/VO/Chaos_0121", Text = "I have observed all that I wish for now." },
+				{ Cue = "/VO/Chaos_0122", Text = "This facet of reality is clearer to me now." },
+				{ Cue = "/VO/Chaos_0123", Text = "Thus you have proven that this possibility exists." },
+				{ Cue = "/VO/Chaos_0124", Text = "All this was a mere possibility before." },
+				{ Cue = "/VO/Chaos_0125", Text = "I am grateful, though that shall be all for now." },
+				{ Cue = "/VO/Chaos_0126", Text = "This particular experiment was a success." },
+				{ Cue = "/VO/Chaos_0127", Text = "A mere thought, turned into a real possibility." },
+				{ Cue = "/VO/Chaos_0128", Text = "The bounds of what is possible continue to expand." },
+				{ Cue = "/VO/Chaos_0129", Text = "This was a chance I trust was well worth taking." },
+				{ Cue = "/VO/Chaos_0130", Text = "I was sufficiently amused by your attempt." },
+				{ Cue = "/VO/Chaos_0253", Text = "May my Star Dust compensate you for your services." },
+				{ Cue = "/VO/Chaos_0254", Text = "This Trial is complete; I bid you return whence you came." },
+				{ Cue = "/VO/Chaos_0255", Text = "I have observed the outcome of this Trial with keen interest." },
+				{ Cue = "/VO/Chaos_0256", Text = "You may go no further; that is all part of the Trial." },
+				{ Cue = "/VO/Chaos_0257", Text = "I am satisfied with the results of this Trial, and bid you return." },
+				{ Cue = "/VO/Chaos_0258", Text = "You have accomplished what this Trial asked of you." },
+				{ Cue = "/VO/Chaos_0259", Text = "I did not necessarily expect that you would pass this Trial." },
+				{ Cue = "/VO/Chaos_0260", Text = "Another Trial successfully completed, Spawn of Hades." },
+				{ Cue = "/VO/Chaos_0261", Text = "You passed; but now return to shadow, Spawn of Hades." },
+			},
+			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 1.25,
+				NoTarget = true,
+				Source = { LineHistoryName = "NPC_Chaos_01", SubtitleColor = Color.ChaosVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						PathFalse = { "CurrentRun", "BountyCleared" },		
 					},
 				},
 

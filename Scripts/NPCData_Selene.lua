@@ -42,7 +42,7 @@ UnitSetData.NPC_Selene =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Great Selene, I am honored by your presence here. The task proceeds at pace I think, although as you well know, we have much left to do. I'm grateful you've been watching over me." },
 				{ Cue = "/VO/Selene_0109",
-					PostLineThreadedFunctionName = "HecateExit", PostLineFunctionArgs = { SkipAnim = true, AnimationState = "NPCSeleneExited", WaitTime = 3.2 },
+					PostLineThreadedFunctionName = "HecateExit", PostLineFunctionArgs = { SkipAnim = true, WaitTime = 3.2 },
 					Text = "And I am grateful for the opportunity. I am the Eye of Night, but you, I think, have come to be her sword. Until we see each other once again under her veil." },
 				EndVoiceLines =
 				{
@@ -82,7 +82,10 @@ UnitSetData.NPC_Selene =
 						Comparison = ">=",
 						Value = 8,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "SeleneHome01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "SeleneHome01" }, Min = 3 },
+					},
 				},
 
 				{ Cue = "/VO/Selene_0106",
@@ -90,7 +93,7 @@ UnitSetData.NPC_Selene =
 				{ Cue = "/VO/Hecate_0199", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
 					Text = "Yes, Selene, do. Blasted Ephyra is the closest exit out of here. Do you suppose they are prepared for a single assailant to weave through their ranks?" },
 				{ Cue = "/VO/Selene_0107",
-					PostLineThreadedFunctionName = "HecateExit", PostLineFunctionArgs = { SkipAnim = true, AnimationState = "NPCSeleneExited", WaitTime = 3.2 },
+					PostLineThreadedFunctionName = "HecateExit", PostLineFunctionArgs = { SkipAnim = true, WaitTime = 3.2 },
 					Text = "The Titan's forces are somewhat in disarray. Thus no, I do not think they are sufficiently prepared for one of us. But I shall watch and make certain of it. For now I must be off. Together we shine." },
 				EndVoiceLines =
 				{

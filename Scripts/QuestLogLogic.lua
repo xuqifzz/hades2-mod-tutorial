@@ -32,8 +32,9 @@ function OpenQuestLogScreen( args )
 		local questData = QuestData[questName]
 		if GameState.QuestStatus[questData.Name] == "CashedOut" then
 			table.insert( cashedOutQuests, questData )
-		elseif IsGameStateEligible( CurrentRun, questData, questData.UnlockGameStateRequirements ) then
-			if IsGameStateEligible( CurrentRun, questData, questData.CompleteGameStateRequirements ) then
+		-- @ for testing, adjust this requirement to show all
+		elseif IsGameStateEligible( questData, questData.UnlockGameStateRequirements ) then
+			if IsGameStateEligible( questData, questData.CompleteGameStateRequirements ) then
 				table.insert( readyToCashOutQuests, questData )
 			else
 				table.insert( incompleteQuests, questData )
@@ -69,6 +70,10 @@ function OpenQuestLogScreen( args )
 			SetAnimation({ DestinationId = components[newButtonKey].Id , Name = "QuestLogNewQuest" })
 			Attach({ Id = components[newButtonKey].Id, DestinationId = components[questButtonKey].Id, OffsetX = screen.NewIconOffsetX, OffsetY = 0 })
 		end
+
+		local strikethroughKey = "Strikethrough"..screen.NumItems
+		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Animation = "QuestLogStrikethrough", Alpha = 0.0 })
+		Attach({ Id = components[strikethroughKey].Id, DestinationId = components[questButtonKey].Id })
 
 		local readyToCashOutFormat = screen.ReadyToCashOutFormat
 		readyToCashOutFormat.Id = components[questButtonKey].Id
@@ -133,6 +138,10 @@ function OpenQuestLogScreen( args )
 		button.Screen = screen
 		AttachLua({ Id = components[questButtonKey].Id, Table = components[questButtonKey] })
 
+		local strikethroughKey = "Strikethrough"..screen.NumItems
+		components[strikethroughKey] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu", Animation = "QuestLogStrikethrough", Alpha = 0.0 })
+		Attach({ Id = components[strikethroughKey].Id, DestinationId = components[questButtonKey].Id })
+
 		local cashedOutFormat = screen.CashedOutFormat
 		cashedOutFormat.Id = components[questButtonKey].Id
 		cashedOutFormat.Text = questData.Name
@@ -158,7 +167,7 @@ end
 function CashOutQuest( screen, button )
 
 	local questData = button.Data
-	if questData.CompleteGameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, questData, questData.CompleteGameStateRequirements ) then
+	if questData.CompleteGameStateRequirements ~= nil and not IsGameStateEligible( questData, questData.CompleteGameStateRequirements ) then
 		QuestIncompletePresentation( button )
 		return
 	end
@@ -195,13 +204,13 @@ function HasActiveQuestForName( name )
 	{
 		NamedRequirements = { "QuestLogUnlocked", },
 	}
-	if not IsGameStateEligible( CurrentRun, requirements ) then
+	if not IsGameStateEligible( screen, requirements ) then
 		return false
 	end
 
 	for k, questName in ipairs( QuestOrderData ) do
 		local questData = QuestData[questName]
-		if --[[GameState.QuestsViewed[questName] and]] GameState.QuestStatus[questData.Name] ~= "CashedOut" and IsGameStateEligible( CurrentRun, questData, questData.UnlockGameStateRequirements ) then
+		if --[[GameState.QuestsViewed[questName] and]] GameState.QuestStatus[questData.Name] ~= "CashedOut" and IsGameStateEligible( questData, questData.UnlockGameStateRequirements ) then
 			for j, requirement in pairs( questData.CompleteGameStateRequirements ) do
 				if requirement.HasAll ~= nil then
 					if Contains( requirement.HasAll, name ) then
@@ -222,7 +231,7 @@ function HasActiveQuestForItem( name )
 	{
 		NamedRequirements = { "QuestLogUnlocked", },
 	}
-	if not IsGameStateEligible( CurrentRun, requirements ) then
+	if not IsGameStateEligible( nil, requirements ) then
 		return false
 	end
 
@@ -242,8 +251,8 @@ function HasAnyQuestWithStatus( status )
 			if status == "CashedOut" then
 				return true
 			end
-		elseif IsGameStateEligible( CurrentRun, questData, questData.UnlockGameStateRequirements ) then
-			if IsGameStateEligible( CurrentRun, questData, questData.CompleteGameStateRequirements ) then
+		elseif IsGameStateEligible( questData, questData.UnlockGameStateRequirements ) then
+			if IsGameStateEligible( questData, questData.CompleteGameStateRequirements ) then
 				if status == "Complete" then
 					return true
 				end
@@ -302,7 +311,7 @@ function ShowQuestProgress( screen, questData, requirements )
 	local completeColor = screen.RequirementCompleteColor
 	local incompleteColor = screen.RequirementIncompleteColor
 
-	local isComplete = IsGameStateEligible( CurrentRun, questData, questData.CompleteGameStateRequirements )
+	local isComplete = IsGameStateEligible( questData, questData.CompleteGameStateRequirements )
 
 	if questData.CustomCompleteString ~= nil and isComplete then
 		local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
@@ -373,12 +382,13 @@ function ShowQuestProgress( screen, questData, requirements )
 
 			index = index + 1
 			if index >= firstVisibleIndex and index <= maxVisibleIndex then
-				local completionRequirementFormat = screen.CompletionRequirementFormat
+				local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 				completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
 				completionRequirementFormat.Text = text
 				completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
 				completionRequirementFormat.OffsetY = offsetY
 				completionRequirementFormat.Color = color
+				completionRequirementFormat.TextSymbolScale = questData.CompletionRequirementTextSymbolScale or completionRequirementFormat.TextSymbolScale
 				completionRequirementFormat.LuaKey = "TempTextData"
 				completionRequirementFormat.LuaValue = { Current = currentCount, Goal = goalCount }
 				CreateTextBox( completionRequirementFormat )
@@ -396,18 +406,30 @@ function ShowQuestProgress( screen, questData, requirements )
 			local finalKey = requirement.PathTrue[numKeys]
 			local color = completeColor
 			local text = "QuestLog_QuestProgressComplete"
+			local completionText = nil
 			if not valueToCheck then
 				color = incompleteColor
-				text = questData.IncompleteName or "QuestLog_QuestProgressIncomplete"
+				text = "QuestLog_QuestProgressIncomplete"
+				completionText = questData.IncompleteName
 			end
 
 			if index >= firstVisibleIndex and index <= maxVisibleIndex then
-				local completionRequirementFormat = screen.CompletionRequirementFormat
+
+				local bulletPointFormat = ShallowCopyTable( screen.BulletPointFormat )
+				bulletPointFormat.Id = screen.Components.DescriptionBox.Id
+				bulletPointFormat.Text = text
+				bulletPointFormat.OffsetX = ( currentColumn - 1 ) * columnWidth
+				bulletPointFormat.OffsetY = offsetY
+				bulletPointFormat.Text = text
+				CreateTextBox( bulletPointFormat )
+
+				local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 				completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
-				completionRequirementFormat.Text = text
 				completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
 				completionRequirementFormat.OffsetY = offsetY
 				completionRequirementFormat.Color = color
+				completionRequirementFormat.TextSymbolScale = questData.CompletionRequirementTextSymbolScale or completionRequirementFormat.TextSymbolScale
+				completionRequirementFormat.Text = completionText or completionRequirementFormat.Text
 				completionRequirementFormat.LuaKey = "TempTextData"
 				completionRequirementFormat.LuaValue = { Requirement = finalKey }
 				CreateTextBox( completionRequirementFormat )
@@ -423,19 +445,31 @@ function ShowQuestProgress( screen, questData, requirements )
 			for k, key in ipairs( requirement.HasAll ) do
 				local color = completeColor
 				local text = "QuestLog_QuestProgressComplete"
+				local completionText = nil
 				if valueToCheck == nil or not valueToCheck[key] then
 					color = incompleteColor
-					text = questData.IncompleteName or "QuestLog_QuestProgressIncomplete"
+					text = "QuestLog_QuestProgressIncomplete"
+					completionText = questData.IncompleteName
 				end
 
 				index = index + 1
 				if index >= firstVisibleIndex and index <= maxVisibleIndex then
-					local completionRequirementFormat = screen.CompletionRequirementFormat
+
+					local bulletPointFormat = ShallowCopyTable( screen.BulletPointFormat )
+					bulletPointFormat.Id = screen.Components.DescriptionBox.Id
+					bulletPointFormat.Text = text
+					bulletPointFormat.OffsetX = ( currentColumn - 1 ) * columnWidth
+					bulletPointFormat.OffsetY = offsetY
+					bulletPointFormat.Text = text
+					CreateTextBox( bulletPointFormat )
+
+					local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 					completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
-					completionRequirementFormat.Text = text
 					completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
 					completionRequirementFormat.OffsetY = offsetY
 					completionRequirementFormat.Color = color
+					completionRequirementFormat.TextSymbolScale = questData.CompletionRequirementTextSymbolScale or completionRequirementFormat.TextSymbolScale
+					completionRequirementFormat.Text = completionText or completionRequirementFormat.Text
 					completionRequirementFormat.LuaKey = "TempTextData"
 					completionRequirementFormat.LuaValue = { Requirement = key }
 					CreateTextBox( completionRequirementFormat )
@@ -452,19 +486,31 @@ function ShowQuestProgress( screen, questData, requirements )
 			for k, key in ipairs( requirement.HasAny ) do
 				local color = completeColor
 				local text = "QuestLog_QuestProgressComplete"
+				local completionText = nil
 				if not valueToCheck[key] then
 					color = incompleteColor
-					text = questData.IncompleteName or "QuestLog_QuestProgressIncomplete"
+					text = "QuestLog_QuestProgressIncomplete"
+					completionText = questData.IncompleteName
 				end
 				
 				index = index + 1
 				if index >= firstVisibleIndex and index <= maxVisibleIndex then
-					local completionRequirementFormat = screen.CompletionRequirementFormat
+					
+					local bulletPointFormat = ShallowCopyTable( screen.BulletPointFormat )
+					bulletPointFormat.Id = screen.Components.DescriptionBox.Id
+					bulletPointFormat.Text = text
+					bulletPointFormat.OffsetX = ( currentColumn - 1 ) * columnWidth
+					bulletPointFormat.OffsetY = offsetY
+					bulletPointFormat.Text = text
+					CreateTextBox( bulletPointFormat )
+
+					local completionRequirementFormat = ShallowCopyTable( screen.CompletionRequirementFormat )
 					completionRequirementFormat.Id = screen.Components.DescriptionBox.Id
-					completionRequirementFormat.Text = text
 					completionRequirementFormat.OffsetX = screen.CompleteRequirementsOffsetX + ( ( currentColumn - 1 ) * columnWidth )
 					completionRequirementFormat.OffsetY = offsetY
 					completionRequirementFormat.Color = color
+					completionRequirementFormat.TextSymbolScale = questData.CompletionRequirementTextSymbolScale or completionRequirementFormat.TextSymbolScale
+					completionRequirementFormat.Text = completionText or completionRequirementFormat.Text
 					completionRequirementFormat.LuaKey = "TempTextData"
 					completionRequirementFormat.LuaValue = { Requirement = key }
 					CreateTextBox( completionRequirementFormat )
@@ -482,9 +528,9 @@ function ShowQuestProgress( screen, questData, requirements )
 	end
 
 	screen.NumRequirements = index
-	DebugPrint({ Text = "screen.NumRequirements = "..screen.NumRequirements })
+	--DebugPrint({ Text = "screen.NumRequirements = "..screen.NumRequirements })
 	screen.NumRequirementsColumns = math.ceil( screen.NumRequirements / screen.RequirementEntriesPerColumn )
-	DebugPrint({ Text = "screen.NumRequirementsColumns = "..screen.NumRequirementsColumns })
+	--DebugPrint({ Text = "screen.NumRequirementsColumns = "..screen.NumRequirementsColumns })
 	if screen.ProgressPageOffset >= 1 then
 		SetAlpha({ Id = screen.Components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.2 })
 	else
@@ -508,7 +554,7 @@ function CheckQuestStatus( args )
 	{
 		NamedRequirements = { "QuestLogUnlocked", },
 	}
-	if not IsGameStateEligible( CurrentRun, requirements ) then
+	if not IsGameStateEligible( nil, requirements ) then
 		return false
 	end
 
@@ -530,7 +576,7 @@ function CheckQuestStatus( args )
 		local thisQuestAdded = false
 		if GameState.QuestStatus[questData.Name] == nil then
 			-- Locked
-			if IsGameStateEligible( CurrentRun, questData, questData.UnlockGameStateRequirements ) then
+			if IsGameStateEligible( questData, questData.UnlockGameStateRequirements ) then
 				-- Unlocked
 				GameState.QuestStatus[questData.Name] = "Unlocked"
 				thisQuestAdded = true
@@ -540,7 +586,7 @@ function CheckQuestStatus( args )
 			end
 		end
 		if GameState.QuestStatus[questData.Name] == "Unlocked" then
-			if IsGameStateEligible( CurrentRun, questData, questData.CompleteGameStateRequirements ) then
+			if IsGameStateEligible( questData, questData.CompleteGameStateRequirements ) then
 				-- Completed
 				GameState.QuestStatus[questData.Name] = "Complete"
 				questCompleted = true
@@ -595,6 +641,7 @@ function QuestLogUpdateVisibility( screen )
 	for index = 1, screen.NumItems do
 		local questButtonKey = (screen.ButtonName or "QuestButton")..index
 		local newButtonKey = "NewIcon"..index
+		local strikethroughKey = "Strikethrough"..index
 
 		local visibleIndex = index - screen.ScrollOffset
 
@@ -605,12 +652,18 @@ function QuestLogUpdateVisibility( screen )
 			if components[newButtonKey] ~= nil and not GameState.QuestsViewed[components[questButtonKey].Data.Name] then
 				SetAlpha({ Id = components[newButtonKey].Id, Fraction = 1 })
 			end
+			if components[strikethroughKey] ~= nil and GameState.QuestStatus[components[questButtonKey].Data.Name] == "CashedOut" then
+				SetAlpha({ Id = components[strikethroughKey].Id, Fraction = 1 })
+			end
 			UseableOn({ Id = components[questButtonKey].Id })
 		else
 			-- Page out of view
 			SetAlpha({ Id = components[questButtonKey].Id, Fraction = 0 })
 			if components[newButtonKey] ~= nil then
 				SetAlpha({ Id = components[newButtonKey].Id, Fraction = 0 })
+			end
+			if components[strikethroughKey] ~= nil then
+				SetAlpha({ Id = components[strikethroughKey].Id, Fraction = 0 })
 			end
 			UseableOff({ Id = components[questButtonKey].Id, ForceHighlightOff = true  })
 		end

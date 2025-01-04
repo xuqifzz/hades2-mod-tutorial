@@ -20,14 +20,17 @@ UnitSetData.SatyrRatCatcher =
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteDying",
 		Material = "Bone",
-		
-		BlockNextBiomeEnemyShrineUpgrade = true,
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 
 			MoveSuccessDistance = 125,
+
+			MaintainSurroundDistance = true,
+			SurroundDistance = 750,
+			SurroundRefreshInterval = 0.5,
+			MaxAttackers = 2,
 		},
 		AIAggroRange = 9999,
 		
@@ -42,6 +45,8 @@ UnitSetData.SatyrRatCatcher =
 			"AggroAI",
 		},
 		AIAggroRange = 780,
+		PostAggroAI = "SurroundAI",
+
 		WeaponOptions =
 		{
 			"SatyrRatCatcherSummon", "SatyrRatCatcherCast", "SatyrRatCatcherMelee",
@@ -71,9 +76,9 @@ UnitSetData.SatyrRatCatcher =
 				UsePlayerSource = true,
 				GameStateRequirements = 
 				{
-					{
-					},
+					-- None
 				},
+				SkipCooldownCheckIfNonePlayed = true,
 				Cooldowns =
 				{
 					{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -85,7 +90,7 @@ UnitSetData.SatyrRatCatcher =
 				{ Cue = "/VO/MelinoeField_1641", Text = "More Vierophants." },
 				{ Cue = "/VO/MelinoeField_1642", Text = "More Vierophants?" },
 			},
-			[2] = GlobalVoiceLines.SatyrsSightedVoiceLines,
+			[2] = { GlobalVoiceLines = "SatyrsSightedVoiceLines" },
 		},
 
 	},
@@ -95,16 +100,14 @@ UnitSetData.SatyrRatCatcher =
 		InheritFrom = { "Elite", "SatyrRatCatcher" },
 		HealthBuffer = 850,
 		IsAggroedSound = "/SFX/Enemy Sounds/SatyrRatcatcher/EmoteTaunting",
+		
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 		WeaponOptions =
 		{
 			"SatyrRatCatcherSummon_Elite", "SatyrRatCatcherCast_Elite", "SatyrRatCatcherMelee",
@@ -143,10 +146,6 @@ UnitSetData.SatyrRatCatcher =
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 		WeaponOptions =
 		{
 			"SatyrRatCatcherSummon_Miniboss", "SatyrRatCatcherCast_Miniboss", "SatyrRatCatcherMelee_Miniboss",
@@ -160,7 +159,6 @@ UnitSetData.SatyrRatCatcher =
 			WeaponOptions =
 			{
 				"SatyrRatCatcherCast_Miniboss", "SatyrRatCatcherMelee_Miniboss",
-				"SatyrRatCatcherSpell",
 			},
 		},
 
@@ -186,6 +184,7 @@ UnitSetData.SatyrRatCatcher =
 			DeepInheritance = true,
 		},
 		AIAggroRange = 1500,
+		PostAggroAI = "AttackerAI",
 
 		WeaponOptions =
 		{

@@ -52,6 +52,7 @@
 				Duration = 4
 			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{

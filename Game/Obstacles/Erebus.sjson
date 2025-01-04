@@ -72,6 +72,10 @@
       Name = "ArachneCocoon"
       InheritFrom = "Breakable_F"
       DisplayInEditor = true
+      Life = 
+      {
+        SilentImpact = true
+      }
     }
 
     {
@@ -558,15 +562,15 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Shrub_02"
-        Tallness = 460
+        Tallness = 340
         Offset = { X = 0 Y = -182 }
         Points = [
-          { X = -237 Y = 63 }
-          { X = -146 Y = 156 }
-          { X = 154 Y = 162 }
-          { X = 268 Y = 75 }
-          { X = 152 Y = -74 }
-          { X = -145 Y = -78 }
+          { X = -229 Y = 26 }
+          { X = -129 Y = 111 }
+          { X = 161 Y = 111 }
+          { X = 246 Y = 26 }
+          { X = 161 Y = -84 }
+          { X = -129 Y = -84 }
         ]
       }
     }
@@ -868,7 +872,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        Graphic = "Tilesets\Erebus\Erebus_TugBoat_01"
+        Graphic = "ErebusTugBoatBob"
         Tallness = 450
         Offset = { X = 0 Y = -181 }
         Points = [
@@ -1274,14 +1278,12 @@
         Tallness = 470
         Offset = { X = 0 Y = -170 }
         Points = [
-          { X = -630 Y = 94 }
-          { X = -511 Y = 186 }
-          { X = -18 Y = 255 }
-          { X = 169 Y = 248 }
-          { X = 617 Y = -30 }
-          { X = 489 Y = -184 }
-          { X = 110 Y = -250 }
-          { X = -393 Y = -107 }
+          { X = -677 Y = 72 }
+          { X = -495 Y = 163 }
+          { X = 15 Y = 257 }
+          { X = 120 Y = 255 }
+          { X = 636 Y = -18 }
+          { X = 72 Y = -303 }
         ]
       }
     }
@@ -1398,7 +1400,7 @@
       Thing = 
       {
         EditorOutlineDrawBounds = false
-        Graphic = "Tilesets\Erebus\Erebus_CharonBoat_01"
+        Graphic = "ErebusCharonBoatBob"
         Tallness = 692
         Offset = { X = 0 Y = -347 }
         Points = [
@@ -2672,16 +2674,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Erebus\Erebus_Terrain_Hill_05"
-        Tallness = 337
+        Tallness = 598
         Offset = { X = 0 Y = -131 }
         Points = [
-          { X = -701 Y = 115 }
-          { X = -322 Y = -225 }
-          { X = 332 Y = -483 }
-          { X = 601 Y = -331 }
-          { X = 406 Y = 137 }
-          { X = -108 Y = 474 }
-          { X = -471 Y = 442 }
+          { X = -655 Y = 273 }
+          { X = -268 Y = 467 }
+          { X = 646 Y = 10 }
+          { X = 258 Y = -184 }
         ]
       }
     }

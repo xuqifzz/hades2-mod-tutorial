@@ -549,7 +549,6 @@
 		GrannyAnimation = "Scylla_Base_AttackBeltFireInitial_C_00"
 		ChainTo = "Enemy_Scylla_AttackBeltFireLoop"
 		GrannyAnimationSpeed = 0.5
-		Sound = "/SFX/Enemy Sounds/Scylla/ScyllaBeltScreamAttack"
 		Blends = 
 		[
 			{
@@ -565,7 +564,6 @@
 		GrannyAnimation = "Scylla_Base_AttackBeltFireLoop_C_00"
 		GrannyAnimationSpeed = 0.5
 		Loop = true
-		Sound = "/SFX/Enemy Sounds/Scylla/ScyllaBeltScreamAttack"
 		StopSoundOnFinishFade = 0.2
 		Blends = 
 		[

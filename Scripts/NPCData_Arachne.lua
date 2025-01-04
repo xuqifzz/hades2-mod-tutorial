@@ -10,6 +10,8 @@ UnitSetData.NPC_Arachne =
 		Groups = { "NPCs" },
 		SpeakerName = "Arachne",
 		SubtitleColor = Color.ArachneVoice,
+		EmoteOffsetY = -50,
+		EmoteOffsetX = 30,
 
 		RequiredRoomInteraction = true,
 		BlockedLootInteractionText = "NPCUseTextTalkLocked",
@@ -47,7 +49,6 @@ UnitSetData.NPC_Arachne =
 		SpecialInteractCooldown = 60,
 		InteractVoiceLines =
 		{
-			[1] =
 			{
 				PreLineWait = 0.3,
 				UsePlayerSource = true,
@@ -61,20 +62,15 @@ UnitSetData.NPC_Arachne =
 
 				{ Cue = "/VO/Melinoe_1880", Text = "Peace, Arachne.", PlayFirst = true },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
-			[3] =
+			{ GlobalVoiceLines = "SaluteVoiceLines" },
 			{
 				RandomRemaining = true,
 				PreLineWait = 0.4,
-				ObjectType = "NPC_Arachne_01",
+				ObjectTypes = { "NPC_Arachne_01", "NPC_Arachne_Home_01" },
 				GameStateRequirements =
 				{
-					{
-						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.ArachneUpsetEvents,
-					},
+					NamedRequirementsFalse = { "ArachneBrooding" },
 				},
-
 				{ Cue = "/VO/Arachne_0151", Text = "And to you.",
 					GameStateRequirements =
 					{
@@ -195,7 +191,10 @@ UnitSetData.NPC_Arachne =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
 				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
@@ -220,7 +219,7 @@ UnitSetData.NPC_Arachne =
 				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/Arachne_0034",
-					Text = "My silk is everything to me. It's stronger than it looks. Keeps me safe! It can suffocate even the strongest prey. Don't you like it? Is there a certain... pattern-color combination you admire?" },
+					Text = "My silk is everything to me! It's stronger than it looks. Keeps me safe! It can suffocate even the strongest prey. Don't you like it? Is there a certain pattern-color combination you admire?" },
 				{ Cue = "/VO/Melinoe_1806", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -513,7 +512,8 @@ UnitSetData.NPC_Arachne =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ArachneAboutGods06" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ArachneAboutGods06", "ArachneAboutGods06_B" }
 					},
 				},
 				OnQueuedThreadedFunctionName = "AmbientChatting",
@@ -772,6 +772,8 @@ UnitSetData.NPC_Arachne =
 						HasAll = { "ArachneAboutGods01" }
 					},
 				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/MelinoeField_1777", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -779,6 +781,7 @@ UnitSetData.NPC_Arachne =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "You seem distant, Arachne. Is everything all right? Is this about my aiding the Olympians?" },
 				{ Cue = "/VO/Arachne_0071",
+					Emote = "PortraitEmoteSurprise",
 					Text = "{#Emph}Ah, hahaha... {#Prev}wait. What do you mean {#Emph}you're {#Prev}aiding the Olympians? I thought you said it was the other way around! They're helping {#Emph}you!" },
 				{ Cue = "/VO/MelinoeField_1778", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Vulnerable_01",
@@ -804,6 +807,8 @@ UnitSetData.NPC_Arachne =
 						HasAll = { "ArachneAboutGods02" }
 					},
 				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/Arachne_0073",
 					Text = "I know you don't know what to say, my friend. But I want you to know... you don't have to say anything at all! In fact, I'd rather that you didn't right now. Be safe out there, all right?" },
@@ -823,6 +828,8 @@ UnitSetData.NPC_Arachne =
 						HasAll = { "ArachneAboutGods03" }
 					},
 				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/Arachne_0074",
 					Text = "Another evening where you're forced to do the bidding of the gods? It's not a {#Emph}partnership {#Prev}you've got with them, you know. They'll tolerate you just as long as they think you're {#Emph}inferior {#Prev}to them. Now, here. Take this and go." },
@@ -840,6 +847,8 @@ UnitSetData.NPC_Arachne =
 						HasAll = { "ArachneAboutGods04" }
 					},
 				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/Arachne_0075",
 					Text = "You know the gods did this to me, don't you? Although I shouldn't say {#Emph}the {#Prev}gods. Was truly just the one. But the others... they didn't {#Emph}care. {#Prev}They were complicit in the whole thing! It was as though {#Emph}I {#Prev}was a spider to them all along." },
@@ -853,6 +862,7 @@ UnitSetData.NPC_Arachne =
 				PrePortraitExitFunctionName = "ArachneCostumeChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
 			},
+			-- alt below
 			ArachneAboutGods06 =
 			{
 				PlayOnce = true,
@@ -867,8 +877,18 @@ UnitSetData.NPC_Arachne =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "ZeusAboutAthena01", "ApolloAboutAthena01", "AphroditeAboutAthena01", }
 					},
-					-- @ update with additional requirements
+					{
+						PathFalse = { "GameState", "UseRecord", "NPC_Athena_01" },
+					},
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "NPC_Athena_01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ArachneAboutGods06_B" },
+					},
 				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
 
 				{ Cue = "/VO/Arachne_0077",
 					Text = "So what's she truly like? {#Emph}Gray-eyed Athena. {#Prev}As wise and calculating as they say? {#Emph}Ha ha ha ha... {#Prev}to think she's supposedly the {#Emph}sensible {#Prev}one. She's just as cruel and vindictive as the rest..." },
@@ -878,6 +898,217 @@ UnitSetData.NPC_Arachne =
 					Text = "I wouldn't know. I've heard from most of the Olympians by now, but not Athena. Sounds like she's got her hands full, holding back the Titan's armies gathered at the mountain's base." },
 				{ Cue = "/VO/Arachne_0078",
 					Text = "How very noble of her. Well, if you meet eventually, you'll have to tell me how she is. And do feel free to let her know Arachne's still alive and well, and weaving even {#Emph}better {#Prev}than before." },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutGods06_B =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneAboutGods05" }
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Athena_01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "ArachneAboutGods06" },
+					},
+					-- @ update with additional requirements
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+
+				{ Cue = "/VO/Arachne_0077",
+					Text = "So what's she truly like? {#Emph}Gray-eyed Athena. {#Prev}As wise and calculating as they say? {#Emph}Ha ha ha ha... {#Prev}to think she's supposedly the {#Emph}sensible {#Prev}one. She's just as cruel and vindictive as the rest..." },
+				{ Cue = "/VO/MelinoeField_2721", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I... don't hear from her quite like most of the rest. She must really have her hands full, holding back the Titan's armies gathered at the mountain's base." },
+				{ Cue = "/VO/Arachne_0078",
+					Text = "How very noble of her. Well, if you meet eventually, you'll have to tell me how she is. And do feel free to let her know Arachne's still alive and well, and weaving even {#Emph}better {#Prev}than before." },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+
+			ArachneAboutCurse01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = {
+							"ArachneAboutHecate02",
+							"ArachneAboutPride01",
+							"ArachneWithHecateInHub01",
+							"ArachneGift04",
+						},
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ArachneAboutGods05", "ArachneAboutHecate02" }, Min = 2 },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+
+				{ Cue = "/VO/Arachne_0089",
+					Text = "My friend, I truly hate to ask, but you don't suppose... knowing your craft, you don't suppose there might still be some way to turn me back into myself again, do you?" },
+				{ Cue = "/VO/MelinoeField_1790", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Arachne... I've tried everything I know. This curse of metamorphosis upon you, it's... well, it's extremely powerful. Such change is irreversible as far as I can tell. I'm sorry." },
+				{ Cue = "/VO/Arachne_0090",
+					Text = "That's quite all right. Just figured I would ask. Such curses wouldn't be much good if they could just be waved away, now, would they? {#Emph}Ha ha ha ha..." },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutCurse02 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneAboutCurse01" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+
+				{ Cue = "/VO/MelinoeField_1791", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Arachne, I... I wasn't entirely forthright with you before, about your curse. Theoretically, there is a way that it can be undone. But it is unlikely to work, and shall be very dangerous." },
+
+				{ Cue = "/VO/Arachne_0091",
+					Emote = "PortraitEmoteSurprise",
+					Text = "{#Emph}What? {#Prev}I don't care what it takes, you have to tell me, my friend, {#Emph}please!" },
+
+				{ Cue = "/VO/MelinoeField_1792", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "First, we must discover the source of the curse; Athena is no enchantress. Someone aided her. And second... Athena herself must change her original intent. She has to want this." },
+
+				{ Cue = "/VO/Arachne_0092",
+					Emote = "PortraitEmoteDepressed",
+					Text = "But she {#Emph}despises {#Prev}me! And why would she tell anybody who provided her the curse? Oh, my friend, I almost wish you hadn't told me! Don't bother, {#Emph}ha ha ha ha. {#Prev}Hope can be such a tease..." },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutCurse03 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "HecateAboutArachne03" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+
+				{ Cue = "/VO/MelinoeField_1793", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Regarding your curse, Arachne... Headmistress discovered who created it. So, if you require closure on this aspect of your life... come visit at the Crossroads. But, such knowledge may be a curse all its own, so... choose carefully, please." },
+				{ Cue = "/VO/Arachne_0093",
+					Emote = "PortraitEmoteSurprise",
+					Text = "Oh... why... I suppose that I'll be giving that some thought! What would I even do different, knowing something like that? Give me some time... all right, my friend?" },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutCurse04 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "HecateWithArachne01_FollowUp" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+
+				{ Cue = "/VO/MelinoeField_1794", UsePlayerSource = true,
+					PreLineWait = 0.35,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "...Are you all right, my friend?" },
+				{ Cue = "/VO/Arachne_0094",
+					Emote = "PortraitEmoteSurprise",
+					Text = "I... {#Emph}yes! {#Prev}Yes, I've some new dresses for you. Here! Which one do you desire?" },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutCurse05 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneAboutCurse04" },
+					},
+				},
+				-- OnQueuedThreadedFunctionName = "AmbientChatting",
+				-- OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+				
+				{ Cue = "/VO/MelinoeField_1795", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Arachne, we need to talk about what happened with Headmistress. She didn't fashion a poison expressly to ruin your life. She didn't even know you at the time." },
+				{ Cue = "/VO/Arachne_0095",
+					Text = "Don't you think I know all that? But what am I supposed to do, {#Emph}thank {#Prev}her? I may be very small, my friend, but I still have my pride... and you can still have your dress." },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+			ArachneAboutCurse06 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneAboutCurse05" },
+					},
+				},
+				OnQueuedThreadedFunctionName = "AmbientChatting",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneMuttering,
+				
+				{ Cue = "/VO/Arachne_0096",
+					Text = "So much talk of late about my curse! Let's just go back to how things were, what do you say? All this {#Emph}tension... {#Prev}I don't need it anymore than you. You were only trying to help. And so am I." },
+				{ Cue = "/VO/MelinoeField_1796", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "I just want you to be well, that's all. The past has already transpired and can't be changed. But {#Emph}we {#Prev}get to decide what happens next." },
+				{ Cue = "/VO/Arachne_0097",
+					Text = "Perhaps we do! Either we or the Fates, I suppose. Thank you for listening to me, my friend. And you be well yourself, all right?" },
 				PrePortraitExitFunctionName = "ArachneCostumeChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
 			},
@@ -918,7 +1149,8 @@ UnitSetData.NPC_Arachne =
 						Value = 5,
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ArachneAboutGods05" }
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "ArachneAboutGods06", "ArachneAboutGods06_B" }
 					},
 					{
 						PathTrue = { "PrevRun", "UseRecord", "NPC_Hecate_01" }
@@ -1263,6 +1495,24 @@ UnitSetData.NPC_Arachne =
 
 				{ Cue = "/VO/Arachne_0128",
 					Text = "You must have seen more than your share of Root-Stalkers by now. It's fortunate for me that they mostly like to stay put, so I can keep out of their way. But you're bigger, and you can't just slip by, huh...?" },
+				PrePortraitExitFunctionName = "ArachneCostumeChoice",
+				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
+			},
+
+			HecateWithArachne01_FollowUp =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ArachneWithHecateInHub02" }
+					},
+				},
+
+				{ Cue = "/VO/Arachne_0103",
+					Emote = "PortraitEmoteSurprise",
+					Text = "Another customer already! You just missed the great big witch. Not often that I'm honored with her presence. Next you see her out there, give her a good one for me, would you? {#Emph}Hm ha ha ha..." },
 				PrePortraitExitFunctionName = "ArachneCostumeChoice",
 				PrePortraitExitFunctionArgs = PresetEventArgs.ArachneCostumeChoices,
 			},
@@ -1763,7 +2013,7 @@ UnitSetData.NPC_Arachne =
 			{
 				PlayOnce = true,
 				OnGiftTrack = true,
-				HintId = "Codex_ArachneGiftHint01",
+				LockedHintId = "Codex_ArachneGiftHint01",
 				Cost =
 				{
 					GiftPoints = 1,
@@ -1803,7 +2053,7 @@ UnitSetData.NPC_Arachne =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
+						PathTrue = { "GameState", "TextLinesRecord", "ArachneGift04" },
 					},
 				},
 				{ Cue = "/VO/Arachne_0111",
@@ -1829,7 +2079,8 @@ UnitSetData.NPC_Arachne =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneGift04", "ArachneGift05" }
 					},
 				},
 				{ Cue = "/VO/Arachne_0113",
@@ -1928,10 +2179,7 @@ UnitSetData.NPC_Arachne =
 					Path = { "SourceProjectile", },
 					IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
 				},
-				{
-					Path = { "CurrentRun", "TextLinesRecord" },
-					HasNone = GameData.ArachneUpsetEvents,
-				},
+				NamedRequirementsFalse = { "ArachneBrooding" },
 			},
 			Cooldowns =
 			{
@@ -1951,6 +2199,187 @@ UnitSetData.NPC_Arachne =
 		},
 	},
 
+	NPC_Arachne_Home_01 =
+	{
+		InheritFrom = { "NPC_Arachne_01" },
+		GenusName = "NPC_Arachne_01",
+
+		ActivateRequirements =
+		{
+			--
+		},
+
+		InteractTextLineSets =
+		{
+			ArachneHubFirstMeeting01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				InitialGiftableOffSource = true,
+				GiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "AnyMailboxReady" },
+					},
+					{
+						PathFalse = { "CurrentRun", "RoomsEntered", "F_Story01" },
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesSpent", "CharonPoints" },
+						Comparison = ">=",
+						Value = 4,
+					},
+					--[[ didn't work...
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { "NPC_Charon_01", }, Alive = true },
+					},
+					]]--
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.ArachneHubGreeting,
+
+				{ Cue = "/VO/Arachne_0065",
+					Emote = "PortraitEmoteCheerful",
+					Text = "Oh, hello there, my friend! I happened to see the Boatman sculling down the Cocytus, presumably to {#Emph}you{#Prev}, for he had all {#Emph}sorts {#Prev}of supplies. He was generous enough to offer me passage. Whether he knew it or not, {#Emph}ha ha ha ha..." },
+				{ Cue = "/VO/Melinoe_3141", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Pleased_01",
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelTalkExplaining01ReturnToIdle", PostLineAnimTarget = "Hero",
+					Text = "Great to see you here and welcome, Arachne! I'm certain Charon doesn't mind such a courteous stowaway. Is there anything we can do to make your stay with us more comfortable?" },
+				{ Cue = "/VO/Arachne_0066",
+					Text = "No, thank you. I don't intend to be here very long. Especially since the Boatman is my ticket home. I'll just make certain all my silk here is patched up, and then be on my way. Be well, won't you?" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						RequiredMinElapsedTime = 3,
+						{ Cue = "/VO/Melinoe_3142", Text = "You, too..." },
+					},
+				},
+			},
+
+			-- partner conversations
+			ArachneWithHecateInHub01 =
+			{
+				Partner = "NPC_Hecate_01",
+
+				-- GameStateRequirements
+				PlayOnce = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "AnyMailboxReady" },
+					},
+					{
+						PathFalse = { "CurrentRun", "RoomsEntered", "F_Story01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneHubFirstMeeting01" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ArachneHubFirstMeeting01" }, Min = 4 },
+					},
+
+				},
+
+				UseText = "UseListenNPC",
+				BlockDistanceTriggers = true,
+				IgnoreSourceEndTextLinesThreadedFunctionName = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				TeleportToId = 566613,
+				-- TeleportOffsetX = -100,
+				-- TeleportOffsetY = 100,
+				InteractDistance = 400,
+				{ Cue = "/VO/Arachne_0098",
+					PreLineWait = 0.35,
+					Text = "...{#Emph}Oh{#Prev}, don't worry. I'll be fine! I know those woods out there like the back of my, {#Emph}um... leg{#Prev}, I do suppose! I'm always grateful for your hospitality, great Titaness." },
+				{ Cue = "/VO/Hecate_0545", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
+					PreLineAnim = "HecateHubGreet",
+					PreLineAnimTarget = 556921,
+					Text = "And you are welcome here and safe, Arachne. Now I must beg your pardon. The matters that unfold of late require more of my attention than I'd like..." },
+				{ Cue = "/VO/Arachne_0099",
+					PostLineThreadedFunctionName = "ArachneExit",
+					Text = "I truly understand. Then I'll get out of your hair. Farewell for now!" },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					ObjectType = "NPC_Hecate_01",
+					{ Cue = "/VO/Hecate_0546", Text = "Farewell in turn.", PreLineAnim = "HecateHubGreet" },
+				},
+			},
+
+			ArachneWithHecateInHub02 =
+			{
+				Partner = "NPC_Hecate_01",
+
+				-- GameStateRequirements
+				PlayOnce = true,
+				PreBlockSpecialInteract = true,
+				PostBlockSpecialInteract = true,
+				InitialGiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "AnyMailboxReady" },
+					},
+					{
+						PathFalse = { "CurrentRun", "RoomsEntered", "F_Story01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAll = { "ArachneWithHecateInHub01", "ArachneAboutCurse03" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ArachneAboutCurse03" }, Min = 3 },
+					},
+
+				},
+
+				UseText = "UseListenNPC",
+				BlockDistanceTriggers = true,
+				IgnoreSourceEndTextLinesThreadedFunctionName = true,
+				UseableOffSource = true,
+				GiftableOffSource = true,
+				TeleportToId = 566613,
+				-- TeleportOffsetX = -100,
+				-- TeleportOffsetY = 100,
+				InteractDistance = 400,
+				{ Cue = "/VO/Arachne_0100",
+					PreLineWait = 0.35,
+					Emote = "PortraitEmoteSurprise",
+					Text = "...But, this {#Emph}can't {#Prev}be.... Titaness, whatever do you mean? Because if you meant what you said, why... all those times you told me that I'm welcome here and safe... all lies, then. Is that it?" },
+				{ Cue = "/VO/Hecate_0547", Portrait = "Portrait_Hec_Default_01", Speaker = "NPC_Hecate_01", PreLineWait = 0.35,
+					PreLineAnim = "Hecate_Hub_Explaining_Start",
+					PreLineAnimTarget = 556921,
+					PostLineAnim = "Hecate_Hub_Explaining_End",
+					PostLineAnimTarget = 556921,
+					Text = "Your anger's justified. 'Twas my poison that Athena used whilst cursing you. But the curse is hers, not mine. I'd no desire that you knew {#Emph}any {#Prev}of this. Melinoë, however, swayed me against my instincts." },
+				{ Cue = "/VO/Arachne_0101",
+					PreLineWait = 0.35,
+					PostLineThreadedFunctionName = "ArachneExit",
+					Text = "...I don't know what to say. So this is {#Emph}your {#Prev}fault. Athena never could have done this to me without your {#Emph}help. {#Prev}You Titans and the gods... you're all alike. Good evening!" },
+				EndVoiceLines =
+				{
+					PreLineWait = 0.4,
+					ObjectType = "NPC_Hecate_01",
+					{ Cue = "/VO/Hecate_0548", Text = "Arachne, be reasonable... {#Emph}ungh...", PreLineAnim = "Hecate_Hub_Scoff" },
+				},
+			},
+
+			-- end of events
+
+		},
+	},
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.NPC_Arachne )

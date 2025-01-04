@@ -223,58 +223,51 @@
 
 			Common =
 			{
-				Multiplier = 1.0
+				Multiplier = 20/20,
 			},
 			Rare =
 			{
-				Multiplier = 1.5
+				Multiplier = 25/20,
 			},
 			Epic =
 			{
-				Multiplier = 2.0
+				Multiplier = 30/20,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5
+				Multiplier = 35/20,
 			},
 		},
 		
-		OnWeaponChargeFunctions =
+		WeaponSpeedMultiplier =
 		{
-			ValidWeapons = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponStaffBall", "WeaponDaggerThrow", "WeaponAxeSpecialSwing", "WeaponAxeSpin", "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponCastArm", "WeaponCastProjectileHades", "WeaponCastProjectile", "WeaponAnywhereCast" },
-			FunctionName = "CheckWeaponCastChannelSlow",
-			FunctionArgs =
+			WeaponNames = WeaponSets.HeroAllWeaponsAndSprint,
+			Value = 
 			{
-				Modifier = 0.20,
-				Duration = { BaseValue = 2.0 },
-				ReportValues = { ReportedSlow = "Modifier", ReportedSlowDuration = "Duration" }
+				BaseValue = 0.80,
+				SourceIsMultiplier = true,
 			},
-			ExcludeLinked = true,
+			ReportValues = { ReportedWeaponMultiplier = "Value" }
 		},
-		
-		--[[
-		WeaponDataOverride =
+		PropertyChanges = 
 		{
-			WeaponStaffBall2 =
 			{
-				OnChargeFunctionName = "StartWeaponSlowMotion",
-				OnChargeFunctionArgs = { Modifier = 0.1,  VignetteFadeInDuration = 0.15 },
+				WeaponNames = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponLobChargedPulse", "WeaponCastArm" },
+				BaseValue = 0.8,
+				SourceIsMultiplier = true,
+				SpeedPropertyChanges = true,
+				ExcludeLinked = true,
 			},
 		},
-		]]
 		ExtractValues =
 		{
 			{
-				Key = "ReportedSlow",
-				ExtractAs = "TooltipSlow",
+				Key = "ReportedWeaponMultiplier",
+				ExtractAs = "TooltipDamageBonus",
 				Format = "NegativePercentDelta",
-				SkipAutoExtract = true,
+				HideSigns = true,
 			},
-			{
-				Key = "ReportedSlowDuration",
-				ExtractAs = "TooltipSlowDuration",
-			},
-		},
+		}
 	},
 	--[[
 	RandomWitchMarkMetaUpgrade = 
@@ -325,6 +318,7 @@
 	ManaOverTimeMetaUpgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait", "ManaOverTimeSource"},
+		CustomTrayText = "ManaOverTimeMetaUpgrade_Tray",
 		RarityLevels =
 		{
 			Common =
@@ -367,6 +361,7 @@
 	DoorHealMetaUpgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "DoorHealMetaUpgrade_Tray",
 		ShowLowHealthIndicator = true,
 		DoorHealThreshold = 
 		{
@@ -554,6 +549,7 @@
 	LowManaDamageMetaupgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "LowManaDamageMetaupgrade_Tray",
 		RarityLevels =
 		{
 			Common =
@@ -837,15 +833,15 @@
 			},
 			Rare =
 			{
-				Multiplier = 1.5
+				Multiplier = 7/5
 			},
 			Epic =
 			{
-				Multiplier = 2.00
+				Multiplier = 10/5
 			},
 			Heroic =
 			{
-				Multiplier = 2.25
+				Multiplier = 13/5
 			},
 		},
 
@@ -866,20 +862,6 @@
 				ChangeType = "Add",
 				ExcludeLinked = true,
 			},
-			{
-				WeaponNames = { "WeaponBlink" },
-				WeaponProperty = "ChargeTime",
-				ChangeValue = 0.066,
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
-			{
-				WeaponNames = { "WeaponBlink" },
-				WeaponProperty = "ChargeFx",
-				ChangeValue = "null",
-				ChangeType = "Absolute",
-				ExcludeLinked = true,
-			},
 
 			{
 				WeaponName = "WeaponSprint",
@@ -888,7 +870,6 @@
 				ChangeValue = true,
 				ExcludeLinked = true,
 			},
-
 		},
 		ExtractValues = 
 		{
@@ -954,6 +935,7 @@
 			{
 				Key = "AddMetaUpgradeLastStands",
 				ExtractAs = "ReportedLastStands",
+				IncludeSigns = true,
 			},
 			{
 				External = true,
@@ -1005,6 +987,7 @@
 			},
 		},
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "CastDamageMetaUpgrade_Tray",
 		AddOutgoingDamageModifiers = 
 		{
 			ValidProjectiles = { "PoseidonCast" },
@@ -1086,7 +1069,7 @@
 		},
 		OnWeaponFiredFunctions = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroAllWeaponsAndSprint,
 			FunctionName = "CheckDifferentOmegaCrit",
 		},
 		ExtractValues = 
@@ -1440,6 +1423,7 @@
 	DuoRarityBoostMetaUpgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "DuoRarityBoostMetaUpgrade_Tray",
 		RarityLevels =
 		{
 			Common =
@@ -1476,6 +1460,7 @@
 	EpicRarityBoostMetaUpgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "EpicRarityBoostMetaUpgrade_Tray",
 		RarityLevels =
 		{
 			Common =
@@ -1753,6 +1738,7 @@
 	LowHealthBuffMetaUpgrade = 
 	{
 		InheritFrom = { "MetaUpgradeTrait" },
+		CustomTrayText = "LowHealthBuffMetaUpgrade",
 		RarityLevels =
 		{
 			Common =
@@ -1773,24 +1759,19 @@
 			},
 		},
 		CustomUpgradeText = "LowHealthBonus_Upgrade",
-		ShowLowHealthIndicator = true,
 		AddIncomingDamageModifiers = 
 		{
-			LowHealthThreshold = 0.3,
-			LowHealthDamageTakenMultiplier = { BaseValue = 0.7, SourceIsMultiplier = true },
+			NoLastStandDamageTakenMultiplier = { BaseValue = 0.7, SourceIsMultiplier = true },
 			ReportValues = 
 			{ 
-				ReportedThreshold = "LowHealthThreshold",
-				ReportedLowHealthResistance = "LowHealthDamageTakenMultiplier",
+				ReportedLowHealthResistance = "NoLastStandDamageTakenMultiplier",
 			}
 
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			LowHealthThreshold = 0.3,
-			LowHealthDamageOutputMultiplier = { BaseValue = 1.3, SourceIsMultiplier = true },
-			ValidWeapons = WeaponSets.HeroAllWeapons,
-			ReportValues = { ReportedModifier = "LowHealthDamageOutputMultiplier" }
+			NoLastStandDamageOutputMultiplier = 1.25,
+			ReportValues = { ReportedModifier = "NoLastStandDamageOutputMultiplier" }
 		},
 		ExtractValues = 
 		{
@@ -1805,16 +1786,20 @@
 				Format = "FlatPercentDelta",
 			},
 			{
-				Key = "ReportedThreshold",
-				ExtractAs = "Threshold",
+				External = true,
+				BaseType = "HeroData",
+				BaseName = "LastStandData",
+				BaseProperty = "Heal",
 				Format = "Percent",
+				ExtractAs = "LastStandHeal",
 				SkipAutoExtract = true,
-			}
+			},
 		},
 	},
 	MetaToRunMetaUpgrade = 
 	{
 		InheritFrom = {"MetaUpgradeTrait" },
+		CustomTrayText = "MetaToRunMetaUpgrade_Tray",
 		MetaConversionUses = { BaseValue = 1 },
 		ExtractValues = 
 		{
@@ -1827,6 +1812,7 @@
 	BossProgressionMetaUpgrade = 
 	{
 		InheritFrom = {"MetaUpgradeTrait" },
+		CustomTrayText = "BossProgressionMetaUpgrade_Tray",
 		RarityLevels =
 		{
 			Common =

@@ -1,6 +1,25 @@
 { Animations = [
 
 	{
+		Name = "LightReflection01Anim"
+		FilePath = "Lights\Light_Reflection_01"
+
+		EndAlpha = 1.0
+		PingPongColor = true
+		StartAlpha = 0.7
+		EaseOut = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 0.9
+		RandomDurationMin = 0.6
+		StartFrame = 1
+		EndScaleY = 1.02
+		PingPongScale = true
+		StartScale = 0.97
+		Ambient = 0.0
+	}
+	{
 		Name = "BoatEdgeWave"
 		FilePath = "Fx\BoatEdgeWave\BoatEdgeWave"
 		
@@ -333,5 +352,687 @@
 		Name = "LightCrescentWobbleLight"
 		InheritFrom = "LightCrescentWobble"
 		FilePath = "Fx\LightCrescentSolid\LightCrescentSolid" 
+	}
+
+	{
+		Name = "DisplaceHeatWaves"
+		FilePath = "Fx\DisplaceHeatWave\DisplaceHeatWave"
+		GroupName = "FX_Displacement"
+
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "DoorLocked"
+		FilePath = "Tilesets\Tartarus\Tartarus_Door_03b"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DoorUnlocked"
+		InheritFrom = "DoorLocked"
+	}
+
+	{
+		Name = "DoorOpen"
+		FilePath = "Fx\DoorOpen\DoorOpen"
+		Sound = "/SFX/BigDoorOpenQuick"
+		EndFrame = 45
+		NumFrames = 45
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetY = -18.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DoorClose"
+		InheritFrom = "DoorOpen"
+		FilePath = "Fx\DoorClose\DoorClose"
+		Sound = "/SFX/DoorCloseSlamDown"
+		EndFrame = 7
+		HoldLastFrame = true
+		NumFrames = 7
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 5 VisualFx = "DoorCloseDust" }
+		]
+	}
+	
+	{
+		Name = "DoorCloseDust"
+		FilePath = "Fx\DoorCloseDust\DoorCloseDust"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetY = -135.0
+		SortMode = "FromParent"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DoorExitLightAnimation"
+		FilePath = "Fx\DoorExitLight\DoorExitLight"
+		GroupName = "FX_Add_Top"
+		ColorFromOwner = "Ignore"
+		EndAlpha = 0.95
+		PingPongColor = true
+		StartAlpha = 0.65
+		EaseOut = 1.0
+		EndFrame = 40
+		Loop = true
+		NumFrames = 40
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OriginX = 270.0
+		OriginY = 160.0
+		DieWithOwner = true
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "DoorExitLight"
+		InheritFrom = "DoorExitLightAnimation"
+	}
+	
+	{
+		Name = "DoorExitLightAnimation_Locked"
+		InheritFrom = "DoorExitLightAnimation"
+		Color = { Red = 1.0 Green = 0.2 Blue = 0.05 }
+	}
+	
+	{
+		Name = "DoorExitLightLocked"
+		InheritFrom = "DoorExitLightAnimation_Locked"
+	}
+	
+	{
+		Name = "DoorExitLightNewRun"
+		InheritFrom = "DoorExitLight"
+		CreateAnimation = "DoorExitLightNewRunAnimation"
+	}
+	
+	{
+		Name = "DoorExitLightNewRunAnimation"
+		InheritFrom = "DoorExitLightAnimation"
+		VisualFx = "DoorExitNewRunParticlesFlipped"
+		AddColor = true
+		EndAlpha = 0.3
+		StartAlpha = 0.1
+		FlipHorizontal = false
+		Scale = 1.2
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.03
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "DoorExitNewRunParticles"
+		FilePath = "Particles\particle_ember_01_glow_add"
+		GroupName = "FX_Add_Top"
+		AngleFromOwner = "Ignore"
+		AngleMin = 290.0
+		AngleMax = 310.0
+		AddColor = true
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 0.4
+		EndRed = 0.999
+		EndGreen = 0.5
+		EndBlue = 0
+		EndAlpha = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		OffsetZ = -80.0
+		RandomOffsetX = 60.0
+		RandomOffsetY = 100.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 300.0
+		VelocityMin = 100.0
+		EndScale = 0.0
+		EndScaleY = 2.0
+		ScaleMax = 1.9
+		ScaleMin = 0.7
+		StartScaleX = 3.0
+		StartScaleY = 0.0
+		Ambient = 0.0
+		Scale = 0.75
+		RandomAccelerationMax = -50.0
+		RandomAccelerationMin = -200.0
+	}
+	
+	{
+		Name = "DoorExitNewRunParticlesFlipped"
+		InheritFrom = "DoorExitNewRunParticles"
+		AngleMax = 210.0
+		AngleMin = 215.0
+	}
+
+	{
+		Name = "RubbleFall"
+		ChildAnimation = "RubbleFallDust"
+		FilePath = "Fx\GrenadeLandDust\GrenadeLandDust"
+		VisualFx = "PillarHitDebrisFx"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Take"
+		EndFrame = 21
+		NumFrames = 21
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 220.0
+		OriginY = 378.0
+		SortMode = "Isometric"
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.6
+		ScaleMin = 0.4
+		ScaleRadius = 180.0
+		VisualFxCap = 3
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		CreateAnimations =
+		[
+			{ Name = "RubbleFallImpactDebris" }
+		]
+	}
+	
+
+	{
+		Name = "RubbleFallOlympus"
+		InheritFrom = "RubbleFall"
+		ChildAnimation = "RubbleFallDustOlympus"
+		AddColor = true
+		Red = 0.3
+		Green = 0.5
+		Blue = 1.0
+		Hue = 0.45
+		ColorFromOwner = "Ignore"
+		Scale = 3
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "RubbleFallImpactDebrisOlympus" }
+		]
+	}
+
+	{
+		Name = "DustPuffRotate"
+		InheritFrom = "DustPuffA"
+		AngleFromOwner = "Take"
+	}
+	
+	{
+		Name = "RubbleFallDust"
+		InheritFrom = "DustPuffA"
+		ChildAnimation = "HitSparkA"
+	}	
+
+	{
+		Name = "RubbleFallDustOlympus"
+		InheritFrom = "DustPuffA"
+		Hue = 0.45
+		Value = 0.5
+		ChildAnimation = "HitSparkA"
+	}
+	
+	{
+		Name = "RubbleFallImpactDecal"
+		FilePath = "Dev\blank_invisible"
+		GroupName = "FX_Terrain"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "RubbleFallImpactDecalA" }
+			{ Name = "RubbleFallImpactDecalB" }
+			{ Name = "RubbleFallImpactDecalC" }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalA"
+		ChainTo = "RubbleFallImpactDecalA-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalA"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		PostRotateScaleY = 0.5
+		ScaleMax = 1.1
+		ScaleMin = 0.5
+		CancelOverCap = true
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalB"
+		InheritFrom = "RubbleFallImpactDecalA"
+		ChainTo = "RubbleFallImpactDecalB-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalB"
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalC"
+		InheritFrom = "RubbleFallImpactDecalA"
+		ChainTo = "RubbleFallImpactDecalC-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalC"
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalA-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalA"
+		
+		AngleFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 2.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		TransferAngle = true
+		TransferChildren = true
+		TransferFrameToThis = true
+		PostRotateScaleY = 0.5
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalB-Fade"
+		InheritFrom = "RubbleFallImpactDecalA-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalB"
+	}
+	
+	{
+		Name = "RubbleFallImpactDecalC-Fade"
+		InheritFrom = "RubbleFallImpactDecalA-Fade"
+		FilePath = "Fx\RubbleImpactDecal\RubbleImpactDecalC"
+	}
+	
+	{
+		Name = "RubbleFallImpactDebris"
+		FilePath = "Animations\RubbleFallImpactDebris\RubbleFallImpactDebris"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "RubbleFallImpactDebrisA" }
+			{ Name = "RubbleFallImpactDebrisB" }
+			{ Name = "RubbleFallImpactDebrisC" }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisA\RubbleFallImpactDebrisA"
+		GroupName = "Standing"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		ScaleMax = 1.3
+		ScaleMin = 0.8
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisB"
+		InheritFrom = "RubbleFallImpactDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisB\RubbleFallImpactDebrisB"
+		EndFrame = 39
+		NumFrames = 39
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisC"
+		InheritFrom = "RubbleFallImpactDebrisA"
+		FilePath = "Fx\RubbleFallImpactDebrisC\RubbleFallImpactDebrisC"
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+
+	{
+		Name = "RubbleFallImpactDebrisOlympus"
+		FilePath = "Animations\RubbleFallImpactDebris\RubbleFallImpactDebris"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "RubbleFallImpactDebrisOlympusA" }
+			{ Name = "RubbleFallImpactDebrisOlympusB" }
+			{ Name = "RubbleFallImpactDebrisOlympusC" }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisOlympusA"
+		FilePath = "Fx\RubbleFallImpactDebrisA\RubbleFallImpactDebrisA"
+		GroupName = "Standing"
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		EndFrame = 43
+		NumFrames = 43
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		ScaleMax = 1.3
+		ScaleMin = 0.8
+		AddColor = true
+		Red = 0.4
+		Green = 0.7
+		Blue = 0.65
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisOlympusB"
+		InheritFrom = "RubbleFallImpactDebrisOlympusA"
+		FilePath = "Fx\RubbleFallImpactDebrisB\RubbleFallImpactDebrisB"
+		EndFrame = 39
+		NumFrames = 39
+		StartFrame = 1
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "RubbleFallImpactDebrisOlympusC"
+		InheritFrom = "RubbleFallImpactDebrisOlympusA"
+		FilePath = "Fx\RubbleFallImpactDebrisC\RubbleFallImpactDebrisC"
+		Slides =
+		[
+			{ DurationFrames = 1 RandomDurationFramesMax = 5 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "PillarHitDustA"
+		InheritFrom = "DustPuffRotate"
+		PlaySpeed = 60.0
+		OriginX = 193.0
+		OriginY = 323.0
+		Scale = 7.0
+		ScaleY = 2.0
+		Ambient = 0.0
+		VisualFxCap = 10
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+	}
+	
+	{
+		Name = "PillarHitDebrisFxA"
+		FilePath = "Tilesets\Tartarus\Tartarus_Rubble_02"
+		
+		Angle = 180.0
+		AngleFromOwner = "Take"
+		AngleMax = 45.0
+		AngleMin = -45.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		RandomOffsetX = 10.0
+		RandomOffsetY = 5.0
+		LocationFromOwner = "Take"
+		Gravity = 1000.0
+		VelocityMax = 650.0
+		VelocityMin = 350.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 800.0
+		RandomRotationSpeedMin = -800.0
+		EndScale = 0.0
+		Scale = 0.1
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.4
+		RandomAccelerationMax = -400.0
+		RandomAccelerationMin = -1600.0
+	}
+	
+	{
+		Name = "PillarHitDebrisFxB"
+		InheritFrom = "PillarHitDebrisFxA"
+		FilePath = "Tilesets\Tartarus\Tartarus_Rubble_02c"
+		GroupName = "FX_Terrain"
+		Color = { Red = 0.50 Green = 0.50 Blue = 0.50 }
+	}
+	
+	{
+		Name = "PillarHitDebrisFxC"
+		InheritFrom = "PillarHitDebrisFxA"
+		FilePath = "Tilesets\Tartarus\Tartarus_Rubble_02b"
+		GroupName = "FX_Terrain"
+		Color = { Red = 0.25 Green = 0.25 Blue = 0.25 }
+	}
+	
+	{
+		Name = "PillarHitDebrisFxD"
+		InheritFrom = "PillarHitDebrisFxA"
+		Color = { Red = 0.75 Green = 0.75 Blue = 0.75 }
+	}
+	
+	{
+		Name = "RubbleFallStreak"
+		FilePath = "Fx\RubbleFallStreak\RubbleFallStreak"
+		
+		EndFrame = 8
+		NumFrames = 8
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 164.0
+		OriginY = 934.0
+		ScaleFromOwner = "Take"
+		Ambient = 0.0
+		Slides =
+		[
+			{ DurationFrames = 10 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+	
+	{
+		Name = "PillarHitDebrisFx"
+		FilePath = "Animations\PillarHitDebrisFx\PillarHitDebrisFx"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "PillarHitDebrisFxA" }
+			{ Name = "PillarHitDebrisFxB" }
+			{ Name = "PillarHitDebrisFxC" }
+			{ Name = "PillarHitDebrisFxD" }
+		]
+	}
+	
+	{
+		Name = "HealthFountainFull"
+		ChildAnimation = "HealthFountainWater"
+		FilePath = "Tilesets\Tartarus\Tartarus_Fountain_01"
+		
+		VisualFx = "HealthFountainSparkle"
+		Sound = "/Leftovers/Object Ambiences/WaterRushing"
+		StopSoundOnFinishFade = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+	}
+	
+	{
+		Name = "HealthFountainFullStart"
+		InheritFrom = "HealthFountainFull"
+		ChainTo = "HealthFountainFull"
+		Duration = 0.1
+	}
+	
+	{
+		Name = "HealthFountainStreaks"
+		FilePath = "Particles\particle_streak"
+		GroupName = "FX_Standing_Add"
+		
+		Angle = 90.0
+		AddColor = true
+		AlphaMax = 1.0
+		AlphaMin = 0.1
+		EndAlpha = 0.2
+		PingPongColor = true
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 4.0
+		RandomDurationMin = 3.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		EndOffsetY = -60.0
+		OffsetZ = 280.0
+		RandomOffsetX = 20.0
+		SortMode = "Id"
+		EndScaleY = 3.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		ScaleX = 1.5
+		ScaleY = 0.5
+		StartScaleY = 0.25
+		Color = { Red = 0.15 Green = 1.0 Blue = 0.8 }
+	}
+	
+	{
+		Name = "HealthFountainSparkle"
+		FilePath = "Particles\particle_addFlake2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 90.0
+		AngleMin = 91.0
+		AddColor = true
+		AlphaMax = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 3.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		OriginX = -30.0
+		OriginY = 30.0
+		RandomOffsetX = 20.0
+		RandomOffsetY = 8.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		Acceleration = -30.0
+		VelocityMax = 120.0
+		VelocityMin = 60.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 90.0
+		RandomRotationSpeedMin = -90.0
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.25
+		ScaleMin = 0.02
+		StartScale = 0.0
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.8 Blue = 1.0 }
+	}
+
+	{
+		Name = "HealthFountainWater"
+		ChildAnimation = "FountainWaterRipple"
+		FilePath = "Fx\Tartarus_Fountain_01_Water\Tartarus_Fountain_01_Water"
+		
+		VisualFx = "HealthFountainStreaks"
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetY = -460.0
+		Scale = 4.0
+		VisualFxIntervalMax = 1.0
+		VisualFxIntervalMin = 0.5
+	}
+
+	{
+		Name = "HealthFountainWaterDisabled"
+		InheritFrom = "HealthFountainWater"
+		VisualFx = null
+		Alpha = 0.6
+	}
+	
+	{
+		Name = "HealthFountainEmpty"
+		InheritFrom = "HealthFountainFull"
+		ChildAnimation = "HealthFountainWaterDisabled"
+		FilePath = "Tilesets\Tartarus\Tartarus_Fountain_01b"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.80 Green = 0.80 Blue = 0.80 }
 	}
 ]}

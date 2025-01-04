@@ -1,10 +1,5 @@
-function HarvestBlockedPresentation( source, args, user )
-	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
-	local combatText = roomData.HarvestBlockedText or RoomData.BaseRoom.HarvestBlockedText
-	if not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits ) then
-		combatText = "UseBlockedByEnemies"
-	end
-	thread( InCombatText, user.ObjectId, combatText, 1.0, { ShadowScale = 0.6 } )
+function HarvestBlockedPresentation( source, args )
+	thread( InCombatText, CurrentRun.Hero.ObjectId, args.Text, 1.0, { ShadowScale = 0.6 } )
 	thread( PlayVoiceLines, HeroVoiceLines.InteractionBlockedVoiceLines, true )
 	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = source.ObjectId })
 end
@@ -91,6 +86,8 @@ function ShovelStartPresentation( source, args, user )
 	user.OnHostilePolymorphFunctionName = "ShovelPointUseCanceled"
 	user.PreHarvestThreadName = "ShovelStartPresentation"
 
+	waitUnmodified( 0.02, user.PreHarvestThreadName )
+
 	SetAnimation({ Name = "Melinoe_Shovel_Start", DestinationId = user.ObjectId })	
 	AngleTowardTarget({ Id = user.ObjectId, DestinationId = source.ObjectId })
 	waitUnmodified(0.5, user.PreHarvestThreadName)
@@ -134,44 +131,140 @@ function ShovelPointBombPresentation( source, args, user )
 	waitUnmodified( 0.1 )
 end
 
-function FamiliarPickaxeStartPresentation( source, args, user )
+function FamiliarShovelStartPresentation( source, args, user )
 
-	PlaySound({ Name = "/SFX/Enemy Sounds/Exalted/ExaltedPreAttackFlashSoundBow" })
+	local familiar = MapState.FamiliarUnit
 
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = MapState.FamiliarUnit.ObjectId })
-	SetAnimation({ Name = "MelinoeBountyTurnInStart", DestinationId = CurrentRun.Hero.ObjectId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = familiar.ObjectId })
+	SetAnimation({ Name = "Melinoe_CrossCast_Start_Fast", DestinationId = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/FloatingRockInteract", Id = CurrentRun.Hero.ObjectId })
+
+	HoundFamiliarStopAI( familiar )
 
 	thread( PlayVoiceLines, HeroVoiceLines.FamiliarHarvestVoiceLines, true )
 
-	waitUnmodified(0.7)
-	PlaySound({ Name = MapState.FamiliarUnit.HarvestSound or "/EmptyCue", Id = MapState.FamiliarUnit.ObjectId })
-	thread ( PlayEmoteSimple, MapState.FamiliarUnit, { AnimationName = MapState.FamiliarUnit.ConfirmEmoteAnim or "StatusIconSmile" } )
+	waitUnmodified( 0.25 )
+	PlaySound({ Name = familiar.EquipSound or "/EmptyCue", Id = familiar.ObjectId })
+	SetAnimation({ Name = "MelinoeCrossCast", DestinationId = CurrentRun.Hero.ObjectId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = source.ObjectId, })
+	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = familiar.ObjectId, OffsetZ = -60 })
 
-	thread( BackPlayerUp, user, source, { Distance = 250 } )
-	MoveFamiliarToLocation( MapState.FamiliarUnit, { Id = source.ObjectId } )
-	waitUnmodified(0.05)
-	AngleTowardTarget({ Id = GameState.EquippedFamiliar.ObjectId, DestinationId = source.ObjectId })
-	waitUnmodified(0.05)
-	PlaySound({ Name = "/SFX/Player Sounds/ZagreusGunReloadCompleteFlashLucifer" })
-	waitUnmodified(0.1)
+	waitUnmodified( 0.15 )
 
-	thread( PlayVoiceLines, HeroVoiceLines.FamiliarThankingVoiceLines, true )
-	--PickaxeStartPresentation( source, args, user )
+	if familiar.HarvestSound ~= nil then
+		PlaySound({ Name = familiar.HarvestSound, Id = familiar.ObjectId })
+	end
+
+	thread( BackPlayerUpForHarvest, user, source )
+
+	if GetDistance({ Id = familiar.ObjectId, DestinationId = source.ObjectId }) >= familiar.MinDistanceToTeleportForShovelPoints then
+		SetAnimation({ Name = "Familiar_Hound_DropIn_Exit", DestinationId = familiar.ObjectId })
+		wait(0.2)
+
+		-- teleport to the closest spawn point first
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 0.0, Duration = 0.2 })
+		wait( 0.21 )
+
+		local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
+		local roomData = RoomData[currentRoom.Name] or currentRoom
+
+		local spawnPointId = GetClosest({ Id = source.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
+		if spawnPointId == 0 then
+			-- fall back to the hero's position if no spawn points exist
+			spawnPointId = CurrentRun.Hero.ObjectId
+		end
+		Teleport({ Id =  familiar.ObjectId, DestinationId = spawnPointId })
+		AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = source.ObjectId })
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAnimation({ Name = "Familiar_Hound_DropIn_Enter", DestinationId = familiar.ObjectId })
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 1.0, Duration = 0.2 })
+		wait( 0.18 )
+	end
+
+	HoundFamiliarMoveToLocation( familiar, { Id = source.ObjectId, KeepStandingOnFinish = true, SuccessDistance = 100 } )
+	waitUnmodified(0.05)
+	AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = source.ObjectId })
+	waitUnmodified(0.05)
+	SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Hound_Dig_ShovelPoint" })
+	waitUnmodified(0.18)
+	CreateAnimation({ Name = "ShovelDirtInSprayHound", DestinationId = familiar.ObjectId })
+	waitUnmodified(0.35)
+	CreateAnimation({ Name = "ShovelDirtOutSprayHound", DestinationId = source.ObjectId })
+	waitUnmodified(0.4)
 end
 
-function PickaxeStartPresentation( source, args, user )
+function FamiliarPickaxeStartPresentation( source, args, user )
 
-	AddOnDamagedFunction( user, "PickaxePointUseCanceled" )
-	user.OnHostilePolymorphFunctionName = "PickaxePointUseCanceled"
-	user.PreHarvestThreadName = "PickaxeStartPresentation"
-	
+	local familiar = MapState.FamiliarUnit
+
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = familiar.ObjectId })
+	SetAnimation({ Name = "Melinoe_CrossCast_Start_Fast", DestinationId = CurrentRun.Hero.ObjectId })
+	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
+	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/FloatingRockInteract", Id = CurrentRun.Hero.ObjectId })
+
+	RavenFamiliarStopAI( familiar )
+
+	thread( PlayVoiceLines, HeroVoiceLines.FamiliarHarvestVoiceLines, true )
+
+	waitUnmodified( 0.25 )
+	PlaySound({ Name = familiar.EquipSound or "/EmptyCue", Id = familiar.ObjectId })
+	SetAnimation({ Name = "MelinoeCrossCast", DestinationId = CurrentRun.Hero.ObjectId })
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = source.ObjectId, })
+	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = familiar.ObjectId, OffsetZ = -60 })
+
+	waitUnmodified( 0.15 )
+
+	if familiar.HarvestSound ~= nil then
+		PlaySound({ Name = familiar.HarvestSound, Id = familiar.ObjectId })
+	end
+
+	thread( BackPlayerUpForHarvest, user, source )
+
+	if GetDistance({ Id = familiar.ObjectId, DestinationId = source.ObjectId }) >= familiar.MinDistanceToTeleportWhenMining then
+		-- teleport to the closest spawn point first
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 0.0, Duration = 0.2 })
+		wait( 0.21 )
+
+		local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
+		local roomData = RoomData[currentRoom.Name] or currentRoom
+
+		local spawnPointId = GetClosest({ Id = source.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
+		if spawnPointId == 0 then
+			-- fall back to the hero's position if no spawn points exist
+			spawnPointId = CurrentRun.Hero.ObjectId
+		end
+		Teleport({ Id =  familiar.ObjectId, DestinationId = spawnPointId })
+		AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = source.ObjectId })
+		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
+		SetAnimation({ Name = "Familiar_Raven_Idle", DestinationId = familiar.ObjectId })
+		AdjustZLocation({ Id = familiar.ObjectId, Distance = familiar.FlightHeight - GetZLocation({ Id = familiar.ObjectId }), Duration = 0 })
+		familiar.CurrentHeight = familiar.FlightHeight
+		SetAlpha({ Id = familiar.ObjectId, Fraction = 1.0, Duration = 0.2 })
+		wait( 0.18 )
+	end
+
+	RavenFamiliarMoveToLocation( familiar, { Id = source.ObjectId, KeepFlyingOnFinish = true, SuccessDistance = 120 } )
+	waitUnmodified(0.05)
+	AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = source.ObjectId })
+	waitUnmodified(0.26)
+	SetAnimation({ DestinationId = familiar.ObjectId, Name = "Familiar_Raven_Mine" })
+	waitUnmodified(0.41)
+	CreateAnimation({ Name = "OreHarvestSpark", DestinationId = source.ObjectId })
+	CreateAnimation({ Name = "OreHarvestSpike", DestinationId = source.ObjectId, Group = "FX_Standing_Add" })
+
+end
+
+function PickaxeStartPresentation( source, args, user )	
 	thread( PlayVoiceLines, HeroVoiceLines.PickaxeUseInProgressVoiceLines, true )
 
 	SetAnimation({ Name = "MelinoePickAxeMineStart", DestinationId = user.ObjectId })
 
 	AngleTowardTarget({ Id = user.ObjectId, DestinationId = source.ObjectId })
 
-	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteCharging", Id = user.ObjectId })
+	PlaySound({ Name = "/VO/MelinoeEmotes/EmoteEvading", Id = user.ObjectId })
 
 	waitUnmodified( 0.06, user.PreHarvestThreadName )
 	PlaySound({ Name = "/SFX/Player Sounds/WeaponSwing", Id = user.ObjectId })
@@ -186,8 +279,6 @@ function PickaxeStartPresentation( source, args, user )
 
 	Shake({ Id = source.ObjectId, Distance = 2, Speed = 300, Duration = 0.32 })
 	PlaySound({ Name = "/SFX/PickaxeHitSFX", Id = source.ObjectId })
-	RemoveOnDamagedFunction( user, "PickaxePointUseCanceled" )
-	user.OnHostilePolymorphFunctionName = nil
 
 	waitUnmodified( 0.3, user.PreHarvestThreadName )
 end
@@ -217,12 +308,13 @@ function PickaxeDepositDestroyedPresentation( source, args, user )
 end
 
 function ExorcismPointChosenPresentation( source )
+	LoadVoiceBanks({ Name = "Selene" })
 	Flash({ Id = source.ObjectId, Speed = 4.0, MinFraction = 0.3, MaxFraction = 0.7, Color = Color.White, Duration = 0.8 })
 	if source.LeftHintId == nil then
 		source.LeftHintId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = source.ObjectId, OffsetX = -100, OffsetZ = 100, Group = "Combat_UI" })
 		SetAnimation({ Name = "GUI\\Icons\\MelArmLeftBacking", DestinationId = source.LeftHintId })
 		CreateTextBox({ Id =  source.LeftHintId,
-			Text = "ExorcismLeft",
+			Text = "ExorcismLeftHint",
 			FontSize = 22,
 			OffsetX = 12, OffsetY = 102,
 			Font = "P22UndergroundSCHeavy",
@@ -232,7 +324,7 @@ function ExorcismPointChosenPresentation( source )
 		source.RightHintId = SpawnObstacle({ Name = "BlankObstacle", DestinationId = source.ObjectId, OffsetX = 100, OffsetZ = 100, Group = "Combat_UI" })
 		SetAnimation({ Name = "GUI\\Icons\\MelArmRightBacking", DestinationId = source.RightHintId })
 		CreateTextBox({ Id =  source.RightHintId,
-			Text = "ExorcismRight",
+			Text = "ExorcismRightHint",
 			FontSize = 22,
 			OffsetX = -12, OffsetY = 102,
 			Font = "P22UndergroundSCHeavy",
@@ -269,11 +361,11 @@ function FamiliarExorcismStartPresentation( source, args, user )
 	SetAnimation({ Name = "Melinoe_CrossCast_Start_Fast", DestinationId = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
 	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/FloatingRockInteract", Id = CurrentRun.Hero.ObjectId })
-	PlaySound({ Name = MapState.FamiliarUnit.EquipSound or "/EmptyCue", Id = MapState.FamiliarUnit.ObjectId })
 
 	thread( PlayVoiceLines, HeroVoiceLines.FamiliarHarvestVoiceLines, true )
 
 	waitUnmodified( 0.4 )
+	PlaySound({ Name = MapState.FamiliarUnit.EquipSound or "/EmptyCue", Id = MapState.FamiliarUnit.ObjectId })
 	SetAnimation({ Name = "MelinoeCrossCast", DestinationId = CurrentRun.Hero.ObjectId })
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = source.ObjectId, })
 	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = MapState.FamiliarUnit.ObjectId, OffsetZ = -60 })
@@ -285,8 +377,8 @@ function FamiliarExorcismStartPresentation( source, args, user )
 	end
 
 	PlaySound({ Name = "/SFX/ThanatosAttackBell" })
-	thread( BackPlayerUp, user, source, { Distance = 250 } )
-	MoveFamiliarToLocation( MapState.FamiliarUnit )
+	thread( BackPlayerUpForHarvest, user, source )
+	FrogFamiliarMoveToLocation( MapState.FamiliarUnit )
 	waitUnmodified( 0.35 )
 
 	if MapState.FamiliarUnit.EffortSound ~= nil then
@@ -307,11 +399,9 @@ function FamiliarExorcismStartPresentation( source, args, user )
 	AdjustRadialBlurDistance({ Fraction = 0, Duration = 0.3  })
 end
 
-function FamiliarExorcismSuccessPresentation( source, args, user )
-	ExorcismSuccessPresentation( source, args, user )
-end
-
 function ExorcismStartPresentation( source, args, user )
+
+	wait( 0.02, user.PreExorcismThreadName )
 
 	source.LoopingSoundId = PlaySound({ Name = "/SFX/Menu Sounds/CauldronChoirLoop" })
 	thread( PlayInteractAnimation, source.ObjectId)
@@ -553,8 +643,12 @@ function ExorcismSuccessPresentation( source, args, user )
 	FocusCamera({ Fraction = CurrentRun.CurrentRoom.ZoomFraction or 1.0, Duration = 0.3, ZoomType = "Ease" })
 	AdjustColorGrading({ Name = "Off", Duration = 0.3 })
 
-	LoadVoiceBanks({ Name = "Selene" })
-	thread( PlayVoiceLines, HeroVoiceLines.ExorcismSucceededVoiceLines, true )
+	local lineSets = {}
+	if MapState.FamiliarUnit and MapState.FamiliarUnit.Name == "FrogFamiliar" then
+		table.insert( lineSets, HeroVoiceLines.FamiliarThankingVoiceLines )
+	end
+	table.insert( lineSets, HeroVoiceLines.ExorcismSucceededVoiceLines )
+	thread( PlayRandomEligibleVoiceLines, lineSets, true )
 
 	PlaySound({ Name = "/SFX/Menu Sounds/WeaponUnlockPoof" })
 	local hintIds = { source.LeftHintId, source.RightHintId }
@@ -565,11 +659,10 @@ function ExorcismSuccessPresentation( source, args, user )
 	end
 	DebugPrint({ Text = "Exorcism: Success" })
 	SetAnimation({ Name = "Melinoe_Tablet_ReturnToIdle", DestinationId = user.ObjectId })
-	thread( InCombatTextArgs, { Text = "ExorcismSuccess", TargetId = user.ObjectId, Duration = 1.0, PreDelay = 0.17, FontScale = 20, SkipRise = false, OffsetY = -100, SkipShadow = true } )
+	thread( InCombatTextArgs, { Text = "ExorcismSuccess", TargetId = source.ObjectId, Duration = 1.0, PreDelay = 0.17, FontScale = 20, SkipRise = false, OffsetY = -100, SkipShadow = true } )
 
 	if MapState.FamiliarUnit and MapState.FamiliarUnit.Name == "FrogFamiliar" then
 		waitUnmodified( 0.85 )
-		thread( PlayVoiceLines, HeroVoiceLines.FamiliarThankingVoiceLines, true )
 		PlaySound({ Name = MapState.FamiliarUnit.VictorySound or "/EmptyCue", Id = MapState.FamiliarUnit.ObjectId, Delay = 2 })
 		SetAnimation({ DestinationId = MapState.FamiliarUnit.ObjectId, Name = "Familiar_Frog_Greet" })
 		--thread( PlayEmoteSimple, MapState.FamiliarUnit, { AnimationName = MapState.FamiliarUnit.VictoryEmoteAnim or "StatusIconSmile", Delay = 2 } )
@@ -577,7 +670,7 @@ function ExorcismSuccessPresentation( source, args, user )
 
 	waitUnmodified(0.5)
 
-	thread( PlayEmote, { Target = source, EmoteName = "Smile", PlaySound = true } )
+	--thread( PlayEmote, { Target = source, EmoteName = "Smile", PlaySound = true } )
 
 	SetAlpha({ Id = source.ObjectId, Fraction = 0, Duration = 0.7 })
 	
@@ -609,4 +702,20 @@ function ExorcismPointGetUseText( useTarget )
 		return useTarget.FamiliarUseText
 	end
 	return useTarget.UseText
+end
+
+function BackPlayerUpForHarvest(user, source, args )
+	args = args or {}
+	local offset = CalcOffset( math.rad( GetAngleBetween({ Id = source.ObjectId, DestinationId = user.ObjectId }) ), args.Distance or 250 )
+	local searchOffsetId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = source.ObjectId, OffsetX = offset.X, OffsetY = offset.Y })
+
+	if not IsLocationBlocked({ Id = searchOffsetId }) then
+		local notifyName = "BackPlayerUpForHarvest"
+		Move({ Id = user.ObjectId, DestinationId = searchOffsetId, SuccessDistance = 150 })
+		NotifyOnStopped({ Id = CurrentRun.Hero.ObjectId, Notify = notifyName })
+		waitUntil( notifyName )
+	end
+
+	Destroy({ Id = searchOffsetId })
+	AngleTowardTarget({ Id = user.ObjectId, DestinationId = source.ObjectId })
 end

@@ -15,6 +15,7 @@
 	screen.CostDisplay.StartX = screen.CostDisplay.StartX + ScreenCenterNativeOffsetX
 	screen.CostDisplay.StartY = screen.CostDisplay.StartY + ScreenCenterNativeOffsetY
 	CreateScreenFromData( screen, screen.ComponentData )
+	InitializeMetaUpgradePins( screen )
 	UpdateMetaUpgradeCostText( screen ) 
 	CreateMetaUpgradeCards( screen, { UpgradeStoreNames = true, ActionFunctionName = "UpgradeMetaUpgradeCardAction", HighlightFunctionName = "MouseOverUpgradeMetaUpgrade", Autoselect = args.HighlightedCardName  } )
 	
@@ -55,6 +56,8 @@ function CloseUpgradeMetaUpgradeCardScreen( screen, args )
 	for _, id in pairs(screen.CostRingIds) do
 		table.insert( ids, id )
 	end
+	table.insert( ids, screen.Components.MemCostModule.PinButtonId )
+
 	local closeDelay = 0
 	if not args.UpgradeTransition then 
 		thread( CloseMetaUpgradeCardScreenPresentation, screen )
@@ -280,26 +283,33 @@ function UpdateUpgradeMetaUpgradeCostDisplay( screen, button )
 		SetAlpha({ Id = components.MetaUpgradeResourceCostBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	end
 end
+
 function MetaUpgradeCardUpgradeScreenPinItem( screen, button )
 	if screen.SelectedButton == nil then
 		return
 	end
-	if screen.SelectedButton.CardName == button.Screen.LastMouseOffButtonCardName then
+	if screen.SelectedButton.CardName == button.Screen.LastMouseOffButtonCardName and screen.SelectedButton.Name ~= "MemCostModule" then
 		return
 	end
-	
 	if not GameState.WorldUpgrades.WorldUpgradePinning then
 		return
 	end
-	if screen.SelectedButton.CardState ~= "UNLOCKED" or not CanUpgradeMetaUpgrade( screen.SelectedButton.CardName) or screen.SelectedButton.Name == "MemCostModule" then
+	if (screen.SelectedButton.CardState ~= "UNLOCKED" or not CanUpgradeMetaUpgrade( screen.SelectedButton.CardName)) and screen.SelectedButton.Name == "MemCostModule" then
 		return
 	end
 	local itemName = screen.SelectedButton.CardName
-	if HasStoreItemPin( itemName.. GetMetaUpgradeLevel( itemName ) ) then
-		RemoveStoreItemPin( itemName .. GetMetaUpgradeLevel( itemName ) )
+	local storeName = "MetaUpgradeCardUpgradeData"
+	if screen.SelectedButton.Name == "MemCostModule" then
+		itemName = "MetaUpgradeLevelData".. GetCurrentMetaUpgradeLimitLevel() + 1
+		storeName = "MetaUpgradeCostDataStore"
+	else
+		itemName = screen.SelectedButton.CardName .. GetMetaUpgradeLevel( itemName )
+	end
+	if HasStoreItemPin( itemName ) then
+		RemoveStoreItemPin( itemName )
 		RemoveStoreItemPinPresentation( screen.SelectedButton )
 	else
-		AddStoreItemPin( itemName .. GetMetaUpgradeLevel( itemName ), "MetaUpgradeCardUpgradeData" )
+		AddStoreItemPin( itemName , storeName )
 		AddStoreItemPinPresentation( screen.SelectedButton, { AnimationName = "MetaUpgradeItemPin" })
 	end
 end

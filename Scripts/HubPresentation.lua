@@ -630,10 +630,10 @@ end
 function FishingPierStartPresentation( source, args )
 	args = args or {}
 
-	LoadVoiceBanks({ Name = "MelinoeField" })
 	FadeOut({ Color = Color.Black, Duration = 0.5 })
 	EstablishConversationStartingPoint( source )
 	waitUnmodified( 0.5 )
+	LoadVoiceBanks({ Name = "MelinoeField" })
 
 	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 566617 })
 	Teleport({ Id = source.ObjectId, DestinationId = 566616 })
@@ -656,15 +656,16 @@ function FishingPierEndPresentation( source, args )
 	GardenTimeTick( { Ticks = timeTicks, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
 	CookTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
 	MailboxTimeTick( { Ticks = timeTicks, UpdatePresentation = true, TickInterval = 0.0, } )
+	FamiliarTimeTick( { Ticks = timeTicks, TickInterval = 0.0 })
 
 	TeleportToConversationStartingPoint( source, args )
 
 	waitUnmodified( 0.5 )
+	UnloadVoiceBanks({ Name = "MelinoeField" })
 
 	PlaySound({ Name = "/Leftovers/World Sounds/MapZoomInShortHigh" })
 	FadeIn({ Duration = 2.0 })
-	waitUnmodified( 2.5 )
-	UnloadVoiceBanks({ Name = "MelinoeField" })
+	waitUnmodified( 2.5 )	
 end
 
 function TavernaStartPresentation( source, args )
@@ -675,7 +676,7 @@ function TavernaStartPresentation( source, args )
 	waitUnmodified( 0.5 )
 
 	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 589539 })
-	Teleport({ Id = source.ObjectId, DestinationId = 589538 })
+	Teleport({ Id = source.ObjectId, DestinationId = source.TavernaTeleportId or 589538 })
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = 586579 })
 	AngleTowardTarget({ Id = source.ObjectId, DestinationId = 586579 })
@@ -700,6 +701,156 @@ function TavernaEndPresentation( source, args )
 	waitUnmodified( 2.0 )
 end
 
+GlobalVoiceLines.HypnosDreamReactionVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		PreLineWait = 0.45,
+		PlayOverTextLines = true,
+		UsePlayerSource = true,
+		AllowTalkOverTextLines = true,
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "CurrentRun", "TextLinesRecord", "HypnosWakeUp01" },
+			},
+		},
+		{ Cue = "/VO/Melinoe_3687", Text = "The dream's collapsing... no, wait, {#Emph}please!" },
+	},
+}
+function HypnosDream01StartPresentation( source, args )
+	args = args or {}
+
+	SessionState.InDreamSequence = true
+
+	waitUnmodified( 0.5 )
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedBeowulfStrings", Delay = 0.3 })
+	FullScreenFadeOutAnimation()
+	EstablishConversationStartingPoint( source )
+
+	StopSound({ Id = AudioState.AmbienceId, Duration = 0.5 })
+	AudioState.AmbienceId = nil
+	AudioState.AmbienceName = nil
+	StopMusicianMusic( { Duration = 0.5 } )
+
+	waitUnmodified( 1.5 )
+
+	local biomeStateData = BiomeStateData.BiomeStates[GameState.NextBiomeStateName]
+	if biomeStateData ~= nil then
+		DimRainPresentation()
+	end
+
+	Teleport({ Id = CurrentRun.Hero.ObjectId, DestinationId = 738932 })
+
+	-- thread( PlayDreamScreenEffects )
+	SetAudioEffectState({ Name = "Reverb", Value = -1.0 })
+	SetAudioEffectState({ Name = "GlobalEcho", Value = 0.5 })
+
+	AudioState.AmbienceId = PlaySound({ Name = "/Ambience/RemembranceScreenAmbience2", Duration = 0.5 })
+
+	local dreamHypnosId = 738827
+	Activate({ Id = dreamHypnosId })
+	local dreamHypnos01 = DeepCopyTable( EnemyData.NPC_Hypnos_02 )
+	dreamHypnos01.ObjectId = dreamHypnosId
+	SetupUnit( dreamHypnos01, CurrentRun, { IgnoreAI = true, IgnorePackages = true } )
+	CheckConversations( dreamHypnos01 )
+
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = dreamHypnosId })
+
+	ClearCameraClamp({ LerpTime = 0 })
+	SetCameraZoomWeight({ Id = 738929, Weight = 1.45, ZoomSpeed = 1.0 })
+	SetCameraZoomWeight({ Id = 740440, Weight = 0.20, ZoomSpeed = 1.0 })
+
+	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFade" })
+
+	for fromSound, toSound in pairs( GameData.DreamSequenceData.SwapSounds ) do
+		SwapSound({ Name = fromSound, DestinationName = toSound })
+	end
+
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelTalkFlustered01" })
+
+	waitUnmodified( 0.8 )
+
+	FullScreenFadeInAnimation()
+
+	waitUnmodified( 1.5 )
+
+end
+function HypnosDream01EndPresentation( source, args )
+	args = args or {}
+
+	PlaySound({ Name = "/Leftovers/Object Ambiences/ThunderOneShot" })
+
+	ShakeScreen({ Speed = 150, Distance = 6, Duration = 3.0, FalloffSpeed = 500, Angle = 90 })
+	thread( DoRumble, { { ScreenPreWait = 0.02, Fraction = 0.3, Duration = 1.8 }, } )
+
+	wait(0.3)
+	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteAscendedDark" })
+
+	thread( FullScreenFadeOutAnimation )
+
+	StopSound({ Id = AudioState.AmbienceId, Duration = 0.5 })
+	AudioState.AmbienceId = nil
+	AudioState.AmbienceName = nil
+
+	thread( PlayVoiceLines, GlobalVoiceLines.HypnosDreamReactionVoiceLines )
+	wait(1.4)
+	PlaySound({ Name = "/SFX/WindGust" })
+
+	waitUnmodified( 2.8 )
+
+	-- reset camera zoom weights
+	SetCameraZoomWeight({ Id = 738929, Weight = 1.0, ZoomSpeed = 1.0 })
+	SetCameraZoomWeight({ Id = 740440, Weight = 1.0, ZoomSpeed = 1.0 })
+
+	AudioState.AmbienceId = PlaySound({ Name = "/Ambience/RunstartIntroAmbience", Duration = 0.5 })
+	StopSound({ Id = SessionMapState.HadesThemeId, Duration = 0.2 })
+	RestoreMusicianMusic()
+
+	for fromSound, toSound in pairs( GameData.DreamSequenceData.SwapSounds ) do
+		SwapSound({ Name = toSound, DestinationName = fromSound })
+	end
+
+	local biomeStateData = BiomeStateData.BiomeStates[GameState.NextBiomeStateName]
+	if biomeStateData ~= nil then
+		UnDimRainPresentation()
+	end
+
+	local ticks = GameData.PostDreamArgs.LuaValue.TimerTicks
+	GardenTimeTick( { Ticks = ticks, UpdatePlotPresentation = true, PanDuration = 0.0, SkipCameraPan = true, SkipSound = true, TickInterval = 0.0 } )
+	CookTimeTick( { Ticks = ticks, UpdatePresentation = true, TickInterval = 0.0, } )
+	MailboxTimeTick( { Ticks = ticks, UpdatePresentation = true, TickInterval = 0.0, } )
+	FamiliarTimeTick( { Ticks = ticks, TickInterval = 0.0 })
+
+	TeleportToConversationStartingPoint( source, args )
+	-- eliminate the imposter
+	Destroy({ Ids = GetIdsByType({ Name = "NPC_Hypnos_02"}) })
+
+	waitUnmodified( 1.0 )
+	SetAnimation({ DestinationId = CurrentRun.Hero.ObjectId, Name = "MelTalkPensive01" })
+	waitUnmodified( 0.5 )
+
+	-- related to PlayDreamScreenEffects()
+	-- StopAnimation({ Name = "CauldronCastVignetteLoop", DestinationId = ScreenAnchors.FullscreenAlertFxAnchor })
+	-- StopAnimation({ Name = "NightmareEdgeFxSpawner", DestinationId = CurrentRun.Hero.ObjectId })
+	SessionState.InDreamSequence = false
+
+	SetAudioEffectState({ Name = "Reverb", Value = 0.4 })
+	SetAudioEffectState({ Name = "GlobalEcho", Value = 0.0 })
+
+	PlaySound({ Name = "/Leftovers/Menu Sounds/EmoteExcitement" })
+	-- FadeIn({ Duration = 2.0 })
+	FullScreenFadeInAnimation()
+	PlaySound({ Name = "/SFX/Menu Sounds/HadesTextDisappearFadeLOCATION" })
+	waitUnmodified( 2.0 )
+end
+
+function PlayHadesTheme( source, args )
+	args = args or {}
+	SessionMapState.HadesThemeId = PlaySound({ Name = "/Music/MusicPlayer/HadesThemeMusicPlayer" })
+end
+
 function EstablishConversationStartingPoint( source, args )
 	MapState.ConversationStartPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = source.ObjectId })
 	MapState.HeroConversationStartPointId = SpawnObstacle({ Name = "InvisibleTarget", DestinationId = CurrentRun.Hero.ObjectId })
@@ -713,6 +864,9 @@ function TeleportToConversationStartingPoint( source, args )
 
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = args.AngleHeroTowardTargetId or MapState.ConversationStartPointId })
 	AngleTowardTarget({ Id = source.ObjectId, DestinationId = args.AngleTowardTargetId or MapState.HeroConversationStartPointId })
+
+	local cameraClamps = CurrentHubRoom.CameraClamps or GetDefaultClampIds()
+	SetCameraClamp({ Ids = cameraClamps, SoftClamp = CurrentHubRoom.SoftClamp })
 
 	Destroy({ Id = MapState.HeroConversationStartPointId })
 	Destroy({ Id = MapState.ConversationStartPointId })
@@ -740,7 +894,7 @@ end
 function LockedSurfaceRunPresentation( usee, args )
 	args = args or {}
 	if CheckCooldown( "LockedSurfaceDoorUsed", 2.0 ) then
-		thread( RepulseFromObject, usee, { Text = "Hint_SurfaceRunDoorLocked", OffsetZ = -100, OffsetX = -0, ShadowScaleX = 1.3, Scale = 2.0 })
+		thread( RepulseFromObject, usee, { Text = "Hint_SurfaceRunDoorLocked", OffsetZ = -100, OffsetX = -0, ShadowScaleX = 1.3, Scale = 2.0, UseAngleBetween = true })
 		PlaySound({ Name = "/Leftovers/SFX/PlayerKilled_Small", Id = CurrentRun.Hero.ObjectId })
 		PlaySound({ Name = "/SFX/WrathOver2" })
 	end
@@ -765,7 +919,12 @@ function StartNewRunPresentation( runDoor, args )
 	LockCamera({ Id = runDoor.ObjectId, Duration = 1.3, Retarget = true })
 	SetAngle({ Id = CurrentRun.Hero.ObjectId, Angle = GetAngleBetween({ Id = CurrentRun.Hero.ObjectId, DestinationId = args.DashTarget or runDoor.ObjectId }), CompleteAngle = true })
 	if MapState.FamiliarUnit ~= nil then
-		SetAnimation({ DestinationId = MapState.FamiliarUnit.ObjectId, Name = MapState.FamiliarUnit.StartNewRunAnimation })
+		local familiar = MapState.FamiliarUnit
+		if familiar.StartNewRunFunctionName ~= nil then
+			thread( CallFunctionName, familiar.StartNewRunFunctionName, familiar, args )
+		else
+			SetAnimation({ DestinationId = familiar.ObjectId, Name = familiar.StartNewRunAnimation })
+		end
 	end
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithObstacles", Value = false })
 	SetUnitProperty({ DestinationId = CurrentRun.Hero.ObjectId, Property = "CollideWithUnits", Value = false })
@@ -859,8 +1018,8 @@ function TentEnterPresentation()
 
 	local dora = ActiveEnemies[566832]
 	if dora ~= nil and not dora.InPartnerConversation then
-		if IsGameStateEligible( CurrentRun, dora, dora.CosmeticsTeleportRequirements ) then
-			-- Move Dora to Main
+		if IsGameStateEligible( dora, dora.CosmeticsTeleportRequirements ) then
+			-- Move Dora to Tent
 			Teleport({ Id = dora.ObjectId, DestinationId = dora.ActiveNarrativeTeleportId or 583650 })
 			dora.DefaultCategoryIndex = 1
 		end
@@ -888,7 +1047,7 @@ function TentExitPresentation( eventSource, args )
 
 	local dora = ActiveEnemies[566832]
 	if dora ~= nil and not dora.InPartnerConversation then
-		if IsGameStateEligible( CurrentRun, dora, dora.CosmeticsTeleportRequirements ) then
+		if IsGameStateEligible( dora, dora.CosmeticsTeleportRequirements ) then
 			-- Move Dora to Main
 			Teleport({ Id = dora.ObjectId, DestinationId = dora.ActiveNarrativeTeleportId or 560665, OffsetY = 0 })
 			dora.DefaultCategoryIndex = 2
@@ -1248,73 +1407,55 @@ end
 
 GlobalVoiceLines.UsedCrossroadsPet01VoiceLines =
 {
-	BreakIfPlayed = true,
-	RandomRemaining = true,
-	PreLineWait = 0.3,
+	TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.3,
+		SuccessiveChanceToPlayAll = 0.33,
 
-	{ Cue = "/VO/Melinoe_3405", Text = "Hi, gang. Headmistress must have some important tasks for you.", PlayFirst = true },
-	{ Cue = "/VO/Melinoe_3406", Text = "How fare my favorite hound and polecat friends?", PlayFirst = true,
-		GameStateRequirements =
-		{
+		{ Cue = "/VO/Melinoe_3405", Text = "Hi, gang. Headmistress must have some important tasks for you.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_3406", Text = "How fare my favorite hound and polecat friends?", PlayFirst = true,
+			GameStateRequirements =
 			{
-				PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				},
 			},
 		},
-	},
-	{ Cue = "/VO/Melinoe_3407", Text = "You two please keep an eye on things while I'm away.", PlayFirst = true,
-		GameStateRequirements =
-		{
+		{ Cue = "/VO/Melinoe_3407", Text = "You two please keep an eye on things while I'm away.", PlayFirst = true,
+			GameStateRequirements =
 			{
-				PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				},
 			},
 		},
-	},
-	{ Cue = "/VO/Melinoe_3408", Text = "Headmistress couldn't ask for better Familiars than you two.", PlayFirst = true,
-		GameStateRequirements =
-		{
+		{ Cue = "/VO/Melinoe_3408", Text = "Headmistress couldn't ask for better Familiars than you two.", PlayFirst = true,
+			GameStateRequirements =
 			{
-				PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				{
+					PathTrue = { "GameState", "SpeechRecord", "/VO/Melinoe_3405" }
+				},
 			},
 		},
+		{ Cue = "/VO/Melinoe_0329", Text = "You keep the Headmistress in pleasant company. She's an important job to do." },
+		{ Cue = "/VO/Melinoe_0330", Text = "How have my favorite creatures been surviving recently?" },
+		{ Cue = "/VO/Melinoe_0331", Text = "You all look like you're being fed your share." },
 	},
-	{ Cue = "/VO/Melinoe_0329", Text = "You keep the Headmistress in pleasant company. She's an important job to do." },
-	{ Cue = "/VO/Melinoe_0330", Text = "How have my favorite creatures been surviving recently?" },
-	{ Cue = "/VO/Melinoe_0331", Text = "You all look like you're being fed your share." },
-	{ Cue = "/VO/Melinoe_0246", Text = "I got you something.", },
-	{ Cue = "/VO/Melinoe_0247", Text = "I got you this.", },
-	{ Cue = "/VO/Melinoe_0248", Text = "Got something for you.", },
-	{ Cue = "/VO/Melinoe_0249", Text = "Here you go!", },
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.3,
+
+		{ Cue = "/VO/Melinoe_3776", Text = "Who's a good girl?" },
+		{ Cue = "/VO/Melinoe_3777", Text = "You're a good girl." },
+		{ Cue = "/VO/Melinoe_3778", Text = "Headmistress raised you well." },
+		{ Cue = "/VO/Melinoe_3779", Text = "You're all right." },
+		{ Cue = "/VO/Melinoe_3780", Text = "Good girl, Hecuba." },
+		{ Cue = "/VO/Melinoe_3781", Text = "Hail Hecuba." },
+	},
 }
-function UseCrossroadsPet01( usee, args )
-
-	UseableOff({ Id = usee.ObjectId })
-	HideUseButton( usee.ObjectId, usee )
-	AddInputBlock({ Name = "MelUsedCrossroadsPet" })
-	SetAnimation({ Name = "MelinoeGatherStart", DestinationId = CurrentRun.Hero.ObjectId })
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
-
-	wait( 0.1)
-
-	Shake({ Id = usee.ObjectId, Distance = 1.5, Speed = 150, Duration = 0.15 })
-	PlaySound({ Name = "/VO/CerberusCuteGrowl_3", Id = usee.ObjectId })
-
-	thread( PlayVoiceLines, GlobalVoiceLines.UsedCrossroadsPet01VoiceLines )
-	SetAnimation({ Name = "MelinoeGatherPickup", DestinationId = CurrentRun.Hero.ObjectId })
-
-	Shake({ Id = 558691, Distance = 1.5, Speed = 150, Duration = 0.15 })
-	PlaySound({ Name = "/SFX/Enemy Sounds/Crawler/EmoteAttacking", Id = usee.ObjectId })
-
-	wait( 1.5 )
-
-	RemoveInputBlock({ Name = "MelUsedCrossroadsPet" })
-	wait( 30.75, RoomThreadName )
-
-	if not usee.UseableToggleBlocked then
-		UseableOn({ Id = usee.ObjectId })
-	end
-
-end
-
 
 function CauldronPresentationBurst()
 
@@ -1358,6 +1499,7 @@ function SetupCauldronWitchcraftPresentation( source, args )
 
 	source.UseText = "UseCauldronJoinWitchcraft"
 	source.OnUsedFunctionName = "UseCauldronJoinWitchcraft"
+	source.SetupEvents = nil
 
 	local offset = CalcOffset( math.rad(40), 220 )
 	Teleport({ Id = leadParticipant.ObjectId, DestinationId = args.CenterPointId, OffsetX = offset.X, OffsetY = offset.Y })
@@ -1445,16 +1587,21 @@ function CauldronCastingJoinInVoiceLines( source, args )
 		PlayVoiceLines( args.VoiceLines, true )
 	end
 end
+function CauldronCastingVoiceLines( source, args )
+	PlayVoiceLines( args.VoiceLines, true )
+end
 
 function GhostEavesdroppers( source, args )
 	local randomGroup = GetRandomValue( args.RandomGroups )
 	if randomGroup ~= nil then
 		Activate({ Ids = randomGroup })
-		local randomGhostId = GetRandomValue( randomGroup )
-		local inspectPoint = DeepCopyTable( args.InspectPoint )
-		local inspectPointId = SpawnObstacle({ Name = inspectPoint.Name, DestinationId = randomGhostId, OffsetZ = 90 })
-		inspectPoint.ObjectId = inspectPointId
-		AttachLua({ Id = inspectPointId, Table = inspectPoint })
+		if (CurrentRun.SpecialInteractRecord[args.InspectPoint.Name] or 0) <= 0 then
+			local randomGhostId = GetRandomValue( randomGroup )
+			local inspectPoint = DeepCopyTable( args.InspectPoint )
+			local inspectPointId = SpawnObstacle({ Name = inspectPoint.Name, DestinationId = randomGhostId, OffsetZ = 90 })
+			inspectPoint.ObjectId = inspectPointId
+			AttachLua({ Id = inspectPointId, Table = inspectPoint })
+		end
 	end
 end
 
@@ -1503,6 +1650,7 @@ function GhostFollowers( source, args )
 		local spawnType = GetRandomValue( args.SpawnTypes )
 		local spawnOffset = CalcOffset( math.rad( RandomFloat( 0, 360 ) ), RandomFloat( 0, args.SpawnRadius ) )
 		local spawnId = SpawnObstacle({ Name = spawnType, Group = args.GroupName or "Standing", DestinationId = spawnPointId, OffsetX = spawnOffset.X, OffsetY = spawnOffset.Y })
+		SetThingProperty({ DestinationId = spawnId, Property = "SortMode", Value = "Secondary" })
 		local spawn = DeepCopyTable( ObstacleData[spawnType] )
 		spawn.ObjectId = spawnId
 		SetupObstacle( spawn )
@@ -1604,7 +1752,8 @@ function GhostFollowerGainAggroPresentation( ghost, args )
 		end
 	end
 
-	thread( PlayVoiceLines, HeroVoiceLines.GhostTrainVoiceLines, true )
+	-- moved to DeathLoopData
+	-- thread( PlayVoiceLines, HeroVoiceLines.GhostTrainVoiceLines, true )
 
 end
 
@@ -1700,4 +1849,25 @@ function TechTestEscapeDoorClosed( usee, args )
 	end
 	thread( PlayVoiceLines, GlobalVoiceLines.EndTechTestVoiceLines, true )
 	RemoveInputBlock({ Name = "UseEscapeDoor" })
+end
+
+function ShadeSignSway( source, args )
+	PlaySound({ Name = "/Leftovers/World Sounds/CaravanBumpHard", Id = source.ObjectId })
+	local swayAngle = RandomFloat( -70, 70 )
+	SetAngle({ Id = source.ObjectId, Angle = swayAngle, Duration = 0.3, EaseIn = 1.0, EaseOut = 1.0 })
+	wait( 0.3 )
+	SetAngle({ Id = source.ObjectId, Angle = 0, Duration = 0.3, EaseIn = 1.0, EaseOut = 1.0 })
+end
+
+function CannotExitDueToShrinePresentation( source, args )
+
+	args = args or {}
+	if CheckCooldown( "ExitFailedDueToShrine", 2.0 ) then
+		PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = source.ObjectId })
+		thread( DirectionHintPresentation, MapState.ActiveObstacles[args.AltarId], { Cooldown = 1.0, Duration = 4.0, Delay = 0.0 } )
+		thread( InCombatText, CurrentRun.Hero.ObjectId, "LimitGraspShrineUpgrade_ExitsBlocked", 1.8, { ShadowScale = 0.66 } )
+		thread( PlayVoiceLines, HeroVoiceLines.DocksDoorShutVoiceLines, true )
+		RepulseFromObject( CurrentRun.Hero, { Scale = CurrentRun.Hero.InvincibubbleScale } )
+	end
+
 end

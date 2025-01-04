@@ -10,6 +10,9 @@
 		Loop = false
 		Enable3DShadow = true
 		CreateAnimation = "ScimiterrorGlow"
+		VisualFx = "ScimiterrorSparkles"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.5
 	}
 
 	{
@@ -340,7 +343,25 @@
 		GrannyAnimation = "Scimiterror_Base_StabPostFire_C_00"
 		ChainTo = "Enemy_Scimiterror_Idle"
 		GrannyAnimationSpeed = 0.5
-		Sound = "/SFX/Enemy Sounds/Hades/HadesAmmoExitPoof"
+		Sound = "/SFX/ScimiterrorSpawnShing"
+
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2FlipThin"
+		Duration = 0.5
+		DeathFxFrameDuration = 30
+		DeathFxReverse = true
+		DeathFxColor = { Red = 1 Green = 1 Blue = 1 }
+		DeathFxEaseIn = 0.0
+		DeathFxEaseOut = 1
+		DeathFxThickness = 0.02
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		CancelOnOwnerMove = true
+		EaseIn = 0
+		EaseOut = 1
 	}
 
 ]}

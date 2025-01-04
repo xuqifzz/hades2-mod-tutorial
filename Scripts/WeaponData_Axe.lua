@@ -8,17 +8,19 @@ OverwriteTableKeys( WeaponData,
 		EquippedKitAnimation = "WeaponAxeFloatingIdleOff",
 		UnequippedKitAnimation = "WeaponAxeFloatingIdle",
 		UpgradeScreenKitAnimation = "WeaponAxeFloatingIdleVertical",
+		BountyScreenKitAnimation = "WeaponAxeIdle",
 		FirstTimeEquipAnimation = "Melinoe_Axe_Equip",
 		FirstTimeEquipSound = "/SFX/Enemy Sounds/Minotaur/HugeAxeSwing",
 		UseText = "UseWeaponKit",
 		UpgradeChoiceText = "UpgradeChoiceMenu_Melee",
+		NoBountyAvailableText = "ShrineScreen_NoBountyAvailable_Axe",
 		UnlockName = "WeaponAxe_Unlock",
 		ExpireProjectilesOnFire = {"ProjectileAxeSpin"},
 		DashWeapon = "WeaponAxeDash",
 		PreserveDashWeaponSwapNames = { "WeaponAxe2", "WeaponAxe3" },
 		DamagedAnimation = "Melinoe_Axe_GetHit",
 		ExpireDashWeaponOnDash = true,
-		SecondaryWeapon = "WeaponAxeBlock2",
+		SecondaryWeapon = "WeaponAxeSpecial",
 		DummyTraitName = "DummyWeaponAxe",
 		Using = { GrannyModel = "WeaponAxeBlurWheel_Mesh" },
 
@@ -73,8 +75,8 @@ OverwriteTableKeys( WeaponData,
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiscWeaponEquipVoiceLines,
-			[2] = GlobalVoiceLines.SkellyWeaponEquipReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "MiscWeaponEquipVoiceLines" },
+			[2] = { GlobalVoiceLines = "SkellyWeaponEquipReactionVoiceLines" },
 		},
 
 		Sounds =
@@ -102,6 +104,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},
@@ -145,6 +148,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},
@@ -158,6 +162,8 @@ OverwriteTableKeys( WeaponData,
 		
 		DashWeapon = "WeaponAxeDash",
 		OnChargeFunctionName = "BlockDashDisable",
+		EndControlSwapsOnDash = true,
+
 		--FireScreenshake = { Distance = 2, Speed = 300, FalloffSpeed = 0, Duration = 0.1, Angle = 90 },
 		HitScreenshake = { Distance = 6, Speed = 300, FalloffSpeed = 0, Duration = 0.1, Angle = 90 },
 
@@ -198,6 +204,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 
@@ -212,6 +219,7 @@ OverwriteTableKeys( WeaponData,
 		DefaultKnockbackScale = 1.2,
 		SkipManaIndicatorIfZeroManaCost = true,
 		ChargeCameraMotion = { ZoomType = "Ease", Fraction = 0.96, Duration = 0.8, HoldDuration = 0.1, RestoreDefaultDuration = 0.2 },
+		EndControlSwapsOnDash = true,
 
 		BlockDashSwapIfCharging = true,
 		DashWeapon = "WeaponAxeDash",
@@ -266,6 +274,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 
@@ -283,8 +292,10 @@ OverwriteTableKeys( WeaponData,
 
 		DefaultKnockbackForce = 640,
 		DefaultKnockbackScale = 0.8,
+		CheckPostFireFail = true,
 		RequireProjectilesForPresentation = true,
 		UniqueDetonationHits = true,
+		IsExWeapon = true,
 
 		CompleteObjectivesOnFire = { "WeaponAxeSpin" },
 		OnChargeFunctionName = "DoWeaponCharge",
@@ -297,16 +308,16 @@ OverwriteTableKeys( WeaponData,
 		ChargeWeaponStages = 
 		{
 				{ ManaCost = 10, WeaponProperties = { NumProjectiles = 1, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.32, ChannelSlowEventOnEnter = true, HideStageReachedFx = true },
-				{ ManaCost = 11, WeaponProperties = { NumProjectiles  = 2, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 3, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 13, WeaponProperties = { NumProjectiles  = 4, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 5, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 15, WeaponProperties = { NumProjectiles  = 6, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 7, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 17, WeaponProperties = { NumProjectiles  = 8, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 9, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 19, WeaponProperties = { NumProjectiles  = 10, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, HideStageReachedFx = true },
-				{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 11, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.16, },
+				{ ManaCost = 11, WeaponProperties = { NumProjectiles  = 2, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 12, WeaponProperties = { NumProjectiles  = 3, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 13, WeaponProperties = { NumProjectiles  = 4, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 14, WeaponProperties = { NumProjectiles  = 5, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 15, WeaponProperties = { NumProjectiles  = 6, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 16, WeaponProperties = { NumProjectiles  = 7, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 17, WeaponProperties = { NumProjectiles  = 8, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 18, WeaponProperties = { NumProjectiles  = 9, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 19, WeaponProperties = { NumProjectiles  = 10, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, HideStageReachedFx = true },
+				{ ManaCost = 20, WeaponProperties = { NumProjectiles  = 11, FireEndGraphic = "Melinoe_Axe_AttackEx1_End" }, Wait = 0.11, },
 		},
 		ShowManaIndicator = true,
 		OnWeaponTriggerReleaseFunctionName = "CheckSpinControl",
@@ -348,6 +359,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/SwordWallHitClank",
 				MetalObstacle = "/SFX/SwordWallHitClank",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 
 			ChargeSounds =
@@ -403,15 +415,85 @@ OverwriteTableKeys( WeaponData,
 
 		Upgrades = { },
 	},
+
+	WeaponAxeSpecial =
+	{
+		StartingWeapon = false,
+		DoProjectileBlockPresentation = true,
+
+		DefaultKnockbackForce = 480,
+		DefaultKnockbackScale = 0.6,
+
+		--ProjectileBlockFunctionName = "ShieldBlock",
+		--ProjectileBlockFunctionArgs = { EffectName = "BlockStun", MaxDistance = 350 },
+		SkipAttackNotReadySounds = true,
+		NoControlSound = "/Leftovers/SFX/OutOfAmmo2",
+
+		HitScreenshake = { Distance = 2, Speed = 200, FalloffSpeed = 0, Duration = 0.1, Angle = 90 },
+
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.03, Fraction = 0.1, LerpTime = 0 },			
+			{ ScreenPreWait = 0.01, Fraction = 1.0, LerpTime = 0.03 },
+		},
+
+		HitRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, RightFraction = 0.15, Duration = 0.15 },
+		},
+
+		Sounds =
+		{
+			ChargeSounds =
+			{
+				{ Name = "/VO/MelinoeEmotes/EmoteChargingSuit" },
+				{ Name = "/SFX/Player Sounds/MelinoeAxePhysicalChargeUp",
+					StoppedBy = { "ChargeCancel", "TriggerRelease", "Fired"} }
+			},
+			FireSounds =
+			{
+				{ Name = "/VO/MelinoeEmotes/EmoteAttackingAxeThrow" },
+			},
+			ImpactSounds =
+			{
+				Invulnerable = "/SFX/SwordWallHitClank",
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/MetalBoneSmash",
+				Brick = "/SFX/MetalStoneClang",
+				Stone = "/SFX/MetalStoneClang",
+				Organic = "/SFX/StabSplatterSmall",
+				StoneObstacle = "/SFX/SwordWallHitClank",
+				BrickObstacle = "/SFX/SwordWallHitClank",
+				MetalObstacle = "/SFX/SwordWallHitClank",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
+			},
+
+		},
+
+		Upgrades = { },
+	},
 	WeaponAxeSpecialSwing =
 	{
 		StartingWeapon = false,
 		IsExWeapon = true,
 		ManaCost = 30,
-		HideChargeDuration = 0.02,
-
+		HideChargeDuration = 0.01,
+		HideOutOfManaPresentation = true,
+		OutOfManaFunctionName = "WeaponCooldownOutOfMana",
+		OutOfManaFunctionArgs = { RequireNotFreshInput = true, Cooldown = 0.85 },
 		DefaultKnockbackForce = 960,
 		DefaultKnockbackScale = 1.2,
+
+		ChargeRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.09, Duration = 0.75 },
+		},
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.16, Fraction = 0.37, Duration = 0.34 },
+		},
 
 		Sounds =
 		{		
@@ -434,6 +516,7 @@ OverwriteTableKeys( WeaponData,
 				BrickObstacle = "/SFX/Player Sounds/ShieldObstacleHit",
 				MetalObstacle = "/SFX/Player Sounds/ShieldObstacleHit",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 		OnFiredFunctionName = "RevertWeaponChanges",

@@ -1,0 +1,40 @@
+{ Animations = [
+
+	{
+		Name = "1_BaseStaticGUIAnimation"
+		FilePath = "Dev\blank_invisible"
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "Button_Highlight"
+		FilePath = "GUI\Shell\button_highlight"			
+		AddColor = true
+		Duration = 0.1
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -3.0
+		EndScale = 1.05
+		Material = "Unlit"
+		Color = { Red = 0.30 Green = 0.30 Blue = 0.30 }
+		Sound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
+	}
+	{
+		Name = "EpilogueBaseAnim"
+		FilePath = "Dev\blank_invisible"
+		
+		Duration = 48.0
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+	}
+
+]}

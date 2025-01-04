@@ -188,6 +188,12 @@
 			},
 		},
 		FlavorText = "StaffClearCastAspect_FlavorText",
+		
+		Using =
+		{
+			"CirceCrystalRotateFront1", "CirceCrystalRotateFront2", "CirceCrystalRotateFront3", "CirceCrystalRotateFront4", "CirceCrystalRotateFront5",
+			"CirceCrystalRotateBack1", "CirceCrystalRotateBack2", "CirceCrystalRotateBack3", "CirceCrystalRotateBack4", "CirceCrystalRotateBack5",
+		},
 	},
 	
 	StaffSelfHitAspect = 
@@ -234,8 +240,10 @@
 			FunctionName = "DropOriginMarker",
 			FunctionArgs = 
 			{
-				AnimationName = "WitchGrenadeRecallSphere",
-				ExpiringAnimationName = "WitchGrenadeRecallSphereOut",
+				AnimationName = "MomusCastPointSpawn",
+				AttackAnimationName = "MomusCastPointAttack",
+				PreAttackDuration = 0.25,
+				ExpiringAnimationName = "MomusCastPointOut",
 				DestroyDelay = 0.5,
 				Repeats = 3,
 				Interval = { BaseValue = 3.5 },
@@ -247,10 +255,13 @@
 			Name = "ClearOriginMarker",
 			Args = 
 			{
-				ExpiringAnimationName = "WitchGrenadeRecallSphereOut",
+				AttackAnimationName = "MomusCastPointAttack",
+				PreAttackDuration = 0.25,
+				ExpiringAnimationName = "MomusCastPointOut",
 				DestroyDelay = 0.5,
 				CastRepeats = 3,
 				Interval = { BaseValue = 3.5 },
+				ReportValues = { ReportedPulseInterval = "Interval"},
 			},
 		},
 		PropertyChanges =
@@ -266,8 +277,7 @@
 			{
 				WeaponName = "WeaponStaffSwing5",
 				WeaponProperty = "ProjectileWaveInterval",
-				BaseValue = 3.5,
-				ReportValues = { ReportedPulseInterval = "ChangeValue"},
+				ChangeValue = 10,	--Handled via StartPrimaryRepeatThread
 			}
 		},
 		OnExpire = 
@@ -382,6 +392,11 @@
 			},
 			HideStageReachedFxExceptForFinal = true ,
 		},
+		OnEnemyDamagedAction = 
+		{
+			FunctionName = "CheckDaggerPenetration",
+			ValidProjectiles = { "ProjectileDaggerThrowCharged" },
+		},
 		StatLines = 
 		{
 			"ExThrowStatDisplay1",
@@ -397,7 +412,17 @@
 					MaxAdjustRate = math.rad(2160),
 					RequireTargetsHaveEffect = "ImpactSlow",
 				}
-			}
+
+			},
+
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Pan",
+				ChangeType = "Absolute",
+			},
+
 		},
 		ExtractValues =
 		{
@@ -473,7 +498,8 @@
 				CritCount = 9,
 				InvulnerableEffectName = "DaggerBlockInvincibubble",
 				InvulnerableDuration = 1,
-				Vfx = "ArtemisDefenseFront",
+				Vfx = "ArtemisParryShield",
+				BackVfx = "ArtemisParryShieldBack",
 				ActivatedVfx = "DaggerBlockActiveFx",
 				ReportValues = 
 				{ 
@@ -599,7 +625,7 @@
 		{
 			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
 			FunctionName = "CheckWeaponAmmoFire",
-		},
+		}, 
 		StatLines =
 		{
 			"AmmoDamageStatDisplay1",
@@ -636,7 +662,7 @@
 			},
 			Epic =
 			{
-				Multiplier = 2,
+				Multiplier = 2.0,
 			},
 			Heroic =
 			{
@@ -644,7 +670,7 @@
 			},
 			Legendary =
 			{
-				Multiplier = 3,
+				Multiplier = 3.0,
 			},
 			Perfect =
 			{
@@ -664,11 +690,16 @@
 		{
 			NonExMultiplier =
 			{
-				BaseValue = 1.2,
+				BaseValue = 1.3,
 				SourceIsMultiplier = true,
 			},
 			ValidWeapons = WeaponSets.HeroAllWeapons,
 			ReportValues = { ReportedWeaponMultiplier = "NonExMultiplier"},
+		},
+		OnWeaponChargeFunctions = 
+		{
+			ValidWeapons = WeaponSets.HeroPrimaryWeapons,
+			FunctionName = "ResetLobSpecialCooldown",
 		},
 		PropertyChanges =
 		{
@@ -680,6 +711,11 @@
 					BarrelLength = 50,
 					SelfVelocity = 0,
 					ProjectileToArm = "ProjectileLob",
+
+					SetCompleteAngleOnFire = false,
+					ChargeTime = 0.10,
+					ChargeStartAnimation = "Melinoe_Lob_Attack1_Start_Aspect",
+					FireGraphic = "Melinoe_Lob_Attack1_Fire_Aspect",
 				},
 				ProjectileName = "ProjectileLob",
 				ProjectileProperties = 
@@ -700,13 +736,71 @@
 					CheckObstacleImpact = false,
 					DetonateWhenArmed = true,
 					ReportValues = { ReportedFuse = "Fuse"},
-
+					GroupName = "FX_Standing_Add",
+					AttachedAnim = "MedeaFuseBacking",
+					Graphic = "MedeaFuseFx_Base",
+					StartFx = "MedeaLoadFx_Base",
 				},
 			},
+
+			{
+				WeaponName = "WeaponLob",
+				EffectName = "Lob1DisableCancellable",
+				EffectProperty = "Duration",
+				ChangeValue = 0.15,
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+
+		},
+		WeaponDataOverride =
+		{
+			WeaponLob =
+			{
+				Sounds =
+				{
+					ChargeSounds =
+					{
+						{
+							Name = "/SFX/Player Sounds/MelinoeSkullsChargeLoop",
+							StoppedBy = { "ChargeCancel", "Fired" }
+						},
+					},			
+					FireSounds =
+					{
+						-- { Name = "/VO/MelinoeEmotes/EmoteEvading" },
+					},
+					FireStageSounds = 
+					{
+						{ Name = "/VO/MelinoeEmotes/EmotePowerAttackingStaff" },
+						{ Name = "/SFX/Player Sounds/MelSkullsOmegaAttack" },
+					},
+					ImpactSounds =
+					{
+						Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
+						Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+						Bone = "/SFX/ArrowMetalBoneSmash",
+						Brick = "/SFX/ArrowMetalStoneClang",
+						Stone = "/SFX/ArrowMetalStoneClang",
+						Organic = "/SFX/GunBulletOrganicImpact",
+						StoneObstacle = "/SFX/ArrowWallHitClankSmall",
+						BrickObstacle = "/SFX/ArrowWallHitClankSmall",
+						MetalObstacle = "/SFX/ArrowWallHitClankSmall",
+						BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+						Shell = "/SFX/ShellImpact",
+					},
+				},
+				
+			}
 		},
 		StatLines =
 		{
 			"NonExDamageStatDisplay1",
+		},
+		SetupFunction =
+		{
+			Threaded = true,
+			Name = "SetupMedeaAnimationSwaps",
 		},
 		ExtractValues =
 		{
@@ -748,7 +842,29 @@
 			WeaponLob_Mesh = "WeaponLob_Persephone_Mesh"
 		},
 		Charge = 0,
-
+		PropertyChanges = {
+			{
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "LobSpecialFx_Persephone",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponLobSpecial",
+				ProjectileName = "ProjectileThrowBlink",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DashLobTrailEmitter_Persephone",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSkullImpulse",
+				ProjectileName = "ProjectileSkullImpulse",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DashLobTrailEmitter_Persephone",
+				ChangeType = "Absolute",
+			},	
+		},
 		RarityLevels =
 		{
 			Common =
@@ -813,6 +929,7 @@
 				"PoseidonCastSplashSplinter",
 				"PoseidonCast",
 				"ApolloSingleCastStrike",
+				"ZeusCastAnywhereBlast",
 				"ApolloCast",
 				"HeraCastSummonProjectile",
 				"AphroditeCastProjectile",
@@ -846,7 +963,7 @@
 				SkipAutoExtract = true,
 			},
 			{
-				Key = "MinChargeToFire",
+				Key = "ReportedMinChargeToFire",
 				ExtractAs = "MinCharge",
 				SkipAutoExtract = true,
 			},
@@ -897,7 +1014,7 @@
 				WeaponName = "WeaponTorchSpecial",
 				ProjectileName = "ProjectileTorchOrbit",
 				ProjectileProperty = "ArcEnd",
-				BaseValue = math.rad(-220),
+				BaseValue = math.rad(220),
 				ChangeType = "Add",
 				ExcludeLinked = true,
 				ReportValues = { ReportedIncrease = "ChangeValue"}
@@ -975,8 +1092,11 @@
 						WeaponProperties = 
 						{ 
 							Projectile = "ProjectileTorchBallLarge",
+							AdditionalProjectileWaveChance = 0,
 						}, 
 						ForceRelease = false,
+						SkipManaSpendOnFire = true,
+						CompleteObjective = "WeaponTorchCharged",
 					},
 				},
 			}
@@ -1036,7 +1156,7 @@
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "TorchProjectileLargeIn_Aphrodite",
+				ChangeValue = "EosProjectile_Base_In",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
@@ -1052,7 +1172,7 @@
 				WeaponName = "WeaponTorch",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "AttachedAnim",
-				ChangeValue = "TorchProjectileShadowLarge_Aphrodite",
+				ChangeValue = "EosProjectileShadow",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},			
@@ -1130,12 +1250,6 @@
 		},
 		Icon = "Hammer_Torch_40",
 		RequiredWeapon = "WeaponTorch",
-		WeaponKitGrannyModel = "WeaponTorchMultiple_Supay_Mesh",
-		ReplacementGrannyModels = 
-		{
-			WeaponTorchR_Mesh = "WeaponTorchR_Supay_Mesh",
-			WeaponTorchL_Mesh = "WeaponTorchL_Supay_Mesh"
-			},
 		ChargeStageModifiers = 
 		{
 			ValidWeapons = {"WeaponTorch"},
@@ -1446,15 +1560,15 @@
 				TraitName = "HephaestusCastBoon",
 				WeaponName = "WeaponCast",
 				ProjectileProperty = "FuseStart",
-				ChangeValue = 0,
+				ChangeValue = 1,
 				ChangeType = "Absolute",
 			},
 			{
 				TraitName = "HephaestusCastBoon",
 				WeaponName = "WeaponCast",
 				ProjectileProperty = "Fuse",
-				ChangeValue = 1,
-				ChangeType = "Add",
+				ChangeValue = 6/3,
+				ChangeType = "Absolute",
 			},
 			{
 				WeaponName = "WeaponCast",
@@ -1550,6 +1664,7 @@
 			Threaded = true,
 			Name = "SetupPerfectCritUI",
 		},
+		StopVfxOnUnequip = "ThanatosMaxMortalityFx",
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroAllWeapons,
@@ -1684,7 +1799,405 @@
 			},
 		},
 		FlavorText = "AxePerfectCriticalAspect_FlavorText",
-	}
+	},
+
+	BaseSuitAspect = 
+	{
+		InheritFrom = { "WeaponEnchantmentTrait" },
+		Icon = "Hammer_Suit_01",
+		RequiredWeapon = "WeaponSuit",
+		WeaponKitGrannyModel = "WeaponSuitMultiple_Base_Mesh",
+		ReplacementGrannyModels = 
+		{
+			WeaponSuitR_Base_Mesh = "WeaponSuitR_Base_Mesh",
+			WeaponSuitL_Base_Mesh = "WeaponSuitL_Base_Mesh",
+			WeaponSuitB_Base_Mesh = "WeaponSuitB_Base_Mesh",
+		},
+
+		WeaponSpeedMultiplier =
+		{
+			WeaponNames = WeaponSets.HeroPrimaryWeapons,
+			Value = 
+			{
+				BaseValue = 0.95,
+				SourceIsMultiplier = true,
+			},
+		},
+		PropertyChanges = 
+		{
+			{
+				WeaponNames = WeaponSets.HeroPrimaryWeapons,
+				BaseValue = 0.95,
+				SourceIsMultiplier = true,
+				SpeedPropertyChanges = true,
+				ExcludeLinked = true,
+			},
+			{
+				UnitProperty = "Speed",
+				BaseValue = 1.05,
+				SourceIsMultiplier = true,
+				ChangeType = "Multiply",
+				ReportValues = { ReportedChange = "ChangeValue" }
+			},
+			{
+				WeaponNames = { "WeaponSprint" },
+				WeaponProperty = "SelfVelocity",
+				BaseValue = 99,
+				ChangeType = "Add",
+				ExcludeLinked = true,
+			},
+			{
+				WeaponNames = { "WeaponSprint" },
+				WeaponProperty = "SelfVelocityCap",
+				BaseValue = 44.5,
+				ChangeType = "Add",
+				ExcludeLinked = true,
+			},
+		},
+		StatLines =
+		{
+			"MoveSprintAttackSpeedStatDisplay",
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				MinMultiplier = 0,
+				MaxMultiplier = 0,
+			},
+			Rare =
+			{
+				Multiplier = 1,
+			},
+			Epic =
+			{
+				Multiplier = 2,
+			},
+			Heroic =
+			{
+				Multiplier = 3,
+			},
+			Legendary =
+			{
+				Multiplier = 4,
+			},
+			Perfect = 
+			{
+				Multiplier = 5,
+			},
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedChange",
+				ExtractAs = "SpeedBonus",
+				Format = "PercentDelta"
+			},
+		},
+		FlavorText = "BaseSuitAspect_FlavorText",
+	},
+	SuitMarkCritAspect = 
+	{
+		InheritFrom = { "WeaponEnchantmentTrait" },
+		PreEquipWeapons = { "WeaponSprintEx" },
+		Icon = "Hammer_Suit_03",
+		RequiredWeapon = "WeaponSuit",
+		WeaponKitGrannyModel = "WeaponSuitMultiple_Nyx_Mesh",
+		ReplacementGrannyModels = 
+		{
+			WeaponSuitR_Base_Mesh = "WeaponSuitR_Nyx_Mesh",
+			WeaponSuitL_Base_Mesh = "WeaponSuitL_Nyx_Mesh",
+			WeaponSuitB_Base_Mesh = "WeaponSuitB_Nyx_Mesh",
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1,
+			},
+			Rare =
+			{
+				Multiplier = 2,
+			},
+			Epic =
+			{
+				Multiplier = 3,
+			},
+			Heroic =
+			{
+				Multiplier = 4,
+			},
+			Legendary =
+			{
+				Multiplier = 5,
+			},
+			Perfect = 
+			{
+				Multiplier = 7,
+			},
+		},
+
+		WeaponDataOverride = 
+		{
+			WeaponSuitRanged = 
+			{
+				OnProjectileDeathFunctionArgs = 
+				{
+					ProjectileProperties = 
+					{
+						UnlimitedUnitPenetration = false,
+						DetonateOnImpact = false,
+						DamageRadius = 0,
+					},
+				},
+			},
+		},
+		WeaponDataOverride =
+		{
+			WeaponSprint =
+			{
+				SkipManaIndicatorIfOutOfMana = true,
+				OnChargeFunctionName = "DoWeaponCharge",
+				ChargeWeaponData =
+				{
+					OnStageReachedFunctionName = "SprintChargeStage",
+					EmptyChargeFunctionName = "EmptySprintCharge",
+				},
+				ShowManaIndicator = true,
+				ChargeWeaponStages = 
+				{
+					{ 
+						ManaCost = 30,
+						SkipManaSpendOnFire = true,
+						Wait = 1.0,
+						WeaponName = "WeaponSprintEx",
+						EffectName = "NyxBlastReady",
+						ReportValues = 
+						{
+							ReportedChargeDuration = "Wait",
+							ReportedCost = "ManaCost",
+						},
+					},
+				},
+			}
+		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = { "WeaponSprint"},
+			FunctionName = "CheckSprintCollision",
+			FunctionArgs = 
+			{
+				Range = 165,
+			}
+		},
+		SprintStrikeDamageMultiplier = 1,
+		OnProjectileDeathFunction = 
+		{
+			Name = "CheckProjectileSpawn",
+			ValidProjectiles = {"ProjectileSuit", "ProjectileSuit2", "ProjectileSuitRangedGuided" },
+			Args = 
+			{
+				UseOriginalProjectileForPropertyChanges = false,
+				IgnoreImpactId = true,
+				MatchProjectileName = true,
+				SpawnCount = 2,
+				SpawnArc = 60,
+				Alpha = 0.3,
+				RetargetChance = 0,	-- Chance split missiles can hit the same target
+				ProjectileOffsets = 
+				{
+					ProjectileSuit = 200,
+					ProjectileSuit2 = 250,
+					--ProjectileSuitCharged = 300,
+				},
+				ProjectileVfx = 
+				{
+					ProjectileSuitRangedGuided = "NyxMissileSpawner",
+					--ProjectileSuitRangedCharged = "NyxMissileSpawner",
+				},
+				ProjectileNameMap = 
+				{
+					ProjectileSuitRangedGuided = "ProjectileSuitRangedGuidedSplit",
+					--ProjectileSuitRangedCharged = "ProjectileSuitRangedChargedSplit",
+					ProjectileSuit = "ProjectileSuitSplit",
+					ProjectileSuit2 = "ProjectileSuitSplit2",
+					--ProjectileSuitCharged = "ProjectileSuitChargedSplit",
+				},
+				DamageMultiplier = { BaseValue = 0.1 },
+				ReportValues = 
+				{ 
+					ReportedCount = "SpawnCount",
+					ReportedMultiplier = "DamageMultiplier" 
+				}
+			}
+		},
+		OnEnemyDamagedAction = 
+		{
+			FunctionName = "SplitSelfBuff",
+			ValidProjectiles = { "NyxSprintBlast" },
+			Args = 
+			{
+				EffectName = "NyxHitBuff",
+				Duration = 5,
+				ReportValues = 
+				{
+					ReportedDuration = "Duration",
+				}
+			},
+		},
+		OnProjectileCreationFunction = 
+		{
+			ValidProjectiles = {"ProjectileSuitRangedUnguided", "ProjectileSuit", "ProjectileSuit2", --[["ProjectileSuitCharged", "ProjectileSuitRangedChargedUnguided"]] },
+			Name = "CheckSplitValidity",
+			Args = 
+			{
+				RequiredEffect = "NyxHitBuff",
+			},
+		},
+		SetupFunction =
+		{
+			Threaded = true,
+			Name = "SetupSuitSplitUI",
+		},
+		StatLines =
+		{
+			"SplitDamageStatDisplay",
+		},
+		ExtractValues =
+		{
+			{
+				Key = "ReportedMultiplier",
+				ExtractAs = "SplitDamage",
+				Format = "Percent",
+				HideSigns = true,
+			},
+			{
+				Key = "ReportedCount",
+				ExtractAs = "AspectSplitCount",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedChargeDuration",
+				ExtractAs = "ChargeDuration",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedCost",
+				ExtractAs = "ManaCost",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "ReportedDuration",
+				ExtractAs = "Duration",
+				SkipAutoExtract = true,
+			},
+			{
+				Key = "SprintStrikeDamageMultiplier",
+				ExtractAs = "Damage",
+				Format = "MultiplyByBase",
+				BaseType = "Projectile",
+				BaseName = "NyxSprintBlast",
+				BaseProperty = "Damage",
+				SkipAutoExtract = true,
+			},
+		},
+		FlavorText = "SuitMarkCritAspect_FlavorText",
+	},
+	SuitHexAspect = 
+	{
+		InheritFrom = { "WeaponEnchantmentTrait" },
+		Icon = "Hammer_Suit_02",
+		RequiredWeapon = "WeaponSuit",
+		WeaponKitGrannyModel = "WeaponSuitMultiple_Selene_Mesh",
+		ReplacementGrannyModels = 
+		{
+			WeaponSuitR_Base_Mesh = "WeaponSuitR_Selene_Mesh",
+			WeaponSuitL_Base_Mesh = "WeaponSuitL_Selene_Mesh",
+			WeaponSuitB_Base_Mesh = "WeaponSuitB_Selene_Mesh",
+		},
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 0,
+			},
+			Rare =
+			{
+				Multiplier = 1,
+			},
+			Epic =
+			{
+				Multiplier = 2,
+			},
+			Heroic =
+			{
+				Multiplier = 3,
+			},
+			Legendary =
+			{
+				Multiplier = 4,
+			},
+			Perfect = 
+			{
+				Multiplier = 6,
+			},
+		},
+		LinkedSpell = "MoonBeam",
+		StatLines =
+		{
+			"SuitSpellCostStatLine",
+		},
+		TalentPointCount = 2,	-- First Selene drop will give 1, so this boosts it to 3 on first pick-up baseline
+		ManaSpendCostModifiers = 
+		{
+			Add = { BaseValue = -10 },
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		ExtractValues =
+		{
+			{
+				Format = "AdjustedBaseManaSpendCost",
+				WeaponName = "WeaponSpellMoonBeam",
+				ExtractAs = "ManaCost",
+				Key = "ReportedManaCost",
+			},
+			{
+				External = true,
+				BaseType = "WeaponData",
+				BaseProperty = "FiredFunctionArgs",
+				BaseName = "WeaponSpellMoonBeam",
+				FiredFunctionArg = "Count",
+				ExtractAs = "MoonBeamCount",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "ProjectileMoonBeam",
+				BaseProperty = "Damage",
+				ExtractAs = "MoonBeamDamage",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Modifier",
+				Format = "PercentDelta",
+				ExtractAs = "MoonBeamVulnerability",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Duration",
+				ExtractAs = "MoonBeamDuration",
+				SkipAutoExtract = true,
+			},
+		},
+		FlavorText = "SuitHexAspect_FlavorText",
+	},
 }
 
 OverwriteTableKeys( TraitData, TraitSetData.Aspects )

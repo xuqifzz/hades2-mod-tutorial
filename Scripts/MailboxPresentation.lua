@@ -7,7 +7,7 @@ function MailboxScreenClosePresentation( screen, button )
 end
 
 function MailboxSessionCompletePresentation( usee, screen )
-	if screen.NumItems == 0 then
+	if screen == nil or screen.NumItems == 0 then
 		return
 	end
 	if screen.NumSales == 0 then

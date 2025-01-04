@@ -80,19 +80,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "River_Shading",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Terrain_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -471,7 +458,6 @@
         "Terrain_05",
         "Terrain_Decor_06",
         "Terrain_01",
-        "River_Shading",
         "Terrain_Base_Decor_03",
         "Terrain_Base_Decor_02",
         "Terrain_Base_Decor_01",

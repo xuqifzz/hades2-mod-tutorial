@@ -2,10 +2,14 @@ Import "RandomLogic.lua"
 Import "LocalizationLogic.lua"
 
 -- Utility Functions
-function TableLength( table )
+function TableLength( table, nilIsZero )
 
 	if table == nil then
-		return
+		if nilIsZero then
+			return 0
+		else
+			return
+		end
 	end
 
 	local count = 0
@@ -33,7 +37,7 @@ function CalcTotalNumEntries( table, trace )
 		end
 	end
 
-	if count > 50 then
+	if count > 100 then
 		DebugPrint({ Text = trace.." = "..count, LogOnly = true })
 	end
 
@@ -531,12 +535,6 @@ function IsEmpty( tableArg )
 	return next(tableArg) == nil
 end
 
-function Clear( tableArg )
-	for key in pairs( tableArg ) do
-		tableArg[key] = nil
-	end
-end
-
 function GetFirstKey( tableArg )
 	if type(tableArg) ~= "table" then
 		return tableArg
@@ -779,7 +777,7 @@ function GetRandomEligiblePrioritizedItem( items, priorities, playedStore, rando
 	args = args or {}
 
 	for itemName, itemData in pairs( items ) do
-		if not itemData.DebugOnly and ( not itemData.PlayOnce or not playedStore[itemData.Name] ) and ( itemData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, itemData, itemData.GameStateRequirements ) ) then
+		if not itemData.DebugOnly and ( not itemData.PlayOnce or not playedStore[itemData.Name] ) and ( itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) ) then
 			eligibleItems[itemData.Name] = true
 			if not randomRemainingStore[itemData.Name] then
 				table.insert( eligibleUnplayedItems, itemData )
@@ -1386,7 +1384,7 @@ end
 function GetRandomEligibleValueFromWeightedList( tableArg, rng )
 	local weightedList = {}
 	for k, option in pairs( tableArg ) do
-		if option.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, option, option.GameStateRequirements ) then
+		if option.GameStateRequirements == nil or IsGameStateEligible( option, option.GameStateRequirements ) then
 			weightedList[k] = option.Weight
 		end
 	end

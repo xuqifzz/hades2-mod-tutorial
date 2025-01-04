@@ -9,6 +9,9 @@
 		Scale = 1.0
 		Loop = false
 		Enable3DShadow = true
+		VisualFx = "WaterElementalDropsMovement"
+		VisualFxDistanceMin = 50
+		VisualFxDistanceMax = 60
 	}
 
 	{
@@ -17,6 +20,10 @@
 		GrannyAnimation = "WaterElemental_Base_Idle_C_00"
 		Loop = true
 		CancelOnOwnerMove = true
+		VisualFx = "WaterElementalDropsIdle"
+		CreateAnimation = "WaterElementalDropsIdle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
 		Blends =
 		[
 			{
@@ -35,6 +42,10 @@
 		InheritFrom = "EnemyWaterElementalBaseAnimation"
 		GrannyAnimation = "WaterElemental_Base_WalkStart_C_00"
 		ChainTo = "Enemy_WaterElemental_Move"
+		VisualFx = "WaterElementalDropsIdle"
+		CreateAnimation = "WaterElementalDropsIdle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
 		Blends =
 		[
 			{
@@ -60,6 +71,7 @@
 		Name = "Enemy_WaterElemental_Move"
 		InheritFrom = "EnemyWaterElementalBaseAnimation"
 		GrannyAnimation = "WaterElemental_Base_Walk_C_00"
+
 		Loop = true
 		Blends =
 		[
@@ -162,6 +174,9 @@
 		InheritFrom = "EnemyWaterElementalBaseAnimation"
 		GrannyAnimation = "WaterElemental_Base_BitePreFire_C_00"
 		CreateAnimation = "EnemyChargeFxIn_WaterEle"
+		VisualFx = "WaterElementalDropsIdle"
+		VisualFxIntervalMin = 0.3
+		VisualFxIntervalMax = 0.6
 		Blends =
 		[
 			{
@@ -256,6 +271,57 @@
 		InheritFrom = "EnemyWaterElementalBaseAnimation"
 		GrannyAnimation = "WaterElemental_Base_WaterburstReturnToIdle_C_00"
 		ChainTo = "Enemy_WaterElemental_Idle"
+	}
+
+	{
+		Name = "Enemy_WaterElemental_Death"
+		InheritFrom = "Enemy_WaterElemental_OnHit"
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskLinear2Flip"
+		Duration = 1.0
+		DeathFxFrameDuration = 60
+		DeathFxColor = { Red = 0.0 Green = 0.5 Blue = 1.0 }
+		DeathFxThickness = 0.03
+		DeathFxEaseIn = 0.9
+		DeathFxEaseOut = 1.0
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.999
+		EaseOut = 1.0
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		Sound = "/SFX/Enemy Sounds/EnemyDeathSFXIris"
+		HoldLastFrame = true
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+		VisualFx = null
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 10
+		Gravity = 600
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 4
+				FrameSpeed = 3
+			}
+			{
+				Frame = 16
+				FrameSpeed = 0.25
+			}
+		]
 	}
 
 ]}

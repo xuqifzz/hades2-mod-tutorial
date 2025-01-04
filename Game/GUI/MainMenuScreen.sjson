@@ -2,8 +2,9 @@
   MainMenuScreen =
   {
     Platform = "default"
-    OpenSound = "null"
+    OpenSound = "/SFX/Menu Sounds/PrometheusMainMenuSFX"
     CloseSound = "null"
+    NewUpdateSound = "/SFX/Menu Sounds/PrometheusMainMenuSFX_OneOff"
     SelectionSound = "/SFX/Menu Sounds/DialoguePanelOutMenu"
     Music = "/Music/IrisMainTheme"
     GamepadCursorControl = true
@@ -57,30 +58,27 @@
 
     Character =
     {
-      X = 1411
-      Y = 667
-      Graphic = null
-      Justification = "Center"
-      VerticalJustification = "Center"
+      Graphic = "MainMenuEAUpdateTitleDelay"
+      AttachTo = "Logo"
       FadeOpacity = 0.0
       FadeTarget = 1.0
-      FadeDelayMin = 2.983333
-      FadeDelayMax = 2.983333
-      FadeSpeed = 1.000
-      Scale = 1.00
+      FadeDelayMin = 0
+      FadeDelayMax = 0.01
+      FadeSpeed = 9999
+      Scale = 0.5
+      OffsetY = 220
     }
 
     UpdateTitleBacking =
     {
-      X = 638
-      Y = 337
+      AttachTo = "Logo"
       Graphic = "MainMenuEALabelDelay"
-      Justification = "Center"
-      VerticalJustification = "Center"
+      OffsetX = 200
+      OffsetY = 100
       FadeOpacity = 0.0
       FadeTarget = 1.0
-      FadeDelayMin = 2.0
-      FadeDelayMax = 2.01
+      FadeDelayMin = 0.0
+      FadeDelayMax = 0.01
       FadeSpeed = 9999
       Scale = 0.5
     }
@@ -167,7 +165,8 @@
     LastUpdateText =
     {
       AttachTo = "AnnouncementButton"
-      OffsetY = 45
+      OffsetX = 2
+      OffsetY = 41
       HelpTextId = "LastUpdate"
       Justification = "Left"
       VerticalJustification = "Center"
@@ -230,9 +229,9 @@
       VerticalJustification = "Center"
       FadeOpacity = 0.0
       FadeTarget = 1.0
-      FadeDelayMin = 2.20
-      FadeDelayMax = 2.21
-      FadeSpeed = 10
+      FadeDelayMin = 3.00
+      FadeDelayMax = 3.01
+      FadeSpeed = 5
       Font = "LatoBold"
       FontSize = 20
       TextJustification = "Center"
@@ -281,8 +280,8 @@
       ShadowBlur = 0
       FadeOpacity = 0.0
       FadeTarget = 1.0
-      FadeDelayMin = 2.20
-      FadeDelayMax = 2.21
+      FadeDelayMin = 3.1
+      FadeDelayMax = 3.11
       FadeSpeed = 3
       Width = 270
       Height = 125

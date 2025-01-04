@@ -83,7 +83,10 @@ RewardData =
 								Comparison = ">=",
 								Value = 0,
 							},
-							RequiredMinHealthFraction = 0.2,
+							{
+								FunctionName = "RequiredHealthFraction",
+								FunctionArgs = { Comparison = ">=", Value = 0.2, },
+							},
 						},
 						Cooldowns =
 						{

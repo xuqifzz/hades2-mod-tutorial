@@ -450,6 +450,7 @@
 		VisualFxManagerCap = 300
 		VisualFxManagerFrameCap = 14
 		Sound = "/Leftovers/World Sounds/LeavesRustleMedium"
+		SoundManagerCap = 38
 	}
 
 	{
@@ -1920,5 +1921,186 @@
 		RandomPlaySpeedMin = 30.0
 		StartFrame = 1
 		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "H_TallGrass"
+		FilePath = "Animations\BreakableDeathAnim\BreakableDeathAnim"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "H_TallGrassA" }
+			{ Name = "H_TallGrassB" }
+		]
+	}
+	
+	{
+		Name = "H_TallGrassA"
+		FilePath = "Tilesets\Surface\Surface_Wheat_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -55.0
+		Scale = 0.45
+		ScaleY = 0.35
+		RandomFlipHorizontal = true
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+	}
+	
+	{
+		Name = "H_TallGrassB"
+		FilePath = "Tilesets\Surface\Surface_Wheat_01a"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -55.0
+		Scale = 0.45
+		ScaleY = 0.35
+		RandomFlipHorizontal = true
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+	}
+	
+	{
+		Name = "H_TallGrassBase"
+		FilePath = "Tilesets\Graybox\TallGrassBase"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -55.0
+		Scale = 0.45
+		ScaleY = 0.35
+		RandomFlipHorizontal = true
+		Color = { Red = 1.0 Green = 0.50 Blue = 0.50 }
+	}
+
+	{
+		Name = "HealthFountainH_Full"
+		FilePath = "Tilesets\Fields\Fields_HealthFountain_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+		ChildAnimation = "HealthFountainH_Full_Fx"
+		Duration = 2
+		Loop = true
+	}
+
+	{
+		Name = "HealthFountainH_Full_Fx"
+		FilePath = "Fx\FieldsHealthFountain\FieldsHealthFountain"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		Loop = true
+		Scale = 2
+		OffsetY = -340
+		VisualFx = "HealthFountainSparkleFields"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.12
+		ChildAnimation = "HealthFountainHGlow"
+	}
+
+	{
+		Name = "HealthFountainHGlow"
+		FilePath = "Particles\particle_glow_egg"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Material = "Unlit"
+		Red = 1
+		Green = 0
+		Blue = 0.5
+		StartAlpha = 0.2
+		EndAlpha = 0.4
+		Duration = 3
+		ScaleX = 0.5
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+		ScaleFromOwner = "Ignore"
+		Scale = 5
+		OffsetZ = 300
+
+	}
+
+	{
+		Name = "HealthFountainH_Empty_Fx"
+		InheritFrom = "HealthFountainH_Full_Fx"
+		VisualFx = null
+		ChildAnimation = null
+		Alpha = 0.5
+		Red = 0.25
+		Green = 0.25
+		Blue = 0.25
+	}
+
+	{
+		Name = "HealthFountainH_Empty"
+		ChildAnimation = "HealthFountainH_Empty_Fx"
+		Duration = 2
+		Loop = true
+		FilePath = "Tilesets\Fields\Fields_HealthFountain_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Ambient = 0.0
+	}
+
+	{
+		Name = "HealthFountainSparkleFields"
+		Random =
+		[
+			{ Name = "HealthFountainSparkleFieldsA" }
+			{ Name = "HealthFountainSparkleFieldsB" }
+		]
+	}
+
+	{
+		Name = "HealthFountainSparkleFieldsA"
+		InheritFrom = "HealthFountainSparkle"
+		FilePath = "Particles\particle_addFlake"
+		UseOwnAngle = false
+		RandomDurationMax = 3.0
+		RandomDurationMin = 1.0
+		StartFrame = 1
+		OriginX = -30.0
+		OriginY = 30.0
+		RandomOffsetX = 120.0
+		RandomOffsetY = 200.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		Acceleration = -30.0
+		VelocityMax = 90.0
+		VelocityMin = 45.0
+		RandomRotationSpeedMax = 90.0
+		RandomRotationSpeedMin = -90.0
+		RandomRotation = true
+		StartOffsetZ = 0
+		EndOffsetZ = 30
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		Scale = 0.66
+		ScaleMax = 1
+		ScaleMin = 0.25
+		StartScale = 0.0
+		Ambient = 0.0
+		EaseIn = 0
+		EaseOut = 1
+		OffsetX = -110
+		OffsetY = -250
+		AddColor = true
+		Color = { Red = 1.0 Green = 0.1 Blue = 0.7 }
+	}
+
+	{
+		Name = "HealthFountainSparkleFieldsB"
+		InheritFrom = "HealthFountainSparkleFieldsA"
+		OriginX = 30
 	}
 ]}

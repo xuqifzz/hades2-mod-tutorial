@@ -11,10 +11,10 @@ end
 function GetNextBiomeStateName()
 
 	local forceState = false
-	if IsGameStateEligible( CurrentRun, BiomeStateData.ForceGameStateRequirements ) then
+	if IsGameStateEligible( nil, BiomeStateData.ForceGameStateRequirements ) then
 		forceState = true
 	else		
-		if not IsGameStateEligible( CurrentRun, BiomeStateData.GameStateRequirements ) then
+		if not IsGameStateEligible( nil, BiomeStateData.GameStateRequirements ) then
 			return BiomeStateData.DefaultBiomeState
 		end	
 	
@@ -37,7 +37,7 @@ function GetNextBiomeStateName()
 
 	local eligibleStates = {}
 	for biomeStateName, biomeStateData in pairs( BiomeStateData.BiomeStates ) do
-		if not biomeStateData.Skip and IsGameStateEligible( CurrentRun, biomeStateData, biomeStateData.GameStateRequirements ) then
+		if not biomeStateData.Skip and IsGameStateEligible( biomeStateData, biomeStateData.GameStateRequirements ) then
 			table.insert( eligibleStates, biomeStateName )
 		end
 	end
@@ -59,14 +59,14 @@ function CheckBiomeStateStart( currentRoom )
 		local nextBiomeStateName = GameState.NextBiomeStateName or GetNextBiomeStateName()
 		if nextBiomeStateName ~= nil and nextBiomeStateName ~= BiomeStateData.DefaultBiomeState then
 			nextBiomeStateData = BiomeStateData.BiomeStates[nextBiomeStateName]
-		elseif IsGameStateEligible( CurrentRun, BiomeStateData.DefaultBiomeStateRequirements) then
+		elseif IsGameStateEligible( nextBiomeStateData, BiomeStateData.DefaultBiomeStateRequirements) then
 			nextBiomeStateData = BiomeStateData.BiomeStates[BiomeStateData.DefaultBiomeState]
 		end
 		GameState.NextBiomeStateName = nil
 		if nextBiomeStateData ~= nil then
 			IncrementTableValue( GameState.BiomeStateRecord, nextBiomeStateData.Name )
 			thread( CallFunctionName, nextBiomeStateData.BiomeInitialPresentationFunctionName )			
-			if nextBiomeStateData.TraitGameStateRequirements == nil or IsGameStateEligible( CurrentRun, nextBiomeStateData.TraitGameStateRequirements ) then
+			if nextBiomeStateData.TraitGameStateRequirements == nil or IsGameStateEligible( nextBiomeStateData, nextBiomeStateData.TraitGameStateRequirements ) then
 				AddTraitToHero( { TraitName = nextBiomeStateData.TraitName, SkipUIUpdate = not hasValidState, SkipPriorityTray = true } )
 			end
 			UpdateHeroTraitDictionary()
@@ -179,7 +179,7 @@ function CinderMeteorRoomThread( args )
 end
 
 function GoldStateRewardChange( unit, args )
-	if IsGameStateEligible( CurrentRun, args.GameStateRequirements ) then
+	if IsGameStateEligible( unit, args.GameStateRequirements ) then
 		CurrentRun.CurrentRoom.ChangeReward = args.RewardName
 	end
 end

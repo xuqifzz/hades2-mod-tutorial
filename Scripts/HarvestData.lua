@@ -67,9 +67,10 @@ ToolData =
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 				{ Cue = "/VO/Melinoe_0814", Text = "Rod of Fishing." },
-				-- { Cue = "/VO/Melinoe_0815", Text = "Could use the Rod." },
+				{ Cue = "/VO/Melinoe_0815", Text = "Could use the Rod." },
+				{ Cue = "/VO/Melinoe_3759", Text = "Fishing time." },
 			},
-			[2] = GlobalVoiceLines.MiscToolEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "MiscToolEquipVoiceLines" },
 		},
 	},
 
@@ -90,6 +91,7 @@ ToolData =
 			"OreIMarble",
 			"OreNBronze",
 			"OreOIron",
+			"OrePAdamant",
 		},
 		EquippedKitAnimation = "PickAxeHoverEquipped",
 		UnequippedKitAnimation = "PickAxeHover",
@@ -104,12 +106,14 @@ ToolData =
 				SuccessiveChanceToPlay = 0.33,
 				Cooldowns =
 				{
+					{ Name = "MelinoeAnyQuipSpeech" },
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 				{ Cue = "/VO/Melinoe_0812", Text = "The Pick." },
 				{ Cue = "/VO/Melinoe_0813", Text = "How about the Pick." },
+				{ Cue = "/VO/Melinoe_3757", Text = "The Pick this time." },
 			},
-			[2] = GlobalVoiceLines.MiscToolEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "MiscToolEquipVoiceLines" },
 		},
 	},
 
@@ -136,6 +140,8 @@ ToolData =
 			"PlantNGarlic",
 			"PlantOMandrakeSeed",
 			"PlantOMandrake",
+			"PlantPOliveSeed",
+			"PlantPOlive",
 			"PlantChaosThalamusSeed",
 			"PlantChaosThalamus",
 		},
@@ -151,13 +157,15 @@ ToolData =
 				SuccessiveChanceToPlay = 0.33,
 				Cooldowns =
 				{
+					{ Name = "MelinoeAnyQuipSpeech" },
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 
 				{ Cue = "/VO/Melinoe_2474", Text = "The Spade." },
 				{ Cue = "/VO/Melinoe_2475", Text = "Maybe the Spade." },
+				{ Cue = "/VO/Melinoe_3758", Text = "The Spade for now." },
 			},
-			[2] = GlobalVoiceLines.MiscToolEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "MiscToolEquipVoiceLines" },
 		},
 	},
 
@@ -187,14 +195,13 @@ ToolData =
 				SuccessiveChanceToPlay = 0.33,
 				Cooldowns =
 				{
+					{ Name = "MelinoeAnyQuipSpeech" },
 					{ Name = "MelinoeMiscToolEquipSpeech", Time = 40 },
 				},
 				{ Cue = "/VO/Melinoe_1613", Text = "The Tablet." },
-				-- { Cue = "/VO/Melinoe_1614", Text = "Should take the Tablet." },
-				-- { Cue = "/VO/Melinoe_0818", Text = "Talisman." },
-				-- { Cue = "/VO/Melinoe_0819", Text = "I'll take the talisman." },
+				{ Cue = "/VO/Melinoe_3756", Text = "The Tablet tonight." },
 			},
-			[2] = GlobalVoiceLines.MiscToolEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "MiscToolEquipVoiceLines" },
 		},
 	},
 }
@@ -240,6 +247,9 @@ HarvestData =
 				{
 					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 					IsAny = { "F", "N", },
+				},
+				{
+					PathFalse = { "CurrentRun", "ActiveBounty" },
 				},
 			},
 			AddResources =
@@ -393,6 +403,30 @@ HarvestData =
 			},
 		},
 
+		-- Olympus
+		{
+			Weight = 15,
+			Animation = "HarvestPointPlantPIris",
+			EmptyAnimation = "HarvestPointPlantPIrisUsed",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "P", },
+				},
+				--[[
+				{
+					Path = { "CurrentRun", "Hero", "TraitDictionary" },
+					HasAny= { "VanillaState" },
+				},
+				]]
+			},
+			AddResources =
+			{
+				PlantPIris = 1,
+			},
+		},
+
 		-- Chaos		
 		{
 			Weight = 15,
@@ -414,8 +448,8 @@ HarvestData =
 ShovelPointData =
 {
 	DefaultSpawnCap = 1,
-	DefaultSpawnChance = 0.01,
-	HasToolSpawnChance = 0.35,
+	DefaultSpawnChance = 0.015,
+	HasToolSpawnChance = 0.350,
 	ToolName = "ToolShovel",
 	DefaultGameStateRequirements =
 	{
@@ -541,6 +575,22 @@ ShovelPointData =
 			},
 		},
 
+		-- Olympus
+		{
+			Weight = 4,
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "P", },
+				},
+			},
+			AddResources =
+			{
+				PlantPOliveSeed = 2,
+			},
+		},
+
 		-- Chaos
 		{
 			Weight = 4,
@@ -562,8 +612,8 @@ ShovelPointData =
 PickaxePointData =
 {
 	DefaultSpawnCap = 1,
-	DefaultSpawnChance = 0.01,
-	HasToolSpawnChance = 0.40,
+	DefaultSpawnChance = 0.015,
+	HasToolSpawnChance = 0.400,
 	ToolName = "ToolPickaxe",
 	DefaultGameStateRequirements =
 	{
@@ -679,6 +729,22 @@ PickaxePointData =
 		},
 		{
 			Weight = 1,
+			MaxHealth = 3,
+			ResourceName = "OrePAdamant",
+			SwingDamage = 1,
+			UnavailableAnimation = "PickaxePointOrePAdamantUnavailable",
+			Animation = "PickaxePointOrePAdamant",
+			EmptyAnimation = "PickaxePointOrePAdamantEmpty",
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+					IsAny = { "P" },
+				},
+			},
+		},
+		{
+			Weight = 1,
 			MaxHealth = 1,
 			ResourceName = "OreChaosProtoplasm",
 			SwingDamage = 1,
@@ -699,8 +765,8 @@ PickaxePointData =
 ExorcismData =
 {
 	DefaultSpawnCap = 1,
-	DefaultSpawnChance = 0.01,
-	HasToolSpawnChance = 0.30,
+	DefaultSpawnChance = 0.015,
+	HasToolSpawnChance = 0.320,
 	ToolName = "ToolExorcismBook",
 	DefaultGameStateRequirements =
 	{
@@ -785,12 +851,12 @@ ExorcismData =
 			Animation = "ExorcismPointGhost",
 			AttemptsRemaining = 2,
 			NumMovesMin = 8,
-			NumMovesMax = 10,
+			NumMovesMax = 9,
 			MoveDurationMin = 0.6,
 			MoveDurationMax = 0.8,
 			InputCheckInterval = 0.1,
 			TotalCheckFails = 999,
-			ConsecutiveCheckFails = 8,
+			ConsecutiveCheckFails = 9,
 			AddResources =
 			{
 				MemPointsCommon = 40,
@@ -808,13 +874,13 @@ ExorcismData =
 			UnavailableAnimation = "ExorcismPointGhostUnavailable",
 			Animation = "ExorcismPointGhost",
 			AttemptsRemaining = 2,
-			NumMovesMin = 13,
-			NumMovesMax = 15,
-			MoveDurationMin = 0.2,
-			MoveDurationMax = 0.4,
+			NumMovesMin = 10,
+			NumMovesMax = 12,
+			MoveDurationMin = 0.345,
+			MoveDurationMax = 0.460,
 			InputCheckInterval = 0.1,
 			TotalCheckFails = 999,
-			ConsecutiveCheckFails = 6,
+			ConsecutiveCheckFails = 8,
 			AddResources =
 			{
 				MemPointsCommon = 50,

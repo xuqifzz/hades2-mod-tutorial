@@ -19,7 +19,7 @@ OverwriteTableKeys( ScreenData.GhostAdmin,
 			{
 				NamedRequirements = { "AlchemyUnlocked" },
 			},
-			{ Cue = "/VO/Melinoe_2608", Text = "There's more I can do with this Cauldron..." },
+			{ Cue = "/VO/Melinoe_2608", Text = "There's more I can do with this cauldron..." },
 		},
 	},
 	OpenEndVoiceLines =
@@ -28,6 +28,7 @@ OverwriteTableKeys( ScreenData.GhostAdmin,
 			SkipAnim = true,
 			BreakIfPlayed = true,
 			RandomRemaining = true,
+			PlayOnceFromTableThisRun = true,
 			PreLineWait = 0.6,
 			SuccessiveChanceToPlay = 0.75,
 			Cooldowns =
@@ -369,6 +370,7 @@ OverwriteTableKeys( ScreenData.GhostAdmin,
 			GroupName = "Combat_Menu_Overlay",
 			X = 30,
 			Y = 450,
+			Alpha = 0.0,
 		},
 
 		ScrollbarSlider =
@@ -376,7 +378,8 @@ OverwriteTableKeys( ScreenData.GhostAdmin,
 			AnimationName = "PageScrollbarSlider",
 			GroupName = "Combat_Menu_Overlay",
 			X = 30,
-			Y = 450,
+			Y = 210,
+			Alpha = 0.0,
 		},
 		
 		ScrollUp =

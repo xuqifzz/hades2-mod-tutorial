@@ -41,25 +41,6 @@
 				ToBone = "Melinoe_Rig:animRoot_00_M_JNT"
 			}
 		]
-		Blends = 
-		[
-			{
-				BlendTransitionFrom = "Melinoe_Staff_Idle"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Staff_Sprint_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Staff_Run_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Staff_Equip"
-				Duration = 6
-			}
-		]
 		Frames =
 		[
 			{
@@ -498,6 +479,10 @@
 			}
 
 			{
+				BlendTransitionFrom = "Melinoe_HeroLanding"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "MelinoeInteract"
 				Duration = 5
 			}
@@ -643,6 +628,10 @@
 		NativeMoveSpeed = 740
 		CreateAnimation = "StaffOrbGlowWithTrail"
 		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Staff_Dash_Fire" }
+		]
 		Attachments =
 		[
 			{
@@ -671,11 +660,7 @@
 		[
 			{
 				BlendTransitionFrom = "Melinoe_Staff_Dash_End1"
-				Duration = 8
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Staff_Dash_Fire"
-				Duration = 8
+				Duration = 6
 			}
 		]
 	}

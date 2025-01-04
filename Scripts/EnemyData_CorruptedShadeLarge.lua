@@ -62,10 +62,12 @@ UnitSetData.CorruptedShadeLarge =
 	},
 	CorruptedShadeLarge_Elite =
 	{
-		InheritFrom = { "CorruptedShadeLarge" },
+		InheritFrom = { "Elite", "CorruptedShadeLarge" },
 		HealthBuffer = 410,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/CorruptedShadeLarge/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
 
 		DefaultAIData = {
 			DeepInheritance = true,
@@ -79,11 +81,6 @@ UnitSetData.CorruptedShadeLarge =
 		{
 			DifficultyRating = 130,
 			BlockEnemyTypes = {"CorruptedShadeLarge"}
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 	},
 

@@ -4,13 +4,6 @@ function FillInShopOptions( args )
 		args = {}
 	end
 
-	if args.RoomName and RoomData[args.RoomName] and RoomData[args.RoomName].PersistentStore then
-		local store = GetPreviousStore( args )
-		if store ~= nil then
-			return store
-		end
-	end
-
 	local storeData = nil
 	if args.StoreData ~= nil then
 		storeData = args.StoreData
@@ -25,7 +18,7 @@ function FillInShopOptions( args )
 
 	if storeData.Traits ~= nil then
 		for i, itemName in pairs( storeData.Traits ) do
-			if not Contains( storeData.GuaranteedItems, itemName) and not Contains( args.ExclusionNames, itemName) and IsTraitEligible(CurrentRun, TraitData[itemName]) then
+			if not Contains( storeData.GuaranteedItems, itemName) and not Contains( args.ExclusionNames, itemName) and IsTraitEligible( TraitData[itemName] ) then
 				local upgradeData = {}
 				upgradeData.Name = itemName
 				upgradeData.Type = "Trait"
@@ -167,7 +160,7 @@ function FillInShopOptions( args )
 								upgradeData = {}
 								upgradeData.Name = "RandomLoot"
 								upgradeData.Type = "Boon"
-								upgradeData.Args = { ForceLootName = pickedGod, BoughtFromShop = true, DoesNotBlockExit = true, ResourceCosts = GetProcessedValue( ConsumableData[itemName].ResourceCosts ) }
+								upgradeData.Args = { ForceLootName = pickedGod, BoughtFromShop = true, DoesNotBlockExit = true, ResourceCosts = GetProcessedValue( ConsumableData[itemName].ResourceCosts, nil, "ResourceCosts" ) }
 								if itemName == "BoostedRandomLoot" then
 									upgradeData.Args.AddBoostedAnimation = true
 									upgradeData.Args.BoonRaritiesOverride = { Legendary = 0.1, Epic = 0.25, Rare = 0.90 }
@@ -186,7 +179,7 @@ function FillInShopOptions( args )
 			if groupData.OptionsData ~= nil then
 				for s, itemData in pairs(groupData.OptionsData) do
 					local upgradeData = DeepCopyTable( ConsumableData[itemData.Name] or LootData[itemData.Name] )
-					if ( itemData.ReplaceRequirements == nil and ( StoreItemEligible(upgradeData, args) or itemData.SkipRequirements )) or ( itemData.ReplaceRequirements and IsGameStateEligible( CurrentRun, itemData.ReplaceRequirements) ) then
+					if ( itemData.ReplaceRequirements == nil and ( StoreItemEligible(upgradeData, args) or itemData.SkipRequirements )) or ( itemData.ReplaceRequirements and IsGameStateEligible( itemData, itemData.ReplaceRequirements) ) then
 						local itemName = itemData.Name
 						if itemName == "RandomLoot" or itemName == "BoostedRandomLoot" then
 							local pickedGod = GetEligibleInteractedGod()
@@ -194,7 +187,7 @@ function FillInShopOptions( args )
 								upgradeData = {}
 								upgradeData.Name = "RandomLoot"
 								upgradeData.Type = "Boon"
-								upgradeData.Args = { ForceLootName = pickedGod, BoughtFromShop = true, DoesNotBlockExit = true, ResourceCosts = GetProcessedValue( ConsumableData[itemName].ResourceCosts ) }
+								upgradeData.Args = { ForceLootName = pickedGod, BoughtFromShop = true, DoesNotBlockExit = true, ResourceCosts = GetProcessedValue( ConsumableData[itemName].ResourceCosts, nil, "ResourceCosts" ) }
 								if itemName == "BoostedRandomLoot" then
 									upgradeData.Args.AddBoostedAnimation = true
 									upgradeData.Args.BoonRaritiesOverride = { Legendary = 0.1, Epic = 0.25, Rare = 0.90 }
@@ -204,6 +197,7 @@ function FillInShopOptions( args )
 							upgradeData = {}
 							upgradeData.Name = itemData.Name
 							upgradeData.Type = "Consumable"
+							upgradeData.ReplacePurchaseRequirements = itemData.ReplacePurchaseRequirements
 							if itemData.Cost ~= nil then
 								upgradeData.CostOverride = itemData.Cost
 							elseif itemData.ResourceCosts ~= nil then
@@ -263,20 +257,6 @@ function FillInShopOptions( args )
 	return store
 end
 
-function GetPreviousStore( args )
-	if CurrentRun.RoomCreations[args.RoomName] == nil then
-		return nil
-	end
-
-	for roomIndex = #CurrentRun.RoomHistory, 1, -1 do
-		local room = CurrentRun.RoomHistory[roomIndex]
-		if room.Name == args.RoomName and room.Store and room.Store.StoreOptions then
-			return { StoreOptions = DeepCopyTable( room.Store.StoreOptions )}
-		end
-	end
-	return nil
-end
-
 function RerollStore( screen, button )
 	if IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions )then
 		return
@@ -317,7 +297,7 @@ function StoreItemEligible( itemData, args )
 		return false
 	end
 	if itemData.GameStateRequirements then
-		return IsGameStateEligible( CurrentRun, itemData.GameStateRequirements )
+		return IsGameStateEligible( itemData, itemData.GameStateRequirements )
 	else
 		return true
 	end
@@ -436,8 +416,10 @@ end
 function CheckHeraclesShoppingEvent( eventSource, args )
 	args = args or {}
 	args.NPCName = "NPC_Heracles_01"
-	args.ShoppingSuccessPresentationFunction = "ShoppingSuccessPresentation"
+	args.ShoppingSuccessPresentationFunction = "ShoppingSuccessHeraclesPresentation"
 	eventSource.HeraclesShopping = true
+	-- necessary for HeraclesExit()
+	CurrentRun.CurrentRoom.Encounter.HeraclesId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "NPC_Heracles_01" })
 	CurrentRun.HeraclesShopped = true
 	thread( CheckShoppingEventThread, eventSource, args )
 end
@@ -468,16 +450,21 @@ function CheckShoppingEventThread( eventSource, args )
 		local eventData = shoppingNPC.ShopEventData
 		local instantPurchase = false
 		local delay = RandomFloat( eventData.DelayMin, eventData.DelayMax )
-		if RandomChance( eventData.InstantChance ) then
-			delay = 2.5
+		if RandomChance( eventData.InstantChance or 0.0 ) then
+			delay = 5.0
 			instantPurchase = true
-		elseif RandomChance( eventData.NeverChance ) then
-			delay = 3600
+		elseif RandomChance( eventData.NeverChance or 0.0 ) then
+			delay = 9999
 		end
 		shoppingNPC.Shopping = true
 		shoppingNPC.RequiredRoomInteraction = false
 		MapState.RoomRequiredObjects[shoppingNPC.ObjectId] = nil
 		AngleTowardTarget({ Id = shoppingNPC.ObjectId, DestinationId = CurrentRun.CurrentRoom.Store.SpawnedStoreItems[targetShopItem].ObjectId })
+		
+		local notifyName = "NPCShoppingStart"
+		NotifyWithinDistanceAny({ Ids = { CurrentRun.Hero.ObjectId }, DestinationIds = { shoppingNPC.ObjectId }, Distance = eventData.TimerStartDistance, ScaleY = 0.6, Notify = notifyName })
+		waitUntil( notifyName )
+
 		thread( StartShopping, shoppingNPC, delay )
 		thread( ShoppingFidgetPresentation, shoppingNPC )
 		waitUntil( "ShopItem" )
@@ -486,8 +473,16 @@ function CheckShoppingEventThread( eventSource, args )
 			local worldDrop = MapState.ActiveObstacles[storeItem.ObjectId]
 			if worldDrop ~= nil then
 				worldDrop.BlockUse = true
+				GameState.NPCShopItemStolenRecord[shoppingNPC.Name] = (GameState.NPCShopItemStolenRecord[shoppingNPC.Name] or 0) + 1
+				CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name] = (CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name] or 0) + 1
+				--[[
+				GameState.NPCShopItemStolenRecord[shoppingNPC.Name] = GameState.NPCShopItemStolenRecord[shoppingNPC.Name] or {}
+				GameState.NPCShopItemStolenRecord[shoppingNPC.Name][worldDrop.Name] = (GameState.NPCShopItemStolenRecord[shoppingNPC.Name][worldDrop.Name] or 0) + 1
+				CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name] = CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name] or {}
+				CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name][worldDrop.Name] = (CurrentRun.NPCShopItemStolenRecord[shoppingNPC.Name][worldDrop.Name] or 0) + 1
+				]]
 			end
-			ShoppingSuccessItemPresentation( worldDrop )
+			ShoppingSuccessItemPresentation( storeItem )
 			Destroy({ Id = storeItem.ObjectId })
 			RefreshUseButton( storeItem.ObjectId, storeItem )
 			CallFunctionName( args.ShoppingSuccessPresentationFunction, shoppingNPC, { InstantPurchase = instantPurchase } )
@@ -532,28 +527,28 @@ end
 function SpawnStoreItemInWorld( itemData, kitId )
 	local spawnedItem = nil
 	if itemData.Name == "WeaponUpgradeDrop" then
-		spawnedItem = CreateWeaponLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData.WeaponUpgradeDrop.ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, } )
-	elseif itemData.Name =="ShopHermesUpgrade" then
-		spawnedItem = CreateHermesLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData.ShopHermesUpgrade.ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, BoughtFromShop = true, AddBoostedAnimation = itemData.AddBoostedAnimation, BoonRaritiesOverride = itemData.BoonRaritiesOverride })
-		spawnedItem.CanReceiveGift = false
-		SetThingProperty({ Property = "SortBoundsScale", Value = 1.0, DestinationId = spawnedItem.ObjectId })
-	elseif itemData.Name =="ShopManaUpgrade" then
-		spawnedItem = CreateManaLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData.ShopManaUpgrade.ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, BoughtFromShop = true, AddBoostedAnimation = itemData.AddBoostedAnimation, BoonRaritiesOverride = itemData.BoonRaritiesOverride })
+		spawnedItem = CreateWeaponLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, } )
+	elseif itemData.Name == "ShopHermesUpgrade" then
+		spawnedItem = CreateHermesLoot({ SpawnPoint = kitId, ResourceCosts = itemData.ResourceCosts or GetProcessedValue( ConsumableData[itemData.Name].ResourceCosts ), DoesNotBlockExit = true, SuppressSpawnSounds = true, BoughtFromShop = true, AddBoostedAnimation = itemData.AddBoostedAnimation, BoonRaritiesOverride = itemData.BoonRaritiesOverride })
 		spawnedItem.CanReceiveGift = false
 		SetThingProperty({ Property = "SortBoundsScale", Value = 1.0, DestinationId = spawnedItem.ObjectId })
 	elseif itemData.Type == "Consumable" then
 		local consumablePoint = SpawnObstacle({ Name = itemData.Name, DestinationId = kitId, Group = "Standing" })
 		local upgradeData =  GetRampedConsumableData( ConsumableData[itemData.Name] or LootData[itemData.Name] )
-		spawnedItem = CreateConsumableItemFromData( consumablePoint, upgradeData, itemData.CostOverride )
+		spawnedItem = CreateConsumableItemFromData( consumablePoint, upgradeData, itemData.CostOverride, { AutoLoadPackages = true } )
 		spawnedItem.CanDuplicate = false
 		spawnedItem.CanReceiveGift = false
+		spawnedItem.BoughtFromShop = true
 		ApplyConsumableItemResourceMultiplier( CurrentRun.CurrentRoom, spawnedItem )
-		ExtractValues( CurrentRun.Hero, spawnedItem, spawnedItem )
+		if spawnedItem.ExtractValues ~= nil then
+			ExtractValues( CurrentRun.Hero, spawnedItem, spawnedItem )
+		end
 	elseif itemData.Type == "Boon" then
 		itemData.Args.SpawnPoint = kitId
 		itemData.Args.DoesNotBlockExit = true
 		itemData.Args.SuppressSpawnSounds = true
 		itemData.Args.SuppressFlares = true
+		itemData.Args.AutoLoadPackages = true
 		spawnedItem = GiveLoot( itemData.Args )
 		spawnedItem.CanReceiveGift = false
 		SetThingProperty({ Property = "SortBoundsScale", Value = 1.0, DestinationId = spawnedItem.ObjectId })
@@ -569,10 +564,7 @@ function SpawnStoreItemInWorld( itemData, kitId )
 			MapState.SurfaceShopItems = MapState.SurfaceShopItems or {}
 			table.insert( MapState.SurfaceShopItems, spawnedItem.Name )
 		end
-			return spawnedItem
-
-	else
-		DebugPrint({Text = " Not spawned?!" .. itemData.Name})
+		return spawnedItem
 	end
 end
 
@@ -626,7 +618,8 @@ function ShowStoreScreen()
 		return
 	end
 
-	SetPlayerInvulnerable("StoreScreenOpen")
+	killTaggedThreads( CombatUI.HideThreadName )
+	SetPlayerInvulnerable( screen.Name )
 	OnScreenOpened( screen )
 	HideCombatUI( screen.Name, screen.TraitTrayArgs )
 	CreateScreenFromData( screen, screen.ComponentData )
@@ -644,14 +637,12 @@ function ShowStoreScreen()
 	ScreenAnchors.StoreScreen = screen
 	local components = screen.Components
 
-	local offeredWeaponUpgrades = {}
-
 	-- Flavor Text
 	local flavorTextOptions = { "WellShop_FlavorText01", "WellShop_FlavorText02", "WellShop_FlavorText03" }
 	local flavorText = GetRandomValue( flavorTextOptions )
 	ModifyTextBox({ Id = components.ShopFlavor.Id, Text = flavorText })
 
-	wait(0.25)	
+	wait( 0.25 )
 	CreateStoreButtons( screen )
 
 	if not IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions ) then
@@ -743,7 +734,6 @@ function CreateStoreButtons( screen )
 			highlight.Y = purchaseButton.Y
 			components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
 			components[purchaseButtonKey].Highlight = components[purchaseButtonKey.."Highlight"]
-
 	
 			if upgradeData.Icon ~= nil then
 				local icon = DeepCopyTable( ScreenData.UpgradeChoice.Icon )
@@ -781,12 +771,14 @@ function CreateStoreButtons( screen )
 					upgradeData.CloseScreen = upgradeData.CloseScreenStore
 				end
 				if infinityIcon then
+					local iconPosX = itemLocationX + ScreenData.UpgradeChoice.QuestIconOffsetX - ScreenData.UpgradeChoice.ButtonOffsetX
+					if needsQuestIcon then
+						iconPosX = iconPosX + 80
+					end
 					components[purchaseButtonKey.."Permafy"] = CreateScreenComponent({ Name = "BlankObstacle", Group = "Combat_Menu",
-						X = itemLocationX + ScreenData.UpgradeChoice.QuestIconOffsetX - ScreenData.UpgradeChoice.ButtonOffsetX,
+						X = iconPosX,
 						Y = itemLocationY + ScreenData.UpgradeChoice.QuestIconOffsetY })
 					SetAnimation({ DestinationId = components[purchaseButtonKey.."Permafy"].Id, Name = infinityIcon, Scale = 0.5 })
-					-- Silent toolip
-					-- CreateTextBox({ Id = components[purchaseButtonKey].Id, TextSymbolScale = 0, Text = "PermafyShopItem", Color = Color.Transparent, LuaKey = "TooltipData", LuaValue = tooltipData })
 				end
 			end
 			local costString = "@GUI\\Icons\\Currency"
@@ -812,8 +804,7 @@ function CreateStoreButtons( screen )
 				else
 					costColor = Color.CostUnaffordable
 				end
-			end
-			
+			end			
 
 			local titleText = DeepCopyTable( ScreenData.UpgradeChoice.TitleText )
 			titleText.Id = components[purchaseButtonTitleKey].Id
@@ -899,9 +890,10 @@ function CreateStoreButtons( screen )
 	UpdateStoreReroll( screen )
 end
 
-function UpdateStoreReroll( screen )
+function UpdateStoreReroll( screen, options, rerollFunctionName )
 	local components = screen.Components
-	if HeroHasTrait( "PanelRerollMetaUpgrade" ) and not IsEmpty( CurrentRun.CurrentRoom.Store.StoreOptions ) then
+	options = options or CurrentRun.CurrentRoom.Store.StoreOptions
+	if HeroHasTrait( "PanelRerollMetaUpgrade" ) and not IsEmpty( options ) then
 		local increment = 0
 		if CurrentRun.CurrentRoom.SpentRerolls then
 			increment = CurrentRun.CurrentRoom.SpentRerolls[screen.Name] or 0
@@ -916,7 +908,7 @@ function UpdateStoreReroll( screen )
 		if CurrentRun.NumRerolls < cost or cost < 0 then
 			SetAlpha({ Id = screen.Components.RerollButton.Id, Fraction = 0.0, Duration = 0.2 })
 		elseif cost > 0 then
-			components.RerollButton.RerollFunctionName = "RerollStore"
+			components.RerollButton.RerollFunctionName = rerollFunctionName or "RerollStore"
 			components.RerollButton.Cost = cost
 			components.RerollButton.RerollColor = {48, 25, 83, 255}
 			components.RerollButton.RerollId = screen.Name
@@ -937,10 +929,10 @@ function DestroyStoreButtons( screen )
 	for index = 1, StoreData.RoomShop.MaxOffers do
 		local destroyIndexes =
 		{
-			"ItemBackingSoldOut"..index,
 			"PurchaseButton"..index,
 			"PurchaseButton"..index.. "Highlight",
 			"PurchaseButton"..index.."QuestIcon",
+			"PurchaseButton"..index.."Permafy",
 			"Icon"..index,
 			"Backing"..index,
 			"PurchaseButtonTitle"..index,
@@ -1011,7 +1003,7 @@ function CloseStoreScreen( screen, button )
 	ShowCombatUI( screen.Name, { SkipUpdateTraitSummary = true } )
 	--ShowCombatUI( screen.Name )
 	thread( MarkObjectiveComplete, "ShopPrompt" )
-	SetPlayerVulnerable("StoreScreenOpen")
+	SetPlayerVulnerable( screen.Name )
 
 	if CurrentRun.CurrentRoom.Store.CosmeticUnlocked ~= nil then
 		thread( DisplayInfoBanner, nil, {
@@ -1047,7 +1039,7 @@ function HandleStorePurchase( screen, button )
 		return
 	end
 
-	if costAmount ~= nil and costAmount > 0 and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( CurrentRun, upgradeData.PurchaseRequirements ) then
+	if costAmount ~= nil and costAmount > 0 and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData, upgradeData.PurchaseRequirements ) then
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
@@ -1086,6 +1078,9 @@ function HandleStorePurchase( screen, button )
 			upgradeData.UsesAsBosses = true
 			upgradeData.RemainingUses = trait.BossExtension
 			upgradeData.StatLines = {"ExtendedStoreUsesRemainingDisplay1"}
+			if upgradeData.CustomStatLinesWithShrineUpgrade and GetNumShrineUpgrades( upgradeData.CustomStatLinesWithShrineUpgrade.ShrineUpgradeName ) > 0 then
+				upgradeData.CustomStatLinesWithShrineUpgrade.StatLines[1] = "ExtendedStoreUsesRemainingDisplay1"
+			end
 			UseHeroTraitsWithValue( "BossExtension", true )
 			thread( PermafyShopItemPresentation, upgradeData.Name )
 		end
@@ -1094,7 +1089,7 @@ function HandleStorePurchase( screen, button )
 			trait.RemainingUses = trait.RemainingUses + upgradeData.RemainingUses
 			UpdateTraitNumber( trait )
 		else
-			AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, })
+		AddTraitToHero({ TraitData = upgradeData, SkipQuestStatusCheck = true, SkipAddToHUD = true})
 		end
 		IncrementTableValue( GameState.ItemInteractions, upgradeData.Name )
 		CheckCodexUnlock( "Items", upgradeData.Name )
@@ -1200,6 +1195,7 @@ function UnwrapRandomLoot( spawnId )
 	local reward = GiveLoot({ SpawnPoint = obstacleId }) -- Debug: , ForceLootName = "HestiaUpgrade" })
 	reward.BoughtFromShop = true
 	reward.WasRandomLoot = true
+	reward.MakeUpTextLines = nil
 	UseableOff({ Id = reward.ObjectId })
 	UnwrapLootPresentation( reward )
 	Destroy({ Id = obstacleId })
@@ -1218,13 +1214,14 @@ end
 function AwardRandomStoreItem( args )
 	local options = {}
 	for i, traitName in pairs( args.Traits ) do
-		if TraitData[traitName] and IsGameStateEligible( CurrentRun, TraitData[traitName]) then
+		local traitData = TraitData[traitName]
+		if traitData ~= nil and ( traitData.GameStateRequirements == nil or IsGameStateEligible( traitData, traitData.GameStateRequirements ) ) then
 			table.insert( options, { Name = traitName, Type = "Trait" })
 		end
 	end
 	for i, consumableName in pairs( args.Consumables ) do
-		if ConsumableData[consumableName] and StoreItemEligible( CurrentRun, ConsumableData[consumableName])
-			and ( ConsumableData[consumableName].PurchaseRequirements == nil or IsGameStateEligible( ConsumableData[consumableName].PurchaseRequirements )) then
+		if ConsumableData[consumableName] and StoreItemEligible( CurrentRun, ConsumableData[consumableName] )
+			and ( ConsumableData[consumableName].PurchaseRequirements == nil or IsGameStateEligible( ConsumableData[consumableName], ConsumableData[consumableName].PurchaseRequirements )) then
 
 			table.insert( options, { Name = consumableName, Type = "Consumable" })
 		end
@@ -1267,7 +1264,6 @@ function GiveRandomTemporaryKeepsake( args )
 
 	for i, traitName in pairs( args.Traits ) do
 		if IsKeepsakeUnlocked( traitName ) and GameState.LastAwardTrait ~= traitName then
-			DebugPrint({Text = " valid traits " .. traitName })
 			table.insert( validTraits, traitName )
 		end
 	end

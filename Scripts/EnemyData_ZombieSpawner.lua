@@ -43,6 +43,8 @@ UnitSetData.ZombieSpawner =
 
 		SpawnAwayFromTypes = { "ZombieSpawner", "ZombieSpawner_Elite" },
 
+		BlockAttributes = { "Metallic" },
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -54,6 +56,16 @@ UnitSetData.ZombieSpawner =
 		OnDamagedFunctionName = "AggroSpawns",
 
 		HeraclesCombatMoneyValue = 3,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.100,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
 
 		WeaponOptions =
 		{
@@ -68,34 +80,23 @@ UnitSetData.ZombieSpawner =
 			BlockEnemyTypes = {"ZombieSpawner_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0464", Text = "Tombstone...!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "HeraclesCombatN" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0463", Text = "A Tombstone.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0464", Text = "Tombstone...!" },
+			{ Cue = "/VO/MelinoeField_0463", Text = "A Tombstone." },
+			{ Cue = "/VO/MelinoeField_0464", Text = "Tombstone...!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0465", Text = "Tombstone there." },
 			{ Cue = "/VO/MelinoeField_0466", Text = "Tombstone." },
 		},
@@ -103,10 +104,12 @@ UnitSetData.ZombieSpawner =
 
 	ZombieSpawner_Elite =
 	{
-		InheritFrom = { "ZombieSpawner" },
+		InheritFrom = { "Elite", "ZombieSpawner" },
 		HealthBuffer = 400,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/ZombieSpawner/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Radial" }),
 
 		DefaultAIData =
 		{

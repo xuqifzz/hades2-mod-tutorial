@@ -782,5 +782,16 @@
       BaseSaturation = 1.0
     }
 
+    {
+      Name = "AthenaDivineInterventionBloom"
+      BloomThreshold = 0.95
+      BlurAmount = 8
+      BloomIntensity = 0.25
+      BaseIntensity = 1.0
+      BloomSaturation = 1.0
+      BaseSaturation = 1.0
+    }
+
+
   ]
 }

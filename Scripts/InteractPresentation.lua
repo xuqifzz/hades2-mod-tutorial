@@ -60,7 +60,7 @@ function PreNarrativeUnequipAnimation()
 	{
 		NamedRequirements = { "WeaponsNotAllowed" },
 	}
-	if IsGameStateEligible( CurrentRun, requirements ) then
+	if IsGameStateEligible( nil, requirements ) then
 		return false
 	end
 	local animation = GetEquippedWeaponValue( "UnequipAnimation" )
@@ -114,7 +114,7 @@ end
 
 function PostWeaponKitUnlockPresentation( weaponKit )
 	wait( 1.5 )
-	for k, enemy in pairs( ActiveEnemies ) do
+	for k, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 		if enemy.WeaponUnlockReactionVoiceLines ~= nil then
 			thread( PlayVoiceLines, enemy.WeaponUnlockReactionVoiceLines, true, enemy )
 		end
@@ -308,7 +308,7 @@ end
 
 function SpellPotionRefillPresentation( fountain, user, potionTrait )
 	CreateAnimation({ Name = "SpellPotionRefill", DestinationId = fountain.ObjectId, })
-	thread( InCombatText, CurrentRun.Hero.ObjectId, "SpellPotionRefilled", 1.0, { ShadowScaleX = 1.2 } )
+	thread( InCombatText, CurrentRun.Hero.ObjectId, "SpellPotionRefilled", 1.0 )
 end
 
 function ErisLitterPresentation( source, args )

@@ -219,6 +219,7 @@
         Graphic = "DoorExitLightSoftNE_N_Opening_Locked"
       }
     }
+
     {
       Name = "SurfaceRunDoorLocked"
       InheritFrom = "TestButton"
@@ -1238,8 +1239,50 @@
         ]
       }
     }
+    
+    {
+      Name = "_Impassable_FloodTrap"
+      InheritFrom = "BaseImpassable"
+      DisplayInEditor = true
+      Thing = 
+      {
+        EditorOutlineDrawBounds = true
+        Tallness = 1.0
+        StopsProjectiles = false
+        StopsUnits = true
+        MirrorGeometry = true
+        Points = [
+          { X = -101 Y = 40 }
+          { X = 86 Y = -54 }
+          { X = 126 Y = -15 }
+          { X = -27 Y = 62 }
+        ]
+      }
+    }
 
-
+    {
+      Name = "3DDiscoBall"
+      InheritFrom = "1_BaseInvulnerableObstacle"
+      DisplayInEditor = true
+      Thing = 
+      {
+        OffsetZ = 0
+        EditorOutlineDrawBounds = false
+        Graphic = "DiscoBallRotate"
+        GrannyModel = "PropDiscoBall_Mesh"
+        StopsUnits = false
+        Tallness = 259
+        Offset = { X = 0 Y = 0 }
+        Points = [
+          { X = 0 Y = 225 }
+          { X = -73 Y = 242 }
+          { X = -62 Y = 291 }
+          { X = 5 Y = 300 }
+          { X = 57 Y = 293 }
+          { X = 66 Y = 248 }
+        ]
+      }
+    }
     
 
   ]

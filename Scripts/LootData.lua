@@ -24,6 +24,7 @@
 		DestroyOnPickup = true,
 		LastRewardEligible = true,
 		BanUnpickedBoonsEligible = true,
+		RequireUseToGift = true,
 
 		BoxAnimation = "DialogueSpeechBubbleLight",
 		BoxExitAnimation = "DialogueSpeechBubbleLightOut",
@@ -102,6 +103,10 @@
 						Path = { "GameState", "UseRecord", "StackUpgrade" },
 						Comparison = ">=",
 						Value = 3,
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = GameData.CombatNPCEncounters,
 					},
 				},
 				Cooldowns =
@@ -245,6 +250,19 @@
 			"LobPulseAmmoTrait",
 			"LobPulseAmmoCollectTrait",
 			"LobGrowthTrait",
+
+			"SuitArmorTrait",
+			"SuitAttackSpeedTrait",
+			"SuitAttackSizeTrait",
+			"SuitAttackRangeTrait",
+			"SuitFullChargeTrait",
+			"SuitDashAttackTrait",
+			"SuitSpecialJumpTrait",
+			"SuitSpecialStartUpTrait",
+			"SuitSpecialAutoTrait",
+			"SuitSpecialBlockTrait",
+			"SuitSpecialDiscountTrait",
+			"SuitSpecialConsecutiveHitTrait",
 		},
 		Consumables = {},
 
@@ -263,6 +281,28 @@
 
 		OnSpawnVoiceLines =
 		{
+			BreakIfPlayed = true,
+			RandomRemaining = true,
+			PlayOnceFromTableThisRun = true,
+			PreLineWait = 0.85,
+			GameStateRequirements =
+			{
+				{
+					--
+				}
+			},
+
+			{ Cue = "/VO/MelinoeField_2578", Text = "An Icarus Hammer...?",
+				PlayOnce = true,
+				PlayOnceContext = "IcarusHammerFirstSpawnVO",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
+					}
+				}
+			},
+
 		},
 
 		PickupSound = "/SFX/WeaponUpgradeHammerDrop",
@@ -296,10 +336,50 @@
 				{ Cue = "/VO/Melinoe_1980", Text = "Imbued with greater strength." },
 				{ Cue = "/VO/MelinoeField_0646", Text = "The master-craftsman's gift..." },
 				{ Cue = "/VO/MelinoeField_0647", Text = "Feels even sturdier." },
-				{ Cue = "/VO/MelinoeField_0648", Text = "I'm grateful, Daedalus." },
+				{ Cue = "/VO/MelinoeField_0648", Text = "I'm grateful, Daedalus.",
+					GameStateRequirements =
+					{
+						{
+							PathFalse = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02" },
+						},
+					},
+				},
 				{ Cue = "/VO/MelinoeField_0649", Text = "Superior might." },
 				{ Cue = "/VO/MelinoeField_0650", Text = "Enchanted for the night." },
 				{ Cue = "/VO/MelinoeField_0651", Text = "Fine work as always." },
+
+				{ Cue = "/VO/MelinoeField_2579", Text = "I'm grateful, Icarus.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
+						}
+					}
+				},
+				{ Cue = "/VO/MelinoeField_2580", Text = "You out there, Icarus?",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
+						}
+					}
+				},
+				{ Cue = "/VO/MelinoeField_2581", Text = "Cheers, Icarus...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
+						}
+					}
+				},
+				{ Cue = "/VO/MelinoeField_2582", Text = "The work of Icarus apparently...!",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "IcarusAboutDaedalus02"}
+						}
+					}
+				},
 
 				{ Cue = "/VO/Melinoe_1981", Text = "Descura grows in strength.",
 					GameStateRequirements =
@@ -414,6 +494,9 @@
 						{
 							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponAxe" },
 						},
+						{
+							PathFalse = { "CurrentRun", "Hero", "TraitDictionary", "AxePerfectCriticalAspect" },
+						},
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0662", Text = "It's rather heavy still.",
@@ -464,7 +547,40 @@
 						},
 					},
 				},
-				
+				{ Cue = "/VO/MelinoeField_2583", Text = "The Black Coat shines.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2584", Text = "The power of Xinth.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2585", Text = "Xinth protect me.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+				{ Cue = "/VO/MelinoeField_2586", Text = "The Black Coat grows strong.",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+						},
+					},
+				},
+
 			},
 		},
 
@@ -524,7 +640,7 @@
 				},
 	},
 
-	HephaestusWeaponUpgrade = 
+	SeleneWeaponUpgrade = 
 	{
 		InheritFrom = { "WeaponUpgrade" },
 		DebugOnly = true,
@@ -552,7 +668,10 @@ GlobalVoiceLines.GenericLootGrantedVoiceLines =
 			Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 			IsNone = { "Secrets", "H" },
 		},
-		RequiredFalseRewardTypesInRoom = { "StackUpgrade", "WeaponUpgrade", "TrialUpgrade", "TalentDrop" },
+		{
+			FunctionName = "RequiredRewardTypeInRoom",
+			FunctionArgs = { IsNone = { "StackUpgrade", "WeaponUpgrade", "TrialUpgrade", "TalentDrop", "RoomRewardConsolationPrize", }, },
+		},
 	},
 	Cooldowns =
 	{
@@ -591,6 +710,10 @@ GlobalVoiceLines.MiscRewardGrantedVoiceLines =
 			{
 				Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
 				IsNone = { "Shop", },
+			},
+			{
+				FunctionName = "RequiredAlive",
+				FunctionArgs = { Units = { "NPC_Athena_01", "NPC_Artemis_Field_01", "NPC_Icarus_01", "NPC_Heracles_01" }, Alive = false },
 			},
 		},
 		Cooldowns =
@@ -644,35 +767,7 @@ RewardStoreData =
 			Name = "HermesUpgrade",
 			GameStateRequirements =
 			{
-				-- rule 0: only unlock at this point
-				{
-					PathTrue = { "GameState", "RoomCountCache", "G_Boss01" },
-				},
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-				},
-				-- rule 1: have x or fewer of this specific upgrade in a Biome
-				{
-					Path = { "CurrentRun", "LootBiomeRecord" },
-					SumOf = { "HermesUpgrade" },
-					Comparison = "<=",
-					Value = 0,
-				},
-				-- rule 2: have y or fewer of the non-Boon power set
-				{
-					Path = { "CurrentRun", "LootBiomeRecord" },
-					SumOf = { "WeaponUpgrade", "HermesUpgrade" },
-					Comparison = "<=",
-					Value = 1,
-				},
-				-- rule 3: only drop up to z per run
-				{
-					Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-					Comparison = "<=",
-					Value = 2,
-				},
-
+				NamedRequirements = { "HermesUpgradeRequirements", },
 			}
 		},
 		--[[ unclear why this was here -- Devotion should not be so common
@@ -688,9 +783,8 @@ RewardStoreData =
 					Comparison = ">=",
 					Value = 1,
 				},
-				RequiredInteractedGodsThisRun = 2,
-				--RequiredMinRoomsSinceDevotion = 15,
-				--RequiredMinExits = 2,
+				--{ FunctionName = "RequiredMinRoomsSinceEvent", FunctionArgs = { Event = "Devotion", Count = 3 }, },
+				--{ FunctionName = "RequiredMinExits", FunctionArgs = { Count = 2 }, },
 			}
 		},
 		]]
@@ -698,15 +792,7 @@ RewardStoreData =
 			Name = "SpellDrop",
 			GameStateRequirements =
 			{
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
+				NamedRequirements = { "SpellDropRequirements", },
 			},
 		},
 		{
@@ -926,6 +1012,11 @@ RewardStoreData =
 					Comparison = ">=",
 					Value = 15,
 				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 2,
+				},
 			},
 		},
 		{
@@ -941,6 +1032,115 @@ RewardStoreData =
 					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
 					Comparison = ">=",
 					Value = 15,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = "<=",
+					Value = 2,
+				},
+			},
+		},
+		{
+			Name = "MetaCurrencyDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 10,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 15,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = "<",
+					Value = 500,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 2,
+				},
+			},
+		},
+		{
+			Name = "MetaCurrencyDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 10,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 15,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = "<",
+					Value = 500,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 2,
+				},
+			},
+		},
+		{
+			Name = "MetaCurrencyBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 10,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 15,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 2,
+				},
+			},
+		},
+		{
+			Name = "MetaCurrencyBigDrop",
+			GameStateRequirements =
+			{
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MemPointsCommon" },
+					Comparison = ">=",
+					Value = 10,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCardPointsCommon" },
+					Comparison = ">=",
+					Value = 15,
+				},
+				{
+					Path = { "GameState", "LifetimeResourcesGained", "MetaCurrency" },
+					Comparison = ">=",
+					Value = 500,
+				},
+				{
+					Path = { "CurrentRun", "ClearedBiomes" },
+					Comparison = ">",
+					Value = 2,
 				},
 			},
 		},
@@ -1517,40 +1717,17 @@ RewardStoreData =
 			Name = "HermesUpgrade",
 			GameStateRequirements =
 			{
-				-- unlock requirements
-				{
-					PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-				},
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-				},
-
-				-- run requirements				
-				RequiredNotInStore = "ShopHermesUpgrade",
-				{
-					Path = { "CurrentRun", "BiomeUseRecord", },
-					HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-				},
-				{
-					Path = { "CurrentRun", "EncounterDepth" },
-					Comparison = ">=",
-					Value = 8,
-				},
-				{
-					Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-					Comparison = "<=",
-					Value = 1,
-				},
-
-			}
+				NamedRequirements = { "HermesUpgradeRequirements", },
+			},
 		},
 		{
 			Name = "Devotion",
 			GameStateRequirements =
 			{
 				-- unlock requirements
-				NamedRequirements = { "DevotionTestUnlocked", },
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "PoseidonDevotionIntro01" },
+				},
 
 				-- run requirements
 				{
@@ -1579,26 +1756,21 @@ RewardStoreData =
 					Comparison = ">=",
 					Value = 2,
 				},
-				RequiredMinRoomsSinceDevotion = 15,
-				RequiredMinExits = 2,
+				{
+					FunctionName = "RequiredMinRoomsSinceEvent",
+					FunctionArgs = { Event = "Devotion", Count = 15 },
+				},
+				{
+					FunctionName = "RequiredMinExits",
+					FunctionArgs = { Count = 2 },
+				},
 			}
 		},
 		{
 			Name = "SpellDrop",
 			GameStateRequirements =
 			{
-				-- unlock requirements
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
-
-				-- run requirements
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
+				NamedRequirements = { "SpellDropRequirements", },
 			},
 		},
 		{
@@ -1693,11 +1865,6 @@ RewardStoreData =
 		{
 			Name = "ArmorBoost",
 		},
-		--[[
-		{
-			Name = "HitShieldDrop",
-		},
-		]]
 
 		-- metaprogress / more common
 		{
@@ -1788,7 +1955,9 @@ RewardStoreData =
 			GameStateRequirements =
 			{
 				-- unlock requirements
-				NamedRequirements = { "DevotionTestUnlocked", },
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "PoseidonDevotionIntro01" },
+				},
 
 				-- run requirements
 				{
@@ -1807,26 +1976,21 @@ RewardStoreData =
 					Comparison = ">=",
 					Value = 2,
 				},
-				RequiredMinRoomsSinceDevotion = 15,
-				RequiredMinExits = 2,
+				{
+					FunctionName = "RequiredMinRoomsSinceEvent",
+					FunctionArgs = { Event = "Devotion", Count = 15 },
+				},
+				{
+					FunctionName = "RequiredMinExits",
+					FunctionArgs = { Count = 2 },
+				},
 			}
 		},
 		{
 			Name = "SpellDrop",
 			GameStateRequirements =
 			{
-				-- unlock requirements
-				{
-					Path = { "GameState", "TextLinesRecord" },
-					HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-				},
-
-				-- run requirements
-				RequiredNotInStore = "SpellDrop",
-				RequiredFalseRewardType = "SpellDrop",
-				{
-					PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-				},
+				NamedRequirements = { "SpellDropRequirements", },
 			},
 		},
 		{

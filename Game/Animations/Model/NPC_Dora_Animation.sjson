@@ -123,6 +123,84 @@
 		Scale = 0.7
 		Loop = false
 		Enable3DShadow = true
+		VisualFx = "NPCDoraScaryTendrilFx"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
+	}
+
+	{
+		Name = "NPCDoraScaryTendrilFx"
+		FilePath = "Fx\FogCloudB\FogCloudB"
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		PingPongColor = true
+		EndFrame = 45
+		NumFrames = 45
+		RandomPlaySpeedMax = 16.0
+		RandomPlaySpeedMin = 12.0
+		RandomStartFrame = false
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		VelocityMax = 5.0
+		VelocityMin = 10.0
+		Acceleration = -25
+		ScaleFromOwner = "Ignore"
+		ScaleMin = 0.35
+		ScaleMax = 0.45
+		Ambient = 0.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		PostRotateScaleY = 0.5
+		StartAlpha = 1
+		EndAlpha = 0.5
+		EaseIn = 0
+		EaseOut = 1
+		StartRed = 0.0
+		StartGreen = 0
+		StartBlue = 0.0
+		EndRed = 0.01
+		EndGreen = 0.3
+		EndBlue = 0.1
+		StartOffsetZ = 15
+		EndOffsetZ = -15
+		StartScale = 0.5
+		EndScale = 0.9
+		Red = 1
+		Green = 1
+		Blue = 1
+		Saturation = -1
+		RandomRotation = true
+		RandomRotationSpeedMin = -24
+		RandomRotationSpeedMax = 24
+		CreateAnimation = "NPCDoraScaryTendrilFxB"
+	}
+
+	{
+		Name = "NPCDoraScaryTendrilFxB"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 100
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		RandomOffsetX = 50
+		RandomOffsetY = 20
+		AngleMin = 0
+		AngleMax = 360
+		Hue = 0.05
+		RandomRotation = true
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		AlphaMin = 0.05
+		AlphaMax = 0.5
+		ColorFromOwner = "Ignore"
+		PostRotateScaleY = 0.7
+		GroupName = "FX_Terrain_Add"
 	}
 
 	{

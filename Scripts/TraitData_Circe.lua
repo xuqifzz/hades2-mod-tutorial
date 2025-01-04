@@ -107,7 +107,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseCirce"},
 		Icon = "Boon_Circe_02",
-		BaseChipmunkValue = -1,
+		BaseChipmunkValue = -0.43,
 		SetupFunction = 
 		{
 			Name = "CirceEnlarge",
@@ -140,7 +140,7 @@ OverwriteTableKeys( TraitData, {
 	{
 		InheritFrom = {"BaseCirce"},
 		Icon = "Boon_Circe_03",
-		BaseChipmunkValue = 0.75,
+		BaseChipmunkValue = 0.33,
 		SetupFunction = 
 		{
 			Name = "CirceShrink",

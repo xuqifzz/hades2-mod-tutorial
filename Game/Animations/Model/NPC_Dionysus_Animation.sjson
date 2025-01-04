@@ -1,0 +1,78 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Dionysus_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	// Idle
+	{
+		Name = "Dionysus_Idle"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Greeting
+	{
+		Name = "Dionysus_Greeting"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Greeting_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+	// Blessing
+	{
+		Name = "Dionysus_Blessing"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Blessing_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+	// Eager
+	{
+		Name = "Dionysus_Eager"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Eager_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+	// Laugh
+	{
+		Name = "Dionysus_Laugh"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Laugh_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+	// Shrug
+	{
+		Name = "Dionysus_Shrug"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Shrug_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+	// Surprise
+	{
+		Name = "Dionysus_Surprise"
+		InheritFrom = "NPCDionysusBaseAnimation"
+		GrannyAnimation = "Dionysus_Base_Surprise_C_00"
+		ChainTo = "Dionysus_Idle"
+	}
+
+]}

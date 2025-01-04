@@ -19,10 +19,6 @@
 		GrannyModel = "Melinoe_Axe_Charon_Mesh"
 	}
 	{
-		Name = "Melinoe_Axe_Nergal"
-		GrannyModel = "Melinoe_Axe_Nergal_Mesh"
-	}
-	{
 		Name = "Melinoe_Axe_Thanatos"
 		GrannyModel = "Melinoe_Axe_Thanatos_Mesh"
 	}
@@ -33,7 +29,6 @@
 		ExtraGrannyAnimations = 
 		[
 			{ Name = "Melinoe_Axe_Charon" }
-			{ Name = "Melinoe_Axe_Nergal" }
 			{ Name = "Melinoe_Axe_Thanatos" }
 		]
 		GrannyAnimation = "null"
@@ -134,6 +129,10 @@
 				BlendTransitionFrom = "Melinoe_Axe_AttackEx1_Start"
 				Duration = 8
 			}
+			{
+				BlendTransitionFrom = "Melinoe_Axe_Special1_End"
+				Duration = 12
+			}
 		]
 	}	
 	
@@ -167,6 +166,7 @@
 			{ Name = "Melinoe_Axe_AttackEx1_FireLoop" }
 			{ Name = "Melinoe_Axe_Special1_Start" }
 			{ Name = "Melinoe_Axe_Special1_FireLoop" }
+			{ Name = "Melinoe_Axe_Special1_Fire" }
 			{ Name = "Melinoe_Axe_SpecialEx1_Start" }
 			{ Name = "Melinoe_Axe_SpecialEx1_Fire" }
 			{ Name = "Melinoe_Axe_Cast_Start" }
@@ -174,6 +174,15 @@
 			{ Name = "Melinoe_Axe_Cast_Fire2" }
 			{ Name = "Melinoe_Axe_Cast_StartLoop" }
 			{ Name = "Melinoe_Axe_Cast_Fire" }
+			{ Name = "MelinoeCrossCastAntic" }
+			{ Name = "Melinoe_CrossCast_Start_Fast" }
+			{ Name = "MelinoeCrossCastCharge" }
+			{ Name = "MelinoeCrossCast" }
+			{ Name = "MelinoeCrossCastHold" }
+			{ Name = "Melinoe_ForwardCast_Start" }
+			{ Name = "Melinoe_ForwardCast_Fire" }
+			{ Name = "Melinoe_ForwardCast_FireLoop" }
+			{ Name = "Melinoe_ForwardCast_FireLoop2" }
 		]
 
 		Attachments =

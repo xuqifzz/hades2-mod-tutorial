@@ -356,6 +356,7 @@
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_Pillar_02"
         Tallness = 1626
+        SortBoundsScale = 0.5
         Offset = { X = 0 Y = -726 }
         Points = [
           { X = -241 Y = -1 }
@@ -379,13 +380,13 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_WallBrick_01"
-        Tallness = 466.0
+        Tallness = 466
         Offset = { X = 0 Y = -186 }
         Points = [
-          { X = -410 Y = -161 }
-          { X = 364 Y = 216 }
-          { X = 399 Y = 191 }
-          { X = -372 Y = -181 }
+          { X = -419 Y = -166 }
+          { X = 354 Y = 221 }
+          { X = 407 Y = 195 }
+          { X = -367 Y = -192 }
         ]
       }
     }
@@ -879,15 +880,16 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\ClockworkTartarus\CW_Brazier_01"
-        Tallness = 606.0
+        Tallness = 606
         Offset = { X = 0 Y = -212 }
         Points = [
-          { X = -167 Y = 38 }
+          { X = -178 Y = 105 }
           { X = -102 Y = 164 }
-          { X = 155 Y = 164 }
-          { X = 204 Y = 20 }
-          { X = 93 Y = -65 }
-          { X = -87 Y = -77 }
+          { X = 114 Y = 166 }
+          { X = 185 Y = 100 }
+          { X = 110 Y = -54 }
+          { X = -83 Y = -54 }
+          { X = -156 Y = 33 }
         ]
       }
     }
@@ -1278,10 +1280,10 @@
         Tallness = 748
         Offset = { X = 0 Y = -316 }
         Points = [
-          { X = -646 Y = -83 }
-          { X = 147 Y = 303 }
-          { X = 710 Y = -6 }
-          { X = -94 Y = -380 }
+          { X = -691 Y = -93 }
+          { X = 114 Y = 318 }
+          { X = 721 Y = 11 }
+          { X = -90 Y = -394 }
         ]
       }
     }
@@ -1762,7 +1764,7 @@
     
     {
       Name = "CWFencePost02"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2737,7 +2739,7 @@ Name = "ShadeClockworkIdle01"
       }
 }
 {
-      Name = "ShadeClockworkSwaySW01"
+Name = "ShadeClockworkSwaySW01"
       InheritFrom = "1_BaseVulnerableObstacle"
       CollisionAlphaOutDuration = 0.1
       CollisionEndedAlphaInDuration = 3.0
@@ -2767,23 +2769,7 @@ Name = "ShadeClockworkIdle01"
       }
     }
 
-    {
-      Name = "OlympusStars01"
-      InheritFrom = "1_BaseTerrainTile"
-      DisplayInEditor = true
-      Thing = 
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "Tilesets\Olympus\Olympus_Stars_01"
-        Tallness = 117
-        Offset = { X = 0 Y = 28 }
-        Points = [
-          { X = -2 Y = 2 }
-          { X = 2 Y = 2 }
-          { X = 0 Y = -2 }
-        ]
-      }
-    }
+    
 
   ]
 }

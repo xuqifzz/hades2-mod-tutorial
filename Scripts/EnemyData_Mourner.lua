@@ -44,12 +44,17 @@ UnitSetData.Mourner =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			SurroundRetaliateDistance = 400,
+			SurroundRefreshInterval = 0.4,
+			MaxAttackers = 99, -- Only restrict MournerRampage
 		},
 
 		AIOptions =
 		{
 			"AggroAI",
 		},
+		PostAggroAI = "SurroundAI",
 		
 		WeaponOptions =
 		{
@@ -67,14 +72,22 @@ UnitSetData.Mourner =
 			BlockEnemyTypes = {"Mourner_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
+		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
-			TriggerCooldowns =
+			RandomRemaining = true,
+			GameStateRequirements = 
 			{
-				"CombatBeginsLinesPlayedRecently",
+				-- None
 			},
-			{ Cue = "/VO/MelinoeField_1036", Text = "Mourners...!" },
+			SkipCooldownCheckIfNonePlayed = true,
+			Cooldowns =
+			{
+				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+			},
+			SuccessiveChanceToPlay = 0.1,
+
+			{ Cue = "/VO/MelinoeField_1036", Text = "Mourners...!", PlayFirst = true },
 		},
 	},
 
@@ -116,27 +129,27 @@ UnitSetData.Mourner =
 		},
 	},
 
-	Mourner_Support =
+	Mourner_Shadow =
 	{
-		InheritFrom = { "Elite", "Mourner" },
+		InheritFrom = { "Shadow", "Mourner" },
+		GenusName = "Mourner",
 		HealthBarOffsetY = -370,
 		HealthBuffer = 2350,
 		HealthBarType = "Large",
+
+		AIAggroRange = 400,
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 		},
-		AIOptions = { "IdleAI" },
-		OnDamagedFunctionName = "AggroUnit",
-		SpawnAngleTowardId = 621200,
 
 		WeaponOptions =
 		{
 			"MournerCast_Elite",
-			"MournerCast_Elite",
 			"MournerRampage_Elite",
-			"MournerScream",
+			"MournerRampage_Elite",
+			"MournerRampage_Elite",
 		},
 
 		GeneratorData =

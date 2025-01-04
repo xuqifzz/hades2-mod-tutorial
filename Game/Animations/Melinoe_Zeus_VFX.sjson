@@ -478,6 +478,36 @@ Animations =
 	}
 	
 	{
+		Name = "LightningBoltLingerParticle"
+		FilePath = "Particles\particle_circle_04"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Ignore"
+		AngleMax = 140.0
+		AngleMin = 40.0
+		AddColor = true
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.0
+		RandomDurationMin = 1.2
+		StartFrame = 1
+		RandomOffsetX = 2.0
+		RandomOffsetY = 30.0
+		LocationFromOwner = "Take"
+		Acceleration = -300.0
+		Gravity = 120.0
+		VelocityMax = 500.0
+		VelocityMin = 300.0
+		EndScale = 0.0
+		ScaleMax = 1.2
+		ScaleMin = 0.5
+		StartScaleX = 4.0
+		Color = { Red = 1.0 Green = 0.8 Blue = 0.0 }
+	}
+	
+	{
 		Name = "ZeusLightningLight"
 		FilePath = "Particles\particle_glow_egg"
 		GroupName = "FX_Add_Top"
@@ -757,7 +787,8 @@ Animations =
 
 	{
 		Name = "ZeusStaffBallChargedDetonateParticles"
-		Random = [
+		Random =
+		[
 			{ Name = "ZeusStaffBallChargedDetonateParticleA" }
 			{ Name = "ZeusStaffBallChargedDetonateParticleB" }
 			{ Name = "ZeusStaffBallChargedDetonateParticleC" }
@@ -852,8 +883,584 @@ Animations =
 		Duration = 1
 	}
 
+	{
+		Name = "LightningDashStrike"
+		CreateAnimation = "QuickFlashYellow"
+		FilePath = "Fx\ZeusLightningStrikeGroundNova\ZeusLightningStrikeGroundNova"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartBlue = 0.5
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndFrame = 20
+		NumFrames = 20
+		PlaySpeed = 60.0
+		StartFrame = 1
+		ScaleRadius = 200.0
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "ExplosionScorchDecalFade" }
+			{ Name = "LightningDashStrikeLighting" }
+		]
+	}
+			
+	{
+		Name = "LightningDashStrikeLighting"
+		FilePath = "Particles\AuraBasicFillCircle"
+		GroupName = "FX_Add_Top"
+		
+		AddColor = true
+		EndAlpha = 0.999
+		EndBlue = 0.2
+		EndGreen = 0.8
+		EndRed = 0.999
+		StartAlpha = 0.5
+		StartBlue = 0.4
+		StartGreen = 0.9
+		StartRed = 1.0
+		Duration = 0.2
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
 
 	{
+		Name = "ProjectileLightningBall"
+		InheritFrom = "ProjectileFire"
+		ChildAnimation = "ProjectileLightningBallGlowSpawner"
+		FilePath = "Fx\LightningBall\LightningBall"
+		VisualFx = "LightningPiece"
+		Sound = "/SFX/Player Sounds/ZeusLightningRangedAttack"
+		StopSoundOnFinishFade = 0.2
+		AddColor = false
+		EndFrame = 30
+		NumFrames = 30
+		StartFrame = 1
+		VisualFxUse3DAngle = false
+		Scale = 0.45
+		VisualFxIntervalMax = 0.071
+		VisualFxIntervalMin = 0.07
+	}
+	{
+		Name = "ProjectileLightningBallGlowSpawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "ProjectileLightningBallGlow"
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+	}
+	
+	{
+		Name = "ProjectileLightningBallGlow"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Standing_Add"
+		
+		UseOwnAngle = false
+		EndAlpha = 0.7
+		StartAlpha = 1.0
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 0.2
+		RandomDurationMin = 0.01
+		StartFrame = 1
+		DieWithOwner = true
+		SortMode = "FromParent"
+		RandomRotation = true
+		RandomRotationSpeedMax = 2000.0
+		RandomRotationSpeedMin = -2000.0
+		EndScale = 0.4
+		Scale = 0.3
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.6
+		StartScale = 0.5
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.8 Blue = 0.30 }
+	}
+
+
+	{
+		Name = "ProjectileLightningBallEnd"
+		ChildAnimation = "QuickFlashYellowSpawner"
+		FilePath = "Fx\LightningBallEnd\LightningBallEnd"
+		GroupName = "Standing"			
+		VisualFx = "LightningParticleEnd"
+		Sound = "/SFX/Player Sounds/ZeusLightningImpact"
+		ColorFromOwner = "Ignore"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 60.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		RandomRotation = true
+		Scale = 0.55
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+	}
+	
+	{
+		Name = "LightningParticle"
+		FilePath = "Particles\particle_addFlake2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Take"
+		AngleMax = 20.0
+		AngleMin = -20.0
+		UseOwnAngle = false
+		AddColor = true
+		EndGreen = 0.6
+		EndRed = 1.0
+		StartBlue = 0.3
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.8
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.3
+		RandomDurationMin = 0.1
+		StartFrame = 1
+		RandomOffsetX = 10.0
+		RandomOffsetY = 5.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Acceleration = -500.0
+		VelocityMax = 600.0
+		VelocityMin = 100.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 360.0
+		RandomRotationSpeedMin = -360.0
+		EndScale = 0.0
+		Scale = 0.66
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.55
+		ScaleMin = 0.3
+		StartScaleX = 3.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "LightningParticleEnd"
+		InheritFrom = "LightningParticle"
+		ChainTo = "LightningParticleEnd2"
+		AngleMax = 360.0
+		AngleMin = 0.0
+		UseOwnAngle = true
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.2
+		Acceleration = -5000.0
+		VelocityMax = 1000.0
+		VelocityMin = 500.0
+		RandomRotation = false
+		StartScale = 0.35
+	}
+	
+	{
+		Name = "LightningParticleEnd2"
+		FilePath = "Animations\LightningParticleEnd2\LightningParticleEnd2"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LightningParticleEnd" }
+			{ Name = null }
+			{ Name = null }
+			{ Name = null }
+		]
+	}
+
+
+	{
+		Name = "LightningPiece"
+		FilePath = "Animations\LightningPiece\LightningPiece"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LightningPieceA" }
+			{ Name = "LightningPieceB" }
+			{ Name = "LightningPieceC" }
+			{ Name = "LightningPieceD" }
+			{ Name = "LightningPieceE" }
+			{ Name = "LightningPieceF" }
+		]
+	}
+	
+	{
+		Name = "LightningPieceAdditive"
+		FilePath = "Animations\LightningPiece\LightningPiece"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LightningPieceA_Bright" }
+			{ Name = "LightningPieceB_Bright" }
+			{ Name = "LightningPieceC_Bright" }
+			{ Name = "LightningPieceD_Bright" }
+			{ Name = "LightningPieceE_Bright" }
+			{ Name = "LightningPieceF_Bright" }
+		]
+	}
+
+	{
+		Name = "LightningPieceA"
+		CreateAnimation = "LightningPieceAdditive"
+		FilePath = "Fx\LightningPiece\LightningPiece"
+		GroupName = "Standing"
+		
+		VisualFx = "LightningParticle"
+		AngleFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		EndFrame = 14
+		NumFrames = 90
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 45.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		OffsetZ = 100.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 1.5
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.3
+		VisualFxIntervalMin = 0.1
+	}
+
+	{
+		Name = "LightningPieceB"
+		InheritFrom = "LightningPieceA"
+		EndFrame = 44
+		NumFrames = 14
+		StartFrame = 31
+	}
+	
+	{
+		Name = "LightningPieceC"
+		InheritFrom = "LightningPieceA"
+		EndFrame = 58
+		NumFrames = 14
+		StartFrame = 46
+	}
+	
+	{
+		Name = "LightningPieceD"
+		InheritFrom = "LightningPieceA"
+		EndFrame = 74
+		NumFrames = 14
+		StartFrame = 61
+	}
+	
+	{
+		Name = "LightningPieceE"
+		InheritFrom = "LightningPieceA"
+		EndFrame = 89
+		NumFrames = 14
+		StartFrame = 76
+	}
+	
+	{
+		Name = "LightningPieceF"
+		InheritFrom = "LightningPieceA"
+		EndFrame = 29
+		NumFrames = 14
+		StartFrame = 16
+	}
+	
+	{
+		Name = "LightningPieceA_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.5
+	}
+	
+	{
+		Name = "LightningPieceB_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.2
+	}
+	
+	{
+		Name = "LightningPieceC_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.2
+	}
+	
+	{
+		Name = "LightningPieceD_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.2
+	}
+	
+	{
+		Name = "LightningPieceE_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.2
+	}
+	
+	{
+		Name = "LightningPieceF_Bright"
+		InheritFrom = "LightningPieceA"
+		CreateAnimation = "null"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 14
+		NumFrames = 14
+		StartFrame = 1
+		ScaleY = 0.2
+	}
+
+	{
+		Name = "ZeusStaticArcEmitter"
+		FilePath = "Dev\blank_invisible"
+		GroupName = "FX_Standing_Add"
+		
+		VisualFx = "ZeusStaticArcs"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.15
+		VisualFxIntervalMin = 0.1
+	}
+	
+	{
+		Name = "ZeusStaticArcs"
+		FilePath = "Animations\ZeusStaticArcs\ZeusStaticArcs"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "ZeusStaticArcA" }
+			{ Name = "ZeusStaticArcB" }
+			{ Name = "ZeusStaticArcC" }
+		]
+	}
+	
+	{
+		Name = "ZeusStaticArcA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 15
+		NumFrames = 15
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 40.0
+		StartFrame = 1
+		OffsetZ = 45.0
+		RandomOffsetX = 50.0
+		RandomOffsetY = 50.0
+		SortMode = "FromParent"
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.5
+		ScaleMin = 1.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "ZeusStaticArcB"
+		InheritFrom = "ZeusStaticArcA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	
+	{
+		Name = "ZeusStaticArcC"
+		InheritFrom = "ZeusStaticArcA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+
+	{
+		Name = "ZeusEchoStrikeFx"
+		FilePath = "Fx\ZeusElementalLightningStrike\ZeusElementalLightningStrike"
+		NumFrames = 26
+		GroupName = "FX_Standing_Add"
+		PlaySpeed = 60
+		UseOwnAngle = false
+		Scale = 1.0
+		OriginX = 242
+		OriginY = 540
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		TimeModifierFraction = 0.25
+		VisualFx = "ZeusSpark"
+		VisualFxCap = 8
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.1
+		Material = "Unlit"
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashYellow" }
+			{ Name = "ZeusEchoStrikeGlow" }
+			{ Name = "ZeusEchoStrikeFxDark" }
+		]
+	}
+
+	{
+		Name = "ZeusSpark"
+		FilePath = "Fx\ZeusSpark\ZeusSpark"
+		NumFrames = 60
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleMin = 20
+		AngleMax = 160
+		VelocityMin = 300
+		VelocityMax = 400
+		RandomAccelerationMin = -400
+		RandomAccelerationMax = -200
+		ScaleMin = 0.15
+		ScaleMax = 0.5
+		Gravity = 200
+		RandomOffsetX = 50
+		RandomOffsetY = 25
+		RandomRotation = true
+		UseOwnAngle = false
+		RandomPlaySpeedMin = 60
+		RandomPlaySpeedMax = 120
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "ZeusEchoStrikeGlow"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		PostRotateScaleY = 0.5
+		Red = 1
+		Green = 0.9
+		Blue = 0.5
+		Scale = 2
+		GroupName = "FX_Terrain_Add"
+	}
+
+	{
+		Name = "ZeusEchoStrikeFxDark"
+		InheritFrom = "ZeusEchoStrikeFx"
+		FilePath = "Fx\ZeusElementalLightningStrikeDark\ZeusElementalLightningStrikeDark"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+	}
+
+	{
+		Name = "ZeusEchoDebuff"
+		FilePath = "Fx\ZeusElementalStatusCloud\ZeusElementalStatusCloud"
+		NumFrames = 60
+		PlaySpeed = 30
+		GroupName = "FX_Standing_Top"
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+		OffsetZ = 100
+		DieWithOwner = true
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ReRandomizeOnLoop = false
+		UseOwnAngle = false
+		Loop = true
+		EaseIn = 0
+		EaseOut = 1
+		LocationZFromOwner = "Ignore"
+		ChainTo = "ZeusEchoDebuffOut"
+		TransferFrameFromThis = true
+		OriginX = 65
+		OriginY = 65
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Sound = "/SFX/Player Sounds/ZeusBlitzStatusLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "ZeusEchoDebuffOut"
+		InheritFrom = "ZeusEchoDebuff"
+		TransferFrameToThis = true
+		StartScale = 1
+		EndScale = 0
+		Duration = 0.2
+		LoopFramesOnly = true
+		Loop = false
+		ChainTo = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.2
+		EndBlue = 0.4
+		Sound = null
+	}
+	
+	{
+		Name = "ZeusEchoDebuffSwell"
+		InheritFrom = "ZeusEchoDebuff"
+		Loop = false
+		NumFrames = 12
+		ChainTo = null
+		FilePath = "Fx\ZeusElementalStatusCloudSwell\ZeusElementalStatusCloudSwell"
+		OriginX = 130
+		OriginY = 117
+		PlaySpeed = 30
+		Sound = "/SFX/Player Sounds/ZeusEchoPrefire"
+		StopSoundOnFinishFade = 0.2
+	}
+
+{
 		Name = "ManaDropZeus"
 		FilePath = "Fx\Zeus\ZeusStaffBall\ZeusStaffBall"
 		NumFrames = 60

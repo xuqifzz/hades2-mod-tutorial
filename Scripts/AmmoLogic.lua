@@ -2,6 +2,13 @@
 	CurrentRun.Hero.Ammo[ weaponData.Name ] = GetMaxAmmo( weaponData.Name )
 end
 
+function ResetAmmo( hero, weaponData )
+	ReloadAmmo( weaponData )
+	thread( UpdateAmmoUI )
+	ExpireProjectiles({ Names = {"ProjectileLobCharged", "ProjectileLob"}, BlockSpawns = true})
+	Destroy({ Ids = GetIdsByType({ Name = "LobAmmoPack"})  })
+end
+
 function UpdateWeaponAmmo ( weaponName, delta, args )
 	args = args or {}
 	IncrementTableValue( CurrentRun.Hero.Ammo, weaponName, delta )
@@ -9,7 +16,7 @@ function UpdateWeaponAmmo ( weaponName, delta, args )
 		CurrentRun.Hero.Ammo[weaponName] = GetMaxAmmo( weaponName )
 	end
 
-	if GetCurrentAmmo( weaponName ) > 0 and not MapState.HostilePolymorph then
+	if GetCurrentAmmo( weaponName ) > 0 and not MapState.HostilePolymorph and IsEmpty(MapState.TransformArgs) then
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = true })
 	elseif GetCurrentAmmo( weaponName ) <= 0 then
 		SetWeaponProperty({ WeaponName = weaponName, DestinationId = CurrentRun.Hero.ObjectId, Property = "Enabled", Value = false })

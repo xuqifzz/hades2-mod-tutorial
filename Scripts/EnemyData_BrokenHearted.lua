@@ -30,6 +30,7 @@ UnitSetData.BrokenHearted =
 		StunAnimations = 
 		{
 			Default = "Enemy_BrokenHearted_OnHit",
+			Heavy = "Enemy_BrokenHearted_OnHit_Heavy",
 		},
 
 		DefaultAIData =
@@ -51,14 +52,23 @@ UnitSetData.BrokenHearted =
 			DifficultyRating = 38,
 			BlockEnemyTypes = {"BrokenHearted_Elite"}
 		},
-		EnemyFirstEncounterVoiceLines =
+		
+		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
-			TriggerCooldowns =
+			RandomRemaining = true,
+			GameStateRequirements = 
 			{
-				"CombatBeginsLinesPlayedRecently",
+				-- None
 			},
-			{ Cue = "/VO/MelinoeField_1030", Text = "Smackers!" },
+			SkipCooldownCheckIfNonePlayed = true,
+			Cooldowns =
+			{
+				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+			},
+			SuccessiveChanceToPlay = 0.1,
+
+			{ Cue = "/VO/MelinoeField_1030", Text = "Smackers!", PlayFirst = true },
 		},
 	},
 

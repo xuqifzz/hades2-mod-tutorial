@@ -71,31 +71,10 @@ UnitSetData.SiegeVine =
 			},
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			Cooldowns =
-			{
-				-- { Name = "MelinoeAnyQuipSpeech" },
-			},
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-
-			{ Cue = "/VO/Melinoe_1646", Text = "Thorn-Weepers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
 			RandomRemaining = true,
-			GameStateRequirements = 
-			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatF", "NemesisCombatIntro", "NemesisCombatF" },
-				},
-			},
 			GameStateRequirements =
 			{
 				{
@@ -105,14 +84,15 @@ UnitSetData.SiegeVine =
 					Value = 2,
 				},
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/Melinoe_1645", Text = "Thorn-Weepers.", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_1646", Text = "Thorn-Weepers!" },
+			{ Cue = "/VO/Melinoe_1645", Text = "Thorn-Weepers." },
+			{ Cue = "/VO/Melinoe_1646", Text = "Thorn-Weepers!", PlayFirst = true },
 			{ Cue = "/VO/Melinoe_1647", Text = "More Thorn-Weepers." },
 			{ Cue = "/VO/Melinoe_1648", Text = "Come, Thorn-Weepers." },
 		},
@@ -124,6 +104,8 @@ UnitSetData.SiegeVine =
 		HealthBuffer = 390,
 
 		IsAggroedSound = "/SFX/Enemy Sounds/SiegeVine/EmoteAlerted",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Radial" }),
 
 		DefaultAIData =
 		{
@@ -142,7 +124,11 @@ UnitSetData.SiegeVine =
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "MiniBossFogEmitter" }
 			},
-			RequiredMinBiomeDepth = 3,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 3,
+			},
 		},
 
 		GeneratorData =
@@ -173,7 +159,11 @@ UnitSetData.SiegeVine =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 4,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 4,
+			},
 		},
 
 		GeneratorData =

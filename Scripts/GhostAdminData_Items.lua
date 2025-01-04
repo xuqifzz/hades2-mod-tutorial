@@ -10,51 +10,63 @@ ScreenData.GhostAdmin.ItemCategories =
 			-- None
 		},
 		-- story & major progression
-		"WorldUpgradeTimeStop",
+		-- "WorldUpgradeTimeStop", (listed below for the time being...)
 		"WorldUpgradeAltRunDoor",
 		"WorldUpgradeSurfacePenaltyCure",
 		"WorldUpgradeQuestLog",
 		"WorldUpgradeMorosUnlock",
 		"WorldUpgradeNarcissusWaters",
+		"WorldUpgradeWakeHypnos",
+		-- deferred story further down
 
 		-- key systems
 		"WorldUpgradeWeaponUpgradeSystem",
 		"WorldUpgradeCardUpgradeSystem",
 		"WorldUpgradeBountyBoard",
+		"WorldUpgradeBountyBoardRepeat",
 		"WorldUpgradeFamiliarSystem",
 		"WorldUpgradeFamiliarRest",
+		"WorldUpgradeFamiliarUpgradeSystem",
 		"WorldUpgradeToolUpgradeSystem",
 
 		-- key upgrades
 		"WorldUpgradeElementalBoons",
 		"WorldUpgradePinning",
+		"WorldUpgradeMetaUpgradeSaveLayout",
+		"WorldUpgradeKeepsakeSaveFirst",
 		"WorldUpgradeResourceFinder",
 		"WorldUpgradeBoonList",
 		"WorldUpgradeMarket",
 		"WorldUpgradeSellShop",
+		"WorldUpgradeGiftsShop",
+		"WorldUpgradeExchangeShop",
 
 		-- run upgrades
 		"WorldUpgradeWellShops",
 		"WorldUpgradePostBossWellShops",
 		"WorldUpgradeSurfaceShops",
 		"WorldUpgradePostBossSurfaceShops",
+		"WorldUpgradePostBossSellTraitShops",
 		"WorldUpgradeErebusReprieve",
 		"WorldUpgradeOceanusReprieve",
 		"WorldUpgradeTartarusReprieve",
 		"WorldUpgradeThessalyReprieve",
+		"WorldUpgradeOlympusReprieve",
 		"WorldUpgradeFountainUpgrade1",
 		"WorldUpgradeFountainUpgrade2",
 		"WorldUpgradeBreakableValue1",
 		"WorldUpgradeEphyraZoomOut",
 		"WorldUpgradeFieldsRewardFinder",
 		"WorldUpgradeTimeSlowChronosFight",
-		"WorldUpgradePauseChronosFight",
+		--"WorldUpgradePauseChronosFight",
 		"WorldUpgradeUnusedWeaponBonus",
 		"WorldUpgradePostBossGiftRack",
 		"WorldUpgradeErebusSafeZones",
 		"WorldUpgradeSafeZoneSpellCharge",
 		"WorldUpgradeShadeMercs",
 		"WorldUpgradeChallengeSwitches1",
+		"WorldUpgradeChallengeSwitchesExtra1",
+		"WorldUpgradeChallengeSwitchesSurface1",
 		"WorldUpgradeMetaCardPointsCommonRunProgress",
 		"WorldUpgradeMemPointsCommonRunProgress",
 		"WorldUpgradeMetaCurrencyRunProgress",
@@ -73,13 +85,14 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeGardenT3",
 		"WorldUpgradeGardenTent",
 		"WorldUpgradeGardenTaverna",
+		"WorldUpgradeMusicPlayer",
 		"WorldUpgradeRunHistory",
 		"WorldUpgradeGameStats",
-		"WorldUpgradeGiftsShop",
 		"WorldUpgradeRelationshipBar",
 
-		-- misc.
-		"WorldUpgradeHypnosUnlock",
+		-- misc. & deferred story
+		"WorldUpgradeTimeStop",
+		"WorldUpgradeDoraMemory",
 	},		
 	{
 		Name = "WorldUpgradeScreen_Repeatable",
@@ -94,8 +107,5 @@ ScreenData.GhostAdmin.ItemCategories =
 		"WorldUpgradeCardUpgradePoints",
 		"WorldUpgradeCardUpgradePoints2",
 		"WorldUpgradeNectar",
-		"WorldUpgradeCosmeticsPointsCommon",
-		"WorldUpgradeCosmeticsPointsRare",
-		"WorldUpgradeCosmeticsPointsEpic",			
 	},
 }

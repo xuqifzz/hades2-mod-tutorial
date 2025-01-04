@@ -188,8 +188,13 @@
 
 	// SATYR RAT
 	{
+		Name = "CritterRat"
+		GrannyModel = "CritterRat_Mesh"
+	}
+	{
 		Name = "EnemySatyrRatBaseAnimation"
 		GrannyModel = "SatyrRat_Mesh"
+		ExtraGrannyAnimations = [{ Name = "CritterRat" }]
 		GrannyAnimation = "null"
 		GrannyAnimationSpeed = 1.0
 		Scale = 1.6

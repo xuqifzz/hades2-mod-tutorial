@@ -265,8 +265,6 @@ WeaponSetData =
 			ProjectileName = "GoldElementalBeam",
 			ExpireProjectilesOnHitStun = true,
 			ExpireProjectilesOnFreeze = true,
-			
-			MaxAttackers = 4,
 
 			FireSelfVelocity = 1050,
 			FireSelfVelocityAngleOffset = 180,
@@ -321,7 +319,7 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 
-			MaxAttackers = 8,
+			MaxAttackers = 5,
 
 			TrackTargetDuringFire = true,
 			FireRotationDampening = 0.007,

@@ -6,6 +6,8 @@ OverwriteTableKeys( EncounterData,
 		GroupReinforcements = false,
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
+		
+		CanEncounterSkip = false,
 
 		ExitsDontRequireCompleted = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsTimeChallenge,

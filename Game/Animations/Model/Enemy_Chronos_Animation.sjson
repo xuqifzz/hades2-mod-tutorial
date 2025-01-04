@@ -87,7 +87,8 @@
 		Name = "Enemy_Chronos_DefenseIntro"
 		InheritFrom = "EnemyChronosBaseAnimation"
 		GrannyAnimation = "Chronos_Base_DefenseIntro_C_00"
-		ChainTo = "Enemy_Chronos_DefenseLoop"
+		ChainTo = "Enemy_Chronos_DefenseExplodePreFire"
+		GrannyAnimationSpeed = 1.3
 		Blends =
 		[
 			{
@@ -114,6 +115,26 @@
 		GrannyAnimation = "Chronos_Base_DefenseIdle_C_00"
 		Loop = true
 		OwnerInvulnerable = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Idle"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStart"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_Move"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Enemy_Chronos_MoveStop"
+				Duration = 4
+			}
+		]
 	}
 	{
 		Name = "Enemy_Chronos_DefenseExplodePreFire"
@@ -121,7 +142,9 @@
 		GrannyAnimation = "Chronos_Base_DefenseExplodeWindUp_C_00"
 		ChainTo = "Enemy_Chronos_DefenseExplodeFire"
 		Sound = "/SFX/Enemy Sounds/Hades/HadesLaserBlastChargeUp"
+		AllowRestart = false
 		StopSoundOnFinishFade = 0.2
+		/*
 		Frames =
 		[
 			{
@@ -129,9 +152,14 @@
 				FrameSpeed = 0.45
 			}
 		]
+		*/
 
 		Blends =
 		[
+			{
+				BlendTransitionFrom = "Enemy_Chronos_DefenseIntro"
+				Duration = 6
+			}
 			{
 				BlendTransitionFrom = "Enemy_Chronos_DefenseLoop"
 				Duration = 4
@@ -142,7 +170,10 @@
 		Name = "Enemy_Chronos_DefenseExplodeFire"
 		InheritFrom = "EnemyChronosBaseAnimation"
 		GrannyAnimation = "Chronos_Base_DefenseExplode_C_00"
+		AllowRestart = false
 		ChainTo = "Enemy_Chronos_DefenseExplodePostFire"
+		GrannyAnimationSpeed = 0.5
+		/*
 		Frames =
 		[
 			{
@@ -150,12 +181,14 @@
 				FrameSpeed = 0.5
 			}
 		]
+		*/
 	}
 	{
 		Name = "Enemy_Chronos_DefenseExplodePostFire"
 		InheritFrom = "EnemyChronosBaseAnimation"
 		GrannyAnimation = "Chronos_Base_DefenseExplodeReturn_C_00"
 		ChainTo = "Enemy_Chronos_Idle"
+		GrannyAnimationSpeed = 0.5
 	}
 
 	/* Dash */

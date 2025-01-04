@@ -33,6 +33,18 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.05 },
 		},
 	},
+	EliteRift =
+	{
+		Fuse = 1.2,
+		ReticleAnimation = "ChronosRiftStraightInteriorIn",
+		ReticleUseProjectileAngle = true,
+		ReticleGroupName = "FX_Standing_Top",
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.30, LerpTime = 0 },
+			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0.05 },
+		},
+	},
 
 	SwarmerRushRipple =
 	{

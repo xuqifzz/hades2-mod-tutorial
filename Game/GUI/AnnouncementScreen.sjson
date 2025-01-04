@@ -9,8 +9,8 @@
     TransitionOffTime = 0.15
     ForceShowCursor = true
 
-	Back =
-	{
+    Back =
+    {
       Justification = "Left"
       VerticalJustification = "Top"
       Red = 0
@@ -31,7 +31,7 @@
     }
 
     AnimatedBackground =
-	{
+    {
       X = 960
       Y = 540
       Graphic = "AnnouncementBox"
@@ -40,7 +40,7 @@
     }
 
     TitleText =
-	{
+    {
       X = 960
       Y = 210
       Justification = "Center"
@@ -66,7 +66,7 @@
     }
 
     SubHeader =
-	{
+    {
       X = 960
       Y = 950
       Justification = "Center"
@@ -98,6 +98,25 @@
       LangJaScaleModifier = 1.0
     }
 
+    ScrollBar = 
+    {
+      X = 1355
+      Y = 620
+      Graphic = "GUI\Screens\ScrollbarDownUp"
+      FreeFormSelectable = false
+      ScaleY = 1.20
+    }
+    
+    ScrollBarTracker = 
+    {
+      X = 1355
+      Y = 320
+      Graphic = "GUI\Screens\ScrollbarSlider"
+      SelectedGraphic = "GUI\Screens\ScrollbarSlider"
+      FreeFormSelectable = false
+      Scale = 0.25
+    }
+
     UpArrow =
     {
       X = 1355
@@ -119,7 +138,7 @@
     }
 
     AnnouncementText =
-	{
+    {
       X = 610
       Y = 305
       Justification = "Left"
@@ -161,9 +180,9 @@
       HelpTextId = ""
     }
 
-	/* Controls */
+    /* Controls */
     CancelButton =
-	{
+    {
       Graphic = "CancelButtonFlash"
       UnderCursorOnAnimation = "CancelButtonFlashHover"
       UnderCursorOffAnimation = "CancelButtonFlash"

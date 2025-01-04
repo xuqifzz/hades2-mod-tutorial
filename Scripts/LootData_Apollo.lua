@@ -54,12 +54,12 @@ LootSetData.Apollo =
 			"ApolloExCastBoon",
 			"ApolloCastAreaBoon",
 			"DoubleStrikeChanceBoon",
-
-			-- Legendary
-			"DoubleExManaBoon",
 			
 			-- Elemental			
 			"ElementalRallyBoon",
+
+			-- Legendary
+			"DoubleExManaBoon",
 			
 			-- Duos
 			"ApolloSecondStageCastBoon",
@@ -75,7 +75,6 @@ LootSetData.Apollo =
 		SpeakerName = "Apollo",
 		Speaker = "NPC_Apollo_01",
 		Portrait = "Portrait_Apollo_Default_01",
-		WrathPortrait = "Portrait_Apollo_Wrath_01",
 		OverlayAnim = "ApolloOverlay",
 		Gender = "Male",
 		FlavorTextIds =
@@ -119,7 +118,7 @@ LootSetData.Apollo =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -129,7 +128,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ApolloSecondStageCastBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ApolloSecondStageCastBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0089",
@@ -146,7 +148,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "RaiseDeadBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "RaiseDeadBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0093",
@@ -163,7 +168,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "PoseidonSplashSprintBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "PoseidonSplashSprintBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0091",
@@ -181,7 +189,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "StormSpawnBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "StormSpawnBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0097",
@@ -198,7 +209,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ManaBurstCountBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaBurstCountBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0099",
@@ -217,7 +231,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BlindClearBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BlindClearBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0101",
@@ -235,7 +252,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CoverRegenerationBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "CoverRegenerationBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0095",
@@ -294,7 +314,10 @@ LootSetData.Apollo =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0060",					
@@ -314,7 +337,10 @@ LootSetData.Apollo =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0061",					
@@ -334,7 +360,7 @@ LootSetData.Apollo =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0054",
-					Text = "Just getting started for the evening, are you, sunshine? Don't know about you but I've got a good feeling about how this is going to go." },
+					Text = "Just getting started for the evening, are you, sunshine? Don't know about you, but I've got a good feeling about how this is going to go!" },
 			},
 			ApolloRunStart02 =
 			{
@@ -518,6 +544,11 @@ LootSetData.Apollo =
 					},
 					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Artemis_Field_01" },
+					},
+					{
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = "<",
+						Value = 1,
 					},
 				},
 				PlayOnce = true,
@@ -761,7 +792,7 @@ LootSetData.Apollo =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0073",
 					Emote = "PortraitEmoteSparkly",
-					Text = "My word, you reached the surface, didn't you, sunshine? I thought your birthright meant you couldn't live up here! You're just full of surprises. So, headed this way? Let me help." },
+					Text = "My word, you reached the {#Emph}surface{#Prev}, didn't you, sunshine? I thought your birthright meant you couldn't live up here! You're just full of surprises. So, headed this way? Let me help." },
 			},
 			ApolloAboutSurface02 =
 			{
@@ -842,10 +873,10 @@ LootSetData.Apollo =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0052",
@@ -859,10 +890,10 @@ LootSetData.Apollo =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0053",
@@ -1010,48 +1041,7 @@ LootSetData.Apollo =
 				{ Cue = "/VO/Apollo_0082",
 					Text = "You got there faster than expected, which might mean you got a bit of a boost from Hermes! He's swift for sure, though I can never get a straight answer out of him about anything..." },
 			},
-			--[[
-			ApolloAboutSelene01 =
-			{
-				PlayOnce = true,
-				GameStateRequirements =
-				{
-					{
-						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
-					},
-					{
-						PathTrue = { "CurrentRun", "UseRecord", "SpellDrop" }
-					},
-					{
-						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.GodAboutGodVoiceLines,
-					},
-				},
-				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
-				-- { Cue = "",
-				--	Text = "You seem fairer than ever, Cousin... awash in moonlight. Selene's handiwork? Always so busy galloping across the sky, that one. Well, make you easier to spot." },
-			},
-			]]--
-			ApolloAboutArtemis01 =
-			{
-				PlayOnce = true,
-				GameStateRequirements =
-				{
-					{
-						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
-					},
-					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ApolloAboutMelinoe01" },
-					},
-					{
-						PathTrue = { "PrevRun", "UseRecord", "NPC_Artemis_Field_01" },
-					},
-				},
-				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
-				{ Cue = "/VO/Apollo_0087",
-					Text = "Artemis always calls me little brother, when we're {#Emph}twins! {#Prev}At least she never comes home empty-handed from her hunts. Just recently she found a family relative and ally, poised to strike behind enemy lines! You are {#Emph}quite {#Prev}the prize." },
-			},
+			-- ApolloAboutArtemis01 intentionally omitted
 			ApolloAboutArtemis02 =
 			{
 				PlayOnce = true,
@@ -1084,6 +1074,9 @@ LootSetData.Apollo =
 						Path = { "GameState", "UseRecord", "ApolloUpgrade" },
 						Comparison = ">=",
 						Value = 5,
+					},
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "NPC_Athena_01" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1138,6 +1131,24 @@ LootSetData.Apollo =
 				{ Cue = "/VO/Apollo_0151",
 					Text = "We've confirmed sightings of that {#Emph}Eris {#Prev}buzzing about. She's from your realm not ours, so you may be more privy to how come she's showed up uninvited! Though, that tends to be her style. Somebody needs to shoo her away, already..." },
 			},
+			ApolloAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Apollo_0152",
+					Text = "Prometheus himself, leading the assault against us... one of our sole allies amongst Titankind, become a bitter foe. All because of how we treated him! Or because... he knows which side shall be victorious when all is said and done..." },
+			},
 
 			-- other reactions
 			ApolloAboutKeepsake01 =
@@ -1186,7 +1197,7 @@ LootSetData.Apollo =
 					},
 					{
 						Path = { "GameState", "WeaponsUnlocked" },
-						HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob" },
+						HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1456,9 +1467,6 @@ LootSetData.Apollo =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ApolloPoem01", },
-					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0013",
@@ -1470,9 +1478,6 @@ LootSetData.Apollo =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
-					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ApolloPoem01", },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1486,9 +1491,6 @@ LootSetData.Apollo =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
 					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ApolloPoem01", },
-					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0015",
@@ -1500,9 +1502,6 @@ LootSetData.Apollo =
 				{
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "ApolloUpgrade" }
-					},
-					{
-						PathTrue = { "GameState", "TextLinesRecord", "ApolloPoem01", },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1590,7 +1589,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0062",
@@ -1601,7 +1603,10 @@ LootSetData.Apollo =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Apollo_0063",
@@ -1697,7 +1702,7 @@ LootSetData.Apollo =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -1783,6 +1788,10 @@ LootSetData.Apollo =
 					{
 						PathTrue = { "GameState", "UseRecord", "ApolloUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0502", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1810,6 +1819,10 @@ LootSetData.Apollo =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "ApolloUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0503", UsePlayerSource = true,
@@ -1840,6 +1853,10 @@ LootSetData.Apollo =
 					{
 						PathTrue = { "GameState", "UseRecord", "ApolloUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_1759", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1868,6 +1885,10 @@ LootSetData.Apollo =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "ApolloUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1760", UsePlayerSource = true,
@@ -1914,8 +1935,13 @@ LootSetData.Apollo =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

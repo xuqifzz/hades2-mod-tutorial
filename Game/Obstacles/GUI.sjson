@@ -78,17 +78,6 @@
     }
 
     {
-      Name = "MusicPlayerBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "MusicPlayerBackground"
-      }
-    }
-
-    {
       Name = "DialogueBackground"
       InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = false
@@ -326,10 +315,10 @@
       {
         Points =
         [
-		    { X = -80 Y = 94 }
-		    { X = 80 Y = 94 }
-		    { X = 80 Y = -60 }
-		    { X = -80 Y = -60 }
+		    { X = -170 Y = 220 }
+		    { X = 170 Y = 220 }
+		    { X = 170 Y = -140 }
+		    { X = -170 Y = -140 }
 	    ]
       }
     }
@@ -342,10 +331,10 @@
       {
         Points =
         [
-		    { X = -150 Y = 150 }
-		    { X = 150 Y = 150 }
-		    { X = 150 Y = -150 }
-		    { X = -150 Y = -150 }
+		    { X = -70 Y = 130 }
+		    { X = 320 Y = 130 }
+		    { X = 320 Y = -130 }
+		    { X = -70 Y = -130 }
 	    ]
       }
     }
@@ -539,22 +528,6 @@
 	}
 
     {
-      Name = "ButtonDialogueChoice"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Interact =
-        {
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "Blank"
-          HighlightOnAnimation = "DialogueChoiceHighlight"
-        }
-      }
-    }
-
-    {
       Name = "ButtonQuestLogEntry"
       InheritFrom = "BaseInteractableButton"
       DisplayInEditor = true
@@ -721,35 +694,12 @@
     }
 
     {
-      Name = "LevelUpStatHighlight"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "LevelUpStatHighlight"
-      }
-    }
-
-    {
-      Name = "RadioButton"
-      InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "RadioButton_Unselected"
-      }
-    }
-
-    {
       Name = "TraitTrayIconButton"
       InheritFrom = "BaseInteractableButton"
       DisplayInEditor = true
       Thing =
       {
         EditorOutlineDrawBounds = false
-        Graphic = "RadioButton_Unselected"
       }
     }
     {
@@ -775,19 +725,6 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "GUI\Graybox\TraitBacking"
-      }
-    }
-
-
-
-    {
-      Name = "ShopBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "ShopBackground"
       }
     }
 
@@ -821,17 +758,6 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "CriticalItemShopBackground"
-      }
-    }
-
-    {
-      Name = "WellShopBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "WellShopIn"
       }
     }
 
@@ -898,17 +824,6 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "BoonSelectInFrontFx"
-      }
-    }
-
-    {
-      Name = "BoonBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "BoonBackground"
       }
     }
 
@@ -1217,6 +1132,39 @@
 		AllowDrawableCache = false
       }
     }
+    {
+      Name = "HealthBarMarkerAttack"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        SortMode = "Id"
+		AllowDrawableCache = false
+      }
+    }
+    {
+      Name = "HealthBarMarkerSpecial"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        SortMode = "Id"
+		AllowDrawableCache = false
+      }
+    }
+    {
+      Name = "HealthBarMarkerCast"
+      InheritFrom = "1_BaseGUIObstacle"
+      DisplayInEditor = false
+      Thing =
+      {
+        EditorOutlineDrawBounds = false
+        SortMode = "Id"
+		AllowDrawableCache = false
+      }
+    }
 
     {
       Name = "EnemyHealthBarFill"
@@ -1403,57 +1351,18 @@
     }
 
     {
-      Name = "CriticalItemShopButton"
-      InheritFrom = "BoonSlotBase"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CriticalItemShopButton"
-        Interact =
-        {
-            FreeFormSelectOffsetX = -375
-            FreeFormSelectInputMultiplierX = 0.0
-          HighlightOffAnimation = "CriticalItemShopButton"
-          HighlightOnAnimation = "CriticalItemShopButtonHighlight"
-        }
-        Points = []
-      }
-    }
-
-    {
-      Name = "CriticalItemShopButtonDisabled"
-      InheritFrom = "CriticalItemShopButton"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "CriticalItemShopButtonDisabled"
-        Interact =
-        {
-          HighlightOffAnimation = "CriticalItemShopButtonDisabled"
-          HighlightOnAnimation = "CriticalItemShopButtonHighlight"
-        }
-      }
-    }
-
-  {
       Name = "CriticalItemShopTab"
       InheritFrom = "BaseInteractableButton"
-      DisplayInEditor = true
+      DisplayInEditor = false
       Thing =
       {
-        EditorOutlineDrawBounds = false
-        Graphic = "CriticalItemShopTab"
-        Interact =
-        {
-          FreeFormSelectable = false
-      FreeFormSelectInputMultiplierX = 0.0
-      FreeFormSelectInputMultiplierY = 0.0
-          DisabledUseSound = "/Leftovers/SFX/OutOfAmmo"
-          HighlightOffAnimation = "CriticalItemShopTab"
-          HighlightOnAnimation = "CriticalItemShopTabHighlight"
-        }
+        Points =
+        [
+            { X = -70, Y = -60 }
+            { X = -70, Y = 25 }
+            { X = 70, Y = 25 }
+            { X = 70, Y = -60 }
+        ]
       }
     }
 
@@ -1478,53 +1387,6 @@
     }
 
     {
-      Name = "HealthBarFlash"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "HealthBarFlash"
-      }
-    }
-
-    {
-      Name = "MetapointRefundStreak"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "MetapointRefundStreak"
-      }
-    }
-
-    {
-      Name = "AwardMenuBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "AwardMenuBackground"
-      }
-    }
-
-    {
-      Name = "TraitTrayBackground"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "TraitTray_Base"
-        Material = "Unlit"
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
       Name = "TraitTrayHeader"
       InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = false
@@ -1535,137 +1397,6 @@
         Material = "Unlit"
         SortMode = "Id"
         UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_Center"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "TraitTray_Center"
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_Right"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "TraitTray_Right"
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_ShortColumn"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\Screens\TraitTray_ShortColumn"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_LongColumn"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\Screens\TraitTray_LongColumn"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_Slots_4"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\HUD\PrimaryBoons\PrimaryBoonBacking_4"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_Slots_5"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\HUD\PrimaryBoons\PrimaryBoonBacking_5"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_Slots_6"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\HUD\PrimaryBoons\PrimaryBoonBacking_6"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_SlotFrame"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\Screens\BoonIconFrames\primary"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
-      }
-    }
-
-    {
-      Name = "TraitTray_KeepsakeBacking"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "GUI\HUD\PrimaryBoons\Keepsake_Backing"
-        Material = "Unlit"
-        Scale = 0.5
-		SortMode = "Id"
-		UseScreenLocation = true
       }
     }
 
@@ -1728,17 +1459,6 @@
     }
 
     {
-      Name = "EndPanelBox"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "EndPanelBox"
-      }
-    }
-
-    {
       Name = "BadgeNamePlate01"
       InheritFrom = "1_BaseGUIObstacle"
       DisplayInEditor = false
@@ -1746,17 +1466,6 @@
       {
         EditorOutlineDrawBounds = false
         Graphic = "BadgeNamePlate01"
-      }
-    }
-
-    {
-      Name = "EndCreditsVignette"
-      InheritFrom = "1_BaseGUIObstacle"
-      DisplayInEditor = false
-      Thing =
-      {
-        EditorOutlineDrawBounds = false
-        Graphic = "EndCreditsVignette"
       }
     }
 

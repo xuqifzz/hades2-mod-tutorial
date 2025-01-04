@@ -50,11 +50,11 @@ LootSetData.Poseidon =
 			"PoseidonExCastBoon",
 			"OmegaPoseidonProjectileBoon",
 
-			-- Legendary
-			"AmplifyConeBoon",
-
 			-- Elemental
 			"ElementalHealthBoon",
+
+			-- Legendary
+			"AmplifyConeBoon",
 
 			-- Duos
 			"LightningVulnerabilityBoon",
@@ -70,7 +70,6 @@ LootSetData.Poseidon =
 		SpeakerName = "Poseidon",
 		Speaker = "NPC_Poseidon_01",
 		Portrait = "Portrait_Poseidon_Default_01",
-		WrathPortrait = "Portrait_Poseidon_Wrath_01",
 		OverlayAnim = "PoseidonOverlay",
 		Gender = "Male",
 
@@ -113,7 +112,7 @@ LootSetData.Poseidon =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -123,7 +122,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "LightningVulnerabilityBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "LightningVulnerabilityBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0082",
@@ -139,7 +141,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "LightningVulnerabilityBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "LightningVulnerabilityBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0265",
@@ -156,7 +161,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MoneyDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MoneyDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0267",
@@ -174,7 +182,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "PoseidonSplashSprintBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "PoseidonSplashSprintBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0041",
@@ -191,7 +202,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "GoodStuffBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "GoodStuffBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0186",
@@ -208,7 +222,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "AllCloseBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "AllCloseBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0269",
@@ -218,7 +235,7 @@ LootSetData.Poseidon =
 					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
 					Source = "AphroditeUpgrade",
 					Emote = "PortraitEmoteAffection",
-					Text = "Well, good Lord Poseidon, I'm pleased to know how I inspire you. Though perhaps you ought pay more attention to our {#Emph}foes {#Prev}than to what I do with my spear, so we can turn this battle in our favor, finally!" },
+					Text = "Well, good Lord Poseidon, I'm pleased to know how I {#Emph}inspire {#Prev}you. Though perhaps you ought pay more attention to our {#Emph}foes {#Prev}than to what {#Emph}I {#Prev}do with my spear, so we can turn this battle in our favor, finally!" },
 			},
 
 			PoseidonWithHephaestus01 =
@@ -226,7 +243,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MassiveCastBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MassiveCastBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0271",
@@ -244,7 +264,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SteamBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SteamBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0273",
@@ -304,7 +327,10 @@ LootSetData.Poseidon =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -327,7 +353,10 @@ LootSetData.Poseidon =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -351,7 +380,10 @@ LootSetData.Poseidon =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0073",
@@ -371,7 +403,10 @@ LootSetData.Poseidon =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -455,7 +490,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "GameState", "TextLinesRecord", "PoseidonAboutHades03" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutChronos02" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutChronos02" }, Min = 3 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -475,8 +513,7 @@ LootSetData.Poseidon =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Poseidon_0018",
-					
-					Text = "Your father Hades and I didn't always get along. My crusty older brother, I called him! Water under the bridge now! {#Emph}Ah{#Prev}, how I miss his dour cheerlessness, my niece!" },
+					Text = "Your father Hades and I didn't always get along. My crusty elder brother, I called him! Water under the bridge now. {#Emph}Ah{#Prev}, how I miss his dour cheerlessness, my niece!" },
 			},
 			PoseidonAboutHades03 =
 			{
@@ -497,6 +534,7 @@ LootSetData.Poseidon =
 					
 					Text = "I scarce recall when last we spoke with your grim father, Niece! He never was the most sociable sort! When we stopped hearing from him, we figured he was simply in one of his {#Emph}moods{#Prev}, not in the clutches of Chronos!" },
 			},
+			-- mutually exclusive variant below
 			PoseidonAboutFindingHades01 =
 			{
 				PlayOnce = true,
@@ -505,21 +543,58 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					-- @ update with additional requirements
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAny = { "HecateAboutHades01" },
+						HasAny = { "HecateAboutHades01", "HermesAboutHecate01" },
 					},
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "I_Story01" },
+						PathFalse = { "GameState", "TextLinesRecord", "PoseidonAboutFindingHades01_B" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HecateAboutHades01", }, Count = 2 },
+					{
+						Path = { "GameState", "RoomsEntered", "I_Story01" },
+						Comparison = ">=",
+						Value = 4,
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HecateAboutHades01", }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Poseidon_0298",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "We heard the news you found old Hades, Niece! The {#Emph}most-excellent {#Prev}news, I should say! Except the part that he is bound in Tartarus, that isn't excellent at all. {#Emph}We'll get you out of this, Brother!" },
+					Text = "We heard the news that you found old Hades, Niece! The {#Emph}most-excellent {#Prev}news, I should say! Except the part that he is bound in Tartarus, that isn't excellent at all. {#Emph}We'll get you out of this, Brother!" },
+			},
+			PoseidonAboutFindingHades01_B =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HecateAboutHades01", "HermesAboutHecate01" },
+					},
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "PoseidonAboutFindingHades01" },
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Story01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "I_Story01" },
+						Comparison = "<",
+						Value = 4,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0303",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "My crusty elder brother, you found him? In one piece?! I feared Hades would end up much like Chronos did once we were through with him way back. But Chronos simply chained him up in Tartarus? That's rather twisted actually..." },
 			},
 
 			PoseidonAboutZagreus01 =
@@ -616,7 +691,10 @@ LootSetData.Poseidon =
 						Comparison = ">=",
 						Value = 4,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutChronos02" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutChronos02" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -632,7 +710,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutChronos02" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutChronos02" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -648,7 +729,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutChronos02" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutChronos02" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -664,7 +748,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutChronos02" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutChronos02" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -825,6 +912,34 @@ LootSetData.Poseidon =
 					Emote = "PortraitEmoteSurprise",
 
 					Text = "Wait, how is it that you live and breathe out here? I thought your father's line was doomed to linger underneath the earth, something like that? Ah, how the times have changed!" },
+			},
+			PoseidonAboutSurface04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "O" },
+					},
+					{
+						PathFalse = { "PrevRun", "ActiveBounty" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "O_Boss01" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "P_Intro" },
+						Comparison = "<=",
+						Value = 5,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0312",
+					Text = "You're getting closer to the snowy peaks that we call home! The biting chill is all part of our natural defenses, courtesy of Elder Goddess Demeter! We even have wondrous Automatons holding our foes at bay. You'll be {#Emph}amazed!" },
 			},
 
 			PoseidonAboutOceanus01 =
@@ -998,7 +1113,139 @@ LootSetData.Poseidon =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
 				{ Cue = "/VO/Poseidon_0300",
-					Text = "When next you sail across the Rift, know this: I shall do my utmost to ensure a water-current speeds you mightily along! Though how to do it without benefitting the opposing ships...?" },
+					Text = "When next you sail across the Rift, know this: I shall do my utmost to ensure a water-current speeds you mightily along! Though how to do it without benefiting the opposing ships...?" },
+			},
+
+			PoseidonAboutOlympus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "P" },
+					},
+					{
+						PathFalse = { "CurrentRun", "BiomesReached", "Q" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0309",
+					Emote = "PortraitEmoteSurprise",
+					Text = "What, my niece, you're here?! I'd come down and welcome you myself, except our mountain home is crawling with invaders as you've probably observed! So we are at the summit... like a bunch of turtles hiding in their shells!" },
+			},
+			PoseidonAboutOlympus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "P" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0310",
+					Text = "You've seen it: Our mountain's like a cross between a luxurious palace and an impregnable fortress! The so-called {#Emph}legions of Chronos {#Prev}won't be getting through {#Emph}these {#Prev}walls!" },
+			},
+			PoseidonAboutOlympus03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "P" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0311",
+					Text = "Olympus, gutted like a {#Emph}fish! {#Prev}Used to be all sorts of Nymphs and such that had a standing invitation here to make themselves at home! Surely they'll return once the dust settles a bit!" },
+			},
+
+			PoseidonAboutAutomatons01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "P" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PoseidonAboutSurface04" }
+					},
+					{
+						PathFalse = { "PrevRun", "ActiveBounty" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0313",
+					Text = "About the wondrous Automatons that I described before... I ought have also mentioned that they currently cannot distinguish friend from foe! Hephaestus probably is working on that detail, but until then, best to give them a wide berth!" },
+			},
+			PoseidonAboutAutomatons02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "PrevRun", "EnemyKills" },
+						HasAny = { "SentryBot", "AutomatonBeamer", "AutomatonEnforcer", "Talos" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0314",
+					Text = "Our powerful Automaton defenses that Hephaestus has been busy churning out are excellent at killing anything that moves! So don't take their behavior as a personal affront! We weren't counting on you getting all the way up here!" },
+			},
+			PoseidonAboutAutomatons03 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "BiomesReached", "P" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PoseidonAboutAutomatons02" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutAutomatons02" }, Min = 2 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0315",
+					Emote = "PortraitEmoteFiredUp",
+					Text = "How disrespectful that our own Automatons would treat you like our common foe! Unfortunately they don't understand the meaning of respect at all! Last time I told them {#Emph}don't you dare attack my niece{#Prev}, they attacked {#Emph}me!" },
 			},
 
 			PoseidonUnderworldRunCleared01 =
@@ -1013,7 +1260,7 @@ LootSetData.Poseidon =
 						PathTrue = { "PrevRun", "Cleared" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "I_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "I_Boss01" },
 					},
 				},
 
@@ -1105,8 +1352,9 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
+					-- @ update requirements
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
 					},
 					{
 						PathFalse = { "PrevRun", "ActiveBounty" }
@@ -1156,7 +1404,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "PrevRun", "RoomCountCache", "N_Boss01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "PoseidonAboutPolyphemus01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutPolyphemus01" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1244,7 +1495,7 @@ LootSetData.Poseidon =
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "O_Boss01" },
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
@@ -1255,6 +1506,24 @@ LootSetData.Poseidon =
 				{ Cue = "/VO/Poseidon_0291",
 					Emote = "PortraitEmoteFiredUp",
 					Text = "Most of you Underworld gods are more than welcome on Olympus here, when we are not at war; but not {#Emph}Eris! {#Prev}Her antics ruined one too many feasts! And now she flaps about our borders, mocking us and making matters {#Emph}worse!" },
+			},
+
+			PoseidonAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0308",
+					Text = "What I would like to know, my niece, is many things, such as: Just {#Emph}how {#Prev}did devious Prometheus slip from his bonds? {#Emph}Ah{#Prev}, these Titans! We can't seem to get rid of them for good. But we can douse the flames they stole at least!" },
 			},
 
 			PoseidonAboutLittleHades01 =
@@ -1295,6 +1564,60 @@ LootSetData.Poseidon =
 					
 					Text = "One thing about me, Niece, is I've a keen eye for amphibians; and that one with you there is a fine specimen indeed! Mislikes briny waters, but no beast is perfect!" },
 			},
+			PoseidonAboutCatFamiliar01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsAny = { "CatFamiliar" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "F" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0304",
+					Text = "What is that creature with you there, a {#Emph}cat? {#Prev}You should know something about cats, Niece: They hate water! And yet those {#Emph}fools {#Prev}require it to live! Perhaps that cat knows better, though, if it has the sense to follow you through {#Emph}hell!" },
+			},
+			PoseidonAboutCatFamiliar02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsAny = { "CatFamiliar" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PoseidonAboutCatFamiliar01" },
+					},
+					{
+						Path = { "GameState", "FishingSuccessesFamiliar" },
+						Comparison = ">=",
+						Value = 4,
+					},
+					{
+						PathTrue = { "CurrentRun", "FishingSuccessesFamiliar" }
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "PoseidonAboutCatFamiliar01" }, Min = 2 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0305",
+					Text = "I take back all the horrid things I said regarding cats! For yours is an excellent fisherman. Fisher-{#Emph}cat? {#Prev}The point is I'd not known such creatures could appreciate the sea... which means {#Emph}they {#Prev}can be appreciated by {#Emph}me!" },
+			},
 
 			PoseidonAboutAxe01 =
 			{
@@ -1317,6 +1640,29 @@ LootSetData.Poseidon =
 					Emote = "PortraitEmoteFiredUp",
 					Text = "I must say that's a most-substantial labrys that you wield! The Moonstone Axe, Hephaestus says? Well nothing bests a trusty trident! The tongs of this little fork of mine have wrenched free many a blade!" },
 			},
+
+			PoseidonAboutSuit01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "PoseidonAboutAutomatons01", "PoseidonAboutAutomatons02", "PoseidonAboutAutomatons03" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0318",
+					Text = "Though I have wielded virtually every type of weapon in my day, I have never seen such armaments as you now use, to quite spectacular effect! You'll be an even match for our Automatons with {#Emph}that!" },
+			},
+
 
 			PoseidonAboutWater01 =
 			{
@@ -1559,8 +1905,7 @@ LootSetData.Poseidon =
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
 					{
-						Path = { "GameState", "EquippedToolName" },
-						IsAny = { "ToolFishingRod", },
+						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod", },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1585,8 +1930,7 @@ LootSetData.Poseidon =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFishingPoint" },
 					},
 					{
-						Path = { "GameState", "EquippedToolName" },
-						IsAny = { "ToolFishingRod", },
+						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod", },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1635,7 +1979,38 @@ LootSetData.Poseidon =
 				{ Cue = "/VO/Poseidon_0262",					
 					Text = "You've something freshly caught thanks to that Rod of Fishing, I can tell! I don't permit just {#Emph}anybody {#Prev}to dredge up my denizens of the deep! Yet it's almost as though they wish to hop right out of there for you!" },
 			},
+			PoseidonAboutFishing04 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "WeaponsUnlocked", "ToolFishingRod" },
+					},
+					{
+						Path = { "GameState", "FishingSuccessesManual" },
+						Comparison = ">=",
+						Value = 8,
+					},
+					{
+						PathNotEmpty = { "CurrentRun", "CurrentRoom", "FishingPointChoices" },
+					},
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsNone = { "CatFamiliar" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PoseidonGift03" }
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
+				{ Cue = "/VO/Poseidon_0319",
+					Text = "Well, hurry up and take my Boon, for there's an opportunity to use your trusty Rod of Fishing right nearby! I sense such things down in the very fiber of my being, and shall observe your catch-attempts with keen interest!" },
+			},
 			PoseidonAboutKeepsake01 =
 			{
 				PlayOnce = true,
@@ -1650,7 +2025,7 @@ LootSetData.Poseidon =
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "ForcePoseidonBoonTrait" },
+						HasAny = { "ForcePoseidonBoonKeepsake" },
 					},
 				},
 
@@ -1658,7 +2033,7 @@ LootSetData.Poseidon =
 
 				{ Cue = "/VO/Poseidon_0256",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "{#Emph}Ah, haha! {#Prev}I see the tide's come in! Well, my niece... what do you say we sweep clean through those cheerless woods of yours as might a cataclymic flood?" },
+					Text = "{#Emph}Ah, haha! {#Prev}I see the tide's come in! Well, my niece... what do you say we sweep clean through those cheerless woods of yours as might a cataclysmic flood?" },
 			},
 			PoseidonAboutKeepsake02 =
 			{
@@ -1674,7 +2049,7 @@ LootSetData.Poseidon =
 					},
 					{
 						Path = { "CurrentRun", "Hero", "TraitDictionary" },
-						HasAny = { "ForcePoseidonBoonTrait" },
+						HasAny = { "ForcePoseidonBoonKeepsake" },
 					},
 				},
 
@@ -1714,6 +2089,7 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
+					-- @ doesn't work, update with real requirements
 					{
 						Path = { "CurrentRun", "ActiveBounty" },
 						IsAny = { "PackageBountyPoseidon" },
@@ -1736,10 +2112,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0080",
@@ -1754,10 +2130,10 @@ LootSetData.Poseidon =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0081",
@@ -2047,7 +2423,14 @@ LootSetData.Poseidon =
 						PathTrue = { "GameState", "UseRecord", "NPC_Artemis_Field_01", },
 					},
 					{
+						PathFalse = { "CurrentRun", "TextLinesRecord", "ArtemisFirstMeeting", },
+					},
+					{
 						PathFalse = { "PrevRun", "TextLinesRecord", "ArtemisFirstMeeting", },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "ArtemisFirstMeeting" }, Max = 8 },
 					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2077,6 +2460,126 @@ LootSetData.Poseidon =
 					Emote = "PortraitEmoteSurprise",
 					Text = "{#Emph}Whaa--! {#Prev}So precisely did you dispatch your foes that I near mistook you for independent Artemis, my niece! I've no idea where {#Emph}that {#Prev}rascal is!" },
 			},
+
+			PoseidonAboutAthena01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Athena_01", },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "AthenaFirstMeeting" }, Max = 6 },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Poseidon_0317",
+					Text = "Wise Athena noted that the two of you have finally met! It ought have been the lot of us gathered here to welcome you with open arms, not just a bit of curt formality from that one! Not the warmest welcoming committee, is she?" },
+			},
+
+			PoseidonAboutDionysus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "UseRecord", "NPC_Dionysus_01", },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+				{ Cue = "/VO/Poseidon_0316",
+					Text = "It ought to be all-hands-on-deck here when we have the Titan's armies battering our gates! But wine-loving Dionysus, he so desires {#Emph}peace{#Prev}, yet refuses to {#Emph}fight {#Prev}for it! Oh I'd drown his sorrows myself if I but knew where he went!" },
+			},
+
+			PoseidonAboutNemesis01 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "EncountersOccurredCache", "NemesisCombatG" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "G" },
+					},
+					{
+						PathTrue = { "CurrentRun", "SpawnRecord", "NPC_Nemesis_01" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nemesis_01" }, Alive = false },
+					},
+				},
+				PlayOnce = true,
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0320",
+					Text = "A goddess of considerable stature sometimes storms down through those depths, my niece! A friend of yours perhaps? For she bears fearsome Stygius, a blade that's served our family well! No match for this {#Emph}trident{#Prev}, of course!" },
+			},
+
+			PoseidonAboutHeracles01 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "GameState", "EncountersOccurredCache" },
+						HasAny = { "HeraclesCombatP", "HeraclesCombatP2" },
+					},
+					{
+						PathTrue = { "PrevRun", "SpawnRecord", "NPC_Heracles_01" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Heracles_01" }, Alive = false },
+					},
+				},
+				PlayOnce = true,
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0321",
+					Emote = "PortraitEmoteSparkly",
+					Text = "We {#Emph}do {#Prev}appreciate your intervention, though we've others pitching in! Such as stout-shouldered Heracles, you've seen him lately, yes? Even upon our snowy mountain here! I like you better, but he's {#Emph}good{#Prev}, I'll give him that!" },
+			},
+
+			PoseidonAboutIcarus01 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "PoseidonUpgrade" }
+					},
+					{
+						Path = { "GameState", "EncountersOccurredCache" },
+						HasAny = { "IcarusCombatP", "IcarusCombatP2" },
+					},
+					{
+						PathTrue = { "PrevRun", "SpawnRecord", "NPC_Icarus_01" }
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Icarus_01" }, Alive = false },
+					},
+				},
+				PlayOnce = true,
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Poseidon_0322",
+					Text = "We've powerful defenses on the ground, but face attackers from the skies as well! Harpies, Dracons, {#Emph}more! {#Prev}Also this little winged mortal fellow buzzing all about! Brother Zeus near-bolted him before we realized that he was on {#Emph}our {#Prev}side!" },
+			},
+
 
 			-- repeatable lines
 			PoseidonChat01 =
@@ -2546,7 +3049,10 @@ LootSetData.Poseidon =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0187",
@@ -2560,7 +3066,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "PoseidonLootBought01", },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2579,7 +3088,10 @@ LootSetData.Poseidon =
 						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
 						IsNone = { "G" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2595,7 +3107,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "PoseidonLootBought01", },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -2653,14 +3168,32 @@ LootSetData.Poseidon =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinAnyTextLines = { TextLines = { "PoseidonRejection01", "PoseidonRejection02", "PoseidonRejection03", "PoseidonRejection04", "PoseidonRejection05", "PoseidonRejection07", "PoseidonRejection08", "PoseidonRejection09", "PoseidonRejection10", "PoseidonRejection11", "PoseidonRejection12" }, Count = 2 },
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"PoseidonRejection01",
+							"PoseidonRejection02",
+							"PoseidonRejection03",
+							"PoseidonRejection04",
+							"PoseidonRejection05",
+							"PoseidonRejection07",
+							"PoseidonRejection08",
+							"PoseidonRejection09",
+							"PoseidonRejection10",
+							"PoseidonRejection11",
+							"PoseidonRejection12",
+						},
+						Comparison = ">=",
+						Value = 2,
+					},
 				},
 				{ Cue = "/VO/Poseidon_0276",
 				PreLineFunctionName = "BoonInteractPresentation",
 				PreLineFunctionArgs = PresetEventArgs.RejectionBoonInteract,
 				PreLineWait = 1.0,
 					Emote = "PortraitEmoteFiredUp",
-					Text = "I see, you want my blessing still, except a little less than that one you just took! And you want it after a very rousing fight!" },
+					Text = "I {#Emph}see{#Prev}, you want my blessing {#Emph}still{#Prev}, except a little {#Emph}less {#Prev}than that one you just {#Emph}took! {#Prev}And you want it after a very rousing {#Emph}fight!" },
 			},
 			PoseidonRejection07 =
 			{
@@ -2674,7 +3207,25 @@ LootSetData.Poseidon =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinAnyTextLines = { TextLines = { "PoseidonRejection01", "PoseidonRejection02", "PoseidonRejection03", "PoseidonRejection04", "PoseidonRejection05", "PoseidonRejection06", "PoseidonRejection07", "PoseidonRejection09", "PoseidonRejection10", "PoseidonRejection11", "PoseidonRejection12" }, Count = 4 },
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"PoseidonRejection01",
+							"PoseidonRejection02",
+							"PoseidonRejection03",
+							"PoseidonRejection04",
+							"PoseidonRejection05",
+							"PoseidonRejection06",
+							"PoseidonRejection07",
+							"PoseidonRejection09",
+							"PoseidonRejection10",
+							"PoseidonRejection11",
+							"PoseidonRejection12",
+						},
+						Comparison = ">=",
+						Value = 4,
+					},
 				},
 				{ Cue = "/VO/Poseidon_0278",
 				PreLineFunctionName = "BoonInteractPresentation",
@@ -2738,7 +3289,7 @@ LootSetData.Poseidon =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2798,7 +3349,25 @@ LootSetData.Poseidon =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinAnyTextLines = { TextLines = { "PoseidonMakeUp01", "PoseidonMakeUp02", "PoseidonMakeUp03", "PoseidonMakeUp04", "PoseidonMakeUp05", "PoseidonMakeUp06", "PoseidonMakeUp07", "PoseidonMakeUp08", "PoseidonMakeUp10", "PoseidonMakeUp11", "PoseidonMakeUp12" }, Count = 5 },
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						CountOf =
+						{
+							"PoseidonMakeUp01",
+							"PoseidonMakeUp02",
+							"PoseidonMakeUp03",
+							"PoseidonMakeUp04",
+							"PoseidonMakeUp05",
+							"PoseidonMakeUp06",
+							"PoseidonMakeUp07",
+							"PoseidonMakeUp08",
+							"PoseidonMakeUp10",
+							"PoseidonMakeUp11",
+							"PoseidonMakeUp12",
+						},
+						Comparison = ">=",
+						Value = 5,
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Poseidon_0287",
@@ -2845,6 +3414,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "GameState", "UseRecord", "PoseidonUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0505", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2873,6 +3446,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "GameState", "UseRecord", "PoseidonUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0504", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2900,6 +3477,10 @@ LootSetData.Poseidon =
 					{
 						PathTrue = { "GameState", "UseRecord", "PoseidonUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_1764", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2925,6 +3506,10 @@ LootSetData.Poseidon =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "PoseidonUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_1765", UsePlayerSource = true,
@@ -2971,8 +3556,13 @@ LootSetData.Poseidon =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

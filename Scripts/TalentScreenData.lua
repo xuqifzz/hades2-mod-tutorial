@@ -4,7 +4,7 @@
 	TooltipOffsetYStart = ScreenCenterY + 350,
 	UnusableArrowAlpha = 0.2,
 	Components = {},
-	
+	OpenSound = "/SFX/SeleneMoonPickup",
 
 	GamepadNavigation =
 	{

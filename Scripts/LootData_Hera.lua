@@ -42,7 +42,6 @@ LootSetData.Hera =
 
 		Speaker = "NPC_Hera_01",
 		Portrait = "Portrait_Hera_Default_01",
-		WrathPortrait = "Portrait_Hera_Wrath_01",
 		OverlayAnim = "HeraOverlay",
 		Gender = "Female",
 		FlavorTextIds =
@@ -101,26 +100,26 @@ LootSetData.Hera =
 			"CommonGlobalDamageBoon",
 			"OmegaHeraProjectileBoon",
 
-			-- Legendary
-			"HeraManaShieldBoon",
-
 			-- Elemental
 			"ElementalRarityUpgradeBoon", 
+
+			-- Legendary
+			"AllElementalBoon",
 
 			-- Duos
 			"SuperSacrificeBoonHera",
 			"MoneyDamageBoon",
 			"KeepsakeLevelBoon",
 			"RaiseDeadBoon",
+			"ManaRestoreDamageBoon",
 			"CharmCrowdBoon",
-			"AllElementalBoon",
-			"EmptySlotDamageBoon",
+			"ManaShieldBoon",
 		},
 		Consumables = { },
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -130,7 +129,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SuperSacrificeBoonHera",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SuperSacrificeBoonHera" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0097",
@@ -148,7 +150,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SuperSacrificeBoonHera",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SuperSacrificeBoonHera" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0099",
@@ -165,7 +170,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MoneyDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MoneyDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0101",
@@ -183,7 +191,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "RaiseDeadBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "RaiseDeadBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0103",
@@ -200,7 +211,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "KeepsakeLevelBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "KeepsakeLevelBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0107",
@@ -217,7 +231,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CharmCrowdBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "CharmCrowdBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0109",
@@ -234,7 +251,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EmptySlotDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaShieldBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0111",
@@ -251,7 +271,10 @@ LootSetData.Hera =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "AllElementalBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaRestoreDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0105",
@@ -339,9 +362,12 @@ LootSetData.Hera =
 						Path = { "CurrentRun", "Hero", "LastStands", },
 						UseLength = true,
 						Comparison = "<=",
-						Value = 0,
+						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -363,9 +389,12 @@ LootSetData.Hera =
 						Path = { "CurrentRun", "Hero", "LastStands", },
 						UseLength = true,
 						Comparison = "<=",
-						Value = 0,
+						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -387,9 +416,12 @@ LootSetData.Hera =
 						Path = { "CurrentRun", "Hero", "LastStands", },
 						UseLength = true,
 						Comparison = "<=",
-						Value = 0,
+						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -411,9 +443,12 @@ LootSetData.Hera =
 						Path = { "CurrentRun", "Hero", "LastStands", },
 						UseLength = true,
 						Comparison = "<=",
-						Value = 0,
+						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -792,6 +827,32 @@ LootSetData.Hera =
 					Text = "No surprise that Strife Incarnate recently decided to show up, as she is wont to do. Eris made good sport of us before! Must think we're fools and easy prey. You'll correct her, yes?" },
 			},
 
+			HeraAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HeraUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathFalse = { "PrevRun", "EnemyKills", "Prometheus" },
+					},
+					{
+						Path = { "GameState", "RoomsEntered", "P_Boss01" },
+						Comparison = ">",
+						Value = 1,
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hera_0163",
+					Text = "First Chronos and now Prometheus are back to haunt us, all because we failed to get rid of them back when we had a chance. Who next, I wonder? You witches really need to come up with a means to dispense with immortals for good." },
+			},
+
 			HeraAboutFates01 =
 			{
 				PlayOnce = true,
@@ -982,7 +1043,10 @@ LootSetData.Hera =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAll = { "HeraGift04", "MorosTaverna01", "NemesisTaverna01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "MorosTaverna01", "NemesisTaverna01" }, Count = 8 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosTaverna01", "NemesisTaverna01" }, Min = 8 },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1099,7 +1163,10 @@ LootSetData.Hera =
 					},
 					-- @ update based on last boss chamber
 					{
-						PathTrue = { "PrevRun", "RoomCountCache", "O_Boss01" },
+						PathTrue = { "PrevRun", "RoomCountCache", "P_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "P" },
 					},
 				},
 
@@ -1125,7 +1192,7 @@ LootSetData.Hera =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0096",
 					
-					Text = "Something about this night feels very odd, and in my experience, such premonitions are never to be ignored. Perhaps the strange forces at work are merely due to your invocations! Just do be careful, girl." },
+					Text = "Something about this night feels very odd; and in my experience, such premonitions are {#Emph}never {#Prev}to be ignored. Perhaps the strange forces at work are merely due to your invocations! Just... do be careful, girl." },
 			},
 
 			HeraAboutDevotionTest01 =
@@ -1207,10 +1274,10 @@ LootSetData.Hera =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HeraUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0053",
@@ -1226,10 +1293,10 @@ LootSetData.Hera =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HeraUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0054",
@@ -2073,7 +2140,10 @@ LootSetData.Hera =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0086",
@@ -2087,7 +2157,10 @@ LootSetData.Hera =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HeraLootBought01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0087",
@@ -2101,7 +2174,10 @@ LootSetData.Hera =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0178",
@@ -2118,7 +2194,10 @@ LootSetData.Hera =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hera_0179",
@@ -2252,7 +2331,7 @@ LootSetData.Hera =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2337,6 +2416,10 @@ LootSetData.Hera =
 					{
 						PathTrue = { "GameState", "UseRecord", "HeraUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0506", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2362,6 +2445,10 @@ LootSetData.Hera =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HeraUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				PlayOnce = true,
@@ -2390,6 +2477,10 @@ LootSetData.Hera =
 					{
 						PathTrue = { "GameState", "UseRecord", "HeraUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				PlayOnce = true,
 				{ Cue = "/VO/MelinoeField_1771", UsePlayerSource = true,
@@ -2416,6 +2507,10 @@ LootSetData.Hera =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HeraUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				PlayOnce = true,
@@ -2463,8 +2558,13 @@ LootSetData.Hera =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

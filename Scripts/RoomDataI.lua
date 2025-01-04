@@ -43,6 +43,8 @@ RoomSetData.I =
 		},
 
 		TimeChallengeEncounterOptions = { "TimeChallengeI" },
+		PerfectClearEncounterOptions = { "PerfectClearChallengeI" },
+		EliteChallengeEncounterOptions = { "EliteChallengeI" },
 
 		-- LocationText = "BiomeI",
 		SaveProfileLocationText = "Location_BiomeI",
@@ -52,6 +54,13 @@ RoomSetData.I =
 		WellShopSpawnChance = 0.08,
 
 		DoorEntranceAnimation = { DoorType = "CWTartarusEntryDoor", CloseAnimation = "CWTartarusExitDoorClose", OpenedAnimation = "CWTartarusExitDoorOpened", Delay = 0.5 },
+
+
+		SwapAnimations =
+		{
+			["SuitExhaustSprintDust"] = "SuitExhaustSprintDust_CWT",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
+		},
 
 		SwapSounds =
 		{
@@ -242,7 +251,7 @@ RoomSetData.I =
 							FunctionName = "GenericPresentation",
 							Args = 
 							{
-								VoiceLines = GlobalVoiceLines.ErisNotSightedVoiceLines,
+								VoiceLines = { GlobalVoiceLines = "ErisNotSightedVoiceLines" },
 							},
 						},
 					},
@@ -336,9 +345,15 @@ RoomSetData.I =
 				SetupGameStateRequirements =
 				{
 					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "Inspect_I_Intro_02" },
 					},
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -365,9 +380,12 @@ RoomSetData.I =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -400,8 +418,8 @@ RoomSetData.I =
 
 		EnterVoiceLines =
 		{
-			[1] = GlobalVoiceLines.StartPackagedBountyRunVoiceLines,
-			[2] = GlobalVoiceLines.BiomeStateChangeStartVoiceLines,
+			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -492,7 +510,6 @@ RoomSetData.I =
 		EntranceDirection = "LeftRight",
 		FlipHorizontalChance = 0.0,
 		EndMusicOnEnter = true,
-		-- EndMusicOnEnterDuration = 5.0,
 
 		StartThreadedEvents =
 		{
@@ -640,7 +657,10 @@ RoomSetData.I =
 			{
 				{
 				},
-				RequiredMinHealthFraction = 0.2,
+				{
+					FunctionName = "RequiredHealthFraction",
+					FunctionArgs = { Comparison = ">=", Value = 0.2, },
+				},
 			},
 
 			{ Cue = "/VO/MelinoeField_1291", Text = "Down there...!", PlayFirst = true },
@@ -697,7 +717,6 @@ RoomSetData.I =
 		BlockCameraReattach = true,
 		ZoomFraction = 0.70,
 
-		ToulaFishingTeleportId = 704921,
 		IgnoreFishingCameraClamps = true,
 
 		Ambience = "/Ambience/DemoEndAmbience",
@@ -716,6 +735,8 @@ RoomSetData.I =
 					DelayedStart = true,
 				},
 			},
+			--[[
+			-- Fear not; I shall have my revenge, in Time. --C.
 			{
 				FunctionName = "SetupPauseMenuTakeover",
 				GameStateRequirements =
@@ -723,7 +744,7 @@ RoomSetData.I =
 					{
 						Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
 						Comparison = ">",
-						Value = 0.1,
+						Value = 0,
 					},
 					{
 						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradePauseChronosFight" },
@@ -825,6 +846,7 @@ RoomSetData.I =
 					},
 				},
 			},
+			]]
 			{
 				FunctionName = "SetupPauseMenuTakeover",
 				GameStateRequirements =
@@ -832,11 +854,13 @@ RoomSetData.I =
 					{
 						Path = { "CurrentRun", "BossHealthBarRecord", "Chronos" },
 						Comparison = ">",
-						Value = 0.1,
+						Value = 0,
 					},
+					--[[
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePauseChronosFight" },
 					},
+					]]
 				},
 				Args =
 				{
@@ -846,12 +870,320 @@ RoomSetData.I =
 					{
 						Queue = "Interrupt",
 						{
-							RandomRemaining = true,
-							SuccessiveChanceToPlay = 0.66,
-							GameStateRequirements =
+							-- these lines first require longer lines below to play
 							{
-								-- None
+								BreakIfPlayed = true,
+								RandomRemaining = true,
+								SuccessiveChanceToPlayAll = 0.66,
+								GameStateRequirements =
+								{
+									{
+										Path = { "GameState", "SpeechRecord" },
+										HasAll =
+										{
+											"/VO/Chronos_0744",
+										},
+									}
+								},
+
+								{ Cue = "/VO/Chronos_0746", Text = "Time Out..." },
+								{ Cue = "/VO/Chronos_0747", Text = "Time Out!" },
+								{ Cue = "/VO/Chronos_0748", Text = "Certainly, Time Out!",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0746",
+												"/VO/Chronos_0747",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0749", Text = "A Time-Out? Why not?",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0746",
+												"/VO/Chronos_0747",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0750", Text = "Another Time-Out?",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0746",
+												"/VO/Chronos_0747",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0751", Text = "{#Emph}Ah yes! {#Prev}Another Time-Out!",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0746",
+												"/VO/Chronos_0747",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0752", Text = "{#Emph}Another {#Prev}Time-Out?!",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0751",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0753", Text = "If you so insist." },
+								{ Cue = "/VO/Chronos_0754", Text = "I shall allow it once again." },
+								{ Cue = "/VO/Chronos_0755", Text = "What a surprise." },
+								{ Cue = "/VO/Chronos_0756", Text = "Stall all you like." },
+								{ Cue = "/VO/Chronos_0757", Text = "Oh by all means!" },
+								{ Cue = "/VO/Chronos_0758", Text = "{#Emph}Another {#Prev}break, {#Emph}of course!" },
+								{ Cue = "/VO/Chronos_0759", Text = "Another interruption?" },
+								{ Cue = "/VO/Chronos_0760", Text = "Again?" },
+								{ Cue = "/VO/Chronos_0761", Text = "Again, truly?",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0760",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0762", Text = "What, again?",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0760",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0763", Text = "{#Emph}Eugh...",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0762",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0764", Text = "{#Emph}Urrghh...",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0762",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0765", Text = "{#Emph}Eugh{#Prev}, go on.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0762",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0766", Text = "Take your moment, then.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0765",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0767", Text = "Just let me know!" },
+								{ Cue = "/VO/Chronos_0768", Text = "Go do your business." },
+								{ Cue = "/VO/Chronos_0769", Text = "Then we wait." },
+								{ Cue = "/VO/Chronos_0593", Text = "Fine..." },
+								{ Cue = "/VO/Chronos_0770", Text = "Fine." },
+								{ Cue = "/VO/Chronos_0771", Text = "{#Emph}Fine!" },
+								{ Cue = "/VO/Chronos_0772", Text = "See if I care.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0771",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0773", Text = "{#Emph}Now? {#Prev}Fine.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0771",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0774", Text = "Yes, yes..." },
+								{ Cue = "/VO/Chronos_0775", Text = "Appalling, really.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0771",
+											},
+										}
+									}
+								},
+								{ Cue = "/VO/Chronos_0600", Text = "If it must be..." },
+								{ Cue = "/VO/Chronos_0587", Text = "{#Emph}Rngh{#Prev}, oh very well." },
+								{ Cue = "/VO/Chronos_0590", Text = "{#Emph}Eugh...!" },
+								{ Cue = "/VO/Chronos_0591", Text = "Then let us wait..." },
+								{ Cue = "/VO/Chronos_0592", Text = "{#Emph}Again...?",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0771",
+											},
+										}
+									}
+								},
 							},
+							{
+								-- this should play first for most
+								PlayOnce = true,
+								BreakIfPlayed = true,
+								GameStateRequirements =
+								{
+									-- None
+								},
+
+								{ Cue = "/VO/Chronos_0731", Text = "{#Emph}Excuse me? {#Prev}Time does not stop at your behest, it only stops at mine! {#Emph}Oh {#Prev}but by all means, go attend whatever urgent matter requires you to put our clash on hold, you {#Emph}laggard.", TextLimit = 300,
+									GameStateRequirements =
+									{
+										-- back compat
+										{
+											PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradePauseChronosFight" },
+										},
+									},
+								},
+							},
+							-- these longer lines should start to repeat once the shorter ones have played
+							{
+								BreakIfPlayed = true,
+								RandomRemaining = true,
+								GameStateRequirements =
+								{
+									-- None
+								},
+
+								{ Cue = "/VO/Chronos_0732", Text = "{#Emph}Time {#Prev}can be put on hold by {#Emph}me{#Prev}, not {#Emph}you." },
+								{ Cue = "/VO/Chronos_0733", Text = "{#Emph}I {#Prev}am in control, not {#Emph}you. {#Prev}But {#Emph}fine." },
+								{ Cue = "/VO/Chronos_0734", Text = "I feel oddly obligated to comply..." },
+								{ Cue = "/VO/Chronos_0735", Text = "I shall be charitable in this one regard." },
+								{ Cue = "/VO/Chronos_0736", Text = "By all means, take all the {#Emph}Time {#Prev}that you require!" },
+								{ Cue = "/VO/Chronos_0737", Text = "Remember that {#Emph}Time {#Prev}does not stop merely for you." },
+								{ Cue = "/VO/Chronos_0738", Text = "I shall allow this, but some evening, I may not...",
+									GameStateRequirements =
+									{
+										{
+											PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_0734" }
+										},
+										{
+											PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradePauseChronosFight" }
+										},
+									},
+								},
+								{ Cue = "/VO/Chronos_0739", Text = "Do you require a little breathing room, perhaps?" },
+								{ Cue = "/VO/Chronos_0740", Text = "Is our confrontation not sufficiently urgent for you?" },
+								{ Cue = "/VO/Chronos_0741", Text = "I shall be waiting for your {#Emph}safe return." },
+								{ Cue = "/VO/Chronos_0742", Text = "You need a bit of {#Emph}Time? {#Prev}Of course." },
+								{ Cue = "/VO/Chronos_0743", Text = "You prolong the inevitable." },
+								{ Cue = "/VO/Chronos_0745", Text = "Would you like a Time-Out?" },
+								{ Cue = "/VO/Chronos_0586", Text = "Oh, {#Emph}fine. {#Prev}I shall allow it, I suppose..." },
+								{ Cue = "/VO/Chronos_0589", Text = "You know what? Have it your way! {#Emph}Fine." },
+								{ Cue = "/VO/Chronos_0588", Text = "I shall abide what doubtless is a necessary bathroom break.",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											CountOf =
+											{
+												"/VO/Chronos_0732",
+												"/VO/Chronos_0733",
+												"/VO/Chronos_0734",
+												"/VO/Chronos_0735",
+												"/VO/Chronos_0736",
+												"/VO/Chronos_0737",
+												-- "/VO/Chronos_0738",
+												"/VO/Chronos_0739",
+												"/VO/Chronos_0740",
+												"/VO/Chronos_0741",
+												"/VO/Chronos_0742",
+											},
+											Comparison = ">=",
+											Value = 4,
+										},
+									}
+								},
+								{ Cue = "/VO/Chronos_0744", Text = "{#Emph}Please, Chronos, I need but a moment!",
+									GameStateRequirements =
+									{
+										{
+											Path = { "GameState", "SpeechRecord" },
+											HasAll =
+											{
+												"/VO/Chronos_0588",
+											},
+										}
+									}
+								},
+							},
+
+							--[[
 
 							{ Cue = "/VO/Chronos_0594_B", Text = "Again, with this foolishness...? Wait, what? Stuck! {#Emph}How?! {#Prev}Impossible...", PlayFirst = true, PlayOnce = true },
 							{ Cue = "/VO/Chronos_0597", Text = "{#Emph}Rnngghh..." },
@@ -887,6 +1219,7 @@ RoomSetData.I =
 							{ Cue = "/VO/Chronos_0591", Text = "Then let us wait..." },
 							{ Cue = "/VO/Chronos_0592", Text = "{#Emph}Again...?" },
 							{ Cue = "/VO/Chronos_0593", Text = "Fine..." },
+							]]--
 						},
 					},
 				},
@@ -1049,6 +1382,124 @@ RoomSetData.I =
 				{ Cue = "/VO/Chronos_0018", Text = "You waste what precious time remains to you." },
 				{ Cue = "/VO/Chronos_0020", Text = "The Fates cannot help you now..." },
 				{ Cue = "/VO/Chronos_0030", Text = "Do not presume to test my patience here." },
+				{ Cue = "/VO/Chronos_0798", Text = "You look a bit unwell.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_0163" },
+						},
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = "<=", Value = 0.5, },
+						},
+					}
+				},
+				{ Cue = "/VO/Chronos_0799", Text = "Returned again, I see." },
+				{ Cue = "/VO/Chronos_0800", Text = "And not a moment late." },
+				{ Cue = "/VO/Chronos_0801", Text = "You are, at least, precise." },
+				{ Cue = "/VO/Chronos_0802", Text = "My granddaughter." },
+				{ Cue = "/VO/Chronos_0803", Text = "Returned from aboveground?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Chronos_0163" },
+						},
+						{
+							PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" }
+						},
+					},
+				},
+				{ Cue = "/VO/Chronos_0804", Text = "How predictable." },
+				{ Cue = "/VO/Chronos_0805", Text = "My, my..." },
+				{ Cue = "/VO/Chronos_0806", Text = "Still in that dress?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "SpawnRecord", "NPC_Chronos_01" }
+						},
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAny = { "/VO/Chronos_0794", "/VO/Chronos_0792" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/Chronos_0807", Text = "Your silk is still intact?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAny = { "/VO/Chronos_0794", "/VO/Chronos_0792" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/Chronos_0808", Text = "That silk lasted this long?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAny = { "/VO/Chronos_0794", "/VO/Chronos_0792" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
+				{ Cue = "/VO/Chronos_0809", Text = "Your silk has served you well.",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "SpeechRecord" },
+							HasAny = { "/VO/Chronos_0794", "/VO/Chronos_0792" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					}
+				},
 				{ Cue = "/VO/Chronos_0196", Text = "Time again, is it?",
 					GameStateRequirements =
 					{
@@ -1118,7 +1569,7 @@ RoomSetData.I =
 		IntroSequenceDuration = 0.9,
 
 		SkipLastKillPresentation = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 0.0,
 		SecretSpawnChance = 0.0,
 	},
@@ -1140,7 +1591,10 @@ RoomSetData.I =
 
 		GameStateRequirements =
 		{
-			RequiredMinExits = 2,
+			{
+				FunctionName = "RequiredMinExits",
+				FunctionArgs = { Count = 2 },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = "<=",
@@ -1151,10 +1605,11 @@ RoomSetData.I =
 				HasNone = { "I_Shop01", "I_Story01", "I_Reprieve01", "I_MiniBoss01", "I_MiniBoss02" },
 			},
 			{
-				Path = { "MapState", "OfferedExitDoors" },
-				UseLength = true,
-				Comparison = ">",
-				Value = 1,
+				FunctionName = "RequiredOfferedDoorWitRoomSetName",
+				FunctionArgs =
+				{
+					RoomSetName = "I",
+				},
 			},
 		},
 
@@ -1237,6 +1692,16 @@ RoomSetData.I =
 		PickaxePointRequirements = { },
 		ExorcismPointRequirements = { },
 
+		-- This room actually has water, so don't play the sand fishing SFX
+		SwapSounds =
+		{
+			["/Leftovers/SFX/FootstepsWheat2Small"] = "/SFX/Player Sounds/FootstepsHardSurface",
+			["/Leftovers/SFX/FootstepsWheat"] = "/SFX/Player Sounds/FootstepsHardSurfaceRun",
+		},
+		FishingStartSound = nil,
+		FishingDunkSound = nil,
+		FishingFailSound = nil,
+
 		StartThreadedEvents =
 		{
 			{ FunctionName = "ShadeMercManager", GameStateRequirements = { ChanceToPlay = 1.0 }, Args = { StartingCountMin = 24, StartingCountMax = 36, ObjectNames = { "ShadeMerc" }, MaxActive = 36 } },
@@ -1248,7 +1713,6 @@ RoomSetData.I =
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeTartarusReprieve" },
 			},
-			RequiredMinCompletedRuns = 0,
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
@@ -1259,10 +1723,11 @@ RoomSetData.I =
 				HasNone = { "I_Shop01", "I_Story01", "I_Reprieve01", "I_MiniBoss01", "I_MiniBoss02" },
 			},
 			{
-				Path = { "MapState", "OfferedExitDoors" },
-				UseLength = true,
-				Comparison = ">",
-				Value = 1,
+				FunctionName = "RequiredOfferedDoorWitRoomSetName",
+				FunctionArgs =
+				{
+					RoomSetName = "I",
+				},
 			},
 		},
 
@@ -1337,7 +1802,7 @@ RoomSetData.I =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.CombatResolvedVoiceLines,
+			[1] = { GlobalVoiceLines = "CombatResolvedVoiceLines" },
 		},
 
 	},
@@ -1361,14 +1826,9 @@ RoomSetData.I =
 	I_Combat02 =
 	{
 		InheritFrom = { "BaseI", "I_BaseCombat" },
-		DebugOnly = true,
 		HasFishingPoint = false,
 
-		EntranceDirection = "Right",
-
-		ZoomFraction = 0.85,
-		ZoomFractionSwitch = 0.9,
-		RushMaxRangeOverride = 525,
+		EntranceDirection = "Left",
 	},
 
 	I_Combat03 =
@@ -1521,16 +1981,24 @@ RoomSetData.I =
 		EntranceDirection = "Right",
 	},
 
-	-- I_Combat15
-
-	I_Combat16 =
+	I_Combat15 =
 	{
-		InheritFrom = { "BaseI", "I_BaseCombat" },
-		DebugOnly = true,
+		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		
 		HasFishingPoint = false,
 
 		EntranceDirection = "Left",
+	},
+
+	I_Combat16 =
+	{
+		InheritFrom = { "BaseI", "I_BaseCombat" },
+		
+		HasFishingPoint = false,
+
+		EntranceDirection = "Left",
+
+		RushMaxRangeOverride = 475,
 	},
 
 	I_Combat17 =
@@ -1578,7 +2046,6 @@ RoomSetData.I =
 	{
 		InheritFrom = { "BaseI", "I_BaseCombat", "I_TwoExits" },
 		HasFishingPoint = false,
-		DebugOnly = true,
 
 		EntranceDirection = "LeftRight",
 
@@ -1611,6 +2078,13 @@ RoomSetData.I =
 		},
 	},
 
+	I_Combat23 =
+	{
+		InheritFrom = { "BaseI", "I_BaseCombat" },
+
+		EntranceDirection = "LeftRight",
+	},
+
 	I_MiniBoss01 =
 	{
 		InheritFrom = { "BaseI", },
@@ -1626,7 +2100,9 @@ RoomSetData.I =
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "I_MiniBoss02" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "I_MiniBoss02" },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
@@ -1637,10 +2113,11 @@ RoomSetData.I =
 				HasNone = { "I_Shop01", "I_Story01", "I_Reprieve01", "I_MiniBoss01", "I_MiniBoss02" },
 			},
 			{
-				Path = { "MapState", "OfferedExitDoors" },
-				UseLength = true,
-				Comparison = ">",
-				Value = 1,
+				FunctionName = "RequiredOfferedDoorWitRoomSetName",
+				FunctionArgs =
+				{
+					RoomSetName = "I",
+				},
 			},
 		},
 
@@ -1693,7 +2170,7 @@ RoomSetData.I =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		ExitsUnlockedDistanceTriggers =
@@ -1719,7 +2196,9 @@ RoomSetData.I =
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "I_MiniBoss01" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "I_MiniBoss01" },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
@@ -1730,10 +2209,11 @@ RoomSetData.I =
 				HasNone = { "I_Shop01", "I_Story01", "I_Reprieve01", "I_MiniBoss01", "I_MiniBoss02" },
 			},
 			{
-				Path = { "MapState", "OfferedExitDoors" },
-				UseLength = true,
-				Comparison = ">",
-				Value = 1,
+				FunctionName = "RequiredOfferedDoorWitRoomSetName",
+				FunctionArgs =
+				{
+					RoomSetName = "I",
+				},
 			},
 		},
 
@@ -1772,7 +2252,7 @@ RoomSetData.I =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		ExitsUnlockedDistanceTriggers =
@@ -1785,6 +2265,16 @@ RoomSetData.I =
 		},
 	},
 
+	I_MiniBoss03 =
+	{
+		InheritFrom = { "BaseI", "I_BaseCombat" },
+		DebugOnly = true,
+		
+		HasFishingPoint = false,
+
+		EntranceDirection = "Right",
+	},
+
 	-- NPC room layout 1
 	I_Story01 =
 	{
@@ -1795,6 +2285,7 @@ RoomSetData.I =
 		RichPresence = "#RichPresence_IStory01",
 		HarvestBlockedText = "ExitBlockedByNPC",
 		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
 
 		HasFishingPoint = false,
 
@@ -1813,13 +2304,14 @@ RoomSetData.I =
 				HasNone = { "I_Shop01", "I_Story01", "I_Reprieve01", "I_MiniBoss01", "I_MiniBoss02" },
 			},
 			{
-				Path = { "MapState", "OfferedExitDoors" },
-				UseLength = true,
-				Comparison = ">",
-				Value = 1,
+				FunctionName = "RequiredOfferedDoorWitRoomSetName",
+				FunctionArgs =
+				{
+					RoomSetName = "I",
+				},
 			},
 			{
-				PathFalse = { "CurrentRun", "ActiveBounty", },
+				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
 		},
 
@@ -1929,7 +2421,10 @@ RoomSetData.I =
 			{ Cue = "/VO/MelinoeField_1528", Text = "Cerberus, take care of him, OK...?",
 				GameStateRequirements =
 				{
-					AreIdsAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 506405 }, },
+					},
 				},
 			},
 			{ Cue = "/VO/MelinoeField_1529", Text = "You honor me." },

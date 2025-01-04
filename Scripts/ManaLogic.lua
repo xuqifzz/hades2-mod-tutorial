@@ -24,27 +24,32 @@
 		if weaponData.DrainManaEffect and CurrentRun.Hero.ManaDrain[weaponData.DrainManaEffect.Name] then
 			manaLimit = nil
 		end
+		if weaponData.SkipManaDisableCheck then
+			manaLimit = nil
+		end
 		if manaLimit then
 			weaponManaToCheck[weaponName] = manaLimit
 		end
 	end
-	for i, traitData in pairs(CurrentRun.Hero.Traits ) do
+	for i, traitData in pairs( CurrentRun.Hero.Traits ) do
 		if traitData.Slot == "Spell" then
 			local weaponName = traitData.PreEquipWeapons[1]
 			local weaponData = GetWeaponData( CurrentRun.Hero, weaponName )
-			local manaLimit =  GetManaCost( weaponData, true )
-			if weaponData.CostPerSecond and CurrentRun.Hero.ManaDrain[weaponData.Name] then
-				manaLimit = nil
-			end
-			if weaponData.DrainManaEffect and CurrentRun.Hero.ManaDrain[weaponData.DrainManaEffect.Name] then
-				manaLimit = nil
-			end
-			if manaLimit then
-				weaponManaToCheck[weaponName] = manaLimit
-			end
-			local manaReservationCost = GetManaReservationCost( weaponData ) 
-			if manaReservationCost and manaReservationCost > 0 then
-				weaponReservationManaToCheck[weaponName] = manaReservationCost
+			if weaponData ~= nil then
+				local manaLimit =  GetManaCost( weaponData, true )
+				if weaponData.CostPerSecond and CurrentRun.Hero.ManaDrain[weaponData.Name] then
+					manaLimit = nil
+				end
+				if weaponData.DrainManaEffect and CurrentRun.Hero.ManaDrain[weaponData.DrainManaEffect.Name] then
+					manaLimit = nil
+				end
+				if manaLimit then
+					weaponManaToCheck[weaponName] = manaLimit
+				end
+				local manaReservationCost = GetManaReservationCost( weaponData ) 
+				if manaReservationCost and manaReservationCost > 0 then
+					weaponReservationManaToCheck[weaponName] = manaReservationCost
+				end
 			end
 		end
 	end
@@ -125,7 +130,7 @@ function GetManaCost( weaponData, useRequiredMana, args )
 	local manaCost = 0
 	local requiredMana = 0
 	local isExWeapon = false
-	if args.ManaCostOverride then
+	if args.ManaCostOverride and not args.TraitSource then
 		isExWeapon = true
 	end
 	if WeaponData[weaponName] and WeaponData[weaponName].ManaCost and not Contains(WeaponSets.HeroSpellWeapons, weaponName) then
@@ -140,7 +145,7 @@ function GetManaCost( weaponData, useRequiredMana, args )
 	local manaModifiers = GetHeroTraitValues("ManaCostModifiers")
 	local manaMultiplier = 1
 	for i, data in pairs(manaModifiers) do
-		local validWeapon = data.WeaponNamesLookup == nil or data.WeaponNamesLookup[weaponData.Name]
+		local validWeapon = data.WeaponNamesLookup == nil or data.WeaponNamesLookup[weaponName]
 		local validEx = data.ExWeapons == nil or isExWeapon
 		if validWeapon and validEx then
 			if data.ManaCostAdd then
@@ -204,6 +209,7 @@ function ManaDelta( delta, args )
 	if CurrentRun.Hero.Mana < GetHeroMaxAvailableMana() and delta > 0 and not args.Silent then
 		ManaRegenPresentation(delta)
 	end
+	local startMana = CurrentRun.Hero.Mana
 	CurrentRun.Hero.Mana = math.ceil( CurrentRun.Hero.Mana + delta )
 	if CurrentRun.Hero.Mana > GetHeroMaxAvailableMana() then
 		CurrentRun.Hero.Mana = GetHeroMaxAvailableMana()
@@ -211,11 +217,16 @@ function ManaDelta( delta, args )
 	if CurrentRun.Hero.Mana < 0 then
 		CurrentRun.Hero.Mana = 0
 	elseif CurrentRun.Hero.Mana >= 0 and delta < 0 then
-		if not args.IgnoreSpend then
+		if not args.IgnoreSpend or args.ManaDrain then
 			CheckOnManaSpendPowers( delta, args )
 		end
 		killTaggedThreads("ManaRegenInterval")
 		thread( ManaRegen )
+	elseif delta > 0 then
+		local gainedMana = CurrentRun.Hero.Mana - startMana
+		if gainedMana > 0 and SessionMapState.TrackManaRegen then
+			IncrementTableValue( SessionMapState, "CumulativeManaRegen", gainedMana )
+		end
 	end
 	if HeroHasTrait( "ChaosManaFocusCurse" ) and delta < 0 and not args.ReserveMana and not args.IgnoreSpend then
 		ReserveMana( math.abs(delta), "ManaFocusCurse" )
@@ -245,6 +256,7 @@ function ManaRegenSetup( hero, args )
 end
 
 function CheckOnManaSpendPowers( delta, args )
+	local appliedFunctionNames = {}
 	for _, actionData in pairs( GetHeroTraitValues( "OnManaSpendAction")) do
 		if actionData.EffectName ~= nil or actionData.EffectNames ~= nil then
 			local effectNames = ShallowCopyTable( actionData.EffectNames ) or {}
@@ -259,11 +271,14 @@ function CheckOnManaSpendPowers( delta, args )
 				ApplyEffect({ DestinationId = CurrentRun.Hero.ObjectId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
 			end
 		end
-		if actionData.FunctionName then
-			CallFunctionName( actionData.FunctionName, actionData.FunctionArgs, delta)
+		if actionData.FunctionName and not appliedFunctionNames[actionData.FunctionName] and ( not args.ManaDrain or actionData.ManaDrainTriggers ) then
+			CallFunctionName( actionData.FunctionName, actionData.FunctionArgs, delta, args)
+			appliedFunctionNames[actionData.FunctionName] = true
 		end
 	end
-	ChargeSpell( delta, args )
+	if not args.ManaDrain then
+		ChargeSpell( delta, args )
+	end
 end
 
 function ManaRegen()
@@ -304,7 +319,7 @@ function ManaRegen()
 			manaRegenPerSecond = 0
 		end
 		local encounter = CurrentRun.CurrentRoom.Encounter
-		if encounter.DelayedStart and not encounter.StartTime and not encounter.NeverDelayManaRegen then
+		if encounter.DelayedStart and not encounter.StartTime and not encounter.NeverDelayManaRegen and not encounter.SkipEncounterStart then
 			manaRegenPerSecond = 0
 		end
 		if manaRegenPerSecond > 0 and IsEmpty(CurrentRun.Hero.ManaDrain) then
@@ -363,13 +378,13 @@ function GetHeroMaxAvailableMana()
 
 	local mana = CurrentRun.Hero.MaxMana
 	for source, amount in pairs( CurrentRun.Hero.ReserveManaSources ) do
-		mana = mana - amount
+		mana = mana - amount * GetTotalHeroTraitValue("ReserveManaMultiplier", { IsMultiplier = true })
 	end
 	if mana < 0 then
 		mana = 0
 	end
 	
-	return mana
+	return math.ceil( mana )
 end
 
 function InCastCircleManaRegenSetup( hero, args )

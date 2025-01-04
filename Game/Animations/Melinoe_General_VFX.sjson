@@ -1,0 +1,1843 @@
+{ Animations = [
+
+	{
+		Name = "LaurelCindersSpawner"
+		ChildAnimation = "LaurelCindersSpawnerAmbient"
+		FilePath = "Dev\blank_invisible"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hair_01_L_JNT"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		VisualFx = "LaurelCinders"
+		VisualFxDistanceMax = 140.0
+		VisualFxDistanceMin = 60.0
+		VisualFxFrameCap = 1
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		CreateAnimations =
+		[
+			{ Name = "MelArmGlow" }
+		]
+	}
+
+	
+	{
+		Name = "LaurelCinders"
+		FilePath = "Animations\LaurelCinders\LaurelCinders"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LaurelBurnA" }
+			{ Name = "LaurelBurnB" }
+			{ Name = "LaurelBurnC" }
+			{ Name = "LaurelBurnD" }
+		]
+	}
+	
+	{
+		Name = "LaurelCindersAmbient"
+		FilePath = "Animations\LaurelCinders\LaurelCinders"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "LaurelBurnA_Ambient" }
+			{ Name = "LaurelBurnB_Ambient" }
+			{ Name = "LaurelBurnC_Ambient" }
+			{ Name = "LaurelBurnD_Ambient" }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnA"
+		FilePath = "Fx\LaurelBurnIrisA\LaurelBurnIrisA"
+		GroupName = "Standing"
+		AngleChangeAcceleration = -120.0
+		AngleChangeSpeedMax = -90.0
+		AngleChangeSpeedMin = 90.0
+		AngleFromOwner = "Take"
+		EaseOut = 1.0
+		EndFrame = 28
+		NumFrames = 28
+		RandomPlaySpeedMax = 40.0
+		RandomPlaySpeedMin = 24.0
+		StartFrame = 1
+		EndOffsetY = 50.0
+		RandomOffsetX = 20.0
+		RandomOffsetY = 10.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortFromOwner = "Take"
+		SortMode = "FromParent"
+		Acceleration = -60.0
+		Gravity = -75.0
+		VelocityMax = 220.0
+		VelocityMin = 5.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 400.0
+		RandomRotationSpeedMin = -400.0
+		ScaleMax = 0.5
+		ScaleMin = 0.3
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnB"
+		InheritFrom = "LaurelBurnA"
+		FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnC"
+		InheritFrom = "LaurelBurnA"
+		FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnD"
+		InheritFrom = "LaurelBurnA"
+		FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+			
+	{
+		Name = "LaurelBurnA_Ambient"
+		InheritFrom = "LaurelBurnA"
+		AngleMin = 180
+		AngleMax = 181
+		AngleFromOwner = "Take"
+		Gravity = 0
+		StartOffsetY = 0
+		EndOffsetY = 1
+		Acceleration = -50.0
+		VelocityMax = 65.0
+		VelocityMin = 50.0
+		StartScale = 0.5
+		EndScale = 1.5
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnB_Ambient"
+		InheritFrom = "LaurelBurnA_Ambient"
+		FilePath = "Fx\LaurelBurnIrisB\LaurelBurnIrisB"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnC_Ambient"
+		InheritFrom = "LaurelBurnA_Ambient"
+		FilePath = "Fx\LaurelBurnIrisC\LaurelBurnIrisC"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+	
+	{
+		Name = "LaurelBurnD_Ambient"
+		InheritFrom = "LaurelBurnA_Ambient"
+		FilePath = "Fx\LaurelBurnIrisD\LaurelBurnIrisD"
+		Slides =
+		[
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 15 RandomDurationFramesMin = 5 }
+			/*Frame 1*/
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			/*Frame 20*/
+
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+			{ DurationFrames = 1 RandomDurationFramesMax = 2 RandomDurationFramesMin = 1 }
+		]
+	}
+
+	{
+		Name = "LaurelCindersSpawnerAmbient"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "LaurelCindersAmbient"
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:hair_01_L_JNT"
+		VisualFxIntervalMax = 0.5
+		VisualFxIntervalMin = 0.25
+		VisualFxFrameCap = 1
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+	}
+
+	{
+		Name = "LaurelCindersSpawner_Young"
+		InheritFrom = "LaurelCindersSpawner"
+		Scale = 0.5
+		ChildAnimation = "LaurelCindersSpawnerAmbient_Young"
+		GrannyAttachedMarkerLocation = "YoungMel_Rig:hair_01_L_JNT"
+		CreateAnimations = []
+	}
+	{
+		Name = "LaurelCindersSpawnerAmbient_Young"
+		InheritFrom = "LaurelCindersSpawnerAmbient"
+		Scale = 0.5
+		GrannyAttachedMarkerLocation = "YoungMel_Rig:hair_01_L_JNT"
+	}
+	{
+		Name = "YoungMelFireFootstepL"
+		InheritFrom = "FireFootstepL"
+		OffsetX = 0
+		OffsetY = 6
+		Scale = 0.5
+	}
+
+	{
+		Name = "YoungMelFireFootstepR"
+		InheritFrom = "YoungMelFireFootstepL"
+	}
+
+	{
+		Name = "YoungMelFireFootstepL-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "YoungMelFireFootstepL"
+		GrannyAttachedMarkerLocation = "YoungMel_Rig:toe_00_L_JNT"
+		Scale = 0.8
+		LocationFromOwner = "Take"
+	}
+	
+	{
+		Name = "YoungMelFireFootstepR-Spawner"
+		InheritFrom = "GroupChange"
+		VisualFx = "YoungMelFireFootstepR"
+		GrannyAttachedMarkerLocation = "YoungMel_Rig:toe_00_R_JNT"
+		Scale = 0.8
+		LocationFromOwner = "Take"
+	}
+	{
+		Name = "ShieldCharge"
+		ChainTo = "ShieldChargedLoop"
+		ChildAnimation = "ShieldChargeB"
+		FilePath = "Fx\ChargeFront\ChargeFront"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		EndGreen = 0.1
+		EndRed = 1.0
+		StartBlue = 0.06
+		StartGreen = 0.4
+		StartRed = 1.0
+		EndFrame = 60
+		NumFrames = 60
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Scale = 2.0
+		DieWithoutWeaponCharge = "WeaponDagger5"
+	}
+
+	{
+		Name = "ShieldChargeB"
+		InheritFrom = "ShieldCharge"
+		ChainTo = "ShieldChargedLoopB"
+		ChildAnimation = "null"
+		PostRotateScaleY = 1.0
+	}
+	{
+		Name = "ShieldChargedLoop"
+		ChildAnimation = "ShieldChargedLoopB"
+		FilePath = "Fx\ShieldCharge\ShieldCharge0060"
+		GroupName = "FX_Standing_Add"
+
+		AddColor = true
+		EndGreen = 0.3
+		EndRed = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.7
+		StartRed = 1.0
+		Duration = 0.1
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 1.2
+		PingPongScale = true
+		Ambient = 0.0
+		DieWithoutWeaponCharge = "WeaponDagger5"
+	}
+
+	{
+		Name = "ShieldChargedLoopB"
+		FilePath = "Particles\particle_quickflash"
+
+		Duration = 0.12
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		OffsetZ = 60.0
+		RandomRotation = true
+		EndScale = 0.6
+		PingPongScale = true
+		Scale = 0.5
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.4
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.30 Blue = 0.0 }
+	}
+	{
+		Name = "CastFireBallCharge"
+		InheritFrom = "ShieldCharge"
+		ChainTo = "CastFireBallChargeLoop"
+		ChildAnimation = "null"
+		AngleFromOwner = "Maintain"
+		PlaySpeed = 100.0
+		PostRotateScaleY = 1.0
+		OffsetZ = 130.0
+		UseAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		DieWithoutWeaponCharge = "WeaponCastProjectile"
+	}
+
+	{
+		Name = "CastFireBallChargeLoop"
+		FilePath = "Fx\ShieldCharge\ShieldCharge0060"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndGreen = 0.3
+		EndRed = 1.0
+		StartBlue = 0.1
+		StartGreen = 0.7
+		StartRed = 1.0
+		Duration = 0.1
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		StartFrame = 1
+		EndScale = 1.2
+		PingPongScale = true
+		Scale = 1.25
+		Ambient = 0.0
+		OffsetZ = 130.0
+		UseAttachedMarkerLocation = "Melinoe_Rig:hand_00_R_JNT"
+		DieWithoutWeaponCharge = "WeaponCastProjectile"
+	}
+	{
+		Name = "GrenadeSelfDamageOutputFx"
+		FilePath = "Dev\blank_invisible"
+		
+		VisualFx = "GrenadeSelfDamageOutputArcs"
+		Sound = "/SFX/Player Sounds/TransformDroneLoop"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFxIntervalMax = 0.08
+		VisualFxIntervalMin = 0.05
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcs"
+		FilePath = "Animations\ZeusStaticArcs\ZeusStaticArcs"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "GrenadeSelfDamageOutputArcA" }
+			{ Name = "GrenadeSelfDamageOutputArcB" }
+			{ Name = "GrenadeSelfDamageOutputArcC" }
+			{ Name = "GrenadeSelfDamageOutputArcD" }
+			{ Name = "GrenadeSelfDamageOutputArcE" }
+			{ Name = "GrenadeSelfDamageOutputArcF" }
+		]
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcA"
+		FilePath = "Fx\ZeusStaticArcA\ZeusStaticArcA"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		PingPongAngle = true
+		ColorFromOwner = "Ignore"
+		EndGreen = 0.3
+		EndRed = 0.999
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndFrame = 15
+		NumFrames = 15
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 40.0
+		StartFrame = 1
+		OffsetZ = -10.0
+		OriginX = 20.0
+		OriginY = 80.0
+		SortMode = "FromParent"
+		PostRotateScaleY = 0.5
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.5
+		ScaleMin = 1.0
+		ScaleX = 0.5
+		Ambient = 0.0
+		Hue = -0.1
+		TimeModifierFraction = 0
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcB"
+		InheritFrom = "GrenadeSelfDamageOutputArcA"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcC"
+		InheritFrom = "GrenadeSelfDamageOutputArcA"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcD"
+		InheritFrom = "GrenadeSelfDamageOutputArcA"
+		GroupName = "FX_Standing_Add"
+		AngleMax = 95.0
+		AngleMin = 85.0
+		OffsetZ = 20.0
+		RandomOffsetX = 25.0
+		RandomOffsetY = 25.0
+		VelocityMax = 400.0
+		VelocityMin = 200.0
+		PostRotateScaleY = 1.0
+		ScaleX = 1.0
+		RandomAccelerationMax = -100.0
+		RandomAccelerationMin = -200.0
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcE"
+		InheritFrom = "GrenadeSelfDamageOutputArcD"
+		FilePath = "Fx\ZeusStaticArcB\ZeusStaticArcB"
+	}
+	
+	{
+		Name = "GrenadeSelfDamageOutputArcF"
+		InheritFrom = "GrenadeSelfDamageOutputArcD"
+		FilePath = "Fx\ZeusStaticArcC\ZeusStaticArcC"
+	}
+	{
+		Name = "AresKillDamageBuffFx"
+		ChainTo = "AresKillDamageBuffFxEnd"
+		FilePath = "Fx\AresKillDamageBuff\AresKillDamageBuff"
+
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/AresDamageBuffSFX"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		UseAttachedMarkerLocation = "head_TRACKING"
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "AresKillDamageBuffFxEnd"
+		InheritFrom = "AresKillDamageBuffFx"
+		ChainTo = "null"
+		CreateAnimation = "QuickFlashRed"
+		EndRed = 0.999
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		Duration = 0.12
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		EndScale = 2.0
+	}
+
+	{
+		Name = "EurydiceDefenseFront"
+		ChainTo = "EurydiceDefenseFrontFade"
+		FilePath = "Fx\EurydiceShield\EurydiceShield"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 80.0
+		SortMode = "FromParent"
+		TransferFrameFromThis = true
+		Scale = 0.85
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "EurydiceDefenseFrontFade"
+		InheritFrom = "EurydiceDefenseFront"
+		ChainTo = "null"
+		CreateAnimation = "QuickFlashGreen"
+		StartAlpha = 1.0
+		Duration = 0.25
+		Loop = false
+		EndScale = 1.25
+	}
+	{
+		Name = "DionysusStunnedFx"
+		FilePath = "Fx\DionysusStunnedFx\DionysusStunnedFx"
+		ChainTo = "DionysusStunnedFxDissipate"
+		GroupName = "Combat_UI"
+		AngleFromOwner = "Ignore"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		Loop = true
+		PlaySpeed = 30.0
+		OffsetZ = 160.0
+		TransferFrameFromThis = true
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.3
+		VisualFxIntervalMin = 0.2
+		Sound = "/EmptyCue"
+		EndFrame = 30
+		NumFrames = 30
+		StartFrame = 1
+		UseAttachedFlasher = false
+	}
+
+	{
+		Name = "DionysusStunnedFxDissipate"
+		InheritFrom = "DionysusStunnedFx"
+		ChainTo = "null"
+		StartAlpha = 1.0
+		Duration = 0.2
+		EaseOut = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameToThis = true
+	}
+
+
+	
+	{
+		Name = "ProjectileFireRing-Bloodstone"
+		ChildAnimation = "QuickFlashRed"
+		FilePath = "Fx\ProjectileFireRing\ProjectileFireRing"
+		GroupName = "Standing"
+		AngleFromOwner = "Take"
+		EndFrame = 30
+		NumAngles = 16
+		NumFrames = 30
+		StartFrame = 1
+		RadialOffsetMax = 61.0
+		RadialOffsetMin = 60.0
+		LocationFromOwner = "Take"
+		SortMode = "FromParent"
+		Scale = 1.25
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		OverlayVfx = true
+		AddColor = false
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "BloodstoneProjectileHades"
+		FilePath = "Fx\HadesCastSkull\HadesCastSkull"
+		NumFrames = 10
+		NumAngles = 16
+		PlaySpeed = 30
+		Loop = true
+		Material = "Unlit"
+		CreateAnimation = "BloodstoneProjectileHadesGlow"
+		VisualFxDistanceMax = 180.0
+		VisualFxDistanceMin = 120.0
+		VisualFx = "HadesCastTrailA"
+		Sound = "/SFX/Enemy Sounds/Hades/HadesSkullLaunchAndLoop"
+		StopSoundOnFinishFade = 0.2
+		Scale = 1.0
+		//ChildAnimation = "BloodstoneProjectileHadesFlameSpanwer"
+	}
+	
+	{
+		Name = "HadesCastTrailA"
+		FilePath = "Fx\HadesCastTrailA\HadesCastTrailA"
+		NumFrames = 45
+		LocationFromOwner = "Ignore"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		AngleFromOwner = "Take"
+		ScaleY = 2
+		Scale = 0.75
+		LocationZFromOwner = "Take"
+		VisualFx = "HadesCastParticle"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.02
+		VisualFxCap = 2
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		CreateAnimations =
+		[
+			{ Name = "HadesCastTrailB" }
+		]
+	}
+
+	{
+		Name = "HadesCastTrailB"
+		FilePath = "Fx\HadesCastTrailB\HadesCastTrailB"
+		Material = "Unlit"
+		NumFrames = 30
+		NumAngles = 16
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+		StartScale = 1
+		EndScale = 2
+		RandomFlipVertical = true
+		LocationZFromOwner = "Take"
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		AngleMin = -32
+		AngleMax = 32
+	}
+	
+	{
+		Name = "BloodstoneProjectileHadesGlow"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		Duration = 0.3
+		Loop = true
+		LocationFromOwner = "Maintain"
+		Scale = 1.5
+		StartAlpha = 0.25
+		EndAlpha = 0.5
+		Ambient = 0.0
+		DieWithOwner = true
+		Color = { Red = 0.5 Green = 1 Blue = 0.0 }
+	}
+
+
+	
+	{
+		Name = "HadesCastParticle"
+		FilePath = "Fx\HadesCastParticle\HadesCastParticle"
+		NumFrames = 30
+		Loop = false
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 50
+		VelocityMax = 200
+		Acceleration = -50
+		StartScale = 1
+		EndScale = 0
+		LoopFramesOnly = true
+		RandomDurationMax = 1.4
+		RandomDurationMin = 0.6
+		ScaleMin = 0.3
+		ScaleMax = 1.5
+		RandomOffsetX = 80
+		RandomOffsetY = 40
+		StartOffsetY = -15
+		EndOffsetY = 15
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+
+	{
+		Name = "BloodstoneHitFxHades"
+		FilePath = "Fx\BloodstoneHitFx\BloodstoneHitFx"
+		GroupName = "Standing"
+		VisualFx = "BloodDropletImpact"
+		ColorFromOwner = "Ignore"
+		EndFrame = 35
+		NumFrames = 35
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Isometric"
+		RandomRotation = true
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		Sound = "/SFX/HellFireImpact"
+		Scale = 1.5
+		VisualFxCap = 7
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashGreen" }
+			{ Name = "QuickFlashGreen" }
+			{ Name = "BloodstoneHitFxB" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastParticleHit" }
+			{ Name = "HadesCastNovaHit" }
+		]
+	}
+	{
+		Name = "BloodstoneHitFxB"
+		FilePath = "Fx\BloodstoneHitFx\BloodstoneHitFx"
+		GroupName = "Standing"			
+		VisualFx = "BloodDropletImpact"
+		Sound = "/SFX/HellFireImpactQuiet"
+		ColorFromOwner = "Ignore"
+		EndFrame = 35
+		NumFrames = 35
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Isometric"
+		RandomRotation = true
+		Scale = 1.15
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxCap = 5
+		VisualFxIntervalMax = 0.002
+		VisualFxIntervalMin = 0.001
+		FlipHorizontal = true
+		FlipVertical = true
+		OffsetZ = 100.0
+		PostRotateScaleY = 0.5
+	}
+
+	{
+		Name = "HadesCastParticleHit"
+		FilePath = "Fx\HadesCastParticle\HadesCastParticle"
+		NumFrames = 30
+		Loop = false
+		AngleMin = 0
+		AngleMax = 360
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 900
+		Acceleration = -900
+		StartScale = 1
+		EndScale = 0
+		LoopFramesOnly = true
+		RandomDurationMax = 1.4
+		RandomDurationMin = 0.6
+		ScaleMin = 0.6
+		ScaleMax = 1.3
+		EaseIn = 0.5
+		EaseOut = 1
+	}
+	{
+		Name = "HadesCastNovaHit"
+		FilePath = "Fx\ShadeNova\ShadeNova"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 28
+		NumFrames = 28
+		PlaySpeed = 120.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		OffsetZ = 30.0
+		Ambient = 0.0
+		Hue = 0.3
+		Color = { Red = 0.0 Green = 1.0 Blue = 1.0 }
+	}
+
+	{
+		Name = "SacrificeManaFx"
+		FilePath = "Fx\MelDeathFlash\MelDeathFlash"
+		VisualFx = "SacrificeManaFxStreaks"
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		Sound = "/SFX/Menu Sounds/ChaosBoonEffect"
+		EndFrame = 7
+		NumFrames = 5
+		PlaySpeed = 30.0 
+		StartFrame = 3
+		OffsetZ = 80.0
+		Scale = 0.5
+		AllowRestart = true
+		LocationZFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		Color = { Red = 0.25 Green = 1.00 Blue = 1.00 }
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaDarkSacrifice" }
+			{ Name = "RadialNovaDarkSacrifice" }
+			{ Name = "RadialNovaDarkSacrifice" }
+		]
+	}
+	{
+		Name = "SacrificeManaFxStreaks"
+		FilePath = "Fx\WeaponSwipePointed\WeaponSwipePointed"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		StartBlue = 1.000
+		StartGreen = 0.401
+		StartRed = 0.401
+		EndFrame = 13
+		NumFrames = 13
+		RandomPlaySpeedMax = 120.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		OriginX = 674.0
+		OriginY = 60.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		ScaleMax = 0.5
+		ScaleMin = 0.25
+	}
+
+	{
+		Name = "SacrificeHealthFx"
+		FilePath = "Fx\MelDeathFlash\MelDeathFlash"
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18		
+		VisualFx = "SacrificeHealthFxStreaks"
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		Sound = "/SFX/Menu Sounds/ChaosSelfDamage"
+		EndFrame = 7
+		NumFrames = 5
+		PlaySpeed = 30.0
+		StartFrame = 3
+		OffsetZ = 80.0
+		LocationZFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaDarkSacrifice" }
+			{ Name = "RadialNovaDarkSacrifice" }
+			{ Name = "RadialNovaDarkSacrifice" }
+			{ Name = "BloodImpactRandom" }
+		]
+	}
+	{
+		Name = "HeraRetaliateFx"
+		InheritFrom = "SacrificeHealthFx"
+		Sound = "/SFX/Player Sounds/HeraSwipeShareDamage"
+	}
+	
+	{
+		Name = "SacrificeHealthFxStreaks"
+		FilePath = "Fx\WeaponSwipePointed\WeaponSwipePointed"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		StartBlue = 0.001
+		StartGreen = 0.001
+		StartRed = 1.0
+		EndFrame = 13
+		NumFrames = 13
+		RandomPlaySpeedMax = 120.0
+		RandomPlaySpeedMin = 60.0
+		StartFrame = 1
+		OriginX = 674.0
+		OriginY = 60.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		ScaleMax = 0.5
+		ScaleMin = 0.25
+	}
+
+	{
+		Name = "BloodDropletImpact"
+		FilePath = "Fx\BloodDroplet\BloodDroplet"
+		
+		AngleFromOwner = "Ignore"
+		AngleMin = 360.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 50
+		LoopFramesOnly = true
+		NumFrames = 50
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.33
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -500.0
+		VelocityMax = 400.0
+		VelocityMin = 100.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.33
+		StartScale = 1.5
+		Ambient = 0.0
+	}
+
+	{
+		Name = "BloodImpactRandom"
+		FilePath = "Animations\BloodImpactRandom\BloodImpactRandom"
+		
+		Sound = "/SFX/BloodGeyserSplash"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random =
+		[
+			{ Name = "BloodImpactA" }
+			{ Name = "BloodImpactB" }
+		]
+	}
+	{
+		Name = "BloodImpactA"
+		ChildAnimation = "BloodImpactC"
+		FilePath = "Fx\BloodImpactA\BloodImpactA"
+		
+		VisualFx = "BloodSplatGroundRandom"
+		AngleFromOwner = "Take"
+		Sound = "/EmptyCue"
+		ColorFromOwner = "Ignore"
+		EndFrame = 34
+		NumFrames = 33
+		RandomPlaySpeedMax = 70.0
+		RandomPlaySpeedMin = 50.0
+		StartFrame = 2
+		RandomFlipVertical = true
+		LocationFromOwner = "Take"
+		Scale = 0.9
+		ScaleFromOwner = "Ignore"
+		StartScale = 0.8
+		VisualFxCap = 2
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		TimeModifierFraction = 0.03
+		UseAttachedFlasher = false
+	}
+	
+	{
+		Name = "BloodImpactB"
+		InheritFrom = "BloodImpactA"
+		FilePath = "Fx\BloodImpactB\BloodImpactB"
+		EndFrame = 30
+		NumFrames = 30
+		StartFrame = 1
+	}
+	
+	{
+		Name = "BloodImpactC"
+		InheritFrom = "BloodImpactA"
+		ChildAnimation = "null"
+		FilePath = "Fx\BloodImpactC\BloodImpactC"
+		EndFrame = 34
+		NumFrames = 34
+		StartFrame = 1
+		RandomFlipVertical = false
+		IsometricSkew = "Y"
+	}
+
+	{
+		Name = "MelRespawnLandDust"
+		FilePath = "Fx\DoorCloseDust\DoorCloseDust"
+		NumFrames = 30
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "Standing"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Scale = 0.66
+		OffsetZ = 100
+		DrawBehindOwner = true
+		StartAlpha = 0.75
+		EndAlpha = 0.25
+	}
+
+	{
+		Name = "MelRespawnHeal"
+		FilePath = "Particles\particle_glow"
+		StartRed = 0
+		StartGreen = 1
+		StartBlue = 0.9
+		EndRed = 0.4
+		EndGreen = 0.2
+		EndBlue = 1.0
+		StartAlpha = 0
+		EndAlpha = 0.3
+		PingPongColor = true
+		Duration = 2
+		Loop = true
+		Material = "Unlit"
+		OffsetZ = 120
+		VisualFx = "MelRespawnHealWisps"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "MelRespawnHealWisps"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 100
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 30
+		RadialOffsetMax = 60
+		VelocityMin = 50
+		VelocityMax = 100
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		IsometricSkew = "Y"
+		RandomOffsetX = 10
+		RandomOffsetY = 30
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Hue = 0.05
+		StartScale = 0.5
+		EndScale = 1
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.1
+		AlphaMax = 0.8
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "MelDeathFlash"
+		FilePath = "Fx\MelDeathFlash\MelDeathFlash"
+		EndFrame = 8
+		NumFrames = 8
+		PlaySpeed = 60.0
+		StartFrame = 1
+		Ambient = 0.0
+		ColorFromOwner = "Ignore"
+		OffsetZ = 120
+		EndAlpha = 0
+		Sound = "/SFX/Player Sounds/DeathFlashBlood"
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "RespawnHadesSymbol"
+		FilePath = "Fx\HadesSymbolRespawn\HadesSymbolRespawn"
+		NumFrames = 60
+		StartFrame = 1
+		Material = "Unlit"
+		Scale = 1.2
+		PlaySpeed = 30
+		Loop = true
+		OffsetZ = 200
+		StartScale = 1
+		EndScale = 0.9999
+		AngleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "RespawnCircle"
+		FilePath = "Fx\Respawn\RespawnCircle"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		StartAlpha = 1.0
+		EndAlpha = 0
+		Duration = 2
+		AngleFromOwner = "Ignore"
+		VisualFx = "RespawnCircleFx"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+		OffsetX = 20
+		OffsetY = 10
+	}
+
+	{
+		Name = "RespawnCircleFx"
+		InheritFrom = "RespawnCircle"
+		StartScale = 1
+		EndScale = 1.03
+		StartOffsetZ = 0
+		EndOffsetZ = 15
+		Duration = 1
+		StartAlpha = 0
+		EndAlpha = 0.08
+		PingPongColor = true
+		VisualFx = null
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+
+	{
+		Name = "HadesDisappear_Player"
+		FilePath = "Fx\HadesDisappear\HadesDisappear"
+		NumFrames = 45
+		PlaySpeed = 60
+		RandomFlipHorizontal = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Scale = 1.66
+		OffsetZ = 80
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+	}
+
+	{
+		Name = "InvincibubbleShadow_Zag"
+		FilePath = "Fx\InvincibubbleDark\InvincibubbleDark"
+		GroupName = "FX_Terrain"
+		
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		Duration = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -40.0
+		DieWithOwner = true
+		SortMode = "Id"
+		ScaleFromOwner = "Ignore"
+		Color = { Red = 0.0 Green = 0.2 Blue = 0.50 }
+	}
+	
+	{
+		Name = "InvincibubbleShadow_Zag_Offset"
+		InheritFrom = "InvincibubbleShadow_Zag"
+		AddColor = false
+		EndAlpha = 0.49
+		StartAlpha = 0.5
+		Duration = 0.2
+		Loop = true
+		OffsetZ = 50.0
+	}
+
+	{
+		Name = "Invincibubble_Zag_Loop"
+		ChildAnimation = "InvincibubbleLoop_Zag_Offset"
+		FilePath = "Fx\InvincibubbleIn\InvincibubbleIn"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/Leftovers/SFX/PerfectTiming"
+		ColorFromOwner = "Ignore"
+		EndFrame = 27
+		HoldLastFrame = true
+		NumFrames = 27
+		PlaySpeed = 60.0
+		StartFrame = 1
+		OffsetY = -50.0
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		UseAttachedMarkerLocation = "ZAxis_TRACKING"
+		ScaleFromOwner = "Ignore"
+		ScaleY = 0.75
+		Ambient = 0.0
+		CreateAnimationOnEnd = "InvincibubbleOut_Zag"
+	}
+
+	{
+		Name = "InvincibubbleOut_Zag"
+		InheritFrom = "InvincibubbleIn"
+		FilePath = "Fx\InvincibubbleOut\InvincibubbleOut"
+		EndFrame = 17
+		NumFrames = 17
+		StartFrame = 1
+		OffsetY = -40.0
+		ScaleY = 0.75
+	}
+
+	{
+		Name = "InvincibubbleLoop_Zag_Offset"
+		InheritFrom = "InvincibubbleLoop"
+		ChildAnimation = "InvincibubbleShadow_Zag_Offset"
+		GroupName = "FX_Standing_Add"
+		EndAlpha = 0.5
+		EndBlue = 0.999
+		EndGreen = 0.9
+		EndRed = 0.2
+		PingPongColor = true
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		DieWithOwner = false
+		LocationZFromOwner = "Ignore"
+		ScaleY = 0.75
+	}
+
+	{
+		Name = "SwordParryParticles"
+		FilePath = "Particles\particle_addFlake"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		EndBlue = 0.01
+		EndRed = 0.999
+		StartGreen = 0.5
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.1
+		StartFrame = 1
+		RadialOffsetMax = 200.0
+		RadialOffsetMin = 120.0
+		RadialOffsetScaleY = 0.5
+		Acceleration = -2000.0
+		VelocityMax = 1200.0
+		VelocityMin = 600.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.25
+		StartScale = 0.5
+		StartScaleX = 10.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "RadialNovaSwordParryDark"
+		InheritFrom = "RadialNovaSwordParry"
+		GroupName = "FX_Terrain"
+		AddColor = false
+		PlaySpeed = 70.0
+		Scale = 1.01
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	{
+		Name = "SwordParryGroundCrack"
+		FilePath = "Fx\SwordParryCrack\SwordParryCrack"
+		GroupName = "FX_Terrain"
+		RequiresUnblocked = true
+		
+		VisualFx = "ActionRocksGroundSlam"
+		Angle = 90.0
+		Duration = 1.0
+		EndFrame = 1
+		Loop = true
+		NumAngles = 32
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.75
+		Ambient = 0.0
+		VisualFxCap = 8
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		CancelOverCap = true
+		OnlyWhenVisible = true
+		UseAttachedFlasher = false
+		Color = { Red = 0.50 Green = 0.50 Blue = 0.50 }
+	}
+
+	{
+		Name = "Invincibubble_PersephoneSkull"
+		InheritFrom = "Invincibubble_Zag_Loop"
+		ChildAnimation = "Invincibubble_PersephoneSkull_Offset"
+		OffsetZ = 80
+	}
+
+	{
+		Name = "Invincibubble_PersephoneSkull_Offset"
+		InheritFrom = "InvincibubbleLoop_Zag_Offset"
+		ChildAnimation = "InvincibubbleShadow_PersephoneSkull_Offset"
+		OffsetZ = 80
+	}
+
+	{
+		Name = "InvincibubbleShadow_PersephoneSkull_Offset"
+		InheritFrom = "InvincibubbleShadow_Zag_Offset"
+		OffsetZ = 80
+		Alpha = 0.0
+	}
+
+	{
+		Name = "SnowFootstepR-Spawner"
+		InheritFrom = "FireFootstepR-Spawner"
+		VisualFx = "SnowFootstepR"
+	}
+
+	{
+		Name = "SnowFootstepL-Spawner"
+		InheritFrom = "FireFootstepL-Spawner"
+		VisualFx = "SnowFootstepL"
+	}
+
+	{
+		Name = "SnowFootstepL"
+		FilePath = "Fx\MelSnowFootstepsL\MelSnowFootstepsL"
+		NumAngles = 64
+		NumFrames = 1
+		GroupName = "FX_Terrain"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Duration = 8
+		EaseIn = 0
+		EaseOut = 0.01
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Take"
+		Scale = 1.0
+		Saturation = 0.2
+		Value = -0.2
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+		CreateAnimations = [
+			{ Name = "SnowFootstepParticle" }
+			{ Name = "FireFootstepL" }
+			{ Name = "SnowFootstepSteam" }
+		]
+	}
+
+	{
+		Name = "SnowFootstepR"
+		InheritFrom = "SnowFootstepL"
+		FilePath = "Fx\MelSnowFootstepsR\MelSnowFootstepsR"
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "SnowFootstepParticle" }
+			{ Name = "FireFootstepR" }
+			{ Name = "SnowFootstepSteam" }
+		]
+	}
+
+	{
+		Name = "SnowFootstepParticle"
+		Random = [
+			{ Name = "SnowFootstepParticleA" }
+			{ Name = "SnowFootstepParticleB" }
+			{ Name = "SnowFootstepParticleC" }
+			{ Name = "SnowFootstepParticleD" }
+		]
+	}
+
+	{
+		Name = "SnowFootstepParticleA"
+		FilePath = "Particles\particle_snowDust_01"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		AngleFromOwner = "Take"
+		RandomRotation = true
+		RandomRotationSpeedMin = -45
+		RandomRotationSpeedMax = 45
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 2
+		Scale = 0.25
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		RandomDurationMin = 0.5
+		RandomDurationMax = 0.8
+		Material = "Unlit"
+		Hue = 0.45
+		Saturation = 0.2
+		Value = 0.0
+		AlphaMin = 0.4
+		AlphaMax = 0.7
+		UpwardVelocityMin = 100
+		UpwardVelocityMax = 200
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		Gravity = 450
+		GroupName = "FX_Standing"
+		ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		UseAttachedAddColor = false
+
+	}
+	{
+		Name = "SnowFootstepParticleB"
+		InheritFrom = "SnowFootstepParticleA"
+		FilePath = "Particles\particle_snowDust_02"
+	}
+	{
+		Name = "SnowFootstepParticleC"
+		InheritFrom = "SnowFootstepParticleA"
+		FilePath = "Particles\particle_snowDust_03"
+	}
+	{
+		Name = "SnowFootstepParticleD"
+		InheritFrom = "SnowFootstepParticleA"
+		FilePath = "Particles\particle_snowDust_04"
+	}
+
+
+
+	{
+		Name = "OlympusColdBreathEmitter"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		GrannyAttachedMarkerLocation = "head_fxMarker_00_M_JNT"
+		VisualFx = "OlympusColdBreath"
+		VisualFxIntervalMin = 1.0
+		VisualFxIntervalMax = 1.5
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		DieWithOwner = true
+	}
+
+	{
+		Name = "OlympusColdBreathEmitterLarge"
+		InheritFrom = "OlympusColdBreathEmitter"
+		VisualFx = "OlympusColdBreathLarge"
+	}
+
+	{
+		Name = "OlympusColdBreath"
+		Random = [
+			{ Name = "OlympusColdBreathA" }
+			{ Name = "OlympusColdBreathB" }
+		]
+	}
+
+	{
+		Name = "OlympusColdBreathLarge"
+		Random = [
+			{ Name = "OlympusColdBreathLargeA" }
+			{ Name = "OlympusColdBreathLargeB" }
+		]
+	}
+
+	{
+		Name = "OlympusColdBreathA"
+		FilePath = "Fx\OlympusColdBreathA\OlympusColdBreathA"
+		NumFrames = 120
+		AngleFromOwner = "Take"
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		OriginX = 10
+		OriginY = 40
+		RandomFlipVertical = true
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		StartAlpha = 1
+		EndAlpha = 0.4
+		EaseIn = 0
+		EaseOut = 0.1
+		OffsetZ = -30
+		OwnerVelocityFraction = 0.1
+		Acceleration = -400
+		// ColorFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Material = "Unlit"
+		Scale = 1
+	}
+
+	{
+		Name = "OlympusColdBreathB"
+		InheritFrom = "OlympusColdBreathA"
+		FilePath = "Fx\OlympusColdBreathB\OlympusColdBreathB"
+		NumFrames = 100
+	}
+
+	{
+		Name = "OlympusColdBreathLargeA"
+		InheritFrom = "OlympusColdBreathA"
+		Scale = 1.5
+	}
+	{
+		Name = "OlympusColdBreathLargeB"
+		InheritFrom = "OlympusColdBreathB"
+		Scale = 1.5
+	}
+
+	{
+		Name = "SnowFootstepSteam"
+		Random = [
+			{ Name = "SnowFootstepSteamA" }
+			{ Name = "SnowFootstepSteamB" }
+			{ Name = "SnowFootstepSteamC" }
+			{ Name = "SnowFootstepSteamD" }
+		]
+	}
+
+	{
+		Name = "SnowFootstepSteamA"
+		FilePath = "Particles\particle_steam_01"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Duration = 2
+		StartAlpha = 1
+		EndAlpha = 0
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		RandomFlipHorizontal = true
+		OriginX = 80
+		OriginY = 140
+		StartScale = 0.3
+		EndScale = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartScaleX = 1
+		EndScaleX = 2
+		Alpha = 0.6
+		GroupName = "FX_Terrain"
+	}
+	{
+		Name = "SnowFootstepSteamB"
+		InheritFrom = "SnowFootstepSteamA"
+		FilePath = "Particles\particle_steam_02"
+	}
+	{
+		Name = "SnowFootstepSteamC"
+		InheritFrom = "SnowFootstepSteamA"
+		FilePath = "Particles\particle_steam_03"
+	}
+	{
+		Name = "SnowFootstepSteamD"
+		InheritFrom = "SnowFootstepSteamA"
+		FilePath = "Particles\particle_steam_04"
+	}
+
+]}

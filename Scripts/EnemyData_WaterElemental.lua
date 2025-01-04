@@ -3,14 +3,14 @@ UnitSetData.WaterElemental =
 
 	WaterElemental =
 	{
-		InheritFrom = { "BaseVulnerableEnemy","LowPolyEnemy" },
+		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy", "LowPolyEnemy" },
 		IntroEncounterName = "WaterElementalIntro",
 
-		MaxHealth = 110,
+		MaxHealth = 140,
 		HealthBarOffsetY = -120,
 		HealthBarType = "Small",
 
-		ActivateFx = "WaterUnitSurface",
+		ActivateFx = "WaterElementalSpawnFx",
 		ActivateFx2 = "nil",
 		ActivateFxPreSpawn = "nil",
 		ActivateFadeInDelay = 0.00,
@@ -22,6 +22,8 @@ UnitSetData.WaterElemental =
 		ActiveCapWeight = 0.20,
 		ArmorSparkAnimation = "HitSparkArmor_Small",
 		DeathSound = "/SFX/Enemy Sounds/WaterElemental/EmoteDying",
+		DeathAnimation = "Enemy_WaterElemental_Death",
+		DeathFx = "WaterElementalDeathFx",
 
 		Groups = { "GroundEnemies" },
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterElemental/EmoteAlerted",
@@ -43,21 +45,30 @@ UnitSetData.WaterElemental =
 		{
 			DeepInheritance = true,
 
-			--MaintainSurroundDistance = true,
-			--SurroundDistance = 500,
-			--SurroundRefreshInterval = 0.5,
-			--MaxAttackers = 20,
+			SurroundRetaliateDistance = 300,
+			SurroundRefreshInterval = 0.5,
+			MaxAttackers = 99,
 		},
 		PostAggroAI = "SurroundAI",
 
 		WeaponOptions =
 		{
 			--"WaterElementalBite", "WaterElementalBurst", "WaterElementalDuplicate"
-			"WaterElementalBite", 
-			--"WaterElementalDuplicate",
+			"WaterElementalBite", "WaterElementalFidget"
 		},
 
 		HeraclesCombatMoneyValue = 1,
+		MoneyDropOnDeath =
+		{
+			Chance = 0.2,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.075,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
+
 		ActiveCapWeight = 0.5,
 		GeneratorData =
 		{
@@ -65,34 +76,23 @@ UnitSetData.WaterElemental =
 			BlockEnemyTypes = {"WaterElemental_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_2160", Text = "Droplets...!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_2159", Text = "Droplets...", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_2160", Text = "Droplets...!" },
+			{ Cue = "/VO/MelinoeField_2159", Text = "Droplets..." },
+			{ Cue = "/VO/MelinoeField_2160", Text = "Droplets...!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_2161", Text = "More Droplets." },
 			{ Cue = "/VO/MelinoeField_2162", Text = "More Droplets?" },
 		},
@@ -102,7 +102,7 @@ UnitSetData.WaterElemental =
 	WaterElemental_Elite =
 	{
 		InheritFrom = { "Elite", "WaterElemental" },
-		HealthBuffer = 110,
+		HealthBuffer = 140,
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterElemental/EmoteTaunting",
 
 		DefaultAIData =
@@ -110,14 +110,9 @@ UnitSetData.WaterElemental =
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		WeaponOptions =
 		{
-			"WaterElementalBite_Elite", 
+			"WaterElementalBite_Elite", "WaterElementalFidget",
 			--"WaterElementalBurst_Elite", 
 			--"WaterElementalDuplicate_Elite"
 		},

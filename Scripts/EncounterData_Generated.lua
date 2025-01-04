@@ -46,6 +46,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedG =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 		EnemySet = EnemySets.BiomeG,
 		ActiveEnemyCapBase = 1.0,
 		ActiveEnemyCapMax = 8.0,
@@ -123,7 +124,7 @@ OverwriteTableKeys( EncounterData,
 		MaxWaves = 1,
 		ActiveEnemyCapBase = 3.0,
 		--ExitsDontRequireCompleted = true,
-
+		CanEncounterSkip = false,
 		BaseDifficulty = 38,
 		DepthDifficultyRamp = 12,
 		SpawnAggroed = true,
@@ -135,10 +136,12 @@ OverwriteTableKeys( EncounterData,
 		UnthreadedEvents = EncounterSets.EncounterEventsH,
 		EnemySet = EnemySets.BiomeHPassive,
 		BlockNextBiomeEnemyShrineUpgrade = true,
+		BlockEliteAttributes = true,
 
 		DelayedStart = true,
 		NeverDelayStartFamiliar = true,
 		NeverDelayManaRegen = true,
+		NeverDelaySpellCharge = true,
 		UseEncounterActiveCap = true,
 		ActiveEnemyCapBase = 1.5,
 		ActiveEnemyCapMax = 3,
@@ -190,7 +193,7 @@ OverwriteTableKeys( EncounterData,
 		{
 			{
 				TriggerGroup = "GroundEnemies", WithinDistance = 650,
-				VoiceLines = GlobalVoiceLines.FieldsPassiveEnemiesSpottedVoiceLines,
+				VoiceLines = { GlobalVoiceLines = "FieldsPassiveEnemiesSpottedVoiceLines" },
 			}
 		},
 	},
@@ -211,6 +214,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedH =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 		ForceEncounterStart = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsH,
 		EnemySet = EnemySets.BiomeH,
@@ -268,7 +272,7 @@ OverwriteTableKeys( EncounterData,
 			{
 				TriggerGroup = "GroundEnemies",
 				WithinDistance = 650,
-				VoiceLines = GlobalVoiceLines.FieldsEnemiesSpottedVoiceLines,
+				VoiceLines = { GlobalVoiceLines = "FieldsEnemiesSpottedVoiceLines" },
 			}
 		},		
 	},
@@ -276,6 +280,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedH_Treant2 =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedH", },
+		BlockEliteAttributes = false,
 
 		GameStateRequirements =
 		{
@@ -325,6 +330,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedH_Screamer2 =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedH", },
+		BlockEliteAttributes = false,
 
 		GameStateRequirements =
 		{
@@ -374,6 +380,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedI =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 
 		RequireNotRoomReward = { "ClockworkGoal" },
 
@@ -387,7 +394,7 @@ OverwriteTableKeys( EncounterData,
 		TypeCountDepthRamp = 0.25,
 		MinWaves = 1,
 		MaxWaves = 3,
-		BaseDifficulty = 375,
+		BaseDifficulty = 325,
 		DepthDifficultyRamp = 105,
 		EnemySet = EnemySets.BiomeIOptional,
 		MaxEliteTypes = 4,
@@ -427,11 +434,12 @@ OverwriteTableKeys( EncounterData,
 
 		PreSpawnEnemies = false,
 
+		SpeakerNames = { "Intercom", },
 		ThreadedEvents =
 		{
 			{
 				FunctionName = "HadesSpeakingPresentation",
-				Args = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = GlobalVoiceLines.ChronosAlertVoiceLines, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+				Args = { LineHistoryName = "NPC_Chronos_01", SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
 			},
 		},
 
@@ -510,11 +518,12 @@ OverwriteTableKeys( EncounterData,
 
 		PreSpawnEnemies = false,
 
+		SpeakerNames = { "Intercom", },
 		ThreadedEvents =
 		{
 			{
 				FunctionName = "HadesSpeakingPresentation",
-				Args = { SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = GlobalVoiceLines.ChronosAlertVoiceLines, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
+				Args = { SubtitleColor = Color.ChronosVoice, BlockColorGrade = true, OverlayAnim = "ChronosOverlay", VoiceLines = { GlobalVoiceLines = "ChronosAlertVoiceLines" }, StartSound = "/SFX/TimeSlowStart", UseSurvivalPresentation = true, StartDelay = 1.0 },
 			},
 		},
 
@@ -531,6 +540,7 @@ OverwriteTableKeys( EncounterData,
 	GeneratedN =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 		EnemySet = EnemySets.BiomeN,
 		ActiveEnemyCapBase = 4.0,
 		ActiveEnemyCapMax = 10,
@@ -631,12 +641,15 @@ OverwriteTableKeys( EncounterData,
 	GeneratedO =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 		PreSpawnEnemies = false,
 		UnthreadedEvents = EncounterSets.EncounterEventsShipsCombat,
 		EnemySet = EnemySets.BiomeO,
 		SkipLastKillPresentation = true,
 
 		DelayedStart = true,
+		NeverDelayManaRegen = true,
+		NeverDelaySpellCharge = true,
 
 		SpawnAggroed = true,
 
@@ -696,6 +709,8 @@ OverwriteTableKeys( EncounterData,
 		RequireCompletedIntro = true,
 
 		DelayedStart = false,
+		
+		BlockAthenaEncounterKeepsake = true,
 
 		PreSpawnEnemies = true,
 		MinWaves = 1,
@@ -768,29 +783,244 @@ OverwriteTableKeys( EncounterData,
 	GeneratedP =
 	{
 		InheritFrom = { "Generated" },
-		BlockHighlightEncounter = true,
+		
+		CanEncounterSkip = true,
+		CanEncounterSkipIfNotFirst = false,
+		UsePreviousStartTime = true,
+
 		EnemySet = EnemySets.BiomeP,
-		ActiveEnemyCapBase = 5.0,
-		ActiveEnemyCapMax = 10,
+		ActiveEnemyCapBase = 3.0,
+		ActiveEnemyCapMax = 9, -- Lower to account for Eagle
 		ActiveEnemyCapDepthRamp = 0.45,
-		MinTypes = 2,
-		MaxTypes = 3,
-		MinWaves = 1,
-		TypeCountDepthRamp = 0.10,
+		MinTypes = 1,
+		MaxTypes = 2,
 		MaxTypesCap = 3,
-		BaseDifficulty = 500,
-		DepthDifficultyRamp = 50,
+		MinWaves = 1,
+		MaxWaves = 2,
+		TypeCountDepthRamp = 0.33,
+		BaseDifficulty = 340,
+		DepthDifficultyRamp = 90,
 		MaxEliteTypes = 3,
 		MoneyDropCapMin = 25,
 		MoneyDropCapMax = 35,
 		MoneyDropCapDepthRamp = 0,
 
+		PreSpawnEnemies = false,
+		SpawnAggroed = true,
+
+		MaxTypesPerGroup =
+		{
+			Automatons = 2,
+			ChronosForces = 2,
+		},
+
+		--PrioritizeGroup = "Automatons",
+		RandomPrioritizeGroup = { "Automatons", "ChronosForces" },
+		PauseDurationAfterPriorityGroup = 6.0,
+
+		WaveStartUnthreadedEvents =
+		{
+			{
+				FunctionName = "OlympusEagleSpawn",
+				GameStateRequirements =
+				{
+					ChanceToPlay = 0.33,
+					{
+						SumPrevRooms = 1,
+						CountPathTrue = true,
+						Path = { "OlympusEagleSpawn" },
+						Comparison = "<=",
+						Value = 0,
+					},
+					{
+						SumPrevRooms = 20,
+						CountPathTrue = true,
+						Path = { "OlympusEagleSpawn" },
+						Comparison = "<",
+						Value = 2,
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "OlympusEagleSpawn" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "OlymplusIntro" },
+					},
+				},
+			},
+		},
+
 		HardEncounterOverrideValues =
 		{
 			DepthDifficultyRamp = 50,
-			MaxTypesCap = 4,
+			MaxTypesCap = 3,
 			ActiveEnemyCapDepthRamp = 0.60
 		},
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = "<",
+				Value = 10,
+			},
+		},
+	},
+
+	GeneratedP_Large =
+	{
+		InheritFrom = { "GeneratedP" },
+
+		MinWaves = 3,
+		MaxWaves = 3,
+
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BiomeDepthCache" },
+				Comparison = ">=",
+				Value = 10,
+			},
+		},
+	},
+
+	GeneratedP_PreCombat =
+	{
+		InheritFrom = { "GeneratedP" },
+		CanEncounterSkip = true,
+		BlockAthenaEncounterKeepsake = true,
+		EnemySet = EnemySets.BiomePIntro,
+		RequireCompletedIntro = true,
+		SkipEndEncounterEffects = true,
+		SkipLastKillPresentation = true,
+		CountsForRoomEncounterDepth = false,
+
+		DelayedStart = false,
+
+		PreSpawnEnemies = true,
+		SpawnAggroed = false,
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 2,
+		MaxTypes = 2,
+		MaxTypesCap = 2,
+		BaseDifficultyMin = 340,
+		BaseDifficultyMax = 500,
+		DepthDifficultyRamp = 0,
+		--DifficultyMultiplier = 0.5,
+		
+		EncounterRoomRewardOverride = "Empty",
+
+		MaxTypesPerGroup =
+		{
+			Automatons = 1,
+			ChronosForces = 1,
+		},
+
+		RandomizeAmbientBattleDamagePerGroup =
+		{
+			GroupNames = { "Automatons", "ChronosForces" },
+			BattleDamageDataOptions =
+			{
+				{ Min = 0.05, Max = 0.25 },
+				{ Min = 0.8, Max = 0.9 },
+			},
+		},
+
+		SpawnOverrides =
+		{
+			AIOptions = { "AmbientBattleAggroAI" },
+			AmbientBattleAggroRange = 300,
+			WakeUpDelay = 0.3,
+			AggroReactionTimeMin = 0.15,
+			AggroReactionTimeMax = 0.45,
+		},
+
+		SpawnDefaultAIDataOverrides =
+		{
+			
+		},
+
+		WaveStartUnthreadedEvents = {},
+
+		GameStateRequirements = {},
+	},
+
+	GeneratedP_PreCombatAutomatons =
+	{
+		InheritFrom = { "GeneratedP_PreCombat" },
+		EnemySet = EnemySets.Automatons,
+
+		MaxTypesPerGroup = "nil",
+		RandomizeAmbientBattleDamagePerGroup = "nil",
+	},
+
+	GeneratedP_PreCombatChronosForces =
+	{
+		InheritFrom = { "GeneratedP_PreCombat" },
+		EnemySet = EnemySets.ChronosForces,
+
+		MaxTypesPerGroup = "nil",
+		RandomizeAmbientBattleDamagePerGroup = "nil",
+
+		StartRoomUnthreadedEvents =
+		{
+			Append = true,
+			{
+				FunctionName = "SpawnOlympusCorpses",
+				Args =
+				{
+					CountMin = 3,
+					CountMax = 10,
+					ObstacleOptions =
+					{
+						"OlympusCorpseAutomatonBeamerA",
+						"OlympusCorpseAutomatonBeamerB",
+						"OlympusCorpseAutomatonBeamerC",
+
+						"OlympusCorpseAutomatonEnforcerA",
+						"OlympusCorpseAutomatonEnforcerB",
+						"OlympusCorpseAutomatonEnforcerC",
+
+						"OlympusCorpseSentryBotA",
+						"OlympusCorpseSentryBotA",
+						"OlympusCorpseSentryBotB",
+						"OlympusCorpseSentryBotB",
+						"OlympusCorpseSentryBotC",
+						"OlympusCorpseSentryBotC",
+					}
+				}
+			}
+		},
+	},
+
+	GeneratedQ =
+	{
+		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
+		EnemySet = EnemySets.BiomeN,
+		ActiveEnemyCapBase = 4.0,
+		ActiveEnemyCapMax = 10,
+		ActiveEnemyCapDepthRamp = 1,
+		MinTypes = 2,
+		MaxTypes = 2,
+		MaxTypesCap = 3,
+		TypeCountDepthRamp = 0.20,
+		EscalateTypeCount = true,
+		MinWaves = 1,
+		MaxWaves = 2,
+		--BaseDifficulty = 150,
+		--DepthDifficultyRamp = 5,
+
+		BaseDifficulty = 110,
+		DepthDifficultyRamp = 25,
+		UseEncounterDepth = true,
+		UseEncounterDepthForTypes = true,
+
+		MaxEliteTypes = 1,
+		MoneyDropCapMin = 15,
+		MoneyDropCapMax = 25,
+		MoneyDropCapDepthRamp = 0,
 	},
 
 })

@@ -147,7 +147,7 @@ function BiomeSpeedTimerLoop()
 		if not HasTimerBlock( CurrentRun ) and not IsBiomeTimerPaused() and CurrentRun.ActiveBiomeTimer then
 			if GetNumShrineUpgrades("BiomeSpeedShrineUpgrade") > 0 and CurrentRun.BiomeTime <= 0 and not CurrentRun.Hero.IsDead then
 				local minHealth = 0
-				if (CurrentRun.Hero.InvulnerableFlags ~= nil and not IsEmpty( CurrentRun.Hero.InvulnerableFlags )) then
+				if CurrentRun.Hero.InvulnerableFlags ~= nil and not IsEmpty( CurrentRun.Hero.InvulnerableFlags ) and not OnlySourceOfInvulnerability("ManaReserveTraitInvulnerability")  then
 					minHealth = 1
 				end 
 				Damage( CurrentRun.Hero, { SourceWeapon = "BiomeTimer", DamageAmount = BiomeTimeLimits.Penalty.Damage, MinHealth = minHealth, PureDamage = true, Silent = true } )			

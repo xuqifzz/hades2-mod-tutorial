@@ -1,0 +1,248 @@
+{ Animations = [
+	{
+		Name = "DionysusLobProjectile"
+		CreateAnimation = "DionysusLobProjectileDark"
+		FilePath = "Fx\DionysusProjectile\DionysusProjectile"
+		
+		VisualFx = "DionysusLobProjectileSmokeContainer"
+		EndFrame = 61
+		Loop = true
+		LoopFramesOnly = true
+		NumFrames = 61
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RotationSpeed = 720.0
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+	}
+	
+	{
+		Name = "DionysusLobProjectileSmokeContainer"
+		CreateAnimation = "DionysusLobProjectileSmoke"
+		FilePath = "Dev\blank_invisible"
+		
+		EndAngle = 2.0
+		StartAngle = -2.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+	}
+	
+	{
+		Name = "DionysusLobProjectileDark"
+		FilePath = "Fx\ProjectileFire\ProjectileFire"
+		GroupName = "FX_Dark"
+		
+		Sound = "/SFX/Player Sounds/DionysusLobProjectileGas"
+		StopSoundOnFinishFade = 0.2
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		StartFrame = 1
+		DieWithOwner = true
+		Scale = 2.0
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "DionysusLobProjectileSmoke"
+		FilePath = "Fx\GrenadeTrail\GrenadeTrail"
+		GroupName = "Standing"
+		
+		AngleChangeSpeedMax = 30.0
+		AngleChangeSpeedMin = -30.0
+		AngleFromOwner = "Take"
+		UseOwnAngle = false
+		EndGreen = 0.0001
+		StartBlue = 1.0
+		StartRed = 0.6
+		EaseIn = 0.6
+		EaseOut = 1.0
+		EndFrame = 30
+		NumFrames = 30
+		PlaySpeed = 0.0001
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.3
+		RandomStartFrame = true
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		Acceleration = -30.0
+		VelocityMax = 100.0
+		VelocityMin = 50.0
+		RandomRotationSpeedMax = 45.0
+		RandomRotationSpeedMin = -45.0
+		EndScale = 0.7
+		PingPongScale = true
+		ScaleMax = 0.9
+		ScaleMin = 0.8
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "RadialNovaDionysus"
+		InheritFrom = "RadialNova"
+		CreateAnimation = "DionysusNovaCloud"
+		GroupName = "Standing"
+		LocationZFromOwner = "Take"
+		Color = { Red = 0.50 Green = 0.0 Blue = 1.0 }
+		Sound = "/SFX/HellFireImpactQuiet"
+	}
+
+	{
+		Name = "DionysusNovaCloud"
+		FilePath = "Fx\DionysusNova\DionysusNova"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/DionysusSwordSpecialPoof"
+		EndFrame = 25
+		NumFrames = 25
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DrawBehindOwner = true
+		LocationZFromOwner = "Take"
+		ScaleRadius = 250.0
+		Ambient = 0.0
+		CreateAnimations =
+		[
+			{ Name = "RadialNovaDark" }
+			{ Name = "QuickFlashPurple" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 1 }
+			/*Frame 1*/
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			/*Frame 10*/
+
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			/*Frame 20*/
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "DionysusCloudB"
+		ChainTo = "DionysusCloudBLoop"
+		FilePath = "Fx\DionysusCloudB\DionysusCloudB"
+		GroupName = "FX_Standing_Top"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Maintain"
+		EndAlpha = 0.9
+		StartAlpha = 0.0
+		Duration = 0.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 60
+		LoopFramesOnly = true
+		NumFrames = 60
+		PlaySpeed = 30.0
+		StartFrame = 1
+		TransferFrameFromThis = true
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 320.0
+		StartScale = 0.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "DionysusCloudBLoop"
+		CreateAnimation = "DionysusCloudBShadow"
+		FilePath = "Fx\DionysusCloudB\DionysusCloudB"
+		GroupName = "FX_Standing_Top"
+		Sound = "/SFX/Player Sounds/DionysusHazeCloudSitarSteam"
+		StopSoundOnFinishFade = 0.2
+		AngleFromOwner = "Ignore"
+		Alpha = 0.9
+		ColorFromOwner = "Maintain"
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		PlaySpeed = 30.0
+		ReRandomizeOnLoop = false
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		TransferFrameToThis = true
+		ScaleFromOwner = "Ignore"
+		ScaleRadius = 320.0
+		Ambient = 0.0
+	}
+
+	{
+		Name = "DionysusCloudBEnd"
+		InheritFrom = "DionysusCloudB"
+		ColorFromOwner = "Ignore"
+		ChainTo = "null"
+		CreateAnimation = "DionysusCloudBEndGraphic"
+		UseOwnAngle = false
+		Sound = "/SFX/Player Sounds/DionysusRadialPoof"
+		EndAlpha = 0.0
+		Duration = 0.25
+		EndScale = 1.25
+		StartScale = 1.0
+	}
+	{
+		Name = "DionysusCloudBEndGraphic"
+		FilePath = "Fx\DionysusNova\DionysusNova"
+		GroupName = "Standing"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 45.0
+		StartFrame = 1
+		OffsetZ = 60.0
+		Scale = 1.4
+		ScaleRadius = 350
+		Ambient = 0.0
+		StartAlpha = 0.5
+		EndAlpha = 0.1
+	}
+	{
+		Name = "DionysusCloudBShadow"
+		FilePath = "Fx\DionysusCloudB\DionysusCloudBShadow"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Duration = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		DieWithOwner = true
+		ScaleFromOwner = "Take"
+		ScaleRadius = 300.0
+	}
+
+]}

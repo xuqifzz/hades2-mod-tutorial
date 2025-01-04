@@ -1,0 +1,668 @@
+{ Animations = [
+	{
+		Name = "EnemyTalosBaseAnimation"
+		
+		GrannyModel = "Talos_Mesh"
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+	{
+		Name = "Enemy_Talos_Idle"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Idle_C_00"
+		Loop = true
+		CancelOnOwnerMove = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Talos_MoveStart"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Move_Start_C_00"
+		NativeMoveSpeed = 325
+		ChainTo = "Enemy_Talos_Move"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_Move"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Move_C_00"
+		NativeMoveSpeed = 325
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_MoveStop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Move_End_C_00"
+		NativeMoveSpeed = 325
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Talos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Talos_OnHit"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_OnHit_C_00"
+		AllowRestart = true
+		CancelOnOwnerMove = true
+		ChainTo = "Enemy_Talos_Idle"
+		Sound = "/SFX/Enemy Sounds/Talos/EmoteHurt"
+	}
+	{
+		Name = "Enemy_Talos_OnHit_Heavy"
+		InheritFrom = "Enemy_Talos_OnHit"
+		GrannyAnimationSpeed = 0.5
+	}
+
+	// SPRINT
+	{
+		Name = "Enemy_Talos_SprintStart"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_SprintStart_C_00"
+		ChainTo = "Enemy_Talos_SprintLoop"
+		CancelOnOwnerMove = false
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_SprintLoop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Sprint_C_00"
+		Loop = true
+		OwnerHasNoUnitCollision = true
+		CancelOnOwnerMove = false
+	}
+	{
+		Name = "Enemy_Talos_SprintStop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_SprintEnd_C_00"
+		CancelOnOwnerMove = false
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_SprintLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// BLOCK
+	{
+		Name = "Enemy_Talos_BlockStart"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_BlockStart_C_00"
+		ChainTo = "Enemy_Talos_BlockLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_BlockLoop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_BlockLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Talos_BlockEnd"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_BlockEnd_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_BlockLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// MAGNET
+	{
+		Name = "Enemy_Talos_MagnetPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_MagnetPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Player Sounds/ZagreusChargeRamaSitar"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_MagnetFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_MagnetFire_C_00"
+		HoldLastFrame = true
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 2
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_MagnetPunchPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_MagnetUppercutPreFire_C_00"
+		HoldLastFrame = true
+	}
+	{
+		Name = "Enemy_Talos_MagnetPunchFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_MagnetUppercutFire_C_00"
+		ChainTo = "Enemy_Talos_MagnetPunchPostFire"
+	}
+	{
+		Name = "Enemy_Talos_MagnetPunchPostFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_MagnetUppercutPostFire_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+	}
+
+	// SPIN
+	{
+		Name = "Enemy_Talos_SpinPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_SpinPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosBallPrefireComponent"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_SpinFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_SpinFire_C_00"
+		Loop = true
+		Sound = "/SFX/Enemy Sounds/Chronos/ChronosSuctionStartAndLoop"
+		StopSoundOnFinishFade = 0.2
+	}
+	{
+		Name = "Enemy_Talos_SpinPostFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_SpinPostFire_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+		Sound = "/SFX/Enemy Sounds/Theseus/TheseusGunSpinEnd"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_SpinFire"
+				Duration = 6
+			}
+		]
+	}
+
+	// THROW
+	{
+		Name = "Enemy_Talos_ThrowPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPreFire_C_00"
+		HoldLastFrame = true
+		Sound = "/SFX/Enemy Sounds/HeavyRangedSplitterMiniboss/CrystalBeamPreAttackBIG"
+		StopSoundOnFinishFade = 0.2
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_ThrowFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFire_C_00"
+		ChainTo = "Enemy_Talos_ThrowFireLoop"
+	}
+	{
+		Name = "Enemy_Talos_ThrowFireLoop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFireWait_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Talos_ThrowPostFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPostFire_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_ThrowFireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// THROW LEFT
+	{
+		Name = "Enemy_Talos_ThrowLeftPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPreFire_LeftArm_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_ThrowLeftFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFire_LeftArm_C_00"
+		ChainTo = "Enemy_Talos_ThrowLeftFireLoop"
+	}
+	{
+		Name = "Enemy_Talos_ThrowLeftFireLoop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFireWait_LeftArm_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Talos_ThrowLeftPostFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPostFire_LeftArm_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_ThrowLeftFireLoop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 26
+				Sound = "/SFX/Player Sounds/ZagreusShieldCatch"
+			}
+		]
+	}
+
+	// THROW RIGHT
+	{
+		Name = "Enemy_Talos_ThrowRightPreFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPreFire_RightArm_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_Idle"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStart"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_Move"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_MoveStop"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Enemy_Talos_OnHit_Heavy"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_ThrowRightFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFire_RightArm_C_00"
+		ChainTo = "Enemy_Talos_ThrowRightFireLoop"
+	}
+	{
+		Name = "Enemy_Talos_ThrowRightFireLoop"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowFireWait_RightArm_C_00"
+		Loop = true
+	}
+	{
+		Name = "Enemy_Talos_ThrowRightPostFire"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_ThrowPostFire_RightArm_C_00"
+		ChainTo = "Enemy_Talos_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Enemy_Talos_ThrowRightFireLoop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 26
+				Sound = "/SFX/Player Sounds/ZagreusShieldCatch"
+			}
+		]
+	}
+	{
+		Name = "Enemy_Talos_Death"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Death_C_00"
+		LargeObstacle3DModel = true
+		ChainTo = "Enemy_Talos_Death_Dissolve"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 1
+			}
+			{
+				Frame = 1
+				Sound = "/SFX/Enemy Sounds/AutomatonBeamer/BeamerRapidFireEnd"
+			}
+			{
+				Frame = 2
+				Sound = "/SFX/BloodMineBeepRising"
+			}
+			{
+				Frame = 4
+				Sound = "/SFX/Enemy Sounds/Talos/EmoteDying"
+			}
+			{
+				Frame = 10
+				Sound = "/SFX/Enemy Sounds/Talos/EmoteDying"
+			}
+			{
+				Frame = 16
+				Sound = "/SFX/Enemy Sounds/Talos/EmoteDying"
+			}
+			{
+				Frame = 17
+				Sound = "/SFX/Enemy Sounds/AutomatonDeath"
+			}
+			{
+				Frame = 32
+				Sound = "/SFX/DoorCrystalBallBreak2"
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Enemy Sounds/TreeDestroyTemp"
+			}
+			{
+				Frame = 60
+				Sound = "/SFX/LuciferBombExplosion"
+			}
+			{
+				Frame = 64
+				Sound = "/SFX/Enemy Sounds/Charon/CharonPillarExplode"
+			}
+			{
+				Frame = 123
+				Sound = "/SFX/MetalStoneClang"
+			}
+			{
+				Frame = 142
+				Sound = "/SFX/MetalStoneClangSHIELD"
+			}
+			{
+				Frame = 152
+				Sound = "/SFX/Player Sounds/SpearExplosiveCharge"
+			}
+			{
+				Frame = 184
+				Sound = "/SFX/Player Sounds/SpearExplosiveCharge"
+			}
+			{
+				Frame = 205
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Enemy_Talos_Death_Dissolve"
+		InheritFrom = "EnemyTalosBaseAnimation"
+		GrannyAnimation = "Talos_Base_Death_C_00"
+		HoldLastFrame = true
+		Sound = "/Leftovers/Menu Sounds/PlayerKilledLong_Large"
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 205
+				FrameSpeed = 0.2
+			}
+		]
+
+		VerticalMaskInModelSpace = false
+		Duration = 1.5
+		DeathFxFrameDuration = 90
+		DeathFxColor = { Red = 0.85 Green = 0.95 Blue = 1.0 }
+		DeathFxThickness = 0.05
+		DeathFxEaseIn = 0
+		DeathFxEaseOut = 1
+		DeathFxTexture = "EffectHelpers/DeathFx/DeathMaskRadial"
+		DeathFxReverse = false
+		StartRed = 0
+		StartGreen = 0
+		StartBlue = 0
+		EndRed = 1
+		EndGreen = 1
+		EndBlue = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		ColorFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+		BlockNewOwnerAnims = true
+		OwnerInvulnerable = true
+		OwnerUntargetable = true
+		OwnerHasNoCollision = true
+		OwnerImmobile = true
+	}
+]}

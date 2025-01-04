@@ -36,18 +36,6 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Lob_Idle"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Lob_Sprint_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Lob_Run_FireLoop"
-				Duration = 6
-			}
-			{
 				BlendTransitionFrom = "Melinoe_Lob_Special1_Fire"
 				Duration = 6
 			}
@@ -385,6 +373,10 @@
 			}
 
 			{
+				BlendTransitionFrom = "Melinoe_HeroLanding"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "MelinoeInteract"
 				Duration = 5
 			}
@@ -457,6 +449,10 @@
 		NativeMoveSpeed = 740
 		CreateAnimation = "LobSkullGlowMovement"
 		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Lob_Dash_Fire" }
+		]
 		Attachments =
 		[
 			{
@@ -483,8 +479,8 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Lob_Dash_Fire"
-				Duration = 4
+				BlendTransitionFrom = "Melinoe_Lob_Dash_End1"
+				Duration = 6
 			}
 		]
 	}

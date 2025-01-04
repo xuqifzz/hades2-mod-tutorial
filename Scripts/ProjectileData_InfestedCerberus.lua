@@ -14,7 +14,7 @@ OverwriteTableKeys( ProjectileData, {
 	},
 	CerberusTransitionRadial =
 	{
-		Fuse = 5.0,
+		Fuse = 3.0,
 		ReticleAnimation = "CerbAoEDecal_In_UnburrowTransition",
 		CancelIfOwnerAIStageEnd = true,
 

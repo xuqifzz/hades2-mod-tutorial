@@ -6,7 +6,7 @@
 		MailboxTimeTick( args )
 		FamiliarTimeTick( args )
 	end
-	if not IsGameStateEligible( CurrentRun, GamePhaseData.AdvancementGameStateRequirements ) then
+	if not IsGameStateEligible( nil, GamePhaseData.AdvancementGameStateRequirements ) then
 		return
 	end
 	local ticks = args.Ticks or 1

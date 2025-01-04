@@ -10,6 +10,7 @@
 		Enable3DShadow = true
 	}
 
+	// Idle
 	{
 		Name = "Odysseus_Idle"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -33,6 +34,7 @@
 		]
 	}
 
+	// Walk
 	{
 		Name = "Odysseus_WalkStart"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -42,7 +44,7 @@
 		[
 			{
 				Frame = 60
-				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+				Sound = "/Leftovers/SFX/FootstepsWheatSoft"
 			}
 		]
 
@@ -51,7 +53,6 @@
 			
 		]
 	}
-
 	{
 		Name = "Odysseus_Walk"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -62,15 +63,14 @@
 		[
 			{
 				Frame = 38
-				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+				Sound = "/Leftovers/SFX/FootstepsWheatSoft"
 			}
 			{
 				Frame = 88
-				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+				Sound = "/Leftovers/SFX/FootstepsWheatSoft"
 			}
 		]
 	}
-
 	{
 		Name = "Odysseus_WalkStop"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -80,7 +80,7 @@
 		[
 			{
 				Frame = 30
-				Sound = "/Leftovers/SFX/FootstepsWheatHeavy2"
+				Sound = "/Leftovers/SFX/FootstepsWheatSoft"
 			}
 		]
 
@@ -93,6 +93,7 @@
 		]
 	}
 
+	// Turn
 	{
 		Name = "Odysseus_Turn"
 		InheritFrom = "Odysseus_WalkStop"
@@ -105,6 +106,7 @@
 		]
 	}
 
+	// Greet
 	{
 		Name = "Odysseus_Greet"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -119,6 +121,7 @@
 		]
 	}
 
+	// Salute
 	{
 		Name = "Odysseus_Salute"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -139,7 +142,21 @@
 			}
 		]
 	}
+	{
+		Name = "Odysseus_SaluteAlt"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Mel_Salute_C_00"
+		ChainTo = "Odysseus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 6
+			}
+		]
+	}
 
+	// Surveying
 	{
 		Name = "Odysseus_Surveying"
 		InheritFrom = "NPCOdysseusBaseAnimation"
@@ -157,6 +174,329 @@
 			{
 				BlendTransitionFrom = "Odysseus_Idle"
 				Duration = 4
+			}
+		]
+	}
+
+	// Pensive
+	{
+		Name = "Odysseus_Pensive_Start"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_PensiveStart_C_01"
+		ChainTo = "Odysseus_Pensive_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 6
+			}
+		]
+	}
+	{
+		Name = "Odysseus_Pensive_FireLoop"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_PensiveCycle_C_01"
+		Loop = true
+	}
+	{
+		Name = "Odysseus_Pensive_End"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_PensiveBackToIdle_C_01"
+		ChainTo = "Odysseus_Idle"
+		Blends = 
+		[	
+			{
+				BlendTransitionFrom = "Odysseus_Pensive_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Knife Toss
+	{
+		Name = "Odysseus_KnifeToss"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_KnifeTwirl_C_01"
+		ChainTo = "Odysseus_Idle"
+		Frames =
+		[
+			{
+				Frame = 28
+				Sound = "/SFX/ChefGhostSwipe1"
+			}
+			{
+				Frame = 110
+				Sound = "/SFX/ChefGhostKnifeTwirl"
+			}
+			{
+				Frame = 204
+				Sound = "/SFX/ChefGhostOnionLand"
+			}
+			{
+				Frame = 242
+				Sound = "/SFX/ChefGhostOnionSpawn"
+			}
+			{
+				Frame = 298
+				Sound = "/Leftovers/SFX/RobeFlutter"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Explaining
+	{
+		Name = "Odysseus_Explaining"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Explaining_C_01"
+		ChainTo = "Odysseus_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Drinking
+
+	// Idle1
+	{
+		Name = "Odysseus_Drinking_Idle1_Start"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Fidget02_toIdle_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1"
+	}
+	{
+		Name = "Odysseus_Drinking_Idle1"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Breath_Idle_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1_Chain"
+		AllowRestart = true
+	}
+
+	{
+		Name = "Odysseus_Drinking_Idle1_Chain"
+		Random =
+		[
+			{ Name = "Odysseus_Drinking_Idle2_Start" }
+			{ Name = "Odysseus_Drinking_Idle1" }
+			{ Name = "Odysseus_Drinking_Idle1" }
+			{ Name = "Odysseus_Drinking_Idle1" }
+		]
+	}
+
+	// Idle2
+	{
+		Name = "Odysseus_Drinking_Idle2_Start"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Fidget01_C_00"
+		ChainTo = "Odysseus_Drinking_Idle2"
+	}
+	{
+		Name = "Odysseus_Drinking_Idle2"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Fidget01_Loop_C_00"
+		ChainTo = "Odysseus_Drinking_Idle2_Chain"
+		AllowRestart = true
+	}
+	{
+		Name = "Odysseus_Drinking_Idle2_Chain"
+		Random =
+		[
+			{ Name = "Odysseus_Drinking_Idle3_Start" }
+			{ Name = "Odysseus_Drinking_Idle2" }
+			{ Name = "Odysseus_Drinking_Idle2" }
+			{ Name = "Odysseus_Drinking_Idle2" }
+		]
+	}
+
+	// Idle3
+	{
+		Name = "Odysseus_Drinking_Idle3_Start"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Fidget02_C_00"
+		ChainTo = "Odysseus_Drinking_Idle3"
+	}
+	{
+		Name = "Odysseus_Drinking_Idle3"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Fidget02_Loop_C_00"
+		ChainTo = "Odysseus_Drinking_Idle3_Chain"
+		AllowRestart = true
+	}
+	{
+		Name = "Odysseus_Drinking_Idle3_Chain"
+		Random =
+		[
+			{ Name = "Odysseus_Drinking_Idle1_Start" }
+			{ Name = "Odysseus_Drinking_Idle3" }
+			{ Name = "Odysseus_Drinking_Idle3" }
+			{ Name = "Odysseus_Drinking_Idle3" }
+		]
+	}
+
+	// Lemon Spin
+	{
+		Name = "Odysseus_Drinking_LemonSpin_Full"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_SpinLemon_Full_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3"
+				Duration = 12
+			}
+		]
+	}
+
+	{
+		Name = "Odysseus_Drinking_LemonSpin_Start"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_SpinLemon_Start_C_00"
+		ChainTo = "Odysseus_Drinking_LemonSpin_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3"
+				Duration = 12
+			}
+		]
+	}
+	{
+		Name = "Odysseus_Drinking_LemonSpin_FireLoop"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_SpinLemon_Loop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Odysseus_Drinking_LemonSpin_End"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_SpinLemon_End_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_LemonSpin_FireLoop"
+				Duration = 6
+			}
+		]
+	}
+
+	// Sip
+	{
+		Name = "Odysseus_Drinking_Sip"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Solo_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3"
+				Duration = 12
+			}
+		]
+	}
+
+	// Toast
+	{
+		Name = "Odysseus_Drinking_Toast"
+		InheritFrom = "NPCOdysseusBaseAnimation"
+		GrannyAnimation = "Odysseus_Base_Drink_Toast_C_00"
+		ChainTo = "Odysseus_Drinking_Idle1"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle1"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle2"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3_Start"
+				Duration = 12
+			}
+			{
+				BlendTransitionFrom = "Odysseus_Drinking_Idle3"
+				Duration = 12
 			}
 		]
 	}

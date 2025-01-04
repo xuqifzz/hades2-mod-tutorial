@@ -8,6 +8,7 @@ UnitSetData.WaterUnit =
 
 		BlockRespawnShrineUpgrade = true,
 		BlockNextBiomeEnemyShrineUpgrade = true,
+		BlockForcedTeleport = true,
 
 		MaxHealth = 250,
 		HealthBarType = "Medium",
@@ -41,7 +42,6 @@ UnitSetData.WaterUnit =
 
 		RequiredSpawnPoint = "EnemyPointRanged",
 		Material = "Bone",
-		ProjectileBlockPresentationFunctionName = "ShadeBlockPresentation",
 
 		StunAnimations = 
 		{
@@ -54,18 +54,22 @@ UnitSetData.WaterUnit =
 		{
 			"AggroAI",
 		},
-		PostAggroAI = "AttackerAI",
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
 
 			PreAttackAlpha = 1,
+
+			SurroundRetaliateDistance = 400,
+			SurroundRefreshInterval = 0.4,
+			MaxAttackers = 99, -- Only restrict WaterUnitSpit & WaterUnitLob
 		},
 
 		WeaponOptions =
 		{
-			"WaterUnitSpit", "WaterUnitSwipe", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive",
+			"WaterUnitSpit", "WaterUnitSwipe", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
 		},
 		
 		SpellSummonDataOverrides =
@@ -84,34 +88,23 @@ UnitSetData.WaterUnit =
 			BlockEnemyTypes = {"WaterUnit_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0091", Text = "Serpents!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatG" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0090", Text = "Serpents.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0091", Text = "Serpents!" },
+			{ Cue = "/VO/MelinoeField_0090", Text = "Serpents." },
+			{ Cue = "/VO/MelinoeField_0091", Text = "Serpents!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0092", Text = "More Serpents." },
 			{ Cue = "/VO/MelinoeField_0093", Text = "More Serpents?" },
 		},
@@ -124,6 +117,8 @@ UnitSetData.WaterUnit =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterUnit/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Homing" }),
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -131,12 +126,7 @@ UnitSetData.WaterUnit =
 
 		WeaponOptions =
 		{
-			"WaterUnitSwipe", "WaterUnitSpitElite", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
+			"WaterUnitSwipe", "WaterUnitSpitElite", "WaterUnitLob", "WaterUnitDive", "WaterUnitDive", "WaterUnitFidget"
 		},
 
 		GeneratorData =
@@ -149,16 +139,18 @@ UnitSetData.WaterUnit =
 	WaterUnitMiniboss =
 	{
 		InheritFrom = { "Elite", "WaterUnit" },
-		BlockRespawnShrineUpgrade = true,
 		MaxHealth = 700,
 		HealthBuffer = 2650,
 		HealthBarType = "Large",
 		HealthBarOffsetY = -350,
 
+		ArmorSparkAnimation = "HitSparkArmor_Transparent",
+
 		IsAggroedSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteTaunting",
 		DeathSound = "/SFX/Enemy Sounds/WaterUnitMiniboss/EmoteDying",
 
 		BlockRespawnShrineUpgrade = true,
+		BlockCharm = true,
 
 		DefaultAIData =
 		{
@@ -179,6 +171,12 @@ UnitSetData.WaterUnit =
 			DifficultyRating = 60,
 			BlockEnemyTypes = {"WaterUnit"}
 		},
+	},
+
+	WaterUnitMiniboss_Shadow =
+	{
+		InheritFrom = { "Shadow", "WaterUnitMiniboss" },
+		GenusName = "WaterUnitMiniboss",
 	},
 
 }

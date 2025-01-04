@@ -69,7 +69,7 @@
 		InheritFrom = "EnemyTurtleBaseAnimation"
 		GrannyAnimation = "Turtle_Base_Move_C_00"
 		Loop = true
-
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -103,7 +103,7 @@
 				Duration = 10
 			}
 		]
-
+		SoundManagerCap = 26
 		Frames =
 		[
 			{

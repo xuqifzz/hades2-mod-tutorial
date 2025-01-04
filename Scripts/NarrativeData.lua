@@ -5,12 +5,16 @@ OverwriteTableKeys( NarrativeData, {
 	{
 		InteractTextLinePriorities =
 		{
+			"HecateGrantsWeaponUpgradeSystem01",
+
 			"HecateAboutChronosBossW01",
 			"HecateAboutChronosBossW01Cont1",
 			"HecateAboutChronosBossEarlyL01",
 			"HecateAboutChronosBossL01",
 			"HecateAboutChronosBossL02",
-			"HecateAboutErisBossW01",
+			"HecateAboutPrometheus01",
+			"HecateAboutPrometheusL01",
+			"HecateAboutPrometheusW01",
 			"HecateAboutChronosAnomaly01",
 			"HecateAboutChronos01",
 			{
@@ -41,12 +45,17 @@ OverwriteTableKeys( NarrativeData, {
 				"HecateAboutErisFight01",
 			},
 			{
+				"HecateGrantsFamiliars01",
+			},
+			{
 				"HecateAboutChronosAnomaly02",
 			},
 			{
 				"HecateAboutMoros01",
 				"HecateAboutArtemis01",
 				"HecateAboutHades02",
+				"HecateAboutAthena01",
+				"HecateAboutEris01",
 			},
 			{
 				"HecateAboutChaos01",
@@ -54,11 +63,14 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HecateLostAgainstHer01",
 				"HecateWonAgainstHer01",
+				"HecateAboutOlympus01",
 			},
 			{
 				"HecateAboutFamilyPortrait01",
 				"HecateAboutBountyBoard01",
 				"HecateAboutArachne01",
+				"HecateAboutArachne02",
+				"HecateAboutArachne03",
 			},
 			-- priority story
 			{
@@ -76,6 +88,8 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			{
 				"CharonWithHecate01",
+				"ArachneWithHecateInHub01",
+				"ArachneWithHecateInHub02",
 				"SeleneWithHecate01",
 				"OdysseusWithHecate01",
 			},
@@ -89,7 +103,9 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HecateAboutNemesis01",
 				"HecateAboutMedea01",
-				"HecateAboutEris01",
+				"HecateAboutIcarus01",
+				"HecateAboutAltCauldron01",
+				"HecateAboutAltCauldron02",
 			},
 			{
 				"HecateAboutOceanus01",
@@ -118,6 +134,8 @@ OverwriteTableKeys( NarrativeData, {
 				"HecateAboutMedea02",
 				"HecateAboutCirce02",
 				"HecateAboutFamiliars03",
+				"HecateAboutCosmetics01",
+				"HecateAboutGarden01",
 			},
 			{
 				"HecateAboutCodex01",
@@ -150,9 +168,11 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateGift05",
 			"HecateBathHouse02",
 			"HecateGift06",
+			"HecateTaverna01",
 			"HecateGiftTemp", -- placeholder
 			"HecateFishingDecline01",
 			"HecateBathHouseDecline01",
+			"HecateTavernaDecline01",
 		},
 	},
 
@@ -177,9 +197,11 @@ OverwriteTableKeys( NarrativeData, {
 			"HecateGift05",
 			"HecateBathHouse02",
 			"HecateGift06",
+			"HecateTaverna01",
 			"HecateGiftTemp", -- placeholder
 			"HecateFishingDecline01",
 			"HecateBathHouseDecline01",
+			"HecateTavernaDecline01",
 		},
 
 	},
@@ -190,61 +212,88 @@ OverwriteTableKeys( NarrativeData, {
 		InteractTextLinePriorities =
 		{
 			"DoraFirstMeeting",
+			"DoraAboutPrometheus02",
+			"DoraAboutPrometheus03",
+			"DoraAboutPrometheus04",
 			"DoraAboutChronosBossW01",
-			--"DoraGrantsCosmeticsShop01",
-			"DoraRunProgress01",
-			"DoraAboutTent01",
+			"DoraGrantsCosmeticsShop01",
 			"DoraAboutTask01",
 			"DoraAboutChronos01",
+			-- cosmetics-related
+			{
+				"DoraAboutShades01",
+				"DoraListless01",
+				"DoraListless02",
+				"DoraListless03",
+			},
 			-- immediate-contextual
 			{
 				"DoraAboutSurface01",
 				"DoraAboutOceanus01",
 				"DoraAboutFields01",
 				"DoraAboutThessaly01",
+				"DoraAboutOlympus01",
 				"DoraAboutNightmares01",
 				"DoraAboutPackagedBounties01",
 				"DoraAboutPainting01",
+				"DoraAboutKeepsake01",
+				"DoraAboutChronosBossW02",
+				"DoraAboutPrometheus01",
 			},
 			-- priority story
 			{
+				"DoraAboutTask02",
+				"DoraAboutTent02",
+				"DoraAboutTent03",
+			},
+			{
+				"DoraAboutTent01",
+				"DoraRunProgress01",
 				"DoraAboutReturning01",
 				"DoraAboutExisting01",
 			},
 			-- lower-priority contextual
 			{
+				"DoraAboutSkelly01",
+				"DoraAboutMemorySpell01",
+			},
+			{
+				"DoraAboutCosmetics01",
+				"DoraAboutCosmetics02",
+				"DoraAboutCosmetics03",
 				"DoraAboutShades02",
 				"DoraAboutShades03",
 				"DoraAboutMoros01",
+				"DoraAboutHaunting03",
 			},
 			{
 				"DoraWithMoros01",
 				"DoraAboutHecate01",
-				"DoraAboutTent03",
 				"DoraAboutMoros02",
 				"DoraAboutMoros03",
 				"DoraAboutHeracles01",
 				"DoraAboutNightmares02",
 				"DoraAboutOutside01",
+				"DoraAboutSurface02",
 			},
 			-- lower priority story
 			{
 				"DoraWithMoros02",
-				"DoraListless01",
-				"DoraListless02",
-				"DoraListless03",
-				"DoraAboutTent02",
+				"DoraWithSkelly01",
 				"DoraAboutShades04",
+				"DoraAboutShades04_B",
+				"DoraAboutFrinos01",
 			},
 			{
 				"DoraAboutReturning02",
 				"DoraAboutReturning03",
 				"DoraAboutHaunting02",
+				"DoraAboutHaunting04",
+				"DoraAboutHaunting05",
 			},
 			-- evergreen
 			{
 				"DoraAboutHaunting01",
-				"DoraAboutShades01",
 				"DoraAboutNemesis01",
 				"DoraAboutHypnos01",
 				"DoraAboutCompanions01",
@@ -262,7 +311,11 @@ OverwriteTableKeys( NarrativeData, {
 			"DoraGift05",
 			"DoraBathHouse02",
 			"DoraGift06",
+			"DoraTaverna01",
 			"DoraGiftTemp", -- placeholder
+			"DoraBathHouseDecline01",
+			"DoraFishingDecline01",
+			"DoraTavernaDecline01",
 		},
 	},
 
@@ -281,28 +334,34 @@ OverwriteTableKeys( NarrativeData, {
 			"OdysseusAboutChronos02",
 			"OdysseusAboutChronosAnomaly01",
 			"OdysseusAboutMailbox01",
+			"OdysseusAboutLosingToHecate01",
 			{
 				"OdysseusAboutHermes01",
 				"OdysseusAboutFields01",
 				"OdysseusAboutTartarus01",
+				"OdysseusAboutOlympus01",
 			},
 			{
-				"OdysseusAboutLosingToHecate01",
 				"OdysseusAboutScylla01",
+				"OdysseusAboutScylla02",
 				"OdysseusAboutTreant01",
 				"OdysseusAboutFogEmitter01",
 				"OdysseusAboutWaterUnitMiniboss01",
-				"OdysseusAboutVerminMiniboss01",
-				"OdysseusAboutSatyrCrossbow01",
-				"OdysseusAboutErisBoss01",
+				"OdysseusAboutCharybdis01",
 				"OdysseusAboutCerberus01",
 				"OdysseusAboutCerberus01_B",
-				"OdysseusAboutCharybdis01",
 				"OdysseusAboutVampire01",
 				"OdysseusAboutLamia01",
 				"OdysseusAboutRatCatcher01",
 				"OdysseusAboutGoldElemental01",
+				"OdysseusAboutSatyrCrossbow01",
 				"OdysseusAboutPolyphemus02",
+				"OdysseusAboutErisBoss01",
+				"OdysseusAboutPrometheus01",
+			},
+			{
+				"OdysseusAboutTalos01",
+				"OdysseusAboutVerminMiniboss01",
 			},
 			{
 				"OdysseusAboutSurface01",
@@ -324,6 +383,10 @@ OverwriteTableKeys( NarrativeData, {
 				"OdysseusAboutNemesis01",
 				"OdysseusAboutNemesis02",
 			},
+			{
+				"OdysseusAboutCosmetics01",
+				"OdysseusAboutCosmetics02",
+			},
 			-- priority story
 			{
 				"OdysseusAboutChronos01",
@@ -334,7 +397,6 @@ OverwriteTableKeys( NarrativeData, {
 			-- lower-priority contextual
 			{
 				"OdysseusAboutPressure02",
-				"OdysseusAboutScylla02",
 				"OdysseusAboutPolyphemus03",
 			},
 			{
@@ -374,13 +436,13 @@ OverwriteTableKeys( NarrativeData, {
 		GiftTextLinePriorities =
 		{
 			"OdysseusGift01",
-			"OdysseusBathHouse01",
 			"OdysseusGift02",
 			"OdysseusFishing01",
 			"OdysseusGift03",
 			"OdysseusGift04",
-			"OdysseusBathHouse02",
+			"OdysseusBathHouse01",
 			"OdysseusGift05",
+			"OdysseusBathHouse02",
 			"OdysseusGift06",
 			"OdysseusTaverna01",
 			"OdysseusGiftTemp", -- placeholder
@@ -412,6 +474,7 @@ OverwriteTableKeys( NarrativeData, {
 				"NemesisAboutChronosBossW01",
 				"NemesisAboutChronosBossL02",
 				"NemesisAboutErisFight01",
+				"NemesisAboutPrometheus01",
 			},
 			{
 				"NemesisAboutErisFightW01",
@@ -518,9 +581,9 @@ OverwriteTableKeys( NarrativeData, {
 			"NemesisGift02",
 			"NemesisGift03",
 			"NemesisFishing01",
-			"NemesisBathHouse02",
 			"NemesisBathHouse01",
 			"NemesisGift04",
+			"NemesisBathHouse02",
 			"NemesisGift05",
 			"NemesisTaverna01",
 			"NemesisGiftTemp",
@@ -592,17 +655,21 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"MorosAboutSurfacePenaltyCure02",
 				"MorosAboutChronosBossW01",
-				"MorosAboutChaos01",
 				"MorosAboutEris02",
+				"MorosAboutPrometheus01",
+				"MorosAboutPrometheus02",
 			},
 			{
 				"MorosAboutEris01",
+				"MorosAboutChaos02",
+			},
+			{
+				"MorosAboutChaos01",
 			},
 
 			-- priority story
 			{
 				"MorosAboutCrossroads01",
-				"MorosAboutChaos02",
 			},
 			"NemesisWithMoros01",
 			"MorosWithCharon01",
@@ -682,21 +749,31 @@ OverwriteTableKeys( NarrativeData, {
 		},
 	},
 
-	-- Hypnos
+	-- Hypnos (alts below)
 	NPC_Hypnos_01 =
 	{
 		InteractTextLinePriorities =
 		{
 			"HypnosHideAndSeek01",
 			"HypnosFirstMeeting",
+			"HypnosAboutPoppies01",
 			"NemesisWithHypnos01",
 			"MorosWithHypnos01",
 		},
 
 		GiftTextLinePriorities =
 		{
+			"HypnosWakeUp01",
 			"HypnosGift01",
 			"HypnosGift02",
+		},
+	},
+
+	NPC_Hypnos_02 =
+	{
+		InteractTextLinePriorities =
+		{
+			"HypnosDreamMeeting01",
 		},
 	},
 
@@ -734,12 +811,14 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"SkellyAboutCerberus01",
 				"SkellyAboutCerberus01B",
+				"SkellyAboutPrometheus01",
 			},
 			{
 				"SkellyAboutRouteChoice01",
 				"SkellyAboutSurface01",
 				"SkellyAboutOceanus01",
 				"SkellyAboutThessaly01",
+				"SkellyAboutOlympus01",
 			},
 			{
 				"SkellyAboutCardUpgradeSystem01",
@@ -756,6 +835,7 @@ OverwriteTableKeys( NarrativeData, {
 				"SkellyAboutKeepsake01",
 				"SkellyAboutGiftRack01",
 				"SkellyAboutGiftRack02",
+				"SkellyAboutCosmetics01",
 			},
 			-- priority story
 			{
@@ -784,10 +864,14 @@ OverwriteTableKeys( NarrativeData, {
 				"SkellyAboutDagger01",
 				"SkellyAboutAxe01",
 				"SkellyAboutTorch01",
+				"SkellyAboutLob01",
+				"SkellyAboutSuit01",
 			},
+			"SkellyAboutChatting01",
 			-- lower-priority story
 			{
 				"SkellyAboutCharon02",
+				"DoraWithSkelly01",
 			},
 			-- evergreen
 			{
@@ -810,6 +894,8 @@ OverwriteTableKeys( NarrativeData, {
 			"SkellyGift02",
 			"SkellyGift03",
 			"SkellyGift04",
+			"SkellyGift05",
+			"SkellyGift06",
 			"SkellyGiftTemp", -- placeholder
 			"SkellyBathHouseDecline01",
 			"SkellyFishingDecline01",
@@ -823,6 +909,9 @@ OverwriteTableKeys( NarrativeData, {
 		{
 			"ArachneFirstMeeting",
 			"ArachneAboutOutfits01",
+
+			"HecateWithArachne01_FollowUp",
+
 			-- immediate-contextual
 			{
 				"ArachneAboutRelationship02",
@@ -838,6 +927,14 @@ OverwriteTableKeys( NarrativeData, {
 				"ArachneAboutGods03",
 				"ArachneAboutGods04",
 				"ArachneAboutGods05",
+			},
+			{
+				"ArachneAboutCurse01",
+				"ArachneAboutCurse02",
+				"ArachneAboutCurse03",
+				"ArachneAboutCurse04",
+				"ArachneAboutCurse05",
+				"ArachneAboutCurse06",
 			},
 			{
 				"ArachneAboutHecate01",
@@ -865,6 +962,7 @@ OverwriteTableKeys( NarrativeData, {
 				"ArachneAboutOceanus01",
 				"ArachneAboutRelationship01",
 				"ArachneAboutGods06",
+				"ArachneAboutGods06_B",
 			},
 			-- lower priority story
 			{
@@ -906,6 +1004,28 @@ OverwriteTableKeys( NarrativeData, {
 		},
 	},
 
+	NPC_Arachne_Home_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			-- home events
+			"ArachneHubFirstMeeting01",
+			"ArachneWithHecateInHub01",
+			"ArachneWithHecateInHub02",
+		},
+
+		GiftTextLinePriorities =
+		{
+			"ArachneGift01",
+			"ArachneGift02",
+			"ArachneGift03",
+			"ArachneGift04",
+			"ArachneGift05",
+			"ArachneGift06",
+			"ArachneGiftTemp", -- placeholder
+		},
+	},
+
 	-- Artemis; _Field version below
 	NPC_Artemis_01 =
 	{
@@ -913,6 +1033,7 @@ OverwriteTableKeys( NarrativeData, {
 		{
 			-- home events
 			"ArtemisHubFirstMeeting01",
+			"ArtemisHubAboutChronosBoss01",
 		},
 
 		GiftTextLinePriorities =
@@ -937,6 +1058,10 @@ OverwriteTableKeys( NarrativeData, {
 			-- field events
 			"ArtemisFirstMeeting",
 
+			-- mission critical
+			"ArtemisAboutApollo01",
+			"ArtemisAboutMission01",
+
 			-- immediate-contextual
 			"ArtemisAboutEphyra01",
 			"ArtemisAboutEphyra01_B",
@@ -947,7 +1072,7 @@ OverwriteTableKeys( NarrativeData, {
 			"ArtemisAboutHermes01",
 
 			"ArtemisAboutSurfacePenalty01",
-			"ArtemisAboutApollo01",
+			"ArtemisAboutPrometheus01",
 
 			"ArtemisAboutHecate01",
 			"ArtemisAboutOceanus01",
@@ -964,7 +1089,6 @@ OverwriteTableKeys( NarrativeData, {
 			"ArtemisAboutSelene01_B",
 			"ArtemisAboutChronos01",
 			"ArtemisAboutMoros01",
-			"ArtemisAboutMission01",
 			"ArtemisAboutSilverSisters01",
 
 			-- lower priority contextual
@@ -976,6 +1100,7 @@ OverwriteTableKeys( NarrativeData, {
 			"ArtemisLowHealth01",
 			"ArtemisAboutFamily02",
 			"ArtemisAboutMoon01",
+			"ArtemisAboutTimePassing01",
 
 			-- lower priority story
 			"ArtemisAboutFamily01",
@@ -1014,6 +1139,9 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- priority contextual
 			{
+				"HadesAboutPersephoneAspect01",
+			},
+			{
 				"HadesAboutZagreus01",
 				"HadesAboutBrothers01",
 			},
@@ -1022,9 +1150,18 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- lower-priority contextual
 			{
-				"HadesAboutCharon01",
-				"HadesAboutSurface01",
 				"HadesAboutFamily01",
+			},
+			{
+				"HadesAboutCharon01",
+			},
+			{
+				"HadesAboutSurface01",
+				"HadesAboutPrometheus01",
+				"HadesAboutAutomatons01",
+				"HadesAboutChronosAllies01",
+			},
+			{
 				"HadesAboutShrine01",
 			},
 			-- lower-priority story
@@ -1066,8 +1203,10 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- mission critical
 			{
-				"SeleneAboutPackageBounty01",
 				"SeleneAboutPackageBounty02",
+			},
+			{
+				"SelenePackageBountyIntro01",
 			},
 			{
 				"SeleneAboutObscurity01",
@@ -1122,13 +1261,17 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- priority contextual
 			{
-				"SeleneAboutSwitchToSurface01",
+				"SeleneAboutSuit01",
+				"SeleneAboutLob01",
 			},
 			{
 				"SeleneAboutAxe01",
 				"SeleneAboutHecate02",
 				"SeleneAboutKeepsake01",
 				"SeleneAboutTalentDrop01",
+			},
+			{
+				"SeleneAboutSwitchToSurface01",
 			},
 			{
 				"SeleneRunStartIntro01",
@@ -1142,6 +1285,7 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"SeleneAboutPolyphemus01",
 				"SeleneAboutEris01",
+				"SeleneAboutPrometheus01",
 				"SeleneAboutHeracles01",
 				"SeleneAboutDemeter01",
 			},
@@ -1175,7 +1319,6 @@ OverwriteTableKeys( NarrativeData, {
 				"SeleneAboutEos01",
 				"SeleneAboutDagger01",
 				"SeleneAboutTorch01",
-				"SeleneAboutLob01",
 			},
 			{
 				"SeleneAboutMedea01",
@@ -1240,7 +1383,12 @@ OverwriteTableKeys( NarrativeData, {
 				"ZeusAboutSurfaceNoCure01",
 				"ZeusAboutSurfaceNoCure02",
 				"ZeusAboutSurface01",
+				"ZeusPackageBountyIntro01",
+				"ZeusPackageBountyIntro02",
+			},
+			{
 				"ZeusAboutOlympus02",
+				"ZeusAboutOlympus03",
 				"ZeusAboutOceanus01",
 				"ZeusAboutOceanus02",
 				"ZeusAboutThessaly01",
@@ -1297,6 +1445,12 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"ZeusAboutRouteChoice01",
 			},
+			{
+				"ZeusAboutPrometheus01",
+			},
+			{
+				"ZeusAboutEris01",
+			},
 			-- about other gods
 			{
 				"ZeusAboutHera01",
@@ -1346,7 +1500,7 @@ OverwriteTableKeys( NarrativeData, {
 				"ZeusAboutMelinoe01",
 				"ZeusAboutOlympians01",
 				"ZeusAboutTartarus01",
-				"ZeusAboutEris01",
+				"ZeusAboutPrometheus02",
 			},
 			-- evergreen
 			{
@@ -1384,6 +1538,7 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"PoseidonAboutPackageBounty01",
 				"PoseidonAboutPackageBounty02",
+				"PoseidonAboutOlympus01",
 			},
 			{
 				"PoseidonLegacyBoonIntro01",
@@ -1397,11 +1552,17 @@ OverwriteTableKeys( NarrativeData, {
 				"PoseidonAboutThessaly02",
 			},
 			{
+				"PoseidonAboutFindingHades01_B",
+			},
+			{
 				"PoseidonUnderworldRunCleared01",
 				"PoseidonUnderworldRunCleared02",
 			},
 			{
 				"PoseidonAboutKeepsake02",
+			},
+			{
+				"PoseidonAboutSurface04",
 			},
 			-- priority story
 			{
@@ -1414,6 +1575,9 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			{
 				"PoseidonAboutFamily01",
+			},
+			{
+				"PoseidonAboutFishing04",
 			},
 			-- legendary
 			{
@@ -1446,25 +1610,48 @@ OverwriteTableKeys( NarrativeData, {
 				"PoseidonSurfaceRunStartPostUnderworldW01",
 				"PoseidonUnderworldRunStartPostSurfaceL01",
 				"PoseidonAboutThessaly03",
+				"PoseidonAboutOlympus02",
 			},
 			{
-				"PoseidonAboutRain01",
 				"PoseidonAboutArtemis01",
+				"PoseidonAboutAthena01",
+			},
+			{
 				"PoseidonAboutPolyphemus01",
 				"PoseidonAboutScylla01",
 				"PoseidonAboutScylla02",
 				"PoseidonAboutEris01",
+				"PoseidonAboutPrometheus01",
+				"PoseidonAboutNemesis01",
+				"PoseidonAboutHeracles01",
+				"PoseidonAboutIcarus01",
+
 				"PoseidonAboutOceanus02",
 				"PoseidonAboutOceanus03",
 				"PoseidonAboutSurface02",
 				"PoseidonAboutSurface03",
+				"PoseidonAboutOlympus03",
+				"PoseidonAboutThessaly04",
+
+				"PoseidonAboutAxe01",
+				"PoseidonAboutSuit01",
+
+				"PoseidonAboutAutomatons01",
+				"PoseidonAboutAutomatons02",
+				"PoseidonAboutAutomatons03",
+
 				"PoseidonAboutLittleHades01",
+
 				"PoseidonAboutFrogFamiliar01",
+				"PoseidonAboutCatFamiliar01",
+				"PoseidonAboutCatFamiliar02",
+
 				"PoseidonAboutFishing02",
 				"PoseidonAboutFishing03",
+
 				"PoseidonAboutKeepsake01",
-				"PoseidonAboutThessaly04",
-				"PoseidonAboutAxe01",
+
+				"PoseidonAboutRain01",
 			},
 			-- about other gods
 			{
@@ -1478,6 +1665,7 @@ OverwriteTableKeys( NarrativeData, {
 				"PoseidonAboutHephaestus01",
 				"PoseidonAboutHephaestus02",
 				"PoseidonAboutArtemis02",
+				"PoseidonAboutDionysus01",
 			},
 			"PoseidonAboutSelene01",
 			-- lower-priority story
@@ -1545,11 +1733,11 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"ApolloAboutSurface01",
 			},
+
 			-- priority story
 			{
 				"ApolloAboutTitanWar01",
 				"ApolloAboutChronos01",
-				"ApolloAboutArtemis01",
 				"ApolloAboutMelinoe01",
 			},
 			-- health & immediate-contextual
@@ -1572,17 +1760,18 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- lower-priority contextual
 			{
+				"ApolloAboutArtemis02",
 				"ApolloAboutOceanus01",
 				"ApolloAboutEphyra01",
 				"ApolloAboutThessaly01",
 				"ApolloAboutRouteChoice01",
 				"ApolloUnderworldRunCleared02",
 				"ApolloAboutPolyphemus01",
+				"ApolloAboutPrometheus01",
 			},
 			{
 				"ApolloUnderworldRunCleared01",
 				"ApolloAboutSurface02",
-				"ApolloAboutPassions01",
 				"ApolloAboutSilverSisters01",
 				"ApolloPostGift02",
 				"ApolloAboutTorch01",
@@ -1614,11 +1803,9 @@ OverwriteTableKeys( NarrativeData, {
 				"ApolloAboutFamily02",
 				"ApolloAboutHecate01",
 			},
-			{
-				"ApolloAboutArtemis02",
-			},
 			-- evergreen
 			{
+				"ApolloAboutPassions01",
 				"ApolloPostGift01",
 				"ApolloAboutChronos03",
 				"ApolloAboutWitchcraft01",
@@ -1695,6 +1882,7 @@ OverwriteTableKeys( NarrativeData, {
 				"DemeterAboutThessaly02",
 				"DemeterAboutEphyra01",
 				"DemeterAboutEphyra02",
+				"DemeterAboutPrometheus01",
 			},
 			{
 				"DemeterAboutFields01",
@@ -1790,6 +1978,9 @@ OverwriteTableKeys( NarrativeData, {
 			"HephaestusAboutMelinoe01",
 			-- health & immediate-contextual
 			{
+				"HephaestusAboutAutomatons02",
+			},
+			{
 				"HephaestusAboutSurfaceIntro01",
 			},
 			{
@@ -1812,6 +2003,7 @@ OverwriteTableKeys( NarrativeData, {
 				"HephaestusAboutTorch01",
 				"HephaestusAboutAxe01",
 				"HephaestusAboutLob01",
+				"HephaestusAboutSuit01",
 			},
 			-- health
 			{
@@ -1857,6 +2049,8 @@ OverwriteTableKeys( NarrativeData, {
 				"HephaestusAboutSurfaceThreat01",
 				"HephaestusAboutPolyphemus01",
 				"HephaestusAboutErisBossW01",
+				"HephaestusAboutPrometheus01",
+				"HephaestusAboutTalos01",
 			},
 			-- about other gods
 			{
@@ -2115,6 +2309,8 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HestiaAboutEris01",
 				"HestiaAboutTorch01",
+				"HestiaAboutPrometheus01",
+				"HestiaAboutPrometheus02",
 			},
 			{
 				"HestiaRunStart01",
@@ -2188,6 +2384,7 @@ OverwriteTableKeys( NarrativeData, {
 			},
 			-- evergreen
 			{
+				"HestiaAboutTitans01",
 				"HestiaAboutMyths01",
 				"HestiaAboutFlame01",
 				"HestiaAboutFlame02",
@@ -2254,6 +2451,7 @@ OverwriteTableKeys( NarrativeData, {
 			{
 				"HecateBossAboutFrogFamiliar01",
 				"HecateBossAboutCatFamiliar01",
+				"HecateBossAboutHoundFamiliar01",
 			},
 			{
 				"HecateBossAboutArcana02",
@@ -2267,6 +2465,7 @@ OverwriteTableKeys( NarrativeData, {
 				"HecateBossAboutTorch01",
 				"HecateBossAboutAxe01",
 				"HecateBossAboutLob01",
+				"HecateBossAboutSuit01",
 			},
 			{
 				"HecateBossAboutChronosBossW01",
@@ -2370,7 +2569,1566 @@ OverwriteTableKeys( NarrativeData, {
 		},
 	},
 
+	-- Charon
+	NPC_Charon_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			-- hub
+			"CharonWithHecate01",
+			"CharonGrantsMailbox01",
+			"MorosWithCharon01",
+			"MorosWithCharon02",
+
+			-- immediate-contextual
+			"CharonAboutTartarus01",
+			"CharonAboutSurface01",
+			"CharonAboutThessaly01",
+			"CharonAboutChronosBossW01",
+			"CharonAboutFates01",
+			"CharonFirstMeeting",
+			"CharonAboutHermes02",
+			{
+				"CharonAboutOlympus01",
+			},
+			{
+				"CharonAboutChaos01",
+				"CharonAboutEris01",
+				"CharonAboutMoros01",
+				"CharonAboutMoros02",
+				"CharonAboutNyx01",
+				"CharonAboutHermes03",
+				"CharonAboutKeepsake01",
+				"CharonAboutKeepsake02",
+				"CharonAboutCharonAspect01",
+				"CharonAboutShrine01",
+			},
+			{
+				"CharonAboutOlympians01",
+			},
+			-- priority story
+			{
+				"CharonAboutGold01",
+				"CharonAboutHermesMission01",
+			},
+			-- lower-priority contextual
+			{
+				"CharonAboutNemesis01",
+				"CharonAboutHermes01",
+				"CharonAboutArtemis01",
+				"CharonAboutSelene01",
+				"CharonAboutArachne01",
+				"CharonAboutWellShops01",
+				"CharonAboutSurfaceShops01",
+			},
+			{
+				"CharonAboutTravel01",
+				"CharonAboutNemesis02",
+			},
+			-- lower priority story
+			"CharonAboutErebus01",
+			-- evergreen
+			{
+				"CharonAboutGold02",
+				"CharonAboutSmuggling01",
+				"CharonAboutSpeaking01",
+				"CharonAboutDanger01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"CharonGift01",
+			"CharonGift02",
+			"CharonGift03",
+			"CharonGift04",
+			"CharonGift05", -- placeholder
+		},
+	},
+
+	-- Athena
+	NPC_Athena_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"AthenaAboutKeepsake01",
+			"AthenaFirstMeeting",
+
+			-- immediate-contextual
+			{
+				"AthenaAboutCirce01",
+				"AthenaAboutCirce01_B",
+				"AthenaAboutCirce02",
+				"AthenaAboutCirce02_B",
+			},
+			{
+				"AthenaAboutPrometheus01",
+				"AthenaAboutPrometheusL01",
+				"AthenaLowHealth01",
+				"AthenaAboutTimePassing01",
+			},
+
+			-- priority story
+			{
+				"AthenaAboutAutomatons01",
+				"AthenaAboutOlympians01",
+				"AthenaAboutZeus01",
+			},
+			{
+				"AthenaAboutZagreus01",
+			},
+			{
+				"AthenaAboutAres01",
+			},
+			-- high-priority contextual
+			{
+				"AthenaAboutChronosBossW01",
+			},
+			{
+				"AthenaAboutTalos01",
+			},
+
+			-- lower-priority contextual
+			{
+				"AthenaAboutFates01",
+			},
+			{
+				"AthenaAboutHera01",
+				"AthenaAboutHeracles01",
+				"AthenaAboutDionysus01",
+			},
+			{
+				"AthenaAboutShrine01",
+			},
+
+			-- lower priority story
+			{
+				"AthenaAboutSurfaceThreat01",
+				"AthenaAboutPrometheus02",
+			},
+			{
+				"AthenaAboutArachne01",
+				"AthenaAboutArachne02",
+				"AthenaAboutMortals01",
+			},
+			{
+				"AthenaAboutCurse01",
+				"AthenaAboutPersephone01",
+			},
+			{
+				"AthenaAboutHecate01",
+				"AthenaAboutSelene01",
+			},
+
+			-- evergreen
+			{
+				"AthenaAboutWeapons01",
+				"AthenaAboutHobbies01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"AthenaGift01",
+			"AthenaGift02",
+			"AthenaGift03",
+			"AthenaGift04",
+			"AthenaGiftTemp",
+		},
+	},
+
+	-- Bouldy
+	NPC_Bouldy_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"BouldyFirstMeeting",
+		},
+
+		GiftTextLinePriorities =
+		{
+			-- "BouldyGiftRepeatable01",
+		},
+	},
+
+	-- Cerberus
+	NPC_Cerberus_Field_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"CerberusFirstMeeting",
+		},
+
+		GiftTextLinePriorities =
+		{
+			"CerberusGift01",
+		},
+	},
+
+	InfestedCerberus =
+	{
+		BossOutroTextLinePriorities =
+		{
+			"CerberusBossOutro01",
+			"CerberusBossOutro02",
+			-- repeatable lines in EnemyData_InfestedCerberus
+		},
+	},
+
+	-- Chaos
+	TrialUpgrade = 
+	{
+		InteractTextLinePriorities =
+		{
+			"ChaosFirstPickUp",
+
+			-- immediate-contextual
+			"ChaosAboutBountyChaosIntro01",
+			"ChaosAboutSurfaceAppearance01",
+			{
+				"ChaosAboutBounties01",
+				"ChaosAboutBounties02",
+				"ChaosAboutBounties03",
+				"ChaosAboutBounties04",
+			},
+			"ChaosAboutSurface01",
+			"ChaosGrantsBountyBoard01",
+			"ChaosAboutBountyBoardUnlock01",
+			"ChaosAboutBountyBoard01",
+			"ChaosAboutSurface02",
+			"ChaosGrantsDarkness01",
+			{
+				"ChaosUnderworldRunCleared01",
+				"ChaosAboutChronosFight01",
+			},
+			"ChaosAboutChronosNightmare01",
+
+			-- priority story
+			"ChaosAboutLife01",
+			"ChaosAboutZagreus01",
+
+			-- high-priority contextual
+			{
+				"ChaosAboutChaosGateItem01",
+			},
+			{
+				"ChaosAboutKeepsake01",
+				"ChaosAboutNemesis01",
+				"ChaosAboutHades01",
+			},
+			{
+				"ChaosAboutPostSurface01",
+				"ChaosAboutShrine01",
+			},
+
+			-- run start
+			{
+				"ChaosRunStart01",
+				"ChaosRunStart02",
+			},
+
+			-- health
+			{
+				"ChaosLowHealth01",
+				"ChaosLowHealth02",
+				"ChaosLowHealth03",
+				"ChaosLowHealth04",
+			},
+
+			-- priority contextual
+			{
+				"ChaosAboutChronosNightmare02",
+				"ChaosAboutChronos03",
+			},
+			{
+				"ChaosAboutNemesis02",
+			},
+			{
+				"ChaosUnderworldRunCleared02",
+			},
+			{
+				"ChaosAboutStarDust01",
+				"ChaosAboutWeapons01",			
+			},
+
+			-- about other gods
+			{
+				"ChaosAboutSelene01",
+			},
+			{
+				"ChaosAboutZeus01",
+				"ChaosAboutHera01",
+				"ChaosAboutPoseidon01",
+				"ChaosAboutApollo01",
+				"ChaosAboutHestia01",
+				"ChaosAboutHephaestus01",
+				"ChaosAboutAphrodite01",
+				"ChaosAboutDemeter01",
+				"ChaosAboutArtemis01",
+				"ChaosAboutHermes01",
+			},
+			-- lower-priority story
+			{
+				"ChaosAboutNyx01",
+				"ChaosAboutNyx02",
+				"ChaosAboutChronos02",
+				"ChaosAboutFamily01",
+			},
+			{
+				"ChaosAboutCreation01",
+				"ChaosAboutChronos01",
+			},
+			{
+				"ChaosAboutOlympians01",
+				"ChaosAboutTrust01",
+				"ChaosAboutSurfaceAppearance02",
+			},
+
+			-- lower-priority contextual
+			{
+				"ChaosAboutEris01",
+				"ChaosAboutChaosGates01",
+				"ChaosAboutHecate01",
+			},
+
+			-- evergreen
+			{
+				"ChaosAboutTitans01",
+			},
+
+		},
+		
+		GiftTextLinePriorities =
+		{
+			"ChaosGift01",
+			"ChaosGift02",
+			"ChaosGift03",
+			"ChaosGift04",
+			"ChaosGift05",
+			"ChaosGift06",
+			"ChaosGiftTemp",
+		},
+	},
+
+	-- Chronos
+	NPC_Chronos_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"ChronosFirstMeeting",
+			"ChronosMeeting02",
+			"ChronosReveal01",
+			"ChronosPostBattleMeeting01",
+			"ChronosPostWinStreakMeeting01",
+			"ChronosMeeting03",
+			"ChronosMeeting04",
+			"ChronosMeeting05",
+			"ChronosPostSurfaceMeeting01",
+			"ChronosPostSurfaceMeeting03",
+			"ChronosPostSurfaceMeeting02",
+			"ChronosPostSurfaceMeeting04",
+			"ChronosMeetingAboutZeus01",
+			"ChronosMeetingAboutPoseidon01",
+			"ChronosMeetingAboutHestia01",
+			"ChronosMeetingAboutDemeter01",
+			"ChronosMeetingAboutHera01",
+			"ChronosPostBattleMeeting02",
+			"ChronosPostBattleMeeting03",
+			"ChronosPostBattleMeeting04",
+			"ChronosMeetingAboutOlympians01",
+		},
+	},
+	NPC_Chronos_Story_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"ChronosNightmare01",
+		},
+	},
+
+	-- Chronos Boss
+	Chronos =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"ChronosBossFirstMeeting_C",
+			"ChronosBossFirstMeeting_B",
+			"ChronosBossFirstMeeting",
+			"ChronosBossLostAgainstHim01",
+			"ChronosBossWonAgainstHim01",
+
+			-- immediate-contextual
+			{
+				"ChronosBossAboutHades02",
+				"ChronosBossAboutGameplayTimer02",
+				"ChronosBossAboutPausing01",
+			},
+			-- priority story
+			{
+				"ChronosBossAboutHades01",
+			},
+			-- health
+			{
+			},
+			-- priority contextual
+			{
+				"ChronosBossAboutThanatosAspect01",
+			},
+			-- about other gods
+			{
+			},
+			-- lower-priority contextual
+			{
+				"ChronosBossAboutPrometheus02",
+			},
+			{
+				"ChronosBossAboutChaos01",
+				"ChronosBossAboutHistory01",
+				"ChronosBossAboutGoldenAge02",
+				"ChronosBossAboutEris01",
+				"ChronosBossAboutPrometheus01",
+				"ChronosBossAboutGameplayTimer01",
+				"ChronosBossAboutThessaly01",
+			},
+			-- lower-priority story
+			{
+				"ChronosBossAboutCerberus01",
+				"ChronosBossAboutGoldenAge01",
+				"ChronosBossAboutMelinoe01",
+			},
+			{
+				"ChronosBossAboutScylla01",
+				"ChronosBossAboutScylla02",
+				"ChronosBossAboutPolyphemus01",
+				"ChronosBossAboutPolyphemus02",
+				"ChronosBossAboutTime01",
+				"ChronosBossAboutFates01",
+				"ChronosBossAboutCharon01",
+				"ChronosBossAboutClockwork01",
+				"ChronosBossAboutStyx01",
+			},
+
+			-- evergreen
+			{
+				"ChronosBossAboutWeapons01",
+				"ChronosBossAboutHouse01",
+				"ChronosBossAboutSatyrs01",
+				"ChronosBossAboutFuture01",
+				"ChronosBossAboutWretches01",
+				"ChronosBossAboutTitans01",
+				"ChronosBossAboutOrigin01",
+			},
+		},
+
+		BossPhaseChangeTextLinePriorities =
+		{
+			"ChronosR1FirstWin",
+			{
+				"ChronosR1Win01",
+				"ChronosR1Win02",
+				"ChronosR1Win03",
+				"ChronosR1Win04",
+			},
+			{
+				"ChronosR1Win05",
+				"ChronosR1Win06",
+			},
+		},
+
+		BossOutroTextLinePriorities =
+		{
+			"ChronosBossOutro01",
+		},
+	},
+
+	-- Circe
+	NPC_Circe_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"CirceFirstMeeting",
+			-- immediate-contextual
+			-- priority story
+			{
+				"CirceAboutHut01",
+			},
+			-- priority contextual
+			{
+				"CirceAboutCirceAspect01",
+			},
+			-- lower-priority contextual
+			{
+				"CirceAboutMoly01",
+				"CirceAboutArcana01",
+				"CirceAboutSelene01",
+			},
+			{
+				"CirceAboutMedea01",
+			},
+			{
+				"CirceAboutScylla01",
+			},
+			-- lower priority story
+			{
+				"CirceAboutThessaly01",
+				"CirceAboutCrystals01",
+				"CirceAboutHecate01",
+				"CirceAboutChronos01",
+			},
+			{
+				"CirceAboutBackstory01",
+				"CirceAboutOdysseus01",
+			},
+			-- evergreen
+			{
+				"CirceAboutFamily01",
+				"CirceAboutMiracles01",
+				"CirceAboutStudies01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"CirceGift01",
+			"CirceGift02",
+			"CirceGiftTemp",
+		},
+	},
+
+	-- Dionysus
+	NPC_Dionysus_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"DionysusFirstMeeting",
+			"DionysusAboutFeast01",
+			"DionysusAboutOlympians01",
+
+			-- health & immediate contextual
+			{
+				"DionysusLowHealth01",
+			},
+			{
+				"DionysusAboutKeepsake01",
+			},
+
+			-- priority story
+			{
+				"DionysusAboutFeast02",
+				"DionysusAboutFeast03",
+			},
+			{
+				"DionysusAboutFeast04",
+				"DionysusAboutFeast05",
+			},
+
+			"DionysusAboutAutomatons01",
+
+			"DionysusAboutPrometheus01",
+			"DionysusAboutPrometheus02",
+			"DionysusAboutPrometheus03",
+
+			-- lower-priority contextual
+			{
+				"DionysusAboutSprings01",
+				"DionysusAboutFrogFamiliar01",
+			},
+
+			-- lower priority story
+			"DionysusAboutZagreus01",
+
+			-- evergreen
+			{
+				"DionysusAboutZagreus02",
+				"DionysusAboutTravels01",
+				"DionysusAboutSatyrs01",
+				"DionysusAboutMortals01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"DionysusGift01",
+			"DionysusGift02",
+			"DionysusGift03",
+			"DionysusGift04",
+			"DionysusGiftTemp",
+		},
+	},
+
+	-- Echo
+	NPC_Echo_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"NarcissusWithEcho01",
+			"NarcissusWithEcho02",
+
+			"EchoFirstMeeting",
+			"EchoAboutEcho01",
+			"EchoAboutHelp01",
+
+			-- immediate contextual
+			{
+				"EchoAboutNarcissus02",
+				"EchoAboutNarcissus03",
+				"EchoAboutNarcissus04",
+				"EchoAboutNarcissus07",
+			},
+			-- priority story
+			{
+				"EchoAboutChronos01",
+				"EchoAboutNymphs01",
+				"EchoAboutFields01",
+			},
+			"EchoAboutNarcissus01",
+			"EchoAboutNarcissus05",
+			"EchoAboutNarcissus06",
+			"EchoAboutNarcissus08",
+			-- lower-priority contextual
+			{
+				"EchoAboutKeepsake01",
+			},
+			{
+				"EchoLowHealth01",
+				"EchoLowHealth02",
+				"EchoAboutNemesis01",
+			},
+			-- lower priority story
+			"EchoAboutHeart01",
+			"EchoAboutCerberus01",
+
+			-- evergreen
+			{
+				"EchoAboutBridge01",
+				"EchoAboutCurse01",
+				"EchoAboutCharon01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"EchoGift01",
+			"EchoGift02",
+			"EchoGift03",
+			"EchoGiftTemp",
+		},		
+	},
+
+	-- Eris
+	NPC_Eris_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"ErisFoughtAgainstHer01",
+			"ErisFirstMeeting_B",
+			"ErisFirstMeeting",
+
+			-- immediate-contextual
+			{
+				"ErisFoughtAgainstHer02",
+				"ErisFoughtAgainstHer03",
+			},
+
+			"ErisAboutCloseMatch01",
+			"ErisAboutHeart01",
+			"ErisAboutPast01",
+			"ErisAboutSurface01",
+			"ErisAboutSurface02",
+			"ErisAboutRematches01",
+
+			-- priority story
+			"ErisAboutTask01",
+			"ErisAboutPurpose01",
+			"ErisAboutPast02",
+			"ErisAboutLoyalty01",
+			{
+				"ErisAboutNyx01",
+				"ErisAboutDisorder01",
+				"ErisAboutWar01",
+			},
+
+			-- lower-priority contextual
+			{
+				"ErisAboutMoros01",
+				"ErisAboutNemesis01",
+				"ErisAboutHeracles01",
+				"ErisAboutStrife02",
+			},
+			{
+				"ErisAboutHecate01",
+				"ErisPostGift01",
+			},
+			-- lower priority story
+			{
+				"NemesisWithEris01",
+				"NemesisWithEris02",
+				"MorosWithEris01",
+				"MorosWithEris02",
+			},
+			{
+				"ErisAboutWar02",
+			},
+			{
+				"ErisAboutRumors01",
+				"ErisAboutWeaponGun01",
+				"ErisAboutTrash01",
+				"ErisAboutTrash02",
+				"ErisAboutStrife01",
+			},
+
+			-- evergreen
+			{
+				"ErisAboutAlley01",
+				"ErisAboutSolitude01",
+				"ErisAboutTruth01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"ErisGift01",
+			"ErisGift01_B",
+			"ErisGift02",
+			"ErisGift03",
+			"ErisBathHouse01",
+			"ErisGift04",
+			"ErisGiftTemp",
+			"ErisGiftDecline01",
+			"ErisFishingDecline01",
+			"ErisBathHouseDecline01",
+		},
+
+		CurseGiverPriorities =
+		{
+			"ErisGrantsCurse01",
+			"ErisGrantsCurse06",
+			"ErisGrantsCurse03",
+			"ErisGrantsCurse04",
+			"ErisGrantsCurse02",
+			"ErisGrantsCurse05",
+		},
+	},
+
+	-- Eris Boss
+	Eris =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"ErisBossFirstMeeting",
+
+			-- health & immediate contextual
+			"ErisBossAboutGoldenApples01",
+			"ErisBossAboutConsequences01",
+
+			-- priority story
+			"ErisBossAboutObstacles01",
+			"ErisBossAboutMistakes01",
+			"ErisBossAboutRelaxation01",
+
+			-- priority contextual
+
+			-- lower priority story
+
+			-- lower priority contextual
+
+			-- evergreen
+
+		},
+	},
+
+	-- Hera 
+	HeraUpgrade = 
+	{
+		InteractTextLinePriorities =
+		{
+			"HeraFirstPickUpAlt",
+			"HeraFirstPickUp",
+			-- immediate-contextual
+			{
+				"HeraAboutPackageBounty01",
+			},
+			{
+				"HeraAboutDevotionTest01",
+			},
+			{
+				"HeraUnderworldRunCleared01",
+				"HeraSurfaceRunCleared01",
+			},
+			{
+				"HeraAboutEris01",
+				"HeraAboutPrometheus01",
+			},
+			-- priority story
+			{
+				"HeraAboutMeeting01",
+				"HeraAboutMission01",
+			},
+			{
+				"HeraAboutChronos01",
+				"HeraAboutChronos05",
+				"HeraAboutSurface01",
+				"HeraAboutSurfaceSurvival01",
+				"HeraAboutOceanus01",
+			},
+			{
+				"HeraAboutFates01",
+			},
+			-- health
+			{
+				"HeraLowHealth01",
+				"HeraLowHealth02",
+				"HeraLowHealth03",
+				"HeraLowHealth04",
+			},
+			{
+				"HeraAboutFields01",
+			},
+			-- legendary
+			{
+				"HeraLegendaryPickUp01",
+				"HeraLegendaryPickUp02",
+			},
+			-- priority contextual
+			{
+				"HeraAboutRouteChoice01",
+			},
+			{
+				"HeraAboutPolyphemus01",
+				"HeraAboutSelene01",
+				-- "HeraAboutPolymorph01",
+				"HeraAboutHeracles01",
+				"HeraAboutHeracles02",
+				"HeraAboutSurface02",
+				"HeraRunStartSurface01",
+			},
+			{
+				"HeraRunStart01",
+				"HeraRunStartSurface02",
+				"HeraRunStartUnderworld01",
+			},
+			-- about other gods
+			{
+				"HeraAboutZeus01",
+				"HeraAboutZeus02",
+			},
+			{
+				"HeraAboutHermes01",
+			},
+			{
+				"HeraAboutPoseidon01",
+				"HeraAboutDemeter01",
+				"HeraAboutApollo01",
+				"HeraAboutAphrodite01",
+				"HeraAboutHephaestus01",
+				"HeraAboutHestia01",
+			},
+			{
+				"HeraAboutHades01",
+				"HeraAboutFamily01",
+			},
+			{
+				"HeraAboutChronos02",
+				"HeraAboutChronos03",
+				"HeraAboutChronos04",
+			},
+			-- lower-priority contextual
+			{
+				"HeraAboutRelationships01",
+				"HeraAboutSurface03",
+				"HeraPostGift01",
+				"HeraPostGift02",
+				"HeraAboutHecate01",
+				"HeraAboutHyperion01",
+				"HeraAboutReputation01",
+				"HeraAboutPolymorph01",
+			},
+			-- lower priority story
+			{
+				"HeraAboutMortals01",
+				"HeraAboutMortals03",
+			},
+			-- evergreen
+			{
+				"HeraAboutWitchcraft01",
+				"HeraAboutMortals02",
+				"HeraAboutEternity01",
+				"HeraAboutChildren01",
+				"HeraAboutChildren02",
+				"HeraAboutChildren03",
+				"HeraAboutZeusMarriage01",
+				"HeraAboutZeusMarriage02",
+				"HeraAboutMarriage01",
+				"HeraAboutBows01",
+			},
+		},
+
+		BoughtTextLinePriorities =
+		{
+			"HeraBlindBox01",
+		},
+
+		GiftTextLinePriorities =
+		{
+			"HeraGift01",
+			"HeraGift02",
+			"HeraGift03",
+			"HeraGift04",
+			"HeraGiftTemp", -- placeholder
+		},
+	},
+
+	-- Heracles
+	NPC_Heracles_01 =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"HeraclesFirstMeeting",
+			"HeraclesCombat01",
+		},
+
+		InteractTextLinePriorities =
+		{
+			"HeraclesFieldAboutEphyra01",
+			{
+				"HeraclesFieldAboutHera01",
+				"HeraclesFieldAboutPolyphemus01"
+			},
+			"HeraclesFieldAboutWitches01",
+			"HeraclesFieldAboutOlympus01",
+			"HeraclesFieldAboutFathers01",
+			"HeraclesFieldAboutBlood01",
+			"HeraclesFieldAboutCharon01",
+		},
+
+		GiftTextLinePriorities =
+		{
+			"HeraclesGift01",
+			"HeraclesGift02",
+			"HeraclesGiftTemp",
+		},
+	},
+
+	-- Hermes
+	HermesUpgrade = 
+	{
+		InteractTextLinePriorities =
+		{
+			-- health & immediate-contextual
+			{
+				"HermesAboutSurface01",
+				"HermesAboutSurface02",
+				"HermesAboutSurface02B",
+			},
+			{
+				"HermesAboutOlympus01",
+				"HermesUnderworldRunCleared01",
+			},
+			-- priority story
+			{
+				"HermesAboutFates01",
+				"HermesAboutReachingSurface01",
+				"HermesAboutRouteChoice01",
+			},
+			{
+				"HermesAboutMission01",
+				"HermesAboutMission02",
+			},
+			{
+				"HermesAboutOlympusSiege01",
+				"HermesAboutChronosPlan01",
+				"HermesAboutPrometheus01",
+			},
+			{
+				"HermesAboutHecate01",
+				"HermesAboutFamily01",
+				"HermesAboutSurface03",
+			},
+			-- high priority contextual
+			{
+				"HermesAboutPackageBounty01",
+			},
+			{
+				"HermesAboutMomusAspect01",
+				"HermesAboutHades01",
+			},
+			{
+				"HermesAboutDemeter01",
+				"HermesAboutSelene01",
+			},
+			-- low health
+			{
+				"HermesLowHealth01",
+				"HermesLowHealth02",
+				"HermesLowHealth03",
+				"HermesLowHealth04",
+			},
+			-- legendary
+			{
+				"HermesLegendaryPickUp01",
+				"HermesLegendaryPickUp02",
+				"HermesLegendaryPickUp03",
+			},
+			-- about other gods
+			{
+				"HermesAboutZeus01",
+				"HermesAboutApollo01",
+				"HermesAboutHephaestus01",
+			},
+			-- priority contextual
+			{
+				"HermesAboutThessaly01",
+				"HermesAboutKeepsake01",
+			},
+			{
+				"HermesRunStartSurface01",
+				"HermesRunStartSurface02",
+				"HermesUnderworldStart01",
+			},
+			{
+				"HermesAboutOceanus01",
+				"HermesAboutCharon01",
+				"HermesAboutArtemis02",
+			},
+			{
+				"HermesAboutMoros01",
+			},
+			{
+				"HermesAboutSurfaceThreat01",
+				"HermesAboutChronos01",
+				"HermesAboutCharon02",
+			},
+			{
+				"HermesRunStart01",
+				"HermesRunStart02",
+				"HermesRunStart03",
+				"HermesRunStart04",
+			},
+			{
+				"HermesAboutPersephone01",
+			},
+			-- lower-priority story
+			{
+				"HermesAboutZagreus01",
+			},
+			{
+				"HermesAboutMelinoe01",
+				"HermesAboutPast01",
+				"HermesAboutChronos02",
+			},
+			-- lower-priority contextual
+			{
+				"HermesAboutHeracles01",
+				"HermesAboutHephaestus02",
+				"HermesAboutGameplayTimer01",
+				"HermesAboutArtemis01",
+				"HermesAboutSurfaceShop01",
+				"HermesAboutFamiliars01",
+				"HermesAboutCirce01",
+			},
+			-- evergreen
+			{
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"HermesGift01",
+			"HermesGift02",
+			"HermesGift03",
+			"HermesGift04",
+			"HermesGiftTemp",
+		},
+	},
+
+	-- Icarus
+	NPC_Icarus_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"IcarusFirstMeeting",
+			-- immediate-contextual
+			"IcarusAboutChronosBossW01",
+			"IcarusAboutDaedalus02",
+			"IcarusAboutEris01",
+			{
+				"IcarusAboutKeepsake01",
+			},
+			-- priority story
+			{
+				"IcarusAboutMelinoe01",
+				"IcarusAboutFlying01",
+				"IcarusAboutFlying02",
+				"IcarusAboutReturning02",
+				"IcarusAboutSurfaceCurse01",
+			},
+			{
+				"IcarusAboutDaedalus01",
+				"IcarusAboutReturning01",
+				"IcarusAboutFlying03",
+				"IcarusAboutOdysseus01",
+			},
+			-- lower-priority contextual
+			{
+			},
+			-- lower priority story
+			{
+				"IcarusAboutDaedalus03",
+			},
+			-- evergreen
+			{
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"IcarusGift01",
+			"IcarusGift02",
+			"IcarusGift03",
+			"IcarusGiftTemp",
+		},
+	},
+
+	-- Medea
+	NPC_Medea_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"MedeaFirstMeeting",
+			"MedeaHubFirstMeeting01",
+
+			-- immediate-contextual
+			-- priority story
+			{
+				"MedeaAboutFoes01",
+				"MedeaAboutVengeance01",
+			},
+			{
+				"MedeaAboutEphyra01"
+			},
+			-- lower-priority contextual
+			{
+				"MedeaAboutApollo01",
+				"MedeaAboutHera01",
+			},
+			{
+				"MedeaAboutHeracles01",
+				"MedeaAboutWitchcraft01",
+				"MedeaAboutHecate01",
+			},
+			{
+				"MedeaAboutKeepsake01",
+			},
+			-- lower priority story
+			{
+				"MedeaAboutCirce01",
+				"MedeaAboutCurses01",
+				"MedeaAboutBlood01",
+				"MedeaAboutUndead01",
+				"MedeaAboutReputation01",
+				"MedeaAboutSuffering01",
+			},
+			-- evergreen
+			{
+				"MedeaAboutOptimism01",
+				"MedeaAboutPoisons01",
+				"MedeaAboutSolitude01",
+			},
+		},
+
+		GiftTextLinePriorities =
+		{
+			"MedeaGift01",
+			"MedeaGift02",
+			"MedeaGift03",
+			"MedeaGift04",
+			"MedeaGiftTemp",
+		},
+	},
+
+	-- Narcissus
+	NPC_Narcissus_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"NemesisWithNarcissus02_FollowUp",
+			"NarcissusFirstMeeting",
+			"NarcissusAboutLooks01",
+			"NemesisWithNarcissus01_FollowUp",
+			-- immediate-contextual
+			{
+				"NarcissusAboutWaters01",
+				"NarcissusAboutWaters01_2",
+				"NarcissusAboutWaters01_3",
+				"NarcissusAboutWaters02",
+				"NarcissusAboutWaters03",
+				"NarcissusAboutWaters04",
+				"NarcissusAboutWaters04_2",
+				"NarcissusAboutWaters05",
+				"NarcissusGrantsReward01",
+			},
+			{
+				"NarcissusAboutStillDirtyWaters01",
+				"NarcissusAboutEcho02",
+				"NarcissusAboutEcho03",
+				"NarcissusAboutEcho04",
+			},
+			-- priority story
+			{
+				"NarcissusAboutLooks02",
+			},
+			{
+				"NarcissusAboutDanger01",
+				"NarcissusAboutSolitude01",
+				"NarcissusAboutOceanus01",
+				"NarcissusAboutOceanus02",
+				"NarcissusAboutReflection01",
+			},
+			-- priority contextual
+			{
+				"NarcissusAboutEcho01",
+				"NarcissusAboutEcho01B",
+			},
+			"NarcissusAboutNemesis01",
+			{
+				"NarcissusAboutKeepsake01",
+			},
+			{
+				"NarcissusAboutEcho05",
+				"NarcissusAboutEcho06",
+			},
+			-- lower-priority contextual
+			{
+				"NarcissusLowHealth01",
+			},
+			{
+				"NarcissusLowHealth02",
+			},
+			-- lower priority story
+			{
+				"NarcissusAboutCurse01",
+				"NarcissusAboutLove02",
+				"NarcissusAboutLove03",
+				"NarcissusAboutFriendship01",
+			},
+			{
+				"NarcissusAboutBeauty01",
+				"NarcissusAboutChronos01",
+				"NarcissusAboutSirens01",
+				"NarcissusAboutLove01",
+			},
+			{
+				"NarcissusAboutReflection02",
+				"NarcissusAboutReflection03",
+			},
+			-- evergreen
+			{
+				"NarcissusAboutReflection04",
+			}
+		},
+
+		GiftTextLinePriorities =
+		{
+			"NarcissusGift01",
+			"NarcissusGift02",
+			"NarcissusGift03",
+			"NarcissusGift04",
+			"NarcissusGiftTemp",
+		},
+	},
+
+	NPC_Narcissus_Field_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"NarcissusWithEcho01",
+			"NarcissusWithEcho02",
+		},
+
+		GiftTextLinePriorities =
+		{
+			"NarcissusGift01",
+			"NarcissusGift02",
+			"NarcissusGift03",
+			"NarcissusGift04",
+			"NarcissusGiftTemp",
+		},
+	},
+
+	-- Other Characters
+	-- Nyx
+	NPC_Nyx_01 =
+	{
+		InteractTextLinePriorities =
+		{
+			"NyxNightmare01",
+		},
+	},
+
+	-- Polyphemus
+	Polyphemus =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"PolyphemusAboutBarn01",
+			"PolyphemusFirstMeeting",
+
+			-- health & immediate contextual
+			{
+				"PolyphemusAboutNobodyKeepsake01",
+			},
+			{
+				"PolyphemusAboutNobody02",
+				"PolyphemusAboutNobody03",
+			},
+			{
+				"PolyphemusBarelyLostAgainstHim01",
+			},
+			{
+				"PolyphemusAboutPoseidon02",
+				"PolyphemusLowHealth01",
+				"PolyphemusLowHealth02",
+			},
+			{
+				"PolyphemusLostAgainstHim01",
+				"PolyphemusLostAgainstHim02",
+			},
+			{
+				"PolyphemusWonAgainstHim01",
+				"PolyphemusWonAgainstHim02",
+				"PolyphemusAboutChronos02",
+			},
+			{
+				"PolyphemusAboutName01",
+			},
+			-- priority story
+			{
+				"PolyphemusAboutFriendship01",
+			},
+			{
+				"PolyphemusAboutChronos01",
+				"PolyphemusAboutEphyra01",
+				"PolyphemusAboutThessaly01",
+				"PolyphemusAboutDocks01",
+				"PolyphemusAboutNobody01",
+				"PolyphemusAboutPast01",
+				"PolyphemusAboutOlympus01",
+			},
+			-- priority contextual
+			{
+				"PolyphemusAboutUnderworld01",
+				"PolyphemusAboutPoseidon01",
+				"PolyphemusAboutInsomnia02",
+			},
+			-- lower priority story
+			{
+				"PolyphemusAboutBlindness01",
+				"PolyphemusAboutWar01",
+				"PolyphemusAboutUnderworld01B",
+			},
+			-- lower priority contextual
+			{
+				"PolyphemusAboutMedea01",
+				"PolyphemusAboutHeracles01",
+				"PolyphemusAboutInsomnia01",
+			},
+			-- evergreen		
+			{
+				"PolyphemusAboutSheep01",
+				"PolyphemusAboutCyclopes01",
+				"PolyphemusAboutBoulders01",
+				"PolyphemusAboutFlock01",
+				"PolyphemusAboutDiet01",
+			},
+		},
+	},
+
+	-- Prometheus
+	Prometheus =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"PrometheusFirstMeeting",
+			"PrometheusLostAgainstHim01",
+			"PrometheusLostAgainstHim02",
+			"PrometheusWonAgainstHim01",
+			"PrometheusWonAgainstHim02",
+
+			-- health & immediate contextual
+			{
+				"PrometheusPackagedBounties01",
+			},
+			{
+				"PrometheusAboutDionysus02",
+			},
+			{
+				"PrometheusLowHealth01",
+				"PrometheusLowHealth02",
+				"PrometheusLowHealth03",
+			},
+			{
+				"PrometheusAboutDionysus01",
+			},
+
+			-- priority story
+			{
+				"PrometheusAboutMortals01",
+				"PrometheusAboutMortals02",
+				"PrometheusAboutFire01",
+			},
+			{
+				"PrometheusAboutGoldenAge01",
+			},
+			{
+				"PrometheusAboutChronos01",
+			},
+			{
+				"PrometheusAboutMortals03",
+			},
+
+			-- priority contextual
+			{
+				"PrometheusAboutDora01",
+				"PrometheusAboutDora02",
+			},
+			{
+				"PrometheusAboutFates01",
+				"PrometheusAboutForesight04",
+				"PrometheusAboutForesight05",
+				"PrometheusAboutTorch01",
+			},
+
+			-- lower priority contextual
+			{
+				"PrometheusAboutCirce01",
+			},
+			{
+				"PrometheusAboutZeus01",
+				"PrometheusAboutChaos01",
+				"PrometheusAboutBrothers01",
+			},
+
+			-- lower priority story
+			{
+				"PrometheusAboutForesight01",
+				"PrometheusAboutForesight02",
+				"PrometheusAboutForesight03",
+			},
+			{
+				"PrometheusAboutPlans01",
+				"PrometheusAboutFuture01",
+			},
+
+			-- evergreen
+		},
+
+		BossOutroTextLinePriorities =
+		{
+			"PrometheusBossOutro01",
+		},
+	},
+
+	-- Scylla
+	Scylla =
+	{
+		BossIntroTextLinePriorities =
+		{
+			"ScyllaFirstMeeting",
+			"ScyllaAboutSongs02",
+
+			-- health & immediate contextual
+			-- @temp to get song 2 in the mix
+			"ScyllaAboutSongs01",
+			"ScyllaAboutAmbitions01",
+			"ScyllaAboutChlams02",
+			"ScyllaAboutComeback01",
+			"ScyllaAboutPackagedBounties01",
+			"ScyllaAboutSongVolume01",
+			"ScyllaAboutSirens02",
+			{
+				"ScyllaLowHealth01",
+				"ScyllaLowHealth02",
+				"ScyllaLowHealth03",
+				"ScyllaLowHealth04",
+			},
+			-- priority story
+
+			-- priority contextual
+			{
+				"ScyllaAboutAgents02",
+				"ScyllaAboutOdysseus01",
+			},
+			-- lower priority contextual
+			{
+				"ScyllaAboutDying01",
+				"ScyllaAboutThessaly01",
+				"ScyllaAboutCharybdis01",
+			},
+			-- lower priority story
+			{
+				"ScyllaAboutAgents01",
+				"ScyllaAboutChronos01",
+				"ScyllaAboutChronos02",
+			},
+			{
+				"ScyllaAboutAmbitions02",
+				"ScyllaAboutSirens01",
+				"ScyllaAboutReputation01",
+				"ScyllaAboutStage01",
+				"ScyllaAboutSlump01",
+				"ScyllaAboutSongs03",
+				"ScyllaAboutSongs04",
+			},
+			-- evergreen
+			{
+				"ScyllaAboutChlams01",
+				"ScyllaAboutSurvey01",
+				"ScyllaAboutGreenRoom01",
+			},
+		},
+	},
 })
+
+NarrativeData.ConversationOrder =
+{
+	"NPC_Hecate_01",
+	"NPC_Odysseus_01",
+	"NPC_Dora_01",
+	"NPC_Nemesis_01",
+	"NPC_Eris_01",
+	"NPC_Moros_01",
+	"NPC_Hypnos_01",
+	"NPC_Hypnos_02",
+	"NPC_Charon_01",
+	"NPC_Selene_01",
+	"NPC_Skelly_01",
+
+	"NPC_Chronos_01",
+	"NPC_Chronos_Story_01",
+	"NPC_Arachne_01",
+	"NPC_Arachne_Home_01",
+	"NPC_Heracles_01",
+
+	"NPC_Artemis_Field_01",
+	"NPC_Artemis_01",
+	"NPC_Hermes_01",
+	"NPC_Athena_01",
+	"NPC_Dionysus_01",
+
+	"NPC_Narcissus_01",
+	"NPC_Narcissus_Field_01",
+	"NPC_Echo_01",
+	"NPC_Icarus_01",
+	"NPC_Medea_01",
+	"NPC_Circe_01",
+
+	"NPC_Hecate_Story_01",
+	"NPC_Nyx_01",
+
+	"NPC_Hades_Field_01",
+	"NPC_Cerberus_Field_01",
+	"NPC_Bouldy_01",
+}
 
 -- Event Tables
 GameData.GodAboutGodVoiceLines =
@@ -2497,6 +4255,7 @@ GameData.NarcissusTalkToSelfEvents =
 }
 GameData.ArachneUpsetEvents =
 {
+	"ArachneAboutGods01",
 	"ArachneAboutGods02",
 	"ArachneAboutGods03",
 	"ArachneAboutGods04",
@@ -2504,6 +4263,124 @@ GameData.ArachneUpsetEvents =
 }
 
 -- other data
+GameData.AllPurchaseableCosmetics =
+{
+	-- current total purchaseable cosmetics = 71
+	-- Tent (note: also check DoraAboutTent03)
+	-- "Cosmetic_TentBlanket01",
+	"Cosmetic_TentBlanket01a",
+	"Cosmetic_TentBlanket01b",
+	"Cosmetic_ApolloLyre",
+	"Cosmetic_TentHangingOrnaments01",
+	"Cosmetic_EmployeeOfTheMonth",
+	"Cosmetic_WitchTrinkets01",
+	"Cosmetic_WitchTrinkets02",
+	-- "Cosmetic_TentCandle01",
+	"Cosmetic_TentCandle01a",
+	"Cosmetic_TentCandle01b",
+	"Cosmetic_TentQuilt",
+	-- "Cosmetic_TentShelf01",
+	"Cosmetic_TentShelf01a",
+	"Cosmetic_TentShelf01b",
+	"Cosmetic_FanPoster01",
+	"Cosmetic_FanPoster01a",
+	"Cosmetic_FanPoster01b",
+	"Cosmetic_ThanPoster",
+	"Cosmetic_TentRug",
+
+	-- Respawn Area
+	-- "Cosmetic_FrinosRock01",
+	"Cosmetic_FrinosRock01a",
+	"Cosmetic_FrinosRock01b",
+	"Cosmetic_RespawnCircleFlowers",
+	"Cosmetic_FamiliarEffigy01",
+	"Cosmetic_FamiliarEffigy01a",
+	"Cosmetic_FamiliarEffigy01b",
+
+	-- Moros Corner
+	"Cosmetic_MorosChaise",
+	"Cosmetic_MorosTentCanopy",
+	"Cosmetic_MorosScrolls",
+	"Cosmetic_MorosRug",
+	"Cosmetic_MorosSpools",
+
+	-- Nemesis Corner
+	"Cosmetic_NemesisChair",
+	"Cosmetic_NemesisRug",
+	"Cosmetic_NemesisGrindstone",
+	"Cosmetic_NemesisBraziers",
+
+	-- Odysseus Corner
+	"Cosmetic_OdysseusRug",
+	-- "Cosmetic_OdysseusTable01",
+	"Cosmetic_OdysseusTable01a",
+	"Cosmetic_OdysseusVase",
+
+	-- Eris Corner
+	"Cosmetic_ErisTrashcan",
+
+	-- General
+	-- "Cosmetic_MainHangingTassles01",
+	"Cosmetic_MainHangingTassles01a",
+	"Cosmetic_MainHangingTassles01b",
+	-- "Cosmetic_MainHangingRope01",
+	"Cosmetic_MainHangingRope01a",
+	"Cosmetic_RiverLanterns",
+	"Cosmetic_MainTeaLights",
+	-- "Cosmetic_MainLanterns01",
+	"Cosmetic_MainLanterns01a",
+	"Cosmetic_MainLanterns01b",
+	"Cosmetic_BrokerRug",
+
+	-- Cauldron
+	-- "Cosmetic_Cauldron01",
+	"Cosmetic_Cauldron01a",
+	"Cosmetic_Cauldron01b",
+	-- "Cosmetic_CauldronRing01",
+	"Cosmetic_CauldronRing01a",
+	"Cosmetic_CauldronRing01b",
+	-- "Cosmetic_CauldronPillars01",
+	"Cosmetic_CauldronPillars01a",
+	"Cosmetic_CauldronPillars01b",
+	"Cosmetic_CauldronPillars01c",
+
+	-- Hot Springs
+	"Cosmetic_BathChangingScreens",
+	"Cosmetic_BathTowelRacks",
+	"Cosmetic_BathSoaps",
+
+	-- Hypnos Corner
+	-- "Cosmetic_HypnosLanterns01",
+	"Cosmetic_HypnosLanterns01a",
+	"Cosmetic_HypnosLanterns01b",
+	-- "Cosmetic_HypnosPillars01",
+	"Cosmetic_HypnosPillars01a",
+	"Cosmetic_HypnosRug",
+
+	-- Fishing Area
+	"Cosmetic_Aquarium",
+
+	-- Taverna
+	-- "Cosmetic_TavernaTables01",
+	"Cosmetic_TavernaTables01a",
+	"Cosmetic_TavernaTables01b",
+	-- "Cosmetic_TavernaChairs01",
+	"Cosmetic_TavernaChairs01a",
+	"Cosmetic_TavernaChairs01b",
+	"Cosmetic_TavernaStarMosaic",
+
+	-- PreRun (note: also check SkellyAboutCosmetics01)
+	-- "Cosmetic_SkellyFloor01",
+	"Cosmetic_SkellyFloor01a",
+	"Cosmetic_SkellyFloor01b",
+	-- "Cosmetic_TrainingDummy01",
+	"Cosmetic_TrainingDummy01a",
+	"Cosmetic_TrainingDummy01b",
+	"Cosmetic_CatScratcher",
+	"Cosmetic_BirdHouse",
+	"Cosmetic_ExitCharm",
+}
+
 GameData.BannedEnemySightedEncounters =
 {
 	"ArachneCombatF",
@@ -2516,7 +4393,113 @@ GameData.BannedEnemySightedEncounters =
 	"NemesisCombatH",
 
 	"HeraclesCombatN",
+	"HeraclesCombatN2",
 	"HeraclesCombatO",
+	"HeraclesCombatO2",
+	"HeraclesCombatP",
+	"HeraclesCombatP2",
+
+	"IcarusCombatO",
+	"IcarusCombatO2",
+	"IcarusCombatP",
+	"IcarusCombatP2",
+
+	"MiniBossWaterUnit",
+	"MiniBossLamia",
+	"MiniBossVampire",
+	"MiniBossRatCatcher",
+	"MiniBossGoldElemental",
+	"MiniBossSatyrCrossbow",
+	"MiniBossDragon",
+
+	"BossHecate01",
+	"BossScylla01",
+	"BossInfestedCerberus01",
+	"BossChronos01",
+	"BossPolyphemus01",
+	"BossEris01",
+	"BossPrometheus01",
+}
+
+GameData.CombatUniqueEncounters =
+{
+	"BossHecate01",
+	"BossPolyphemus01",
+	"BossScylla01",
+	"BossInfestedCerberus01",
+	"BossChronos01",
+	"BossPolyphemus01",
+	"BossEris01",
+	"BossPrometheus01",
+
+	"SiegeVineIntro",
+	"RadiatorIntro",
+	"ScreamerIntro",
+
+	"FishmanIntro",
+	"FishSwarmerIntro",
+	"TurtleIntro",
+
+	"LamiaIntro",
+	"LovesickIntro",
+	"VampireIntro",
+	"LycanthropeIntro",
+	"MournerIntro",
+
+	"MudmanIntro",
+	"ZombieAssassinIntro",
+	"ZombieHeavyRangedIntro",
+	"ZombieSpawnerIntro",
+
+	"ScimiterrorIntro",
+	"HarpyCutterIntro",
+	"WaterElementalIntro",
+	"DrunkIntro",
+	"Mage2Intro",
+
+	"DragonIntro",
+	"SapperIntro",
+	"AutomatonBeamerIntro",
+	"AutomatonEnforcerIntro",
+
+	"OlympusIntro",
+}
+
+GameData.CombatNPCEncounters =
+{
+	"ArachneCombatF",
+	"ArachneCombatG",
+	"ArachneCombatN",
+
+	"ArtemisCombatIntro",
+	"ArtemisCombatF",
+	"ArtemisCombatF2",
+	"ArtemisCombatG",
+	"ArtemisCombatG2",
+	"ArtemisCombatN",
+	"ArtemisCombatN2",
+
+	"NemesisCombatIntro",
+	"NemesisCombatF",
+	"NemesisCombatG",
+	"NemesisCombatH",
+
+	"HeraclesCombatN",
+	"HeraclesCombatN2",
+	"HeraclesCombatO",
+	"HeraclesCombatO2",
+	"HeraclesCombatP",
+	"HeraclesCombatP2",
+
+	"IcarusCombatIntro",
+	"IcarusCombatO",
+	"IcarusCombatO2",
+	"IcarusCombatP",
+	"IcarusCombatP2",
+
+	"AthenaCombatIntro",
+	"AthenaCombatP",
+	"AthenaCombatP02" 
 }
 
 GameData.AllDuoBoons =
@@ -2533,8 +4516,8 @@ GameData.AllDuoBoons =
 	"RaiseDeadBoon",
 	"KeepsakeLevelBoon",
 	"CharmCrowdBoon",
-	"EmptySlotDamageBoon",
-	"AllElementalBoon",
+	"ManaShieldBoon",
+	"ManaRestoreDamageBoon",
 	"PoseidonSplashSprintBoon",
 	"GoodStuffBoon",
 	"AllCloseBoon",
@@ -2611,6 +4594,9 @@ GameData.AllWeaponAspects =
 
 	"LobCloseAttackAspect",
 	"LobImpulseAspect",
+
+	"SuitHexAspect",
+	"SuitMarkCritAspect",
 }
 
 GameData.AllExpiringKeepsakes =
@@ -2647,6 +4633,7 @@ GameData.FormalRelationships =
 	"NPC_Hypnos_01",
 	"NPC_Medea_01",
 	"NPC_Circe_01",
+	"NPC_Athena_01",
 	"NPC_Moros_01",
 	"NPC_Selene_01",
 	"NPC_Skelly_01",
@@ -2663,6 +4650,8 @@ GameData.FormalRelationships =
 	"SpellDrop",
 	"TrialUpgrade",
 	"ZeusUpgrade",
+	"NPC_Athena_01",
+	"NPC_Dionysus_01",
 }
 GameData.InformalRelationshipsF =
 {
@@ -2683,6 +4672,15 @@ GameData.InformalRelationshipsM =
 	"NPC_Icarus_01",
 	"NPC_Hermes_01",
 	"HermesUpgrade",
+}
+
+GameData.DreamSequenceData =
+{
+	SwapSounds =
+	{
+		["/Leftovers/SFX/FootstepsWheat2Small"] = "/SFX/Player Sounds/FootstepsHardSurface",
+		["/Leftovers/SFX/FootstepsWheat"] = "/SFX/Player Sounds/FootstepsHardSurfaceRun",
+	},
 }
 
 GameData.PostBathHouseArgs =
@@ -2712,6 +4710,22 @@ GameData.PostTavernaArgs =
 	LuaKey = "TempTextData",
 	LuaValue = { TimerTicks = 20 },
 }
+GameData.PostDreamArgs =
+{
+	TargetHero = true,
+	PreDelay = 1.0,
+	Duration = 1.0,
+	Text = "TimePassesClocks",
+	LuaKey = "TempTextData",
+	LuaValue = { TimerTicks = 8 },
+}
+
+PartnerConversationDataShare =
+{
+	"OnQueuedFunctionName",
+	"OnQueuedFunctionArgs",
+	"UseText",
+}
 
 ScreenData.Dialog =
 {
@@ -2721,4 +4735,25 @@ ScreenData.Dialog =
 		StopRotation = false,
 	},
 	PlayedPortraitEnterSounds = {},
+	DefaultGroup = "Combat_Menu",
+
+	ComponentData =
+	{
+		DialogueText =
+		{
+			TextArgs = 
+			{
+				Font = "LatoSemibold",
+				Justification = "LEFT",
+				ShadowBlur = 0,
+				ShadowOffsetX = 0,
+				ShadowOffsetY = 4,
+				LineSpacingBottom = 4,
+				LangLineSpacingBottom = 
+				{
+					{ Code = "zh-TW", Value = 0 },
+				},
+			}
+		}
+	}
 }

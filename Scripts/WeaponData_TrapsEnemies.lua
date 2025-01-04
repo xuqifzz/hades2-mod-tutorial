@@ -1041,11 +1041,17 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "OilPuddleFire",
+			AttackSlots =
+			{
+				{ ProjectileName = "OilPuddleFire" },
+				{ ProjectileName = "OilPuddleFireFlying" },
+			},
 			FireAnimation = "OilPuddleLit",
 			PreAttackDuration = 0.0,
 			FireDuration = 0.0,
 			PostAttackDuration = 0.0,
+
+			SaveProjectileId = true,
 		},
 	},
 
@@ -1056,7 +1062,11 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "OilPuddleFire02",
+			AttackSlots =
+			{
+				{ ProjectileName = "OilPuddleFire02" },
+				{ ProjectileName = "OilPuddleFire02Flying" },
+			},
 			FireAnimation = "OilPuddle02Lit",
 		},
 	},
@@ -1068,7 +1078,11 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "OilPuddleFire03",
+			AttackSlots =
+			{
+				{ ProjectileName = "OilPuddleFire03" },
+				{ ProjectileName = "OilPuddleFire03Flying" },
+			},
 			FireAnimation = "OilPuddle03Lit",
 		},
 	},
@@ -1080,7 +1094,11 @@ WeaponSetData =
 		AIData =
 		{
 			DeepInheritance = true,
-			ProjectileName = "OilPuddleFire04",
+			AttackSlots =
+			{
+				{ ProjectileName = "OilPuddleFire04" },
+				{ ProjectileName = "OilPuddleFire04Flying" },
+			},
 			FireAnimation = "OilPuddle04Lit",
 		},
 	},
@@ -1134,6 +1152,652 @@ WeaponSetData =
 		PresentationOnlyOnPlayerHit = true,
 		OnHitFunctionNames = { "CheckLavaSplashPresentation", },
 		MoveWithinRange = false
+	},
+
+	ZeusStatueLightningStorm =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "ZeusStatueLightningBolt",
+			FireProjectileAtTarget = true,
+			AttackSlots =
+			{
+				{ UseAngleBetween = true, OffsetDistance = 200, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 0 },
+				{ UseAngleBetween = true, OffsetDistance = 250, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 20 },
+				{ UseAngleBetween = true, OffsetDistance = 300, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 40 },
+				{ UseAngleBetween = true, OffsetDistance = 350, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 60 },
+				{ UseAngleBetween = true, OffsetDistance = 400, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 80 },
+				{ UseAngleBetween = true, OffsetDistance = 450, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 100 },
+				{ UseAngleBetween = true, OffsetDistance = 500, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 120 },
+				{ UseAngleBetween = true, OffsetDistance = 550, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 140 },
+				{ UseAngleBetween = true, OffsetDistance = 600, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 160 },
+				{ UseAngleBetween = true, OffsetDistance = 650, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 180 },
+				{ UseAngleBetween = true, OffsetDistance = 700, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 200 },
+				{ UseAngleBetween = true, OffsetDistance = 750, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 220 },
+				{ UseAngleBetween = true, OffsetDistance = 800, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 240 },
+				{ UseAngleBetween = true, OffsetDistance = 850, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 260 },
+				{ UseAngleBetween = true, OffsetDistance = 900, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 280 },
+				{ UseAngleBetween = true, OffsetDistance = 950, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 300 },
+				{ UseAngleBetween = true, OffsetDistance = 1000, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 320 },
+				{ UseAngleBetween = true, OffsetDistance = 1050, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 340 },
+				{ UseAngleBetween = true, OffsetDistance = 1100, OffsetScaleY = 0.48, OffsetFromAttacker = true, UseAttackerAngle = true, OffsetAngle = 360 },
+			},
+			AttackSlotInterval = 0.1,
+
+			PreAttackAnimation = "ZeusStatuePreFire",
+			PostAttackAnimation = "ZeusStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 10.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	ZeusStatueLightningStorm2 =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "ZeusStatueLightningBolt",
+			FireProjectileAtTarget = true,
+
+			FireTicksMin = 3,
+			FireTicksMax = 12,
+			FireInterval = 0.05,
+			ResetTargetPerTick = true,
+			TargetClosestToLastTarget = true,
+
+			TargetFromGroup = "StatueTrapPoints",
+			TargetRange = 1200,
+
+			PreAttackAnimation = "ZeusStatuePreFire",
+			PostAttackAnimation = "ZeusStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 10.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	ZeusStatueChasingStorm =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "ZeusStatueChasingStorm",
+			FireProjectileTowardTarget = true,
+			BarrelLength = 125,
+			Spread = 60,
+
+			NumProjectiles = 3,
+			ProjectileInterval = 0.3,
+
+			PreAttackAnimation = "ZeusStatuePreFire",
+			PostAttackAnimation = "ZeusStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDurationMin = 4.0,
+			PostAttackDurationMax = 6.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HestiaStatueFireball =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HestiaStatueFireball",
+			FireProjectileTowardTarget = true,
+			BarrelLength = 125,
+
+			PreAttackAnimation = "HestiaStatuePreFire",
+			PostAttackAnimation = "HestiaStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 0.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HestiaStatueFireBalls =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HestiaStatueFireBall",
+			BarrelLength = 50,
+			NumProjectiles = 8,
+			ProjectileAngleEvenlySpaced = true,
+
+			PreAttackAnimation = "HestiaStatuePreFire",
+			PostAttackAnimation = "HestiaStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 8.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HestiaStatueFlamethrower =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			BarrelLength = 150,
+
+			AttackSlots =
+			{
+				{ AnchorAngleOffset = 0, AIDataOverrides = { FireProjectileAngle = 0 }, ProjectileName = "HestiaStatueFlamethrower" },
+				{ AnchorAngleOffset = 90, AIDataOverrides = { FireProjectileAngle = 0 }, ProjectileName = "HestiaStatueFlamethrower" },
+				{ AnchorAngleOffset = 180, AIDataOverrides = { FireProjectileAngle = 0 }, ProjectileName = "HestiaStatueFlamethrower" },
+				{ AnchorAngleOffset = 270, AIDataOverrides = { FireProjectileAngle = 0 }, ProjectileName = "HestiaStatueFlamethrower" },
+			},
+
+			FireProjectileAtTarget = true,
+			FireProjectileTowardTarget = true,
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 1.0,
+			FireDuration = 3.5,
+			PostAttackDurationMin = 2.85,
+			PostAttackDurationMax = 3.65,
+
+			PreAttackAnimation = "HestiaStatuePreFire",
+			PostAttackAnimation = "HestiaStatueIdle",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HestiaStatueFlamethrowerDirect =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HestiaStatueFlamethrower",
+			BarrelLength = 150,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.8,
+			TrackTargetDuringCharge = true,
+			PreAttackRotationDampening = 0.14,
+			AngleTowardsTargetWhileFiring = true,
+			FireRotationDampening = 0.14,
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 1.0,
+			FireDuration = 3.5,
+			PostAttackDurationMin = 2.85,
+			PostAttackDurationMax = 3.65,
+
+			PreAttackAnimation = "HestiaStatuePreFire",
+			PostAttackAnimation = "HestiaStatueIdle",
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HestiaStatueRing =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "HestiaStatueRing",
+			BarrelLength = 0,
+
+			PreAttackDuration = 1.4,
+			FireDuration = 7.0,
+			PostAttackDuration = 7.8,
+
+			PreAttackAnimation = "HestiaStatuePreFire",
+			PostAttackAnimation = "HestiaStatueIdle",
+
+			AttackDistance = 9999,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Hecate/HecateShockwaveRingSFX" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
+			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	PoseidonStatueWave =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "PoseidonStatueWave",
+
+			BarrelLength = 100,
+
+			NumProjectiles = 5,
+			ProjectileInterval = 0.05,
+			ProjectileAngleInterval = 20,
+			TargetFromGroup = "StatueTrapPoints",
+			TargetRange = 800,
+
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.8,
+			TrackTargetDuringCharge = true,
+			AngleTowardsTargetWhileFiring = true,
+
+			PreAttackAnimation = "PoseidonStatuePreFire",
+			PostAttackAnimation = "PoseidonStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDurationMin = 3.85,
+			PostAttackDurationMax = 5.65,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	DemeterStatueFrostStorm =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "DemeterStatueFrostStorm",
+			FireProjectileTowardTarget = true,
+			BarrelLength = 200,
+
+			TargetFromGroup = "StatueTrapPoints",
+			TargetRange = 800,
+
+			PreAttackAnimation = "DemeterStatuePreFire",
+			PostAttackAnimation = "DemeterStatueIdle",
+
+			PreAttackEndShake = true,
+			PreAttackDuration = 0.9,
+			FireDuration = 0.0,
+			PostAttackDuration = 6.0,
+
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Lamia/EmoteAttackingRanged" },
+				{ Name = "/SFX/Enemy Sounds/FreezeShotWeaponFire" },
+			},
+		},
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	EliteLavaSplash =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "LavaSplash",
+
+			DumbFireIntervalMin = 1.0,
+			DumbFireIntervalMax = 5.0,
+		},
+	},
+
+	EliteSpreadHitShields =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+			TargetSelf = true,
+
+			ProjectileName = "EliteSpreadHitShields",
+
+			DumbFireWakeUpDelayMin = 1.0,
+			DumbFireWakeUpDelayMax = 4.0,
+
+			DumbFireIntervalMin = 9.5,
+			DumbFireIntervalMax = 10.5,
+			EndDumbFireOnTimesFired = 5,
+		}
+	},
+
+	EliteManaDrain =
+	{
+		ProjectileName = "EliteManaDrain",
+
+		SkipCanAttack = true,
+		CancelOnPolymorph = true,
+		ExpireProjectilesOnPolymorph = true,
+
+		DumbFireInterval = 10.0,
+	},
+
+	EliteRooting =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackDistance = 710,
+			PreAttackFx = "TreantRootsPreviewFx",
+			EndPreAttackFx = true,
+
+			ProjectileName = "EliteRooting",
+			FireProjectileAtSelf = true,
+
+			PreAttackDuration = 1.0,
+
+			DumbFireWakeUpDelayMin = 1.0,
+			DumbFireWakeUpDelayMax = 4.0,
+
+			DumbFireIntervalMin = 7.5,
+			DumbFireIntervalMax = 8.5,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/Leftovers/SFX/AuraThrowLarge" },
+			},
+		},
+	},
+
+	EliteStasisDeath =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "EliteStasisDeath",
+			FireProjectileAtSelf = true,
+
+			PreAttackFx = "StasisDeathPreviewA_In",
+			EndPreAttackFx = true,
+
+			PreAttackDuration = 1.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab" },
+			},
+		},
+	},
+
+	EliteCastOrbit =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "EliteBoltOrbit",
+			NumProjectiles = 3,
+			ProjectileAngleEvenlySpaced = true,
+			--DumbFireInterval = 20.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosScytheWhirlStart" },
+			},
+		},
+	},
+
+	EliteRadialBeams =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "EliteRadialBeam",
+
+			DumbFireInterval = 6.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				-- { Name = "/SFX/Enemy Sounds/Chronos/EmoteAttackingRanged" },
+			},
+		},
+	},
+
+	EliteVacuum =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "EliteVacuum",
+			FireProjectileAtSelf = true,
+
+			DumbFireInterval = 6.0,
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Chronos/ChronosSuctionStart" },
+			},
+		},
+	},
+
+	EliteRushRipple =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			AttackSlots =
+			{
+				{ ProjectileName = "EliteRift", UseAttackerAngle = true, },
+				{ ProjectileName = "EliteRift", UseAttackerAngle = true, },
+				{ ProjectileName = "EliteRift", UseAttackerAngle = true, AIDataOverrides = { FuseSound = "/SFX/Enemy Sounds/Alecto/AlectoRageGatherLoop" } },
+				{ ProjectileName = "EliteRift", UseAttackerAngle = true, },
+				{ ProjectileName = "EliteRift", UseAttackerAngle = true, },
+			},
+			AttackSlotInterval = 0.06,
+			FireProjectileAtSelf = true,
+			FireFromTarget = true,
+
+			DumbFireWeapons = {},
+		}
+	},
+
+	EliteHex =
+	{
+		AIData =
+		{
+			DeepInheritance = true,
+
+			ProjectileName = "EliteHex",
+
+			PreAttackFx = "EliteHexWarningDecal",
+			EndPreAttackFx = true,
+
+			PreAttackDuration = 1.0,
+
+			DumbFireWakeUpDelayMin = 4.0,
+			DumbFireWakeUpDelayMax = 8.0,
+
+			DumbFireIntervalMin = 12.0,
+			DumbFireIntervalMax = 20.0,
+
+			FireFx = "StaffProjectileFireFx1_Hecate",
+
+		},
+
+		Sounds =
+		{
+			FireSounds =
+			{
+				{ Name = "/SFX/Enemy Sounds/Charon/CharonGroundBlastFire" },
+			},
+		},
 	},
 }
 

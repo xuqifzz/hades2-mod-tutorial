@@ -91,6 +91,13 @@ OverwriteTableKeys( TraitData, {
 				BaseProperty = "Damage",
 			},
 		},
+		WeaponDataOverride = 
+		{
+			WeaponSuitCharged = 
+			{
+				BlockGraphic = "SuitDeflect_Poseidon",
+			}
+		},
 		PropertyChanges = {
 			{
 				WeaponName = "WeaponStaffSwing",
@@ -310,6 +317,7 @@ OverwriteTableKeys( TraitData, {
 
 
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "Graphic",
@@ -326,10 +334,29 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "StaffProjectileFireFx2Close_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "MedeaLoadFx_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "MedeaFuseFx_Poseidon",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -392,6 +419,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "TorchProjectileLargeIn_Poseidon",
@@ -408,6 +436,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Poseidon",
@@ -446,6 +475,90 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "EosProjectile_Poseidon_In",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "EosProjectileShadow",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+
+
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Poseidon",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit2",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitCharged",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunchLarge_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitNovaBurn_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitNovaBurn_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "Null",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitDash",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitExhaustDashTrail_R_Spawner_Poseidon",
+				ChangeType = "Absolute",
+			},
 		},
 	},
 	PoseidonSpecialBoon =
@@ -475,6 +588,7 @@ OverwriteTableKeys( TraitData, {
 		OnEnemyDamagedAction = 
 		{
 			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ExcludeProjectiles = {"ProjectileSuitRangedGuidedSplit", "ProjectileSuitSplit", "ProjectileSuitSplit2" },
 			FunctionName = "CheckPoseidonSplash",
 			Args = 
 			{
@@ -482,6 +596,7 @@ OverwriteTableKeys( TraitData, {
 				MultihitWeaponWhitelist = 
 				{
 					"WeaponAxeSpecialSwing",
+					"WeaponAxeSpecial",
 
 					"WeaponTorchSpecial",
 					"WeaponLobSpecial"
@@ -489,6 +604,7 @@ OverwriteTableKeys( TraitData, {
 				MultihitWeaponConditions = 
 				{
 					WeaponAxeSpecialSwing = { Cooldown = 0.02 },
+					WeaponAxeSpecial = { Cooldown = 0.02 },
 					WeaponTorchSpecial = { Cooldown = 0.3 },
 					WeaponLobSpecial = { Cooldown = 0.1 },
 				},
@@ -607,8 +723,22 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "DaggerProjectileFx_Poseidon",
+				ChangeValue = "DaggerProjectileCurved_Poseidon",
 				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Poseidon", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerHomingThrowAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Pan_Poseidon",
 			},
 			{
 				WeaponName = "WeaponDaggerThrow",
@@ -630,6 +760,30 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "AxeDeflect_Poseidon",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
+			},
+			{
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSpinDouble_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSpinDouble_Poseidon",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
@@ -715,6 +869,63 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "TorchSpecialProjectileDissipate_Poseidon",
 				ChangeType = "Absolute",
 			},
+{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedChargedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravel_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocket_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketUnguided_Poseidon",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravelUnguided_Poseidon",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Poseidon",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Poseidon",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Poseidon",
+				ChangeType = "Absolute",
+			},		
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Poseidon",
+			},
 		}
 	},
 	PoseidonCastBoon =
@@ -784,9 +995,16 @@ OverwriteTableKeys( TraitData, {
 	},
 	PoseidonExCastBoon =
 	{
-		Icon = "Boon_Poseidon_29",
+		Icon = "Boon_Poseidon_46",
 		InheritFrom = { "BaseTrait", "WaterBoon" },
-		RequiredFalseTraits = { "ZeusExCastBoon", "ApolloExCastBoon" },		
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "ZeusExCastBoon", "ApolloExCastBoon", "HeraExCastBoon" },
+			},
+		},
+
 		RarityLevels =
 		{
 			Common =
@@ -899,6 +1117,16 @@ OverwriteTableKeys( TraitData, {
 				BaseType = "Projectile",
 				BaseName = "PoseidonCast",
 				BaseProperty = "Damage",
+				Subtractor = "BaseDamage",
+				IncludeSigns = true,
+			},
+			{
+				External = true,
+				ExtractAs = "BaseDamage",
+				BaseType = "ProjectileBase",
+				BaseName = "ProjectileCast",
+				BaseProperty = "ArmedExpirationDamage",
+				SkipAutoExtract = true
 			},
 		}
 	},
@@ -927,7 +1155,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		OnEnemyDamagedAction = 
 		{
-			ValidWeapons = WeaponSets.HeroAllWeapons,
+			ValidWeapons = WeaponSets.HeroAllWeaponsAndSprint,
 			FunctionName = "CheckExProjectileOnHit",
 			Args = 
 			{
@@ -1186,11 +1414,13 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	RoomRewardBonusBoon =
 	{
 		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
 		Icon = "Boon_Poseidon_36",
 		BlockStacking = true,
+		-- DescriptionTextSymbolScale = 0.70,
 		RarityLevels =
 		{
 			Common =
@@ -1218,6 +1448,7 @@ OverwriteTableKeys( TraitData, {
 			ForceToValidLocation = true,
 			RunProgressUpgradeEligible = true,
 			MultiplyMoney = true,
+			GlobalVoiceLines = "PoseidonRoomRewardBonusReactionLines",
 			ReportValues = {ReportedMinMoney = "ExtractAmount"},
 			LootOptions =
 			{
@@ -1233,7 +1464,7 @@ OverwriteTableKeys( TraitData, {
 				},
 				{
 					Name = "MemPointsCommonDrop",
-					Chance = 0.5,
+					Chance = 1,
 					Overrides = 
 					{
 						MetaConversionEligible = false,
@@ -1248,7 +1479,7 @@ OverwriteTableKeys( TraitData, {
 				},
 				{
 					Name = "MetaCardPointsCommonDrop",
-					Chance = 0.5,
+					Chance = 1,
 					Overrides = 
 					{
 						MetaConversionEligible = false,
@@ -1316,6 +1547,7 @@ OverwriteTableKeys( TraitData, {
 			}
 		}
 	},
+
 	FocusDamageShaveBoon = 
 	{
 		InheritFrom = { "BaseTrait", "WaterBoon" },
@@ -1380,6 +1612,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	-- Cut
 	SlamExplosionBoon =
 	{
@@ -1441,6 +1674,8 @@ OverwriteTableKeys( TraitData, {
 				Multiplier = 1.75,
 			},
 		},
+
+		SpeakerNames = { "Poseidon" },
 
 		DoubleRewardChance = 
 		{

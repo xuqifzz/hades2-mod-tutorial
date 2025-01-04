@@ -6,6 +6,7 @@ WeaponSetData =
 		{
 			MinPlayerDistance = 330,
 			MaxPlayerDistance = 900,
+			MaxAttackers = 3,
 		},
 		AIData =
 		{
@@ -114,6 +115,7 @@ WeaponSetData =
 		Requirements =
 		{
 			MinPlayerDistance = 900,
+			MaxAttackers = 3,
 		},
 		AIData =
 		{
@@ -249,6 +251,8 @@ WeaponSetData =
 
 			DoNotRepeatOnAttackFail = true,
 			FireCreateHealthBar = true,
+
+			SkipSurroundAICount = true,
 		},
 
 		Sounds =
@@ -292,7 +296,9 @@ WeaponSetData =
 
 			ChainedWeapon = "WaterUnitSurface",
 
-			PostAttackRemoveEnemyUI = true,
+			PreAttackRemoveEnemyUI = true,
+
+			SkipSurroundAICount = true,
 		},
 
 		Requirements =
@@ -333,6 +339,34 @@ WeaponSetData =
 		},
 	},
 
+	WaterUnitFidget =
+	{
+		Requirements =
+		{
+			MinAttackers = 3,
+		},
+
+		AIData =
+		{
+			PreAttackDuration = 0.27,
+			FireDuration = 1.77,
+			PostAttackDuration = 0.6,
+			AttackDistance = 9999,
+			MoveWithinRange = false,
+
+			MoveWithinRange = false,
+			NoProjectile = true,
+			PreAttackStop = true,
+			PreAttackAngleTowardTarget = false,
+
+			PreAttackAnimation = "Enemy_WaterUnit_Roar_Start",
+			FireAnimation = "Enemy_WaterUnit_Roar_Fire",
+			PostAttackAnimation = "Enemy_WaterUnit_Roar_End",
+
+			SkipSurroundAICount = true,
+		},
+	},
+
 	WaterUnitRoar =
 	{
 		AIData =
@@ -341,6 +375,7 @@ WeaponSetData =
 			FireDuration = 1.77,
 			PostAttackDuration = 0.6,
 			AttackDistance = 9999,
+			MoveWithinRange = false,
 
 			MoveWithinRange = false,
 			NoProjectile = true,
@@ -361,6 +396,8 @@ WeaponSetData =
 			SpawnRadiusMax = 9999,
 			SpawnRate = 0.85,
 			MaxActiveSpawns = 5,
+
+			SkipSurroundAICount = true,
 			
 			SpawnerOptions =
 			{
@@ -404,6 +441,8 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_WaterUnit_Swipe_Start",
 			FireAnimation = "Enemy_WaterUnit_Swipe_Fire",
 			PostAttackAnimation = "Enemy_WaterUnit_Swipe_End",
+
+			SkipSurroundAICount = true,
 		},
 
 		Sounds =
@@ -435,6 +474,7 @@ WeaponSetData =
 			DeepInheritance = true,
 
 			ProjectileName = "WaterUnitSwipeMiniboss",
+			PostAttackDuration = 1.75,
 
 			AttackDistance = 450,
 			LoSBuffer = 85,

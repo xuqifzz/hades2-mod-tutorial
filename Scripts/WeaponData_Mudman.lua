@@ -143,6 +143,8 @@ WeaponSetData =
 			RequireProjectileLoS = false,
 
 			DoNotRepeatOnAttackFail = true,
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 	},
 

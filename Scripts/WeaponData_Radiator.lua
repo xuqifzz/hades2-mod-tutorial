@@ -8,6 +8,9 @@ WeaponSetData =
 
 			ProjectileName = "RadiatorMelee360",
 			ImmuneToProjectileSlow = true,
+			
+			ExpireProjectilesOnHitStun = true,
+			ExpireProjectilesOnFreeze = true,
 
 			PreAttackDuration = 1.5,
 			PreAttackAnimationSpeed = 1.0,

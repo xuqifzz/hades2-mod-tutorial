@@ -276,6 +276,10 @@
       GUID = "{c575733d-1c53-4b01-9a25-521632882bbd}"
     }
     {
+      Name = "Prometheus"
+      GUID = "{bd94a8c4-0986-4482-baa8-49ffeb30b8de}"
+    }
+    {
       Name = "Orpheus"
       GUID = "{56df1201-36a1-466b-9ba6-11b95d90fa1c}"
     }

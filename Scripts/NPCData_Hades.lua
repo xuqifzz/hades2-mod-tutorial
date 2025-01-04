@@ -9,13 +9,15 @@ UnitSetData.NPC_Hades =
 		AnimOffsetZ = 0,
 		Groups = { "NPCs" },
 		SubtitleColor = Color.HadesVoice,
+		EmoteOffsetY = -280,
+		EmoteOffsetX = 45,
 		RequiredRoomInteraction = true,
 		TreatAsGodLootByShops = true,
 		ExcludeFromLastRunBoon = true,
 		BlockForceCommon = true,
 		BlockDoubleBoon = true,
 		OnUsedFunctionName = "UseLoot",
-		OnUsedFunctionArgs = { SkipInteractAnim = true, SkipSound = true, PackageName = "NPC_Hades_Field_01" },
+		OnUsedFunctionArgs = { SkipInteractAnim = true, SkipSound = true, },
 		SpeakerName = "Hades",
 		LightingColor = { 242, 49, 46, 255 },
 		LootColor = { 242, 49, 46, 255 },
@@ -25,7 +27,7 @@ UnitSetData.NPC_Hades =
 		PriorityUpgrades = { },
 		WeaponUpgrades = { },
 		-- if this gets updated, please also update ChronosBossAboutHades02 =
-		Traits = { "HadesLifestealBoon", "HadesCastProjectileBoon", "HadesPreDamageBoon", "HadesChronosDebuffBoon", "HadesInvisibilityRetaliateBoon", "HadesDeathDefianceDamageBoon" },
+		Traits = { "HadesLifestealBoon", "HadesCastProjectileBoon", "HadesPreDamageBoon", "HadesChronosDebuffBoon", "HadesInvisibilityRetaliateBoon", "HadesDeathDefianceDamageBoon", "HadesManaUrnBoon" },
 		PackageName = "NPC_Hades_Field_01",
 		Consumables = { },
 
@@ -58,6 +60,21 @@ UnitSetData.NPC_Hades =
 				},
 				{ Cue = "/VO/MelinoeField_1570", Text = "We've every chance in the world..." },
 			},
+			{
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				PreLineWait = 1.0,
+				Queue = "Always",
+				UsePlayerSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "HadesAboutAutomatons01" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_2834", Text = "They... fight pretty well." },
+			},
 		},
 
 		SpecialInteractFunctionName = "SpecialInteractSalute",
@@ -85,7 +102,7 @@ UnitSetData.NPC_Hades =
 				{ Cue = "/VO/MelinoeField_1566", Text = "Be well, Lord Father." },
 				{ Cue = "/VO/MelinoeField_1567", Text = "In shadow, I serve!" },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -207,6 +224,10 @@ UnitSetData.NPC_Hades =
 
 				{ Cue = "/VO/Hades_0049", Speaker = "NPC_Unnamed_01", SpeakerLabelOffsetY = 18,
 					PreLineAnim = "Hades_Brooding",
+					-- PreLineAnim = "Hades_Hello",
+					-- PreLineAnim = "Hades_Brooding",
+					-- PreLineAnim = "Hades_Blessing",
+					-- PreLineAnim = "Hades_Blessing_Short",
 					Text = "{#Emph}Pah! {#Prev}Another tormentor come to break me, or to try. And such a frail one, at that. Has the Titan Lord a lack for decent help?" },
 				{ Cue = "/VO/Melinoe_1056", UsePlayerSource = true,
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
@@ -406,6 +427,7 @@ UnitSetData.NPC_Hades =
 				{ Cue = "/VO/Hades_0034",
 					Text = "I know not how you withstood the Titan, if truly you confronted him. Quickly now, tell me but this: Have you been... are you well?" },
 				{ Cue = "/VO/Melinoe_1063", UsePlayerSource = true,
+					Portrait = "Portrait_Mel_Vulnerable_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Am I... well? All my life I've been preparing for this moment, to bring the usurper of the House of Hades to justice. So, I'll have to get back to you, depending on how it goes." },
@@ -423,7 +445,10 @@ UnitSetData.NPC_Hades =
 				{
 					{
 					},
-					AreIdsAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 506405 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -503,6 +528,38 @@ UnitSetData.NPC_Hades =
 					Text = "Impossible... yet seemingly, all these impossibilities continue to occur. So you must vanquish the Titan, as well as come to the rescue of Olympus. How utterly absurd that you are burdened with all that...." },
 			},
 
+			HadesAboutAutomatons01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Intro" },
+					},
+					{
+						Path = { "GameState", "EnemyKills" },
+						HasAll = { "SentryBot", "AutomatonBeamer", "AutomatonEnforcer", "Talos" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "HephaestusAboutAutomatons02", "PoseidonAboutAutomatons02", "AthenaAboutAutomatons01" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
+
+				{ Cue = "/VO/Hades_0173",
+					Text = "To think that you have seen Olympus with your own eyes... your brother never had that opportunity. And I myself... my life is here, and I've no memories of mountaintops." },
+				{ Cue = "/VO/MelinoeField_2833", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "It must have been a sight to behold, once. Now it's beset with the Titan's legions, and mindless Automaton defenders that want {#Emph}me {#Prev}destroyed just as much as our foes." },
+				{ Cue = "/VO/Hades_0174",
+					PreLineAnim = "Hades_Blessing_Short",
+					Text = "I told them never to depend on such contraptions! A proper army needs to be driven by glory, if not fear. Their Automatons feel {#Emph}nothing! {#Prev}How well can they possibly fight?" },
+			},
+
 			HadesAboutShrine01 =
 			{
 				PlayOnce = true,
@@ -528,6 +585,30 @@ UnitSetData.NPC_Hades =
 				{ Cue = "/VO/Hades_0169",
 					PreLineAnim = "Hades_Hello",
 					Text = "I know less of the Unseen than you suppose. As it should be, lest the Titan could have learned much more. Then, may you serve the will of Night judiciously..." },
+			},
+
+			HadesAboutPersephoneAspect01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "LobImpulseAspect" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
+
+				{ Cue = "/VO/Hades_0177",
+					PreLineAnim = "Hades_Hello",
+					Text = "That skull you have in hand, is that... how did you come to possess it? It once had been entrusted to your mother's care... for her protection, and in a way, yours." },
+				{ Cue = "/VO/MelinoeField_2836", UsePlayerSource = true,
+					PreLineAnim = "MelinoeIdleWeaponless", PreLineAnimTarget = "Hero",
+					Text = "Mother's Aspect of the Argent Skull Revaal deemed me a worthy-enough bearer... but it was Headmistress Hecate who first gathered the Nocturnal Arms for my task." },
+				{ Cue = "/VO/Hades_0178",
+					PreLineAnim = "Hades_Blessing_Short",
+					Text = "Forged by the Fates! Who so like playing us for fools. That skull did not protect the Queen as much as I would have preferred; but perhaps its work merely is not yet complete." },
 			},
 
 			-- about characters / about other characters
@@ -577,7 +658,7 @@ UnitSetData.NPC_Hades =
 					{
 						Path = { "GameState", "EnemyKills", "Chronos" },
 						Comparison = ">=",
-						Value = 1,
+						Value = 2,
 					},
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HadesFirstMeeting_C" },
@@ -639,6 +720,59 @@ UnitSetData.NPC_Hades =
 					PreLineAnim = "Hades_Blessing_Short",
 					Emote = "PortraitEmoteFiredUp",
 					Text = "{#Emph}Hah! {#Prev}If this is true, well then my father's plan for conquest is much closer to fruition than I thought. I do not know how he could find the Fates. But if they can do nothing against him now... Daughter, what chance do you have...?" },
+			},
+
+			HadesAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutSurface01" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Story01" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
+
+				{ Cue = "/VO/Hades_0171",
+					PreLineAnim = "Hades_Blessing_Short",
+					Text = "Daughter, answer me something. How is it that the Titan's armies are well-organized enough to siege Olympus, when the Titan himself cowers here in Tartarus?" },
+				{ Cue = "/VO/MelinoeField_2832", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "We have another Titan to contend with there: Prometheus is leading the attack. I don't know how exactly he got free, or what he truly wants... other than vengeance on the gods." },
+				{ Cue = "/VO/Hades_0172",
+					PreLineAnim = "Hades_Brooding",
+					Text = "Is vengeance on the gods an insufficient desire in itself? I wanted nothing to do with his sentencing... but your Lord Uncle Zeus, he... well he would always claim that he could fashion more-creative punishments than I..." },
+			},
+
+			HadesAboutChronosAllies01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutPrometheus01" }
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
+
+				{ Cue = "/VO/Hades_0175",
+					PreLineAnim = "Hades_Hello",
+					Text = "Who else besides Prometheus does Chronos have under his thumb? I would know every last Titan or such ilk who deigned to turn on us." },
+				{ Cue = "/VO/MelinoeField_2835", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Besides marauding hordes of Satyrs and such, the ones that come to mind include the Cyclops, Polyphemus... and Nyx's daughter, Eris... though she may be acting on her own." },
+				{ Cue = "/VO/Hades_0176",
+					PreLineAnim = "Hades_Brooding",
+					Text = "Strife could never be controlled, Nyx knew only too well. As for that Cyclops... he and your Uncle Poseidon have some history that may have spurred his impulses. Well... it is not yet the longest list of enemies, at least." },
 			},
 
 			HadesAboutHecate01 =
@@ -724,7 +858,10 @@ UnitSetData.NPC_Hades =
 				{
 					{
 					},
-					AreIdsAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 506405 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -748,7 +885,10 @@ UnitSetData.NPC_Hades =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutSisyphus01" },
 					},
-					AreIdsNotAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 506405 }, Alive = false },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -785,8 +925,9 @@ UnitSetData.NPC_Hades =
 				GameStateRequirements =
 				{
 					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.65, },
 					},
-					RequiredMaxHealthFraction = 0.65,
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -895,7 +1036,7 @@ UnitSetData.NPC_Hades =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "CurrentRun", "TextLinesRecord", "HadesAboutChronosNightmare01" },
+						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutChronosNightmare01" },
 					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
@@ -1069,7 +1210,10 @@ UnitSetData.NPC_Hades =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					AreIdsAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 506405 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -1081,7 +1225,10 @@ UnitSetData.NPC_Hades =
 				UseableOffSource = true,
 				GameStateRequirements =
 				{
-					AreIdsAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 506405 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.HadesGreeting,
@@ -1226,8 +1373,13 @@ UnitSetData.NPC_Hades =
 					UsePlayerSource = true,
 					SuccessiveChanceToPlayAll = 0.1,
 					PlayOnceFromTableThisRun = true,
-					AreIdsNotAlive = { 370006 },
-
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 370006 }, Alive = false },
+						},
+					},
 				},
 			},
 		},
@@ -1449,7 +1601,10 @@ UnitSetData.NPC_Hades =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HadesAboutBouldy01" },
 					},
-					AreIdsNotAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 506405 }, Alive = false },
+					},
 				},
 				{ Cue = "/VO/MelinoeField_1681", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -1469,7 +1624,10 @@ UnitSetData.NPC_Hades =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "BouldyFirstMeeting" },
 					},
-					AreIdsNotAlive = { 506405 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids = { 506405 }, Alive = false },
+					},
 				},
 				{ Cue = "/VO/BouldySilent01", SpeakerLabelOffsetY = 18,
 					Text = ".   .   .   ." },

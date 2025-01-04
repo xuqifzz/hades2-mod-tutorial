@@ -7,6 +7,83 @@ OverwriteTableKeys( EncounterData,
 	MiniBossWaterUnit =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedG" },
+
+		PreSpawnEnemies = true,
+		SpawnAggroed = true,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 2,
+		ActiveEnemyCapMax = 3,
+
+		SpawnIntervalMin = 1.0,
+		SpawnIntervalMax = 1.0,
+
+		NextRoomResumeMusic = true,
+
+		MoneyDropCapMin = 25,
+		MoneyDropCapMax = 25,
+		MoneyDropCapDepthRamp = 0,
+
+		BlockHighlightEncounter = true,
+		SkipIntroEncounterCheck = true,
+		NoFirstWaveStartDelay = false,
+
+		UnthreadedEvents = EncounterSets.EncounterEventsMiniBossWaterUnit,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "WaterUnitMiniboss",
+						TotalCount = 1,
+						SpawnOnIds = { 568842 },
+						ForceFirst = true,
+					},
+					{
+						Name = "WaterUnitMiniboss_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 568925 },
+						ForceFirst = true,
+						RequiredMiniBossShrine = true,
+					},
+					{
+						Name = "Radiator2_Elite",
+						InfiniteSpawns = false,
+						TotalCount = 4,
+						SpawnOnIds = { 612512, 568937, 568939, 568941, },
+						SpawnOverrides = 
+						{
+							SpawnAngleTowardId = 568842,
+						},
+					},
+				},
+				--StartDelay = 1.2,
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		CancelSpawnsOnKill = { "WaterUnitMiniboss" },
+		WipeEnemiesOnKill = "WaterUnitMiniboss",
+
+		PreSpawnSpawnOverrides =
+		{
+			WakeUpDelay = 1.5,
+		},
+	},
+
+	MiniBossJellyfish =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedG" },
 		PreSpawnEnemies = true,
 		SpawnAggroed = true,
 
@@ -78,8 +155,7 @@ OverwriteTableKeys( EncounterData,
 		InheritFrom = { "MinibossEncounter" },
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
-
-		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+		DelayedStart = true,
 
 		GameStateRequirements =
 		{
@@ -92,6 +168,7 @@ OverwriteTableKeys( EncounterData,
 		{
 			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "CrawlerMiniboss" }, IgnoreAI = true, SkipPresentation = true, } },
 		},
+		
 		UnthreadedEvents = EncounterSets.EncounterEventsMiniBossCrawler,
 
 		NextRoomResumeMusic = true,
@@ -144,14 +221,12 @@ OverwriteTableKeys( EncounterData,
 						SpawnOnIds = { 621276 },
 						ForceFirst = true,
 					},
-					--[[
 					{
-						Name = "Mourner_Support",
-						InfiniteSpawns = false,
+						Name = "Mourner_Shadow",
 						TotalCount = 1,
 						SpawnOnIds = { 622331 },
+						RequiredMiniBossShrine = true,
 					},
-					]]
 					{
 						Name = "CorruptedShadeSmall",
 						TotalCount = 13,
@@ -218,11 +293,18 @@ OverwriteTableKeys( EncounterData,
 						ForceFirst = true,
 					},
 					{
+						Name = "Lovesick_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 622513, },
+						RequiredMiniBossShrine = true,
+					},
+					{
 						Name = "Lamia_Support",
 						TotalCount = 4,
 						SpawnOnIds = { 622525, 622542, 622543, 622544, },
 					},
-					SpawnOverrides = {
+					SpawnOverrides =
+					{
 						SpawnAngleTowardId = 565479,
 					},
 				},
@@ -233,7 +315,7 @@ OverwriteTableKeys( EncounterData,
 		PreSpawnSpawnOverrides = {},
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
-		CancelSpawnsOnKill = { "Lamia" },
+		CancelSpawnsOnKill = { "Lamia_Miniboss" },
 		WipeEnemiesOnKill = "Lamia_Miniboss",
 	},
 
@@ -280,8 +362,15 @@ OverwriteTableKeys( EncounterData,
 						ForceFirst = true,
 					},
 					{
+						Name = "SatyrCrossbow_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 646548 },
+						RequiredMiniBossShrine = true,
+					},
+					{
 						Name = "Carrion",
 						TotalCount = 5,
+						RequiredMiniBossShrine = false,
 					},
 				},
 				StartDelay = 0.5,
@@ -289,6 +378,7 @@ OverwriteTableKeys( EncounterData,
 		},
 
 		CancelSpawnsOnKill = { "SatyrCrossbow" },
+		WipeEnemiesOnKill = "SatyrCrossbow",
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 	},
@@ -314,6 +404,7 @@ OverwriteTableKeys( EncounterData,
 		HealthBarTextId = "Charybdis_Full",
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		BossKillGlobalVoiceLines = "MiniBossEncounterEndVoiceLines",
 		CancelSpawnsOnKillAllTypes = { "CharybdisTentacle" },
 		WipeEnemiesOnKillAllTypes = { "CharybdisTentacle" }
 	},
@@ -334,8 +425,8 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapBase = 10,
 		ActiveEnemyCapMax = 10,
 
-		SpawnIntervalMin = 5.0,
-		SpawnIntervalMax = 10.0,
+		SpawnIntervalMin = 0.0,
+		SpawnIntervalMax = 0.0,
 
 		MoneyDropCapMin = 15,
 		MoneyDropCapMax = 15,
@@ -360,10 +451,12 @@ OverwriteTableKeys( EncounterData,
 						ForceFirst = true,
 						SpawnOnIds = { 40191 },
 					},
-					--[[{
-						Name = "SatyrLancer",
-						InfiniteSpawns = true,
-					},]]
+					{
+						Name = "SatyrLancer_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 626019 },
+						RequiredMiniBossShrine = true,
+					},
 				},
 				SkipWaitForAllDead = true
 			},
@@ -371,7 +464,7 @@ OverwriteTableKeys( EncounterData,
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 		CancelSpawnsOnKill = { "SatyrRatCatcher_Miniboss" },
-		--WipeEnemiesOnKill = "FogEmitter_Elite",
+		WipeEnemiesOnKill = "SatyrRatCatcher_Miniboss",
 	},
 
 	MiniBossGoldElemental =
@@ -390,8 +483,8 @@ OverwriteTableKeys( EncounterData,
 		ActiveEnemyCapBase = 2,
 		ActiveEnemyCapMax = 2,
 
-		SpawnIntervalMin = 2.0,
-		SpawnIntervalMax = 6.0,
+		SpawnIntervalMin = 0.0,
+		SpawnIntervalMax = 0.0,
 
 		MoneyDropCapMin = 15,
 		MoneyDropCapMax = 15,
@@ -414,6 +507,11 @@ OverwriteTableKeys( EncounterData,
 						ForceFirst = true,
 						SpawnOnIds = { 40191 },
 					},
+					{
+						Name = "GoldElemental_Shadow",
+						TotalCount = 2,
+						RequiredMiniBossShrine = true,
+					},
 				},
 				SkipWaitForAllDead = true
 			},
@@ -421,6 +519,140 @@ OverwriteTableKeys( EncounterData,
 
 		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
 		CancelSpawnsOnKill = { "GoldElemental_MiniBoss" },
-		--WipeEnemiesOnKill = "FogEmitter_Elite",
+		WipeEnemiesOnKill = "GoldElemental_MiniBoss",
+	},
+
+	MiniBossTalos =
+	{
+		InheritFrom = { "MinibossEncounter" },
+		PreSpawnEnemies = true,
+		SpawnAggroed = true,
+		DelayedStart = true,
+		
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+		
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Talos" }, IgnoreAI = true, SkipPresentation = true, } },
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "AutomatonBeamer_Shadow", "AutomatonEnforcer_Shadow" }, SpawnOverrides = { AIWakeDelay = 1.5 }, IgnoreAI = true, SkipPresentation = true, },
+				GameStateRequirements =
+				{
+					NamedRequirements = { "MinibossCountShrineUpgradeActive" },
+				}
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		NextRoomResumeMusic = true,
+		WipeEnemiesOnKill = "Talos",
+	},
+
+	MiniBossDragon =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedP", },
+		PreSpawnEnemies = true,
+		SpawnAggroed = true,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 10,
+		ActiveEnemyCapMax = 10,
+
+		SpawnIntervalMin = 0.0,
+		SpawnIntervalMax = 0.0,
+
+		MoneyDropCapMin = 15,
+		MoneyDropCapMax = 25,
+		MoneyDropCapDepthRamp = 0,
+
+		BlockHighlightEncounter = true,
+		SkipIntroEncounterCheck = true,
+		NoFirstWaveStartDelay = false,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Dragon_MiniBoss",
+						TotalCount = 1,
+						ForceFirst = true,
+						SpawnOnIds = { 560825 },
+					},
+					{
+						Name = "Dragon_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 745061 },
+						RequiredMiniBossShrine = true,
+					},
+				},
+				SkipWaitForAllDead = true
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		CancelSpawnsOnKill = { "Dragon_MiniBoss" },
+		WipeEnemiesOnKill = "Dragon_MiniBoss",
+
+		PreSpawnSpawnOverrides =
+		{
+			WakeUpDelay = 2.1,
+		},
+	},
+
+	MiniBossHarpy =
+	{
+		InheritFrom = { "MinibossEncounter", "GeneratedP", },
+		PreSpawnEnemies = false,
+		SpawnAggroed = false,
+
+		MinWaves = 1,
+		MaxWaves = 1,
+		MinTypes = 1,
+		MaxTypes = 1,
+		TypeCountDepthRamp = 0,
+		EnemyCountDepthRamp = 0,
+		MaxEliteTypes = 2,
+		ActiveEnemyCapBase = 10,
+		ActiveEnemyCapMax = 10,
+
+		SpawnIntervalMin = 5.0,
+		SpawnIntervalMax = 10.0,
+
+		MoneyDropCapMin = 15,
+		MoneyDropCapMax = 15,
+		MoneyDropCapDepthRamp = 0,
+
+		BlockHighlightEncounter = true,
+		SkipIntroEncounterCheck = true,
+		NoFirstWaveStartDelay = false,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "HarpyDropper_MiniBoss",
+						TotalCount = 1,
+						ForceFirst = true,
+					},
+				},
+				SkipWaitForAllDead = true
+			},
+		},
+
+		StartGlobalVoiceLines = "MiniBossEncounterStartVoiceLines",
+		CancelSpawnsOnKill = { "HarpyDropper_MiniBoss" },
 	},
 })

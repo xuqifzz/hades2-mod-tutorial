@@ -38,7 +38,6 @@
 
 			Children = 
 			{
-
 				ConfirmButton = 
 				{
 					Graphic = "ButtonDefault",
@@ -110,6 +109,7 @@
 		},
 	}
 }
+
 ScreenData.GraspLimitLayout = 
 {
 	Components = {},
@@ -208,6 +208,7 @@ ScreenData.GraspLimitLayout =
 		},
 	}
 }
+
 ScreenData.BelowLimitLayout = 
 {
 	Components = {},
@@ -329,13 +330,13 @@ ScreenData.BelowLimitLayout =
 		},
 	}
 }
+
 ScreenData.NoUpgradeInfoLayout = 
 {
 	Components = {},
 
 	OpenSound = "/SFX/Menu Sounds/HadesLocationTextAppear",
 	CloseSound = "/SFX/Menu Sounds/GodBoonMenuClose",
-
 	ComponentData = 
 	{
 		DefaultGroup = "Combat_Menu_TraitTray_Backing",
@@ -402,13 +403,13 @@ ScreenData.NoUpgradeInfoLayout =
 					},
 				},
 				
-				ConfirmButton = 
+				ConfirmButton =
 				{
 					Graphic = "ButtonDefault",
 					GroupName = "Combat_Menu_TraitTray",
 					Scale = 1.0,
 					OffsetX = 200,
-					OffsetY = 300,
+					OffsetY = 200,
 					Text = "MetaUpgradeEquip_Proceed",
 					TextArgs =
 					{
@@ -424,13 +425,14 @@ ScreenData.NoUpgradeInfoLayout =
 						PressSound = "/SFX/Menu Sounds/GodBoonMenuClose",
 					}
 				},
+
 				CloseButton = 
 				{
 					Graphic = "ButtonDefault",
 					GroupName = "Combat_Menu_TraitTray",
 					Scale = 1.0,
 					OffsetX = -200,
-					OffsetY = 300,
+					OffsetY = 200,
 					Text = "MetaUpgradeEquip_CardUnlockBack",
 					TextArgs =
 					{
@@ -450,6 +452,7 @@ ScreenData.NoUpgradeInfoLayout =
 		},
 	}
 }
+
 ScreenData.CardUpgradeInfoLayout = 
 {
 	Components = {},

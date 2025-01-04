@@ -70,20 +70,20 @@ LootSetData.Hestia =
 			"BurnArmorBoon",
 			"BurnStackBoon",
 
-			-- Legendary
-			"BurnSprintBoon",
-
 			-- Elemental
 			"ElementalBaseDamageBoon",
 
+			-- Legendary
+			"BurnSprintBoon",
+
 			-- Duos
 			"EchoBurnBoon",
-			"AllElementalBoon",
 			"SteamBoon",
 			"BurnConsumeBoon",
 			"CoverRegenerationBoon",
 			"BurnRefreshBoon",
 			"DoubleMassiveAttackBoon",
+			"ManaRestoreDamageBoon",
 		},
 		Consumables = { },
 
@@ -119,8 +119,8 @@ LootSetData.Hestia =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
-			[2] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
+			[2] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		DuoPickupTextLines =
@@ -130,7 +130,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EchoBurnBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "EchoBurnBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0145",
@@ -147,7 +150,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "AllElementalBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaRestoreDamageBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0147",
@@ -164,7 +170,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SteamBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SteamBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0149",
@@ -181,7 +190,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "CoverRegenerationBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "CoverRegenerationBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0151",
@@ -198,7 +210,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnConsumeBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BurnConsumeBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0153",
@@ -215,7 +230,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BurnRefreshBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BurnRefreshBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0155",
@@ -233,7 +251,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "DoubleMassiveAttackBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "DoubleMassiveAttackBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0157",
@@ -293,7 +314,10 @@ LootSetData.Hestia =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -315,7 +339,10 @@ LootSetData.Hestia =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -337,7 +364,10 @@ LootSetData.Hestia =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -359,7 +389,10 @@ LootSetData.Hestia =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -573,6 +606,24 @@ LootSetData.Hestia =
 
 				{ Cue = "/VO/Hestia_0046",
 					Text = "I almost pity you, dearie, all swept up in our affairs! You don't know how hard I've tried to avoid it myself. Must we always have to take a blasted side in everything? But we gods, we just love a good fight..." },
+			},
+			HestiaAboutTitans01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
+					},
+					{
+						Path = { "GameState", "RoomsEntered" },
+						HasAll = { "I_Boss01", "P_Boss01" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hestia_0164",
+					Text = "Titans, gods, still couldn't tell you what's the bloody difference anyway! Don't look much different, don't sound much different. Not an age thing, {#Emph}that {#Prev}I can attest! It's just a handy way to brand our enemies." },
 			},
 
 			HestiaBackstory01 =
@@ -914,6 +965,7 @@ LootSetData.Hestia =
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0113",
+					Emote = "PortraitEmoteCheerful",
 					Text = "They're saying that you gave him one from all of us! Chronos, that is. A right proper old fashioned {#Emph}beating{#Prev}, that is! Must have felt all warm and cozy, didn't it? Makes you want to do it again and {#Emph}again!" },
 			},
 			HestiaUnderworldRunCleared02 =
@@ -1100,7 +1152,12 @@ LootSetData.Hestia =
 				{
 					{
 						Path = { "CurrentRun", "ActiveBounty" },
-						IsAny = { "PackageBountyHestiaTheme01" },
+						IsAny = {
+							"PackageBountyZeus",
+							"PackageBountyCriticalHealth",
+							"PackageBountySpeed",
+							"PackageBountyHestia",
+							},
 					},
 					-- @ update with updated requirements
 				},
@@ -1181,10 +1238,10 @@ LootSetData.Hestia =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0057",
@@ -1199,10 +1256,10 @@ LootSetData.Hestia =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0058",
@@ -1301,7 +1358,10 @@ LootSetData.Hestia =
 						Path = { "PrevRun", "EncountersOccurredCache" },
 						HasAny = { "HeraclesCombatIntro", "HeraclesCombatN", "HeraclesCombatO", "HeraclesCombatP" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HeraclesFirstMeeting" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HeraclesFirstMeeting" }, Min = 2 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1371,6 +1431,50 @@ LootSetData.Hestia =
 
 				{ Cue = "/VO/Hestia_0116",
 					Text = "Heard you plucked that nasty Eris from the sky! Well, serves her right! Though we could never make her stay away for good. To think she's one of {#Emph}Nyx's {#Prev}many pups! Squeeze out a big litter like that, you're liable to get a runt." },
+			},
+
+			HestiaAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hestia_0162",
+					Text = "So the Titan of Foresight slipped his chains and fights against us now! A pity, that. Been on the outs with us ever since we caught him red-handed with my flames. Stole fire for the sake of mortalkind! Could have just asked me nice!" },
+			},
+			HestiaAboutPrometheus02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HestiaUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HestiaAboutPrometheus01" },
+					},
+					{
+						PathTrue = { "PrevRun", "EnemyKills", "Prometheus" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hestia_0163",
+					Text = "Prometheus, he never seemed to lack for smarts as I recall. Was a right level-headed sort, but now? He's serving Chronos, making mayhem for us here! They say he sees the future, so he must know he won't get away with this..." },
 			},
 
 			-- about other gods
@@ -1481,7 +1585,7 @@ LootSetData.Hestia =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0062",
 					
-					Text = "Blessed already by the mighty god of earth and sea, are you? Poseidon's power and my own don't often mix, but then again, neither do he and I, of that you can be certain, there, dearie." },
+					Text = "Blessed already by the mighty god of earth and sea, are ya? Poseidon's power and my own don't often mix, but then again, neither do he and I, of that you can be certain, there, dearie." },
 			},
 			HestiaAboutApollo01 =
 			{
@@ -1501,6 +1605,7 @@ LootSetData.Hestia =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0063",
+					Emote = "PortraitEmoteFiredUp",
 					Text = "Why, the flamboyant god of light has put a little {#Emph}sparkle {#Prev}on you, hasn't he? Shines like the sun, Apollo does, {#Emph}oh sure! {#Prev}But there's more than one way to light up a place, you know." },
 			},
 			HestiaAboutAphrodite01 =
@@ -1590,7 +1695,7 @@ LootSetData.Hestia =
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0066",
 					
-					Text = "You've got a real spring in your step if I'm not mistaken, dearie! The handiwork of swiftest Hermes, I suppose. You know what else moves awful quick? Here, let me give to you a little hint." },
+					Text = "You've got a real spring in your step if I'm not mistaken, dearie! The handiwork of swiftest Hermes, I suppose. You know what else moves awful quick? Here, let me give you a little hint!" },
 			},
 			HestiaAboutHephaestus01 =
 			{
@@ -1664,7 +1769,7 @@ LootSetData.Hestia =
 
 				{ Cue = "/VO/Hestia_0106",
 					Emote = "PortraitEmoteCheerful",
-					Text = "You got my Everlasting Ember, haven't you? Can faintly see its flicker even here. Your way of signaling to your Great Auntie Hestia, and all the rest, that you are hankering for Boons with just a {#Emph}little bit {#Prev}of spice!" },
+					Text = "You got my Everlasting Ember, haven't you? Can faintly see its flicker even here. Your way of signaling to your Great-Auntie Hestia, and all the rest, that you are hankering for Boons with just a {#Emph}little bit {#Prev}of spice!" },
 			},
 
 			HestiaAboutShrine01 =
@@ -2001,7 +2106,7 @@ LootSetData.Hestia =
 
 				{ Cue = "/VO/Hestia_0024",
 					Emote = "PortraitEmoteFiredUp",
-					Text = "We're in for a hot one this evening, oh I can already tell!" },
+					Text = "We're in for a {#Emph}hot one {#Prev}this evening, oh I can already tell!" },
 			},
 			HestiaChat23 =
 			{
@@ -2133,6 +2238,7 @@ LootSetData.Hestia =
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0169",
+					Emote = "PortraitEmoteFiredUp",
 					Text = "Having my Boon just stuffed into some unmarked sack, I {#Emph}swear! {#Prev}Halfway surprised it didn't burn right through. Sometimes it isn't easy getting hold of you, you know!" },
 			},
 			HestiaLootBought01 =
@@ -2140,7 +2246,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0121",
@@ -2151,7 +2260,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0122",
@@ -2162,7 +2274,10 @@ LootSetData.Hestia =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0123",
@@ -2177,7 +2292,10 @@ LootSetData.Hestia =
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsNone = { "O_Shop01", "O_PreBoss01", "P_Shop01", "P_PreBoss01", "Q_Shop01", "Q_Boss01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0124",
@@ -2192,7 +2310,10 @@ LootSetData.Hestia =
 						Path = { "CurrentRun", "CurrentRoom", "Name", },
 						IsNone = { "O_Shop01", "O_PreBoss01", "P_Shop01", "P_PreBoss01", "Q_Shop01", "Q_Boss01" },
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hestia_0168",
@@ -2289,7 +2410,7 @@ LootSetData.Hestia =
 
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2375,6 +2496,10 @@ LootSetData.Hestia =
 					{
 						PathTrue = { "GameState", "UseRecord", "HestiaUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0951", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2404,6 +2529,10 @@ LootSetData.Hestia =
 					{
 						PathTrue = { "GameState", "UseRecord", "HestiaUpgrade" },
 					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
+					},
 				},
 				{ Cue = "/VO/Melinoe_0952", UsePlayerSource = true,
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -2411,7 +2540,7 @@ LootSetData.Hestia =
 					PostLineFunctionName = "BoonInteractPresentation",
 					PostLineFunctionArgs = { SkipAnim = true },
 					PostLineRemoveContextArt = true,
-					Text = "Please accept this, Great Aunt Hestia! Your generous support means a lot to me. I know there's so much I can learn from you." },
+					Text = "Please accept this, Great-Aunt Hestia! Your generous support means a lot to me. I know there's so much I can learn from you." },
 				{ Cue = "/VO/Hestia_0069",
 					PortraitExitWait = 1.0,
 					NarrativeContextArt = "DialogueBackground_Olympus",
@@ -2429,6 +2558,10 @@ LootSetData.Hestia =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HestiaUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/Melinoe_0953", UsePlayerSource = true,
@@ -2455,6 +2588,10 @@ LootSetData.Hestia =
 				{
 					{
 						PathTrue = { "GameState", "UseRecord", "HestiaUpgrade" },
+					},
+					{
+						Path = { "CurrentRoom", "CurrentRoom", "Name" },
+						IsNone = { "H_Bridge01" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_2244", UsePlayerSource = true,
@@ -2501,8 +2638,13 @@ LootSetData.Hestia =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 

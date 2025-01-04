@@ -75,6 +75,52 @@
 				BreakIfPlayed = true,
 				RandomRemaining = true,
 				PreLineWait = 0.25,
+				PlayOnceFromTableThisRun = true,
+				ObjectType = "NPC_Dionysus_01",
+				GameStateRequirements = 
+				{
+					{
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "DionysusSpokeRecently", Time = 3 },
+				},
+
+				{ Cue = "/VO/Dionysus_0117", Text = "{#Emph}Erm{#Prev}, hello?" },
+				{ Cue = "/VO/Dionysus_0118", Text = "You just got here!" },
+				{ Cue = "/VO/Dionysus_0119", Text = "Come on now." },
+				{ Cue = "/VO/Dionysus_0120", Text = "Say hey to the host!" },
+				{ Cue = "/VO/Dionysus_0121", Text = "Over here!" },
+				{ Cue = "/VO/Dionysus_0122", Text = "One drink minimum." },
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.25,
+				PlayOnceFromTableThisRun = true,
+				ObjectType = "NPC_Athena_01",
+				GameStateRequirements = 
+				{
+					{
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "AthenaSpokeRecently", Time = 3 },
+				},
+
+				{ Cue = "/VO/Athena_0119", Text = "A word before you go." },
+				{ Cue = "/VO/Athena_0120", Text = "Wait, Cousin." },
+				{ Cue = "/VO/Athena_0121", Text = "First let us speak.", PlayFirst = true },
+				{ Cue = "/VO/Athena_0122", Text = "I don't have all night..." },
+				{ Cue = "/VO/Athena_0123", Text = "I'm not to be ignored." },
+				{ Cue = "/VO/Athena_0124", Text = "Over here." },
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.25,
 				GameStateRequirements =
 				{
 					{
@@ -402,7 +448,7 @@
 						ActivateStartAlpha = 0, 
 						ActivateDuration = 0.35,
 					},
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonNegativeReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonNegativeReactionLines" },
 				},
         	},
 			{
@@ -410,7 +456,7 @@
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 3, MaxValue = 5, IgnoreRoomMoneyStore = true, },
 				DataOverrides =
 				{
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonPositiveReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonPositiveReactionLines" },
 				},
             },
 
@@ -454,7 +500,7 @@
 						ActivateStartAlpha = 0, 
 						ActivateDuration = 0.35,
 					},
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonNegativeReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonNegativeReactionLines" },
 				},
         	},
 			{
@@ -462,7 +508,7 @@
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 6, MaxValue = 10, IgnoreRoomMoneyStore = true, },
 				DataOverrides =
 				{
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonPositiveReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonPositiveReactionLines" },
 				},
             },
         },
@@ -505,7 +551,7 @@
 						ActivateStartAlpha = 0, 
 						ActivateDuration = 0.35,
 					},
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonNegativeReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonNegativeReactionLines" },
 				},
         	},
 			{
@@ -513,7 +559,7 @@
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 14, MaxValue = 20, IgnoreRoomMoneyStore = true, },
 				DataOverrides =
 				{
-					OnKillVoiceLines = GlobalVoiceLines.ArachneCocoonPositiveReactionLines,
+					OnKillVoiceLines = { GlobalVoiceLines = "ArachneCocoonPositiveReactionLines" },
 				},
             },
         },
@@ -618,7 +664,7 @@
 		CollisionReactions =
 		{
 			{
-				MinVelocity = 1000,
+				MinVelocity = 780,
 				KillSelf = true,
 			}
 		},
@@ -628,7 +674,6 @@
 	{
 		InheritFrom = { "BaseDestructible" },
 		GenusName = "Breakable",
-		MaxHealth = 1,
 		OnKillGlobalVoiceLines = "BreakableDestroyedVoiceLines",
 		KillsRequiredForVoiceLines = 2,
 		MeterMultiplier = 0,
@@ -636,10 +681,22 @@
 		DeathAnimation = "Blank",
 		DeathSoundManagerCap = 36,
 
+		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
+
+		CannotDieFromDamage = true,
+		MaxHealth = 0,
+		HealthTicks = 1,
+
+		MoneyDropOnDeath =
+		{
+			Chance = 0,
+			IgnoreRoomMoneyStore = true,
+		},
+
 		CollisionReactions =
 		{
 			{
-				MinVelocity = 1000,
+				MinVelocity = 780,
 				KillSelf = true,
 			}
 		},
@@ -679,7 +736,7 @@
 				},
 			},
 			{
-                Chance = 0.02,
+                Chance = 0.01,
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 15, MaxValue = 15, IgnoreRoomMoneyStore = true, },
 				Animation = "BreakableHighValueChronosPot",
 				DataOverrides =
@@ -694,7 +751,7 @@
 				},
             },
 			{
-                Chance = 0.03,
+                Chance = 0.02,
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 10, MaxValue = 10, IgnoreRoomMoneyStore = true, },
 				Animation = "BreakableHighValueChronosPot",
 				DataOverrides =
@@ -709,7 +766,7 @@
 				},
             },
 			{
-                Chance = 0.05,
+                Chance = 0.02,
                 MoneyDropOnDeath = { Chance = 1.0, MinParcels = 1, MaxParcels = 1, MinValue = 5, MaxValue = 5, IgnoreRoomMoneyStore = true, },
 				Animation = "BreakableHighValueChronosPot",
 				DataOverrides =
@@ -731,19 +788,6 @@
 
 		DeathSound = "/SFX/CeramicPotSmash",
 		DeathFx = "BreakableDeathAnim",
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
-		},
 	},
 
 	Breakable_F =
@@ -752,19 +796,6 @@
 
 		DeathSound = "/SFX/CocoonDestroy",
 		DeathFx = "SpiderCocoonDisintegrate",
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
-		},
 	},
 
 	Breakable_Chaos =
@@ -773,19 +804,6 @@
 
 		DeathSound = "/SFX/CeramicPotSmash",
 		DeathFx = "BreakableDeathAnim",
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
-		},
 	},
 
 
@@ -829,6 +847,7 @@
 		-- UseSound = "/Leftovers/World Sounds/Caravan Interior/CabinetClose",
 		UsePromptOffsetX = 65,
 		UsePromptOffsetY = -50,
+		SpeakerName = "*Keepsake",
 		SetupEvents =
 		{
 			{
@@ -836,7 +855,7 @@
 				Args =
 				{
 				},
-			}
+			},
 		},
 		DistanceTrigger =
 		{
@@ -853,7 +872,7 @@
 					IsAny = { "F_PostBoss01", "G_PostBoss01", "H_PostBoss01", "N_PostBoss01", "O_PostBoss01", "P_PostBoss01" },
 				},
 			},
-			WithinDistance = 1020,
+			WithinDistance = 820,
 			VoiceLines =
 			{
 				{
@@ -864,7 +883,10 @@
 					BreakIfPlayed = true,
 					GameStateRequirements =
 					{
-						RequiredUnitsNotAlive = { "NPC_Chronos_01" },
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Chronos_01", }, Alive = false },
+						},
 					},
 
 					{ Cue = "/VO/MelinoeField_0279", Text = "My Keepsakes manifest..." },
@@ -873,7 +895,10 @@
 					UsePlayerSource = true,
 					BreakIfPlayed = true,
 					RandomRemaining = true,
+					PlayOnceFromTableThisRun = true,
+					SuccessiveChanceToPlay = 0.5,
 					SuccessiveChanceToPlayAll = 0.25,
+					SkipCooldownCheckIfNonePlayed = true,
 					GameStateRequirements =
 					{
 						{
@@ -883,7 +908,19 @@
 							Path = { "CurrentRun", "ExpiredKeepsakes" },
 							HasAny = GameData.AllExpiringKeepsakes,
 						},
-						RequiredUnitsNotAlive = { "NPC_Chronos_01" },
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Chronos_01", }, Alive = false },
+						},
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = ">=", Value = 0.2, },
+						},
+					},
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech" },
+						{ Name = "MelSwitchKeepsakeHintVO", Time = 20 },
 					},
 
 					{ Cue = "/VO/MelinoeField_0486", Text = "I'd best switch Keepsakes there." },
@@ -981,6 +1018,117 @@
 		]]--
 	},
 
+	CrossroadsAmbientFrogA =
+	{
+		InheritFrom = { "BaseIndestructibleNoShakeHitFx" },
+		AllowResetup = true,
+		GrannyTexture = "GR2/CritterFrogBrown_Color",
+	},
+	CrossroadsAmbientFrogB =
+	{
+		InheritFrom = { "CrossroadsAmbientFrogA" },
+		GrannyTexture = "GR2/CritterFrogGreen_Color",
+	},
+	CrossroadsAmbientFrogC =
+	{
+		InheritFrom = { "CrossroadsAmbientFrogA" },
+		GrannyTexture = "GR2/CritterFrogGrey_Color",
+	},
+	CrossroadsAmbientFrogD =
+	{
+		InheritFrom = { "CrossroadsAmbientFrogA" },
+		GrannyTexture = "GR2/CritterFrogYellow_Color",
+	},
+
+	CrossroadsAmbientCatA =
+	{
+		AllowResetup = true,
+		GrannyTexture = "GR2/CritterCatBicolor_Color",
+	},
+	CrossroadsAmbientCatB =
+	{
+		InheritFrom = { "CrossroadsAmbientCatA" },
+		GrannyTexture = "GR2/CritterCatBlack_Color",
+	},
+	CrossroadsAmbientCatC =
+	{
+		InheritFrom = { "CrossroadsAmbientCatA" },
+		GrannyTexture = "GR2/CritterCatSpotted_Color",
+	},
+	CrossroadsAmbientCatD =
+	{
+		InheritFrom = { "CrossroadsAmbientCatA" },
+		GrannyTexture = "GR2/CritterCatTabby_Color",
+	},
+	CrossroadsAmbientCatE =
+	{
+		InheritFrom = { "CrossroadsAmbientCatA" },
+		GrannyTexture = "GR2/CritterCatTuxedo_Color",
+	},
+	CrossroadsAmbientCatF =
+	{
+		InheritFrom = { "CrossroadsAmbientCatA" },
+		GrannyTexture = "GR2/CritterCatWhite_Color",
+	},
+
+	CrossroadsAmbientRatA =
+	{
+		AllowResetup = true,
+		GrannyTexture = "GR2/CritterRatBeige_Color",
+	},
+	CrossroadsAmbientRatB =
+	{
+		InheritFrom = { "CrossroadsAmbientRatA" },
+		GrannyTexture = "GR2/CritterRatBrown_Color",
+	},
+	CrossroadsAmbientRatC =
+	{
+		InheritFrom = { "CrossroadsAmbientRatA" },
+		GrannyTexture = "GR2/CritterRatGrey_Color",
+	},
+
+	CrossroadsAmbientBirdA =
+	{
+		AllowResetup = true,
+		GrannyTexture = "GR2/CritterRavenBeige_Color",
+	},
+	CrossroadsAmbientBirdB =
+	{
+		InheritFrom = { "CrossroadsAmbientBirdA" },
+		GrannyTexture = "GR2/CritterRavenBicolor_Color",
+	},
+	CrossroadsAmbientBirdC =
+	{
+		InheritFrom = { "CrossroadsAmbientBirdA" },
+		GrannyTexture = "GR2/CritterRavenBlack_Color",
+	},
+	CrossroadsAmbientBirdD =
+	{
+		InheritFrom = { "CrossroadsAmbientBirdA" },
+		GrannyTexture = "GR2/CritterRavenBrown_Color",
+	},
+	CrossroadsAmbientBirdE =
+	{
+		InheritFrom = { "CrossroadsAmbientBirdA" },
+		GrannyTexture = "GR2/CritterRavenWhite_Color",
+	},
+
+	CrossroadsAmbientDogA =
+	{
+		AllowResetup = true,
+		GrannyTexture = "GR2/CritterDogBeige_Color",
+	},
+	CrossroadsAmbientDogB =
+	{
+		InheritFrom = { "CrossroadsAmbientDogA" },
+		GrannyTexture = "GR2/CritterDogOrange_Color",
+	},
+	CrossroadsAmbientDogC =
+	{
+		InheritFrom = { "CrossroadsAmbientDogA" },
+		GrannyTexture = "GR2/CritterDogTan_Color",
+	},
+
 	HouseBasket01 =
 	{
 		InheritFrom = { "BaseIndestructibleHitFx" },
@@ -1038,6 +1186,7 @@
 							"ProjectileTorchExplosion",
 							"ProjectileTorchSpiral",
 							"ProjectileTorchOrbit",
+							"ProjectileTorchBallLarge",
 							
 							"ProjectileLob",
 							"ProjectileLobCharged",
@@ -1045,6 +1194,17 @@
 							"ProjectileThrow",
 							"ProjectileThrowBlink",
 							"ProjectileThrowCharged",
+
+							"ProjectileSuitCharged",
+							"ProjectileSuitSplit",
+							"ProjectileSuitSplit2",
+							"ProjectileSuitRangedGuided",
+							"ProjectileSuitRangedUnguided",
+							"ProjectileSuitRangedCharged",
+							"ProjectileSuitRangedChargedUnguided",
+							"ProjectileSuitRangedGuidedSplit",
+							"ProjectileSuitRangedChargedSplit",
+							"NyxSprintBlast",
 
 							"FrogFamiliarLand",
 							"CatFamiliarPounce",
@@ -1065,6 +1225,11 @@
 		},
 	},
 
+	CrossroadsCatScratcher01 =
+	{
+		InheritFrom = { "BaseIndestructibleHitFx" },
+		HitFx = "EphyraIndestructibleFibers",
+	},
 
 	HouseVase01 =
 	{
@@ -1161,7 +1326,7 @@
 		},
 		OnUsedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.UsedFountainVoiceLines,
+			[1] = { GlobalVoiceLines = "UsedFountainVoiceLines" },
 		},
 	},
 	
@@ -1197,7 +1362,7 @@
 		},
 		OnUsedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.UsedFountainVoiceLines,
+			[1] = { GlobalVoiceLines = "UsedFountainVoiceLines" },
 		},
 	},
 
@@ -1220,7 +1385,7 @@
 		},
 		OnUsedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.UsedFountainVoiceLines,
+			[1] = { GlobalVoiceLines = "UsedFountainVoiceLines" },
 		},
 	},
 	
@@ -1603,6 +1768,8 @@
 	ShadeHubSIdle01=
 	{
 		InheritFrom = { "BaseGhost", "SmallEmotes" },
+		SpinOnCollide = true,
+		EmoteReactionOnCollide = false,
 	},
 
 	ShadeHubLIdle01=
@@ -1691,6 +1858,26 @@
 	ElysiumGhost01 =
 	{
 		InheritFrom = { "BaseGhost" },
+	},
+
+	ErebusRiverGhost_Interactive =
+	{
+		DistanceTrigger =
+		{
+			PreTriggerWait = 0.1,
+			WithinDistance = 400,
+			FunctionName = "GenericPresentation",
+			Args =
+			{
+				SetAnimation = "ErebusRiverGhost_Reveal",
+			},
+			Repeat = true,
+			OnRepeatFunctionName = "GenericPresentation",
+			OnRepeatFunctionArgs =
+			{
+				SetAnimation = "ErebusRiverGhost_Hide",
+			},
+		},
 	},
 
 	GhostInspectPoint =
@@ -1852,6 +2039,7 @@
 				FireAsPlayerProjectile = true,
 				FireProjectileAtSelf = true,
 				FireFromTarget = true,
+				SkipCanAttack = true,
 			},
 		},
 	},
@@ -2583,7 +2771,7 @@
 		CollisionReactions =
 		{
 			{
-				MinVelocity = 1000,
+				MinVelocity = 780,
 				KillSelf = true,
 			}
 		},
@@ -2762,7 +2950,12 @@
 
 	ChallengeSwitchBase =
 	{
-		UsingSpawn = "ChallengeSwitch",
+		UsingSpawns =
+		{
+			"ChallengeSwitch",
+			"PerfectClearSwitch",
+			"EliteChallengeSwitch",
+		},
 	},
 
 	ChallengeSwitch =
@@ -2777,9 +2970,13 @@
 		ChallengeSwitchUseFunctionName = "UseChallengeSwitch",
 		CannotUseText = "ChallengeSwitchBlockedByEncounter",
 		CannotAffordText = "ChallengeSwitchCannotAfford",
+
 		LockedAnimationName = "ChallengeSwitchLocked",
 		ReadyToOpenAnimationName = "ChallengeSwitchReadyToOpen",
+		OpenAnimationName = "ChallengeSwitchOpen",
 		UnlockedAnimationName = "ChallengeSwitchUnlocked",
+		InProgressAnimationName = "ChallengeSwitchInProgress",
+
 		BlockDuringChallenge = true,
 		UsePromptOffsetX = 40,
 		RewardType = "Money",
@@ -2789,8 +2986,8 @@
 
 		LockKeyTextOffsetY = -75,
 		LockKeyTextOffsetX = 0,
-		TextAnchorIdOffsetX = -40,
-		TextAnchorIdOffsetY = -50,
+		TextAnchorIdOffsetX = 0,
+		TextAnchorIdOffsetY = 0,
 
 		DistanceTrigger =
 		{
@@ -2824,70 +3021,67 @@
 		},
 	},
 
-	CapturePointChallengeSwitch =
+	TimeChallengeSwitch_Money =
 	{
 		InheritFrom = { "ChallengeSwitch" },
+		ChallengeAvailableUseText = "UseChallengeSwitch_Unlocked",
+		ChallengeResolvedUseText = "UseChallengeSwitch_MoneyRewardAvailable",
+		-- StartingValue in EncounterData is the base value
+		RewardMultiplier = 1.0,
+		IntervalMultiplier = 0.3,
+		Requirements =
+		{
+		},
+
+		EncounterOptionsName = "TimeChallengeEncounterOptions",
+	},
+
+	PerfectClearSwitch =
+	{
+		InheritFrom = { "ChallengeSwitch" },
+
+		LockedAnimationName = "PerfectClearSwitchLocked",
+		ReadyToOpenAnimationName = "PerfectClearSwitchReadyToOpen",
+		UnlockedAnimationName = "PerfectClearSwitchUnlocked",
+		UnlockedFxAnimationName = "PerfectClearSwitchFx_Unlocked",
+		OpenAnimationName = "PerfectClearSwitchOpen",
+		InProgressAnimationName = "PerfectClearSwitchInProgress",
+		InProgressFxAnimationName = "PerfectClearSwitchFx_InProgress",
+		CannotUseText = "ChallengeSwitchBlockedByEncounter_Alt",
+
 		UseLootDecay = false,
 
-		LockedAnimationName = "ChallengeSwitchLocked",
-		ReadyToOpenAnimationName = "ChallengeSwitchReadyToOpen",
-		UnlockedAnimationName = "ChallengeSwitchUnlocked",
-		FailedAnimationName = "ChallengeSwitchFailed",
+		ValueTextAnchorOffsetY = -200,
+		ValueTextAnchorOffsetX = -40,
 
+		EncounterOptionsName = "PerfectClearEncounterOptions",
 
-		ChallengeResolvedUseText = "UseChallengeSwitch_RewardAvailable",
-		ChallengeFailedUseText = "UseChallengeSwitch_Failed",
-	},
-
-	CapturePointChallengeSwitch_MetaCardPoints =
-	{
-		InheritFrom = { "CapturePointChallengeSwitch" },
-
-		ChallengeText = "ChallengeSwitch_MetaCardPointsValue",
-		ChallengeAvailableUseText = "UseChallengeSwitch_MetaCardPoints_Unlocked",
-		RewardType = "MetaCardPointsCommonDrop",
-		Requirements =
+		DistanceTrigger =
 		{
-		},
-	},
-	CapturePointChallengeSwitch_MemPoints =
-	{
-		InheritFrom = { "CapturePointChallengeSwitch" },
-
-		ChallengeText = "ChallengeSwitch_MemPointsValue",
-		ChallengeAvailableUseText = "UseChallengeSwitch_MemPoints_Unlocked",
-		RewardType = "MemPointsCommonDrop",
-		Requirements =
-		{
-		},
-	},
-	CapturePointChallengeSwitch_MaxMana =
-	{
-		InheritFrom = { "CapturePointChallengeSwitch" },
-
-		ChallengeText = "ChallengeSwitch_MaxManaValue",
-		ChallengeAvailableUseText = "UseChallengeSwitch_MaxMana_Unlocked",
-		RewardType = "MaxManaDrop",
-		Requirements =
-		{
-		},
-		ExtractValues =
-		{
+			GameStateRequirements =
 			{
-				External = true,
-				BaseType = "ConsumableData",
-				BaseName = "MaxManaDrop",
-				BaseProperty = "AddMaxMana",
-				ExtractAs = "TooltipMaxMana",
-				SkipAutoExtract = true,
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeChallengeSwitchesExtra1" },
+				},
 			},
-		},
+			WithinDistance = 500,
+			VoiceLines =
+			{
+				Queue = "Always",
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+				{ Cue = "/VO/MelinoeField_2768", Text = "An Unseen Sigil over there..." },
+			}
+		},	
 	},
 
 	PerfectClearChallengeSwitch_Pom =
 	{
-		InheritFrom = { "ChallengeSwitch" },
-		UseLootDecay = false,
+		InheritFrom = { "PerfectClearSwitch" },
 
 		ChallengeText = "ChallengeSwitch_PomValue",
 		ChallengeAvailableUseText = "UseChallengeSwitch_Pom_Unlocked",
@@ -2895,12 +3089,16 @@
 		RewardType = "StackUpgrade",
 		Requirements =
 		{
+			{
+				Path = { "CurrentRun", "Hero", "UpgradableTraitCount" },
+				Comparison = ">=",
+				Value = 1,
+			},
 		},
 	},
 	PerfectClearChallengeSwitch_MaxHealth =
 	{
-		InheritFrom = { "ChallengeSwitch" },
-		UseLootDecay = false,
+		InheritFrom = { "PerfectClearSwitch" },
 
 		ChallengeText = "ChallengeSwitch_MaxHealthValue",
 		ChallengeAvailableUseText = "UseChallengeSwitch_MaxHealth_Unlocked",
@@ -2911,134 +3109,82 @@
 		},
 	},
 
-	-- StartingValue in EncounterData is the base value
-	MoneyTimeChallengeSwitch =
+	EliteChallengeSwitch =
 	{
 		InheritFrom = { "ChallengeSwitch" },
-		ChallengeAvailableUseText = "UseChallengeSwitch_Unlocked",
-		ChallengeResolvedUseText = "UseChallengeSwitch_MoneyRewardAvailable",
-		RewardMultiplier = 1.0,
-		IntervalMultiplier = 0.3,
-		Requirements =
-		{
-			--RequiredCosmetics = { "ChallengeSwitches1" },
-			--RequiredFalseCosmetics = { "ChallengeSwitches2" },
-		},
-	},
 
-	MoneyTimeChallengeSwitch2 =
-	{
-		InheritFrom = { "MoneyTimeChallengeSwitch" },
-		RewardMultiplier = 1.25,
-		IntervalMultiplier = 0.2,
-		DifficultyMultiplier = 1.3,
-		Requirements =
-		{
-			RequiredCosmetics = { "ChallengeSwitches2" },
-			RequiredFalseCosmetics = { "ChallengeSwitches3" },
-		},
-	},
+		LockedAnimationName = "EliteChallengeSwitchLocked",
+		ReadyToOpenAnimationName = "EliteChallengeSwitchReadyToOpen",
+		UnlockedAnimationName = "EliteChallengeSwitchUnlocked",
+		UnlockedFxAnimationName = "EliteChallengeSwitchFx_Unlocked",
+		OpenAnimationName = "EliteChallengeSwitchOpen",
+		InProgressAnimationName = "EliteChallengeSwitchInProgress",
+		InProgressFxAnimationName = "EliteChallengeSwitchFx_InProgress",
+		CannotUseText = "ChallengeSwitchBlockedByEncounter_Alt",
 
-	MoneyTimeChallengeSwitch3 =
-	{
-		InheritFrom = { "MoneyTimeChallengeSwitch" },
-		RewardMultiplier = 1.5,
-		IntervalMultiplier = 0.2,
-		DifficultyMultiplier = 1.6,
-		Requirements =
-		{
-			RequiredCosmetics = { "ChallengeSwitches3" },
-		},
-	},
+		UseLootDecay = false,
+		ValueTextAnchorOffsetY = -200,
+		ValueTextAnchorOffsetX = 0,
+		
+		EncounterOptionsName = "EliteChallengeEncounterOptions",
 
-	HealthTimeChallengeSwitch =
-	{
-		InheritFrom = { "ChallengeSwitch" },
-		ChallengeText = "ChallengeSwitch_HealthValue",
-		ChallengeAvailableUseText = "UseHealthChallengeSwitch_Unlocked",
-		ChallengeResolvedUseText = "UseChallengeSwitch_HealthRewardAvailable",
-		RewardType = "Health",
-		RewardMultiplier = 0.5,
-		IntervalMultiplier = 0.2,
-		DifficultyMultiplier = 0.7,
 		Requirements =
 		{
-			--RequiredCosmetics = { "ChallengeSwitches1" },
-			--RequiredFalseCosmetics = { "ChallengeSwitches2" },
+			Append = true,
 			{
-				PathTrue = { "GameState", "EncountersCompletedCache", "TimeChallenge" },
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 3,
 			},
 		},
 
-	},
-
-	HealthTimeChallengeSwitch2 =
-	{
-		InheritFrom = { "HealthTimeChallengeSwitch" },
-		RewardMultiplier = 1.25,
-		DifficultyMultiplier = 1.2,
-		IntervalMultiplier = 0.2,
-		Requirements =
+		DistanceTrigger =
 		{
-			RequiredCosmetics = { "ChallengeSwitches2" },
-			RequiredFalseCosmetics = { "ChallengeSwitches3" },
-		},
-	},
-
-	HealthTimeChallengeSwitch3 =
-	{
-		InheritFrom = { "HealthTimeChallengeSwitch" },
-		RewardMultiplier = 1.50,
-		DifficultyMultiplier = 1.4,
-		IntervalMultiplier = 0.2,
-		Requirements =
-		{
-			RequiredCosmetics = { "ChallengeSwitches3" },
-		},
-	},
-
-	MetaCurrencyTimeChallengeSwitch =
-	{
-		InheritFrom = { "ChallengeSwitch" },
-		UseText = "UseChallengeSwitch_Locked",
-		ChallengeText = "ChallengeSwitch_MetaCurrencyValue",
-		ChallengeAvailableUseText = "UseMetaCurrencyChallengeSwitch_Unlocked",
-		ChallengeResolvedUseText = "UseChallengeSwitch_MetaCurrencyRewardAvailable",
-		RewardMultiplier = 1.5,
-		RewardType = "MetaCurrency",
-		IntervalMultiplier = 0.2,
-		DifficultyMultiplier = 0.7,
-		Requirements =
-		{
-			--RequiredCosmetics = { "ChallengeSwitches1" },
-			--RequiredFalseCosmetics = { "ChallengeSwitches2" },
+			GameStateRequirements =
 			{
-				PathTrue = { "GameState", "EncountersCompletedCache", "TimeChallenge" },
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeChallengeSwitchesExtra1" },
+				},
+			},
+			WithinDistance = 500,
+			VoiceLines =
+			{
+				Queue = "Always",
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+				{ Cue = "/VO/MelinoeField_2755", Text = "Moon Monument right over there..." },
+			}
+		},
+	},
+
+	EliteChallengeSwitch_Talent =
+	{
+		InheritFrom = { "EliteChallengeSwitch" },
+
+		ChallengeText = "ChallengeSwitch_TalentDropValue",
+		ChallengeAvailableUseText = "UseChallengeSwitch_TalentDrop_Unlocked",
+		ChallengeResolvedUseText = "UseChallengeSwitch_RewardAvailable",
+		RewardType = "TalentDrop",
+		Requirements =
+		{
+			Append = true,
+			{
+				PathTrue = { "CurrentRun", "Hero", "SlottedSpell" },
 			},
 		},
 	},
-
-	MetaCurrencyTimeChallengeSwitch2 =
+	EliteChallengeSwitch_MaxMana =
 	{
-		InheritFrom = { "MetaCurrencyTimeChallengeSwitch" },
-		RewardMultiplier = 1.0,
-		IntervalMultiplier = 0.2,
-		Requirements =
-		{
-			RequiredCosmetics = { "ChallengeSwitches2" },
-			RequiredFalseCosmetics = { "ChallengeSwitches3" },
-		},
-	},
+		InheritFrom = { "EliteChallengeSwitch" },
 
-	MetaCurrencyTimeChallengeSwitch3 =
-	{
-		InheritFrom = { "MetaCurrencyTimeChallengeSwitch" },
-		RewardMultiplier = 1.5,
-		IntervalMultiplier = 0.2,
-		Requirements =
-		{
-			RequiredCosmetics = { "ChallengeSwitches3" },
-		},
+		ChallengeText = "ChallengeSwitch_MaxManaValue",
+		ChallengeAvailableUseText = "UseChallengeSwitch_MaxMana_Unlocked",
+		ChallengeResolvedUseText = "UseChallengeSwitch_RewardAvailable",
+		RewardType = "MaxManaDrop",
 	},
 
 	-- Well of Charon
@@ -3078,9 +3224,57 @@
 				RandomRemaining = true,
 				UsePlayerSource = true,
 				PlayOnceFromTableThisRun = true,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 				{ Cue = "/VO/MelinoeField_1440", Text = "One of Lord Charon's Wells..." },
 				{ Cue = "/VO/MelinoeField_1534", Text = "That's one of Lord Charon's Wells...", PlayFirst = true },
+			}
+		},
+	},
+
+	-- Sell Shop
+	SellTraitShop =
+	{
+		UseText = "UseTraitShop_Locked",
+		AvailableUseText = "UseTraitShop_Unlocked",
+		OnUsedFunctionName = "AttemptUseChallengeSwitch",
+		ChallengeSwitchUseFunctionName = "OpenSellTraitMenu",
+		CannotUseText = "SellTraitShopBlockedByEncounter",
+		BlockDuringChallenge = true,
+		UsePromptOffsetX = 40,
+
+		SpawnPropertyChanges =
+		{
+			{
+				ThingProperty = "Tallness",
+				ChangeValue = 225,
+			},
+		},
+
+		DistanceTrigger =
+		{
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossSellTraitShops" },
+				},
+				{
+					Path = { "CurrentRun", "CurrentRoom", "Name" },
+					IsNone = { "H_PostBoss01" },
+				},
+			},
+			WithinDistance = 500,
+			VoiceLines =
+			{
+				Queue = "Always",
+				PlayOnce = true,
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				PlayOnceFromTableThisRun = true,
+				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+				{ Cue = "/VO/MelinoeField_2615", Text = "Another Pool of Purging, just as planned..." },
 			}
 		},
 
@@ -3134,6 +3328,14 @@
 				UsePlayerSource = true,
 
 				{ Cue = "/VO/MelinoeField_0773", Text = "Some sort of gateway on the ground...!" },
+				{ Cue = "/VO/MelinoeField_2868", Text = "A Chaos Gate, up here?",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "CurrentRun", "BiomesReached", "N" },
+						}
+					},
+				},
 			}
 		},
 
@@ -3278,8 +3480,7 @@
 	{
 		UseText = "UseFishingPoint",
 		NoToolUseText = "UseFishingPointLocked",
-		ExitsLockedUseText = "UseFishingPointLocked",
-		AggroedUnitsUseText = "UseFishingPointLocked",
+		GetUseTextFunctionName = "FishingPointGetUseText",
 		OnUsedFunctionName = "UseFishingPoint",
 		ExitsUnlockedFunctionName = "FishingPointAvailablePresentation",
 		FamiliarUseText = "UseFishingPointFamiliar",
@@ -3310,7 +3511,9 @@
 						{
 							PathTrue = { "CurrentRun", "CurrentRoom", "ExitsUnlocked" },
 						},
-						RequiresNotFishing = true,
+						{
+							PathFalse = { "CurrentRun", "Hero", "FishingStarted", },
+						}
 					},
 					Cooldowns =
 					{
@@ -3346,6 +3549,7 @@
 		},
 		OnUsedFunctionName = "UseHarvestPoint",
 		ExitsUnlockedFunctionName = "HarvestPointAvailablePresentation",
+		SpeakerName = "Selene",
 	},
 
 	PickaxePoint =
@@ -3365,6 +3569,7 @@
 		},
 		OnUsedFunctionName = "UsePickaxePoint",
 		ExitsUnlockedFunctionName = "HarvestPointAvailablePresentation",
+		SpeakerName = "Selene",
 
 		DistanceTrigger =
 		{
@@ -3395,7 +3600,7 @@
 				UsePlayerSource = true,
 				TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
-				{ Cue = "/VO/Melinoe_1914", Text = "There's some raw silver I can use..." },
+				{ Cue = "/VO/Melinoe_1914", Text = "There's some raw Silver I can use..." },
 			}
 		},
 	},
@@ -3410,6 +3615,7 @@
 					PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeErebusSafeZones" },
 				},
 			},
+			PreTriggerWait = 0.1,
 			WithinDistance = 550,
 			VoiceLines =
 			{
@@ -3434,7 +3640,9 @@
 	ShovelPoint =
 	{
 		UseText = "UseShovelPoint",
+		NoToolUseText = "UseShovelPointLocked",
 		LinkedToolName = "ToolShovel",
+		FamiliarUseText = "UseShovelPointFamiliar",
 		SetupEvents =
 		{
 			{
@@ -3447,6 +3655,7 @@
 		OnUsedFunctionName = "UseShovelPoint",
 		UnavailableAnimation = "ShovelPointUnavailable",
 		ExitsUnlockedFunctionName = "HarvestPointAvailablePresentation",
+		SpeakerName = "Selene",
 	},
 
 	ExorcismPoint =
@@ -3497,6 +3706,41 @@
 					},
 				},
 			},
+		},
+	},
+
+	CrossroadsShadeSign01 =
+	{
+		SetupEvents =
+		{
+			{
+				FunctionName = "DistanceTrigger",
+				Threaded = true,
+				Args =
+				{
+					PreTriggerEvents =
+					{
+						{
+							FunctionName = "GenericPresentation",
+							Args = 
+							{
+								PreWait = 0.1,
+							},
+						},
+					},
+					WithinDistance = 60,
+					PostTriggerEvents =
+					{
+						{
+							FunctionName = "ShadeSignSway",
+							Args =
+							{								
+							},
+						},
+					},
+					Repeat = true,
+				},
+			}
 		},
 	},
 
@@ -3611,6 +3855,38 @@
 		DestroyIfNotSetup = true,
 		OnUsedFunctionName = "ViewPortraitPresentation",
 		OnUsedFunctionArgs = { PortraitAnimationName = "TentFamilyPortrait" },
+
+		DistanceTriggers =
+		{
+			{
+				PreTriggerWait = 0.1,
+				WithinDistance = 410,
+				LockToCharacter = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "TextLinesRecord", "ChronosBossOutro01" },
+					},
+				},
+				VoiceLines =
+				{
+					BreakIfPlayed = true,
+					UsePlayerSource = true,
+					PreLineWait = 0.5,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 3 },
+					},
+
+					{ Cue = "/VO/Melinoe_3613", Text = "{#Emph}Our {#Prev}family...",
+						PlayOnce = true,
+						PlayOnceContext = "PortraitAfterChronosVO",
+					},
+				}
+			}
+		},
+
+
 	},
 
 	-- Enemy Equipment Obstacles
@@ -3652,24 +3928,6 @@
 	{
 		IsEnemyWeapon = true,
 		UseText = "UseEnemyWeapon",
-	},
-
-	-- hades bed (pre-ending)
-	HouseBed02 =
-	{
-		SetupGameStateRequirements =
-		{
-			RequiredFalseTextLines = { "PersephoneReturnsHome01" },
-		},
-		DestroyIfNotSetup = true,
-	},
-	HouseBed02a =
-	{
-		SetupGameStateRequirements =
-		{
-			RequiredTextLines = { "PersephoneReturnsHome01" },
-		},
-		DestroyIfNotSetup = true,
 	},
 
 	PortalSpawner =

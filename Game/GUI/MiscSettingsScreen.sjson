@@ -258,7 +258,7 @@
     }
 
     OptionSlider =
-	{
+    {
       X = 1134
       Y = 300
       ScrollSpeed = 0.4
@@ -286,6 +286,8 @@
       Scale = 1.0
       BackGraphic = "GUI\\Shell\\settings_bar_bg"
       FillGraphic = "GUI\\Shell\\settings_bar_fill"
+      ToggleOnSound = "/SFX/Menu Sounds/MirrorMenuStatIncrease"
+      ToggleOffSound = "/SFX/Menu Sounds/MirrorMenuStatLower"
       TextJustification = "Left"
       Height = 50
       FlashMin = 0
@@ -294,17 +296,18 @@
       FlashRed = 1.0
       FlashGreen = 0.8
       FlashBlue = 0.2
+      FadeSpeed = 10.0
     }
     OptionSliderDebug =
-	{
+    {
         InheritFrom = "OptionSlider"
         TextRed = 0.8
         TextGreen = 0.3
         TextBlue = 0.3
     }
 
-	OptionSliderValueText =
-	{
+    OptionSliderValueText =
+    {
       Justification = "Center"
       VerticalJustification = "Center"
       AddTextArea = true
@@ -330,7 +333,7 @@
     }
 
     OptionDropdown =
-	{
+    {
       X = 1380
       Y = 300
       Spacing = 45
@@ -435,50 +438,51 @@
       Height = 300
     }
 
-	/* Controls */
+    /* Controls */
     CancelButton =
-	{
-      Graphic = "CancelButtonFlash"
-      UnderCursorOnAnimation = "CancelButtonFlashHover"
-      UnderCursorOffAnimation = "CancelButtonFlash"
-      FreeFormSelectable = false
-      Justification = "Center"
-      VerticalJustification = "Center"
-      X = 960
+    {
+      X = 1875
       Y = 1030
-      FlashMin = 0.0
-      FlashMax = 0.5
-      FlashSpeed = 1.2
-      FlashRed = 0.6
-      FlashGreen = 0.4
-      FlashBlue = 0.0
-      PressSound = "null"
-      Scale = 0.8
+      HelpTextId = "MiscSettingsScreen_Back"
+      
+      // From ContextualButtonFormatRight
+      FontSize = 20
+      Width = 415
+      LineSpacingBottom = 0
+      TextRed = 0.58
+      TextGreen = 0.34
+      TextBlue = 0.78
+      Font = "LatoBold"
+      ShadowBlur = 0
+      ShadowRed = 0.0
+      ShadowGreen = 0.0
+      ShadowBlue = 0.0
+      ShadowOffsetX = 0
+      ShadowOffsetY = 3
+      Justification = "RIGHT"
+      VerticalJustification = "CENTER"
+      SelectedTextRed = 0.50
+      SelectedTextGreen = 0.90
+      SelectedTextBlue = 0.80
+      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
+      FreeFormSelectable = false
+    }
+
+    ConfirmButton =
+    {
+      InheritFrom = "CancelButton"
+      OffsetX = -300
+      DisplayNameId = "MiscSettingsScreen_Select"
+      PressSound = "/SFX/Menu Sounds/DialoguePanelOut"
     }
 
     DefaultsButton =
-	{
-      X = 1505
-      Y = 925
-      Graphic = "Button_Default"
-      UnderCursorOnAnimation = "Button_HighlightOn"
-      UnderCursorOffAnimation = "Button_HighlightOff"
-      PressAnimation = "Button_Press"
+    {
+      InheritFrom = "ConfirmButton"
+      OffsetX = -600
       DisplayNameId = "MiscSettingsScreen_RestoreDefaults"
       HelpTextId = "MiscSettingsScreen_RestoreDefaults"
-      Justification = "Center"
-      VerticalJustification = "Center"
-      TextJustification = "Center"
-      Font = "P22UndergroundSCMedium"
-      FontSize = 26
-      TextRed = 0.8
-      TextGreen = 0.714
-      TextBlue = 0.588
-      TextOffsetY = 0
       PressSound = "/SFX/Menu Sounds/GodBoonChoiceConfirm"
-      Width = 280
-      Height = 60
-      FreeFormSelectOffsetX = -120
     }
 
     // Rumble test buttons. Only active while GeneralRumbleMultiplier NumBox has focus, but are invisible
@@ -516,62 +520,69 @@
       Height = 40
       ScaleX = 1.25
       ScaleY = 0.9
+
+      FlashSpeed = 3.5
+      FlashRed = 0.50
+      FlashGreen = 0.90
+      FlashBlue = 0.80
+      FlashMin = 0.0
+      FlashMax = 0.5
     }
 
     // UserAccessible Categories
     GameplayOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_GameplayOptions"
+    {
+      InheritFrom = "CategoryOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_GameplayOptions"
     }
     ControlsOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "GameplayOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_ControlsOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "GameplayOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_ControlsOptions"
+      OffsetY = 54
     }
     InterfaceOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "ControlsOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_InterfaceOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "ControlsOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_InterfaceOptions"
+      OffsetY = 54
     }
     GraphicsOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "InterfaceOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_DisplayOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "InterfaceOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_DisplayOptions"
+      OffsetY = 54
     }
     AccessibilityOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-		AttachTo = "GraphicsOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_AccessibilityOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "GraphicsOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_AccessibilityOptions"
+      OffsetY = 54
     }
-	AudioOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-        AttachTo = "AccessibilityOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_AudioOptions"
-        OffsetY = 54
+    AudioOptionsButton =
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "AccessibilityOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_AudioOptions"
+      OffsetY = 54
     }
     LanguageOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-        AttachTo = "AudioOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_LanguageOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "AudioOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_LanguageOptions"
+      OffsetY = 54
     }
     CreditsOptionsButton =
-	{
-		InheritFrom = "CategoryOptionsButton"
-        AttachTo = "LanguageOptionsButton"
-		DisplayNameId = "MiscSettingsScreen_CreditsOptions"
-        OffsetY = 54
+    {
+      InheritFrom = "CategoryOptionsButton"
+      AttachTo = "LanguageOptionsButton"
+      DisplayNameId = "MiscSettingsScreen_CreditsOptions"
+      OffsetY = 54
     }
 
     // Non-UserAccessible Categories

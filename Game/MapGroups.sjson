@@ -12,16 +12,6 @@
 			]
 		}
 		{
-			Name = "Elysium"
-			Maps = [
-				{
-					Name = "C_*"
-				}
-			]
-			Using = [
-			]
-		}
-		{
 			Name = "Erebus"
 			Maps = [
 				{
@@ -32,6 +22,10 @@
 			{
 				Type = "Component"
 				Name = "RunIntroData"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\Fx\Erebus_Shrub_04_Rustle:0.5"
 			}
 			]
 		}
@@ -90,6 +84,15 @@
 		}
 
 		{
+			Name = "Olympus"
+			Maps = [
+				{
+					Name = "P_*"
+				}
+			]
+		}
+
+		{
 			Name = "Chaos"
 			Maps = [
 				{
@@ -122,8 +125,20 @@
 				Name = "ScreenData.MailboxScreen.ItemCategories"
 			}
 			{
+				Type = "Component"
+				Name = "GameData.DreamSequenceData"
+			}
+			{
 				Type = "Animation"
 				Name = "TentFamilyPortrait"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\MetaUpgrade:0.5,0.33,0.25"
+			}
+			{
+				Type = "Text"
+				Name = "Textures\GUI\Screens\Shrine"
 			}
 			]
 		}

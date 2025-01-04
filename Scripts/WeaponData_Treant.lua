@@ -111,11 +111,11 @@ WeaponSetData =
 			FireAnimation = "Enemy_Treant_SprayFire",
 			PostAttackAnimation = "Enemy_Treant_SprayReturnToIdle",
 
+			WeaponFireLoopingSound = "/SFX/Enemy Sounds/Treant/TreantFlurryLoop",
 			AttackSound = "/SFX/Enemy Sounds/Treant/EmotePowerAttacking",
 
-			AttackDistance = 900,
-			RequireProjectileLoS = true,
-			LoSBuffer = 100,
+			AttackDistance = 9999,
+			MoveWithinRange = false,
 
 			PreAttackVoiceLines =
 			{
@@ -133,13 +133,6 @@ WeaponSetData =
 				{ Cue = "/VO/MelinoeField_2249", Text = "Got to move...!" },
 			},			
 		},
-
-		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
-		HitSimSlowParameters =
-		{
-			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
-			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
-		},
 	},
 
 	Treant2RangedSpray =
@@ -150,9 +143,6 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "Treant2Ranged",
-
-			AttackDistance = 1200,
-			AttackDistanceScaleY = 0.6,
 
 			StopBeforeFire = true,
 			AngleTowardsTargetWhileFiring = false,
@@ -179,8 +169,7 @@ WeaponSetData =
 			SpawnBurstOnFire = true,
 			SpawnOnSpawnPoints = true,
 			SpawnsPerBurst = 1,
-			SpawnRadiusMin = 150,
-			SpawnRadius = 600,
+			SpawnRadius = 700,
 			SpawnRate = 0.35,
 			MaxActiveSpawns = 1,
 			
@@ -200,6 +189,21 @@ WeaponSetData =
 			{
 				{ Name = "/SFX/Enemy Sounds/Hecate/EmoteCharging" },
 			},
+		},
+	},
+
+	TreantTailSpawn_Shadow =
+	{
+		InheritFrom = { "TreantTailSpawn", },
+
+		AIData =
+		{
+			DeepInheritance = true,
+			
+			SpawnsPerBurst = 4,
+			MaxActiveSpawns = 4,
+			SpawnerOptions = { "TreantTail_Shadow", },
+
 		},
 	},
 
@@ -262,8 +266,8 @@ WeaponSetData =
 			PreAttackAnimation = "Enemy_TreantTail_Swipe_PreAttack",
 			FireAnimation = "Enemy_TreantTail_Swipe_Fire",
 			PostAttackAnimation = "Enemy_TreantTail_Idle",
-			PostAttackDurationMin = 2.5,
-			PostAttackDurationMax = 3.5,
+			PostAttackDurationMin = 1.75,
+			PostAttackDurationMax = 2.65,
 
 			AttackDistance = 9999,
 
@@ -272,7 +276,7 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MaxPlayerDistance = 260,
+			MaxConsecutiveUses = 1,
 		},
 
 		Sounds =
@@ -312,7 +316,10 @@ WeaponSetData =
 				WeaponEffectData.AttackLowGrip,
 			},
 
-			FireProjectileStartDelay = 0.8,
+			TargetSpawnPoints = true,
+			TargetSpawnPointsRadius = 675,
+			TargetSpawnPointsRadiusMin = 55,
+			OccupyTargetSpawnPoint = true,
 
 			TrackTargetDuringCharge = true,
 			AngleTowardsTargetWhileFiring = true,
@@ -326,7 +333,7 @@ WeaponSetData =
 			PostAttackDurationMin = 0.55,
 			PostAttackDurationMax = 0.65,
 
-			AttackDistance = 145,
+			AttackDistance = 100,
 			MoveSuccessDistance = 50,
 
 			DoNotRepeatOnAttackFail = true,
@@ -355,6 +362,8 @@ WeaponSetData =
 		{
 			DeepInheritance = true,
 			ProjectileName = "TreantTail2Unburrow",
+
+			TargetSpawnPoints = false,
 		},
 	},
 
@@ -382,7 +391,7 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MinAttacksBetweenUse = 1,
+			MinAttacksBetweenUse = 2,
 		},
 
 		Sounds =

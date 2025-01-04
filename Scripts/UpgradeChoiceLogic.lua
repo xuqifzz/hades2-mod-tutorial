@@ -167,7 +167,7 @@ function CreateBoonLootButtons( screen, lootData, reroll )
 		waitUnmodified( 0.06 )
 	end
 	
-	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( CurrentRun, TraitRarityData.ElementalGameStateRequirements ) and lootData.GodLoot then
+	if not GameState.Flags.SeenElementalIcons and IsGameStateEligible( screen, TraitRarityData.ElementalGameStateRequirements ) and lootData.GodLoot then
 		waitUnmodified(0.2)
 		for itemIndex, itemData in ipairs( upgradeOptions ) do
 			local elementIconKey = "PurchaseButton"..itemIndex.."ElementIcon"
@@ -351,17 +351,17 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 			CreateAnimation({ Name = "BoonEntranceLegendary", DestinationId = components[purchaseButtonKey].Id }) 
 		end
 	end
+
+	local highlight = ShallowCopyTable( screen.Highlight )
+	highlight.X = purchaseButton.X
+	highlight.Y = purchaseButton.Y
 	if Contains( blockedIndexes, itemIndex ) then
 		itemData.Blocked = true
 		overlayLayer = "Combat_Menu"
 		AddInteractBlock( components[purchaseButtonKey], "TraitLocked" )
 		ModifyTextBox({ Id = components[purchaseButtonKey].Id, BlockTooltip = true })
-		thread( TraitLockedPresentation, { Screen = screen, Components = components, HighlightKey = purchaseButtonKey.."Highlight", Id = purchaseButtonKey, OffsetX = itemLocationX + screen.ButtonOffsetX + 15, OffsetY = screen.IconOffsetY + itemLocationY + 55, TooltipOffsetX = screen.TooltipOffsetX } )
+		thread( TraitLockedPresentation, { Screen = screen, Components = components, HighlightKey = purchaseButtonKey.."Highlight", Id = purchaseButtonKey, OffsetX = highlight.X, OffsetY = highlight.Y, TooltipOffsetX = screen.TooltipOffsetX } )
 	end
-
-	local highlight = ShallowCopyTable( screen.Highlight )
-	highlight.X = purchaseButton.X
-	highlight.Y = purchaseButton.Y
 	components[purchaseButtonKey.."Highlight"] = CreateScreenComponent( highlight )
 
 	if upgradeData.Icon ~= nil then
@@ -422,6 +422,9 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	button.BoonGetColor = upgradeChoiceData.BoonGetColor
 	button.Highlight = components[purchaseButtonKey.."Highlight"]
 	
+	if screen.Source and screen.Source.OnPressedFunctionNameOverride then
+		button.OnPressedFunctionName = screen.Source.OnPressedFunctionNameOverride 
+	end
 	AttachLua({ Id = components[purchaseButtonKey].Id, Table = components[purchaseButtonKey] })
 	components[components[purchaseButtonKey].Id] = purchaseButtonKey
 	-- Creates upgrade slot text
@@ -434,9 +437,6 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 		selectionString = "UpgradeChoiceMenu_"..traitData.Slot
 	end
 
-	local textOffset = -70 - screen.ButtonOffsetX
-	local exchangeIconOffset = 0
-	local lineSpacing = 8
 	local rarity = itemData.Rarity
 	if not rarity then
 		rarity = "Common"
@@ -468,6 +468,7 @@ function CreateUpgradeChoiceButton( screen, lootData, itemIndex, itemData )
 	descriptionText.Id = button.Id
 	descriptionText.Text = upgradeDescription
 	descriptionText.LuaValue = tooltipData
+	descriptionText.TextSymbolScale = upgradeData.DescriptionTextSymbolScale or descriptionText.TextSymbolScale
 	CreateTextBoxWithFormat( descriptionText )
 
 	if upgradeDescription2 then
@@ -582,7 +583,7 @@ function RerollBoonLoot( screen, button )
 	for i, value in pairs( lootData.UpgradeOptions ) do
 		table.insert( itemNames, value.ItemName )
 	end
-	SetTraitsOnLoot( lootData, { ExclusionNames = { GetRandomValue( itemNames )}})
+	SetTraitsOnLoot( lootData, { BoonRaritiesOverride = lootData.RarityChances, IgnoreAllRarityBonus = true, ExclusionNames = { GetRandomValue( itemNames )}})
 	CreateBoonLootButtons( screen, lootData, true )
 end
 
@@ -640,7 +641,7 @@ function GetPriorityTraits( traitNames, lootData, args )
 
 	for index, traitName in ipairs(traitNames) do
 
-		if TraitData[traitName] and (lootData.StripRequirements or IsTraitEligible(CurrentRun, TraitData[traitName])) then
+		if TraitData[traitName] and (lootData.StripRequirements or IsTraitEligible( TraitData[traitName] )) then
 			if not HeroHasTrait(traitName) and not occupiedSlots[TraitData[traitName].Slot] then
 				local data = { ItemName = traitName, Type = "Trait"}
 				table.insert(priorityOptions, data)
@@ -697,7 +698,7 @@ function GetReplacementTraits( traitNames, onlyFromLootName )
 
 	for index, traitName in ipairs(traitNames) do
 		local slot = TraitData[traitName].Slot
-		if IsTraitEligible( CurrentRun, TraitData[traitName] ) and not HeroHasTrait(traitName) and occupiedSlots[slot] and GetUpgradedRarity(occupiedSlots[slot].Rarity) ~= nil and ( onlyFromLootName == nil or LootData[onlyFromLootName].TraitIndex[occupiedSlots[slot].TraitName] ) then
+		if IsTraitEligible( TraitData[traitName] ) and not HeroHasTrait(traitName) and occupiedSlots[slot] and GetUpgradedRarity(occupiedSlots[slot].Rarity) ~= nil and ( onlyFromLootName == nil or LootData[onlyFromLootName].TraitIndex[occupiedSlots[slot].TraitName] ) then
 			local data = { ItemName = traitName, Type = "Trait", TraitToReplace = occupiedSlots[slot].TraitName, OldRarity = occupiedSlots[slot].Rarity, Rarity = GetUpgradedRarity(occupiedSlots[slot].Rarity) }
 			table.insert(priorityOptions, data)
 		end
@@ -748,43 +749,8 @@ function GetPriorityDependentTraits ( lootData )
 
 		local dependencyTable = TraitRequirements[traitName]
 		local valid = false
-		if dependencyTable and not HeroHasTrait( traitName ) and ( IsTraitEligible( CurrentRun, TraitData[traitName]) or lootData.StripRequirements ) then
-			if dependencyTable.OneOf ~= nil then
-				for j, dependentTraitName in ipairs(dependencyTable.OneOf) do
-					if not valid and HeroHasTrait(dependentTraitName) then
-						valid = true
-					end
-				end
-			end
-			
-
-			if dependencyTable.TwoOf ~= nil then
-				local numTraits = 0
-				for j, dependentTraitName in ipairs(dependencyTable.TwoOf) do
-					if HeroHasTrait(dependentTraitName) then
-						numTraits = numTraits + 1
-					end
-				end
-				if numTraits >= 2 then
-					valid = true
-				end
-			end
-
-			if not valid and dependencyTable.OneFromEachSet ~= nil then
-				valid = true
-				for i, traitSet in ipairs(dependencyTable.OneFromEachSet) do
-					local foundInSet = false
-					for j, dependentTraitName in ipairs(dependencyTable.OneFromEachSet[i]) do
-						if not foundInSet and HeroHasTrait(dependentTraitName) then
-							foundInSet = true
-						end
-					end
-					if not foundInSet then
-						valid = false
-						break
-					end
-				end
-			end
+		if dependencyTable and not HeroHasTrait( traitName ) and ( IsTraitEligible( TraitData[traitName] ) or lootData.StripRequirements ) then
+			valid = HasTraitRequirements( traitName )
 
 			if valid and dependencyTable.PriorityChance ~= nil then
 				table.insert( linkedTraits, { TraitName = traitName, PriorityChance = dependencyTable.PriorityChance })
@@ -803,44 +769,8 @@ function GetEligibleTraitUpgrades ( lootData )
 		local valid = false
 		if not TraitRequirements[traitName] then
 			valid = true
-		elseif IsTraitEligible( CurrentRun, TraitData[traitName]) or lootData.StripRequirements then
-			local dependencyTable = TraitRequirements[traitName]
-			if dependencyTable.OneOf ~= nil then
-				for j, dependentTraitName in ipairs(dependencyTable.OneOf) do
-					if not valid and HeroHasTrait(dependentTraitName) then
-						valid = true
-					end
-				end
-			end
-
-			if dependencyTable.TwoOf ~= nil then
-				local numTraits = 0
-				for j, dependentTraitName in ipairs(dependencyTable.TwoOf) do
-					if HeroHasTrait(dependentTraitName) then
-						numTraits = numTraits + 1
-					end
-				end
-				if numTraits >= 2 then
-					valid = true
-				end
-			end
-
-			if not valid and dependencyTable.OneFromEachSet ~= nil then
-				valid = true
-				for i, traitSet in ipairs(dependencyTable.OneFromEachSet) do
-					local foundInSet = false
-					for j, dependentTraitName in ipairs(dependencyTable.OneFromEachSet[i]) do
-						if not foundInSet and HeroHasTrait(dependentTraitName) then
-							foundInSet = true
-						end
-					end
-					if not foundInSet then
-						valid = false
-						break
-					end
-				end
-
-			end
+		elseif IsTraitEligible( TraitData[traitName] ) or lootData.StripRequirements then
+			valid = HasTraitRequirements( traitName )
 		end
 
 		if valid then
@@ -849,7 +779,7 @@ function GetEligibleTraitUpgrades ( lootData )
 	end
 	if not IsEmpty(lootData.OffersElementalTrait) then
 		for _, elementName in pairs( lootData.OffersElementalTrait ) do
-			if IsGameStateEligible( CurrentRun, TraitElementData[elementName].GameStateRequirements ) then
+			if IsGameStateEligible( lootData, TraitElementData[elementName].GameStateRequirements ) then
 				local orderedElementalUpgrades = CollapseTableAsOrderedKeyValuePairs( TraitElementData[elementName].Traits )
 				for i, kvp in ipairs( orderedElementalUpgrades ) do
 					local traitName = kvp.Value
@@ -888,14 +818,10 @@ function GetEligibleUpgrades( upgradeOptions, lootData, upgradeChoiceData )
 
 	local toRemove = {}
 	for i, upgradeData in ipairs(eligibleUpgrades) do
-		local data = nil
-			data = TraitData[upgradeData.ItemName]
-
+		local traitData = TraitData[upgradeData.ItemName]
 		if not lootData.StackOnly and HeroHasTrait(upgradeData.ItemName) then
 			table.insert(toRemove, upgradeData)
-		elseif not lootData.StripRequirements and lootData.StackOnly and not IsTraitEligible(CurrentRun, data) then
-			table.insert(toRemove, upgradeData)
-		elseif not lootData.StripRequirements and not IsTraitEligible(CurrentRun, data) then
+		elseif not lootData.StripRequirements and not IsTraitEligible( traitData, { AllowBannedTraits = lootData.StackOnly } ) then
 			table.insert(toRemove, upgradeData)
 		end
 	end
@@ -974,6 +900,13 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 			local nextButton = GetRandomValue( validOtherChoices )
 			ReduceTraitUses( doubleBoonTrait )
 			DoubleBoonPresentation( screen, nextButton )
+			CheckNewTraitManaReserveShrineUpgrade( newTrait )
+			if HeroHasTrait("ElementalRarityUpgradeBoon") then
+				local trait = GetHeroTrait("ElementalRarityUpgradeBoon")
+				if trait.Activated then
+					nextButton.LootData.UpgradeOnPick = true
+				end
+			end
 			HandleUpgradeChoiceSelection( screen, nextButton, { DoubleBoonChance = true } )
 			return
 		end
@@ -1003,6 +936,7 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 	if not screen.SkipUpgradePresentationAndExitUnlock then
 		UpgradeAcquiredPresentation( screen, button.LootData )
 	end
+	CheckNewTraitManaReserveShrineUpgrade( newTrait )
 	if duplicateOnClose and spawnTarget then
 		local newLoot = CreateLoot({ Name = name, SpawnPoint = spawnTarget })
 		newLoot.CanDuplicate = false
@@ -1015,8 +949,6 @@ function HandleUpgradeChoiceSelection( screen, button, args )
 			UnlockRoomExits( CurrentRun, CurrentRun.CurrentRoom )
 		end
 	end
-
-	CheckNewTraitManaReserveShrineUpgrade( newTrait )
 
 	SetLightBarColor({ PlayerIndex = 1, Color = CurrentRun.Hero.LightBarColor or { 0.0, 0.0, 0.0, 0.0 } })
 
@@ -1071,6 +1003,9 @@ function CloseUpgradeChoiceScreen( screen, button )
 	if screen.Source.ForceCommon and not screen.Source.ForceCommonWithoutCurse then
 		UseHeroTraitsWithValue( "ForceCommon", true )
 	end
+	if screen.Source.RarityBoosted and not screen.Source.ForceCommonWithoutCurse then
+		UseHeroTraitsWithValue("RarityBonus", true )
+	end
 
 	if screen.Source.GodLoot or screen.Source.TreatAsGodLootByShops then
 		UseHeroTraitsWithValue( "RestrictBoonChoices", true )
@@ -1080,6 +1015,9 @@ function CloseUpgradeChoiceScreen( screen, button )
 		if forceSwapTrait and forceSwapTrait.Uses > 0 then
 			forceSwapTrait.Uses = forceSwapTrait.Uses - 1
 			UpdateTraitNumber( forceSwapTrait )
+			if forceSwapTrait.Uses <= 0 then
+				RemoveTraitData( CurrentRun.Hero, forceSwapTrait )
+			end
 		end
 	end
 	if not IsEmpty(LootObjects)  then
@@ -1125,7 +1063,7 @@ function LogUpgradeChoice( button )
 		if not upgradeData.Blocked then
 			local choiceData =
 			{
-				Chosen = tostring( upgradeData.ItemName == button.Data.Name ),
+				Chosen = tostring( upgradeData.ItemName == button.Data.Name or upgradeData.SecondaryItemName == button.Data.Name ),
 				Name = tostring(upgradeData.ItemName),
 				Rarity = tostring(upgradeData.Rarity),
 			}
@@ -1261,7 +1199,9 @@ function MouseOverBoonButton( component )
 	screen.MouseOverButton = component
 	SetAlpha({ Id = screen.Components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 	SetAnimation({ DestinationId = component.Highlight.Id, Name = "BoonSlotHighlight" })
-	if component.Data.TraitToReplace ~= nil then
+	if screen.Source and screen.Source.ChoiceTextOverride then
+		ModifyTextBox({ Id = screen.Components.SelectButton.Id, Text = screen.Source.ChoiceTextOverride })
+	elseif component.Data.TraitToReplace ~= nil then
 		ModifyTextBox({ Id = screen.Components.SelectButton.Id, Text = "Boon_Sacrifice" })
 	else
 		ModifyTextBox({ Id = screen.Components.SelectButton.Id, Text = "Boon_Select" })
@@ -1362,10 +1302,15 @@ function UpgradeChoiceScreenCloseTraitTray( screen, args )
 	for index = 1, 3 do
 		if traitTrayScreen.Components["PurchaseButton"..index] then
 			RemoveInteractBlock( traitTrayScreen.Components["PurchaseButton"..index], "TraitTray" )
+			if index == 1 then
+				TeleportCursor({ DestinationId = upgradeChoiceScreenComponents["PurchaseButton"..index].Id, ForceUseCheck = true })
+			end
 		end
 	end
 	if upgradeChoiceScreenComponents.RerollButton then
-		if upgradeChoiceScreenComponents.RerollButton.OnPressedFunctionName ~= nil then
+		local cost = upgradeChoiceScreenComponents.RerollButton.Cost
+		if upgradeChoiceScreenComponents.RerollButton.OnPressedFunctionName ~= nil 
+			and cost and CurrentRun.NumRerolls >= cost and cost >= 0 then
 			SetAlpha({ Id = upgradeChoiceScreenComponents.RerollButton.Id, Fraction = 1.0, Duration = 0.2 })
 		end
 	end
@@ -1375,7 +1320,7 @@ function UpgradeChoiceScreenCloseTraitTray( screen, args )
 		end
 	end
 	if upgradeChoiceScreenComponents.AcceptButton then
-		if not upgradeChoiceScreenComponents.AcceptButton.Disabled then
+		if IsUseable({ Id = upgradeChoiceScreenComponents.AcceptButton.Id }) then
 			SetAlpha({ Id = upgradeChoiceScreenComponents.AcceptButton.Id, Fraction = 1.0, Duration = 0.2 })
 		end
 	end

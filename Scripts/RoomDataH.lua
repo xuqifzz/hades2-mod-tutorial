@@ -35,16 +35,21 @@ RoomSetData.H =
 
 		SuppressRewardSpawnSounds = true,
 
-		TimeChallengeSwitchSpawnChance = 0.15,
-		TimeChallengeSwitchRequirements =
+		ChallengeSpawnRequirements =
 		{
 			{
-				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitches1" },
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 1,
 			},
-			RequiredMinBiomeDepth = 1,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
+			{
+				FunctionName = "RequiredMinRoomsSinceEvent",
+				FunctionArgs = { Event = "ChallengeSwitch", Count = 3 },
+			},
 		},
 		TimeChallengeEncounterOptions = { "TimeChallengeH" },
+		PerfectClearEncounterOptions = { "PerfectClearChallengeH" },
+		EliteChallengeEncounterOptions = { "EliteChallengeH" },
 		ChallengeSwitchCannotUseText = "ChallengeSwitchBlockedByFieldsLoot",
 
 		LegalEncounters = EncounterSets.HEncountersPassive,
@@ -115,6 +120,11 @@ RoomSetData.H =
 		{
 			["/SFX/Player Sounds/FootstepsHardSurface"] = "/Leftovers/SFX/FootstepsWheat",
 			["/SFX/Player Sounds/FootstepsHardSurfaceRun"] = "/Leftovers/SFX/FootstepsWheat2",
+		},
+
+		SwapAnimations =
+		{
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
 		},
 
 		EnterVoiceLines =
@@ -305,7 +315,7 @@ RoomSetData.H =
 							FunctionName = "GenericPresentation",
 							Args = 
 							{
-								VoiceLines = GlobalVoiceLines.ErisNotSightedVoiceLines,
+								VoiceLines = { GlobalVoiceLines = "ErisNotSightedVoiceLines" },
 							},
 						},
 					},
@@ -383,9 +393,12 @@ RoomSetData.H =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -411,9 +424,12 @@ RoomSetData.H =
 				SetupGameStateRequirements =
 				{
 					{
-						--
+						PathFalse = { "CurrentRun", "ActiveBounty" },
 					},
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -445,8 +461,8 @@ RoomSetData.H =
 		EnterVoiceLines =
 		{
 			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-			[1] = GlobalVoiceLines.StartPackagedBountyRunVoiceLines,
-			[2] = GlobalVoiceLines.BiomeStateChangeStartVoiceLines,
+			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -482,6 +498,7 @@ RoomSetData.H =
 		NoReroll = true,
 		TimerBlock = "StoryRoom",
 		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
 		SkipNemesisSpawnPresentation = true,
 
 		ForcedRewards =
@@ -550,6 +567,66 @@ RoomSetData.H =
 
 		MusicMutedStems = { "Drums" },
 
+		StartThreadedEvents =
+		{
+			{
+				FunctionName = "ActivateFamiliar",
+				GameStateRequirements =
+				{
+					-- hecuba appearance requirements; requires HecataGrantsFamiliars01 to be recruited
+					{
+						PathFalse = { "GameState", "FamiliarsUnlocked", "HoundFamiliar" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Nemesis_01", }, Alive = false },
+					},
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsAny = { "FrogFamiliar", "RavenFamiliar", "CatFamiliar" },
+					},
+					{
+						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeFamiliarUpgradeSystem" }
+					},
+					{
+						Path = { "GameState", "LifetimeResourcesSpent", "FamiliarPoints" },
+						Comparison = ">=",
+						Value = 3,
+					},
+					NamedRequirementsFalse = { "HecateFamiliarsInHub" },
+					ChanceToPlay = 0.75,
+				},
+				Args =
+				{
+					Id = 722876,
+					Name = "HoundFamiliar",
+					SkipAISetup = true,
+					OverwriteSelf =
+					{
+						OnUsedFunctionName = "nil",
+						SpecialInteractFunctionName = "HoundFamiliarSpecialInteractLockedInRun",
+						PreRecruit = true,
+						DistanceTriggers =
+						{
+							{
+								WithinDistance = 550,
+								FunctionName = "GenericPresentation",
+								Args =
+								{
+									PreWait = 0.0,
+									AngleTowardHero = true,
+									SetAnimation = "Familiar_Hound_Greet",
+									Sound = "/VO/CerberusBarks",
+									VoiceLines = { GlobalVoiceLines = "HoundReactionVoiceLines" },
+								},
+							},
+						}
+					},
+				},
+			},
+
+		},
+
 		StartUnthreadedEvents =
 		{
 			{ FunctionName = "ActivateObjects", Args = { ObjectTypes = { "HealthFountainH" } } },
@@ -609,7 +686,9 @@ RoomSetData.H =
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "H_MiniBoss02" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "H_MiniBoss02" },
+			},
 		},
 
 		SpawnRewardOnId = 621502,
@@ -677,7 +756,7 @@ RoomSetData.H =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		ExitsUnlockedDistanceTriggers =
@@ -703,7 +782,9 @@ RoomSetData.H =
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "H_MiniBoss01" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "H_MiniBoss01" },
+			},
 		},
 
 		SpawnRewardOnId = 621502,
@@ -755,7 +836,7 @@ RoomSetData.H =
 					Inspect_H_MiniBoss02_01 =
 					{
 						{ Cue = "/VO/Storyteller_0209",
-							Text = "{#Emph}Within the vastly-sprawling Fields of Mourning reside countless sorrow-spreading Shades, as well as daemons that insatiably feast upon their misery." },
+							Text = "{#Emph}Within the vastly-sprawling Fields of Mourning reside countless sorrow-spreading Shades, as well as Daemons that insatiably feast upon their misery." },
 						EndVoiceLines =
 						{
 							PreLineWait = 0.4,
@@ -770,7 +851,7 @@ RoomSetData.H =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 	},
 
@@ -1004,6 +1085,59 @@ RoomSetData.H =
 		},
 
 
+		LeavePostPresentationEvents =
+		{
+			{
+				FunctionName = "BiomeMapPresentation",
+				Args =
+				{
+					HeroStartOffsetX = 40 + 670 - 60,
+					HeroStartOffsetY = 880 + 210,
+
+					FamiliarStartOffsetX = -75 + 670 + 155,
+					FamiliarStartOffsetY = 880 + 210 - 40,
+
+					HeroMoveOffsetX = -600,
+					HeroMoveOffsetY = 440,
+					HeroMoveDuration = 1.4,
+
+					FamiliarMoveOffsetX = -600,
+					FamiliarMoveOffsetY = 440,
+					FamiliarMoveDuration = 1.4,
+
+					MoveEaseIn = 0.5,
+					MoveEaseOut = 1.0,
+
+					CameraEndOffsetY = -160,
+
+					BiomeStart = "BiomeH",
+					BiomeEnd = "BiomeI",
+					PreviousBiomes = { "BiomeF", "BiomeG" },
+
+					ShrineBounty = "BossChronos01",
+					
+					CrossroadsStart = false,
+
+					ExtraObjects =
+					{
+						{
+							Name = "BlankObstacle3D",
+							Model = "BannerMarker_Mesh",
+							Animation = "BannerMarkerIdle",
+							OffsetX = 10,
+							OffsetY = 1520,
+							Angle = 305,
+						},
+					},
+					
+				},
+				GameStateRequirements =
+				{
+					-- None
+				}
+			},
+		},
+
 		InspectPoints =
 		{
 			[702524] =
@@ -1069,17 +1203,21 @@ RoomSetData.H =
 			PreLineWait = 0.45,
 			RandomRemaining = true,
 			BreakIfPlayed = true,
-			SuccessiveChanceToPlayAll = 0.2,
+			SuccessiveChanceToPlay = 0.33,
+			SuccessiveChanceToPlayAll = 0.1,
 			GameStateRequirements =
 			{
 				{
 				},
 			},
-
-			{ Cue = "/VO/MelinoeField_0945", Text = "He was guarding the gates...", PlayFirst = true, PlayOnce = true },
+			Cooldowns =
+			{
+				{ Name = "LeftBiomeSpeech", Time = 6 },
+			},
+			
 			{ Cue = "/VO/MelinoeField_0946", Text = "Almost there..." },
 			{ Cue = "/VO/MelinoeField_0947", Text = "Farewell, Fields..." },
-			{ Cue = "/VO/MelinoeField_0948", Text = "Finally out of here..." },
+			{ Cue = "/VO/MelinoeField_0948", Text = "Finally out of here...", PlayFirst = true },
 		},
 
 	},
@@ -1094,6 +1232,11 @@ RoomSetData.H =
 		HasPickaxePoint = false,
 		Ambience = "/Ambience/ClockworkTartarusAmbience",
 		ChallengeSwitchCannotUseText = "ExitBlockedByReprieve",
+		SellShopSpawnChance = 1.0,
+		SellShopRequirements =
+		{
+			-- None
+		},
 
 		UnthreadedEvents = EncounterSets.EncounterEventsNonCombat,
 
@@ -1125,10 +1268,11 @@ RoomSetData.H =
 		ExitPath = { 558947 },
 
 		SkipLastKillPresentation = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 1.0,
 		 
 		ForceWellShop = true,
+		WellShopChallengeBaseId = 487438,
 		SellTraitShrineUpgrade = true,
 
 		WellShopRequirements =
@@ -1147,7 +1291,7 @@ RoomSetData.H =
 				SuccessiveChanceToPlay = 0.5,
 				GameStateRequirements =
 				{
-					-- AreIdsNotAlive = { 561902 },
+					-- { FunctionName = "RequiredAlive", FunctionArgs = { Ids = { 561902 }, Alive = false }, },
 				},
 
 				{ Cue = "/VO/MelinoeField_1257", Text = "The old service hall..." },
@@ -1174,9 +1318,7 @@ RoomSetData.H =
 				InteractOffsetY = 30,
 				SetupGameStateRequirements =
 				{
-					{
-						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossFountains", },
-					},
+					-- None
 				},
 			},
 			[637430] =
@@ -1204,6 +1346,16 @@ RoomSetData.H =
 					{
 						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePostBossWellShops" },
 					},
+				},
+			},
+			[755008] =
+			{
+				Template = "ChallengeSwitchBase",
+				Activate = true,
+				ActivateIds = { 486371 },
+				SetupGameStateRequirements =
+				{
+					-- None
 				},
 			},
 
@@ -1342,6 +1494,7 @@ RoomSetData.H =
 							PreLineWait = 0.4,
 							UsePlayerSource = true,
 							RequiredMinElapsedTime = 3,
+							TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 
 							{ Cue = "/VO/MelinoeField_1429", Text = "Crawled up from the lowest depths, did he...?" },
 						},
@@ -1361,6 +1514,7 @@ RoomSetData.H =
 		NoReward = true,
 		DisableRewardMagnetisim = true,
 		IgnoreMainEncounterForInventory = true,
+		IgnoreMainEncounterForFamiliar = true,
 
 		--ForcedRewardStore = "FieldsCombatRewards",
 

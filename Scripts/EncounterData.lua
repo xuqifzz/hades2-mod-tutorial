@@ -39,6 +39,7 @@ EncounterData =
 	{
 		EncounterType = "NonCombat",
 		SkipExitReadyCheckpoint = true,
+		SkipLastKillPresentation = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
 	},
 
@@ -46,6 +47,7 @@ EncounterData =
 	{
 		InheritFrom = { "NonCombat" },
 		SkipCombatBeginsVoiceLines = true,
+		SkipLastKillPresentation = true,
 		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
 		ThreadedEvents =
 		{
@@ -53,7 +55,10 @@ EncounterData =
 				FunctionName = "GenericPresentation",
 				GameStateRequirements =
 				{
-					-- None
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Name" },
+						IsNone = { "O_PostBoss01", },
+					},
 				},
 				Args =
 				{
@@ -68,76 +73,6 @@ EncounterData =
 					},
 				},
 			},
-		},
-	},
-
-	O_Empty =
-	{
-		InheritFrom = { "Empty" },
-		StartRoomUnthreadedEvents =
-		{
-			{
-				FunctionName = "ActivatePrePlaced",
-				GameStateRequirements =
-				{
-					{
-						PathFalse = { "GameState", "TextLinesRecord", "RakiGift01", },
-					},
-				},
-				Args =
-				{
-					{ FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "Familiar_Raven_01" }, }
-				},
-			},
-		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "Familiar_Raven_01", WithinDistance = 700,
-				FunctionName = "PlayEmoteSimple",
-				Args =
-				{
-					AnimationName = "StatusIconFear",
-				},
-			},
-			{
-				TriggerObjectType = "Familiar_Raven_01", WithinDistance = 650,
-				LeaveDistanceBuffer = 60,
-				VoiceLines =
-				{
-					{
-						BreakIfPlayed = true,
-						UsePlayerSource = true,
-						GameStateRequirements =
-						{
-							{
-								Path = { "GameState", "Resources", "FamiliarPoints" },
-								Comparison = ">=",
-								Value = 1,
-							},
-							{
-								Path = { "GameState", "UseRecord", "Familiar_Raven_01", },
-								Comparison = ">=",
-								Value = 1,
-							},
-						},
-
-						{ Cue = "/VO/Melinoe_0248", Text = "Got something for you.", },
-					},
-					{
-						BreakIfPlayed = true,
-						UsePlayerSource = true,
-						GameStateRequirements =
-						{
-							--
-						},
-						{ Cue = "/VO/Melinoe_0827", Text = "Something there." },
-						-- { Cue = "/VO/Melinoe_0825", Text = "Over there." },
-						-- { Cue = "/VO/Melinoe_0577", Text = "Mm!" },
-					},
-				}
-			}
 		},
 	},
 
@@ -158,6 +93,35 @@ EncounterData =
 			{
 				FunctionName = "HandleEncounterPreSpawns"
 			}
+		},
+
+		EncounterSpawnsStartEvents =
+		{
+			{
+				Threaded = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = GameData.BannedEnemySightedEncounters,
+					},
+					{
+						PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "RanEncounterSpawnsStartEvents" },
+					},
+				},
+				FunctionName = "DistanceTrigger",
+				Args =
+				{
+					WithinDistance = 600,
+					TriggerGroups = { "EnemyTeam", },
+					PostTriggerEvents =
+					{
+						{
+							FunctionName = "CheckEnemySightedVoiceLines",
+						},
+					},
+				},
+			},
 		},
 
 		SpawnIntervalMin = 0.175,
@@ -213,6 +177,7 @@ EncounterData =
 	GeneratedF =
 	{
 		InheritFrom = { "Generated" },
+		CanEncounterSkip = true,
 		EnemySet = EnemySets.BiomeF,
 		SpawnIntervalMin = 0.200,
 		SpawnIntervalMax = 0.400,
@@ -292,15 +257,6 @@ EncounterData =
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "GuardSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Guard.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	RadiatorIntro =
@@ -336,15 +292,6 @@ EncounterData =
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
 		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "RadiatorSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Radiator.EnemyFirstEncounterVoiceLines,
-			}
-		},
 	},
 
 	ScreamerIntro =
@@ -379,15 +326,6 @@ EncounterData =
 			StartDelay = 1,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "ScreamerSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.Screamer.EnemyFirstEncounterVoiceLines,
-			}
 		},
 	},
 
@@ -432,15 +370,6 @@ EncounterData =
 			StartDelay = 1,
 			OverrideValues = IntroWaveOverrideValues,
 			RequireCompletedIntro = true,
-		},
-
-		DistanceTriggers =
-		{
-			{
-				Name = "SiegeVineSightedVoiceLines",
-				TriggerGroup = "EnemyTeam", WithinDistance = 600,
-				VoiceLines = EnemyData.SiegeVine.EnemyFirstEncounterVoiceLines,
-			}
 		},
 	},
 
@@ -489,6 +418,7 @@ EncounterData =
 	{
 		InheritFrom = { "GeneratedF" },
 		RequireCompletedIntro = true,
+		CanEncounterSkip = false,
 		GameStateRequirements =
 		{
 			{
@@ -528,7 +458,10 @@ EncounterData =
 		AlwaysForce = true,
 		GameStateRequirements =
 		{
-			RequiredFalseTextLines = { "ApolloFirstPickUp" },
+			{
+				Path = { "GameState", "TextLinesRecord" },
+				HasNone = { "ApolloFirstPickUp" },
+			},
 		},
 		PreSpawnEnemies = true,
 
@@ -687,339 +620,6 @@ EncounterData =
 		},
 	},
 
-	-- Artemis F Encounters	
-	BaseArtemisCombat =
-	{
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "EncountersCompletedCache", "ArtemisCombatIntro" },
-			},
-			{
-				PathFalse = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" },
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">=",
-				Value = 4,
-			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
-			NamedRequirements = { "NoRecentFieldNPCEncounter" },
-		},
-
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "TalentDrop" },
-
-		BlockFishingBeforeStart = true,
-		BlockCodexBeforeStart = true,
-		BlockLocationText = true,
-		DelayedStart = true,
-		-- SkipCombatBeginsVoiceLines = true,
-		RequireCompletedIntro = true,
-		PreSpawnEnemies = false,
-		FastClearThreshold = 65,
-		TimerBlock = "ArtemisEncounter",
-		BlockHighlightEliteTypes = true,
-
-		MuteSecretMusicDrumsOnCombatOver = true,
-		NextRoomResumeMusic = true,
-
-		UnthreadedEvents = EncounterSets.EncounterEventsArtemisCombat,
-		Using = { "NPC_Artemis_Field_01" },
-
-		DifficultyModifier = 60,
-		--DepthDifficultyRamp = 0,
-		--BaseDifficulty = 150,
-		ActiveEnemyCapBase = 7,
-		ActiveEnemyCapMax = 7,
-		ActiveEnemyCapDepthRamp = 0,
-		TypeCountDepthRamp = 0,
-		MinWaves = 4,
-		MaxWaves = 4,
-		MoneyDropCapMin = 30,
-		MoneyDropCapMax = 30,
-		MoneyDropCapDepthRamp = 0,
-
-		WaveStartUnthreadedEvents =
-		{
-			{ FunctionName = "CheckArtemisSpawn", Args = { FirstWaveArtemisChance = 0.5, WaveSpawnDelay = 1.8 } },
-		},
-	},
-
-	ArtemisCombatF =
-	{
-		InheritFrom = { "BaseArtemisCombat", "GeneratedF" },
-	},
-
-	ArtemisCombatF2 =
-	{
-		InheritFrom = { "ArtemisCombatF" },
-
-		GameStateRequirements =
-		{
-			Append = true,
-			{
-				SumPrevRuns = 4,
-				Path = { "SpawnRecord", "NPC_Artemis_Field_01" },
-				Comparison = "<=",
-				Value = 0,
-			},
-		},
-	},
-
-	-- like default encounter but occurs only once, with a higher chance
-	ArtemisCombatIntro =
-	{
-		InheritFrom = { "ArtemisCombatF" },
-
-		-- easier introduction moment
-		DifficultyModifier = 40,
-
-		GameStateRequirements =
-		{
-			{
-				PathFalse = { "GameState", "EncountersCompletedCache", "ArtemisCombatIntro" },
-			},
-			{
-				PathFalse = { "CurrentRun", "TextLinesRecord", "ArachneFirstMeeting" },
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">=",
-				Value = 3,
-			},
-			{
-				Path = { "GameState", "CompletedRunsCache" },
-				Comparison = ">=",
-				Value = 1,
-			},
-			{
-				Path = { "CurrentRun", "Hero", "Health" },
-				Comparison = ">=",
-				Value = 10,
-			},
-			{
-				PathFalse = { "CurrentRun", "ActiveBounty" },
-			},
-			RequiredMinAnyTextLines = { TextLines = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "HestiaFirstPickUp", "AphroditeFirstPickUp", "HephaestusUpgrade" }, Count = 4 },
-		},
-
-		WaveStartUnthreadedEvents =
-		{
-			{ FunctionName = "CheckArtemisSpawn", Args = { FirstWaveArtemisChance = 0.0 } },
-		},
-	},
-	
-	-- Arache F Encounters
-	BaseArachneCombat =
-	{
-		EncounterType = "ArachneCombat",
-		SkipExitReadyCheckpoint = true,
-		RequireNotRoomReward = { "Boon", "SpellDrop", "Devotion", "HermesUpgrade", "WeaponUpgrade", "StackUpgrade", "ManaUpgrade", "TalentDrop" },
-
-		GameStateRequirements =
-		{
-			{
-				PathTrue = { "GameState", "EncountersCompletedCache", "ArachneCombatF" },
-			},
-			{
-				Path = { "CurrentRun", "EncountersOccurredBiomeCache" },
-				HasNone = { "ArachneCombatF", "ArachneCombatG", "ArachneCombatN" },
-			},
-		},
-
-		UnthreadedEvents = EncounterSets.EncounterEventsArachneCombat,
-
-		StartRoomUnthreadedEvents =
-		{
-			{ FunctionName = "SetupArachneCombatEncounter", Args = { CocoonCountMin = 8, CocoonCountMax = 14,
-					CocoonOptions = { "ArachneCocoon", "ArachneCocoon", "ArachneCocoon",
-						  "ArachneCocoonMedium", "ArachneCocoonMedium",
-						  "ArachneCocoonLarge", }, } }
-		},
-
-		RequireCompletedIntro = true,
-		PreSpawnEnemies = false,
-
-		MuteSecretMusicDrumsOnCombatOver = true,
-		NextRoomResumeMusic = true,
-
-		BlockRandomStems = true,
-		MusicActiveStems = { "Guitar", "Bass", },
-
-		OnSpawnFunctionName = "ArachneCombatDrumCheck",
-		OnKillFunctionName = "ArachneCombatDrumCheck",
-		SpeakerName = "Arachne",
-		Using = { "CocoonOptions" },
-
-		EnterVoiceLines =
-		{
-			{
-				BreakIfPlayed = true,
-				PreLineWait = 1.0,
-				PlayOnce = true,
-				PlayOnceContext = "CocoonsInLaterBiomesIntro",
-
-				{ Cue = "/VO/MelinoeField_0186", Text = "Those spiders get around...",
-					GameStateRequirements =
-					{
-						{
-							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-							IsAny = { "G", "H" },
-						},
-					},
-				},
-			},
-			{
-				RandomRemaining = true,
-				PreLineWait = 1.0,
-				SuccessiveChanceToPlay = 0.33,
-
-				{ Cue = "/VO/Melinoe_1717", Text = "Silk cocoons...", PlayFirst = true },
-				{ Cue = "/VO/Melinoe_1718", Text = "Arachne was here...", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-							IsAny = { "F", },
-						},
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-				{ Cue = "/VO/Melinoe_1719", Text = "Let's see what we can find..." },
-				{ Cue = "/VO/Melinoe_1720", Text = "More cocoons..." },
-				{ Cue = "/VO/MelinoeField_0185", Text = "The spiders got here first..." },
-				{ Cue = "/VO/MelinoeField_0186", Text = "Those spiders get around...",
-					PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-							IsAny = { "G", "H" },
-						},
-						{
-							PathFalse = { "PrevRun", "SpeechRecord", "/VO/MelinoeField_0186" },
-						},
-					},
-				},
-				{ Cue = "/VO/MelinoeField_0187", Text = "Arachne's handiwork...", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-							IsAny = { "F", },
-						},
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-				{ Cue = "/VO/MelinoeField_0188", Text = "Thank you, hidden spiderlings...",
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-			},
-			{
-				PreLineWait = 1.23,
-				RandomRemaining = true,
-				Queue = "Always",
-				SuccessiveChanceToPlayAll = 0.5,
-				Source = { LineHistoryName = "NPC_Arachne_01", SubtitleColor = Color.ArachneVoice },
-				GameStateRequirements =
-				{
-					{
-						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
-						IsAny = { "F", },
-					},
-				},
-
-				{ Cue = "/VO/Arachne_0362", Text = "{#Emph}<Laughter>", PlayFirst = true },
-				{ Cue = "/VO/Arachne_0363", Text = "{#Emph}<Laughter>" },
-				{ Cue = "/VO/Arachne_0364", Text = "{#Emph}<Laughter>" },
-				{ Cue = "/VO/Arachne_0365", Text = "{#Emph}<Laughter>" },
-			},
-			{
-				BreakIfPlayed = true,
-				RandomRemaining = true,
-				PreLineWait = 0.4,
-				SuccessiveChanceToPlay = 0.33,
-				GameStateRequirements =
-				{
-					{
-						Path = { "LastLinePlayed" },
-						IsAny = { "/VO/Arachne_0362", "/VO/Arachne_0363", "/VO/Arachne_0364", "/VO/Arachne_0365" },
-					},
-				},
-
-				{ Cue = "/VO/Melinoe_1936", Text = "Who's there...?", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathFalse = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-				{ Cue = "/VO/Melinoe_1937", Text = "What was that...?" },
-				{ Cue = "/VO/Melinoe_1938", Text = "Arachne...?", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-				{ Cue = "/VO/Melinoe_1939", Text = "That you, Arachne?", PlayFirst = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-				},
-			}
-		},
-	},
-
-	ArachneCombatF =
-	{
-		InheritFrom = { "BaseArachneCombat" },
-		
-		GameStateRequirements =
-		{
-			{
-				Path = { "GameState", "EncountersCompletedCache" },
-				HasAny = { "MiniBossTreant", "MiniBossFogEmitter", "BossHecate01" },
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = ">=",
-				Value = 4,
-			},
-			{
-				Path = { "CurrentRun", "BiomeDepthCache" },
-				Comparison = "<=",
-				Value = 8,
-			},
-			{
-				Path = { "GameState", "CompletedRunsCache" },
-				Comparison = ">=",
-				Value = 1,
-			}, 
-			{
-				Path = { "CurrentRun", "EncountersOccurredBiomeCache" },
-				HasNone = { "ArachneCombatF", "ArachneCombatG", "ArachneCombatN" },
-			},
-		},
-	},
-
-
 	-- MiniBoss Encounters
 	MinibossEncounter =
 	{
@@ -1027,11 +627,19 @@ EncounterData =
 		BlockSpawnMultipliers = true,
 		BlockEliteAttributes = true,
 		BlockNextBiomeEnemyShrineUpgrade = true,
+
+		BlockAthenaEncounterKeepsake = true,
 	},
 
 	MiniBossTreant =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedF" },
+
+		GameStateRequirements =
+		{
+			NamedRequirementsFalse = { "MinibossCountShrineUpgradeActive" },
+		},
+
 		PreSpawnEnemies = false,
 		SpawnAggroed = true,
 
@@ -1081,9 +689,46 @@ EncounterData =
 		WipeEnemiesOnKill = "Treant",
 	},
 
+	MiniBossTreant_Shrine =
+	{
+		InheritFrom = { "MiniBossTreant", },
+
+		GameStateRequirements =
+		{
+			NamedRequirements = { "MinibossCountShrineUpgradeActive" },
+		},
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Treant_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 40191 },
+						ForceFirst = true,
+					},
+				},
+				StartDelay = 0.7,
+			},
+		},
+
+		CancelSpawnsOnKill = { "Treant_Shadow" },
+		WipeEnemiesOnKill = "Treant_Shadow",
+	},
+
 	MiniBossFogEmitter =
 	{
 		InheritFrom = { "MinibossEncounter", "GeneratedF", },
+
+		GameStateRequirements =
+		{
+			NamedRequirementsFalse = { "MinibossCountShrineUpgradeActive" },
+		},
+
 		PreSpawnEnemies = true,
 		SpawnAggroed = true,
 
@@ -1134,7 +779,7 @@ EncounterData =
 					{
 						Name = "SiegeVine",
 						TotalCount = 2,
-						SpawnOnIds = { 558168, 558195, 558169, 558165, 558194, 558166, }
+						SpawnOnIds = { 558168, 558195, 558169, 558165, 558194, 558166, },
 					},
 				},
 				StartDelay = 3.0,
@@ -1146,6 +791,55 @@ EncounterData =
 		--WipeEnemiesOnKill = "FogEmitter_Elite",
 	},
 
+	MiniBossFogEmitter_Shrine =
+	{
+		InheritFrom = { "MiniBossFogEmitter", },
+
+		GameStateRequirements =
+		{
+			NamedRequirements = { "MinibossCountShrineUpgradeActive" },
+		},
+
+		ActiveEnemyCapBase = 5,
+		ActiveEnemyCapMin = 5,
+		ActiveEnemyCapMax = 5,
+		SpawnIntervalMin = 1.0,
+		SpawnIntervalMax = 2.0,
+
+		ManualWaveTemplates =
+		{
+			-- Wave 1
+			[1] =
+			{
+				Spawns =
+				{
+					{
+						Name = "FogEmitter_Shadow",
+						TotalCount = 1,
+						SpawnOnIds = { 40191 },
+						ForceFirst = true,
+					},
+				},
+				SkipWaitForAllDead = true
+			},
+			[2] =
+			{
+				Spawns =
+				{
+					{
+						Name = "Screamer_Shadow",
+						InfiniteSpawns = true,
+						SpawnOnIds = { 558168, 558195, 558169, 558165, 558194, 558166, },
+					},
+				},
+				StartDelay = 0.5,
+			},
+		},
+
+		CancelSpawnsOnKill = { "FogEmitter_Shadow" },
+		WipeEnemiesOnKill = "FogEmitter_Shadow",
+	},
+
 	-- Boss Encounters
 	BossEncounter =
 	{
@@ -1154,7 +848,9 @@ EncounterData =
 		BlockRespawnShrineUpgrade = true,
 		ActiveEnemyCapMax = 7,
 		
-		UnthreadedEvents = EncounterSets.EncounterEventsDefault
+		UnthreadedEvents = EncounterSets.EncounterEventsDefault,
+
+		BlockAthenaEncounterKeepsake = true,
 	},
 
 	BossHecate01 =
@@ -1177,13 +873,15 @@ EncounterData =
 		ActiveEnemyCapBase = 5,
 		BlockSpawnMultipliers = true,
 
+		SkipCleanupRaiseDead = true,
+
 		UnthreadedEvents = EncounterSets.EncounterEventsBossSpawnedEncounter,
 
 		UseRoomEncounterEnemySet = true,
 
 		WaveStartPresentationFunction = "StartWavePresentation",
 		SkipNextWaveVoicelines = true,
-		AllAddsDeadGlobalVoiceLines = "HecateAddsDeadVoiceLines",
+		-- AllAddsDeadGlobalVoiceLines = "HecateAddsDeadVoiceLines",
 
 		SpawnWaves =
 		{
@@ -1208,6 +906,8 @@ EncounterData =
 		SpawnIntervalMax = 0.1,
 		ActiveEnemyCapBase = 10,
 		BlockSpawnMultipliers = true,
+
+		SkipCleanupRaiseDead = true,
 
 		UnthreadedEvents = EncounterSets.EncounterEventsBossSpawnedEncounter,
 
@@ -1234,154 +934,4 @@ EncounterData =
 		},
 	},
 
-	HecatePassiveSpawns01 =
-	{
-		SpawnIntervalMin = 5,
-		SpawnIntervalMax = 7,
-		EnemyCountDepthRamp = 0,
-		ActiveEnemyCapBase = 1.5, -- Hecate + 1 guard (guard is worth 0.5)
-		ActiveEnemyCapMax = 1.5,
-		EndMusicOnCombatOver = 20,
-		SpawnAggroed = true,
-		SkipLastKillPresentation = true,
-		SkipIntroEncounterCheck = true,
-		MoneyDropCapMin = 20,
-		MoneyDropCapMax = 20,
-		MoneyDropCapDepthRamp = 0,
-		FastClearThreshold = 55,
-		MinTypes = 1,
-		MaxTypes = 1,
-
-		UnthreadedEvents = EncounterSets.EncounterEventsBossSpawnedEncounter,
-
-		SpawnWaves =
-		{
-			{
-				Spawns =
-				{
-					{
-						Name = "Guard",
-						InfiniteSpawns = true,
-					},
-				},
-				StartDelay = 4.0,
-			},
-		},
-	},
-
-	HecatePassiveSpawns02 =
-	{
-		InheritFrom = { "HecatePassiveSpawns01" },
-		SpawnIntervalMin = 1.5,
-		SpawnIntervalMax = 2.0,
-
-		SpawnWaves =
-		{
-			{
-				Spawns =
-				{
-					{
-						Name = "Guard",
-						InfiniteSpawns = true,
-					},
-				},
-				StartDelay = 4.0,
-			},
-		},
-	},
-
-	-- Story_Encounters
-	Story_Arachne_01 =
-	{
-		InheritFrom = { "NonCombat" },
-		MaxAppearancesThisBiome = 1,
-		UnthreadedEvents = {},
-
-		OnSpawnFunctionName = "ArachneCombatDrumCheck",
-		OnKillFunctionName = "ArachneCombatDrumCheck",
-		
-		StartRoomUnthreadedEvents =
-		{
-			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Arachne_01" }, } },
-			{ FunctionName = "CheckConversations" },
-			{ FunctionName = "SpawnArachneCocoons", Args = { CocoonCountMin = 0, CocoonCountMax = 3, CocoonOptions = { "ArachneCocoonMedium", "ArachneCocoon" } } }
-		},
-
-		StartVoiceLines =
-		{
-			-- The strum of music brought him to an unexpected sight...
-			-- { Cue = "", Text = "TODO(BuildText) Storyteller_0079", PreLineWait = 1.5, PlayOnce = true },
-		},
-
-		ExitVoiceLines =
-		{
-			{
-				RandomRemaining = true,
-				PreLineWait = 0.33,
-				SuccessiveChanceToPlay = 0.8,
-				ObjectType = "NPC_Arachne_01",
-				GameStateRequirements =
-				{
-					{
-						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = GameData.ArachneUpsetEvents,
-					},
-				},
-
-				{ Cue = "/VO/Arachne_0299", Text = "Farewell, my friend!" },
-				{ Cue = "/VO/Arachne_0300", Text = "Farewell..." },
-				{ Cue = "/VO/Arachne_0301", Text = "Goodbye for now!" },
-				{ Cue = "/VO/Arachne_0302", Text = "Come back soon...!" },
-				{ Cue = "/VO/Arachne_0303", Text = "Do be careful out there!" },
-				{ Cue = "/VO/Arachne_0304", Text = "Do come again, won't you?" },
-				{ Cue = "/VO/Arachne_0305", Text = "I'll be right here, all right?" },
-				{ Cue = "/VO/Arachne_0306", Text = "You truly do look great!" },
-				{ Cue = "/VO/Arachne_0307", Text = "To your success!", PlayFirst = true },
-				{ Cue = "/VO/Arachne_0308", Text = "Away she goes..." },
-				{ Cue = "/VO/Arachne_0309", Text = "Alone again... {#Emph}ha ha ha..." },
-				{ Cue = "/VO/Arachne_0310", Text = "{#Emph}<Sigh>" },
-			},
-			{
-				RandomRemaining = true,
-				SuccessiveChanceToPlay = 0.66,
-				PreLineWait = 0.33,
-
-				{ Cue = "/VO/Melinoe_1764", Text = "Weave on." },
-				{ Cue = "/VO/Melinoe_1765", Text = "Until we meet again." },
-				{ Cue = "/VO/Melinoe_1766", Text = "Keep on spinning." },
-				{ Cue = "/VO/Melinoe_1767", Text = "Be well, all right?" },
-			},
-		},
-
-		DistanceTriggers =
-		{
-			{
-				TriggerObjectType = "NPC_Arachne_01", WithinDistance = 800,
-				LeaveDistanceBuffer = 60,
-
-				VoiceLines =
-				{
-					RandomRemaining = true,
-					SuccessiveChanceToPlayAll = 0.66,
-					UsePlayerSource = true,
-					GameStateRequirements =
-					{
-						{
-							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
-						},
-					},
-					Cooldowns =
-					{
-						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
-					},
-
-					{ Cue = "/VO/Melinoe_0830", Text = "Oh.", PlayFirst = true },
-					{ Cue = "/VO/Melinoe_1092", Text = "Arachne!" },
-					{ Cue = "/VO/Melinoe_1093", Text = "Hi, Arachne." },
-					{ Cue = "/VO/Melinoe_1406", Text = "Arachne's fineries..." },
-				},
-
-			},
-		},
-	},
 }

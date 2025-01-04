@@ -5,7 +5,8 @@ function ShowSurfaceShopScreen()
 	if IsScreenOpen( screen.Name ) then
 		return
 	end
-
+	
+	killTaggedThreads( CombatUI.HideThreadName )
 	SetPlayerInvulnerable("StoreScreenOpen")
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
@@ -14,12 +15,16 @@ function ShowSurfaceShopScreen()
 	screen.ShopItemStartX = screen.ShopItemStartX + ScreenCenterNativeOffsetX
 	screen.ShopItemStartY = screen.ShopItemStartY + ScreenCenterNativeOffsetY
 
+	-- @ for testing specific items, remove the 'if'
 	if IsEmpty( CurrentRun.CurrentRoom.Store ) then
 		CurrentRun.CurrentRoom.Store = FillInShopOptions({ StoreData = StoreData.SurfaceShop, RoomName = CurrentRun.CurrentRoom.Name })
 	end
 
 	UpdateStoreOptionsDictionary()
-
+	
+	if TableLength( CurrentRun.CurrentRoom.Store.StoreOptions ) == 0 then
+		thread( PlayVoiceLines, HeroVoiceLines.WellShopSoldOutVoiceLines, true )
+	end
 	local components = screen.Components
 
 	local offeredWeaponUpgrades = {}
@@ -91,7 +96,14 @@ function CreateSurfaceShopButtons( screen )
 			if not upgradeData.Processed then
 				if upgradeData.Type == "Consumable" then
 					if ConsumableData[upgradeData.Name ] then
+						local purchaseRequirements = nil
+						if upgradeData.ReplacePurchaseRequirements ~= nil then
+							purchaseRequirements = ShallowCopyTable( upgradeData.ReplacePurchaseRequirements )
+						end
 						upgradeData = GetRampedConsumableData( ConsumableData[upgradeData.Name] )
+						if purchaseRequirements then
+							upgradeData.PurchaseRequirements = purchaseRequirements
+						end
 					elseif LootData[ upgradeData.Name ] then
 						upgradeData = GetRampedConsumableData( LootData[upgradeData.Name] )
 					end
@@ -305,7 +317,7 @@ function HandleSurfaceShopAction( screen, button )
 		end
 	end
 
-	if upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( CurrentRun, upgradeData.PurchaseRequirements ) then
+	if upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData, upgradeData.PurchaseRequirements ) then
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
@@ -366,6 +378,9 @@ function HandleSurfaceShopAction( screen, button )
 		shopTrait.AcquiredDepth = CurrentRun.RunDepthCache
 		shopTrait.ShopItemName = itemData.Name 
 		shopTrait.ItemDisplayName = GetSurfaceShopText(itemData, {ForTraitTray = true })
+		if itemData.Name == "SpellDrop" then
+			CurrentRun.PendingSpellDrop = true
+		end
 		AddTraitToHero({ TraitData =  shopTrait})
 
 		ModifyTextBox({ Id = screen.Components["PurchaseButtonDelivery" .. button.Index].Id, Text = "SpeedUpDelivery"})
@@ -392,8 +407,8 @@ function CloseSurfaceShopScreen( screen, button )
 	local closeItems = DeepCopyTable( screen.OnCloseItems )
 	CloseStoreScreen( screen, button )
 	
-	local enemyPoints = GetIdsByType({ Name = "EnemyPoint" })
-	local spawnPoints = GetClosestIds({ Id = CurrentRun.Hero.ObjectId, DestinationIds = enemyPoints, Distance = 400 })
+	local enemyPoints = GetIdsByType({ Names = { "EnemyPoint", "SecretPoint", "EnemyPointRanged", "EnemyPointMelee", "EnemyPointSupport" }})
+	local spawnPoints = GetClosestIds({ Id = CurrentRun.Hero.ObjectId, DestinationIds = enemyPoints, Distance = 600 })
 	if TableLength(spawnPoints) < 3 then
 		spawnPoints = ShallowCopyTable(enemyPoints)
 	end
@@ -420,6 +435,17 @@ function CloseSurfaceShopScreen( screen, button )
 			end
 		end
 	end
+end
+
+function LoadResourcesForPendingDeliveryItem( unit, args, contextArgs, trait )
+	if not trait or not trait.ShopItemName then
+		return
+	end
+	local itemData = ConsumableData[trait.ShopItemName] or LootData[trait.ShopItemName]
+	if itemData ~= nil and itemData.SpeakerName ~= nil then
+		LoadVoiceBanks( itemData.SpeakerName )
+	end
+
 end
 
 function MouseOverSurfaceShopButton( component )

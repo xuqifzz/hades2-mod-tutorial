@@ -113,12 +113,12 @@
 		},
 		AddOutgoingDamageModifiers = 
 		{
-			SpellCooldownMultiplier=
+			SpellUsedMultiplier=
 			{
 				BaseValue = 1.05,
 				SourceIsMultiplier = true,
 			},
-			ReportValues = { ReportedDamageBoost = "SpellCooldownMultiplier"},
+			ReportValues = { ReportedDamageBoost = "SpellUsedMultiplier"},
 		},
 		ExtractValues = 
 		{
@@ -374,6 +374,20 @@
 			Add = 20,
 			ReportValues = { ReportedManaCost = "Add" }
 		},
+		OnWeaponFiredFunctions = 
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckPotionClearCast",
+			FunctionArgs = 
+			{
+				EffectName = "ClearCast",
+				DataProperties = 
+				{
+					Duration = 5,
+					ReportValues = { ClearCastDuration = "Duration" }
+				},
+			},
+		},
 		StatLines =
 		{
 			"TalentManaCostAdditionStatline",
@@ -407,7 +421,13 @@
 				ExtractAs = "ManaAddition",
 				SkipAutoExtract = true,
 				IncludeSigns = true,
+				SkipAutoExtract = true,
 			},
+		},
+		Using =
+		{
+			"CirceCrystalRotateFront1", "CirceCrystalRotateFront2", "CirceCrystalRotateFront3", "CirceCrystalRotateFront4", "CirceCrystalRotateFront5",
+			"CirceCrystalRotateBack1", "CirceCrystalRotateBack2", "CirceCrystalRotateBack3", "CirceCrystalRotateBack4", "CirceCrystalRotateBack5",
 		},
 	},
 	
@@ -524,6 +544,30 @@
 				SkipAutoExtract = true,
 			},
 		}
+	},
+	PotionExCastTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_121",
+		ManaSpendCostModifiers = 
+		{
+			Add = 20,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		PotionExCast = true,
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		},
 	},
 
 	ShieldTalent = 
@@ -645,12 +689,12 @@
 		},
 		AddIncomingDamageModifiers =
 		{
-			SpellCooldownMultiplier=
+			SpellUsedMultiplier=
 			{
 				BaseValue = 0.95,
 				SourceIsMultiplier = true,
 			},
-			ReportValues = { ReportedDefense = "SpellCooldownMultiplier"},
+			ReportValues = { ReportedDefense = "SpellUsedMultiplier"},
 		},
 		ExtractValues = 
 		{
@@ -1008,7 +1052,7 @@
 				ProjectileProperties = 
 				{
 					AttachToOwner = false,
-					MaxAdjustRate = math.rad(6),
+					MaxAdjustRate = math.rad(20),
 					AutoAdjustForTarget = true,
 				},
 			},
@@ -1161,6 +1205,48 @@
 				ChangeValue = true,
 			},
 		},
+	},
+	LaserStartAoETalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_119",
+		LaserStartProjectile = "SpellLaserStartAoE",
+		ExtractValues = 
+		{
+			{
+				ExtractAs = "Damage",
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "SpellLaserStartAoE",
+				BaseProperty = "Damage",
+			},
+			{
+				ExtractAs = "Fuse",
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "SpellLaserStartAoE",
+				BaseProperty = "ImmunityDuration",
+				DecimalPlaces = 2,
+				SkipAutoExtract = true,
+			},
+		}
+	},
+	LaserFirstHitDamageTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_120",
+		AddOutgoingDamageModifiers = 
+		{
+			FirstHitBaseDamageAddition = 100,
+			ReportValues = { ReportedAmage = "FirstHitBaseDamageAddition" }
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedAmage",
+				ExtractAs = "Damage",
+			},
+		}
 	},
 	LaserDurationTalent = 
 	{
@@ -1976,12 +2062,13 @@
 		{
 			Count = 1,
 			Delay = 0.2,
+			ReportValues = {ReportedCount = "Count"},
 		},
 	
 		ExtractValues = 
 		{
 			{
-				Key = "TeleportAlliesPostDash",
+				Key = "ReportedCount",
 				ExtractAs = "Allies",
 			},
 		}
@@ -2030,10 +2117,6 @@
 
 		ExtractValues = 
 		{
-			{
-				Key = "TeleportAlliesPostDash",
-				ExtractAs = "Allies",
-			},
 		}
 	},
 
@@ -2083,7 +2166,7 @@
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
 		Icon = "Boon_Selene_95",
-		OnSummonReplaceFunction = 
+		OnSummonDeathFunction = 
 		{
 			Name = "DetonateSummon",
 			Args = 
@@ -2176,6 +2259,25 @@
 			ValidWeapons = {"WeaponSpellMeteor"},
 			FunctionName = "MeteorCheckInvulnerability",
 		},
+
+		ManaSpendCostModifiers = 
+		{
+			Add = 50,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},	
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		}
 	},
 	MeteorVulnerabilityDecalTalent = 
 	{
@@ -2273,6 +2375,28 @@
 			},
 		},
 	},
+	MeteorChargeTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
+		Icon = "Boon_Selene_122",
+		OnEnemyDamagedAction = 
+		{
+			ValidWeapons = {"WeaponSpellMeteor"},
+			FunctionName = "CheckSpellForceCharge",
+			Args = 
+			{
+				ManaCharge = 30,
+				ReportValues = { ReportedCharge = "ManaCharge"}
+			},	
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedCharge",
+				ExtractAs = "BossCharge",
+			},
+		}
+	},
 	MeteorDoubleTalent = 
 	{
 		InheritFrom = {"SpellTalentTrait", "LegendaryTalent"},
@@ -2353,12 +2477,12 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_45",
-		HexCooldownMoveSpeedBuff = { BaseValue = 1.05, SourceIsMultiplier = true },
+		HexUsedMoveSpeedBuff = { BaseValue = 1.05, SourceIsMultiplier = true },
 		
 		ExtractValues =
 		{
 			{
-				Key = "HexCooldownMoveSpeedBuff",
+				Key = "HexUsedMoveSpeedBuff",
 				ExtractAs = "MoveSpeed",
 				Format = "PercentDelta",
 				HideSigns = true,
@@ -2441,12 +2565,28 @@
 		InheritFrom = { "SpellTalentTrait" },
 		Icon = "Boon_Selene_81",
 		LeapInvulnerability = 1,
+
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},		
 		ExtractValues =
 		{
 			{
 				Key = "LeapInvulnerability",
 				ExtractAs = "Duration",
 				DecimalPlaces = 1,
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
 			},
 		}
 	},
@@ -2521,15 +2661,6 @@
 				ReportValues = { ReportedCount = "MaximumCount"},
 			},
 		},
-		ManaSpendCostModifiers = 
-		{
-			Add = 10,
-			ReportValues = { ReportedManaCost = "Add" }
-		},
-		StatLines =
-		{
-			"TalentManaCostAdditionStatline",
-		},
 		ExtractValues =
 		{
 			{
@@ -2541,12 +2672,6 @@
 				Slot = "Rush",
 				Format = "SlottedBoon",
 				SkipAutoExtract = true,
-			},
-			{
-				Key = "ReportedManaCost",
-				ExtractAs = "ManaAddition",
-				SkipAutoExtract = true,
-				IncludeSigns = true,
 			},
 		},
 	},
@@ -2625,12 +2750,12 @@
 	{
 		InheritFrom = {"SpellTalentTrait"},
 		Icon = "Boon_Selene_55",
-		HexCooldownDodgeBuff = { BaseValue = 0.01},
+		HexUsedDodgeBuff = { BaseValue = 0.01 },
 		
 		ExtractValues =
 		{
 			{
-				Key = "HexCooldownDodgeBuff",
+				Key = "HexUsedDodgeBuff",
 				ExtractAs = "DodgeChance",
 				Format = "Percent",
 			},
@@ -2783,10 +2908,12 @@
 		},
 		PropertyChanges = 
 		{
+			StartTransformFunctionName = "TransformCheckApolloBoon",
+			Args = 
 			{
 				TraitName = "ApolloSpecialBoon",
 				WeaponName = "WeaponTransformSpecial",
-				WeaponProperty = "ProjectileScaleMultiplier",
+				ProjectileProperty = "ProjectileScaleMultiplier",
 				ChangeValue = 1.4,
 				ChangeType = "Multiply",
 			},
@@ -2817,7 +2944,7 @@
 		},
 		ManaSpendCostModifiers = 
 		{
-			Add = 30,
+			Add = 10,
 			ReportValues = { ReportedManaCost = "Add" }
 		},
 		StatLines =
@@ -2840,6 +2967,208 @@
 			FunctionArgs = {},
 		},
 		
+	},
+	-- Moon Beam
+
+	MoonBeamVulnerabilityTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_113",
+		MoonBeamVulnerabilityBonus = {BaseValue = 0.05},
+		ExtractValues = 
+		{
+			{
+				Key = "MoonBeamVulnerabilityBonus",
+				ExtractAs = "ReportedMoonBeamVulnerabilityBonus",
+				Format = "Percent",
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Modifier",
+				Format = "PercentDelta",
+				ExtractAs = "MoonBeamVulnerability",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "MoonBeamVulnerability",
+				BaseProperty = "Duration",
+				ExtractAs = "MoonBeamDuration",
+				SkipAutoExtract = true,
+			},
+		},
+	},
+	MoonBeamDamageTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_112",
+
+		AddOutgoingDamageModifiers =
+		{
+			ValidBaseDamageAddition =
+			{
+				BaseValue = 10,
+			},
+			ValidWeapons = { "WeaponSpellMoonBeam" },
+			ReportValues = { ReportedMoonBeamDamageBoost = "ValidBaseDamageAddition"},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedMoonBeamDamageBoost",
+				ExtractAs = "DamageBoost",
+			},
+		}
+	},
+	MoonBeamCountTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_111",
+		MoonBeamCountBonus = { BaseValue = 1 },
+		ExtractValues = 
+		{
+			{
+				Key = "MoonBeamCountBonus",
+				ExtractAs = "MoonBeamBonus",
+			},
+		}
+	},
+	MoonBeamDefenseTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_115",
+		AddIncomingDamageModifiers = 
+		{ 
+			MoonBeamActiveMultiplier = 0.8,
+			ReportValues = { ReportedDefense = "MoonBeamActiveMultiplier"},
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedDefense",
+				ExtractAs = "DefenseBonus",
+				Format = "NegativePercentDelta",
+			},
+		}
+	},
+	MoonBeamTargetTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_116",
+		MoonBeamTargetCountBonus = 2,
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "MoonBeamTargetCountBonus",
+				ExtractAs = "MoonBeamTargetCountBonus",
+			},
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		}
+	},
+	MoonBeamPrimaryTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_118",
+		AddWeaponsToTraits = 
+		{
+			WeaponName = "WeaponSpellMoonBeam",
+			Slot = "Melee",
+		},
+		ExtractValues = 
+		{
+			{
+				ExtractAs = "SlotBoon",
+				Slot = "Melee",
+				Format = "SlottedBoon"
+			},
+		}
+	},
+	MoonBeamConsecutiveDamageTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_114",
+		OnEnemyDamagedAction = 
+		{
+			ValidWeapons = {"WeaponSpellMoonBeam"},
+			FunctionName = "CheckMoonBeamConsecutiveDamage",
+		},
+		AddOutgoingDamageModifiers = 
+		{
+			ValidWeapons = {"WeaponSpellMoonBeam"},
+			ConsecutivePercentDamage = 0.5,
+			ReportValues = { ReportedBonus = "ConsecutivePercentDamage" }
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedBonus",
+				ExtractAs = "ConsecutiveHitBonus",
+				Format = "Percent",
+			},
+		}
+	},
+	MoonBeamBonusHammerTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_117",
+		AcquireFunctionName = "GiveRandomConsumables",
+		AcquireFunctionArgs =
+		{ 
+			Delay = 0.2,
+			ForceToValidLocation = true,
+			LootOptions =
+			{
+				{
+					Name = "SeleneWeaponUpgrade",
+				},
+			}
+		},
+	},
+	MoonBeamExBeamBonusTalent = 
+	{
+		InheritFrom = {"SpellTalentTrait"},
+		Icon = "Boon_Selene_117",
+		
+		OnWeaponFiredFunctions =
+		{
+			ValidWeapons = WeaponSets.HeroAllWeapons,
+			FunctionName = "CheckAutoMoonBeam",
+		},
+		ManaSpendCostModifiers = 
+		{
+			Add = 30,
+			ReportValues = { ReportedManaCost = "Add" }
+		},
+		StatLines =
+		{
+			"TalentManaCostAdditionStatline",
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "ReportedManaCost",
+				ExtractAs = "ManaAddition",
+				SkipAutoExtract = true,
+				IncludeSigns = true,
+			},
+		}
 	},
 }
 

@@ -24,6 +24,7 @@ UnitSetData.FishmanRanged =
 			"AggroAI",
 		},
 		AIAggroRange = 1100,
+		PostAggroAI = "SurroundAI",
 
 		StunAnimations = 
 		{
@@ -35,6 +36,11 @@ UnitSetData.FishmanRanged =
 		{
 			DeepInheritance = true,
 			PreAttackSound = "/SFX/Enemy Sounds/FishmanRanged/EmoteCharging",
+
+			MaintainSurroundDistance = true,
+			SurroundDistance = 600,
+			SurroundRefreshInterval = 0.1,
+			MaxAttackers = 2,
 		},
 
 		WeaponOptions =
@@ -48,34 +54,23 @@ UnitSetData.FishmanRanged =
 			BlockEnemyTypes = {"FishmanRanged_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_0083", Text = "Hippos!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatG" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_0082", Text = "Hippos.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_0083", Text = "Hippos!" },
+			{ Cue = "/VO/MelinoeField_0082", Text = "Hippos." },
+			{ Cue = "/VO/MelinoeField_0083", Text = "Hippos!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_0084", Text = "More Hippos." },
 			{ Cue = "/VO/MelinoeField_0085", Text = "More Hippos...!" },
 		},
@@ -92,11 +87,6 @@ UnitSetData.FishmanRanged =
 		{
 			DeepInheritance = true,
 			MaxAttackers = 3,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =

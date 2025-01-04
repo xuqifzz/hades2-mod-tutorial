@@ -385,10 +385,10 @@
         Tallness = 448
         Offset = { X = 0 Y = -190 }
         Points = [
-          { X = -380 Y = 82 }
-          { X = -162 Y = 173 }
-          { X = 382 Y = -99 }
-          { X = 162 Y = -191 }
+          { X = -416 Y = 40 }
+          { X = -152 Y = 175 }
+          { X = 404 Y = -84 }
+          { X = 118 Y = -227 }
         ]
       }
     }
@@ -2904,6 +2904,15 @@
         Graphic = "Tilesets\DrownedChambers\DrownedChambers_LoungeFood_02"
         Tallness = 267
         Offset = { X = 0 Y = -97 }
+        Points = [
+          { X = -57 Y = 7 }
+          { X = -34 Y = 31 }
+          { X = 12 Y = 38 }
+          { X = 56 Y = 23 }
+          { X = 63 Y = -2 }
+          { X = 33 Y = -22 }
+          { X = -30 Y = -23 }
+        ]
       }
     }
     

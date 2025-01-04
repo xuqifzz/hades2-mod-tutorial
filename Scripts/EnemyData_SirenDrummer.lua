@@ -7,6 +7,7 @@ UnitSetData.SirenDrummer =
 		Groups = { "NPCs" },
 		AnimOffsetZ = 260,
 		ForceAllowRaiseDead = true,
+		UniqueRaise = true,
 		
 		MaxHealth = 5950,
 		AISetupDelay = 1.5,
@@ -40,8 +41,18 @@ UnitSetData.SirenDrummer =
 
 			WeaponOptions =
 			{
-				"SirenDrummerCircleCombo01", "SirenDrummerCircleCombo02", "SirenDrummerBeatOpener",
+				"SirenDrummerBeatOpener",
 				"SirenDrummerBeatConeIn", "SirenDrummerBeatConeOut", "SirenDrummerBeatClawClose", "SirenDrummerBeatClawMid", "SirenDrummerBeatClawFar", "SirenDrummerBeatCoralClose", "SirenDrummerBeatCoralFar"
+			},
+			AIStages =
+			{
+				{
+					RandomAIFunctionNames = { "AttackerAI" },
+					AIData =
+					{
+						AIEndHealthThreshold = 0.0,
+					},
+				},
 			},
 		},
 		SpellSummonSpawnOnId = 558524,
@@ -111,7 +122,7 @@ UnitSetData.SirenDrummer =
 						{ Cue = "/VO/Scylla_0161", Text = "Our {#Emph}percussion!" },
 						{ Cue = "/VO/Scylla_0162", Text = "The {#Emph}drums!" },
 					},
-					[2] = GlobalVoiceLines.ScyllaSirenKOReactionVoiceLines,
+					[2] = { GlobalVoiceLines = "ScyllaSirenKOReactionVoiceLines" },
 				},
 			},
 			{
@@ -137,13 +148,17 @@ UnitSetData.SirenDrummer =
 				PreLineWait = 0.75,
 				SuccessiveChanceToPlayAll = 0.5,
 				ObjectType = "Scylla",
+				Cooldowns =
+				{
+					{ Name = "ScyllaSpokeRecently", Time = 16 },
+				},
 
 				{ Cue = "/VO/Scylla_0130", Text = "{#Emph}Dammit{#Prev}, Roxy!" },
 				{ Cue = "/VO/Scylla_0131", Text = "Roxy, {#Emph}no!" },
 				{ Cue = "/VO/Scylla_0180", Text = "Roxy!!" },
 				{ Cue = "/VO/Scylla_0181", Text = "{#Emph}Ngh, dammit{#Prev}, Roxy!" },
 			},
-			[2] = GlobalVoiceLines.ScyllaSirenDeathReactionVoiceLines,
+			[2] = { GlobalVoiceLines = "ScyllaSirenDeathReactionVoiceLines" },
 		},		
 	},
 	

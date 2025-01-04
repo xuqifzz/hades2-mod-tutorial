@@ -1,6 +1,167 @@
 ﻿OverwriteTableKeys( EncounterData,
 {
 	-- Story Encounters
+	Story_Arachne_01 =
+	{
+		InheritFrom = { "NonCombat" },
+		MaxAppearancesThisBiome = 1,
+		UnthreadedEvents = {},
+
+		OnSpawnFunctionName = "ArachneCombatDrumCheck",
+		OnKillFunctionName = "ArachneCombatDrumCheck",
+		
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Arachne_01" }, } },
+
+			{ FunctionName = "CheckConversations" },
+			-- HecateWithArachne01
+			{
+				FunctionName = "ActivatePrePlacedUnits",
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "HecateWithArachne01_FollowUp", }, },
+					},
+				},
+				Args =
+				{
+					Ids = { 593595, },
+				},
+			},
+			{ FunctionName = "SpawnArachneCocoons", Args = { CocoonCountMin = 0, CocoonCountMax = 3, CocoonOptions = { "ArachneCocoonMedium", "ArachneCocoon" } } }
+		},
+
+		UnthreadedEvents =
+		{
+			{
+				FunctionName = "SurpriseNPCPresentation",
+				GameStateRequirements =
+				{
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "HecateWithArachne01_FollowUp", },  },
+					},
+				},
+				Args =
+				{
+					SourceId = 593595,
+					IntroWait = 0.4,
+					PanIds = { 593595, 557839, },
+					VoiceLines =
+					{
+						Queue = "Interrupt",
+						{
+							PreLineWait = 0.75,
+							UsePlayerSource = true,
+							{ Cue = "/VO/Melinoe_0036", Text = "Headmistress..." }
+						},
+					},
+					TextLineSet =
+					{
+						HecateWithArachne01 =
+						{
+							-- requirements are above
+							{ Cue = "/VO/Hecate_0549", PreLineWait = 0.5,
+								AngleTowardTargetId = 557839,
+								PreLineAnim = "Hecate_Hub_Explaining_Start",
+								PostLineAnim = "Hecate_Hub_Explaining_End",
+								Text = "...My point, Arachne, is... I've no intention to deflect blame for what I've done. And although I cannot rescind my actions, know that your safety in these woods is guaranteed." },
+							{ Cue = "/VO/Arachne_0102", Portrait = "Portrait_Arachne_Default_01", Speaker = "NPC_Arachne_01",
+								Text = "I do appreciate your candor in this, Titaness. However, if my safety now is your concern... you can begin by showing yourself out. With all due respect." },
+						{ Cue = "/VO/Hecate_0550",
+								PreLineWait = 0.35,
+								PreLineAnim = "Hecate_Hub_Scoff",
+								PreLineAnimTarget = 593595,
+								PostLineThreadedFunctionName = "HecateFlashback02Exit",
+								Text = "Very well. I shan't intrude upon your home again; good evening." },
+						},
+					},
+				},
+			},
+			-- any others
+		},
+
+		StartVoiceLines =
+		{
+			-- The strum of music brought him to an unexpected sight...
+			-- { Cue = "", Text = "TODO(BuildText) Storyteller_0079", PreLineWait = 1.5, PlayOnce = true },
+		},
+
+		ExitVoiceLines =
+		{
+			GameStateRequirements =
+			{
+				{
+					Path = { "CurrentRun", "TextLinesRecord" },
+					HasNone = GameData.ArachneUpsetEvents,
+				},
+			},
+			{
+				RandomRemaining = true,
+				PreLineWait = 0.25,
+				SuccessiveChanceToPlay = 0.8,
+				ObjectType = "NPC_Arachne_01",
+
+				{ Cue = "/VO/Arachne_0299", Text = "Farewell, my friend!" },
+				{ Cue = "/VO/Arachne_0300", Text = "Farewell..." },
+				{ Cue = "/VO/Arachne_0301", Text = "Goodbye for now!" },
+				{ Cue = "/VO/Arachne_0302", Text = "Come back soon...!" },
+				{ Cue = "/VO/Arachne_0303", Text = "Do be careful out there!" },
+				{ Cue = "/VO/Arachne_0304", Text = "Do come again, won't you?" },
+				{ Cue = "/VO/Arachne_0305", Text = "I'll be right here, all right?" },
+				{ Cue = "/VO/Arachne_0306", Text = "You truly do look great!" },
+				{ Cue = "/VO/Arachne_0307", Text = "To your success!", PlayFirst = true },
+				{ Cue = "/VO/Arachne_0308", Text = "Away she goes..." },
+				{ Cue = "/VO/Arachne_0309", Text = "Alone again... {#Emph}ha ha ha..." },
+				{ Cue = "/VO/Arachne_0310", Text = "{#Emph}<Sigh>" },
+			},
+			{
+				RandomRemaining = true,
+				SuccessiveChanceToPlay = 0.66,
+				PreLineWait = 0.33,
+
+				{ Cue = "/VO/Melinoe_1764", Text = "Weave on." },
+				{ Cue = "/VO/Melinoe_1765", Text = "Until we meet again." },
+				{ Cue = "/VO/Melinoe_1766", Text = "Keep on spinning." },
+				{ Cue = "/VO/Melinoe_1767", Text = "Be well, all right?" },
+			},
+		},
+
+		DistanceTriggers =
+		{
+			{
+				TriggerObjectType = "NPC_Arachne_01", WithinDistance = 800,
+				LeaveDistanceBuffer = 60,
+
+				VoiceLines =
+				{
+					RandomRemaining = true,
+					SuccessiveChanceToPlay = 0.66,
+					SuccessiveChanceToPlayAll = 0.2,
+					UsePlayerSource = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "UseRecord", "NPC_Arachne_01" },
+						},
+					},
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
+					},
+
+					{ Cue = "/VO/Melinoe_0830", Text = "Oh.", PlayFirst = true },
+					{ Cue = "/VO/Melinoe_1092", Text = "Arachne!" },
+					{ Cue = "/VO/Melinoe_1093", Text = "Hi, Arachne." },
+					{ Cue = "/VO/Melinoe_1406", Text = "Arachne's fineries..." },
+				},
+
+			},
+		},
+	},
+
 	Story_Chronos_01 =
 	{
 		InheritFrom = { "Empty" },
@@ -59,7 +220,10 @@
 				FunctionName = "ActivatePrePlacedUnits",
 				GameStateRequirements =
 				{
-					RequiredAnyQueuedTextLines = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp", }
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp", }, },
+					},
 				},
 				Args =
 				{
@@ -79,7 +243,10 @@
 				FunctionName = "SurpriseNPCPresentation",
 				GameStateRequirements =
 				{
-					RequiredQueuedTextLines = "NemesisWithNarcissus01_FollowUp",
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "NemesisWithNarcissus01_FollowUp", },  },
+					},
 				},
 				Args =
 				{
@@ -122,7 +289,10 @@
 				FunctionName = "SurpriseNPCPresentation",
 				GameStateRequirements =
 				{
-					RequiredQueuedTextLines = "NemesisWithNarcissus02_FollowUp",
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "NemesisWithNarcissus02_FollowUp", },  },
+					},
 				},
 				Args =
 				{
@@ -198,7 +368,10 @@
 				LeaveDistanceBuffer = 60,
 				GameStateRequirements =
 				{
-					RequiredFalseQueuedTextLines =  { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp" },
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsNone = { "NemesisWithNarcissus01_FollowUp", "NemesisWithNarcissus02_FollowUp" },  },
+					},
 					NamedRequirementsFalse = { "NarcissusDirtyWater" },
 				},
 
@@ -225,7 +398,7 @@
 				LeaveDistanceBuffer = 60,
 				VoiceLines =
 				{
-					-- [1] = GlobalVoiceLines.NarcissusPostGiftMutteringLines,
+					-- [1] = { GlobalVoiceLines = "NarcissusPostGiftMutteringLines" },
 				},
 			},
 
@@ -249,8 +422,6 @@
 
 		StartRoomUnthreadedEvents =
 		{
-			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Echo_01", "NPC_Narcissus_Field_01" }, }
-			},
 			{
 				FunctionName = "CheckPriorityConversations",
 				GameStateRequirements =
@@ -259,11 +430,17 @@
 				},
 				Args =
 				{
+					IgnorePartnerExists = true,
 					Conversations =
 					{
 						"NarcissusWithEcho01",
+						"NarcissusWithEcho02",
 					},
 				},
+			},
+			{
+				FunctionName = "ActivatePrePlaced",
+				Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Echo_01", }, },
 			},
 			{ FunctionName = "CheckConversations" },
 		},
@@ -293,7 +470,10 @@
 				FunctionName = "FieldsBridgeEchoMusic",
 				GameStateRequirements =
 				{
-					RequiredAnyQueuedTextLines = { "EchoFirstMeeting" },
+					{
+						FunctionName = "RequiredQueuedTextLine",
+						FunctionArgs = { IsAny = { "EchoFirstMeeting", }, },
+					},
 				},
 				VoiceLines =
 				{
@@ -358,7 +538,10 @@
 					{
 						GameStateRequirements =
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutEcho01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutEcho01", }, },
+							},
 						},
 						PreLineFunctionName = "GenericPresentation",
 						PreLineFunctionArgs =
@@ -380,209 +563,329 @@
 					{ Cue = "/VO/MelinoeField_0746", Text = "Echo, is that you?",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutHelp01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutHelp01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0749", Text = "Hey, it's Melinoë!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNymphs01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNymphs01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0999", Text = "She's still here, poor thing...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutHeart01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutHeart01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1181", Text = "How goes it, Echo? I'm doing all right!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutBridge01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutBridge01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1194", Text = "Aren't you a welcome sight...!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutCurse01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutCurse01", }, },
+							},
 						},
 					},
 
 					{ Cue = "/VO/MelinoeField_1183", Text = "Echo! Look, I have your Keepsake here. Your Concave Stone!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutKeepsake01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutKeepsake01", }, },
+							},
 						},
 					},
 
 					{ Cue = "/VO/MelinoeField_1185", Text = "{#Emph}Whew... {#Prev}barely made it this far...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutChronos01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutChronos01", }, },
+							},
 						},
 					},
 
 					{ Cue = "/VO/MelinoeField_1188", Text = "{#Emph}Ungh... {#Prev}just a little farther...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoLowHealth01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoLowHealth01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1190", Text = "{#Emph}Whew... {#Prev}just the Nymph I wished to see...!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoLowHealth02" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoLowHealth02", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1179", Text = "Closer and closer to Cerberus...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutCerberus01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutCerberus01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1002", Text = "Hello again, Echo. How have you been?",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1164", Text = "Echo, he's sorry! Narcissus, I mean. I think he's sorry.",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus02" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus02", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1166", Text = "Echo? Hey, about Narcissus...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus03" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus03", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1170", Text = "Echo, good, it's you! There's something I wanted to say.",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus04" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus04", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1168", Text = "Hey Echo, glad you're here!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus05" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus05", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1175", Text = "It's her again. Though all alone this time.",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus06" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus06", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1695", Text = "Echo, I have to talk to you.",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNarcissus07" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus07", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2871", Text = "Hello Echo, my friend!",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutFields01", }, },
+							},
+						},
+					},
+					{ Cue = "/VO/MelinoeField_2874", Text = "Message for me, Mel?",
+						GameStateRequirements = 
+						{
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNarcissus08", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1177", Text = "Echo, good evening to you!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutCharon01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutCharon01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1192", Text = "And there she is...!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoAboutNemesis01" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoAboutNemesis01", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0752", Text = "Hi, Echo!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat01", "EchoChat02" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat01", "EchoChat02", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0753", Text = "Hello, hello, hello!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat03" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat03", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0754", Text = "Echo, how've you been?",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat04" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat04", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0755", Text = "It's only me again.",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat05" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat05", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0756", Text = "Echo, you all right?",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat06" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat06", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_0757", Text = "Must be something I can do to help...?",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat07" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat07", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1007", Text = "Echo, let me know if I can help you...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat08" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat08", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1008", Text = "Always pleased to see you!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat09" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat09", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1009", Text = "Echo, it's you!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat10" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat10", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1010", Text = "It's you, thank the Fates...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat11" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat11", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1011", Text = "Finally a cheerful sight!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat12" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat12", }, },
+							},
 						},
 					},
 
 					{ Cue = "/VO/MelinoeField_1203", Text = "Hellooo!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat13" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat13", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1204", Text = "Echooo!",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat14" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat14", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1205", Text = "Have to press on...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat15" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat15", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1206", Text = "So close to Tartarus...",
 						GameStateRequirements = 
 						{
-							RequiredAnyQueuedTextLines = { "EchoChat16" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat16", }, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1207", Text = "I'm feeling wonderful tonight!",
@@ -590,10 +893,18 @@
 						{
 							{
 								PathTrue = { "PrevRun", "Cleared" },
+							},
+							{
 								PathTrue = { "GameState", "TextLinesRecord", "EchoGift01" },
 							},
-							RequiredMinHealthFraction = 0.7,
-							RequiredAnyQueuedTextLines = { "EchoChat17" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat17", }, },
+							},
+							{
+								FunctionName = "RequiredHealthFraction",
+								FunctionArgs = { Comparison = ">=", Value = 0.7, },
+							},
 						},
 					},
 					{ Cue = "/VO/MelinoeField_1208", Text = "Don't you despair, Echo...",
@@ -602,7 +913,10 @@
 							{
 								PathTrue = { "PrevRun", "Cleared" },
 							},
-							RequiredAnyQueuedTextLines = { "EchoChat18" },
+							{
+								FunctionName = "RequiredQueuedTextLine",
+								FunctionArgs = { IsAny = { "EchoChat18", }, },
+							},
 						},
 					},
 
@@ -633,7 +947,7 @@
 		{
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.33,
+				PreLineWait = 0.25,
 				SuccessiveChanceToPlay = 0.8,
 				ObjectType = "NPC_Medea_01",
 				-- PreLineAnim = "",
@@ -728,6 +1042,88 @@
 		},
 	},
 
+	Story_Dionysus_01 =
+	{
+		InheritFrom = { "NonCombat" },
+		MaxAppearancesThisBiome = 1,
+		UnthreadedEvents = {},
+		StartRoomUnthreadedEvents =
+		{
+			{ FunctionName = "ActivatePrePlaced", Args = { FractionMin = 1.0, FractionMax = 1.0, LegalTypes = { "NPC_Dionysus_01" }, } },
+			{ FunctionName = "CheckConversations" },
+		},
+
+		StartVoiceLines =
+		{
+			-- 
+		},
+
+		ExitVoiceLines =
+		{
+			{
+				RandomRemaining = true,
+				PreLineWait = 0.25,
+				SuccessiveChanceToPlayAll = 0.8,
+				ObjectType = "NPC_Dionysus_01",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "TextLinesRecord" },
+						HasNone = GameData.ArachneUpsetEvents,
+					},
+				},
+
+				{ Cue = "/VO/Dionysus_0103", Text = "Take it easy!" },
+				{ Cue = "/VO/Dionysus_0104", Text = "Stay warm all right?" },
+				{ Cue = "/VO/Dionysus_0105", Text = "Going so soon?" },
+				{ Cue = "/VO/Dionysus_0106", Text = "Well see you!" },
+				{ Cue = "/VO/Dionysus_0107", Text = "Stay cool!" },
+				{ Cue = "/VO/Dionysus_0108", Text = "Bye now!" },
+				{ Cue = "/VO/Dionysus_0109", Text = "Don't worry!" },
+				{ Cue = "/VO/Dionysus_0110", Text = "It'll be fine!" },
+				{ Cue = "/VO/Dionysus_0111", Text = "Have a great night!" },
+				{ Cue = "/VO/Dionysus_0112", Text = "{#Emph}Whew{#Prev}, where were we?" },
+				{ Cue = "/VO/Dionysus_0113", Text = "What's with her...?" },
+				{ Cue = "/VO/Dionysus_0114", Text = "Bit uptight there, yeah?", PlayFirst = true },
+				{ Cue = "/VO/Dionysus_0115", Text = "She'll be back." },
+				{ Cue = "/VO/Dionysus_0116", Text = "Off she goes!" },
+				{ Cue = "/VO/Dionysus_0071", Text = "What's with {#Emph}her?" },
+				{ Cue = "/VO/Dionysus_0219", Text = "{#Emph}Whew! {#Prev}Anyhow, does anybody need another drink or what?" },
+				{ Cue = "/VO/Dionysus_0220", Text = "Now anybody need another round?" },
+				{ Cue = "/VO/Dionysus_0221", Text = "Who needs a refill, you just say the word!" },
+				{ Cue = "/VO/Dionysus_0222", Text = "{#Emph}Anyway {#Prev}what were we on about before, remind me yeah?" },
+				{ Cue = "/VO/Dionysus_0223", Text = "Come, everybody loosen up, what's gotten into you?" },
+				{ Cue = "/VO/Dionysus_0224", Text = "Hey everybody good, got what they need?" },
+				{ Cue = "/VO/Dionysus_0225", Text = "And while I'm at it anybody else want anything?" },
+				{ Cue = "/VO/Dionysus_0226", Text = "Hey you there in the pool I {#Emph}saw {#Prev}that!" },
+				{ Cue = "/VO/Dionysus_0210", Text = "You're welcome back here anytime!" },
+			},
+
+		},
+
+		DistanceTriggers =
+		{
+			{
+				TriggerObjectType = "NPC_Dionysus_01", WithinDistance = 800,
+				LeaveDistanceBuffer = 60,
+
+				VoiceLines =
+				{
+					RandomRemaining = true,
+					SuccessiveChanceToPlayAll = 0.25,
+					UsePlayerSource = true,
+					Cooldowns =
+					{
+						{ Name = "MelinoeAnyQuipSpeech", Time = 60 },
+					},
+
+					-- { Cue = "/VO/Melinoe_2148", Text = "What's all this?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "NarcissusFirstMeetingVO" },
+				},
+
+			},
+		},
+	},
+
 	NemesisRandomEvent =
 	{
 		InheritFrom = { "NonCombat" },
@@ -785,6 +1181,7 @@
 				}
 			},
 		},
+		RequireMinPlayerDistance = 300,
 
 		ExitsUnlockedThreadedEvents =
 		{
@@ -812,12 +1209,45 @@
 				FunctionName = "NemesisTakeRoomExit",
 				Args =
 				{
-					RandomWaitMin = 1.0,
-					RandomWaitMax = 3.0,
+					RandomWaitMin = 0.5,
+					RandomWaitMax = 0.6,
 				},
 				GameStateRequirements =
 				{
 					ChanceToPlay = 1.0,
+					{
+						PathEmpty = { "GameState", "NemesisTakeExitRecord" },
+					},
+				},
+			},
+			{
+				FunctionName = "NemesisTakeRoomExit",
+				Args =
+				{
+					RandomWaitMin = 1.0,
+					RandomWaitMax = 5.0,
+				},
+				GameStateRequirements =
+				{
+					ChanceToPlay = 1.0,
+					{
+						PathNotEmpty = { "GameState", "NemesisTakeExitRecord" },
+					},
+				},
+			},
+		},
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "EraseRoomKeys",
+				Args =
+				{
+					EraseKeys =
+					{
+						"FishingPointSuccess",
+						"ExorcismPointSuccess",
+					},
 				},
 			},
 		},
@@ -852,11 +1282,16 @@
 				Value = 6,
 			},
 			{
+				PathFalse = { "GameState", "EncountersCompletedCache", "BridgeNemesisRandomEvent" },
+			},
+			--[[
+			{
 				SumPrevRuns = 5,
 				Path = { "EncountersOccurredCache", "BridgeNemesisRandomEvent" },
 				Comparison = "<=",
 				Value = 0,
 			},
+			]]
 			NamedRequirements = { "NoRecentNemesisEncounter", "NoRecentFieldNPCEncounter" },
 		},
 

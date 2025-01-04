@@ -99,7 +99,11 @@ UnitSetData.FogEmitter =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 5,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 5,
+			},
 		},
 
 		GeneratorData =
@@ -109,6 +113,25 @@ UnitSetData.FogEmitter =
 			BlockSolo = true,
 			BlockEnemyTypes = {"FogEmitter"}
 		},
+	},
+
+	FogEmitter_Shadow =
+	{
+		InheritFrom = { "FogEmitter_Elite" },
+		GenusName = "FogEmitter_Elite",
+
+		HealthBuffer = 1750,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+
+			RetreatAfterAttack = true,
+			RetreatBufferDistance = 550,
+			RetreatTimeoutMin = 2.0,
+			RetreatTimeoutMax = 5.0,
+		},
+
 	},
 
 	FogEmitter2 =
@@ -150,6 +173,16 @@ UnitSetData.FogEmitter =
 			"FogEmitter2Sweep",
 		},
 
+		MoneyDropOnDeath =
+		{
+			Chance = 0.7,
+			MinParcels = 1,
+			MaxParcels = 1,
+			MinValue = 1,
+			MaxValue = 1,
+			ValuePerDifficulty = 0.15,
+			ValuePerDifficultyMaxValueVariance = 1.3,
+		},
 		ActiveCapWeight = 2,
 		GeneratorData =
 		{

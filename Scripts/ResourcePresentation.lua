@@ -29,9 +29,13 @@ function MouseOverResourceItem( button )
 
 	local components = screen.Components
 
-	if button.ResourceData ~= nil and
-		( (GameState.LifetimeResourcesGained[button.ResourceData.Name] or 0) > 0 or
-		( button.ResourceData.RevealGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, button.ResourceData, button.ResourceData.RevealGameStateRequirements ) ) ) then
+	if button.ResourceData ~= nil and CanShowResourceInInventory( button.ResourceData ) then
+		if button.Viewable then
+			if button.NewIcon ~= nil then
+				Destroy({ Id = button.NewIcon.Id })
+			end
+			GameState.ResourcesViewed[button.ResourceData.Name] = true
+		end
 
 		local buttonHighlight = CreateScreenComponent({ Name = "InventorySlotHighlight", Scale = 1.0, Group = "Combat_Menu_Overlay", DestinationId = button.Id })
 		components.InventorySlotHighlight = buttonHighlight
@@ -55,7 +59,7 @@ function MouseOverResourceItem( button )
 			})
 			if button.ResourceData.ExtraDescriptions ~= nil then
 				for i, extraDescription in ipairs( button.ResourceData.ExtraDescriptions ) do
-					if extraDescription.Requirements == nil or IsGameStateEligible( CurrentRun, button.ResourceData, extraDescription.Requirements ) then
+					if extraDescription.Requirements == nil or IsGameStateEligible( button.ResourceData, extraDescription.Requirements ) then
 						ModifyTextBox({ Id = components.InfoBoxDetails.Id,
 							Text = extraDescription.TextId,
 							UseDescription = true,
@@ -345,28 +349,30 @@ function ResourceGainNewTotalPresentation( source, args )
 
 	if ScreenState.NewResourceTotalIds[args.ResourceName] == nil then
 		local numStacks = TableLength( ScreenState.NewResourceTotalIds )
-		local offsetY = numStacks * -40
-		ScreenState.NewResourceTotalIds[args.ResourceName] = CreateScreenObstacle({ Name = "BlankObstacle", Group = "HUD_Overlay", X = HUDScreen.Components.InventoryIcon.Data.X - 40, Y = HUDScreen.Components.InventoryIcon.Data.Y + offsetY })
-		CreateTextBox({
-			Id = ScreenState.NewResourceTotalIds[args.ResourceName],
-			Text = "NewResourceTotal",
-			Justification = "Right",
-			ShadowBlur = 0, ShadowColor = {60,100,70,1}, ShadowOffset = {0, 5},
-			OutlineThickness = 3, OutlineColor = {0.0, 0.0, 0.0,1},
-			Color = Color.White,
-			Font = "NumericP22UndergroundSCMedium",
-			FontSize = 26,
-			TextSymbolScale = 0.8,
-			LuaKey = "TempTextData",
-			LuaValue = args,
-			AutoSetDataProperties = false,
-			FadeOpacity = 0.0,
-			FadeTarget = 1.0,
-			DataProperties =
-			{
-				OpacityWithOwner = true,
-			},
-		})
+		if numStacks < 25 then
+			local offsetY = numStacks * -40
+			ScreenState.NewResourceTotalIds[args.ResourceName] = CreateScreenObstacle({ Name = "BlankObstacle", Group = "HUD_Overlay", X = HUDScreen.Components.InventoryIcon.Data.X - 40, Y = HUDScreen.Components.InventoryIcon.Data.Y + offsetY })
+			CreateTextBox({
+				Id = ScreenState.NewResourceTotalIds[args.ResourceName],
+				Text = "NewResourceTotal",
+				Justification = "Right",
+				ShadowBlur = 0, ShadowColor = {60,100,70,1}, ShadowOffset = {0, 5},
+				OutlineThickness = 3, OutlineColor = {0.0, 0.0, 0.0,1},
+				Color = Color.White,
+				Font = "NumericP22UndergroundSCMedium",
+				FontSize = 26,
+				TextSymbolScale = 0.8,
+				LuaKey = "TempTextData",
+				LuaValue = args,
+				AutoSetDataProperties = false,
+				FadeOpacity = 0.0,
+				FadeTarget = 1.0,
+				DataProperties =
+				{
+					OpacityWithOwner = true,
+				},
+			})
+		end
 	else
 		ModifyTextBox({ Id = ScreenState.NewResourceTotalIds[args.ResourceName], Text = "NewResourceTotal", LuaKey = "TempTextData", LuaValue = args })
 	end

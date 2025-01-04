@@ -67,34 +67,23 @@ UnitSetData.Guard =
 			BlockEnemyTypes = {"Guard_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/Melinoe_1654", Text = "Whispers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatF", "NemesisCombatIntro", "NemesisCombatF" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/Melinoe_1653", Text = "Whispers.", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_1654", Text = "Whispers!" },
+			{ Cue = "/VO/Melinoe_1653", Text = "Whispers.", },
+			{ Cue = "/VO/Melinoe_1654", Text = "Whispers!", PlayFirst = true },
 			{ Cue = "/VO/Melinoe_1655", Text = "More Whispers." },
 			{ Cue = "/VO/Melinoe_1656", Text = "Let's hear it, Whispers." },
 		},
@@ -114,11 +103,6 @@ UnitSetData.Guard =
 		WeaponOptions =
 		{
 			"GuardMelee_Elite",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		GeneratorData =
@@ -170,11 +154,6 @@ UnitSetData.Guard =
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		GeneratorData =

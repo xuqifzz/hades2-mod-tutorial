@@ -188,21 +188,6 @@
       IgnoreOwnerAttackDisabled = true
     }
     {
-      Name = "ArcherTrapWeapon"
-      InheritFrom = "1_BasePlayerSlowWeapon"
-      Type = "GUN"
-      Projectile = "ArcherTrapWeapon"
-      ClipSize = 1
-      ChargeSound = "null"
-      FireSound = "/SFX/ArcherTrapProjectileFireShoot"
-      RootOwnerWhileFiring = true
-      FullyAutomatic = true
-      BarrelLength = 180
-      AutoLock = true
-      FireGraphic = "null"
-      NumProjectiles = 1
-    }
-    {
       Name = "AxeTrapWeapon"
       InheritFrom = "SpikeTrapWeapon"
       Projectile = "AxeTrapWeapon"
@@ -242,12 +227,6 @@
       Name = "BlastCubeExplosion"
       InheritFrom = "ExplosiveBlast"
       Projectile = "BlastCubeExplosion"
-    }
-    {
-      Name = "BlastCubeExplosionElysium"
-      InheritFrom = "ExplosiveBlast"
-      Projectile = "BlastCubeExplosionElysium"
-      FireGraphic = "BlastCubeFusedRegeneratingExplode"
     }
     {
       Name = "LavaTileWeapon"
@@ -292,19 +271,5 @@
       Spread = 30
       SilentImpact = true
     }
-    {
-      Name = "ReflectiveMirrorWeapon"
-      InheritFrom = "1_BaseTrapWeapon"
-      Type = "GUN"
-      Projectile = "ReflectiveMirrorWeapon"
-      FireSound = "/SFX/Player Sounds/DartFireFwip"
-      AutoLock = true
-      FireFx = "null"
-      IgnoreOwnerAttackDisabled = true
-      BarrelLength = 50
-      SelfVelocity = 0
-      NumProjectiles = 1
-    }
-
   ]
 }

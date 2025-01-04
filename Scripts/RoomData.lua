@@ -65,7 +65,7 @@
 			FunctionName = "FamiliarSetup",
 			Args =
 			{
-				Silent = true,
+				PostCombat = true,
 			},
 			GameStateRequirements =
 			{
@@ -98,34 +98,44 @@ RoomSetData.Base =
 		ShrinePointDoorSpawnChance = 0.3,
 		ShrinePointDoorRequirements =
 		{
-			RequiredCosmetics = { "ShrinePointGates", },
+			--RequiredCosmetics = { "ShrinePointGates", },
 		},
-		TimeChallengeSwitchSpawnChance = 0.25,
+
+		ChallengeSpawnChance = 0.15,
+		ChallengeSpawnRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "ActiveBounty" },
+			},
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 5,
+			},
+			{
+				FunctionName = "RequiredMinRoomsSinceEvent",
+				FunctionArgs = { Event = "ChallengeSwitch", Count = 3 },
+			},
+		},
 		TimeChallengeSwitchRequirements =
 		{
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitches1" },
 			},
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
 		},
-		TimeChallengeEncounterOptions = { "TimeChallengeF" },
-
-		CapturePointSwitchSpawnChance = 0.0,
-		CapturePointSwitchRequirements =
-		{
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
-		},
-		CapturePointEncounterOptions = { "CapturePointF" },
-
-		PerfectClearSwitchSpawnChance = 0.0,
 		PerfectClearSwitchRequirements =
 		{
-			RequiredMinBiomeDepth = 5,
-			RequiredMinRoomsSinceChallengeSwitch = 3,
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitchesExtra1" },
+			},
 		},
-		PerfectClearEncounterOptions = { "PerfectClearF" },
+		EliteSwitchRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeChallengeSwitchesExtra1" },
+			},
+		},
+
 		WellShopSpawnChance = 0.15,
 		WellShopRequirements =
 		{
@@ -141,7 +151,10 @@ RoomSetData.Base =
  				Path = { "CurrentRun", "BiomesReached" },
 				HasNone = { "N" },
 			},
-			RequiredMinRoomsSinceWellShop = 4,
+			{
+				FunctionName = "RequiredMinRoomsSinceEvent",
+				FunctionArgs = { Event = "WellShop", Count = 4 },
+			},
 		},
 		SurfaceShopSpawnChance = 0.0,
 		SurfaceShopRequirements =
@@ -208,6 +221,9 @@ RoomSetData.Base =
 		StopSecretMusic = true,
 		IntroSequenceDuration = 0.1,
 		HarvestBlockedText = "ExorcismBlockedByFieldsLoot",
+
+		ExitAnimation = "MelinoeSpellFire",
+		ExitVfx = "SecretDoorDiveFx",
 	},
 
 	BiomeStartRoom = 
@@ -283,6 +299,13 @@ RoomSetData.Base =
 		NoReward = true,
 	},
 	_PTemplateRoomInterior =
+	{
+		InheritFrom = { "BaseRoom" },
+		DebugOnly = true,
+		LegalEncounters = { "Empty" },
+		NoReward = true,
+	},
+	_QTemplateRoom =
 	{
 		InheritFrom = { "BaseRoom" },
 		DebugOnly = true,

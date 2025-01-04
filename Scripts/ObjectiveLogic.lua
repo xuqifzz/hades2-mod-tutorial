@@ -8,7 +8,7 @@ function CheckAutoObjectiveSets( currentRun, checkTrigger )
 		if showSet and not IsObjectiveSetEligible( objectiveSetName, objectiveSetInfo, checkTrigger ) then
 			showSet = false
 		end
-		if showSet and not IsGameStateEligible( currentRun, objectiveSetInfo, objectiveSetInfo.GameStateRequirements ) then
+		if showSet and not IsGameStateEligible( objectiveSetInfo, objectiveSetInfo.GameStateRequirements ) then
 			showSet = false
 		end
 
@@ -41,7 +41,7 @@ function CheckObjectiveSet( objectiveSetName, checkTrigger, extraDelay )
 		return false
 	end
 
-	if not IsGameStateEligible( CurrentRun, objectiveSetInfo, objectiveSetInfo.GameStateRequirements ) then
+	if objectiveSetInfo.GameStateRequirements ~= nil and not IsGameStateEligible( objectiveSetInfo, objectiveSetInfo.GameStateRequirements ) then
 		return false
 	end
 
@@ -83,7 +83,7 @@ function ShowObjectiveSet( objectiveSetName, extraDelay )
 		objectiveSetData.IsDelaying = true
 		wait( objectiveSetData.StartDelay, RoomThreadName )
 		objectiveSetData.IsDelaying = false
-		if not IsObjectiveSetEligible(objectiveSetName, objectiveSetData) or not IsGameStateEligible(CurrentRun, objectiveSetData, objectiveSetData.GameStateRequirements) then
+		if not IsObjectiveSetEligible( objectiveSetName, objectiveSetData ) or ( objectiveSetData.GameStateRequirements ~= nil and not IsGameStateEligible( objectiveSetData, objectiveSetData.GameStateRequirements ) ) then
 			return
 		end
 	end
@@ -125,14 +125,19 @@ end
 function ShowObjective( objectiveData, objectId )
 	local stringColor = Color.White
 	if objectiveData.Status == "Complete" then
-		stringColor = Color.DarkGray
+		stringColor = Color.DimGray
+	end
+
+	local descriptionText = objectiveData.Description
+	if SessionState.ObjectiveSwaps[objectiveData.Name] then
+		descriptionText = SessionState.ObjectiveSwaps[objectiveData.Name]
 	end
 
 	local objectiveDistance = 480
 	Teleport({ Id = objectId, UseCurrentLocation = true, DestinationIsScreenRelative = true, OffsetX = objectiveDistance })
 	PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveActivateShk", Id = objectId })
 	SetAlpha({ Id = objectId, Fraction = 0, Duration = 0.0 })
-	CreateTextBox({ Id = objectId, Text = objectiveData.Description, OffsetX = 20, Color = Color.Yellow,
+	CreateTextBox({ Id = objectId, Text = descriptionText, OffsetX = 20, Color = Color.Yellow,
 					Font = "LatoBold", FontSize = 45, ShadowRed = 0, ShadowBlue = 0, ShadowGreen = 0,
 					ShadowAlpha = 1.0, ShadowBlur = 0, ShadowOffsetY = 3, ShadowOffsetX = 0, 
 					OutlineColor = {0, 0, 0, 1}, OutlineThickness = 0,
@@ -147,6 +152,10 @@ function ShowObjective( objectiveData, objectId )
 	end
 	local postDisplayWait = objectiveData.PostDisplayWait or 1.2
 	wait( postDisplayWait )
+	-- the objective may have been completed during the wait duration
+	if objectiveData.Status == "Complete" then
+		stringColor = Color.DimGray
+	end
 	ModifyTextBox({ Id = objectId, ScaleTarget = scaleTarget, ScaleDuration = 0.4, ColorTarget = stringColor, ColorDuration = 0.5 })
 	PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveActivateShk2", Id = objectId, Delay = 0.25 })
 	Move({ Id = objectId, Distance = objectiveDistance, Angle = 180, Duration = 0.75, EaseIn = 0.0, EaseOut = 1.0 })
@@ -209,7 +218,7 @@ function CreateObjectiveUI()
 			-- Requested hidden mid-loop
 			break
 		end
-		if activeObjective.Status ~= nil and activeObjective.Status ~= "Complete" then
+		if activeObjective.Status ~= nil and ( objectiveSet.RevealCompletedObjectives or activeObjective.Status ~= "Complete" ) then
 			startOffsetY = startOffsetY + HUDScreen.ObjectiveSpacingY
 			ScreenAnchors.Objectives[k] = CreateScreenObstacle({ Name = "BlankObstacle", Group = "HUD_Main", X = (CurrentHubRoom or CurrentRun.CurrentRoom).ObjectiveStartX or HUDScreen.ObjectiveStartX, Y = startOffsetY })
 			activeObjective.ObjectId = ScreenAnchors.Objectives[k]
@@ -252,7 +261,7 @@ function MarkObjectiveComplete( objectiveName )
 		PlaySound({ Name = "/SFX/Menu Sounds/ObjectiveCompletedSparkles", Id = objectiveData.ObjectId })
 		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.65, ScaleDuration = 0.15, ColorTarget = Color.Gold, ColorDuration = 0.15 })
 		wait( 0.5, RoomThreadName )
-		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.45, ScaleDuration = 1.25, ColorTarget = {100, 100, 100, 255}, ColorDuration = 1.25 })
+		ModifyTextBox({ Id = objectiveData.ObjectId, ScaleTarget = 0.45, ScaleDuration = 1.25, ColorTarget = Color.DimGray, ColorDuration = 1.25 })
 	end
 	wait( 0.52, RoomThreadName )
 	CheckActiveObjectivesStatus()

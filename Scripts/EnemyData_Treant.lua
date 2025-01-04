@@ -16,7 +16,7 @@ UnitSetData.Treant =
 		BlockRespawnShrineUpgrade = true,
 
 		MaxHealth = 450,
-		HealthBuffer = 1650,
+		HealthBuffer = 1110,
 		HealthBarOffsetY = -300,
 		HealthBarType = "Large",
 
@@ -61,9 +61,21 @@ UnitSetData.Treant =
 		},
 	},
 
+	Treant_Shadow =
+	{
+		InheritFrom = { "Treant" },
+		GenusName = "Treant",
+
+		WeaponOptions =
+		{
+			"TreantRangedSpray", "TreantRangedRoots", "TreantTailSpawn_Shadow", "TreantMelee"
+		},
+	},
+
 	TreantTail =
 	{
 		InheritFrom = { "BaseVulnerableEnemy" },
+		GenusName = "Treant",
 
 		ActivateFx = "nil",
 		ActivateFx2 = "nil",
@@ -75,8 +87,8 @@ UnitSetData.Treant =
 		ActivateTint = false,
 		ActivateDuration = 1.0,
 
-		MaxHealth = 230,
-		HealthBuffer = 260,
+		MaxHealth = 345,
+		HealthBuffer = 485,
 		HealthBarOffsetY = -200,
 		HealthBarType = "Medium",
 
@@ -117,6 +129,12 @@ UnitSetData.Treant =
 		},
 	},
 
+	TreantTail_Shadow =
+	{
+		InheritFrom = { "Shadow", "TreantTail" },
+		GenusName = "Treant",
+	},
+
 	Treant2 =
 	{
 		InheritFrom = { "Treant", "Elite", "BaseVulnerableEnemy", },
@@ -154,9 +172,14 @@ UnitSetData.Treant =
 
 		GameStateRequirements =
 		{
-			RequiredMinBiomeDepth = 4,
+			{
+				Path = { "CurrentRun", "BiomeDepthCache", },
+				Comparison = ">=",
+				Value = 4,
+			},
 		},
 
+		ActiveCapWeight = 3.0,
 		GeneratorData =
 		{
 			DifficultyRating = 480,
@@ -166,6 +189,7 @@ UnitSetData.Treant =
 	TreantTail2 =
 	{
 		InheritFrom = { "TreantTail" },
+		GenusName = "Treant2",
 
 		MaxHealth = 460,
 		HealthBuffer = 520,

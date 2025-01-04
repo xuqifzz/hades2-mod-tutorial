@@ -28,19 +28,6 @@
     {
       "BlendMode": 0,
       "ChildGroups": [],
-      "Id": "Overlook_BG_01",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
       "Id": "Overlook_01",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
@@ -120,6 +107,19 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_Beneath_01",
+      "NumSelectedAsDraw": 0,
+      "NumSelectedAsLogic": 0,
+      "NumThings": 0,
+      "NumThingsFrozen": 0,
+      "NumThingsSelectable": 0,
+      "NumThingsVisible": 0,
+      "ParentGroup": "MapArt",
+      "Visible": true
+    },
+    {
+      "BlendMode": 12,
+      "ChildGroups": [],
+      "Id": "Heatwave",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -250,19 +250,6 @@
       "BlendMode": 0,
       "ChildGroups": [],
       "Id": "Terrain_Shadow_01",
-      "NumSelectedAsDraw": 0,
-      "NumSelectedAsLogic": 0,
-      "NumThings": 0,
-      "NumThingsFrozen": 0,
-      "NumThingsSelectable": 0,
-      "NumThingsVisible": 0,
-      "ParentGroup": "MapArt",
-      "Visible": true
-    },
-    {
-      "BlendMode": 0,
-      "ChildGroups": [],
-      "Id": "Terrain_Decor_06",
       "NumSelectedAsDraw": 0,
       "NumSelectedAsLogic": 0,
       "NumThings": 0,
@@ -471,7 +458,6 @@
         "Watertest",
         "Terrain_Gameplay",
         "TerrainPuddle_FX",
-        "Terrain_Decor_06",
         "Terrain_Shadow_01",
         "Terrain_Decor_Border",
         "Terrain_Decor_04",
@@ -482,6 +468,7 @@
         "Terrain_Decor_05",
         "Terrain_01",
         "Terrain_Base",
+        "Heatwave",
         "Terrain_Beneath_01",
         "Water_FX",
         "Terrain_Beneath_02",
@@ -489,7 +476,6 @@
         "Overlook_FG_02",
         "Overlook_FG_01",
         "Overlook_01",
-        "Overlook_BG_01",
         "Water_01"
       ],
       "Id": "MapArt",
@@ -688,5 +674,6 @@
     "X": 0.000,
     "Y": 0.000
   },
-  "TimeLapseCameraZoom": 1.000
+  "TimeLapseCameraZoom": 1.000,
+  "ShadowPlaneDepth": 0.000
 }

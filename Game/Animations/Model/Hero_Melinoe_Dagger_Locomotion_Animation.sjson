@@ -19,18 +19,6 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Dagger_Idle"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Dagger_Sprint_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Dagger_Run_FireLoop"
-				Duration = 6
-			}
-			{
 				BlendTransitionFrom = "Melinoe_Dagger_Equip"
 				Duration = 6
 			}
@@ -146,9 +134,13 @@
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_AttackDouble_End"
 				Duration = 4
-			}				
+			}
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_SpecialEx_End"
 				Duration = 4
 			}
 		]
@@ -184,9 +176,13 @@
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_AttackDouble_End"
 				Duration = 4
-			}				
+			}	
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 4
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_SpecialEx_End"
 				Duration = 4
 			}
 		]
@@ -275,7 +271,15 @@
 				Duration = 6
 			}
 			{
+				BlendTransitionFrom = "Melinoe_Dagger_SpecialEx_Fire"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "Melinoe_Dagger_Special_End"
+				Duration = 6
+			}
+			{
+				BlendTransitionFrom = "Melinoe_Dagger_SpecialEx_End"
 				Duration = 6
 			}
 			{
@@ -289,6 +293,10 @@
 			{
 				BlendTransitionFrom = "Melinoe_Dagger_Cast_End"
 				Duration = 9
+			}
+			{
+				BlendTransitionFrom = "Melinoe_HeroLanding"
+				Duration = 6
 			}
 			{
 				BlendTransitionFrom = "MelinoeInteract"
@@ -345,6 +353,10 @@
 		GrannyAnimation = "Melinoe_Dagger_Base_RunSprint_00"
 		NativeMoveSpeed = 740
 		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Dagger_Dash_Fire" }
+		]
 
 		Frames = 
 		[
@@ -364,8 +376,8 @@
 		Blends =
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Dagger_Dash_Fire"
-				Duration = 4
+				BlendTransitionFrom = "Melinoe_Dagger_Dash_End1"
+				Duration = 6
 			}
 		]
 	}

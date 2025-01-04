@@ -7,8 +7,8 @@
     TransitionOnTime = 0.0
     TransitionOffTime = 0.0
     GamepadSelectionStyle = "FreeForm"
-	FreeFormSelectGridLock = true
-	FreeFormSelectInitialStepDistance = 24
+    FreeFormSelectGridLock = true
+    FreeFormSelectInitialStepDistance = 24
     FreeFormSelectStepDistance = 16
     FreeFormSelectSuccessDistance = 8
     FreeFormSelectSuccessDistanceStep = 2
@@ -58,6 +58,7 @@
       ShadowOffsetX = 0
       ShadowAlpha = 1
       ShadowBlur = 0
+      ParseTextMarkup = false
     }
 
     ControlButton =

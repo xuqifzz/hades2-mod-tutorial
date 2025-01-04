@@ -1,48 +1,18 @@
 
-function GhostAdminScreenOpenFinishedPresentation( screen )
-
-	if screen.OfferedVoiceLines ~= nil then
-		if PlayVoiceLines( screen.OfferedVoiceLines, true ) then
-			return
-		end
-	end
-
-end
-
 function GhostAdminSelectCategoryPresentation( screen, button )
 	PlaySound({ Name = "/SFX/Menu Sounds/GodBoonMenuToggle" })
 end
 
 function GhostAdminPostDisplayCategoryPresentation( screen )
-	AddInputBlock({ Name = "GhostAdminPostDisplayCategoryPresentation" })
-	--[[
-	if screen.NumItems == 0 then
-		CreateTextBox({ Id =  screen.Components.InfoBoxName.Id,
-			Text = "GhostAdmin_CategoryEmpty",
-			FontSize = 34,
-			OffsetX = -545, OffsetY = -20,
-			Color = Color.White,
-			Font = "P22UndergroundSCLight",
-			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 1},
-			Justification = "Center" })
-	end
-	]]
-
 	GhostAdminUpdateVisibility( screen, { IgnoreArrows = true } )
-
 	GhostAdminScreenRevealNewItemsPresentation( screen, button )
-	
-	RemoveInputBlock({ Name = "GhostAdminPostDisplayCategoryPresentation" })
 end
 
 function GhostAdminScreenRevealNewItemsPresentation( screen, button )
 
-	AddInputBlock({ Name = "GhostAdminScreenRevealNewItemspResentation" })
-
 	local components = screen.Components
 
 	-- Reveal new items
-	--for itemNum, item in ipairs( screen.AvailableItems ) do
 	for itemNum = screen.ScrollOffset, screen.ScrollOffset + screen.ItemsPerPage do
 		local item = screen.AvailableItems[itemNum]
 		if item ~= nil and not GameState.WorldUpgradesRevealed[item.Name] then
@@ -75,15 +45,18 @@ function GhostAdminScreenRevealNewItemsPresentation( screen, button )
 			end
 			CurrentRun.WorldUpgradesRevealed[item.Name] = true
 			GameState.WorldUpgradesRevealed[item.Name] = true
-			incantationsRevealed = true
+			if not incantationsRevealed then
+				AddInputBlock({ Name = "GhostAdminScreenRevealNewItemsPresentation" })
+				incantationsRevealed = true
+			end
 			wait( 0.9 )
 		end
 	end
 	if incantationsRevealed then
 		thread( PlayVoiceLines, HeroVoiceLines.CauldronSpellDiscoveredVoiceLines, true )
+		wait( 0.5 ) -- Need to wait for last reveal animation to fully finish
+		RemoveInputBlock({ Name = "GhostAdminScreenRevealNewItemsPresentation" })
 	end
-	wait( 0.5 ) -- Need to wait for last reveal animation to fully finish
-	RemoveInputBlock({ Name = "GhostAdminScreenRevealNewItemspResentation" })
 end
 
 function GhostAdminScreenScrollPresentation( screen, button )
@@ -129,7 +102,7 @@ end
 
 function GhostAdminItemPurchasedPresentation( button, upgradeData, args )
 	if button.Free then
-		PlaySound({ Name = "/SFX/Menu Sounds/PortraitEmoteAffectionSFX" })
+		PlaySound({ Name = "/Leftovers/Menu Sounds/TalismanPowderUpLEGENDARY" })
 	else
 		PlaySound({ Name = "/SFX/Menu Sounds/ContractorItemPurchase" })
 	end
@@ -145,6 +118,10 @@ function PreActivateCriticalItemPresentation( screen, button, saleData, args )
 		if saleData.Cost[resourceName] then
 			reagentCount = reagentCount + 1
 		end
+	end
+
+	if saleData.CookTime ~= nil then
+		screen.OpenedFrom.BlockStatusAnimations = true
 	end
 	
 	CauldronSceneSetup( focusId, reagentCount )
@@ -286,6 +263,8 @@ function PostActivateCriticalItemPresentation( button, saleData )
 
 	wait( saleData.PostActivationHoldDuration or 1.2 )
 
+	thread( CallFunctionName, saleData.PostActivationThreadedFunctionName, saleData.PostActivationThreadedFunctionArgs )
+
 	if saleData.PanDuration ~= nil then
 		local focusId = GetCosmeticFocusId( saleData )
 		PanCamera({ Ids = saleData.ActivateIds or saleData.ActivateRoomObstacleIds or saleData.ActivateUnits or focusId, Duration = saleData.PanDuration, EaseIn = 0.05, EaseOut = 0.3, Retarget = true, FromCurrentLocation = true })
@@ -358,11 +337,13 @@ function MouseOverGhostAdminItem( button )
 		AddResourceCostDisplay( button.Screen, button.Data.Cost, button.Screen.CostDisplay, button.Data )
 	end
 
-	ModifyTextBox({ Id = components.InfoBoxFlavor.Id,
-		Text = button.Data.Name.."_Flavor",
-		UseDescription = true,
-		FadeTarget = 1.0,
-	})
+	if components.InfoBoxFlavor ~= nil then
+		ModifyTextBox({ Id = components.InfoBoxFlavor.Id,
+			Text = button.Data.Name.."_Flavor",
+			UseDescription = true,
+			FadeTarget = 1.0,
+		})
+	end
 
 	local newButtonKey = "NewIcon"..button.Index
 	SetAlpha({ Id = button.NewButtonId, Fraction = 0, Duration = 0.2 })
@@ -384,7 +365,9 @@ function MouseOffGhostAdminItem( button )
 	SetAlpha({ Id = components.ResourceCostBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	SetAlpha({ Id = components.InfoBoxBacking.Id, Fraction = 0.0, Duration = 0.2 })
 	ModifyTextBox({ Id = components.InfoBoxDescription.Id, FadeTarget = 0.0, })
-	ModifyTextBox({ Id = components.InfoBoxFlavor.Id, FadeTarget = 0.0, })
+	if components.InfoBoxFlavor ~= nil then
+		ModifyTextBox({ Id = components.InfoBoxFlavor.Id, FadeTarget = 0.0, })
+	end
 	SetAlpha({ Ids = screen.CostIds, Fraction = 0, Duration = 0.1 })
 	DestroyTextBox({ Ids = screen.CostIds })
 	Destroy({ Ids = screen.CostIds })
@@ -400,6 +383,9 @@ function UpdateGhostAdminInteractionText( screen, button )
 	
 	if button ~= nil and not button.Purchased then
 		if button.Data ~= nil and button.Data.Cost ~= nil and HasResources( button.Data.Cost ) then
+			if button.Data.Removable then
+				ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.Text })
+			end
 			SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
 		else
 			SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
@@ -410,32 +396,59 @@ function UpdateGhostAdminInteractionText( screen, button )
 			SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
 		end
 	else
-		SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+		if button ~= nil and button.Data ~= nil and button.Data.Removable and not ( GameState.WorldUpgrades[button.Data.Name] and button.Data.RotateOnly ) then
+			if button.Data.RotateOnly or not GameState.WorldUpgrades[button.Data.Name] then
+				ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.AltTexts[1] })
+			else
+				ModifyTextBox({ Id = components.SelectButton.Id, Text = components.SelectButton.AltTexts[2] })
+			end
+			SetAlpha({ Id = components.SelectButton.Id, Fraction = 1.0, Duration = 0.2 })
+		else
+			SetAlpha({ Id = components.SelectButton.Id, Fraction = 0.0, Duration = 0.2 })
+		end
 		SetAlpha({ Id = components.PinButton.Id, Fraction = 0.0, Duration = 0.2 })
-	end		
-	
-	if screen.NumCategories >= 2 then
-		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.0 })
-		SetAlpha({ Id = components.ScrollRight.Id, Fraction = 1.0, Duration = 0.0 })
-	else
-		SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
-		SetAlpha({ Id = components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
-	end	
+	end
+
+	if screen.NumCategories ~= nil then
+		if screen.NumCategories >= 2 then
+			SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 1.0, Duration = 0.0 })
+			SetAlpha({ Id = components.ScrollRight.Id, Fraction = 1.0, Duration = 0.0 })
+		else
+			SetAlpha({ Id = components.ScrollLeft.Id, Fraction = 0.0, Duration = 0.0 })
+			SetAlpha({ Id = components.ScrollRight.Id, Fraction = 0.0, Duration = 0.0 })
+		end
+	end
 
 end
 
 function SetupCauldronLocked( source, args )
 	SetAlpha({ Ids = { 558698, }, Fraction = 0.0, Duration = 0.0 })
-	SessionMapState.CauldronCookTopId = SpawnObstacle({ Name = "CrossroadsCauldronLid01", Group = "FX_Standing_Top", DestinationId = source.ObjectId, OffsetZ = 160, })
+	SessionMapState.CauldronCookTopId = SpawnObstacle({ Name = "CrossroadsCauldronLid01", Group = "FX_Standing_Top", DestinationId = source.ObjectId, OffsetZ = 160, }) -- nopkg
+	ApplyCauldronCookTopGraphic()
 	SetScale({ Id = SessionMapState.CauldronCookTopId, Fraction = 0.28 })
 	OverwriteSelf( source, args )
+end
+
+function ApplyCauldronCookTopGraphic( source, args )
+	if SessionMapState.CauldronCookTopId ~= nil then
+		local lidAnimation = nil
+		if GameState.WorldUpgrades.Cosmetic_Cauldron01 then
+			lidAnimation = "Tilesets\\Crossroads\\Crossroads_Cauldron_Lid_01"
+		elseif GameState.WorldUpgrades.Cosmetic_Cauldron01a then
+			lidAnimation = "Tilesets\\Crossroads\\Crossroads_Cauldron_Lid_01a"
+		else
+			lidAnimation = "Tilesets\\Crossroads\\Crossroads_Cauldron_Lid_01b"
+		end
+		SetAnimation({ DestinationId = SessionMapState.CauldronCookTopId, Name = lidAnimation })
+	end
 end
 
 function SetupCauldronCookActivePresentation( source, args )
 	local cookStatus = GameState.CookStatus[source.ObjectId]
 	local text = "CauldronCookStatus_CookActive"
 	if cookStatus.TimeRemaining <= 0 then
-		 PlayStatusAnimation( source, { Animation = "StatusIconWantsToTalkImportant", OffsetZ = source.AnimOffsetZ } )
+		source.BlockStatusAnimations = false
+		PlayStatusAnimation( source, { Animation = "StatusIconWantsToTalkImportant", OffsetZ = source.AnimOffsetZ } )
 	end
 	SetAlpha({ Ids = { 558698, }, Fraction = 0.0, Duration = 0.0 })
 	if SessionMapState.CauldronCookTimerId ~= nil then
@@ -446,9 +459,10 @@ function SetupCauldronCookActivePresentation( source, args )
 			LuaValue = cookStatus,
 		})
 	else
-		SessionMapState.CauldronCookTopId = SpawnObstacle({ Name = "CrossroadsCauldronLid01", Group = "FX_Standing_Top", DestinationId = source.ObjectId, OffsetZ = 160, })
+		SessionMapState.CauldronCookTopId = SpawnObstacle({ Name = "CrossroadsCauldronLid01", Group = "FX_Standing_Top", DestinationId = source.ObjectId, OffsetZ = 160, }) -- nopkg
+		ApplyCauldronCookTopGraphic()
 		SetScale({ Id = SessionMapState.CauldronCookTopId, Fraction = 0.28 })
-		PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/DishesInteract", Id = source.ObjectId })
+		PlaySound({ Name = "/SFX/CauldronClose", Id = source.ObjectId })
 		SessionMapState.CauldronCookTimerId = SpawnObstacle({ Name = "BlankObstacle", Group = "Combat_UI_World", DestinationId = source.ObjectId, OffsetY = -340 })
 		SetAnimation({ Name = "CauldronCookTimeShadow", DestinationId = SessionMapState.CauldronCookTimerId })
 		CreateTextBox({
@@ -475,6 +489,7 @@ function UseCauldronCookActivePresentation( usee, args )
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = usee.ObjectId })
 	SetAnimation({ Name = "MelTalkBroodingFull01", DestinationId = CurrentRun.Hero.ObjectId })
 	Shake({ Id = usee.ObjectId, Distance = 1.0, Speed = 75, Duration = 0.15 })
+	PlaySound({ Name = "/SFX/CauldronIngredientSizzle", Id = usee.ObjectId })
 	thread( PlayVoiceLines, GlobalVoiceLines.CookingPendingVoiceLines, true )
 	thread( InCombatText, usee.ObjectId, "CauldronCheckCookActive", 3.0, { LuaKey = "CookStatus", LuaValue = cookStatus, ShadowScaleX = 1.95 } )
 	wait( 1.85 )
@@ -494,7 +509,7 @@ function UseCauldronCookCompletePresentation( usee, args )
 	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = interactableObjectId })
 
 	SetAlpha({ Ids = { SessionMapState.CauldronCookTopId, SessionMapState.CauldronCookTimerId }, Fraction = 0.0, Duration = 0.3 })
-	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/DishesInteract", Id = interactableObjectId })
+	PlaySound({ Name = "/SFX/CauldronOpen", Id = interactableObjectId })
 
 	thread( DoRumble, { { ScreenPreWait = 0.02, RightFraction = 0.17, Duration = 0.1 }, } )
 	thread( PlayVoiceLines, GlobalVoiceLines.CookingCompleteVoiceLines, true )

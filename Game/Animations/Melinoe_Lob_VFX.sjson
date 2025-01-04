@@ -865,6 +865,17 @@
 		VisualFxUse3DAngle = true
 		VisualFxDistanceMax = 120.0
 		VisualFxDistanceMin = 120.0
+	}			
+
+	{
+		Name = "LobProjectileDarkTrailEmitter_Medea"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		VisualFx = "LobProjectileTrailDark_Medea"
+		VisualFxUse3DAngle = true
+		VisualFxDistanceMax = 120.0
+		VisualFxDistanceMin = 120.0
 	}		
 
 	{
@@ -936,6 +947,15 @@
 		Loop = false
 		StartOffsetY = 0
 		EndOffsetY = 66
+	}
+
+	{
+		Name = "LobProjectileGhostTrail_Medea"
+		InheritFrom = "LobProjectileGhostTrail"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Medea"
+		VisualFx = null
+		CreateAnimation = null
+		ClearCreateAnimations = true
 	}
 
 	{
@@ -1248,6 +1268,49 @@
 	{
 		Name = "LobProjectileTrailD_Dark"
 		InheritFrom = "LobProjectileTrailA_Dark"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+	{
+		Name = "LobProjectileTrailDark_Medea"
+		Random =
+		[
+			{ Name = "LobProjectileTrailMedeaA_Dark" }
+			{ Name = "LobProjectileTrailMedeaB_Dark" }
+			{ Name = "LobProjectileTrailMedeaC_Dark" }
+			{ Name = "LobProjectileTrailMedeaD_Dark" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailMedeaA_Dark"
+		InheritFrom = "LobProjectileTrailA"
+		ScaleX = 1.5
+		ClearCreateAnimations = true
+		CreateAnimation = null
+		GroupName = "FX_Dark"
+		SortMode = "Id"
+		AddColor = false
+		Red = 0
+		Green = 0
+		Blue = 0
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 40
+		OffsetZ = 20
+	}
+	{
+		Name = "LobProjectileTrailMedeaB_Dark"
+		InheritFrom = "LobProjectileTrailMedeaA_Dark"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+	}
+	{
+		Name = "LobProjectileTrailMedeaC_Dark"
+		InheritFrom = "LobProjectileTrailMedeaA_Dark"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobProjectileTrailMedeaD_Dark"
+		InheritFrom = "LobProjectileTrailMedeaA_Dark"
 		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
 	}
 
@@ -6370,12 +6433,12 @@
 	{
 		Name = "LobProjectileGroundGlow_Aphrodite"
 		InheritFrom = "LobProjectileGroundGlow"
-		StartRed = 0.07
-		StartGreen = 0.25
-		StartBlue = 0.2
-		EndRed = 0.15
-		EndGreen = 0.5
-		EndBlue = 0.4
+		StartRed = 0.5
+		StartGreen = 0.3
+		StartBlue = 0.4
+		EndRed = 0.499
+		EndGreen = 0.025
+		EndBlue = 0.499
 	}
 
 	{
@@ -6436,46 +6499,6 @@
 		GroupName = "FX_Terrain"
 		UseOwnAngle = false
 		AngleFromOwner = "Ignore"
-	}
-
-	{
-		Name = "AphroditeGroundFlameLob"
-		FilePath = "Fx\Aphrodite\AphroditeProjectileImpact\AphroditeProjectileImpact"
-		NumFrames = 60
-		RandomFlipHorizontal = false
-		Material = "Unlit"
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 70
-		ScaleFromOwner = "Ignore"
-		GroupName = "Standing"
-		ScaleMin = 0.7
-		ScaleMax = 1.0
-		EaseIn = 0.0
-		EaseOut = 0.1
-		OverlayVfx = true
-		CreateAnimation = "AphroditeGroundFlameGlow"
-	}
-
-	{
-		Name = "AphroditeGroundFlameGlow"
-		FilePath = "Particles\particle_glow_egg"
-		Red = 1
-		Green = 0.4
-		Blue = 0.7
-		Material = "Unlit"
-		StartAlpha = 0.5
-		EndAlpha = 0
-		Duration = 1
-		EaseIn = 0.9
-		EaseOut = 1.0
-		GroupName = "FX_Standing_Add"
-		StartScaleY = 1
-		EndScaleY = 2
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		OffsetZ = 200
 	}
 
 	{
@@ -7556,46 +7579,6 @@
 		EndBlue = 1.0
 		ScaleRadius = 280
 		LocationZFromOwner = "Ignore"
-	}
-
-	{
-		Name = "PoseidonGroundFlameLob"
-		FilePath = "Fx\Poseidon\PoseidonProjectileImpact\PoseidonProjectileImpact"
-		NumFrames = 50
-		RandomFlipHorizontal = true
-		Material = "Unlit"
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 70
-		ScaleFromOwner = "Ignore"
-		GroupName = "Standing"
-		ScaleMin = 0.7
-		ScaleMax = 1.0
-		EaseIn = 0.0
-		EaseOut = 0.1
-		OverlayVfx = true
-		CreateAnimation = "PoseidonGroundFlameGlow"
-	}
-
-	{
-		Name = "PoseidonGroundFlameGlow"
-		FilePath = "Particles\particle_glow_egg"
-		Red = 0
-		Green = 1
-		Blue = 0.7
-		Material = "Unlit"
-		StartAlpha = 0.5
-		EndAlpha = 0
-		Duration = 1
-		EaseIn = 0.9
-		EaseOut = 1.0
-		GroupName = "FX_Standing_Add"
-		StartScaleY = 1
-		EndScaleY = 2
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		OffsetZ = 200
 	}
 
 	{
@@ -8688,47 +8671,6 @@
 	}
 
 	{
-		Name = "ZeusGroundFlameLob"
-		FilePath = "Fx\Zeus\ZeusProjectileImpact\ZeusProjectileImpact"
-		NumFrames = 32
-		RandomFlipHorizontal = true
-		RandomFlipVertical = true
-		Material = "Unlit"
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		RandomPlaySpeedMin = 50
-		RandomPlaySpeedMax = 70
-		ScaleFromOwner = "Ignore"
-		GroupName = "Standing"
-		ScaleMin = 0.7
-		ScaleMax = 1.0
-		EaseIn = 0.0
-		EaseOut = 0.1
-		OverlayVfx = true
-		CreateAnimation = "ZeusGroundFlameGlow"
-	}
-
-	{
-		Name = "ZeusGroundFlameGlow"
-		FilePath = "Particles\particle_glow_egg"
-        Red = 1
-        Green = 0.9
-        Blue = 0.3
-		Material = "Unlit"
-		StartAlpha = 0.5
-		EndAlpha = 0
-		Duration = 1
-		EaseIn = 0.9
-		EaseOut = 1.0
-		GroupName = "FX_Standing_Add"
-		StartScaleY = 1
-		EndScaleY = 2
-		AngleFromOwner = "Ignore"
-		UseOwnAngle = false
-		OffsetZ = 200
-	}
-
-	{
 		Name = "LobExplosionBright_Zeus"
 		InheritFrom = "LobExplosionBrightBase"
         StartRed = 1.0
@@ -9365,6 +9307,2061 @@
 		Name = "LobExplosionSmokeB_Zeus"
 		InheritFrom = "LobExplosionSmokeA_Zeus"
 		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}	
+
+	// Hephaestus x Lob
+
+	{
+		Name = "LobProjectile_Hephaestus"
+		InheritFrom = "LobProjectile"
+		AddColor = false
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.00
+		VisualFx = "LobProjectileTrail_Hephaestus"
+		ChildAnimation = "LobProjectileDarkTrailEmitter_Hephaestus"
+		ClearCreateAnimations = true
+		StopSoundOnFinishFade = 0.3
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileStartFlare_Hephaestus" }
+			{ Name = "LobProjectileStartDisplacement" }
+			{ Name = "LobProjectileGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileDarkTrailEmitter_Hephaestus"
+		InheritFrom = "LobProjectileDarkTrailEmitter"
+		ChildAnimation = "LobProjectileHephaestusTrailEmitter"
+	}
+
+	{
+		Name = "LobProjectileHephaestusTrailEmitter"
+		InheritFrom = "LobProjectileDarkTrailEmitter"
+		VisualFxDistanceMin = 60
+		VisualFxDistanceMax = 120
+		VisualFx = "LobProjectileTrailHephaestus"
+	}
+
+	{
+		Name = "LobProjectileHephaestusTrailEmitterSpecial"
+		InheritFrom = "LobProjectileHephaestusTrailEmitter"
+		ChildAnimation = "LobSpecialDarkSkullEmitter"
+	}
+
+	{
+		Name = "LobProjectileDarkTrailEmitterSpecial_Hephaestus"
+		InheritFrom = "LobProjectileDarkTrailEmitterSpecial"
+		ChildAnimation = "LobProjectileHephaestusTrailEmitterSpecial"
+	}
+
+	{
+		Name = "LobProjectileGlow_Hephaestus"
+		InheritFrom = "LobProjectileGlow"
+		FilePath = "Particles\particle_glow"
+		Alpha = 0.66
+		StartAlpha = 0.5
+		EndAlpha = 0.7
+        Red = 1
+        Green = 0
+        Blue = 0
+		Scale = 1.3
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+	}
+
+	{
+		Name = "LobProjectileStartFlare_Hephaestus"
+		InheritFrom = "LobProjectileStartFlare"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "LobProjectileTrail_Hephaestus"
+		Random =
+		[
+			{ Name = "LobProjectileTrailA_Hephaestus" }
+			{ Name = "LobProjectileTrailB_Hephaestus" }
+			{ Name = "LobProjectileTrailC_Hephaestus" }
+			{ Name = "LobProjectileTrailD_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailA_Hephaestus"
+		InheritFrom = "LobProjectileTrailA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileGhostTrail" }
+			{ Name = "LobProjectileTrailParticle_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailB_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Hephaestus"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileGhostTrail" }
+		]
+	}
+	{
+		Name = "LobProjectileTrailC_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Hephaestus"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+		CreateAnimations = []
+	}
+	{
+		Name = "LobProjectileTrailD_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Hephaestus"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+		CreateAnimations = []
+	}
+
+	{
+		Name = "LobProjectileTrailParticle_Hephaestus"
+		Random = [
+			{ Name = "LobProjectileTrailParticleA_Hephaestus" }
+			{ Name = "LobProjectileTrailParticleB_Hephaestus" }
+			{ Name = "LobProjectileTrailParticleC_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -2000
+		AngleMin = 160
+		AngleMax = 200
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		Material = "Unlit"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		GroupName = "FX_Standing_Add"
+		OffsetZ = 45
+		ScaleFromOwner = "Ignore"
+		UseOwnAngle = false
+	}
+
+	{
+		Name = "LobProjectileTrailParticleB_Hephaestus"
+		InheritFrom = "LobProjectileTrailParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}	
+
+	{
+		Name = "LobProjectileTrailParticleC_Hephaestus"
+		InheritFrom = "LobProjectileTrailParticleA_Hephaestus"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}	
+
+	{
+		Name = "LobProjectileBounceFx_Hephaestus"
+		InheritFrom = "LobProjectileBounceFx"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileBounceGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileBounceGlow_Hephaestus"
+		InheritFrom = "LobProjectileBounceGlow"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobProjectileTrailHephaestus"
+		Random =
+		[
+			{ Name = "LobProjectileTrailHephaestusA" }
+			{ Name = "LobProjectileTrailHephaestusB" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailHephaestus90"
+		Random =
+		[
+			{ Name = "LobProjectileTrailHephaestusA90" }
+			{ Name = "LobProjectileTrailHephaestusB90" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailHephaestusA"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileA\HephDirectionalProjectileA"
+		NumFrames = 37
+		Material = "Unlit"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		RandomFlipVertical = true
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		AngleFromOwner = "Ignore"
+		ScaleMin = 0.7
+		ScaleMax = 1.1
+		OffsetZ = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AngleMin = -10
+		AngleMax = 10
+		RandomOffsetX = 10
+		RandomOffsetY = 10
+		GroupName = "Standing_Back"
+		ScaleFromOwner = "Ignore"
+		OriginX = 400
+		OriginY = 96
+		ScaleX = 0.5
+	}
+
+	{
+		Name = "LobProjectileTrailHephaestusB"
+		InheritFrom = "LobProjectileTrailHephaestusA"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileB\HephDirectionalProjectileB"
+	}		
+
+
+	{
+		Name = "LobProjectileTrailHephaestusA90"
+		InheritFrom = "LobProjectileTrailHephaestusA"
+		Angle = -90
+	}
+	{
+		Name = "LobProjectileTrailHephaestusB90"
+		InheritFrom = "LobProjectileTrailHephaestusA90"
+		FilePath = "Fx\Hephaestus\HephDirectionalProjectileB\HephDirectionalProjectileB"
+	}
+
+	{
+		Name = "LobProjectileIdle_Hephaestus"
+		InheritFrom = "LobProjectileIdle"
+		VisualFx = "LobProjectileIdleFx_Hephaestus"
+		Red = 0.1
+		Green = 0.4
+		Blue = 0.5
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileGroundGlow_Hephaestus" }
+			{ Name = "LobProjectileIdleGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileIdleGlow_Hephaestus"
+		InheritFrom = "LobProjectileIdleGlow"
+		Red = 1
+		Green = 1
+		Blue = 1
+	}
+
+	{
+		Name = "LobProjectileGroundGlow_Hephaestus"
+		InheritFrom = "LobProjectileGroundGlow"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobProjectileIdleFx_Hephaestus"
+		InheritFrom = "LobProjectileIdleFx"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "LobExplosion_Hephaestus"
+		InheritFrom = "LobExplosionBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "LobExplosionParticles_Hephaestus"
+		VisualFxCap = 16
+		ClearCreateAnimations = true
+		Sound = "/SFX/Player Sounds/HephaestusExplode"
+		CreateAnimations =
+		[
+			{ Name = "LobExplosionBright_Hephaestus" }
+			{ Name = "LobExplosionGlow_Hephaestus" }
+			{ Name = "LobExplosionSmoke_Hephaestus" }
+			{ Name = "LobExplosionSmoke_Hephaestus" }
+			{ Name = "LobExplosionFlare_Hephaestus" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "LobExplosionCrater" }
+			{ Name = "LobExplosionScorchMark" }
+		]
+	}
+
+	{
+		Name = "LobExplosionBright_Hephaestus"
+		InheritFrom = "LobExplosionBrightBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionGlow_Hephaestus"
+		InheritFrom = "LobExplosionGlowBase"
+		StartAlpha = 0.4
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionFlare_Hephaestus"
+		InheritFrom = "LobExplosionFlare"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "LobExplosionParticles_Hephaestus"
+		Random = [
+			{ Name = "LobExplosionParticle_HephaestusA" }
+			{ Name = "LobExplosionParticle_HephaestusB" }
+			{ Name = "LobExplosionParticle_HephaestusC" }
+		]
+	}
+	{
+		Name = "LobExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleA\HephSparkParticleA"
+		NumFrames = 38
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomRotation = false
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		Scale = 2
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		RadialOffsetMin = 100
+		RadialOffsetMax = 110
+		RadialOffsetScaleRadius = 100
+		RadialOffsetScaleY = 0.5
+		DieWithOwner = false
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+	}
+	{
+		Name = "LobExplosionParticle_HephaestusB"
+		InheritFrom = "LobExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleB\HephSparkParticleB"
+	}
+	{
+		Name = "LobExplosionParticle_HephaestusC"
+		InheritFrom = "LobExplosionParticle_HephaestusA"
+		FilePath = "Fx\Hephaestus\HephSparkParticleC\HephSparkParticleC"
+	}
+
+
+
+
+	{
+		Name = "LobProjectileCharged_Hephaestus"
+		InheritFrom = "LobProjectile_Hephaestus"
+		StartRed = 1.0
+		StartGreen = 1.0
+		StartBlue = 1.0
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+        Red = 0.85
+        Green = 0.95
+        Blue = 1.0
+		PingPongColor = true
+		VisualFxUse3DAngle = true
+		VisualFx = "LobProjectileTrailVertical_Hephaestus"
+		VisualFxIntervalMax = 0
+		VisualFxIntervalMin = 0
+		VisualFxDistanceMax = 30.0
+		VisualFxDistanceMin = 60.0
+		ClearCreateAnimations = true
+		ChildAnimation = null
+		CreateAnimations =
+		[
+			{ Name = "LobProjectileStartFlare_Hephaestus" }
+			{ Name = "LobProjectileStartDisplacement" }
+			{ Name = "LobProjectileShadow" }
+			{ Name = "LobProjectileChargedFlare_Hephaestus" }
+			{ Name = "LobProjectileChargedGlow_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileChargedFlare_Hephaestus"
+		InheritFrom = "LobProjectileChargedFlare"
+		DieWithOwner = true
+		ColorFromOwner = "Ignore"
+		AddColor = false
+		FilePath = "Particles\particle_glow"
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 1.2
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		Red = 1
+		Green = 1
+		Blue = 1
+		Alpha = 0.75
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		VisualFx = "LobProjectileTrailUp_Hephaestus"
+	}
+
+	{
+		Name = "LobProjectileChargedGlow_Hephaestus"
+		FilePath = "Particles\particle_glow"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+		GroupName = "FX_Standing_Add"
+		DrawBehindOwner = true
+		DieWithOwner = true
+		Scale = 1.1
+		Duration = 1
+		Loop = true
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Alpha = 0.66
+	}
+
+	{
+		Name = "LobProjectileTrailUp_Hephaestus"
+		InheritFrom = "LobProjectileTrailUp"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobProjectileTrailVertical_Hephaestus"
+		Random =
+		[
+			{ Name = "LobProjectileTrailA_Vertical_Hephaestus" }
+			{ Name = "LobProjectileTrailB_Vertical_Hephaestus" }
+			{ Name = "LobProjectileTrailC_Vertical_Hephaestus" }
+			{ Name = "LobProjectileTrailD_Vertical_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailA_Vertical_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Vertical"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[ 
+			{ Name = "LobProjectileTrailParticleEX_Hephaestus" }
+		]
+	}
+	{
+		Name = "LobProjectileTrailB_Vertical_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Vertical_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+		CreateAnimations =
+		[ 
+			{ Name = "LobProjectileTrailParticleEX_Hephaestus" }
+		]
+	}
+	{
+		Name = "LobProjectileTrailC_Vertical_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Vertical_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+	}
+	{
+		Name = "LobProjectileTrailD_Vertical_Hephaestus"
+		InheritFrom = "LobProjectileTrailA_Vertical_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+	}
+
+	{
+		Name = "LobProjectileTrailParticleEX_Hephaestus"
+		InheritFrom = "LobProjectileTrailParticle_Hephaestus"
+		AngleChangeSpeedMin = -0.01
+		AngleChangeSpeedMax = 0
+		Acceleration = -100
+		AngleMin = -1
+		AngleMax = 1
+		RandomOffsetX = 40
+		RandomOffsetY = 20
+	}
+
+	{
+		Name = "LobProjectileChargedSecondaryEmitter_Hephaestus"
+		InheritFrom = "LobProjectileChargedSecondaryEmitter"
+		ChildAnimation = null
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Red = 0.5
+		Green = 0.82
+		Blue = 1.0
+	}
+
+	{
+		Name = "LobEXDescentStart_Hephaestus"
+		InheritFrom = "LobEXDescentStart"
+		Hue = 0.1
+		Saturation = -0.25
+	}
+
+	{
+		Name = "LobEXFireFx_Hephaestus"
+		InheritFrom = "LobEXFireFx"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "LobEXFireFxRing_Hephaestus"
+	}
+
+	{
+		Name = "LobEXFireFxRing_Hephaestus"
+		InheritFrom = "LobEXFireFxRing"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimation = "LobEXFireFxGlow_Hephaestus"
+	}
+
+	{
+		Name = "LobEXFireFxGlow_Hephaestus"
+		FilePath = "Particles\particle_glow"
+		GroupName = "FX_Terrain_Add"
+		RandomRotation = false
+		ScaleY = 0.5
+		Scale = 3
+		StartAlpha = 0.5
+		EndAlpha = 0
+		Material = "Unlit"
+		Duration = 0.5
+		EaseIn = 0.5
+		EaseOut = 1.0
+		OriginX = 32
+		OriginY = 128
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionCharged_Hephaestus"
+		InheritFrom = "LobExplosionBase"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "LobExplosionParticles_Hephaestus"
+		VisualFxCap = 16
+		Sound = "/SFX/Player Sounds/HephaestusExplode"
+		CreateAnimations =
+		[
+			{ Name = "LobExplosionFlareSpecial_Hephaestus" }
+			{ Name = "LobExplosionPentagram_Hephaestus" }
+			{ Name = "LobExplosionBrightBase_Hephaestus" }
+			{ Name = "LobExplosionBrightBaseB_Hephaestus" }
+			{ Name = "LobExplosionGlow_Hephaestus" }
+			{ Name = "LobExplosionGlowFlash_Hephaestus" }
+			{ Name = "LobExplosionSmoke_Hephaestus" }
+			{ Name = "LobExplosionSmoke_Hephaestus" }
+			{ Name = "LobExplosionDisplacement" }
+			{ Name = "LobExplosionFlare" }
+			{ Name = "LobExplosionCrater" }
+			{ Name = "LobExplosionScorchMark" }
+			{ Name = "QuickFlashHephaestus" }
+			{ Name = "LobExplosionChargedHephaestusFx" }
+		]
+	}
+
+	{
+		Name = "LobExplosionChargedHephaestusFx"
+		FilePath = "Fx\Hephaestus\HephProjectileImpact\HephProjectileImpact"
+		NumFrames = 37
+		PlaySpeed = 45
+		Scale = 1.33
+	}
+
+	{
+		Name = "LobExplosionGlowFlash_Hephaestus"
+		InheritFrom = "LobExplosionGlow_Hephaestus"
+		FilePath = "Particles\particle_quickFlashIris"
+		Duration = 0.25
+		Scale = 2
+	}
+
+	{
+		Name = "LobExplosionPentagram_Hephaestus"
+		InheritFrom = "LobExplosionPentagram"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionFlareSpecial_Hephaestus"
+		InheritFrom = "LobExplosionFlareSpecial"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionBrightBase_Hephaestus"
+		InheritFrom = "LobExplosionBrightBase"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionBrightBaseB_Hephaestus"
+		InheritFrom = "LobExplosionBrightBaseB"
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "LobSpecialFx_Hephaestus"
+		FilePath = "Dev\blank_invisible"
+		DieWithOwner = true
+		Duration = 1
+		VisualFxUse3DAngle = true
+		VisualFx = "LobProjectileTrail_Hephaestus"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 80
+		Sound = "/SFX/Player Sounds/HephaestusSwipeBigSingle"
+		ChildAnimation = "LobProjectileDarkTrailEmitterSpecial_Hephaestus"
+		CreateAnimations =
+		[
+			{ Name = "LobSpecialSkull_Hephaestus" }
+			{ Name = "LobSpecialCrescentA_Hephaestus" }
+			{ Name = "LobSpecialCrescentB" }
+			{ Name = "LobSpecialCrescentC" }
+			{ Name = "LobSpecialSkull_Hephaestus_Spectral" }
+		]
+	}
+
+	{
+		Name = "LobSpecialSkullDark_Hephaestus"
+		InheritFrom = "LobSpecialSkullDark"
+		CreateAnimations =
+		[
+			{ Name = "LobSpecialSkullBlurSpectral" }
+		]
+	}
+
+	{
+		Name = "LobSpecialCrescentA_Hephaestus"
+		InheritFrom = "LobSpecialCrescentA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobSpecialSkull_Hephaestus"
+		InheritFrom = "LobSpecialSkull"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = null
+	}
+
+	{
+		Name = "LobSpecialSkull_Hephaestus_Spectral"
+		InheritFrom = "LobProjectileChargedFlare_Hephaestus"
+		Scale = 2
+		StartGreen = 0.55
+		StartScale = 1
+		EndScale = 1.5
+		OffsetZ = -150
+		Duration = 1
+	}
+
+	{
+		Name = "DashLobTrailEmitter_Hephaestus"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		Loop = true
+		DieWithOwner = true
+		VisualFx = "DashLobTrailA_Hephaestus"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+	}
+
+	{
+		Name = "DashLobTrail_Hephaestus"
+		Random =
+		[
+			{ Name = "DashLobTrailA_Hephaestus" }
+			{ Name = "DashLobTrailB_Hephaestus" }
+			{ Name = "DashLobTrailC_Hephaestus" }
+			{ Name = "DashLobTrailD_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "DashLobTrailA_Hephaestus"
+		InheritFrom = "DashLobTrailA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		CreateAnimations =
+		[
+			{ Name = "DashLobTrailA_Dark" }
+			{ Name = "DashLobTrailGroundGlow_Hephaestus" }
+			{ Name = "DashLobTrailSpectral" }
+		]
+	}
+
+	{
+		Name = "DashLobTrailB_Hephaestus"
+		InheritFrom = "DashLobTrailA_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+		CreateAnimations =
+		[
+			{ Name = "DashLobTrailB_Dark" }
+			{ Name = "DashLobTrailGroundGlow_Hephaestus" }
+			{ Name = "DashLobTrailSpectral" }
+		]
+	}
+	{
+		Name = "DashLobTrailC_Hephaestus"
+		InheritFrom = "DashLobTrailA_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+		CreateAnimations =
+		[
+			{ Name = "DashLobTrailC_Dark" }
+			{ Name = "DashLobTrailGroundGlow_Hephaestus" }
+			{ Name = "DashLobTrailSpectral" }
+		]
+	}
+	{
+		Name = "DashLobTrailD_Hephaestus"
+		InheritFrom = "DashLobTrailA_Hephaestus"
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+		CreateAnimations =
+		[
+			{ Name = "DashLobTrailD_Dark" }
+			{ Name = "DashLobTrailGroundGlow_Hephaestus" }
+			{ Name = "DashLobTrailSpectral" }
+		]
+	}
+
+	{
+		Name = "DashLobTrailGroundGlow_Hephaestus"
+		InheritFrom = "DashLobTrailGroundGlow"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobCharge_Hephaestus"
+		InheritFrom = "LobCharge"
+        Red = 0.5
+        Green = 0.82
+        Blue = 1.0
+		VisualFx = "LobChargeFx_Hephaestus"
+	}
+
+	{
+		Name = "LobChargeFx_Hephaestus"
+		InheritFrom = "LobChargeFx"
+		AddColor = true
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobChargeFxGroundGlow_Hephaestus"
+		InheritFrom = "LobChargeFxGroundGlow"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+
+	{
+		Name = "LobSpecial1EXChargeFx_Hephaestus"
+		InheritFrom = "LobChargeFx_Hephaestus"
+		Scale = 2
+		OffsetZ = 15
+		OriginX = 90
+		OriginY = 120
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		RandomRotation = false
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		CreateAnimation = "LobChargeFxGroundGlow_Hephaestus"
+	}
+
+
+	{
+		Name = "LobExplosionSmoke_Hephaestus"
+		Random =
+		[
+			{ Name = "LobExplosionSmokeA_Hephaestus" }
+			{ Name = "LobExplosionSmokeB_Hephaestus" }
+		]
+	}
+
+	{
+		Name = "LobExplosionSmokeA_Hephaestus"
+		InheritFrom = "LobExplosionSmokeA"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "LobExplosionSmokeB_Hephaestus"
+		InheritFrom = "LobExplosionSmokeA_Hephaestus"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+
+	{
+		Name = "LobAmmoMagnetismFx"
+		FilePath = "Fx\HermesSlowImpact\HermesSlowImpact"
+		GroupName = "FX_Standing_Add"
+
+		VisualFx = "LobAmmoMagnetismCurves"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/HermesWhooshDashImpact"
+		ColorFromOwner = "Ignore"
+		EndFrame = 25
+		NumFrames = 25
+		PlaySpeed = 60.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OffsetZ = 60.0
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxCap = 3
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+	}
+
+	{
+		Name = "LobAmmoMagnetismCurves"
+		CreateAnimation = "HermesFeather"
+		FilePath = "Fx\CurveballTrail\CurveballTrail"
+		GroupName = "Standing"
+
+		AngleMax = 360.0
+		StartAlpha = 1.0
+		EndFrame = 16
+		NumFrames = 16
+		PlaySpeed = 30.0
+		StartFrame = 1
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		EndScale = 1.25
+		Ambient = 0.0
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	{
+		Name = "RadialNovaLobPulse"
+		InheritFrom = "RadialNova"
+		PlaySpeed = 120.0
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		VisualFxCap = 1
+		VisualFxIntervalMax = 0.0011
+		VisualFxIntervalMin = 0.001
+		TimeModifierFraction = 0.6
+		Sound = "/SFX/Enemy Sounds/Charon/CharonRadialBlast"
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.50 }
+	}
+
+	// Aspect of Persephone
+
+	{
+		Name = "PersephoneSkullCarTrail"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailA" }
+			{ Name = "PersephoneSkullCarTrailB" }
+			{ Name = "PersephoneSkullCarTrailC" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailA\PersephoneTrailA"
+		NumFrames = 23
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OffsetZ = 100
+		Material = "Unlit"
+		AngleFromOwner = "Take"
+		ScaleY = 0.8
+		CreateAnimation = "PersephoneSkullCarTrailFlowers"
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.4
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 160
+		OriginY = 50
+		Scale = 1.75
+		RandomFlipVertical = true
+	}
+	{
+		Name = "PersephoneSkullCarTrailB"
+		InheritFrom = "PersephoneSkullCarTrailA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailB\PersephoneTrailB"
+	}	
+	{
+		Name = "PersephoneSkullCarTrailC"
+		InheritFrom = "PersephoneSkullCarTrailA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailC\PersephoneTrailC"
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowers"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailFlowerA" }
+			{ Name = "PersephoneSkullCarTrailFlowerB" }
+			{ Name = "PersephoneSkullCarTrailFlowerC" }
+			{ Name = "PersephoneSkullCarTrailFlowerD" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowerA"
+		InheritFrom = "PersephoneSkullCarTrailA"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleA\AphroditeFlowerParticleA"
+		NumFrames = 39
+		RandomRotation = true
+		AngleFromOwner = "Take"
+		ScaleY = 1.0
+		CreateAnimation = null
+		GroupName = "FX_Standing"
+		Gravity = 100
+		ScaleMin = 0.2
+		ScaleMax = 0.8
+		Red = 0.9
+		Green = 0.7
+		Blue = 1.0
+		RandomOffsetX = 60
+		RandomOffsetY = 30
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 75
+		Acceleration = -300
+		VelocityMin = 100
+		VelocityMax = 300
+		RandomRotationSpeedMin = -360
+		RandomRotationSpeedMax = 360
+		AddColor = false
+		Material = "Unlit"
+		OriginX = 32
+		OriginY = 32
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowerB"
+		InheritFrom = "PersephoneSkullCarTrailFlowerA"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleB\AphroditeFlowerParticleB"
+	}
+	{
+		Name = "PersephoneSkullCarTrailFlowerC"
+		InheritFrom = "PersephoneSkullCarTrailFlowerA"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Value = 0.1
+	}
+	{
+		Name = "PersephoneSkullCarTrailFlowerD"
+		InheritFrom = "PersephoneSkullCarTrailFlowerB"
+		Red = 1
+		Green = 1
+		Blue = 1
+		Value = 0.1
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowersSide"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailFlowerSideA" }
+			{ Name = "PersephoneSkullCarTrailFlowerSideB" }
+			{ Name = "PersephoneSkullCarTrailFlowerSideC" }
+			{ Name = "PersephoneSkullCarTrailFlowerSideD" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowerSideA"
+		InheritFrom = "PersephoneSkullCarTrailFlowerA"
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerSideB"
+		InheritFrom = "PersephoneSkullCarTrailFlowerB"
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerSideC"
+		InheritFrom = "PersephoneSkullCarTrailFlowerC"
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerSideD"
+		InheritFrom = "PersephoneSkullCarTrailFlowerD"
+		RandomOffsetX = 10
+		RandomOffsetY = 5
+		Scale = 1
+	}
+
+	{
+		Name = "LobSpecialFx_Persephone"
+		FilePath = "Dev\blank_invisible"
+		DieWithOwner = true
+		Duration = 1
+		VisualFxUse3DAngle = true
+		VisualFx = "PersephoneSkullCarTrailSide"
+		VisualFxDistanceMin = 40
+		VisualFxDistanceMax = 80
+		// ChildAnimation = "LobProjectileDarkTrailEmitterSpecial"
+		CreateAnimations =
+		[
+			{ Name = "LobSpecialSkull_Persephone" }
+			{ Name = "LobSpecialCrescentA_Persephone" }
+			{ Name = "LobSpecialCrescentB" }
+			{ Name = "LobSpecialCrescentC" }
+			{ Name = "LobSpecialSkull_Persephone_Spectral" }
+		]
+	}
+
+
+	{
+		Name = "PersephoneSkullCarTrailSide"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailSideA" }
+			{ Name = "PersephoneSkullCarTrailSideB" }
+			{ Name = "PersephoneSkullCarTrailSideC" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailSideA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailA\PersephoneTrailA"
+		NumFrames = 23
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Material = "Unlit"
+		ScaleY = 0.8
+		CreateAnimation = "PersephoneSkullCarTrailFlowersSide"
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.4
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 200
+		OriginY = 50
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+		RandomFlipVertical = true
+	}
+	{
+		Name = "PersephoneSkullCarTrailSideB"
+		InheritFrom = "PersephoneSkullCarTrailSideA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailB\PersephoneTrailB"
+		CreateAnimation = null
+	}	
+	{
+		Name = "PersephoneSkullCarTrailSideC"
+		InheritFrom = "PersephoneSkullCarTrailSideA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailC\PersephoneTrailC"
+		CreateAnimation = null
+	}
+
+	{
+		Name = "LobSpecialSkullDark_Persephone"
+		InheritFrom = "LobSpecialSkullDark"
+		CreateAnimations =
+		[
+			// { Name = "LobProjectileTrail_Persephone" }
+			{ Name = "LobSpecialSkullBlurSpectral" }
+		]
+	}
+
+	{
+		Name = "LobSpecialCrescentA_Persephone"
+		InheritFrom = "LobSpecialCrescentA"
+		StartRed = 0.7
+		StartGreen = 0.5
+		StartBlue = 1.0
+		EndRed = 0.5
+		EndGreen = 0.45
+		EndBlue = 1.0
+	}
+
+	{
+		Name = "LobSpecialSkull_Persephone"
+		InheritFrom = "LobSpecialSkull"
+		StartRed = 1.0
+		StartGreen = 0.7
+		StartBlue = 0.2
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.1
+		VisualFx = null
+		ChildAnimation = null
+	}
+
+
+	{
+		Name = "LobProjectileTrailUpPersephone"
+		InheritFrom = "LobProjectileTrailUp"
+		StartRed = 1.0
+		StartGreen = 0.8
+		StartBlue = 0.6
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+
+	{
+		Name = "LobProjectileChargedFlare_Persephone"
+		InheritFrom = "LobProjectileChargedFlare"
+		DieWithOwner = true
+		ColorFromOwner = "Ignore"
+		AddColor = false
+		FilePath = "Particles\particle_spectral_shimmer_02"
+		Scale = 0.5
+		StartScale = 1
+		EndScale = 1.2
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.999
+		EndGreen = 0.999
+		EndBlue = 0.999
+		Red = 1.0
+		Green = 1
+		Blue = 1
+		Alpha = 0.75
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		// VisualFx = "LobProjectileTrailUp_Persephone"
+	}
+
+
+	{
+		Name = "LobSpecialSkull_Persephone_Spectral"
+		InheritFrom = "LobProjectileChargedFlare_Persephone"
+		Scale = 1.25
+		StartScale = 1
+		EndScale = 1.5
+		OffsetZ = -150
+		Duration = 1
+	}
+
+	{
+		Name = "DashLobTrailGroundGlow_Persephone"
+		InheritFrom = "DashLobTrailGroundGlow"
+		StartRed = 1.0
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.6
+		EndBlue = 0.1
+	}
+
+	{
+		Name = "LobCharge_Persephone"
+		InheritFrom = "LobCharge"
+		Red = 1
+		Green = 0.8
+		Blue = 0.3
+		VisualFx = "LobChargeFx_Persephone"
+	}
+
+	{
+		Name = "LobChargeFx_Persephone"
+		InheritFrom = "LobChargeFx"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.8
+		StartBlue = 0.4
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "LobChargeFxGroundGlow_Persephone"
+		InheritFrom = "LobChargeFxGroundGlow"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "LobSpecial1EXChargeFx_Persephone"
+		InheritFrom = "LobChargeFx_Persephone"
+		Scale = 2
+		OffsetZ = 15
+		OriginX = 90
+		OriginY = 120
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		RandomRotation = false
+		RandomFlipVertical = true
+		RandomFlipHorizontal = true
+		CreateAnimation = "LobChargeFxGroundGlow_Persephone"
+	}
+
+	{
+		Name = "LobExplosionSmoke_Persephone"
+		Random =
+		[
+			{ Name = "LobExplosionSmokeA_Persephone" }
+			{ Name = "LobExplosionSmokeB_Persephone" }
+		]
+	}
+
+	{
+		Name = "LobExplosionSmokeA_Persephone"
+		InheritFrom = "LobExplosionSmokeA"
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.3
+		EndRed = 0.99
+		EndGreen = 0.5
+		EndBlue = 0.2
+	}
+
+	{
+		Name = "LobExplosionSmokeB_Persephone"
+		InheritFrom = "LobExplosionSmokeA_Persephone"
+		FilePath = "Fx\LobExplosionBright\LobExplosionSmokeB"
+	}
+
+
+	{
+		Name = "LobProjectileTrailUp_Persephone"
+		InheritFrom = "LobProjectileTrailUp"
+		StartRed = 0.5
+		StartGreen = 1.0
+		StartBlue = 0.3
+		EndRed = 0.2
+		EndGreen = 0.999
+		EndBlue = 0.5
+	}
+
+
+	{
+		Name = "LobProjectileTrail_Persephone"
+		Random =
+		[
+			{ Name = "LobProjectileTrailA_Persephone" }
+			{ Name = "LobProjectileTrailB_Persephone" }
+			{ Name = "LobProjectileTrailC_Persephone" }
+			{ Name = "LobProjectileTrailD_Persephone" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailA_Persephone"
+		InheritFrom = "LobProjectileTrailA"
+		StartRed = 0.5
+		StartGreen = 1
+		StartBlue = 0.2
+		EndRed = 0.2
+		EndGreen = 1.0
+		EndBlue = 0.5
+		ClearCreateAnimations = true
+		CreateAnimations =
+		[
+			// { Name = "LobProjectileTrailA_Dark" }
+			{ Name = "LobProjectileGhostTrail" }
+			{ Name = "LobProjectileTrailParticle_Persephone" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailB_Persephone"
+		InheritFrom = "LobProjectileTrailA_Persephone"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailB\LobProjectileTrailB"
+		CreateAnimations =
+		[
+			// { Name = "LobProjectileTrailB_Dark" }
+			{ Name = "PersephoneSkullCarTrailFlowers" }
+		]
+	}
+	{
+		Name = "LobProjectileTrailC_Persephone"
+		InheritFrom = "LobProjectileTrailA_Persephone"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailC\LobProjectileTrailC"
+		CreateAnimations =
+		[
+			// { Name = "LobProjectileTrailC_Dark" }
+			{ Name = "PersephoneSkullCarTrailFlowers" }
+		]
+	}
+	{
+		Name = "LobProjectileTrailD_Persephone"
+		InheritFrom = "LobProjectileTrailA_Persephone"
+		ClearCreateAnimations = true
+		FilePath = "Fx\LobProjectileTrailD\LobProjectileTrailD"
+		CreateAnimations =
+		[
+			// { Name = "LobProjectileTrailD_Dark" }
+			{ Name = "PersephoneSkullCarTrailFlowers" }
+		]
+	}
+
+	{
+		Name = "LobProjectileTrailParticle_Persephone"
+		InheritFrom = "LobProjectileTrailParticle"
+		StartRed = 0.5
+		StartGreen = 1
+		StartBlue = 0.2
+		EndRed = 0.2
+		EndGreen = 1.0
+		EndBlue = 0.5
+	}
+
+
+	{
+		Name = "DashLobTrailEmitter_Persephone"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		Loop = true
+		DieWithOwner = true
+		VisualFx = "PersephoneSkullCarTrailDash"
+		VisualFxDistanceMin = 30
+		VisualFxDistanceMax = 30
+		VisualFxUse3DAngle = true
+	}
+
+
+	{
+		Name = "PersephoneSkullCarTrailDash"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailDashA" }
+			{ Name = "PersephoneSkullCarTrailDashB" }
+			{ Name = "PersephoneSkullCarTrailDashC" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailDashA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailA\PersephoneTrailA"
+		NumFrames = 23
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Material = "Unlit"
+		ScaleY = 0.8
+		CreateAnimation = "PersephoneSkullCarTrailFlowersDash"
+		AddColor = true
+		StartRed = 0.7
+		StartGreen = 0.4
+		StartBlue = 1.0
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		OriginX = 64
+		OriginY = 50
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Dark"
+		OffsetZ = 60
+		Acceleration = -1000
+		RandomFlipVertical = true
+	}
+	{
+		Name = "PersephoneSkullCarTrailDashB"
+		InheritFrom = "PersephoneSkullCarTrailDashA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailB\PersephoneTrailB"
+	}	
+	{
+		Name = "PersephoneSkullCarTrailDashC"
+		InheritFrom = "PersephoneSkullCarTrailDashA"
+		FilePath = "Fx\WeaponAspects\Persephone\PersephoneTrailC\PersephoneTrailC"
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowersDash"
+		Random = [
+			{ Name = "PersephoneSkullCarTrailFlowerDashA" }
+			{ Name = "PersephoneSkullCarTrailFlowerDashB" }
+			{ Name = "PersephoneSkullCarTrailFlowerDashC" }
+			{ Name = "PersephoneSkullCarTrailFlowerDashD" }
+		]
+	}
+
+	{
+		Name = "PersephoneSkullCarTrailFlowerDashA"
+		InheritFrom = "PersephoneSkullCarTrailFlowerA"
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		OffsetZ = 60
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 10
+		VelocityMax = 30
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerDashB"
+		InheritFrom = "PersephoneSkullCarTrailFlowerB"
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		OffsetZ = 60
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 10
+		VelocityMax = 30
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerDashC"
+		InheritFrom = "PersephoneSkullCarTrailFlowerC"
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		OffsetZ = 60
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 10
+		VelocityMax = 30
+		Scale = 1
+	}	
+	{
+		Name = "PersephoneSkullCarTrailFlowerDashD"
+		InheritFrom = "PersephoneSkullCarTrailFlowerD"
+		RandomOffsetX = 20
+		RandomOffsetY = 10
+		OffsetZ = 60
+		AngleFromOwner = "Ignore"
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 10
+		VelocityMax = 30
+		Scale = 1
+	}
+
+
+	// Aspect of Medea
+
+	{
+		Name = "MedeaFuseFx_Base"
+		FilePath = "Fx\WeaponAspects\Medea\MedeaFuse\MedeaFuse"
+		NumFrames = 90
+		PlaySpeed = 30
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "WeaponLob_Rig:base_00_M_JNT"
+		CreateAnimation = "MedeaLoadFx_Base"
+		AddColor = true
+		StartRed = 0.4
+		StartGreen = 1.0
+		StartBlue = 0.7
+		EndRed = 0.2
+		EndGreen = 0.1
+		EndBlue = 0.5
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 20
+		ChildAnimation = null
+		Sound = "/SFX/Player Sounds/MelMedeaAspectFlameLoop"
+		StopSoundOnFinishFade = 0.2
+		VisualFx = "LobProjectileTrail"
+		VisualFxUse3DAngle = true
+		VisualFxDistanceMax = 45.0
+		VisualFxDistanceMin = 45.0
+	}
+
+	{
+		Name = "MedeaFuseBacking"
+		FilePath = "Fx\WeaponAspects\Medea\MedeaFuseBacking"
+		GroupName = "FX_Dark"
+		GrannyAttachedMarkerLocation = "WeaponLob_Rig:base_00_M_JNT"
+		DieWithOwner = true
+		Duration = 3
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimationOnEnd = "MedeaFuseBackingFade"
+		OffsetZ = 20
+		CreateAnimation = "MedeaFuseBackingB"
+	}
+
+	{
+		Name = "MedeaFuseBackingB"
+		InheritFrom = "MedeaFuseBacking"
+		CreateAnimation = null
+		FilePath = "Particles\Test_1"
+		Red = 0
+		Green = 0
+		Blue = 0
+		Alpha = 0.5
+		Scale = 0.33
+		CreateAnimationOnEnd = null
+	}
+
+	{
+		Name = "MedeaFuseBackingFade"
+		InheritFrom = "MedeaFuseBacking"
+		CreateAnimation = null
+		CreateAnimationOnEnd = null
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.15
+		EaseIn = 0
+		EaseOut = 1
+		DieWithOwner = false
+	}
+
+	{
+		Name = "MedeaLoadFx_Base"
+		InheritFrom = "MedeaFuseFx_Base"
+		FilePath = "Fx\TintableRadialFlare\TintableRadialFlare"
+		NumFrames = 45
+		PlaySpeed = 90
+		Scale = 0.75
+		Sound = null
+		CreateAnimation = null
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Base" }
+		]
+	}
+
+	{
+		Name = "MedeaLoadFx_Dark"
+		InheritFrom = "MedeaLoadFx_Base"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Dark"
+		CreateAnimation = null
+		ClearCreateAnimations = true
+		PlaySpeed = 75
+		Scale = 1.0
+	}
+
+	{
+		Name = "MedeaLoadFxGlow_Base"
+		InheritFrom = "MedeaFuseFx_Base"
+		FilePath = "Particles\particle_glow"
+		CreateAnimation = null
+		Sound = null
+		NumFrames = 1
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 0.33
+		EndAlpha = 0
+		Scale = 1.5
+		OffsetZ = 30
+	}
+
+
+	{
+		Name = "MedeaFuseFx_Aphrodite"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFx = "LobProjectileTrail_Aphrodite"
+		CreateAnimation = "MedeaLoadFx_Aphrodite"
+	}
+	{
+		Name = "MedeaLoadFx_Aphrodite"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Aphrodite" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Aphrodite"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "MedeaFuseFx_Apollo"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.3
+		EndBlue = 0.0
+		VisualFx = "LobProjectileTrail_Apollo"
+		CreateAnimation = "MedeaLoadFx_Apollo"
+	}
+	{
+		Name = "MedeaLoadFx_Apollo"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.3
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Apollo" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Apollo"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 1.0
+		StartGreen = 0.5
+		StartBlue = 0.1
+		EndRed = 0.999
+		EndGreen = 0.3
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "MedeaFuseFx_Demeter"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		VisualFx = "LobProjectileTrail_Demeter"
+		CreateAnimation = "MedeaLoadFx_Demeter"
+	}
+	{
+		Name = "MedeaLoadFx_Demeter"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Demeter" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Demeter"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 0.5
+		StartGreen = 0.7
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.5
+		EndBlue = 0.999
+	}	
+
+	{
+		Name = "MedeaFuseFx_Hephaestus"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		VisualFx = "LobProjectileTrail_Hephaestus"
+		CreateAnimation = "MedeaLoadFx_Hephaestus"
+	}
+	{
+		Name = "MedeaLoadFx_Hephaestus"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Hephaestus" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Hephaestus"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 0.51
+		StartGreen = 0.82
+		StartBlue = 1.00
+		EndRed = 1.00
+		EndGreen = 0
+		EndBlue = 0
+	}	
+
+
+	{
+		Name = "MedeaFuseFx_Hera"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		VisualFx = "LobProjectileTrail_Hera"
+		CreateAnimation = "MedeaLoadFx_Hera"
+	}
+	{
+		Name = "MedeaLoadFx_Hera"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Hera" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Hera"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "MedeaFuseFx_Hestia"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		VisualFx = "LobProjectileTrail_Hestia"
+		CreateAnimation = "MedeaLoadFx_Hestia"
+	}
+	{
+		Name = "MedeaLoadFx_Hestia"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Hestia" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Hestia"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 1
+		StartGreen = 0.4
+		StartBlue = 0.01
+		EndRed = 0.999
+		EndGreen = 0.2
+		EndBlue = 0.0
+	}
+
+	{
+		Name = "MedeaFuseFx_Poseidon"
+		InheritFrom = "MedeaFuseFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		VisualFx = "LobProjectileTrail_Poseidon"
+		CreateAnimation = "MedeaLoadFx_Poseidon"
+	}
+	{
+		Name = "MedeaLoadFx_Poseidon"
+		InheritFrom = "MedeaLoadFx_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Poseidon" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Poseidon"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+		StartRed = 1.0
+		StartGreen = 0.6
+		StartBlue = 0.8
+		EndRed = 0.99
+		EndGreen = 0.05
+		EndBlue = 0.99
+	}
+
+	{
+		Name = "MedeaFuseFx_Zeus"
+		InheritFrom = "MedeaFuseFx_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		VisualFx = "LobProjectileTrail_Zeus"
+		CreateAnimation = "MedeaLoadFx_Zeus"
+	}
+	{
+		Name = "MedeaLoadFx_Zeus"
+		InheritFrom = "MedeaLoadFx_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
+		ClearCreateAnimations = true
+		CreateAnimations = [
+			{ Name = "MedeaLoadFx_Dark" }
+			{ Name = "MedeaLoadFxGlow_Zeus" }
+		]		
+	}
+	{
+		Name = "MedeaLoadFxGlow_Zeus"
+		InheritFrom = "MedeaLoadFxGlow_Base"
+        StartRed = 1.0
+        StartGreen = 0.95
+        StartBlue = 0.7
+        EndRed = 0.9999
+        EndGreen = 0.8
+        EndBlue = 0.5
 	}
 
 

@@ -26,12 +26,30 @@ ProjectileThingPropertyNames =
 
 PersistentTraitKeys = 
 { 
+	"Activated",
 	"TraitListTextString",
 	"HarvestBoons",
 	"SacrificedTraitName", 
 	"Uses",
+	"RemainingUses",
+	"ShrineManaReserve",
 	"CurrentArmor",
 }
+
+ProcessTraitDataBlacklist = ToLookup(
+{
+	"InheritFrom",
+	"ExtractValues",
+	"ReportValues",
+	"WeaponDataOverride",
+	"ConsumedVoiceLines",
+	"OnSpawnVoiceLines",
+	"UseFunctionNames",
+	"UseFunctionArgs",
+	"PurchaseRequirements",
+	"GameStateRequirements",
+	"ValidWeapons",
+})
 
 TraitMultiplierData =
 {
@@ -151,7 +169,7 @@ TraitRequirements =
 	SpawnCastDamageBoon = { OneOf = LinkedTraitData.CastTraits, },
 	LinkedDeathDamageBoon = { OneOf = LinkedTraitData.HeraLinkTraits, },
 	--FullManaExBoostBoon = { OneOf = LinkedTraitData.HeraCoreTraits, },
-	HeraManaShieldBoon = 
+	AllElementalBoon = 
 	{
 		OneFromEachSet = 
 		{
@@ -229,7 +247,7 @@ TraitRequirements =
 
 	-- Duos
 	
-	EmptySlotDamageBoon = 
+	ManaShieldBoon = 
 	{
 		OneFromEachSet =
 		{
@@ -295,9 +313,9 @@ TraitRequirements =
 	{
 		OneFromEachSet =
 		{
-			{ "ApolloSprintBoon", "PoseidonSprintBoon", },
 			LinkedTraitData.ApolloCoreTraits,
 			LinkedTraitData.PoseidonCoreTraits,
+			{ "ApolloSprintBoon", "PoseidonSprintBoon", },
 		},
 	},
 
@@ -355,7 +373,7 @@ TraitRequirements =
 		}
 	},
 
-	AllElementalBoon = 
+	ManaRestoreDamageBoon = 
 	{
 		OneFromEachSet =
 		{
@@ -490,6 +508,10 @@ TraitRequirements =
 			{ "AphroditeWeaponBoon", "AphroditeSpecialBoon" },
 		}
 	},
+
+	-- Special suit hex
+	
+	SpellMoonBeamTrait = { OneOf = {"SuitHexAspect" }}
 }
 
 TraitRarityData = 
@@ -735,10 +757,16 @@ TraitSetData.Base =
 	SynergyTrait =
 	{
 		InheritFrom = { "AetherBoon", },
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "CurrentRoom", "ChosenRewardType", },
+				IsNone = { "Devotion", },
+			},
+		},
 		IsDuoBoon = true,
 		Frame = "Duo",
 		BlockStacking = true,
-		RequiredFalseRewardType = "Devotion",
 		RarityLevels =
 		{
 			Duo =
@@ -761,7 +789,7 @@ TraitSetData.Base =
 		BlockInRunRarify = true,
 		ExcludeFromRarityCount = true,
 		CustomRarityName = "Boon_Infusion",
-		CustomRarityColor = Color.BoonPatchUnity,
+		CustomRarityColor = Color.BoonPatchElemental,
 		InfoBackingAnimation = "BoonSlotUnity",
 		UpgradeChoiceBackingAnimation = "BoonSlotUnity",
 		Frame = "Unity",
@@ -848,9 +876,16 @@ TraitSetData.Base =
 		Icon = "Trait_StorePendingDeliveryItem",
 		RemainingUses = 3,
 		UsesAsEncounters = true,
+		HideInRunHistory = true,
 		StatLines =
 		{
 			"DeliveryTimeRemainingDisplay1",
+		},
+		SpeakerNames = { "Hermes" },
+		SetupFunction =
+		{
+			Name = "LoadResourcesForPendingDeliveryItem",
+			Args = {},
 		},
 	},
 
@@ -937,6 +972,7 @@ TraitSetData.Base =
 	GodModeTrait =
 	{
 		Icon = "GodMode",
+		HideInRunHistory = true,
 		StatLines =
 		{
 			"GodModeDamageResistanceDisplay1",
@@ -1050,17 +1086,11 @@ TraitSetData.Base =
 		FlavorText = "ErisCurse_FlavorText",
 	},
 
-	OnionCurse = 
-	{
-		Frame = "MetaUpgrade",
-		Icon = "Weapon_Sword_12",
-		RemainingUses = 1,
-	},
-
 	UnusedWeaponBonusTrait =
 	{
 		--Frame = "MetaUpgrade",
 		Icon = "Trait_UnusedWeaponBonus",
+		HideInRunHistory = true,
 		AddResources =
 		{
 			MetaCurrency = 2,
@@ -1092,10 +1122,6 @@ TraitSetData.Base =
 				LuaProperty = "MaxHealth",
 				BaseValue = 25,
 				ChangeType = "Add",
-				ExtractValue =
-				{
-					ExtractAs = "TooltipHealth",
-				}
 			},
 		},
 	},
@@ -1111,10 +1137,6 @@ TraitSetData.Base =
 				BaseValue = 25,
 				ChangeType = "Add",
 				BlockHealing = true,
-				ExtractValue =
-				{
-					ExtractAs = "TooltipHealth",
-				}
 			},
 		},
 	},
@@ -1175,6 +1197,16 @@ TraitSetData.DummyWeapons =
 		FlavorText = "WeaponLob_FlavorText",
 		Icon = "Hammer_Lob_13",
 	},
+
+	DummyWeaponSuit = 
+	{
+		InheritFrom = { "BaseDummyWeapon" },
+		CustomTitle = "WeaponSuit",
+		CustomName = "WeaponSuit",
+		FlavorText = "WeaponSuit_FlavorText",
+		Icon = "Hammer_Suit_01",
+	},
+
 }
 
 TraitSetData.Aspects = {}

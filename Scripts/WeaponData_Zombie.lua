@@ -226,6 +226,9 @@ WeaponSetData =
       		FireFx = "ZombieAssassinUncloakFront",
       		PreMoveRemoveEnemyUI = true,
 			FireCreateHealthBar = true,
+
+			-- Rifts ban
+			DumbFireWeapons = {},
 		},
 
 		Requirements =
@@ -342,6 +345,42 @@ WeaponSetData =
 			PreAttackEndDuration = 0.0,
 			PreAttackEndFlashFraction = 0.0,
 			PreAttackAnimationSpeed = 2.5,
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
+		},
+	},
+
+	ZombieOlympusMelee =
+	{
+		InheritFrom = { "ZombieMelee" },
+
+		AIData =
+		{
+			ProjectileName = "ZombieOlympusMelee",
+		},
+	},
+
+	ZombieOlympusMelee_Elite =
+	{
+
+		InheritFrom = { "ZombieMelee_Elite" },
+
+		AIData =
+		{
+			ProjectileName = "ZombieOlympusMelee_Elite",
+			ChainedWeaponOptions = { "ZombieOlympusMelee2_Elite" },
+		},
+	},
+
+	ZombieOlympusMelee2_Elite =
+	{
+
+		InheritFrom = { "ZombieMelee_Elite2" },
+
+		AIData =
+		{
+			ProjectileName = "ZombieOlympusMelee_Elite",
 		},
 	},
 
@@ -452,7 +491,9 @@ WeaponSetData =
 			LoSBuffer = 85,
 			RequireUnitLoS = true,
 
-			WaitForAngleTowardTarget = false, -- causes heavy swiveling with hand
+			PreAttackAngleTowardTarget = true,
+			WaitForAngleTowardTarget = true,
+			WaitForAngleTowardTargetTimeOut = 0.8,
 			StopBeforeFire = true,
 
 			PreAttackSound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteChargingMelee",
@@ -461,12 +502,14 @@ WeaponSetData =
 			PostAttackAnimation = "Enemy_ZombieHR_ShoveReturnToIdle",
 
 			DoNotRepeatOnAttackFail = true,
+
+			SkipSurroundAICount = true,
 	
 		},
 
 		Requirements =
 		{
-			MaxPlayerDistance = 525,
+			MaxPlayerDistance = 455,
 		},
 
 		Sounds =

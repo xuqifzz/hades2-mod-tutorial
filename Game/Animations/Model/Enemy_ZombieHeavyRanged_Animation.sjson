@@ -45,6 +45,7 @@
 		AllowRestart = true
 		ChainTo = "Enemy_ZombieHR_Idle"
 		Sound = "/SFX/Enemy Sounds/ZombieHeavyRanged/EmoteHurt"
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -92,6 +93,7 @@
 				Duration = 5
 			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -119,6 +121,7 @@
 				Duration = 5
 			}
 		]
+		SoundManagerCap = 26
 		Frames =
 		[
 			{
@@ -339,7 +342,7 @@
 		VisualFx = "ZombieHRSlimeTrail"
 		VisualFxDistanceMin = 50
 		VisualFxDistanceMax = 50
-
+		SoundManagerCap = 26
 		Frames =
 		[
 			{

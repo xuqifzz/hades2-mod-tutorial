@@ -380,6 +380,11 @@
 				Frame = 0
 				FrameSpeed = 3.0
 			}
+			{
+				Frame = 34
+				FrameSpeed = 3.0
+				CreateAnimation = "ShipsDust"
+			}
 		]
 	}
 

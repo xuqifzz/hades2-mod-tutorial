@@ -24,12 +24,17 @@
 		GrannyModel = "WeaponStaff_Asclepius_Mesh"
 	}
 	{
+		Name = "WeaponStaff_Anubis"
+		GrannyModel = "WeaponStaff_Anubis_Mesh"
+	}
+	{
 		Name = "WeaponStaffBase"
 		GrannyModel = "WeaponStaff_Mesh"
 		ExtraGrannyAnimations = 
 		[
 			{ Name = "WeaponStaff_Circe"}
 			{ Name = "WeaponStaff_Asclepius"}
+			{ Name = "WeaponStaff_Anubis"}
 		]
 	}
 
@@ -153,6 +158,15 @@
 			{ Name = "Melinoe_Staff_Cast_Start" }
 			{ Name = "Melinoe_Staff_Cast_StartLoop" }
 			{ Name = "Melinoe_Staff_Cast_Fire" }
+			{ Name = "MelinoeCrossCastAntic" }
+			{ Name = "Melinoe_CrossCast_Start_Fast" }
+			{ Name = "MelinoeCrossCastCharge" }
+			{ Name = "MelinoeCrossCast" }
+			{ Name = "MelinoeCrossCastHold" }
+			{ Name = "Melinoe_ForwardCast_Start" }
+			{ Name = "Melinoe_ForwardCast_Fire" }
+			{ Name = "Melinoe_ForwardCast_FireLoop" }
+			{ Name = "Melinoe_ForwardCast_FireLoop2" }
 		]
 
 		Attachments =

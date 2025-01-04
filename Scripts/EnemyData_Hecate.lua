@@ -7,7 +7,10 @@
 		Portrait = "Portrait_Hec_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.HecateVoice,
+		EmoteOffsetY = -280,
+		EmoteOffsetX = 50,
 		SpeakerName = "Hecate",
+		FieldSpeakerName = "HecateField",
 		SpeechParams =
 		{
 			Radius = 1,
@@ -53,7 +56,10 @@
 			},
 		},
 
-		Using = { GrannyModel = { "WeaponHecateR_HecateScale_Mesh", "WeaponHecateL_HecateScale_Mesh", "WeaponHecateMultiple_Mesh", "WeaponHecateR_Mesh", "WeaponHecateL_Mesh" } },
+		Using = {
+			GrannyModel = { "WeaponHecateR_HecateScale_Mesh", "WeaponHecateL_HecateScale_Mesh", "WeaponHecateMultiple_Mesh", "WeaponHecateR_Mesh", "WeaponHecateL_Mesh" },
+			Animation = { "HecateTransformFlame", "HecateTransformFlameDark" },
+			},
 
 		PreBossAISetupFunctionName = "HecateBattleStart",
 		AIEndHealthThreshold = 0.66,
@@ -84,8 +90,7 @@
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
 				NewVulnerability = true,
-				SpawnEncounter = "HecatePassiveSpawns01",
-				StageEndEndSpawnEncounter = true,
+				WaitDuration = 0.5,
 				AIData =
 				{
 					AIEndHealthThreshold = 0.33,
@@ -112,9 +117,8 @@
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
 				StartDelay = 0.0,
+				WaitDuration = 0.5,
 				NewVulnerability = true,
-				SpawnEncounter = "HecatePassiveSpawns02",
-				StageEndEndSpawnEncounter = true,
 				AIData =
 				{
 					AIEndHealthThreshold = 0.00,
@@ -133,7 +137,7 @@
 			SuccessiveChanceToPlay = 0.15,
 			Cooldowns =
 			{
-				{ Name = "HecateSpokeRecently", Time = 25 },
+				{ Name = "HecateSpokeRecently", Time = 18 },
 			},
 
 			{ Cue = "/VO/Hecate_0095", Text = "You could have avoided that." },
@@ -170,7 +174,7 @@
 				Cooldowns =
 				{
 					{ Name = "HecateSpokeRecently", Time = 8 },
-					{ Name = "HecateLastStandReactionSpeech", Time = 25 },
+					{ Name = "HecateLastStandReactionSpeech", Time = 30 },
 				},
 
 				{ Cue = "/VO/Hecate_0339", Text = "My, my!" },
@@ -226,9 +230,19 @@
 			RandomRemaining = true,
 			PreLineWait = 0.35,
 			ChanceToPlay = 0.2,
+			GameStateRequirements =
+			{
+				{
+					PathFromArgs = true,
+					Path = { "SourceProjectile", },
+					IsNone = {
+						"HecatePolymorph"
+					},
+				},
+			},
 			Cooldowns =
 			{
-				{ Name = "HecateSpokeRecently", Time = 25 },
+				{ Name = "HecateSpokeRecently", Time = 20 },
 			},
 
 			{ Cue = "/VO/Hecate_0118", Text = "I'm afraid not." },
@@ -244,19 +258,50 @@
 		},
 		ResistedVoiceLines =
 		{
-			BreakIfPlayed = true,
-			RandomRemaining = true,
-			PreLineWait = 0.35,
-			TriggerCooldowns = { "HecateSpokeRecently" },
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "EffectName", },
+						IsNone = { "HecatePolymorphStun" },
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "HecateResistReactionSpeech", Time = 40 },
+				},
+				TriggerCooldowns = { "HecateSpokeRecently" },
 
-			{ Cue = "/VO/HecateField_0219", Text = "I'll keep this form, thank you.", PlayFirst = true },
-			{ Cue = "/VO/HecateField_0220", Text = "{#Emph}Bah." },
-			{ Cue = "/VO/Hecate_0118", Text = "I'm afraid not." },
-			{ Cue = "/VO/Hecate_0119", Text = "Felt not a thing." },
-			{ Cue = "/VO/Hecate_0120", Text = "Irrelevant!" },
-			{ Cue = "/VO/Hecate_0122", Text = "I think not." },
-			{ Cue = "/VO/Hecate_0123", Text = "Try something else!" },
-			{ Cue = "/VO/HecateField_0056", Text = "You strike to no avail." },
+				{ Cue = "/VO/HecateField_0219", Text = "I'll keep this form, thank you.", PlayFirst = true },
+				{ Cue = "/VO/HecateField_0220", Text = "{#Emph}Bah." },
+				{ Cue = "/VO/Hecate_0118", Text = "I'm afraid not." },
+				{ Cue = "/VO/Hecate_0119", Text = "Felt not a thing." },
+				{ Cue = "/VO/Hecate_0120", Text = "Irrelevant!" },
+				{ Cue = "/VO/Hecate_0122", Text = "I think not." },
+				{ Cue = "/VO/Hecate_0123", Text = "Try something else!" },
+				{ Cue = "/VO/HecateField_0056", Text = "You strike to no avail." },
+			},
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.25,
+				GameStateRequirements =
+				{
+					{
+						PathFromArgs = true,
+						Path = { "EffectName", },
+						IsAny = { "HecatePolymorphStun" },
+					},
+				},
+				TriggerCooldowns = { "HecateSpokeRecently" },
+
+				{ Cue = "/VO/HecateField_0070", Text = "Aren't you a cheeky one?" },
+				{ Cue = "/VO/HecateField_0068", Text = "Truly now?", PlayFirst = true },
+			},
 		},
 
 		OnHitVoiceLinesQueueDelay = 0.6,
@@ -270,12 +315,21 @@
 				GameStateRequirements =
 				{
 					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Hecate" },
+						Comparison = ">=",
+						Value = 0.3,
+					},
+					{
 						PathFromArgs = true,
 						Path = { "SourceProjectile", },
 						IsAny = { "CatFamiliarPounce" },
 					},
 				},
-				TriggerCooldowns = { "HecateSpokeRecently" },
+				SkipCooldownCheckIfNonePlayed = true,
+				Cooldowns =
+				{
+					{ Name = "HecateSpokeRecently", Time = 16 },
+				},
 
 				{ Cue = "/VO/HecateField_0235", Text = "Back off, cat.", PlayFirst = true },
 				{ Cue = "/VO/HecateField_0236", Text = "This {#Emph}cat..." },
@@ -295,8 +349,8 @@
 			SuccessiveChanceToPlay = 0.05,
 			Cooldowns =
 			{
-				{ Name = "HecateSpokeRecently", Time = 25 },
-			},				
+				{ Name = "HecateSpokeRecently", Time = 22 },
+			},
 			GameStateRequirements =
 			{
 			},
@@ -330,7 +384,7 @@
 			SuccessiveChanceToPlay = 0.05,
 			Cooldowns =
 			{
-				{ Name = "HecateSpokeRecently", Time = 25 },
+				{ Name = "HecateSpokeRecently", Time = 22 },
 			},
 			PreLineWait = 0.35,
 			GameStateRequirements =
@@ -476,10 +530,9 @@
 					{
 						PathFalse = { "PrevRun", "TextLinesRecord", "HecateAboutSelene01" },
 					},
-					-- @ update with updated requirements
 					{
 						Path = { "CurrentRun", "WeaponsFiredRecord" },
-						CountOf = {
+						HasAny = {
 						 	"WeaponSpellLaser",
 						 	"WeaponSpellPolymorph",
 						 	"WeaponSpellSummon", 
@@ -487,10 +540,8 @@
 						 	"WeaponSpellPotion",
 						 	"WeaponSpellMeteor",
 						 	"WeaponSpellTransform",
-						 	-- "SpellDrainTrait",
-						 },
-						Comparison = ">=",
-						Value = 2,
+						 	"WeaponSpellLeap",
+						},
 					},
 					{
 						Path = { "GameState", "RoomCountCache", "F_Boss01", },
@@ -589,7 +640,10 @@
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HecateBossAboutDemeter01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HecateBossAboutDemeter01" }, Count = 2 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HecateBossAboutDemeter01" }, Min = 2 },
+					},
 				},
 				{ Cue = "/VO/HecateField_0009",
 					Text = "I sense that Demeter is with you once again. I suspected she would either be among the first to lend support, or to refuse." },
@@ -785,8 +839,9 @@
 				GameStateRequirements =
 				{
 					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
 					},
-					RequiredMaxHealthFraction = 0.33,
 				},
 				{ Cue = "/VO/Hecate_0080",
 					Text = "Forgive my bluntness but you're in a rather sorry-looking state, Witch. 'Tis unfair for me to fight you whilst I am at my best and you are not." },
@@ -807,7 +862,10 @@
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Hecate_0082",
 					Text = "You've suffered injuries, Melinoë. You know that I can cure them for you, and you know that I shall not. Not here. It brings me no pleasure." },
@@ -831,7 +889,10 @@
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/Hecate_0084",
 					Text = "Your wounds give me the upper hand, Melinoë. What hope have you of ever finding our enemy in such a state?" },
@@ -900,7 +961,10 @@
 					{
 						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponTorch" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HecateBossAboutTorch01" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HecateBossAboutTorch01" }, Min = 3 },
+					},
 				},
 				{ Cue = "/VO/HecateField_0112",
 					Text = "The Umbral Flames of Ygnium, at your command! You use them in your own way; not merely copy my technique." },
@@ -948,6 +1012,24 @@
 					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
 					Text = "{#Emph}That {#Prev}is rather a personal question, considering all evidence at hand! Perhaps Revaal herself shall reveal to you the answer in due course." },
+			},
+			HecateBossAboutSuit01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+					},
+				},
+				{ Cue = "/VO/HecateField_0255",
+					Text = "The Black Coat you now possess... surrounding you as though 'twas forged with you in mind. I feared that it was broken and beyond repair, but... it was merely waiting." },
+				{ Cue = "/VO/MelinoeField_2857", UsePlayerSource = true,
+					Text = "Waiting for me... I've never wielded anything like it. Xinth doesn't exactly listen to my thoughts, but heeds my every instinct." },
+				{ Cue = "/VO/HecateField_0256",
+					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					PreLineFunctionName = "StartBossRoomMusic",
+					Text = "Not your {#Emph}every {#Prev}instinct; the Arms of Night have a singular purpose, which they go about each in their own peculiar respect. You are to execute that purpose without fail." },
 			},
 
 			HecateBossAboutCirceAspect01 =
@@ -1114,6 +1196,27 @@
 					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
 					Text = "Moody creatures, cats; born huntresses but uncontrollable. I almost fear to see just what this little one can do! With hounds, at least I know exactly where I stand." },
+			},
+			HecateBossAboutHoundFamiliar01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "EquippedFamiliar" },
+						IsAny = { "HoundFamiliar" },
+					},
+				},
+				{ Cue = "/VO/HecateField_0118",
+					Text = "Look at that prim posture! We're in the presence of majestic Hecuba herself...! How fares my favored hound?" },
+				{ Cue = "/VO/MelinoeField_0509", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "She's very well, and a most-capable companion to have at my side. Though I hate to have to strain her loyalties like this." },
+				{ Cue = "/VO/HecateField_0119",
+					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					PreLineFunctionName = "StartBossRoomMusic",
+					Text = "Come, you want to see what she shall do! Her loyalty is absolute. I permitted her to serve you as she serves me! Let's all now bare our fangs." },
 			},
 
 			HecateBossAboutArachneOutfit01 =
@@ -1624,7 +1727,7 @@
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdle", PostLineAnimTarget = "Hero",
-					Text = "Our task takes me to the very ends of the earth. I have unfinished business there as well as here. I'm much more comfortable in these environs, though." },
+					Text = "Our task takes me to the very ends of the Earth. I have unfinished business there as well as here. I'm much more comfortable in these environs, though." },
 				{ Cue = "/VO/Hecate_0196",
 					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
 					PreLineFunctionName = "StartBossRoomMusic",
@@ -2147,18 +2250,9 @@
 					{
 						--
 					},
-				},
-				{ Cue = "/VO/Hecate_0173",
-					PreLineFunctionName = "StartBossRoomMusic",
-					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
-					Text = "You are not merely being tested here; you are never to cease learning." },
-			},
-			HecateBossMiscStart17 =
-			{
-				GameStateRequirements =
-				{
 					{
-						--
+						FunctionName = "RequiredConsecutiveClearsOfRoom",
+						FunctionArgs = { Name = "F_Boss01", Count = 2 },
 					},
 				},
 				{ Cue = "/VO/Hecate_0453",
@@ -2237,21 +2331,6 @@
 					{
 						Path = { "GameState", "GamePhase" },
 						Comparison = "==",
-						Value = 1,
-					},
-				},
-				{ Cue = "/VO/HecateField_0023",
-					PreLineFunctionName = "StartBossRoomMusic",
-					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
-					Text = "The Moon is full and clear this eve. Brings a certain drama to our confrontation, does it not?" },
-			},
-			HecateBossMiscStart23 =
-			{
-				GameStateRequirements =
-				{
-					{
-						Path = { "GameState", "GamePhase" },
-						Comparison = "==",
 						Value = 5,
 					},
 				},
@@ -2260,7 +2339,34 @@
 					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
 					Text = "'Tis a new moon, and an opportunity for a new beginning. But first...!" },
 			},
-
+			HecateBossMiscStart24 =
+			{
+				GameStateRequirements =
+				{
+					{
+						--
+					},
+				},
+				{ Cue = "/VO/Hecate_0173",
+					PreLineFunctionName = "StartBossRoomMusic",
+					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					Text = "You are not merely being tested here; you are never to cease learning." },
+			},
+			HecateBossMiscStart25 =
+			{
+				GameStateRequirements =
+				{
+					{
+						Path = { "GameState", "GamePhase" },
+						Comparison = "==",
+						Value = 1,
+					},
+				},
+				{ Cue = "/VO/HecateField_0023",
+					PreLineFunctionName = "StartBossRoomMusic",
+					PreLineThreadedFunctionName = "PlayHecateTauntAnim", PreLineWait = 0.35,
+					Text = "The Moon is full and clear this eve. Brings a certain drama to our confrontation, does it not?" },
+			},
 		},
 
 		-- following are for when she exits the encounter
@@ -2437,6 +2543,10 @@
 						Path = { "CurrentRun", "ActiveBounty" },
 						IsNone = { "PackageBountyChaosIntro" }
 					},
+					-- mutually exclusive variant
+					{
+						PathFalse = { "GameState", "TextLinesRecord", "HecateGrantsWeaponUpgradeSystem01"},
+					},
 					-- backward compatibility
 					{
 						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeWeaponUpgradeSystem" },
@@ -2469,7 +2579,10 @@
 				{
 					{
 					},
-					RequiredMinHealthFraction = 0.5,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.5, },
+					},
 				},
 				{ Cue = "/VO/Hecate_0141",
 					Text = "May all your enemies beyond succumb to you as readily." },
@@ -2481,7 +2594,10 @@
 				{
 					{
 					},
-					RequiredMaxHealthFraction = 0.4,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.4, },
+					},
 				},
 				{ Cue = "/VO/Hecate_0142",
 					Text = "Well fought. But I cannot mend your wounds, and neither shall your enemies." },
@@ -2499,7 +2615,10 @@
 				{
 					{
 					},
-					RequiredMinHealthFraction = 0.7,
+					{
+				FunctionName = "RequiredHealthFraction",
+				FunctionArgs = { Comparison = ">=", Value = 0.7, },
+			},
 				},
 				{ Cue = "/VO/Hecate_0315",
 					Text = "Impressive show of force. Hold nothing back as you continue on." },
@@ -2545,7 +2664,10 @@
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.33,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.33, },
+					},
 				},
 				{ Cue = "/VO/HecateField_0086",
 					Text = "Just when I thought I had you, you seized control of the fight! Well fought!" },
@@ -2561,7 +2683,10 @@
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.5,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.5, },
+					},
 				},
 				{ Cue = "/VO/HecateField_0087",
 					Text = "You used your last remaining moments very well. May you fare well below." },
@@ -2699,6 +2824,296 @@
 		},
 	},
 	
+}
+
+-- Global Hecate Lines
+GlobalVoiceLines.HecatePolymorphVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.35,
+	ObjectType = "Hecate",
+	Cooldowns =
+	{
+		{ Name = "HecatePolymorphedRecently", Time = 60 },
+	},
+	TriggerCooldowns = { "HecateSpokeRecently" },
+
+	{ Cue = "/VO/Hecate_0148", Text = "{#Emph}Ah{#Prev}, to be a beast!", },
+	{ Cue = "/VO/Hecate_0149", Text = "Caught you!", },
+	{ Cue = "/VO/Hecate_0150", Text = "A hex upon you!", PlayFirst = true },
+	{ Cue = "/VO/Hecate_0151", Text = "Enjoy your newfound form.", },
+	{ Cue = "/VO/Hecate_0152", Text = "If you could see yourself.", },
+	{ Cue = "/VO/Hecate_0153", Text = "I know you hate this trick." },
+	{ Cue = "/VO/Hecate_0356", Text = "What's wrong, Melinoë?" },
+	{ Cue = "/VO/Hecate_0357", Text = "The curse of Night!" },
+	{ Cue = "/VO/Hecate_0358", Text = "Unpleasant, isn't it?" },
+	{ Cue = "/VO/Hecate_0359", Text = "Caught out again." },
+	{ Cue = "/VO/HecateField_0060", Text = "All you can do is run." },
+	{ Cue = "/VO/HecateField_0061", Text = "Now run, Melinoë." },
+	{ Cue = "/VO/HecateField_0062", Text = "I suggest you run." },
+	{ Cue = "/VO/HecateField_0063", Text = "The tables have turned..." },
+	{ Cue = "/VO/HecateField_0064", Text = "Not simple to evade that one." },
+	{ Cue = "/VO/HecateField_0065", Text = "You look adorable." },
+	{ Cue = "/VO/HecateField_0149", Text = "Take on a lesser form!" },
+	{ Cue = "/VO/HecateField_0150", Text = "Time for a {#Emph}change." },
+	{ Cue = "/VO/HecateField_0193", Text = "Pardon the interruption." },
+	{ Cue = "/VO/HecateField_0191", Text = "No you don't." },
+	{ Cue = "/VO/HecateField_0192", Text = "No, you don't!",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "SpeechRecord", "/VO/HecateField_0191" }
+			},
+		},
+	},
+	{ Cue = "/VO/HecateField_0194", Text = "Your {#Emph}favorite!",
+		GameStateRequirements =
+		{
+			{
+				Path = { "GameState", "RoomsEntered", "F_Boss01" },
+				Comparison = ">=",
+				Value = 10,
+			},
+		},
+	},
+}
+
+GlobalVoiceLines.HecateHexVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	PreLineWait = 0.35,
+	SuccessiveChanceToPlay = 0.33,
+	ObjectType = "Hecate",
+	GameStateRequirements =
+	{
+		{
+			Path = { "CurrentRun", "BossHealthBarRecord", "Hecate" },
+			Comparison = ">",
+			Value = 0.2,
+		},
+	},
+	Cooldowns =
+	{
+		{ Name = "HecateHexedRecently", Time = 45 },
+		{ Name = "HecateSpokeRecently", Time = 12 },
+	},
+
+	{ Cue = "/VO/Hecate_0353", Text = "Now beware..." },
+	{ Cue = "/VO/Hecate_0145", Text = "Behold!" },
+	{ Cue = "/VO/Hecate_0352", Text = "How about this?" },
+	{ Cue = "/VO/Hecate_0493", Text = "{#Emph}Kataskion aski!" },
+	{ Cue = "/VO/Hecate_0496", Text = "{#Emph}Askion kataski...!" },
+	{ Cue = "/VO/HecateField_0205", Text = "{#Emph}Damname aision!" },
+	-- { Cue = "/VO/Hecate_0494", Text = "{#Emph}Kataskion aski...!" },
+	-- { Cue = "/VO/Hecate_0495", Text = "{#Emph}Askion kataski!" },
+	-- { Cue = "/VO/HecateField_0206", Text = "{#Emph}Damname aision...!" },
+	-- { Cue = "/VO/HecateField_0207", Text = "{#Emph}Damnaski traxon!" },
+	-- { Cue = "/VO/HecateField_0208", Text = "{#Emph}Damnaski traxon!" },
+	{ Cue = "/VO/HecateField_0151", Text = "Behold the Moon!",
+		Cooldowns =
+		{
+			{ Name = "HecateSaidMoonRecently", Time = 30 },
+		},
+	},
+	{ Cue = "/VO/HecateField_0153", Text = "Tremble beneath the Moon!",
+		Cooldowns =
+		{
+			{ Name = "HecateSaidMoonRecently", Time = 30 },
+		},
+	},
+	{ Cue = "/VO/HecateField_0154", Text = "I have more hexes up my sleeve!" },
+	{ Cue = "/VO/HecateField_0155", Text = "Let's see you evade {#Emph}this!", PlayFirst = true },
+}
+
+GlobalVoiceLines.HecatePhaseChangeVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "Hecate",
+		SuccessiveChanceToPlay = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BossHealthBarRecord", "Hecate" },
+				Comparison = ">=",
+				Value = 0.65,
+			},
+			{
+				Path = { "GameState", "RoomsEntered", "F_PostBoss01" },
+				Comparison = "<=",
+				Value = 30,
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "HecateSpokeRecently", Time = 18 },
+		},
+		TriggerCooldowns = { "HecateLaseredRecently", "HecateMeteoredRecently", "HecateHexedRecently" },
+
+		{ Cue = "/VO/Hecate_0104", Text = "Good." },
+		{ Cue = "/VO/Hecate_0107", Text = "Well done!" },
+		{ Cue = "/VO/Hecate_0111", Text = "Good form." },
+		{ Cue = "/VO/Hecate_0117", Text = "Well struck." },
+		{ Cue = "/VO/HecateField_0038", Text = "Do not overextend." },
+		{ Cue = "/VO/HecateField_0039", Text = "{#Emph}That {#Prev}I felt." },
+		{ Cue = "/VO/HecateField_0042", Text = "Careful now." },
+		{ Cue = "/VO/HecateField_0043", Text = "That's it." },
+		{ Cue = "/VO/HecateField_0044", Text = "Like that." },
+	},
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.65,
+		ObjectType = "Hecate",
+		SuccessiveChanceToPlay = 0.25,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "BossHealthBarRecord", "Hecate" },
+				Comparison = "<=",
+				Value = 0.35,
+			},
+		},
+		Cooldowns =
+		{
+			{ Name = "HecateSpokeRecently", Time = 18 },
+		},
+		TriggerCooldowns = { "HecateLaseredRecently", "HecateMeteoredRecently" },
+
+		{ Cue = "/VO/Hecate_0103", Text = "Good!" },
+		{ Cue = "/VO/Hecate_0106", Text = "Well done." },
+		{ Cue = "/VO/Hecate_0105", Text = "{#Emph}Rngh{#Prev}, good!" },
+		{ Cue = "/VO/Hecate_0365", Text = "{#Emph}Heh..." },
+		{ Cue = "/VO/HecateField_0048", Text = "Like that...!" },
+	},
+
+}
+
+GlobalVoiceLines.HecateBossSpawnWaveVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.5,
+	SuccessiveChanceToPlay = 0.75,
+	ObjectType = "Hecate",
+	Cooldowns =
+	{
+		{ Name = "HecateSummonedRecently", Time = 200 },
+	},
+	TriggerCooldowns = { "HecateSpokeRecently" },
+
+	{ Cue = "/VO/Hecate_0154", Text = "To me, my Sisters!" },
+	{ Cue = "/VO/Hecate_0155", Text = "Join me, Sisters!" },
+	{ Cue = "/VO/Hecate_0508", Text = "Into the fray, Sisters!" },
+	{ Cue = "/VO/Hecate_0509", Text = "Once more with me, Sisters!" },
+	{ Cue = "/VO/Hecate_0510", Text = "Return to me, Sisters!" },
+	{ Cue = "/VO/Hecate_0511", Text = "Return to fight, Sisters!" },
+	{ Cue = "/VO/Hecate_0512", Text = "Arise, Sisters!", PlayFirst = true },
+	{ Cue = "/VO/Hecate_0513", Text = "Arise again, Sisters!" },	
+	-- { Cue = "/VO/HecateField_0050", Text = "So..." },
+	{ Cue = "/VO/HecateField_0195", Text = "{#Emph}Night Bloom!" },
+	{ Cue = "/VO/HecateField_0196", Text = "{#Emph}Night Bloom...!", PlayFirst = true },
+	{ Cue = "/VO/HecateField_0197", Text = "Sisters, to {#Emph}me!" },
+	{ Cue = "/VO/HecateField_0198", Text = "Come, Sisters of the Dead!" },
+	{ Cue = "/VO/HecateField_0199", Text = "Oh, Sisters?",
+		GameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EnemyKills", "Chronos" },
+			},
+			{
+				Path = { "GameState", "RoomsEntered", "F_Boss01" },
+				Comparison = ">=",
+				Value = 8,
+			},
+		},
+	},
+	{ Cue = "/VO/HecateField_0200", Text = "Sisters, {#Emph}now!" },
+}
+
+GlobalVoiceLines.HecateGatherReactionVoiceLines =
+{
+	RandomRemaining = true,
+	BreakIfPlayed = true,
+	PreLineWait = 0.65,
+	SuccessiveChanceToPlay = 0.5,
+	ObjectType = "Hecate",
+	SkipCooldownCheckIfNonePlayed = true,
+	Cooldowns =
+	{
+		{ Name = "HecateSpokeRecently", Time = 6 },
+	},
+
+	{ Cue = "/VO/Hecate_0360", Text = "Don't you think that can wait?" },
+	{ Cue = "/VO/Hecate_0361", Text = "A valuable!" },
+	{ Cue = "/VO/Hecate_0362", Text = "Find anything good?", PlayFirst = true },
+	{ Cue = "/VO/Hecate_0363", Text = "Hello, this is a {#Emph}fight!" },
+	{ Cue = "/VO/HecateField_0070", Text = "Aren't you a cheeky one?" },
+	{ Cue = "/VO/HecateField_0071", Text = "You'll soon get more than that." },
+	{ Cue = "/VO/HecateField_0072", Text = "How nice for you." },
+	{ Cue = "/VO/HecateField_0073", Text = "{#Emph}Ooh {#Prev}let me see!" },
+}
+
+GlobalVoiceLines.HecateAddsDeadVoiceLines =
+{
+	{
+		BreakIfPlayed = true,
+		RandomRemaining = true,
+		PreLineWait = 0.25,
+		ObjectType = "Hecate",
+		SuccessiveChanceToPlay = 0.25,
+		Cooldowns =
+		{
+			{ Name = "HecateSpokeRecently", Time = 18 },
+		},
+
+		{ Cue = "/VO/Hecate_0103", Text = "Good!" },
+		{ Cue = "/VO/Hecate_0104", Text = "Good." },
+		{ Cue = "/VO/Hecate_0106", Text = "Well done." },
+		{ Cue = "/VO/Hecate_0107", Text = "Well done!" },
+		{ Cue = "/VO/Hecate_0111", Text = "Good form." },
+		{ Cue = "/VO/Hecate_0117", Text = "Well struck." },
+		{ Cue = "/VO/HecateField_0038", Text = "Do not overextend." },
+		{ Cue = "/VO/HecateField_0043", Text = "That's it." },
+		{ Cue = "/VO/HecateField_0044", Text = "Like that." },
+	},
+}
+
+GlobalVoiceLines.HecateReturnVoiceLines =
+{
+	BreakIfPlayed = true,
+	RandomRemaining = true,
+	SuccessiveChanceToPlay = 0.33,
+	PreLineWait = 0.4,
+	GameStateRequirements =
+	{
+		{
+			Path = { "GameState", "EnemyKills", "Hecate" },
+			Comparison = ">=",
+			Value = 1,
+		},
+		{
+			Path = { "CurrentRun", "TextLinesRecord" },
+			HasNone = 
+			{
+				"HecateBossMiscOutro15",
+				"HecateBossOutro01",
+				"HecateBossGrantsCodex01",
+				"HecateBossGrantsCardUpgradeSystem01",
+				"HecateBossGrantsFamiliarSystem01",
+				"HecateBossGrantsWeaponUpgradeSystem01",
+			},
+		},
+	},
+
+	{ Cue = "/VO/HecateField_0251", Text = "Return to shadow, now!" },
+	{ Cue = "/VO/HecateField_0252", Text = "Return to shadow, now..." },
+	{ Cue = "/VO/HecateField_0253", Text = "Return to shadow, now.", PlayFirst = true, },
+	{ Cue = "/VO/HecateField_0254", Text = "Return to shadow, now." },
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Hecate )

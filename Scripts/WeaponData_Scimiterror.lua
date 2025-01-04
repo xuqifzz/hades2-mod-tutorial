@@ -139,7 +139,7 @@ WeaponSetData =
 			FireDuration = 0.46,
 			PostAttackDuration = 0.5,
 
-			PreAttackTeleportToSpawnPoints = true,
+			PreAttackTeleport = true,
 			TeleportMaxDistance = 400,
 			TeleportPreWaitAnimation = "Enemy_Scimiterror_SlashLeftPreFire",
 			TeleportEndFx = "ScimiterrorTeleportFx",

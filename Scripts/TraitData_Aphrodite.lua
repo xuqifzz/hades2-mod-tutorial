@@ -58,6 +58,13 @@ OverwriteTableKeys( TraitData, {
 					Format = "PercentDelta",
 			},
 		},
+		WeaponDataOverride = 
+		{
+			WeaponSuitCharged = 
+			{
+				BlockGraphic = "SuitDeflect_Aphrodite",
+			}
+		},
 		PropertyChanges = {
 
 			{
@@ -277,6 +284,7 @@ OverwriteTableKeys( TraitData, {
 			},
 
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "Graphic",
@@ -293,10 +301,29 @@ OverwriteTableKeys( TraitData, {
 				ExcludeLinked = true,
 			},
 			{
+				FalseTraitName = "LobCloseAttackAspect",
 				WeaponName = "WeaponLob",
 				ProjectileName = "ProjectileLob",
 				ProjectileProperty = "StartFx",
 				ChangeValue = "StaffProjectileFireFx2Close_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "MedeaLoadFx_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},
+			{
+				TraitName = "LobCloseAttackAspect",
+				WeaponName = "WeaponLob",
+				ProjectileName = "ProjectileLob",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "MedeaFuseFx_Aphrodite",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
@@ -358,6 +385,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "Graphic",
 				ChangeValue = "TorchProjectileLargeIn_Aphrodite",
@@ -374,6 +402,7 @@ OverwriteTableKeys( TraitData, {
 			},
 			{
 				WeaponName = "WeaponTorch",
+				FalseTraitName = "TorchSprintRecallAspect",
 				ProjectileName = "ProjectileTorchBallLarge",
 				ProjectileProperty = "AttachedAnim",
 				ChangeValue = "TorchProjectileShadowLarge_Aphrodite",
@@ -412,7 +441,88 @@ OverwriteTableKeys( TraitData, {
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
 			},
-
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "EosProjectile_Aphrodite_In",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponTorch",
+				TraitName = "TorchSprintRecallAspect",
+				ProjectileName = "ProjectileTorchBallLarge",
+				ProjectileProperty = "AttachedAnim",
+				ChangeValue = "EosProjectileShadow",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosion",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponTorch",
+				ProjectileName = "ProjectileTorchExplosionLarge",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "AxeNova_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true,
+			},	
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Aphrodite",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuit",
+				ProjectileName = "ProjectileSuit2",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunch_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitCharged",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitPunchLarge_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				FalseTraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "SuitNovaBurn_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitNovaBurn_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitDashAttackTrait",
+				WeaponName = "WeaponSuitDash",
+				ProjectileName = "ProjectileSuitDash",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "Null",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitDash",
+				WeaponProperty = "FireFx",
+				ChangeValue = "SuitExhaustDashTrail_R_Spawner_Aphrodite",
+				ChangeType = "Absolute",
+			},
 		},
 	},
 	AphroditeSpecialBoon =
@@ -541,8 +651,22 @@ OverwriteTableKeys( TraitData, {
 				WeaponName = "WeaponDaggerThrow",
 				ProjectileName = "ProjectileDaggerThrow",
 				ProjectileProperty = "Graphic",
-				ChangeValue = "DaggerProjectileFx_Aphrodite",
+				ChangeValue = "DaggerProjectileCurved_Aphrodite",
 				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Aphrodite", 
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "DaggerHomingThrowAspect",
+				WeaponName = "WeaponDaggerThrow",
+				ProjectileName = "ProjectileDaggerThrowCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "DaggerProjectileFx_Pan_Aphrodite",
 			},
 			{
 				WeaponName = "WeaponDaggerThrow",
@@ -557,6 +681,30 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "AxeDeflect_Aphrodite",
 				ChangeType = "Absolute",
 				ExcludeLinked = true,
+			},
+			{
+				FalseTraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "AxeSpinDouble_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				WeaponProperty = "FireFx",
+				ChangeValue = "null",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
+			},
+			{
+				TraitName = "AxeBlockEmpowerTrait",
+				WeaponName = "WeaponAxeSpecial",
+				ProjectileProperty = "StartFx",
+				ChangeValue = "AxeSpinDouble_Aphrodite",
+				ChangeType = "Absolute",
+				ExcludeLinked = true
 			},
 			{
 				WeaponName = "WeaponAxeSpecialSwing",
@@ -642,7 +790,63 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = "TorchSpecialProjectileDissipate_Aphrodite",
 				ChangeType = "Absolute",
 			},
-
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedChargedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravel_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocket_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedUnguided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketUnguided_Aphrodite",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "Graphic",
+				ChangeValue = "SuitRocketTravelUnguided_Aphrodite",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Aphrodite",
+				ChangeType = "Absolute",
+			},			
+			{
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "DetonateFx",
+				ChangeValue = "SuitRocketExplosion_Aphrodite",
+				ChangeType = "Absolute",
+			},
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedGuided",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Aphrodite",
+				ChangeType = "Absolute",
+			},		
+			{
+				TraitName = "SuitSpecialJumpTrait",
+				WeaponName = "WeaponSuitRanged",
+				ProjectileName = "ProjectileSuitRangedCharged",
+				ProjectileProperty = "BounceFx",
+				ChangeValue = "SuitRocketExplosion_Aphrodite",
+			},
 		},
 	},
 	AphroditeCastBoon =
@@ -848,7 +1052,7 @@ OverwriteTableKeys( TraitData, {
 	},
 	AphroditeManaBoon = 
 	{
-		Icon = "Boon_Aphrodite_40",
+		Icon = "Boon_Aphrodite_42",
 		InheritFrom = { "BaseTrait", "AirBoon" },
 		Slot = "Mana",
 		RarityLevels =
@@ -879,10 +1083,10 @@ OverwriteTableKeys( TraitData, {
 			{
 				ManaRegen = { 
 					BaseValue = 6,
-					MinValue = 0.166,
-					IdenticalMultiplier =
+					AbsoluteStackValues =
 					{
-						Value = -0.67,
+						[1] = 2,
+						[2] = 1,
 					},
 				},
 				ManaRegenStartFx = "ManaRegenFlashFx",
@@ -1168,7 +1372,7 @@ OverwriteTableKeys( TraitData, {
 	WeakVulnerabilityBoon = 
 	{
 	
-		Icon = "Boon_Aphrodite_39",
+		Icon = "Boon_Aphrodite_40",
 		InheritFrom = { "BaseTrait", "LegacyTrait", "WaterBoon" },
 		RarityLevels =
 		{
@@ -1242,19 +1446,19 @@ OverwriteTableKeys( TraitData, {
 		{
 			Common =
 			{
-				Multiplier = 1.0,
+				Multiplier = 1.00,
 			},
 			Rare =
 			{
-				Multiplier = 1.5,
+				Multiplier = 1.25,
 			},
 			Epic =
 			{
-				Multiplier = 2,
+				Multiplier = 1.50,
 			},
 			Heroic =
 			{
-				Multiplier = 2.5,
+				Multiplier = 1.75,
 			},
 		},
 	
@@ -1263,7 +1467,7 @@ OverwriteTableKeys( TraitData, {
 			FunctionName = "CheckManaBurst",
 			FunctionArgs = 
 			{
-				ManaCost = 30,
+				ManaCost = 40,
 				ProjectileName = "AphroditeBurst",
 				DamageMultiplier = 
 				{
@@ -1271,7 +1475,7 @@ OverwriteTableKeys( TraitData, {
 					MinMultiplier = 0.1,
 					IdenticalMultiplier = 
 					{ 
-						Value = -0.5, 
+						Value = -0.75, 
 						DiminishingReturnsMultiplier = 0.8,
 					},
 				},
@@ -1311,6 +1515,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	FocusRawDamageBoon = 
 	{
 		InheritFrom = { "BaseTrait", "AirBoon" },
@@ -1376,6 +1581,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	RandomStatusBoon = -- Legendary
 	{
 		Icon = "Boon_Aphrodite_31",

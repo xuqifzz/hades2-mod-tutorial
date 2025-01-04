@@ -52,6 +52,7 @@
 		OwnerUntargetable = true
 		OwnerHasNoCollision = true
 		CancelOnOwnerMove = false
+		OwnerInvulnerable = true
 	}
 
 	{
@@ -210,6 +211,7 @@
 		Name = "Enemy_SirenKeytar_Dive"
 		InheritFrom = "EnemySirenKeytarBaseAnimation"
 		GrannyAnimation = "Siren_Keytar_Dive_C_00"
+		Sound = "/Leftovers/SFX/PlayerJumpMedium"
 		VisualFx = "KeytaristDiveFx"
 		VisualFxIntervalMin = 0.33
 		VisualFxIntervalMax = 0.34

@@ -1,4 +1,21 @@
-﻿
+﻿PersistentKeepsakeKeys = 
+{
+	"AccumulatedDamageBonus",
+	"AccumulatedDodgeBonus",
+	"RemainingUses",
+	"Uses",
+	"CurrentRoom",
+	"CurrentKeepsakeDamageBonus",
+	"CurrentArmor",
+	"CurrentTime",
+	"EscalatingKeepsakeValue",
+	"CustomTrayText",
+	"CustomName",
+	"CapMaxHealth",
+	"TotalManaRecovered",
+	"DoorHealReserve",
+}
+
 TraitSetData.Keepsakes =
 {
 	GiftTrait =
@@ -8,6 +25,7 @@ TraitSetData.Keepsakes =
 			Common = "Frame_Keepsake_Rank1",
 			Rare = "Frame_Keepsake_Rank2",
 			Epic = "Frame_Keepsake_Rank3",
+			Heroic = "Frame_Keepsake_Rank4",
 		},
 		Slot = "Keepsake",
 		ShowInHUD = true,
@@ -139,6 +157,8 @@ TraitSetData.Keepsakes =
 			},
 		},
 
+		SpeakerNames = { "Moros" },
+
 		EquipVoiceLines =
 		{
 			{
@@ -171,7 +191,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/MorosKeepsake_0083", Text = "Princess." },
 				{ Cue = "/VO/MorosKeepsake_0084", Text = "Princess...!" },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -194,6 +214,7 @@ TraitSetData.Keepsakes =
 		InheritFrom = { "GiftTrait" },
 		Icon = "Keepsake_29",
 		InRackTitle = "ReincarnationKeepsake_Rack",
+		ZeroBonusTrayText = "ReincarnationKeepsake_Expired",
 		RarityLevels =
 		{
 			Common =
@@ -256,7 +277,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/SkellyKeepsake_0110", Text = "Kiddo." },
 				{ Cue = "/VO/SkellyKeepsake_0111", Text = "Disciple.", PlayFirst = true },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -301,6 +322,7 @@ TraitSetData.Keepsakes =
 				Multiplier = 3.0,
 			}
 		},
+		CustomInfoCardYOffset = 20,
 		DoorHealReserve = { BaseValue = 50 },
 		ExtractValues =
 		{
@@ -323,7 +345,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3182", Text = "The Onion." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -409,7 +431,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/NemesisKeepsake_0291", Text = "Princess." },
 				{ Cue = "/VO/NemesisKeepsake_0273", Text = "You..." },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -501,7 +523,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/ArtemisKeepsake_0214", Text = "Hey Sister." },
 				{ Cue = "/VO/ArtemisKeepsake_0215", Text = "Melinoë.", PlayFirst = true },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -542,6 +564,7 @@ TraitSetData.Keepsakes =
 		AcquireFunctionArgs =
 		{ 
 			Name = "SpellDrop",
+			AlternatePriorityRewardName = "TalentDrop",
 			Count = { BaseValue = 3 },
 			ReportValues = 
 			{ 
@@ -569,7 +592,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3185", Text = "The Beam." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -585,6 +608,7 @@ TraitSetData.Keepsakes =
 		InRackTitle = "BonusMoneyKeepsake_Rack",
 		Icon = "Keepsake_34",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeHypnosCoinPurse",
+		ZeroBonusTrayText = "BonusMoneyKeepsake_Expired",
 		UnequippedKeepsakeTitle = "BonusMoneyKeepsake_Rack",
 		CustomTrayNameWhileDead = "BonusMoneyKeepsake",
 		ZeroBonusTrayText = "BonusMoneyKeepsake_Expired",
@@ -613,6 +637,7 @@ TraitSetData.Keepsakes =
 			{
 				Key = "BonusMoney",
 				ExtractAs = "TooltipMoney",
+				Format = "MultipliedMoney",
 			}
 		},
 		EquipVoiceLines =
@@ -628,7 +653,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3184", Text = "The Purse." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -668,6 +693,7 @@ TraitSetData.Keepsakes =
 				Multiplier = 5.00,
 			}
 		},
+		SpeakerNames = { "Odysseus" },
 		EncounterPreDamage =
 		{
 			PreDamage = { BaseValue = 0.05 },
@@ -727,7 +753,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/OdysseusKeepsake_0110", Text = "Goddess." },
 				{ Cue = "/VO/OdysseusKeepsake_0111", Text = "Goddess.", PlayFirst = true },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -743,58 +769,50 @@ TraitSetData.Keepsakes =
 		ZeroBonusTrayText = "ManaOverTimeRefundKeepsake_Expired",
 		Icon = "Keepsake_27",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeNyxShawl",
-		-- OnExpireSound = "/Leftovers/SFX/AuraOff",
 		RarityLevels =
 		{
+
 			Common =
 			{
-				Multiplier = 1.00,
+				Multiplier = 1.0
 			},
 			Rare =
 			{
-				Multiplier = 1.50,
+				Multiplier = 1.5
 			},
 			Epic =
 			{
-				Multiplier = 2.00,
+				Multiplier = 2
 			},
 			Heroic =
 			{
-				Multiplier = 3,
-			}
-		},
-		TotalManaRecovered = { BaseValue = 1000 },
-		SetupFunction =
-		{
-			Name = "ManaRegenSetup",
-			Args =
-			{
-				Name = "ManaOverTimeRefundKeepsake",
+				Multiplier = 3
 			},
-			RunOnce = true
 		},
-		OnManaSpendAction = 
+		
+		OnWeaponChargeFunctions =
 		{
-			FunctionName = "CheckOverTimeManaRefund",
-			FunctionArgs = 
+			ValidWeapons = { "WeaponStaffSwing5", "WeaponDagger5", "WeaponStaffBall", "WeaponDaggerThrow", "WeaponAxeSpecialSwing", "WeaponAxeSpin", "WeaponTorch", "WeaponTorchSpecial", "WeaponLob", "WeaponLobSpecial", "WeaponCastArm", "WeaponCastProjectileHades", "WeaponCastProjectile", "WeaponAnywhereCast", "WeaponCastLob", "WeaponSuitCharged", "WeaponSuitRanged"},
+			FunctionName = "CheckWeaponCastChannelSlow",
+			FunctionArgs =
 			{
-				Duration = 3,
-				Interval = 0.5,
-				ReportValues = 
-				{ 
-					ReportedDuration = "Duration",
-				}
-			}
+				Modifier = 0.20,
+				Duration = { BaseValue = 1.0 },
+				ReportValues = { ReportedSlow = "Modifier", ReportedSlowDuration = "Duration" }
+			},
+			ExcludeLinked = true,
 		},
 		ExtractValues =
 		{
 			{
-				Key = "TotalManaRecovered",
-				ExtractAs = "TooltipManaRecovery",
+				Key = "ReportedSlow",
+				ExtractAs = "TooltipSlow",
+				Format = "NegativePercentDelta",
+				SkipAutoExtract = true,
 			},
 			{
-				Key = "ReportedDuration",
-				ExtractAs = "TooltipDuration",
+				Key = "ReportedSlowDuration",
+				ExtractAs = "TooltipSlowDuration",
 				DecimalPlaces = 1,
 			},
 		},
@@ -835,7 +853,7 @@ TraitSetData.Keepsakes =
 				-- { Cue = "/VO/HecateKeepsake_0692", Text = "Melinoë." },
 				{ Cue = "/VO/HecateKeepsake_0693", Text = "Melinoë?" },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -895,7 +913,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3202", Text = "The Figurine." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -910,6 +928,7 @@ TraitSetData.Keepsakes =
 		InRackTitle = "FountainRarityKeepsake_Rack",
 		Icon = "Keepsake_39",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeDionysusCup",
+		-- DescriptionTextSymbolScale = 0.65,
 		RarityLevels =
 		{
 			Common =
@@ -990,7 +1009,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/NarcissusKeepsake_0119", Text = "Hey Laurel.", PlayFirst = true },
 				{ Cue = "/VO/NarcissusKeepsake_0120", Text = "Laurel!" },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -1051,10 +1070,6 @@ TraitSetData.Keepsakes =
 				ExtractAs = "PlayerArmor"
 			},
 			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
-			{
 				Key = "ReportedArmor",
 				ExtractAs = "BaseArmor"
 			}
@@ -1073,7 +1088,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3186", Text = "The Sash." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 
 		SignOffData =
@@ -1088,7 +1103,8 @@ TraitSetData.Keepsakes =
 		InheritFrom = {"GiftTrait"},
 		InRackTitle = "TempHammerKeepsake_Rack",
 		Icon = "Keepsake_41",
-		EquipSound = "/SFX/WeaponUpgradeHammerPickup",
+		EquipSound = "/SFX/WeaponUpgradeHammerPickup",		
+		ZeroBonusTrayText = "TempHammerKeepsake_Inactive",
 		AcquireFunctionName = "GiveDurationHammer",
 		AcquireFunctionArgs =
 		{ 
@@ -1122,7 +1138,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3203", Text = "The Hammer." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1175,10 +1191,6 @@ TraitSetData.Keepsakes =
 
 		ExtractValues = 
 		{
-			{
-				Key = "CurrentArmor",
-				ExtractAs = "TooltipCurrentArmor",
-			},
 			{
 				Key = "GrantedHealth",
 				ExtractAs = "HealthBonus",
@@ -1263,7 +1275,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3199", Text = "The Fang." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1338,7 +1350,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3198", Text = "The Fleece." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1418,7 +1430,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3200", Text = "The Bell." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1512,7 +1524,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/HermesKeepsake_0156", Text = "Hey M!", PlayFirst = true },
 				{ Cue = "/VO/HermesKeepsake_0157", Text = "Let's go, M." },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1578,6 +1590,7 @@ TraitSetData.Keepsakes =
 		InRackTitle = "UnpickedBoonKeepsake_Rack",
 		Icon = "Keepsake_40",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeSkellyTooth",
+		SpeakerNames = { "Echo" },
 		RarityLevels =
 		{
 			Common =
@@ -1622,7 +1635,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3189", Text = "The Stone." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1638,6 +1651,7 @@ TraitSetData.Keepsakes =
 		InRackTitle = "RandomBlessingKeepsake_Rack",
 		Icon = "Keepsake_42",
 		EquipSound = "/SFX/Menu Sounds/KeepsakeChaosEgg",
+		SpeakerNames = { "Chaos" },
 		RarityLevels =
 		{
 			Common =
@@ -1722,13 +1736,189 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/ChaosKeepsake_0280", Text = "Spawn of Hades." },
 				{ Cue = "/VO/ChaosKeepsake_0281", Text = "Spawn of Hades?" },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
 		  {
 			Text = "SignoffChaos",
 		  },
+		},
+	},
+	SkipEncounterKeepsake =
+	{
+		InheritFrom = { "GiftTrait" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 2,
+			},
+			Epic =
+			{
+				Multiplier = 3,
+			},
+			Heroic =
+			{
+				Multiplier = 4,
+			}
+		},
+		Icon = "Keepsake_55",
+		ZeroBonusTrayText = "SkipEncounterKeepsake_Inactive",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeEurydiceAcorn",
+		Using = { ObstacleName = { "3DDiscoBall", "OlympusCeilingChain01", }, },
+		SkipEncounterChance = 0.50,
+		SkipEncounterValidationFunctionName = "CanDionysusSkip",
+		RemainingUses = { BaseValue = 1 },
+		ExtractValues = 
+		{
+			{
+				Key = "RemainingUses",
+				ExtractAs = "Uses",
+			},
+			{
+				Key = "SkipEncounterChance",
+				ExtractAs = "Chance",
+				Format = "Percent"
+			}
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+				{ Cue = "/VO/Melinoe_3762", Text = "The Leaf." },
+			},
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
+		},
+		SignOffData =
+		{
+			{
+				Text = "SignoffDionysus",
+			},
+		},
+	},
+	AthenaEncounterKeepsake = 
+	{
+		InheritFrom = { "GiftTrait" },
+		RarityLevels =
+		{
+			Common =
+			{
+				Multiplier = 1.0,
+			},
+			Rare =
+			{
+				Multiplier = 2,
+			},
+			Epic =
+			{
+				Multiplier = 3,
+			},
+			Heroic =
+			{
+				Multiplier = 4,
+			}
+		},
+		Icon = "Keepsake_54",
+		ZeroBonusTrayText = "AthenaEncounterKeepsake_Inactive",
+		EquipSound = "/SFX/Menu Sounds/KeepsakeAthenaOwl",
+		RemainingUses = 1,
+		SpeakerNames = { "Athena" },
+		PackageNames = { "NPC_Athena_01" },
+		Using =
+		{
+			SpawnUnit = "NPC_Athena_01",
+			Animations =
+			{
+				"Athena_Salute",
+				"Athena_Blessing",
+				"Athena_Brooding",
+				"Athena_Proud_Start",
+				"Athena_Proud_End",
+				"AthenaUnequipSparkle",
+			},
+		},
+		UniqueEncounterArgs = 
+		{
+			GameStateRequirements = 
+			{
+				{
+					Path = { "CurrentRun", "Hero", "LastStands" },
+					UseLength = true,
+					Comparison = "<=",
+					Value = 0,
+				},
+				{
+					Path = { "CurrentRun", "BiomeDepthCache" },
+					Comparison = ">=",
+					Value = 2,
+				},
+				{
+					PathFalse = { "CurrentRun", "CurrentRoom", "BlockAthenaEncounterKeepsake" }
+				},
+				{
+					PathFalse = { "CurrentRun", "CurrentRoom", "Encounter", "BlockAthenaEncounterKeepsake" }
+				},
+			},
+			EncounterThreadedFunctions = 
+			{
+				FunctionName = "HandleAthenaSpawn",
+				Args = 
+				{
+					RarityLevelBonus = { BaseValue = 1 },
+					FromTrait = "AthenaEncounterKeepsake",
+					ReportValues = { BlessingRarityBonus = "RarityLevelBonus" }
+				},
+			}
+		},
+		ExtractValues = 
+		{
+			{
+				Key = "BlessingRarityBonus",
+				ExtractAs = "RarityValue",
+				Format = "Rarity",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "HeroData",
+				BaseName = "LastStandData",
+				BaseProperty = "Heal",
+				Format = "Percent",
+				ExtractAs = "LastStandHeal",
+				SkipAutoExtract = true,
+			},
+		},
+		EquipVoiceLines =
+		{
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlay = 0.2,
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+				},
+
+				{ Cue = "/VO/Melinoe_3761", Text = "The Amulet." },
+			},
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
+		},
+		SignOffData =
+		{
+			{
+				Text = "SignoffAthena",
+			},
 		},
 	},
 	ForceHephaestusBoonKeepsake =
@@ -1780,7 +1970,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3196", Text = "The Shard." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1857,7 +2047,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/ZeusKeepsake_0184", Text = "Young lady." },
 				{ Cue = "/VO/ZeusKeepsake_0185", Text = "Melinoë." },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1935,7 +2125,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/DemeterKeepsake_0153", Text = "Granddaughter." },
 				{ Cue = "/VO/DemeterKeepsake_0155", Text = "Melinoë." },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -1993,7 +2183,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3195", Text = "The Mirror." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -2051,7 +2241,26 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3192", Text = "The Sea." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			{
+				PreLineWait = 0.3,
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				ChanceToPlay = 0.25,
+				Source = { LineHistoryName = "NPC_Poseidon_01", SubtitleColor = Color.PoseidonVoice },
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "PoseidonGift03" },
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "KeepsakeGiverSpeechPlayedRecently", Time = 90 },
+				},
+				{ Cue = "/VO/PoseidonKeepsake_0306", Text = "My niece!" },
+				{ Cue = "/VO/PoseidonKeepsake_0307", Text = "Ahoy!" },
+			},
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -2110,7 +2319,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3193", Text = "The Hope." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -2169,7 +2378,7 @@ TraitSetData.Keepsakes =
 
 				{ Cue = "/VO/Melinoe_3197", Text = "The Ember." },
 			},
-			[2] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[2] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{
@@ -2246,7 +2455,7 @@ TraitSetData.Keepsakes =
 				{ Cue = "/VO/HeraKeepsake_0160", Text = "Yes, my dear?" },
 				{ Cue = "/VO/HeraKeepsake_0161", Text = "Regards." },
 			},
-			[3] = GlobalVoiceLines.AwardSelectedVoiceLines,
+			[3] = { GlobalVoiceLines = "AwardSelectedVoiceLines" },
 		},
 		SignOffData =
 		{

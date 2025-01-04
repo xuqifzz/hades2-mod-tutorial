@@ -19,7 +19,7 @@ function CheckProgressAchievements( args )
 	for achievementName, achievementData in pairs( GameData.AchievementData ) do
 		if not achievementData.DebugOnly and not SessionAchivementUnlocks[achievementName] then
 			--DebugPrint({ Text="CHECK ACHIEVEMENT: "..achievementName })
-			if achievementData.CompleteGameStateRequirements ~= nil and IsGameStateEligible( CurrentRun, achievementData, achievementData.CompleteGameStateRequirements ) then
+			if achievementData.CompleteGameStateRequirements ~= nil and IsGameStateEligible( achievementData, achievementData.CompleteGameStateRequirements ) then
 				-- Completed
 				UnlockAchievement({ Name = achievementName })
 				--DebugPrint({ Text="ACHIEVEMENT UNLOCKED: "..achievementName })
@@ -51,7 +51,7 @@ function CheckAchievement( args )
 	end
 
 	local achievementData = GameData.AchievementData[args.Name]
-	if achievementData.CompleteGameStateRequirements == nil or IsGameStateEligible( CurrentRun, achievementData, achievementData.CompleteGameStateRequirements ) then
+	if achievementData.CompleteGameStateRequirements == nil or IsGameStateEligible( achievementData, achievementData.CompleteGameStateRequirements ) then
 		UnlockAchievement({ Name = args.Name })
 		--DebugPrint({ Text="ACHIEVEMENT UNLOCKED: "..args.Name })
 		SessionAchivementUnlocks[args.Name] = true

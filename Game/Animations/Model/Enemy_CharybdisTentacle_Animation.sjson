@@ -170,7 +170,7 @@
 		[
 			{
 				Frame = 4
-				Sound = "/Leftovers/SFX/FootstepsWetLarge"
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusFistPalm"
 			}
 		]
 

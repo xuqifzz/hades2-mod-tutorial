@@ -12,18 +12,6 @@
 		Blends = 
 		[
 			{
-				BlendTransitionFrom = "Melinoe_Torch_Idle"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Sprint_FireLoop"
-				Duration = 6
-			}
-			{
-				BlendTransitionFrom = "Melinoe_Torch_Run_FireLoop"
-				Duration = 6
-			}
-			{
 				BlendTransitionFrom = "Melinoe_Torch_Equip"
 				Duration = 6
 			}
@@ -226,6 +214,10 @@
 		Blends =
 		[
 			{
+				BlendTransitionFrom = "Melinoe_HeroLanding"
+				Duration = 6
+			}
+			{
 				BlendTransitionFrom = "MelinoeIdleWeaponless"
 				Duration = 6
 			}
@@ -363,21 +355,32 @@
 		GrannyAnimation = "Melinoe_Torch_Base_RunSprint_N_01"
 		NativeMoveSpeed = 740
 		Loop = true
+		RequireCurrentAnimationNotContains =
+		[
+			{ Name = "Melinoe_Torch_Dash_Fire" }
+		]
 		Frames = 
 		[
 			{
-				Frame = 9
+				Frame = 7
 				FootstepFxR = "FireFootstepR-Spawner"
 				FootstepFxL = ""
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
 			}
 			{
-				Frame = 24
+				Frame = 23
 				FootstepFxR = ""
 				FootstepFxL = "FireFootstepL-Spawner"
 				FootstepSound = "/Leftovers/SFX/FootstepsWheat"
 			}
 		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Melinoe_Torch_Dash_End1"
+				Duration = 6
+			}
+		]
 	}
 
-	] }
+] }

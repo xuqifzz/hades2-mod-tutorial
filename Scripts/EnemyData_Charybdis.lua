@@ -8,8 +8,9 @@ UnitSetData.Charybdis =
 		BlockRespawnShrineUpgrade = true,
 		IgnoreSpeedShrine = true,
 		BlockCharm = true,
+		HealthBarOffsetY = -520,
 		OnDeathFunctionName = "GenericBossKillPresentation",
-		OnDeathFunctionArgs = { Message = "CharybdisDefeatedMessage", StartPanTime = 1.0, EndPanTime = 2.0, PanZoomFraction = 0.75, FlashRed = true, MessageDelay = 0.5, IgnoreEndMusic = true, },
+		OnDeathFunctionArgs = { Message = "CharybdisDefeatedMessage", StartPanTime = 1.0, EndPanTime = 2.0, PanZoomFraction = 0.75, FlashRed = true, MessageDelay = 0.5 },
 		DeathAnimation = "Enemy_Charybdis_Retreat",
 		DeathSound = "/SFX/StabSplatterEndSequence",
 		UseActivatePresentation = false,
@@ -50,40 +51,21 @@ UnitSetData.Charybdis =
 		},
 
 		SkipTransitionInvulnerability = true,
-		AIEndGroupHealthThreshold = 0.75,
+		AIEndGroupHealthThreshold = 0.5,
 		AIStages =
 		{
 			{
 				RandomAIFunctionNames = { "IdleAIStage" },
 				AIData =
 				{
-					AIEndGroupHealthThreshold = 0.75,
+					AIEndGroupHealthThreshold = 0.5,
 				},				
 			},
 			{
 				RandomAIFunctionNames = { "IdleAIStage" },
 				TransitionFunction = "CharybdisTransition",
-				TransitionWeapon = "CharybdisSpit1",
-				AIData =
-				{
-					AIEndGroupHealthThreshold = 0.5,
-				},
-			},
-
-			{
-				RandomAIFunctionNames = { "IdleAIStage" },
-				TransitionFunction = "CharybdisTransition",
-				TransitionWeapon = "CharybdisSpit2",
-				AIData =
-				{
-					AIEndGroupHealthThreshold = 0.25,
-				},
-			},
-
-			{
-				RandomAIFunctionNames = { "AttackerAI" },
-				TransitionFunction = "CharybdisTransition",
 				TransitionWeapon = "CharybdisSpit3",
+				RandomAIFunctionNames = { "AttackerAI" },
 				EquipWeapons = {"CharybdisSpitSmall",},
 				AIData =
 				{
@@ -101,10 +83,12 @@ UnitSetData.Charybdis =
 	CharybdisTentacle =
 	{
 		InheritFrom = { "BaseBossEnemy", "BaseVulnerableEnemy"},
+		GenusName = "Charybdis",
 		IsBoss = false,
 		BlockRaiseDead = true,
 		BlockRespawnShrineUpgrade = true,
-		MaxHealth = 2000,
+		BlockCharm = true,
+		MaxHealth = 2800,
 
 		DeathFx = "EnemyDeathFxIris",
 		DeathSound = "/SFX/Enemy Sounds/Charybdis/EmoteDying",
@@ -116,26 +100,30 @@ UnitSetData.Charybdis =
 
 		WeaponOptions =
 		{
-			"CharybdisTentacleSlap",
+			"CharybdisTentacleSlap"
 		},
 
 		SkipTransitionInvulnerability = true,
-		AIEndGroupHealthThreshold = 0.75,
+		AIEndGroupHealthThreshold = 0.8,
 		AIStages =
 		{
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
 				TransitionFunction = "BossStageTransition",
-				WaitDuration = 1.0,
 				AIData =
 				{
-					AIEndGroupHealthThreshold = 0.75,
+					AIEndGroupHealthThreshold = 0.8,
 				},
 			},
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
+				WaitDuration = 0.0,
+				DataOverrides =
+				{
+					WakeUpDelayMin = 0.0,
+					WakeUpDelayMax = 0.0,
+				},
 				TransitionFunction = "BossStageTransition",
-				WaitDuration = 1.0,
 				FireWeapon = "CharybdisTentacleBurrow",
 				AIData =
 				{
@@ -147,28 +135,39 @@ UnitSetData.Charybdis =
 
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
+				WaitDuration = 9.0,
 				TransitionFunction = "BossStageTransition",
-				WaitDuration = 1.0,
 				FireWeapon = "CharybdisTentacleBurrow",
 				AIData =
 				{
-					AIEndGroupHealthThreshold = 0.25,
+					AIEndGroupHealthThreshold = 0.3,
 				},
 				UnequipAllWeapons = true,
 				EquipWeapons = { "CharybdisTentacleWhip", "CharybdisTentacleSpike" },	
 			},
-
 			{
 				RandomAIFunctionNames = { "AttackerAI" },
+				WaitDuration = 0.0,
 				TransitionFunction = "BossStageTransition",
-				WaitDuration = 1.0,
+				FireWeapon = "CharybdisTentacleBurrow",
+				AIData =
+				{
+					AIEndGroupHealthThreshold = 0.15,
+				},
+				UnequipAllWeapons = true,
+				EquipWeapons = { "CharybdisTentacleSlap", "CharybdisTentacleSpike", "CharybdisTentacleWhip" },
+			},
+			{
+				RandomAIFunctionNames = { "AttackerAI" },
+				WaitDuration = 0.0,
+				TransitionFunction = "BossStageTransition",
 				FireWeapon = "CharybdisTentacleBurrow",
 				AIData =
 				{
 					AIEndGroupHealthThreshold = 0.0,
 				},
 				UnequipAllWeapons = true,
-				EquipWeapons = { "CharybdisTentacleSlap", "CharybdisTentacleSpike", "CharybdisTentacleWhip" },	
+				EquipWeapons = { "CharybdisTentacleSlap", "CharybdisTentacleSpike", "CharybdisTentacleWhip" },
 			},
 		},
 		WakeUpDelayMin = 0.5,

@@ -158,6 +158,14 @@ ScreenData.UpgradeChoice =
 	{	
 		OffsetX = -420,
 		OffsetY = 80,
+		LangOffsetY = 
+		{
+			{ Code = "zh-TW", Value = 83 },
+		},
+		LangLineSpacingBottom =
+		{
+			{ Code = "zh-TW", Value = -10 },
+		},
 		Width = 900,
 		Color = Color.FlavorTextPurple,
 		Font = "LatoItalic",

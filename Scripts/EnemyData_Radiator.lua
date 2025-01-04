@@ -42,6 +42,7 @@ UnitSetData.Radiator =
 
 			ExpireProjectilesOnHitStun = true,
 		},
+		EndAIThreadWaitOnFreezeEnd = true,
 
 		WeaponOptions =
 		{
@@ -56,34 +57,23 @@ UnitSetData.Radiator =
 
 		ActiveCapWeight = 0.5,
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/Melinoe_1440", Text = "Spindles!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
 			RandomRemaining = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatF", "NemesisCombatIntro", "NemesisCombatF" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/Melinoe_1439", Text = "Spindles.", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_1440", Text = "Spindles!" },
+			{ Cue = "/VO/Melinoe_1439", Text = "Spindles." },
+			{ Cue = "/VO/Melinoe_1440", Text = "Spindles!", PlayFirst = true },
 			{ Cue = "/VO/Melinoe_1441", Text = "More Spindles." },
 			{ Cue = "/VO/Melinoe_1442", Text = "Come, Spindles." },
 		},
@@ -103,11 +93,6 @@ UnitSetData.Radiator =
 		WeaponOptions =
 		{
 			"RadiatorMelee360_Elite",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		GeneratorData =
@@ -147,7 +132,7 @@ UnitSetData.Radiator =
 
 		GeneratorData =
 		{
-			DifficultyRating = 11,
+			DifficultyRating = 14,
 			BlockEnemyTypes = {"Radiator2_Elite"}
 		},
 	},
@@ -162,14 +147,9 @@ UnitSetData.Radiator =
 			DeepInheritance = true,
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		GeneratorData =
 		{
-			DifficultyRating = 22,
+			DifficultyRating = 27,
 			BlockEnemyTypes = {"Radiator2"}
 		},
 	},

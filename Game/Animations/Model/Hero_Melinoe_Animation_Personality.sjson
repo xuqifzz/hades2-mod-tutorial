@@ -277,6 +277,12 @@
 		InheritFrom = "MelinoeSalute"
 		ChainTo = "MelinoeEquip"
 	}
+	{
+		Name = "MelinoeSaluteToBrooding"
+		InheritFrom = "MelinoeSalute"
+		ChainTo = "MelTalkBrooding01"
+		AllowRestart = false
+	}
 
 	{
 		Name = "MelinoePetFrinos"
@@ -290,13 +296,35 @@
 			
 		]
 	}
-
-
 	{
 		Name = "Melinoe_PetCat"
 		InheritFrom = "MelinoeBaseAnimation"
 		ChainTo = "MelinoeIdleWeaponless"
 		GrannyAnimation = "Cat_Base_PetCat_C_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Blends =
+		[	
+			
+		]
+	}
+	{
+		Name = "Melinoe_PetRaven"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeIdleWeaponless"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_PetRaven_00"
+		CancelOnOwnerMove = true
+		AllowRestart = true
+		Blends =
+		[	
+			
+		]
+	}
+	{
+		Name = "Melinoe_PetHound"
+		InheritFrom = "MelinoeBaseAnimation"
+		ChainTo = "MelinoeIdleWeaponless"
+		GrannyAnimation = "Melinoe_Base_Pet_C_00"
 		CancelOnOwnerMove = true
 		AllowRestart = true
 		Blends =
@@ -893,6 +921,9 @@
 			{
 				Frame = 0
 				FrameSpeed = 0
+			}
+			{
+				Frame = 1
 			}
 			{
 				Frame = 6

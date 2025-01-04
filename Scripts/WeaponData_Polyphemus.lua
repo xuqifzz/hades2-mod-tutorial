@@ -113,7 +113,7 @@ WeaponSetData =
 				SuccessiveChanceToPlay = 0.15,
 				Cooldowns =
 				{
-					{ Name = "CyclopsSpokeRecently", Time = 20 },
+					{ Name = "CyclopsSpokeRecently", Time = 22 },
 				},
 
 				{ Cue = "/VO/Polyphemus_0043", Text = "Have some of this!" },
@@ -176,9 +176,6 @@ WeaponSetData =
 			AttackSlots =
 			{
 				{ ProjectileName = "PolyphemusLeapTouchdown", AIDataOverrides = { FireProjectileTowardTarget = true } },
-				--{ ProjectileName = "PolyphemusStompDebris", AIDataOverrides = { Spread = 360 } },
-				--{ ProjectileName = "PolyphemusStompDebris", AIDataOverrides = { Spread = 360 } },
-				--{ ProjectileName = "PolyphemusStompDebris", AIDataOverrides = { Spread = 360 } },
 			},
 
 			CreateOwnTargetFromOriginalTarget = true,
@@ -287,15 +284,15 @@ WeaponSetData =
 			SpawnOnSpawnPoints = true,
 			SpawnRadiusMin = 400,
 			SpawnRadius = 480,
-			SpawnsPerBurstMin = 4,
-			SpawnsPerBurstMax = 4,
+			SpawnsPerBurstMin = 2,
+			SpawnsPerBurstMax = 2,
 			MaxActiveSpawns = 6,
 			SpawnerOptions = { "ZombieHeavyRanged" },
 			SpawnAggroed = true,
 			
 			AttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.PolyphemusSummonVoiceLines,
+				[1] = { GlobalVoiceLines = "PolyphemusSummonVoiceLines" },
 			},
 		},
 
@@ -372,10 +369,10 @@ WeaponSetData =
 			SpawnOnSpawnPoints = true,
 			SpawnRadiusMin = 400,
 			SpawnRadius = 480,
-			SpawnsPerBurstMin = 2,
-			SpawnsPerBurstMax = 2,
+			SpawnsPerBurstMin = 4,
+			SpawnsPerBurstMax = 4,
 			MaxActiveSpawns = 6,
-			SpawnerOptions = { "ZombieHeavyRanged_Elite" },
+			SpawnerOptions = { "ZombieHeavyRanged" },
 			SpawnAggroed = true,
 			
 		},
@@ -406,9 +403,9 @@ WeaponSetData =
 			DashIfOverDistance = 99999,
 
 			ProjectileName = "PolyphemusLeapKnockback",
-			FireTicks = 8,
+			FireTicks = 7,
 			FireInterval = 0.1,
-			FireProjectileStartDelay = 0.28,
+			FireProjectileStartDelay = 0.4,
 
 			NumProjectiles = 1,
 
@@ -549,10 +546,18 @@ WeaponSetData =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 0.35,
-				SuccessiveChanceToPlay = 0.75,
+				SuccessiveChanceToPlay = 0.85,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "BossHealthBarRecord", "Polyphemus" },
+						Comparison = ">=",
+						Value = 0.2,
+					},
+				},
 				Cooldowns =
 				{
-					-- { Name = "CyclopsSearchedRecently", Time = 30 },
+					{ Name = "CyclopsThrewBoulderRecently", Time = 40 },
 				},
 				TriggerCooldowns = { "CyclopsSpokeRecently" },
 
@@ -563,6 +568,14 @@ WeaponSetData =
 				{ Cue = "/VO/Polyphemus_0244", Text = "There you are." },
 				{ Cue = "/VO/Polyphemus_0245", Text = "I {#Emph}see {#Prev}you." },
 				{ Cue = "/VO/Polyphemus_0246", Text = "Shouldnt've done that!" },
+				{ Cue = "/VO/Polyphemus_0417", Text = "Bad move!" },
+				{ Cue = "/VO/Polyphemus_0418", Text = "Up we go!" },
+				{ Cue = "/VO/Polyphemus_0419", Text = "Don't you get it?" },
+				{ Cue = "/VO/Polyphemus_0420", Text = "Took the bait!" },
+				{ Cue = "/VO/Polyphemus_0421", Text = "Here's something!" },
+				{ Cue = "/VO/Polyphemus_0422", Text = "I'll flatten ya!" },
+				{ Cue = "/VO/Polyphemus_0423", Text = "Get squashed!" },
+				{ Cue = "/VO/Polyphemus_0424", Text = "Splat you like a bug!" },
 			},
 		},
 
@@ -687,9 +700,9 @@ WeaponSetData =
 				SuccessiveChanceToPlay = 0.75,
 				Cooldowns =
 				{
-					-- { Name = "CyclopsSearchedRecently", Time = 30 },
+					{ Name = "CyclopsSearchedRecently", Time = 40 },
 				},
-				-- TriggerCooldowns = { "CyclopsSpokeRecently" },
+				TriggerCooldowns = { "CyclopsSpokeRecently" },
 
 				{ Cue = "/VO/Polyphemus_0023", Text = "Where are you...?", PlayFirst = true },
 				{ Cue = "/VO/Polyphemus_0024", Text = "Where are you..." },
@@ -701,6 +714,28 @@ WeaponSetData =
 				{ Cue = "/VO/Polyphemus_0030", Text = "You're gonna pay..." },
 				{ Cue = "/VO/Polyphemus_0031", Text = "Here, little sheep..." },
 				{ Cue = "/VO/Polyphemus_0032", Text = "Couldn'ta gone far..." },
+				{ Cue = "/VO/Polyphemus_0411", Text = "Oh look, I'm wide open!" },
+				{ Cue = "/VO/Polyphemus_0412", Text = "You're out there somewhere..." },
+				{ Cue = "/VO/Polyphemus_0413", Text = "Go on, just try me..." },
+				{ Cue = "/VO/Polyphemus_0414", Text = "Oh when I find you..." },
+				{ Cue = "/VO/Polyphemus_0415", Text = "Don't leave me hanging here." },
+				{ Cue = "/VO/Polyphemus_0416", Text = "Too damn noisy {#Emph}eh?" },
+				{ Cue = "/VO/Polyphemus_0409", Text = "{#Emph}Dumm, dum, dun, dumm...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "PolyphemusAboutChronos01" }
+						}
+					}
+				},
+				{ Cue = "/VO/Polyphemus_0410", Text = "{#Emph}Dum, dumm, dum, dumm...",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "PolyphemusAboutChronos01" }
+						}
+					}
+				},
 			},
 
 		},
@@ -825,7 +860,7 @@ WeaponSetData =
 			FireDuration = 0.0,
 			PostAttackDuration = 3.0,
 			
-			TargetArcRange = 270,
+			TargetArcRange = 180,
 			AttackDistance = 350,
 			MoveWithinRangeTimeout = 3.0,
 			SkipAttackAfterMoveTimeout = true,
@@ -958,7 +993,7 @@ WeaponSetData =
 
 			AttackVoiceLines =
 			{
-				[1] = GlobalVoiceLines.PolyphemusSummonVoiceLines,
+				[1] = { GlobalVoiceLines = "PolyphemusSummonVoiceLines" },
 			},
 		},
 
@@ -1004,6 +1039,8 @@ WeaponSetData =
 				{ OffsetFromAttacker = true, PauseDuration = 1.52, },
 				{ OffsetFromAttacker = true, },
 			},
+
+			EndOnFlagName = "InTransition",
 
 			FireProjectileStartDelay = 0.60,
 

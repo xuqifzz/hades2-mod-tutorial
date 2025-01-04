@@ -400,7 +400,7 @@
     
     {
       Name = "AsphodelBoat01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -422,7 +422,7 @@
     
     {
       Name = "AsphodelBoat01b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -451,7 +451,7 @@
     
     {
       Name = "AsphodelTerrainRock04"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -470,7 +470,7 @@
     
     {
       Name = "AsphodelTerrainRock05"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -489,7 +489,7 @@
     
     {
       Name = "AsphodelTerrainRock06"
-      InheritFrom = "1_BaseTerrainDecalObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -502,7 +502,7 @@
     
     {
       Name = "AsphodelVase03"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -521,7 +521,7 @@
     
     {
       Name = "AsphodelVase01b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -540,7 +540,7 @@
     
     {
       Name = "AsphodelVase01c"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -559,7 +559,7 @@
     
     {
       Name = "AsphodelVase01d"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -693,7 +693,7 @@
     
     {
       Name = "AsphodelGable01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -712,7 +712,7 @@
     
     {
       Name = "AsphodelGable01b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -731,7 +731,7 @@
     
     {
       Name = "AsphodelGable02"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -750,7 +750,7 @@
     
     {
       Name = "AsphodelGable02a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -807,7 +807,7 @@
     
     {
       Name = "AsphodelCatacomb01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -826,7 +826,7 @@
     
     {
       Name = "AsphodelCatacomb02"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -845,7 +845,7 @@
     
     {
       Name = "AsphodelCatacomb02b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -864,7 +864,7 @@
     
     {
       Name = "AsphodelCatacomb01c"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1037,26 +1037,31 @@
     
     {
       Name = "AsphodelPillar08"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
         EditorOutlineDrawBounds = false
         Graphic = "Tilesets\Asphodel\Asphodel_Pillar_08"
-        Tallness = 2462.0
+        Tallness = 2462
         Offset = { X = 0 Y = -1017 }
         Points = [
-          { X = -363 Y = 74 }
-          { X = -31 Y = 253 }
-          { X = 357 Y = 64 }
-          { X = 0 Y = -114 }
+          { X = -89 Y = 181 }
+          { X = 148 Y = 173 }
+          { X = 318 Y = 81 }
+          { X = 317 Y = -37 }
+          { X = 122 Y = -172 }
+          { X = -122 Y = -170 }
+          { X = -247 Y = -98 }
+          { X = -315 Y = 28 }
+          { X = -242 Y = 150 }
         ]
       }
     }
     
     {
       Name = "AsphodelPillar07"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1078,7 +1083,7 @@
     
     {
       Name = "AsphodelPillar08b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1137,7 +1142,7 @@
     
     {
       Name = "AsphodelWall02"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1156,7 +1161,7 @@
     
     {
       Name = "AsphodelWallRock04"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1175,7 +1180,7 @@
     
     {
       Name = "AsphodelWallRock05"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1195,7 +1200,7 @@
     
     {
       Name = "AsphodelWallRock06"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1214,7 +1219,7 @@
     
     {
       Name = "AsphodelWallRock07"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1434,7 +1439,7 @@
     
     {
       Name = "AsphodelWallRock08"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1452,7 +1457,7 @@
     
     {
       Name = "AsphodelWallRock08b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1471,7 +1476,7 @@
     
     {
       Name = "AsphodelWallRock09"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1489,7 +1494,7 @@
     
     {
       Name = "AsphodelVase02"
-      InheritFrom = "1_BaseVulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1508,7 +1513,7 @@
     
     {
       Name = "AsphodelWallRock10"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1527,7 +1532,7 @@
     
     {
       Name = "AsphodelWallRock11"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1546,7 +1551,7 @@
     
     {
       Name = "AsphodelWallRock11a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1565,7 +1570,7 @@
     
     {
       Name = "AsphodelWallRock12"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1584,7 +1589,7 @@
     
     {
       Name = "AsphodelTerrainTomb03"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1605,7 +1610,7 @@
     
     {
       Name = "AsphodelTerrainTomb04"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1627,7 +1632,7 @@
     
     {
       Name = "AsphodelTombstone01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1647,7 +1652,7 @@
     
     {
       Name = "AsphodelTombstone01a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1667,7 +1672,7 @@
     
     {
       Name = "AsphodelTombstone01b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1687,7 +1692,7 @@
     
     {
       Name = "AsphodelTombstone02"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1707,7 +1712,7 @@
     
     {
       Name = "AsphodelTombstone03"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1729,7 +1734,7 @@
     
     {
       Name = "AsphodelTombstone04"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1751,7 +1756,7 @@
     
     {
       Name = "AsphodelTombstone05"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1791,7 +1796,7 @@
     
     {
       Name = "AsphodelTombstone06"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1812,7 +1817,7 @@
     
     {
       Name = "AsphodelTombstone06a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1832,7 +1837,7 @@
     
     {
       Name = "AsphodelBricksquare01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -1852,7 +1857,7 @@
     
     {
       Name = "AsphodelBricksquare01b"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2174,7 +2179,7 @@
     
     {
       Name = "AsphodelPillar01"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2194,7 +2199,7 @@
     
     {
       Name = "AsphodelPillar03"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2213,7 +2218,7 @@
     
     {
       Name = "AsphodelPillar05"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2232,7 +2237,7 @@
     
     {
       Name = "AsphodelPillar09"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2251,7 +2256,7 @@
     
     {
       Name = "AsphodelPillar09a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {
@@ -2270,7 +2275,7 @@
     
     {
       Name = "AsphodelPillar05a"
-      InheritFrom = "1_BaseInvulnerableObstacle"
+      InheritFrom = "1_BaseInvulnerableImpassableObstacle"
       DisplayInEditor = true
       Thing = 
       {

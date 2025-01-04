@@ -1,127 +1,87 @@
 { Animations = [
 
 	{
-		Name = "DevotionPreAttackBase_Aphrodite"
-		InheritFrom = "DevotionPreAttackBase"
-		VisualFx = "DevotionPreAttackFx_Aphrodite"
-		EndAlpha = 0.5
-		HoldLastFrame = false
-		CreateAnimationOnEnd = "DevotionPreAttackBaseEnd_Aphrodite"
-		Color = { Red = 0.90 Green = 0.0 Blue = 1.0 }
+		Name = "AphroditeOrbitBall"
+		FilePath = "Fx\Aphrodite\AphroditeStaffBall\AphroditeStaffBall"
+		NumFrames = 60
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Loop = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		Scale = 0.6
+		OffsetZ = 90
+		Material = "Unlit"
+		UseOwnAngle = false
+		AngleFromOwner = "Take"
+		ChainTo = "AphroditeOrbitBallFade"
+		LocationZFromOwner = "Ignore"
 	}
-	
 	{
-		Name = "DevotionPreAttackFx_Aphrodite"
-		InheritFrom = "DevotionPreAttackFx"
-		Alpha = 0.2
-		Scale = 0.5
+		Name = "AphroditeOrbitBallIn"
+		InheritFrom = "AphroditeOrbitBall"
+		StartScale = 0
+		EndScale = 1
+		DurationFrames = 15
+		ChainTo = "AphroditeOrbitBall"
+		CreateAnimation = null
+		Loop = false
+		PingPongScale = false
+	}
+	{
+		Name = "AphroditeOrbitBallFade"
+		InheritFrom = "AphroditeOrbitBall"
+		CreateAnimation = null
+		ChildAnimation = null
+		Loop = false
+		LoopFramesOnly = true
+		VisualFx = null
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		ChainTo = null
+		PingPongScale = false
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+	{
+		Name = "RadialNovaAphrodite"
+		InheritFrom = "RadialNova"
+		Sound = "/SFX/Player Sounds/AphroditeLoveShotgunBlast"
+		Color = { Red = 1.0 Green = 0.75 Blue = 0.79 }
+	}
+	{
+		Name = "AphroditeVacuum"
+		InheritFrom = "RadialNovaAphrodite"
+		PlayBackwards = true
+		PlaySpeed = 200
+		StartAlpha = 0.6
+		VisualFx = "AphroditeParticleSparkle-Dash"
+		VisualFxCap = 16
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
 		CreateAnimations =
 		[
-			{ Name = "DevotionRings_Aphrodite" }
-			{ Name = "DevotionLines_Aphrodite" }
+			{ Name = "ConsecrationStartGlowQuick" }
+			{ Name = "SwordParrySpikeAphrodite" }
+			{ Name = "QuickFlashPink" }
+			{ Name = "GrenadeExplosionLightingAphrodite" }
 		]
 	}
-	
 	{
-		Name = "DevotionLines_Aphrodite"
-		InheritFrom = "DevotionLines"
-		Color = { Red = 0.90 Green = 0.0 Blue = 1.0 }
-	}
-	
-	{
-		Name = "DevotionRings_Aphrodite"
-		InheritFrom = "DevotionRings"
-		Scale = 0.25
-		Color = { Red = 0.90 Green = 0.0 Blue = 1.0 }
-	}
-	
-	{
-		Name = "DevotionPreAttackBaseEnd_Aphrodite"
-		InheritFrom = "DevotionPreAttackBaseEnd"
-		CreateAnimation = "SwordParrySpikeAphrodite"
-		Color = { Red = 0.90 Green = 0.0 Blue = 1.0 }
+		Name = "SwordParrySpikeAphrodite"
+		InheritFrom = "SwordParrySpike"
+		Color = { Red = 0.90 Green = 0.2 Blue = 1.0 }
 	}
 
 	{
-		Name = "DevotionAphroditeProjectile"
-		ChildAnimation = "DevotionAphroditeProjectileGlow"
-		CreateAnimation = "QuickFlashPink"
-		FilePath = "Fx\AphroditeHeartShape\AphroditeHeartShape"
-		GroupName = "Standing"
-		
-		VisualFx = "ArtemisRangedTrail_Aphrodite"
-		Sound = "/SFX/AphroditeDevotionSFX"
-		AddColor = true
-		PingPongColor = true
-		StartBlue = 1.0
-		StartGreen = 1.0
-		StartRed = 1.0
-		DurationFrames = 48
-		EaseIn = 0.01
-		EaseOut = 0.02
-		EndFrame = 1
-		NumAngles = 60
-		NumFrames = 1
-		StartFrame = 1
-		Scale = 0.4
-		ScaleFromOwner = "Ignore"
-		Ambient = 0.0
-		VisualFxDistanceMax = 22.0
-		VisualFxDistanceMin = 20.0
-	}
-	
-	{
-		Name = "ArtemisRangedTrail_Aphrodite"
-		FilePath = "Fx\ArtemisRangedTrail\ArtemisRangedTrail"
-		GroupName = "FX_Standing_Add"
-		
-		AngleFromOwner = "Take"
-		EndFrame = 53
-		NumFrames = 53
-		RandomPlaySpeedMax = 120.0
-		RandomPlaySpeedMin = 90.0
-		StartFrame = 1
-		RandomFlipVertical = true
-		LocationFromOwner = "Ignore"
-		LocationZFromOwner = "Ignore"
-		SortMode = "FromParent"
-		StartScaleY = 0.5
-		Ambient = 0.0
-		Hue = -0.3
-		CreateAnimations =
-		[
-			{ Name = "ArtemisRangedTrail_Aphrodite_Dark" }
-			{ Name = "AphroditeParticleMixGun" }
-		]
-	}
-	
-	{
-		Name = "ArtemisRangedTrail_Aphrodite_Dark"
-		InheritFrom = "ArtemisRangedTrail_Aphrodite"
-		GroupName = "FX_Dark"
-		RandomPlaySpeedMax = 70.0
-		RandomPlaySpeedMin = 60.0
-		OffsetY = 5.0
-		LocationZFromOwner = "Maintain"
-		ScaleX = 0.5
-		ScaleY = 0.7
-		StartScaleY = 0.0
-		CreateAnimations = []
-		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
-	}
-	
-	{
-		Name = "DevotionAphroditeProjectileGlow"
-		FilePath = "Particles\particle_glow"
-		
-		Alpha = 0.4
-		ColorFromOwner = "Ignore"
-		EndFrame = 1
-		NumFrames = 1
-		StartFrame = 1
-		ScaleFromOwner = "Ignore"
-		Ambient = 0.0
-		Color = { Red = 0.70 Green = 0.0 Blue = 1.0 }
+		Name = "GrenadeExplosionLightingAphrodite"
+		InheritFrom = "GrenadeExplosionLightingBase"
+		EndBlue = 1.0
+		EndGreen = 0.1
+		EndRed = 0.5
+		StartBlue = 0.8
+		StartGreen = 0.5
 	}
 
 	{
@@ -845,5 +805,646 @@
 		EndGreen = 0.7
 		EndBlue = 0.999
 	}
+	
+	{
+		Name = "AphroditeHeartDash"
+		FilePath = "Fx\Aphrodite\AphroditeCircle\AphroditeCircle"
+		Material = "Unlit"
+		NumFrames = 23
+		StartFrame = 30
+		PlaySpeed = 60
+		PostRotateScaleY = 0.5
+		ChainTo = "null"
+		GroupName = "FX_Terrain_Add"
+		ScaleRadius = 130
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Player Sounds/AphroditeLoveDashHeart"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -1000.0
+		VisualFxIntervalMax = 0.011
+		VisualFxIntervalMin = 0.01
+		VisualFx = "AphroditeHeartDashParticles"
+		VisualFxCap = 12
+		OverlayVfx = true
+		CreateAnimations =
+		[
+			{ Name = "AphroditeDashGlow" }
+			{ Name = "AphroditeHeartDashDark" }
+			{ Name = "AphroditeDashFxA" }
+			{ Name = "AphroditeDashFxA" }
+			{ Name = "AphroditeDashFxA" }
+		]
+	}
+
+	{
+		Name = "AphroditeHeartDashDark"
+		InheritFrom = "AphroditeHeartDash"
+		ClearCreateAnimations = true
+		VisualFx = null
+		ChildAnimation = null
+		Sound = "/EmptyCue"
+		Red = 0
+		Green = 0
+		Blue = 0
+		GroupName = "FX_Terrain"
+		PlaySpeed = 45
+	}
+
+
+	{
+		Name = "AphroditeHeartDashParticles"
+		Random =
+		[
+			{ Name = "AphroditeHeartDashParticleA" }
+			{ Name = "AphroditeHeartDashParticleC" }
+			{ Name = "AphroditeHeartDashParticleC" }
+		]
+	}
+
+	{
+		Name = "AphroditeHeartDashParticleA"
+		FilePath = "Fx\Aphrodite\AphroditeGoldHeartParticle\AphroditeGoldHeartParticle"
+		NumFrames = 42
+		RandomRotation = false
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomFlipHorizontal = true
+		ScaleMin = 0.25
+		ScaleMax = 1.0
+		GroupName = "FX_Standing"
+		RadialOffsetMin = 200
+		RadialOffsetMax = 300
+		RandomPlaySpeedMin = 50
+		RandomPlaySpeedMax = 70
+		AngleMin = 0
+		AngleMax = 360
+		VelocityMin = 100
+		VelocityMax = 200
+		Acceleration = -300
+		RadialOffsetScaleY = 0.5
+		Scale = 0.5
+		Material = "Unlit"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		StartOffsetZ = 0
+		EndOffsetZ = 60
+		EaseIn = 0.9
+		EaseOut = 1.0
+	}
+
+	{
+		Name = "AphroditeHeartDashParticleB"
+		InheritFrom = "AphroditeHeartDashParticleA"
+		FilePath = "Fx\Aphrodite\AphroditeFlowerParticleA\AphroditeFlowerParticleA"
+		NumFrames = 39
+		RandomFlipVertical = true
+		RandomRotation = true
+		EndOffsetZ = 1
+	}		
+
+	{
+		Name = "AphroditeHeartDashParticleC"
+		InheritFrom = "AphroditeHeartDashParticleA"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		GroupName = "FX_Standing_Add"
+		NumFrames = 1
+		Scale = 1
+		RandomFlipVertical = true
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		RandomRotation = false
+		RandomRotationSpeedMin = 0
+		RandomRotationSpeedMax = 1
+		EndOffsetZ = 1
+	}
+
+	{
+		Name = "AphroditeDashGlow"
+		FilePath = "Particles\particle_glow"
+		Red = 1
+		Green = 0.3
+		Blue = 0.9
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		StartAlpha = 0.5
+		EndAlpha = 0
+		EaseIn = 0.9
+		EaseOut = 1
+		Duration = 0.5
+		Scale = 4
+		PostRotateScaleY =0.5
+	}
+
+	{
+		Name = "AphroditeDashFxA"
+		FilePath = "Fx\Aphrodite\AphroditeSwipe\AphroditeSwipe"
+		NumFrames = 10
+		StartFrame = 13
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		PostRotateScaleY = 0.5
+		OffsetZ = 50
+		AngleMin = 0
+		AngleMax = 360
+		ScaleMin = 0.9
+		ScaleMax = 1.2
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 70
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		StartScale = 0.8
+		EndScale = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0.7
+		EndGreen = 0.3
+		EndBlue = 0.99
+	}
+	
+	{
+		Name = "AphroditeDashNova"
+		InheritFrom = "RadialNova"
+		CreateAnimation = "AphroditeDashNovaDark"
+		GroupName = "FX_Terrain_Add"
+		EndBlue = 0.999
+		EndGreen = 0.2
+		EndRed = 0.8
+		StartBlue = 1.0
+		StartGreen = 0.5
+		StartRed = 0.8
+		PlaySpeed = 75.0
+		LocationZFromOwner = "Ignore"
+		TimeModifierFraction = 0.0
+	}
+	
+	{
+		Name = "AphroditeDashNovaDark"
+		InheritFrom = "AphroditeDashNova"
+		CreateAnimation = "null"
+		GroupName = "FX_Terrain"
+		AddColor = false
+		EndBlue = 0.0
+		EndRed = 0.0
+		StartBlue = 0.01
+		StartGreen = 0.01
+		StartRed = 0.01
+		Scale = 1.02
+	}
+
+	{
+		Name = "AphroditeDebuffStatus"
+		CreateAnimation = "AphroditeShoutImpact"
+		FilePath = "Fx\AphroditeDebuffStatus\AphroditeDebuffStatus"
+		GroupName = "FX_Standing_Top"
+		
+		VisualFx = "AphroditeParticleSparkleDebuff"
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/AphroditeCharmedLoopSFX"
+		StopSoundOnFinishFade = 0.2
+		ColorFromOwner = "Ignore"
+		EndFrame = 29
+		Loop = true
+		NumFrames = 29
+		PlaySpeed = 30.0
+		StartFrame = 1
+		OffsetZ = 200.0
+		Scale = 1.4
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.11
+		VisualFxIntervalMin = 0.1
+	}
+	
+	{
+		Name = "AphroditeDebuffB"
+		ChainTo = "AphroditeDebuffB-Out"
+		FilePath = "Fx\AphroditeDebuffB\AphroditeDebuffB"
+		GroupName = "FX_Terrain_Add"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndFrame = 30
+		Loop = true
+		NumFrames = 30
+		PlaySpeed = 30.0
+		StartFrame = 1
+		LocationZFromOwner = "Ignore"
+		Scale = 1.5
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "AphroditeDebuffB-Out"
+		InheritFrom = "AphroditeDebuffB"
+		ChainTo = "null"
+		StartAlpha = 1.0
+		Duration = 0.1
+		Loop = false
+		LoopFramesOnly = true
+		EndScale = 1.5
+	}
+
+
+	{
+		Name = "AphroditeShoutImpact"
+		FilePath = "Fx\AphroditeHeart\AphroditeHeart"
+		GroupName = "FX_Add_Top"
+		
+		VisualFx = "AphroditeParticleSparkle-Dash"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.99
+		EaseOut = 1.0
+		EndFrame = 57
+		NumFrames = 57
+		StartFrame = 1
+		OffsetZ = 160.0
+		EndScale = 1.5
+		Scale = 0.75
+		ScaleFromOwner = "Ignore"
+		VisualFxCap = 30
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		CreateAnimations =
+		[
+			{ Name = "QuickFlashPink" }
+			{ Name = "AphroditeShoutImpactDark" }
+			{ Name = "AphroditeShoutImpactSecondary" }
+			{ Name = "AphroditeShoutImpactDisplacement" }
+			{ Name = "AphroditeShoutImpactSlam" }
+			{ Name = "AphroditeShoutImpactStreak" }
+			{ Name = "AphroditeShoutImpactStreakB" }
+		]
+	}
+	
+	{
+		Name = "AphroditeShoutImpactStreak"
+		FilePath = "Particles\particle_streak"
+		GroupName = "FX_Add_Top"
+		
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		Duration = 0.75
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		EndOffsetY = 300.0
+		OffsetZ = 500.0
+		StartOffsetY = -200.0
+		EndScaleY = 0.75
+		Scale = 2.0
+		ScaleFromOwner = "Ignore"
+		StartScaleY = 0.5
+		Color = { Red = 1.0 Green = 0.10 Blue = 0.70 }
+	}
+	
+	{
+		Name = "AphroditeShoutImpactStreakB"
+		InheritFrom = "AphroditeShoutImpactStreak"
+		EndBlue = 0.4
+		EndRed = 0.99
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EndOffsetY = 0.0
+		ScaleY = 0.25
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+	
+	{
+		Name = "AphroditeShoutImpactSlam"
+		FilePath = "Fx\AphroditeDebuffStatus\AphroditeDebuffStatus"
+		
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		AddColor = true
+		ColorFromOwner = "Ignore"
+		StartAlpha = 1.0
+		StartBlue = 1.0
+		StartGreen = 1.0
+		StartRed = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 30
+		NumFrames = 30
+		StartFrame = 1
+		OffsetZ = 120.0
+		ScaleFromOwner = "Ignore"
+		StartScale = 2.0
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+	}
+	
+	{
+		Name = "AphroditeShoutImpactDark"
+		InheritFrom = "AphroditeShoutImpact"
+		GroupName = "FX_Dark"
+		VisualFx = "null"
+		PlaySpeed = 55.0
+		Scale = 0.9
+		CreateAnimations = []
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+	
+	{
+		Name = "AphroditeShoutImpactSecondary"
+		InheritFrom = "AphroditeShoutImpact"
+		VisualFx = "null"
+		PlaySpeed = 30.0
+		Scale = 0.9
+		CreateAnimations = []
+	}
+	
+	{
+		Name = "AphroditeShoutImpactDisplacement"
+		InheritFrom = "AphroditeShoutImpact"
+		GroupName = "FX_Displacement"
+		VisualFx = "null"
+		AddColor = true
+		Alpha = 0.3
+		PlaySpeed = 75.0
+		Scale = 0.5
+		CreateAnimations = []
+	}
+
+	{
+		Name = "AphroditeOnHit"
+		FilePath = "Dev\blank_invisible"
+		VisualFx = "AphroditeParticleMixLarge"
+		EndBlue = 0.7
+		EndGreen = 0.0
+		EndRed = 1.0
+		StartBlue = 0.4
+		StartGreen = 0.2
+		VisualFxCap = 7
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		VisualFxManagerCap = 400
+		VisualFxManagerFrameCap = 18
+		OffsetZ = 60
+		Duration = 0.5
+	}
+	{
+		Name = "AphroditeParticleSparkle"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		AngleMax = 360.0
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.5
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		RandomOffsetX = 150.0
+		RandomOffsetY = 75.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -150.0
+		VelocityMax = 200.0
+		VelocityMin = 10.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.15
+		Ambient = 0.0
+	}
+
+	{
+		Name = "AphroditeParticleSparkleLarge"
+		InheritFrom = "AphroditeParticleSparkle"
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		VelocityMax = 500.0
+		VelocityMin = 400.0
+	}
+	
+	{
+		Name = "AphroditeParticleSparkleGun"
+		InheritFrom = "AphroditeParticleSparkle"
+		AngleMax = 1.0
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.5
+		RandomOffsetX = 10.0
+		RandomOffsetY = 10.0
+		LocationZFromOwner = "Take"
+		Acceleration = -800.0
+		VelocityMax = 500.0
+		VelocityMin = 400.0
+	}
+	
+	{
+		Name = "AphroditeParticleSparkle2"
+		InheritFrom = "AphroditeParticleSparkle"
+		AngleMax = 10.0
+		AngleMin = -10.0
+		RandomDurationMax = 0.7
+		RandomDurationMin = 0.5
+		RadialOffsetScaleY = 0.5
+		RandomOffsetX = 0.0
+		RandomOffsetY = 0.0
+		LocationFromOwner = "Maintain"
+		VelocityMax = 450.0
+		ScaleMax = 1.5
+	}
+	
+	{
+		Name = "AphroditeParticleSparkle-Dash"
+		InheritFrom = "AphroditeParticleSparkle"
+		AngleFromOwner = "Ignore"
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.1
+		RadialOffsetMax = 220.0
+		RadialOffsetMin = 200.0
+		RadialOffsetScaleY = 0.5
+		RandomOffsetX = 0.0
+		RandomOffsetY = 0.0
+		LocationFromOwner = "Maintain"
+		Gravity = -100.0
+		VelocityMax = 150.0
+		ScaleMax = 1.5
+	}
+	
+	{
+		Name = "AphroditeImpactParticles"
+		FilePath = "Animations\AphroditeImpactParticles\AphroditeImpactParticles"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random = [
+			{ Name = "AphroditeImpactParticles1" }
+			{ Name = "AphroditeImpactParticles2" }
+		]
+	}
+	
+	{
+		Name = "AphroditeImpactParticles1"
+		FilePath = "Particles\particle_aphrodite_sparkle"
+		GroupName = "FX_Standing_add"
+		
+		AngleFromOwner = "Take"
+		AngleMax = 90.0
+		AngleMin = -90.0
+		UseOwnAngle = false
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.7
+		RandomDurationMin = 0.15
+		StartFrame = 1
+		RandomOffsetX = 50.0
+		RandomOffsetY = 25.0
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -300.0
+		Gravity = 20.0
+		VelocityMax = 400.0
+		VelocityMin = 300.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.6
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "AphroditeImpactParticles2"
+		InheritFrom = "AphroditeImpactParticles1"
+		FilePath = "Particles\particle_aphrodite_heart"
+		AngleChangeSpeedMax = 600.0
+		AngleChangeSpeedMin = -600.0
+		AngleMax = 45.0
+		AngleMin = -45.0
+		UseOwnAngle = true
+		PingPongColor = true
+		EaseOut = 1.0
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.4
+		RandomOffsetX = 75.0
+		RandomOffsetY = 30.0
+		StartOffsetY = 40.0
+		VelocityMax = 11.0
+		IsometricSkew = "Y"
+		ScaleMin = 0.7
+	}
+	
+	{
+		Name = "AphroditeParticleSparkleDebuff"
+		InheritFrom = "AphroditeParticleSparkle"
+		AngleFromOwner = "Ignore"
+		AngleMax = 271.0
+		AngleMin = 270.0
+		RandomDurationMax = 1.2
+		RandomDurationMin = 0.6
+		RandomOffsetX = 16.0
+		RandomOffsetY = 8.0
+		LocationZFromOwner = "Take"
+		SortMode = "Id"
+		Acceleration = 100.0
+		VelocityMax = 80.0
+		VelocityMin = 40.0
+	}
+	{
+		Name = "AphroditeParticleMix"
+		FilePath = "Animations\AphroditeParticleMix\AphroditeParticleMix"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random = [
+			{ Name = "AphroditeParticleSparkle" }
+			{ Name = "AphroditeParticleHeart" }
+			{ Name = "AphroditeParticleGoldHeart" }
+			// { Name = "AphroditeParticleHeart2" }
+		]
+	}
+
+	{
+		Name = "AphroditeParticleMixLarge"
+		FilePath = "Animations\AphroditeParticleMix\AphroditeParticleMix"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Random = [
+			{ Name = "AphroditeParticleSparkleLarge" }
+			{ Name = "AphroditeParticleHeartLarge" }
+			{ Name = "AphroditeParticleHeart2Large" }
+		]
+	}
+	{
+		Name = "AphroditeParticleHeart"
+		InheritFrom = "AphroditeParticleSparkle"
+		FilePath = "Particles\particle_aphrodite_heart"
+		AngleChangeSpeedMax = 600.0
+		AngleChangeSpeedMin = -600.0
+		AngleMax = 45.0
+		AngleMin = -45.0
+		UseOwnAngle = true
+		PingPongColor = true
+		EaseOut = 1.0
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.4
+		RandomOffsetX = 75.0
+		RandomOffsetY = 30.0
+		StartOffsetY = 40.0
+		LocationFromOwner = "Ignore"
+		VelocityMax = 11.0
+		IsometricSkew = "Y"
+		ScaleMin = 0.7
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.01
+	}
+
+	{
+		Name = "AphroditeParticleHeartLarge"
+		InheritFrom = "AphroditeParticleHeart"
+		ScaleMax = 1.5
+		ScaleMin = 1.0
+		VelocityMax = 22
+	}
+	
+	{
+		Name = "AphroditeParticleHeartGun"
+		InheritFrom = "AphroditeParticleHeart"
+		RandomOffsetX = 10.0
+		RandomOffsetY = 10.0
+		StartOffsetY = 5.0
+		LocationZFromOwner = "Take"
+	}
+	
+	{
+		Name = "AphroditeParticleHeart2"
+		InheritFrom = "AphroditeParticleHeart"
+		FilePath = "Particles\particle_aphrodite_heart2"
+	}
+
+	{
+		Name = "AphroditeParticleHeart2Large"
+		InheritFrom = "AphroditeParticleHeartLarge"
+		FilePath = "Particles\particle_aphrodite_heart2"
+	}
+
 
 ]}

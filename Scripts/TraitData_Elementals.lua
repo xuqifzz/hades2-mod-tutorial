@@ -79,6 +79,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	ElementalDamageBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -153,10 +154,11 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	ElementalBaseDamageBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
-		Icon = "Boon_Hestia_33",
+		Icon = "Boon_Hestia_32",
 		GameStateRequirements = 
 		{
 			{
@@ -224,6 +226,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	ElementalRallyBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -277,7 +280,8 @@ OverwriteTableKeys( TraitData, {
 				SkipAutoExtract = true
 			},
 		}
-	},	
+	},
+
 	ElementalDamageFloorBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -319,6 +323,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	ElementalRarityUpgradeBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -362,12 +367,9 @@ OverwriteTableKeys( TraitData, {
 		},
 		ExtractValues =
 		{
-			{
-				Key = "ActivatedDamageCap",
-				ExtractAs = "TooltipCap",
-			},
 		}
 	},
+
 	ElementalDamageCapBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -391,7 +393,7 @@ OverwriteTableKeys( TraitData, {
 		},
 		ActivatedDamageCap = 
 		{ 
-			BaseValue = 15, 
+			BaseValue = 20, 
 			AsInt = true,
 			MinValue = -1,
 			MinMultiplier = -2,
@@ -412,6 +414,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	ElementalHealthBoon = 
 	{
 		InheritFrom = {"UnityTrait"},
@@ -471,6 +474,7 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	ElementalDodgeBoon = 
 	{
 		InheritFrom = {"UnityTrait"},

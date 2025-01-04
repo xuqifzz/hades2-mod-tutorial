@@ -1,0 +1,1892 @@
+{ Animations = [
+
+	{
+		Name = "HealthFountainP_Full"
+		FilePath = "Tilesets\Olympus\Olympus_Fountain_01"
+		Ambient = 0.0
+		Duration = 2
+		Loop = true
+		Sound = "/Leftovers/Object Ambiences/WaterThessalyRestoreFountain"
+		StopSoundOnFinishFade = 0.3
+		SoundAllowedAfterFrame = -1
+	}
+
+	{
+		Name = "HealthFountainP_Empty"
+		InheritFrom = "HealthFountainP_Full"
+		FilePath = "Tilesets\Olympus\Olympus_Fountain_01a"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+	}
+	{
+		Name = "OlympusIcicleFalling"
+		FilePath = "Tilesets\Olympus\Olympus_Icicle_01_Falling"
+		Scale = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 300
+		CreateAnimation = "RubbleFallStreakOlympus"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "OlympusTremorStreaks"
+		FilePath = "Tilesets\Olympus\Olympus_Icicle_01_Falling"
+		Scale = 0.6
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 300
+		CreateAnimation = "RubbleFallStreakOlympusTremor"
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "OlympusIcicleIdle"
+		FilePath = "Tilesets\Olympus\Olympus_Icicle_01_Idle"
+		Scale = 0.7
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 300
+		Ambient = 0.0
+
+	}
+	
+	{
+		Name = "OlympusIcicleDestroyed"
+		FilePath = "Tilesets\Olympus\Olympus_Icicle_01_Destroyed"
+		Scale = 0.2
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = 300
+	}
+	
+	{
+		Name = "OlympusDestructiblePillarA"
+		FilePath = "Tilesets\Olympus\Olympus_DestructiblePillar_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	
+	{
+		Name = "OlympusDestructiblePillarB"
+		FilePath = "Tilesets\Olympus\Olympus_DestructiblePillar_01a"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+		CreateAnimation = "OlympusDestructiblePillarTransitionA"
+	}
+	
+	{
+		Name = "OlympusDestructiblePillarC"
+		FilePath = "Tilesets\Olympus\Olympus_DestructiblePillar_01b"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+		CreateAnimation = "OlympusDestructiblePillarTransitionB"
+	}
+	
+	{
+		Name = "OlympusDestructiblePillarTransitionA"
+		FilePath = "Fx\OlympusDestructiblePillarTransitionA\OlympusDestructiblePillarTransitionA"
+		NumFrames = 40
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 45
+		Scale = 3.0
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		OffsetY = -655
+		VisualFx = "OlympusPillarSnowDustRingFront"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "OlympusDestructiblePillarTransitionB"
+		InheritFrom = "OlympusDestructiblePillarTransitionA"
+		FilePath = "Fx\OlympusDestructiblePillarTransitionB\OlympusDestructiblePillarTransitionB"
+		VisualFxIntervalMin = 0.33
+		VisualFxIntervalMax = 0.33
+	}
+
+	{
+		Name = "OlympusPillarSnowDustRingFront"
+		FilePath = "Fx\DustRingFront\DustRingFront"
+		NumFrames = 56
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "OlympusPillarSnowDustRingBack"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Hue = 0.475
+		Saturation = 0.2
+		Value = 0.3
+		AddColor = true
+		Red = 0.1
+		Green = 0.1
+		Blue = 0.15
+		PlaySpeed = 45
+		StartAlpha = 0.75
+		EndAlpha = 0.25
+		RandomFlipHorizontal = true
+	}
+
+	{
+		Name = "OlympusPillarSnowDustRingBack"
+		InheritFrom = "OlympusPillarSnowDustRingFront"
+		FilePath = "Fx\DustRingBack\DustRingBack"
+		NumFrames = 54
+		DrawBehindOwner = true
+		CreateAnimation = null
+
+	}
+
+	{
+		Name = "RubbleFallStreakOlympus"
+		FilePath = "Fx\RubbleFallStreak\RubbleFallStreak"
+		EndFrame = 8
+		NumFrames = 8
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		OriginX = 164.0
+		OriginY = 1024.0
+		ScaleFromOwner = "Take"
+		Ambient = 0.0
+		ScaleY = 0.75
+		AddColor = true
+		Red = 0.25
+		Green = 0.4
+		Blue = 0.5
+		Value = 0.25
+		Slides =
+		[
+			{ DurationFrames = 6 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+		]
+	}
+
+	{
+		Name = "RubbleFallStreakOlympusTremor"
+		InheritFrom = "RubbleFallStreakOlympus"
+		Scale = 3.0
+	}
+
+	{
+		Name = "OlympusDestructiblePillarRubble"
+		FilePath = "Tilesets\Olympus\Olympus_DestructiblePillar_01_Rubble"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.4
+		OffsetY = 300
+		CreateAnimation = "RubbleFallStreakOlympus"
+		Ambient = 0.0
+	}
+
+	{
+		Name = "OlympusIndoorExitDoorLocked"
+		FilePath = "Tilesets\Olympus\Olympus_Door_01Locked"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -140.0
+		Scale = 0.35
+	}
+	
+	{
+		Name = "OlympusIndoorExitDoorUnlocked"
+		InheritFrom = "OlympusIndoorExitDoorLocked"
+	}
+	
+	{
+		Name = "OlympusIndoorExitDoorOpenAnim"
+		FilePath = "Fx\Olympus_Door_01_Open\Olympus_Door_01_Open"
+		NumFrames = 40
+		PlaySpeed = 60
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -180
+		Sound = "/SFX/ElysiumDoorOpen"
+	}
+
+	{
+		Name = "OlympusIndoorExitDoorCloseAnim"
+		InheritFrom = "OlympusIndoorExitDoorOpenAnim"
+		PlaySpeed = 45
+		FilePath = "Fx\Olympus_Door_01_Close\Olympus_Door_01_Close"
+		Sound = "/SFX/ElysiumDoorClose"
+	}
+
+	{
+		Name = "OlympusIndoorExitDoorOpen"
+		InheritFrom = "OlympusIndoorExitDoorLocked"
+		FilePath = "Tilesets\Olympus\Olympus_Door_01Unlocked"
+		HoldLastFrame = true
+		ChildAnimation = "OlympusIndoorExitDoorOpenAnim"
+		Duration = 1
+	}
+	
+	{
+		Name = "OlympusIndoorExitDoorClose"
+		InheritFrom = "OlympusIndoorExitDoorLocked"
+		FilePath = "Tilesets\Olympus\Olympus_Door_01Unlocked"
+		HoldLastFrame = true
+		ChildAnimation = "OlympusIndoorExitDoorCloseAnim"
+		Duration = 1
+	}
+	
+	{
+		Name = "OlympusOutdoorExitDoorClosed"
+		FilePath = "Tilesets\Olympus\Olympus_JumpPadExit_01"
+		GroupName = "FX_Terrain"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.36
+		OwnerHasNoCollision = true
+	}	
+
+	{
+		Name = "OlympusOutdoorExitDoorOpen"
+		FilePath = "Tilesets\Olympus\Olympus_JumpPadExit_01"
+		GroupName = "FX_Terrain"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.36
+		OwnerHasNoCollision = true
+		CreateAnimation = "OlympusOutdoorExitDoorOpenFxIn"
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorOpenFxIn"
+		FilePath = "Fx\JumpPadActivatedFxIn\JumpPadActivatedFxIn"
+		NumFrames = 9
+		Material = "Unlit"
+		PlaySpeed = 30
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		ChainTo = "OlympusOutdoorExitDoorOpenFx"
+		GroupName = "FX_Standing_Add"
+		Scale = 1.5
+		OffsetZ = 52
+		VisualFx = "OlympusOutdoorExitDoorParticles"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorOpenFx"
+		InheritFrom = "OlympusOutdoorExitDoorOpenFxIn"
+		FilePath = "Fx\JumpPadActivatedFx\JumpPadActivatedFx"
+		NumFrames = 45
+		ChainTo = null
+		Loop = true
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorParticles"
+		Random = [
+			{ Name = "OlympusOutdoorExitDoorParticleA" }
+			{ Name = "OlympusOutdoorExitDoorParticleB" }
+		]
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorParticleA"
+		FilePath = "Fx\ParticleFlake\ParticleFlake"
+		NumFrames = 90
+		ScaleX = 1
+		Angle = 90
+		Material = "Unlit"
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		ScaleMin = 0.2
+		ScaleMax = 0.4
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		StartRed = 1
+		StartGreen = 0.9
+		StartBlue = 0.8
+		EndRed = 0.999
+		EndGreen = 0.7
+		EndBlue = 0.5
+		StartScale = 0
+		EndScale = 1
+		PingPongScale = true
+		VelocityMin = 300
+		VelocityMax = 400
+		RandomAccelerationMin = -300
+		RandomAccelerationMax = -150
+		RandomDurationMin = 1
+		RandomDurationMax = 2
+		RandomOffsetX = 30
+		RandomOffsetY = 100
+		OffsetZ = 100
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 34
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EaseIn = 0.9
+		EaseOut = 1.0
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		DieWithOwner = true
+		CreateAnimation = "OlympusOutdoorExitDoorStreaks"
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorParticleB"
+		InheritFrom = "OlympusOutdoorExitDoorParticleA"
+		AddColor = false
+	}
+
+	{
+		Name = "OlympusOutdoorExitDoorStreaks"
+		FilePath = "Particles\particle_streakGlow"
+		Material = "Unlit"
+		RandomDurationMin = 1.5
+		RandomDurationMax = 2.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"	
+		ScaleY = 6
+		StartScaleX = 0.5
+		EndScaleX = 1
+		PingPongScale = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomFlipVertical = true
+		ScaleMin = 0.5
+		ScaleMax = 1.2
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		StartOffsetZ = 100
+		EndOffsetZ = 600
+		ScaleX = 0.4
+		AlphaMin = 0.1
+		AlphaMax = 0.3
+		Saturation = 0.5
+		Hue = -0.04
+		RandomOffsetX = 20
+	}
+
+	{
+		Name = "Breakable_P01"
+		FilePath = "Tilesets\Olympus\Olympus_Breakable_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -55.0
+		Scale = 0.25
+	}
+	{
+		Name = "Breakable_P02"
+		InheritFrom = "Breakable_P01"
+		FilePath = "Tilesets\Olympus\Olympus_Breakable_02"
+		Scale = 0.25
+		OffsetY = -65.0
+	}
+	{
+		Name = "Breakable_P03"
+		InheritFrom = "Breakable_P01"
+		FilePath = "Tilesets\Olympus\Olympus_Breakable_03"
+		Scale = 0.3
+		OffsetY = -65.0
+	}
+
+
+	{
+		Name = "OlympusBreakableDustTerrain"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Hue = 0.45
+		Value = 0.6
+		Saturation = 0.1
+		StartAlpha = 0.8
+		EndAlpha = 0.4
+		ScaleMin = 0.7
+		ScaleMax = 1.0
+	}
+
+	{
+		Name = "OlympusBreakable01Shatter"
+		FilePath = "Fx\OlympusBreakable01Shatter\OlympusBreakable01Shatter"
+		NumFrames = 31
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.0
+		OffsetY = -50
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		CreateAnimations = [
+			{ Name = "RubbleFallImpactDebrisOlympus" }
+			{ Name = "OlympusBreakableDustTerrain" }
+		]
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "OlympusBreakable02Shatter"
+		InheritFrom = "OlympusBreakable01Shatter"
+		FilePath = "Fx\OlympusBreakable02Shatter\OlympusBreakable02Shatter"
+		NumFrames = 32
+		Scale = 1.0
+		OffsetY = -50
+		CreateAnimations = [
+			{ Name = "RubbleFallImpactDebrisOlympus" }
+			{ Name = "OlympusBreakableDustTerrain" }
+		]
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "OlympusBreakable03Shatter"
+		InheritFrom = "OlympusBreakable01Shatter"
+		FilePath = "Fx\OlympusBreakable03Shatter\OlympusBreakable03Shatter"
+		NumFrames = 30
+		Scale = 1.2
+		OffsetY = -55
+		CreateAnimations = [
+			{ Name = "RubbleFallImpactDebrisOlympus" }
+			{ Name = "OlympusBreakableDustTerrain" }
+		]
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+
+	{
+		Name = "OlympusSnowflakesGentleSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "OlympusSnowflakesGentle"
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.06
+		VisualFxIntervalMin = 0.05
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "OlympusSnowflakesGentle"
+		Random = [
+			{ Name = "OlympusSnowflakesGentleA" }
+			{ Name = "OlympusSnowflakesGentleB" }
+			{ Name = "OlympusSnowflakesGentleC" }
+		]
+	}
+
+	{
+		Name = "OlympusSnowflakesGentleA"
+		FilePath = "Fx\OlympusSnowflakesGentleA\OlympusSnowflakesGentleA"
+		NumFrames = 44
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = false
+		LoopFramesOnly = true
+		UseOwnAngle = false
+		AngleChangeSpeedMax = 5.0
+		AngleChangeSpeedMin = -5.0
+		Angle = 270
+		AngleFromOwner = "Take"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		PingPongColor = true
+		RandomDurationMax = 3.2
+		RandomDurationMin = 2.4
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Take"
+		Gravity = 0
+		VelocityMax = 20.0
+		VelocityMin = 60.0
+		ScaleMax = 1.1
+		ScaleMin = 0.5
+		StartScale = 0.9
+		EndScale = 1.1
+		Scale = 0.33
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		ReRandomizeOnLoop = false
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "OlympusSnowflakesGentleB"
+		InheritFrom = "OlympusSnowflakesGentleA"
+		FilePath = "Fx\OlympusSnowflakesGentleB\OlympusSnowflakesGentleB"
+	}
+
+	{
+		Name = "OlympusSnowflakesGentleC"
+		InheritFrom = "OlympusSnowflakesGentleA"
+		FilePath = "Fx\OlympusSnowflakesGentleC\OlympusSnowflakesGentleC"
+	}
+
+	{
+		Name = "OlympusSnowflakesStormSpawner"
+		FilePath = "Backgrounds\rectangle_01"
+		VisualFx = "OlympusSnowflakesStorm"
+		Alpha = 0.0
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 4.0
+		VisualFxIntervalMax = 0.03
+		VisualFxIntervalMin = 0.02
+		VisualFxManagerCap = 200
+		VisualFxManagerFrameCap = 10
+		OnlyWhenVisible = true
+	}
+
+	{
+		Name = "OlympusSnowflakesStorm"
+		Random = [
+			{ Name = "OlympusSnowflakesStormA" }
+			{ Name = "OlympusSnowflakesStormB" }
+			{ Name = "OlympusSnowflakesStormA" }
+			{ Name = "OlympusSnowflakesStormB" }			
+			{ Name = "OlympusSnowflakesStormC" }
+		]
+	}
+
+	{
+		Name = "OlympusSnowflakesStormA"
+		FilePath = "Fx\OlympusSnowflakesStorm\OlympusSnowflakesStorm"
+		NumFrames = 10
+		PlaySpeed = 0.00001
+		RandomStartFrame = true
+		Loop = false
+		UseOwnAngle = true
+		AngleChangeSpeedMax = 10.0
+		AngleChangeSpeedMin = -10.0
+		AngleMin = -6
+		AngleMax = 6
+		AngleFromOwner = "Take"
+		StartAlpha = 0.0
+		EndAlpha = 1.0
+		PingPongColor = true
+		RandomDurationMax = 2
+		RandomDurationMin = 2.5
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		RandomOffsetX = 960.0
+		RandomOffsetY = 540.0
+		LocationFromOwner = "Take"
+		VelocityMax = 400.0
+		VelocityMin = 600.0
+		ScaleMax = 0.8
+		ScaleMin = 0.5
+		StartScale = 0.9
+		EndScale = 1.1
+		Scale = 0.5
+		ScaleX = 2
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		ReRandomizeOnLoop = false
+		EaseIn = 0
+		EaseOut = 1
+		Gravity = 50
+	}
+
+	{
+		Name = "OlympusSnowflakesStormB"
+		InheritFrom = "OlympusSnowflakesStormA"
+		FilePath = "Fx\OlympusSnowflakesStormBlur\OlympusSnowflakesStormBlur"
+		VelocityMax = 600.0
+		VelocityMin = 900.0
+		AlphaMin = 0.25
+		AlphaMax = 0.9
+	}
+
+	{
+		Name = "OlympusSnowflakesStormC"
+		InheritFrom = "OlympusSnowflakesStormA"
+		VelocityMax = 200.0
+		VelocityMin = 300.0
+		ScaleX = 1
+	}
+
+	{
+		Name = "OlympusWallIvy01"
+		FilePath = "Fx\OlympusWallIvy01\OlympusWallIvy01"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		OffsetX = 0
+		OffsetY = -265
+		Scale = 1.05
+	}	
+
+	{
+		Name = "OlympusWallIvy02"
+		InheritFrom = "OlympusWallIvy01"
+		FilePath = "Fx\OlympusWallIvy02\OlympusWallIvy02"
+		OffsetX = 0
+		OffsetY = 0
+	}	
+
+	{
+		Name = "OlympusBush01"
+		FilePath = "Fx\OlympusBush01\OlympusBush01"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Scale = 4
+	}	
+
+	{
+		Name = "OlympusBush02"
+		InheritFrom = "OlympusBush01"
+		FilePath = "Fx\OlympusBush02\OlympusBush02"
+	}
+
+	{
+		Name = "OlympusSnowSparkles"
+		FilePath = "Fx\OlympusSnowSparkles\OlympusSnowSparkles"		
+		AddColor = true
+		CameraDistancePerFrame = 30.0
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "OlympusStars"
+		FilePath = "Fx\OlympusStars\OlympusStars"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		Scale = 2
+		StartFrame = 1
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}	
+
+	{
+		Name = "OlympusCloud"
+		FilePath = "Fx\OlympusCloud\OlympusCloud"
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 30
+		EndFrame = 90
+		Loop = true
+		NumFrames = 90
+		Scale = 2
+		StartFrame = 1
+ 		OnlyWhenVisible = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "OlympusBanner01Inside"
+		FilePath = "Fx\OlympusBanner1Inside\OlympusBanner1Inside"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+		Scale = 2.5
+	}	
+
+	{
+		Name = "OlympusBanner02Inside"
+		InheritFrom = "OlympusBanner01Inside"
+		FilePath = "Fx\OlympusBanner2Inside\OlympusBanner2Inside"
+	}
+
+	{
+		Name = "OlympusBanner01Outside"
+		InheritFrom = "OlympusBanner01Inside"
+		FilePath = "Fx\OlympusBanner1Outside\OlympusBanner1Outside"
+	}	
+
+	{
+		Name = "OlympusBanner02Outside"
+		InheritFrom = "OlympusBanner01Inside"
+		FilePath = "Fx\OlympusBanner2Outside\OlympusBanner2Outside"
+	}	
+
+	{
+		Name = "OlympusHephSparkSpawner"
+		FilePath = "Particles\particle_arrow"
+		Alpha = 0
+		VisualFx = "OlympusHephSparksCluster"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 2
+	}
+
+	{
+		Name = "OlympusHephSparks"
+		Random = [
+			{ Name = "OlympusHephSparksA" }
+			{ Name = "OlympusHephSparksB" }
+		]
+	}
+
+	{
+		Name = "OlympusHephSparksCluster"
+		FilePath = "Dev\blank_invisible"
+		Duration = 0.5
+		VisualFx = "OlympusHephSparks"
+		VisualFxCap = 2
+		VisualFxIntervalMin = 0.02
+		VisualFxIntervalMax = 0.04
+	}
+
+	{
+		Name = "OlympusHephSparksA"
+		FilePath = "Fx\OlympusHephSparks01\OlympusHephSparks01"
+		NumFrames = 40
+		PlaySpeed = 30
+		Material = "Unlit"
+		CreateAnimation = "OlympusHephSparksA_Ground"
+		GroupName = "FX_Standing_Add"
+		Scale = 2
+		OffsetZ = 300
+		ScaleMin = 0.6
+		ScaleMax = 1.1
+		OriginX = 126
+		OriginY = 70
+
+	}
+
+	{
+		Name = "OlympusHephSparksB"
+		InheritFrom = "OlympusHephSparksA"
+		FilePath = "Fx\OlympusHephSparks02\OlympusHephSparks02"
+		CreateAnimation = "OlympusHephSparksB_Ground"
+	}
+
+	{
+		Name = "OlympusHephSparksA_Ground"
+		FilePath = "Fx\OlympusHephSparks01Ground\OlympusHephSparks01Ground"
+		NumFrames = 40
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		Scale = 2
+		OffsetX = 200
+		LocationZFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0
+		EaseOut = 0.1
+	}
+
+	{
+		Name = "OlympusHephSparksB_Ground"
+		InheritFrom = "OlympusHephSparksA_Ground"
+		FilePath = "Fx\OlympusHephSparks02Ground\OlympusHephSparks02Ground"
+	}
+
+	{
+		Name = "OlympusFlameA"
+		FilePath = "Fx\OlympusFlame\OlympusFlame"
+		NumFrames = 60
+		PlaySpeed = 30
+		Material = "Unlit"
+		Loop = true
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "OlympusFlameB"
+		InheritFrom = "OlympusFlameA"
+		FilePath = "Fx\OlympusFlameB\OlympusFlameB"
+	}	
+
+	{
+		Name = "OlympusFirelight"
+		FilePath = "Fx\OlympusFirelight\OlympusFirelight"
+		NumFrames = 60
+		Material = "Unlit"
+		PlaySpeed = 30
+		RandomStartFrame = true
+		ReRandomizeOnLoop = false
+	}
+
+	{
+		Name = "OlympusSnowClump"
+		FilePath = "Fx\OlympusSnowClump\OlympusSnowClump"
+		NumFrames = 60
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		OriginX = 128
+		OriginY = 100
+	}
+
+	{
+		Name = "OlympusSnowClumpSpawner"
+		FilePath = "Particles\Test_1"
+		Alpha = 0
+		Duration = 1
+		Loop = true
+		VisualFx = "OlympusSnowClump"
+		VisualFxIntervalMin = 2
+		VisualFxIntervalMax = 4
+	}
+
+	{
+		Name = "IcicleSplinterFxOld"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 60.0
+		StartFrame = 1
+		ScaleX = 2.5
+		ScaleY = 1.5
+		Color = { Red = 0.05 Green = 0.3 Blue = 0.5 }
+		CreateAnimations = [
+			{ Name = "IcicleShardCone" }
+		]
+	}
+
+
+	{
+		Name = "IcicleSplinterFx"
+		FilePath = "Fx\Cone90\Cone90"
+		GroupName = "FX_Standing_Add"
+		AddColor = true
+		EndFrame = 27
+		NumFrames = 27
+		PlaySpeed = 60.0
+		StartFrame = 1
+		PostRotateScaleY = 1.0
+		Ambient = 0.0
+		ScaleX = 3
+		Color = { Red = 0.05 Green = 0.3 Blue = 0.5 }
+		CreateAnimations = [
+			{ Name = "IcicleShardCone" }
+			{ Name = "IcicleShardDust" }
+			{ Name = "IcicleShardDust" }
+			{ Name = "IcicleShardDust" }
+			{ Name = "IcicleShardConeShadow" }
+		]
+	}
+
+
+	{
+		Name = "IcicleShardDust"
+		FilePath = "Fx\OlympusSnowflakesStormBlur\OlympusSnowflakesStormBlur"
+		NumFrames = 10
+		LoopFramesOnly = true
+		Loop = false
+		PlaySpeed = 0.001
+		Duration = 1.3
+		EaseIn = 0.9
+		EaseOut = 1
+		StartAlpha = 1
+		EndAlpha = 0
+		GroupName = "FX_Standing"
+		AngleFromOwner = "Take"
+		LocationFromOwner = "Ignore"
+		Velocity = 500
+		ScaleFromOwner = "Ignore"
+		Acceleration = -300
+		RandomStartFrame = true
+		Scale = 2
+		StartScale = 1
+		EndScale = 1.5
+		Red = 0.5
+		Green = 0.7
+		Blue = 1.0
+		RandomFlipVertical = true
+	}
+
+	{
+		Name = "IcicleShardCone"
+		FilePath = "Fx\IcicleShardCone\IcicleShardCone"
+		NumFrames = 40
+		AngleFromOwner = "Take"
+		Material = "Unlit"
+		OriginX = 75
+		OriginY = 287
+		DieWithOwner = false
+		LocationZFromOwner = "Take"
+		LocationFromOwner = "Take"
+		Loop = false
+		GroupName = "FX_Standing"
+		Scale = 1
+		AddColor = true
+		EaseIn = 0.99
+		EaseOut = 1
+		StartRed = 0.1
+		StartGreen = 0.4
+		StartBlue = 0.5
+		EndRed = 0
+		EndGreen = 0
+		EndBlue = 0
+	}
+
+	{
+		Name = "IcicleShardConeShadow"
+		InheritFrom = "IcicleShardCone"
+		GroupName = "Shadows"
+		PostRotateScaleY = 0.5
+		Red = 0
+		Green = 0
+		Blue = 0.4
+		AddColor = false
+		Alpha = 0.2
+		StartAlpha = 1
+		EndAlpha = 0.9
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HeroSkyTouchdownOlympus"
+		FilePath = "Particles\particle_glow"
+		Material = "Unlit"
+		Red = 0.2
+		Green = 0.4
+		Blue = 1.0
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		ScaleY = 2
+		ScaleX = 0.5
+		Scale = 2
+		GroupName = "FX_Add_Top"
+		CreateAnimations = [
+			{ Name = "OlympusSnowExplosionDecal" }
+			{ Name = "OlympusPillarSnowDustRingFront" }
+			{ Name = "HeroSkyTouchdownOlympusDustFront" }
+			{ Name = "HeroSkyTouchdownOlympusDustBack" }
+			{ Name = "HeroTouchdownImpactFx" }
+			{ Name = "HeroTouchdownImpactFxGlow" }
+			{ Name = "HeroSkyTouchdownOlympusSphere" }
+			//{ Name = "HydraTouchdownImpactFxDark" }
+			//{ Name = "HydraTouchdownGroundCracks" }
+		]
+	}
+
+	{
+		Name = "HeroTouchdownImpactFxGlow"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		Scale = 4
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.4
+		EaseIn = 0.99
+		EaseOut = 1.0
+		Material = "Unlit"
+	}
+
+	{
+		Name = "HeroSkyTouchdownOlympusSphere"
+		FilePath = "Particles\particle_eagleProjectile"
+		GroupName = "FX_Standing_Add"
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		Scale = 2.5
+		ScaleFromOwner = "Ignore"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.0
+		EaseOut = 1.0
+		StartScale = 1.0
+		EndScale = 1.5
+		Duration = 0.25
+	}
+
+	{
+		Name = "HeroTouchdownImpactFx"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		EndBlue = 1.0
+		EndGreen = 0.2
+		EndRed = 0.1
+		StartBlue = 1
+		StartGreen = 1
+		StartRed = 1.0
+		Duration = 0.1
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 192.0
+		OriginY = 800.0
+		LocationFromOwner = "Take"
+		LocationZFromOwner = "Ignore"
+		SortMode = "Id"
+		EndScale = 0.2
+		EndScaleX = 0.0
+		StartScale = 1.0
+		Ambient = 0.0
+	}
+
+
+	{
+		Name = "HeroSkyTouchdownOlympusDustFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		PlaySpeed = 45
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "ShipsDustBack"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Scale = 3.0
+		Material = "Unlit"
+		Saturation = -0.2
+		Hue = 0.45
+		StartAlpha = 1
+		EndAlpha = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0.05
+		StartGreen = 0.1
+		StartBlue = 0.4
+		EndRed = 0.025
+		EndGreen = 0.05
+		EndBlue = 0.2
+		StartScale = 1
+		EndScale = 0.66
+	}
+
+	{
+		Name = "HeroSkyTouchdownOlympusDustBack"
+		InheritFrom = "HeroSkyTouchdownOlympusDustFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "HeroTouchdownCircle"
+		FilePath = "Dev\blank_invisible"
+		Duration = 1
+		Loop = true
+		CreateAnimation = "HeroTouchdownCircleA"
+		Sound = "/SFX/OlympusLandingReticleLoop"
+		StopSoundOnFinishFade = 0.2
+		DisableOwnerManualInteract = true
+	}
+
+	{
+		Name = "HeroTouchdownCircleA"
+		FilePath = "Fx\HeroTouchdownCircles\HeroTouchdownCircleA"
+		Material = "Unlit"
+		GroupName = "FX_Terrain_Add"
+		RotationSpeed = 12
+		ChildAnimation = "HeroTouchdownCircleB"
+		PostRotateScaleY = 0.5
+		Duration = 3.7
+		LocationZFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 2
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = false
+		CreateAnimation = "HeroTouchdownCircleShadow"
+		VisualFx = "HeroTouchdownFx"
+		VisualFxIntervalMin = 0.2
+		VisualFxIntervalMax = 0.3
+		DieWithOwner = true
+		StartAlpha = 0.5
+		EndAlpha = 1
+	}
+
+	{
+		Name = "HeroTouchdownFx"
+		FilePath = "Particles\particle_spectral_shimmer_03"
+		Material = "Unlit"
+		RandomRotation = true
+		PostRotateScaleY = 0.5
+		Red = 0.2
+		Green = 1.0
+		Blue = 0.4
+		Alpha = 0.3
+		StartAlpha = 0
+		EndAlpha = 1
+		PingPongColor = true
+		RandomDurationMin = 0.4
+		RandomDurationMax = 0.8
+		StartScale = 1
+		EndScale = 1.2
+		Scale = 1.5
+		ScaleMin = 1
+		ScaleMax = 1.2
+		GroupName = "FX_Terrain_Add"
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "HeroTouchdownCircleB"
+		InheritFrom = "HeroTouchdownCircleA"
+		FilePath = "Fx\HeroTouchdownCircles\HeroTouchdownCircleB"
+		ChildAnimation = null
+		RotationSpeed = -12
+	}
+
+	{
+		Name = "HeroTouchdownCircleShadow"
+		FilePath = "Particles\particle_shadow"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain"
+		DieWithOwner = true
+		Duration = 3.8
+		Scale = 4
+		StartAlpha = 0
+		EndAlpha = 0.3
+		StartScale = 0
+		EndScale = 1
+		ColorFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerA"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonBeamerA_01" }
+			{ Name = "OlympusCorpseAutomatonBeamerA_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerB"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonBeamerB_01" }
+			{ Name = "OlympusCorpseAutomatonBeamerB_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerC"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonBeamerC_01" }
+			{ Name = "OlympusCorpseAutomatonBeamerC_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerA_01"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseA0001"
+		Saturation = -0.2
+		Scale = 0.6
+
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerA_02"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseA0002"
+		Saturation = -0.2
+		Scale = 0.58
+
+	}
+	{
+		Name = "OlympusCorpseAutomatonBeamerB_01"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseB0001"
+		Saturation = -0.2
+		Scale = 0.62
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerB_02"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseB0002"
+		Saturation = -0.2
+		Scale = 0.62
+	}
+	{
+		Name = "OlympusCorpseAutomatonBeamerC_01"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseC0001"
+		Saturation = -0.2
+		Scale = 0.75
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonBeamerC_02"
+		FilePath = "Animations\Enemies\AutomatonBeamer\AutomatonBeamerCorpseC0002"
+		Saturation = -0.2
+		Scale = 0.65
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerA"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonEnforcerA_01" }
+			{ Name = "OlympusCorpseAutomatonEnforcerA_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerB"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonEnforcerB_01" }
+			{ Name = "OlympusCorpseAutomatonEnforcerB_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerC"
+		Random = [
+			{ Name = "OlympusCorpseAutomatonEnforcerC_01" }
+			{ Name = "OlympusCorpseAutomatonEnforcerC_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerA_01"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseA0001"
+		Saturation = -0.2
+		Scale = 0.5
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerA_02"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseA0002"
+		Saturation = -0.2
+		Scale = 0.6
+	}
+	{
+		Name = "OlympusCorpseAutomatonEnforcerB_01"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseB0001"
+		Saturation = -0.2
+		Scale = 0.55
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerB_02"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseB0002"
+		Saturation = -0.2
+		Scale = 0.45
+	}
+	{
+		Name = "OlympusCorpseAutomatonEnforcerC_01"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseC0001"
+		Saturation = -0.2
+		Scale = 0.65
+	}
+
+	{
+		Name = "OlympusCorpseAutomatonEnforcerC_02"
+		FilePath = "Animations\Enemies\AutomatonEnforcer\AutomatonEnforcerCorpseC0002"
+		Saturation = -0.2
+		Scale = 0.7
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotA"
+		Random = [
+			{ Name = "OlympusCorpseSentryBotA_01" }
+			{ Name = "OlympusCorpseSentryBotA_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotB"
+		Random = [
+			{ Name = "OlympusCorpseSentryBotB_01" }
+			{ Name = "OlympusCorpseSentryBotB_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotC"
+		Random = [
+			{ Name = "OlympusCorpseSentryBotC_01" }
+			{ Name = "OlympusCorpseSentryBotC_02" }
+		]
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotA_01"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseA0001"
+		Saturation = -0.2
+		Scale = 0.22
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotA_02"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseA0002"
+		Saturation = -0.2
+		Scale = 0.22
+	}
+	{
+		Name = "OlympusCorpseSentryBotB_01"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseB0001"
+		Saturation = -0.2
+		Scale = 0.55
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotB_02"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseB0002"
+		Saturation = -0.2
+		Scale = 0.33
+	}
+	{
+		Name = "OlympusCorpseSentryBotC_01"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseC0001"
+		Saturation = -0.2
+		Scale = 0.27
+	}
+
+	{
+		Name = "OlympusCorpseSentryBotC_02"
+		FilePath = "Animations\Enemies\SentryBot\SentryBotCorpseC0002"
+		Saturation = -0.2
+		Scale = 0.42
+	}
+
+	{
+		Name = "OlympusAutomatonCorpseDeathFx"
+		FilePath = "Dev\blank_invisible"
+		DurationFrames = 1
+		CreateAnimations = [
+			{ Name = "AutomatonCorpseDeathFx" }
+			{ Name = "AutomatonCorpseDeathDustFront" }
+			{ Name = "AutomatonCorpseDeathDustBack" }
+			{ Name = "AutomatonCorpseDeathDustTerrain" }
+		]
+	}
+
+	{
+		Name = "AutomatonCorpseDeathFx"
+		Random = [
+			{ Name = "AutomatonCorpseDeathFxA" }
+			{ Name = "AutomatonCorpseDeathFxB" }
+		]
+	}
+
+	{
+		Name = "AutomatonCorpseDeathFxA"
+		FilePath  ="Fx\AutomatonCorpseDeathFxA\AutomatonCorpseDeathFxA"
+		NumFrames = 38
+		RandomFlipHorizontal = true
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 36
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		VisualFx = "AutomatonCorpseDeathParticles"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.01
+		VisualFxCap = 8
+	}
+
+	{
+		Name = "AutomatonCorpseDeathFxB"
+		InheritFrom = "AutomatonCorpseDeathFxA"
+		FilePath  ="Fx\AutomatonCorpseDeathFxB\AutomatonCorpseDeathFxB"
+	}
+
+	{
+		Name = "AutomatonCorpseDeathParticles"
+		Random = [
+			{ Name = "AutomatonCorpseDeathParticleA" }
+			{ Name = "AutomatonCorpseDeathParticleB" }
+			{ Name = "AutomatonCorpseDeathParticleC" }
+			{ Name = "AutomatonCorpseDeathParticleD" }
+		]
+	}
+
+	{
+		Name = "AutomatonCorpseDeathParticleA"
+		FilePath = "Fx\AutomatonCorpseDeathParticles\AutomatonCorpseParticleA\AutomatonCorpseParticleA"
+		NumFrames = 45
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		ScaleMin = 0.7
+		ScaleMax = 1.3
+		RandomStartFrame = true
+		StartScale = 1
+		EndScale = 0
+		EaseIn = 0
+		EaseOut = 0.1
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.0
+		AngleMin = 0
+		AngleMax = 180
+		RandomOffsetX = 120
+		RandomOffsetY = 60
+		UpwardVelocityMin = 0
+		UpwardVelocityMax = 200
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		VelocityMin = 400
+		VelocityMax = 500
+		Acceleration = -400
+		Gravity = 800
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 60
+		ReRandomizeOnLoop = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Standing"
+	}
+
+	{
+		Name = "AutomatonCorpseDeathParticleB"
+		InheritFrom = "AutomatonCorpseDeathParticleA"
+		FilePath = "Fx\AutomatonCorpseDeathParticles\AutomatonCorpseParticleB\AutomatonCorpseParticleB"
+	}
+	{
+		Name = "AutomatonCorpseDeathParticleC"
+		InheritFrom = "AutomatonCorpseDeathParticleA"
+		FilePath = "Fx\AutomatonCorpseDeathParticles\AutomatonCorpseParticleC\AutomatonCorpseParticleC"
+	}
+	{
+		Name = "AutomatonCorpseDeathParticleD"
+		InheritFrom = "AutomatonCorpseDeathParticleA"
+		FilePath = "Fx\AutomatonCorpseDeathParticles\AutomatonCorpseParticleD\AutomatonCorpseParticleD"
+	}
+
+	{
+		Name = "AutomatonCorpseDeathDustTerrain"
+		FilePath = "Fx\ShipsDustTerrain\ShipsDustTerrain"
+		NumFrames = 42
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 60
+		RandomFlipHorizontal = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		GroupName = "FX_Terrain"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		Hue = 0.45
+		Value = 0.3
+		Saturation = 0.1
+		StartAlpha = 0.4
+		EndAlpha = 0.2
+		ScaleMin = 0.9
+		ScaleMax = 1.0
+		Scale = 1.3
+		ScaleFromOwner = "Ignore"
+	}
+
+	{
+		Name = "AutomatonCorpseDeathDustFront"
+		FilePath = "Fx\ShipsDustFront\ShipsDustFront"
+		NumFrames = 45
+		PlaySpeed = 45
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		CreateAnimation = "ShipsDustBack"
+		LocationZFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		UseAttachedFlasher = false
+		UseAttachedShake = false
+		Saturation = -0.2
+		Hue = 0.45
+		StartAlpha = 0.5
+		EndAlpha = 0.05
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		StartRed = 0.05
+		StartGreen = 0.1
+		StartBlue = 0.4
+		EndRed = 0.025
+		EndGreen = 0.05
+		EndBlue = 0.2
+		ScaleFromOwner = "Ignore"
+		StartScale = 1
+		EndScale = 1.3
+		OffsetZ = 45
+	}
+
+	{
+		Name = "AutomatonCorpseDeathDustBack"
+		InheritFrom = "AutomatonCorpseDeathDustFront"
+		FilePath = "Fx\ShipsDustBack\ShipsDustBack"
+		GroupName = "FX_Dark"
+		ClearCreateAnimations = true
+		CreateAnimation = null
+	}
+
+	{
+		Name = "OlympusGuest04Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_04"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		Loop = true
+		StartOffsetZ = 2
+		EndOffsetZ = -2
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		StartAngle = -1.5
+		EndAngle = 1.5
+		PingPongAngle = true
+		PhaseOffsetAngle = 90
+	}
+
+	{
+		Name = "OlympusGuest05Float"
+		InheritFrom = "OlympusGuest04Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_05"
+	}
+
+	{
+		Name = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_01"
+		RandomDurationMin = 2
+		RandomDurationMax = 3
+		Loop = true
+		StartOffsetZ = -2
+		EndOffsetZ = 2
+		PingPongShiftOverDuration = true
+		EaseIn = 0
+		EaseOut = 1
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		PhaseOffsetAngle = 90
+		StartOffsetX = -2
+		EndOffsetX = 2
+	}
+
+	{
+		Name = "OlympusGuest02Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_02"
+	}
+
+	{
+		Name = "OlympusGuest03Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_03"
+	}
+
+	{
+		Name = "OlympusGuest06Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_06"
+	}
+
+	{
+		Name = "OlympusGuest07Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_07"
+	}
+
+	{
+		Name = "OlympusGuest08Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_08"
+	}
+
+	{
+		Name = "OlympusGuest09Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_09"
+	}
+
+	{
+		Name = "OlympusGuest10Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_10"
+	}
+
+	{
+		Name = "OlympusGuest11Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_11"
+	}
+
+	{
+		Name = "OlympusGuest12Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_12"
+	}
+
+	{
+		Name = "OlympusGuest13Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_13"
+	}
+
+	{
+		Name = "OlympusGuest14Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_14"
+	}
+
+	{
+		Name = "OlympusGuest15Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_15"
+	}
+
+	{
+		Name = "OlympusGuest16Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_16"
+	}
+
+	{
+		Name = "OlympusGuest17Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_17"
+	}
+
+	{
+		Name = "OlympusGuest18Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_18"
+	}
+
+	{
+		Name = "OlympusGuest19Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_19"
+	}
+
+	{
+		Name = "OlympusGuest20Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_20"
+	}
+
+	{
+		Name = "OlympusGuest21Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_21"
+	}
+
+	{
+		Name = "OlympusGuest22Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_22"
+	}
+
+	{
+		Name = "OlympusGuest23Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_23"
+	}
+
+	{
+		Name = "OlympusGuest24Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_24"
+	}
+
+	{
+		Name = "OlympusGuest25Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_Guest_25"
+	}
+
+	{
+		Name = "OlympusPoolDucky01Float"
+		InheritFrom = "OlympusGuest01Float"
+		FilePath = "Tilesets\Olympus\Olympus_PoolDucky_01"
+	}
+
+	{
+		Name = "DiscoLightA"
+		FilePath = "Lights\Light_DiscoA"
+		RotationSpeed = -11.25
+		Material = "Unlit"
+		Loop = true
+		Duration = 3
+		PostRotateScaleY = 0.5
+		StartAlpha = 0.1
+		EndAlpha = 1.0
+		PingPongColor = true
+		EaseIn = 0
+		EaseOut = 1
+		RandomRotation = true
+	}
+
+	{
+		Name = "DiscoLightB"
+		InheritFrom = "DiscoLightA"
+		FilePath = "Lights\Light_DiscoB"
+		Duration = 2.5
+		StartAlpha = 1.0
+		EndAlpha = 0.1
+	}
+
+	{
+		Name = "DiscoBallReflections"
+		FilePath = "Fx\OlympusDiscoBallReflections\OlympusDiscoBallReflections"
+		NumFrames = 15
+		GroupName = "DiscoBallAdditive"
+		Loop = true
+		Material = "Unlit"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.53
+		OffsetZ = -246
+		PlaySpeed = 30
+		ColorFromOwner = "Maintain"
+	}
+]}

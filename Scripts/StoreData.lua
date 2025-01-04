@@ -1,23 +1,8 @@
-
-SurfaceShopData = 
-{
-	DelayMin = 1,
-	DelayMax = 5,
-	ImpatienceMultiplier = 2.0, -- Total multiplier you pay of the base cost to get it delivered immediately.
-	DelayPriceDiscount = 
-	{
-		[1] = 0.8,
-		[2] = 0.7,
-		[3] = 0.6,
-		[4] = 0.5,
-		[5] = 0.4,
-		[6] = 0.3,
-	}
-}
 StoreData =
 {
 	RoomShop =
 	{
+		-- @ for testing specific items, see FillInShopOptions() or ShowSurfaceShopScreen()
 		MaxOffers = 3,
 		HealingOffers =
 		{
@@ -25,6 +10,11 @@ StoreData =
 			Max = 1,
 			WeightedList =
 			{
+				{
+					Name = "ArmorBoostStore",
+					Type = "Consumable",
+					Weight = 0.2,
+				},
 				{
 					Name = "DamageSelfDrop",
 					Type = "Consumable",
@@ -72,6 +62,7 @@ StoreData =
 			"TemporaryImprovedDefenseTrait",
 			"TemporaryDiscountTrait",
 			"TemporaryForcedSecretDoorTrait",
+			"TemporaryEmptySlotDamageTrait",
 			"ExtendedShopTrait",
 		},
 		Consumables =
@@ -81,32 +72,74 @@ StoreData =
 			"MemPointsCommonRange",
 			"SeedMysteryRange",
 			"RandomStoreItem",
+			"LimitedManaRegenDrop",
+			"LimitedSwapTraitDrop",
 		},
 	},
+
 	SurfaceShop = 
 	{
 		GroupsOf = 
 		{
+			-- @ for testing specific items, see ShowSurfaceShopScreen()
 			{
 				WeightedList = true,
 				Offers = 1,
 				OptionsData =
 				{
+					{ Name = "HealBigDrop", Weight = 0.75,  ReplacePurchaseRequirements = {} },
+					{ Name = "RoomRewardHealDrop", Weight = 1.0,  ReplacePurchaseRequirements = {} },
+					{ Name = "ArmorBigBoost", Weight = 0.25 },
+					{ Name = "ArmorBoost", Weight = 1.0 },
+					{ Name = "LastStandDrop", Weight = 0.50 },
+					{ Name = "MetaCardPointsCommonDrop", Weight = 0.15 },
+					{ Name = "MetaCurrencyDrop", Weight = 0.15 },
+					{ Name = "MemPointsCommonDrop", Weight = 0.15 },
+					{ Name = "GiftDrop", Weight = 0.15, ReplaceRequirements = { NamedRequirements = { "GiftDropLootRequirements" }, } },
+				},
+			},
+			{
+				WeightedList = true,
+				Offers = 2,
+				OptionsData =
+				{
+					{
+						Name = "SpellDrop", 
+						ReplaceRequirements = 
+						{
+							{
+								PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
+							},
+							{
+								PathFalse = { "CurrentRun", "HubRewardLookup", "SpellDrop" },
+							},
+							{
+								Path = { "CurrentRun", "CurrentRoom", "ChosenRewardType", },
+								IsNone = { "SpellDrop", },
+							},
+							{
+								Path = { "GameState", "TextLinesRecord" },
+								HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
+							},
+							{
+								PathFalse = { "CurrentRun", "PendingSpellDrop" },
+							},
+						}
+					},
+					{ Name = "ShopHermesUpgrade", },
+					{ Name = "MaxHealthDrop", },
+					{ Name = "MaxManaDrop", },
 					{ Name = "BlindBoxLoot", ReplaceRequirements = { NamedRequirements = { "BlindBoxLootRequirements" }, } },
-					--{ Name = "RandomLoot", Weight = 5 },
+					{ 
+						Name = "TalentDrop",
+						ReplaceRequirements = 
+						{
+							NamedRequirements = { "TalentLegal", },
+						}
+					},
 				},
 			},
-			{
-				WeightedList = true,
-				Offers = 1,
-				OptionsData =
-				{
-					{ Name = "MetaCardPointsCommonDrop", Weight = 1.0 },
-					{ Name = "MetaCurrencyDrop", Weight = 0.50 },
-					{ Name = "MemPointsCommonDrop", Weight = 0.75 },
-					{ Name = "GiftDrop", Weight = 0.25, ReplaceRequirements = { NamedRequirements = { "GiftDropLootRequirements" }, } },
-				},
-			},
+			--[[
 			{
 				WeightedList = true,
 				Offers = 1,
@@ -122,6 +155,7 @@ StoreData =
 					{ Name = "ShopHermesUpgrade", },
 					{ Name = "MaxHealthDrop", },
 					{ Name = "MaxManaDrop", },
+					{ Name = "BlindBoxLoot", ReplaceRequirements = { NamedRequirements = { "BlindBoxLootRequirements" }, } },
 					{ 
 						Name = "TalentDrop",
 						ReplaceRequirements = 
@@ -131,8 +165,10 @@ StoreData =
 					},
 				},
 			},
+			]]
 		}
 	},
+
 	WorldShop =
 	{
 		GroupsOf = 
@@ -170,7 +206,6 @@ StoreData =
 					{ Name = "RoomRewardHealDrop", Weight = 2.5 },
 					{ Name = "MaxHealthDrop", Weight = 1.5 },
 					{ Name = "ArmorBoost", Weight = 1.0 },
-					--{ Name = "HitShieldDrop", Weight = 0.50 },
 
 					-- Metas
 					{ Name = "MetaCardPointsCommonDrop", Weight = 1.0 },
@@ -201,6 +236,9 @@ StoreData =
 								Path = { "GameState", "TextLinesRecord" },
 								HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
 							},
+							{
+								PathFalse = { "CurrentRun", "PendingSpellDrop" },
+							},
 						}
 					},
 					{
@@ -220,9 +258,9 @@ StoreData =
 					},
 				},
 			},
-
 		}
 	},
+
 	I_WorldShop =
 	{
 		GroupsOf =
@@ -264,7 +302,15 @@ StoreData =
 				Offers = 1,
 				OptionsData =
 				{
-					{ Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500, ReplaceRequirements = { RequiredTextLines = {  "HermesFirstPickUp" },}},
+					{
+						Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500,
+						ReplaceRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "HermesFirstPickUp" },
+							},
+						},
+					},
 					{ Name = "ChaosWeaponUpgrade", Cost = 650 },
 					{ Name = "BoostedRandomLoot", },
 					{ Name = "MaxHealthDropBig" },
@@ -308,6 +354,7 @@ StoreData =
 			},
 		}
 	},
+
 	D_WorldShop =
 	{
 		GroupsOf =
@@ -332,7 +379,14 @@ StoreData =
 				Offers = 1,
 				OptionsData =
 				{
-					{ Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500, ReplaceRequirements = { RequiredTextLines = {  "HermesFirstPickUp" },}},
+					{ Name = "ShopHermesUpgrade", Cost = 500, UpgradeChance = 1.0, UpgradedCost = 500, 
+						ReplaceRequirements =
+						{
+							{
+								PathTrue = { "GameState", "TextLinesRecord", "HermesFirstPickUp" },
+							},
+						},
+					},
 					{ Name = "ChaosWeaponUpgrade", Cost = 650 },
 					--{ Name = "WeaponUpgradeDrop", Cost = 650, SkipRequirements = true },
 				},
@@ -345,7 +399,7 @@ StoreData =
 ScreenData.WellShop =
 {
 	Components = {},
-	TraitTrayArgs = 
+	TraitTrayArgs =
 	{
 		IgnoreHideMoney = true,
 	},
@@ -393,25 +447,6 @@ ScreenData.WellShop =
 			ScaleY = 1.3,
 			Children = 
 			{
-				--[[
-				ShopTitle = 
-				{
-					Text = "WellShop_Title",
-					TextArgs =  
-					{
-						FontSize = 32, 
-						OffsetX = 0, 
-						OffsetY = -445, 
-						Color = Color.White, 
-						Font = "SpectralSCLightTitling", 
-						ShadowBlur = 0, 
-						ShadowColor = {0,0,0,1}, 
-						ShadowOffset={0, 3}, 
-						Justification = "Center" 
-					}
-				},
-				]]--
-
 				ShopSubtitle = 
 				{
 					Text = "Store_Hint",
@@ -460,6 +495,7 @@ ScreenData.WellShop =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 
@@ -532,149 +568,3 @@ ScreenData.WellShop =
 	}
 }
 
--- Shrine of Hermes
-ScreenData.SurfaceShop = 
-{
-	Components = {},
-
-	OpenSound = "/Leftovers/Menu Sounds/InfoPanelInURSA",
-	CloseSound = "/Leftovers/Menu Sounds/InfoPanelOutURSA",
-
-	BlockPause = true,
-
-	GamepadNavigation =
-	{
-		FreeFormSelectWrapY = true,
-		FreeFormSelecSearchFromId = 0,
-		FreeFormSelectStepDistance = 10,
-	},
-
-	ShopItemStartX = ScreenCenterX,
-	ShopItemSpacerX = 820,
-	ShopItemStartY = 300,
-	ShopItemSpacerY = 240,
-
-	ComponentData =
-	{
-		DefaultGroup = "Combat_Menu_Overlay",
-
-		BackgroundTint = 
-		{
-			Graphic = "rectangle01",
-			GroupName = "Combat_UI",
-			Scale = 10,
-			X = ScreenCenterX,
-			Y = ScreenCenterY,
-			Color = {0.15, 0.15, 0.15, 0.85}
-		},
-
-		ShopBackground = 
-		{
-			Children = 
-			{
-				--[[
-				ShopTitle = 
-				{
-					GroupName = "Combat_Menu_Overlay",
-					Text = "SurfaceShop_Title",
-					TextArgs =  
-					{
-						FontSize = 32, 
-						OffsetX = 0, 
-						OffsetY = -445, 
-						Color = Color.White, 
-						Font = "SpectralSCLightTitling", 
-						ShadowBlur = 0, 
-						ShadowColor = {0,0,0,1}, 
-						ShadowOffset={0, 3}, 
-						Justification = "Center" 
-					}
-				},
-				]]--
-
-				ShopSubtitle = 
-				{
-					GroupName = "Combat_Menu_Overlay",
-					Text = "Store_Hint",
-					TextArgs =  
-					{
-						FontSize = 18, 
-						OffsetX = 0, 
-						OffsetY = 380, 
-						Width = 840, 
-						Color = Color.Gray, 
-						Font = "LatoMedium", 
-						ShadowBlur = 0, 
-						ShadowColor = {0,0,0,1}, 
-						ShadowOffset={0, 2}, 
-						Justification = "Center" 
-					}
-				},
-
-				ShopFlavor = 
-				{
-					GroupName = "Combat_Menu_Overlay",
-					Text = "Store_Hint",
-					TextArgs =  
-					{
-						FontSize = 22,
-						OffsetY = -385, Width = 840,
-						Color = {0.698, 0.702, 0.514, 1.0},
-						Font = "LatoMedium",
-						ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 3},
-						Justification = "Center",
-						Scale = 0,
-					}
-				},
-			},
-		},
-
-		ActionBar =
-		{
-			X = UIData.ContextualButtonXRight - 200,
-			Y = UIData.ContextualButtonY,
-			AutoAlignContextualButtons = true,
-			AutoAlignJustification = "Right",
-
-			ChildrenOrder =
-			{
-				"CloseButton",
-				"SelectButton",
-			},
-
-			Children =
-			{
-				SelectButton =
-				{
-					Graphic = "ContextualActionButton",
-					GroupName = "Combat_Menu_Overlay",
-					BottomOffset = UIData.ContextualButtonBottomOffset,
-					Alpha = 0.0,
-					Data =
-					{
-						-- Dummy button
-					},
-					Text = "Menu_Buy",
-					AltText = "Menu_Rush",
-					TextArgs = UIData.ContextualButtonFormatRight,
-				},
-
-				CloseButton =
-				{
-					Graphic = "ContextualActionButton",
-					GroupName = "Combat_Menu_Overlay",
-					BottomOffset = UIData.ContextualButtonBottomOffset,
-					Data =
-					{
-						OnMouseOverFunctionName = "MouseOverContextualAction",
-						OnMouseOffFunctionName = "MouseOffContextualAction",
-						OnPressedFunctionName = "CloseSurfaceShopScreen",
-						ControlHotkeys = { "Cancel", },
-					},
-					Text = "Menu_Exit",
-					TextArgs = UIData.ContextualButtonFormatRight,
-				},
-			},
-		},
-	}
-}

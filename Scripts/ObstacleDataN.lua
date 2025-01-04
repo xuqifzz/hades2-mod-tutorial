@@ -49,7 +49,7 @@ OverwriteTableKeys( ObstacleData, {
 				BreakIfPlayed = true,
 				PreLineWait = 0.3,
 				UsePlayerSource = true,
-				SuccessiveChanceToPlayAll = 0.2,
+				SuccessiveChanceToPlayAll = 0.1,
 
 				{ Cue = "/VO/MelinoeField_0387", Text = "Shades are trapped within that Pylon there...!", PlayFirst = true, PlayOnce = true },
 				{ Cue = "/VO/MelinoeField_0388", Text = "That Pylon's powering the barrier out there.", PlayFirst = true, PlayOnce = true,
@@ -63,7 +63,16 @@ OverwriteTableKeys( ObstacleData, {
 				{ Cue = "/VO/MelinoeField_0389", Text = "There's my target." },
 				{ Cue = "/VO/MelinoeField_0390", Text = "Pylon sighted." },
 				{ Cue = "/VO/MelinoeField_0391", Text = "Pylon there." },
-				{ Cue = "/VO/MelinoeField_0392", Text = "Another Pylon." },
+				{ Cue = "/VO/MelinoeField_0392", Text = "Another Pylon.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "SpawnRecord", "SoulPylon" },
+							Comparison = ">",
+							Value = 1,
+						},
+					}
+				},
 			}
 		},
 	},
@@ -180,6 +189,7 @@ OverwriteTableKeys( ObstacleData, {
 
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 900,
 			VoiceLines =
 			{
@@ -224,6 +234,7 @@ OverwriteTableKeys( ObstacleData, {
 				ThreadName = "RoomThread",
 				Cooldowns =
 				{
+					{ Name = "MelinoeAnyQuipSpeech", Time = 6 },
 					{ Name = "EphyraExitVoiceLines", Time = 4 },
 				},
 
@@ -255,6 +266,7 @@ OverwriteTableKeys( ObstacleData, {
 
 		DistanceTrigger =
 		{
+			PreTriggerWait = 0.1,
 			WithinDistance = 1000,
 			VoiceLines =
 			{
@@ -518,19 +530,6 @@ OverwriteTableKeys( ObstacleData, {
 				},
             },
         },
-
-		--FirstOnHitSound = "/Leftovers/SFX/CaravanDamage",
-		OnHitShake = { Distance = 3, Speed = 300, Duration = 0.15, },
-
-		CannotDieFromDamage = true,
-		MaxHealth = 0,
-		HealthTicks = 1,
-
-		MoneyDropOnDeath =
-		{
-			Chance = 0,
-			IgnoreRoomMoneyStore = true,
-		},
 	},
 
 		-- Shrine of Hermes
@@ -546,6 +545,7 @@ OverwriteTableKeys( ObstacleData, {
 		CannotUseText = "WellShopBlockedByEncounter",
 		CooldownNamePrefix = "SurfaceShop",
 		BlockDuringChallenge = true,
+		SpeakerName = "Hermes",
 
 		DistanceTrigger =
 		{
@@ -589,7 +589,7 @@ OverwriteTableKeys( ObstacleData, {
 		UsePromptOffsetY = -50,
 		OnUsedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.UsedTelescopeVoiceLines,
+			[1] = { GlobalVoiceLines = "UsedTelescopeVoiceLines" },
 		},
 		DistanceTrigger =
 		{
@@ -598,6 +598,12 @@ OverwriteTableKeys( ObstacleData, {
 			{
 				{
 					PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeEphyraZoomOut" },
+				},
+				{
+					PathFromSource = true,
+					Path = { "Name", },
+					Comparison = "~=",
+					Value = "EphyraZoomObject664259",
 				},
 			},
 			Repeat = false,
@@ -628,7 +634,7 @@ OverwriteTableKeys( ObstacleData, {
 		{
 			-- Bat Cages
 			[664259] = { X = 560, Y = 720 }, -- entrance
-			[664261] = { X = 180, Y = 460 },
+			[664261] = { X = 200, Y = 470 },
 			[664258] = { X = 650, Y = 490 },
 			[664262] = { X = 880, Y = 200 },
 			[664263] = { X = 1120, Y = 880 },

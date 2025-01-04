@@ -186,22 +186,22 @@
 	}
 
 
-  {
-      Name = "ShipsSeaSprayContainer"
-      InheritFrom = "EditorContainer"
-      Scale = 0.5
-      VisualFx = "ShipsSeaSprayEmitter"
-      VisualFxIntervalMin = 3
-      VisualFxIntervalMax = 5
-	}  
+	{
+		Name = "ShipsSeaSprayContainer"
+		InheritFrom = "EditorContainer"
+		Scale = 0.5
+		VisualFx = "ShipsSeaSprayEmitter"
+		VisualFxIntervalMin = 3
+		VisualFxIntervalMax = 5
+	}	
 
 	{
-      Name = "ShipsSeaSprayContainerContinuous"
-      InheritFrom = "EditorContainer"
-      Scale = 0.5
-      VisualFx = "ShipsSeaSprayEmitter"
-      VisualFxIntervalMin = 1
-      VisualFxIntervalMax = 1
+		Name = "ShipsSeaSprayContainerContinuous"
+		InheritFrom = "EditorContainer"
+		Scale = 0.5
+		VisualFx = "ShipsSeaSprayEmitter"
+		VisualFxIntervalMin = 1
+		VisualFxIntervalMax = 2
 	}
 
 	{
@@ -211,7 +211,7 @@
 		VisualFx = "ShipsSeaSpray"
 		VisualFxIntervalMin = 0.01
 		VisualFxIntervalMax = 0.02
-		VisualFxCap = 8
+		VisualFxCap = 4
 	}
 
 	{
@@ -558,8 +558,8 @@
 		FilePath = "Dev\blank_invisible"
 		Duration = 3
 		VisualFx = "ShipsWindGustForward"
-		VisualFxIntervalMin = 0.2
-		VisualFxIntervalMax = 0.4
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.6
 	}	
 
 	{
@@ -862,6 +862,392 @@
 		Loop = true
 		PlaySpeed = 30
 		OffsetY = -200
+	}
+	{
+		Name = "ShipsSteeringWheelDestroyed"
+		FilePath = "Tilesets\Ships\Ships_SteeringWheel_01a"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.22
+		ScaleFromOwner = "Ignore"
+		OffsetY = -10
+		Sound = "/SFX/FieldsDoorUse"
+	}
+
+	{
+		Name = "ShipsExitDoorLocked"
+		FilePath = "Fx\Ships_GhostDoor_01\Ships_GhostDoor_01"
+		EndFrame = 60
+		NumFrames = 60
+		StartFrame = 1
+		PlaySpeed = 30
+		Scale = 1
+		ScaleFromOwner = "Ignore"
+		OffsetY = -70
+		Loop = true
+	}
+	{
+		Name = "ShipsExitDoorUnlocked"
+		InheritFrom = "ShipsExitDoorLocked"
+		FilePath = "Fx\Ships_GhostDoor_01a\Ships_GhostDoor_01a"
+		CreateAnimation = "ShipsExitDoorUnlockedTransition"
+	}
+
+	{
+		Name = "ShipsPowerCellFull"
+		FilePath = "Tilesets\Ships\Ships_PowerCell_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Duration = 1
+		Loop = true
+	}
+	{
+		Name = "ShipsPowerCellEmpty"
+		InheritFrom = "ShipsPowerCellFull"
+		FilePath = "Tilesets\Ships\Ships_PowerCell_01a"
+	}
+
+	{
+		Name = "Breakable_O01"
+		FilePath = "Tilesets\Ships\Ships_Breakable_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -75.0
+		Scale = 0.4
+	}
+	{
+		Name = "Breakable_O02"
+		InheritFrom = "Breakable_O01"
+		FilePath = "Tilesets\Ships\Ships_Breakable_02"
+		Scale = 0.3
+		OffsetY = -65.0
+	}
+	{
+		Name = "Breakable_O03"
+		InheritFrom = "Breakable_O01"
+		FilePath = "Tilesets\Ships\Ships_Breakable_03"
+		Scale = 0.35
+		OffsetY = -45.0
+	}
+
+	{
+		Name = "HealthFountainO_Full"
+		FilePath = "Tilesets\Ships\Ships_Well_01"
+		Ambient = 0.0
+		Duration = 2
+		Loop = true
+		Sound = "/Leftovers/Object Ambiences/WaterThessalyRestoreFountain"
+		StopSoundOnFinishFade = 0.3
+		SoundAllowedAfterFrame = -1
+	}
+	{
+		Name = "HealthFountainO_FullStart"
+		InheritFrom = "HealthFountainO_Full"
+		ChainTo = "HealthFountainO_Full"
+		Duration = 0.1
+		Loop = false
+	}
+
+	{
+		Name = "HealthFountainO_Empty"
+		InheritFrom = "HealthFountainO_Full"
+		FilePath = "Tilesets\Ships\Ships_Well_01a"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "ShipsSteeringWheelBreak"
+		FilePath = "Fx\ShipsSteeringWheelBreak\ShipsSteeringWheelBreak"
+		NumFrames = 70
+		PlaySpeed = 36
+		AngleFromOwner = "Ignore"
+		Material = "Unlit"
+		OffsetZ = 120
+		OffsetX = -3
+		Scale = 1.05
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+	}
+
+	{
+		Name = "ShipsBreakable01Shatter"
+		FilePath = "Fx\ShipsBreakable01Shatter\ShipsBreakable01Shatter"
+		NumFrames = 31
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		Scale = 1.6
+		OffsetY = -75
+		SortMode = "FromParent"
+		SortFromOwner = "Take"
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "ShipsBreakable02Shatter"
+		InheritFrom = "ShipsBreakable01Shatter"
+		FilePath = "Fx\ShipsBreakable02Shatter\ShipsBreakable02Shatter"
+		NumFrames = 32
+		Scale = 1.2
+		OffsetY = -65
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+	{
+		Name = "ShipsBreakable03Shatter"
+		InheritFrom = "ShipsBreakable01Shatter"
+		FilePath = "Fx\ShipsBreakable03Shatter\ShipsBreakable03Shatter"
+		NumFrames = 30
+		Scale = 1.4
+		OffsetY = -45
+		Slides = [
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+			{ DurationFrames = 1 }
+
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+			{ RandomDurationFramesMin = 1 RandomDurationFramesMax = 2 }
+
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+			{ DurationFrames = 2 }
+		]
+	}
+
+	{
+		Name = "ShipsDoorMelZwoop"
+		FilePath = "Fx\ShipsDoorMelZwoop\ShipsDoorMelZwoop"
+		NumFrames = 66
+		PlaySpeed = 30
+		Material = "Unlit"
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetX = -128
+		OffsetZ = 55
+		Scale = 2
+		VisualFx = "ShipsDoorMelZwoopFlash"
+		VisualFxCap = 1
+		VisualFxIntervalMin = 1.233
+		VisualFxIntervalMax = 1.233
+	}	
+
+	{
+		Name = "ShipsDoorMelZwoop_In"
+		InheritFrom = "ShipsDoorMelZwoop"
+		NumFrames = 27
+		StartFrame = 39
+		OffsetZ = -45
+		OffsetX = -100
+		StartScale = 0.5
+		EndScale = 1
+		EaseIn = 0.999
+		EaseOut = 1.0
+		CreateAnimations = [
+			{ Name = "ShipsMelZwoopDisplacement" }
+			{ Name = "ShipsMelZwoopLightA" }
+			{ Name = "ShipsMelZwoopLightB" }
+			{ Name = "BlinkStreakDarkZwoop" }
+		]
+	}
+
+	{
+		Name = "BlinkStreakDarkZwoop"
+		InheritFrom = "BlinkStreak"
+		FilePath = "Fx\MelBlinkDarkStreak\MelBlinkDarkStreak"
+		GroupName = "FX_Dark"
+		OriginX = 480
+		NumFrames = 14
+		Red = 0
+		Green = 0
+		Blue = 0
+		PlaySpeed = 45
+		StartScaleY = 1
+		EndScaleY = 0.5
+		AddColor = false
+		Angle = 22
+		OffsetZ = 0
+		ClearCreateAnimations = true
+	}	
+
+	{
+		Name = "ShipsMelZwoopDisplacement"
+		FilePath = "Fx\Blink\BlinkDisplacement"
+		Material = "Unlit"
+		GroupName = "FX_Displacement"
+		StartAlpha = 1
+		EndAlpha = 0
+		Duration = 0.25
+		ScaleX = 2.5
+		Angle = 22
+		FlipVertical = true
+		FlipHorizontal = true
+		EaseIn = 0.9
+		EaseOut = 1
+		StartScale = 3
+		EndScale = 1.5
+		ScaleFromOwner = "Ignore"
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = true
+		Velocity = 800
+		Acceleration = -1600
+	}
+
+	{
+		Name = "ShipsMelZwoopDisplacement_Out"
+		InheritFrom = "ShipsMelZwoopDisplacement"
+		StartScale = 1
+		EndScale = 0.5
+	}
+
+	{
+		Name = "ShipsMelZwoopLightA"
+		FilePath = "Particles\particle_glow"
+		PostRotateScaleY = 0.5
+		GroupName = "FX_Terrain_Add"
+		ScaleFromOwner = "Ignore"
+		LocationZFromOwner = "Ignore"
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 0.7
+		StartBlue = 0.3
+		EndRed = 0.2
+		EndGreen = 1
+		EndBlue = 1
+		Scale = 2
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "ShipsMelZwoopLightB"
+		InheritFrom = "ShipsMelZwoopLightA"
+		Scale = 6
+		StartAlpha = 0.4
+		GroupName = "FX_Standing_Add"
+	}
+
+	{
+		Name = "ShipsDoorMelZwoopFlash"
+		InheritFrom = "ShipsMelZwoopLightA"
+		CreateAnimations = [
+			{ Name = "ShipsMelZwoopLightB" }
+			{ Name = "BlinkStreakDarkZwoop" }
+			{ Name = "ShipsMelZwoopDisplacement_Out" }
+		]
+	}
+
+	{
+		Name = "ShipsExitDoorUnlockedTransition"
+		FilePath = "Fx\ShipsGhostDoor01Transition\ShipsGhostDoor01Transition"
+		NumFrames = 30
+		PlaySpeed = 30
+		Material = "Unlit"
+		SortMode = "FromParent"
+		SortFromOwner = "Maintain"
+		Scale = 1.4
+		AngleFromOwner = "Ignore"
+		UseOwnAngle = false
+		OffsetY = -180
 	}
 
 ]}

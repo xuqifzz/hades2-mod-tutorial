@@ -5,7 +5,8 @@ WeaponSetData =
 
 		Requirements =
 		{
-			MinPlayerDistance = 300,
+			MinPlayerDistance = 370,
+			MaxAttackers = 3,
 		},
 
 		AIData =
@@ -36,8 +37,16 @@ WeaponSetData =
 
 			WaitForAngleTowardTarget = true,
 
+			PreAttackStop = true,
+
 			AttackDistance = 1000,
 			AttackDistanceScaleY = 0.58,
+
+			RetreatAfterAttack = true,
+			--RetreatToSpawnPoints = true,
+			RetreatBufferDistance = 1100,
+			RetreatDurationMin = 1.5,
+			RetreatDurationMax = 2.0,
 
 			PreAttackAnimation = "Enemy_Turtle_SpitAttackPreAttack",
 			FireAnimation = "Enemy_Turtle_SpitAttackFire",
@@ -95,9 +104,12 @@ WeaponSetData =
 			DoNotRepeatOnAttackFail = true,
 			FireProjectileStartDelay = 0.035,
 
-			PreAttackDuration = 1.0,
+			PreAttackDurationMin = 1.0,
+			PreAttackDurationMax = 1.5,
 			PreAttackEndShake = true,
 			PreAttackSound = "/SFX/Enemy Sounds/Turtle/EmoteCharging",
+
+			PreAttackStop = true,
 
 			NumProjectiles = 2,
 			ProjectileInterval = 0.11,
@@ -108,17 +120,20 @@ WeaponSetData =
 			FireAnimation = "Enemy_Turtle_ClawAttackFire",
 			PostAttackAnimation = "Enemy_Turtle_ClawAttackReturnToIdle",
 
-			AttackDistance = 350,
+			AttackDistance = 400,
 			MoveWithinRange = false,
+			AttackDistanceScaleY = 0.8,
 
 			RequireUnitLoS = true,
 			LoSBuffer = 80,
 			LoSEndBuffer = 32,
+
+			SkipSurroundAICount = true,
 		},
 
 		Requirements =
 		{
-			MaxPlayerDistance = 300,
+			MaxPlayerDistance = 370,
 		},
 
 		Sounds =
@@ -135,6 +150,24 @@ WeaponSetData =
 			{ ScreenPreWait = 0.01, Fraction = 0.15, LerpTime = 0 },
 			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0.03 },
 		},	
+	},
+
+	-- Only for when there are too many turtles lobbing and these are out of range of the regular claw
+	TurtleClawRush =
+	{
+		InheritFrom = { "TurtleClaw" },
+
+		Requirements =
+		{
+			MinAttackers = 3,
+		},
+
+		AIData =
+		{
+			DeepInheritance = true,
+
+			MoveWithinRange = true,
+		},
 	},
 
 	TurtleHide =
@@ -166,6 +199,7 @@ WeaponSetData =
 			FireAnimation = "Enemy_Turtle_Idle",
 			PostAttackAnimation = "Enemy_Turtle_Idle",
 
+			SkipSurroundAICount = true,
 		},
 
 		Requirements =

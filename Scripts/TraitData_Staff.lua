@@ -1,10 +1,21 @@
 OverwriteTableKeys( TraitData, {
 	-- Staff
+	StaffHammerTrait = 
+	{
+		CodexWeapon = "WeaponStaffSwing"
+	},
+
 	StaffSecondStageTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_37",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 		ChargeStageModifiers = 
 		{
 			ValidWeapons = { "WeaponStaffBall", },
@@ -59,12 +70,23 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffExHealTrait = 
 	{
 	
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_31",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "StaffAttackRecoveryTrait" },
+			},
+		},
 		OnEnemyDeathFunction = 
 		{
 			Name = "StaffEXHitHeal",
@@ -87,11 +109,19 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffDoubleAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_29",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
+	
 		PropertyChanges =
 		{
 			{
@@ -110,11 +140,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffPowershotTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_36",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 		StagePerfectChargeWindow = 0.275,
 		AddOutgoingDamageModifiers =
 		{
@@ -150,11 +187,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		},
 	},
+
 	StaffLongAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_34",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 		AddOutgoingDamageModifiers =
 		{
 			ValidWeapons = { "WeaponStaffSwing", "WeaponStaffSwing2", "WeaponStaffSwing3", "WeaponStaffDash" },
@@ -220,26 +264,24 @@ OverwriteTableKeys( TraitData, {
 		ExtractValues =
 		{
 			{
-				Key = "ReportedRangeBonus",
-				ExtractAs = "TooltipRangeBonus",
-				Format = "PercentDelta"
-			},
-			{
-				Key = "Jumps",
-				ExtractAs = "NumJumps",
-			},
-			{
 				Key = "ReportedWeaponMultiplier",
 				ExtractAs = "TooltipDamageBonus",
 				Format = "PercentDelta"
 			},
 		}
 	},
+
 	StaffDashAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_28",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 	
 		PropertyChanges =
 		{
@@ -267,11 +309,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffFastSpecialTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_32",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 		PropertyChanges = 
 		{
 			{
@@ -286,15 +335,6 @@ OverwriteTableKeys( TraitData, {
 				ChangeValue = 1.25,
 				ChangeType = "Multiply",
 			},
-			--[[
-			{
-				WeaponName = "WeaponStaffBall",
-				ProjectileProperty = "Damage",
-				BaseValue = 5,
-				ChangeType = "Add",
-				ReportValues = { ReportedDamageChange = "ChangeValue" },
-			},
-			]]
 		},
 		WeaponSpeedMultiplier =
 		{
@@ -314,17 +354,24 @@ OverwriteTableKeys( TraitData, {
 				Format = "NegativePercentDelta",
 				HideSigns = true,
 			},
-			{
-				Key = "ReportedDamageChange",
-				ExtractAs = "TooltipDamageBonus",
-			},
 		},
 	},
+
 	StaffAttackRecoveryTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_27",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "StaffOneWayAttackTrait", "StaffExAoETrait", "StaffExHealTrait", "SlowExAttackBoon" },
+			},
+		},
 		PropertyChanges =
 		{	
 			{
@@ -352,11 +399,58 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
+	StaffSlowExTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
+		Icon = "Hammer_Staff_01",
+		IsPriorityHammerModifierTrait = true,
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "StaffAttackRecoveryTrait", },
+			},
+		},
+		
+		PropertyChanges = 
+		{
+			{
+				WeaponName = "WeaponStaffSwing5",
+				ProjectileProperty = "Damage",
+				BaseValue = 25,
+				ChangeType = "Add",
+				ReportValues = { ReportedDamageChange = "ChangeValue" },
+			},
+			{
+				WeaponName = "WeaponStaffSwing5",
+				WeaponProperty = "ProjectileInterval",
+				ChangeValue = 0.1,
+				ChangeType = "Absolute",
+				ReportValues = { ReportedDamageChange = "ChangeValue" },
+			},
+		},
+	},
+
 	StaffExAoETrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_30",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+			{
+				Path = { "CurrentRun", "Hero", "TraitDictionary", },
+				HasNone = { "StaffAttackRecoveryTrait", },
+			},
+		},
 		IsLastPriorityHammerTrait = true,
 		PropertyChanges =
 		{
@@ -398,11 +492,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffOneWayAttackTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_35",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 		WeaponDataOverride = 
 		{
 			WeaponStaffSwing = 
@@ -448,13 +549,13 @@ OverwriteTableKeys( TraitData, {
 				}
 			},
 			WeaponStaffSwing3 = 
-			{
+		{
 				ManaChanges = 
-				{
+			{
 					Disabled = 
-					{
+				{
 						NumProjectiles = 1,
-					},
+				},
 					Enabled = 
 					{
 						NumProjectiles = 2,
@@ -467,7 +568,7 @@ OverwriteTableKeys( TraitData, {
 			WeaponNames = WeaponSets.HeroPrimaryWeapons,
 			ManaCostAdd = 5,
 			ReportValues = { ReportedManaCost = "ManaCostAdd" }
-		},
+			},
 		PropertyChanges =
 		{
 			{
@@ -510,11 +611,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffJumpSpecialTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_33",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 
 		WeaponDataOverride =
 		{
@@ -536,7 +644,7 @@ OverwriteTableKeys( TraitData, {
 				--ProjectileName = "ProjectileStaffBall",
 				ProjectileProperty  = "NumJumps",
 				ChangeValue = 2,
-				ChangeType = "Absolute",
+				ChangeType = "Add",
 				--ExcludeLinked = true,
 				ReportValues = { Jumps = "ChangeValue" },
 			},
@@ -572,9 +680,7 @@ OverwriteTableKeys( TraitData, {
 				ProjectileProperty  = "AllowRepeatedJumpHit",
 				ChangeValue = false,
 				ChangeType = "Absolute",
-			},
-
-			
+			},		
 		},
 		ExtractValues =
 		{
@@ -589,11 +695,18 @@ OverwriteTableKeys( TraitData, {
 			},
 		}
 	},
+
 	StaffTripleShotTrait = 
 	{
-		InheritFrom = { "WeaponTrait" },
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
 		Icon = "Hammer_Staff_38",
-		RequiredWeapon = "WeaponStaffSwing",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
 	
 		PropertyChanges =
 		{
@@ -672,5 +785,23 @@ OverwriteTableKeys( TraitData, {
 				HideSigns = true,
 			},
 		}
+	},
+
+	StaffReserveManaBoostTrait = 
+	{
+		InheritFrom = { "WeaponTrait", "StaffHammerTrait" },
+		Icon = "Hammer_Staff_37",
+		GameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons", },
+				HasAll = { "WeaponStaffSwing", },
+			},
+		},
+		AddOutgoingDamageModifiers =
+		{
+			ValidWeapons = WeaponSets.HeroSecondaryWeapons,
+			ExManaReserveConversion = 2,
+		},
 	},
 })

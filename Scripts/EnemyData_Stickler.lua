@@ -3,9 +3,9 @@ UnitSetData.Stickler =
 
 	Stickler =
 	{
-		InheritFrom = { "BaseVulnerableEnemy" },
+		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy" },
 
-		MaxHealth = 380,
+		MaxHealth = 480,
 		HealthBarOffsetY = -200,
 		HealthBarType = "Medium",
 
@@ -20,6 +20,8 @@ UnitSetData.Stickler =
 		ActivateDuration = 0.45,
 		ActivateStartOffsetZ = 2000,
 		DeathSound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteDying",
+		DeathAnimation = "Enemy_Stickler_Death",
+		-- DeathFx = "EnemyDeathFxUndead",
 
 		Groups = { "GroundEnemies" },
 		IsAggroedSound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteAlerted",
@@ -35,6 +37,8 @@ UnitSetData.Stickler =
 		{
 			"AggroAI",
 		},
+		AIAggroRange = 1150,
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
@@ -51,8 +55,12 @@ UnitSetData.Stickler =
 			LeapDistanceMin = 500,
 			LeapChargeAnimation = "Enemy_Stickler_LeapPreFire",
 			LeapLandingAnimation = "Enemy_Stickler_LeapLand",
+
+			MaxAttackers = 99,
+			SurroundDistance = 9999,
+			SurroundRefreshInterval = 0.5,
+			SurroundMinTrackTime = 0.5,
 		},
-		AIAggroRange = 1150,
 
 		WeaponOptions =
 		{
@@ -72,11 +80,9 @@ UnitSetData.Stickler =
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
@@ -94,7 +100,7 @@ UnitSetData.Stickler =
 	Stickler_Elite =
 	{
 		InheritFrom = { "Elite", "Stickler" },
-		HealthBuffer = 280,
+		HealthBuffer = 380,
 		IsAggroedSound = "/SFX/Enemy Sounds/DeadSeaStickler/EmoteTaunting",
 
 		DefaultAIData =
@@ -105,11 +111,6 @@ UnitSetData.Stickler =
 		WeaponOptions =
 		{
 			"SticklerThrow_Elite", "SticklerLeapCombo",
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		HeraclesCombatMoneyValue = 6,

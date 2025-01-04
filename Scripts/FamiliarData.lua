@@ -3,6 +3,7 @@
 	"CatFamiliar",
 	"FrogFamiliar",
 	"RavenFamiliar",
+	"HoundFamiliar",
 }
 
 FamiliarData = 
@@ -14,20 +15,18 @@ FamiliarData =
 		BlocksLootInteraction = false,
 		SkipDefaultSetup = true,
 		DebugOnly = true,
-		UseText = "UseToolFamiliar",
+		UseText = "FamiliarUseText",
 		OnUsedFunctionName = "UseFamiliar",
 		Icon = "Tilesets\\Graybox\\TestButton",
-		UnitName = "BaseFamiliar",
 		MovementType = "Direct",
 		AnimOffsetZ = 150,
 		BaseResourceSpawnChance = 0.03,
 		TickForRested = 30,
 		RestBonusResourceSpawnChance = 0.25,
-		AttackBlocks = {},
 
 		EquipVoiceLines =
 		{
-			[1] = GlobalVoiceLines.FamiliarEquipVoiceLines,
+			[1] = { GlobalVoiceLines = "FamiliarEquipVoiceLines" },
 		},
 		GameStateRequirements = 
 		{
@@ -35,7 +34,6 @@ FamiliarData =
 		},
 
 		CanReceiveGift = true,
-		GiftOncePerRun = true,
 		UnlimitedGifts =
 		{
 			FamiliarPoints = true,
@@ -102,10 +100,15 @@ FamiliarData =
 	{
 		InheritFrom = { "BaseFamiliar" },
 		Icon = "GUI\\Icons\\Tool_Book_Frog",
-		EquipSound = "/SFX/Familiars/FrogCroak2",
 		LinkedTool = "ToolExorcismBook",
 		TraitName = "HealthFamiliar",
 		KitAngle = 235,
+		AnimOffsetZ = 140,
+
+		MarkerModel = "FrogMarker_Mesh",
+		MarkerIdleAnimation = "FrogMarkerIdle",
+		MarkerMoveAnimation = "FrogMarkerMove",
+		MarkerJumpAnimation = "FrogMarkerJump",
 
 		BaseResourceSpawnChance = 0.12,
 		RestBonusResourceSpawnChance = 0.03,
@@ -151,18 +154,43 @@ FamiliarData =
 				{
 					GiftFunctionName = "GiftFamiliarUpgrade",
 					UseTextGift = "FamiliarUseTextGift",
-					UseTextGiftAndSpecial = "FamiliarUseTextGiftAndSpecial",
+					UseTextGiftAndSpecial = "CatFamiliarUseTextGiftAndSpecial",
+					GiftGameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeFamiliarUpgradeSystem" },
+						},
+						{
+							Path = { "CurrentHubRoom", "Name" },
+							Comparison = "==",
+							Value = "Hub_PreRun",
+						},
+						{
+							Path = { "GameState", "WorldUpgrades", },
+							NotHasAll =
+							{
+								"FrogHealthBonus",
+								"FrogHealthBonus2",
+								"FrogHealthBonus3",
+								"FrogUses",
+								"FrogUses2",
+								"FrogUses3",
+								"FrogDamage",
+								"FrogDamage2",
+								"FrogDamage3",
+								--"FrogDeflect",
+							},
+						},
+					},
 				},
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked" },
+						PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar" },
 					},
 				},
 			},
 		},
-
-		OnUsedFunctionName = "UseFamiliar",
 
 		GiftFunctionName = "FrogFamiliarRecruit",
 		GiftFunctionArgs =
@@ -183,36 +211,7 @@ FamiliarData =
 			UnlockExitAnimation = "Familiar_Frog_HopStart",
 		},
 
-		OnUsedGameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-		
-		GiftGameStateRequirements = 
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-			{
-				Path = { "GameState", "WorldUpgrades", },
-				NotHasAll =
-				{
-					"FrogHealthBonus",
-					"FrogHealthBonus2",
-					"FrogHealthBonus3",
-					"FrogUses",
-					"FrogUses2",
-					"FrogUses3",
-					"FrogDamage",
-					"FrogDamage2",
-					"FrogDamage3",
-					--"FrogDeflect",
-				},
-			},
-		},
-
+		-- SpecialInteractCooldown = 6,
 		SpecialInteractFunctionName = "PetFamiliarFrog",
 		SpecialInteractGameStateRequirements =
 		{
@@ -224,9 +223,7 @@ FamiliarData =
 				IsAny = { "Hub_Main" },
 			},
 		},
-		--SpecialInteractCooldown = 6,
 
-		UseText = "FamiliarUseText",
 		UseTextGift = "FamiliarUseTextGift_First",
 		UseTextTalkGiftAndSpecial = "FamiliarUseTextTalkGiftAndSpecial",
 		UseTextTalkAndGift = "FamiliarUseTextTalkAndGift",
@@ -236,21 +233,21 @@ FamiliarData =
 
 		AlwaysShowDefaultUseText = true,
 
+		EquipSound = "/SFX/Familiars/FrogCroak2",
 		HappySound = "/SFX/Familiars/FrogCroak2",
 		ConfirmSound = "/SFX/Familiars/FrogCroak1",
 		FearSound = "/SFX/Familiars/FrogCroakMiffed",
 
 		IdleAnimation = "Familiar_Frog_Idle",
 		HappyAnimation = "Familiar_Frog_Greet",
-
+		TurnInPlaceAnimation = "Familiar_Frog_HopStart_AutoLand",
 
 		GameStateRequirements = 
 		{
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 		},
-
 		
 		EffortSound = "/SFX/Familiars/FrogCroak1",
 		HarvestSound = "/SFX/Familiars/FrogCroakAngry1",
@@ -291,26 +288,28 @@ FamiliarData =
 
 		OnHitVoiceLines =
 		{
-			RandomRemaining = true,
-			BreakIfPlayed = true,
-			PreLineWait = 0.25,
-			SuccessiveChanceToPlayAll = 0.25,
-			ObjectType = "Hecate",
-			GameStateRequirements =
 			{
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				PreLineWait = 0.25,
+				SuccessiveChanceToPlayAll = 0.25,
+				ObjectType = "Hecate",
+				GameStateRequirements =
 				{
-					PathFromArgs = true,
-					Path = { "SourceProjectile", },
-					IsAny = { "HecatePolymorph" },
+					{
+						PathFromArgs = true,
+						Path = { "SourceProjectile", },
+						IsAny = { "HecatePolymorph" },
+					},
 				},
+				Cooldowns =
+				{
+					{ Name = "HecateRecentHexDodgeVO", Time = 240 },
+				},
+				TriggerCooldowns = { "HecateSpokeRecently" },
+				{ Cue = "/VO/HecateField_0137", Text = "That blasted little toad..." },
+				{ Cue = "/VO/HecateField_0138", Text = "That hex was meant for {#Emph}you!", PlayFirst = true },
 			},
-			Cooldowns =
-			{
-				{ Name = "HecateRecentHexDodgeVO", Time = 240 },
-			},
-			TriggerCooldowns = { "HecateSpokeRecently" },
-			{ Cue = "/VO/HecateField_0137", Text = "That blasted little toad..." },
-			{ Cue = "/VO/HecateField_0138", Text = "That hex was meant for {#Emph}you!", PlayFirst = true },
 		},
 
 		InteractVoiceLines =
@@ -474,7 +473,7 @@ FamiliarData =
 							HasAny = { "BountyCleared" }
 						},
 					},
-					{ Cue = "/VO/Melinoe_3062", Text = "These Chaos Trials... we're not changing reality too much, are we, Frinos?" },
+					{ Cue = "/VO/Melinoe_3062", Text = "These Chaos Trials... we're not changing reality {#Emph}too {#Prev}much, are we, Frinos?" },
 					{ Cue = "/VO/Melinoe_3063", Text = "Either Chaos has an interest in my victory, or perhaps I'm just a bit of entertainment." },
 				},
 				-- considering recruiting Frinos
@@ -489,7 +488,7 @@ FamiliarData =
 							HasAny = { "WorldUpgradeFamiliarPoints" },
 						},
 						{
-							PathFalse = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked" }
+							PathFalse = { "GameState", "FamiliarsUnlocked", "FrogFamiliar" }
 						},
 					},
 
@@ -797,6 +796,7 @@ FamiliarData =
 					},
 
 					{ Cue = "/VO/Melinoe_0359", Text = "You ever faced a Cyclops, Frinos? No?" },
+					{ Cue = "/VO/Melinoe_3831", Text = "I figured Cyclopes were very strong, but didn't need to learn firsthand like that..." },
 				},
 				-- lost in Ephyra
 				{
@@ -859,6 +859,20 @@ FamiliarData =
 					{ Cue = "/VO/Melinoe_3170", Text = "How can a daughter of Nyx turn against us? And give me such a drubbing, too...", PlayFirst = true },
 					{ Cue = "/VO/Melinoe_3171", Text = "No making peace with one such as Eris, is there? Just isn't in her nature." },
 				},
+				-- lost to Charybdis
+				{
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					SuccessiveChanceToPlay = 0.1,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name", },
+							IsAny = { "O_MiniBoss01" },
+						},
+					},
+					{ Cue = "/VO/Melinoe_3819", Text = "Few sailors live to speak of their encounters with Charybdis, so there's that, Frinos..." },
+				},
 				-- lost in Ships
 				{
 					RandomRemaining = true,
@@ -879,6 +893,76 @@ FamiliarData =
 					{ Cue = "/VO/Melinoe_3172", Text = "I'm getting the impression that the sailor's life is not for me." },
 					{ Cue = "/VO/Melinoe_3173", Text = "I used to dream of sailing on the surface seas, but not like that..." },
 				},
+
+				-- lost to Prometheus
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					SuccessiveChanceToPlayAll = 0.15,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name", },
+							IsAny = { "P_Boss01", },
+						},
+						{
+							PathFalse = { "CurrentRun", "Cleared" },
+						},
+						{
+							PathFalse = { "CurrentRun", "EnemyKills", "Prometheus" },
+						},
+					},
+				{ Cue = "/VO/Melinoe_3817", Text = "If Prometheus knows everything that's going to happen, then he must know I'm not giving up..." },
+				{ Cue = "/VO/Melinoe_3818", Text = "That Titan's hatred for the gods... it's clouded his senses. He can be beaten." },
+				},
+				-- lost to Olympus minibosses
+				{
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					SuccessiveChanceToPlay = 0.1,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name", },
+							IsAny = { "P_MiniBoss01" },
+						},
+					},
+					{ Cue = "/VO/Melinoe_3820", Text = "So many problems on Olympus to contend with, and Talos is against me, too...?" },
+				},
+				--[[
+				{
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					SuccessiveChanceToPlay = 0.1,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "Name", },
+							IsAny = { "P_MiniBoss02" },
+						},
+					},
+					-- { Cue = "/VO/Melinoe_3821", Text = "You know things are bad on Olympus when Dragons not just Harpies are beginning to roost there." },
+				},
+				]]--
+
+				-- lost on Olympus
+				{
+					RandomRemaining = true,
+					BreakIfPlayed = true,
+					PreLineWait = 0.4,
+					SuccessiveChanceToPlayAll = 0.15,
+					GameStateRequirements =
+					{
+						{
+							Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+							IsAny = { "P" },
+						},
+					},
+					{ Cue = "/VO/Melinoe_3822", Text = "The mountain of the gods unfortunately wasn't as welcoming as I would have preferred..." },
+					{ Cue = "/VO/Melinoe_3823", Text = "Turns out that climbing Mount Olympus can be rather treacherous, Frinos.", PlayFirst = true },
+				},
+
 				-- lost due to Oath / Shrine
 				{
 					RandomRemaining = true,
@@ -1071,9 +1155,6 @@ FamiliarData =
 						GameStateRequirements =
 						{
 							{
-								PathFalse = { "CurrentRun", "Cleared" }
-							},
-							{
 								Path = { "CurrentRun" },
 								HasNone = { "Cleared", "BountyCleared" }
 							},
@@ -1091,11 +1172,31 @@ FamiliarData =
 							},
 						},
 					},
+					{ Cue = "/VO/Melinoe_3824", Text = "What do you suppose I could have done differently last night, {#Emph}hm?",
+						GameStateRequirements =
+						{
+							{
+								Path = { "CurrentRun" },
+								HasNone = { "Cleared", "BountyCleared" }
+							},
+						},
+					},
 					{ Cue = "/VO/Melinoe_3441", Text = "Always here for me, aren't you..." },
 					{ Cue = "/VO/Melinoe_3442", Text = "Another night, another lesson learned..." },
 					{ Cue = "/VO/Melinoe_3443", Text = "You're always watching over me... you and these little Shades..." },
 					{ Cue = "/VO/Melinoe_0357", Text = "Thank you for helping me return, Frinos." },
 					{ Cue = "/VO/Melinoe_0358", Text = "Hey Frinos. I had better go. So you take care." },
+					{ Cue = "/VO/Melinoe_3825", Text = "I'm rested enough to press on, but you relax some more, all right?" },
+					{ Cue = "/VO/Melinoe_3826", Text = "Thanks for looking after things around here while I was out, Frinos.",
+						GameStateRequirements =
+						{
+							{
+								Path = { "GameState", "EquippedFamiliar" },
+								IsNone = { "FrogFamiliar" },
+							},
+						}
+					},
+					{ Cue = "/VO/Melinoe_3827", Text = "I'd best get back to it, Frinos. But I wanted to say hi before I headed off again." },
 				},
 			},
 			-- multi-pet lines
@@ -1165,8 +1266,9 @@ FamiliarData =
 				},
 				{ Cue = "/VO/Melinoe_2500", Text = "Come, Frinos." },
 				{ Cue = "/VO/Melinoe_2501", Text = "Join me, Frinos?" },
+				{ Cue = "/VO/Melinoe_3880", Text = "Let's go, Frinos." },
 			},
-			[2] = GlobalVoiceLines.FamiliarEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "FamiliarEquipVoiceLines" },
 		},
 	},
 
@@ -1174,16 +1276,16 @@ FamiliarData =
 	CatFamiliar = 
 	{
 		InheritFrom = { "BaseFamiliar" },
-		UseText = "UseCat",
 		Icon = "GUI\\Icons\\Tool_FishingRod_Cat",
-		EquipSound = "/SFX/Familiars/CatMeow1",
-		AlertedSound = "/Leftovers/SFX/PositiveTalismanProc_1",
-		OnUsedFunctionName = "UseFamiliar",
 		LinkedTool = "ToolFishingRod",
 		TraitName = "LastStandFamiliar",
-		UnitName = "CatFamiliar",
 		EquipObjective = "ActivateCatFamiliar",
 		OnFieldsEncounterActivatedFunctionName = "CatFamiliarFieldsTeleportPresentation",
+
+		MarkerModel = "CatMarker_Mesh",
+		MarkerIdleAnimation = "CatMarkerIdle",
+		MarkerMoveAnimation = "CatMarkerMove",
+		MarkerJumpAnimation = "CatMarkerJump",
 
 		BaseResourceSpawnChance = 0.10,
 		RestBonusResourceSpawnChance = 0.025,
@@ -1263,7 +1365,7 @@ FamiliarData =
 					VfxDelay = 0.2,
 					VfxOffsetY = -80,
 					VfxScale = 1.1,
-					StopAnimations = { "CrawlerHighlight_Add" },
+					StopAnimations = { "CatFamiliarRecruitHighlight" },
 				},
 			},
 		},
@@ -1299,7 +1401,7 @@ FamiliarData =
 		GameStateRequirements = 
 		{
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 		},
 
@@ -1311,18 +1413,38 @@ FamiliarData =
 				{
 					GiftFunctionName = "GiftFamiliarUpgrade",
 					UseTextGift = "FamiliarUseTextGift",
-					UseTextGiftAndSpecial = "FamiliarUseTextGiftAndSpecial",
+					UseTextGiftAndSpecial = "CatFamiliarUseTextGiftAndSpecial",
+					GiftGameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeFamiliarUpgradeSystem" },
+						},
+						{
+							Path = { "GameState", "WorldUpgrades", },
+							NotHasAll =
+							{
+								"CatLastStandHeal",
+								"CatLastStandHeal2",
+								"CatLastStandHeal3",
+								"CatUses",
+								"CatUses2",
+								"CatUses3",
+								"CatAttack",
+								"CatAttack2",
+								"CatAttack3",
+								--"CatCrit",
+							},
+						}
+					},
 				},
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked" },
+						PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar" },
 					},
 				},
 			},
 		},
-
-		OnUsedFunctionName = "UseFamiliar",
 
 		GiftFunctionName = "CatFamiliarRecruit",
 		GiftFunctionArgs =
@@ -1342,34 +1464,10 @@ FamiliarData =
 			UnlockEndAnimation = "Familiar_Cat_Sleep_Awaken",
 			UnlockExitAnimation = "Familiar_Cat_DropIn_Exit",
 		},
-
-		OnUsedGameStateRequirements =
-		{
-			{
-				PathTrue = { "CurrentRun", "Hero", "IsDead" },
-			},
-		},
-		
 		GiftGameStateRequirements = 
 		{
 			{
 				PathTrue = { "GameState", "SpecialInteractRecord", "CatFamiliar" },
-			},
-			{
-				Path = { "GameState", "WorldUpgrades", },
-				NotHasAll =
-				{
-					"CatLastStandHeal",
-					"CatLastStandHeal2",
-					"CatLastStandHeal3",
-					"CatUses",
-					"CatUses2",
-					"CatUses3",
-					"CatAttack",
-					"CatAttack2",
-					"CatAttack3",
-					--"CatCrit",
-				},
 			},
 		},
 
@@ -1378,9 +1476,7 @@ FamiliarData =
 		{
 			NamedRequirementsFalse = { "CatFamiliarReadyToRecruit" },
 		},
-		--SpecialInteractCooldown = 6,
 
-		UseText = "CatFamiliarUseText",
 		UseTextGift = "CatFamiliarUseTextGift_First",
 		UseTextTalkGiftAndSpecial = "CatFamiliarUseTextTalkGiftAndSpecial",
 		UseTextTalkAndGift = "FamiliarUseTextTalkAndGift",
@@ -1390,10 +1486,13 @@ FamiliarData =
 
 		AlwaysShowDefaultUseText = true,
 
-		--HappySound = "/SFX/Familiars/FrogCroak2",
-		--FearSound = "/SFX/Familiars/FrogCroakMiffed",
 		IdleAnimation = "Familiar_Cat_Idle",
 		HappyAnimation = "Familiar_Cat_Greet",
+		FleeAnimation = "Familiar_Cat_DropIn_Exit",
+		TurnInPlaceAnimation = "Familiar_Cat_Meow",
+
+		AlertedSound = "/Leftovers/SFX/PositiveTalismanProc_1",
+		EquipSound = "/SFX/Familiars/CatMeow1",
 		HappySound = "/SFX/Familiars/CatPurr",
 		ConfirmSound = "/SFX/Familiars/CatMeow1",
 		FearSound = "/SFX/Familiars/CatMeow2",
@@ -1417,28 +1516,37 @@ FamiliarData =
 
 		PreAttackVoiceLines =
 		{
-			BreakIfPlayed = true,
-			RandomRemaining = true,
-			PreLineWait = 0.15,
-			UsePlayerSource = true,
-			Cooldowns =
 			{
-				{ Name = "MelinoeAnyQuipSpeech" },
-				{ Name = "UsedCatFamiliarRecently", Time = 400 },
-			},
-			ChanceToPlay = 0.2,
-
-			{ Cue = "/VO/Melinoe_0132", Text = "Go!", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_0335", Text = "Smite them!",
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				UsePlayerSource = true,
+				ChanceToPlay = 0.2,
+				PreLineWait = 0.15,
 				GameStateRequirements =
 				{
 					{
-						Path = { "RequiredKillEnemies" },
-						UseLength = true,
-						Comparison = ">=",
-						Value = 2,
+						PathFalse = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "UsedCatFamiliarRecently", Time = 400 },
+				},
+
+				{ Cue = "/VO/Melinoe_0132", Text = "Go!", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_0335", Text = "Smite them!",
+					GameStateRequirements =
+					{
+						{
+							Path = { "RequiredKillEnemies" },
+							UseLength = true,
+							Comparison = ">=",
+							Value = 2,
+						},
+					},
+				},
+				
 			},
 		},
 
@@ -1454,6 +1562,7 @@ FamiliarData =
 			"CatFamiliarAI",
 		},
 
+		SpecialInteractCooldown = 30,
 		InteractVoiceLines =
 		{
 			{
@@ -1466,6 +1575,7 @@ FamiliarData =
 						PathFalse = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
+
 
 				{ Cue = "/VO/Melinoe_0983", Text = "Are you lost, little one?", PlayFirst = true, },
 				{ Cue = "/VO/Melinoe_0985", Text = "Don't be afraid...", },
@@ -1482,6 +1592,10 @@ FamiliarData =
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
+				},
+				Cooldowns =
+				{
+					{ Name = "MelinoePettedCatSpeech", Time = 12 },
 				},
 
 				{ Cue = "/VO/Melinoe_3398", Text = "Good girl." },
@@ -1520,71 +1634,243 @@ FamiliarData =
 				Cooldowns =
 				{
 					{ Name = "MelinoeMiscFamiliarEquipSpeech", Time = 40 },
+					{ Name = "SaidToulaRecently", Time = 20 },
 				},
 				{ Cue = "/VO/Melinoe_2502", Text = "Come, Toula." },
 				{ Cue = "/VO/Melinoe_2503", Text = "With me, Toula." },
+				{ Cue = "/VO/Melinoe_3882", Text = "Come on, Toula." },
 			},
-			[2] = GlobalVoiceLines.FamiliarEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "FamiliarEquipVoiceLines" },
 		},
 
 		Using = { Projectile = "CatFamiliarPounce" },
 	},
 
-	-- Raki, who does not yet wish to emerge; thank you for respecting Raki's privacy
+	-- Raki
 	RavenFamiliar = 
 	{
 		InheritFrom = { "BaseFamiliar" },
-		UseText = "UseRaven",
 		Icon = "GUI\\Icons\\Tool_Pickaxe_Raven",
-		EquipSound = "/SFX/Familiars/RavenGentleSquawk",
-		OnUsedFunctionName = "UseFamiliar",
 		LinkedTool = "ToolPickaxe",
 		TraitName = "CritFamiliar",
-		UnitName = "RavenFamiliar",
+		KitAngle = 230,
+
+		MarkerModel = "RavenMarker_Mesh",
+		MarkerIdleAnimation = "RavenMarkerIdle",
+		MarkerMoveAnimation = "RavenMarkerMove",
+		MarkerJumpAnimation = "RavenMarkerJump",
+
+		BaseResourceSpawnChance = 0.10,
+		RestBonusResourceSpawnChance = 0.025,
+
+		NumAttacks = 1,
+		MinTimeBetweenAttacks = 9.0,
+		MaxTimeBetweenAttacks = 10.0,
+
+		MinDistanceToTeleportWhenMining = 550,
+
+		InitialWaitRange = 200,
+
+		IgnoreGravity = true,
+		GroundHeight = 0,
+		FlightHeight = 150,
+		SkyHeight = 800,
 
 		GameStateRequirements = 
 		{
 			{
-				PathTrue = { "GameState", "TextLinesRecord", "RakiGift01", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "RavenFamiliar", },
 			},
 		},
 
+		SetupEvents =
+		{
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					GiftFunctionName = "GiftFamiliarUpgrade",
+					UseTextGift = "FamiliarUseTextGift",
+					UseTextGiftAndSpecial = "RavenFamiliarUseTextGiftAndSpecial",
+					GiftGameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeFamiliarUpgradeSystem" },
+						},
+						{
+							Path = { "GameState", "WorldUpgrades", },
+							NotHasAll =
+							{
+								"RavenCritChanceBonus",
+								"RavenCritChanceBonus2",
+								"RavenCritChanceBonus3",
+								"RavenUses",
+								"RavenUses2",
+								"RavenUses3",
+								"RavenAttack",
+								"RavenAttack2",
+								"RavenAttack3",
+							},
+						}
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "FamiliarsUnlocked", "RavenFamiliar" },
+					},
+				},
+			},
+		},
+
+		GiftFunctionName = "CatFamiliarRecruit",
+		GiftFunctionArgs =
+		{
+			Delay = 0.1,
+			Title = "FamiliarRecruited",
+			Text = "RavenFamiliar",
+			TextOffsetY = -30,
+			TextRevealSound = "/Leftovers/Menu Sounds/TextReveal3",
+			AnimationName = "LocationTextBGRelationship",
+			AnimationOutName = "LocationTextBGRelationshipOut",
+			Icon = "FamiliarIcon_Raven",
+			PlayRecruitVoiceLines = true,
+
+			UnlockSequenceDuration = 9,
+			UnlockStartAnimation = "Familiar_Raven_Victory",
+			UnlockEndAnimation = "Familiar_Raven_Victory",
+			UnlockExitAnimation = "Familiar_Raven_DropIn_Exit",
+		},
+		GiftGameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "SpecialInteractRecord", "RavenFamiliar" },
+			},
+		},
+		
+		SpecialInteractFunctionName = "RavenFamiliarSpecialInteractUnlockedInHub",
+		SpecialInteractGameStateRequirements =
+		{
+			NamedRequirementsFalse = { "RavenFamiliarReadyToRecruit" },
+		},
+
+		UseTextGift = "RavenFamiliarUseTextGift_First",
+		UseTextTalkGiftAndSpecial = "RavenFamiliarUseTextTalkGiftAndSpecial",
+		UseTextTalkAndGift = "FamiliarUseTextTalkAndGift",
+		UseTextTalkAndSpecial = "RavenFamiliarUseTextTalkAndSpecial",
+		UseTextGiftAndSpecial = "RavenFamiliarUseTextGiftAndSpecial_First",
+		UseTextSpecial = "RavenFamiliarUseTextSpecial",
+
+		ActivatePresentationFunctionName = "RavenFamiliarSpawnPresentation",
+		MoveFunctionName = "RavenFamiliarMoveToLocation",
+
+		StartNewRunFunctionName = "FamiliarRavenStartNewRunPresentation",
+		LeaveEvents =
+		{
+			{
+				FunctionName = "RavenFamiliarRoomExitPresentation",
+				Threaded = true,
+				Args =
+				{
+					RoomExitAnimation = "Familiar_Raven_DropIn_Exit",
+					VfxDelay = 0.2,
+					VfxOffsetY = -80,
+					VfxScale = 1.1,
+				},
+			},
+		},
+
+		EncounterEndEvents =
+		{
+			{
+				FunctionName = "RavenFamiliarVictoryPresentation",
+				Threaded = true,
+			},
+		},
+		-- Victory animation is handled in RavenFamiliarAI
+
+		AlwaysShowDefaultUseText = true,
+
+		IdleAnimation = "Familiar_Raven_Perched_Idle",
+		HappyAnimation = "Familiar_Raven_Victory_Perch",
+		FleeAnimation = "Familiar_Raven_DropIn_Exit",
+		TurnInPlaceAnimation = "Familiar_Raven_Victory_Perch",
+
+		EquipSound = "/SFX/Familiars/RavenSquawk3",
+		HappySound = "/SFX/Familiars/RavenGentleSquawk",
+		FearSound = "/SFX/Familiars/RavenSquawkAngry",
+		VictorySound = "/SFX/Familiars/RavenSquawk3",
 		HarvestSound = "/SFX/Familiars/RavenSquawkAngry",
-		VictorySound = "/SFX/Familiars/RavenGentleSquawk",
+
+		FleeEmote = "StatusIconFear",
+
 		VictoryEmoteAnim = "StatusIconOhBoy",
 		ConfirmEmoteAnim = "StatusIconEmbarrassed",
-		
-		NoTargetMoveTowardsPlayer = true,
-		AIOptions =
-		{
-			"AttackerAI",
-		},
-		DefaultAIData = 
+
+		DefaultAIData =
 		{
 			DeepInheritance = true,
 
-			PreAttackEndShake = true,
-			PreAttackSound = "/SFX/Enemy Sounds/Swarmer/EmoteCharging",
-			PreAttackFlashSound = "/Leftovers/SFX/AuraOnLoud",
-			PreAttackDuration = 0.1,
-			AttackDistance = 350,
-			FireSelfVelocity = 1500,
-			RetreatAfterAttack = true,
-			RetreatBufferDistance = 200,
-			WithinRangeWander = true,
-
-			RequireProjectileLoS = true,
-			RequireUnitLoS = true,
-			LoSBuffer = 80,
-			LoSEndBuffer = 32,
-			AngleTowardsTargetWhileFiring = true,
-			TrackTargetDuringCharge = true,
-
-			TargetClosest = true,
+			TargetSearchDistance = 900,
+			AttackDistance = 100,
 		},
-		WeaponOptions =
+		
+		AIOptions = { "RavenFamiliarAI" },
+		OutgoingDamageModifiers =
 		{
-			"RavenFamiliarMelee",
+			{
+				PlayerMultiplier = 0,
+			}
+		},
+
+		Using = { ProjectileNames = { "RavenFamiliarMelee", "RavenFamiliarMelee_Crit", }, },
+
+		SpecialInteractCooldown = 30,
+		InteractVoiceLines =
+		{
+			{
+				PreLineWait = 0.4,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlayAll = 0.33,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+
+				{ Cue = "/VO/Melinoe_0984", Text = "Greetings, little raven.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_0986", Text = "I won't hurt you...", },
+				{ Cue = "/VO/Melinoe_3864", Text = "Little raven..." },
+				{ Cue = "/VO/Melinoe_3865", Text = "You're an unusual fellow." },
+				{ Cue = "/VO/Melinoe_3866", Text = "You're always here..." },
+			},
+			{
+				PreLineWait = 0.4,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "MelinoePettedBirdSpeech", Time = 12 },
+				},
+
+				{ Cue = "/VO/Melinoe_3782", Text = "You're a fine bird." },
+				{ Cue = "/VO/Melinoe_3783", Text = "Hello, Raki." },
+				{ Cue = "/VO/Melinoe_3784", Text = "You're all right, Raki." },
+				{ Cue = "/VO/Melinoe_3785", Text = "Easy now, Raki." },
+				{ Cue = "/VO/Melinoe_3786", Text = "Good bird.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3787", Text = "It's going to be all right." },
+				{ Cue = "/VO/Melinoe_3867", Text = "Good evening, little raven." },
+				{ Cue = "/VO/Melinoe_0984", Text = "Greetings, little raven.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3864", Text = "Little raven..." },
+			},
 		},
 
 		RecruitVoiceLines =
@@ -1606,13 +1892,316 @@ FamiliarData =
 				Cooldowns =
 				{
 					{ Name = "MelinoeMiscFamiliarEquipSpeech", Time = 40 },
+					{ Name = "SaidRakiRecently", Time = 20 },
 				},
 				{ Cue = "/VO/Melinoe_2504", Text = "Come, Raki." },
 				{ Cue = "/VO/Melinoe_2505", Text = "Come along, Raki." },
+				{ Cue = "/VO/Melinoe_3881", Text = "Onward, Raki." },
+				{ Cue = "/VO/Melinoe_0847", Text = "Come, little one, let's go.", },
 			},
-			[2] = GlobalVoiceLines.FamiliarEquipVoiceLines,
+			[2] = { GlobalVoiceLines = "FamiliarEquipVoiceLines" },
 		},
 	},
+
+	-- Hound
+	HoundFamiliar = 
+	{
+		InheritFrom = { "BaseFamiliar" },
+		Icon = "GUI\\Icons\\Tool_Shovel_Hound",
+		EquipSound = "/SFX/Familiars/DogBarkMisc1",
+		HappySound = "/SFX/Familiars/DogBarkMisc2",
+		SensedLootSound = "/SFX/Familiars/DogGrowlPlayful",
+		FoundLootSound = "/SFX/Familiars/DogBarkDiscovery",
+		LinkedTool = "ToolShovel",
+		TraitName = "DigFamiliar",
+		KitAngle = 300,
+		AnimOffsetZ = 190,
+
+		MarkerModel = "HoundMarker_Mesh",
+		MarkerIdleAnimation = "HoundMarkerIdle",
+		MarkerMoveAnimation = "HoundMarkerMove",
+		MarkerJumpAnimation = "HoundMarkerJump",
+
+		BaseResourceSpawnChance = 0.10,
+		RestBonusResourceSpawnChance = 0.025,
+
+		HeroHealthPercentForDig = 0.51, -- if you're below this % health, the hound can dig up health
+		HeroManaPercentForDig = 0.7, -- if you're below this % mana, the hound can dig up mana
+		HealthDigReward = "HealDropMinor",
+		ManaDigReward = "ManaDropMinorHound",
+		MaxManaDigsPerEncounter = 1,
+		MinTimeBetweenDigs = 12.0,
+		MaxTimeBetweenDigs = 16.0,
+
+		BarkRange = 250,
+		MinTimeBetweenBarks = 8.0,
+		MaxTimeBetweenBarks = 9.0,
+
+		MinDistanceToTeleportForShovelPoints = 650,
+
+		ActivatePresentationFunctionName = "HoundFamiliarSpawnPresentation",
+		MoveFunctionName = "HoundFamiliarMoveToLocation",
+
+		GameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "FamiliarsUnlocked", "HoundFamiliar", },
+			},
+		},
+
+		SetupEvents =
+		{
+			{
+				FunctionName = "OverwriteSelf",
+				Args =
+				{
+					GiftFunctionName = "GiftFamiliarUpgrade",
+					UseTextGift = "FamiliarUseTextGift",
+					UseTextGiftAndSpecial = "HoundFamiliarUseTextGiftAndSpecial",
+					GiftGameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeFamiliarUpgradeSystem" },
+						},
+						{
+							Path = { "GameState", "WorldUpgrades", },
+							NotHasAll =
+							{
+								"HoundManaBonus",
+								"HoundManaBonus2",
+								"HoundManaBonus3",
+								"HoundUses",
+								"HoundUses2",
+								"HoundUses3",
+								"HoundAttack",
+								"HoundAttack2",
+								"HoundAttack3",
+							},
+						}
+					},
+				},
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "FamiliarsUnlocked", "HoundFamiliar" },
+					},
+				},
+			},
+		},
+
+		GiftFunctionName = "CatFamiliarRecruit",
+		GiftFunctionArgs =
+		{
+			Delay = 0.1,
+			Title = "FamiliarRecruited",
+			Text = "HoundFamiliar",
+			TextOffsetY = -30,
+			TextRevealSound = "/Leftovers/Menu Sounds/TextReveal3",
+			AnimationName = "LocationTextBGRelationship",
+			AnimationOutName = "LocationTextBGRelationshipOut",
+			Icon = "FamiliarIcon_Hound",
+			PlayRecruitVoiceLines = true,
+
+			UnlockSequenceDuration = 9,
+			UnlockStartAnimation = "Familiar_Hound_Greet",
+			UnlockEndAnimation = "Familiar_Hound_Dig",
+			UnlockExitAnimation = "Familiar_Hound_DropIn_Exit",
+		},
+		GiftGameStateRequirements = 
+		{
+			{
+				PathTrue = { "GameState", "SpecialInteractRecord", "HoundFamiliar" },
+			},
+			{
+				PathTrue = { "GameState", "TextLinesRecord", "HecateGrantsFamiliars01" },
+			},
+		},
+
+		UpgradedEvents =
+		{
+			{
+				FunctionName = "GenericPresentation",
+				Threaded = true,
+				Args =
+				{
+					PreWait = 1.0,
+					SetAnimation = "Familiar_Hound_Greet",
+					Sound = "/SFX/Familiars/DogBarkMisc2",
+				},
+			},
+		},
+
+		EncounterStartEvents =
+		{
+			{
+				FunctionName = "HoundFamiliarStartEncounter"
+			},
+		},
+
+		EncounterEndEvents =
+		{
+			{
+				FunctionName = "FamiliarVictoryPresentation",
+				Threaded = true,
+				Args =
+				{
+					SetAnimation = "Familiar_Hound_Greet",
+					Sound = "/VO/CerberusBarks",
+				},
+			},
+		},
+
+		StartNewRunAnimation = "Familiar_Hound_DropIn_Exit",
+		LeaveEvents =
+		{
+			{
+				FunctionName = "FamiliarRoomExitPresentation",
+				Threaded = true,
+				Args =
+				{
+					RoomExitAnimation = "Familiar_Hound_DropIn_Exit",
+				},
+			},
+		},
+
+		SpecialInteractFunctionName = "HoundFamiliarSpecialInteractUnlockedInHub",
+		SpecialInteractGameStateRequirements =
+		{
+			NamedRequirementsFalse = { "HoundFamiliarReadyToRecruit" },
+		},
+
+		UseTextGift = "HoundFamiliarUseTextGift_First",
+		UseTextTalkGiftAndSpecial = "HoundFamiliarUseTextTalkGiftAndSpecial",
+		UseTextTalkAndGift = "FamiliarUseTextTalkAndGift",
+		UseTextTalkAndSpecial = "HoundFamiliarUseTextTalkAndSpecial",
+		UseTextGiftAndSpecial = "HoundFamiliarUseTextGiftAndSpecial_First",
+		UseTextSpecial = "HoundFamiliarUseTextSpecial",
+
+		AlwaysShowDefaultUseText = true,
+
+		IdleAnimation = "Familiar_Hound_Sit_Idle",
+		HappyAnimation = "Familiar_Hound_Greet",
+		FleeAnimation = "Familiar_Hound_DropIn_Exit",
+		TurnInPlaceAnimation = "Familiar_Hound_Attack",
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+
+			FollowRestDistance = 500,		-- distance within which to not follow the player
+			FollowNonCombatRestDistance = 400,
+			FollowRestDistanceScaleY = 0.6,
+		},
+
+		AIOptions =
+		{
+			"HoundFamiliarAI",
+		},
+
+		SpecialInteractCooldown = 30,
+		InteractVoiceLines =
+		{
+			Cooldowns =
+			{
+				{ Name = "MelinoePettedHoundSpeech", Time = 12 },
+			},
+			{
+				PreLineWait = 0.4,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				SuccessiveChanceToPlayAll = 0.25,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+
+				{ Cue = "/VO/MelinoeField_2816", Text = "Here on a scouting mission for Headmistress, girl?", PlayFirst = true },
+				{ Cue = "/VO/MelinoeField_2817", Text = "I've not seen Gale anywhere, have you?" },
+				{ Cue = "/VO/MelinoeField_2819", Text = "We've come so far from the Crossroads, haven't we?" },
+				{ Cue = "/VO/MelinoeField_2818", Text = "You keep an eye on Echo there, all right?",
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Echo_01" }, Alive = true },
+						},
+						{
+							PathTrue = { "GameState", "TextLinesRecord", "EchoAboutEcho01" },
+						},
+					},
+				},
+			},
+			{
+				PreLineWait = 0.4,
+				RandomRemaining = true,
+				BreakIfPlayed = true,
+				GameStateRequirements =
+				{
+					{
+						-- PathTrue = { "CurrentRun", "Hero", "IsDead" },
+					},
+				},
+
+				{ Cue = "/VO/Melinoe_3776", Text = "Who's a good girl?" },
+				{ Cue = "/VO/Melinoe_3777", Text = "You're a good girl." },
+				{ Cue = "/VO/Melinoe_3778", Text = "Headmistress raised you well." },
+				{ Cue = "/VO/Melinoe_3779", Text = "You're all right." },
+				{ Cue = "/VO/Melinoe_3780", Text = "Good girl, Hecuba.", PlayFirst = true },
+				{ Cue = "/VO/Melinoe_3781", Text = "Hail Hecuba." },
+			},
+		},
+
+		RecruitVoiceLines =
+		{
+			PreLineWait = 0.35,
+			GameStateRequirements = 
+			{
+				{
+					PathFalse = { "CurrentRun", "Hero", "IsDead" },
+				},
+			},
+
+			{ Cue = "/VO/MelinoeField_2545", Text = "If this treat is to your liking then it means we share a bond." },
+			{ Cue = "/VO/MelinoeField_2546", Text = "Of course we do! Hecuba, the honor is mine.", PreLineWait = 0.8 },
+			{ Cue = "/VO/MelinoeField_2547", Text = "We shall protect each other from now on.", PreLineWait = 0.8 },
+		},
+
+		EquipVoiceLines =
+		{
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PreLineWait = 0.35,
+				SuccessiveChanceToPlay = 0.05,
+				Cooldowns =
+				{
+					{ Name = "MelinoeMiscFamiliarEquipSpeech", Time = 40 },
+					{ Name = "SaidHecubaRecently", Time = 20 },
+				},
+				{ Cue = "/VO/Melinoe_2497", Text = "Hecuba, would you accompany me on my task?", PlayFirst = true, PlayOnce = true, PlayOnceContext = "HecubaFirstEquipVO" },
+				{ Cue = "/VO/Melinoe_2508", Text = "Come, Hecuba." },
+				{ Cue = "/VO/Melinoe_2509", Text = "Here, girl." },
+				{ Cue = "/VO/Melinoe_3883", Text = "Onward, Hecuba." },
+			},
+			[2] = { GlobalVoiceLines = "FamiliarEquipVoiceLines" },
+		},
+
+		Using =
+		{
+			Projectile = { "HoundFamiliarBark" },
+			Animation =
+			{
+				"Familiar_Hound_Attack",
+				"Familiar_Hound_Dig",
+				"ShovelDirtInSprayHound",
+				"ShovelDirtInSprayHound",
+				"ShovelDirtOutSprayHound",
+			},
+		}, 
+	},
+
 }
 
 TraitSetData.Familiar =
@@ -1638,12 +2227,14 @@ TraitSetData.Familiar =
 	{
 		InheritFrom = { "FamiliarTrait" },
 		Icon = "FamiliarIcon_Frog",
+		StacksAddBeforeRemove = true,
 		PropertyChanges =
 		{
 			{
 				LuaProperty = "MaxHealth",
 				BaseValue = 10,
 				ChangeType = "Add",
+				MaintainDelta = true,
 				ReportValues = { ReportedHealthBonus = "ChangeValue"}
 			},
 		},
@@ -1676,11 +2267,6 @@ TraitSetData.Familiar =
 		},
 		ExtractValues = 
 		{
-			{
-				Key = "ReportedDamageBoost",
-				ExtractAs = "Damage",
-				Format = "PercentDelta"
-			},
 		}
 	},
 
@@ -1776,8 +2362,27 @@ TraitSetData.Familiar =
 		Icon = "FamiliarIcon_Raven",
 		AddOutgoingCritModifiers =
 		{
-			Chance = { BaseValue = 0.01 },
+			Chance =
+			{
+				BaseValue = 0.01,
+				AbsoluteStackValues =
+				{
+					[1] = 0.01,
+					[2] = 0.01,
+					[3] = 0.01,
+					-- Below is for Circe's doubling trait.
+					-- [4] should match the BaseValue, [5/6/7] should match the stack values.
+					[4] = 0.01,
+					[5] = 0.01,
+					[6] = 0.01,
+					[7] = 0.01,
+				},
+			},
 			ReportValues = { ReportedCritBonus = "Chance" },
+		},
+		OnEnemyCrittedFunction =
+		{
+			Name = "ClearRavenMark",
 		},
 		StatLines =
 		{
@@ -1787,12 +2392,76 @@ TraitSetData.Familiar =
 		ExtractValues = 
 		{
 			{
+				ExtractAs = "FamiliarDamage",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "ProjectileBase",
+				BaseName = "RavenFamiliarMelee",
+				BaseProperty = "Damage",
+			},
+			{
 				Key = "ReportedCritBonus",
 				ExtractAs = "CritBonus",
 				Format = "Percent",
 			},
+			{
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "RavenFamiliarMark",
+				BaseProperty = "Duration",
+				ExtractAs = "TooltipMarkDuration",
+				SkipAutoExtract = true,
+			},
+			{
+				External = true,
+				BaseType = "EffectLuaData",
+				BaseName = "RavenFamiliarMark",
+				BaseProperty = "CritVulnerability",
+				ExtractAs = "CritRate",
+				Format = "Percent",
+				SkipAutoExtract = true,
+			}
 		},
 		FlavorText = "RavenFamiliar_FlavorText",
+	},
+
+	DigFamiliar =
+	{
+		InheritFrom = { "FamiliarTrait" },
+		Icon = "FamiliarIcon_Hound",
+		StacksAddBeforeRemove = true,
+		PropertyChanges =
+		{
+			{
+				LuaProperty = "MaxMana",
+				BaseValue = 15,
+				ChangeType = "Add",
+				MaintainDelta = true,
+				ReportValues = { ReportedManaBonus = "ChangeValue"}
+			},
+		},
+		StatLines =
+		{
+			"BonusMaxManaStatDisplay1",
+			"LinkedShovelUsesStatDisplay1",
+		},
+		ExtractValues = 
+		{
+			{
+				ExtractAs = "TooltipDuration",
+				SkipAutoExtract = true,
+				External = true,
+				BaseType = "EffectData",
+				BaseName = "HoundStun",
+				BaseProperty = "Duration",
+				DecimalPlaces = 3,
+			},
+			{
+				Key = "ReportedManaBonus",
+				ExtractAs = "ManaBonus"
+			},
+		},
+		FlavorText = "HoundFamiliar_FlavorText",
 	},
 }
 

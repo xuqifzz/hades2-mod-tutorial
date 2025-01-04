@@ -193,6 +193,23 @@
 		DisableOwnerManualInteract = true
 	}
 	{
+		Name = "MelinoeCrossCastAnticReverse"
+		InheritFrom = "MelinoeBaseAnimation"
+		GrannyAnimation = "Melinoe_NoWeapon_Base_CrossCastAntic_C_00"
+		GrannyAnimationSpeed = 1.0
+		DisableOwnerManualInteract = true
+		PlayBackwards = true
+		ChainTo = "MelinoeIdleWeaponless"
+
+		Frames = 
+		[
+			{
+				Frame = 13
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
 		Name = "Melinoe_CrossCast_Start_Fast"
 		InheritFrom = "MelinoeCrossCastAntic"
 		GrannyAnimationSpeed = 1.5

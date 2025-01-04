@@ -43,13 +43,9 @@ function MarketPurchaseSuccessPresentation( screen, button )
 	local item = button.Data
 	local brokerId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "BrokerGhost01", Distance = 800 })
 	PlaySound({ Name = item.PurchaseSound or "/Leftovers/Menu Sounds/StoreSellingItem" })
-	--thread( PlayVoiceLines, item.PurchasedLines, true )
-	if item.Priority then
-		thread( PlayVoiceLines, GlobalVoiceLines.TradedMarketItemVoiceLines, true )
-	else
-		thread( PlayVoiceLines, GlobalVoiceLines.TradedMarketItemVoiceLines, true )
-	end
-	if CheckCooldown( "PurchasedMarketItemRecently", 5 ) then
+	thread( PlayVoiceLines, item.ExchangeVoiceLines, true )
+	thread( PlayVoiceLines, GlobalVoiceLines.TradedMarketItemVoiceLines, true )
+	if CheckCooldown( "PurchasedMarketItemRecently", 7 ) then
 		PlaySound({ Name = "/SFX/Enemy Sounds/PunchingBag/EmoteDizzy", Id = brokerId, Delay = 1.5 })
 	end
 	thread( PulseText, { Id = screen.Components.BasicResourceButton.Id, ScaleTarget = 1.1, ScaleDuration = 0.3, Color = Color.White, HoldDuration = 0, PulseBias = 0.2 })
@@ -57,8 +53,24 @@ function MarketPurchaseSuccessPresentation( screen, button )
 end
 
 function MarketPurchaseSuccessRepeatablePresentation( button )
-	Flash({ Id = button.Id, Speed = 4, MinFraction = 1, MaxFraction = 0.0, Color = Color.LightGold, ExpireAfterCycle = true })
+	Flash({ Id = button.Id, Speed = 2, MinFraction = 0.3, MaxFraction = 0.0, Color = Color.LightGold, ExpireAfterCycle = true })
 	CreateAnimation({ Name = "MarketPurchaseSparkles", DestinationId = button.Id, GroupName = "Overlay" })
+end
+
+function MarketRapidPurchasePresentation( screen, button )
+	PlaySound({ Name = "/SFX/GoldCoinPickup" })
+end
+
+function MarketSellAllPresentation( screen, button )
+	local item = button.Data
+	local brokerId = GetClosestUnitOfType({ Id = CurrentRun.Hero.ObjectId, DestinationName = "BrokerGhost01", Distance = 800 })
+	PlaySound({ Name = item.PurchaseSound or "/Leftovers/Menu Sounds/StoreSellingItem" })
+	thread( PlayVoiceLines, item.ExchangeVoiceLines, true )
+	thread( PlayVoiceLines, GlobalVoiceLines.TradedMarketItemVoiceLines, true )
+	if CheckCooldown( "PurchasedMarketItemRecently", 7 ) then
+		PlaySound({ Name = "/SFX/Enemy Sounds/PunchingBag/EmoteDizzy", Id = brokerId, Delay = 1.5 })
+	end
+	thread( PulseText, { Id = screen.Components.BasicResourceButton.Id, ScaleTarget = 1.1, ScaleDuration = 0.3, Color = Color.White, HoldDuration = 0, PulseBias = 0.2 })
 end
 
 function MarketScreenPurchaseFinishPresentation( screen, button, item )
@@ -74,8 +86,10 @@ function MarketScreenPurchaseFinishPresentation( screen, button, item )
 end
 
 function MarketScreenMouseOverItem( button )
+	local screen = button.Screen
+	screen.SelectedItem = button
 	SetAnimation({ DestinationId = button.Id, Name = button.HighlightAnimation })
-	UpdateMarketScreenInteractionText( button.Screen, button )
+	UpdateMarketScreenInteractionText( screen, button )
 	PlaySound({ Name = "/SFX/Menu Sounds/DialoguePanelOut", Id = button.Id })
 	if not button.Category.FlipSides then
 		GameState.ItemsViewed[button.Data.BuyName] = true
@@ -84,6 +98,8 @@ function MarketScreenMouseOverItem( button )
 end
 
 function MarketScreenMouseOffItem( button )
+	local screen = button.Screen
+	screen.SelectedItem = nil
 	SetAnimation({ DestinationId = button.Id, Name = button.Animation })
-	UpdateMarketScreenInteractionText( button.Screen )
+	UpdateMarketScreenInteractionText( screen )
 end

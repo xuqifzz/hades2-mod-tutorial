@@ -56,6 +56,7 @@ UnitSetData.Screamer =
 		},
 		PostAggroAI = "SurroundAI",
 		OnDamagedFunctionName = "SurroundAIRetaliate",
+		EndAIThreadWaitOnFreezeEnd = true,
 
 		BlockAttributes = { "Tracking" },
 
@@ -77,34 +78,23 @@ UnitSetData.Screamer =
 
 		OnDealDamageFunctionName = "ScreamerDistortionEffect",
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/Melinoe_1650", Text = "Wailers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = { "ArachneCombatF", "NemesisCombatIntro", "NemesisCombatF" },
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/Melinoe_1649", Text = "Wailers.", PlayFirst = true },
-			{ Cue = "/VO/Melinoe_1650", Text = "Wailers!" },
+			{ Cue = "/VO/Melinoe_1649", Text = "Wailers." },
+			{ Cue = "/VO/Melinoe_1650", Text = "Wailers!", PlayFirst = true },
 			{ Cue = "/VO/Melinoe_1651", Text = "More Wailers." },
 			{ Cue = "/VO/Melinoe_1652", Text = "Wailers again..." },
 		},
@@ -117,6 +107,8 @@ UnitSetData.Screamer =
 
 		IsAggroedSound = "/SFX/Enemy Sounds/Screamer/EmoteTaunting",
 
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Hex" }),
+
 		DefaultAIData =
 		{
 			DeepInheritance = true,
@@ -128,11 +120,6 @@ UnitSetData.Screamer =
 			"ScreamerCone",
 		},
 
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
-
 		GeneratorData =
 		{
 			DifficultyRating = 34,
@@ -142,7 +129,7 @@ UnitSetData.Screamer =
 
 	Screamer2 =
 	{
-		InheritFrom = { "Screamer" },
+		InheritFrom = { "Elite", "Screamer" },
 		MaxHealth = 1100,
 		HealthBuffer = 1250,
 
@@ -170,6 +157,8 @@ UnitSetData.Screamer =
 			DeepInheritance = true,
 			MaxAttackers = 2,
 		},
+
+		BlockAttributes = { "Tracking", "Vacuuming" },
 		
 		WeaponOptions =
 		{
@@ -191,6 +180,22 @@ UnitSetData.Screamer =
 		},
 	},
 
+	Screamer_Shadow =
+	{
+		InheritFrom = { "Shadow", "Screamer" },
+		GenusName = "Screamer",
+
+		MaxHealth = 100,
+		HealthBuffer = 100,
+
+		StartAggroed = true,
+
+		DefaultAIData =
+		{
+			DeepInheritance = true,
+			MaxAttackers = 4,
+		},
+	},
 }
 
 OverwriteTableKeys( EnemyData, UnitSetData.Screamer )

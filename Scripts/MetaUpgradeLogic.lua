@@ -23,10 +23,6 @@ end
 
 function EquipMetaUpgrades( hero, args )
 
-	if GetNumShrineUpgrades( "NoMetaUpgradesShrineUpgrade" ) >= 1 then
-		return
-	end
-
 	local skipTraitHighlight = args.SkipTraitHighlight or false
 	
 	for metaUpgradeName, metaUpgradeData in pairs( GameState.MetaUpgradeState ) do
@@ -304,6 +300,7 @@ function WeaponCastFired( owner, weaponData, args, triggerArgs)
 		{
 		StaffSelfHitAspect = true,
 		StaffClearCastAspect = true,
+		ClearCastTalent = true,
 		}
 		for traitName in pairs( interestedTraits ) do
 			if HeroHasTrait(traitName) then
@@ -356,7 +353,11 @@ end
 function RefreshImpactSlow( victim, victimId, triggerArgs )
 	local effectNames = { "ImpactSlow", "ImpactGrip" }
 	for _, effectName in pairs(effectNames) do
-		ApplyEffect({ DestinationId = victimId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = EffectData[effectName].DataProperties })
+		local dataProperties = ShallowCopyTable(EffectData[effectName].DataProperties)
+		if victim.IsBoss then
+			dataProperties.HaltOnStart = false
+		end
+		ApplyEffect({ DestinationId = victimId, Id = CurrentRun.Hero.ObjectId, EffectName = effectName, DataProperties = dataProperties })
 	end
 end
 
@@ -396,10 +397,6 @@ function RunLastStandTimeSlow( unit, args )
 end
 
 function AddRandomMetaUpgrades( numCards, args )
-
-	if GetNumShrineUpgrades( "NoMetaUpgradesShrineUpgrade" ) >= 1 then
-		return
-	end
 
 	args = args or {}
 	numCards = numCards or 3
@@ -517,13 +514,16 @@ function RoomStatGrowth( unit, args )
 			addedHealth = round(args.MaxHealth)
 			AddMaxHealth( addedHealth, traitData.Name, { Thread = true, Silent = true })
 		end
-		
+		if CurrentRun and GetPreviousRoom( CurrentRun ) and GetPreviousRoom( CurrentRun ).NextRoomEntranceFunctionArgsOverride  and GetPreviousRoom( CurrentRun ).NextRoomEntranceFunctionArgsOverride.NotifyName  then
+			waitUntil(GetPreviousRoom( CurrentRun ).NextRoomEntranceFunctionArgsOverride.NotifyName)
+		end
 		if CurrentRun.CurrentRoom and CurrentRun.CurrentRoom.Encounter and CurrentRun.CurrentRoom.Encounter.EncounterType ~= "Boss" then
+			local waitTime = CurrentRun.CurrentRoom.EntrancePresentationDelay or 0.8	
 			if addedHealth > 0  and addedMana > 0 then
-				waitUnmodified(0.8)
+				waitUnmodified(waitTime)
 				thread(BonusHealthAndManaPresentation, addedHealth, addedMana )
 			elseif addedMana > 0 then
-				waitUnmodified(0.8)
+				waitUnmodified(waitTime)
 				thread(BonusManaPresentation, addedMana )
 			end
 		end

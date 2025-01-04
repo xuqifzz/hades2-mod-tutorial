@@ -11,7 +11,7 @@ function AudioStateInit( triggerArgs )
 		local restoreMusicSection = AudioState.MusicSection
 		AudioState.MusicName = nil
 		AudioState.MusicSection = nil
-		MusicPlayer( restoreTrackName )
+		MusicPlayer( restoreTrackName, nil, nil, { IgnoreRecords = true } )
 		SetMusicSection( restoreMusicSection )
 		if AudioState.MusicId ~= nil then
 			if AudioState.MusicActiveStems ~= nil then
@@ -24,29 +24,8 @@ function AudioStateInit( triggerArgs )
 			AudioState.MusicActiveStems = nil
 			AudioState.MusicMutedStems = nil
 		end
-		if AudioState.MusicPlayerTrackPaused and MusicPlayerTrackData[MusicName] ~= nil then
-			PauseMusic()
-		end
 	end
 
-	if AudioState.AmbientTrackName ~= nil and AudioState.AmbientMusicSource ~= nil and AmbientMusicId == nil then
-		-- Out of sync (presumably from a load)
-		local restoreTrackName = AudioState.AmbientTrackName
-		AudioState.AmbientTrackName = nil
-		wait(0.02) -- Need to wait for potential stored targets to spawn
-		local source = ActiveEnemies[AmbientMusicSource.ObjectId]
-		if source ~= nil then
-			MusicianMusic( source, { TrackName = restoreTrackName } )
-			if CurrentHubRoom ~= nil then
-				if CurrentHubRoom.AmbientMusicParams ~= nil then
-					for param, value in pairs( CurrentHubRoom.AmbientMusicParams ) do
-						SetSoundCueValue({ Id = AmbientMusicId, Name = param, Value = value, Duration = 0.5 })
-					end
-				end
-				SetVolume({ Id = AmbientMusicId, Value = CurrentHubRoom.AmbientMusicVolume, Duration = 0.5 })
-			end
-		end
-	end
 end
 
 
@@ -63,11 +42,13 @@ function MusicPlayerEvent( source, args )
 	MusicPlayer( args.TrackName, args.MusicInfo, args.DestinationId )
 end
 
-function MusicPlayer( trackName, musicInfo, destinationId )
+function MusicPlayer( trackName, musicInfo, destinationId, args )
 
 	if trackName == nil then
 		return false
 	end
+
+	args = args or {}
 
 	if AudioState.MusicName ~= nil and AudioState.MusicName == trackName then
 		-- Don't play an identical track that's already playing
@@ -91,6 +72,14 @@ function MusicPlayer( trackName, musicInfo, destinationId )
 	AudioState.MusicId = PlaySound({ Name = AudioState.MusicName, AddCallbacks = true, Id = destinationId })
 	SetDefaultMusicParams( AudioState.MusicName, AudioState.MusicId )
 	AudioState.MusicPaused = nil
+
+	if not args.IgnoreRecords then
+		GameState.MusicRecord[trackName] = (GameState.MusicRecord[trackName] or 0) + 1
+		CurrentRun.MusicRecord[trackName] = (CurrentRun.MusicRecord[trackName] or 0) + 1
+		if CurrentRun.CurrentRoom ~= nil then
+			CurrentRun.CurrentRoom.MusicRecord[trackName] = (CurrentRun.CurrentRoom.MusicRecord[trackName] or 0) + 1
+		end
+	end
 
 	if musicInfo ~= nil then
 		musicInfo.Id = AudioState.MusicId
@@ -165,20 +154,12 @@ function StopSecretMusicTheme( source )
 
 end
 
-function MusicianMusic( source, args )
+function MusicianMusic( args )
 
-	if CurrentRun.BlockAmbientMusic then
-		return
-	end
-
-	CurrentRun.EventState[source.ObjectId] = { FunctionName = "SingingPresentation", Args = args }
-	SingingPresentation( source, args )
-
-	if args.TrackName == AudioState.AmbientTrackName then
+	if AudioState.AmbientMusicId ~= nil and args.TrackName == AudioState.AmbientTrackName then
 		-- Don't play an identical track that's already playing
 		-- But do still update the source if it is being changed
-		SetSoundSource({ Id = AudioState.AmbientMusicId, DestinationId = source.ObjectId })
-		AudioState.AmbientMusicSource = source
+		SetSoundSource({ Id = AudioState.AmbientMusicId, DestinationId = args.SourceId })
 		return
 	end
 
@@ -188,11 +169,7 @@ function MusicianMusic( source, args )
 		AudioState.AmbientMusicId = nil
 	end
 
-	--Shake({ Id = source.ObjectId, Distance = 1, Speed = 3, Duration = 9999, Angle = 0 })
-
-	AudioState.AmbientMusicSource = source
-	AudioState.AmbientMusicId = PlaySound({ Name = args.TrackName, Id = source.ObjectId })
-	SetSoundCueValue({ Names = { "Vocals", }, Id = AudioState.AmbientMusicId, Value = 1 })
+	AudioState.AmbientMusicId = PlaySound({ Name = args.TrackName, Id = args.SourceId })
 	AudioState.AmbientTrackName = args.TrackName
 	SetVolume({ Id = AudioState.AmbientMusicId, Value = 1 })
 	if args.TrackOffset ~= nil or args.TrackOffsetMin ~= nil then
@@ -210,13 +187,34 @@ function PauseUnpauseSoundWorkaround( soundId )
 	ResumeSound({ Id = soundId, Duration = 0 })
 end
 
-function StopMusicianMusic( source, args )
+function RestoreMusicianMusic( source, args )
+	if GameState.MusicPlayerSongName ~= nil and WorldUpgradeData[GameState.MusicPlayerSongName] ~= nil and CurrentHubRoom ~= nil then
+		wait(0.02) -- Need to wait for targets to spawn
+		MusicianMusic( { SourceId = CurrentHubRoom.AmbientMusicSourceId, TrackName = WorldUpgradeData[GameState.MusicPlayerSongName].TrackName } )
+		if CurrentHubRoom.AmbientMusicParams ~= nil then
+			for param, value in pairs( CurrentHubRoom.AmbientMusicParams ) do
+				SetSoundCueValue({ Id = AudioState.AmbientMusicId, Name = param, Value = value, Duration = 0.5 })
+			end
+		end
+		SetVolume({ Id = AudioState.AmbientMusicId, Value = CurrentHubRoom.AmbientMusicVolume, Duration = 0.5 })
+	end
+end
+
+function StopMusicianMusic( args )
+	args = args or {}
 	StopSound({ Id = AudioState.AmbientMusicId, Duration = args.Duration or 0.2 })
 	AudioState.AmbientMusicId = nil
 	AudioState.AmbientTrackName = nil
-	if source ~= nil and source.ObjectId ~= nil then
-		CurrentRun.EventState[source.ObjectId] = nil
-	end
+end
+
+function PauseMusicianMusic()
+	PauseSound({ Id = AudioState.AmbientMusicId, Duration = 0.2 })
+end
+
+function ResumeMusicianMusic()
+	ResumeSound({ Id = AudioState.AmbientMusicId })
+	SetVolume({ Id = AudioState.AmbientMusicId, Value = 0 })
+	SetVolume({ Id = AudioState.AmbientMusicId, Value = CurrentHubRoom.AmbientMusicVolume, 0.2 })
 end
 
 function SetDefaultMusicParams( trackName, musicId, args )
@@ -235,7 +233,7 @@ function MusicMixer( mixArgs )
 		return
 	end
 
-	if mixArgs.MusicMixerRequirements ~= nil and not IsGameStateEligible( CurrentRun, mixArgs, mixArgs.MusicMixerRequirements ) then
+	if mixArgs.MusicMixerRequirements ~= nil and not IsGameStateEligible( mixArgs, mixArgs.MusicMixerRequirements ) then
 		return
 	end
 
@@ -247,17 +245,22 @@ function MusicMixer( mixArgs )
 		if biomeMusicTracks ~= nil then
 			local eligibleBiomeMusicTracks = {}
 			for index, trackData in ipairs( biomeMusicTracks ) do
-				if trackData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, trackData, trackData.GameStateRequirements ) then
+				if trackData.GameStateRequirements == nil or IsGameStateEligible( trackData, trackData.GameStateRequirements ) then
 					table.insert( eligibleBiomeMusicTracks, trackData )
+					--DebugPrint({ Text = "eligible track = "..trackData.Name })
 				else
 					--DebugPrint({ Text = "ineligible track = "..trackData.Name })
 				end
 			end
 			if not IsEmpty( eligibleBiomeMusicTracks ) then
 				local trackIndex = ((GameState.BiomeMusicPlayCounts[biomeName] or 0) % #eligibleBiomeMusicTracks) + 1
-				local trackData = biomeMusicTracks[trackIndex]
+				local trackData = eligibleBiomeMusicTracks[trackIndex]
 				MusicPlayer( trackData.Name, trackData )
 				GameState.BiomeMusicPlayCounts[biomeName] = (GameState.BiomeMusicPlayCounts[biomeName] or 0) + 1
+				if (CurrentRun.BiomeMusicPlayCounts[biomeName] or 0) == 0 then
+					GameState.BiomeMusicLastFirstPlayed[biomeName] = trackData.Name
+				end
+				CurrentRun.BiomeMusicPlayCounts[biomeName] = (CurrentRun.BiomeMusicPlayCounts[biomeName] or 0) + 1
 			end
 		end
 	end
@@ -294,10 +297,10 @@ function CheckMusicEvents( currentRun, musicEvents )
 
 	for k, musicEvent in ipairs( musicEvents ) do
 
-		if IsGameStateEligible( currentRun, musicEvent, musicEvent.GameStateRequirements ) then
+		if IsGameStateEligible( musicEvent, musicEvent.GameStateRequirements ) then
 
 			if musicEvent.EndMusic then
-				EndMusic()
+				EndMusic( nil, nil, nil, musicEvent.EndMusicArgs )
 			end
 
 			thread( MusicMixer, musicEvent )
@@ -308,7 +311,9 @@ function CheckMusicEvents( currentRun, musicEvents )
 
 end
 
-function EndMusic( musicId, musicName, hardStopTime )
+function EndMusic( musicId, musicName, hardStopTime, args )
+	args = args or {}
+	hardStopTime = hardStopTime or args.Duration
 	if musicId == nil then
 		musicId = AudioState.MusicId
 	end
@@ -316,12 +321,23 @@ function EndMusic( musicId, musicName, hardStopTime )
 		return
 	end
 
+	if not args.IgnoreRecords then
+		local trackName = musicName or AudioState.MusicName
+		GameState.MusicEndRecord[trackName] = (GameState.MusicEndRecord[trackName] or 0) + 1
+		CurrentRun.MusicEndRecord[trackName] = (CurrentRun.MusicEndRecord[trackName] or 0) + 1
+		if CurrentRun.CurrentRoom ~= nil then
+			CurrentRun.CurrentRoom.MusicEndRecord[trackName] = (CurrentRun.CurrentRoom.MusicEndRecord[trackName] or 0) + 1
+		end
+	end
+
 	if musicId == AudioState.MusicId and AudioState.MusicPaused then
 		-- Stop instantly if already paused
 		ResumeSound({ Id = musicId })
 		StopSound({ Id = musicId })
 	else
-		SetMusicSection( 10, musicId )
+		if not args.IgnoreSection then
+			SetMusicSection( 10, musicId )
+		end
 	end
 
 	if hardStopTime ~= nil then
@@ -352,17 +368,6 @@ function ResumeMusic( args )
 	wait( args.Delay )
 	ResumeSound({ Id = AudioState.MusicId, Duration = args.Duration or 0.2 })
 	AudioState.MusicPaused = false
-end
-
-function PauseAmbientMusic()
-	PauseSound({ Id = AudioState.AmbientMusicId, Duration = 0.2 })
-	PauseSound({ Id = AudioState.SecretMusicId, Duration = 0.2 })
-end
-
-function ResumeAmbientMusic()
-	ResumeSound({ Id = AudioState.AmbientMusicId, Duration = 0.2 })
-	SetVolume({ Id = AudioState.AmbientMusicId, Value = 1.0 })
-	ResumeSound({ Id = AudioState.SecretMusicId, Duration = 0.2 })
 end
 
 function SetMusicSection( section, musicId )
@@ -443,13 +448,13 @@ function PlayRandomEligibleVoiceLines( voiceLineSets, neverQueue )
 
 end
 
-function PlayFirstEligibleVoiceLines( voiceLineSets )
+function PlayFirstEligibleVoiceLines( voiceLineSets, source )
 
 	local highestIndex = GetHighestIndex( voiceLineSets )
 	for index = 1, highestIndex do
 		local voiceLines = voiceLineSets[index]
 		if voiceLines ~= nil then
-			local playedSomething = PlayVoiceLines( voiceLines, true )
+			local playedSomething = PlayVoiceLines( voiceLines, true, source )
 			if playedSomething then
 				return
 			end
@@ -482,6 +487,15 @@ function PlayVoiceLinesReal( voiceLines, neverQueue, source, args )
 		return
 	end
 
+	if voiceLines.GlobalVoiceLines ~= nil then
+		local globalVoiceLines = GlobalVoiceLines[voiceLines.GlobalVoiceLines]
+		if globalVoiceLines == nil then
+			DebugAssert({ Condition = false, Text = "GlobalVoiceLines "..voiceLines.GlobalVoiceLines.." does not exist", Owner = "Greg" })
+			return false
+		end
+		voiceLines = globalVoiceLines
+	end
+
 	args = args or {}
 
 	args.OriginalSource = source
@@ -504,7 +518,7 @@ function PlayVoiceLinesReal( voiceLines, neverQueue, source, args )
 		if voiceLines.Queue == "Interrupt" then
 			-- Play as normal
 		else
-			if neverQueue or voiceLines.Queue == "Never" then
+			if (neverQueue or voiceLines.Queue == "Never") and voiceLines.Queue ~= "Always" then
 				DebugPrint({ Text = "Skipped voiceLines on "..GetTableString( source ).." (Playing: "..source.PlayingVoiceLine..")" })
 				return
 			end
@@ -545,6 +559,7 @@ function PlayVoiceLinesReal( voiceLines, neverQueue, source, args )
 	while not IsEmpty( SessionMapState.QueuedVoiceLines ) and GetFirstValue( SessionMapState.QueuedVoiceLines ).Source.PlayingVoiceLine == nil do
 		-- A line is queued and its source is not still playing a line
 		local queuedLines = RemoveFirstValue( SessionMapState.QueuedVoiceLines )
+		wait( 0.1 ) -- Need to let the previous speech complete callbacks complete
 		if PlayVoiceLines( queuedLines.Lines, false, queuedLines.Source, queuedLines.Args ) then
 			playedSomething = true
 		end
@@ -556,7 +571,7 @@ end
 
 function GetLineSource( line, source, args )
 
-	if line.ObjectType ~= nil then
+	if line.ObjectType ~= nil or line.ObjectTypes ~= nil then
 		local typeIds = GetIdsByType({ Name = line.ObjectType, Names = line.ObjectTypes })
 		if IsEmpty( typeIds ) then
 			return nil
@@ -626,6 +641,7 @@ function PlayVoiceLine( line, prevLine, parentLine, source, args, originalArgs )
 	args.CurrentSource = source
 	if source == nil then
 		-- Never play a line if the source doesn't exist
+		DebugPrint({ Text = "Skipped voiceLines due to missing source" })
 		return playedSomething
 	end
 
@@ -738,6 +754,15 @@ function PlayVoiceLine( line, prevLine, parentLine, source, args, originalArgs )
 		local allEligibleLines = {}
 		local playFirstLine = nil
 		for k, subLine in ipairs( line ) do
+
+			if subLine.GlobalVoiceLines ~= nil then
+				local globalVoiceLines = GlobalVoiceLines[subLine.GlobalVoiceLines]
+				if globalVoiceLines == nil then
+					DebugAssert({ Condition = false, Text = "GlobalVoiceLines "..subLine.GlobalVoiceLines.." does not exist", Owner = "Greg" })
+					return playedSomething
+				end
+				subLine = globalVoiceLines
+			end
 			
 			if GameState.LastPlayedRandomLines[subLine.Cue] then
 				GameState.LastPlayedRandomLines[subLine.Cue] = nil -- Block last played line once
@@ -788,6 +813,16 @@ function PlayVoiceLine( line, prevLine, parentLine, source, args, originalArgs )
 		end
 	else
 		for k, subLine in ipairs( line ) do
+
+			if subLine.GlobalVoiceLines ~= nil then
+				local globalVoiceLines = GlobalVoiceLines[subLine.GlobalVoiceLines]
+				if globalVoiceLines == nil then
+					DebugAssert({ Condition = false, Text = "GlobalVoiceLines "..subLine.GlobalVoiceLines.." does not exist", Owner = "Greg" })
+					return playedSomething
+				end
+				subLine = globalVoiceLines
+			end
+
 			if IsVoiceLineEligible( subLine, prevLine, line, source, args ) then
 				-- Effectively pass down by value rather than reference
 				local subLineArgs = ShallowCopyTable( args )
@@ -994,12 +1029,12 @@ function IsVoiceLineEligible( line, prevLine, parentLine, source, args )
 	end
 
 	if parentLine ~= nil and parentLine.RecheckRequirementsForSubLines then
-		if parentLine.GameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, line, parentLine.GameStateRequirements, args ) then
+		if parentLine.GameStateRequirements ~= nil and not IsGameStateEligible( line, parentLine.GameStateRequirements, args ) then
 			return false
 		end
 	end
 
-	if line.GameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, line, line.GameStateRequirements, args ) then
+	if line.GameStateRequirements ~= nil and not IsGameStateEligible( line, line.GameStateRequirements, args ) then
 		return false
 	end
 
@@ -1086,14 +1121,32 @@ function IsVoiceLineEligible( line, prevLine, parentLine, source, args )
 		end
 	end
 	if line.Cooldowns ~= nil then
-		for k, cooldown in pairs( line.Cooldowns ) do
-			local cooldownTime = cooldown.Time or line.CooldownTime
-			if cooldownTime == nil and source ~= nil then
-				cooldownTime = source.SpeechCooldownTime or CurrentRun.Hero.SpeechCooldownTime
+
+		local checkCooldown = true
+		if line.SkipCooldownCheckIfNonePlayed then
+			local anyLinePlayed = false
+			for k, subLine in ipairs( line ) do
+				if subLine.Cue ~= nil and GameState.SpeechRecord[subLine.Cue] then
+					anyLinePlayed = true
+					break
+				end
 			end
-			if not CheckCooldownNoTrigger( cooldown.Name, cooldownTime ) then
-				DebugPrint({ Text = "VO "..tostring(GetFirstCueName(line)).." blocked from cooldown: "..tostring(cooldown.Name) })
-				return false
+			if not anyLinePlayed then
+				checkCooldown = false
+				DebugPrint({ Text = "VO "..tostring(GetFirstCueName(line)).." skipping cooldown check due to none played" })
+			end
+		end
+
+		if checkCooldown then
+			for k, cooldown in pairs( line.Cooldowns ) do
+				local cooldownTime = cooldown.Time or line.CooldownTime
+				if cooldownTime == nil and source ~= nil then
+					cooldownTime = source.SpeechCooldownTime or CurrentRun.Hero.SpeechCooldownTime
+				end
+				if not CheckCooldownNoTrigger( cooldown.Name, cooldownTime ) then
+					DebugPrint({ Text = "VO "..tostring(GetFirstCueName(line)).." blocked from cooldown: "..tostring(cooldown.Name) })
+					return false
+				end
 			end
 		end
 	end

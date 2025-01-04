@@ -63,13 +63,18 @@ OverwriteTableKeys( ProjectileData, {
 				Bone = "/SFX/ArrowMetalBoneSmash",
 				Brick = "/SFX/ArrowMetalStoneClang",
 				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/GunBulletOrganicImpact",
+				Organic = "/SFX/DaggerThrowImpact",
 				StoneObstacle = "/SFX/ArrowWallHitClankSmall",
 				BrickObstacle = "/SFX/ArrowWallHitClankSmall",
 				MetalObstacle = "/SFX/ArrowWallHitClankSmall",
 				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
 			},
 		},
+	},
+	DionysusColorProjectile =
+	{
+		DamageTextStartColor = Color.DionysusDamageLight,
+		DamageTextColor = Color.DionysusDamage,
 	},
 
 	ProjectileCast = 
@@ -125,6 +130,11 @@ OverwriteTableKeys( ProjectileData, {
 				Brick = "/Leftovers/World Sounds/PhysicalImpactPunch",
 				Stone = "/Leftovers/World Sounds/PhysicalImpactPunch",
 				Organic = "/Leftovers/World Sounds/PhysicalImpactPunch",
+				StoneObstacle = "/SFX/Player Sounds/ShieldObstacleHit",
+				BrickObstacle = "/SFX/Player Sounds/ShieldObstacleHit",
+				MetalObstacle = "/SFX/Player Sounds/ShieldObstacleHit",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},
@@ -147,7 +157,14 @@ OverwriteTableKeys( ProjectileData, {
 	},
 	HephSprintBlast =
 	{
-		InheritFrom = { "MassiveSlamBlast" },
+		InheritFrom = { "HephaestusColorProjectile" },
+
+		HitScreenshake = { Distance = 3, Speed = 400, Duration = 0.1, FalloffSpeed = 3000, Angle = 90 },
+
+		HitRumbleParameters =
+		{
+			{ ScreenPreWait = 0.0, RightFraction = 0.1, Duration = 0.12 },
+		},
 	},
 	EncounterStartBuffWeapon =
 	{
@@ -201,6 +218,10 @@ OverwriteTableKeys( ProjectileData, {
 		IsExProjectile = true,
 		IsAdditionalCastProjectile = true,
 	},
+	ApolloRetaliateStrike =
+	{
+
+	},
 	DemeterMiniStorm =
 	{
 		InheritFrom = { "ApolloColorProjectile", },	-- Apollo x Demeter duo
@@ -218,6 +239,8 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		InheritFrom = { "ZeusColorProjectile", },
 		IsAdditionalCastProjectile = true,
+		CancelRumble = true,
+		CancelCameraShake = true,
 		KillingEnemyVoiceLines =
 		{
 			RandomRemaining = true,
@@ -339,6 +362,25 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		InheritFrom = { "ArtemisColorProjectile" },
 	},
+	ProjectileCastLob =
+	{
+		InheritFrom = { "DionysusColorProjectile" },
+	},
+	IcarusExplosion =
+	{
+
+	},
+
+	IcarusArmorExplosion =
+	{
+
+	},
+
+	LinkNova =
+	{
+
+	},
+
 	FrogFamiliarLand =
 	{
 		CancelArmorSpark = true,
@@ -374,6 +416,31 @@ OverwriteTableKeys( ProjectileData, {
 			},
 		},
 	},
+	RavenFamiliarMelee =
+	{
+		Sounds =
+		{
+			ImpactSounds =
+			{
+				Invulnerable = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
+				Bone = "/SFX/DaggerImpactWoodHard",
+				Brick = "/SFX/DaggerImpactWoodSoft",
+				Stone = "/SFX/DaggerImpactWoodSoft",
+				Organic = "/SFX/DaggerImpactOrganic",
+				StoneObstacle = "/SFX/SwordWallHitClankSmall",
+				BrickObstacle = "/SFX/SwordWallHitClankSmall",
+				MetalObstacle = "/SFX/SwordWallHitClankSmall",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
+			},
+		},
+	},
+
+	RavenFamiliarMelee_Crit =
+	{
+		InheritFrom = { "RavenFamiliarMelee" },
+	},
 
 	RangedWeapon =
 	{
@@ -403,12 +470,54 @@ OverwriteTableKeys( ProjectileData, {
 		OutgoingDamageModifiers = 
 		{
 			{
-				NonPlayerMultiplier = 150.0,
+				NonPlayerMultiplier = 20.0,
 			},
 			{
 				ObstacleMultiplier = 0.0,
 			},
-		}
+		},
+
+		KillingEnemyVoiceLines =
+		{
+			{
+				BreakIfPlayed = true,
+				RandomRemaining = true,
+				PlayOnceFromTableThisRun = true,
+				PreLineWait = 0.45,
+				UsePlayerSource = true,
+				SuccessiveChanceToPlay = 0.1,
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "Hero", "Health" },
+						Comparison = ">=",
+						Value = 15,
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "I_MiniBoss01" },
+					},
+				},
+				Cooldowns =
+				{
+					{ Name = "MelinoeAnyQuipSpeech" },
+					{ Name = "MelinoeTrapKillSpeech", Time = 80 },
+				},
+				TriggerCooldowns = { "MelinoeCombatQuipPlayed" },
+
+				{ Cue = "/VO/MelinoeField_2199", Text = "You'll rot here." },
+				{ Cue = "/VO/MelinoeField_2201", Text = "Die with your master!" },
+				{ Cue = "/VO/MelinoeField_2202", Text = "I'll bury you." },
+				{ Cue = "/VO/MelinoeField_2200", Text = "Hades take you!",
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "RoomsEntered", "I_Story01" },
+						},
+					}
+				},
+			},
+		},
 	},
 	RubbleFallLarge =
 	{
@@ -432,6 +541,7 @@ OverwriteTableKeys( ProjectileData, {
 	},
 	LavaTileWeapon =
 	{
+		OnHitFunctionNames = { "CheckLavaPresentation", },
 		IgnoreOnHitEffects = true,
 		DamagedFx = "PlayerBurnDamage",
 	},
@@ -483,7 +593,12 @@ OverwriteTableKeys( ProjectileData, {
 				Bone = "/SFX/ArrowMetalBoneSmash",
 				Brick = "/SFX/ArrowMetalStoneClang",
 				Stone = "/SFX/ArrowMetalStoneClang",
-				Organic = "/SFX/ArrowImpactSplatter",
+				Organic = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				StoneObstacle = "/SFX/SwordWallHitClankSmall",
+				BrickObstacle = "/SFX/SwordWallHitClankSmall",
+				MetalObstacle = "/SFX/SwordWallHitClankSmall",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},
@@ -493,7 +608,7 @@ OverwriteTableKeys( ProjectileData, {
 		
 		DefaultKnockbackForce = 800,
 		DefaultKnockbackScale = 1,
-
+		ImpactReactionHitsOverride = 10,
 		FireRumbleParameters =
 		{
 			{ ScreenPreWait = 0.06, Fraction = 0.37, Duration = 0.23 },
@@ -519,10 +634,15 @@ OverwriteTableKeys( ProjectileData, {
 			ImpactSounds =
 			{
 				Armored = "/SFX/Player Sounds/ZagreusShieldRicochet",
-				Bone = "/Leftovers/World Sounds/PhysicalImpactPunch",
-				Brick = "/Leftovers/World Sounds/PhysicalImpactPunch",
-				Stone = "/Leftovers/World Sounds/PhysicalImpactPunch",
-				Organic = "/Leftovers/World Sounds/PhysicalImpactPunch",
+				Bone = "/SFX/ArrowMetalBoneSmash",
+				Brick = "/SFX/ArrowMetalStoneClang",
+				Stone = "/SFX/ArrowMetalStoneClang",
+				Organic = "/SFX/Player Sounds/ZagreusBloodshotImpact",
+				StoneObstacle = "/SFX/SwordWallHitClankSmall",
+				BrickObstacle = "/SFX/SwordWallHitClankSmall",
+				MetalObstacle = "/SFX/SwordWallHitClankSmall",
+				BushObstacle = "/Leftovers/World Sounds/LeavesRustle",
+				Shell = "/SFX/ShellImpact",
 			},
 		},
 	},
@@ -569,6 +689,18 @@ OverwriteTableKeys( ProjectileData, {
 				PlayerMultiplier = 0.0,
 			}
 		},
+	},
+	IcicleSplinter =
+	{
+
+	},
+	FireBarrelFireLob =
+	{
+
+	},
+	SoulPylonSpiritball =
+	{
+
 	},
 
 	ProjectileTorchBall = 
@@ -627,6 +759,10 @@ OverwriteTableKeys( ProjectileData, {
 		},
 		]]
 	},
+	ProjectileTorchExplosionLarge = 
+	{
+		IsExProjectile = true,
+	},
 	ProjectileTorchSpiral = 
 	{
 		--HitScreenshake = { Distance = 2, Speed = 150, FalloffSpeed = 1000, Duration = 0.1, DistanceThreshold = 110 },
@@ -684,6 +820,69 @@ OverwriteTableKeys( ProjectileData, {
 	HecateTorchRing =
 	{
 		HealthTickDamage = 0,
+
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.10, LerpTime = 0 },
+			{ ScreenPreWait = 0.10, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	HecateTorchRingPhase =
+	{
+		InheritFrom = { "HecateTorchRing" },
+	},
+
+	HecateMelee1 =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	HecateMelee2 =
+	{
+		InheritFrom = { "HecateMelee1" },
+	},
+
+	HecateTorchCone =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	HecateRangedSmallSpirals =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	HecateRangedSmall =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	HecateMeleeCone =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+		},
 	},
 	HecatePolymorph =
 	{
@@ -787,6 +986,26 @@ OverwriteTableKeys( ProjectileData, {
 		CancelCameraShake = true,
 	},
 
+	ProjectileAxeSpecial = 
+	{
+		--HitScreenshake = { Distance = 6, Speed = 800, Duration = 0.07, FalloffSpeed = 2500, Angle = 90 },
+		HitRumbleParameters =
+		{
+			{ ScreenPreWait = 0.07, RightFraciton = 0.35, Duration = 0.15 },
+		},
+		--HitSimSlowCooldown = 0.5,
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.03, Fraction = 0.13, LerpTime = 0.0 },
+			{ ScreenPreWait = 0.01, Fraction = 1.00, LerpTime = 0.07 },
+		},
+		RumbleDistanceThreshold = 280,
+		HitRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, LeftFraction = 0.125, Duration = 0.15 },
+		},
+	},
+
 	ProjectileAxeBlock2 = 
 	{
 		HitScreenshake = { Distance = 6, Speed = 800, Duration = 0.07, FalloffSpeed = 2500, Angle = 90 },
@@ -817,13 +1036,113 @@ OverwriteTableKeys( ProjectileData, {
 
 		SimSlowDistanceThreshold = 280,
 	},
+
+	ProjectileSuit = 
+	{
+		HitScreenshake = { Distance = 2, Speed = 200, FalloffSpeed = 0, Duration = 0.1, Angle = 0 },
+
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.03, Fraction = 0.1, LerpTime = 0 },			
+			{ ScreenPreWait = 0.01, Fraction = 1.0, LerpTime = 0.03 },
+		},
+
+		HitRumbleParameters =
+		{
+			{ ScreenPreWait = 0.02, RightFraction = 0.22, Duration = 0.22 },
+		},
+	},
+
+	ProjectileSuit2 = 
+	{
+		InheritFrom = { "ProjectileSuit" },
+	},
+
+	ProjectileSuitDash = 
+	{
+		HitScreenshake = { Distance = 5, Speed = 300, FalloffSpeed = 1200, Duration = 0.35, Angle = 90 },
+
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.030, Fraction = 0.1, LerpTime = 0 },			
+			{ ScreenPreWait = 0.012, Fraction = 1.0, LerpTime = 0.06 },
+		},
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.185, Duration = 0.34 },
+		},
+	},
+
+	ProjectileSuitRangedUnguided = 
+	{
+		IsNotExProjectile = true,
+
+		FireScreenshake = { Distance = 4, Speed = 250, FalloffSpeed = 1000, Duration = 0.2, Angle = 90, ScreenPreWait = 0.08 },
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.18, Duration = 0.19 },
+		},
+
+	},
+	ProjectileSuitRangedGuided = 
+	{
+		IsNotExProjectile = true,
+
+		FireScreenshake = { Distance = 4, Speed = 250, FalloffSpeed = 1000, Duration = 0.4, Angle = 90, ScreenPreWait = 0.08 },
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.22, Duration = 0.28 },
+		},
+	},
+
+	ProjectileSuitRangedChargedUnguided = 
+	{
+		IsExProjectile = true,
+
+		FireScreenshake = { Distance = 4, Speed = 250, FalloffSpeed = 1000, Duration = 0.4, Angle = 90, ScreenPreWait = 0.08 },
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.22, Duration = 0.5 },
+		},
+	},
+	ProjectileSuitRangedCharged = 
+	{
+		IsExProjectile = true,
+
+		FireScreenshake = { Distance = 4, Speed = 250, FalloffSpeed = 1000, Duration = 0.4, Angle = 90, ScreenPreWait = 0.08 },
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.22, Duration = 0.5 },
+		},
+	},
+
+	NyxSprintBlast =
+	{
+		DamageTextStartColor = Color.LightPurple,
+		DamageTextColor = Color.Purple,
+
+		HitScreenshake = { Distance = 5, Speed = 300, FalloffSpeed = 1200, Duration = 0.35, Angle = 90 },
+
+		HitSimSlowCooldown = 1.01,
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.12, LerpTime = 0 },			
+			{ ScreenPreWait = 0.25, Fraction = 1.00, LerpTime = 0.06 },
+		},
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.1, Fraction = 0.185, Duration = 0.34 },
+		},
+	},
 	SmokeTrapWeapon = 
 	{
 		OnHitFunctionNames = { "HitBySmokeTrapWeaponPresentation",  },
-	},
-	LavaTileWeapon = 
-	{
-		OnHitFunctionNames = { "CheckLavaPresentation", },
 	},
 	DevotionHephaestus =
 	{
@@ -833,6 +1152,16 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		Fuse = 0.25,
 		--ReticleAnimation = "BlastWarningDecal",
+	},
+
+	TreantRanged =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
 	},
 
 	FieldsDestructiblePillarDestruction =
@@ -874,5 +1203,541 @@ OverwriteTableKeys( ProjectileData, {
 	ThugSlamWave =
 	{
 		ProjectileFireSound = "/Leftovers/SFX/AuraThrowLarge",
+	},
+
+	RubbleFallOlympus =
+	{
+		SkipAggro = true,
+		HitScreenshake = { Distance = 4, Speed = 400, Duration = 0.25, FalloffSpeed = 3000 },
+		ImpactReactionHitsOverride = 0,
+
+		OutgoingDamageModifiers = 
+		{
+			{
+				NonPlayerMultiplier = 3.0,
+			},
+			{
+				ObstacleMultiplier = 0.0,
+			},
+		},
+	},
+
+	TentacleSpike =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.25, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.07, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	TentacleSlamWave =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.25, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	CharybdisRanged =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	CharydisRangedTransport =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.08, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	EagleSwoop =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.3, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	EagleSweep =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.3, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.04, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	EagleFlyUpWhirlwind =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.3, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.04, LerpTime = 0 },
+			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	AutomatonBeamBolt =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	AutomatonOrbit =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	AutomatonMeleeArcLeft =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	AutomatonMeleeArcRight =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	AutomatonWhirlwind =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	AutomatonWhirlwind_Elite =
+	{
+		InheritFrom = { "AutomatonWhirlwind" },
+	},
+
+	HarpySlice =
+	{
+		HitScreenshake = { Distance = 4, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.11, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	HarpySlice2 =
+	{
+		HitScreenshake = { Distance = 4, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.11, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	SatyrRocket =
+	{
+		HitScreenshake = { Distance = 9, Speed = 1000, Duration = 0.22, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.20, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	SatyrSapperLob =
+	{
+		HitScreenshake = { Distance = 9, Speed = 1000, Duration = 0.22, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.17, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	SatyrSapperMelee =
+	{
+		HitScreenshake = { Distance = 9, Speed = 1000, Duration = 0.22, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.05, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	SatyrCrossbow2Bolt =
+	{
+		HitScreenshake = { Distance = 3, Speed = 300, Duration = 0.06, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.16, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	SentryBotBolt =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.09, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.09, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	SentryBotExplosion =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.09, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.11, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonBreathGround =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.13, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonBreathGround_Miniboss =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.13, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonBreath =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.13, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonBreath_MiniBoss =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.13, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonTailWhip =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonGlideGround =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.13, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.14, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonGlideGround_Miniboss =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	DragonTailWhip_Miniboss =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	TalosShieldThrowLeft =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	TalosShieldThrowRight =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	TalosShieldThrowStraight =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	TalosShieldSpin =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.14, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	TalosMagnet =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.25, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.03, Fraction = 0.13, LerpTime = 0 },
+			{ ScreenPreWait = 0.22, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	TalosPunch =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.2, FalloffSpeed = 3000, Angle = 90 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.08, LerpTime = 0 },
+			{ ScreenPreWait = 0.30, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+
+	TalosFire =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.015, Fraction = 0.12, LerpTime = 0 },
+			{ ScreenPreWait = 0.035, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+
+	PrometheusGroundPound =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.32, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusGroundPoundNova =
+	{
+		HitScreenshake = { Distance = 5, Speed = 1000, Duration = 0.35, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.25, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusKick =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.33, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.46, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusKickFireWave =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusPunch =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.02, LerpTime = 0 },
+			{ ScreenPreWait = 0.21, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusFlurry =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.03, LerpTime = 0 },
+			{ ScreenPreWait = 0.14, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	PrometheusUppercut =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.22, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusUppercutWhirlwind =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusFireCircle =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.08, Fraction = 1.0, LerpTime = 0 },
+		},
+	},
+	PrometheusFirePillar =
+	{
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 0.5, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.01, Fraction = 0.02, LerpTime = 0 },
+			{ ScreenPreWait = 0.31, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	PrometheusSkyCast =
+	{
+		Fuse = 3.2,
+		ReticleAnimation = "PrometheusSkyCastPreview_In",
+		ReticleGroupName = "FX_Terrain",
+		AttachToTarget = true,
+
+		HitScreenshake = { Distance = 12, Speed = 800, Duration = 1.2, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.04, LerpTime = 0 },
+			{ ScreenPreWait = 0.25, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	PrometheusMagicCircle =
+	{
+		Fuse = 4.0,
+		ReticleAnimation = "PrometheusMagicCirclePreview",
+	},
+	PrometheusMagicCircleInverted =
+	{
+		Fuse = 4.0,
+		ReticleAnimation = "PrometheusMagicCircleInvertedPreview",
+	},
+	PrometheusMemory_P2 =
+	{
+		Fuse = 4.2,
+		ReticleAnimation = "PrometheusMemoryReticle",
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.35, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	PrometheusMemory_P3 =
+	{
+		Fuse = 7,
+		ReticleAnimation = "PrometheusMemoryReticle",
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
+			{ ScreenPreWait = 0.35, Fraction = 1.0, LerpTime = 0.1 },
+		},
+	},
+	PrometheusUppercutWhirlwindVacuum =
+	{
+		BypassRetaliate = true,
+	},
+	
+	EliteBoltOrbit =
+	{
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.06, Fraction = 0.1, LerpTime = 0 },
+			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0.07 },
+		},
+	},
+
+	HeroSkyTouchdown =
+	{
+		HealthTickDamage = 999,
+		SkipDamageText = true,
+
+		FireRumbleParameters =
+		{
+			{ ScreenPreWait = 0.11, Fraction = 0.37, Duration = 0.38 },
+		},
+
+		HitScreenshake = { Distance = 8, Speed = 400, Angle = 90, FalloffSpeed = 1000, Duration = 0.38 },
+		
+		SimSlowDistanceThreshold = 290,
+
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.05, Fraction = 0.25, LerpTime = 0 },
+			{ ScreenPreWait = 0.06, Fraction = 1.00, LerpTime = 0.10 },
+		},
 	},
 })

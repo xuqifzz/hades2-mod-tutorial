@@ -300,7 +300,7 @@
 		FilePath = "Fx\FuryHellfire\FuryHellfire"
 		GroupName = "Standing"
 		
-		VisualFx = "FuryHellfireParticles"
+		VisualFx = "WaterSpawnParticles"
 		AngleFromOwner = "Ignore"
 		Sound = "/SFX/Enemy Sounds/Megaera/MegaeraFlameBurst"
 		ColorFromOwner = "Ignore"
@@ -323,7 +323,34 @@
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 	}
-	
+
+	{
+		Name = "WaterSpawnParticles"
+		FilePath = "Particles\particle_ember_02_glow"
+		GroupName = "FX_Standing_Add"
+
+		Angle = 90.0
+		UseOwnAngle = false
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		OffsetY = -400.0
+		RandomOffsetX = 15.0
+		RandomOffsetY = 400.0
+		Acceleration = -1200.0
+		VelocityMax = 600.0
+		VelocityMin = 300.0
+		RandomRotation = true
+		EndScale = 0.0
+		Scale = 0.45
+		ScaleMax = 1.0
+		ScaleMin = 0.5
+		Ambient = 0.0
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.50 }
+	}
+
 	{
 		Name = "WaterTeleportStartFx"
 		CreateAnimation = "WaterTeleportStartFx_Standing"
@@ -937,82 +964,300 @@
 		RandomPlaySpeedMax = 36
 	}
 
-    
-    {
-      Name = "SafeZonePulseImpact"
-      CreateAnimation = "QuickFlashEnemy"
-      FilePath = "Fx\EnemyProjectileImpact\EnemyProjectileImpact"
-      GroupName = "Standing"
-      
-      AngleFromOwner = "Ignore"
-      Sound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
-      ColorFromOwner = "Ignore"
-      EndFrame = 16
-      NumFrames = 16
-      RandomPlaySpeedMax = 60.0
-      RandomPlaySpeedMin = 45.0
-      StartFrame = 1
-      RandomFlipHorizontal = true
-      RandomFlipVertical = true
-      LocationFromOwner = "Ignore"
-      LocationZFromOwner = "Take"
-      SortMode = "FromParent"
-      RandomRotation = true
-      Scale = 0.8
-      ScaleFromOwner = "Ignore"
-      Ambient = 0.0
-      OnlyWhenVisible = true
-      OverlayVfx = true
-      AddColor = true
-      Color = { Red = 0, Green = 0.8, Blue = 1.0 }
-      CreateAnimations = [
-        { Name = "DisplaceShockwave-SafeZonePulseImpact" }
-      ]
-      Slides = [
-        { DurationFrames = 1 Frame = 1 }
-        { DurationFrames = 1 Frame = 2 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 3 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 4 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 5 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 6 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 7 VisualFx = "SafeZonePulseImpactParticles" }
-        { DurationFrames = 1 Frame = 8 VisualFx = "SafeZonePulseImpactParticles" }
-      ]
-    }
-    {
-      Name = "DisplaceShockwave-SafeZonePulseImpact"
-      InheritFrom = "DisplaceShockwave"
-      StartAlpha = 0.5
-      PlaySpeed = 60.0
-      OffsetZ = 100.0
-      LocationZFromOwner = "Take"
-      TimeModifierFraction = 1.0
-      UseAttachedFlasher = false
-    }
-    {
-      Name = "SafeZonePulseImpactParticles"
-      FilePath = "Particles\particle_ascension_01"
-      GroupName = "FX_Standing_Add"
-      
-      AngleFromOwner = "Ignore"
-      AngleMax = 360.0
-      EndFrame = 1
-      NumFrames = 1
-      RandomDurationMax = 1.0
-      RandomDurationMin = 0.25
-      StartFrame = 1
-      LocationFromOwner = "Take"
-      VelocityMax = 500.0
-      VelocityMin = 300.0
-      EndScale = 0.0
-      ScaleFromOwner = "Ignore"
-      ScaleMax = 1.0
-      ScaleMin = 0.3
-      Ambient = 0.0
-      OnlyWhenVisible = true
-      RandomAccelerationMax = -500.0
-      RandomAccelerationMin = -700.0
-      Color = { Red = 0.4, Green = 0.8, Blue = 1.0 }
-    }
+	
+	{
+		Name = "SafeZonePulseImpact"
+		CreateAnimation = "QuickFlashEnemy"
+		FilePath = "Fx\EnemyProjectileImpact\EnemyProjectileImpact"
+		GroupName = "Standing"
+		
+		AngleFromOwner = "Ignore"
+		Sound = "/SFX/Enemy Sounds/EnemyProjectileDetonateExplode"
+		ColorFromOwner = "Ignore"
+		EndFrame = 16
+		NumFrames = 16
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 45.0
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		RandomFlipVertical = true
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		SortMode = "FromParent"
+		RandomRotation = true
+		Scale = 0.8
+		ScaleFromOwner = "Ignore"
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		OverlayVfx = true
+		AddColor = true
+		Color = { Red = 0, Green = 0.8, Blue = 1.0 }
+		CreateAnimations =
+		[
+			{ Name = "DisplaceShockwave-SafeZonePulseImpact" }
+		]
+		Slides =
+		[
+			{ DurationFrames = 1 Frame = 1 }
+			{ DurationFrames = 1 Frame = 2 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 3 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 4 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 5 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 6 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 7 VisualFx = "SafeZonePulseImpactParticles" }
+			{ DurationFrames = 1 Frame = 8 VisualFx = "SafeZonePulseImpactParticles" }
+		]
+	}
+	{
+		Name = "DisplaceShockwave-SafeZonePulseImpact"
+		InheritFrom = "DisplaceShockwave"
+		StartAlpha = 0.5
+		PlaySpeed = 60.0
+		OffsetZ = 100.0
+		LocationZFromOwner = "Take"
+		TimeModifierFraction = 1.0
+		UseAttachedFlasher = false
+	}
+	{
+		Name = "SafeZonePulseImpactParticles"
+		FilePath = "Particles\particle_ascension_01"
+		GroupName = "FX_Standing_Add"
+		
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.0
+		RandomDurationMin = 0.25
+		StartFrame = 1
+		LocationFromOwner = "Take"
+		VelocityMax = 500.0
+		VelocityMin = 300.0
+		EndScale = 0.0
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.3
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		RandomAccelerationMax = -500.0
+		RandomAccelerationMin = -700.0
+		Color = { Red = 0.4, Green = 0.8, Blue = 1.0 }
+	}
+
+	{
+		Name = "Breakable_F01"
+		FilePath = "Tilesets\Erebus\Erebus_Breakable_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.5
+		OffsetY = 100
+	}
+
+	{
+		Name = "ArachneCocoonLarge"
+		InheritFrom = "Breakable_F01"
+		FilePath = "Tilesets\Erebus\Erebus_Breakable_02"
+		Scale = 0.275
+	}
+
+	{
+		Name = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		StartScale = 1.0
+		EndScale = 1.25
+		ShakeDistance = 3
+		ShakeSpeed = 300.0
+		RandomDurationMax = 0.3
+		RandomDurationMin = 0.5
+		StartAlpha = 1
+		EndAlpha = 0
+		ScaleFromOwner = "Maintain"
+		AngleFromOwner = "Maintain"
+		LocationFromOwner = "Maintain"
+		ColorFromOwner = "Maintain"
+		LocationZFromOwner = "Maintain"
+		SortFromOwner = "Maintain"
+		CreateAnimations =
+		[
+			{ Name = "Erebus_Webs_Spray" }
+		]
+	}
+	{
+		Name = "Erebus_Webs_02_Death"
+		InheritFrom = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_02"
+	}
+	{
+		Name = "Erebus_Webs_03_Death"
+		InheritFrom = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_03"
+	}
+	{
+		Name = "Erebus_Webs_04_Death"
+		InheritFrom = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_04"
+	}
+	{
+		Name = "Erebus_Webs_05_Death"
+		InheritFrom = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_05"
+	}
+	{
+		Name = "Erebus_Webs_06_Death"
+		InheritFrom = "Erebus_Webs_01_Death"
+		FilePath = "Tilesets\Erebus\Erebus_Webs_06"
+	}
+	{
+		Name = "Erebus_Webs_Spray"
+		FilePath = "Particles\particle_snowDust_01"
+		GroupName = "Standing"
+
+		AngleMax = 160.0
+		AngleMin = 20.0
+		UseOwnAngle = false
+		StartAlpha = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 1.2
+		RandomDurationMin = 0.9
+		StartFrame = 1
+		LocationFromOwner = "Ignore"
+		SortMode = "FromParent"
+		Acceleration = -900.0
+		Gravity = 120.0
+		VelocityMax = 200.0
+		VelocityMin = 100.0
+		EndScale = 0.75
+		Scale = 1.9
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 1.0
+		ScaleMin = 0.8
+		StartScale = 0.4
+		Ambient = 0.0
+	}
+
+	{
+		Name = "ErebusOverlookFX01Rotation"
+		FilePath = "Tilesets\Erebus\Erebus_Overlook_FX_01"
+		Material = "Unlit"
+		RotationSpeed = 1
+		Duration = 1
+		Loop = true
+	}
+
+	{
+		Name = "HealthFountainSparkle_Erebus"
+		InheritFrom = "HealthFountainSparkle"
+		OffsetX = -130
+		FlipWithMap = true
+		Scale = 1.5
+		Color = { Red = 0.0 Green = 1.0 Blue = 0.6 }
+	}
+
+	{
+		Name = "HealthFountainF_Full"
+		FilePath = "Tilesets\Erebus\Erebus_HealthFountain_01"
+		Sound = "/Leftovers/Object Ambiences/WaterRushing"
+		StopSoundOnFinishFade = 0.3
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		ChildAnimation = "ErebusHealthFountainWater"
+		VisualFx = "HealthFountainF_Full_Light"
+		VisualFxIntervalMin = 0.5
+		VisualFxIntervalMax = 0.5
+	}
+
+	{
+		Name = "HealthFountainF_Full_Light"
+		FilePath = "Particles\particle_glow_egg"
+		Red = 0
+		Green = 1
+		Blue = 0.7
+		ScaleMin = 0.5
+		ScaleMax = 1.0
+		Scale = 2
+		StartOffsetZ = 0
+		EndOffsetZ = 80
+		OffsetZ = 60
+		AlphaMin = 0.2
+		AlphaMax = 0.7
+		StartAlpha = 0
+		EndAlpha = 0.6
+		EaseIn = 0
+		EaseOut = 1
+		PingPongColor = true
+		Duration = 1.5
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Standing_Add"
+	}
+	
+	{
+		Name = "HealthFountainF_FullStart"
+		InheritFrom = "HealthFountainF_Full"
+		ChainTo = "HealthFountainF_Full"
+		Duration = 0.1
+	}
+
+	{
+		Name = "ErebusHealthFountainWater"
+		FilePath = "Fx\ErebusHealthFountainWater\ErebusHealthFountainWater"
+		NumFrames = 30
+		Loop = true
+		PlaySpeed = 30
+		Scale = 2
+		OffsetY = -49
+		Alpha = 1
+		VisualFx = "HealthFountainSparkle_Erebus"
+		VisualFxIntervalMax = 0.12
+		VisualFxIntervalMin = 0.1
+	}
+	
+	{
+		Name = "HealthFountainF_Empty"
+		InheritFrom = "HealthFountainF_Full"
+		ChildAnimation = "ErebusHealthFountainWaterDisabled"
+		FilePath = "Tilesets\Erebus\Erebus_HealthFountain_01a"
+		VisualFx = "null"
+		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "ErebusHealthFountainWaterDisabled"
+		InheritFrom = "ErebusHealthFountainWater"
+		Alpha = 0.25
+		Hue = 0.5
+		VisualFx = null
+	}
+
+	{
+		Name = "ErebusCharonBoatBob"
+		FilePath = "Tilesets\Erebus\Erebus_CharonBoat_01"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartOffsetZ = -3
+		EndOffsetZ = 3
+		StartAngle = -1.25
+		EndAngle = 1.25
+		PhaseOffsetAngle = 90
+		PingPongShiftOverDuration = true
+		PingPongAngle = true
+		EaseIn = 0
+		EaseOut = 1
+		Loop = true
+	}
+
+	{
+		Name = "ErebusTugBoatBob"
+		InheritFrom = "ErebusCharonBoatBob"
+		StartAngle = 1.25
+		EndAngle = -1.25
+		FilePath = "Tilesets\Erebus\Erebus_TugBoat_01"
+	}
 
 ]}

@@ -134,4 +134,18 @@
 			}
 		]
 	}
+
+
+	{
+		Name = "DiscoBallRotate"
+		GrannyModel = "PropDiscoBall_Mesh"
+		GrannyAnimation = "DiscoBall_Base_RotateFullRevolution_M_00"
+		Loop = true
+		GrannyAnimationSpeed = 0.49
+		LargeObstacle3DModel = true
+		Transparent3DModel = true
+		Enable3DShadow = false
+		CreateAnimation = "DiscoBallReflections"
+	}
+
 ]}

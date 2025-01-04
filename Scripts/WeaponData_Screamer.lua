@@ -50,6 +50,7 @@ WeaponSetData =
 
 			ClearWeaponFireEffectsOnFireEnd = true,
 			ExpireProjectilesOnHitStun = true,
+			ExpireProjectilesOnFreeze = true,
 
 			PreAttackDuration = 1.2,
 			PreAttackAnimationSpeed = 0.9,
@@ -65,8 +66,6 @@ WeaponSetData =
 			MoveSuccessDistance = 200,
 			TrackAtPathEnd = true,
 
-			--PreAttackFx = "ScreamerPreAttackChargeFx",
-			--EndPreAttackFx = true,
 			PreAttackAnimation = "Enemy_Screamer_PreFire",
 			FireAnimation = "Enemy_Screamer_Fire",
 			PostAttackAnimation = "Enemy_Screamer_EndFire",
@@ -174,6 +173,9 @@ WeaponSetData =
 			AttackDistance = 9999,
 
 			PostAttackDuration = 2.8,
+
+			-- Blink ban
+			TeleportToSpawnPoints = false,
 		},
 	},
 }

@@ -38,7 +38,7 @@
 			},
 		},
 
-		{ Cue = "/VO/Dora_0084", Text = "This is going to be so fun..." },
+		{ Cue = "/VO/Dora_0084", Text = "{#Emph}Ungh{#Prev}, this is going to be {#Emph}so {#Prev}fun..." },
 		{ Cue = "/VO/Dora_0085", Text = "I'm starting to get why you hate fish so much..." },
 		{ Cue = "/VO/Dora_0086", Text = "Seems like an awful lot of trouble for some weird fish...", PlayFirst = true },
 	},
@@ -107,22 +107,6 @@
 	},
 
 }
-
-function FishingBlockedByEncounterPresentation( fishingPoint, args, user )
-	local blockedText = "UseBlockedByMisc"
-	if not IsEmpty( RequiredKillEnemies ) or not IsEmpty( MapState.AggroedUnits )then
-		blockedText = "UseBlockedByEnemies"
-	end
-	thread( InCombatText, CurrentRun.Hero.ObjectId, blockedText, 1.0, { ShadowScale = 0.6 } )
-	thread( PlayVoiceLines, HeroVoiceLines.InteractionBlockedVoiceLines, true )
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = fishingPoint.ObjectId })
-end
-
-function FishingBlockedByLavaPresentation( fishingPoint, args, user )
-	thread( InCombatText, CurrentRun.Hero.ObjectId, "UseBlockedByLava", 1.0, { ShadowScale = 0.6 } )
-	thread( PlayVoiceLines, HeroVoiceLines.InteractionBlockedVoiceLines, true )
-	PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = fishingPoint.ObjectId })
-end
 
 function GiftActivityFishingStartPresentation( source, args )
 
@@ -247,6 +231,9 @@ function FishingReelSequenceStartPresentation( source, args, fishData )
 	SetAnimation({ Name = "Melinoe_Fishing_Reel_Start", DestinationId = CurrentRun.Hero.ObjectId })
 
 	AudioState.FishingMusicId = PlaySound({ Name = "/Music/FishingMusicLoop" })
+	if AudioState.AmbientMusicId ~= nil then
+		SetVolume({ Id = AudioState.AmbientMusicId, Value = 0, Duration = 0.2 })
+	end
 
 	ClearCameraClamp({ LerpTime = 1.25 })
 	FocusCamera({ Fraction = 1.25, Duration = 2.75, ZoomType = "Ease" })
@@ -371,6 +358,9 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 
 		StopSound({ Id = AudioState.FishingMusicId, Duration = 0.5 })
 		AudioState.FishingMusicId = nil
+		if AudioState.AmbientMusicId ~= nil then
+			SetVolume({ Id = AudioState.AmbientMusicId, Value = math.min( CurrentHubRoom.AmbientMusicVolume or 1.0, 0.5 ), Duration = 0.2 })
+		end
 
 		wait(0.2)
 		--Shake({ Id = CurrentRun.Hero.ObjectId, Distance = 2, Speed = 200, Duration = 0.35 })
@@ -410,7 +400,7 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 			SubtitleOffsetY = 100,
 			HighlightIcon = true,
 			IconMoveSpeed = 0.1,
-			IconScale = 0.64,
+			IconScale = 1.0,
 			AdditionalAnimation = "FishCatchPresentationSparkles",
 			IconBacking = "FishCatchIconBacking",
 			AnimationName = "LocationTextBGFish",
@@ -435,6 +425,9 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 
 		StopSound({ Id = AudioState.FishingMusicId, Duration = 0.3 })
 		AudioState.FishingMusicId = nil
+		if AudioState.AmbientMusicId ~= nil then
+			SetVolume({ Id = AudioState.AmbientMusicId, Value = math.min( CurrentHubRoom.AmbientMusicVolume or 1.0, 0.5 ), Duration = 0.2 })
+		end
 
 		thread( MarkObjectiveFailed, "Fishing" )
 		--Shake({ Id = CurrentRun.Hero.ObjectId, Distance = 2, Speed = 200, Duration = 0.35 })
@@ -455,9 +448,9 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 
 		else
 			if CurrentRun.Hero.FishingState == "TooLate" then
-				thread( PlayVoiceLines, HeroVoiceLines.FishNotCaughtVoiceLines, true )
-			elseif CurrentRun.Hero.FishingState == "WayLate" then
 				thread( PlayVoiceLines, HeroVoiceLines.FishNotCaughtTooLateVoiceLines, true )
+			elseif CurrentRun.Hero.FishingState == "WayLate" then
+				thread( PlayVoiceLines, HeroVoiceLines.FishNotCaughtWayTooLateVoiceLines, true )
 			else
 				thread( PlayVoiceLines, HeroVoiceLines.FishNotCaughtVoiceLines, true )
 			end
@@ -467,11 +460,7 @@ function FishingEndPresentation( fishData, fishingAnimationPointId, args )
 			SubtitleText = "Fishing_FailedLate",
 			})
 		end
-		if CurrentRun.Hero.IsDead then
-			wait( 2.3 )
-		else
-			wait( 1.1 )
-		end
+		wait( 1.1 )
 	end
 	CurrentRun.Hero.FishingStarted = false
 	RemoveTimerBlock( CurrentRun, "Fishing" )
@@ -513,18 +502,15 @@ function FamiliarFishingPresentation( fishingPoint )
 	AddInputBlock({ Name = "MelFamiliarFishing" })
 	AddTimerBlock( CurrentRun, "Fishing" )
 
-	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = MapState.FamiliarUnit.ObjectId })
+	local familiar = MapState.FamiliarUnit
+
+	AngleTowardTarget({ Id = CurrentRun.Hero.ObjectId, DestinationId = familiar.ObjectId })
 	SetAnimation({ Name = "Melinoe_CrossCast_Start_Fast", DestinationId = CurrentRun.Hero.ObjectId })
 	CreateAnimation({ Name = "ItemGet_Tool", DestinationId = CurrentRun.Hero.ObjectId })
 	PlaySound({ Name = "/Leftovers/World Sounds/Caravan Interior/FloatingRockInteract", Id = CurrentRun.Hero.ObjectId })
-	PlaySound({ Name = MapState.FamiliarUnit.EquipSound or "/EmptyCue", Id = MapState.FamiliarUnit.ObjectId })
+	PlaySound({ Name = familiar.EquipSound or "/EmptyCue", Id = familiar.ObjectId })
 
-	local familiar = MapState.FamiliarUnit
-	familiar.AttackBlocks.Fishing = true
-
-
-	StopAnimation({ Name = familiar.DefaultAIData.RecruitAnimation, DestinationId = familiar.ObjectId })
-	familiar.RecruitAnimationId = nil
+	CatFamiliarStopAI( familiar )
 
 	thread( PlayVoiceLines, HeroVoiceLines.FamiliarHarvestVoiceLines, true )
 
@@ -537,10 +523,9 @@ function FamiliarFishingPresentation( fishingPoint )
 
 	PlaySound({ Name = "/SFX/Familiars/CatMeowQuestioning", Id = familiar.ObjectId })
 	
-	SetAnimation({ Name = "Familiar_Cat_Sleep_Awaken", DestinationId = familiar.ObjectId })
-	
 	if GetDistance({ Id = familiar.ObjectId, DestinationId = fishingPoint.ObjectId }) >= FamiliarData.CatFamiliar.MinDistanceToTeleportForFishing then
 		SetAnimation({ Name = "Familiar_Cat_DropIn_Exit", DestinationId = familiar.ObjectId })
+		familiar.Awake = true
 		wait(0.2)
 		-- teleport to the closest spawn point first
 		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
@@ -552,32 +537,19 @@ function FamiliarFishingPresentation( fishingPoint )
 		local currentRoom = CurrentHubRoom or CurrentRun.CurrentRoom
 		local roomData = RoomData[currentRoom.Name] or currentRoom
 
-		local spawnPointId = 0
-		if roomData.ToulaFishingTeleportId ~= nil then
-			spawnPointId = roomData.ToulaFishingTeleportId
-		else
-			spawnPointId = GetClosest({ Id = fishingPoint.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
-			if spawnPointId == 0 then
-				-- fall back to the hero's position if no spawn points exist
-				spawnPointId = CurrentRun.Hero.ObjectId
-			end
+		local spawnPointId = GetClosest({ Id = fishingPoint.ObjectId, DestinationNames = "SpawnPoints", RequiredLocationUnblocked = true, })
+		if spawnPointId == 0 then
+			-- fall back to the hero's position if no spawn points exist
+			spawnPointId = CurrentRun.Hero.ObjectId
 		end
 		Teleport({ Id =  familiar.ObjectId, DestinationId = spawnPointId })
 		CreateAnimation({ Name = "TeleportDisappearSmall", DestinationId = familiar.ObjectId })
 		SetAnimation({ Name = "Familiar_Cat_DropIn_Enter", DestinationId = familiar.ObjectId })
 		SetAlpha({ Id = familiar.ObjectId, Fraction = 1.0, Duration = 0.2 })
 		wait( 0.5 )
-	else
-		-- wait for the awaken animation to finish
-		wait( 1.0 )
 	end
-	--SetAnimation({ Name = "MelinoeBoonInteractPowerUp", DestinationId = CurrentRun.Hero.ObjectId })
 
-	Move({ Id = familiar.ObjectId, DestinationId = fishingPoint.ObjectId, SuccessDistance = 150, OnFailGoToNearestToGoal = true })
-	local notifyName = "FamiliarNotify"		
-	NotifyOnStopped({ Id = familiar.ObjectId, Notify = notifyName, Timeout = 8.0 })
-	waitUntil( notifyName )	
-	Stop({ Id = familiar.ObjectId })
+	CatFamiliarMoveToLocation( familiar, { Id = fishingPoint.ObjectId, StayAwake = true, SuccessDistance = 150, OnFailGoToNearestToGoal = true } )
 	wait( 0.02 )
 	AngleTowardTarget({ Id = familiar.ObjectId, DestinationId = fishingPoint.ObjectId })
 	SetAnimation({ Name = "Familiar_Cat_Fish_Start", DestinationId = familiar.ObjectId })
@@ -589,10 +561,28 @@ function FamiliarFishingPresentation( fishingPoint )
 
 	RemoveInputBlock({ Name = "MelFamiliarFishing" })
 	RemoveTimerBlock( CurrentRun, "Fishing" )
-	familiar.AttackBlocks.Fishing = nil
 
 	SetAnimation({ Name = "FishingPointUsed", DestinationId = fishingPoint.ObjectId })
 
 	PlaySound({ Name = "/SFX/Player Sounds/ZagreusGunReloadCompleteFlashLucifer" })
 
+	ReenableFamiliar( familiar, { InitialDelay = 1.0, MoveToRandomLocation = true } )
+
+end
+
+function FishingPointGetUseText( useTarget )
+	if not IsEmpty( RequiredKillEnemies ) or IsAggoredUnitBlockingHarvest() then
+		return "UseFishingPointLocked"
+	end
+	local roomData = RoomData[CurrentRun.CurrentRoom.Name] or CurrentRun.CurrentRoom
+	if not CurrentRun.CurrentRoom.ExitsUnlocked and not roomData.AllowFishingPreExitsUnlock then
+		return "UseFishingPointLocked"
+	end
+	if CurrentRun.Hero.OnLava then
+		return "UseFishingPointLocked"
+	end
+	if useTarget.FamiliarUseText ~= nil and useTarget.LinkedToolName and HasFamiliarTool( useTarget.LinkedToolName ) then
+		return useTarget.FamiliarUseText
+	end
+	return useTarget.UseText
 end

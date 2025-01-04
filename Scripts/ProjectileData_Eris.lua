@@ -6,7 +6,7 @@ OverwriteTableKeys( ProjectileData, {
 		HitSimSlowParameters =
 		{
 			{ ScreenPreWait = 0.02, Fraction = 0.01, LerpTime = 0 },
-			{ ScreenPreWait = 0.03, Fraction = 1.0, LerpTime = 0 },
+			{ ScreenPreWait = 0.04, Fraction = 1.0, LerpTime = 0 },
 		},
 	},
 
@@ -37,7 +37,7 @@ OverwriteTableKeys( ProjectileData, {
 
 		HitSimSlowParameters =
 		{
-			{ ScreenPreWait = 0.03, Fraction = 0.15, LerpTime = 0.06 },
+			{ ScreenPreWait = 0.03, Fraction = 0.10, LerpTime = 0.0 },
 			{ ScreenPreWait = 0.22, Fraction = 1.0, LerpTime = 0.06 },
 		},
 
@@ -45,6 +45,18 @@ OverwriteTableKeys( ProjectileData, {
 		{
 			{ ScreenPreWait = 0.02, LeftFraction = 0.125, Duration = 0.65 },
 		},
+	},
+
+	GunGrenadeTossSelf =
+	{
+
+		InheritFrom = { "GunGrenadeToss", },
+	},
+
+	GunGrenadeTossSelfFinal =
+	{
+
+		InheritFrom = { "GunGrenadeToss", },
 	},
 
 	ErisBombardment =

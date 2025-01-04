@@ -4,6 +4,9 @@
 		Name = "BaseNPC"
 		AutoLockable = false
 		DisplayInEditor = false
+		CosmeticRotationSpeed = 280.0
+		RotationSpeed = 1200.0
+		Speed = 400.0
 		Life = 
 		{
 			HitFx = "HitSparkB"
@@ -28,7 +31,6 @@
 			StopsUnits = true
 			Interact = 
 			{
-				Cooldown = 2.0
 				Distance = 250.0
 				OffsetY = -50.0
 			}
@@ -67,7 +69,6 @@
 			]
 			Interact = 
 			{
-				Cooldown = 2.0
 				Distance = 525.0
 				OffsetX = -10.0
 				OffsetY = -350.0
@@ -84,7 +85,6 @@
 			Material = "Unlit"
 			Interact = 
 			{
-				Cooldown = 2.0
 				Distance = 250.0
 				OffsetY = -50.0
 			}
@@ -320,7 +320,6 @@
 			Tallness = 300.0
 			Interact = 
 			{
-				Cooldown = 2.0
 				Distance = 250.0
 			}
 			Points =
@@ -350,6 +349,16 @@
 				OffsetY = 0.0
 			}
 
+		}
+	}
+
+	{
+		Name = "NPC_Arachne_Home_01"
+		InheritFrom = "NPC_Arachne_01"
+		Thing =
+		{
+			ImmuneToForce = true
+			OffsetZ = 40.0
 		}
 	}
 
@@ -395,12 +404,12 @@
 		Name = "NPC_Icarus_01"
 		InheritFrom = "BaseNPC"
 		DisplayInEditor = true
-		FriendlyToPlayer = true
 		Thing = 
 		{
 			AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "MedeaIdle"
+			Graphic = "Icarus_Idle"
+			GrannyModel = "Icarus_Mesh"
 			Tallness = 165.0
 			Points =
 			[
@@ -430,9 +439,6 @@
 	{
 		Name = "NPC_Artemis_Field_01"
 		InheritFrom = "NPC_Artemis_01"
-		CosmeticRotationSpeed = 280.0
-		RotationSpeed = 1200.0
-		Speed = 400.0
 		Thing =
 		{
 			ImmuneToForce = true
@@ -450,11 +456,58 @@
 		Name = "NPC_Hermes_01"
 		InheritFrom = "BaseNPC"
 		DisplayInEditor = true
+		FriendlyToPlayer = false 
 		Thing = 
 		{
 			AttachedAnim = "MedusaShadow"
 			EditorOutlineDrawBounds = false
-			Graphic = "HermesIdle"
+			GrannyModel = "Hermes_Mesh"
+			Graphic = "Hermes_Idle"
+			Tallness = 165.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+		}
+	}
+	
+	{
+		Name = "NPC_Athena_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Athena_Mesh"
+			Graphic = "Athena_Idle"
+			Tallness = 165.0
+			Points =
+			[
+				{ X = 4 Y = 26 }
+				{ X = 68 Y = -6 }
+				{ X = -8 Y = -44 }
+				{ X = -72 Y = -12 }
+			]
+			Using = { Name = "AthenaLandingNova" }
+		}
+	}
+	
+	{
+		Name = "NPC_Dionysus_01"
+		InheritFrom = "BaseNPC"
+		DisplayInEditor = true
+		FriendlyToPlayer = false 
+		Thing = 
+		{
+			AttachedAnim = "MedusaShadow"
+			EditorOutlineDrawBounds = false
+			GrannyModel = "Dionysus_Mesh"
+			Graphic = "Dionysus_Idle"
 			Tallness = 165.0
 			Points =
 			[
@@ -623,6 +676,10 @@
 				{ X = -72 Y = 52 }
 			]
 		}
+	}
+	{
+		Name = "NPC_Hypnos_02"
+		InheritFrom = "NPC_Hypnos_01"
 	}
 	
 	{

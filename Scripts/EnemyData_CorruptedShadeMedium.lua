@@ -87,11 +87,6 @@ UnitSetData.CorruptedShadeMedium =
 			DifficultyRating = 30,
 			BlockEnemyTypes = {"CorruptedShadeMedium"}
 		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
-		},
 	}
 
 }

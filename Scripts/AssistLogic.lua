@@ -27,7 +27,7 @@ function CanFireAssist()
 	end
 
 	for i, assistData in pairs ( CurrentRun.Hero.AssistWeapons ) do
-		if assistData.GameStateRequirements and not IsGameStateEligible( CurrentRun, assistData.GameStateRequirements ) then
+		if assistData.GameStateRequirements and not IsGameStateEligible( assistData.GameStateRequirements ) then
 			return false
 		end
 	end

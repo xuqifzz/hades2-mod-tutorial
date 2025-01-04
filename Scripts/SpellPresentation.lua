@@ -56,6 +56,9 @@ function SpellFailToFirePresentation( triggerArgs )
 	end
 	if traitData then
 		local existingTraitData = GetExistingUITrait( traitData )
+		if not existingTraitData then
+			return
+		end
 		if existingTraitData and existingTraitData.TraitActiveOverlay then
 			CreateAnimation({ Name = "ActiveTraitCooldownSpellNotReady", DestinationId = existingTraitData.TraitActiveOverlay })
 			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = CurrentRun.Hero.ObjectId })
@@ -63,10 +66,17 @@ function SpellFailToFirePresentation( triggerArgs )
 		if existingTraitData and existingTraitData.TraitInfoCardId then
 			thread( PulseText, { Id = existingTraitData.TraitInfoChargeId, Color = Color.Red, OriginalColor = Color.White, ScaleTarget = 1.2, ScaleDuration = 0.1, HoldDuration = 0.1, PulseBias = 0.1 } )
 		end
-
+		local manaSpendCost = GetManaSpendCost(GetWeaponData( CurrentRun.Hero, traitData.PreEquipWeapons[1]))
 		if CheckCountInWindow( "SpellFailedToFire", 1.0, 4 ) and CheckCooldown("AttackNotReady", 1.0) then
 			thread( PlayVoiceLines, HeroVoiceLines.SpellNotReadyVoiceLines, true )
-			thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			if CurrentRun.SpellCharge >= manaSpendCost and ( existingTraitData.Name ~= "SpellSummonTrait" or (existingTraitData.Name == "SpellSummonTrait" and CurrentRun.CurrentRoom.SummonEnemyName)) and SessionMapState.PrometheusMemorySpellBlocked then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady_Prometheus", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			elseif existingTraitData.Name == "SpellSummonTrait" and not CurrentRun.CurrentRoom.SummonEnemyName and CurrentRun.SpellCharge >= manaSpendCost then
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady_NoValidSummon", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			else
+				thread( InCombatTextArgs, { TargetId = CurrentRun.Hero.ObjectId, Text = "Spell_NotReady", PreDelay = 0.35, Duration = 1.25, Cooldown = 2.0 } )
+			end
+			PlaySound({ Name = "/Leftovers/SFX/OutOfAmmo", Id = traitData.AnchorId })
 		end
 
 	end
@@ -95,9 +105,9 @@ function SpellReadyPresentation( traitData, delay )
 end
 
 -- note: PolymorphApplyPresentation & others in CombatPresentation
-function SpellPolymorphResistedPresentation( enemy )
+function SpellPolymorphResistedPresentation( enemy, triggerArgs )
 	if enemy.ResistedVoiceLines then
-		thread( PlayVoiceLines, enemy.ResistedVoiceLines, nil, enemy )
+		thread( PlayVoiceLines, enemy.ResistedVoiceLines, nil, enemy, triggerArgs )
 	end
 	if enemy.InvulnerableHitSound ~= nil then
 		PlaySound({ Name = enemy.InvulnerableHitSound, Id = enemy.ObjectId })
@@ -151,14 +161,14 @@ function CreateSpellHUD( trait, args )
 			Font = "NumericP22UndergroundSCMedium",
 			Color = Color.White, FontSize = 22, 
 			ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={1, 2},
-			OffsetX = xOffset - 2, OffsetY = yOffset - 1,
+			OffsetX = xOffset - 2, OffsetY = yOffset - 3,
 			Justification = "Center",
 			DataProperties =
 			{
 				OpacityWithOwner = true,
 			},
 		})
-	else
+	else	
 		SetAlpha({ Id = trait.TraitInfoChargeId, Fraction = 1, Duration = 0.2 })	
 	end
 	if remainingSpend > 0 then
@@ -231,6 +241,11 @@ function SpellActivateTrait( traitData )
 	if traitData.AnchorId then
 		StopAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId })
 		CreateAnimation({ Name = "HexReadyLoop", DestinationId = traitData.AnchorId, GroupName = "Combat_Menu_TraitTray_Overlay_Additive" })
+	end
+	if not SessionMapState.SpellWorldReadyFxId then
+		SessionMapState.SpellWorldReadyFxId = SpawnObstacle({ Name = "BlankObstacle", Destination = CurrentRun.Hero.ObjectId, Group = "Combat_UI_World_Backing" })
+		SetAnimation({ Name = "SorceryReadyMoonLoopIn", DestinationId = SessionMapState.SpellWorldReadyFxId })
+		Attach({ Id = SessionMapState.SpellWorldReadyFxId, DestinationId = CurrentRun.Hero.ObjectId })
 	end
 end
 

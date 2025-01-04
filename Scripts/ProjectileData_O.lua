@@ -24,6 +24,47 @@ OverwriteTableKeys( ProjectileData, {
 		CanIgnite = true,
 	},
 
+	OilPuddleFireFlying =
+	{
+		InheritFrom = { "BaseFireZone" },
+		OnHitFunctionNames =
+		{
+			"CheckBurningHitReaction",
+		},
+		
+		CanIgnite = true,
+	},
+	OilPuddleFire02Flying =
+	{
+		InheritFrom = { "BaseFireZone" },
+		OnHitFunctionNames =
+		{
+			"CheckBurningHitReaction",
+		},
+		
+		CanIgnite = true,
+	},
+	OilPuddleFire03Flying =
+	{
+		InheritFrom = { "BaseFireZone" },
+		OnHitFunctionNames =
+		{
+			"CheckBurningHitReaction",
+		},
+		
+		CanIgnite = true,
+	},
+	OilPuddleFire04Flying =
+	{
+		InheritFrom = { "BaseFireZone" },
+		OnHitFunctionNames =
+		{
+			"CheckBurningHitReaction",
+		},
+		
+		CanIgnite = true,
+	},
+
 	CharybdisSpit =
 	{
 		ReticleAnimation = "LobWarningDecalIris",

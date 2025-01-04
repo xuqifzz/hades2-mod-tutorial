@@ -3,7 +3,7 @@ UnitSetData.Drunk =
 
 	Drunk =
 	{
-		InheritFrom = { "BaseVulnerableEnemy" },
+		InheritFrom = { "BaseOEnemy", "BaseVulnerableEnemy" },
 		IntroEncounterName = "DrunkIntro",
 
 		ActivateAnimation = "Enemy_Drunk_InBarrel",
@@ -22,8 +22,10 @@ UnitSetData.Drunk =
 		--ActivateGravity = 9000,
 		--ActivateFallForce = 2500,
 		DeathSound = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteDying",
+		DeathAnimation = "Enemy_Drunk_Death",
+		DeathFx = "EnemyDeathFxUndead",
 
-		MaxHealth = 480,
+		MaxHealth = 490,
 		HealthBarOffsetY = -200,
 		HealthBarType = "Medium",
 		
@@ -45,15 +47,24 @@ UnitSetData.Drunk =
 			"AggroAI",
 		},
 		AIAggroRange = 1150,
+		PostAggroAI = "SurroundAI",
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
+
+			MaintainSurroundDistance = false,
+			SurroundDistance = 550,
+			SurroundRefreshInterval = 0.2,
+			MaxAttackers = 4,
 		},
 
 		WeaponOptions =
 		{
-			"DrunkStab", "DrunkSwingLeft", "DrunkSwingRight",
+			"DrunkStab", 
+			"DrunkSwingLeft", "DrunkSwingRight", 
+			"DrunkSwingLeft", "DrunkSwingRight", 
+			"DrunkBarrel",
 		},
 
 		HeraclesCombatMoneyValue = 3,
@@ -63,34 +74,23 @@ UnitSetData.Drunk =
 			BlockEnemyTypes = {"Drunk_Elite"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
-		{
-			UsePlayerSource = true,
-			TriggerCooldowns =
-			{
-				"CombatBeginsLinesPlayedRecently",
-			},
-			{ Cue = "/VO/MelinoeField_2172", Text = "Boozers!" },
-		},
 		EnemySightedVoiceLines =
 		{
 			RandomRemaining = true,
 			UsePlayerSource = true,
 			GameStateRequirements = 
 			{
-				{
-					Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
-					IsNone = GameData.BannedEnemySightedEncounters,
-				},
+				-- None
 			},
+			SkipCooldownCheckIfNonePlayed = true,
 			Cooldowns =
 			{
 				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
 			},
 			SuccessiveChanceToPlay = 0.1,
 
-			{ Cue = "/VO/MelinoeField_2171", Text = "Boozers.", PlayFirst = true },
-			{ Cue = "/VO/MelinoeField_2172", Text = "Boozers!" },
+			{ Cue = "/VO/MelinoeField_2171", Text = "Boozers." },
+			{ Cue = "/VO/MelinoeField_2172", Text = "Boozers!", PlayFirst = true },
 			{ Cue = "/VO/MelinoeField_2173", Text = "More Boozers." },
 			{ Cue = "/VO/MelinoeField_2174", Text = "More Boozers!" },
 		},
@@ -100,17 +100,14 @@ UnitSetData.Drunk =
 	Drunk_Elite =
 	{
 		InheritFrom = { "Elite", "Drunk" },
-		HealthBuffer = 460,
+		HealthBuffer = 490,
 		IsAggroedSound = "/SFX/Enemy Sounds/DeadSeaDrunk/EmoteTaunting",
+
+		EliteAttributeOptions = CombineTables(EnemySets.GenericEliteAttributes, { "Rifts" }),
 
 		DefaultAIData =
 		{
 			DeepInheritance = true,
-		},
-
-		GameStateRequirements =
-		{
-			RequiredMinBiomeDepth = 3,
 		},
 
 		WeaponOptions =

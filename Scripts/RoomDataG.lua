@@ -16,6 +16,8 @@ RoomSetData.G =
 
 		BreakableValueOptions = { MaxHighValueBreakables = 3 },
 		TimeChallengeEncounterOptions = { "TimeChallengeG" },
+		PerfectClearEncounterOptions = { "PerfectClearChallengeG" },
+		EliteChallengeEncounterOptions = { "EliteChallengeG" },
 
 		LegalEncounters = EncounterSets.GEncountersDefault,
 		DevotionEncounters = {"DevotionTestG"},
@@ -33,6 +35,9 @@ RoomSetData.G =
 
 		LocationText = "Location_BiomeG",
 		SaveProfileLocationText = "Location_BiomeG",
+
+		NarrativeContextArt = "DialogueBackground_Oceanus",
+		NarrativeContextArtFlippable = false,
 
 		EntranceFunctionName = "EnterBiomeGRoomPresentation",
 		NextRoomEntranceFunctionName = "EnterBiomeGRoomPresentation",
@@ -53,6 +58,10 @@ RoomSetData.G =
 			["LobProjectileBounceFx_Hestia"] = "LobBounceFxOceanus",
 			["LobProjectileBounceFx_Hera"] = "LobBounceFxOceanus",
 			["SpellMeteorCrater"] = "SpellMeteorCraterOceanus",
+			["SuitExhaustBase_Sprint_R"] = "SuitExhaustBase_Sprint_R_Water",
+			["SuitExhaustBase_Sprint_L"] = "SuitExhaustBase_Sprint_L_Water",
+			["DeathSplats"] = "DeathSplatsBlackSoft",
+			["OlympusSnowExplosionDecal"] = "ExplosionScorchDecal",
 		},
 
 		SwapSounds =
@@ -229,10 +238,16 @@ RoomSetData.G =
 			PreLineWait = 0.5,
 			RandomRemaining = true,
 			BreakIfPlayed = true,
+			SuccessiveChanceToPlay = 0.5,
+			SuccessiveChanceToPlayAll = 0.25,
 			GameStateRequirements =
 			{
 				{
 				},
+			},
+			Cooldowns =
+			{
+				{ Name = "MelinoeAnyQuipSpeech" },
 			},
 
 			{ Cue = "/VO/MelinoeField_0977", Text = "Almost out of here...", PlayFirst = true },
@@ -302,11 +317,6 @@ RoomSetData.G =
 					DelayedStart = true,
 				},
 			},
-			--[[
-			{
-				FunctionName = "SingingPresentationScylla"
-			}
-			]]
 		},	
 
 		StartThreadedEvents =
@@ -336,6 +346,85 @@ RoomSetData.G =
 				{ Cue = "/VO/Scylla_0068", Text = "{#Emph}Hmm..." },
 				{ Cue = "/VO/Scylla_0069", Text = "{#Emph}Hoh!" },
 				{ Cue = "/VO/Scylla_0070", Text = "{#Emph}Mmm, hmhmhmhm!" },
+				{ Cue = "/VO/Scylla_0271", Text = "Excuse me?" },
+				{ Cue = "/VO/Scylla_0272", Text = "How's everyone doing tonight?!" },
+				{ Cue = "/VO/Scylla_0273", Text = "Check it out, gals!" },
+				{ Cue = "/VO/Scylla_0274", Text = "All {#Emph}right..." },
+				{ Cue = "/VO/Scylla_0275", Text = "We're on...!" },
+				{ Cue = "/VO/Scylla_0276", Text = "{#Emph}Now {#Prev}we're ready!" },
+				{ Cue = "/VO/Scylla_0277", Text = "You called it, Rox!" },
+				{ Cue = "/VO/Scylla_0278", Text = "You followed our {#Emph}song!" },
+
+				{ Cue = "/VO/Scylla_0215", Text = "Whoa, what is she {#Emph}wearing?",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0216", Text = "Well {#Emph}that's {#Prev}a fashion choice...",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0217", Text = "I like your outfit!",
+					PlayFirst = true,
+					GameStateRequirements =
+					{
+						{
+							PathTrue = { "GameState", "SpeechRecord", "/VO/Scylla_0058" }
+						},
+						{
+							Path = { "CurrentRun", "Hero", "TraitDictionary" },
+							HasAny = {
+								"AgilityCostume",
+								"ManaCostume",
+								"VitalityCostume",
+								"HighArmorCostume",
+								"CastDamageCostume",
+								"IncomeCostume",
+							},
+						},
+					},
+				},
+				{ Cue = "/VO/Scylla_0270", Text = "Our number-one fan.",
+					GameStateRequirements =
+					{
+						{
+							Path = { "GameState", "RoomsEntered", "G_PostBoss01" },
+							Comparison = ">=",
+							Value = 10,
+						}
+					},
+				},
 			},
 			{
 				BreakIfPlayed = true,
@@ -484,10 +573,11 @@ RoomSetData.G =
 		FrogFamiliarMaxLeapDistance = 800,
 
 		SkipLastKillPresentation = true,
-		TimeChallengeSwitchSpawnChance = 0.0,
+		ChallengeSpawnChance = 0.0,
 		WellShopSpawnChance = 1.0,
 		 
 		ForceWellShop = true,
+		WellShopChallengeBaseId = 487438,
 		SecretSpawnChance = 0.0,
 		SellTraitShrineUpgrade = true,
 
@@ -495,6 +585,13 @@ RoomSetData.G =
 		{
 			{
 				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossWellShops" },
+			},
+		},
+		SellShopSpawnChance = 1.0,
+		SellShopRequirements =
+		{
+			{
+				PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossSellTraitShops" },
 			},
 		},
 
@@ -507,9 +604,7 @@ RoomSetData.G =
 				ActivateIds = { 613250 },
 				SetupGameStateRequirements =
 				{
-					{
-						-- PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradePostBossFountains", },
-					},
+					-- None
 				},
 			},
 			[486504] =
@@ -524,6 +619,17 @@ RoomSetData.G =
 					},
 				},
 			},
+			[637448] =
+			{
+				Template = "ChallengeSwitchBase",
+				Activate = true,
+				SetupGameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePostBossSellTraitShops" },
+					},
+				},
+			},
 			[487438] =
 			{
 				Template = "ChallengeSwitchBase",
@@ -534,6 +640,44 @@ RoomSetData.G =
 						PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradePostBossWellShops" },
 					},
 				},
+			},
+		},
+
+		LeavePostPresentationEvents =
+		{
+			{
+				FunctionName = "BiomeMapPresentation",
+				Args =
+				{
+					HeroStartOffsetX = 40,
+					HeroStartOffsetY = 880,
+
+					FamiliarStartOffsetX = -75,
+					FamiliarStartOffsetY = 880,
+
+					HeroMoveOffsetX = 670,
+					HeroMoveOffsetY = 210,
+					HeroMoveDuration = 1.4,
+
+					FamiliarMoveOffsetX = 670,
+					FamiliarMoveOffsetY = 210,
+					FamiliarMoveDuration = 1.4,
+
+					MoveEaseIn = 0.5,
+					MoveEaseOut = 1.0,
+
+					BiomeStart = "BiomeG",
+					BiomeEnd = "BiomeH",
+					PreviousBiomes = { "BiomeF" },
+
+					CrossroadsStart = false,
+
+					ShrineBounty = "BossInfestedCerberus01",
+				},
+				GameStateRequirements =
+				{
+					-- None
+				}
 			},
 		},
 
@@ -574,6 +718,9 @@ RoomSetData.G =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "Inspect_G_PostBoss_01" },
 					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "ScyllaAboutSongs01" }
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -609,7 +756,7 @@ RoomSetData.G =
 				SuccessiveChanceToPlay = 0.5,
 				GameStateRequirements =
 				{
-					-- AreIdsNotAlive = { 561902 },
+					-- { FunctionName = "RequiredAlive", FunctionArgs = { Ids = { 561902 }, Alive = false }, },
 				},
 
 				{ Cue = "/VO/MelinoeField_0983", Text = "First tunnel to my right..." },
@@ -631,6 +778,10 @@ RoomSetData.G =
 			{
 				{
 				},
+			},
+			Cooldowns =
+			{
+				{ Name = "LeftBiomeSpeech", Time = 6 },
 			},
 
 			{ Cue = "/VO/MelinoeField_0991", Text = "Big drop...", PlayFirst = true },
@@ -747,7 +898,7 @@ RoomSetData.G =
 							FunctionName = "GenericPresentation",
 							Args = 
 							{
-								VoiceLines = GlobalVoiceLines.ErisNotSightedVoiceLines,
+								VoiceLines = { GlobalVoiceLines = "ErisNotSightedVoiceLines" },
 							},
 						},
 					},
@@ -829,7 +980,13 @@ RoomSetData.G =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -875,7 +1032,13 @@ RoomSetData.G =
 				UseText = "UseExamineMisc",
 				SetupGameStateRequirements =
 				{
-					RequiredUnitsNotAlive = { "NPC_Eris_01" },
+					{
+						PathFalse = { "CurrentRun", "ActiveBounty" },
+					},
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Eris_01", }, Alive = false },
+					},
 					NamedRequirements = { "NoRecentInspectPointUsed" },
 				},
 				InteractTextLineSets =
@@ -907,8 +1070,8 @@ RoomSetData.G =
 		EnterVoiceLines =
 		{
 			TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
-			[1] = GlobalVoiceLines.StartPackagedBountyRunVoiceLines,
-			[2] = GlobalVoiceLines.BiomeStateChangeStartVoiceLines,
+			[1] = { GlobalVoiceLines = "StartPackagedBountyRunVoiceLines" },
+			[2] = { GlobalVoiceLines = "BiomeStateChangeStartVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -929,7 +1092,10 @@ RoomSetData.G =
 							Path = { "LastLinePlayed" },
 							IsNone = { "/VO/MelinoeField_1959", "/VO/MelinoeField_1960" },
 						},
-						IsObjectTypeNotAlive = "NPC_Eris_01",
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Eris_01" }, Alive = false },
+						},
 					},
 				},
 				{ Cue = "/VO/Melinoe_0803", Text = "That song again...",
@@ -947,7 +1113,10 @@ RoomSetData.G =
 							Path = { "LastLinePlayed" },
 							IsNone = { "/VO/MelinoeField_1959", "/VO/MelinoeField_1960" },
 						},
-						IsObjectTypeNotAlive = "NPC_Eris_01",
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Eris_01" }, Alive = false },
+						},
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0131", Text = "Keep practicing, Scylla...",
@@ -967,7 +1136,10 @@ RoomSetData.G =
 							Path = { "LastLinePlayed" },
 							IsNone = { "/VO/MelinoeField_1959", "/VO/MelinoeField_1960" },
 						},
-						IsObjectTypeNotAlive = "NPC_Eris_01",
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Units = { "NPC_Eris_01" }, Alive = false },
+						},
 					},
 				},
 				{ Cue = "/VO/MelinoeField_0127", Text = "The rim of Oceanus..." },
@@ -1024,7 +1196,10 @@ RoomSetData.G =
 
 		GameStateRequirements =
 		{
-			RequiredMinExits = 2,
+			{
+				FunctionName = "RequiredMinExits",
+				FunctionArgs = { Count = 2 },
+			},
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = "<=",
@@ -1088,7 +1263,9 @@ RoomSetData.G =
 
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "G_MiniBoss02" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss02" },
+			},
 		},
 
 		LegalEncounters = { "MiniBossWaterUnit" },
@@ -1106,7 +1283,7 @@ RoomSetData.G =
 
 		CombatResolvedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.MiniBossEncounterEndVoiceLines,
+			[1] = { GlobalVoiceLines = "MiniBossEncounterEndVoiceLines" },
 		},
 
 		InspectPoints =
@@ -1156,7 +1333,9 @@ RoomSetData.G =
 		
 		GameStateRequirements =
 		{
-			RequiredFalseSeenRoomsThisRun = { "G_MiniBoss01" },
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss01" },
+			},
 			{
 				PathTrue = { "GameState", "EncountersCompletedCache", "MiniBossWaterUnit" },
 			},
@@ -1221,6 +1400,36 @@ RoomSetData.G =
 
 	},
 
+	G_MiniBoss03 =
+	{
+		DebugOnly = true,
+		InheritFrom = { "BaseG", },
+		RewardPreviewIcon = "RoomRewardSubIcon_Miniboss",
+
+		SecretMusic = "/Music/IrisMinibossMusic",
+		SecretMusicSection = 2,
+
+		GameStateRequirements =
+		{
+			{
+				PathFalse = { "CurrentRun", "RoomsEntered", "G_MiniBoss02" },
+			},
+		},
+
+		LegalEncounters = { "MiniBossJellyfish" },
+		FlipHorizontalChance = 0.0,
+		ZoomFraction = 0.82,
+
+		ForcedRewardStore = "RunProgress",
+		EligibleRewards = { "Boon" },
+		BoonRaritiesOverride = { Legendary = 0.05, Epic = 0.10, Rare = 0.90 },
+
+		MaxCreationsThisRun = 1,
+		ForceAtBiomeDepthMin = 4,
+		ForceAtBiomeDepthMax = 7,
+		MaxAppearancesThisBiome = 1,
+	},
+
 	BaseG_Combat =
 	{
 		InheritFrom = { "BaseG" },
@@ -1276,6 +1485,8 @@ RoomSetData.G =
 
 		RushMaxRangeOverride = 475,
 
+		IneligibleRewards = { "Devotion" },
+
 		GameStateRequirements =
 		{
 			{
@@ -1290,6 +1501,8 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 		LockExtraExitsChance = 0.80,
+
+		IneligibleRewards = { "Devotion" },
 
 		GameStateRequirements =
 		{
@@ -1328,6 +1541,10 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 
+		RushMaxRangeOverride = 525,
+		
+		IneligibleRewards = { "Devotion" },
+
 		GameStateRequirements =
 		{
 			{
@@ -1342,6 +1559,8 @@ RoomSetData.G =
 	{
 		InheritFrom = { "BaseG_Combat" },
 		ZoomFraction = 0.75,
+		
+		IneligibleRewards = { "Devotion" },
 
 		RushMaxRangeOverride = 475,
 
@@ -1514,7 +1733,6 @@ RoomSetData.G =
 			{
 				PathTrue = { "GameState", "WorldUpgrades", "WorldUpgradeOceanusReprieve" },
 			},
-			RequiredMinCompletedRuns = 0,
 			{
 				Path = { "CurrentRun", "BiomeDepthCache" },
 				Comparison = ">=",
@@ -1576,6 +1794,7 @@ RoomSetData.G =
 		RichPresence = "#RichPresence_GStory01",
 		HarvestBlockedText = "ExitBlockedByNPC",
 		AllowExorcismPreExitsUnlock = true,
+		AllowFishingPreExitsUnlock = true,
 
 		SkipLastKillPresentation = true, 
 
@@ -1595,7 +1814,7 @@ RoomSetData.G =
 				PathTrue = { "GameState", "RoomsEntered", "G_Boss01" },
 			},
 			{
-				PathFalse = { "CurrentRun", "ActiveBounty", },
+				PathFalse = { "CurrentRun", "ActiveBounty" },
 			},
 		},
 

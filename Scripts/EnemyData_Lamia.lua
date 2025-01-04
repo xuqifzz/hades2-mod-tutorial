@@ -48,11 +48,12 @@ UnitSetData.Lamia =
 		{
 			DeepInheritance = true,
 
-			--SurroundDistance = 550,
-			--SurroundRefreshInterval = 0.5,
-			--MaxAttackers = 2,
+			SurroundRetaliateDistance = 400,
+			SurroundRefreshInterval = 0.5,
+			MaxAttackers = 4,
 		},
 		PostAggroAI = "SurroundAI",
+		EndAIThreadWaitOnFreezeEnd = true,
 
 		WeaponOptions = { "LamiaSkyCast", "LamiaShockwave", },
 
@@ -62,14 +63,22 @@ UnitSetData.Lamia =
 			BlockEnemyTypes = {"Lamia_Elite", "Lamia_Miniboss"}
 		},
 
-		EnemyFirstEncounterVoiceLines =
+		EnemySightedVoiceLines =
 		{
 			UsePlayerSource = true,
-			TriggerCooldowns =
+			RandomRemaining = true,
+			GameStateRequirements = 
 			{
-				"CombatBeginsLinesPlayedRecently",
+				-- None
 			},
-			{ Cue = "/VO/MelinoeField_1038", Text = "Lamiai...!" },
+			SkipCooldownCheckIfNonePlayed = true,
+			Cooldowns =
+			{
+				{ Name = "CombatBeginsLinesPlayedRecently", Time = 300 },
+			},
+			SuccessiveChanceToPlay = 0.1,
+
+			{ Cue = "/VO/MelinoeField_1038", Text = "Lamiai...!", PlayFirst = true },
 		},
 	},
 

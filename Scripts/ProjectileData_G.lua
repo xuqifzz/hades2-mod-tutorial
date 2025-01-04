@@ -13,6 +13,27 @@ OverwriteTableKeys( ProjectileData, {
 	{
 		InheritFrom = { "TurtleBounce" },
 	},
+
+	RadiatorMelee360Slow =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.04, Fraction = 0.05, LerpTime = 0 },
+			{ ScreenPreWait = 0.10, Fraction = 1.00, LerpTime = 0.04 },
+		},
+	},
+
+	GuardMelee2 =
+	{
+		HitScreenshake = { Distance = 3, Speed = 1000, Duration = 0.12, FalloffSpeed = 3000 },
+		HitSimSlowParameters =
+		{
+			{ ScreenPreWait = 0.02, Fraction = 0.15, LerpTime = 0 },
+			{ ScreenPreWait = 0.03, Fraction = 1.00, LerpTime = 0.04 },
+		},
+	},
+
 	SteamTrap =
 	{
 		DamagedFx = "PlayerBurnDamage",
@@ -86,5 +107,13 @@ OverwriteTableKeys( ProjectileData, {
 			{ ScreenPreWait = 0.02, Fraction = 0.25, LerpTime = 0 },
 			{ ScreenPreWait = 0.12, Fraction = 1.0, LerpTime = 0 },
 		},
+	},
+	WaterUnitSpitSplit2 =
+	{
+		InheritFrom = { "WaterUnitSpitSplit" },
+	},
+	WaterUnitSpitSplit3 =
+	{
+		InheritFrom = { "WaterUnitSpitSplit" },
 	},
 })

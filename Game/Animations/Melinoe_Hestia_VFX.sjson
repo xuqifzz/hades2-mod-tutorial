@@ -1204,9 +1204,23 @@
 		Name = "HestiaFlameBuff"
 		InheritFrom = "HestiaFlameLoopBright"
 		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
-		Sound = "/SFX/BurnDamageSizzle"
+		Sound = "/SFX/Player Sounds/HestiaSprintLoopSmall"
 		StopSoundOnFinishFade = 0.2
 		Scale = 0.75
+		ChainTo = "HestiaFlameBuffOut"
+		TransferFrameFromThis = true
+	}
+	{
+		Name = "HestiaFlameBuffOut"
+		InheritFrom = "HestiaFlameLoopBright"
+		GrannyAttachedMarkerLocation = "Melinoe_Rig:head_00_M_JNT"
+		Loop = false
+		Duration = 0.2
+		StartAlpha = 1
+		EndAlpha = 0
+		StartScale = 1
+		EndScale = 0.6
+		TransferFrameToThis = true
 	}
 
 	{

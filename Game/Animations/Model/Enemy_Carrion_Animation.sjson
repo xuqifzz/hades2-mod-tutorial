@@ -86,7 +86,7 @@
 		[
 			{
 				Frame = 11
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 52
@@ -98,7 +98,7 @@
 			}
 			{
 				Frame = 174
-				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 178
@@ -106,19 +106,19 @@
 			}
 			{
 				Frame = 207
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 261
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 279
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 322
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 		]
 	}
@@ -150,7 +150,7 @@
 			}
 			{
 				Frame = 85
-				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 205
@@ -158,19 +158,19 @@
 			}
 			{
 				Frame = 207
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 244
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 292
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 333
-				Sound = "/Leftovers/SFX/FootstepsSand"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 438
@@ -178,11 +178,11 @@
 			}
 			{
 				Frame = 520
-				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+				Sound = "/SFX/Pecks"
 			}
 			{
 				Frame = 539
-				Sound = "/Leftovers/SFX/FootstepsSandTemp"
+				Sound = "/SFX/Pecks"
 			}
 		]
 	}

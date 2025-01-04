@@ -28,7 +28,7 @@ function HandleArtemisSpawn( eventSource, args )
 	SetThingProperty({ Property = "Graphic", Value = "Artemis_Invisible", DestinationId = newUnit.ObjectId })
 
 	currentEncounter.ArtemisId = newUnit.ObjectId
-	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, } )
+	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, IgnorePackages = true } )
 	UseableOff({ Id = newUnit.ObjectId })
 	MapState.RoomRequiredObjects[newUnit.ObjectId] = newUnit
 
@@ -51,6 +51,36 @@ function CheckIcarusSpawn(encounter, args)
 	end
 end
 
+function HandleAthenaSpawn(encounter, args)
+	args = args or {}
+	waitUnmodified( 1.0 )
+
+	encounter.ActiveEnemyCap = math.max(encounter.ActiveEnemyCap, 8)
+
+	while encounter.InProgress do
+
+		waitUntil("RequiredKillEnemyKilledOrSpawned", RoomThreadName)
+		waitUnmodified( 2.0 )
+		if encounter.SpawnsComplete then
+			break
+		end
+	end
+	if args.FromTrait then
+		local traitData = GetHeroTrait( args.FromTrait )
+		traitData.RemainingUses = traitData.RemainingUses - 1
+		traitData.CustomTrayText = traitData.ZeroBonusTrayText
+					
+		ReduceTraitUses( traitData, { Force = true })
+	end
+	AthenaSpawnPresentation(encounter, args)
+end
+
+function AthenaUse(athena, args, user)
+	if UseLoot(athena, args, user) then
+		AthenaExitPresentation( athena, args )
+	end
+end
+
 function HandleIcarusSpawn( eventSource, args )
 	local currentRun = CurrentRun
 	local currentRoom = CurrentRun.CurrentRoom
@@ -67,7 +97,7 @@ function HandleIcarusSpawn( eventSource, args )
 	SetAlpha({ Id = newUnit.ObjectId, Fraction = 0, Duration = 0 })
 
 	currentEncounter.IcarusId = newUnit.ObjectId
-	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, } )
+	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, IgnorePackages = true } )
 	CheckAvailableTextLines( newUnit )
 	UseableOff({ Id = newUnit.ObjectId })
 	MapState.RoomRequiredObjects[newUnit.ObjectId] = newUnit
@@ -85,7 +115,7 @@ function HandleHeraclesSpawn( eventSource )
 	local currentEncounter = eventSource
 
 	local newUnit = DeepCopyTable( EnemyData.NPC_Heracles_01 )
-	local spawnPointId = SelectSpawnPoint( currentRoom, newUnit, { SpawnNearId = currentRun.Hero.ObjectId, SpawnRadius = 700, SpawnRadiusMin = 400 })
+	local spawnPointId = SelectSpawnPoint( currentRoom, newUnit, { SpawnNearId = currentRun.Hero.ObjectId, SpawnRadius = 900, RequireMinEndPointDistance = 400 })
 	spawnPointId = spawnPointId or currentRun.Hero.ObjectId
 	newUnit.ObjectId = SpawnUnit({ Name = "NPC_Heracles_01", Group = "Standing", DestinationId = spawnPointId })
 	newUnit.UseActivatePresentation = false
@@ -139,7 +169,7 @@ function HandleNemesisCombatSpawn( eventSource )
 	newUnit.UseActivatePresentation = false
 
 	currentEncounter.NemesisId = newUnit.ObjectId
-	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, } )
+	SetupUnit( newUnit, CurrentRun, { IgnoreAI = true, IgnoreAssert = true } )
 	MapState.RoomRequiredObjects[newUnit.ObjectId] = newUnit
 	SessionMapState.Nemesis = newUnit
 	UseableOff({ Id = newUnit.ObjectId })
@@ -261,10 +291,33 @@ function HandleEncounterPreSpawns( encounter )
 		-- Enemies missed their chance to pre-spawn and can spawn regularly
 		return
 	end
-
+	
+	if encounter.SpawnsSkipped then
+		return
+	end
+	local room = CurrentRun.CurrentRoom 
+	if encounter.CanEncounterSkip and HasHeroTraitValue("SkipEncounterChance") then
+		local sourceTrait = HasHeroTraitValue("SkipEncounterChance")
+		local sourceTraitCanSkip = not sourceTrait.SkipEncounterValidationFunctionName or CallFunctionName( sourceTrait.SkipEncounterValidationFunctionName, encounter )
+		if IsTraitActive(sourceTrait) and RandomChance(sourceTrait.SkipEncounterChance) and sourceTraitCanSkip then
+			encounter.SpawnsSkipped = true
+			if not IsEmpty(room.Encounters) and encounter.SkipEndEncounterEffects then
+				for _, successiveEncounter in pairs(room.Encounters) do
+					successiveEncounter.SpawnsSkipped = true
+					if successiveEncounter ~= encounter then
+						successiveEncounter.MultiEncounterSpawnSkip = true
+					end
+				end
+			end
+			return
+		else
+			-- Don't roll again in HandleEnemySpawns
+			encounter.CanEncounterSkip = false
+		end
+	end
 	encounter = encounter or room.Encounter
 
-	local encounterData = EncounterData[encounter.Name]
+	local encounterData = EncounterData[encounter.Name] or encounter
 
 	encounter.SpawnThreadName = encounter.Name.."SpawnThread"
 	table.insert(CurrentRun.CurrentRoom.SpawnThreads, encounter.SpawnThreadName)
@@ -280,14 +333,13 @@ function HandleEncounterPreSpawns( encounter )
 
 	encounter.PreSpawned = true
 	encounter.PreSpawning = true
-	encounter.RequireMinEndPointDistance = EncounterData[encounter.Name].PreSpawnMinEndPointDistance or encounter.PreSpawnMinEndPointDistance
+	encounter.RequireMinEndPointDistance = encounterData.PreSpawnMinEndPointDistance or encounter.PreSpawnMinEndPointDistance
 
 	if wave.OverrideValues ~= nil then
 		OverwriteTableKeys(encounter, wave.OverrideValues)
 	end
 
 	encounter.ActiveEnemyCap = CalculateActiveEnemyCap( CurrentRun, CurrentRun.CurrentRoom, encounter )
-	DebugPrint({ Text=encounter.ActiveEnemyCap })
 	encounter.Spawns = {}
 	AddEncounterLayer( CurrentRun, CurrentRun.CurrentRoom, encounter, wave )
 
@@ -302,7 +354,7 @@ function HandleEncounterPreSpawns( encounter )
 		end
 
 		if GetActiveEnemyCount(encounter) <= encounter.ActiveEnemyCap - newSpawnActiveCapWeight then
-			spawnedId = HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, EncounterData[encounter.Name].PreSpawnSpawnOverrides or encounter.PreSpawnSpawnOverrides )
+			spawnedId = HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, encounterData.PreSpawnSpawnOverrides or encounter.PreSpawnSpawnOverrides )
 			if spawnedId == nil or GetActiveEnemyCount(encounter) >= encounter.ActiveEnemyCap then
 				-- Hit cap
 				return
@@ -313,12 +365,45 @@ function HandleEncounterPreSpawns( encounter )
 	end
 end
 
+function CanDionysusSkip( encounter )
+	if CurrentRun.CurrentRoom.Encounters then
+		for i, encounterData in pairs(CurrentRun.CurrentRoom.Encounters) do
+			if encounterData.BlockDionysusEncounterKeepsake then
+				return false
+			end
+		end
+	end
+	return true
+end
+
 function HandleEnemySpawns( encounter )
 
 	if SessionState.BlockSpawns then
 		waitUntil( "BlockSpawnsOff" )
 	end
 
+	if encounter.SpawnsSkipped then
+		if not encounter.MultiEncounterSpawnSkip then
+			wait(2)
+			UseHeroTraitsWithValue("SkipEncounterChance")
+			thread( SkipEncounterPresentation )
+		end
+		encounter.SpawnsComplete = true
+		return
+	end
+	
+	if encounter.CanEncounterSkip and HasHeroTraitValue("SkipEncounterChance") then
+		local sourceTrait = HasHeroTraitValue("SkipEncounterChance")
+		local sourceTraitCanSkip = not sourceTrait.SkipEncounterValidationFunctionName or CallFunctionName( sourceTrait.SkipEncounterValidationFunctionName, encounter )
+		if IsTraitActive(sourceTrait) and RandomChance(sourceTrait.SkipEncounterChance) and sourceTraitCanSkip then
+			encounter.SpawnsSkipped = true
+			wait(2)
+			UseHeroTraitsWithValue("SkipEncounterChance")
+			thread( SkipEncounterPresentation )
+			encounter.SpawnsComplete = true
+			return
+		end
+	end
 	local encounterData = EncounterData[encounter.Name] or encounter
 
 	if encounter.SpawnThreadName == nil then
@@ -333,9 +418,13 @@ function HandleEnemySpawns( encounter )
 			encounter.SpawnWaves = { {Spawns = encounter.Spawns} }
 		else
 			DebugPrint({ Text = "Encounter has no spawns!" })
+			encounter.SpawnsComplete = true
 			return
 		end
 	end
+
+	DebugPrint({ Text = "Starting spawns for: "..encounter.Name })
+	RunEventsGeneric( encounterData.EncounterSpawnsStartEvents, encounter )
 
 	CheckObjectiveSet( encounterData.EncounterType )
 	CheckObjectiveSet( encounterData.ObjectiveSets )
@@ -427,6 +516,12 @@ function HandleEnemySpawns( encounter )
 			end
 		end
 
+		-- If you hit the cap during HandleEncounterPreSpawns()
+		if GetActiveEnemyCount(encounter) >= encounter.ActiveEnemyCap then
+			encounter.PreSpawning = false
+			preSpawnOverrides = nil
+		end
+
 		local ignoreSpawnPreferences = encounter.IgnoreSpawnPreferences or false
 		local storedSpawnInfo = nil
 		while GetRemainingSpawns( CurrentRun, CurrentRun.CurrentRoom, encounter ) > 0 and encounter.InProgress do
@@ -494,16 +589,24 @@ function HandleEnemySpawns( encounter )
 			if waitForEnemeyKilled then
 				waitUntil( "RequiredEnemyKilled" )
 				if CheckCancelSpawns(CurrentRun.CurrentRoom, encounter) then
+					encounter.SpawnsComplete = true
 					return
 				end
 				nextSpawnInterval = nextSpawnInterval
 				nextSpawnInterval = math.max( nextSpawnInterval, 0.03 ) -- Don't handle the next spawn on the same frame as the last kill
 			end
+
+			if wave.SpawnedLastOfPriorityGroup and not wave.PausedAfterPriorityGroup and GetRemainingSpawns( CurrentRun, CurrentRun.CurrentRoom, encounter ) > 1 then
+				nextSpawnInterval = EncounterData[encounter.Name].PauseDurationAfterPriorityGroup or nextSpawnInterval
+				wave.PausedAfterPriorityGroup = true
+			end
+
 			--DebugAssert({ Condition = nextSpawnInterval > 0, Text = "0 spawn interval may cause freeze.", Owner = "Eduardo" })
 			if SessionState.BlockSpawns then
 				waitUntil( "BlockSpawnsOff" )
 			end
 			if encounter.ForceEnd then
+				encounter.SpawnsComplete = true
 				return
 			end
 			wait( nextSpawnInterval, encounter.SpawnThreadName )
@@ -511,6 +614,7 @@ function HandleEnemySpawns( encounter )
 		end
 
 		if encounter.ForceEnd then
+			encounter.SpawnsComplete = true
 			return
 		end
 
@@ -522,6 +626,8 @@ function HandleEnemySpawns( encounter )
 			CheckForEncounterEnemiesDead( encounter )
 		end
 	end
+
+	encounter.SpawnsComplete = true
 end
 
 function WaveStartChanges(wave, encounter)
@@ -575,24 +681,27 @@ function HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, override
 	end
 
 	if not args.IgnoreShrineOverrides and not encounterData.BlockNextBiomeEnemyShrineUpgrade and not EnemyData[spawnInfo.Name].BlockNextBiomeEnemyShrineUpgrade then
-		local nextBiomeChance = GetShrineUpgradeChangeValue( "NextBiomeEnemyShrineUpgrade" )
-		if RandomChance( nextBiomeChance ) then
-			spawnInfo = ShallowCopyTable( spawnInfo )
-			local originalName = spawnInfo.Name
-			DebugPrint({ Text = "originalName = "..originalName })
-			local swapMap = MetaUpgradeData.NextBiomeEnemyShrineUpgrade.SwapMap[originalName]
-			if swapMap ~= nil then
-				spawnInfo.Name = swapMap.Name
-				DebugPrint({ Text = "spawnInfo.Name = "..spawnInfo.Name })
-				spawnInfo.SpawnOverrides = spawnInfo.SpawnOverrides or {}
-				spawnInfo.SpawnOverrides.RequiredSpawnPoint = swapMap.RequiredSpawnPoint or "nil"
-			else
-				local nextEnemySet = MetaUpgradeData.NextBiomeEnemyShrineUpgrade.BiomeEnemySets[CurrentRun.CurrentRoom.RoomSetName]
-				if nextEnemySet ~= nil then
-					spawnInfo.Name = GetRandomValue( nextEnemySet )
+		local nextRoomSet = NextRoomSets[CurrentRun.CurrentRoom.RoomSetName]
+		if nextRoomSet == nil or ( GameState.BiomeVisits[nextRoomSet] or 0 ) > 0 then
+			local nextBiomeChance = GetShrineUpgradeChangeValue( "NextBiomeEnemyShrineUpgrade" )
+			if RandomChance( nextBiomeChance ) then
+				spawnInfo = ShallowCopyTable( spawnInfo )
+				local originalName = spawnInfo.Name
+				DebugPrint({ Text = "originalName = "..originalName })
+				local swapMap = MetaUpgradeData.NextBiomeEnemyShrineUpgrade.SwapMap[originalName]
+				if swapMap ~= nil then
+					spawnInfo.Name = swapMap.Name
 					DebugPrint({ Text = "spawnInfo.Name = "..spawnInfo.Name })
 					spawnInfo.SpawnOverrides = spawnInfo.SpawnOverrides or {}
-					spawnInfo.SpawnOverrides.RequiredSpawnPoint = "nil"
+					spawnInfo.SpawnOverrides.RequiredSpawnPoint = swapMap.RequiredSpawnPoint or "nil"
+				else
+					local nextEnemySet = MetaUpgradeData.NextBiomeEnemyShrineUpgrade.BiomeEnemySets[CurrentRun.CurrentRoom.RoomSetName]
+					if nextEnemySet ~= nil then
+						spawnInfo.Name = GetRandomValue( nextEnemySet )
+						DebugPrint({ Text = "spawnInfo.Name = "..spawnInfo.Name })
+						spawnInfo.SpawnOverrides = spawnInfo.SpawnOverrides or {}
+						spawnInfo.SpawnOverrides.RequiredSpawnPoint = "nil"
+					end
 				end
 			end
 		end
@@ -608,15 +717,18 @@ function HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, override
 		OverwriteTableKeys( newEnemy.DefaultAIData, spawnInfo.SpawnDefaultAIDataOverrides)
 	end 
 
-	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or GetRandomValue(GetIds({ Name = spawnInfo.SpawnPointGroupName })) or SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, encounter)
- 
+	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or GetRandomValue(GetIds({ Name = spawnInfo.SpawnPointGroupName }))
+ 	
+	if spawnPointId == nil or not IsAlive({ Id = spawnPointId }) then
+		spawnPointId = SelectSpawnPoint(CurrentRun.CurrentRoom, newEnemy, encounter)
+	end
+
 	if spawnPointId == nil then
 		return nil
 	end
 
 	if newEnemy.IsUnitGroup then
-		spawnInfo.SpawnOnId = spawnPointId
-		SpawnUnitGroup(newEnemy, encounter, spawnInfo)
+		SpawnUnitGroup(newEnemy, encounter, spawnInfo, spawnPointId)
 		if not originalSpawnInfo.InfiniteSpawns then
 			originalSpawnInfo.RemainingSpawns = originalSpawnInfo.RemainingSpawns - 1
 		end
@@ -671,6 +783,67 @@ function HandleNextSpawn( encounter, ignoreSpawnPreferences, spawnInfo, override
 	end
 
 	return newEnemy.ObjectId
+end
+
+function GetNextSpawn( encounter )
+
+	local forcedSpawn = nil
+	local remainingSpawnInfo = {}
+	local remainingPrioritySpawnInfo = {}
+	local remainingPriorityGroupSpawnInfo = {}
+	for k, spawnInfo in orderedPairs( encounter.Spawns ) do
+		if spawnInfo.InfiniteSpawns or spawnInfo.RemainingSpawns > 0 then
+			local enemyData = EnemyData[spawnInfo.Name]
+			if enemyData ~= nil and enemyData.LargeUnitCap ~= nil and enemyData.LargeUnitCap > 0 then
+				local largeUnitCount = 0
+				-- @optimization Convert to buckets by type
+				for enemyId, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+					if enemy.LargeUnitCap ~= nil and enemyData.LargeUnitCap > 0 then
+						largeUnitCount = largeUnitCount + 1
+					end
+				end
+				if largeUnitCount < enemyData.LargeUnitCap then
+					table.insert( remainingSpawnInfo, spawnInfo )
+					if spawnInfo.PrioritySpawn then
+						table.insert( remainingPrioritySpawnInfo, spawnInfo )
+					end
+				else
+					DebugPrint({ Text = "Avoiding LargeUnitCap: "..enemyData.Name })
+				end
+			else
+				table.insert( remainingSpawnInfo, spawnInfo )
+				if spawnInfo.PrioritySpawn then
+					table.insert( remainingPrioritySpawnInfo, spawnInfo )
+				elseif encounter.PrioritizeGroup ~= nil and enemyData ~= nil and Contains(enemyData.Groups, encounter.PrioritizeGroup) then
+					table.insert( remainingPriorityGroupSpawnInfo, spawnInfo )
+				end
+			end
+
+			if spawnInfo.ForceFirst then
+				forcedSpawn = spawnInfo
+			end
+		end
+	end
+
+	if forcedSpawn ~= nil then
+		return forcedSpawn
+	end
+
+	local randomSpawnInfo = GetRandomValue( remainingPrioritySpawnInfo ) or GetRandomValue( remainingPriorityGroupSpawnInfo ) or GetRandomValue( remainingSpawnInfo )
+
+	if encounter.PrioritizeGroup ~= nil then
+		local wave = encounter.SpawnWaves[encounter.CurrentWaveNum]
+		local remainingPriorityGroupSpawns = 0
+		for k, spawnInfo in pairs(remainingPriorityGroupSpawnInfo) do
+			remainingPriorityGroupSpawns = remainingPriorityGroupSpawns + spawnInfo.RemainingSpawns
+		end
+		if remainingPriorityGroupSpawns == 1 then
+			wave.SpawnedLastOfPriorityGroup = true
+		end
+	end
+
+	return randomSpawnInfo
+
 end
 
 function RestoreEncounterSpawn( encounter, enemyToRestore )
@@ -732,12 +905,11 @@ function RestoreEncounterReward( room, rewardToRestore )
 end
 ]]
 
-function SpawnUnitGroup(unitGroup, encounter, spawnInfo)
+function SpawnUnitGroup(unitGroup, encounter, spawnInfo, spawnOnId)
 	spawnInfo = DeepCopyTable(spawnInfo) or {}
-	local spawnPointId = spawnInfo.SpawnOnId or RemoveRandomValue(CurrentRun.CurrentRoom.SpawnOnIds) or RemoveRandomValue(spawnInfo.SpawnOnIds) or SelectSpawnPoint(CurrentRun.CurrentRoom, unitGroup, encounter or {})
 	unitGroup.UnitIds = {}
 
-	if spawnPointId == nil then
+	if spawnOnId == nil then
 		return
 	end
 
@@ -745,7 +917,7 @@ function SpawnUnitGroup(unitGroup, encounter, spawnInfo)
 		spawnInfo.Name = unitName
 		local spawnOffsetAngle = i * (360 / #unitGroup.UnitGroup)
 		local spawnOffset = CalcOffset(math.rad(spawnOffsetAngle), unitGroup.SpawnOffset or 50 )
-		spawnInfo.SpawnOnId = SpawnObstacle({ Name = "InvisibleTarget", Group = "Standing", DestinationId = spawnPointId, OffsetX = spawnOffset.X, OffsetY = spawnOffset.Y })
+		spawnInfo.SpawnOnId = SpawnObstacle({ Name = "InvisibleTarget", Group = "Standing", DestinationId = spawnOnId, OffsetX = spawnOffset.X, OffsetY = spawnOffset.Y })
 
 		if encounter ~= nil then
 			if unitGroup.GroupAI ~= nil then
@@ -801,7 +973,7 @@ function SelectSpawnPoint( currentRoom, enemy, encounter, args )
 	elseif args.PreferredSpawnPointGroup then
 		shuffledSpawnPointIds = FYShuffle( GetIds({ Name = args.PreferredSpawnPointGroup }) )
 	elseif args.PreferredSpawnPoint then
-		shuffledSpawnPointIds = FYShuffle( GetIds({ Name = args.PreferredSpawnPoint }) )
+		shuffledSpawnPointIds = FYShuffle( GetIdsByType({ Name = args.PreferredSpawnPoint }) )
 	elseif enemy.PreferredSpawnPoint ~= nil then
 		if currentRoom.SpawnPoints[enemy.PreferredSpawnPoint] == nil then
 			currentRoom.SpawnPoints[enemy.PreferredSpawnPoint] = ShallowCopyTable( GetIdsByType({ Name = enemy.PreferredSpawnPoint }) )
@@ -813,6 +985,7 @@ function SelectSpawnPoint( currentRoom, enemy, encounter, args )
 
 	args.SpawnAwayFromTypes = args.SpawnAwayFromTypes or enemy.SpawnAwayFromTypes
 	args.SpawnAwayFromTypesDistance = args.SpawnAwayFromTypesDistance or enemy.SpawnAwayFromTypesDistance
+	args.SpawnCloseToGroup = args.SpawnCloseToGroup or enemy.SpawnCloseToGroup
 
 	for k, id in ipairs( shuffledSpawnPointIds ) do
 		if IsSpawnPointEligible( id, encounter, currentRoom, args ) then
@@ -824,6 +997,11 @@ function SelectSpawnPoint( currentRoom, enemy, encounter, args )
 	end
 
 	-- Nothing eligible
+	if args.SpawnCloseToGroup ~= nil then
+		args.SpawnCloseToGroup = nil
+		enemy.SpawnCloseToGroup = nil
+		return SelectSpawnPoint( currentRoom, enemy, encounter, args )
+	end
 	if args.PreferredSpawnPointGroup ~= nil then
 		args.PreferredSpawnPointGroup = nil
 		return SelectSpawnPoint( currentRoom, enemy, encounter, args )
@@ -940,6 +1118,13 @@ function IsSpawnPointEligible( spawnPointId, encounter, currentRoom, args )
 		end
 	end
 
+	if args.SpawnCloseToGroup ~= nil then
+		local typeIds = GetClosestIds({ Id = spawnPointId, DestinationIds = GetIds({ Name = args.SpawnCloseToGroup }), Distance = args.SpawnCloseToGroupDistance or 300 })
+		if #typeIds == 0 then
+			return false
+		end
+	end
+
 	if args.RequireLoS then
 		local hasLoS = HasLineOfSight({ Id = spawnPointId, DestinationId = args.LoSTarget, StopsProjectiles = true,
 							LineOfSightBuffer = args.LoSBuffer,
@@ -979,6 +1164,10 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 		DebugPrint({ Text="Active Enemy Cap Bonus: +"..currentEncounter.ActiveEnemyCapBonus })
 	end
 
+	if currentEncounter.ActiveEnemyCapMaxModifier ~= nil then
+		maxEnemyCap = maxEnemyCap + currentEncounter.ActiveEnemyCapMaxModifier
+	end
+
 	if enemyCap > maxEnemyCap then
 		enemyCap = maxEnemyCap
 	end
@@ -990,9 +1179,12 @@ function CalculateActiveEnemyCap( currentRun, currentRoom, currentEncounter )
 			enemyCap = enemyCap + activeCapWeight
 		end
 	end
-	for _, enemy in pairs (MapState.SpellSummons ) do
-		local activeCapWeight = enemy.ActiveCapWeight or 1
-		enemyCap = enemyCap + activeCapWeight
+
+	if MapState ~= nil then
+		for _, enemy in pairs (MapState.SpellSummons ) do
+			local activeCapWeight = enemy.ActiveCapWeight or 1
+			enemyCap = enemyCap + activeCapWeight
+		end
 	end
 	
 	if enemyCap > ConstantsData.MaxActiveEnemyCount then
@@ -1107,7 +1299,7 @@ function GetActiveEnemyCount(encounter)
 		return GetEncounterActiveEnemyCount( encounter )
 	end
 	local count = 0
-	for id, enemy in pairs( RequiredKillEnemies ) do
+	for id, enemy in pairs( ShallowCopyTable( RequiredKillEnemies ) ) do
 		if not enemy.SkipActiveCount then
 			local activeCapWeight = enemy.ActiveCapWeight or 1
 			count = count + activeCapWeight
@@ -1200,11 +1392,13 @@ function OnAllEnemiesDead(currentRoom, currentEncounter)
 
 	thread(MarkObjectiveComplete, "KillRequiredEnemies")
 	if currentEncounter.EncounterType == "PerfectClear" then
-		--thread( HadesSpeakingPresentation, eventSource, { VoiceLines = GlobalVoiceLines.PerfectClearEncounterClearedVoiceLines, ColorGrade = "PerfectClear" } )
+		--thread( HadesSpeakingPresentation, eventSource, { VoiceLines = { GlobalVoiceLines = "PerfectClearEncounterClearedVoiceLines" }, ColorGrade = "PerfectClear" } )
 		if not currentEncounter.PlayerTookDamage then
 			thread(MarkObjectiveComplete, "PerfectClear")
+			thread( PlayVoiceLines, GlobalVoiceLines.PerfectClearEncounterFailedLines, true )
 		end
 		thread(MarkObjectiveComplete, "PerfectClearCleanup")
+		thread( PlayVoiceLines, GlobalVoiceLines.PerfectClearEncounterClearedLines, true )
 	end
 
 	if currentEncounter.CheckInventoryObjective then
@@ -1269,20 +1463,6 @@ function EncounterAudio( eventSource )
 	elseif not encounterData.SkipCombatBeginsVoiceLines and not GetConfigOptionValue({ Name = "EditingMode" }) then
 		thread( PlayVoiceLines, GlobalVoiceLines.CombatBeginsVoiceLines, true )
 	end
-	local music = encounterData.Music
-	if music ~= nil then
-		if encounterData.MusicTarget then
-			local musicTargetId = GetClosest({ Id = CurrentRun.Hero.ObjectId, DestinationNames = encounterData.MusicTarget, Distance = 99999 })
-			MusicPlayer( music, nil, musicTargetId )
-			SetSoundCueValue({ Id = AudioState.MusicId, Names = { "LowPass" }, Value = 0.0, Duration = 0.5 })
-		else
-			MusicPlayer( music )
-		end
-	end
-	if encounterData.MusicianMusic ~= nil and encounterData.MusicTarget ~= nil then
-		MusicianMusic( currentEncounter, { TrackName = encounterData.MusicianMusic, TargetName = encounterData.MusicTarget } )
-		SetSoundCueValue({ Id = AmbientMusicId, Names = { "LowPass" }, Value = 0.0, Duration = 0.5 })
-	end
 	thread( MusicMixer, encounterData )
 end
 
@@ -1303,7 +1483,7 @@ function PostCombatAudio( eventSource )
 		return
 	end
 
-	local endMusicDuration = currentRoom.EndMusicOnCombatOver or currentEncounter.EndMusicOnCombatOver
+	local endMusicDuration = roomData.EndMusicOnCombatOver or encounterData.EndMusicOnCombatOver
 	if endMusicDuration ~= nil then
 		EndMusic( AudioState.MusicId, AudioState.MusicName, endMusicDuration )
 	end
@@ -1331,7 +1511,7 @@ function PostCombatAudio( eventSource )
 				thread( PlayVoiceLines, GlobalVoiceLines.CombatResolvedVoiceLines, true )
 			end
 		else
-			for k, unit in pairs( ActiveEnemies ) do
+			for k, unit in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 				if unit.EncounterEndVoiceLines ~= nil then
 					thread( PlayVoiceLines, unit.EncounterEndVoiceLines, nil, unit )
 				end
@@ -1371,6 +1551,7 @@ function StartDevotionTest( currentEncounter, args )
 
 	waitUntil( UIData.BoonMenuId )
 
+
 	local lootAId = lootA.ObjectId
 	local lootBId = lootB.ObjectId
 	local newLoots = { lootAId, lootBId }
@@ -1388,15 +1569,11 @@ function StartDevotionTest( currentEncounter, args )
 	currentEncounter.ChosenGodName = chosenLootName
 	currentEncounter.SpurnedGodName = alternateLootData.Name
 
-	-- wait until slot upgrade is done
-	--DebugPrint({ Text = "Apply "..alternateLootData.Name.." to Enemies" })
-	--AddEnemyUpgrade( alternateLootData.Name, CurrentRun )
-	--currentEncounter.RemoveUpgradeOnEnd = alternateLootData.Name
 	if EnemyData[alternateLootData.Name.."RoomWeapon"] ~= nil then
 		currentEncounter.SpawnPassiveRoomWeapons = currentEncounter.SpawnPassiveRoomWeapons or {}
 		table.insert(currentEncounter.SpawnPassiveRoomWeapons, alternateLootData.Name.."RoomWeapon")
 	end
-	CurrentRun.CurrentRoom.RejectedLootData = alternateLootData
+	MapState.RejectedLoot = alternateLootData
 	UseableOff({ Ids = newLoots })
 	StartDevotionTestPresentation( CurrentRun.CurrentRoom, alternateLootData, alternateLootId )
 	Destroy({ Ids = newLoots })
@@ -1404,7 +1581,7 @@ function StartDevotionTest( currentEncounter, args )
 	MapState.RoomRequiredObjects[alternateLootId] = nil
 	RemoveInputBlock({ Name = "DevotionTest" })
 	wait(0.5)
-	StartEncounterEffects( CurrentRun )
+	StartEncounterEffects( currentEncounter )
 end
 
 function BossIntro( eventSource, args )
@@ -1467,11 +1644,22 @@ function BossIntro( eventSource, args )
 		end
 	end
 
+	if args.SetupUnitIdAIs ~= nil then
+		for k, id in ipairs(args.SetupUnitIdAIs) do
+			if ActiveEnemies[id] ~= nil then
+				thread(SetupAI, ActiveEnemies[id])
+			end
+		end
+	end
+
 	if args.UnlockDelay ~= nil then
 		wait(args.UnlockDelay)
 	end
 	if didPan then
 		LockCamera({ Id = CurrentRun.Hero.ObjectId, Duration = args.DurationOut or 1.25, EaseIn = 0.04, EaseOut = 0.275 })
+	end
+	if args.BossIntroSound ~= nil then
+		PlaySound({ Name = args.BossIntroSound, Id = CurrentRun.CurrentRoom.BossId })
 	end
 
 	RemoveInputBlock({ Name = "BossIntro" })
@@ -1479,7 +1667,7 @@ function BossIntro( eventSource, args )
 	ToggleCombatControl( {"AdvancedTooltip"}, true, "BossIntro" )
 	ShowCombatUI("BossIntro")
 	if args.DelayedStart then
-		StartEncounterEffects( CurrentRun )
+		StartEncounterEffects( )
 	end
 end
 
@@ -1522,7 +1710,7 @@ function BossStageTransition(boss, currentRun, aiStage)
 	end
 
 	if aiStage.ClearEffects then
-			ClearEffect({ Id = boss.ObjectId, All = true })
+		ClearAllEffects( boss ) 
 	end
 
 	if aiStage.TransitionAnimation then
@@ -1598,13 +1786,20 @@ end
 
 function StartChallengeEncounter( challengeSwitch )
 	local challengeSwitchId = challengeSwitch.ObjectId
-	SetAnimation({ DestinationId = challengeSwitch.ObjectId, Name = "ChallengeSwitchInProgress" })
+	SetAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.InProgressAnimationName })
+	if challengeSwitch.UnlockedFxAnimationName ~= nil then
+		StopAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.UnlockedFxAnimationName })
+	end
+	if challengeSwitch.InProgressFxAnimationName ~= nil then
+		CreateAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.InProgressFxAnimationName, Group = "FX_Standing_Add" })
+	end
 	challengeSwitch.IsOpen = false
 	challengeSwitch.UseText = "UseChallengeSwitchInProgress"
 	RefreshUseButton( challengeSwitch.ObjectId, challengeSwitch )
 
 	ModifyTextBox({ Id = challengeSwitch.ValueTextAnchor, Text = challengeSwitch.ChallengeText, LuaKey = "Amount", LuaValue = round(challengeSwitch.StartingValue), Format = "LootFormat", FadeTarget = 1.0, FadeDuration = 0.5 })
-	SetAnimation({  Name = "InCombatTextShadow", DestinationId = challengeSwitch.ValueTextAnchor, OffsetY = -227, OffsetX = -40  })
+	
+	SetAnimation({  Name = "InCombatTextShadow", DestinationId = challengeSwitch.ValueTextAnchor, OffsetY = -7, OffsetX = 0  })
 	SetScaleX({ Id = challengeSwitch.ValueTextAnchor, Fraction = 0.66 })
 
 	if CurrentRun.CurrentRoom.WellShop then
@@ -1632,7 +1827,9 @@ end
 
 function EndChallengeEncounter( challengeEncounter )
 	local challengeSwitch = challengeEncounter.Switch
-
+	
+	StopAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.InProgressFxAnimationName })
+	
 	if challengeEncounter.EndedEarly then
 		return
 	end
@@ -1677,10 +1874,15 @@ function EndCapturePointChallengeEncounter(encounter)
 	if encounter.CapturePointProgress >= 100 then
 		if challengeSwitch ~= nil then
 			SetAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.UnlockedAnimationName })
+			if challengeSwitch.UnlockedFxAnimationName ~= nil then
+				CreateAnimation({ DestinationId = challengeSwitch.ObjectId, Name = challengeSwitch.UnlockedFxAnimationName })
+			end
+
 			UseableOff({ Id = challengeSwitch.ObjectId })
 			HandleChallengeLoot( challengeSwitch, encounter )
 		else
-			SpawnRoomReward(encounter)
+			local reward = SpawnRoomReward(encounter)
+			reward.CanDuplicate = false
 		end
 
 		encounter.LootDestinationId = encounter.CapturePointId
@@ -1972,7 +2174,7 @@ function TrackNemesisChallengeProgress( encounter, victim, killer )
 		if killer.ObjectId == encounter.NemesisId then
 			encounter.NemesisKills = encounter.NemesisKills + 1
 			UpdateObjectiveDescription( "NemesisKills", "Objective_NemesisKills", "NemesisKills", encounter.NemesisKills )
-		elseif killer == CurrentRun.Hero then
+		elseif killer == CurrentRun.Hero or killer.Charmed then
 			encounter.PlayerKills = encounter.PlayerKills + 1
 			UpdateObjectiveDescription( "PlayerKills", "Objective_PlayerKills", "PlayerKills", encounter.PlayerKills )
 		elseif killer.DamageType ~= nil and killer.DamageType == "Ally" then
@@ -2132,14 +2334,14 @@ function ClockworkManager(eventSource, args)
 			return
 		end
 
-		for obstacleId, obstacleData in pairs(MapState.ActiveObstacles) do
+		for obstacleId, obstacleData in pairs( ShallowCopyTable( MapState.ActiveObstacles ) ) do
 			if obstacleData.ClockworkReaction ~= nil then
 				thread(DoReaction, obstacleData, obstacleData.ClockworkReaction)
 			end
 		end
 
 		if currentRoom.Encounter.InProgress then
-			for enemyId, enemyData in pairs(ActiveEnemies) do
+			for enemyId, enemyData in pairs( ShallowCopyTable( ActiveEnemies ) ) do
 				if enemyData.ClockworkReaction ~= nil then
 					thread(CallFunctionName, enemyData.ClockworkReaction, enemyData)
 				end
@@ -2258,7 +2460,7 @@ function TrackCapturePointChallengeProgressReal( encounter )
 			if CheckCooldown("CapturePointProgressPulse", 1.0) then
 				shouldPulse = true
 			end
-			UpdateObjective( "CapturePointProgress", "CaptureProgress", encounter.CapturePointProgress, { PulseNegative = shouldPulse, PulseSound = "/Leftovers/SFX/FieldReviveSFX" } )
+			UpdateObjective( "CapturePointProgress", "CaptureProgress", encounter.CapturePointProgress, { PulseNegative = shouldPulse, PulseSound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusGrab" } )
 
 			thread( DirectionHintPresentation, {ObjectId = encounter.CapturePointId}, { Cooldown = 5.0, Delay = 0 } )
 
@@ -2323,7 +2525,7 @@ function SpawnArachneCocoons( eventSource, args )
 		SetupObstacle( cocoon )
 
 		for k, swapOption in ipairs( cocoon.ValueOptions ) do
-			if swapOption.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, swapOption, swapOption.GameStateRequirements ) then
+			if swapOption.GameStateRequirements == nil or IsGameStateEligible( swapOption, swapOption.GameStateRequirements ) then
 				if RandomChance( swapOption.Chance ) then
 					if swapOption.Animation ~= nil then
 						SetAnimation({ DestinationId = cocoon.ObjectId, Name = swapOption.Animation, OffsetY = swapOption.OffsetY or 0 })
@@ -2457,11 +2659,23 @@ function RemoveScyllaFightSpotlight( enemy, args )
 			ActiveEnemies[CurrentRun.CurrentRoom.Encounter.ScyllaId].TargetMusicStemVolume = 1.0
 			SetSoundCueValue({ Names = { "Vocals" }, Id = AudioState.MusicId, Value = 1.0, Duration = 1 })
 		end
-		if enemy.MusicStem ~= "Vocals" then
-			SetSoundCueValue({ Guitar = { "Guitar" }, Id = AudioState.MusicId, Value = 1.0, Duration = 1 })
+		if enemy.MusicStem ~= "Guitar" then
+			local targetValue = 0
+			for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+				if enemy.MusicStem == "Guitar" and not enemy.IsDead then
+					targetValue = 1.0
+				end
+			end
+			SetSoundCueValue({ Guitar = { "Guitar" }, Id = AudioState.MusicId, Value = targetValue, Duration = 1 })
 		end
 		if enemy.MusicStem ~= "Drums" then
-			SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.MusicId, Value = 1.0, Duration = 1 })
+			local targetValue = 0
+			for id, enemy in pairs( ShallowCopyTable( ActiveEnemies ) ) do
+				if enemy.MusicStem == "Drums" and not enemy.IsDead then
+					targetValue = 1.0
+				end
+			end
+			SetSoundCueValue({ Names = { "Drums" }, Id = AudioState.MusicId, Value = targetValue, Duration = 1 })
 		end
 	end
 end
@@ -2478,6 +2692,13 @@ function StartFieldsEncounter( rewardCage, args )
 	if activeEncounterCount > 0 then
 		CannotUseObjectPresentation(rewardCage)
 		return
+	end
+
+	for id, object in pairs(MapState.RoomRequiredObjects) do
+		if object.BlockFieldsEncounterStart then
+			CannotUseObjectPresentation(rewardCage)
+			return
+		end
 	end
 
 	rewardCage.UseText = "UseChallengeSwitchInProgress"
@@ -2531,4 +2752,11 @@ function SpawnShipCaptainUnit(encounter, args)
 		AngleTowardTarget({ Id = dummyTarget.ObjectId, DestinationId = wheelId })
 		Destroy({ Id = spawnPoint })
 	end
+end
+
+function WaitForWithinDistance(encounter, args)
+
+	local notifyName = encounter.Name.."WithinDistanceOf"..args.DestinationId
+	NotifyWithinDistance({ Id = CurrentRun.Hero.ObjectId, DestinationId = args.DestinationId, Distance = args.Distance or 500, Notify = notifyName })
+	waitUntil(notifyName, RoomThreadName)
 end

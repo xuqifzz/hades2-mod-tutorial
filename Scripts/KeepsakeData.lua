@@ -160,6 +160,34 @@ GiftData =
 			Gift = "LowHealthCritKeepsake" 
 		},
 	},
+	NPC_Dionysus_01 =
+	{
+		InheritFrom = { "DefaultGiftData" },
+		[1] = 
+		{ 
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "DionysusGift01" },
+				},
+			},
+			Gift = "SkipEncounterKeepsake" 
+		},
+	},
+	NPC_Athena_01 =
+	{
+		InheritFrom = { "DefaultGiftData" },
+		[1] = 
+		{ 
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "GameState", "TextLinesRecord", "AthenaGift01" },
+				},
+			},
+			Gift = "AthenaEncounterKeepsake" 
+		},
+	},
 
 	SpellDrop = 
 	{
@@ -489,11 +517,13 @@ ScreenData.KeepsakeRack =
 		"ForceAphroditeBoonKeepsake",	-- Aphrodite
 		"ForceHephaestusBoonKeepsake",	-- Hephaestus
 		"ForceHestiaBoonKeepsake",		-- Hestia
+		"AthenaEncounterKeepsake",		-- Athena
+		"SkipEncounterKeepsake",		-- Dionysus
 		"DecayingBoostKeepsake",		-- Heracles
-		"DamagedDamageBoostKeepsake",	-- Medea
-		"BossMetaUpgradeKeepsake",		-- Circe
 
 		-- row 3
+		"DamagedDamageBoostKeepsake",	-- Medea
+		"BossMetaUpgradeKeepsake",		-- Circe
 		"ArmorGainKeepsake",			-- Arachne
 		"FountainRarityKeepsake",		-- Narcissus
 		"UnpickedBoonKeepsake",			-- Echo
@@ -526,7 +556,7 @@ ScreenData.KeepsakeRack =
 
 		ShopBackground = 
 		{
-			Graphic = "AwardMenuBackground", 
+			Animation = "AwardMenuBackground",
 			X = ScreenCenterX,
 			Y = ScreenCenterY,
 			Children = 
@@ -728,6 +758,13 @@ ScreenData.KeepsakeRack =
 			Alpha = 0.0,
 		},
 
+		SaveFirstFrame =
+		{
+			Graphic = "BlankObstacle",
+			AnimationName = "AwardMenuItemSaveFirst",
+			Alpha = 0.0,
+		},
+
 		ActionBarBackground =
 		{
 			AnimationName = "GUI\\ActionBar",
@@ -748,10 +785,25 @@ ScreenData.KeepsakeRack =
 			{
 				"CloseButton",
 				"SelectButton",
+				"SaveFirstButton",
 			},
 
 			Children =
 			{
+				SaveFirstButton = 
+				{
+					Graphic = "ContextualActionButton",
+					GroupName = "Combat_Menu_Overlay",
+					Alpha = 0.0,
+					Data =
+					{
+						-- Hotkey only
+						OnPressedFunctionName = "KeepsakeScreenSaveFirst",
+						ControlHotkeys = { "ItemPin", },
+					},
+					Text = "Menu_SaveKeepsake",
+					TextArgs = UIData.ContextualButtonFormatRight,
+				},
 				SelectButton =
 				{
 					Graphic = "ContextualActionButton",

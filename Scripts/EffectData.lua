@@ -194,6 +194,17 @@
 			CanAffectInvulnerable = true,
 		}
 	},
+	SpeedBoostEffect = 
+	{
+		DataProperties = 
+		{
+			Type = "SPEED",
+			Duration = 1.15,
+			DodgeChance = 0.0,
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+		}
+	},
 	BurnEffect =
 	{
 		InheritFrom = { "NoSlowFrameEffect", "NoShakeEffect", "HestiaColorProjectile" },
@@ -274,6 +285,15 @@
 	BurnDeath = 
 	{
 		InheritFrom = {"BurnEffect"},	
+	},
+	BurnBlind = 
+	{
+		DataProperties = {
+			Stacks = false,
+			Duration = 9,
+			MissChance = 0.2,
+			IgnoreName = "_PlayerUnit"
+		}
 	},
 	SteamEffect =
 	{
@@ -378,6 +398,23 @@
 		OnApplyFunctionName = "FreezeFrameApply",
 		OnClearFunctionName = "FreezeFrameClear",
 	},
+
+	HoundStun =
+	{
+		InheritFrom = {"StunEffect"},	
+	
+		EffectData = {
+			Duration = 1.0,
+			IsVulnerabilityEffect = true,
+			IgnoreName = "_PlayerUnit",
+
+			ElapsedTimeMultiplier = 0.01,
+			ExpiringTimeThreshold = 1,
+			ExpiringModifierFalloff = 1,
+		},
+		--OnApplyFunctionName = "FreezeFrameApply",
+		--OnClearFunctionName = "FreezeFrameClear",
+	},
 	CastVacuumStun =
 	{
 		--InheritFrom = {"StunEffect"},	
@@ -416,10 +453,10 @@
 		DisplaySuffix = "PoseidonWet",
 		EffectGroup = "PoseidonWet",
 		Icon = "EarthSmall",
-		Vfx = "PoseidonElementalStatusFrontLoop",
-		BackVfx = "PoseidonElementalStatusBackLoop",
+		Vfx = "HephaestusVentDecal",
+		-- BackVfx = "PoseidonElementalStatusBackLoop",
 		--StopVfxes = {"PoseidonElementalStatusFront", "PoseidonElementalStatusBack", "PoseidonElementalStatusBackLoop", "PoseidonElementalStatusFrontLoop"},
-		CreateAnimationOnDamage = "HephaestusKnockupFx",
+		CreateAnimationOnDamage = "HephaestusVentExplosion",
 		ShowDuration = true,
 		EffectData = {
 			Type = "DELAYED_KNOCKBACK",
@@ -507,22 +544,6 @@
 			Modifier = 10,
 			CanAffectInvulnerable = false,
 		},
-	},
-	DamageOverDistance = 
-	{
-		Vfx = "PoseidonDebuffSurge",
-		SilentImpact = true,
-		DamageTextStartColor = Color.PoseidonDamageLight,
-		DamageTextColor = Color.PoseidonDamage,
-		EffectData = {
-          IgnoreName = "_PlayerUnit",
-          Type = "DAMAGE_OVER_DISTANCE",
-          Cooldown = 0.2,
-          Duration = 3,
-		  Modifier = 1,
-          TimeModifierFraction = 0,
-          IsVulnerabilityEffect = true,
-		}
 	},
 	EncounterStartOffense = 
 	{
@@ -754,11 +775,20 @@
 		CancelRumble = true,
 		CancelHitSpark = true,
 		CancelUnitHitFlash = true,
-		DamageTextStartColor = Color.LightPurple,
-		DamageTextColor = Color.Purple,
+		DamageTextStartColor = Color.DionysusDamageLight,
+		DamageTextColor = Color.DionysusDamage,
 		DamageTextSize = 25,
+		DisplaySuffix = "Poison",
+		Icon = "PoisonSmall",
 		OnApplyFunctionName = "DamageOverTimeApply",
-		OnClearFunctionName = "DamageOverTimeClear",
+		DataProperties = {
+			Type = "DAMAGE_OVER_TIME",
+			Duration = 4,
+			Cooldown = 0.5,
+			Amount = 25,
+			IsVulnerabilityEffect = true,
+			CanAffectInvulnerable = true,
+		},
 	},
 	InsideCastBuff = 
 	{
@@ -865,7 +895,6 @@
 	TimeElementalSpeedBoost =
 	{
 		EffectName = "SpeedBoost",
-		--Vfx = "SpeedFront",
 		DataProperties = 
 		{
 			Type = "SPEED",
@@ -907,6 +936,28 @@
 			HaltOnEnd = true,
 		}
 	},
+	
+	AddHitShields =
+	{
+		OnApplyFunctionName = "EliteSpreadHitShields",
+	},
+	
+	EliteManaDrain =
+	{
+		OnApplyFunctionName = "ShrineEliteAttributeManaDrain",
+		OnApplyFunctionArgs =
+		{
+			Amount = -3,
+		}
+	},
+	AutomatonMark =
+	{
+		EffectName = "AutomatonMark",
+		Vfx = "AutomatonBeamerVulnerableFxFront",
+		BackVfx = "AutomatonBeamerVulnerableFxBack",
+		OnApplyFunctionName = "HuntersMarkApplyPresentation",
+		CritVulnerability = 1,
+	},
 	ArtemisHuntersMark =
 	{
 		EffectName = "WebSlow",
@@ -921,6 +972,19 @@
 		Vfx = "ArtemisCritVulnerabilityStatusIn",
 		StopVfxesPreventChain = { "ArtemisCritVulnerabilityStatusIn" },
 		CritVulnerability = 0.3,
+		EffectData = 
+		{
+			Duration = 6,
+			Modifier = 1,
+			TimeModifierFraction = 0,
+		}
+	},
+	RavenFamiliarMark =
+	{
+		EffectName = "RavenFamiliarMark",
+		Vfx = "ArtemisCritVulnerabilityStatusIn",
+		StopVfxesPreventChain = { "ArtemisCritVulnerabilityStatusIn" },
+		CritVulnerability = 0.15,
 		EffectData = 
 		{
 			Duration = 6,
@@ -990,6 +1054,29 @@
 		},
 		OnApplyFunctionName = "ClearCastApply",
 		OnClearFunctionName = "ClearCastClear"
+	},
+	NyxBlastReady = 
+	{
+		DataProperties = 
+		{
+			Duration = 3600,
+			Active = true,
+			CanAffectInvulnerable = true,
+			TimeModifierFraction = 0,
+			Type = "SPEED",
+			Modifier = 1.05,
+		}
+	},
+	NyxHitBuff = 
+	{
+		Vfx = "WeaponBonusFx",
+		StopVfxes = { "WeaponBonusFx", "WeaponBonusFxBack"},
+		DataProperties = 
+		{
+			Active = true,
+			CanAffectInvulnerable = true,
+			TimeModifierFraction = 0
+		}
 	},
 	OmegaDamageBuffEffect = 
 	{
@@ -1077,6 +1164,64 @@
 			CanAffectInvulnerable = true,
 		}
 	},
+	LobWeaponShortInvulnerable = 
+	{
+		OnApplyFunctionName = "LobShortInvulnerableApply",
+		OnClearFunctionName = "LobShortInvulnerableClear",
+		EffectData = {
+			Type = "INVULNERABLE",
+			Duration = 3/60,		--3 frames of invulnerability
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+		}
+	},
+	
+	AthenaInvulnerable = 
+	{
+		ShowInvincububble = false,
+		DataProperties = {
+			Type = "INVULNERABLE",
+			Duration = 8,
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+			FrontFx = "AthenaProtectionFront",
+			BackFx = "AthenaProtectionBack",
+			FlashFrontFxWhenExpiring = false,
+			FlashBackFxWhenExpiring = false,
+		}
+	},
+	HadesInvulnerable = 
+	{
+		InheritFrom = {"InvulnerableEffect"},
+		DataProperties = {
+			Type = "INVULNERABLE",
+			Duration = 1,
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+		}
+	},
+	AthenaProjectileDefense = 
+	{
+		DataProperties = {
+			Type = "PROJECTILE_DEFENSE",
+			Duration = 8,
+			Modifier = 1.0,
+			Range = 120,
+			Deflect = true,
+			CanAffectInvulnerable = true,
+		}
+	},
+	
+	AthenaDeflect= 
+	{
+		InheritFrom = {"InvulnerableEffect"},
+		DataProperties = {
+			Type = "INVULNERABLE",
+			Duration = 8,
+			Modifier = 1.0,
+			CanAffectInvulnerable = true,
+		}
+	},
 	IcarusInvulnerable = 
 	{
 		InheritFrom = {"InvulnerableEffect"},
@@ -1117,6 +1262,13 @@
 		OnApplyFunctionName = "MiasmaSlowApply",
 		OnClearFunctionName = "MiasmaSlowClear"
 
+	},
+	DemeterSlow = 
+	{
+		AttackSpeedMultiplier = 1.5,
+		SprintSpeedMultiplier = 0.5,
+		Vfx = "DemeterRootFxFront",
+		BackVfx = "DemeterRootFxBack",
 	},
 
 	ChaosStun =
@@ -1178,7 +1330,7 @@
 
 	-- Dagger Disables
 	-- Swing1Disable, Swing2Disable, Swing5Disable
-	
+
 	DaggerSpecial1Disable =
 	{
 		OnApplyFunctionName = "DaggerSpecialTriggerLockApply",
@@ -1211,7 +1363,7 @@
 	{
 		EffectData =
 		{
-			Duration = 26/60,
+			Duration = 36/60,
 			DisableMove = true,
 			DisableRotate = true,
 			DisableAttack = true,
@@ -1253,8 +1405,8 @@
 	-- Lob Disables
 	Lob1Disable =
 	{
-		OnApplyFunctionName = "BlinkTriggerLockApply",
-		OnClearFunctionName = "BlinkTriggerLockClear",
+		OnApplyFunctionName = "BlinkAndSpecialTriggerLockApply",
+		OnClearFunctionName = "BlinkAndSpecialTriggerLockClear",
 	},
 	LobWeaponSpecialDisable = 
 	{ 
@@ -1295,7 +1447,49 @@
           Cancelable = true,
         }
 	},
-
+	-- Suit effects
+	Suit2DisableCancellable =
+	{
+		OnApplyFunctionName = "SuitDisableTriggerLockApply",
+		OnClearFunctionName = "SuitDisableTriggerLockClear",
+	},
+	SuitAttackDashDisable =
+	{
+		OnClearFunctionName = "SuitDashAttackLockApply",
+	},
+	ExAttackSuitShield = 
+	{
+		InheritFrom = { "BlockEffect" },
+		OnClearFunctionName = "ClearSuitAttackShield",
+		DataProperties = 
+		{
+			Type = "INVULNERABLE",
+			AngleCoverage =  math.rad(220),
+			CanAffectInvulnerable = true,
+		},
+	},
+	ExAttackSuitDefense = 
+	{
+		InheritFrom = { "BlockEffect" },
+		DataProperties = 
+		{
+			Type = "PROJECTILE_DEFENSE",
+			AngleCoverage = math.rad(220),
+			Range = 120,
+			CanAffectInvulnerable = true,
+		},
+	},
+	SuitSpecialLock = 
+	{
+		DataProperties = 
+		{
+			Duration = 3600,
+			DisableMove = true,
+			DisableRotate = false,
+			DisableAttack = false,
+			Active = true,
+		}
+	},
 	-- Spell Disables
 	LaserDisable =
 	{
@@ -1316,6 +1510,22 @@
 	{
 		OnApplyFunctionName = "BlinkTriggerLockApply",
 		OnClearFunctionName = "BlinkTriggerLockClear",
+	},
+	MoonBeamVulnerability = 
+	{ 
+	
+		OnApplyFunctionName = "MoonBeamVulnerabilityApply",
+		OnClearFunctionName = "MoonBeamVulnerabilityClear",
+		Vfx = "SorceryDebuffMoonLoopIn",
+		StopVfxesPreventChain = { "SorceryDebuffMoonLoopIn","SorceryDebuffMoonLoop" },
+		
+		DataProperties = 
+		{
+			Duration = 8,
+			Modifier = 1.5,
+			FlashFrontFxWhenExpiring = false,
+			FlashBackFxWhenExpiring = false,
+		}
 	},
 }
 
@@ -1391,9 +1601,9 @@ WeaponEffectData =
   },
 
 
-  RamBerserk =
-  {
-    EffectName = "RamBerserk",
+	RamBerserk =
+	{
+		EffectName = "RamBerserk",
 		DataProperties = 
 		{
 			Type = "SPEED",
@@ -1402,7 +1612,21 @@ WeaponEffectData =
 			Modifier = 1.4,
 			ClearOnCollision = false,
 		}
-  }
+	},
+
+	AutomatonDefense = 
+	{
+		EffectName = "AutomatonDefense",
+		ClearEffectOnHit = true,
+		DataProperties = 
+		{
+			Type = "DAMAGE_TAKEN",
+			ChangeType = "ADD",
+			Duration = 3.0,
+			Modifier = 0.1,
+			IsVulnerabilityEffect = true,
+		}
+	},
 }
 
 OverwriteTableKeys( EffectData, WeaponEffectData )

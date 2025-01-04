@@ -1,0 +1,230 @@
+{ Animations = [
+
+
+	{
+		Name = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "null"
+		GrannyModel = "Athena_Mesh"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+	}
+
+	// Idle
+	{
+		Name = "Athena_Idle"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Idle_C_00"
+		Loop = true
+	}
+
+	// Leap
+	{
+		Name = "Athena_Leap_Entrance"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Entrance_C_00"
+		ChainTo = "Athena_Idle"
+		Frames =
+		[
+			{
+				Frame = 87
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+			{
+				Frame = 134
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
+			}
+			{
+				Frame = 137
+				Sound = "/SFX/SpikeTrapFireSPEARRETRACT"
+			}
+		]
+	}
+	{
+		Name = "Athena_Leap_Exit"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Exit_C_00"
+		HoldLastFrame = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 1
+				Sound = "/SFX/Player Sounds/AthenaWeaponFlash3"
+			}
+			{
+				Frame = 16
+				Sound = "/SFX/Player Sounds/AthenaExitBoom"
+			}
+			{
+				Frame = 20
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusJumpStart"
+			}
+			{
+				Frame = 22
+				Sound = "/Leftovers/SFX/PlayerJump"
+				CreateAnimation = "AthenaLeapExitDust"
+			}
+		]
+	}
+
+	// Salute
+	{
+		Name = "Athena_Salute"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Salute_C_00"
+		ChainTo = "Athena_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 50
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+			{
+				Frame = 114
+				Sound = "/Leftovers/SFX/FootstepsWheatHeavy3"
+			},
+		]
+	}
+
+	// Blessing
+	{
+		Name = "Athena_Blessing"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Blessing_C_00"
+		ChainTo = "Athena_Idle"
+		Frames =
+		[
+			{
+				Frame = 0
+				CreateAnimation = "AthenaUnequipSparkle"
+			}
+			{
+				Frame = 162
+				CreateAnimation = "AthenaUnequipSparkle"
+				Sound = "/SFX/Player Sounds/AthenaShieldGrab"
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+	}
+
+	// Brooding
+	{
+		Name = "Athena_Brooding"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Brooding_C_00"
+		ChainTo = "Athena_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 34
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+		]
+	}
+
+	// Turn
+	{
+		Name = "Athena_Turn"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_Turn_C_00"
+		ChainTo = "Athena_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 37
+				Sound = "/SFX/SpikeTrapFireSPEARRETRACT"
+			},
+		]
+	}
+
+	// Proud
+	{
+		Name = "Athena_Proud_Start"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_ProudIntro_C_00"
+		ChainTo = "Athena_Proud_FireLoop"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Idle"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 38
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+			{
+				Frame = 72
+				Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMelTossWhoosh"
+			}
+			{
+				Frame = 79
+				Sound = "/SFX/SpikeTrapFireSPEARRETRACT"
+			}
+		]
+	}
+	{
+		Name = "Athena_Proud_FireLoop"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_ProudLoop_C_00"
+		Loop = true
+	}
+	{
+		Name = "Athena_Proud_End"
+		InheritFrom = "NPCAthenaBaseAnimation"
+		GrannyAnimation = "Athena_Base_ProudReturnToIdle_C_00"
+		ChainTo = "Athena_Idle"
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Athena_Proud_FireLoop"
+				Duration = 6
+			}
+		]
+		Frames =
+		[
+			{
+				Frame = 32
+				Sound = "/SFX/ArmorIdleSFX"
+			}
+		]
+	}
+]}

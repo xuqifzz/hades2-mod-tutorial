@@ -648,6 +648,7 @@
 		Scale = 1.5
 		StartScale = 0.9
 		EndScale = 1
+		Sound = "/Leftovers/SFX/SapWormhole"
 		CreateAnimations =
 		[
 			{ Name = "TreantRootsPreviewFxRoots" }
@@ -1070,6 +1071,26 @@
 		OffsetZ = 30.0
 		ScaleFromOwner = "Ignore"
 		Ambient = 0.0
+	}
+
+	{
+		Name = "RubbleFallImpactSpike"
+		FilePath = "Particles\particle_banished_spike2"
+		GroupName = "FX_Standing_Add"
+
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		Duration = 0.12
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OriginX = 190.0
+		OriginY = 720.0
+		EndScale = 0.0
+		EndScaleX = 0.1
+		StartScaleX = 0.35
+		Color = { Red = 1.0 Green = 0.8 Blue = 0.30 }
 	}
 
 	{
@@ -1600,8 +1621,184 @@
 		LocationFromOwner = "Ignore"
 		LocationZFromOwner = "Ignore"
 	}
+	{
+		Name = "EnemyProjectile"
+		FilePath = "Fx\EnemyProjectileIris\EnemyProjectileIris"
+		VisualFx = "EnemyProjectileTrailFx"
+		AngleFromOwner = "Maintain"
+		Sound = "/SFX/Enemy Sounds/Mourner/RangedAttackLoop"
+		StopSoundOnFinishFade = 0.25
+		EndFrame = 60
+		Loop = true
+		NumFrames = 60
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 45.0
+		StartFrame = 1
+		OffsetZ = 30.0
+		Scale = 0.6
+		Ambient = 0.0
+		VisualFxIntervalMax = 0.21
+		VisualFxIntervalMin = 0.21
+		OverlayVfx = true
+		CreateAnimations =
+		[
+			{ Name = "EnemyProjectileGlow" }
+			{ Name = "EnemyProjectileStartFlare" }
+		]
+	}
+
+	{
+		Name = "EnemyProjectileDissipate"
+		InheritFrom = "EnemyProjectile"
+		Sound = "null"
+		CreateAnimations = []
+		VisualFx = null
+		StartScale = 1
+		EndScale = 0
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1
+	}
+
+	{
+		Name = "EnemyProjectileStartFlare"
+		FilePath = "Particles\particle_sparkle_glow"
+		Red = 1
+		Green = 0
+		Blue = 0.4
+		Scale = 0.66
+		StartScale = 1
+		EndScale = 0
+		GroupName = "FX_Standing_Add"
+		Duration = 0.3
+		EaseIn = 0.9
+		EaseOut = 1.0
+		AddColor = true
+		UseOwnAngle = false
+		AngleFromOwner = "Ignore"
+		OffsetZ = 30
+	}
+
+	{
+		Name = "EnemyProjectileTrailFx"
+		FilePath = "Fx\EnemyProjectileTrail\EnemyProjectileTrail"
+		NumFrames = 50
+		Material = "Unlit"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0.0
+		Blue = 0.0
+		RandomFlipVertical = true
+		RandomPlaySpeedMin = 30
+		RandomPlaySpeedMax = 45
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		OffsetZ = 40
+		ScaleX = 1.8
+		StartScale = 0.3
+		EndScale = 1.0
+		ScaleMin = 0.4
+		ScaleMax = 1.0
+		EaseIn = 0.9
+		EaseOut = 1.0
+		Velocity = 100
+		Acceleration = -100
+		CreateAnimation = "EnemyProjectileTrailFxB"
+	}
+
+	{
+		Name = "EnemyProjectileTrailFxB"
+		InheritFrom = "EnemyProjectileTrailFx"
+		StartRed = 1
+		StartGreen = 0.01
+		StartBlue = 0.4
+		EndRed = 0.999
+		EndGreen = 0
+		EndBlue = 0.2
+		Red = 1
+		Green = 1
+		Blue = 1
+		StartScaleY = 0
+		EndScaleY = 1.5
+		AlphaMin = 0.1
+		AlphaMax = 1.0
+		OffsetZ = 20
+		ScaleMin = 0.2
+		ScaleMax = 0.6
+		RandomOffsetX = 30
+		RandomOffsetY = 15
+		GroupName = "FX_Standing_Add"
+		CreateAnimation = null
+		CreateAnimations = []
+	}
+
+	{
+		Name = "EnemyProjectileIn"
+		InheritFrom = "EnemyProjectile"
+		ChainTo = "EnemyProjectile"
+		Sound = "null"
+		AddColor = true
+		EndGreen = 0.001
+		StartBlue = 0.9
+		StartRed = 1.0
+		Duration = 0.2
+		EaseIn = 0.0
+		EaseOut = 1.0
+		Loop = false
+		LoopFramesOnly = true
+		TransferFrameFromThis = true
+		RandomFlipVertical = true
+		RandomRotation = false
+		StartScale = 0
+		EndScale = 0.6
+	}
 	
+	{
+		Name = "EnemyProjectileLight"
+		FilePath = "Fx\LootShadow\LootShadow"
+		GroupName = "FX_Terrain_Add"
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		Alpha = 0.25
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RandomFlipHorizontal = true
+		DieWithOwner = true
+		LocationZFromOwner = "Ignore"
+		Scale = 0.5
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.70 }
+	}
+	
+	{
+		Name = "EnemyProjectileGlow"
+		FilePath = "Particles\particle_quickflash"
+		GroupName = "FX_Standing_Add"
 		
+		AngleFromOwner = "Ignore"
+		Alpha = 0.25
+		EndAlpha = 1.0
+		PingPongColor = true
+		StartAlpha = 0.5
+		EndFrame = 1
+		Loop = true
+		NumFrames = 1
+		RandomDurationMax = 0.8
+		RandomDurationMin = 0.4
+		StartFrame = 1
+		OffsetZ = 30.0
+		OriginX = 246.0
+		OriginY = 246.0
+		DieWithOwner = true
+		RandomRotation = true
+		Scale = 0.4
+		OverlayVfx = true
+		Color = { Red = 1.0 Green = 0.0 Blue = 1.0 }
+	}
+
 	{
 		Name = "MageProjectile"
 		FilePath = "Fx\MageProjectile\MageProjectile"
@@ -3233,6 +3430,11 @@
 			{ Name = "HecateLaserOriginFx" }
 		]
 	}
+	{
+		Name = "PrometheusFireWallTest"
+		InheritFrom = "HecateLaser"
+		Angle = 90
+	}
 
 	{
 		Name = "HecateLaserOriginFx"
@@ -3247,44 +3449,44 @@
 		OriginY = 90
 	}
 
-    {
-      Name = "HecateLaserGlow"
-      FilePath = "Particles\particle_glow_egg_horizontal"
-      Material = "Unlit"
-      GroupName = "FX_Add_Top"      
-      EndAlpha = 1.0
-      PingPongColor = true
-      StartAlpha = 0.5
-      EndFrame = 1
-      Loop = true
-      NumFrames = 1
-      RandomDurationMax = 0.33
-      RandomDurationMin = 0.4
-      StartFrame = 1
-      OriginY = 84.0
-      OriginX = 10
-      DieWithOwner = true
-      ScaleLength = 200.0
-      ScaleY = 1
-      StartRed = 1.0
-      StartGreen = 0.8
-      StartBlue = 0.9
-      EndRed = 0.7
-      EndGreen = 0.9
-      EndBlue = 1.0
-    }
+		{
+			Name = "HecateLaserGlow"
+			FilePath = "Particles\particle_glow_egg_horizontal"
+			Material = "Unlit"
+			GroupName = "FX_Add_Top"			
+			EndAlpha = 1.0
+			PingPongColor = true
+			StartAlpha = 0.5
+			EndFrame = 1
+			Loop = true
+			NumFrames = 1
+			RandomDurationMax = 0.33
+			RandomDurationMin = 0.4
+			StartFrame = 1
+			OriginY = 84.0
+			OriginX = 10
+			DieWithOwner = true
+			ScaleLength = 200.0
+			ScaleY = 1
+			StartRed = 1.0
+			StartGreen = 0.8
+			StartBlue = 0.9
+			EndRed = 0.7
+			EndGreen = 0.9
+			EndBlue = 1.0
+		}
 
-    {
-      Name = "HecateLaserEnd"
-      InheritFrom = "HecateLaser"
-      Duration = 0.15
-      TransferAngle = true
-      TransferCopyBody = true
-      Loop = false
-      EndScaleY = 0.0
-      Sound = null
-      CreateAnimations = []
-    }
+		{
+			Name = "HecateLaserEnd"
+			InheritFrom = "HecateLaser"
+			Duration = 0.15
+			TransferAngle = true
+			TransferCopyBody = true
+			Loop = false
+			EndScaleY = 0.0
+			Sound = null
+			CreateAnimations = []
+		}
 
 
 	{
@@ -4839,4 +5041,372 @@
 		Hue = 0.5
 		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
 	}
+
+	{
+		Name = "HecateLaserPreview"
+		InheritFrom = "EnemyLaserPreview"
+		Angle = 60
+		Sound = "null"
+		AddColor = false
+		OriginX = 10
+		OriginY = 64
+		StartRed = 0.5
+		StartGreen = 0.4
+		StartBlue = 0.35
+		EndRed = 1
+		EndGreen = 0.1
+		EndBlue = 0.1
+		ChainTo = null
+		GroupName = "FX_Standing_Add"
+		LocationZFromOwner = "Maintain"
+		OffsetZ = 80
+		PlaySpeed = 30
+		ScaleX = 2.0
+		HoldLastFrame = true
+		ChildAnimation = "HecateLaser2Preview"
+	}
+	{
+		Name = "HecateLaser2Preview"
+		InheritFrom = "HecateLaserPreview"
+		Angle = 180
+		ChildAnimation = "HecateLaser3Preview"
+	}
+	{
+		Name = "HecateLaser3Preview"
+		InheritFrom = "HecateLaserPreview"
+		Angle = 300
+		ChildAnimation = null
+	}
+
+	{
+		Name = "GuardMeleeAoE"
+		FilePath = "Fx\GuardSwipe\GuardSwipe"
+		Sound = "/SFX/Enemy Sounds/GuardSwipe"
+		EndFrame = 30
+		NumFrames = 30
+		RandomPlaySpeedMax = 60.0
+		RandomPlaySpeedMin = 55.0
+		StartFrame = 1
+		RandomRotation = false
+		EndScale = 1.04
+		PostRotateScaleY = 0.55
+		ScaleRadius = 190.0
+		StartScale = 0.9
+		Ambient = 0.0
+		VisualFxCap = 6
+		VisualFxIntervalMax = 0.02
+		VisualFxIntervalMin = 0.01
+		GroupName = "FX_Standing_Add"
+		AngleFromOwner = "Take"
+		OffsetZ = 5
+		CreateAnimations = [
+			{ Name = "QuickFlashEnemy" }
+			{ Name = "GuardMeleeAoE_Dark" }
+			{ Name = "GuardMeleeAoE_Displacement" }
+		]
+	}
+
+	{
+		Name = "GuardMeleeAoE_Dark"
+		InheritFrom = "GuardMeleeAoE"
+		GroupName = "FX_Dark"
+		Red = 0
+		Green = 0
+		Blue = 0
+		OffsetZ = 0
+		ClearCreateAnimations = true
+		Sound = "/EmptyCue"
+	}
+
+	{
+		Name = "GuardMeleeAoE_Displacement"
+		InheritFrom = "GuardMeleeAoE_Dark"
+		Red = 1
+		Green = 1
+		Blue = 0
+		GroupName = "FX_Displacement"
+		Alpha = 0.03
+		RandomPlaySpeedMin = 40
+		RandomPlaySpeedMax = 50
+	}
+
+
+	{
+		Name = "Invincibubble_Hecate"
+		InheritFrom = "Invincibubble"
+		ChainTo = "InvincibubbleOut_Hecate"
+		ChildAnimation = "InvincibubbleLoop_Hecate"
+		LocationZFromOwner = "Ignore"
+		GrannyAttachedMarkerLocation = "Hecate_Rig:spine_00_M_JNT"
+		Scale = 1.8
+		ScaleY = 0.9
+		OffsetY = 60
+		OffsetZ = 0
+		UseAttachedFlasher = false
+		CreateAnimations =
+		[
+			{ Name = "InvincibubbleDark" }
+		]
+	}
+	
+	{
+		Name = "InvincibubbleOut_Hecate"
+		InheritFrom = "InvincibubbleOut"
+		GrannyAttachedMarkerLocation = "Hecate_Rig:spine_00_M_JNT"
+		OffsetY = 60
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		Scale = 1.8
+		ScaleX = 1.2
+		ScaleY = 0.9
+	}
+	
+	{
+		Name = "InvincibubbleLoop_Hecate"
+		InheritFrom = "InvincibubbleLoop"
+		GrannyAttachedMarkerLocation = "Hecate_Rig:spine_00_M_JNT"
+		OffsetY = 60
+		OffsetZ = 0
+		LocationZFromOwner = "Ignore"
+		Scale = 1.8
+		ScaleY = 0.9
+	}
+
+
+	{
+		Name = "HecatePolymorph"
+		InheritFrom = "StunnedFront"
+		Color = { Red = 1.0 Green = 0.0 Blue = 0.50 }
+		Scale = 0.4
+		ChildAnimation = "HecatePolymorphFlipped"
+	}
+	{
+		Name = "HecatePolymorphFlipped"
+		InheritFrom = "HecatePolymorph"
+		FlipVertical = true
+		ChildAnimation = null
+		Color = { Red = 0.7 Green = 0.0 Blue = 0.50 }
+		ScaleY = 1.2
+	}
+	{
+		Name = "LobWarningDecalWisp"
+		InheritFrom = "LobWarningDecalIris"
+		ScaleRadius = 300
+	}
+		
+	{
+		Name = "RootingTreeWarningDecal"
+		FilePath = "GUI\World\RadialAttackPreview"
+		GroupName = "FX_Terrain"
+		AngleFromOwner = "Ignore"
+		AngleMax = 360.0
+		AddColor = true
+		EndRed = 0.5
+		StartBlue = 0.01
+		StartGreen = 0.01
+		StartRed = 1.0
+		Duration = 0.1
+		EaseIn = 0.9
+		EaseOut = 1.0
+		EndFrame = 1
+		HoldLastFrame = true
+		NumFrames = 1
+		StartFrame = 1
+		PostRotateScaleY = 0.5
+		ScaleRadius = 360.0
+		StartScale = 0.9
+	}
+
+	{
+		Name = "RootsAoESiegeVineWarningDecal"
+		InheritFrom = "RootingTreeWarningDecal"
+		Duration = 1.0
+		DieWithOwner = true
+	}
+
+	{
+		Name = "DestructibleTreeFullA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	{
+		Name = "DestructibleTreeFullB"
+		InheritFrom = "DestructibleTreeFullA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02"
+	}
+	{
+		Name = "DestructibleTreeDamagedA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01b"
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		VisualFx = "ErebusTreeDestruction"
+		VisualFxIntervalMin = 0.01
+		VisualFxIntervalMax = 0.06
+		VisualFxCap = 3
+	}
+	{
+		Name = "DestructibleTreeDamagedB"
+		InheritFrom = "DestructibleTreeDamagedA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02a"
+	}
+	
+	{
+		Name = "DestructibleTreeStumpA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_01a"
+		
+		AngleFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+	{
+		Name = "DestructibleTreeStumpB"
+		InheritFrom = "DestructibleTreeStumpA"
+		FilePath = "Tilesets\Erebus\Erebus_DestructibleTree_02b"
+	}
+
+	{
+		Name = "SafeZoneIdle"
+		FilePath = "Tilesets\Erebus\Erebus_Safezone_Unactivated_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.3
+		Ambient = 0.0
+		OffsetY = -10
+		Duration = 1
+		Loop = true
+		VisualFx = "SafeZoneManaSmoke"
+		VisualFxIntervalMin = 0.4
+		VisualFxIntervalMax = 0.5
+		ChildAnimation = "SafeZoneUnactivatedFx"
+	}
+
+	{
+		Name = "SafeZoneUnactivatedFx"
+		FilePath = "Fx\SafeZoneUnactivatedFx\SafeZoneUnactivatedFx"
+		Material = "Unlit"
+		NumFrames = 45
+		Loop = true
+		PlaySpeed = 30
+		AngleFromOwner = "Ignore"
+		OffsetZ = 52
+		Scale = 1.20
+		TransferFrameFromThis = true
+	}
+
+	{
+		Name = "SafeZoneActivatedFx"
+		InheritFrom = "SafeZoneUnactivatedFx"
+		TransferFrameToThis = true
+		LoopFramesOnly = true
+		Loop = false
+		Duration = 0.66
+		PlaySpeed = 45
+		StartScale = 1
+		EndScale = 1.25
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 1
+		StartGreen = 1
+		StartBlue = 1
+		EndRed = 0
+		EndGreen = 0.66
+		EndBlue = 0.99
+		StartAlpha = 1
+		EndAlpha = 0
+	}
+
+	{
+		Name = "SafeZoneActivated"
+		InheritFrom = "SafeZoneIdle"
+		ChildAnimation = "SafeZoneActivatedFx"
+		FilePath = "Tilesets\Erebus\Erebus_Safezone_Activated_01"
+		Sound = "/SFX/Player Sounds/MelMagicalCharge"
+		StopSoundOnFinishFade = 0.2
+	}
+
+	{
+		Name = "SafeZoneManaSmoke"
+		FilePath = "Fx\WitchyMist\WitchyMist"
+		NumFrames = 100
+		PlaySpeed = 0.001
+		RandomStartFrame = true
+		LoopFramesOnly = true
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAlpha = 0
+		EndAlpha = 0.5
+		PingPongColor = true
+		FlipVertical = true
+		Saturation = 0
+		Hue = 0.05
+		ScaleX = 1
+		StartScale = 1
+		EndScale = 1.2
+		EaseIn = 0
+		EaseOut = 1
+		AlphaMin = 0.25
+		AlphaMax = 0.5
+		ScaleMin = 0.6
+		ScaleMax = 1.3
+		PostRotateScaleY = 1.0
+		StartScaleY = 1
+		EndScaleY = 2
+		IsometricSkew = "X"
+		AngleMin = 0
+		AngleMax = 360
+		RandomOffsetY = 30
+		RandomFlipHorizontal = true
+		OffsetZ = 30
+		GroupName = "FX_Standing_Add"
+		ScaleFromOwner = "Ignore"
+	}
+
+
+	{
+		Name = "SafeZoneDisabled"
+		InheritFrom = "SafeZoneIdle"
+		ChildAnimation = null
+		VisualFx = null
+		FilePath = "Tilesets\Erebus\Erebus_Safezone_Expired_01"
+		Sound = "/SFX/Enemy Sounds/Hades/ZagSmokeDisappear"
+	}
+
+	{
+		Name = "RootingTreeIdle"
+		FilePath = "Tilesets\Erebus\Erebus_RootingTree_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -125.0
+		Scale = 0.28
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "RootingTreeActivated"
+		FilePath = "Tilesets\Erebus\Erebus_RootingTree_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		OffsetY = -125.0
+		Scale = 0.28
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "RootingTreeDisabled"
+		InheritFrom = "RootingTreeIdle"
+		ColorFromOwner = "Ignore"
+		Color = { Red = 0.2 Green = 0.2 Blue = 0.2 }
+	}
+		
 ]}

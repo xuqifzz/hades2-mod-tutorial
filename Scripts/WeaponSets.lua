@@ -30,6 +30,8 @@ WeaponSets =
 		"WeaponAxeSpin",
 		"WeaponDagger",
 		"WeaponDaggerDash",
+		"WeaponSuit",
+		"WeaponSuit2",
 	},
 
 	HeroPrimaryWeapons =
@@ -39,6 +41,7 @@ WeaponSets =
 		"WeaponDagger",
 		"WeaponTorch",
 		"WeaponLob",
+		"WeaponSuit",
 	},
 
 	HeroDashWeapons =
@@ -46,6 +49,7 @@ WeaponSets =
 		"WeaponDaggerDash",
 		"WeaponStaffDash",
 		"WeaponAxeDash",
+		"WeaponSuitDash",
 	},
 
 	HeroRangedWeapons =
@@ -54,6 +58,7 @@ WeaponSets =
 		"WeaponCastProjectileHades",
 		"WeaponCastProjectile",
 		"WeaponAnywhereCast",
+		"WeaponCastLob",
 	},
 
 	HeroPrimarySecondaryWeapons =
@@ -63,11 +68,13 @@ WeaponSets =
 		"WeaponDagger",
 		"WeaponDaggerThrow",
 		"WeaponAxe",
-		"WeaponAxeBlock2",
+		"WeaponAxeSpecial",
 		"WeaponTorch",
 		"WeaponTorchSpecial",
 		"WeaponLob",
 		"WeaponLobSpecial",
+		"WeaponSuit",
+		"WeaponSuitRanged",
 	},
 
 	HeroNonExWeapons =
@@ -95,6 +102,10 @@ WeaponSets =
 		
 		"WeaponLob",
 		"WeaponLobSpecial",
+
+		"WeaponSuit",
+		"WeaponSuit2",
+		"WeaponSuitDash",
 	},
 	
 	HeroAllWeapons =
@@ -105,20 +116,41 @@ WeaponSets =
 		"WeaponDaggerThrow",
 		"WeaponCast",
 		"WeaponAxe",
-		"WeaponAxeBlock2",
+		"WeaponAxeSpecial",
 		"WeaponTorch",
 		"WeaponTorchSpecial",
 		"WeaponLob",
 		"WeaponLobSpecial",
+		"WeaponSuit",
+		"WeaponSuitRanged",
+	},
+	HeroAllWeaponsAndSprint = 
+	{
+		"WeaponStaffSwing",
+		"WeaponStaffBall",
+		"WeaponDagger",
+		"WeaponDaggerThrow",
+		"WeaponCast",
+		"WeaponAxe",
+		"WeaponAxeSpecial",
+		"WeaponTorch",
+		"WeaponTorchSpecial",
+		"WeaponLob",
+		"WeaponLobSpecial",
+		"WeaponSuit",
+		"WeaponSuitRanged",
+		"WeaponSprint",
+		"WeaponSprintEx",
 	},
 
 	HeroSecondaryWeapons =
 	{
 		"WeaponStaffBall",
 		"WeaponDaggerThrow",
-		"WeaponAxeBlock2",
+		"WeaponAxeSpecial",
 		"WeaponTorchSpecial",
 		"WeaponLobSpecial",
+		"WeaponSuitRanged",
 	},
 
 	HeroNonPhysicalWeapons =
@@ -148,10 +180,11 @@ WeaponSets =
 	HeroWeaponSets =
 	{
 		WeaponStaffSwing = { "WeaponStaffSwing2","WeaponStaffSwing3","WeaponStaffSwing5",  "WeaponStaffBall", "WeaponStaffDash" },
-		WeaponAxe = { "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash", "WeaponAxeSpin", "WeaponAxeBlock2", "WeaponAxeSpecialSwing"},
+		WeaponAxe = { "WeaponAxe2", "WeaponAxe3", "WeaponAxeDash", "WeaponAxeSpin", "WeaponAxeSpecial", "WeaponAxeSpecialSwing"},
 		WeaponDagger = {"WeaponDaggerThrow", "WeaponDaggerBlink", "WeaponDaggerDash", "WeaponDagger2", "WeaponDagger5", "WeaponDaggerDouble", "WeaponDaggerMultiStab"},
 		WeaponTorch = {  "WeaponTorchSpecial" },		
 		WeaponLob = { "WeaponLobSpecial", "WeaponLobChargedPulse", "WeaponSkullImpulse" },
+		WeaponSuit = { "WeaponSuit2", "WeaponSuitCharged", "WeaponSuitDash", "WeaponSuitRanged" },
 	},
 
 	LinkedWeaponUpgrades =
@@ -161,13 +194,14 @@ WeaponSets =
 		WeaponDagger = { "WeaponDagger2", "WeaponDagger5", "WeaponDaggerDash", "WeaponDaggerDouble", "WeaponDaggerMultiStab"},
 		WeaponDaggerThrow = {},
 		WeaponAxe = { "WeaponAxeDash", "WeaponAxe2", "WeaponAxe3", "WeaponAxeSpin"},
-		WeaponAxeBlock2 = { "WeaponAxeSpecialSwing" },
+		WeaponAxeSpecial = { "WeaponAxeSpecialSwing" },
 		WeaponTorch = {},
 		WeaponTorchSpecial = {},
 		WeaponLob = { "WeaponLobPulse", "WeaponLobChargedPulse" },
 		WeaponLobSpecial = { "WeaponSkullImpulse" },
 		WeaponBlink = { "WeaponSprint" },
 		WeaponCast = { "WeaponCastArm" },
+		WeaponSuit = { "WeaponSuit2", "WeaponSuitDash", "WeaponSuitCharged" },
 	},
 
 	TrapWeapons =
@@ -208,22 +242,8 @@ WeaponSets =
 	},
 	ExpireProjectileExcludeProjectileNames =
 	{
-	"AresProjectile",
-	"AthenaDeflectingProjectile",
-	"DemeterProjectile",
-	"GunGrenadeToss",
-	"GunGrenadeSelfDamage",
-	"ConsecrationField",
-	"DionysusLobProjectile",
-	"DionysusField",
-	"ArtemisProjectile",
-	"ArtemisSuperProjectile",
-	"AphroditeSuperCharm",
-	"AphroditeMaxSuperCharm",
-	"DemeterSuper",
-	"DemeterMaxSuper",
-	"TheseusSpearThrow ",
-	"TheseusSpearThrowReturn",
+	"ProjectileLob",
+	"ProjectileLobCharged",
 	"LavaTileWeapon",
 	"LavaTileTriangle01Weapon",
 	"LavaTileTriangle02Weapon",
@@ -238,22 +258,37 @@ WeaponSets =
 	"GhostWall",
 	"SafeZoneDefense",
 	"SafeZonePulse",
+	"ChronosGrindWall",
+	"ChronosGrindVacuum",
 	"ScyllaCone",
 	"OilPuddleFire",
 	"OilPuddleFire02",
 	"OilPuddleFire03",
 	"OilPuddleFire04",
+	"OilPuddleFireFlying",
+	"OilPuddleFire02Flying",
+	"OilPuddleFire03Flying",
+	"OilPuddleFire04Flying",
 	"OilPuddleSlick",
 	"OilPuddleSlick02",
 	"OilPuddleSlick03",
 	"OilPuddleSlick04",
 	"SheepSickAura",
+	"EagleHoming",
+	"EagleSpiral",
+	"RadiatorMelee360",
+	"RadiatorMelee360Slow",
+	"TalosShieldThrowStraight",
+	"TalosShieldThrowLeft",
+	"TalosShieldThrowRight",
+	
 	},
 	ExpireProjectileLastStandExcludeProjectileNames = 
 	{
 		"ProjectileSpellMeteor",
-		"ChronosGrindWall",
-		"ChronosGrindVacuum",
+		"PrometheusFireCircle",
+		"PrometheusFireCircleSmall",
+		"PrometheusFireCircleLarge",
 	},
 	MapTransitionExpireProjectileExcludeNames = 
 	{
@@ -291,5 +326,6 @@ UnitSets =
 		SummonSelfDestruct = true,
 		CatFamiliar = true,
 		FrogFamiliar = true,
+		RavenFamiliar = true,
 	}
 }

@@ -1,0 +1,438 @@
+{ Animations = [
+	{
+		Name = "CritterDog"
+		GrannyModel = "CritterDog_Mesh"
+	}
+	{
+		Name = "FamiliarHoundBaseAnimation"
+		GrannyModel = "HoundFamiliar_Mesh"
+		ExtraGrannyAnimations = [{ Name = "CritterDog" }]
+		GrannyAnimation = "null"
+		GrannyAnimationSpeed = 1.0
+		Scale = 1.0
+		Loop = false
+		Enable3DShadow = true
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "BlendTransitionFromAll"
+				Duration = 8
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_Sit"
+		Random = [
+			{ Name = "Familiar_Hound_Sit_Idle" }
+			{ Name = "Familiar_Hound_Sit_Idle_Fidget1" }
+			{ Name = "Familiar_Hound_Sit_Idle_Fidget2" }
+			{ Name = "Familiar_Hound_Sit_Idle_Fidget3" }
+		]
+	}
+	{
+		Name = "Familiar_Hound_Sit_Idle"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_IdleSitLoop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Hound_Sit"
+	}
+	{
+		Name = "Familiar_Hound_Sit_Idle_Fidget1"
+		InheritFrom = "Familiar_Hound_Sit_Idle"
+		GrannyAnimation = "Hound_Base_IdleSitFidget1_C_00"
+	}
+	{
+		Name = "Familiar_Hound_Sit_Idle_Fidget2"
+		InheritFrom = "Familiar_Hound_Sit_Idle"
+		GrannyAnimation = "Hound_Base_IdleSitFidget2_C_00"
+	}
+	{
+		Name = "Familiar_Hound_Sit_Idle_Fidget3"
+		InheritFrom = "Familiar_Hound_Sit_Idle"
+		GrannyAnimation = "Hound_Base_IdleSitFidget3_C_00"
+	}
+
+	{
+		Name = "Familiar_Hound_Stand"
+		Random = [
+			{ Name = "Familiar_Hound_Stand_Idle" }
+			{ Name = "Familiar_Hound_Stand_Idle_Fidget1"}
+			{ Name = "Familiar_Hound_Stand_Idle_Fidget2"}
+			{ Name = "Familiar_Hound_Stand_Idle_Fidget3"}
+		]
+	}
+	{
+		Name = "Familiar_Hound_Stand_Idle"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_IdleStand_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Hound_Stand"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_Dig_ShovelPoint"
+				Duration = 8
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_Stand_Idle_Fidget1"
+		InheritFrom = "Familiar_Hound_Stand_Idle"
+		GrannyAnimation = "Hound_Base_IdleStandFidget1_C_00"
+	}
+	{
+		Name = "Familiar_Hound_Stand_Idle_Fidget2"
+		InheritFrom = "Familiar_Hound_Stand_Idle"
+		GrannyAnimation = "Hound_Base_IdleStandFidget2_C_00"
+	}
+	{
+		Name = "Familiar_Hound_Stand_Idle_Fidget3"
+		InheritFrom = "Familiar_Hound_Stand_Idle"
+		GrannyAnimation = "Hound_Base_IdleStandFidget3_C_00"
+	}
+
+	{
+		Name = "Familiar_Hound_SitToStand"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_TransitionSitToStand_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Hound_Stand"
+	}
+
+	{
+		Name = "Familiar_Hound_StandToSit"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_TransitionStandToSit_C_00"
+		ChainTo = "Familiar_Hound_Sit"
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_Pet"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_Move_Start"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_MoveStart_C_00"
+		ChainTo = "Familiar_Hound_Move"
+	}
+	{
+		Name = "Familiar_Hound_Move"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Move_C_00"
+		Loop = true
+		SoundManagerCap = 26
+		Frames =
+		[
+			{
+				Frame = 5
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 6
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 12
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+			{
+				Frame = 21
+				Sound = "/Leftovers/SFX/FootstepsWheat2Smaller"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_Move_Stop"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_MoveStop_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Hound_Stand"
+	}
+
+	{
+		Name = "Familiar_Hound_DropIn_Enter"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Exit_C_00"
+		CancelOnOwnerMove = true
+		ChainTo = "Familiar_Hound_Stand"
+	}
+	{
+		Name = "Familiar_Hound_DropIn_Exit"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Enter_C_00"
+		HoldLastFrame = true
+	}
+
+	{
+		Name = "Familiar_Hound_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Greet_C_00"
+		ChainTo = "Familiar_Hound_Stand"
+	}
+
+	{
+		Name = "Familiar_Hound_Dig"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Dig_C_00"
+		ChainTo = "Familiar_Hound_Stand_Idle"
+		Sound = "/SFX/Enemy Sounds/Polyphemus/PolyphemusMunchingBackground"
+		StopSoundOnFinishFade = 0.2,
+		Frames =
+		[
+			{
+				Frame = 200
+				FrameSpeed = 0
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_Dig_ShovelPoint"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Dig_C_00"
+		ChainTo = "Familiar_Hound_Dig_ShovelPoint_End"
+		GrannyAnimationSpeed = 0.8
+
+		Frames =
+		[
+			{
+				Frame = 10
+				Sound = "/SFX/FishSandSplash"
+			}
+			{
+				Frame = 45
+				Sound = "/SFX/FishSandSplash"
+			}
+			{
+				Frame = 51
+				Sound = "/SFX/SandDive"
+			}
+			{
+				Frame = 52
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_Dig_ShovelPoint_End"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Dig_C_00"
+		ChainTo = "Familiar_Hound_Stand_Idle"
+
+		Frames =
+		[
+			{
+				Frame = 0
+				FrameSpeed = 0
+			}
+			{
+				Frame = 180
+				FrameSpeed = 1.0
+			}
+		]
+
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_Dig_ShovelPoint"
+				Duration = 10
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_Pet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_Pet_C_00"
+		ChainTo = "Familiar_Hound_StandToSit"
+
+		Frames =
+		[
+			{
+				Frame = 220
+				FrameSpeed = 0
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_Attack"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_AttackFire_C_00"
+		ChainTo = "Familiar_Hound_AttackToIdle"
+
+		Frames =
+		[
+			{
+				Frame = 14
+				Sound = "/SFX/Familiars/DogBarkMisc2"
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_AttackToIdle"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_AttackReturnToIdle_C_00"
+		ChainTo = "Familiar_Hound_Stand_Idle"
+	}
+
+	{
+		Name = "Familiar_Hound_HubHangout_1"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutLoop_C_00"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_1_Greet"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_HubHangout_1_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutGreet_C_00"
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+			{
+				Frame = 20
+				Sound = "/SFX/Familiars/DogBarkCute"
+			}
+			{
+				Frame = 64
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_1"
+				Duration = 20
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_HubHangout_2"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutLoop_C_01"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_2_Greet"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_HubHangout_2_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutGreet_C_01"
+		ChainTo = "Familiar_Hound_HubHangout_2"
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+			{
+				Frame = 20
+				Sound = "/SFX/Familiars/DogBarkCute"
+			}
+			{
+				Frame = 60
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_2"
+				Duration = 20
+			}
+		]
+	}
+
+	{
+		Name = "Familiar_Hound_HubHangout_3"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutLoop_C_02"
+		Loop = true
+	}
+	{
+		Name = "Familiar_Hound_HubHangout_3_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutGreet_C_02"
+		ChainTo = "Familiar_Hound_HubHangout_3"
+	}
+
+	{
+		Name = "Familiar_Hound_HubHangout_4"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutLoop_C_03"
+		Loop = true
+	}
+	{
+		Name = "Familiar_Hound_HubHangout_4_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutGreet_C_03"
+		ChainTo = "Familiar_Hound_HubHangout_4"
+	}
+
+	{
+		Name = "Familiar_Hound_HubHangout_5"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutLoop_C_04"
+		Loop = true
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_5_Greet"
+				Duration = 20
+			}
+		]
+	}
+	{
+		Name = "Familiar_Hound_HubHangout_5_Greet"
+		InheritFrom = "FamiliarHoundBaseAnimation"
+		GrannyAnimation = "Hound_Base_HubHangOutGreet_C_04"
+		ChainTo = "Familiar_Hound_HubHangout_5"
+		Frames =
+		[
+			{
+				Frame = 1
+				FrameSpeed = 1
+			}
+			{
+				Frame = 40
+				Sound = "/SFX/Familiars/DogBarkCute"
+			}
+			{
+				Frame = 70
+				FrameSpeed = 0.0
+			}
+		]
+		Blends =
+		[
+			{
+				BlendTransitionFrom = "Familiar_Hound_HubHangout_5"
+				Duration = 20
+			}
+		]
+	}
+
+]}

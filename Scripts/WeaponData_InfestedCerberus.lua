@@ -495,7 +495,10 @@ WeaponSetData =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinHealthFraction = 0.15,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.15, },
+					},
 				},
 				{
 					UsePlayerSource = true,
@@ -505,7 +508,7 @@ WeaponSetData =
 					SuccessiveChanceToPlay = 0.15,
 					GameStateRequirements =
 					{
-						-- RequiredMaxHealthFraction = 0.8,
+						-- { FunctionName = "RequiredHealthFraction", FunctionArgs = { Comparison = "<=", Value = 0.8, }, },
 					},
 					TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
 					Cooldowns =
@@ -804,7 +807,7 @@ WeaponSetData =
 		},
 
 		AIData =
-		{			
+		{
 			DeepInheritance = true,
 			ForceUseIfReady = true,
 			AttackSlots =
@@ -901,8 +904,8 @@ WeaponSetData =
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 195, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 285, AnchorAngleOffset = 1700, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
 			},
+			},
 		},
-	},
 
 	InfestedCerberusCirclesP1_Rotating =
 	{
@@ -928,7 +931,10 @@ WeaponSetData =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinHealthFraction = 0.18,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.18, },
+					},
 				},
 				{
 					PlayOnceFromTableThisRun = true,
@@ -950,7 +956,7 @@ WeaponSetData =
 	},
 
 	InfestedCerberusCirclesP1_Player =
-	{
+		{
 		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
@@ -965,7 +971,7 @@ WeaponSetData =
 	},
 
 	InfestedCerberusCirclesBackGuard =
-	{
+		{
 		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
@@ -1026,11 +1032,11 @@ WeaponSetData =
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 240, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
 				{ ProjectileName = "CerberusSkyProjectile", Angle = 300, AnchorAngleOffset = 1300, OffsetRadius = 0, OffsetScaleY = 0.48, OffsetFromAttacker = true },
 			},
+			},
 		},
-	},
 
 	InfestedCerberusCirclesP2_Mid =
-	{
+		{
 		InheritFrom = { "InfestedCerberusCircles" },
 		AIData =
 		{
@@ -1488,7 +1494,10 @@ WeaponSetData =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinHealthFraction = 0.18,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.18, },
+					},
 				},
 				{
 					BreakIfPlayed = true,
@@ -1497,7 +1506,10 @@ WeaponSetData =
 					UsePlayerSource = true,
 					GameStateRequirements =
 					{
-						RequiredMaxHealthFraction = 0.3,
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = "<=", Value = 0.3, },
+						},
 					},
 					Cooldowns =
 					{
@@ -1569,7 +1581,10 @@ WeaponSetData =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinHealthFraction = 0.18,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.18, },
+					},
 				},
 				{
 					PlayOnceFromTableThisRun = true,
@@ -1647,7 +1662,10 @@ WeaponSetData =
 			{
 				GameStateRequirements =
 				{
-					RequiredMinHealthFraction = 0.18,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = ">=", Value = 0.18, },
+					},
 				},
 				{
 					PlayOnceFromTableThisRun = true,

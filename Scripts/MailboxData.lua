@@ -1,3 +1,68 @@
+-- Mailbox
+GlobalVoiceLines.OpenedMailboxVoiceLines =
+{
+	{
+		SkipAnim = true,
+		RandomRemaining = true,
+		PreLineWait = 0.6,
+		SuccessiveChanceToPlay = 0.05,
+		PlayOnceFromTableThisRun = true,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+
+		{ Cue = "/VO/Melinoe_2601", Text = "Special-order privileges from Lord Charon himself...", PlayFirst = true, PlayOnce = true },
+		{ Cue = "/VO/Melinoe_2277", Text = "Lord Charon's Gold Rewards..." },
+	},
+}
+
+GlobalVoiceLines.TradedMailboxItemVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.45,
+		SuccessiveChanceToPlayAll = 0.75,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech", Time = 4 },
+		},
+
+		{ Cue = "/VO/Melinoe_2288", Text = "Now we wait..." },
+		{ Cue = "/VO/Melinoe_2289", Text = "Could use this." },
+		{ Cue = "/VO/Melinoe_2290", Text = "Order approved.", PlayFirst = true, },
+		{ Cue = "/VO/Melinoe_2291", Text = "Ordering this." },
+		{ Cue = "/VO/Melinoe_2292", Text = "Shouldn't be too long." },
+		{ Cue = "/VO/Melinoe_2293", Text = "Should be here soon enough." },
+	},
+}
+GlobalVoiceLines.CannotAffordMailboxItemVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PreLineWait = 0.35,
+		Cooldowns =
+		{
+			{ Name = "MelinoeAnyQuipSpeech" },
+		},
+
+		{ Cue = "/VO/Melinoe_2294", Text = "Not eligible." },
+		{ Cue = "/VO/Melinoe_2295", Text = "Not authorized." },
+		{ Cue = "/VO/Melinoe_2296", Text = "I'll have to turn in more Gold.", PlayFirst = true },
+		{ Cue = "/VO/Melinoe_2297", Text = "Can't redeem that yet." },
+	},
+}
+GlobalVoiceLines.WaitingForMailboxItemVoiceLines =
+{
+	{
+		RandomRemaining = true,
+		PlayOnceFromTableThisRun = true,
+		PreLineWait = 0.35,
+		SuccessiveChanceToPlayAll = 0.5,
+		TriggerCooldowns = { "MelinoeAnyQuipSpeech" },
+		
+		{ Cue = "/VO/Melinoe_2329", Text = "This'll take a little while..." },
+		{ Cue = "/VO/Melinoe_2330", Text = "It'll be worth the wait." },
+	},
+}
+
 ScreenData.MailboxScreen =
 {
 	Components = {},
@@ -24,19 +89,19 @@ ScreenData.MailboxScreen =
 	CategoryStartY = 165,
 	CategorySpacingX = 226,
 
-	ItemStartX = 759,
+	ItemStartX = 756,
 	ItemStartY = 335,
-	ItemSpacingY = 120,
+	ItemSpacingY = 118,
 	ItemTextBoxOffsetX = 480,
-	IconOffsetX = -387,
-	IconOffsetY = -3,
+	IconOffsetX = -376,
+	IconOffsetY = 0,
 	ItemsPerPage = 5,
 	ScrollOffset = 0,
 
 	PinOffsetX = 388,
 
-	ItemAnimation = "GUI\\Screens\\ResourceShop\\Button",
-	ItemHighlightAnimation = "GUI\\Screens\\ResourceShop\\Button_Highlight",
+	ItemAnimation = "GUI\\Screens\\MailboxScreen\\Button",
+	ItemHighlightAnimation = "GUI\\Screens\\MailboxScreen\\Button_Highlight",
 
 	GamepadNavigation =
 	{
@@ -143,13 +208,13 @@ ScreenData.MailboxScreen =
 		Font = "LatoBold",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
 		OffsetY = 0,
-		OffsetX= 310,
+		OffsetX= 316,
 	},
 
 	ItemNameFormat =
 	{
 		FontSize = 24,
-		OffsetX = -298, OffsetY = -13,
+		OffsetX = -282, OffsetY = -13,
 		Width = 720,
 		Font = "P22UndergroundSCMedium",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
@@ -166,8 +231,8 @@ ScreenData.MailboxScreen =
 
 	ItemBuyAmountFormat =
 	{
-		FontSize = 17,
-		OffsetX = -333, OffsetY = 33,
+		FontSize = 16,
+		OffsetX = -316, OffsetY = 33,
 		Width = 720,
 		Font = "LatoBold",
 		ShadowBlur = 0, ShadowColor = {0,0,0,1}, ShadowOffset={0, 2},
@@ -185,7 +250,7 @@ ScreenData.MailboxScreen =
 	ItemDeliveryTimeFormat =
 	{
 		FontSize = 18,
-		OffsetX = -298, OffsetY = 18,
+		OffsetX = -282, OffsetY = 18,
 		Width = 720,
 		Font = "LatoItalic",
 		Color = {200, 200, 200, 125},
@@ -203,7 +268,7 @@ ScreenData.MailboxScreen =
 
 	ItemAmountFormat =
 	{
-		OffsetX = 80, OffsetY = 0,
+		OffsetX = 98, OffsetY = 0,
 		Width = 650,
 		Justification = "Left",
 		LuaKey = "TempTextData",
@@ -283,7 +348,7 @@ ScreenData.MailboxScreen =
 				},]]
 
 				BasicResourceButton =
-				{
+				{	
 					Graphic = "BlankInteractableObstacle",
 					GroupName = "Combat_Menu_Overlay",
 					Scale = 0.7,

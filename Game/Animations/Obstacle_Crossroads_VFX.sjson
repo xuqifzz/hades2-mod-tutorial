@@ -184,4 +184,752 @@
 		InheritFrom = "OceanusGrateLightFlat"
 		PostRotateScaleY = 0.5
 	}
+	{
+		Name = "CharonGhostChargeImpactParticlesVertical"
+		CreateAnimation = "CharonGhostChargeImpactParticleDark"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		FilePath = "Particles\particle_darkness"
+		GroupName = "FX_Standing_Add"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		RadialOffsetMax = 80.0
+		RadialOffsetMin = 40.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		RandomRotation = true
+		RandomRotationSpeedMax = 360.0
+		RandomRotationSpeedMin = -360.0
+		EndScale = 0.0
+		Ambient = 0.0
+		RandomOffsetX = 60.0
+		RandomOffsetY = 20.0
+		OffsetX = -20
+		OffsetZ = 60
+		Acceleration = -50.0
+		VelocityMin = 100.0
+		VelocityMax = 200.0
+		RandomDurationMax = 3.4
+		RandomDurationMin = 3.0
+		AngleMax = 90.0
+		AngleMin = 90.0
+		ScaleMax = 0.8
+		ScaleMin = 0.3
+		AngleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Hue = 0.7
+	}
+	{
+		Name = "CharonGhostChargeImpactParticleDark"
+		FilePath = "Particles\particle_snowLump_02"
+		VisualFxManagerCap = 300
+		VisualFxManagerFrameCap = 14
+		AngleMax = 360.0
+		ColorFromOwner = "Ignore"
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 0.6
+		RandomDurationMin = 0.3
+		StartFrame = 1
+		RadialOffsetMax = 80.0
+		RadialOffsetMin = 40.0
+		LocationFromOwner = "Ignore"
+		LocationZFromOwner = "Take"
+		ScaleFromOwner = "Ignore"
+		VelocityMin = 100.0
+		RandomRotation = true
+		RandomRotationSpeedMax = 360.0
+		RandomRotationSpeedMin = -360.0
+		EndScale = 0.0
+		ScaleMax = 1.0
+		ScaleMin = 0.3
+		Ambient = 0.0
+		GroupName = "FX_Standing"
+		Acceleration = -400.0
+		VelocityMax = 300.0
+		Scale = 1.5
+		Color = { Red = 0.0 Green = 0.0 Blue = 0.0 }
+	}
+
+	{
+		Name = "WeaponShopWorldObject02"
+		FilePath = "Tilesets\Crossroads\Crossroads_MoonPool_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Material = "Unlit"
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+		VisualFx = "WeaponShopSparkles"
+		VisualFxIntervalMax = 0.1
+		VisualFxIntervalMin = 0.05
+		VisualFxOffsetY = -60.0
+		VisualFxOffsetX = 30.0
+	}
+	{
+		Name = "WeaponShopSparkles"
+		FilePath = "Particles\particle_addFlake"
+		GroupName = "FX_Standing_Add"
+
+		Angle = 90.0
+		AngleFromOwner = "Ignore"
+		AddColor = true
+		StartAlpha = 1.0
+		EaseOut = 1.0
+		EndFrame = 1
+		NumFrames = 1
+		RandomDurationMax = 2.5
+		RandomDurationMin = 1.5
+		StartFrame = 1
+		RandomOffsetX = 120.0
+		RandomOffsetY = 0.0
+		LocationFromOwner = "Ignore"
+		SortMode = "Id"
+		Acceleration = -30.0
+		VelocityMax = 250.0
+		VelocityMin = 100.0
+		RandomRotation = true
+		PingPongScale = true
+		ScaleFromOwner = "Ignore"
+		ScaleMax = 0.45
+		ScaleMin = 0.1
+		StartScale = 0.0
+		Ambient = 0.0
+		OnlyWhenVisible = true
+		Color = { Red = 1.0 Green = 1.0 Blue = 1.0 }
+	}
+	{
+		Name = "StatueSparkles"
+		InheritFrom = "GenericSparkles"
+		AlphaMax = 1.0
+		AlphaMin = 0.5
+		RandomDurationMax = 1.1
+		RandomDurationMin = 0.4
+		OffsetY = -600.0
+		RandomOffsetX = 60.0
+		RandomOffsetY = 150.0
+		VelocityMax = 3.0
+		VelocityMin = 0.0
+		Scale = 0.5
+	}
+
+	{
+		Name = "Critter_MouseBounce"
+		ChainTo = "Critter_MouseScurry"
+		FilePath = "Animations\CritterMouse\Bounce\MouseBounce"      
+		EndFrame = 6
+		NumAngles = 16
+		NumFrames = 6
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+	}
+	{
+		Name = "Critter_MouseScurry"
+		FilePath = "Animations\CritterMouse\Scurry\MouseScurry"      
+		EndFrame = 4
+		Loop = true
+		NumAngles = 16
+		NumFrames = 4
+		PlaySpeed = 30.0
+		StartFrame = 1
+		Ambient = 0.0
+	}
+	
+	{
+		Name = "GardenPlotJustPlanted"
+		FilePath = "Tilesets\Surface\Surface_Dirt_01"
+		
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Scale = 0.1
+	}
+	/* Cosmetic Animations */
+	{
+		Name = "Crossroads_FatedList_On01"
+		FilePath = "Tilesets\Crossroads\Crossroads_FatedList_On01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Sound = "/Leftovers/Ambience/BurningAmbience"
+		StopSoundOnFinishFade = 0.1
+		SoundAllowedAfterFrame = -1
+	}
+	{
+		Name = "Crossroads_BountyBoard_On01"
+		FilePath = "Tilesets\Crossroads\Crossroads_BountyBoard_On01"			
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop"
+		StopSoundOnFinishFade = 0.1
+		SoundAllowedAfterFrame = -1
+		AngleFromOwner = "Maintain"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		PingPongAngle = true
+		StartOffsetZ = -4
+		EndOffsetZ = 4
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+	{
+		Name = "Crossroads_BountyBoard_Off01"
+		FilePath = "Tilesets\Crossroads\Crossroads_BountyBoard_Off01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		Color = { Red = 0.3 Green = 0.3 Blue = 0.3 }
+	}
+
+	{
+		Name = "Crossroads_Shrine_On01"			
+		FilePath = "Tilesets\Gameplay\Gameplay_Shrine_01"
+		Sound = "/SFX/Menu Sounds/MirrorAmbienceLoop"
+		OffsetY = -370
+		StopSoundOnFinishFade = 0.1
+		SoundAllowedAfterFrame = -1
+		VisualFx = "CharonGhostChargeImpactParticlesVertical"
+		VisualFxIntervalMax = 0.4
+		VisualFxIntervalMin = 0.3
+	}
+
+
+
+	{
+		Name = "CrossroadsCardAltar03Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_CardAltar_03"
+		RandomDurationMin = 3
+		RandomDurationMax = 5
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsCardAltarStone01Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_CardAltar_Stone01"
+		RandomDurationMin = 3
+		RandomDurationMax = 5
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsCardAltarStone02Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_CardAltar_Stone02"
+		RandomDurationMin = 3
+		RandomDurationMax = 5
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+
+	{
+		Name = "HecateTorch01Float01"
+		FilePath = "Tilesets\Crossroads\Crossroads_HecateTorch_01"
+		
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.5
+		EndAngle = 0.5
+		PingPongAngle = true
+		StartOffsetZ = -4
+		EndOffsetZ = 4
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "HecateTorch01Float02"
+		FilePath = "Tilesets\Crossroads\Crossroads_HecateTorch_02"
+		
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.5
+		EndAngle = 0.5
+		PingPongAngle = true
+		StartOffsetZ = -4
+		EndOffsetZ = 4
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsCandle03Float01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Candle_03"
+		
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.5
+		EndAngle = 0.5
+		PingPongAngle = true
+		StartOffsetZ = -4
+		EndOffsetZ = 4
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone01Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_01"
+		
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone02Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_02"
+		
+		RandomDurationMin = 6
+		RandomDurationMax = 7
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone03Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_03"
+		
+		RandomDurationMin = 7
+		RandomDurationMax = 9
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone04Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_04"
+		
+		RandomDurationMin = 6
+		RandomDurationMax = 8
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone05Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_05"
+		
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsRunestone06Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Runestone_06"
+		
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsLantern01Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_Lantern_01"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.2
+		EndAngle = 0.2
+		PingPongAngle = true
+		StartOffsetZ = -5
+		EndOffsetZ = 5
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsForegroundBranch01Sway"
+		FilePath = "Tilesets\Crossroads\Crossroads_ForegroundBranch_01"
+		Material = "Unlit"
+		RandomDurationMin = 3
+		RandomDurationMax = 4
+		StartAngle = -0.4
+		EndAngle = 0.4
+		StartOffsetX = 12
+		EndOffsetX = 12
+		PingPongAngle = true
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CriticalItemWorldObject01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Cauldron_01"
+		ChildAnimation = "CauldronLiquidSurface"
+	}
+	{
+		Name = "CriticalItemWorldObject01a"
+		InheritFrom = "CriticalItemWorldObject01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Cauldron_01a"
+	}
+	{
+		Name = "CriticalItemWorldObject01b"
+		InheritFrom = "CriticalItemWorldObject01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Cauldron_01b"
+	}
+
+	{
+		Name = "CauldronLiquidSurface"
+		
+		FilePath = "Fx\CauldronLiquidSurface\CauldronLiquidSurface"
+		NumFrames = 60
+		Material = "Unlit"
+		Loop = true
+		AngleFromOwner = "Ignore"
+		PlaySpeed = 30
+		Scale = 3.5
+		OffsetY = -400
+		OffsetX = -14
+		VisualFx = "CauldronBubble"
+		VisualFxIntervalMin = 0.1
+		VisualFxIntervalMax = 0.2
+	}
+
+	{
+		Name = "CauldronLiquidSurfaceRipple"
+		InheritFrom = "CauldronLiquidSurface"
+		FilePath = "Fx\CauldronLiquidSurfaceRipple\CauldronLiquidSurfaceRipple"
+		Loop = false
+		SortMode = "Id"
+		StartAlpha = 1
+		EndAlpha = 0
+		EaseIn = 0.1
+		EaseOut = 0.2
+		VisualFx = "CauldronLiquidSurfaceRippleParticles"
+		VisualFxIntervalMin = 0.010
+		VisualFxIntervalMax = 0.011
+		VisualFxCap = 12
+		CreateAnimations =
+		[
+			{ Name = "CauldronLiquidSurfaceRippleLight" }
+		]
+	}
+
+	{
+		Name = "CauldronLiquidSurfaceRippleParticles"
+		
+		FilePath = "Particles\particle_ice_sparkle"
+		Red = 0
+		Green = 1
+		Blue = 0.5
+		RandomOffsetX = 50
+		RandomOffsetY = 150
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		GroupName = "FX_Add_Top"
+		StartScale = 1
+		EndScale = 0
+		RandomDurationMin = 0.15
+		RandomDurationMax = 0.5
+		ScaleMin = 0.3
+		ScaleMax = 1.0
+		UseOwnAngle = false
+		Angle = 90
+		AngleFromOwner = "Ignore"
+		VelocityMin = 50
+		VelocityMax = 250
+		Acceleration = -50
+		Scale = 0.1
+		OffsetZ = 220
+	}
+
+	{
+		Name = "CauldronLiquidSurfaceRippleLight"
+		
+		FilePath = "Particles\particle_glow_egg"
+		Material = "Unlit"
+		StartAlpha = 0.45
+		EndAlpha = 0
+		Duration = 0.5
+		EaseIn = 0.9
+		EaseOut = 1.0
+		StartRed = 0.6
+		StartGreen = 1.0
+		StartBlue = 0.3
+		EndRed = 0
+		EndGreen = 0.99
+		EndBlue = 0.5
+		GroupName = "FX_Add_Top"
+		StartOffsetZ = 150
+		EndOffsetZ = 225
+		Scale = 9
+		StartScaleX = 1
+		EndScaleX = 0
+
+	}
+
+	{
+		Name = "CauldronBubble"
+		
+		FilePath = "Particles\particle_cauldronBubble"
+		Material = "Unlit"
+		RandomDurationMin = 0.5
+		RandomDurationMax = 1.25
+		UseOwnAngle = false
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		RandomOffsetX = 80
+		RandomOffsetY = 20
+		VelocityMin = 40
+		VelocityMax = 80
+		Acceleration = -3
+		Angle = 90
+		StartScale = 0
+		EndScale = 1
+		Scale = 1
+		AngleFromOwner = "Ignore"
+		LocationFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		SortMode = "FromParent"
+		OffsetY = -250
+		ChainTo = "CauldronBubblePop"
+		Loop = false
+	}
+
+	{
+		Name = "CauldronBubblePop"
+		
+		FilePath = "Fx\CauldronBubblePop\CauldronBubblePop"
+		NumFrames = 13
+		RandomPlaySpeedMax = 45
+		RandomPlaySpeedMin = 30
+		RandomFlipHorizontal = true
+		ScaleMin = 0.2
+		ScaleMax = 0.5
+		UseOwnAngle = false
+		SortMode = "FromParent"
+		OffsetY = -450
+		Scale = 3
+		ScaleFromOwner = "Ignore"
+		Material = "Unlit"
+	}
+
+	{
+		Name = "CauldronItemAddSmoke"
+		
+		FilePath = "Fx\CauldronItemAddSmoke\CauldronItemAddSmoke"
+		NumFrames = 60
+		RandomPlaySpeedMin = 24
+		RandomPlaySpeedMax = 45
+		StartAlpha = 0.6
+		EndAlpha = 0.2
+		AngleFromOwner = "Ignore"
+		ScaleFromOwner = "Ignore"
+		ColorFromOwner = "Ignore"
+		Material = "Unlit"
+		Red = 0.153
+		Green = 0.769
+		Blue = 0.467
+		OffsetZ = 300
+		RandomFlipHorizontal = true
+		ScaleMin = 0.6
+		ScaleMax = 1.0
+		Scale = 1.5
+		SortMode = "Id"
+	}
+	
+	{
+		Name = "TentStuffie01"
+		FilePath = "Tilesets\Crossroads\Crossroads_Frinos_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+		ChildAnimation = "GenericSparkleEmitterOverlay"
+	}
+
+	{
+		Name = "WeaponShopWorldObject01"
+		FilePath = "Tilesets\Crossroads\Crossroads_MoonPool_01"
+		EndFrame = 1
+		NumFrames = 1
+		StartFrame = 1
+	}
+
+	{
+		Name = "CrossroadsHadesSign01aFloat"
+		FilePath = "Tilesets\Crossroads\Crossroads_HadesSign_01a"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -20
+		EndOffsetZ = 20
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsHadesSign01bFloat"
+		FilePath = "Tilesets\Crossroads\Crossroads_HadesSign_01b"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -20
+		EndOffsetZ = 20
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsHadesSign01cFloat"
+		FilePath = "Tilesets\Crossroads\Crossroads_HadesSign_01c"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -20
+		EndOffsetZ = 20
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsHadesSign01Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_HadesSign_01"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -20
+		EndOffsetZ = 20
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
+
+	{
+		Name = "CrossroadsShadeSign01Float"
+		FilePath = "Tilesets\Crossroads\Crossroads_ShadeSign_01"
+		
+		RandomDurationMin = 5
+		RandomDurationMax = 10
+		StartAngle = -1
+		EndAngle = 1
+		PingPongAngle = true
+		StartOffsetZ = -10
+		EndOffsetZ = 10
+		PingPongShiftOverDuration = true
+		Loop = true
+		PhaseOffsetAngle = 90
+		EaseIn = 0
+		EaseOut = 1
+	}
 ]}

@@ -8,7 +8,10 @@ UnitSetData.NPC_Nemesis =
 		Portrait = "Portrait_Nemesis_Default_01",
 		Groups = { "NPCs" },
 		SubtitleColor = Color.NemesisVoice,
+		EmoteOffsetY = -350,
+		EmoteOffsetX = 80,
 		SpeakerName = "Nemesis",
+		FieldSpeakerName = "NemesisField",
 		InvincibubbleScale = 1.2,
 		AlwaysShowInvulnerabubbleOnInvulnerableHit = true,
 		ThemeMusic = "/Music/IrisMusicNemesisTheme_MC",
@@ -17,6 +20,7 @@ UnitSetData.NPC_Nemesis =
 		ExitSpeed = 500,
 		HideHealthBar = true,
 		Icon = "NemesisRewardFinderIcon",
+		ExcludeFromDamageDealtRecord = true,
 
 		DamagedFxStyles =
 		{
@@ -28,10 +32,11 @@ UnitSetData.NPC_Nemesis =
 
 		ShopEventData = 
 		{
-			DelayMin = 8,
-			DelayMax = 16,
+			TimerStartDistance = 1000,
+			DelayMin = 10,
+			DelayMax = 18,
 			InstantChance = 0.1, -- Chance she will buy it without a chance for the player to interact
-			NeverChance = 0.1, -- Chance she will dither indefinitely
+			-- NeverChance = 0.1, -- Chance she will dither indefinitely
 			BrowsingVoiceLinesDelay = 4.0,
 			FidgetIntervalMin = 5.0,
 			FidgetIntervalMax = 11.0,
@@ -87,7 +92,7 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Melinoe_1712", Text = "Death to Chronos?" },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				PreLineWait = 0.4,
@@ -206,8 +211,10 @@ UnitSetData.NPC_Nemesis =
 			{
 				UsePlayerSource = true,
 				RandomRemaining = true,
+				BreakIfPlayed = true,
 				PreLineWait = 0.95,
 				SuccessiveChanceToPlay = 0.25,
+				SuccessiveChanceToPlayAll = 0.05,
 				GameStateRequirements =
 				{
 					{
@@ -238,7 +245,7 @@ UnitSetData.NPC_Nemesis =
 			},
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.5,
+				PreLineWait = 0.75,
 				GameStateRequirements =
 				{
 					{
@@ -302,7 +309,7 @@ UnitSetData.NPC_Nemesis =
 			{
 				UsePlayerSource = true,
 				RandomRemaining = true,
-				PreLineWait = 0.25,
+				PreLineWait = 0.15,
 				SuccessiveChanceToPlayAll = 0.65,
 
 				{ Cue = "/VO/MelinoeField_0040", Text = "I see them.",
@@ -465,7 +472,10 @@ UnitSetData.NPC_Nemesis =
 						Comparison = "<=",
 						Value = 2,
 					},
-					MaxRunsSinceAnyTextLines = { TextLines = { "MorosSecondAppearance" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Max = 3 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -505,7 +515,10 @@ UnitSetData.NPC_Nemesis =
 						Comparison = "<=",
 						Value = 2,
 					},
-					AreIdsAlive = { 560612 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 560612 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -535,7 +548,10 @@ UnitSetData.NPC_Nemesis =
 						Path = { "GameState", "TextLinesRecord" },
 						HasAny = { "NemesisShopping01", "NemesisShopping02", "NemesisShopping03", "NemesisShopping04" },
 					},
-					AreIdsAlive = { 557743 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 557743 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -602,7 +618,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "ScreensViewed", "QuestLog" },
 					},
-					RequiredMaxQuestsComplete = 8,
+					{
+						FunctionName = "RequireQuestCount",
+						FunctionArgs = { Status = "CashedOut", Max = 8 },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -678,7 +697,7 @@ UnitSetData.NPC_Nemesis =
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "There's no such question in my mind. And what do you even know about fairness, or who deserves what?" },
+					Text = "There's no such question in my mind. And what do {#Emph}you {#Prev}even know about fairness, or who deserves what?" },
 				EndVoiceLines =
 				{
 					{
@@ -774,7 +793,6 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Nemesis_0046",
 					Text = "I always thought... if I could just train harder than you, she'd reconsider. And give the task to me. Worked my ass off. But it didn't matter." },
 				{ Cue = "/VO/Melinoe_1547", UsePlayerSource = true,
-					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "I worked, too. And Headmistress always made herself clear about our roles. You can't change your birthright, nor can I change mine." },
@@ -824,7 +842,8 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathFalse = { "CurrentRun", "Cleared" }
+						Path = { "CurrentRun" },
+						HasNone = { "Cleared", "BountyCleared" }
 					},
 					{
 						Path = { "GameState", "UseRecord", "NPC_Nemesis_01" },
@@ -839,7 +858,6 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_1550", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Isn't {#Emph}personal? {#Prev}You don't see my mother around, either, do you, Nem? Nor my father, nor my brother. Chronos took them all!" },
 				{ Cue = "/VO/Nemesis_0053",
 					AngleTowardHero = true,
@@ -910,7 +928,7 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_3223", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
-					Text = "If you're referring to the House of Hades, then yes, I did make it there. Though you could best describe it as the House of {#Emph}Chronos {#Prev}at this point. He was waiting within, just as expected, and... was strong, just as expected, too." },
+					Text = "If you're referring to the House of Hades, then yes, I did make it there. Though you could best describe it as the House of {#Emph}Chronos{#Prev}, at this point. He was waiting within, just as expected, and... was strong, just as expected, too." },
 				{ Cue = "/VO/Nemesis_0250",
 					PreLineAnim = "Nemesis_Hub_Greet",
 					Text = "{#Emph}Too {#Prev}strong, you mean. Well, can't fault you for trying. So what's the plan now, keep throwing yourself at him till you're totally demoralized? If that hasn't happened already?" },
@@ -1221,6 +1239,8 @@ UnitSetData.NPC_Nemesis =
 			{
 				PlayOnce = true,
 				UseableOffSource = true,
+				GiftableOffSource = true,
+				PostBlockSpecialInteract = true,
 				GameStateRequirements =
 				{
 					{
@@ -1239,7 +1259,6 @@ UnitSetData.NPC_Nemesis =
 				{ Cue = "/VO/Melinoe_2749", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "How splendid that must have been for them! If only Chronos could have been so generous with his sons and foster-children. You think him being somewhat nice to some mortals makes up for what he did?" },
 				{ Cue = "/VO/Nemesis_0084",
 					Text = "No. Look. What if... what if this {#Emph}is {#Prev}what we deserve?" },
@@ -1317,9 +1336,6 @@ UnitSetData.NPC_Nemesis =
 						PathFalse = { "GameState", "TextLinesRecord", "NemesisAboutSurface01" },
 					},
 					{
-						PathFalse = { "GameState", "RoomsEntered", "N_Hub" },
-					},
-					{
 						Path = { "GameState", "RoomCountCache", "N_Boss01" },
 						Comparison = "<=",
 						Value = 5,
@@ -1362,6 +1378,11 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
+					{
+						Path = { "GameState", "RoomCountCache", "N_Boss01" },
+						Comparison = "<=",
+						Value = 10,
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -1391,11 +1412,12 @@ UnitSetData.NPC_Nemesis =
 					{
 						Path = { "GameState", "RoomCountCache", "N_Opening01" },
 						Comparison = ">=",
-						Value = 4,
+						Value = 10,
 					},
 					{
 						PathTrue = { "CurrentRun", "RoomCountCache", "N_Opening01" },
 					},
+					-- @ update with additional requirements
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -1415,7 +1437,6 @@ UnitSetData.NPC_Nemesis =
 					{
 						PreLineWait = 0.45,
 						UsePlayerSource = true,
-						-- Sure I don't.
 						{ Cue = "/VO/Melinoe_0619", Text = "Sure I don't." },
 					},
 				},
@@ -1439,7 +1460,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathFalse = { "GameState", "RoomsEntered", "O_Boss01" },
 					},
-					AreIdsAlive = { 585573 }
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 585573 } },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -1549,7 +1573,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "CurrentRun", "EnemyKills", "Eris" },
 					},
-					AreIdsAlive = { 585573 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 585573 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
@@ -1627,7 +1654,7 @@ UnitSetData.NPC_Nemesis =
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					Text = "Was it always like this, between you and Headmistress? I used to think it was {#Emph}me {#Prev}you hated most of all." },
 				{ Cue = "/VO/Nemesis_0059",
-					Text = "You've always been naive, Princess. As for Hecate, I liked her better before she decided this right here was the best use of my talents." },
+					Text = "You've always been naive, Princess. As for Hecate, I liked her better before she decided {#Emph}this {#Prev}right here was the best use of my talents." },
 				{ Cue = "/VO/Melinoe_1555", UsePlayerSource = true,
 					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
@@ -1943,6 +1970,45 @@ UnitSetData.NPC_Nemesis =
 				},
 			},
 
+			NemesisAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						Path = { "GameState", "TextLinesRecord" },
+						HasAny = { "OdysseusAboutPrometheus01", "MorosAboutPrometheus01" },
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.NemesisGreeting,
+
+				{ Cue = "/VO/Nemesis_0262",
+					AngleTowardHero = true,
+					PreLineAnim = "Nemesis_Hub_Glare_Start",
+					PostLineAnim = "Nemesis_Hub_Glare_End",
+					Text = "Got yet another Titan up against us, huh? {#Emph}Prometheus! {#Prev}One of the smart ones, so they say. And now, an enemy. Could have been on our side had your family not... you know." },
+				{ Cue = "/VO/Melinoe_3604", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Yes, the whole {#Emph}chain-him-to-a-mountain-so-an-eagle-could- eat-his-regenerating-liver-for-aeons {#Prev}thing. Not one of the proudest moments on Olympus, I have to imagine." },
+				{ Cue = "/VO/Nemesis_0263",
+					PreLineAnim = "Nemesis_Hub_Greet",
+					Text = "Come ask me whether he deserves his vengeance if ever you want to feel any worse about that whole mess." },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3605", Text = "Watch with the treason, Nem." },
+					},
+				},
+			},
+
 			NemesisAboutCauldron01 =
 			{
 				PlayOnce = true,
@@ -2111,7 +2177,7 @@ UnitSetData.NPC_Nemesis =
 					Portrait = "Portrait_Mel_Intense_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
 					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero", 
-					Text = "{#Emph}Deserves? {#Prev}And I suppose you think you're fit to be the judge of that?" },
+					Text = "{#Emph}Deserves? {#Prev}And I suppose you think {#Emph}you're {#Prev}fit to be the judge of that?" },
 				{ Cue = "/VO/Nemesis_0079",
 					Text = "Yes. Who do you think I am? If everybody just magically got what they deserved, I'd have no reason to exist." },
 				EndVoiceLines =
@@ -2368,7 +2434,7 @@ UnitSetData.NPC_Nemesis =
 				{
 					PreLineWait = 0.4,
 					UsePlayerSource = true,
-					{ Cue = "/VO/Melinoe_0682", Text = "Thank you, Nem..." },
+					{ Cue = "/VO/Melinoe_0682_B", Text = "Thank you, Nem..." },
 				},
 			},
 			NemesisWithHecate01 =
@@ -2471,7 +2537,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisWithMoros01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "NemesisWithMoros01" }, Count = 6 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisWithMoros01" }, Min = 6 },
+					},
 				},
 				UseText = "UseListenNPC",
 				BlockDistanceTriggers = true,
@@ -2670,7 +2739,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisWithEris01" },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "NemesisWithEris01" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "NemesisWithEris01" }, Min = 5 },
+					},
 				},
 				BlockDistanceTriggers = true,
 				IgnoreSourceEndTextLinesThreadedFunctionName = true,
@@ -2901,7 +2973,10 @@ UnitSetData.NPC_Nemesis =
 					{
 						-- PathFalse = { "GameState", "TextLinesRecord", "NemesisGift03" },
 					},
-					AreIdsAlive = { 556921 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 556921 }, },
+					},
 				},
 				UseableOffSource = true,
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Nemesis",
@@ -3117,6 +3192,10 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathFalse = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
@@ -3147,6 +3226,10 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 				},
@@ -3171,7 +3254,11 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift01" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3181,7 +3268,6 @@ UnitSetData.NPC_Nemesis =
 					Text = "You trying to get me in trouble with the Headmistress or something? Why don't you take your bottle before I smash it, and get your scrawny ass out of here." },
 				{ Cue = "/VO/Melinoe_0627", UsePlayerSource = true,
 					PreLineAnim = "MelTalkFlustered01", PreLineAnimTarget = "Hero",
-					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
 					PostLineThreadedFunctionName = "GiftPointRefundPresentation",
 					Text = "I wasn't trying to get you in trouble, Nem, I was just... {#Emph}ungh{#Prev}. You know what, forget it." },
 			},
@@ -3197,7 +3283,11 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift02" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift02" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3232,7 +3322,11 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift03" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3257,7 +3351,11 @@ UnitSetData.NPC_Nemesis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift04" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "NemesisGift04" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3301,10 +3399,19 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift05" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeTaverna" },
+					},
+					{
+						Path = { "CurrentRun", "GiftResourceRecord" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3354", UsePlayerSource = true,
@@ -3394,6 +3501,10 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
 					},
 					{
@@ -3401,7 +3512,8 @@ UnitSetData.NPC_Nemesis =
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3104", UsePlayerSource = true,
@@ -3422,8 +3534,7 @@ UnitSetData.NPC_Nemesis =
 
 				{ Cue = "/VO/Nemesis_0213", Portrait = "Portrait_Nemesis_Bath_01",
 					PortraitExitAnimation = "Portrait_Nemesis_Bath_01_Exit",
-					Text = "A while. Not been much incentive. You saw how much of a pain it is to undo the lacing, and the straps. Feels strange without, like I'm... I... I don't know."
-				},
+					Text = "A while. Not been much incentive. You saw how much of a pain it is to undo the lacing, and the straps. Feels strange without, like I'm... I... I don't know." },
 
 				{ Cue = "/VO/Melinoe_3106", UsePlayerSource = true,
 					PreLineWait = 0.5,
@@ -3497,17 +3608,22 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeBathHouse" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift05" },
+						PathTrue = { "GameState", "TextLinesRecord", "NemesisGift04" },
 					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "H_Intro" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 				},
 				{ Cue = "/VO/Melinoe_3110", UsePlayerSource = true,
@@ -3612,11 +3728,16 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3655,11 +3776,16 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
@@ -3704,11 +3830,16 @@ UnitSetData.NPC_Nemesis =
 						PathTrue = { "CurrentRun", "Hero", "IsDead" },
 					},
 					{
+						Path = { "CurrentRun", "CurrentRoom", "Encounter", "Name" },
+						IsNone = { "Shop" },
+					},
+					{
 						PathTrue = { "GameState", "UseRecord", "NPC_Nemesis_01" },
 					},
 					{
 						Path = { "CurrentRun", "GiftResourceRecord" },
-						HasNone = { "GiftPointsRare", "GiftPointsEpic" },
+						HasNone = { "GiftPointsRare", "GiftPointsEpic", "SuperGiftPoints" },
+						HintId = "Codex_TimePassesGiftUsed",
 					},
 					{
 						Path = { "CurrentHubRoom", "Name" },
@@ -3777,7 +3908,7 @@ UnitSetData.NPC_Nemesis =
 						IsNone = { "Hub_PreRun" },
 					},
 					-- checking for Odysseus as well
-					-- AreIdsNotAlive = { 557112 },
+					-- { FunctionName = "RequiredAlive", FunctionArgs = { Ids = { 557112 }, Alive = false }, },
 				},
 				{
 					BreakIfPlayed = true,
@@ -3787,7 +3918,10 @@ UnitSetData.NPC_Nemesis =
 					PlayOnceFromTableThisRun = true,
 					GameStateRequirements =
 					{
-						AreIdsNotAlive = { 557113 },
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 557113 }, Alive = false },
+						},
 					},
 
 					{ Cue = "/VO/Melinoe_2308", Text = "Nemesis must have a head start...",
@@ -3832,7 +3966,10 @@ UnitSetData.NPC_Nemesis =
 			PreLineWait = 0.25,
 			GameStateRequirements =
 			{
-				MaxDistanceFromHero = 3000,
+				{
+					FunctionName = "RequiredDistanceFromHero",
+					FunctionArgs = { MaxDistance = 3000, },
+				},
 			},
 			Cooldowns =
 			{
@@ -3853,7 +3990,10 @@ UnitSetData.NPC_Nemesis =
 			PreLineWait = 0.3,
 			GameStateRequirements =
 			{
-				MaxDistanceFromHero = 3000,
+				{
+					FunctionName = "RequiredDistanceFromHero",
+					FunctionArgs = { MaxDistance = 3000, },
+				},
 			},
 			Cooldowns =
 			{
@@ -4028,10 +4168,16 @@ UnitSetData.NPC_Nemesis =
 		RepulseOnMeleeInvulnerableHit = 150,
 		OnHitVoiceLines =
 		{
+			Cooldowns =
+			{
+				{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+				{ Name = "NemesisHitRecentlySpeech", Time = 25 },
+			},
 			{
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 0.25,
+				ChanceToPlay = 0.2,
 				ObjectType = "NPC_Nemesis_01",
 				GameStateRequirements =
 				{
@@ -4049,11 +4195,10 @@ UnitSetData.NPC_Nemesis =
 						Path = { "SourceProjectile", },
 						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
 					},
-					MaxDistanceFromHero = 2000,
-				},
-				Cooldowns =
-				{
-					{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+					{
+						FunctionName = "RequiredDistanceFromHero",
+						FunctionArgs = { MaxDistance = 2000, },
+					},
 				},
 
 				{ Cue = "/VO/NemesisField_0210", Text = "Bad idea.", PlayFirst = true },
@@ -4080,6 +4225,7 @@ UnitSetData.NPC_Nemesis =
 				RandomRemaining = true,
 				BreakIfPlayed = true,
 				PreLineWait = 0.25,
+				ChanceToPlay = 0.2,
 				ObjectType = "NPC_Nemesis_01",
 				GameStateRequirements =
 				{
@@ -4091,11 +4237,10 @@ UnitSetData.NPC_Nemesis =
 						Path = { "SourceProjectile", },
 						IsNone = { "FrogFamiliarLand", "CatFamiliarPounce", "RavenFamiliarMelee" },
 					},
-					MaxDistanceFromHero = 1000,
-				},
-				Cooldowns =
-				{
-					{ Name = "NemesisAnyQuipSpeech", Time = 10 },
+					{
+						FunctionName = "RequiredDistanceFromHero",
+						FunctionArgs = { MaxDistance = 1000, },
+					},
 				},
 
 				{ Cue = "/VO/NemesisField_0224", Text = "Watch it!", PlayFirst = true },
@@ -4115,6 +4260,10 @@ UnitSetData.NPC_Nemesis =
 			RandomRemaining = true,
 			PreLineWait = 0.35,
 			TriggerCooldowns = { "NemesisAnyQuipSpeech" },
+			Cooldowns =
+			{
+				{ Name = "NemesisHitRecentlySpeech", Time = 25 },
+			},
 
 			{ Cue = "/VO/NemesisField_0320", Text = "Hey!" },
 			{ Cue = "/VO/NemesisField_0321", Text = "Watch it!", PlayFirst = true },
@@ -4185,7 +4334,7 @@ UnitSetData.NPC_Nemesis =
 			{
 				-- RandomRemaining = true,
 				UsePlayerSource = true,
-				PreLineWait = 0.5,
+				PreLineWait = 0.35,
 				SuccessiveChanceToPlay = 0.1,
 				AllowTalkOverTextLines = true,
 
@@ -4193,7 +4342,7 @@ UnitSetData.NPC_Nemesis =
 			},
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.65,
+				PreLineWait = 0.4,
 				AllowTalkOverTextLines = true,
 
 				{ Cue = "/VO/NemesisField_0080", Text = "Deal's a deal." },
@@ -4210,11 +4359,11 @@ UnitSetData.NPC_Nemesis =
 		},
 		DealDeclinedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.NemesisDealDeclineVoiceLines,
+			[1] = { GlobalVoiceLines = "NemesisDealDeclineVoiceLines" },
 			[2] =
 			{
 				RandomRemaining = true,
-				PreLineWait = 0.5,
+				PreLineWait = 0.3,
 				Cooldowns =
 				{
 					{ Name = "NemesisAnyQuipSpeech", Time = 6 },
@@ -4253,20 +4402,20 @@ UnitSetData.NPC_Nemesis =
 			{
 				UsePlayerSource = true,
 				RandomRemaining = true,
-				PreLineWait = 0.45,
+				PreLineWait = 0.8,
 				AllowTalkOverTextLines = true,
 
 				{ Cue = "/VO/MelinoeField_1394", Text = "...Cheers." },
 				{ Cue = "/VO/MelinoeField_1395", Text = "...What, that's it?" },
 				{ Cue = "/VO/MelinoeField_1396", Text = "...Not bad." },
-				{ Cue = "/VO/MelinoeField_1397", Text = "...{#Emph}Ow." },
+				{ Cue = "/VO/MelinoeField_1397", Text = "...{#Emph}Ow!" },
 				{ Cue = "/VO/MelinoeField_1398", Text = "...{#Emph}Guh, heh.", PlayFirst = true },
 				{ Cue = "/VO/MelinoeField_1399", Text = "...{#Emph}Urgh! Tsk." },
 			}
 		},
 		HitDeclinedVoiceLines =
 		{
-			[1] = GlobalVoiceLines.NemesisDealDeclineVoiceLines,
+			[1] = { GlobalVoiceLines = "NemesisDealDeclineVoiceLines" },
 			[2] =
 			{
 				RandomRemaining = true,
@@ -4374,7 +4523,7 @@ UnitSetData.NPC_Nemesis =
 		},
 		PlayerLostDamageContestVoiceLines =
 		{
-			[1] = GlobalVoiceLines.NegativeReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "NegativeReactionVoiceLines" },
 			[2] =
 			{
 				RandomRemaining = true,
@@ -4520,7 +4669,7 @@ UnitSetData.NPC_Nemesis =
 				UsePlayerSource = true,
 				RandomRemaining = true,
 				BreakIfPlayed = true,
-				PreLineWait = 1.0,
+				PreLineWait = 0.75,
 				SuccessiveChanceToPlay = 0.33,
 				Cooldowns =
 				{
@@ -4582,6 +4731,7 @@ UnitSetData.NPC_Nemesis =
 			},
 		},
 
+		Using = { Animation = "NemesisExitStreak", }, 
 	},
 
 }
@@ -5244,6 +5394,7 @@ VariantSetData.NPC_Nemesis_01 =
 				GiftableOffSource = true,
 				-- PreBlockSpecialInteract = true,
 				PostBlockSpecialInteract = true,
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -5556,6 +5707,7 @@ VariantSetData.NPC_Nemesis_01 =
 				GiftableOffSource = true,
 				-- PreBlockSpecialInteract = true,
 				PostBlockSpecialInteract = true,
+				-- PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{
@@ -5878,7 +6030,9 @@ VariantSetData.NPC_Nemesis_01 =
 				
 				GameStateRequirements =
 				{
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				{ Cue = "/VO/NemesisField_0132",
 					Text = "Sometimes I get a little boost from Artemis, but {#Emph}you? {#Prev}Just about all Olympus backs you up, and {#Emph}even still{#Prev}, it's not enough. Some help {#Emph}they {#Prev}are." },
@@ -5907,7 +6061,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -5932,7 +6088,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -5957,7 +6115,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -5982,7 +6142,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6007,7 +6169,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6032,7 +6196,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6057,7 +6223,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6082,7 +6250,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6107,7 +6277,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6132,7 +6304,9 @@ VariantSetData.NPC_Nemesis_01 =
 						Path = { "CurrentRun", "CurrentRoom", "Name" },
 						IsNone = { "H_Bridge01" },
 					},
-					RequiredSellableGodTraits = true,
+					{
+						FunctionName = "RequiredSellableGodTraits",
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.NemesisRandomEventGreeting,
@@ -6409,6 +6583,7 @@ VariantSetData.NPC_Nemesis_01 =
 				GiftableOffSource = true,
 				-- PreBlockSpecialInteract = true,
 				PostBlockSpecialInteract = true,
+				PreEventFunctionName = "AngleNPCToHero",
 				GameStateRequirements =
 				{
 					{

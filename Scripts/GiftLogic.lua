@@ -167,7 +167,7 @@ function GiveGift( target, resourceName, resourceQuantity, textLines )
 		local giftData = GiftData[name]
 		if giftData ~= nil then
 			for giftLevel, giftLevelData in ipairs( giftData ) do
-				if not GameState.GiftPresentation[giftLevelData.Gift] and IsGameStateEligible( CurrentRun, giftLevelData, giftLevelData.GameStateRequirements ) then
+				if not GameState.GiftPresentation[giftLevelData.Gift] and IsGameStateEligible( giftLevelData, giftLevelData.GameStateRequirements ) then
 					GameState.GiftPresentation[giftLevelData.Gift] = true
 					GameState.NewKeepsakeItem[giftLevelData.Gift] = true
 					wait( 0.65, RoomThreadName )
@@ -199,11 +199,20 @@ function CanReceiveGift( target )
 	if not target then
 		return false
 	end
-	if GetTotalHeroTraitValue( "MetaConversionUses" ) > 0 and target.MetaConversionEligible and not HasResourceCost(target.ResourceCosts) then
+
+	if target.IsDead then
+		return false
+	end
+
+	if target.MetaConversionEligible and GetTotalHeroTraitValue( "MetaConversionUses" ) > 0 and not HasResourceCost( target.ResourceCosts ) then
 		return true
 	end
 	
 	if not target.CanReceiveGift then
+		return false
+	end
+
+	if target.RequireUseToGift and GameState.UseRecord[target.Name] == nil then
 		return false
 	end
 
@@ -212,7 +221,7 @@ function CanReceiveGift( target )
 		return false
 	end
 
-	if target.GiftGameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, target, target.GiftGameStateRequirements ) then
+	if target.GiftGameStateRequirements ~= nil and not IsGameStateEligible( target, target.GiftGameStateRequirements ) then
 		return false
 	end
 
@@ -243,10 +252,6 @@ function CanReceiveGift( target )
 		end
 	end
 
-	if target.GiftOncePerRun and CurrentRun.GiftRecord[target.Name] then
-		return false
-	end
-
 	if target.UnlimitedGifts ~= nil then
 		for resourceName, value in pairs( target.UnlimitedGifts ) do
 			if HasResource( resourceName, 1 ) then
@@ -265,13 +270,16 @@ function CanSpecialInteract( source )
 	if source.SpecialInteractFunctionName == nil then
 		return false
 	end	
-	if source.SpecialInteractGameStateRequirements ~= nil and not IsGameStateEligible( CurrentRun, source, source.SpecialInteractGameStateRequirements ) then
+	if source.SpecialInteractGameStateRequirements ~= nil and not IsGameStateEligible( source, source.SpecialInteractGameStateRequirements ) then
 		return false
 	end
 	if source.SpecialInteractCooldown ~= nil and not CheckCooldownNoTrigger( source.Name..source.ObjectId, source.SpecialInteractCooldown ) then
 		return false
 	end
 	if source.NextInteractLines ~= nil and source.NextInteractLines.PreBlockSpecialInteract then
+		return false
+	end
+	if source.InPartnerConversation then
 		return false
 	end
 	if source.InteractTextLineSets ~= nil then
@@ -286,7 +294,7 @@ end
 
 function GetLockedLevel( npcName )
 	if GiftData[npcName] then
-		if ( CurrentRun and CurrentRun.CurrentRoom and string.match( CurrentRun.CurrentRoom.Name, "Test" ) ~= nil ) or ( GiftData[npcName].UnlockGameStateRequirements and IsGameStateEligible(CurrentRun, GiftData[npcName].UnlockGameStateRequirements )) then
+		if ( CurrentRun and CurrentRun.CurrentRoom and string.match( CurrentRun.CurrentRoom.Name, "Test" ) ~= nil ) or ( GiftData[npcName].UnlockGameStateRequirements and IsGameStateEligible( GiftData[npcName].UnlockGameStateRequirements )) then
 			return GiftData[npcName].Maximum + 1
 		end
 		return GiftData[npcName].Locked
@@ -294,7 +302,7 @@ function GetLockedLevel( npcName )
 end
 
 function IsGiftBarCompletelyUnlocked( entryName )
-	return ( GiftData[entryName].UnlockGameStateRequirements and IsGameStateEligible(CurrentRun, GiftData[entryName].UnlockGameStateRequirements ))
+	return ( GiftData[entryName].UnlockGameStateRequirements and IsGameStateEligible( GiftData[entryName].UnlockGameStateRequirements ))
 end
 
 function GiftActivityFishing( source, args, textLines )

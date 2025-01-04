@@ -8,24 +8,6 @@
 	GiftFamiliarUpgradePresentation( usee, args )
 
 	RemoveInputBlock({ Name = "GiftFamiliarUpgrade" })
-
-	--[[
-	local hasUnboughtUpgrades = false
-	for i, itemName in ipairs( ScreenData.FamiliarShop.ItemCategories ) do
-		local itemData = FamiliarShopItemData[itemName]
-		if not itemData.DebugOnly then
-			if itemData.FamiliarName == usee.FamiliarName and ( itemData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, itemData, itemData.GameStateRequirements ) ) then
-				if not GameState.WorldUpgradesAdded[itemName] then
-					hasUnboughtUpgrades = true
-				end
-			end
-		end
-	end
-
-	if hasUnboughtUpgrades then
-		return
-	end
-	]]
 	
 	local screen = OpenFamiliarShopScreen( usee )
 	UseableOn({ Id = usee.ObjectId })
@@ -47,7 +29,7 @@ function FamiliarShopScreenDisplayCategory( screen )
 	for i, itemName in ipairs( screen.ItemOrder ) do
 		local itemData = FamiliarShopItemData[itemName]
 		if not itemData.DebugOnly then
-			if itemData.FamiliarName == screen.OpenedFrom.Name and ( itemData.GameStateRequirements == nil or IsGameStateEligible( CurrentRun, itemData, itemData.GameStateRequirements ) ) then
+			if itemData.FamiliarName == screen.OpenedFrom.Name and ( itemData.GameStateRequirements == nil or IsGameStateEligible( itemData, itemData.GameStateRequirements ) ) then
 				if GameState.FamiliarUpgrades[itemName] then
 					table.insert( purchasedItems, itemData )
 				else
@@ -281,6 +263,12 @@ function OpenFamiliarShopScreen( openedFrom, args )
 	HideCombatUI( screen.Name )
 	OnScreenOpened( screen )
 	CreateScreenFromData( screen, screen.ComponentData )
+
+	if args.ReadOnly then
+		GameState.WorldUpgradesViewed.FamiliarUpgradeScreen = true
+	else
+		thread( MarkObjectiveComplete, "FamiliarUpgradePrompt" )
+	end
 	
 	local components = screen.Components
 
@@ -310,7 +298,8 @@ function OpenFamiliarShopScreen( openedFrom, args )
 
 end
 
-function CloseFamiliarShopScreen( screen, button )
+function CloseFamiliarShopScreen( screen, button, args )
+	args = args or {}
 	for id, itemButton in pairs( screen.ItemButtons ) do
 		UseableOff({ Id = id })
 	end
@@ -318,7 +307,9 @@ function CloseFamiliarShopScreen( screen, button )
 	FamiliarShopScreenCloseStartPresentation( screen )
 	CloseScreen( GetAllIds( screen.Components ) )
 	OnScreenCloseFinished( screen )
-	ShowCombatUI( screen.Name )
+	if not args.HideCombatUI then
+		ShowCombatUI( screen.Name )
+	end
 	FamiliarShopScreenCloseFinishedPresentation( screen )
 	if screen.ReadOnly then
 		ShowTraitTrayScreen( { AutoPin = false } )
@@ -328,7 +319,7 @@ end
 function HandleFamiliarShopPurchase( screen, button )
 	local upgradeData = button.Data
 
-	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( CurrentRun, upgradeData.PurchaseRequirements ) then
+	if not IsEmpty( upgradeData.Cost ) ~= nil and upgradeData.PurchaseRequirements ~= nil and not IsGameStateEligible( upgradeData.PurchaseRequirements ) then
 		CantPurchasePresentation( screen.Components["PurchaseButton".. button.Index] )
 		return
 	end
@@ -358,28 +349,22 @@ function HandleFamiliarShopPurchase( screen, button )
 	end
 
 	-- close screen
-	CloseFamiliarShopScreen( screen, button )
+	CloseFamiliarShopScreen( screen, button, { HideCombatUI = true } )
 
 	thread( DoFamiliarShopPurchase, screen, button )
 end
 
 function DoFamiliarShopPurchase( screen, button )
 	local itemData = button.Data
-	local traitData = TraitData[itemData.Name]
-	if itemData.TraitUpgrade then
-		traitData = TraitData[itemData.TraitUpgrade]
-	end
 	FamiliarShopPurchasePreActivatePresentation( screen, button, itemData )
-
-	local toolData = ToolData[itemData.ToolName or itemData.Name]
-	if toolData ~= nil then
-		UseToolKit( toolData, {}, CurrentRun.Hero )
-	end
 	ActivateConditionalItem( itemData )
 	FamiliarShopPurchasePostActivatePresentation( button, itemData, weaponKit )
 	UpdateAffordabilityStatus()
-	UpdateFamiliarKits()
-	ShowCombatUI( "GiveSelectedGift" )
+	UpdateFamiliarKits( { DoEquip = true } )
+	ShowCombatUI( screen.Name )
+	if not CurrentHubRoom.BlockCombatUI and itemData.FamiliarName == GameState.EquippedFamiliar then
+		CheckObjectiveSet( "CheckFamiliarUpgradeInfoPrompt" )
+	end
 end
 
 function FamiliarShopScreenHideItems( screen )
@@ -544,4 +529,15 @@ function FamiliarShopUpdateVisibility( screen )
 		end
 	end
 
+end
+
+function AnyFamiliarUpgradesAvailable( source, args )
+	for upgradeName, upgradeData in pairs( FamiliarShopItemData ) do
+		if GameState.FamiliarsUnlocked[upgradeData.FamiliarName] and GameState.FamiliarUpgrades[upgradeName] == nil then
+			if not upgradeData.DebugOnly and ( upgradeData.GameStateRequirements == nil or IsGameStateEligible( upgradeData, upgradeData.GameStateRequirements ) ) then
+				return true
+			end
+		end
+	end
+	return false
 end

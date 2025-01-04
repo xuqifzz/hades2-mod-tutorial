@@ -45,7 +45,7 @@ UnitSetData.NPC_Artemis =
 				{ Cue = "/VO/Melinoe_1697", Text = "Together we shine." },
 				{ Cue = "/VO/Melinoe_0025", Text = "Together we shine." },
 			},
-			[2] = GlobalVoiceLines.SaluteVoiceLines,
+			[2] = { GlobalVoiceLines = "SaluteVoiceLines" },
 			[3] =
 			{
 				RandomRemaining = true,
@@ -178,7 +178,7 @@ UnitSetData.NPC_Artemis =
 						PathFalse = { "CurrentRun", "UseRecord", "NPC_Artemis_Field_01" },
 					},
 					{
-						PathTrue = { "GameState", "TextLinesRecord", "ArtemisAboutMission01" },
+						-- PathTrue = { "GameState", "TextLinesRecord", "ArtemisAboutMission01" },
 					},
 					{
 						Path = { "GameState", "UseRecord", "NPC_Artemis_Field_01" },
@@ -187,9 +187,12 @@ UnitSetData.NPC_Artemis =
 					},
 					{
 						Path = { "CurrentRun", "TextLinesRecord" },
-						HasNone = { "MorosGrantsQuestLog", "MorosSecondAppearance", "MorosGrantsSurfacePenaltyCure01", },
+						HasNone = { "MorosGrantsQuestLog", "MorosSecondAppearance", "MorosGrantsSurfacePenaltyCure01" },
 					},
-					AreIdsAlive = { 556921 },
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Ids =  { 556921 }, },
+					},
 				},
 				OnQueuedFunctionName = "CheckDistanceTriggerThread",
 				OnQueuedFunctionArgs = PresetEventArgs.ArtemisGreeting,
@@ -211,6 +214,65 @@ UnitSetData.NPC_Artemis =
 						PreLineWait = 0.4,
 						UsePlayerSource = true,
 						{ Cue = "/VO/Melinoe_1188", Text = "I hear you. Bye for now." },
+					},
+				},
+			},
+
+			ArtemisHubAboutChronosBoss01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				InitialGiftableOffSource = true,
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "CurrentRun", "Hero", "IsDead", },
+					},
+					{
+						PathTrue = { "CurrentRun", "RoomsEntered", "I_Boss01" },
+					},
+					{
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = ">",
+						Value = 2,
+					},
+					-- @ update with additional requirements
+					{
+						Path = { "GameState", "WorldUpgradesAdded" },
+						HasAll = { "WorldUpgradeBathHouse", "WorldUpgradeTaverna" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs =
+						{
+							TextLines = 
+							{
+								"ArtemisHubFirstMeeting01",
+							},
+							Min = 5
+						},
+					},
+				},
+				OnQueuedFunctionName = "CheckDistanceTriggerThread",
+				OnQueuedFunctionArgs = PresetEventArgs.ArtemisGreeting,
+
+				{ Cue = "/VO/Artemis_0187",
+					Text = "Good, there you are! I'm late getting back but couldn't bring myself to leave before you were up and about again. How are you feeling?" },
+				{ Cue = "/VO/Melinoe_3598", UsePlayerSource = true,
+					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Considering the Titan of Time almost sliced me in two last night with a scythe twice my size that cuts through the air itself, I could be worse. Thank you for waiting up for me." },
+				{ Cue = "/VO/Artemis_0188",
+					PreLineAnim = "Artemis_Shrug",
+					PostLineThreadedFunctionName = "ArtemisExitPresentation", PostLineFunctionArgs = { AnimationState = "Artemis_Disappear", WaitTime = 3.1 },
+					Text = "Of course! I like what you've done to this place. It's like a proper war camp now! With a taverna, hot springs... I ought to stop in more often. Shine on without me for now!" },
+				EndVoiceLines =
+				{
+					{
+						PreLineWait = 0.4,
+						UsePlayerSource = true,
+						{ Cue = "/VO/Melinoe_3497", Text = "Shine on yourself!" },
 					},
 				},
 			},
@@ -260,7 +322,8 @@ UnitSetData.NPC_Artemis =
 					},
 				},
 				{ Cue = "/VO/Artemis_0164",
-					PreLineAnim = "Artemis_Shrug",
+					PreLineThreadedFunctionName = "PlayCharacterAnim",
+					PreLineThreadedFunctionArgs = { Name = "Artemis_Shrug", WaitTime = 1 },
 					Text = "You do know we have {#Emph}barrels {#Prev}of this stuff up on Olympus, right? Used to, at least. Damn near forgotten what it tastes like, come to think..." },
 				{ Cue = "/VO/Melinoe_1195", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
@@ -337,7 +400,7 @@ UnitSetData.NPC_Artemis =
 					},
 				},
 				{ Cue = "/VO/Artemis_0191",
-					Text = "Hey, thank you! Sure enough, Olympus started running a little low on this stuff. I'll be sure to lord it over the others, long as you don't mind me exploiting your good graces." },
+					Text = "Hey, thank you! Olympus started running a little low on this stuff. I'll be sure to lord it over the others, as long as you don't mind me exploiting your good graces." },
 				{ Cue = "/VO/Melinoe_3502", UsePlayerSource = true,
 					Portrait = "Portrait_Mel_Pleased_01",
 					PreLineAnim = "MelTalkExplaining01", PreLineAnimTarget = "Hero",
@@ -409,7 +472,6 @@ UnitSetData.NPC_Artemis =
 			{
 				RandomRemaining = true,
 				PreLineWait = 1.15,
-				Source = { LineHistoryName = "NPC_Artemis_01", SubtitleColor = Color.ArtemisVoice },
 				Cooldowns =
 				{
 					{ Name = "ArtemisAnyQuipSpeech", Time = 10 },
@@ -455,7 +517,6 @@ UnitSetData.NPC_Artemis =
 			RandomRemaining = true,
 			BreakIfPlayed = true,
 			PreLineWait = 0.25,
-			Source = { LineHistoryName = "NPC_Artemis_01", SubtitleColor = Color.ArtemisVoice },
 			Cooldowns =
 			{
 				{ Name = "ArtemisAnyQuipSpeech", Time = 40 },
@@ -475,7 +536,6 @@ UnitSetData.NPC_Artemis =
 			RandomRemaining = true,
 			BreakIfPlayed = true,
 			PreLineWait = 0.3,
-			Source = { LineHistoryName = "NPC_Artemis_01", SubtitleColor = Color.ArtemisVoice },
 			Cooldowns =
 			{
 				{ Name = "ArtemisLastStandSpeech", Time = 40 },
@@ -593,19 +653,28 @@ UnitSetData.NPC_Artemis =
 				{ Cue = "/VO/Artemis_0098", Text = "You all right?",
 					GameStateRequirements =
 					{
-						RequiredMaxHealthFraction = 0.6,
+						{
+							FunctionName = "RequiredHealthFraction",
+							FunctionArgs = { Comparison = "<=", Value = 0.6, },
+						},
 					},
 				},
 				{ Cue = "/VO/Artemis_0099", Text = "Damn, you're hurt...",
 					GameStateRequirements =
 					{
-						RequiredMaxHealthFraction = 0.3,
+						{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 					},
 				},
 				{ Cue = "/VO/Artemis_0100", Text = "That got ugly...",
 					GameStateRequirements =
 					{
-						RequiredMaxHealthFraction = 0.3,
+						{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 					},
 				},
 			},
@@ -690,8 +759,13 @@ UnitSetData.NPC_Artemis =
 					UsePlayerSource = true,
 					SuccessiveChanceToPlayAll = 0.1,
 					PlayOnceFromTableThisRun = true,
-					AreIdsNotAlive = { 370006 },
-
+					GameStateRequirements =
+					{
+						{
+							FunctionName = "RequiredAlive",
+							FunctionArgs = { Ids = { 370006 }, Alive = false },
+						},
+					},
 				},
 			},
 		},
@@ -735,6 +809,7 @@ UnitSetData.NPC_Artemis =
 		PostPickupFunctionName = "ArtemisExitPresentation",
 		PostPickupFunctionArgs = { WaitTime = 3.5 },
 		AnimOffsetZ = 0,
+		ExcludeFromDamageDealtRecord = true,
 
 		NonHeroKillCombatText = "PartnerKill",
 		TreatAsGodLootByShops = true,
@@ -772,7 +847,6 @@ UnitSetData.NPC_Artemis =
 		RarityRollOrder = { "Common", "Rare", "Epic" },
 		Speaker = "NPC_Artemis_01",
 		Portrait = "Portrait_Artemis_Default_01",
-		WrathPortrait = "Portrait_Artemis_Wrath_01",
 		OverlayAnim = "ArtemisOverlay",
 		Gender = "Female",
 		SpawnSound = "/SFX/ArtemisBoonArrow",
@@ -805,7 +879,7 @@ UnitSetData.NPC_Artemis =
 				{ Cue = "/VO/Artemis_0115", Text = "The choice is yours." },
 				{ Cue = "/VO/Artemis_0116", Text = "Here." },
 			},
-			[2] = GlobalVoiceLines.FoundRareBoonVoiceLines,
+			[2] = { GlobalVoiceLines = "FoundRareBoonVoiceLines" },
 		},
 
 		--SpawnAnimation = "ThanatosTalkDismissal",
@@ -890,7 +964,10 @@ UnitSetData.NPC_Artemis =
 						Comparison = "<=",
 						Value = 0,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 				{ Cue = "/VO/Artemis_0151",
 					Text = "Oh, you look like {#Emph}hell{#Prev}, Sister. Don't have anything to patch you up, but I {#Emph}can {#Prev}help you kill the wretches that did this to you!" },
@@ -908,7 +985,9 @@ UnitSetData.NPC_Artemis =
 						PathTrue = { "GameState", "UseRecord", "ApolloUpgrade" },
 					},
 					{
-						PathFalse = { "GameState", "RoomsEntered", "I_Boss01" },
+						Path = { "GameState", "ClearedUnderworldRunsCache" },
+						Comparison = "<",
+						Value = 1,
 					},
 				},
 				{ Cue = "/VO/Artemis_0171",
@@ -941,6 +1020,9 @@ UnitSetData.NPC_Artemis =
 					{
 						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
 					},
+					{
+						PathFalse = { "GameState", "RoomsEntered", "H_Intro" }
+					}
 				},
 				{ Cue = "/VO/Artemis_0159",
 					Text = "You bested Sister Hecate! She told me so herself, and with dare-I-say more than a hint of pride. Though, she's intent on testing you still?" },
@@ -1030,6 +1112,10 @@ UnitSetData.NPC_Artemis =
 					},
 					{
 						PathFalse = { "GameState", "WorldUpgradesAdded", "WorldUpgradeAltRunDoor" },
+					},
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HermesFirstPickUp" }, Max = 8 },
 					},
 				},
 				{ Cue = "/VO/Artemis_0148",
@@ -1170,6 +1256,28 @@ UnitSetData.NPC_Artemis =
 					Text = "He won't always underestimate you, though. Must have his vulnerabilities. {#Emph}The old are seldom wise, and often weak{#Prev}, right? He's bloodied... go for the kill." },
 			},
 
+			ArtemisAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+				},
+				{ Cue = "/VO/Artemis_0212",
+					Text = "You saw we're up against Prometheus. His whole thing is how he knows what's going to take place... makes him quite an elusive one, I guess." },
+				{ Cue = "/VO/MelinoeField_2449", UsePlayerSource = true,
+					PreLineAnim = "MelTalkBrooding01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "The Titan of Foresight, fighting for the Titan of Time... perhaps merely against the gods who punished him. He may have his reasons, but he's in my way." },
+				{ Cue = "/VO/Artemis_0213",
+					PreLineAnim = "Artemis_Shrug",
+					Text = "I know precisely what you mean. Though if he truly knows the future, wouldn't he choose the winning side...? Careful with him, Sister..." },
+			},
+
 			ArtemisAboutMoros01 =
 			{
 				PlayOnce = true,
@@ -1178,12 +1286,11 @@ UnitSetData.NPC_Artemis =
 				GameStateRequirements =
 				{
 					{
-						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeMorosUnlock" },
+						PathTrue = { "GameState", "TextLinesRecord", "MorosSecondAppearance" },
 					},
 					{
-						Path = { "GameState", "UseRecord", "NPC_Moros_01" },
-						Comparison = ">=",
-						Value = 2,
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "MorosSecondAppearance" }, Min = 3 },
 					},
 				},
 				{ Cue = "/VO/Artemis_0169",
@@ -1206,7 +1313,14 @@ UnitSetData.NPC_Artemis =
 				GameStateRequirements =
 				{
 					{
+						PathFalse = { "PrevRun", "Cleared" },
+					},
+					{
 						PathTrue = { "GameState", "TextLinesRecord", "ArtemisGift01" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "F" },
 					},
 				},
 				{ Cue = "/VO/MelinoeField_2131", UsePlayerSource = true,
@@ -1274,7 +1388,7 @@ UnitSetData.NPC_Artemis =
 				{
 					{
 						Path = { "GameState", "TextLinesRecord" },
-						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "AphroditeFirstPickUp", "HephaestusUpgrade", "HestiaUpgrade" },
+						HasAll = { "ZeusFirstPickUp", "PoseidonFirstPickUp", "DemeterFirstPickUp", "AphroditeFirstPickUp", "HephaestusFirstPickUp", "HestiaFirstPickUp" },
 					},
 				},
 				{ Cue = "/VO/Artemis_0165",
@@ -1368,11 +1482,12 @@ UnitSetData.NPC_Artemis =
 						PathTrue = { "GameState", "WorldUpgradesAdded", "WorldUpgradeSurfacePenaltyCure" },
 					},
 					{
-						Path = { "GameState", "TextLinesRecord" },
-						HasNone = { "ArtemisAboutEphyra01", "ArtemisAboutPolyphemus01" },
+						PathTrue = { "PrevRun", "RoomsEntered", "O_Intro" },
 					},
 					{
-						PathTrue = { "PrevRun", "RoomsEntered", "O_Intro" },
+						Path = { "GameState", "RoomsEntered", "P_Boss01" },
+						Comparison = "<=",
+						Value = 5,
 					},
 					{
 						PathTrue = { "CurrentRun", "BiomesReached", "F" },
@@ -1401,6 +1516,10 @@ UnitSetData.NPC_Artemis =
 					},
 					{
 						PathTrue = { "GameState", "RoomsEntered", "N_Opening01" },
+					},
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "F" },
 					},
 				},
 				{ Cue = "/VO/Artemis_0185",
@@ -1498,6 +1617,9 @@ UnitSetData.NPC_Artemis =
 					{
 						PathTrue = { "PrevRun", "EnemyKills", "Polyphemus" },
 					},
+					{
+						PathFalse = { "CurrentRun", "BiomesReached", "N" },
+					},
 				},
 				{ Cue = "/VO/Artemis_0250",
 					Text = "That massive Cyclops Polyphemus... saw him fast asleep the other night! Then {#Emph}you {#Prev}were able to sneak up and incapacitate him, just like {#Emph}that! {#Prev}I stay far downwind of him, myself." },
@@ -1546,7 +1668,7 @@ UnitSetData.NPC_Artemis =
 					},
 					{
 						Path = { "GameState", "WeaponsFiredRecord", "WeaponDaggerDouble" },
-						Comparison = "<=",
+						Comparison = ">=",
 						Value = 100,
 					},
 				},
@@ -1582,7 +1704,6 @@ UnitSetData.NPC_Artemis =
 					PreLineAnim = "Artemis_Shrug",
 					Text = "I gave them up because I did what needed to be done. Hecate so likes her little tests. Anyway I'm glad to see old Lim and Oros in good hands." },
 			},
-
 
 			ArtemisAboutKeepsake01 =
 			{
@@ -1694,6 +1815,35 @@ UnitSetData.NPC_Artemis =
 				},
 			},
 
+			ArtemisAboutTimePassing01 =
+			{
+				PlayOnce = true,
+				UseableOffSource = true,
+				PreEventFunctionName = "AngleNPCToHero",
+				GameStateRequirements =
+				{
+					{
+						PathTrue = { "GameState", "RoomsEntered", "P_Intro" },
+					},
+					{
+						SumPrevRuns = 4,
+						Path = { "SpawnRecord", "NPC_Artemis_Field_01" },
+						Comparison = "<=",
+						Value = 0,
+					},
+				},
+				{ Cue = "/VO/Artemis_0248",
+					Text = "Not seen each other in how many nights, Sister? {#Emph}Eugh{#Prev}, I know that's just the way it goes. You're busy, I'm busy, bunch of time goes by, and... here we are." },
+				{ Cue = "/VO/MelinoeField_2450", UsePlayerSource = true,
+					PreLineAnim = "MelTalkPensive01", PreLineAnimTarget = "Hero",
+					PostLineAnim = "MelinoeIdleWeaponless", PostLineAnimTarget = "Hero",
+					Text = "Doubtless we've crossed paths repeatedly, just not quite close enough. I feel like a lot's transpired since last we met like this. Where to even begin?" },
+				{ Cue = "/VO/Artemis_0249",
+					PreLineAnim = "Artemis_Shrug",
+					Text = "Oh no need, we haven't seen each other but I've still been keeping up. Olympus knows of all your latest exploits! The ones you wouldn't mind me sharing, anyway.",
+				},
+			},
+
 			-- Repeatable
 			ArtemisChat01 =
 			{
@@ -1745,6 +1895,13 @@ UnitSetData.NPC_Artemis =
 				UseableOffSource = true,
 				PreEventFunctionName = "AngleNPCToHero",
 				EndGlobalVoiceLines = "MiscEndVoiceLines_Artemis",
+				GameStateRequirements =
+				{
+					{
+						Path = { "CurrentRun", "CurrentRoom", "RoomSetName" },
+						IsAny = { "F" },
+					},
+				},
 				{ Cue = "/VO/Artemis_0009",
 					UseEventEndSound = true,
 					Text = "I have to say, these woods are not my favorite..." },

@@ -5,7 +5,7 @@
 	if not ConfigOptionCache.ShowUIAnimations then
 		return
 	end
-	if not args.Reapplied and not victim.IsDead and (not effectData.VfxRequiresTimeSlow or not victim.IgnoreTimeSlowEffects) then
+	if not args.Reapplied and ( not victim.IsDead or ( victim == CurrentRun.Hero and victim.IsDead and CurrentHubRoom ~= nil )) and (not effectData.VfxRequiresTimeSlow or not victim.IgnoreTimeSlowEffects) then
 		if effectData.Vfx ~= nil then
 			CreateAnimation({ Name = effectData.Vfx, DestinationId = victim.ObjectId, OffsetZ = victim.EffectVfxOffsetZ, Scale = victim.EffectVfxScale })
 		end
@@ -149,17 +149,17 @@ function PositionEffectStacks( id )
 				Attach({ Id = EnemyHealthDisplayAnchors[ id .. effectData.DisplaySuffix ], DestinationId = unit.ObjectId, OffsetY = effectData.IconYOffset, OffsetX = effectData.IconXOffset })
 			elseif effectData.AttachIconToHealthbar and not unit.UseGroupHealthBar then
 				--taken from Minos
-				local offsetX = 0
-				local offsetY = 0
+				local offsetX = effectData.OffsetX or 0
+				local offsetY = effectData.OffsetY or 0
 				if unit.UseBossHealthBar then
-					offsetX = 360
+					offsetX = offsetX + 360
 					if unit.BarXScale then
 						offsetX = offsetX * unit.BarXScale
 					end
 				else
 					local barScale = unit.BarXScale or 1
-					offsetX = barScale * 98 /2 + 25
-					offsetY = 3
+					offsetX = offsetX + barScale * 98 /2 + 25
+					offsetY = offsetY + 3
 				end
 				Attach({ Id = EnemyHealthDisplayAnchors[ id .. effectData.DisplaySuffix ], DestinationId = EnemyHealthDisplayAnchors[id], OffsetX = offsetX, OffsetY = offsetY,  })
 			elseif effectData.Icon then

@@ -34,9 +34,9 @@ LootSetData.Hephaestus =
 		LootRejectedText = "Player_GodDispleased_HephaestusUpgrade",
 		SuperSacrificeCombatText = "SuperSacrifice_CombatText_HephaestusUpgrade",
 
-		SpawnSound = "/SFX/WeaponUpgradeHammerDrop",
-		PortraitEnterSound = "/SFX/WeaponUpgradeHammerDrop",
-		UpgradeSelectedSound = "/SFX/HammerBoonChoice",
+		SpawnSound = "/SFX/HephaestusBoonDropForge",
+		PortraitEnterSound = "/SFX/HephaestusBoonDropForge",
+		UpgradeSelectedSound = "/SFX/HephaestusBoonChoice",
 
 		Color = { 255, 100, 0, 255 },
 		LightingColor = {255, 120, 0, 255},
@@ -74,14 +74,14 @@ LootSetData.Hephaestus =
 			"ManaToHealthBoon",
 			"MassiveKnockupBoon",
 
-			-- Legendary
-			"WeaponUpgradeBoon",
-
 			-- Elemental
 			"ElementalDamageBoon",
 
+			-- Legendary
+			"WeaponUpgradeBoon",
+
 			-- Duos
-			"EmptySlotDamageBoon",
+			"ManaShieldBoon",
 			"ReboundingSparkBoon",
 			"MassiveCastBoon",
 			"ClearRootBoon",
@@ -93,7 +93,7 @@ LootSetData.Hephaestus =
 
 		UpgradeMenuOpenVoiceLines =
 		{
-			[1] = GlobalVoiceLines.HeraclesBoonReactionVoiceLines,
+			[1] = { GlobalVoiceLines = "HeraclesBoonReactionVoiceLines" },
 		},
 
 		FirstSpawnVoiceLines =
@@ -116,7 +116,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ReboundingSparkBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ReboundingSparkBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0119",
@@ -135,7 +138,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "EmptySlotDamageBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ManaShieldBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0121",
@@ -152,7 +158,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "MassiveCastBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "MassiveCastBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0123",
@@ -170,7 +179,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "BlindClearBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "BlindClearBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0125",
@@ -189,7 +201,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "ClearRootBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "ClearRootBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0127",
@@ -206,7 +221,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "SlamManaBurstBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "SlamManaBurstBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0129",
@@ -216,7 +234,7 @@ LootSetData.Hephaestus =
 					PreLineFunctionName = "BoonInteractPresentation", PreLineWait = 0.5,
 					Source = "AphroditeUpgrade",
 					Emote = "PortraitEmoteAffection",
-					Text = "Why, thank you, dear! We each have so much love to give. And the beauty of it is, the more of it we give, the more we {#Emph}have! {#Prev}To think that such a {#Emph}precious {#Prev}thing can have a limitless supply!" },
+					Text = "Why, thank you, dear! We each have so much love to give. And the beauty of it is, the more we give, the more we {#Emph}have! {#Prev}To think that such a {#Emph}precious {#Prev}thing can have a limitless supply!" },
 			},
 
 			HephaestusWithHestia01 =
@@ -224,7 +242,10 @@ LootSetData.Hephaestus =
 				PlayOnce = true,
 				GameStateRequirements =
 				{
-					HasTraitNameInRoom = "DoubleMassiveAttackBoon",
+					{
+						FunctionName = "RequiredTraitNameInRoom",
+						FunctionArgs = { Name = "DoubleMassiveAttackBoon" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0133",
@@ -282,7 +303,10 @@ LootSetData.Hephaestus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -306,7 +330,10 @@ LootSetData.Hephaestus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -330,7 +357,10 @@ LootSetData.Hephaestus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -354,7 +384,10 @@ LootSetData.Hephaestus =
 						Comparison = "<=",
 						Value = 1,
 					},
-					RequiredMaxHealthFraction = 0.3,
+					{
+						FunctionName = "RequiredHealthFraction",
+						FunctionArgs = { Comparison = "<=", Value = 0.3, },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -679,7 +712,10 @@ LootSetData.Hephaestus =
 						PathTrue = { "CurrentRun", "BiomesReached", "N" },
 					},
 					{
-						PathTrue = { "GameState", "RoomCountCache", "P_Intro" },
+						PathTrue = { "GameState", "RoomsEntered", "P_Intro" },
+					},
+					{
+						PathFalse = { "CurrentRun", "BiomesReached", "P" },
 					},
 				},
 
@@ -780,7 +816,7 @@ LootSetData.Hephaestus =
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0144",
-					Text = "See all those Chronos ships trudging this way, witchie? Most of 'em already sunk before, however many times. They and their dead crews keep coming back to haunt us! Now that's some dedicated service, {#Emph}eh?" },
+					Text = "See all those Chronos ships trudging this way, witchie? Most of 'em already sunk before, however many times. They and their dead crews keep coming back to haunt us! Now {#Emph}that's {#Prev}some dedicated service, {#Emph}eh?" },
 			},
 
 			HephaestusAboutSurfaceThreat01 =
@@ -910,7 +946,7 @@ LootSetData.Hephaestus =
 
 				{ Cue = "/VO/Hephaestus_0053",
 					
-					Text = "You got the Sister Blades of Lim and Oros, huh? Delicate-looking but damn near indestructible. Light as a feather, too. This is going to be a treat!" },
+					Text = "You got the Sister Blades of Lim and Oros, {#Emph}huh? {#Prev}Delicate-looking, but damn near indestructible! Light as a feather, too. {#Emph}This {#Prev}is going to be a treat!" },
 			},
 			HephaestusAboutTorch01 =
 			{
@@ -997,6 +1033,26 @@ LootSetData.Hephaestus =
 					
 					Text = "All right, that's called Revaal, I think, that skull you got? Ain't exactly my mental picture of a weapon, liable to give me night terrors in fact, but... then I'll be the first to say, {#Emph}whatever works!" },
 			},
+			HephaestusAboutSuit01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						PathTrue = { "GameState", "TextLinesRecord", "HephaestusAboutWeapons02", },
+					},
+					{
+						PathTrue = { "CurrentRun", "Hero", "Weapons", "WeaponSuit" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0196",
+					Text = "Am I mistaken, witchie... or you bearing Xinth the Black bloody Coat? {#Emph}Wearing {#Prev}it, I should say! Heard how it's put together but I've never seen it for myself! Let's see what it can do." },
+			},
 			HephaestusAboutAspects01 =
 			{
 				PlayOnce = true,
@@ -1017,6 +1073,7 @@ LootSetData.Hephaestus =
 
 				{ Cue = "/VO/Hephaestus_0091",
 					
+					Emote = "PortraitEmoteSurprise",
 					Text = "Now hold on, that another weapon you got...? {#Emph}Ahh, right{#Prev}, the Nocturnal Arms and their shape-shifting tricks. Figures! You witches {#Emph}like {#Prev}changing things about, as I'm to understand." },
 			},
 
@@ -1029,14 +1086,14 @@ LootSetData.Hephaestus =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0068",
-					
+					Emote = "PortraitEmoteDepressed",
 					Text = "...You wouldn't know it, witchie, but I'm mad this evening. Nothing you did, mind! Fortunately, when I'm mad, I do good work. My {#Emph}best {#Prev}damn work if I say so myself..." },
 			},
 			HephaestusLegendaryPickUp02 =
@@ -1047,10 +1104,10 @@ LootSetData.Hephaestus =
 					{
 						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
 					},
-					ValuableUpgradeInRoom = {
-						AllAtLeastRarity = "Rare",
-						HasAtLeastRarity = "Epic",
-						},
+					{
+						FunctionName = "RequiredRarityInRoom",
+						FunctionArgs = { AllAtLeastRarity = "Rare", HasAtLeastRarity = "Epic" },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0069",
@@ -1096,7 +1153,10 @@ LootSetData.Hephaestus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "HephaestusGift01", },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HephaestusAboutAphroditeRelationship02", "HephaestusAboutAphroditeRelationship03" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HephaestusAboutAphroditeRelationship02", "HephaestusAboutAphroditeRelationship03" }, Min = 5 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1120,7 +1180,10 @@ LootSetData.Hephaestus =
 					{
 						PathTrue = { "GameState", "TextLinesRecord", "AphroditeGift01", },
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HephaestusAboutAphroditeRelationship01", "HephaestusAboutAphroditeRelationship03" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HephaestusAboutAphroditeRelationship01", "HephaestusAboutAphroditeRelationship03" }, Min = 5 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1150,7 +1213,10 @@ LootSetData.Hephaestus =
 						Comparison = ">=",
 						Value = 12,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HephaestusAboutAphroditeRelationship01", "HephaestusAboutAphroditeRelationship02" }, Count = 5 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HephaestusAboutAphroditeRelationship01", "HephaestusAboutAphroditeRelationship02" }, Min = 5 },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 
@@ -1278,6 +1344,47 @@ LootSetData.Hephaestus =
 
 				{ Cue = "/VO/Hephaestus_0149",
 					Text = "Heard Eris got her poor wings plucked, witchie! Next make her hand over her Rail of Adamant, would you? Shoots faster than any bow I've seen! Demands a closer look...!" },
+			},
+
+			HephaestusAboutPrometheus01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_Boss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0195",
+					Text = "So we've got Titan problems real close to home! Blasted shame about Prometheus, but then... I reckon if Dad chained {#Emph}me {#Prev}up and had an Eagle chew my liver everyday, I'd be mad too." },
+			},
+			HephaestusAboutTalos01 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						PathTrue = { "PrevRun", "RoomsEntered", "P_MiniBoss01" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0191",
+					Text = "Ran into mighty Talos, didn't you? Big man all made of bronze! Swore up and down he'd be my best invention yet, but... he's still got a few kinks need sorting out. Don't bother going easy on him. Got to take him apart anyhow..." },
 			},
 
 			HephaestusAboutPandora01 =
@@ -1602,7 +1709,10 @@ LootSetData.Hephaestus =
 						Path = { "CurrentRun", "TextLinesRecord" },
 						HasNone = GameData.GodAboutGodVoiceLines,
 					},
-					MinRunsSinceAnyTextLines = { TextLines = { "HephaestusAboutDaedalus02" }, Count = 3 },
+					{
+						FunctionName = "RequireRunsSinceTextLines",
+						FunctionArgs = { TextLines = { "HephaestusAboutDaedalus02" }, Min = 3 },
+					},
 				},
 
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
@@ -1754,7 +1864,30 @@ LootSetData.Hephaestus =
 
 				{ Cue = "/VO/Hephaestus_0081",
 					
-					Text = "All this warring, bit concerned I'll end up typecast as a weaponsmith! I make a lot of things, you know! Jewelry, fancy chairs, walking automatons even! Though lately, it's all weapons, all the time..." },
+					Text = "All this warring, bit concerned I'll end up typecast as a weaponsmith! I make a lot of things, you know! Jewelry, fancy chairs, walking Automatons even! Though lately, it's all weapons, all the time..." },
+			},
+			HephaestusAboutAutomatons02 =
+			{
+				PlayOnce = true,
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						Path = { "GameState", "EnemyKills" },
+						HasAny = { "SentryBot", "SentryBot_Elite", "AutomatonBeamer", "AutomatonBeamer_Elite", "AutomatonEnforcer", "AutomatonEnforcer_Elite" },
+					},
+					{
+						PathTrue = { "CurrentRun", "BiomesReached", "N" },
+					},
+				},
+
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0082",
+					
+					Text = "Oi, sorry 'bout all my Automatons up here. Heard you ran afoul of the lot! Tested 'em everywhich way... but not in this particular scenario. They give you any trouble, scrap 'em! You'll be doing me a favor." },
 			},
 
 			HephaestusUnderworldRunCleared01 =
@@ -2247,6 +2380,40 @@ LootSetData.Hephaestus =
 					
 					Text = "Soon as I'm through, you go knock some sense into some wretches for me, would you?" },
 			},
+			HephaestusChat29 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "Hero", "Weapons" },
+						HasAny = { "WeaponSuit" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0208",
+					Text = "Fine suit you got there, witchie! Though, reckon we could spice it up a bit!" },
+			},
+			HephaestusChat30 =
+			{
+				GameStateRequirements =
+				{
+					{
+						PathFalse = { "CurrentRun", "UseRecord", "HephaestusUpgrade" }
+					},
+					{
+						Path = { "CurrentRun", "Hero", "Weapons" },
+						HasAny = { "WeaponSuit" },
+					},
+				},
+				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
+
+				{ Cue = "/VO/Hephaestus_0209",
+					Text = "Your suit seems in fine working order, though a tune-up couldn't hurt." },
+			},
 
 		},
 
@@ -2288,11 +2455,14 @@ LootSetData.Hephaestus =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0093",
-					Text = "That Gold you used to pay for this... {#Emph}hoh{#Prev}, it's shiny-looking, sure. But blasted soft as metal goes! Cannot make halfway decent armaments with it, I've tried!" },
+					Text = "That Gold you used to pay for this... {#Emph}hoh{#Prev}, it's shiny-looking, sure, but... blasted {#Emph}soft {#Prev}as metal goes! Cannot make halfway decent armaments with it, I've tried!" },
 			},
 			HephaestusLootBought02 =
 			{
@@ -2301,7 +2471,10 @@ LootSetData.Hephaestus =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0094",
@@ -2314,7 +2487,10 @@ LootSetData.Hephaestus =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0197",
@@ -2328,7 +2504,10 @@ LootSetData.Hephaestus =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0198",
@@ -2342,7 +2521,10 @@ LootSetData.Hephaestus =
 				{
 					{
 					},
-					IsObjectTypeAlive = "NPC_Charon_01",
+					{
+						FunctionName = "RequiredAlive",
+						FunctionArgs = { Units = { "NPC_Charon_01" }, },
+					},
 				},
 				PreEventFunctionName = "BoonInteractPresentation", PreEventFunctionArgs = { PickupWait = 1.0, },
 				{ Cue = "/VO/Hephaestus_0199",
@@ -2417,7 +2599,7 @@ LootSetData.Hephaestus =
 				GameStateRequirements =
 				{
 					{
-						Path = { "CurrentRun", "LastReward", "Name" },
+						Path = { "CurrentLootData", "Name" },
 						IsAny = { "AphroditeUpgrade" },
 					},
 				},
@@ -2452,7 +2634,7 @@ LootSetData.Hephaestus =
 		
 		RejectionVoiceLines =
 		{
-			[1] = GlobalVoiceLines.GodRejectedVoiceLines,
+			[1] = { GlobalVoiceLines = "GodRejectedVoiceLines" },
 		},
 
 		MakeUpTextLines =
@@ -2661,8 +2843,13 @@ LootSetData.Hephaestus =
 			RandomRemaining = true,
 			PreLineWait = 1.05,
 			SuccessiveChanceToPlay = 0.33,
-			RequiresLastUpgradeSwapped = true,
 			UsePlayerSource = true,
+			GameStateRequirements =
+			{
+				{
+					PathTrue = { "CurrentRun", "CurrentRoom", "ReplacedTraitSource", },
+				},
+			},
 
 		},
 
@@ -2678,7 +2865,7 @@ LootSetData.Hephaestus =
 			{ Cue = "/VO/Hephaestus_0107", Text = "Mayhap I'm the runt of the litter, but... I still know how to bite.", PlayFirst = true },
 			{ Cue = "/VO/Hephaestus_0108", Text = "Careful 'round me, witchie! Lest I tie you in a knot." },
 			{ Cue = "/VO/Hephaestus_0201", Text = "Don't like what I see, down comes my hammer just like that!" },
-			{ Cue = "/VO/Hephaestus_0202", Text = "I ain't somebody gonna let hisself get pushed around again." },
+			{ Cue = "/VO/Hephaestus_0202", Text = "I ain't somebody going to let hisself get pushed around again." },
 		},
 
 		RarityUpgradeVoiceLines =

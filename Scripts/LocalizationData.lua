@@ -104,18 +104,6 @@ LocalizationData =
 		{
 			LangJaScaleModifier = 1.0,
 		},
-		DialogueText =
-		{
-			LangDeScaleModifier = 1.0,
-			LangFrScaleModifier = 1.0,
-			LangEsScaleModifier = 1.0,
-			LangRuScaleModifier = 1.0,
-			LangPlScaleModifier = 1.0,
-			LangKoScaleModifier = 1.0,
-			LangCnScaleModifier = 1.0,
-			LangJaScaleModifier = 1.0,
-			LangPtBrScaleModifier = 1.0,
-		},
 	},
 	-- Global UI presentation
 	UIPresentation =

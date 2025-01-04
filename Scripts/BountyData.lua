@@ -6,7 +6,6 @@ BountyData =
 		DebugOnly = true,
 		Category = "PackagedBounty",
 		EndRunOnCompletion = true,
-		Repeatable = false,
 		IsPackagedBounty = true,
 		LootDelay = 2.0,
 		RunOverrides =
@@ -19,7 +18,12 @@ BountyData =
 			ExorcismPointChanceMultiplier = 0,
 			FishingPointChanceMultiplier = 0,
 		},
+		StartingRoomOverrides =
+		{
+			ForcedEntranceFunctionName = "RoomEntranceBountyStart",
+		},
 		ForcedReward = "Mixer5CommonDrop",
+		ForcedRewardRepeat = "MetaCurrencyDrop",
 	},
 	
 	BountyPackageTest =
@@ -167,13 +171,18 @@ BountyData =
 			BiomesReached = { N = true, },
 		},
 	},
-	--[[
 	BasePackageBountyBiomeP =
 	{
 		DebugOnly = true,
-		Encounter = "Boss",
+		Encounter = "BossPrometheus01",
 		StartingBiome = "P",
+		RunOverrides =
+		{
+			DeepInheritance = true,
+			BiomesReached = { N = true, O = true, },
+		},
 	},
+	--[[
 	BasePackageBountyBiomeQ =
 	{
 		DebugOnly = true,
@@ -668,7 +677,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -776,7 +785,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -894,7 +903,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -988,7 +997,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -1101,7 +1110,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -1215,50 +1224,14 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
-
+						NamedRequirements = { "HermesUpgradeRequirements", },
 					}
 				},
 				{
 					Name = "SpellDrop",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-						},
-
-						-- run requirements
-						RequiredNotInStore = "SpellDrop",
-						RequiredFalseRewardType = "SpellDrop",
-						{
-							PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-						},
+						NamedRequirements = { "SpellDropRequirements", },
 					},
 				},
 				{
@@ -1318,8 +1291,8 @@ BountyData =
 
 		ShrineUpgradesActive =
 		{
-			FirstDamageShrineUpgrade = 2,
-		},
+			EnemyDamageShrineUpgrade = 3,
+		},	
 
 		UnlockGameStateRequirements =
 		{
@@ -1341,7 +1314,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -1437,7 +1410,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -1518,32 +1491,7 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
-
+						NamedRequirements = { "HermesUpgradeRequirements", },
 					}
 				},
 				{
@@ -1624,7 +1572,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -1813,7 +1761,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -1925,32 +1873,7 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
-
+						NamedRequirements = { "HermesUpgradeRequirements", },
 					}
 				},
 				{
@@ -2012,7 +1935,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -2121,7 +2044,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -2165,21 +2088,20 @@ BountyData =
 	{
 		InheritFrom = { "DefaultPackagedBounty", "BasePackageBountyBiomeP", },
 
-		DifficultyRating = 3,
+		DifficultyRating = 5,
 
-		WeaponKitName = "WeaponDagger",
-		-- WeaponUpgradeName = "",
-		--AspectName = "StaffSelfHitAspect",
+		WeaponKitName = "WeaponSuit",
+		WeaponUpgradeName = "BaseSuitAspect",
 		KeepsakeName = "ForceZeusBoonKeepsake",
-		--FamiliarName = "CatFamiliar",
+		FamiliarName = "RavenFamiliar",
 		--RemoveFamiliar = true,
 
+		--[[
 		ForcedRewards =
 		{
 			{
 				Name = "Boon",
 				LootName = "ZeusUpgrade",
-				--[[
 				ForcedUpgradeOptions =
 				{
 					{
@@ -2200,34 +2122,56 @@ BountyData =
 				},
 			},
 		},
+		]]--[[
+
+		RunOverrides =
+		{
+			LootTypeHistory =
+			{
+				HeraUpgrade = 1,
+				ZeusUpgrade = 6,
+				WeaponUpgrade = 1,
+			},
+		},
 
 		StartingTraits =
 		{
-			{ Name = "PoseidonWeaponBoon", Rarity = "Epic", },
-			{ Name = "PoseidonSprintBoon", Rarity = "Epic", },
-			{ Name = "PoseidonManaBoon", Rarity = "Epic", },
-			{ Name = "DoubleRewardBoon", Rarity = "Heroic", },
+			{ Name = "HeraWeaponBoon", Rarity = "Epic", },
+			{ Name = "ZeusSpecialBoon", Rarity = "Epic", },
+			{ Name = "ZeusManaBoon", Rarity = "Epic", },
+			{ Name = "FocusLightningBoon", Rarity = "Epic", },
+			{ Name = "ZeusManaBoltBoon", Rarity = "Epic", },
+			{ Name = "DoubleBoltBoon", Rarity = "Epic", },
+			{ Name = "LightningDebuffGeneratorBoon", Rarity = "Epic", },
+			{ Name = "SuitArmorTrait" },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxHealthTrait", },
+			{ Name = "RoomRewardMaxManaTrait", },
+			{ Name = "RoomRewardMaxManaTrait", },
+			{ Name = "RoomRewardMaxManaTrait", },
 		},
 
 		MetaUpgradeStateEquipped =
 		{
-			"ChanneledCast",
-			"BonusHealth",
-			"HealthRegen",
-			"CastBuff",
+			"StatusVulnerability",
 			"LastStand",
-			"ManaOverTime",
+			"LowHealthBonus",
 		},
 
 		ShrineUpgradesActive =
 		{
-			--EnemyDamageShrineUpgrade = 5,
+			EnemyEliteShrineUpgrade = 2,
+			MinibossCountShrineUpgrade = 1,
 		},
 
 		UnlockGameStateRequirements =
 		{
 			-- Biome and Shrine unlocks
-			NamedRequirements = { "PackageBountyBiomeP", }, --"ShrineUnlocked", },
+			NamedRequirements = { "PackageBountyBiomeP", "ShrineUnlocked", },
 			-- Bounty progress
 			{
 				Path = { "GameState", "BountiesCompleted" },
@@ -2236,10 +2180,7 @@ BountyData =
 			-- Weapon
 			{
 				Path = { "GameState", "WeaponsUnlocked", },
-				HasAll = { "WeaponDagger", },
-			},
-			{
-				-- Aspect here
+				HasAll = { "WeaponSuit", },
 			},
 			-- Keepsake
 			{
@@ -2247,37 +2188,23 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
-			},
-			-- FirstLoot
-			{
-				Path = { "GameState", "TextLinesRecord", },
-				HasAll = { "ZeusFirstPickUp", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "RavenFamiliar", },
 			},
 
 			-- MetaUpgrades
 			{
 				Path = { "GameState", "MetaUpgradeLimitLevel", },
 				Comparison = ">=",
-				Value = 3,
+				Value = 2,
 			},
 			{
-				PathTrue = { "GameState", "MetaUpgradeState", "ChanneledCast", "Unlocked", },
-			},
-			{
-				PathTrue = { "GameState", "MetaUpgradeState", "BonusHealth", "Unlocked", },
-			},
-			{
-				PathTrue = { "GameState", "MetaUpgradeState", "HealthRegen", "Unlocked", },
-			},
-			{
-				PathTrue = { "GameState", "MetaUpgradeState", "CastBuff", "Unlocked", },
+				PathTrue = { "GameState", "MetaUpgradeState", "StatusVulnerability", "Unlocked", },
 			},
 			{
 				PathTrue = { "GameState", "MetaUpgradeState", "LastStand", "Unlocked", },
 			},
 			{
-				PathTrue = { "GameState", "MetaUpgradeState", "ManaOverTime", "Unlocked", },
+				PathTrue = { "GameState", "MetaUpgradeState", "LowHealthBonus", "Unlocked", },
 			},
 		},
 		CompleteGameStateRequirements =
@@ -2310,11 +2237,6 @@ BountyData =
 		{
 		},
 
-		ShrineUpgradesActive =
-		{
-			NoMetaUpgradesShrineUpgrade = 1,
-		},
-
 		UnlockGameStateRequirements =
 		{
 			-- Biome and Shrine unlocks
@@ -2338,7 +2260,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -2431,7 +2353,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -2523,7 +2445,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -2619,7 +2541,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -2775,31 +2697,7 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
+						NamedRequirements = { "HermesUpgradeRequirements", },
 						{
 							Path = { "CurrentRun", "Hero", "MaxHealth", },
 							Comparison = ">=",
@@ -2870,7 +2768,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -2975,7 +2873,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -3116,35 +3014,10 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
+						NamedRequirements = { "HermesUpgradeRequirements", },
 						{
 							PathTrue = { "CurrentRun", "Hero", "TraitDictionary", "SteamBoon" },
 						},
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
-
 					}
 				},
 				{
@@ -3209,7 +3082,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -3359,8 +3232,6 @@ BountyData =
 							Path = { "GameState", "TextLinesRecord" },
 							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
 						},
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
 					}
 				},
 				{
@@ -3375,26 +3246,13 @@ BountyData =
 							Path = { "GameState", "TextLinesRecord" },
 							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
 						},
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
 					}
 				},
 				{
 					Name = "SpellDrop",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "ArtemisFirstMeeting", "SeleneFirstPickUp" },
-						},
-
-						-- run requirements
-						RequiredNotInStore = "SpellDrop",
-						RequiredFalseRewardType = "SpellDrop",
-						{
-							PathFalse = { "CurrentRun", "UseRecord", "SpellDrop" },
-						},
+						NamedRequirements = { "SpellDropRequirements", },
 					},
 				},
 				{
@@ -3477,7 +3335,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -3609,31 +3467,7 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
+						NamedRequirements = { "HermesUpgradeRequirements", },
 
 					}
 				},
@@ -3692,7 +3526,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -3809,7 +3643,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -3904,7 +3738,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			-- FirstLoot
 			--[[
@@ -4001,7 +3835,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -4087,7 +3921,6 @@ BountyData =
 			"MagicCrit",
 		},
 
-
 		RewardStoreOverrides =
 		{
 			RunProgress =
@@ -4146,32 +3979,7 @@ BountyData =
 					Name = "HermesUpgrade",
 					GameStateRequirements =
 					{
-						-- unlock requirements
-						{
-							PathTrue = { "GameState", "RoomCountCache", "G_Intro" },
-						},
-						{
-							Path = { "GameState", "TextLinesRecord" },
-							HasAll = { "HermesFirstPickUp", "PoseidonLegacyBoonIntro01" },
-						},
-
-						-- run requirements				
-						RequiredNotInStore = "ShopHermesUpgrade",
-						{
-							Path = { "CurrentRun", "BiomeUseRecord", },
-							HasNone = { "HermesUpgrade", "ShopHermesUpgrade", },
-						},
-						{
-							Path = { "CurrentRun", "EncounterDepth" },
-							Comparison = ">=",
-							Value = 8,
-						},
-						{
-							Path = { "CurrentRun", "LootTypeHistory", "HermesUpgrade" },
-							Comparison = "<=",
-							Value = 1,
-						},
-
+						NamedRequirements = { "HermesUpgradeRequirements", },
 					}
 				},
 				{
@@ -4209,11 +4017,6 @@ BountyData =
 			},
 		},
 
-		ShrineUpgradesActive =
-		{
-			RoomStartManaShrineUpgrade = 1,
-		},
-
 		UnlockGameStateRequirements =
 		{
 			-- Biome and Shrine unlocks
@@ -4234,7 +4037,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "CatFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "CatFamiliar", },
 			},
 			-- FirstLoot
 			{
@@ -4358,7 +4161,7 @@ BountyData =
 			},
 			-- Familiar
 			{
-				PathTrue = { "GameState", "FamiliarStatus", "FrogFamiliar", "Unlocked", },
+				PathTrue = { "GameState", "FamiliarsUnlocked", "FrogFamiliar", },
 			},
 			--[[ FirstLoot
 			{
@@ -4386,7 +4189,6 @@ BountyData =
 	{
 		DebugOnly = true,
 		Category = "BountyRandom",
-		Repeatable = true,
 		IsPackagedBounty = true,
 		LootDelay = 2.0,
 		LootOptions =
@@ -4473,10 +4275,10 @@ BountyData =
 			},
 			{
 				Path = { "GameState", "WeaponsUnlocked" },
-				HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob" },
+				HasAll = { "WeaponStaffSwing", "WeaponAxe", "WeaponDagger", "WeaponTorch", "WeaponLob", "WeaponSuit" },
 			},
 			{
-				Path = { "GameState", "FamiliarStatus", },
+				Path = { "GameState", "FamiliarsUnlocked", },
 				HasAll = {  "FrogFamiliar", } --"RavenFamiliar", "CatFamiliar",
 			},
 			NamedRequirements = { "ShrineUnlocked" },
@@ -4569,9 +4371,13 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossScylla01" },
-			},			
+			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat1FBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4598,7 +4404,12 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossPolyphemus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat2GBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+					"BountyStaffHeat2GBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4625,7 +4436,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossEris01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat4NBoss" },
+				PathTrue = { "GameState", "BountiesCompleted",  },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+					"BountyStaffHeat2GBoss",
+					"BountyStaffHeat4NBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4652,7 +4472,14 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossInfestedCerberus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat8OBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+					"BountyStaffHeat2GBoss",
+					"BountyStaffHeat4NBoss",
+					"BountyStaffHeat8OBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4668,7 +4495,41 @@ BountyData =
 			},
 		},
 	},
-	
+	BountyStaffHeat16PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01", },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+					"BountyStaffHeat2GBoss",
+					"BountyStaffHeat4NBoss",
+					"BountyStaffHeat8OBoss",
+					"BountyStaffHeat12HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponStaffSwing" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 16,
+			},
+		},
+	},
 	BountyStaffHeat20IBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -4680,8 +4541,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
 			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat16PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyStaffHeat12HBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyStaffHeat1FBoss",
+					"BountyStaffHeat2GBoss",
+					"BountyStaffHeat4NBoss",
+					"BountyStaffHeat8OBoss",
+					"BountyStaffHeat12HBoss",
+					"BountyStaffHeat16PBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4735,7 +4604,11 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossPolyphemus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat1GBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4762,7 +4635,12 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossEris01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat2NBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+					"BountyDaggerHeat2NBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4789,7 +4667,13 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossInfestedCerberus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat4OBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+					"BountyDaggerHeat2NBoss",
+					"BountyDaggerHeat4OBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4805,7 +4689,40 @@ BountyData =
 			},
 		},
 	},
-	
+	BountyDaggerHeat12PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+					"BountyDaggerHeat2NBoss",
+					"BountyDaggerHeat4OBoss",
+					"BountyDaggerHeat8HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponDagger" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 12,
+			},
+		},
+	},
 	BountyDaggerHeat16FBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -4817,8 +4734,15 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossHecate01" },
 			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat12PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat8HBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+					"BountyDaggerHeat2NBoss",
+					"BountyDaggerHeat4OBoss",
+					"BountyDaggerHeat8HBoss",
+					"BountyDaggerHeat12PBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4846,8 +4770,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
 			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat20QBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyDaggerHeat16FBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyDaggerHeat1GBoss",
+					"BountyDaggerHeat2NBoss",
+					"BountyDaggerHeat4OBoss",
+					"BountyDaggerHeat8HBoss",
+					"BountyDaggerHeat12PBoss",
+					"BountyDaggerHeat16FBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4900,7 +4832,11 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossEris01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat1NBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4927,7 +4863,12 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossInfestedCerberus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat2OBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+					"BountyAxeHeat2OBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -4943,7 +4884,39 @@ BountyData =
 			},
 		},
 	},
-	
+	BountyAxeHeat8PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+					"BountyAxeHeat2OBoss",
+					"BountyAxeHeat4HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponAxe" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 8,
+			},
+		},
+	},
 	BountyAxeHeat12FBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -4953,11 +4926,17 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossHecate01" },
-			},			
+			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat8PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat4HBoss" },
-			},			
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+					"BountyAxeHeat2OBoss",
+					"BountyAxeHeat4HBoss",
+					"BountyAxeHeat8PBoss",
+				},
+			},
 		},
 		CompleteGameStateRequirements =
 		{
@@ -4981,9 +4960,17 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossScylla01" },
-			},				
+			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat12FBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+					"BountyAxeHeat2OBoss",
+					"BountyAxeHeat4HBoss",
+					"BountyAxeHeat8PBoss",
+					"BountyAxeHeat12FBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5010,7 +4997,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyAxeHeat16GBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyAxeHeat1NBoss",
+					"BountyAxeHeat2OBoss",
+					"BountyAxeHeat4HBoss",
+					"BountyAxeHeat8PBoss",
+					"BountyAxeHeat12FBoss",
+					"BountyAxeHeat16GBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5063,7 +5059,11 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossInfestedCerberus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat1OBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5079,7 +5079,38 @@ BountyData =
 			},
 		},
 	},
-	
+	BountyTorchHeat4PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+					"BountyTorchHeat2HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponTorch" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 4,
+			},
+		},
+	},
 	BountyTorchHeat8FBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -5089,11 +5120,16 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossHecate01" },
-			},			
+			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat4PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat2HBoss" },
-			},				
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+					"BountyTorchHeat2HBoss",
+					"BountyTorchHeat4PBoss",
+				},
+			},		
 		},
 		CompleteGameStateRequirements =
 		{
@@ -5117,9 +5153,16 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossScylla01" },
-			},				
+			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat8FBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+					"BountyTorchHeat2HBoss",
+					"BountyTorchHeat4PBoss",
+					"BountyTorchHeat8FBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5146,7 +5189,15 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossPolyphemus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat12GBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+					"BountyTorchHeat2HBoss",
+					"BountyTorchHeat4PBoss",
+					"BountyTorchHeat8FBoss",
+					"BountyTorchHeat12GBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5162,7 +5213,7 @@ BountyData =
 			},
 		},
 	},
-	
+
 	BountyTorchHeat24IBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -5174,8 +5225,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
 			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat20QBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyTorchHeat16NBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyTorchHeat1OBoss",
+					"BountyTorchHeat2HBoss",
+					"BountyTorchHeat4PBoss",
+					"BountyTorchHeat8FBoss",
+					"BountyTorchHeat12GBoss",
+					"BountyTorchHeat16NBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5217,7 +5276,37 @@ BountyData =
 			},
 		},
 	},
-	
+	BountyLobHeat2PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponLob" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
 	BountyLobHeat4FBoss =
 	{
 		InheritFrom = { "DefaultBossHeatBounty" },
@@ -5227,10 +5316,14 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossHecate01" },
-			},			
+			},
 			{
-				--PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat2PBoss" },
-				PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat1HBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+					"BountyLobHeat2PBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5255,9 +5348,15 @@ BountyData =
 		{
 			{
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossScylla01" },
-			},				
+			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat4FBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+					"BountyLobHeat2PBoss",
+					"BountyLobHeat4FBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5284,7 +5383,14 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossPolyphemus01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat8GBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+					"BountyLobHeat2PBoss",
+					"BountyLobHeat4FBoss",
+					"BountyLobHeat8GBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5311,7 +5417,15 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossEris01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat12NBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+					"BountyLobHeat2PBoss",
+					"BountyLobHeat4FBoss",
+					"BountyLobHeat8GBoss",
+					"BountyLobHeat12NBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5338,7 +5452,16 @@ BountyData =
 				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
 			},
 			{
-				PathTrue = { "GameState", "BountiesCompleted", "BountyLobHeat16OBoss" },
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountyLobHeat1HBoss",
+					"BountyLobHeat2PBoss",
+					"BountyLobHeat4FBoss",
+					"BountyLobHeat8GBoss",
+					"BountyLobHeat12NBoss",
+					"BountyLobHeat16OBoss",
+				},
 			},
 		},
 		CompleteGameStateRequirements =
@@ -5355,13 +5478,239 @@ BountyData =
 		},
 	},
 	
+	-- Suit Bounties
+	BountySuitHeat1PBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPrometheus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPrometheus01" },
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 1,
+			},
+		},
+	},
+	BountySuitHeat2FBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossHecate01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossHecate01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 2,
+			},
+		},
+	},
+	BountySuitHeat4GBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossScylla01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossScylla01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+					"BountySuitHeat2FBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 4,
+			},
+		},
+	},
+	BountySuitHeat8NBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossPolyphemus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossPolyphemus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+					"BountySuitHeat2FBoss",
+					"BountySuitHeat4GBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 8,
+			},
+		},
+	},
+	BountySuitHeat12OBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossEris01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossEris01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+					"BountySuitHeat2FBoss",
+					"BountySuitHeat4GBoss",
+					"BountySuitHeat8NBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 12,
+			},
+		},
+	},
+	BountySuitHeat16HBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossInfestedCerberus01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossInfestedCerberus01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+					"BountySuitHeat2FBoss",
+					"BountySuitHeat4GBoss",
+					"BountySuitHeat8NBoss",
+					"BountySuitHeat12OBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 16,
+			},
+		},
+	},
+	BountySuitHeat24IBoss =
+	{
+		InheritFrom = { "DefaultBossHeatBounty" },
+		Encounter = "BossChronos01",
+
+		UnlockGameStateRequirements =
+		{
+			{
+				PathTrue = { "GameState", "EncountersOccurredCache", "BossChronos01" },
+			},
+			{
+				Path = { "GameState", "BountiesCompleted", },
+				HasAll =
+				{
+					"BountySuitHeat1PBoss",
+					"BountySuitHeat2FBoss",
+					"BountySuitHeat4GBoss",
+					"BountySuitHeat8NBoss",
+					"BountySuitHeat12OBoss",
+					"BountySuitHeat16HBoss",
+				},
+			},
+		},
+		CompleteGameStateRequirements =
+		{
+			{
+				Path = { "CurrentRun", "Hero", "Weapons" },
+				HasAny = { "WeaponSuit" },
+			},
+			{
+				Path = { "GameState", "SpentShrinePointsCache", },
+				Comparison = ">=",
+				Value = 24,
+			},
+		},
+	},
 }
 
 ScreenData.BountyBoard =
 {
 	BlockPause = true,
 	ItemStartX = 350,
-	ItemStartY = 300,
+	ItemStartY = 290,
 	ItemSpacingY = 52,
 	ItemsPerPage = 10,
 	ScrollOffset = 0,
@@ -5460,6 +5809,12 @@ ScreenData.BountyBoard =
 	MouseOverScaleTarget = 1.05,
 	MouseOverScaleDuration = 0.2,
 
+	WeaponAnimationOverrides =
+	{
+		AxePerfectCriticalAspect = "WeaponAxeIdle_Thanatos",
+		LobCloseAttackAspect = "WeaponLobIdle_Medea",
+	},
+
 	ItemCategories =
 	{
 		{
@@ -5507,7 +5862,6 @@ ScreenData.BountyBoard =
 			--"PackageBountySchelemeus",
 			--"PackageBountyStrife",
 			--"PackageBountyChance",
-			--"PackageBountyZeus",
 			--"PackageBountyHera",
 			--"PackageBountyPoseidon",
 			--"PackageBountyApollo",
@@ -5516,6 +5870,7 @@ ScreenData.BountyBoard =
 			--"PackageBountyArmor",
 			--"PackageBountyRarity",
 			--"PackageBountyMusic",
+			--"PackageBountyZeus",
 
 			-- random difficulty
 			--"PackageBountyRandomUnderworld10Shrine",
@@ -5600,7 +5955,7 @@ ScreenData.BountyBoard =
 					Graphic = "ButtonBountyUp",
 					GroupName = "Combat_Menu",
 					OffsetX = -615,
-					OffsetY = -300,
+					OffsetY = -315,
 					Alpha = 0,
 					InteractProperties =
 					{
@@ -5657,8 +6012,8 @@ ScreenData.BountyBoard =
 				ClearMessage =
 				{
 					Text = "BountyBoard_ClearMessage_NonRepeatable",
-					OffsetX = 188,
-					OffsetY = 240,
+					OffsetX = 165,
+					OffsetY = 248,
 					Alpha = 0.0,
 					TextArgs =
 					{
@@ -5670,7 +6025,6 @@ ScreenData.BountyBoard =
 						ShadowBlur = 0, ShadowColor = {0,0,0,0}, ShadowOffset={0, 2},
 						VariableAutoFormat = "BoldFormatGraft",
 						Justification = "Center",
-						LuaKey = "TempTextData", LuaValue = { BestClearTimeString = "99:59.99" },
 						DataProperties =
 						{
 							OpacityWithOwner = true,
@@ -5692,8 +6046,8 @@ ScreenData.BountyBoard =
 
 		ItemTitleText =
 		{
-			X = 1126,
-			Y = 205,
+			X = 1132,
+			Y = 159,
 			Alpha = 0.0,
 			Text = "PackageBountyDefault",
 			TextArgs =
@@ -5714,18 +6068,19 @@ ScreenData.BountyBoard =
 		DescriptionText =
 		{
 			X = 1135,
-			Y = 370,
+			Y = 295,
 			Alpha = 0.0,
 			Text = "PackageBountyDefault",
 			TextArgs =
 			{
 				UseDescription = true,
 				Font = "LatoItalic",
-				FontSize = 22,
-				Width = 850,
+				FontSize = 21,
+				Width = 820,
 				Color = { 140, 140, 140, 255 },
 				TextSymbolScale = 0.85,
 				Justification = "Center",
+				LineSpacingBottom = 10,
 				DataProperties =
 				{
 					OpacityWithOwner = true,
@@ -5735,22 +6090,22 @@ ScreenData.BountyBoard =
 
 		LocationIconBacking =
 		{
-			X = 1126 - 340,
-			Y = 610,
+			X = 1132 - 340,
+			Y = 565,
 			Alpha = 0.0,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Backing",
 		},
 		LocationIcon =
 		{
-			X = 1126 - 340,
-			Y = 585,
+			X = 1132 - 340,
+			Y = 540,
 			Alpha = 0.0,
 			Scale = 0.6,
 			TextArgs =
 			{
-				OffsetY = 100,
-				FontSize = 22,
-				Width = 305,
+				OffsetY = 120,
+				FontSize = 21,
+				Width = 290,
 				LineSpacingBottom = -15,
 				Color = Color.White,
 				TextSymbolScale = 0.8,
@@ -5766,22 +6121,15 @@ ScreenData.BountyBoard =
 
 		WeaponIconBacking =
 		{
-			X = 1126,
-			Y = 610,
+			X = 1132,
+			Y = 565,
 			Alpha = 0.0,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Backing",
-		},
-		WeaponIcon =
-		{
-			X = 1126,
-			Y = 585,
-			Alpha = 0.0,
-			Scale = 0.6,
 			TextArgs =
 			{
-				OffsetY = 100,
-				FontSize = 22,
-				Width = 305,
+				OffsetY = 95,
+				FontSize = 21,
+				Width = 290,
 				LineSpacingBottom = -15,
 				Color = Color.White,
 				TextSymbolScale = 0.8,
@@ -5794,25 +6142,31 @@ ScreenData.BountyBoard =
 				},
 			},
 		},
+		WeaponIcon =
+		{
+			X = 1132,
+			Y = 540,
+			Alpha = 0.0,
+		},
 
 		KeepsakeIconBacking =
 		{
-			X = 1126 + 340,
-			Y = 610,
+			X = 1132 + 340,
+			Y = 565,
 			Alpha = 0.0,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Backing",
 		},
 		KeepsakeIcon =
 		{
-			X = 1126 + 340,
-			Y = 585,
+			X = 1132 + 340,
+			Y = 540,
 			Alpha = 0.0,
-			Scale = 0.6,
+			Scale = 0.7,
 			TextArgs =
 			{
-				OffsetY = 100,
-				FontSize = 22,
-				Width = 305,
+				OffsetY = 120,
+				FontSize = 21,
+				Width = 290,
 				LineSpacingBottom = -15,
 				Color = Color.White,
 				TextSymbolScale = 0.8,
@@ -5851,9 +6205,9 @@ ScreenData.BountyBoard =
 
 		IntensityEye1 =
 		{
-			X = 1748,
-			Y = 258,
-			Scale = 0.42,
+			X = 1747,
+			Y = 214,
+			Scale = 0.45,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Closed01",
 			ActiveAnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Open01",
 		},
@@ -5861,8 +6215,8 @@ ScreenData.BountyBoard =
 		IntensityEye2 =
 		{
 			X = 1744,
-			Y = 380,
-			Scale = 0.42,
+			Y = 337,
+			Scale = 0.45,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Closed02",
 			ActiveAnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Open02",
 		},
@@ -5870,8 +6224,8 @@ ScreenData.BountyBoard =
 		IntensityEye3 =
 		{
 			X = 1755,
-			Y = 502,
-			Scale = 0.42,
+			Y = 461,
+			Scale = 0.45,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Closed03",
 			ActiveAnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Open03",
 		},
@@ -5879,8 +6233,8 @@ ScreenData.BountyBoard =
 		IntensityEye4 =
 		{
 			X = 1736,
-			Y = 620,
-			Scale = 0.42,
+			Y = 578,
+			Scale = 0.45,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Closed04",
 			ActiveAnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Open04",
 		},
@@ -5888,8 +6242,8 @@ ScreenData.BountyBoard =
 		IntensityEye5 =
 		{
 			X = 1758,
-			Y = 726,
-			Scale = 0.42,
+			Y = 686,
+			Scale = 0.45,
 			AnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Closed05",
 			ActiveAnimationName = "GUI\\Screens\\BountyBoard\\Intensity\\Intensity_Open05",
 		},
@@ -5898,8 +6252,8 @@ ScreenData.BountyBoard =
 		{
 			Text = "QuestLogReward",
 			CompletedText = "QuestLogRewardEarned",
-			X = 1140,
-			Y = 855,
+			X = 1133,
+			Y = 872,
 			Alpha = 0.0,
 			TextArgs =
 			{
@@ -5930,6 +6284,7 @@ ScreenData.BountyBoard =
 		{
 			X = UIData.ContextualButtonXRight,
 			Y = UIData.ContextualButtonY,
+			BottomOffset = UIData.ContextualButtonBottomOffset,
 			AutoAlignContextualButtons = true,
 			AutoAlignJustification = "Right",
 

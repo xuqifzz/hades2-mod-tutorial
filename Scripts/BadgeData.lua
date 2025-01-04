@@ -10,7 +10,7 @@ GameData.BadgeData =
 		SetPlayerAnimation = "ZagreusTalkDenial_Full",
 		RevealVoiceLines =
 		{
-			--[1] = GlobalVoiceLines.UpgradedBadgeVoiceLines,
+			--[1] = { GlobalVoiceLines = "UpgradedBadgeVoiceLines" },
 		},
 	},
 
